@@ -35,7 +35,19 @@ export class AddCommodityComponent implements OnInit {
       blClause: [""],
       unNo: [""],
       flashPoint: [ "",[Validators.required]],
-      commodityCode:[""]
+      commodityCode:[""],
+      //AssetChek
+      vendorName:[""],
+      vendorShortName:[""],
+      vendorAddress:[""],
+      vendorCountry:[""],
+      vendorEmail:[""],
+      currency:[""],
+      vendorContact:[""],
+      vendorPhoneNumber:[""],
+
+
+
     });
    }
 
@@ -61,7 +73,7 @@ export class AddCommodityComponent implements OnInit {
       "bottom",
       "center"
     );
-    // this.router.navigate(['/master/commodity/listCommodity']);
+     this.router.navigate(['/master/commodity/listCommodity']);
     
   }
 

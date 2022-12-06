@@ -35,6 +35,10 @@ export class AddCountryMasterComponent implements OnInit {
       countryName: ["", [Validators.required]],
       currency: ["", [Validators.required]],
       clientType:[""],
+      categoryName: ["", [Validators.required]],
+      description:[""],
+      parentCategory:[""],
+      isActive:[""],
     });
 
   }

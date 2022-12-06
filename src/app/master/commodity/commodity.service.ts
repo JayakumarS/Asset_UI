@@ -27,7 +27,7 @@ export class CommodityService extends UnsubscribeOnDestroyAdapter {
     super();
   }
   private getAllCommodity = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/getList`;
-  private saveCommodity = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/save`;
+  private saveCommodity = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/saveVendor`;
   public deleteCommodityUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/delete`;
   public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/getCurrencyList`;
   public editcommodity = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/edit`;
