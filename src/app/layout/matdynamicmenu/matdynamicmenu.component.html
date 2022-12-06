@@ -1,0 +1,22 @@
+
+  <mat-toolbar class="menu-bar mat-elevation-z1">
+    <span *ngFor="let item of navItems; let pindex=index;" style="z-index:1054">
+      <!-- Handle branch node buttons here -->
+      <span *ngIf="item.subMenuList && item.subMenuList.length > 0">
+        <button #button mat-button [matMenuTriggerFor]="menu.childMenu" #menuTrigger="matMenuTrigger"
+      (mouseenter) = "openMyButton(menuTrigger, button, pindex);"   
+        [disabled]="item.disabled" >
+          {{item.formname}}
+          <span class="material-icons">arrow_drop_down</span>
+        </button>
+        <app-matdynamicsubmenu #menu [items]="item.subMenuList" [ptrigger]="menuTrigger"  [matMenuTriggers]="matMenuTriggers"
+         [pindex]="pindex" [button]="button" ></app-matdynamicsubmenu>
+      </span>
+      <!-- Leaf node buttons here -->
+      <span *ngIf="!item.subMenuList || item.subMenuList.length === 0">
+        <button mat-button color="primary" [routerLink]="item.formurl" >
+          {{item.formname}}
+        </button>
+      </span>
+    </span>
+  </mat-toolbar>

@@ -1,0 +1,32 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Warehouse Positioning'" [items]="['Master']" [active_item]="'Warehouse Positioning'">
+        </app-breadcrumb>
+      </div>
+      <div class="card">
+        <div class="body">
+        <div class="widget-body col-md-12">
+            <div
+                class="dataTables_wrapper form-inline dt-bootstrap no-footer ui-jqgrid ui-corner-all">
+                <div class="dt-toolbar">
+                    <div class="col-sm-12">
+                        <div role="content">
+                            <div class="widget-body no-padding">
+                                <div class="col-md-12" id="canvas" style="overflow: auto;">
+                                    <canvas id="myCanvas" width="1700" height="750">
+                                        
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end widget content -->
+        </div>
+        </div>
+        </div>
+    </div>
+</section>

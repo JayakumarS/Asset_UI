@@ -1,0 +1,167 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add BOO'" [items]="['Operations']" [active_item]="'Add BOO'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row">
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12" >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>BOO No</mat-label>
+                    <input matInput formControlName="booNo" required readonly> 
+                    <mat-error *ngIf="docForm.get('booNo').hasError('required')">
+                      BOO No is required
+                    </mat-error>
+                  </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>BOM Ref No</mat-label>
+                      
+                      <mat-select formControlName="bomRef" >
+                        <mat-option *ngFor="let title of listOfItem" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+
+                      <mat-error *ngIf="docForm.get('bomRef').hasError('required')">
+                        BOM Ref No is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Product Name</mat-label>
+                      
+                      <mat-select formControlName="productName" >
+                        <mat-option *ngFor="let title of itemList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+
+                      <mat-error *ngIf="docForm.get('productName').hasError('required')">
+                        Product Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Date</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="date">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="docForm.get('date').hasError('required')">
+                        Please Enter a date
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <br>
+                <!-- First detail Row -->
+                <div style="overflow-x: auto;">
+                  <table id="dt_basic"
+                class="table table-striped font-weight-bold "
+                   role="grid">
+              <thead class="">
+               <tr>
+               <th class="width_1 table-heading text-center" style="margin-left: 25px;
+               width: 11%; border-radius: 0.05rem;"><label
+                 class="i-checks m-b-none"> <input type="checkbox"
+                   ng-model="selectedAll"
+                   ng-change="checkAllVendor()">
+                   <i></i>
+               </label></th>
+               <th
+                 class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%; border-radius: 0.05rem;">Process Seq Number</th>
+               <th
+                 class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%; border-radius: 0.05rem;">Process Name</th>
+                 <th
+                 class="text-center table-heading padding-both-side-2 width_7"  style="margin-left: 25px;
+                 width: 12%;border-radius: 0.07rem;">Approx Time</th>
+               <th
+                 class="text-center table-heading padding-both-side-2 width_7"  style="margin-left: 25px;
+                 width: 12%;border-radius: 0.07rem;">Process Remarks</th>
+             </tr>
+              </thead>
+            <tbody *ngFor ="let obj of dataarray; let i=index"> 
+                <tr>
+                <td class=" text-center">
+                 <label
+                 class="i-checks m-b-none"> <input type="checkbox"
+                 ng-model="row.tableId"> 
+                </label></td>
+
+                <td class="padding-both-side-2">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Process Seq No</mat-label>
+                    <input matInput name ="processSeqNo{{i}}" [(ngModel)] = "obj.processSeqNo" [ngModelOptions]="{standalone: true}">
+                  </mat-form-field>
+                 </td>
+              
+                <td class="padding-both-side-2">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Process Name</mat-label>
+                    <input matInput name ="processName{{i}}" [(ngModel)] = "obj.processName" [ngModelOptions]="{standalone: true}">
+                  </mat-form-field>
+                </td> 
+                    
+               <td class="padding-both-side-2">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>Approx Time</mat-label>
+                  <input matInput name ="approxTime{{i}}" [(ngModel)] = "obj.approxTime" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+                 </td>
+
+              <td class="padding-both-side-2">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>Process Remarks</mat-label>
+                  <input matInput name ="processRemarks{{i}}" [(ngModel)] = "obj.processRemarks" [ngModelOptions]="{standalone: true}">
+              </mat-form-field>
+              </td>
+           </tr>
+         </tbody>
+         </table>
+       </div>
+
+         <div class="row">
+           <div>          
+             
+             <button mat-mini-fab color="warn" (click)="removeRow(-1)">
+               <mat-icon class="col-white">delete</mat-icon>
+             </button>&nbsp;
+             <button mat-mini-fab color="primary" (click)="addRow()">
+               <mat-icon class="col-white">add</mat-icon>
+             </button>
+       </div>
+        </div>
+
+                
+  
+                <div class="row"> 
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                      color="primary" style="margin-left: 44%;">Submit</button>
+                      <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+                      color="primary" style="margin-left: 44%;">Update</button>
+                    <button color="warn" (click) = "onCancel()" type="button" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  

@@ -1,0 +1,209 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add Item Category'" [items]="['inventory']" [active_item]="'Add Item Category'">
+        </app-breadcrumb> 
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card " style="margin-top: 0.75em;">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Category name</mat-label>
+                      <input matInput formControlName="categoryName" required>
+                   </mat-form-field>
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 "style="margin-right: 20px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Parent Category</mat-label>
+                      <input matInput formControlName="parentCategory" type="search">
+                    </mat-form-field>
+                  </div>
+                 </div>
+                  <div class="row">
+                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Category Type</mat-label>
+                      <mat-select formControlName="categoryType" >
+                        <mat-option *ngFor="let title of catagoryType" [value]="title.categoryTypeId">
+                          {{title.categoryTypeName}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-checkbox formControlName="incomingQty" ngInit="checked=true">Incoming Quality Check</mat-checkbox>
+
+                  </div>
+                 </div>
+                 <!-- mat tab -->
+                 <mat-tab-group  >
+                  <!-- Accounting -->
+                    <mat-tab class="mat-tab-body-content" label="Accounting"> 
+                        <div class="row">
+                            <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Sales Taxes</mat-label>
+                                  <mat-select formControlName="salesTaxes" required>
+                                    <mat-option [value]="'01'">
+                                      2%@CST
+                                    </mat-option>
+                                    <mat-option [value]="'02'">
+                                      TE
+                                    </mat-option>
+                                    <mat-option [value]="'03'">
+                                     VAT 15%
+                                    </mat-option>
+                                    <mat-option [value]="'04'">
+                                      VAT 6%
+                                    </mat-option>
+                                    <mat-option [value]="'05'">
+                                      CST 5%
+                                    </mat-option>
+                                    <mat-option [value]="'06'">
+                                      CST 14.5%
+                                    </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="docForm.get('gender').hasError('required')">
+                                    Gender is required
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Purchase Taxes</mat-label>
+                                  <mat-select formControlName="purchaseTaxes" required>
+                                    <mat-option [value]="'101'">
+                                      2%@CST
+                                    </mat-option>
+                                    <mat-option [value]="'102'">
+                                      TE
+                                    </mat-option>
+                                    <mat-option [value]="'103'">
+                                     VAT 15%
+                                    </mat-option>
+                                    <mat-option [value]="'104'">
+                                      VAT 6%
+                                    </mat-option>
+                                    <mat-option [value]="'105'">
+                                      CST 5%
+                                    </mat-option>
+                                    <mat-option [value]="'106'">
+                                      CST 14.5%
+                                    </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="docForm.get('gender').hasError('required')">
+                                    Gender is required
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                            <div class="row">
+                        
+                            <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Asset Account</mat-label>
+                                  <input matInput formControlName="asserAccount" required> 
+                                </mat-form-field>
+                              </div>
+                            <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Dept. Account</mat-label>
+                                  <input matInput formControlName="deptAccount" required>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                        
+                            <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Accu.Dep.Account</mat-label>
+                                  <input matInput formControlName="AccuDept" required > 
+                                </mat-form-field>
+                              </div>
+                          </div>
+                    </mat-tab>
+                    <!-- Item Properties -->
+                     <mat-tab  class="mat-tab-body-content" label="Item Properties">
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="card" style="margin-top: 37px;">
+                                   <div class="row">
+                                        <div class="col-8">
+                                      <div class="m-l-10" matTooltip="ADD">
+                                        <button (click)="additem()"class="btn btn-sm btn-primary ng-scope">
+                                        <i class="fa fa-plus"></i>
+                                       </button>&nbsp;
+                                       <button (click)="deleteitem()" class="btn btn-sm btn-danger ng-scope">
+                                        <i class="fa fa-trash"></i>
+                                       </button>
+                                     </div>
+                                    </div>
+                                </div>
+                                <div role="content">
+                                      <div class="widget-body no-padding">
+                                     <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                         role="grid" aria-describedby="dt_basic_info">
+                                         <thead class="dataTables-Main-Head">
+                                          <tr>
+                                           <th class="width_1 text-center table-heading"><label
+                                            class="i-checks m-b-none"> <input
+                                             type="checkbox"> <i></i>
+                                           </label></th>
+                                           <th class="sorting width_10" st-sort="propertyName">Property Name</th>
+                                           <th class="sorting width_12" st-sort="propertyType">Property Type</th>
+                                           <th class="sorting width_12" st-sort="length">Length</th>
+                                           <th class="sorting width_12" st-sort="isMandantory">Is Mandantory</th>
+                                          </tr>
+                                         </thead>
+                                    </table>
+                                        <div class="no-results">No results</div>
+                                        <mat-paginator #paginator [pageIndex]="0"[pageSize]="10"[pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>                                      
+                                      </div>
+                                     </div>
+                                    </div>
+                                   </div>
+                                </div>
+                             </mat-tab>
+                    <!-- GRN Attribute -->
+                    <mat-tab  class="mat-tab-body" label="GRN Attribute">
+                        <div class="row">
+                        <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                            <mat-checkbox formControlName="batchNO" ngInit="checked=true">Batch No</mat-checkbox>
+                        </div>
+                          <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                            <mat-checkbox formControlName="expiryDate" ngInit="checked=true">Expiry Date</mat-checkbox>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                            <mat-checkbox formControlName="mrp" ngInit="checked=true">MRP</mat-checkbox>
+                        </div>
+                          <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                            <mat-checkbox formControlName="manufactureDetails" ngInit="checked=true">Manufacture Details</mat-checkbox>
+                        </div>
+                        </div> 
+                    </mat-tab>
+                  </mat-tab-group>
+                
+               
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+                    <button mat-raised-button *ngIf="!edit" (click)="onSubmit()" ><i class="fa fa-save"></i> Save</button>&nbsp;
+                    <button mat-raised-button *ngIf="edit" (click)="update()" ><i class="fa fa-undo"></i> Update</button>&nbsp;
+                    <button mat-raised-button (click)="onRest()" ><i class="fa fa-undo"></i> Reset</button>&nbsp;
+                    <button mat-raised-button color="warn" (click)="onCancel()"><i class="fa fa-close"></i> Cancel</button>&nbsp;
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

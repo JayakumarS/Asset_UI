@@ -1,0 +1,146 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add Work Order'" [items]="['Operations']" [active_item]="'Add Work Order'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card ">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm" >
+
+                <div class="row">
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>BOM No</mat-label>
+                      <input matInput formControlName="bomNo" required readonly>
+                      <mat-error *ngIf="docForm.get('bomNo').hasError('required')">
+                        BOM No is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>WorkOrder No</mat-label>
+                      
+                      <mat-select formControlName="workorderNo" >
+                        <mat-option *ngFor="let title of workOrderList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                      
+                      <mat-error *ngIf="docForm.get('workorderNo').hasError('required')">
+                        WorkOrder No is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div><br>
+              
+
+              <div style="overflow-x: auto;"> 
+                   				<table id="dt_basic"
+									     	class="table table-striped font-weight-bold "
+										        role="grid">
+										   <thead class="">
+									    	<tr>
+												<th class="width_1 table-heading text-center" style="margin-left: 25px;
+                        width: 11%; border-radius: 0.05rem;"><label
+													class="i-checks m-b-none"> <input type="checkbox"
+														ng-model="selectedAll"
+														ng-change="checkAllVendor()">
+														<i></i>
+												</label></th>
+												<th
+													class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                          width: 12%; border-radius: 0.05rem;">Item</th>
+												<th
+													class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                          width: 12%; border-radius: 0.05rem;">UOM</th>
+													<th
+													class="text-center table-heading padding-both-side-2 width_7"  style="margin-left: 25px;
+                          width: 12%;border-radius: 0.07rem;">Quantity</th>
+												<th
+													class="text-center table-heading padding-both-side-2 width_7"  style="margin-left: 25px;
+                          width: 12%;border-radius: 0.07rem;">Availability</th>
+												
+											</tr>
+									   	</thead>
+                     <tbody  *ngFor ="let obj of dataarray; let i=index"> 
+                         <tr>
+                         <td class=" text-center">
+                          <label
+                          class="i-checks m-b-none"> <input type="checkbox"
+                          ng-model="row.tableId"> 
+                         </label></td>
+
+                         <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Item</mat-label>
+                            <input matInput name ="itemId{{i}}" [(ngModel)] = "obj.itemId" [ngModelOptions]="{standalone: true}">
+                          </mat-form-field>
+                          </td>
+					   
+						            <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>UOM</mat-label>
+                            <!-- <input matInput name ="containerType{{i}}" [(ngModel)] = "obj.containerType" [ngModelOptions]="{standalone: true}"> -->
+                            <mat-select [(ngModel)] = "obj.uomId" [ngModelOptions]="{standalone: true}" name ="uomId{{i}}">
+                              <mat-option *ngFor="let title of uomList" [value]="title.id">
+                                {{title.text}}
+                              </mat-option>
+                            </mat-select>
+
+                          </mat-form-field>
+						            </td>
+						
+                         <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Quantity</mat-label>
+                            <input matInput name ="quantity{{i}}"  [(ngModel)] = "obj.quantity" [ngModelOptions]="{standalone: true}">
+                          </mat-form-field>
+                         </td> 
+                             
+						            <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Availability</mat-label>
+                            <input matInput name ="availability{{i}}" [(ngModel)] = "obj.availability" [ngModelOptions]="{standalone: true}">
+                          </mat-form-field>
+                        </td>
+                    </tr>
+                  </tbody>
+									</table>
+              </div>
+
+                  <div class="row">
+                    <div>          
+                      
+                      <button mat-mini-fab color="warn" (click)="removeRow(-1)">
+                        <mat-icon class="col-white">delete</mat-icon>
+                      </button>&nbsp;
+                      <button mat-mini-fab color="primary" (click)="addRow()">
+                        <mat-icon class="col-white">add</mat-icon>
+                      </button>
+                    </div>
+                 </div> 
+                
+                  
+              <div class="row"> 
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                    style="margin-left: 38%; color: aliceblue; background-color: green;">Save</button>
+                    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+                    style="margin-left: 38%; color: aliceblue; background-color: green;">Update</button>
+                  <button (click) = "reset()" class="btn-space" mat-raised-button
+                    color="primary">Reset</button>
+                  <button color="warn" (click) = "onCancel()" type="button" mat-raised-button>Cancel</button>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

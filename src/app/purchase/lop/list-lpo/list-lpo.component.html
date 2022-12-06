@@ -1,0 +1,141 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+         <app-breadcrumb [title]="''" [items]="['Purchase']" [active_item]="'LPO List'">
+        </app-breadcrumb>  
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:1.75em;">
+          <div class="card">
+            <div class="body">
+              <div class="table-responsive">
+                <div class="materialTableHeader">
+                  <div class="row">
+                    <div class="col-8">
+                      <ul class="header-buttons-left ms-0">
+                        <li class="dropdown">
+                          <h2>LPO LIST</h2>
+                        </li>
+                        <li class="dropdown m-l-20">
+                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                          <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                            aria-label="Search box">
+                        </li>
+                        <li>
+                          <div class="m-l-10" matTooltip="ADD">
+                            <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
+                            <button mat-mini-fab color="primary"  [routerLink]="'/purchase/lop/addLop'" >
+                              <mat-icon class="col-white">add</mat-icon>
+                            </button>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="m-l-10" matTooltip="REFRESH">
+                            <button mat-mini-fab color="primary" (click)="refresh()">
+                              <mat-icon class="col-white">refresh</mat-icon>
+                            </button>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-4">
+                      <ul class="header-buttons">
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="XLSX">
+                            <img src="assets/images/icons/xlsx.png" alt=""
+                              (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                          </div>
+                        </li>
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="CSV">
+                            <img src="assets/images/icons/csv.png" alt="" (click)="exporter.exportTable('csv')" />
+                          </div>
+                        </li>
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="JSON">
+                            <img src="assets/images/icons/json.png" alt="" (click)="exporter.exportTable('json')" />
+                          </div>
+                        </li>
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="TXT">
+                            <img src="assets/images/icons/txt.png" alt="" (click)="exporter.exportTable('txt')" />
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div> 
+                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                #exporter="matTableExporter">
+     
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+              
+                  <ng-container matColumnDef="purchaseOrderNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Purchase Order No</mat-header-cell>
+                    <mat-cell *matCellDef="let row" >{{row.customer}}</mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="purchaseOrderDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Purchase Order Date</mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.validFrom}}</mat-cell>
+                  </ng-container>
+                  
+                  <ng-container matColumnDef="requestType">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Request Type</mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.validTo}}</mat-cell>
+                  </ng-container>
+
+                  
+
+                  <ng-container matColumnDef="vendor">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor</mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.termCondition}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.termCondition}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.termCondition}}</mat-cell>
+                  </ng-container>
+              
+                  <!-- actions -->
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
+        
+                     <mat-cell *matCellDef="let row; let i=index;">
+                      <button mat-icon-button (click)="startEdit(row.id)">
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                  </button>
+  
+                      <button mat-icon-button (click)="deleteTable(row.id)">
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                   </button>
+                      <button mat-icon-button  (click)="viewItem(i, row.id, row.title, row.state, row.url, row.created_at, row.updated_at)">
+                    <mat-icon aria-label="Edit">visibility</mat-icon>
+                      </button>  
+                   </mat-cell>
+                </ng-container>
+                
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+              
+                <div class="no-results" >
+                  No results
+                </div>
+                <mat-paginator #paginator  [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>

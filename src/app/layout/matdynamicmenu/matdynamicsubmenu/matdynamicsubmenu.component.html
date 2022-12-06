@@ -1,0 +1,22 @@
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false" >
+   <span *ngFor="let child of items; let childindex = index;" (mouseleave)="closeMymenu(ptrigger, true, pindex, childindex, button);" >
+    <!-- Handle branch node menu items -->
+    <span *ngIf="child.subMenuList && child.subMenuList.length > 0">
+      <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu" #menuChildTrigger="matMenuTrigger"
+      (mouseover) = 'openMymenu(menuChildTrigger, true, pindex, childindex);'>
+        <mat-icon>{{child.iconName}}</mat-icon>
+        <span>{{child.formname}}</span>
+      </button>
+      <app-matdynamicsubmenu #menu [items]="child.subMenuList" [ptrigger]="menuChildTrigger" [pindex]="pindex+'-'+childindex"
+      [matMenuTriggers]="matMenuTriggers" [button] = 'button'
+      [dataMap]="dataMap"></app-matdynamicsubmenu>
+    </span>
+    <!-- Handle leaf node menu items -->
+    <span *ngIf="!child.subMenuList || child.subMenuList.length === 0"  (mouseover) = 'openMymenu(menuChildTrigger, false, pindex, childindex);'>
+      <button mat-menu-item [routerLink]="child.formurl">
+        <mat-icon>{{child.iconName}}</mat-icon>
+        <span>{{child.formname}}</span>
+      </button>
+    </span>
+  </span>
+</mat-menu>

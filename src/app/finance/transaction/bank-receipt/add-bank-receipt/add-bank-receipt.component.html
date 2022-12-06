@@ -1,0 +1,309 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add Bank Receipt'" [items]="['Finance']" [active_item]="'Add Bank Receipt'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card ">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm" (ngSubmit)="onSubmit()">
+                 <div class="row">
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Receipt Date</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="receiptDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Currency</mat-label>
+                      <input matInput formControlName="currency" required>
+                      <mat-error *ngIf="docForm.get('currency').hasError('required')">
+                        Currency is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> 
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Cheque No</mat-label>
+                      <input matInput formControlName="chequeNo" required>
+                      <mat-error *ngIf="docForm.get('chequeNo').hasError('required')">
+                        Cheque No is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Company Name</mat-label>
+                          <mat-select formControlName="companyName" required>
+                            <mat-option [value]="'1'">
+                              Paragon
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('companyName').hasError('required')">
+                            Company Name is required
+                          </mat-error>
+                    </mat-form-field>
+                  </div>  
+                  
+                </div>
+                <div class="row">
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Exchange Date</mat-label>
+                      <input matInput formControlName="exchangeDate " required>
+                      <mat-error *ngIf="docForm.get('exchangeDate').hasError('required')">
+                        Cheque No is required
+                      </mat-error>
+                    </mat-form-field>
+                    </div>                     
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Cheque Date</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="chequeDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Type Of Payment</mat-label>
+                          <mat-select formControlName="typeOfPayment" required>
+                            <mat-option [value]="'1'">
+                              Bank
+                            </mat-option>
+                            <mat-option [value]="'2'">
+                              Cash
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                    </div>     
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Received From</mat-label>
+                      <input matInput formControlName="receivedFrom" required>
+                      <mat-error *ngIf="docForm.get('receivedFrom').hasError('required')">
+                        Received Form is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>    
+                </div>
+                <div class="row">
+                  <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Narration</mat-label>
+                      <textarea matInput formControlName="narration"></textarea>
+                    </mat-form-field>
+                  </div> 
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Bank Account</mat-label>
+                        <mat-select formControlName="bankAccount" required>
+                          <mat-option [value]="'1'">
+                            SBI
+                          </mat-option>
+                          <mat-option [value]="'2'">
+                            ICICI
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="docForm.get('bankAccount').hasError('required')">
+                          Bank Account is required
+                        </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Amount</mat-label>
+                      <input matInput formControlName="amount" required>
+                      <mat-error *ngIf="docForm.get('amount').hasError('required')">
+                        Amount is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>               
+                </div><br> 
+                
+              <!-- First detail Row -->
+              <div *ngFor ="let obj of dataarray; let i=index" style="border: 1px solid #e5e0e0; box-shadow: 0px 0px 20px -6px rgb(0 0 0 / 67%);" 
+              class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <table>
+                <tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <td>
+                    <button mat-mini-fab color="warn" (click)="removeRow(i)">
+                      <mat-icon class="col-white">delete</mat-icon>
+                    </button>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 35px;">
+                        <mat-label>Account Name</mat-label>
+                        <mat-select name ="objective{{i}}" [(ngModel)] = "obj.objective" [ngModelOptions]="{standalone: true}">
+                          <mat-option [value]="'1'">
+                            Introduction / Presentation
+                          </mat-option>
+                          <mat-option [value]="'2'">
+                            Service Requirement
+                          </mat-option>
+                          <mat-option [value]="'3'">
+                            Offer Rates
+                          </mat-option>
+                          <mat-option [value]="'4'">
+                            Negotiations
+                          </mat-option>
+                          <mat-option [value]="'5'">
+                            Collection Follow up
+                          </mat-option>
+                          <mat-option [value]="'6'">
+                            Courtesy call
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 35px;">
+                        <mat-label>Sub Account Name</mat-label>
+                        <mat-select name ="commodity{{i}}" [(ngModel)] = "obj.commodity" [ngModelOptions]="{standalone: true}">
+                          <mat-option [value]="'1'">
+                            Empty
+                          </mat-option>
+                          <mat-option [value]="'2'">
+                            Flexi
+                          </mat-option>
+                          <mat-option [value]="'3'">
+                            General
+                          </mat-option>
+                          <mat-option [value]="'4'">
+                            HAZ
+                          </mat-option>
+                          <mat-option [value]="'5'">
+                            Medical Products
+                          </mat-option>
+                          <mat-option [value]="'6'">
+                            NOR
+                          </mat-option>
+                          <mat-option [value]="'7'">
+                            ODO
+                          </mat-option>
+                          <mat-option [value]="'8'">
+                            OOG
+                          </mat-option>
+                          <mat-option [value]="'9'">
+                            RFR
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 35px;">
+                        <mat-label>Invoice Details(Pop Up)</mat-label>
+                        <input matInput [matDatepicker]="picker" name ="date{{i}}" [(ngModel)] = "obj.date" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 35px;">
+                        <mat-label>Invoice No</mat-label>
+                        <input matInput [matDatepicker]="picker" name ="nextCallDate{{i}}" [(ngModel)] = "obj.nextCallDate" [ngModelOptions]="{standalone: true}">                      
+                      </mat-form-field>
+                    </td>
+                    <!-- <td>
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Status</mat-label>
+                            <input matInput name ="status{{i}}" [(ngModel)] = "obj.status" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                    </td>  -->
+                </tr>
+                <tr>
+                  <td [attr.colspan]="2" style="padding-left: 43px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 35px;">
+                      <mat-label>Currency</mat-label>
+                      <mat-select name ="conditionSupport{{i}}" [(ngModel)] = "obj.commodity" [ngModelOptions]="{standalone: true}">
+                        <mat-option [value]="'1'">
+                          Empty
+                        </mat-option>
+                        <mat-option [value]="'2'">
+                          Flexi
+                        </mat-option>
+                        <mat-option [value]="'3'">
+                          General
+                        </mat-option>
+                        <mat-option [value]="'4'">
+                          HAZ
+                        </mat-option>
+                        <mat-option [value]="'5'">
+                          Medical Products
+                        </mat-option>
+                        <mat-option [value]="'6'">
+                          NOR
+                        </mat-option>
+                        <mat-option [value]="'7'">
+                          ODO
+                        </mat-option>
+                        <mat-option [value]="'8'">
+                          OOG
+                        </mat-option>
+                        <mat-option [value]="'9'">
+                          RFR
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 35px;">
+                      <mat-label>Exchange Rate</mat-label>
+                      <input matInput name ="reasonSupport{{i}}" [(ngModel)] = "obj.reasonSupport" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 35px;">
+                      <mat-label>BC Amt</mat-label>
+                      <input matInput name ="reasonNotSupport{{i}}" [(ngModel)] = "obj.reasonNotSupport" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                  </td>
+                  <td [attr.colspan]="2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 35px;">
+                      <mat-label>TC Amt</mat-label>
+                      <input matInput name ="remarks{{i}}" [(ngModel)] = "obj.remarks" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                  </td>
+                </tr>
+            </table>
+          </div><br> 
+               <div class="row">
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                <button mat-mini-fab color="primary" (click)="addRow()">
+                  <mat-icon class="col-white">add</mat-icon>
+                </button>
+                </div><br>
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 " style="margin-left: 130px;">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>Total BC Amt</mat-label>
+                  <input matInput formControlName="totalBcAmt" required>
+                </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 " style="margin-left: 118px;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Total TC Amt</mat-label>
+                    <input matInput formControlName="totalTcAmt" required>
+                  </mat-form-field>
+                  </div>
+              </div> 
+              <br>
+              <div class="row"> 
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                    style="margin-left: 38%; color: aliceblue; background-color: green;">Save</button>
+                  <button (click) = "reset()" class="btn-space" mat-raised-button
+                    color="primary">Reset</button>
+                  <button color="warn" (click) = "onCancel()" type="button" mat-raised-button>Cancel</button>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
