@@ -27,24 +27,17 @@ export class AddCommodityComponent implements OnInit {
     public route: ActivatedRoute,private snackBar: MatSnackBar,
     private commodityService: CommodityService,private httpService: HttpServiceService) {
     this.docForm = this.fb.group({
-      commodity: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      imdgClass: [""],
-      classification: ["", [Validators.required]],
-      hsCode: ["", [Validators.required]],
-      imdgcodePage: [""],
-      blClause: [""],
-      unNo: [""],
-      flashPoint: [ "",[Validators.required]],
-      commodityCode:[""],
+      
       //AssetChek
-      vendorName:[""],
-      vendorShortName:[""],
-      vendorAddress:[""],
-      vendorCountry:[""],
-      vendorEmail:[""],
-      currency:[""],
-      vendorContact:[""],
-      vendorPhoneNumber:[""],
+      vendorId:[""],
+      vendorName:["",[Validators.required]],
+      vendorShortName:["",[Validators.required]],
+      vendorAddress:["",[Validators.required]],
+      vendorCountry:["",[Validators.required]],
+      vendorEmail:["",[Validators.required]],
+      currency:["",[Validators.required]],
+      vendorContact:["",[Validators.required]],
+      vendorPhoneNumber:["",[Validators.required]],
 
 
 
@@ -64,6 +57,7 @@ export class AddCommodityComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.docForm.valid){
     this.commodityMaster = this.docForm.value;
     console.log(this.commodityMaster);
     this.commodityService.addCommodity(this.commodityMaster);
@@ -74,25 +68,23 @@ export class AddCommodityComponent implements OnInit {
       "center"
     );
      this.router.navigate(['/master/commodity/listCommodity']);
-    
+    }
   }
 
-  fetchDetails(commodityCode: any): void {
-    this.httpService.get(this.commodityService.editcommodity+"?commodity="+commodityCode).subscribe((res: any)=> {
-      console.log(commodityCode);
+  fetchDetails(vendorId: any): void {
+    this.httpService.get(this.commodityService.editcommodity+"?commodityMaster="+vendorId).subscribe((res: any)=> {
+      console.log(vendorId);
 
       this.docForm.patchValue({
-        'commodityCode': res.commodityBean.commodityCode,
-        'commodity': res.commodityBean.commodity,
-        'imdgClass': res.commodityBean.imdgClass,
-        'classification': res.commodityBean.classification,
-        'remarks' : res.commodityBean.remarks,
-        'hsCode': res.commodityBean.hsCode,
-        'imdgcodePage': res.commodityBean.imdgcodePage,
-        'blClause': res.commodityBean.blClause,
-        'unNo' : res.commodityBean.unNo,
-        'flashPoint' : res.commodityBean.flashPoint,
-       
+        'vendorId': res.countryMasterBean.vendorId,
+        'vendorName': res.countryMasterBean.vendorName,
+        'vendorCountry': res.countryMasterBean.vendorCountry,
+        'currency': res.countryMasterBean.currency,
+        'vendorPhoneNumber': res.countryMasterBean.vendorPhoneNumber,
+        'vendorShortName' : res.countryMasterBean.vendorShortName,
+        'vendorAddress': res.countryMasterBean.vendorAddress,
+        'vendorEmail':res.countryMasterBean.vendorEmail,
+        'vendorContact':res.countryMasterBean.vendorContact
      })
       },
       (err: HttpErrorResponse) => {
@@ -106,10 +98,16 @@ export class AddCommodityComponent implements OnInit {
          // error code here
       }
     );*/
+    
   }
-
+  keyPressPCB(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   update(){
-
     this.commodityMaster = this.docForm.value;
     this.commodityService.updateCommodity(this.commodityMaster);
     this.showNotification(
@@ -127,7 +125,19 @@ export class AddCommodityComponent implements OnInit {
   
   }
   
-  reset(){}
+  reset(){
+    this.docForm = this.fb.group({
+      //AssetChek
+      vendorName:[""],
+      vendorShortName:[""],
+      vendorAddress:[""],
+      vendorCountry:[""],
+      vendorEmail:[""],
+      currency:[""],
+      vendorContact:[""],
+      vendorPhoneNumber:[""]
+    });
+  }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {

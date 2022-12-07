@@ -49,17 +49,17 @@
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
                 
-                <ng-container matColumnDef="countryCode">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Role Number</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.countryCode}}</mat-cell>
+                <ng-container matColumnDef="categoryName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Category Name</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.categoryName}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="countryName">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Candidate Name</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.countryName}}</mat-cell>
+                <ng-container matColumnDef="description">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.description}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="currency">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Date Of Birth</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currency}}
+                <ng-container matColumnDef="parentCategory">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Parent Category</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.parentCategory}}
                   </mat-cell>
                 </ng-container>
                 

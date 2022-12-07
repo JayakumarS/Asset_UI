@@ -11,6 +11,11 @@ export class Commodity {
   unNo: string;
   flashPoint: string;
 
+  vendorName: string;
+  vendorCountry: string;
+  currency: string;
+  vendorPhoneNumber: string;
+  vendorId:number;
   
 
   
@@ -26,6 +31,12 @@ export class Commodity {
       this.blClause = commodity.blClause || "";
       this.unNo = commodity.unNo || "";
       this.flashPoint = commodity.flashPoint || "";
+      this.vendorName = commodity.vendorName || "";
+      this.vendorCountry = commodity.vendorCountry || "";
+      this.currency = commodity.currency || "";
+      this.vendorPhoneNumber = commodity.vendorPhoneNumber || "";
+      this.vendorId = commodity.vendorId || "";
+
     }
   }
   public getRandomID(): string {

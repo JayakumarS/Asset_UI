@@ -18,7 +18,7 @@ export class DeleteComponent {
       this.dialogRef.close();
     }
     confirmDelete(): void {
-      this.countryMasterService.deleteEmployees(this.data.countryCode);
+      this.countryMasterService.deleteEmployees(this.data.categoryId);
     }
 
 }

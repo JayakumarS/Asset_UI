@@ -26,11 +26,12 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getList`;
+   //private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getList`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
   private saveCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/save`;
   public deleteCountryUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/delete`;
-  public editCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/edit`;
-  public updateCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/update`;
+  public editCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/editCategoryList`;
+  public updateCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/updateCategory`;
   public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCurrencyList`;
   public editcountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCode`;
 
@@ -79,9 +80,9 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   );*/
   });
 }
-  deleteEmployees(countryCode : any): void {
-     this.httpService.get(this.deleteCountryUrl+"?countryCode="+countryCode).subscribe(data => {
-      console.log(countryCode);
+  deleteEmployees(categoryId : any): void {
+     this.httpService.get(this.deleteCountryUrl+"?categoryId="+categoryId).subscribe(data => {
+      console.log(categoryId);
       },
       (err: HttpErrorResponse) => {
          // error code here

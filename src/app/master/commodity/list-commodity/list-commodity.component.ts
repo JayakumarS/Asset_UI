@@ -24,11 +24,15 @@ import { DeleteCommodityComponent } from './delete-commodity/delete-commodity.co
 export class ListCommodityComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   
   displayedColumns = [
-    // "select",
-     "commodity",
-     "imdgClass",
-     "unNo",
-     "flashPoint",
+    //"select",
+    //  "commodity",
+    //  "imdgClass",
+    //  "unNo",
+    //  "flashPoint",
+    "vendorName",
+    "vendorCountry",
+    "currency",
+    "vendorPhoneNumber",
      "actions"
    ];
  
@@ -85,13 +89,13 @@ export class ListCommodityComponent extends UnsubscribeOnDestroyAdapter implemen
  
    editCall(row) {
  
-     this.router.navigate(['/master/commodity/addCommodity/'+row.commodityCode]);
+     this.router.navigate(['/master/commodity/addCommodity/'+row.vendorId]);
  
    }
  
    deleteItem(i: number, row) {
      this.index = i;
-     this.id = row.commodityCode;
+     this.id = row.vendorId;
      let tempDirection;
      if (localStorage.getItem("isRtl") === "true") {
        tempDirection = "rtl";
@@ -184,10 +188,10 @@ export class ExampleDataSource extends DataSource<Commodity> {
           .slice()
           .filter((commodity: Commodity) => {
             const searchStr = (
-              commodity.commodity +
-              commodity.imdgClass +
-              commodity.unNo +
-              commodity.flashPoint 
+              commodity.vendorName +
+              commodity.vendorCountry +
+              commodity.currency +
+              commodity.vendorPhoneNumber 
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -214,20 +218,20 @@ export class ExampleDataSource extends DataSource<Commodity> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        // case "id":
+        //   [propertyA, propertyB] = [a.id, b.id];
+        //   break;
+        case "vendorName":
+          [propertyA, propertyB] = [a.vendorName, b.vendorName];
           break;
-        case "commodity":
-          [propertyA, propertyB] = [a.commodity, b.commodity];
+        case "vendorCountry":
+          [propertyA, propertyB] = [a.vendorCountry, b.vendorCountry];
           break;
-        case "imdgClass":
-          [propertyA, propertyB] = [a.imdgClass, b.imdgClass];
+        case "currency":
+          [propertyA, propertyB] = [a.currency, b.currency];
           break;
-        case "unNo":
-          [propertyA, propertyB] = [a.unNo, b.unNo];
-          break;
-        case "flashPoint":
-            [propertyA, propertyB] = [a.flashPoint, b.flashPoint];
+        case "vendorPhoneNumber":
+            [propertyA, propertyB] = [a.vendorPhoneNumber, b.vendorPhoneNumber];
           break;  
         
       }

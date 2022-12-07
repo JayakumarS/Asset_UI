@@ -31,14 +31,12 @@ export class AddCountryMasterComponent implements OnInit {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      countryCode: ["", [Validators.required]],
-      countryName: ["", [Validators.required]],
-      currency: ["", [Validators.required]],
-      clientType:[""],
+      
       categoryName: ["", [Validators.required]],
       description:[""],
       parentCategory:[""],
       isActive:[""],
+      categoryId:[""]
     });
 
   }
@@ -77,15 +75,16 @@ export class AddCountryMasterComponent implements OnInit {
     );
     this.router.navigate(['/master/country-Master/list-CountryMaster']);
   }
-  fetchDetails(countryCode: any): void {
-    this.httpService.get(this.countryMasterService.editCountryMaster + "?countryMaster=" + countryCode).subscribe((res: any) => {
-      console.log(countryCode);
+  fetchDetails(categoryId: any): void {
+    this.httpService.get(this.countryMasterService.editCountryMaster + "?countryMaster=" + categoryId).subscribe((res: any) => {
+      console.log(categoryId);
 
       this.docForm.patchValue({
-        'countryCode': res.countryMasterBean.countryCode,
-        'countryName': res.countryMasterBean.countryName,
-        'currency': res.countryMasterBean.currency,
-        'clientType': res.countryMasterBean.clientType,
+        'categoryId': res.countryMasterBean.categoryId,
+        'categoryName': res.countryMasterBean.categoryName,
+        'description': res.countryMasterBean.description,
+        'parentCategory': res.countryMasterBean.parentCategory,
+        'isActive': res.countryMasterBean.isActive,
         
         
       })
@@ -122,6 +121,16 @@ export class AddCountryMasterComponent implements OnInit {
   }
   
   reset(){
+    this.docForm = this.fb.group({
+      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+      
+      categoryName: [""],
+      description:[""],
+      parentCategory:[""],
+      isActive:[""],
+      
+    });
+    
     
   }
 

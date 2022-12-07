@@ -4,6 +4,10 @@ export class CountryMaster {
   countryCode: string;
   countryName: string;
   currency: string;
+
+  categoryName: string;
+  description: string;
+  parentCategory: string;
   
   constructor(countryMaster) {
     {

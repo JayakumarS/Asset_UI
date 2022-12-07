@@ -17,7 +17,7 @@ export class DeleteCommodityComponent implements OnInit {
       this.dialogRef.close();
     }
     confirmDelete(): void {
-      this.commodityService.deleteCommodity(this.data.commodityCode);
+      this.commodityService.deleteCommodity(this.data.vendorId);
 
     }
   ngOnInit(): void {

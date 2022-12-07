@@ -24,9 +24,13 @@ import { DeleteComponent } from 'src/app/master/country-master/list-country-mast
 export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
    // "select",
-    "countryCode",
-    "countryName",
-    "currency",
+    // "countryCode",
+    // "countryName",
+    // "currency",
+    
+    "categoryName",
+    "description",
+    "parentCategory",
     "actions"
   ];
 
@@ -82,12 +86,12 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
 
 
   editCall(row) {
-    this.router.navigate(['/master/country-Master/add-CountryMaster/'+row.countryCode]);
+    this.router.navigate(['/master/country-Master/add-CountryMaster/'+row.categoryId]);
   }
 
   deleteItem(i: number, row) {
     this.index = i;
-    this.id = row.countryCode;
+    this.id = row.categoryId;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -180,9 +184,12 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
           .slice()
           .filter((customerMaster: CountryMaster) => {
             const searchStr = (
-              customerMaster.countryCode +
-              customerMaster.countryName +
-              customerMaster.currency
+              // customerMaster.countryCode +
+              // customerMaster.countryName +
+              // customerMaster.currency
+              customerMaster.categoryName +
+              customerMaster.description +
+              customerMaster.parentCategory
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -212,14 +219,14 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
         case "id":
           [propertyA, propertyB] = [a.id, b.id];
           break;
-        case "countryCode":
-          [propertyA, propertyB] = [a.countryCode, b.countryCode];
+        case "categoryName":
+          [propertyA, propertyB] = [a.categoryName, b.categoryName];
           break;
-        case "countryName":
-          [propertyA, propertyB] = [a.countryName, b.countryName];
+        case "description":
+          [propertyA, propertyB] = [a.description, b.description];
           break;
-        case "currency":
-          [propertyA, propertyB] = [a.currency, b.currency];
+        case "parentCategory":
+          [propertyA, propertyB] = [a.parentCategory, b.parentCategory];
           break;
         
       }
