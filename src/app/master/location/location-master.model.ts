@@ -5,6 +5,7 @@ export class LocationMaster {
   cslLocationCode: number;
   locationName: string;
   country: string;
+  active:boolean;
 
   constructor(locationMaster) {
     {
