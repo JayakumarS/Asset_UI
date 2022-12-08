@@ -17,7 +17,7 @@ export class DeleteDesignationMasterComponent {
       this.dialogRef.close();
     }
     confirmDelete(): void {
-      this.designationMasterService.DeleteDesignationMaster(this.data.desgnCode);
+      this.designationMasterService.DeleteDesignationMaster(this.data.id);
     }
 
 

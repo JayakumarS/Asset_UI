@@ -1,5 +1,8 @@
 
 export class DesignationMasterResultBean {
+    
     Success: boolean;
-    designationMasterDetails: [];
+    activityMasterDetails: [];
+    id: [];
+    activityMasterBean: [];
 }

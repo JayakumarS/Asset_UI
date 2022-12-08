@@ -21,11 +21,11 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/designationMaster/getList`;
-  private saveDesignation = `${this.serverUrl.apiServerAddress}api/auth/app/designationMaster/save`;
-  public editDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/designationMaster/edit`;
-  public updateDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/designationMaster/update`;
-  private deleteDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/designationMaster/delete`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/getList`;
+  private saveDesignation = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/save`;
+  public editDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/edit`;
+  public updateDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/update`;
+  private deleteDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/delete`;
 
   
   
@@ -40,7 +40,7 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
         this.subs.sink = this.httpService.get<DesignationMasterResultBean>(this.getAllMasters).subscribe(
           (data) => {
             this.isTblLoading = false;
-            this.dataChange.next(data.designationMasterDetails);
+            this.dataChange.next(data.activityMasterDetails);
           },
           (error: HttpErrorResponse) => {
             this.isTblLoading = false;
@@ -69,9 +69,9 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  DeleteDesignationMaster(desgnCode: any): void {
-    this.httpService.get(this.deleteDesignationMaster+"?designationMaster="+desgnCode).subscribe(data => {
-      console.log(desgnCode);
+  DeleteDesignationMaster(id: any): void {
+    this.httpService.get(this.deleteDesignationMaster+"?id="+id).subscribe(data => {
+      console.log(id);
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -86,15 +86,4 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
     );*/
   }
 
-
-  deleteEmployees(id: number): void {
-    console.log(id);
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
-  }
 }
