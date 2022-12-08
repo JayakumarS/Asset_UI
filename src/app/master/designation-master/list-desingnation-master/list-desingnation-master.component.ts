@@ -26,8 +26,12 @@ import { DeleteDesignationMasterComponent } from './delete-designation-master/de
 })
 export class ListDesingnationMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 displayedColumns = [
-    "desgnCode",
-    "designationName",
+  
+  "id",
+  "activtyid",
+    "activtyname",
+    "Description",
+    "active",
     "actions"
   ];
 
@@ -85,13 +89,13 @@ displayedColumns = [
 
   editCall(row) {
 
-    this.router.navigate(['/master/designation-Master/add-designation/'+row.desgnCode]);
+    this.router.navigate(['/master/designation-Master/add-designation/'+row.id]);
 
   }
 
   deleteItem(row){
 
-    this.id = row.desgnCode;
+    this.id = row.id;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -183,8 +187,11 @@ export class ExampleDataSource extends DataSource<DesignationMaster> {
           .slice()
           .filter((designationMaster: DesignationMaster) => {
             const searchStr = (
-              designationMaster.desgnCode +
-              designationMaster.designationName
+              designationMaster.id+
+              designationMaster.activtyid +
+              designationMaster.activtyname +
+              designationMaster.Description +
+              designationMaster.active 
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -214,12 +221,20 @@ export class ExampleDataSource extends DataSource<DesignationMaster> {
         case "id":
           [propertyA, propertyB] = [a.id, b.id];
           break;
-        case "desgnCode":
-          [propertyA, propertyB] = [a.desgnCode, b.desgnCode];
+        case "activtyid":
+          [propertyA, propertyB] = [a.activtyid, b.activtyid];
           break;
-        case "designationName":
-          [propertyA, propertyB] = [a.designationName, b.designationName];
+        case "activtyname":
+          [propertyA, propertyB] = [a.activtyname, b.activtyname];
           break;
+          case "Description":
+          [propertyA, propertyB] = [a.Description, b.Description];
+          break;
+          case "active":
+          [propertyA, propertyB] = [a.active, b.active];
+          break;
+          
+       
         
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

@@ -29,10 +29,12 @@ export class AddDesingnationMasterComponent implements OnInit {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      designationName: ["", [Validators.required]],
-      desgnCode: [""],
-      remarks:[""],
-      active:[""]
+    
+      activtyname: ["", [Validators.required]],
+      activtyid: [""],
+      Description:[""],
+      active:[""],
+      id:[""]
     });
 
   }
@@ -65,14 +67,17 @@ export class AddDesingnationMasterComponent implements OnInit {
   }
 
   // Edit
-  fetchDetails(desgnCode: any): void {
-    this.httpService.get(this.designationMasterService.editDesignationMaster+"?designationMaster="+desgnCode).subscribe((res: any)=> {
-      console.log(desgnCode);
+  fetchDetails(id: any): void {
+    this.httpService.get(this.designationMasterService.editDesignationMaster+"?id="+id).subscribe((res: any)=> {
+      console.log(id);
 
       this.docForm.patchValue({
-        'designationName': res.designationMasterBean.designationName,
-        'remarks': res.designationMasterBean.remarks,
-        'desgnCode': res.designationMasterBean.desgnCode,
+        
+        'activtyname': res.activityMasterBean.activtyname,
+        'activtyid': res.activityMasterBean.activtyid,
+        'Description': res.activityMasterBean.Description,
+        'active': res.activityMasterBean.active,
+        'id' : res.activityMasterBean.id
      })
       },
       (err: HttpErrorResponse) => {
@@ -107,6 +112,13 @@ export class AddDesingnationMasterComponent implements OnInit {
   }
   
   reset(){
+    this.docForm = this.fb.group({
+      activtyname: [""],
+      activtyid: [""],
+      Description: [""],
+      active: [""],
+      
+    });
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

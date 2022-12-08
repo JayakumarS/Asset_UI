@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-       <app-breadcrumb [title]="'Designation'" [items]="['Master']" [active_item]="'Designation List'">
+       <app-breadcrumb [title]="'Activity Master'" [items]="['Master']" [active_item]="'Activity List'">
         </app-breadcrumb>  
       </div>
       <div class="row">
@@ -50,19 +50,33 @@
      
                   <!--- Note that these columns can be defined in any order.
                         The actual rendered columns are set as a property on the row definition" -->
-              
-                  <ng-container matColumnDef="desgnCode">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Designation Code</mat-header-cell>
-                    <mat-cell *matCellDef="let row" >{{row.desgnCode}}</mat-cell>
+                        <ng-container matColumnDef="id">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+                          <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
+                        </ng-container>
+
+                  <ng-container matColumnDef="activtyid">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Activty Id</mat-header-cell>
+                    <mat-cell *matCellDef="let row" >{{row.activtyid}}</mat-cell>
                   </ng-container>
               
-                  <ng-container matColumnDef="designationName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Designation Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.designationName}}</mat-cell>
+                  <ng-container matColumnDef="activtyname">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Activty Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.activtyname}}</mat-cell>
+                  </ng-container>
+                   
+                      
+                  <ng-container matColumnDef="Description">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+                    <mat-cell *matCellDef="let row" >{{row.Description}}</mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="active">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.active}}</mat-cell>
                   </ng-container>
               
                  
-              
                   <!-- actions -->
                   <ng-container matColumnDef="actions">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
