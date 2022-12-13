@@ -27,7 +27,7 @@ import { DeleteDesignationMasterComponent } from './delete-designation-master/de
 export class ListDesingnationMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 displayedColumns = [
   
-  "id",
+  
   "activtyid",
     "activtyname",
     "Description",
