@@ -1,0 +1,120 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Transfer Asset'" [items]="['admin']" [active_item]="'Transfer Asset'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix ">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body" style="padding-left: 110px;">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                    <mat-label><b></b></mat-label>
+                    <label>Trasfer Status*</label>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                    <mat-form-field appearance="fill">
+                   
+                      <mat-select formControlName="status" required>
+                        <mat-option value="in wre">In wrw</mat-option>
+                        <mat-option value="Repair">Repair</mat-option>
+                        <mat-option value="Stock">Stock</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                    <label>Department</label>
+                  </div> 
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left:-37px">
+                    <mat-form-field appearance="fill">
+                      <mat-select formControlName="department" >
+                        <mat-option *ngFor="let title of transferList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div> 
+
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                    <label>Location*</label>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                    <mat-form-field appearance="fill">
+                      <mat-select formControlName="location" required>
+                        <mat-option *ngFor="let title of locationList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                    <label>Transfer To*</label>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: -42px;">
+                    <mat-form-field class="example-full-width form-control-sm" style="width: 204px;">
+                      <input matInput formControlName="transfer" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                    <label>Alloted Upto</label>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;width:215px;">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <input matInput [matDatepicker]="picker" formControlName="date" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error>
+                        Alloted Upto Please select date
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 68px;">
+                    <label>Remarks*</label>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: -42px;">
+                    <mat-form-field class="example-full-width form-control-sm" style="width: 204px;">
+                      <input matInput formControlName="remarks" required>
+                    </mat-form-field>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                    <label>Uplode Files</label>
+                  </div>
+                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-label><b></b></mat-label>
+                    <app-file-upload formControlName="files" (change)="getFileDetails($event)"></app-file-upload>
+                    <a href="{{filePath}}{{nonVatFile}}"  target="_blank">{{nonVatFile}}</a>
+                  </div> 
+                </div>
+
+                <div class="row">
+                  <div class="col-xl- col-lg-3 col-md-12 col-sm-12 mb-3">
+                    <button (click)="onSubmit()" class="btn-space" mat-raised-button
+                      style="margin-left: 272%; color: #01070c; background-color: rgb(243 243 251);;">Save</button>
+                  </div>
+                  <div class="col-xl-3 col-lg- col-md-12 col-sm-12 mb-3">
+                    <button (click)="onCancel()" class="btn-space" mat-raised-button
+                      style="margin-left: 198%; color: #01070c; background-color: rgb(243 243 251);">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

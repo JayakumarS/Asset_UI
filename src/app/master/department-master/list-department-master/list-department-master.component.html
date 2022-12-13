@@ -54,11 +54,16 @@
                 </ng-container>
                 <ng-container matColumnDef="departmentName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Department Name</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.departmentName}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.departmentHead}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="departmentHead">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Department Head</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.departmentHead}}
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.remarks}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="isactive">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.isactive}}
                   </mat-cell>
                 </ng-container>
                 

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { DepartmentMasterService} from '../department-master.service'
 import { DepartmentMaster} from '../department-master.model';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -30,6 +30,7 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
     "deptCode",
     "departmentName",
     "departmentHead",
+    "isactive",
     "actions"
   ];
 
@@ -86,7 +87,7 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
 
   editCall(row) {
 
-    this.router.navigate(['/master/department-Master/add-department/'+row.deptCode]);
+    this.router.navigate(['/master/department-Master/add-department/'+row.deptId]);
 
   }
 
@@ -107,13 +108,30 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       
-      this.loadData();
-        this.showNotification(
-          "snackbar-success",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
+
+      if (data.data == true) {
+
+        this.httpService.get(this.departmentMasterService.deleteDepartment+ "?departmentCode=" + this.id).subscribe((res: any) => {
+          this.showNotification(
+            "snackbar-success",
+            "Delete Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          this.loadData();
+        },
+          (err: HttpErrorResponse) => {
+            // error code here
+          }
         );
+
+      
+      } else{
+        this.loadData();
+      }
+
+
+        
       
       // else{
       //   this.showNotification(
@@ -184,8 +202,9 @@ export class ExampleDataSource extends DataSource<DepartmentMaster> {
           .filter((departmentMaster: DepartmentMaster) => {
             const searchStr = (
               departmentMaster.deptCode +
-              departmentMaster.departmentName +
-              departmentMaster.departmentHead 
+             // departmentMaster.departmentName +
+              departmentMaster.departmentHead +
+              departmentMaster.remarks
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -209,19 +228,26 @@ export class ExampleDataSource extends DataSource<DepartmentMaster> {
       return data;
     }
     return data.sort((a, b) => {
-      let propertyA: number | string = "";
-      let propertyB: number | string = "";
+      let propertyA: number | string | boolean = "";
+      let propertyB: number | string | boolean = "";
       switch (this._sort.active) {
         case "deptCode":
           [propertyA, propertyB] = [a.deptCode, b.deptCode];
           break;
-        case "departmentName":
-          [propertyA, propertyB] = [a.departmentName, b.departmentName];
-          break;
-        case "departmentHead":
+        //case "departmentName":
+         // [propertyA, propertyB] = [a.departmentName, b.departmentName];
+         // break;
+          case "departmentHead":
           [propertyA, propertyB] = [a.departmentHead, b.departmentHead];
           break;
-        
+
+          case "remarks":
+          [propertyA,propertyB]=[a.remarks,b.remarks];
+          break;
+
+          case "isactive":
+          [propertyA,propertyB]=[a.isactive,b.isactive];
+          break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
