@@ -11,10 +11,10 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card ">
           <div class="body">
-            <form class="m-4" [formGroup]="docForm" (ngSubmit)="onSubmit()">
+            <form class="m-4" [formGroup]="docForm" >
               <div class="row" >
                 <h2 style="padding-bottom: 5px;
-                padding-top: 5px;">Add single asset</h2><br>
+                padding-top: 5px;color:#F6682F">Add single asset</h2><br>
               </div><br>
               
               <div class="row">
@@ -40,7 +40,15 @@
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Asset Location</mat-label>
-                    <input matInput formControlName="location" type="number" required>
+                    <!-- <input matInput formControlName="location"  required> -->
+
+                    <mat-select class="inputTxt" formControlName="location" >
+                      <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                          {{title.text}} 
+                        
+                        </mat-option> 
+                     </mat-select> 
+
                     <mat-error *ngIf="docForm.get('location').hasError('required')">
                       Asset Location is required
                     </mat-error>
@@ -50,60 +58,68 @@
               <div class="row">
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Status</mat-label>
-                    <input matInput formControlName="status" type="password" required>
-                    <mat-error *ngIf="docForm.get('status').hasError('required')">
-                      Status is required
-                    </mat-error>
+                    <mat-label>Category</mat-label>
+                    <!-- <input matInput formControlName="category"  required> -->
+                    <mat-select class="inputTxt" formControlName="category" >
+                      <mat-option *ngFor="let title of categoryDdList" [value]="title.id">
+                          {{title.text}} 
+                        
+                        </mat-option> 
+                     </mat-select> 
+                     <mat-error *ngIf="docForm.get('category').hasError('required')">
+                      Category is required
+                    </mat-error> 
                   </mat-form-field>
                 </div>
                 
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Category</mat-label>
-                    <mat-select formControlName="category" required>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status" required>
                       <mat-option [value]="'1'">
-                        Development
+                        Good
                       </mat-option>
                       <mat-option [value]="'2'">
-                        Designing
+                        Damaged
                       </mat-option>
                       <mat-option [value]="'3'">
-                        Testing
+                        In repair
                       </mat-option>
                       <mat-option [value]="'4'">
-                        HR
+                        In stock
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="docForm.get('department').hasError('required')">
-                      Select Any Department
+                    <mat-error *ngIf="docForm.get('status').hasError('required')">
+                      Select Any Status
                     </mat-error>
                   </mat-form-field>
                 </div>
               </div>
              
               <div class="row">                
-                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <mat-label>Upload Image</mat-label>
-                  <app-file-upload formControlName="uploadImg"></app-file-upload>
-                </div>                
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                  <mat-label><b>Asset Image</b></mat-label>
+                  <app-file-upload formControlName="uploadImg" (change)="getCreditFile($event)"></app-file-upload>
+                  <!-- <a href="{{filePath}}{{creditFile}}"  target="_blank">{{creditFile}}</a> -->
+                </div>
+
               </div>
               
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <div class="card">
-                    <div class="header">
-                      <h2>Additional Information</h2>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                  <!-- <div class="card" > -->
+                    <div class="header" >
+                      <h2 style="color:#F6682F">Additional Information</h2>
               
                     </div>
-                    <div class="body">
-                      <mat-tab-group>
-                        <mat-tab label="Asset Information">
+                    <div class="body" >
+                      <mat-tab-group >
+                        <mat-tab label="Asset Information" >
                           <br>
-                         <div class="row">
+                         <div class="row" >
                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Brand</mat-label>
-                                <input matInput formControlName="brand" required>
+                                <input matInput formControlName="brand">
                                 
                               </mat-form-field>
                             </div>
@@ -118,7 +134,8 @@
                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Serial No</mat-label>
-                                <input matInput formControlName="serialNo" type="number" required>
+                                <input matInput formControlName="serialNo" >
+                                <!-- <input matInput formControlName="serialNo" type="number" required> -->
                                 
                               </mat-form-field>
                             </div>
@@ -126,32 +143,59 @@
                           <div class="row">
                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Status</mat-label>
-                                <input matInput formControlName="assetStatus" type="password" required>
-                                
+                                <mat-label>Condition</mat-label>
+                                <mat-select formControlName="condition" >
+                                  <mat-option [value]="'1'">
+                                    Good
+                                  </mat-option>
+                                  <mat-option [value]="'2'">
+                                    Damaged
+                                  </mat-option>
+                                  <mat-option [value]="'3'">
+                                    In repair
+                                  </mat-option>
+                                  <mat-option [value]="'4'">
+                                    In stock
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="docForm.get('condition').hasError('required')">
+                                  Select Any Condition
+                                </mat-error>
                               </mat-form-field>
                             </div>
                             
                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Category</mat-label>
-                                <mat-select formControlName="assetDepartment" required>
-                                  <mat-option [value]="'1'">
-                                    Development
-                                  </mat-option>
-                                  <mat-option [value]="'2'">
-                                    Designing
-                                  </mat-option>
-                                  <mat-option [value]="'3'">
-                                    Testing
-                                  </mat-option>
-                                  <mat-option [value]="'4'">
-                                    HR
-                                  </mat-option>
-                                </mat-select>
+                                <mat-label>Linked Asset</mat-label>
+                                <input matInput formControlName="linkedAsset">
+                               
+                              </mat-form-field>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Description</mat-label>
+                                <input matInput formControlName="description">
+                               
                               </mat-form-field>
                             </div>
                           </div>  
+                          <div>
+                            
+
+                            <!-- <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                              <mat-label>Upload Files</mat-label>
+                              <app-file-upload formControlName="uploadFiles"></app-file-upload>
+                            </div>  -->
+
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <mat-label><b>Upload Files</b></mat-label>
+                              <app-file-upload formControlName="uploadFiles" (change)="getCreditFileDetails($event)"></app-file-upload>
+                              <!-- <a href="{{filePath}}{{creditFile}}"  target="_blank">{{creditFile}}</a> -->
+                            </div>
+
+
+
+                          </div>
                         </mat-tab>
                           <mat-tab label="Purchase Information">
                           <br>
@@ -160,7 +204,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Vendor Name</mat-label>
-                                <input matInput formControlName="vendor" required>
+                                <input matInput formControlName="vendor" >
                               
                               </mat-form-field>
                             </div>
@@ -171,20 +215,34 @@
                              
                               </mat-form-field>
                             </div>
-                            
+
                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Invoice Date</mat-label>
-                                <input matInput formControlName="invoiceDate" type="number" required>
-                                
-                              </mat-form-field>
+                                <mat-radio-group formControlName="selfOrPartner">
+                                  <mat-radio-button value="1" >Self Owned</mat-radio-button>
+                                  <mat-radio-button value="2" >Partner</mat-radio-button>
+                                </mat-radio-group>
                             </div>
                           </div>  
                            <div class="row">
+                            
+
+                                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-label>Invoice Date</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="invoiceDateobj"
+                                      (dateInput)="$event.value.format('DD/MM/YYYY')" id="invoiceDate"  
+                                                             (dateChange)="getDateString($event, 'invoiceDate',0)"> 
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                   
+                                  </mat-form-field>
+                                </div>
+
+                            
                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Invoice Number</mat-label>
-                                <input matInput formControlName="invoiceNo" type="password" required>
+                                <input matInput formControlName="invoiceNo"  >
                                 
                               </mat-form-field>
                             </div>
@@ -192,7 +250,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Purchase Price</mat-label>
-                                <input matInput formControlName="purchasePrice" type="password" required>
+                                <input matInput formControlName="purchasePrice"  >
                                
                               </mat-form-field>
                             </div>
@@ -200,38 +258,140 @@
                         </mat-tab>  
                         <mat-tab label="Financial Information">
                           <br>
-                          <b>Message Content</b>
-                          <p>
-                            Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit
-                            mediocritatem an. Pri ut tation electram moderatius.
-                            Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent
-                            aliquid
-                            pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere
-                            gubergren
-                            sadipscing mel.
-                          </p>
+                          <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Capitalization Price</mat-label>
+                                <input matInput formControlName="captitalizationPrice" >
+                                
+                              </mat-form-field>
+                            </div>
+                           
+
+                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Capitalization Date</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="captitalizationDateobj"
+                                  (dateInput)="$event.value.format('DD/MM/YYYY')" id="captitalizationDate"  
+                                                         (dateChange)="getDateString($event, 'captitalizationDate',0)"> 
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                                
+                              </mat-form-field>
+                            </div> 
+
+
+
+
+
+                            
+                            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>End of Life</mat-label>
+                                <input matInput formControlName="endLife"  >
+                                <!-- <input matInput formControlName="serialNo" type="number" required> -->
+                                
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Scrap Value</mat-label>
+                                <input matInput formControlName="scrapValue" >
+                                
+                              </mat-form-field>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Depreciation%</mat-label>
+                                <input matInput formControlName="depreciation">
+                               
+                              </mat-form-field>
+                            </div>
+                            
+                          </div>
                         </mat-tab>
                         <mat-tab label="Alloted Information">
                           <br>
-                          <b>Message Content</b>
-                          <p>
-                            Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit
-                            mediocritatem an. Pri ut tation electram moderatius.
-                            Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent
-                            aliquid
-                            pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere
-                            gubergren
-                            sadipscing mel.
-                          </p>
+                          <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Department </mat-label>
+                                <!-- <input matInput formControlName="department" > -->
+
+                                <mat-select class="inputTxt" formControlName="department" >
+                                  <mat-option *ngFor="let title of departmentDdList" [value]="title.id">
+                                      {{title.text}} 
+                                    
+                                    </mat-option> 
+                                 </mat-select> 
+                                
+                              </mat-form-field>
+                            </div>
+                             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Allotted Upto</mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="allottedUptoobj"
+                                  (dateInput)="$event.value.format('DD/MM/YYYY')" id="allottedUpto"  
+                                                         (dateChange)="getDateString($event, 'allottedUpto',0)"> 
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                              
+                              </mat-form-field>
+                            </div> 
+
+
+
+
+                            
+                            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Transferred To</mat-label>
+                                <input matInput formControlName="transferredTo"  >
+                                <!-- <input matInput formControlName="serialNo" type="number" required> -->
+                                
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Remarks</mat-label>
+                                <input matInput formControlName="remarks">
+                               
+                              </mat-form-field>
+                            </div>
+                          </div>
                         </mat-tab>
                         
                       </mat-tab-group>
                     </div>
-                  </div>
+                  <!-- </div> -->
                 </div>
               
               
             </form>
+          </div>
+          <div class="row" style="padding-bottom:50px;padding-left: 50px;">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+              <!-- <button class="btn-space" [disabled]="!docForm.valid " mat-raised-button
+                color="primary">Submit</button> -->
+                <button class="btn-space" (click) = "onSubmit()"  mat-raised-button
+                color="primary">Submit</button>
+              <button type="button" mat-button>Cancel</button>
+            </div>
+
+            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                   
+              <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+              color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+              <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+            <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+            <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
+          </div> -->
+
+
           </div>
         </div>
 
@@ -241,13 +401,7 @@
 
 <!-- matTab end -->
       </div>
-      <div class="row" style="padding-bottom:50px">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
-          <button class="btn-space" [disabled]="!docForm.valid " mat-raised-button
-            color="primary">Submit</button>
-          <button type="button" mat-button>Cancel</button>
-        </div>
-      </div>
+      
     </div>
   </div>
 </section>

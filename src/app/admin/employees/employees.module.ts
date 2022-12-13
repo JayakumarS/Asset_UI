@@ -29,6 +29,9 @@ import { EmployeeProfileComponent } from "./employee-profile/employee-profile.co
 import { EmployeesService } from "./allEmployees/employees.service";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
+import { CommonService } from "src/app/common-service/common.service";
+import { MatRadioModule } from "@angular/material/radio";
+import { NotificationService } from "src/app/core/service/notification.service";
 
 @NgModule({
   declarations: [
@@ -64,7 +67,10 @@ import { SharedModule } from "src/app/shared/shared.module";
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
+    MatRadioModule
+    
+    
   ],
-  providers: [EmployeesService],
+  providers: [EmployeesService,CommonService,NotificationService],
 })
 export class EmployeesModule {}

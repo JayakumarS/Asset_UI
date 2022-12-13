@@ -9,4 +9,8 @@ export class CommonService {
   getDate(date): any {
     return moment(date).format('DD/MM/YYYY');
   }
+
+  getDateObj(string): any {
+    return moment(string, 'DD/MM/YYYY')
+  }
 }

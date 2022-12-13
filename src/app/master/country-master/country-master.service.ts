@@ -26,15 +26,16 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
     super();
   }
-   //private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getList`;
+  //private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getList`;
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
   private saveCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/save`;
+ // private saveAsset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/saveAsset`;
   public deleteCountryUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/delete`;
   public editCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/editCategoryList`;
   public updateCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/updateCategory`;
   public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCurrencyList`;
   public editcountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCode`;
-
+  public commoditylist = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
   get data(): CountryMaster[] {
     return this.dataChange.value;
   }
@@ -56,9 +57,6 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   }
   addCountry(countryMaster: CountryMaster): void {
     this.dialogData = countryMaster;
-      
-    
-    
     this.httpService.post<CountryMaster>(this.saveCountryMaster, countryMaster).subscribe(data => {
       console.log(data);
       //this.dialogData = employees;
@@ -67,6 +65,17 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
         
     });
   }
+  //addAsset
+  // addAsset(countryMaster: CountryMaster): void {
+  //   this.dialogData = countryMaster;
+  //   this.httpService.post<CountryMaster>(this.saveAsset, countryMaster).subscribe(data => {
+  //     console.log(data);
+  //     //this.dialogData = employees;
+  //     },
+  //     (err: HttpErrorResponse) => {
+        
+  //   });
+  // }
   countryUpdate(countryMaster: CountryMaster): void {
     this.dialogData = countryMaster;
     this.httpService.post<CountryMaster>(this.updateCountryMaster, countryMaster).subscribe(data => {

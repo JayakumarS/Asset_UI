@@ -8,7 +8,7 @@ const routes: Routes = [
       import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
   },
   {
-    path: "employees",
+    path: "asset",
     loadChildren: () =>
       import("./employees/employees.module").then((m) => m.EmployeesModule),
   },
