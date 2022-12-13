@@ -63,6 +63,7 @@ export function createTranslateLoader(http: HttpClient): any {
         MatdynamicmenuComponent,
         MatdynamicsubmenuComponent,
         MatnestedmenuComponent
+        
     ],
     imports: [
         BrowserModule,

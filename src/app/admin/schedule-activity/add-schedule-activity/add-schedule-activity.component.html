@@ -1,0 +1,163 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Schedule Activity'" [items]="['Master']" [active_item]="'Schedule Activity'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card " style="padding-left: 150px;">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm" >
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label>Activity Type</label>
+                </div>
+                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="ActivityType" required>
+                    </mat-form-field>
+                  </div> 
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label>Location</label>
+                </div> 
+
+                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="Location" required>
+                    </mat-form-field>
+                  </div>  
+                
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>User Group</label>
+                    </div>
+              
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="UserGroup" required>
+                      </mat-form-field>
+                    </div>  
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>Description</label>
+                    </div>
+  
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="Description" required>
+                      </mat-form-field>
+                    </div>  
+                  
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>Assignee</label>
+                    </div>
+              
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="Assignee" required>
+                      </mat-form-field>
+                    </div>  
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>Attach Files</label>
+                    </div>
+  
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="AttachFiles" required>
+                      </mat-form-field>
+                    </div>  
+                  
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>Occurs</label>
+                    </div>
+              
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="Occurs" required>
+                      </mat-form-field>
+                    </div>    
+                  
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>Start Date</label>
+                    </div>
+              
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="StartDate" required>
+                      </mat-form-field>
+                    </div> 
+                    
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>End Date</label>
+                    </div>
+                    
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="EndDate" required>
+                        </mat-form-field>
+                      </div>
+                  
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>Activity Reminders</label>
+                    </div>
+              
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="ActivityReminders" required>
+                      </mat-form-field>
+                    </div>    
+                  
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>CC</label>
+                    </div>
+              
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="CC" required>
+                      </mat-form-field>
+                    </div>    
+                  
+                  </div>
+              
+                <div class="row"> 
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 36%;background-color: #34d034;"(click)="submit()">Submit</button>
+                    <button  class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;"(click)="Update()">Update</button>
+                    <button class="btn-space" mat-raised-button
+                      color="primary"(click)="Reset()" >Reset</button>
+                    <button color="warn"  type="button" mat-raised-button  (click)="Cancel()">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

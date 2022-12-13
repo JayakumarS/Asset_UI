@@ -18,8 +18,6 @@ const routes: Routes = [
     loadChildren: () =>
       import("./transferasset/transferasset.module").then((m) => m.TransferassetModule),
   },
-
-
 ];
 
 @NgModule({

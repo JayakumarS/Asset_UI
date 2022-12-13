@@ -82,6 +82,7 @@ export class AddLocationComponent implements OnInit {
       "bottom",
       "center"
     );
+    this.router.navigate(['/master/location/listLocation']);
     console.log("Form Value", this.docForm.value);
     console.log(this.dataarray)
     console.log(this.cusMasterData)
