@@ -21,6 +21,15 @@ const routes: Routes = [
         loadChildren: () =>
           import("./admin/admin.module").then((m) => m.AdminModule),
       },
+      // {
+      //   path: "asset",
+      //   canActivate: [AuthGuard],
+      //   data: {
+      //     role: Role.Admin,
+      //   },
+      //   loadChildren: () =>
+      //     import("./asset/asset.module").then((m) => m.AssetModule),
+      // },
       {
         path: "employee",
         canActivate: [AuthGuard],

@@ -17,12 +17,26 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Department Code</mat-label>
+                      <input matInput formControlName="deptCode" required>
+                      <mat-error *ngIf="docForm.get('deptCode').hasError('required')">
+                        Department Code is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 50px;">
+                      <mat-label><b></b></mat-label>
+                    </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Department Name</mat-label>
-                      <input matInput formControlName="departmentName" required>
-                      <mat-error *ngIf="docForm.get('departmentName').hasError('required')">
+                      <input matInput formControlName="departmentHead" required>
+                      <mat-error *ngIf="docForm.get('departmentHead').hasError('required')">
                         Department Name is required
                       </mat-error>
                     </mat-form-field>
+                  </div>
                   </div>
                 </div>
                 <div class="row">
@@ -31,10 +45,10 @@
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Department Head</mat-label>
-                        <input matInput formControlName="departmentHead" required>
-                        <mat-error *ngIf="docForm.get('departmentHead').hasError('required')">
-                            Department Head is required
+                        <mat-label>Description</mat-label>
+                        <input matInput formControlName="remarks" required>
+                        <mat-error *ngIf="docForm.get('remarks').hasError('required')">
+                            description  is required
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -44,12 +58,12 @@
                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 50px;">
                       <mat-label><b></b></mat-label>
                   </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Remarks</mat-label>
                         <textarea matInput formControlName="remarks"></textarea>
                       </mat-form-field>
-                  </div>
+                  </div> -->
                 </div> 
                 
                 <div class="row">
@@ -57,7 +71,9 @@
                     <mat-label><b></b></mat-label>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="padding-left: 69px;">
-                  <mat-checkbox  ngInit="checked=true">Active</mat-checkbox>
+                  <mat-checkbox  ngInit="checked=true" formControlName="isactive">active</mat-checkbox>
+                  <!-- <input matInput formControlName="isactive" required> -->
+
                 </div>
               </div>
                 <br>

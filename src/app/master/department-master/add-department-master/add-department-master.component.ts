@@ -8,8 +8,6 @@ import { DepartmentMaster } from '../department-master.model';
 import { DepartmentMasterResultBean } from '../department-master-result-bean';
 import { DepartmentMasterService } from '../department-master.service';
 
-
-
 @Component({
   selector: 'app-add-department-master',
   templateUrl: './add-department-master.component.html',
@@ -30,11 +28,13 @@ export class AddDepartmentMasterComponent implements OnInit {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      departmentName: ["", [Validators.required]],
+      // departmentCode:["", [Validators.required]],
+      //departmentName: ["", [Validators.required]],
       deptCode: [""],
       departmentHead: ["", [Validators.required]],
       remarks:[""],
-      isActive:["t"]
+      isactive:[""],
+      deptId:[""]
     });
 
   }
@@ -44,7 +44,7 @@ export class AddDepartmentMasterComponent implements OnInit {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
        this.edit=true;
-       //For User login Editable mode
+      //For User login Editable mode
        this.fetchDetails(this.requestId) ;
 
       }
@@ -52,7 +52,13 @@ export class AddDepartmentMasterComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.docForm.controls.isactive.value==""){
+      this.docForm.patchValue({
+         isactive:false
+      })
+    }
     this.departmentMaster = this.docForm.value;
+    
     console.log(this.departmentMaster);
     this.departmentMasterService.addDepartment(this.departmentMaster);
     this.showNotification(
@@ -65,15 +71,20 @@ export class AddDepartmentMasterComponent implements OnInit {
     
   }
 
-  fetchDetails(deptCode: any): void {
-    this.httpService.get(this.departmentMasterService.editDepartment+"?departmentMaster="+deptCode).subscribe((res: any)=> {
-      console.log(deptCode);
+  fetchDetails(department: any): void {
+    this.httpService.get(this.departmentMasterService.editDepartment + "?department=" + department).subscribe((res: any) => {
+
+    // this.httpService.get(this.departmentMasterService.editDepartment+"?departmentMaster="+deptCode).subscribe((res: any)=> {
+      console.log(department);
 
       this.docForm.patchValue({
-        'departmentName': res.departmentMasterBean.departmentName,
-        'departmentHead': res.departmentMasterBean.departmentHead,
-        'remarks' : res.departmentMasterBean.remarks,
-        'deptCode': res.departmentMasterBean.deptCode,
+        // 'departmentCode': res.departmentMasterBean.departmentCode,
+         //'departmentName': res.departmentMasterBean.departmentName,
+         'deptCode': res.departmentBean.deptCode,
+        'departmentHead': res.departmentBean.departmentHead,
+        'remarks' : res.departmentBean.remarks,
+        'isactive' : res.departmentBean.isactive,
+        'deptId' : res.departmentBean.deptId
      })
       },
       (err: HttpErrorResponse) => {
@@ -108,7 +119,13 @@ export class AddDepartmentMasterComponent implements OnInit {
   
   }
   
-  reset(){}
+  reset(){this.docForm = this.fb.group({
+    deptCode: [""],
+    departmentHead: [""],
+    remarks: [""],
+    isactive: [""],
+    
+  });}
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {

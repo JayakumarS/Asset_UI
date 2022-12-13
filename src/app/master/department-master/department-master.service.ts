@@ -23,14 +23,14 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/departmentMaster/getList`;
-  private saveDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/departmentMaster/save`;
-  public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/departmentMaster/edit`;
-  public updateDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/departmentMaster/update`;
-  public deleteDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/departmentMaster/delete`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/department/getList`;
+  private saveDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/save`;
+  public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/edit`;
+  public updateDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/update`;
+  public deleteDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/delete`;
   
   get data(): DepartmentMaster[] {
     return this.dataChange.value;
@@ -54,7 +54,7 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
 
   // For Save
   addDepartment(DepartmentMaster: DepartmentMaster): void {
-    this.dialogData = DepartmentMaster;
+    this.dialogData = DepartmentMaster;  
     this.httpService.post<DepartmentMaster>(this.saveDepartment, DepartmentMaster).subscribe(data => {
       console.log(data);
       //this.dialogData = employees;
@@ -75,21 +75,21 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  departmentDelete(deptCode: any): void {
-    this.httpService.get(this.deleteDepartment+"?departmentMaster="+deptCode).subscribe(data => {
-      console.log(deptCode);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
-  }
+  // departmentDelete(deptCode: any): void {
+  //   this.httpService.get(this.deleteDepartment+"?departmentMaster="+deptCode).subscribe(data => {
+  //     console.log(deptCode);
+  //     },
+  //     (err: HttpErrorResponse) => {
+  //        // error code here
+  //     }
+  //   );
+  //   /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
+  //     console.log(id);
+  //     },
+  //     (err: HttpErrorResponse) => {
+  //        // error code here
+  //     }
+  //   );*/
+  // }
  
 }

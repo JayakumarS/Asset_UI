@@ -14,10 +14,10 @@ export class DeleteDepartmentComponent {
     public departmentMasterService: DepartmentMasterService) { }
 
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close({ data: 'CANCEL' });
     }
     confirmDelete(): void {
-      this.departmentMasterService.departmentDelete(this.data.deptCode);
+      this.dialogRef.close({ data: true });
     }
 
 }
