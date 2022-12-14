@@ -23,11 +23,14 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
+     private httpService: HttpServiceService) {
     super();
   }
   //private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getList`;
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
+  public getAssetList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getAssetList`;
+  
   private saveCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/save`;
  // private saveAsset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/saveAsset`;
   public deleteCountryUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/delete`;
@@ -55,6 +58,20 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
           }
         );
   }
+
+    /** CRUD METHODS */
+    getAllAssetList(): void {
+      this.subs.sink = this.httpService.get<CountryMasterResultBean>(this.getAssetList).subscribe(
+        (data) => {
+          this.isTblLoading = false;
+          this.dataChange.next(data.assetList);
+        },
+        (error: HttpErrorResponse) => {
+          this.isTblLoading = false;
+          console.log(error.name + " " + error.message);
+        }
+      );
+}
   addCountry(countryMaster: CountryMaster): void {
     this.dialogData = countryMaster;
     this.httpService.post<CountryMaster>(this.saveCountryMaster, countryMaster).subscribe(data => {

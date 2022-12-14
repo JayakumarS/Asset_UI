@@ -87,7 +87,7 @@ export class SigninComponent
                 this.tokenStorage.saveAuthorities(data.roles);
                 this.tokenStorage.saveUserId(data.email);
                 this.loading = false;               
-                this.router.navigate(["/admin/dashboard/main"]);
+                this.router.navigate(["/admin/dashboard/listasset"]);
               }, 1000);
               }else{
                  this.submitted = false;

@@ -4,4 +4,5 @@ export class CountryMasterResultBean {
     countryMasterDetails: [];
     currencyList:[];
     //categoryName: [];
+    assetList:[];
 }

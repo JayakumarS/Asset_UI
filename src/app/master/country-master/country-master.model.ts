@@ -8,13 +8,21 @@ export class CountryMaster {
   categoryName: string;
   description: string;
   parentCategory: string;
+
+  assetName: string;
+  assetCode: string;
+  assetLocation: string;
+  category: string;
+  status: string;
   
   constructor(countryMaster) {
     {
       this.id = countryMaster.id || this.getRandomID();
-      this.countryCode = countryMaster.countryCode || "";
-      this.countryName = countryMaster.countryName || "";
-      this.currency = countryMaster.currency || "";
+      this.assetName = countryMaster.assetName || "";
+      this.assetCode = countryMaster.assetCode || "";
+      this.assetLocation = countryMaster.assetLocation || "";
+      this.category = countryMaster.category || "";
+      this.status = countryMaster.status || "";
     }
   }
   public getRandomID(): string {
