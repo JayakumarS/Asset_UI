@@ -54,7 +54,7 @@ export class AddAssetService extends UnsubscribeOnDestroyAdapter {
           "bottom",
           "center"
         );
-        router.navigate(['/operations/workOrder/listWorkOrder']);
+        router.navigate(['/admin/dashboard/listasset']);
       }
       else if(data.Success == false){
         notificationService.showNotification(

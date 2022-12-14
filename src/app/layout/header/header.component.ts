@@ -111,13 +111,13 @@ export class HeaderComponent
 
     this.userName = this.token.getUsername();
     if (userRole === "Admin") {
-      this.homePage = "admin/dashboard/main";
+      this.homePage = "admin/dashboard/listasset";
     } else if (userRole === "Client") {
       this.homePage = "client/dashboard";
     } else if (userRole === "Employee") {
       this.homePage = "employee/dashboard";
     } else {
-      this.homePage = "admin/dashboard/main";
+      this.homePage = "admin/dashboard/listasset";
     }
 
     this.langStoreValue = localStorage.getItem("lang");
