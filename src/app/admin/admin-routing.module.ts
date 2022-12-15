@@ -14,9 +14,16 @@ const routes: Routes = [
       import("./employees/employees.module").then((m) => m.EmployeesModule),
   },
   {
+
     path: "transferasset",
     loadChildren: () =>
       import("./transferasset/transferasset.module").then((m) => m.TransferassetModule),
+  },
+  {
+    path: "audit",
+    loadChildren: () =>
+      import("./audit/audit.module").then((m) => m.AuditModule)
+
   },
 ];
 

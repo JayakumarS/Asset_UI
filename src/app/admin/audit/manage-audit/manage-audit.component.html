@@ -1,0 +1,119 @@
+
+
+
+
+      <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <form class="m-4" [formGroup]="docForm">
+
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>Start Date</mat-label>
+                  <input matInput [matDatepicker]="picker1" formControlName="startdate" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                  
+                </mat-form-field>
+              </div>
+              
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>End Date</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="enddate" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    
+                  </mat-form-field>
+                </div>
+        
+        
+            </div>
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                <mat-form-field   class="example-full-width form-control-sm" appearance="outline" >
+                  <mat-label>Audit Name</mat-label>
+                  <input matInput placeholder="audit name" formControlName="auditname" >
+                </mat-form-field>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Select some Option</mat-label>
+                    <mat-select formControlName="auditArray" multiple>
+                      <mat-option *ngFor="let auditArray of auditlist" [value]="auditArray.text" required>
+                        {{auditArray.text}}
+                      </mat-option>
+                      
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                 </div> 
+                  
+                 <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" >
+                  <button mat-raised-button color="primary" style ="margin-left: 40%; "(click)="onSubmit()" >save</button>
+                  </div>
+                  </div>
+                </form>
+         
+        </div>
+        </div>
+       
+
+        <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+        #exporter="matTableExporter">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <ng-container matColumnDef="startdate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
+            <mat-cell *matCellDef="let row" >{{row.startdate}}</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="enddate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.enddate}}</mat-cell>
+          </ng-container>
+           
+              
+          <ng-container matColumnDef="auditname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Audit Name</mat-header-cell>
+            <mat-cell *matCellDef="let row" >{{row.auditname}}</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="auditArray">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Audit Fields</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.auditArray}}</mat-cell>
+          </ng-container>
+      
+         
+       
+                  <!-- actions -->
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                        class="tbl-action-btn">
+                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                      </button>
+                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                        (click)="deleteItem(row)" class="tbl-action-btn">
+                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+        
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+       <!-- context menu end -->
+        <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+      [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+      No results
+    </div>
+    <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+
+
