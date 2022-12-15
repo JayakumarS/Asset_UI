@@ -32,7 +32,7 @@ export class ManageAuditComponent implements OnInit {
       "enddate",
       "auditname",
       "auditArray",
-      "actions"
+      
     ];
   auditlist:[""];
 
