@@ -23,12 +23,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ComponentsModule } from 'src/app/shared/components/components.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { DeleteauditComponent } from './manage-audit/deleteaudit/deleteaudit.component';
 
 
 
 @NgModule({
   declarations: [
     ManageAuditComponent,
+    DeleteauditComponent,
    
   ],
   imports: [
@@ -53,7 +58,12 @@ import { MatMenuModule } from '@angular/material/menu';
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    ComponentsModule,
+    SharedModule,
+  
     
 
     

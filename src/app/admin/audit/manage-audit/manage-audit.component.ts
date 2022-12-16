@@ -16,6 +16,7 @@ import { Auditresultbean } from '../audit-result-bean';
 
 import { Addaudit } from '../audit.model';
 import { AuditService } from '../audit.service';
+import { DeleteauditComponent } from './deleteaudit/deleteaudit.component';
 
 @Component({
   selector: 'app-manage-audit',
@@ -32,7 +33,7 @@ export class ManageAuditComponent implements OnInit {
       "enddate",
       "auditname",
       "auditArray",
-      
+      "actions"
     ];
   auditlist:[""];
 
@@ -101,10 +102,45 @@ export class ManageAuditComponent implements OnInit {
   
     editCall(row) {
   
-      this.router.navigate(['/master/designation-Master/add-designation/'+row.id]);
+      this.router.navigate(['/admin/audit/auditlist/'+row.id]);
   
     }
-   
+    deleteItem(row){
+
+      this.id = row.id;
+      let tempDirection;
+      if (localStorage.getItem("isRtl") === "true") {
+        tempDirection = "rtl";
+      } else {
+        tempDirection = "ltr";
+      }
+      const dialogRef = this.dialog.open(DeleteauditComponent, {
+        height: "270px",
+        width: "400px",
+        data: row,
+        direction: tempDirection,
+      });
+      this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+        
+        this.loadData();
+          this.showNotification(
+            "snackbar-success",
+            "Delete Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+        
+        // else{
+        //   this.showNotification(
+        //     "snackbar-danger",
+        //     "Error in Delete....",
+        //     "bottom",
+        //     "center"
+        //   );
+        // }
+      });
+  
+    }
   
   ngOnInit(): void {
     this.docForm = this.fb.group({
@@ -112,6 +148,7 @@ export class ManageAuditComponent implements OnInit {
       startdate:[""],
       enddate:[""],
       auditname:["", [Validators.required]],
+      id:[""]
 
    
     });
@@ -135,14 +172,93 @@ export class ManageAuditComponent implements OnInit {
  }
 
  onSubmit(){
+  
   this.addaudit = this.docForm.value;
     console.log(this.addaudit);
     this.auditservice.saveaudit(this.addaudit);
+    this.showNotification(
+      "snackbar-success",
+      "Add Record Successfully...!!!",
+      "bottom",
+      "center"
+    );
+    this.loadData();
+  //  location.reload()
+    // this.router.navigate(['/admin/audit/auditlist/0']);
     
-    this.router.navigate([]);
   }
-  fetchDetails(id:any){
+
+  fetchDetails(id:number){
+    this.httpService.get(this.auditservice.editDesignationMaster+"?id="+id).subscribe((res: any)=> {
+      console.log(id);
+
+      this.docForm.patchValue({
+        
+        'startdate': res.manageAuditBean.startdate,
+        'enddate': res.manageAuditBean.enddate,
+        'auditname': res.manageAuditBean.auditname,
+        'auditArray': res.manageAuditBean.auditArray,
+        'id': res.manageAuditBean.id,
+   
+   
+     })
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
+      console.log(id);
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );*/
+  
+
   }
+  update(){
+
+    this.addaudit = this.docForm.value;
+    this.auditservice.AuditUpdate(this.addaudit);
+    this.showNotification(
+      "snackbar-success",
+      "Edit Record Successfully...!!!",
+      "bottom",
+      "center"
+    );
+   
+    
+    this.reset()
+   
+
+    // this.router.navigate(['/admin/audit/auditlist/0']);
+   
+
+  }
+
+  reset(){
+    this.docForm = this.fb.group({
+      startdate: [""],
+      enddate: [""],
+      auditname: [""],
+      auditArray: [""],
+      id:[""]
+      
+  })
+}
+  onCancel(){
+    this.docForm = this.fb.group({
+      startdate: [""],
+      enddate: [""],
+      auditname: [""],
+      auditArray: [""],
+      
+  })
+    this.router.navigate(['/admin/audit/auditlist/0']);
+
+  }
+
     showNotification(colorName, text, placementFrom, placementAlign) {
       this.snackBar.open(text, "", {
         duration: 2000,
@@ -200,7 +316,7 @@ export class ManageAuditComponent implements OnInit {
           .slice()
           .filter((addaudit: Addaudit) => {
             const searchStr = (
-              
+              addaudit.id+
               addaudit.startdate +
               addaudit.enddate +
               addaudit.auditname +
@@ -232,7 +348,9 @@ export class ManageAuditComponent implements OnInit {
         let propertyA: number | string = "";
         let propertyB: number | string = "";
         switch (this._sort.active) {
-        
+          case "id":
+            [propertyA, propertyB] = [a.id, b.id];
+            break;
           case "startdate":
             [propertyA, propertyB] = [a.startdate, b.startdate];
             break;
