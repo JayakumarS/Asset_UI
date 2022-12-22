@@ -11,6 +11,7 @@ import { Addaudit } from "./audit.model";
     providedIn: 'root'
   })
   export class AuditService extends UnsubscribeOnDestroyAdapter{
+    DeleteauditComponent: string;
     addCreditFiles<T>(addCreditFiles: any, frmData: FormData) {
       throw new Error('Method not implemented.');
     }
@@ -28,6 +29,9 @@ import { Addaudit } from "./audit.model";
     // private auditfielslist = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/toppingList`;
     public activityserviceurl= `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/auditfield`;
     private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/getList`;
+    public editDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/edit`;
+    private Deleteauditlist = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/delete`;
+    private AuditUpdatelist = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/update`;
 
     get data(): Addaudit[] {
       return this.dataChange.value;
@@ -58,5 +62,25 @@ import { Addaudit } from "./audit.model";
           console.log(error.name + " " + error.message);
         }
       );
+    }
+
+    DeleteAudit(id: any): void {
+      this.httpService.get(this.Deleteauditlist+"?id="+id).subscribe(data => {
+        console.log(id);
+        },
+        (err: HttpErrorResponse) => {
+           // error code here
+        }
+      );
+    }
+    AuditUpdate(addaudit: Addaudit): void {
+      this.dialogData = addaudit;
+      this.httpService.post<Addaudit>(this.AuditUpdatelist, addaudit).subscribe(data => {
+        console.log(data);
+        //this.dialogData = employees;
+        },
+        (err: HttpErrorResponse) => {
+          
+      });
     }
   }

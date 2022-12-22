@@ -5,7 +5,7 @@ import { ManageAuditComponent } from './manage-audit/manage-audit.component';
 const routes: Routes = [
 
   {
-    path:"list-designation",
+    path:"auditlist/:id",
     component:ManageAuditComponent,
   },
 ];

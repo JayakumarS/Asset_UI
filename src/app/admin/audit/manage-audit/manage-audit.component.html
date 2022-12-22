@@ -5,10 +5,11 @@
       <div class="row clearfix">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <form class="m-4" [formGroup]="docForm">
-
+            <h2 _ngcontent-nrk-c304="" style="padding-bottom: 5px; padding-top: 5px; color: #F6682F;">Manage Audit</h2>
             <div class="row">
-              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left: 25%;">
+                <mat-form-field class="example-width form-control-sm" appearance="outline">
                   <mat-label>Start Date</mat-label>
                   <input matInput [matDatepicker]="" formControlName="startdate" required>
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -17,8 +18,8 @@
                 </mat-form-field>
               </div>
               
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left: -30%;">
+                  <mat-form-field class="example-width form-control-sm" appearance="outline">
                     <mat-label>End Date</mat-label>
                     <input matInput [matDatepicker]="picker2" formControlName="enddate" required>
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -26,18 +27,18 @@
                     
                   </mat-form-field>
                 </div>
-        
+              <!-- </div> -->
         
             </div>
           <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                <mat-form-field   class="example-full-width form-control-sm" appearance="outline" >
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left:25%;">
+                <mat-form-field   class="example-width form-control-sm" appearance="outline" style="width:245px" >
                   <mat-label>Audit Name</mat-label>
                   <input matInput placeholder="audit name" formControlName="auditname" >
                 </mat-form-field>
               </div>
-              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3"  style="margin-left: -30%;">
+                <mat-form-field  class="example-width form-control-sm" appearance="outline" style="width:300px">
                     <mat-label>Select some Option</mat-label>
                     <mat-select formControlName="auditArray" multiple>
                       <mat-option *ngFor="let auditArray of auditlist" [value]="auditArray.text" required>
@@ -51,7 +52,11 @@
                   
                  <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" >
-                  <button mat-raised-button color="primary" style ="margin-left: 40%; "(click)="onSubmit()" >save</button>
+                    <button *ngIf="!edit" mat-raised-button color="primary" style ="margin-left: 38%; "(click)="onSubmit()" >save</button>
+                    <button *ngIf="edit" mat-raised-button color="primary" style ="margin-left: 38%; "(click)="update()" >update</button>
+                    &nbsp;
+                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
                   </div>
                   </div>
                 </form>
