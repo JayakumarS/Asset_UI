@@ -24,11 +24,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ListScheduleActivityComponent } from './list-schedule-activity/list-schedule-activity.component';
+import { DeleteScheduleActivityComponent } from './list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component';
 
 
 @NgModule({
   declarations: [
-    AddScheduleActivityComponent
+    AddScheduleActivityComponent,
+    ListScheduleActivityComponent,
+    DeleteScheduleActivityComponent
   ],
   imports: [
     CommonModule,

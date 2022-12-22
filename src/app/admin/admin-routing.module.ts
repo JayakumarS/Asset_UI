@@ -14,10 +14,9 @@ const routes: Routes = [
       import("./employees/employees.module").then((m) => m.EmployeesModule),
   },
   {
-
-    path: "transferasset",
+    path: "scheduler",
     loadChildren: () =>
-      import("./transferasset/transferasset.module").then((m) => m.TransferassetModule),
+      import("./schedule-activity/schedule-activity.module").then((m) => m.ScheduleActivityModule),
   },
   {
     path: "audit",

@@ -100,9 +100,7 @@ export class AddLocationComponent implements OnInit {
  onCancel(){
      this.router.navigate(['/master/location/listLocation']);
 }
-  reset(){
-    
-  }
+
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
@@ -180,6 +178,16 @@ export class AddLocationComponent implements OnInit {
     );
     this.router.navigate(['/master/location/listLocation']);
 
+  }
+
+  reset(){
+    this.docForm = this.fb.group({
+      locationCode: [""],
+      region: [""],
+      country: [""],
+      active: [""],
+      
+    });
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

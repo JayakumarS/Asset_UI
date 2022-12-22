@@ -1,33 +1,34 @@
 import { formatDate } from "@angular/common";
 export class ScheduleActivityMaster {
-  [x: string]: any;
+  
   id: number;
-  ActivityType: number;
-  Location: string;
-  UserGroup: string;
-  Description: string;
-  Assignee: string;
-  AttachFiles: string;
-  Occurs: string;
-  StartDate: any;
-  EndDate: any;
-  ActivityReminders: string;
-  CC: string;
+  activityType: string;
+  location: string;
+  userGroup: string;
+  description: string;
+  assignee: string;
+  attachFiles: string;
+  occurs: string;
+  startDate: any;
+  endDate: any;
+  activityReminders: string;
+  cc: string;
+  Success: boolean;
 
   constructor(ScheduleActivityMaster) {
     {
       this.id = ScheduleActivityMaster.id || this.getRandomID();
-      this.ActivityType = ScheduleActivityMaster.ActivityType || "";
-      this.Location = ScheduleActivityMaster.Location || "";
-      this.UserGroup = ScheduleActivityMaster.UserGroup || "";
-      this.Description = ScheduleActivityMaster.Description || "";
-      this.Assignee = ScheduleActivityMaster.Assignee || "";
-      this.AttachFiles = ScheduleActivityMaster.AttachFiles || "";
-      this.Occurs = ScheduleActivityMaster.Occurs || "";
-      this.StartDate = ScheduleActivityMaster.StartDate || "";
-      this.EndDate = ScheduleActivityMaster.EndDate || "";
-      this.ActivityReminders = ScheduleActivityMaster.ActivityReminders || "";
-      this.CC = ScheduleActivityMaster.CC || ""
+      this.activityType = ScheduleActivityMaster.activityType || "";
+      this.location = ScheduleActivityMaster.location || "";
+      this.userGroup = ScheduleActivityMaster.userGroup || "";
+      this.description = ScheduleActivityMaster.description || "";
+      this.assignee = ScheduleActivityMaster.assignee || "";
+      this.attachFiles = ScheduleActivityMaster.attachFiles || "";
+      this.occurs = ScheduleActivityMaster.occurs || "";
+      this.startDate = ScheduleActivityMaster.startDate || "";
+      this.endDate = ScheduleActivityMaster.endDate || "";
+      this.activityReminders = ScheduleActivityMaster.activityReminders || "";
+      this.cc = ScheduleActivityMaster.CC || ""
     }
   }
   public getRandomID(): string {

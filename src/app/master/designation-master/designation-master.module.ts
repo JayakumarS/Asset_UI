@@ -32,7 +32,8 @@ import { DeleteDesignationMasterComponent } from './list-desingnation-master/del
   declarations: [
     AddDesingnationMasterComponent,
     ListDesingnationMasterComponent,
-    DeleteDesignationMasterComponent
+    DeleteDesignationMasterComponent,
+  
   ],
   imports: [
     CommonModule,

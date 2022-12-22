@@ -11,24 +11,60 @@
             <div class="body">
               <form class="m-4" [formGroup]="docForm" >
                 <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>Activity Type</label>
-                </div>
-                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="ActivityType" required>
-                    </mat-form-field>
-                  </div> 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>Location</label>
+                    <label>ActivityType</label>
                 </div> 
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-select formControlName="activityType" >
+                      <mat-option *ngFor="let title of activityList" [value]="title.id" required>
+                        {{title.text}}
+                      </mat-option>
+                    </mat-select>
+                    <!-- <mat-error *ngIf="docForm.get('customer').hasError('required')">
+                      Customer is required
+                    </mat-error> -->
+                  </mat-form-field>
+                
 
-                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                </div>
+                  <!-- <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="Location" required>
+                      <mat-option *ngFor="let title of locationList" [value]="title.id">
+                        {{title.text}} 
+                      
+                      </mat-option> 
                     </mat-form-field>
-                  </div>  
+                  </div>   --> 
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label style="
+                    margin-left: 65px;
+                ">Location</label>
+                </div> 
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-select formControlName="location" >
+                      <mat-option *ngFor="let title of locationList" [value]="title.id" required>
+                        {{title.text}}
+                      </mat-option>
+                    </mat-select>
+                    <!-- <mat-error *ngIf="docForm.get('customer').hasError('required')">
+                      Customer is required
+                    </mat-error> -->
+                  </mat-form-field>
                 
+
+                </div>
+                  <!-- <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="Location" required>
+                      <mat-option *ngFor="let title of locationList" [value]="title.id">
+                        {{title.text}} 
+                      
+                      </mat-option> 
+                    </mat-form-field>
+                  </div>   -->
                 </div>
 
                 <div class="row">
@@ -38,17 +74,19 @@
               
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="UserGroup" required>
+                        <input matInput formControlName="userGroup" required>
                       </mat-form-field>
                     </div>  
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label>Description</label>
+                        <label style="
+                        margin-left: 65px;
+                    ">Description</label>
                     </div>
   
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="Description" required>
+                        <input matInput formControlName="description" required>
                       </mat-form-field>
                     </div>  
                   
@@ -62,17 +100,19 @@
               
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="Assignee" required>
+                        <input matInput formControlName="assignee" required>
                       </mat-form-field>
                     </div>  
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label>Attach Files</label>
+                        <label style="
+                        margin-left: 65px;
+                    ">Attach Files</label>
                     </div>
   
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="AttachFiles" required>
+                        <input matInput formControlName="attachFiles" required>
                       </mat-form-field>
                     </div>  
                   
@@ -83,50 +123,139 @@
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                         <label>Occurs</label>
                     </div>
-              
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="Occurs" required>
-                      </mat-form-field>
-                    </div>    
+                    <mat-form-field class="example-full-width form-control-sm"
+                    appearance="outline">
+                    <mat-select
+                        formControlName="occurs">
+                        <mat-option [value]="'WEEKLY'">
+                            WEEKLY
+                        </mat-option>
+                        <mat-option [value]="'MONTHLY'">
+                          MONTHLY
+                      </mat-option>
+                      <mat-option [value]="'YEARLY'">
+                        YEARLY
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>  
+                </div>  
                   
                   </div>
 
                   <div class="row">
-
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                         <label>Start Date</label>
                     </div>
               
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="StartDate" required>
+                        <!-- <mat-label>Expected Date Of Delivery</mat-label> -->
+                        <input matInput [matDatepicker]="picker1" formControlName="startdateObj"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" id="startdate" 
+                                                 (dateChange)="getDateString($event, 'startdate',0)"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="docForm.get('startdateObj').hasError('required')">
+                          Expected Date Of Delivery is required
+                        </mat-error>
                       </mat-form-field>
                     </div> 
-                    
+
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label>End Date</label>
+                        <label style="
+                        margin-left: 65px;
+                    ">End Date</label>
                     </div>
-                    
+  
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="EndDate" required>
-                        </mat-form-field>
-                      </div>
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <!-- <mat-label>Expected Date Of Delivery</mat-label> -->
+                        <input matInput [matDatepicker]="picker" formControlName="enddateObj"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" id="enddate" 
+                                                 (dateChange)="getDateString($event, 'enddate',0)"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="docForm.get('enddateObj').hasError('required')">
+                          Expected Date Of Delivery is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div> 
                   
                   </div>
+
+                  <!-- <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>Start Date</label>
+                    </div>
+              
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Expected Date Of Delivery</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="startdateObj"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" id="startdate" 
+                                                 (dateChange)="getDateString($event, 'startdate',0)"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="docForm.get('startdateObj').hasError('required')">
+                          Expected Date Of Delivery is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-width form-control-sm" appearance="outline">
+                        <mat-label></mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="startdate" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        
+                      </mat-form-field>
+                    </div>
+                    
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label style="
+                        margin-left: 65px;
+                    ">End Date</p>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label>End Date</label>
+                  </div>
+                    
+                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-width form-control-sm" appearance="outline">
+                        <mat-label></mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="enddate" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        
+                      </mat-form-field>
+                    </div>
+                  
+                  </div> -->
 
                   <div class="row">
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                         <label>Activity Reminders</label>
                     </div>
-              
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="ActivityReminders" required>
-                      </mat-form-field>
-                    </div>    
+                    <mat-form-field class="example-full-width form-control-sm"
+                    appearance="outline">
+                    <mat-select
+                        formControlName="activityReminders">
+                        <mat-option [value]="'WEEKLY'">
+                            WEEKLY
+                        </mat-option>
+                        <mat-option [value]="'MONTHLY'">
+                          MONTHLY
+                      </mat-option>
+                      <mat-option [value]="'YEARLY'">
+                        YEARLY
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>  
+                </div>  
                   
                   </div>
 
@@ -138,7 +267,7 @@
               
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="CC" required>
+                        <input matInput formControlName="cc" required>
                       </mat-form-field>
                     </div>    
                   
@@ -146,12 +275,12 @@
               
                 <div class="row"> 
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <button class="btn-space" mat-raised-button
-                    color="accent" style="margin-left: 36%;background-color: #34d034;"(click)="submit()">Submit</button>
-                    <button  class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;"(click)="Update()">Update</button>
-                    <button class="btn-space" mat-raised-button
-                      color="primary"(click)="Reset()" >Reset</button>
-                    <button color="warn"  type="button" mat-raised-button  (click)="Cancel()">Cancel</button>
+                    <button *ngIf="!edit" (click) = "submit()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    <button (click) = "reset()" class="btn-space" mat-raised-button
+                      color="primary" >Reset</button>
+                    <button (click) = "onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
                   </div>
                 </div>
               </form>
