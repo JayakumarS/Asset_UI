@@ -31,10 +31,12 @@ import { SharedModule } from "src/app/shared/shared.module";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { ListAssetComponent } from './list-asset/list-asset.component';
+import { InventoryComponent } from './inventory/inventory.component';
+import { NotificationService } from "src/app/core/service/notification.service";
 
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, ListAssetComponent],
+  declarations: [MainComponent, Dashboard2Component, ListAssetComponent, InventoryComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -59,7 +61,7 @@ import { ListAssetComponent } from './list-asset/list-asset.component';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSnackBarModule,
+    
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
@@ -79,5 +81,6 @@ import { ListAssetComponent } from './list-asset/list-asset.component';
     
     
   ],
+  providers: [NotificationService],
 })
 export class DashboardModule {}

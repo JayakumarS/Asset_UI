@@ -1,6 +1,5 @@
 export class MainResultBean {
-    Success: boolean;
-    // countryMasterDetails: [];
-    assetList:[];
-    //categoryName: [];
+    Success: boolean;    
+    assetList:[];    
+    categoryDropdown:[];
 }

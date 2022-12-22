@@ -12,12 +12,12 @@ const routes: Routes = [
       import("./currency-master/currency-master.module").then((m) => m.CurrencyMasterModule),
   },
   {
-    path: "country-Master",
+    path: "category-Master",
     loadChildren: () =>
       import("./country-master/country-master.module").then((m) => m.CountryMasterModule),
   },
   {
-    path: "designation-Master",
+    path: "activity-Master",
     loadChildren: () =>
       import("./designation-master/designation-master.module").then((m) => m.DesignationMasterModule),
   },
@@ -27,7 +27,7 @@ const routes: Routes = [
       import("./department-master/department-master.module").then((m) => m.DepartmentMasterModule),
   },
   {
-    path: "commodity",
+    path: "vendor",
     loadChildren: () =>
     import("./commodity/commodity.module").then((m) => m.CommodityModule),
   },

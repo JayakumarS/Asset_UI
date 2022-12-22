@@ -4,6 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { MainComponent } from "./main/main.component";
 import { Dashboard2Component } from "./dashboard2/dashboard2.component";
 import { ListAssetComponent } from "./list-asset/list-asset.component";
+import { InventoryComponent } from "./inventory/inventory.component";
 const routes: Routes = [
   {
     path: "",
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: "listasset",
     component: ListAssetComponent,
+  },
+  {
+    path: "inventory",
+    component: InventoryComponent,
   },
   { path: "**", component: Page404Component },
 ];

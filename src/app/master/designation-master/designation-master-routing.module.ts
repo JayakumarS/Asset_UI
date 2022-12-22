@@ -4,11 +4,11 @@ import { AddDesingnationMasterComponent} from './add-desingnation-master/add-des
 import { ListDesingnationMasterComponent } from './list-desingnation-master/list-desingnation-master.component';
 const routes: Routes = [
 {
-  path:"add-designation/:id",
+  path:"add-activity/:id",
   component:AddDesingnationMasterComponent,
 },
 {
-  path:"list-designation",
+  path:"list-activity",
   component:ListDesingnationMasterComponent,
 },
 

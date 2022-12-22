@@ -7,11 +7,11 @@ import { AddCountryMasterComponent } from './add-country-master/add-country-mast
 import { ListCountryMasterComponent } from './list-country-master/list-country-master.component';
 const routes: Routes = [
   {
-    path: "add-CountryMaster/:id",
+    path: "add-CategoryMaster/:id",
     component: AddCountryMasterComponent,
   },
   {
-    path: "list-CountryMaster",
+    path: "list-CategoryMaster",
     component: ListCountryMasterComponent,
   }
 ];

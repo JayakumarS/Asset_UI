@@ -1,13 +1,23 @@
 import { formatDate } from "@angular/common";
 export class main {
   id: number;
- 
-
   assetName: string;
   assetCode: string;
   assetLocation: string;
   category: string;
   status: string;
+
+  //inventory
+      item: string;
+      invCategory:number;
+      itemCode:string;
+      price:string;
+      unit:string;
+      description:string;
+      uploadFiles:string;
+      hsnCode:string;
+      isReceivable: string;
+      Success: boolean;
   
   constructor(main) {
     {
@@ -17,6 +27,18 @@ export class main {
       this.assetLocation = main.assetLocation || "";
       this.category = main.category || "";
       this.status = main.status || "";
+      //inventory
+      this.id = main.id || this.getRandomID();
+      this.item = main.item || "";
+      this.invCategory = main.invCategory || "";
+      this.itemCode = main.itemCode || "";
+      this.price = main.price || "";
+      this.unit = main.unit || "";
+      this.description = main.description || "";
+      this.uploadFiles = main.uploadFiles || "";
+      this.hsnCode = main.hsnCode || "";
+      this.isReceivable = main.isReceivable || "";
+
     }
   }
   public getRandomID(): string {

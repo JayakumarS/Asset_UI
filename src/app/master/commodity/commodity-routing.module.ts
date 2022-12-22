@@ -5,11 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: "addCommodity/:id",
+    path: "addVendor/:id",
     component: AddCommodityComponent,
   },
   {
-    path: "listCommodity",
+    path: "listVendor",
     component: ListCommodityComponent,
   },
 ];
