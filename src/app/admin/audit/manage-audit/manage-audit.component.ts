@@ -1,7 +1,7 @@
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator } from '@angular/material/paginator';
@@ -14,7 +14,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { Auditresultbean } from '../audit-result-bean';
 
 
-import { Addaudit } from '../audit.model';
+import { Addaudit, Aidaudit } from '../audit.model';
 import { AuditService } from '../audit.service';
 import { DeleteauditComponent } from './deleteaudit/deleteaudit.component';
 
@@ -36,15 +36,26 @@ export class ManageAuditComponent implements OnInit {
       "actions"
     ];
   auditlist:[""];
+  loacationlist:[""];
+  departmentlist:[""];
+  categorylist:[""];
+
+
 
   
 
   
   docForm: FormGroup;
+  Formdoc: FormGroup;
+  billOfMaterialDtlObjBean: FormArray;
   requestId: any;
   edit:boolean=false;
    addaudit : Addaudit;
    auditArray: any;
+   aidaudit : Aidaudit;
+  
+   
+
 
  
   subs: any;
@@ -152,10 +163,90 @@ export class ManageAuditComponent implements OnInit {
 
    
     });
+
+    this.Formdoc = this.fb.group({
+      uploadImg:[""],
+      auditfile:[""],
+      auditArraya: [""],
+      startdatea:[""],
+      enddatea:[""],
+      auditnamea:["", [Validators.required]],
+
+
+       billOfMaterialDtlObjBean: this.fb.array([
+        this.fb.group({
+          category:["", [Validators.required]],
+          location:[""],
+          department:[""],
+          audituser:[""],
+          aidid:[""],
+          id:[""]
+         
+         
+        }) 
+       ])
+
+   
+    });
+
     this.loadData();
     this.httpService.get<Auditresultbean>(this.auditservice.activityserviceurl).subscribe(
       (data) => {
         this.auditlist = data.auditfielslist;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    ); 
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+       this.edit=true;
+       //For User login Editable mode
+       this.fetchDetails(this.requestId) ;
+      }
+    });
+
+    this.loadData();
+    this.httpService.get<Auditresultbean>(this.auditservice.categoryurl).subscribe(
+      (data) => {
+        this.categorylist = data.categoryfieldlist;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    ); 
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+       this.edit=true;
+       //For User login Editable mode
+       this.fetchDetails(this.requestId) ;
+      }
+    });
+
+    this.loadData();
+    this.httpService.get<Auditresultbean>(this.auditservice.locationurl).subscribe(
+      (data) => {
+        this.loacationlist = data.loacationfieldlist;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    ); 
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+       this.edit=true;
+       //For User login Editable mode
+       this.fetchDetails(this.requestId) ;
+      }
+    });
+
+    this.loadData();
+    this.httpService.get<Auditresultbean>(this.auditservice.depturl).subscribe(
+      (data) => {
+        this.departmentlist = data.departmentfieldlist;
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -186,6 +277,48 @@ export class ManageAuditComponent implements OnInit {
   //  location.reload()
     // this.router.navigate(['/admin/audit/auditlist/0']);
     
+  }
+
+  onSubmitaid(){
+  
+    this.aidaudit = this.Formdoc.value;
+      console.log(this.aidaudit);
+      this.auditservice.saveauditAided(this.aidaudit);
+      this.showNotification(
+        "snackbar-success",
+        "Add Record Successfully...!!!",
+        "bottom",
+        "center"
+      );
+      this.loadData();
+     location.reload()
+      // this.router.navigate(['/admin/audit/auditlist/0']);
+      
+    }
+
+
+  addRow(){
+    let bomDtlArray = this.Formdoc.controls.billOfMaterialDtlObjBean as FormArray;
+    let arraylen = bomDtlArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      category:["", [Validators.required]],
+          location:[""],
+          department:[""],
+          audituser:[""],
+          aidid:[""],
+    })
+    bomDtlArray.insert(arraylen,newUsergroup);
+
+  }
+
+  removeRow(index){
+
+   
+  let bomDtlArray = this.Formdoc.controls.billOfMaterialDtlObjBean as FormArray;
+  bomDtlArray.removeAt(index);
+  
+    
+
   }
 
   fetchDetails(id:number){
@@ -277,8 +410,48 @@ export class ManageAuditComponent implements OnInit {
       this.contextMenu.menu.focusFirstItem("mouse");
       this.contextMenu.openMenu();
     }
+
+    // File upload
+getCreditFile(event) {
+  var docfile = event.target.files[0];
+  var fileExtension = docfile.name;
+  var frmData: FormData = new FormData();
+  frmData.append("file", docfile);
+  frmData.append("fileName",fileExtension);
+  console.log(frmData);
+  
+  // var data = this.httpService.postData(this.fileUploadService.addFiles,frmData);
+  // console.log(data);
+  
+  this.httpService.post<any>(this.auditService.addAssetUploadFiles, frmData).subscribe(data => {
+      console.log(data);
+      if(data.success){
+        this.Formdoc.patchValue({
+          'auditfile': data.filePath     
+         
+       })
+      }
+      else{
+        this.showNotification(
+          "snackbar-success",
+          "Edit Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+
+        
+      }
+      
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+
   }
   
+  }
+  
+
   
   export class ExampleDataSource extends DataSource<Addaudit> {
     filterChange = new BehaviorSubject("");
@@ -376,3 +549,6 @@ export class ManageAuditComponent implements OnInit {
     }
   }
   
+  function getCreditFile(event: MouseEvent) {
+    throw new Error('Function not implemented.');
+  } 
