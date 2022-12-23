@@ -42,7 +42,7 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
   locationList:[];
   assetList:[];
   codeList:[];
-  gridList: any = [];
+  gridList: boolean = false
   docForm:FormGroup;
   traansferService:TraansferService
   files: any;
@@ -190,6 +190,7 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
     this.traansferService=this.docForm.value;
    // console.log(this.traansferService) 
     this.httpService.get(this.transferservice.transferCodeAll + "?transfer=" + this.docForm.controls.assetCode.value).subscribe((res: any) => {
+     
        console.log(res);
        this.gridList=res.codeList;
   
