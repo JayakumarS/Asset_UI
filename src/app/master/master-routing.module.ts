@@ -17,7 +17,7 @@ const routes: Routes = [
       import("./country-master/country-master.module").then((m) => m.CountryMasterModule),
   },
   {
-    path: "activity-Master",
+    path: "Activity-master",
     loadChildren: () =>
       import("./designation-master/designation-master.module").then((m) => m.DesignationMasterModule),
   },
