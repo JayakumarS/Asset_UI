@@ -124,7 +124,6 @@ export class AddScheduleActivityComponent implements OnInit {
       console.log(error.name + " " + error.message);
     }
   );
-
   this.httpService.get<ScheduleResultBean>(this.scheduleActivityService.activityserviceurl).subscribe(
     (data) => {
       this.activityList = data.activityList;

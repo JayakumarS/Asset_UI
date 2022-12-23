@@ -16,6 +16,8 @@ import { AddAssetResultBean } from "../add-asset-result-bean";
 import { NotificationService } from "src/app/core/service/notification.service";
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDialog } from "@angular/material/dialog";
+import { EmployeePopupComponent } from "../employee-popup/employee-popup.component";
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -55,10 +57,11 @@ export class AddEmployeeComponent implements OnInit{
   locationDdList=[];
   departmentDdList=[]
   
+  
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
     public router:Router,private snackBar: MatSnackBar,public notificationService:NotificationService,
     private addAssetService:AddAssetService,private countryMasterService:CountryMasterService,
-    private cmnService:CommonService) {
+    private cmnService:CommonService,public dialog: MatDialog,) {
     this.docForm = this.fb.group({
 
       
@@ -143,6 +146,12 @@ this.httpService.get<AddAssetResultBean>(this.addAssetService.departmentDropdown
     this.addAsset = this.docForm.value;
     console.log(this.addAsset);
     this.addAssetService.addAsset(this.addAsset,this.router,this.notificationService);
+    const dialogRef = this.dialog.open(EmployeePopupComponent, {
+      height: "130px",
+      width: "600px",
+      // data: row,
+      // direction: tempDirection,
+    });
    
     //this.router.navigate(['/admin/country-Master/list-CountryMaster']);
   }

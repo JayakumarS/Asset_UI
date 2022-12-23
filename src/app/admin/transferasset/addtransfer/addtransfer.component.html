@@ -1,120 +1,285 @@
 <section class="content">
-  <div class="content-block">
-    <div class="block-header">
-      <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Transfer Asset'" [items]="['admin']" [active_item]="'Transfer Asset'">
-      </app-breadcrumb>
-    </div>
-    <div class="row clearfix ">
+  <div class="block-header">
+    <app-breadcrumb [title]="'Transfer Asset'" [items]="['admin']" [active_item]="'Transfer Asset'">
+    </app-breadcrumb>
+  </div>
+  <div class="card">
+    <div class="body" style="padding-left: 110px; padding: 2%;">
+      <form class="m-4" [formGroup]="docForm">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-        <div class="box-shadow">
-          <div class="card">
-            <div class="body" style="padding-left: 110px;">
-              <form class="m-4" [formGroup]="docForm">
-                <div class="row">
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <mat-label><b></b></mat-label>
-                    <label>Trasfer Status*</label>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <mat-form-field appearance="fill">
-                   
-                      <mat-select formControlName="status" required>
-                        <mat-option value="in wre">In wrw</mat-option>
-                        <mat-option value="Repair">Repair</mat-option>
-                        <mat-option value="Stock">Stock</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <label>Department</label>
-                  </div> 
-                  <div class="col-xl-3 col-lg-3 col-md-12 ,;-sm-12" style="margin-left:-37px">
-                    <mat-form-field appearance="fill">
-                      <mat-select formControlName="department" >
-                        <mat-option *ngFor="let title of transferList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div> 
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" style="margin-left: 5px;margin-left: 132px;">
+            <label>Asset Code</label>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left:-337px">
+            <mat-form-field appearance="fill">
+              <mat-select formControlName="assetCode">
+                <mat-option *ngFor="let title of codeList" [value]="title.id">
+                  {{title.text}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+            <button  color="primary" type="button" class="btn-space" (click)="onTransfer()"
+              mat-raised-button>Transfer</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+    
+      <br>
+    <!-- <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell" #exporter="matTableExporter">
+      <ng-container matColumnDef="asset_code">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ASSET CODE</mat-header-cell>
+        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.asset_code}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="asset_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ASSET NAME</mat-header-cell>
+        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.asset_name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="departments">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>DEPARTMENT</mat-header-cell>
+        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.departments}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="condition">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>CONDITION</mat-header-cell>
+        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.condition}}
+        </mat-cell>
+      </ng-container>
 
+      <ng-container matColumnDef="asset_location">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> LOCATION</mat-header-cell>
+        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.asset_location}}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)" [style.cursor]="'pointer'"
+        matRipple>
+      </mat-row>
+    </mat-table> -->
+
+    <div class="container">
+
+      <table id="excel-table" class="table table-striped">
+        <thead>
+            <tr>
+              <th style="background-color:#c1ddf5;">asset code </th>
+              <th style="background-color:#c1ddf5;">asset name </th>
+              <th style="background-color:#c1ddf5;">asset locatin</th>
+              <th style="background-color:#c1ddf5;">departments</th>
+              <th style="background-color:#c1ddf5;">condition</th>
+            </tr>
+        </thead>
+        <tbody>
+              <tr *ngFor="let item of gridList">
+                <td>{{item.text}}</td>
+                <td>{{item.asset_name}}</td>
+                <td>{{item.asset_location}}</td>
+                <td>{{item.departments}}</td>
+                <td>{{item.condition}}</td>
+
+
+                <td *ngFor="let item of cusList" (click)="splitUp(item.text)">0</td>
+              </tr>      
+        </tbody>
+      </table>
+  </div>
+    
+    <!-- <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+      <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+      </mat-progress-spinner>
+    </div> -->
+
+    <!-- <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+      [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+    </div> -->
+    <!-- <mat-menu #contextMenu="matMenu">
+      <ng-template matMenuContent let-item="item">
+        <button mat-menu-item (click)="addNew()">
+          <mat-icon>add_box</mat-icon>
+          <span>Add Record</span>
+        </button>
+        <button mat-menu-item (click)="editCall(item)">
+          <mat-icon>create</mat-icon>
+          <span>Edit Record</span>
+        </button>
+        <button mat-menu-item (click)="deleteItem(item.id,item)">
+          <mat-icon>delete</mat-icon>
+          <span>Delete Record</span>
+        </button>
+        <button mat-menu-item (click)="refresh()">
+          <mat-icon>refresh</mat-icon>
+          <span>Refresh Record</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>no_encryption</mat-icon>
+          <span>Disable</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
+          <mat-icon>list_alt</mat-icon>
+          <span> Nested Menu</span>
+        </button>
+      </ng-template>
+    </mat-menu> -->
+    <!-- <mat-menu #nestedmenu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>mail_outline</mat-icon>
+        <span>Item 1</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>call</mat-icon>
+        <span>Item 2</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>chat</mat-icon>
+        <span>Item 3</span>
+      </button>
+    </mat-menu> -->
+
+    <!-- <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+      [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+      No results
+    </div>
+    <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>  -->
+    <br>
+    <section class="content">
+      <div class="content-block">
+
+        <div class="row clearfix ">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="box-shadow">
+              <div class="card">
+                <div class="body" style="padding-left: 110px;">
+                  <form class="m-4" [formGroup]="docForm">
+                    <div class="row">
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                        <mat-label><b></b></mat-label>
+                        <label>Trasfer Status*</label>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                        <mat-form-field appearance="fill">
+                          <mat-select formControlName="status" required>
+                            <mat-option value="in wre">In wrw</mat-option>
+                            <mat-option value="Repair">Repair</mat-option>
+                            <mat-option value="Stock">Stock</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('status').hasError('required')">
+                            Trasfer Status is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                        <label>Department</label>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left:-37px">
+                        <mat-form-field appearance="fill">
+                          <mat-select formControlName="department">
+                            <mat-option *ngFor="let title of transferList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('department').hasError('required')">
+                            Department is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                        <label>Location*</label>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                        <mat-form-field appearance="fill">
+                          <mat-select formControlName="location" required>
+
+                            <mat-option *ngFor="let title1 of locationList" [value]="title1.id">
+                              {{title1.text}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('location').hasError('required')">
+                            Location is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                        <mat-label><b></b></mat-label>
+                        <label>Transfer To*</label>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: -42px;">
+                        <mat-form-field class="example-full-width form-control-sm" style="width: 204px;">
+                          <input matInput formControlName="transfer" required>
+                          <mat-error *ngIf="docForm.get('transfer').hasError('required')">
+                            Transfer To is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                        <label>Alloted Upto</label>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;width:215px;">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <input matInput [matDatepicker]="picker" formControlName="date" required>
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                          <mat-error>
+                            Alloted Upto Please select date
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 58px;">
+                        <label>Remarks*</label>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: -47px;">
+                        <mat-form-field class="example-full-width form-control-sm" style="width: 204px;">
+                          <input matInput formControlName="remarks" required>
+                          <mat-error *ngIf="docForm.get('remarks').hasError('required')">
+                            Remarks To is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                        <label>Uplode Files</label>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="width: 350px;">
+                        <mat-label><b></b></mat-label>
+                        <app-file-upload formControlName="files" (change)="getNonGSTFileDetails($event)">
+                        </app-file-upload>
+                        <a href="{{filePath}}{{files}}" target="_blank">{{files}}</a>
+                      </div>
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" style="margin-left:300px;">
+                        <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                          style="margin-left: 36%;background-color: #7b927b;">Submit</button>
+                        <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                          style="margin-left: 36%;background-color: #7b927b;">Update</button>
+                        <button color="primary" type="button" class="btn-space" (click)="onReset()"
+                          mat-raised-button>Reset</button>
+                        <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                          mat-raised-button>Cancel</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-
-                <div class="row">
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <label>Location*</label>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <mat-form-field appearance="fill">
-                      <mat-select formControlName="location" required>
-                        <mat-option *ngFor="let title of locationList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <label>Transfer To*</label>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: -42px;">
-                    <mat-form-field class="example-full-width form-control-sm" style="width: 204px;">
-                      <input matInput formControlName="transfer" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <label>Alloted Upto</label>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;width:215px;">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <input matInput [matDatepicker]="picker" formControlName="date" required>
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                      <mat-error>
-                        Alloted Upto Please select date
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 68px;">
-                    <label>Remarks*</label>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: -42px;">
-                    <mat-form-field class="example-full-width form-control-sm" style="width: 204px;">
-                      <input matInput formControlName="remarks" required>
-                    </mat-form-field>
-                  </div>
-
-                </div>
-
-                <div class="row">
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <label>Uplode Files</label>
-                  </div>
-                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                    <mat-label><b></b></mat-label>
-                    <app-file-upload formControlName="files" (change)="getFileDetails($event)"></app-file-upload>
-                    <a href="{{filePath}}{{nonVatFile}}"  target="_blank">{{nonVatFile}}</a>
-                  </div> 
-                </div>
-
-                <div class="row">
-                  <div class="col-xl- col-lg-3 col-md-12 col-sm-12 mb-3">
-                    <button (click)="onSubmit()" class="btn-space" mat-raised-button
-                      style="margin-left: 272%; color: #01070c; background-color: rgb(243 243 251);;">Save</button>
-                  </div>
-                  <div class="col-xl-3 col-lg- col-md-12 col-sm-12 mb-3">
-                    <button (click)="onCancel()" class="btn-space" mat-raised-button
-                      style="margin-left: 198%; color: #01070c; background-color: rgb(243 243 251);">Cancel</button>
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>

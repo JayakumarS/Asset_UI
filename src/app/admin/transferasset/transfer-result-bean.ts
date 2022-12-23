@@ -3,4 +3,9 @@ export class transferResultBean{
     getNonGSTFileDetails:string;
     transferList:[];
     locationList:[];
+    transferDetails:[];
+    transfercodeDetails:[];
+     codeList:[];
+     
+     
 }

@@ -26,11 +26,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FileUploadComponent } from 'src/app/shared/components/file-upload/file-upload.component';
+import { ListtransferComponent } from './listtransfer/listtransfer.component';
+import { DeletetransferComponent } from './listtransfer/deletetransfer/deletetransfer.component';
 
 
 @NgModule({
   declarations: [
-    AddtransferComponent
+    AddtransferComponent,
+    ListtransferComponent,
+    DeletetransferComponent
   ],
   imports: [
     CommonModule,

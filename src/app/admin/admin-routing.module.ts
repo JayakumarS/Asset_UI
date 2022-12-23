@@ -19,6 +19,12 @@ const routes: Routes = [
       import("./schedule-activity/schedule-activity.module").then((m) => m.ScheduleActivityModule),
   },
   {
+
+    path: "transferasset",
+    loadChildren: () =>
+      import("./transferasset/transferasset.module").then((m) => m.TransferassetModule),
+  },
+  {
     path: "audit",
     loadChildren: () =>
       import("./audit/audit.module").then((m) => m.AuditModule)

@@ -32,6 +32,7 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { CommonService } from "src/app/common-service/common.service";
 import { MatRadioModule } from "@angular/material/radio";
 import { NotificationService } from "src/app/core/service/notification.service";
+import { EmployeePopupComponent } from './employee-popup/employee-popup.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { NotificationService } from "src/app/core/service/notification.service";
     AddEmployeeComponent,
     EditEmployeeComponent,
     EmployeeProfileComponent,
+    EmployeePopupComponent,
   ],
   imports: [
     CommonModule,
