@@ -173,7 +173,7 @@ export class ManageAuditComponent implements OnInit {
       auditnamea:["", [Validators.required]],
 
 
-       billOfMaterialDtlObjBean: this.fb.array([
+       manageAuditDtlObjBean: this.fb.array([
         this.fb.group({
           category:["", [Validators.required]],
           location:[""],
@@ -298,7 +298,7 @@ export class ManageAuditComponent implements OnInit {
 
 
   addRow(){
-    let bomDtlArray = this.Formdoc.controls.billOfMaterialDtlObjBean as FormArray;
+    let bomDtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
     let arraylen = bomDtlArray.length;
     let newUsergroup: FormGroup = this.fb.group({
       category:["", [Validators.required]],
@@ -314,7 +314,7 @@ export class ManageAuditComponent implements OnInit {
   removeRow(index){
 
    
-  let bomDtlArray = this.Formdoc.controls.billOfMaterialDtlObjBean as FormArray;
+  let bomDtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
   bomDtlArray.removeAt(index);
   
     
