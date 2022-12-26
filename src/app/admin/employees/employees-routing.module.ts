@@ -11,7 +11,7 @@ const routes: Routes = [
     component: AllemployeesComponent,
   },
   {
-    path: "addAsset",
+    path: "addAsset/:id",
     component: AddEmployeeComponent,
   },
   {

@@ -62,12 +62,12 @@
                   </ng-container>
                   <ng-container matColumnDef="assetLocation">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetLocation}}
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.locationName}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="category">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.category}}
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.categoryName}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="status">

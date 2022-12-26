@@ -30,7 +30,8 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   //private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getList`;
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
   public getAssetList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getAssetList`;
-  
+  public deleteassetUrl = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/delete`;
+
   private saveCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/save`;
  // private saveAsset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/saveAsset`;
   public deleteCountryUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/delete`;
@@ -106,16 +107,24 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   );*/
   });
 }
-  deleteEmployees(categoryId : any): void {
-     this.httpService.get(this.deleteCountryUrl+"?categoryId="+categoryId).subscribe(data => {
-      console.log(categoryId);
+  deleteEmployees(id : any): void {
+     this.httpService.get(this.deleteCountryUrl+"id?="+id).subscribe(data => {
+      console.log(id);
       },
       (err: HttpErrorResponse) => {
          // error code here
       }
     );
   }
-
+  deleteasset(asset_id : any): void {
+    this.httpService.get(this.deleteassetUrl+"asset_id?="+asset_id).subscribe(data => {
+     console.log(asset_id);
+     },
+     (err: HttpErrorResponse) => {
+        // error code here
+     }
+   );
+ }
   getCurrencyList() {
    
     this.httpService.get<CountryMasterResultBean>(this.currencyListUrl).subscribe(

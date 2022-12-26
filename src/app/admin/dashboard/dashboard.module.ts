@@ -33,10 +33,11 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { ListAssetComponent } from './list-asset/list-asset.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { NotificationService } from "src/app/core/service/notification.service";
+import { DeleteListassetComponent } from './list-asset/delete-listasset/delete-listasset.component';
 
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, ListAssetComponent, InventoryComponent],
+  declarations: [MainComponent, Dashboard2Component, ListAssetComponent, InventoryComponent, DeleteListassetComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

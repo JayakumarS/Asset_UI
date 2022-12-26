@@ -16,6 +16,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { DeleteComponent } from 'src/app/master/country-master/list-country-master/dialog/delete/delete.component';
+import { DeleteListassetComponent } from './delete-listasset/delete-listasset.component';
 @Component({
   selector: 'app-list-asset',
   templateUrl: './list-asset.component.html',
@@ -33,7 +34,7 @@ export class ListAssetComponent extends UnsubscribeOnDestroyAdapter implements O
     "assetLocation",
     "category",
     "status",
-    // "actions"
+    "actions"
   ];
 
   dataSource: ExampleDataSource | null;
@@ -41,6 +42,7 @@ export class ListAssetComponent extends UnsubscribeOnDestroyAdapter implements O
   selection = new SelectionModel<CountryMaster>(true, []);
   index: number;
   id: number;
+  asset_id: number;
   customerMaster: CountryMaster | null;
   constructor(
     public httpClient: HttpClient,
@@ -88,19 +90,19 @@ export class ListAssetComponent extends UnsubscribeOnDestroyAdapter implements O
 
 
   editCall(row) {
-    this.router.navigate(['/master/country-Master/add-CountryMaster/'+row.categoryId]);
+    this.router.navigate(['/admin/asset/addAsset/'+row.asset_id]);
   }
 
   deleteItem(i: number, row) {
     this.index = i;
-    this.id = row.categoryId;
+    this.id = row.asset_id;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteComponent, {
+    const dialogRef = this.dialog.open(DeleteListassetComponent, {
       height: "270px",
       width: "400px",
       data: row,
@@ -193,7 +195,8 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
               customerMaster.assetCode +
               customerMaster.assetLocation +
               customerMaster.category +
-              customerMaster.status 
+              customerMaster.status +
+              customerMaster.asset_id
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -220,8 +223,8 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        case "asset_id":
+          [propertyA, propertyB] = [a.asset_id, b.asset_id];
           break;
         case "assetName":
           [propertyA, propertyB] = [a.assetName, b.assetName];

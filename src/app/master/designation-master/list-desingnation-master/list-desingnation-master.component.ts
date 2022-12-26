@@ -89,7 +89,7 @@ displayedColumns = [
 
   editCall(row) {
 
-    this.router.navigate(['/master/designation-Master/add-designation/'+row.id]);
+    this.router.navigate(['/master/Activity-master/add-activity/'+row.id]);
 
   }
 

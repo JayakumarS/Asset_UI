@@ -8,7 +8,7 @@ export class CountryMaster {
   categoryName: string;
   description: string;
   parentCategory: string;
-
+  asset_id: number;
   assetName: string;
   assetCode: string;
   assetLocation: string;
@@ -17,7 +17,7 @@ export class CountryMaster {
   
   constructor(countryMaster) {
     {
-      this.id = countryMaster.id || this.getRandomID();
+      this.asset_id = countryMaster.asset_id || this.getRandomID();
       this.assetName = countryMaster.assetName || "";
       this.assetCode = countryMaster.assetCode || "";
       this.assetLocation = countryMaster.assetLocation || "";

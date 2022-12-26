@@ -1,6 +1,7 @@
 import { formatDate } from "@angular/common";
 export class main {
   id: number;
+  asset_id: number;
   assetName: string;
   assetCode: string;
   assetLocation: string;
