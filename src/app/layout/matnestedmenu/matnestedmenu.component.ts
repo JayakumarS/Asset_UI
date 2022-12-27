@@ -64,7 +64,6 @@ export class MatnestedmenuComponent {
   }
 
   buttonEnter(trigger) {
-    console.log('buttonEnter')
     setTimeout(() => {
       if(this.prevButtonTrigger && this.prevButtonTrigger != trigger){
         this.prevButtonTrigger.closeMenu();
@@ -90,7 +89,6 @@ export class MatnestedmenuComponent {
   }
 
   buttonLeave(trigger, button) {
-    console.log('buttonLeave'+this.enteredButton)
     setTimeout(() => {
       if (this.enteredButton && !this.isMatMenuOpen) {
         trigger.closeMenu();
@@ -110,7 +108,6 @@ navItems: NavItem[];
 ngOnInit(){
     this.authService.getFormPropertyMenu(this.tokenStorage.getUserId()).subscribe(
       data => { 
-        console.log(data);
        this.navItems = data.moduleLevelList; 
       },
         error => {

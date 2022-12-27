@@ -14,11 +14,11 @@
       <span class="material-icons">arrow_drop_down</span>
     </button>    
 
-    <mat-menu #levelOne="matMenu" direction="down" yPosition="below" [overlapTrigger]="false">
+    <mat-menu #levelOne="matMenu" direction="down" yPosition="below" [overlapTrigger]="false" [hasBackdrop]="false" >
       <span (mouseenter)="menuenter()" (mouseleave)="menuLeave(levelOneTrigger, button)">
       <ng-container *ngFor="let childL1 of menuItem.subMenuList">
         <li class="p-0" *ngIf="childL1.subMenuList == null || childL1.subMenuList.length == 0" mat-menu-item>
-          <a style="color: rgb(0, 0, 0) !important;" class="nav-link" [routerLink]="childL1.formurl">{{childL1.formname}}
+          <a style="color: rgb(0, 0, 0) !important;" class="nav-link" [routerLink]="childL1.formurl"> {{childL1.formname}}
             <i *ngIf="childL1.iconName" [ngClass]="childL1.iconName"></i>
           </a>
         </li>
@@ -28,11 +28,11 @@
             <span style="color: rgb(0, 0, 0) !important;">{{childL1.formname}}</span>
           </li>
 
-          <mat-menu #levelTwo="matMenu">
+          <mat-menu #levelTwo="matMenu" [hasBackdrop]="false" >
             <span (mouseenter)="menu2enter()" (mouseleave)="menu2Leave(levelOneTrigger,levelTwoTrigger, button)">
             <ng-container *ngFor="let childL2 of childL1.subMenuList">
               <li class="p-0" mat-menu-item>
-                <a style="color: rgb(0, 0, 0) !important;"class="nav-link" [routerLink]="childL2.formurl">{{childL2.formname}}
+                <a style="color: rgb(0, 0, 0) !important;"class="nav-link" [routerLink]="childL2.formurl"> {{childL2.formname}}
                   <i *ngIf="childL2.iconName" [ngClass]="childL2.iconName"></i>
                 </a>
               </li>
