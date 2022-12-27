@@ -29,6 +29,7 @@ export class ListAssetComponent extends UnsubscribeOnDestroyAdapter implements O
     // "countryName",
     // "currency",
     
+    "id",
     "assetName",
     "assetCode",
     "assetLocation",
@@ -42,8 +43,8 @@ export class ListAssetComponent extends UnsubscribeOnDestroyAdapter implements O
   selection = new SelectionModel<CountryMaster>(true, []);
   index: number;
   id: number;
-  asset_id: number;
-  customerMaster: CountryMaster | null;
+
+  countryMaster: CountryMaster | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -90,12 +91,17 @@ export class ListAssetComponent extends UnsubscribeOnDestroyAdapter implements O
 
 
   editCall(row) {
-    this.router.navigate(['/admin/asset/addAsset/'+row.asset_id]);
+    this.router.navigate(['/admin/asset/addAsset/'+row.id]);
   }
 
-  deleteItem(i: number, row) {
-    this.index = i;
-    this.id = row.asset_id;
+viewCall(row) {
+
+  this.router.navigate(['/admin/dashboard/listview/'+row.id]);
+
+}
+  deleteItem(row) {
+   
+    this.id = row.id;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -186,17 +192,17 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((customerMaster: CountryMaster) => {
+          .filter((countryMaster: CountryMaster) => {
             const searchStr = (
               // customerMaster.countryCode +
               // customerMaster.countryName +
               // customerMaster.currency
-              customerMaster.assetName +
-              customerMaster.assetCode +
-              customerMaster.assetLocation +
-              customerMaster.category +
-              customerMaster.status +
-              customerMaster.asset_id
+              countryMaster.assetName +
+              countryMaster.assetCode +
+              countryMaster.assetLocation +
+              countryMaster.category +
+              countryMaster.status +
+              countryMaster.id
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -223,8 +229,8 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "asset_id":
-          [propertyA, propertyB] = [a.asset_id, b.asset_id];
+        case "id":
+          [propertyA, propertyB] = [a.id, b.id];
           break;
         case "assetName":
           [propertyA, propertyB] = [a.assetName, b.assetName];

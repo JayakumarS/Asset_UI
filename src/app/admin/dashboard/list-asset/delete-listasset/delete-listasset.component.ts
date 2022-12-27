@@ -20,7 +20,7 @@ export class DeleteListassetComponent implements OnInit {
       this.dialogRef.close();
     }
     confirmDelete(): void {
-      this.countryMasterService.deleteasset(this.data.asset_id);
+      this.countryMasterService.deleteasset(this.data.id);
     }
 
 }

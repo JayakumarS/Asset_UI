@@ -56,12 +56,14 @@ export class AddEmployeeComponent implements OnInit{
   categoryDdList=[];
   locationDdList=[];
   departmentDdList=[]
+  requestId: any;
+  edit:boolean=false;
   
   
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
     public router:Router,private snackBar: MatSnackBar,public notificationService:NotificationService,
     private addAssetService:AddAssetService,private countryMasterService:CountryMasterService,
-    private cmnService:CommonService,public dialog: MatDialog,) {
+    private cmnService:CommonService,public dialog: MatDialog,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
 
       
@@ -71,6 +73,7 @@ export class AddEmployeeComponent implements OnInit{
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
+      id: [""],
       uploadImg: [""],
       //tab1
       brand: [""],
@@ -140,6 +143,15 @@ this.httpService.get<AddAssetResultBean>(this.addAssetService.departmentDropdown
   }
 );
 
+this.route.params.subscribe(params => {
+  if(params.id!=undefined && params.id!=0){
+   this.requestId = params.id;
+   this.edit=true;
+   this.fetchDetails(this.requestId) ;
+
+  }
+ });
+
   }
   onSubmit() {
     console.log("Form Value", this.docForm.value);
@@ -154,6 +166,34 @@ this.httpService.get<AddAssetResultBean>(this.addAssetService.departmentDropdown
     });
    
     //this.router.navigate(['/admin/country-Master/list-CountryMaster']);
+  }
+
+   // Edit
+   fetchDetails(id: any): void {
+    this.httpService.get(this.countryMasterService.editasset+"?id="+id).subscribe((res: any)=> {
+      console.log(id);
+
+      this.docForm.patchValue({
+        
+        'assetName': res.addAssetBean.assetName,
+        'assetCode': res.addAssetBean.assetCode,
+        'assetLocation': res.addAssetBean.assetLocation,
+        'category': res.addAssetBean.category,
+        'status' : res.addAssetBean.status,
+        'id' : res.addAssetBean.id
+     })
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
+      console.log(id);
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );*/
   }
   commodityList(){
     this.httpService.get<CountryMasterResultBean>(this.countryMasterService.commoditylist).subscribe( 
