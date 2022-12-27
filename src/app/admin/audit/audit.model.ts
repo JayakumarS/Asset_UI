@@ -34,7 +34,7 @@ id: number;
     department: string;
     audituser: string;
     aidid:number;
-  
+    auditNo:number;
   
     constructor(Aidaudit) {
       {
@@ -54,7 +54,7 @@ id: number;
         this.department = Aidaudit.department || "";
         this.audituser=Aidaudit.auditnamea||"";
         this.aidid=Aidaudit.aidedid||"";
-        
+        this.auditNo=Aidaudit.auditNo||"";
       } 
     }
     public getRandomID(): string {

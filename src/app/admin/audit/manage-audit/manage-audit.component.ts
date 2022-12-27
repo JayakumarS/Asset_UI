@@ -171,6 +171,7 @@ export class ManageAuditComponent implements OnInit {
       startdatea:[""],
       enddatea:[""],
       auditnamea:["", [Validators.required]],
+      auditNo:[""],
 
 
        manageAuditDtlObjBean: this.fb.array([
@@ -180,6 +181,7 @@ export class ManageAuditComponent implements OnInit {
           department:[""],
           audituser:[""],
           aidid:[""],
+          auditNo:[""],
           id:[""]
          
          
