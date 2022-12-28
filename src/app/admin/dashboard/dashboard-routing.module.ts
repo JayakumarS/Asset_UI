@@ -5,6 +5,7 @@ import { MainComponent } from "./main/main.component";
 import { Dashboard2Component } from "./dashboard2/dashboard2.component";
 import { ListAssetComponent } from "./list-asset/list-asset.component";
 import { InventoryComponent } from "./inventory/inventory.component";
+import { ListViewComponent } from "./list-view/list-view.component";
 const routes: Routes = [
   {
     path: "",
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: "listasset",
     component: ListAssetComponent,
+  },
+  {
+    path: "listview/:id",
+    component: ListViewComponent,
   },
   {
     path: "inventory",

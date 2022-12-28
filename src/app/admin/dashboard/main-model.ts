@@ -22,7 +22,7 @@ export class main {
   
   constructor(main) {
     {
-      this.id = main.id || this.getRandomID();
+      this.asset_id = main.asset_id || this.getRandomID();
       this.assetName = main.assetName || "";
       this.assetCode = main.assetCode || "";
       this.assetLocation = main.assetLocation || "";

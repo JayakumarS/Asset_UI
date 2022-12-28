@@ -28,7 +28,7 @@ scheduleactivity(){
 }
 
 gotodashboard(){
-  this.router.navigate(['/admin/dashboard/listasset']);
+  this.router.navigate(['/asset/assetMaster/listAssetMaster']);
 
 }
 

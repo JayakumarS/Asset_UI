@@ -134,6 +134,15 @@ const routes: Routes = [
         loadChildren: () =>
         import("./loaddata/loaddata.module").then((m) => m.LoaddataModule),
       },
+      {
+        path: "asset",
+        canActivate: [AuthGuard],
+        data: {
+          role: Role.Admin,
+        },
+        loadChildren: () =>
+        import("./asset/asset.module").then((m) => m.AssetModule),
+      },
     ],
   },
   {

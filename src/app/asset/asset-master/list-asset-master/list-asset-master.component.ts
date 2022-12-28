@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { CountryMasterService } from 'src/app/master/country-master/country-master.service';
-import { CountryMaster } from 'src/app/master/country-master/country-master.model'; 
+import { DeleteAssetMasterComponent } from './delete-asset-master/delete-asset-master.component';
+import { AssetMaster } from '../asset-model';
+import { AssetService } from '../asset.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -10,26 +11,21 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatMenuTrigger } from "@angular/material/menu";
 import { BehaviorSubject, fromEvent, merge, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { DeleteComponent } from 'src/app/master/country-master/list-country-master/dialog/delete/delete.component';
-import { DeleteListassetComponent } from './delete-listasset/delete-listasset.component';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+
 @Component({
-  selector: 'app-list-asset',
-  templateUrl: './list-asset.component.html',
-  styleUrls: ['./list-asset.component.sass']
+  selector: 'app-list-asset-master',
+  templateUrl: './list-asset-master.component.html',
+  styleUrls: ['./list-asset-master.component.sass']
 })
-export class ListAssetComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-   // "select",
-    // "countryCode",
-    // "countryName",
-    // "currency",
-    
-    "id",
     "assetName",
     "assetCode",
     "assetLocation",
@@ -39,20 +35,23 @@ export class ListAssetComponent extends UnsubscribeOnDestroyAdapter implements O
   ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: CountryMasterService | null;
-  selection = new SelectionModel<CountryMaster>(true, []);
+  exampleDatabase: AssetService | null;
+  selection = new SelectionModel<AssetMaster>(true, []);
   index: number;
   id: number;
+  assetMaster: AssetMaster | null;
 
-  countryMaster: CountryMaster | null;
+
   constructor(
+    private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public countryMasterService: CountryMasterService,
+    public assetService: AssetService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
-    private httpService:HttpServiceService,
+    private serverUrl: serverLocations,
+    private httpService: HttpServiceService,
     public router: Router,
+    private tokenStorage: TokenStorageService,
   ) {
     super();
   }
@@ -65,89 +64,83 @@ export class ListAssetComponent extends UnsubscribeOnDestroyAdapter implements O
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+
     this.loadData();
+
   }
 
-  refresh(){
-    this.loadData();
+  refresh() {
+    const currentRoute = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentRoute]);
+    });
   }
 
   public loadData() {
-    this.exampleDatabase = new CountryMasterService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new AssetService(this.httpClient, this.serverUrl, this.httpService, this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
       this.sort
     );
-    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
+    this.subs.sink = fromEvent(this.filter?.nativeElement, "keyup").subscribe(
       () => {
         if (!this.dataSource) {
           return;
         }
-        this.dataSource.filter = this.filter.nativeElement.value;
+        this.dataSource.filter = this.filter?.nativeElement?.value;
       }
     );
   }
 
 
   editCall(row) {
-    this.router.navigate(['/admin/asset/addAsset/'+row.id]);
+    this.router.navigate(['/asset/assetMaster/addAssetMaster/' + row.asset_id]);
   }
 
-viewCall(row) {
-
-  this.router.navigate(['/admin/dashboard/listview/'+row.id]);
-
-}
   deleteItem(row) {
-   
-    this.id = row.id;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteListassetComponent, {
+    const dialogRef = this.dialog.open(DeleteAssetMasterComponent, {
       height: "270px",
       width: "400px",
       data: row,
       direction: tempDirection,
+      disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      this.loadData();
-        this.showNotification(
-          "snackbar-success",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
+      if (data.data == true) {
+        const obj = {
+          deletingId: row.asset_id
+        }
+        this.spinner.show();
+        this.assetService.deleteAsset(obj).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+          }
+        });
+
+      }
     });
+
   }
 
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
-// context menu
-  onContextMenu(event: MouseEvent, item: CountryMaster) {
-    event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + "px";
-    this.contextMenuPosition.y = event.clientY + "px";
-    this.contextMenu.menuData = { item: item };
-    this.contextMenu.menu.focusFirstItem("mouse");
-    this.contextMenu.openMenu();
-  }
-  
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -156,20 +149,34 @@ viewCall(row) {
       panelClass: colorName,
     });
   }
+
+  // context menu
+  onContextMenu(event: MouseEvent, item: AssetMaster) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + "px";
+    this.contextMenuPosition.y = event.clientY + "px";
+    this.contextMenu.menuData = { item: item };
+    this.contextMenu.menu.focusFirstItem("mouse");
+    this.contextMenu.openMenu();
+  }
+
+  exportQRCode() {
+
+  }
 }
 
-export class ExampleDataSource extends DataSource<CountryMaster> {
+export class ExampleDataSource extends DataSource<AssetMaster> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
-    return this.filterChange.value;
+    return this.filterChange.value.trim();
   }
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: CountryMaster[] = [];
-  renderedData: CountryMaster[] = [];
+  filteredData: AssetMaster[] = [];
+  renderedData: AssetMaster[] = [];
   constructor(
-    public exampleDatabase: CountryMasterService,
+    public exampleDatabase: AssetService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -178,7 +185,7 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<CountryMaster[]> {
+  connect(): Observable<AssetMaster[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -186,24 +193,20 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllAssetList();
+    this.exampleDatabase.getAllCustomers();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((countryMaster: CountryMaster) => {
+          .filter((assetMaster: AssetMaster) => {
             const searchStr = (
-              // customerMaster.countryCode +
-              // customerMaster.countryName +
-              // customerMaster.currency
-              countryMaster.assetName +
-              countryMaster.assetCode +
-              countryMaster.assetLocation +
-              countryMaster.category +
-              countryMaster.status +
-              countryMaster.id
-             
+              assetMaster.assetName +
+              assetMaster.assetCode +
+              assetMaster.assetLocation +
+              assetMaster.category +
+              assetMaster.status +
+              assetMaster.asset_id
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -219,18 +222,20 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
       })
     );
   }
-  disconnect() {}
+  disconnect() { }
   /** Returns a sorted copy of the database data. */
-  sortData(data: CountryMaster[]): CountryMaster[] {
+  sortData(data: AssetMaster[]): AssetMaster[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
     return data.sort((a, b) => {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
+      //For to sort number or string Added by GOKUL
+      let isNumber: boolean = false;
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        case "asset_id":
+          [propertyA, propertyB] = [a.asset_id, b.asset_id];
           break;
         case "assetName":
           [propertyA, propertyB] = [a.assetName, b.assetName];
@@ -242,20 +247,26 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
           [propertyA, propertyB] = [a.assetLocation, b.assetLocation];
           break;
         case "category":
-            [propertyA, propertyB] = [a.category, b.category];
-            break;
-         case "status":
-              [propertyA, propertyB] = [a.status, b.status];
-              break;
-        
-        
-        
+          [propertyA, propertyB] = [a.category, b.category];
+          break;
+        case "status":
+          [propertyA, propertyB] = [a.status, b.status];
+          break;
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-      return (
-        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
-      );
+
+      if (isNumber) {
+        return (
+          (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+        );
+      } else {
+        return (
+          (valueA.toString().toLowerCase() < valueB.toString().toLowerCase() ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+        );
+      }
+
     });
   }
 }

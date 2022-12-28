@@ -87,7 +87,7 @@ export class SigninComponent
                 this.tokenStorage.saveAuthorities(data.roles);
                 this.tokenStorage.saveUserId(data.email);
                 this.loading = false;               
-                this.router.navigate(["/admin/dashboard/listasset"]);
+                this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
               }, 1000);
               }else{
                  this.submitted = false;
@@ -118,7 +118,7 @@ export class SigninComponent
       //         setTimeout(() => {
       //           const role = this.authService.currentUserValue.role;
       //           if (role === Role.All || role === Role.Admin) {
-      //             this.router.navigate(["/admin/dashboard/main"]);
+      //             this.router.navigate(["asset/assetMaster/listAssetMaster"]);
       //           } else if (role === Role.Employee) {
       //             this.router.navigate(["/employee/dashboard"]);
       //           } else if (role === Role.Client) {

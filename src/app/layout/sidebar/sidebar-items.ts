@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
     role: ["Admin"],
     submenu: [
       {
-        path: "/admin/dashboard/main",
+        path: "/asset/assetMaster/listAssetMaster",
         title: "MENUITEMS.DASHBOARD.LIST.DASHBOARD1",
         moduleName: "dashboard",
         iconType: "",

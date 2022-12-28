@@ -1,11 +1,5 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
-import { DashboardRoutingModule } from "./dashboard-routing.module";
-import { MainComponent } from "./main/main.component";
-import { Dashboard2Component } from "./dashboard2/dashboard2.component";
-import { ChartsModule as chartjsModule } from "ng2-charts";
-import { NgApexchartsModule } from "ng-apexcharts";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from "@angular/material/table";
@@ -28,42 +22,29 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { ListAssetComponent } from './list-asset/list-asset.component';
-import { InventoryComponent } from './inventory/inventory.component';
-import { NotificationService } from "src/app/core/service/notification.service";
-import { DeleteListassetComponent } from './list-asset/delete-listasset/delete-listasset.component';
-import { ListViewComponent } from './list-view/list-view.component';
+
+import { AssetMasterRoutingModule } from './asset-master-routing.module';
+import { ListAssetMasterComponent } from './list-asset-master/list-asset-master.component';
+import { DeleteAssetMasterComponent } from './list-asset-master/delete-asset-master/delete-asset-master.component';
+import { AddAssetMasterComponent } from './add-asset-master/add-asset-master.component';
 
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, ListAssetComponent, InventoryComponent, DeleteListassetComponent, ListViewComponent],
+  declarations: [
+    ListAssetMasterComponent,
+    DeleteAssetMasterComponent,
+    AddAssetMasterComponent
+  ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
-    chartjsModule,
-    NgApexchartsModule,
-    PerfectScrollbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatTooltipModule,
-    MatProgressBarModule,
-    ComponentsModule,
-    SharedModule,
-    MatTableExporterModule,
-    MatTableModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatPaginatorModule,
+    AssetMasterRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    
+    MatSnackBarModule,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
@@ -79,10 +60,6 @@ import { ListViewComponent } from './list-view/list-view.component';
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatAutocompleteModule
-    
-    
-  ],
-  providers: [NotificationService],
+  ]
 })
-export class DashboardModule {}
+export class AssetMasterModule { }

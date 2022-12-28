@@ -31,6 +31,8 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
   public getAssetList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getAssetList`;
   public deleteassetUrl = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/delete`;
+  public editasset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/edit`;
+ 
 
   private saveCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/save`;
  // private saveAsset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/saveAsset`;
@@ -116,9 +118,9 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
       }
     );
   }
-  deleteasset(asset_id : any): void {
-    this.httpService.get(this.deleteassetUrl+"asset_id?="+asset_id).subscribe(data => {
-     console.log(asset_id);
+  deleteasset(id: any): void {
+    this.httpService.get(this.deleteassetUrl+"?id="+id).subscribe(data => {
+     console.log(id);
      },
      (err: HttpErrorResponse) => {
         // error code here
