@@ -1,0 +1,168 @@
+
+            <div class="card">
+                <div class="body" style="padding-left: 110px; padding: 2%;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+                  <h2 _ngcontent-nrk-c304="" style="padding-bottom: 5px; padding-top: 5px; color: #532ff6;">Reports</h2>
+
+                    <div class="tabgrp">
+                    <mat-tab-group  >
+
+
+                    <mat-tab label="Category">
+                    <form class="m-4" [formGroup]="docForm">
+                    <div class="rowtab" >
+                    <div class="row">
+
+                      <div class="col-xl-3 col-lg- col-md-12 col-sm-12" style="margin-left: 5px;">
+                   <label>Category</label>
+                </div>
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+          <mat-form-field appearance="fill">
+            <mat-select formControlName="category" required>
+              <mat-option *ngFor="let title of categoryList" [value]="title.id">
+                {{title.text}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="docForm.get('category').hasError('required')">
+              Category is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;margin-top: 32px;">
+            <button  color="primary" type="button" class="btn-space" (click)="onSearch()"
+              mat-raised-button>Search</button>
+          </div>
+       
+        </div>
+        <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+          <label>Status</label>
+</div>
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+ <mat-form-field appearance="fill">
+    <mat-select formControlName="status" required>
+        <mat-option value="Good">Good</mat-option>
+        <mat-option value="Damaged">Damaged</mat-option>
+        <mat-option value="In repair">In Repair</mat-option>
+        <mat-option value="In stock">In stock </mat-option>
+
+      </mat-select>
+   <mat-error *ngIf="docForm.get('status').hasError('required')">
+    Status is required
+   </mat-error>
+ </mat-form-field>
+</div>
+</div>
+</div>
+</form>
+
+
+<div class="container" *ngIf="reList.length>0" >
+<table id="excel-table" class="table table-striped">
+  <thead>
+      <tr >
+        <th style="background-color:#c1ddf5;">Asset Code</th>
+        <th style="background-color:#c1ddf5;">Asset Name</th>
+        <th style="background-color:#c1ddf5;">Asset Location</th>
+        <th style="background-color:#c1ddf5;">Asset Category</th>
+        <th style="background-color:#c1ddf5;">Status</th>
+      </tr>
+  </thead>
+  <tbody>
+
+        <tr *ngFor="let item of reList">
+          <td>{{item.asset_code}}</td>
+          <td>{{item.asset_name}}</td>
+          <td>{{item.asset_location}}</td>
+          <td>{{item.category}}</td>
+          <td>{{item.status}}</td>
+
+        </tr>      
+  </tbody>
+  </table>
+  </div>
+</mat-tab>
+
+ 
+      <mat-tab label="Asset Location ">
+        <form class="m-4" [formGroup]="docForm">
+        <div class="rowtab" >
+       <div class="row">
+
+<div class="col-xl-3 col-lg- col-md-12 col-sm-12" style="margin-left: 5px;">
+<label>Asset Location</label>
+</div>
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+<mat-form-field appearance="fill">
+<mat-select formControlName="asset" required>
+  <mat-option *ngFor="let title of assetList" [value]="title.id">
+    {{title.text}}
+  </mat-option>
+</mat-select>
+ <mat-error *ngIf="docForm.get('asset').hasError('required')">
+Category is required
+</mat-error>  
+
+</mat-form-field>
+</div>
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;margin-top: 32px;">
+  <button  color="primary" type="button" class="btn-space" (click)="Search()"
+    mat-raised-button>Search</button>
+</div>
+</div>
+</div>
+</form>
+
+
+<div class="container" *ngIf="loList.length>0">
+  
+<table id="excel-table" class="table table-striped">
+  <thead>
+      <tr >
+        <th style="background-color:#c1ddf5;">Asset Code</th>
+        <th style="background-color:#c1ddf5;">Asset Name</th>
+        <th style="background-color:#c1ddf5;">Asset Location</th>
+        <th style="background-color:#c1ddf5;">Asset Category</th>
+        <th style="background-color:#c1ddf5;">Status</th>
+      </tr>
+  </thead>
+  <tbody>
+    
+        <tr *ngFor="let item of loList">
+
+          <td>{{item.asset_code}}</td>
+          <td>{{item.asset_name}}</td>
+          <td>{{item.asset_location}}</td>
+          <td>{{item.category}}</td>
+          <td>{{item.status}}</td>
+
+
+        </tr>      
+  </tbody>
+  </table>
+  </div>
+</mat-tab>
+</mat-tab-group>
+</div>
+
+</div>
+</div>
+
+
+
+ 
+ 
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+
+ 
+
