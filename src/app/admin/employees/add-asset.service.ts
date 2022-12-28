@@ -57,7 +57,7 @@ export class AddAssetService extends UnsubscribeOnDestroyAdapter {
           "bottom",
           "center"
         );
-        router.navigate(['/admin/dashboard/listasset']);
+        router.navigate(['/asset/assetMaster/listAssetMaster']);
       }
       else if(data.Success == false){
         notificationService.showNotification(
@@ -86,7 +86,7 @@ export class AddAssetService extends UnsubscribeOnDestroyAdapter {
           "bottom",
           "center"
         );
-        router.navigate(['/admin/dashboard/listasset']);
+        router.navigate(['/asset/assetMaster/listAssetMaster']);
       }
       else if(data.Success == false){
         notificationService.showNotification(
