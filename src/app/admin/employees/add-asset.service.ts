@@ -28,11 +28,7 @@ export class AddAssetService extends UnsubscribeOnDestroyAdapter {
   }
   dialogData: any;
   
-  private saveAsset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/saveAsset`;
-  public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/addAssetUpload`;
-  public categoryDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getCategoryDropdown`;
-  public locationDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getLocationDropdown`;
-  public departmentDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getDepartmentDropdown`;
+  
   private saveInventory= `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/saveInventory`;
 
 
@@ -44,34 +40,7 @@ export class AddAssetService extends UnsubscribeOnDestroyAdapter {
     return this.dialogData;
   }
 
-  addAsset(addAsset: AddAsset,router,notificationService): void {
-    this.dialogData = addAsset;
-    this.httpService.post<AddAsset>(this.saveAsset, addAsset).subscribe(data => {
-      console.log(data);
-      
-
-      if(data.Success == true){
-        notificationService.showNotification(
-          "snackbar-success",
-          "Add Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-        router.navigate(['/asset/assetMaster/listAssetMaster']);
-      }
-      else if(data.Success == false){
-        notificationService.showNotification(
-          "snackbar-danger",
-          "Not Updated Successfully...!!!",
-          "bottom",
-          "center"
-        );
-        }
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
-  }
+ 
 
   addInventory(Main: main,router,notificationService): void {
     this.dialogData = Main;

@@ -30,15 +30,13 @@ import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { ListAssetComponent } from './list-asset/list-asset.component';
-import { InventoryComponent } from './inventory/inventory.component';
+
+
 import { NotificationService } from "src/app/core/service/notification.service";
-import { DeleteListassetComponent } from './list-asset/delete-listasset/delete-listasset.component';
-import { ListViewComponent } from './list-view/list-view.component';
 
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, ListAssetComponent, InventoryComponent, DeleteListassetComponent, ListViewComponent],
+  declarations: [MainComponent, Dashboard2Component],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -79,7 +77,8 @@ import { ListViewComponent } from './list-view/list-view.component';
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatMenuModule
     
     
   ],

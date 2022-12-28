@@ -50,6 +50,7 @@ export class AddScheduleActivityComponent implements OnInit {
     private httpService: HttpServiceService,
     private snackBar:MatSnackBar,
     private router:Router,private cmnService:CommonService,
+    private commonService: CommonService,
     public route: ActivatedRoute,) 
     {
     this.docForm = this.fb.group({
@@ -116,21 +117,24 @@ export class AddScheduleActivityComponent implements OnInit {
 
  ngOnInit(): void {
 
-  this.httpService.get<ScheduleResultBean>(this.scheduleActivityService.locationserviceUrl).subscribe(
-    (data) => {
-      this.locationList = data.locationDropdownList;
+  this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+    next: (data) => {
+      this.locationList = data;
     },
-    (error: HttpErrorResponse) => {
-      console.log(error.name + " " + error.message);
+    error: (error) => {
+
     }
+  }
   );
-  this.httpService.get<ScheduleResultBean>(this.scheduleActivityService.activityserviceurl).subscribe(
-    (data) => {
-      this.activityList = data.activityList;
+ 
+  this.httpService.get<any>(this.commonService.getactivityList).subscribe({
+    next: (data) => {
+      this.activityList = data;
     },
-    (error: HttpErrorResponse) => {
-      console.log(error.name + " " + error.message);
+    error: (error) => {
+
     }
+  }
   );
   
   this.route.params.subscribe(params => {

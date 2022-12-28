@@ -27,6 +27,8 @@ import { AssetMasterRoutingModule } from './asset-master-routing.module';
 import { ListAssetMasterComponent } from './list-asset-master/list-asset-master.component';
 import { DeleteAssetMasterComponent } from './list-asset-master/delete-asset-master/delete-asset-master.component';
 import { AddAssetMasterComponent } from './add-asset-master/add-asset-master.component';
+import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 
 @NgModule({
@@ -34,6 +36,9 @@ import { AddAssetMasterComponent } from './add-asset-master/add-asset-master.com
     ListAssetMasterComponent,
     DeleteAssetMasterComponent,
     AddAssetMasterComponent
+  ],
+  providers:[
+    NotificationService
   ],
   imports: [
     CommonModule,
@@ -60,6 +65,7 @@ import { AddAssetMasterComponent } from './add-asset-master/add-asset-master.com
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
+    MatRadioModule
   ]
 })
 export class AssetMasterModule { }

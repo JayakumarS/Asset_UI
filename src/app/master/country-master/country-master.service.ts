@@ -32,6 +32,8 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   public getAssetList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getAssetList`;
   public deleteassetUrl = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/delete`;
   public editasset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/edit`;
+  public viewasset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/view`;
+ 
  
 
   private saveCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/save`;

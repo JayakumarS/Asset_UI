@@ -7,6 +7,8 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,7 +18,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AssetService extends UnsubscribeOnDestroyAdapter {
-
+ 
 
   isTblLoading = true;
   dataChange: BehaviorSubject<AssetMaster[]> = new BehaviorSubject<AssetMaster[]>(
@@ -29,10 +31,20 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   }
 
   private getAllAssets = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetList`;
-  private saveAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/save`;
+  private saveAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/saveAsset`;
   public editAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/edit`;
   public updateAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/update`;
   public deleteAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/delete`;
+
+
+  //new
+  
+  public editasset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/edit`;
+  public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/addAssetUpload`;
+  public categoryDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getCategoryDropdown`;
+  public locationDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getLocationDropdown`;
+  public departmentDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getDepartmentDropdown`;
+    public commoditylist = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
 
   get data(): AssetMaster[] {
     return this.dataChange.value;
@@ -55,8 +67,36 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   }
 
-  addAssetMaster(assetMaster: AssetMaster): Observable<any> {
-    return this.httpClient.post<AssetMaster>(this.saveAssetMaster, assetMaster);
+  // addAssetMaster(assetMaster: AssetMaster): Observable<any> {
+  //   return this.httpClient.post<AssetMaster>(this.saveAssetMaster, assetMaster);
+  // }
+  addAssetMaster(assetMaster: AssetMaster): void {
+    this.dialogData = assetMaster;
+    this.httpService.post<AssetMaster>(this.saveAssetMaster, assetMaster).subscribe(data => {
+      console.log(data);
+      
+
+      // if(data.Success == true){
+      //   notificationService.showNotification(
+      //     "snackbar-success",
+      //     "Add Record Successfully...!!!",
+      //     "bottom",
+      //     "center"
+      //   );
+      //   router.navigate(['/asset/assetMaster/listAssetMaster']);
+      // }
+      // else if(data.Success == false){
+      //   notificationService.showNotification(
+      //     "snackbar-danger",
+      //     "Not Updated Successfully...!!!",
+      //     "bottom",
+      //     "center"
+      //   );
+      //   }
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
   }
 
   editAsset(obj: any): Observable<any> {

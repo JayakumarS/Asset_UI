@@ -7,4 +7,11 @@ export class AssetMasterResultBean {
     listDrugInfoListBean: [];
     manufacturerList: [];
     assetList: [];
+    addAssetBean: [];
+   
+    categoryList:[];
+    categoryDropdown:[];
+    locationDropdown:[];
+    departmentDropdown:[];
+  countryMasterDetails:[];
 }

@@ -9,7 +9,6 @@ import {serverLocations} from './serverLocations'
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import {NavItem} from 'src/app/layout/matdynamicmenu/nav-items';
 import { map } from "rxjs/operators";
-import { AddEmployeeComponent } from "src/app/admin/employees/add-employee/add-employee.component";
 
 
 const httpOptions = {

@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { CommonService } from 'src/app/common-service/common.service';
 import { Auditresultbean } from '../audit-result-bean';
 
 
@@ -68,6 +69,7 @@ export class ManageAuditComponent implements OnInit {
  
   constructor(private fb: FormBuilder,
     private auditservice : AuditService,
+    private commonService: CommonService,
     private httpService: HttpServiceService,
     // private snackBar:MatSnackBar,
     public route: ActivatedRoute,
@@ -192,14 +194,17 @@ export class ManageAuditComponent implements OnInit {
     });
 
     this.loadData();
-    this.httpService.get<Auditresultbean>(this.auditservice.activityserviceurl).subscribe(
-      (data) => {
-        this.auditlist = data.auditfielslist;
+   
+    this.httpService.get<any>(this.commonService.activityserviceurl).subscribe({
+      next: (data) => {
+        this.auditlist = data;
       },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
+      error: (error) => {
+
       }
-    ); 
+    }
+    );
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -210,14 +215,17 @@ export class ManageAuditComponent implements OnInit {
     });
 
     this.loadData();
-    this.httpService.get<Auditresultbean>(this.auditservice.categoryurl).subscribe(
-      (data) => {
-        this.categorylist = data.categoryfieldlist;
+ 
+    this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
+      next: (data) => {
+        this.categorylist = data;
       },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
+      error: (error) => {
+
       }
-    ); 
+    }
+    );
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -228,14 +236,15 @@ export class ManageAuditComponent implements OnInit {
     });
 
     this.loadData();
-    this.httpService.get<Auditresultbean>(this.auditservice.locationurl).subscribe(
-      (data) => {
-        this.loacationlist = data.loacationfieldlist;
+    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+      next: (data) => {
+        this.loacationlist = data;
       },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
+      error: (error) => {
+
       }
-    ); 
+    }
+    );
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -246,14 +255,15 @@ export class ManageAuditComponent implements OnInit {
     });
 
     this.loadData();
-    this.httpService.get<Auditresultbean>(this.auditservice.depturl).subscribe(
-      (data) => {
-        this.departmentlist = data.departmentfieldlist;
+    this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
+      next: (data) => {
+        this.departmentlist = data;
       },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
+      error: (error) => {
+
       }
-    ); 
+    }
+    );
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
