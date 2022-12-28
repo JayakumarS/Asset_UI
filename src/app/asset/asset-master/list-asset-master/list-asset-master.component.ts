@@ -95,7 +95,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
 
 
   editCall(row) {
-    this.router.navigate(['/asset/assetMaster/addAssetMaster/' + row.asset_id]);
+    this.router.navigate(['/asset/assetMaster/addAssetMaster/' + row.id]);
   }
 
   deleteItem(row) {
@@ -115,7 +115,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       if (data.data == true) {
         const obj = {
-          deletingId: row.asset_id
+          deletingId: row.id
         }
         this.spinner.show();
         this.assetService.deleteAsset(obj).subscribe({

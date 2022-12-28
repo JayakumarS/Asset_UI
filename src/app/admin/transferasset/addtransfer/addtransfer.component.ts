@@ -26,7 +26,7 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
   displayedColumns=[
 
 
-    "asset_code",
+    "Asset_Code",
     "asset_name",
     "departments",
     "condition",
@@ -42,7 +42,7 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
   locationList:[];
   assetList:[];
   codeList:[];
-  gridList: boolean = false
+  gridList: any = [];
   docForm:FormGroup;
   traansferService:TraansferService
   files: any;
@@ -72,6 +72,7 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
     public route: ActivatedRoute,) { 
       super(); 
         this.docForm = this.fb.group({
+
         tid:[""],
         status: [""],
         department: ["",[Validators.required]],
@@ -81,11 +82,14 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
         remarks:[""],
         files:[""],
         transferFile:[""],
-        assetCode:[""],
+        code:[""],
         asset_name:[""],
         condition:[""],
         asset_location:[""],
-        departments:[""]
+        departments:[""],
+        
+
+
      
       });
     }
@@ -175,7 +179,11 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
           'date' : res.transferBean.date,
           'remarks' : res.transferBean.remarks,
           'files' : res.transferBean.transferFile,
-          'transferFile':res.transferBean.transferFile
+          'transferFile':res.transferBean.transferFile,
+          'code':res.transferBean.code,
+
+           
+
        })
         },
         (err: HttpErrorResponse) => {
@@ -188,9 +196,7 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
   }
   onTransfer(): void{
     this.traansferService=this.docForm.value;
-   // console.log(this.traansferService) 
-    this.httpService.get(this.transferservice.transferCodeAll + "?transfer=" + this.docForm.controls.assetCode.value).subscribe((res: any) => {
-     
+    this.httpService.get(this.transferservice.transferCodeAll + "?transfer=" + this.docForm.controls.code.value).subscribe((res: any) => {
        console.log(res);
        this.gridList=res.codeList;
   
@@ -211,6 +217,7 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
         date:[""],
         remarks:[""],
         files:[""],
+        asset:[""]
        
   });}
 
@@ -304,7 +311,6 @@ export class ExampleDataSource extends DataSource<TraansferService> {
     this.exampleDatabase.getAllCodeList();
     return merge(...displayDataChanges).pipe(
       map(() => {
-        // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
           .filter((traansferService: TraansferService) => {
