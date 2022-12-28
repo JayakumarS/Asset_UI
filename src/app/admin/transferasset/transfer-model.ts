@@ -1,4 +1,5 @@
 export class TraansferService {
+
   tid:number;
   status:string;
   department:string;
@@ -14,6 +15,9 @@ export class TraansferService {
   condition:string;
   asset_location:string;
   departments:string;
+  asset_Code:string;
+  asset:number;
+  code:number;
 
   constructor(traansferService) {
       {
@@ -31,8 +35,9 @@ export class TraansferService {
         this.asset_code = traansferService.asset_code || "";
         this.condition = traansferService.condition || "";
         this.asset_location = traansferService.asset_location || "";
-        this.departments = traansferService.departments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    || "";
-
+        this.departments = traansferService.departments  ||"";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        this.asset = traansferService.asset||"";    
+        this.code =  traansferService.code||"";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 
       }
     }

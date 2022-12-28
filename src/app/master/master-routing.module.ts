@@ -41,6 +41,8 @@ const routes: Routes = [
     loadChildren: () => 
     import("./location/location.module").then((m) => m.LocationModule),
   },
+  
+
 ];
 
 @NgModule({
