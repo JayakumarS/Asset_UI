@@ -29,13 +29,15 @@ import { DeleteAssetMasterComponent } from './list-asset-master/delete-asset-mas
 import { AddAssetMasterComponent } from './add-asset-master/add-asset-master.component';
 import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { AddMultipleAssetMasterComponent } from './add-multiple-asset-master/add-multiple-asset-master.component';
 
 
 @NgModule({
   declarations: [
     ListAssetMasterComponent,
     DeleteAssetMasterComponent,
-    AddAssetMasterComponent
+    AddAssetMasterComponent,
+    AddMultipleAssetMasterComponent
   ],
   providers:[
     NotificationService
