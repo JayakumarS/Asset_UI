@@ -47,6 +47,11 @@ const routes: Routes = [
     path: "item-category",
     loadChildren: () =>
     import("./item-category/item-category.module").then((m) => m.ItemCategoryModule),
+  },
+  {
+    path: "in-stock",
+    loadChildren: () =>
+    import("./in-stock/in-stock.module").then((i) => i.InStockModule),
   }
 ];
 
