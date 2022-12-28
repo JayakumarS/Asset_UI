@@ -26,7 +26,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CountryMasterRoutingModule } from './country-master-routing.module';
 import { ListCountryMasterComponent } from './list-country-master/list-country-master.component';
 import { AddCountryMasterComponent } from './add-country-master/add-country-master.component';
-import { DeleteComponent } from './list-country-master/dialog/delete/delete.component';
+import { DeleteComponent } from "./list-country-master/delete/delete.component";
 
 
 @NgModule({

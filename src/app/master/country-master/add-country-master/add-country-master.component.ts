@@ -73,13 +73,14 @@ export class AddCountryMasterComponent implements OnInit {
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/country-Master/list-CountryMaster']);
+    this.router.navigate(['/master/category-Master/list-CategoryMaster']);
   }
   fetchDetails(categoryId: any): void {
     this.httpService.get(this.countryMasterService.editCountryMaster + "?countryMaster=" + categoryId).subscribe((res: any) => {
       console.log(categoryId);
 
       this.docForm.patchValue({
+    
         'categoryId': res.countryMasterBean.categoryId,
         'categoryName': res.countryMasterBean.categoryName,
         'description': res.countryMasterBean.description,
@@ -112,7 +113,7 @@ export class AddCountryMasterComponent implements OnInit {
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/country-Master/list-CountryMaster']);
+    this.router.navigate(['/master/category-Master/list-CategoryMaster']);
 
   }
 

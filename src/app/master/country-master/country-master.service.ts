@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { CountryMaster } from "./country-master.model";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
@@ -111,15 +111,15 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
   );*/
   });
 }
-  deleteEmployees(id : any): void {
-     this.httpService.get(this.deleteCountryUrl+"id?="+id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
-  }
+  // deleteEmployees(id : any): void {
+  //    this.httpService.get(this.deleteCountryUrl+"id?="+id).subscribe(data => {
+  //     console.log(id);
+  //     },
+  //     (err: HttpErrorResponse) => {
+  //        // error code here
+  //     }
+  //   );
+  // }
   deleteasset(id: any): void {
     this.httpService.get(this.deleteassetUrl+"?id="+id).subscribe(data => {
      console.log(id);
@@ -142,6 +142,8 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter{
     );
     return this.currencyList;
   }
-
+  editCountry(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editCountryMaster, obj);
+  }
  
 }

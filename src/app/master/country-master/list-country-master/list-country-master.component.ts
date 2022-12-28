@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { CountryMasterService} from '../country-master.service'
 import { CountryMaster} from '../country-master.model';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -15,7 +15,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { DeleteComponent } from 'src/app/master/country-master/list-country-master/dialog/delete/delete.component';
+import { DeleteComponent } from './delete/delete.component';
 @Component({
   selector: 'app-list-country-master',
   templateUrl: './list-country-master.component.html',
@@ -105,25 +105,30 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+      if (data.data == true) {
+        this.httpService.get(this.countryMasterService.deleteCountryUrl+ "?categoryId=" + this.id).subscribe((res: any) => { 
       this.loadData();
+
         this.showNotification(
           "snackbar-success",
           "Delete Record Successfully...!!!",
           "bottom",
           "center"
         );
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
-  }
+        this.loadData();
+      },
+        (err: HttpErrorResponse) => {
+          // error code here
+        }
+      );
+    
+    } else{
+      this.loadData();
+    }
+  });
+
+}
+
 
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);

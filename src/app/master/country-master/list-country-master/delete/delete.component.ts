@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { CountryMasterService } from '../../../country-master.service';
+import { CountryMasterService } from '../../country-master.service';
 
 
 @Component({
@@ -15,10 +15,11 @@ export class DeleteComponent {
     public countryMasterService: CountryMasterService) { }
 
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close({ data: 'CANCEL' });
     }
     confirmDelete(): void {
-      this.countryMasterService.deleteEmployees(this.data.categoryId);
+      this.dialogRef.close({ data: true });
     }
-
+  
+  
 }
