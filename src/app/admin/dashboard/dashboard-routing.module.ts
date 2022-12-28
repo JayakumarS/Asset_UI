@@ -3,9 +3,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { MainComponent } from "./main/main.component";
 import { Dashboard2Component } from "./dashboard2/dashboard2.component";
-import { ListAssetComponent } from "./list-asset/list-asset.component";
-import { InventoryComponent } from "./inventory/inventory.component";
-import { ListViewComponent } from "./list-view/list-view.component";
+
 const routes: Routes = [
   {
     path: "",
@@ -20,18 +18,8 @@ const routes: Routes = [
     path: "dashboard2",
     component: Dashboard2Component,
   },
-  {
-    path: "listasset",
-    component: ListAssetComponent,
-  },
-  {
-    path: "listview/:id",
-    component: ListViewComponent,
-  },
-  {
-    path: "inventory",
-    component: InventoryComponent,
-  },
+ 
+
   { path: "**", component: Page404Component },
 ];
 @NgModule({

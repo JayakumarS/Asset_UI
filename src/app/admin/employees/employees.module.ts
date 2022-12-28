@@ -16,7 +16,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { EmployeesRoutingModule } from "./employees-routing.module";
-import { AddEmployeeComponent } from "./add-employee/add-employee.component";
+
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTableExporterModule } from "mat-table-exporter";
@@ -39,7 +39,6 @@ import { EmployeePopupComponent } from './employee-popup/employee-popup.componen
     AllemployeesComponent,
     DeleteDialogComponent,
     FormDialogComponent,
-    AddEmployeeComponent,
     EditEmployeeComponent,
     EmployeeProfileComponent,
     EmployeePopupComponent,

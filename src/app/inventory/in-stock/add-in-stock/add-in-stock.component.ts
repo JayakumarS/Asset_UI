@@ -47,15 +47,7 @@ export class AddInStockComponent implements OnInit {
   ngOnInit(): void {
 
     
-     // category dropdown
-     this.httpService.get<MainResultBean>(this.addAssetService.categoryDropdownList).subscribe(
-      (data) => {
-       this.categoryDdList = data.categoryDropdown;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-    );
+   
   }
 
   // onSubmit() {
@@ -101,30 +93,7 @@ getCreditFile(event) {
   // var data = this.httpService.postData(this.fileUploadService.addFiles,frmData);
   // console.log(data);
   
-  this.httpService.post<any>(this.addAssetService.addAssetUploadFiles, frmData).subscribe(data => {
-      console.log(data);
-      if(data.success){
-        this.docForm.patchValue({
-          'imgUploadUrl': data.filePath     
-         
-       })
-      }
-      else{
-        this.showNotification(
-          "snackbar-success",
-          "Edit Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-
-        
-      }
-      
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
-
+ 
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
