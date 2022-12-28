@@ -28,11 +28,11 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
     super();
   }
 
-  private getAllAssets = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getAssetList`;
-  private saveAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/AssetMaster/save`;
-  public editAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/AssetMaster/edit`;
-  public updateAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/AssetMaster/update`;
-  public deleteAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/AssetMaster/delete`;
+  private getAllAssets = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetList`;
+  private saveAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/save`;
+  public editAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/edit`;
+  public updateAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/update`;
+  public deleteAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/delete`;
 
   get data(): AssetMaster[] {
     return this.dataChange.value;
