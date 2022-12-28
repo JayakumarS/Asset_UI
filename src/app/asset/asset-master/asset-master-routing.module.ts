@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddAssetMasterComponent } from './add-asset-master/add-asset-master.component';
+import { AddMultipleAssetMasterComponent } from './add-multiple-asset-master/add-multiple-asset-master.component';
 import { ListAssetMasterComponent } from './list-asset-master/list-asset-master.component';
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: "addAssetMaster/:id",
     component: AddAssetMasterComponent,
+  },
+  {
+    path: "addMultipleAssetMaster",
+    component: AddMultipleAssetMasterComponent,
   },
 ];
 
