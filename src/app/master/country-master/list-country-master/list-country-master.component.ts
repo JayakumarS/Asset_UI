@@ -84,9 +84,9 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
     );
   }
 
-
+  
   editCall(row) {
-    this.router.navigate(['/master/country-Master/add-CountryMaster/'+row.categoryId]);
+    this.router.navigate(['/master/category-Master/add-CategoryMaster/'+row.categoryId]);
   }
 
   deleteItem(i: number, row) {

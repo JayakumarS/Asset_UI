@@ -41,9 +41,9 @@ export class AddCountryMasterComponent implements OnInit {
 
   }
   
-   ngOnInit() {
+   ngOnInit()  {
     
-     // Currency list dropdown
+     //Currency list dropdown
     this.httpService.get<CountryMasterResultBean>(this.countryMasterService.currencyListUrl).subscribe(
        (data) => {
          this.currencyList = data.currencyList;
@@ -117,7 +117,7 @@ export class AddCountryMasterComponent implements OnInit {
   }
 
   onCancel(){
-    this.router.navigate(['/master/country-Master/list-CountryMaster']);
+    this.router.navigate(['/master/category-Master/list-CategoryMaster']);
   }
   
   reset(){

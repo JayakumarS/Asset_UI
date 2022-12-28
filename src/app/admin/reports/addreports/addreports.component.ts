@@ -26,7 +26,6 @@ import { ReportsService } from '../reports.service';
 export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns=[
 
-
     "asset_code",
     "asset_name",
     "asset_location",
@@ -42,10 +41,10 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
     assetList:[];
     requestId: any;
     loadData:any;
-  edit: boolean=false;
-  reList: any = [];
-  loList:any=[];
-false;
+    edit: boolean=false;
+    reList: any = [];
+     loList:any=[];
+    false;
 
 
 
@@ -95,14 +94,14 @@ false;
       }
     });
 
-    // this.httpService.get<reportsresultbean>(this.reportsService.statusListUrl).subscribe(
-    //   (data) => {
-    //     this.statusList = data.statusList;
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     console.log(error.name + " " + error.message);
-    //   }
-    // );
+    this.httpService.get<reportsresultbean>(this.reportsService.statusListUrl).subscribe(
+      (data) => {
+        this.statusList = data.statusList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
 
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
