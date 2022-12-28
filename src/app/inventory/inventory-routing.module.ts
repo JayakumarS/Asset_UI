@@ -52,6 +52,11 @@ const routes: Routes = [
     path: "in-stock",
     loadChildren: () =>
     import("./in-stock/in-stock.module").then((i) => i.InStockModule),
+  },
+  {
+    path: "purchase",
+    loadChildren: () =>
+    import("./purchase-order/purchase-order.module").then((p) => p.PurchaseOrderModule),
   }
 ];
 
