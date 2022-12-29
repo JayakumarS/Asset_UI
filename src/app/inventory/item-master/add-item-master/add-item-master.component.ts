@@ -29,13 +29,14 @@ export class AddItemMasterComponent implements OnInit {
   datas:any;
   multipleRowComponent = new MultipleRowComponent;
   parentCategoryList:[];
-  catagoryTypeList:[];
+  commonDropDownItemTypeList:[];
   locationList:[];
   vendorList:[];
   itemMasterDetailsList:[];
   catagoryTypeDropDownList:[];
   fetchItemCategoryList:[];
-  uomList = [];
+  uomList:[];
+  itemList:[];
 
   constructor( private fb: FormBuilder,
     private itemMasterService : ItemMasterService,
@@ -110,11 +111,11 @@ export class AddItemMasterComponent implements OnInit {
     this.requestId = params.id;
     this.edit=true;
     //For Editable mode
-   // this.fetchDetails(this.requestId) ;
+      this.fetchDetails(this.requestId);
    }
   });
 
-  //Item Type Dropdown List
+  //Parent Category Dropdown List
   this.httpService.get<any>(this.commonService.getParentCategoryDropdown).subscribe({
     next: (data) => {
       this.parentCategoryList = data;
@@ -123,10 +124,10 @@ export class AddItemMasterComponent implements OnInit {
     }
   });
 
-  //Item category Dropdown List
-  this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
+  //Item Type Dropdown List
+  this.httpService.get<any>(this.commonService.getCommonDropdownByformId+"?formFieldId="+1).subscribe({
     next: (data) => {
-      this.catagoryTypeList = data;
+      this.commonDropDownItemTypeList = data;
     },
     error: (error) => {
     }
@@ -141,6 +142,7 @@ export class AddItemMasterComponent implements OnInit {
     }
   });
 
+  //Vendor  Dropdown List
   this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
     next: (data) => {
       this.vendorList = data;
@@ -149,6 +151,25 @@ export class AddItemMasterComponent implements OnInit {
     }
   });
 
+   //UOM Dropdown List
+   this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
+    next: (data) => {
+      this.uomList = data;
+    },
+    error: (error) => {
+    }
+  });
+
+  //Item Master Dropdown List
+  this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
+    next: (data) => {
+      this.itemList = data;
+    },
+    error: (error) => {
+    }
+  });
+
+  
 }
 
    onSubmit(){
@@ -166,7 +187,7 @@ export class AddItemMasterComponent implements OnInit {
     // }  
   }
   fetchDetails(itemId: any): void {
-    this.httpService.get(this.itemMasterService.editItem +"?itemMaster="+encodeURIComponent(itemId)).subscribe((res: any) => {
+    this.httpService.get(this.itemMasterService.editItem +"?itemMaster="+itemId).subscribe((res: any) => {
       console.log(itemId);
 //  if(res.productDetailBean.length>0){
 //     this.product=true;
@@ -262,6 +283,21 @@ export class AddItemMasterComponent implements OnInit {
     );
     }
 
+    keyPressNumber(event: any) {
+      const pattern = /[0-9.]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+       }
+      }
+    
+      keyPressNumberDouble(event: any) {
+      const pattern = /[0-9.]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+        }
+      }
 
   keyPressPCB(event: any) {
     const pattern = /[0-9.]/;
