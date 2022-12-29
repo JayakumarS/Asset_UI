@@ -31,7 +31,7 @@ export class AddItemMasterComponent implements OnInit {
   parentCategoryList:[];
   catagoryTypeList:[];
   locationList:[];
-  
+  vendorList:[];
   itemMasterDetailsList:[];
   catagoryTypeDropDownList:[];
   fetchItemCategoryList:[];
@@ -140,6 +140,15 @@ export class AddItemMasterComponent implements OnInit {
     error: (error) => {
     }
   });
+
+  this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+    next: (data) => {
+      this.vendorList = data;
+    },
+    error: (error) => {
+    }
+  });
+
 }
 
    onSubmit(){
