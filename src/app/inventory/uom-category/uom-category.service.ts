@@ -24,14 +24,13 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
     super();
   }
-  
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/uomCategory/getList`;
-  private saveUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uomCategory/save`;
-  public editUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uomCategory/getCode`;
-  public deleteUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uomCategory/delete`;
-  public updateUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uomCategory/update`;
-  
-  
+
+  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/uom/getList`;
+  private saveUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uom/save`;
+  public editUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uom/edit`;
+  public deleteUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uom/delete`;
+  public updateUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uom/update`;
+
   get data(): UomCategory[] {
     return this.dataChange.value;
   }
@@ -59,10 +58,10 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
     this.dialogData = uomCategory;
     this.httpService.post<UomCategory>(this.saveUomCategory, uomCategory).subscribe(data => {
       console.log(data);
-      //this.dialogData = employees;
+      // this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
-        
+
     });
   }
 
@@ -70,19 +69,19 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
     this.dialogData = uomCategory;
     this.httpService.post<UomCategory>(this.updateUomCategory, uomCategory).subscribe(data => {
       console.log(data);
-      //this.dialogData = employees;
+      // this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
-        
+
     });
   }
 
 
-  
 
-  DeleteUomCategory(uomCode: any): void {
-    this.httpService.get(this.deleteUomCategory+"?uomCategory="+uomCode).subscribe(data => {
-      console.log(uomCode);
+
+  DeleteUomCategory(uomID: any): void {
+    this.httpService.get(this.deleteUomCategory + "?uomID= " + uomID).subscribe(data => {
+      console.log(uomID);
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -110,5 +109,5 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
   );*/
   }
 
-  
+
 }

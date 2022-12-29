@@ -17,7 +17,7 @@ export class DeleteUomCategoryComponent {
       this.dialogRef.close();
     }
     confirmDelete(): void {
-      this.uomCategoryService.DeleteUomCategory(this.data.uomCode);
+      this.uomCategoryService.DeleteUomCategory(this.data.uomID);
     }
 
 }
