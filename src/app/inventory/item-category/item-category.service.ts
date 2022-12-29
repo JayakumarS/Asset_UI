@@ -28,7 +28,7 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
   ) 
   { 
     super();
-  }
+  } 
 
   private getAllCategory = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/getList`;
   private saveItemCategory = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/save`;
@@ -51,7 +51,7 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
     this.subs.sink = this.httpService.get<ItemCategoryResultBean>(this.getAllCategory).subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.itemCategoryDetails);
+        this.dataChange.next(data.listbean);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;

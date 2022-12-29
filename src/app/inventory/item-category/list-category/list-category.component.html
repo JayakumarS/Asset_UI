@@ -73,12 +73,12 @@
              
                  <ng-container matColumnDef="parentTypeName">
                    <mat-header-cell *matHeaderCellDef mat-sort-header>Parent Category</mat-header-cell>
-                   <mat-cell *matCellDef="let row"> {{row.parentTypeName}}</mat-cell>
+                   <mat-cell *matCellDef="let row"> {{row.parentCategory}}</mat-cell>
                  </ng-container>
              
                  <ng-container matColumnDef="categoryTypeName">
                    <mat-header-cell *matHeaderCellDef mat-sort-header>Category Type</mat-header-cell>
-                   <mat-cell *matCellDef="let row"> {{row.categoryTypeName}}</mat-cell>
+                   <mat-cell *matCellDef="let row"> {{row.categoryType}}</mat-cell>
                  </ng-container>
              
              <!-- actions -->
