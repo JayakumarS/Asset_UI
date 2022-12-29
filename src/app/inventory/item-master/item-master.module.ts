@@ -28,6 +28,8 @@ import { AddItemMasterComponent } from './add-item-master/add-item-master.compon
 import { ListItemMasterComponent } from './list-item-master/list-item-master.component';
 import { MultipleRowComponent } from './multiple-row/multiple-row.component';
 import { DeleteItemComponent } from './list-item-master/delete-item/delete-item.component';
+import { NotificationService } from "src/app/core/service/notification.service";
+
 
 
 @NgModule({
@@ -36,6 +38,9 @@ import { DeleteItemComponent } from './list-item-master/delete-item/delete-item.
     ListItemMasterComponent,
     MultipleRowComponent,
     DeleteItemComponent,
+  ],
+  providers: [
+    NotificationService
   ],
   imports: [
     CommonModule,

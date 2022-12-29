@@ -110,7 +110,7 @@ export class AddAssetMasterComponent implements OnInit {
     // this.commodityList();
    
 
-     this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
+     this.httpService.get<any>(this.commonService.getAssetCategoryDropdown).subscribe({
       next: (data) => {
         this.categoryList = data;
       },

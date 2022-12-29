@@ -29,7 +29,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   }
 
 
-  public getCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCategoryDropdown`;
+  public getAssetCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetCategoryDropdown`;
 
   public getLocationDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLocationDropdown`;
 
@@ -40,5 +40,9 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getactivityList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getactivityList`;
   
   public getVendorDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getVendorDropdown`;
+
+  public getParentCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getParentCategoryDropdown`;
+
+  public getCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCategoryDropdown`;
 
 }

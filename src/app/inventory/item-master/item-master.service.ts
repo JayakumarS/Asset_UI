@@ -37,17 +37,33 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
   getDialogData() {
     return this.dialogData;
   }
-  addItem(itemMaster: ItemMaster): void {
+  addItem(itemMaster: ItemMaster,router,notificationService): void {
     this.dialogData = itemMaster;
-
     this.httpService.post<ItemMaster>(this.saveItemMaster, itemMaster).subscribe(data => {
       console.log(data);
-      //this.dialogData = employees;
+      if(data.Success == true){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Record Added successfully...",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/inventory/item-master/list-item-master']);
+      }
+      else if(data.Success == false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
     },
       (err: HttpErrorResponse) => {
         throw new Error('Method not implemented.');
       });
   }
+ 
   getAllList(): void {
     this.subs.sink = this.httpService.get<ItemMasterResultBean>(this.getAllMasters).subscribe(
       (data) => {
@@ -60,17 +76,27 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
-  itemUpdate(itemMaster: ItemMaster): void {
+  itemUpdate(itemMaster: ItemMaster,router,notificationService): void {
     this.dialogData = itemMaster;
     this.httpService.post<ItemMaster>(this.updateItem, itemMaster).subscribe(data => {
       console.log(data);
-      /* this.httpClient.put(this.API_URL + employees.id, employees).subscribe(data => {
-        this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-        // error code here
+      if(data.Success == true){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Add Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/inventory/item-master/list-item-master']);
       }
-    );*/
+      else if(data.Success == false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
     });
   }
   itemDelete(itemId: any): void {

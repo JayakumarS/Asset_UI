@@ -216,7 +216,7 @@ export class ManageAuditComponent implements OnInit {
 
     this.loadData();
  
-    this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getAssetCategoryDropdown).subscribe({
       next: (data) => {
         this.categorylist = data;
       },

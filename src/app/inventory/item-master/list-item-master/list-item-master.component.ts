@@ -166,8 +166,8 @@ export class ExampleDataSource extends DataSource<ItemMaster> {
               itemMaster.itemCode +
               itemMaster.itemName +
               itemMaster.itemDescription +
-              itemMaster.itemType +
-              itemMaster.itemCategory +
+              // itemMaster.itemType +
+              // itemMaster.itemCategory +
               itemMaster.saleable +              
               itemMaster.purchaseable
              
@@ -215,12 +215,12 @@ export class ExampleDataSource extends DataSource<ItemMaster> {
         case "itemDescription":
           [propertyA, propertyB] = [a.itemDescription, b.itemDescription];
           break;
-          case "itemType":
-            [propertyA, propertyB] = [a.itemType, b.itemType];
-            break;
-            case "itemCategory":
-              [propertyA, propertyB] = [a.itemCategory, b.itemCategory];
-              break;
+          // case "itemType":
+          //   [propertyA, propertyB] = [a.itemType, b.itemType];
+          //   break;
+          //   case "itemCategory":
+          //     [propertyA, propertyB] = [a.itemCategory, b.itemCategory];
+          //     break;
         case "saleable":
           [propertyA, propertyB] = [a.saleable, b.saleable];
           break;
