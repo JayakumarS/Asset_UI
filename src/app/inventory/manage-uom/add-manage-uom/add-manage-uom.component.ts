@@ -15,9 +15,9 @@ import { UomMasterResultBean } from '../uom-master-result-bean';
 })
 export class AddManageUomComponent implements OnInit {
 
- 
+
   docForm: FormGroup;
-  uomMaster:UomMaster;
+  uomMaster: UomMaster;
   uomCategoryList:[];
   requestId: number;
   edit:boolean=false;

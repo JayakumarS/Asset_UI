@@ -1,6 +1,6 @@
 <section class="content">
   <div class="content-block">
-    <div class="block-header">
+    <div class="block-header" style="padding: 0.5% !important;">
       <!-- breadcrumb -->
        <app-breadcrumb [title]="'UOM Category'" [items]="['Inventory']" [active_item]="'UOM Category List'">
       </app-breadcrumb>  
@@ -10,11 +10,11 @@
         <div class="card">
           <div class="body">
             <div class="table-responsive">
-              <div class="materialTableHeader">
+              <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
                 <div class="row">
                   <div class="col-8">
                     <ul class="header-buttons-left ms-0">
-                      <li class="dropdown">
+                      <li class="dropdown m-l-20 ">
                         <h2>UOM Category</h2>
                       </li>
                       <li class="dropdown m-l-20">
@@ -23,18 +23,18 @@
                           aria-label="Search box">
                       </li>
                       <li>
+                       
                         <div class="m-l-10" matTooltip="ADD">
-                          <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                          <button mat-mini-fab color="primary"  [routerLink]="'/inventory/UOM-catagory/add-UOMCategory/0'" >
-                            <mat-icon class="col-white">add</mat-icon>
-                          </button>
+                          <button color="primary" type="button" class="btn-space" mat-raised-button
+                          [routerLink]="'/inventory/UOM-catagory/add-UOMCategory/0'" ><i
+                              class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                         </div>
                       </li>
                       <li>
-                        <div class="m-l-10" matTooltip="REFRESH">
-                          <button mat-mini-fab color="primary" (click)="refresh()">
-                            <mat-icon class="col-white">refresh</mat-icon>
-                          </button>
+                      
+                        <div class="m-l-10" matTooltip="Reset">
+                          <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
+                            <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
                         </div>
                       </li>
                     </ul>
@@ -55,17 +55,17 @@
             <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
               #exporter="matTableExporter">
               
-              <ng-container matColumnDef="uomCode">
+              <ng-container matColumnDef="uomID">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Category Code</mat-header-cell>
-                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.uomCode}}</mat-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.uomID}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="categoryName">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.categoryName}}</mat-cell>
               </ng-container>
-              <ng-container matColumnDef="categoryDesp">
+              <ng-container matColumnDef="description">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Category Description</mat-header-cell>
-                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.categoryDesp}}</mat-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.description}}</mat-cell>
               </ng-container>
              
              

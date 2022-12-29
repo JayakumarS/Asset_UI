@@ -1,16 +1,17 @@
 import { formatDate } from "@angular/common";
 export class UomCategory {
   id: number;
+  uomID: number;
   uomCode: string;
   categoryName: string;
-  categoryDesp: string;
+  description: string;
   
   constructor(uomCategory) {
     {
       this.id = uomCategory.id || this.getRandomID();
-      this.uomCode = uomCategory.uomCode || "";
+      this.uomID = uomCategory.uomID || "";
       this.categoryName = uomCategory.categoryName || "";
-      this.categoryDesp = uomCategory.categoryDesp || "";
+      this.description = uomCategory.description || "";
     }
   }
   public getRandomID(): string {
