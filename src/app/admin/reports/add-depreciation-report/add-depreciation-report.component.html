@@ -1,0 +1,89 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Depreciation Report'" [items]="['Reports']" [active_item]="'Depreciation Report List'">
+        </app-breadcrumb>
+      </div>
+      
+      <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="body">
+                  <form [formGroup]="docForm">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <mat-label class="lable">Depreciation Method</mat-label>
+                          <select  tabindex="1" placeholder="Depreciation Method"  class="form-control" formControlName="depreciationMethod">
+                              <option value="" selected disabled>---Select---</option>
+                          </select>
+                        </div>
+                          <div class="col-md-2" style="width:14%">
+                              <mat-label class="lable">Date</mat-label>
+                              <input tabindex="2"  placeholder="Date"  type="date" class="form-control" formControlName="date">
+                              <mat-datepicker #picker></mat-datepicker>
+                          </div>
+
+                          <div class="col-md-2">
+                            <mat-label class="lable">Category</mat-label>
+                            <input tabindex="3" placeholder="Category"  type="text" class="form-control" formControlName="category">
+                           </div>
+
+                           <div class="col-md-2">
+                            <mat-label class="lable">Asset Location</mat-label>
+                            <input tabindex="4" placeholder="Asset Location" type="text" class="form-control" formControlName="assetLocation">
+                           </div>
+
+                           <div class="col-md-2">
+                            <mat-label class="lable">Department</mat-label>
+                            <select  tabindex="5" placeholder="Department" class="form-control" formControlName="department">
+                                <option value="" selected disabled>---Select---</option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-2">
+                              <mat-label class="lable">Search</mat-label>
+                              <input tabindex="6" placeholder="Search" type="text" class="form-control" formControlName="search">
+                          </div>
+                      </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive-sm">
+                      <table class="table table-bordered table-hover">
+                          <thead class="theadRow thead-light">
+                            <tr>
+                              <th style="text-align: left;">Category Code</th>
+                              <th style="text-align: left;">Category Name</th>
+                              <th style="text-align: left;">Asset Code</th>
+                              <th style="text-align: left;">Asset Name</th>
+                              <th style="text-align: left;">Department</th>
+                              <th style="text-align: left;">Invoice Date</th>
+                              <th style="text-align: left;">Vender Name</th>
+                              <th style="text-align: left;">Capitalization Price</th>
+                              <th style="text-align: left;">Cap Date</th>
+                              <th style="text-align: left;">Eql Date</th>
+                              <th style="text-align: left;">End Of Life</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                          </tbody>
+                        </table>
+                        <!-- <div class="d-flex justify-content-center">
+                          <pagination-controls
+                            previousLabel="Prev"
+                            nextLabel="Next"
+                            (pageChange)="onTableDataChange($event)">
+                          </pagination-controls>
+                        </div> -->
+                  </div>
+              </div>
+            </div> 
+    
+  </div>
+</section>

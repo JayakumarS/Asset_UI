@@ -1,0 +1,71 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Audit Report'" [items]="['Reports']" [active_item]="'Audit Report List'">
+        </app-breadcrumb>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    <form [formGroup]="docForm">
+                        <div class="row">
+                            <div class="col-md-2" style="width:14%">
+                                <mat-label class="lable">Date</mat-label>
+                                <input tabindex="1"  placeholder="Date"  type="date" class="form-control" formControlName="date">
+                                <mat-datepicker #picker></mat-datepicker>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <mat-label class="lable">Search</mat-label>
+                                <input tabindex="2"  placeholder="Search" type="text" class="form-control" formControlName="search">
+                            </div>
+                           
+                            <div class="col-md-2">
+                                <mat-label class="lable">Status</mat-label>
+                                <select  tabindex="3" placeholder="Status"  class="form-control" formControlName="status">
+                                    <option value="" selected disabled>---Select---</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-bordered table-hover">
+                            <thead class="theadRow thead-light">
+                              <tr>
+                                <th style="text-align: left;">Audit Name</th>
+                                <th style="text-align: left;">Audit Type</th>
+                                <th style="text-align: left;">Audit Code</th>
+                                <th style="text-align: left;">State Date</th>
+                                <th style="text-align: left;">End Date</th>
+                                <th style="text-align: left;">Verified Fields</th>
+                                <th style="text-align: left;">Status</th>
+                                <th style="text-align: left;">Total Assets To Be Verified</th>
+                                <th style="text-align: left;">Total Verified</th>
+                                <th style="text-align: left;">Total Unverified</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                          </table>
+                          <!-- <div class="d-flex justify-content-center">
+                            <pagination-controls
+                              previousLabel="Prev"
+                              nextLabel="Next"
+                              (pageChange)="onTableDataChange($event)">
+                            </pagination-controls>
+                          </div> -->
+                    </div>
+                </div>
+              </div> 
+      
+    </div>
+  </section>
