@@ -106,13 +106,14 @@ export class ListScheduleActivityComponent extends UnsubscribeOnDestroyAdapter i
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       
       this.loadData();
+      if(data==1)[
         this.showNotification(
           "snackbar-success",
           " Successfully deleted",
           "bottom",
           "center"
-        );
-      
+        )
+        ]
       // else{
       //   this.showNotification(
       //     "snackbar-danger",
