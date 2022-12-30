@@ -29,4 +29,23 @@ export class AddAuditReportComponent implements OnInit {
   onTableDataChange(event: any) {
     this.page = event;
   }
+
+  searchData()
+  {
+
+  }
+
+  reset()
+  {
+    this.docForm.patchValue({
+      'depreciationMethod' : '',
+      'date' : '',
+      'category' : '',
+      'assetLocation' : '',
+      'department' : '',
+      'search' : '',
+     
+   })
+   this.searchData();
+  }
 }
