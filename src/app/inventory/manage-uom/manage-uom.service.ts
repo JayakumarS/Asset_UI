@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { UomMaster } from "./uom-master.model";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
@@ -18,9 +18,9 @@ const httpOptions = {
 })
 export class ManageUomService  extends UnsubscribeOnDestroyAdapter {
 
-  
+
   isTblLoading = true;
-  uomCategoryList:[];
+  uomCategoryList: [];
   dataChange: BehaviorSubject<UomMaster[]> = new BehaviorSubject<UomMaster[]>(
     []
   );
@@ -59,48 +59,54 @@ export class ManageUomService  extends UnsubscribeOnDestroyAdapter {
     this.dialogData = uomMaster;
     this.httpService.post<UomMaster>(this.saveUom, uomMaster).subscribe(data => {
       console.log(data);
-      //this.dialogData = employees;
+      // this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
-        
+
     });
   }
-  
+
   getuomCategoryList() {
-   
+
     this.httpService.get<UomMasterResultBean>(this.getUomCategory).subscribe(
       (data) => {
         this.uomCategoryList = data.uomCategoryList;
       },
       (error: HttpErrorResponse) => {
-        
+
         console.log(error.name + " " + error.message);
       }
     );
     return this.uomCategoryList;
   }
 
-  //This is for update
-  uomUpdate(uomMaster: UomMaster): void {
-  this.dialogData = uomMaster;
-  this.httpService.post<UomMaster>(this.updateUom, uomMaster).subscribe(data => {
-    console.log(data);
-    //this.dialogData = employees;
-    },
-    (err: HttpErrorResponse) => {
-      
-  });
+  // This is for update
+  // uomUpdate(uomMaster: UomMaster): void {
+  // this.dialogData = uomMaster;
+  // this.httpService.post<UomMaster>(this.updateUom, uomMaster).subscribe(data => {
+  //   console.log(data);
+  //   //this.dialogData = employees;
+  //   },
+  //   (err: HttpErrorResponse) => {
+
+  // });
+// }
+uomUpdate(uomMaster: UomMaster): Observable<any> {
+  return this.httpClient.post<UomMaster>(this.updateUom, uomMaster);
 }
 
-uomDelete(id: any): void {
-  this.httpService.get(this.deleteUom+"?manageUom="+id).subscribe(data => {
-    console.log(id);
-    },
-    (err: HttpErrorResponse) => {
-       // error code here
-    }
-  );
- 
+uomDelete(obj: any): Observable<any> {
+  return this.httpClient.post<any>(this.deleteUom, obj);
 }
+// uomDelete(id: any): void {
+//   this.httpService.get(this.deleteUom+"?manageUom="+id).subscribe(data => {
+//     console.log(id);
+//     },
+//     (err: HttpErrorResponse) => {
+//        // error code here
+//     }
+//   );
+
+// }
 
 }

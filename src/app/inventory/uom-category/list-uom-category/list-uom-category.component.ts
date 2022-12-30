@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { UomCategoryService} from '../uom-category.service'
-import { UomCategory} from '../uom-category.model';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UomCategoryService } from '../uom-category.service'
+import { UomCategory } from '../uom-category.model';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -24,7 +24,7 @@ import { DeleteUomCategoryComponent } from './delete-uom-category/delete-uom-cat
   templateUrl: './list-uom-category.component.html',
   styleUrls: ['./list-uom-category.component.sass']
 })
-export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implements OnInit{
+export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = ["uomID", "categoryName", "description", "actions"];
 
   dataSource: ExampleDataSource | null;
@@ -59,7 +59,7 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
     this.loadData();
   }
 
-  refresh(){
+  refresh() {
     this.loadData();
   }
 
@@ -82,13 +82,10 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
 
 
   editCall(row) {
-    this.router.navigate(['/inventory/UOM-catagory/add-UOMCategory/'+row.uomID]);
+    this.router.navigate(['/inventory/UOM-catagory/add-UOMCategory/' + row.uomID]);
 
   }
-
-  deleteItem(row){
-
-    this.id = row.uomID;
+  deleteItem(row) {
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -100,28 +97,33 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
       width: "400px",
       data: row,
       direction: tempDirection,
+      disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      this.loadData();
-        this.showNotification(
-          "snackbar-success",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
+      if (data.data == true) {
+        const obj = {
+          deletingId: row.uomID
+        }
+        this.uomCategoryService.DeleteUomCategory(obj).subscribe({
+          next: (data) => {
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+          }
+        });
+
+      }
     });
   }
-  
+
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
@@ -133,7 +135,7 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
       panelClass: colorName,
     });
   }
-// context menu
+  // context menu
   onContextMenu(event: MouseEvent, item: UomCategory) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
@@ -199,7 +201,7 @@ export class ExampleDataSource extends DataSource<UomCategory> {
       })
     );
   }
-  disconnect() {}
+  disconnect() { }
   /** Returns a sorted copy of the database data. */
   sortData(data: UomCategory[]): UomCategory[] {
     if (!this._sort.active || this._sort.direction === "") {
@@ -218,7 +220,7 @@ export class ExampleDataSource extends DataSource<UomCategory> {
         case "description":
           [propertyA, propertyB] = [a.description, b.description];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

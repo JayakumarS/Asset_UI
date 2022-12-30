@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { UomCategory} from "./uom-category.model";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
@@ -52,7 +52,9 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
   }
 
 
-
+  editAsset(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editUomCategory, obj);
+  }
 
   addUomCategory(uomCategory: UomCategory): void {
     this.dialogData = uomCategory;
@@ -77,24 +79,23 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
   }
 
 
+  // uomCategoryUpdate(uomCategory: UomCategory): Observable<any> {
+  //   return this.httpClient.post<UomCategory>(this.updateUomCategory, uomCategory);
+  // }
 
-
-  DeleteUomCategory(uomID: any): void {
-    this.httpService.get(this.deleteUomCategory + "?uomID= " + uomID).subscribe(data => {
-      console.log(uomID);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
+  DeleteUomCategory(obj: any): Observable<any> {
+     return this.httpClient.post<any>(this.deleteUomCategory, obj);
   }
+
+//  DeleteUomCategory(uomID: any): void {
+//    this.httpService.get(this.deleteUomCategory + "?uomID= " + uomID).subscribe(data => {
+//       console.log(uomID);
+//        },
+//      (err: HttpErrorResponse) => {
+//         // error code here
+//      }
+//    );
+//    }
 
 
 

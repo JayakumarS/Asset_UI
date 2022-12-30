@@ -17,7 +17,10 @@ export class DeleteUomCategoryComponent {
       this.dialogRef.close();
     }
     confirmDelete(): void {
-      this.uomCategoryService.DeleteUomCategory(this.data.uomID);
-    }
+      this.dialogRef.close({ data: true })
+        }
+
+  ngOnInit(): void {
+  }
 
 }
