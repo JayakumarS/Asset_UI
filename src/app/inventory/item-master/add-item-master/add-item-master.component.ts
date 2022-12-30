@@ -18,161 +18,168 @@ import { NotificationService } from 'src/app/core/service/notification.service';
   styleUrls: ['./add-item-master.component.sass']
 })
 export class AddItemMasterComponent implements OnInit {
-  // [x: string]: any;
   docForm: FormGroup;
   itemMaster:ItemMaster;
-  requestId: number;
   edit:boolean=false;
   hide3 = true;
   agree3 = false;
+  itemList=[];
   dataarray=[];
+  listOfItem = [];
   datas:any;
-  multipleRowComponent = new MultipleRowComponent;
+  itemMasterDetailBean=[];
   parentCategoryList:[];
-  commonDropDownItemTypeList:[];
-  locationList:[];
-  vendorList:[];
+  categoryList:[];
   itemMasterDetailsList:[];
   catagoryTypeDropDownList:[];
   fetchItemCategoryList:[];
-  uomList:[];
-  itemList:[];
+  uomList = [];
+  commonDropDownItemTypeList= [];
+  
+  // For Encryption
+  requestId: any;
+  decryptRequestId: any;
+  vendorList: any;
+  product:Boolean=false;
+  productDetail:[];
+  itemName: any;
+  itemDescription= [];
+  locationList: any;
 
-  constructor( private fb: FormBuilder,
-    private itemMasterService : ItemMasterService,
+  constructor(private fb: FormBuilder,
+    private itemMasterService: ItemMasterService,
     private httpService: HttpServiceService,
-    private snackBar:MatSnackBar,
-    private router:Router,
-    public route: ActivatedRoute,private commonService: CommonService,
-      public notificationService:NotificationService) {
+    private snackBar: MatSnackBar,
+    private router: Router,
+    public route: ActivatedRoute, private commonService: CommonService,
+    public notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
     this.docForm = this.fb.group({
-      size:[""],
-      remarks:[],
-      itemId:[""],
+      size: [""],
+      remarks: [],
+      itemId: [""],
       itemCode: ["", [Validators.required]],
       itemName: ["", [Validators.required]],
       itemDescription: ["", [Validators.required]],
       itemType: ["", [Validators.required]],
       itemCategory: ["", [Validators.required]],
       blno: ["", [Validators.required]],
-      location:[""],
+      location: [""],
       saleable: [""],
       purchaseable: [""],
-      purchaseReq:[""],
-      costingMethod:[""],
-      costPrice:[""],
-      warranty:[""],
-      leadTime:[""],
-      purchaseMethod:[""],
-      purchaseUom:[""],
-      reorderLevel:[""],
-      minimumQty:[""],
-      maximumQty:[""],
-     //GRN
-       batchNo:[""], 
-       mrp:[""],
-       expiryDate:[""],
-       manufactureDetails:[""],
+      purchaseReq: [""],
+      costingMethod: [""],
+      costPrice: [""],
+      warranty: [""],
+      leadTime: [""],
+      purchaseMethod: [""],
+      purchaseUom: [""],
+      reorderLevel: [""],
+      minimumQty: [""],
+      maximumQty: [""],
+      //GRN
+      batchNo: [""],
+      mrp: [""],
+      expiryDate: [""],
+      manufactureDetails: [""],
       //INVENTORY
-       inventoryValuation:[""], 
-       issueMethod:[""],
-       openingBalance:[""],
-       defaultPrice:[""],
-     //Vendor 
-       itemMasterDetailBean: this.fb.array([
+      inventoryValuation: [""],
+      issueMethod: [""],
+      openingBalance: [""],
+      defaultPrice: [""],
+      //Vendor 
+      itemMasterDetailBean: this.fb.array([
         this.fb.group({
-          itemId:'',
-         vendorName:'',
-         vendorItemName:'',
-         vendorItemCode:'',
-         itemCode: '',
-         itemName:'',
-         vendorminimumQty:'',
-         vendorUom:'',
-         deliveryLeadTime:'',
-         paymentMethod:'',
+          itemId: '',
+          vendorName: '',
+          vendorItemName: '',
+          vendorItemCode: '',
+          itemCode: '',
+          itemName: '',
+          vendorminimumQty: '',
+          vendorUom: '',
+          deliveryLeadTime: '',
+          paymentMethod: '',
         })
-       ]),
-       productDetailBean: this.fb.array([
+      ]),
+      productDetailBean: this.fb.array([
         this.fb.group({
-          itemId:'',        
-         itemCode: '',
-         itemName:'',   
-         itemDescription:''     
+          itemId: '',
+          itemCode: '',
+          itemName: '',
+          itemDescription: ''
         })
-       ])
+      ])
     });
 
-  this.route.params.subscribe(params => {
-   if(params.id!=undefined && params.id!=0){
-    this.requestId = params.id;
-    this.edit=true;
-    //For Editable mode
-      this.fetchDetails(this.requestId);
-   }
-  });
+    this.route.params.subscribe(params => {
+      if (params.id != undefined && params.id != 0) {
+        this.requestId = params.id;
+        this.edit = true;
+        //For Editable mode
+        this.fetchDetails(this.requestId);
+      }
+    });
 
-  //Parent Category Dropdown List
-  this.httpService.get<any>(this.commonService.getParentCategoryDropdown).subscribe({
-    next: (data) => {
-      this.parentCategoryList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //Parent Category Dropdown List
+    this.httpService.get<any>(this.commonService.getParentCategoryDropdown).subscribe({
+      next: (data) => {
+        this.parentCategoryList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-  //Item Type Dropdown List
-  this.httpService.get<any>(this.commonService.getCommonDropdownByformId+"?formFieldId="+1).subscribe({
-    next: (data) => {
-      this.commonDropDownItemTypeList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //Item Type Dropdown List
+    this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 1).subscribe({
+      next: (data) => {
+        this.commonDropDownItemTypeList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-  //Location Dropdown List
-  this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-    next: (data) => {
-      this.locationList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //Location Dropdown List
+    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+      next: (data) => {
+        this.locationList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-  //Vendor  Dropdown List
-  this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
-    next: (data) => {
-      this.vendorList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //Vendor  Dropdown List
+    this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+      next: (data) => {
+        this.vendorList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-   //UOM Dropdown List
-   this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
-    next: (data) => {
-      this.uomList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //UOM Dropdown List
+    this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
+      next: (data) => {
+        this.uomList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-  //Item Master Dropdown List
-  this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
-    next: (data) => {
-      this.itemList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //Item Master Dropdown List
+    this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
+      next: (data) => {
+        this.itemList = data;
+      },
+      error: (error) => {
+      }
+    });
+  }
 
-  
-}
 
-   onSubmit(){
+  onSubmit(){
   //  if(this.docForm.valid){
       this.itemMaster = this.docForm.value;
       console.log(this.itemMaster);
@@ -187,11 +194,9 @@ export class AddItemMasterComponent implements OnInit {
     // }  
   }
   fetchDetails(itemId: any): void {
-    this.httpService.get(this.itemMasterService.editItem +"?itemMaster="+itemId).subscribe((res: any) => {
+    this.httpService.get(this.itemMasterService.editItem +"?itemMaster="+encodeURIComponent(itemId)).subscribe((res: any) => {
       console.log(itemId);
-//  if(res.productDetailBean.length>0){
-//     this.product=true;
-//  }
+ 
       this.docForm.patchValue({
         'itemId': res.itemMasterBean.itemId,
         'itemCode': res.itemMasterBean.itemCode,
@@ -283,53 +288,138 @@ export class AddItemMasterComponent implements OnInit {
     );
     }
 
-    keyPressNumber(event: any) {
-      const pattern = /[0-9.]/;
-      const inputChar = String.fromCharCode(event.charCode);
-      if (event.keyCode != 8 && !pattern.test(inputChar)) {
-        event.preventDefault();
-       }
-      }
-    
-      keyPressNumberDouble(event: any) {
-      const pattern = /[0-9.]/;
-      const inputChar = String.fromCharCode(event.charCode);
-      if (event.keyCode != 8 && !pattern.test(inputChar)) {
-        event.preventDefault();
-        }
-      }
 
-  keyPressPCB(event: any) {
-    const pattern = /[0-9.]/;
-    const inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
+    keyPressPCB(event: any) {
+      const pattern = /[0-9.]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
     }
-  }
-
-
+    
  onCancel(){
      this.router.navigate(['/inventory/item-master/list-item-master']);
 }
-  reset(){}
-
-  addRow(){
-    this.multipleRowComponent=new MultipleRowComponent()
-    this.dataarray.push(this.multipleRowComponent)
+  reset(){
+    this.docForm = this.fb.group({
+      itemId:[""],
+      itemCode: ["", [Validators.required]],
+      itemName: ["", [Validators.required]],
+      itemDescription: ["", [Validators.required]],
+      blno: ["", [Validators.required]],
+      itemType: ["", [Validators.required]],
+      itemCategory: ["", [Validators.required]],
+      saleable: [""],
+      purchaseable: [""],
+      purchaseReq:[""],
+      costingMethod:[""],
+      costPrice:[""],
+      warranty:[""],
+      leadTime:[""],
+      purchaseMethod:[""],
+      purchaseUom:[""],
+      reorderLevel:[""],
+      minimumQty:[""],
+      maximumQty:[""],
+     //GRN
+       batchNo:[""], 
+       mrp:[""],
+       expiryDate:[""],
+       manufactureDetails:[""],
+      //INVENTORY
+       inventoryValuation:[""], 
+       issueMethod:[""],
+     //Vendor 
+          itemMasterDetailBean: this.fb.array([
+            this.fb.group({
+              itemId:'',
+              vendorName:'',
+             vendorItemName:'',
+             vendorItemCode:'',
+             itemCode: '',
+             itemName:'',
+             vendorminimumQty:'',
+             vendorUom:'',
+             deliveryLeadTime:'',
+             paymentMethod:'',
+            })
+           ]),
+           productDetailBean: this.fb.array([
+            this.fb.group({
+              itemName:'',            
+             itemDescription:'',
+            })
+           ])
+    });
+    
+  }
+  addRow1(){
+    this.itemMasterDetailBean= this.itemMasterDetailBean;
+    this.dataarray.push(this.itemMasterDetailBean)
 
   }
+  removeRow1(index){
+    this.dataarray.splice(index, 1);
+  }
 
-     removeRow(index){
-      this.dataarray.splice(index, 1);
+  addRow(){
+
+    let itemMasteDtlArray = this.docForm.controls.itemMasterDetailBean as FormArray;
+    let arraylen = itemMasteDtlArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      itemId:'',
+      vendorName:'',
+         vendorItemName:'',
+         vendorItemCode:'',
+         itemCode: '',
+         itemName:'',
+         vendorminimumQty:'',
+         vendorUom:'',
+         deliveryLeadTime:'',
+         paymentMethod:'',
+    })
+    itemMasteDtlArray.insert(arraylen,newUsergroup);
+  }
+ 
+  removeRow(index){
+
+    let itemMasteDtlArray = this.docForm.controls.itemMasterDetailBean as FormArray;
+    itemMasteDtlArray.removeAt(index);
+  }
+  addRow2(){
+
+    let productDetailBeanArray = this.docForm.controls.productDetailBean as FormArray;
+    let arraylen = productDetailBeanArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      
+         itemName:[""],            
+         itemDescription:[""],
+      
+    })
+    productDetailBeanArray.insert(arraylen,newUsergroup);
+  }
+ 
+  removeRow2(index){
+
+    let productDetailBeanArray = this.docForm.controls.productDetailBean as FormArray;
+    productDetailBeanArray.removeAt(index);
+  }
+
+  keyPressNumber(event: any) {
+  const pattern = /[0-9.]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+   }
+  }
+
+  keyPressNumberDouble(event: any) {
+  const pattern = /[0-9.]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
     }
-    showNotification(colorName, text, placementFrom, placementAlign) {
-      this.snackBar.open(text, "", {
-        duration: 2000,
-        verticalPosition: placementFrom,
-        horizontalPosition: placementAlign,
-        panelClass: colorName,
-      });
-       
-}
+  }
+
 }
 
