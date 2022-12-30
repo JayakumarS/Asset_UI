@@ -63,7 +63,7 @@ export class AddDesingnationMasterComponent implements OnInit {
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/designation-Master/list-designation']);
+    this.router.navigate(['/master/Activity-master/list-activity']);
   }
 
   // Edit

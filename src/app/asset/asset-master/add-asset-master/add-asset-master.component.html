@@ -377,9 +377,10 @@
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
                 <!-- <button class="btn-space" [disabled]="!docForm.valid " mat-raised-button
                   color="primary">Submit</button> -->
-                  <button class="btn-space" (click) = "onSubmit()"  mat-raised-button
+                  <button  *ngIf="!edit" class="btn-space" (click) = "onSubmit()"  mat-raised-button
                   color="primary">Submit</button>
-                <button type="button" mat-button>Cancel</button>
+                  <button *ngIf="edit" mat-raised-button color="primary" style ="margin-left: 38%; "(click)="update()" >update</button>
+                <button  mat-raised-button color="primary" (click)="refresh()" >Cancel</button>
               </div>
   
               <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">

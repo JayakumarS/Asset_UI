@@ -62,12 +62,12 @@
                     <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
                       {{row.assetCode}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="assetLocation">
+                  <ng-container matColumnDef="Location">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Location </mat-header-cell>
                     <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
                       {{row.locationName}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="category">
+                  <ng-container matColumnDef="Category">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
                     <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
                       {{row.categoryName}}</mat-cell>

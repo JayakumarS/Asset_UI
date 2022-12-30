@@ -1,8 +1,9 @@
 export class AssetMaster {
-    asset_id: number;
+    id: number;
     assetName: string;
     assetCode: string;
-    assetLocation: string;
-    category: string;
+    Location: string;
+    Category: string;
     status: string;
+  Success: boolean;
 }
