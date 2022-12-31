@@ -8,6 +8,8 @@ import { CurrencyMasterResultBean } from '../currency-master-result-bean';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CurrencyService } from 'src/app/finance/master/currency/currency.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 @Component({
@@ -29,10 +31,13 @@ export class AddCurrencyMasterComponent implements OnInit {
               private httpService: HttpServiceService,
               private snackBar: MatSnackBar,
               public route: ActivatedRoute,
+              public tokenStorage: TokenStorageService,
+              private spinner: NgxSpinnerService,
     ) {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+      currencyId: [""],
       currencyCode: ["", [Validators.required]],
       currencyName: ["", [Validators.required]],
       fromcurrency: ["", [Validators.required]],
@@ -46,6 +51,7 @@ export class AddCurrencyMasterComponent implements OnInit {
       isActive: [""],
       bookCurrency: [""],
       designation: [""],
+      loginedUser: this.tokenStorage.getUserId(),
     });
 
   }
@@ -62,7 +68,7 @@ export class AddCurrencyMasterComponent implements OnInit {
 
   onSubmit() {
     this.currencyMaster = this.docForm.value;
-    console.log(this.currencyMaster)
+
     this.CurrencyMasterService.addCurrency(this.currencyMaster);
     this.showNotification(
       "snackbar-success",
@@ -80,6 +86,8 @@ export class AddCurrencyMasterComponent implements OnInit {
     this.CurrencyMasterService.editAsset(obj).subscribe({
       next: (res) => {
       this.docForm.patchValue({
+        'currencyId': res.currencyMasterBean.currencyId,
+
         'currencyCode': res.currencyMasterBean.currencyCode,
         'currencyName': res.currencyMasterBean.currencyName,
         'fromcurrency': res.currencyMasterBean.fromcurrency,
@@ -95,19 +103,55 @@ export class AddCurrencyMasterComponent implements OnInit {
     }
   });
 }
+  // update() {
+  //   this.currencyMaster = this.docForm.value;
+  //   this.CurrencyMasterService.updateCountry(this.currencyMaster);
+  //   this.showNotification(
+  //     "snackbar-success",
+  //     "Edit Record Successfully...!!!",
+  //     "bottom",
+  //     "center"
+  //   );
+  //   this.router.navigate(['/master/currencyMaster/listCurrency']);
+
+  // }
+
   update() {
+      this.currencyMaster = this.docForm.value;
+      this.spinner.show();
+      this.CurrencyMasterService.updateCountry(this.currencyMaster).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Edit Record Successfully",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Updated Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+      // this.router.navigate(['/master/currencyMaster/listCurrency']);
+    }
 
-    this.currencyMaster = this.docForm.value;
-    this.CurrencyMasterService.currencyUpdate(this.currencyMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Edit Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/currencyMaster/listCurrency']);
-
-  }
   onCancel() {
     this.router.navigate(['/master/currencyMaster/listCurrency']);
   }
@@ -129,6 +173,7 @@ export class AddCurrencyMasterComponent implements OnInit {
       isActive: [""],
       bookCurrency: [""],
       designation: [""],
+      loginedUser: this.tokenStorage.getUserId(),
     });
   } else {
     this.fetchDetails(this.requestId);
