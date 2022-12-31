@@ -254,9 +254,9 @@ export class AddCountryMasterComponent implements OnInit {
     if (event != undefined && event != null && event != "") {
       this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "country" + "&columnName=" + "country_name" + "&columnValue=" + event).subscribe((res: any) => {
         if (res) {
-          this.docForm.controls['countryCode'].setErrors({ country: true });
+          this.docForm.controls['countryName'].setErrors({ country: true });
         } else {
-          this.docForm.controls['countryCode'].setErrors(null);
+          this.docForm.controls['countryName'].setErrors(null);
         }
       });
     }
