@@ -12,7 +12,7 @@ const routes: Routes = [
       import("./currency-master/currency-master.module").then((m) => m.CurrencyMasterModule),
   },
   {
-    path: "category-Master",
+    path: "countryMaster",
     loadChildren: () =>
       import("./country-master/country-master.module").then((m) => m.CountryMasterModule),
   },

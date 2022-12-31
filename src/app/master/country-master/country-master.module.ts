@@ -22,21 +22,27 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { NotificationService } from "src/app/core/service/notification.service";
 
 import { CountryMasterRoutingModule } from './country-master-routing.module';
 import { ListCountryMasterComponent } from './list-country-master/list-country-master.component';
 import { AddCountryMasterComponent } from './add-country-master/add-country-master.component';
-import { DeleteComponent } from "./list-country-master/delete/delete.component";
+import { DeleteCountryMasterComponent } from './list-country-master/delete-country-master/delete-country-master.component';
+
+
 
 
 @NgModule({
   declarations: [
     ListCountryMasterComponent,
     AddCountryMasterComponent,
-    DeleteComponent
+    DeleteCountryMasterComponent
+  ],
+  providers: [
+    NotificationService
   ],
   imports: [
-   CommonModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
@@ -46,7 +52,7 @@ import { DeleteComponent } from "./list-country-master/delete/delete.component";
     MatSnackBarModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule,
+    // MatDialogModule,
     MatSortModule,
     MatMenuModule,
     MatToolbarModule,
@@ -57,10 +63,11 @@ import { DeleteComponent } from "./list-country-master/delete/delete.component";
     MatTableExporterModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    CountryMasterRoutingModule,
     ComponentsModule,
     SharedModule,
-    CountryMasterRoutingModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDialogModule
   ]
 })
 export class CountryMasterModule { }
