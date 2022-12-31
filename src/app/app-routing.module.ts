@@ -143,6 +143,15 @@ const routes: Routes = [
         loadChildren: () =>
         import("./asset/asset.module").then((m) => m.AssetModule),
       },
+      {
+        path: "audit",
+        canActivate: [AuthGuard],
+        data: {
+          role: Role.Admin,
+        },
+        loadChildren: () =>
+        import("./audit/audit.module").then((m) => m.AuditModule),
+      },
     ],
   },
   {
