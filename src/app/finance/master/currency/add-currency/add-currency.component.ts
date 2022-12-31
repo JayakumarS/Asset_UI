@@ -8,6 +8,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CurrencyMaster } from '../currency.model';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-add-currency',
@@ -21,7 +22,7 @@ export class AddCurrencyComponent implements OnInit {
   agree3 = false;
   dataarray = [];
   currencyMaster: CurrencyMaster;
-  constructor(private fb: FormBuilder, private authService: AuthService, public router: Router,
+  constructor(private fb: FormBuilder, private authService: AuthService, public commonService: CommonService,public router: Router,
               private currencyService: CurrencyService, private httpService: HttpServiceService
     ,         private snackBar: MatSnackBar, ) {
     this.docForm = this.fb.group({
@@ -51,6 +52,29 @@ export class AddCurrencyComponent implements OnInit {
   }
   reset(){}
 
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   onCancel(){
     this.router.navigate(['/finance/master/currency/listCurrencyComponent']);
    }
@@ -62,5 +86,16 @@ export class AddCurrencyComponent implements OnInit {
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
+  }
+  validateCountry(event) {
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "currency" + "&columnName=" + "currency_name" + "&columnValue=" + event).subscribe((res: any) => {
+        if (res) {
+          this.docForm.controls['currencyName'].setErrors({ country: true });
+        } else {
+          this.docForm.controls['currencyName'].setErrors(null);
+        }
+      });
+    }
   }
 }

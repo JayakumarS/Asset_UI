@@ -7,6 +7,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CurrencyMasterResultBean } from '../currency-master-result-bean';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { CurrencyService } from 'src/app/finance/master/currency/currency.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class AddCurrencyMasterComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               public router: Router,
+              private currencyService: CurrencyService,
               // tslint:disable-next-line:no-shadowed-variable
               private CurrencyMasterService: CurrencyMasterService,
               private httpService: HttpServiceService,
@@ -111,6 +113,7 @@ export class AddCurrencyMasterComponent implements OnInit {
   }
 
   reset() {
+    if (!this.edit) {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       currencyCode: ["", [Validators.required]],
@@ -127,6 +130,9 @@ export class AddCurrencyMasterComponent implements OnInit {
       bookCurrency: [""],
       designation: [""],
     });
+  } else {
+    this.fetchDetails(this.requestId);
+  }
 
    }
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -137,11 +143,46 @@ export class AddCurrencyMasterComponent implements OnInit {
       panelClass: colorName,
     });
   }
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   keyPressNumeric(event: any) {
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
+    }
+  }
+  validateCountry(event) {
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "currency" + "&columnName=" + "currency_name" + "&columnValue=" + event).subscribe((res: any) => {
+        if (res) {
+          this.docForm.controls['currencyName'].setErrors({ country: true });
+        } else {
+          this.docForm.controls['currencyName'].setErrors(null);
+        }
+      });
     }
   }
 }

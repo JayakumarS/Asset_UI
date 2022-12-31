@@ -6,6 +6,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { UomCategory } from '../uom-category.model';
 import { UomCategoryService } from '../uom-category.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-add-uom-category',
@@ -21,7 +22,9 @@ export class AddUOMCategoryComponent implements OnInit {
   dialogData: any;
   edit: boolean = false;
   constructor(private fb: FormBuilder, public router: Router, private snackBar: MatSnackBar,
-    public uomCategoryService: UomCategoryService, public route: ActivatedRoute, private httpService: HttpServiceService) {
+              public uomCategoryService: UomCategoryService,
+              public commonService: CommonService,
+              public route: ActivatedRoute, private httpService: HttpServiceService) {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -127,8 +130,31 @@ export class AddUOMCategoryComponent implements OnInit {
   //   });
   // }
 
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   reset() {
+    if (!this.edit) {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       categoryName: ["", [Validators.required]],
@@ -136,6 +162,9 @@ export class AddUOMCategoryComponent implements OnInit {
       active: [""],
       uomID: [""]
     });
+  } else {
+    this.fetchDetails(this.requestId);
+  }
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -147,4 +176,15 @@ export class AddUOMCategoryComponent implements OnInit {
     });
   }
 
+  validateCountry(event) {
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "country" + "&columnName=" + "country_name" + "&columnValue=" + event).subscribe((res: any) => {
+        if (res) {
+          this.docForm.controls['categoryName'].setErrors({ country: true });
+        } else {
+          this.docForm.controls['categoryName'].setErrors(null);
+        }
+      });
+    }
+  }
 }

@@ -25,11 +25,11 @@ export class AddDesingnationMasterComponent implements OnInit {
     private httpService: HttpServiceService,
     private snackBar:MatSnackBar,
     public route: ActivatedRoute,
-    private router:Router) { 
+    private router:Router) {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-    
+
       activtyname: ["", [Validators.required]],
       activtyid: [""],
       Description:[""],
@@ -72,7 +72,7 @@ export class AddDesingnationMasterComponent implements OnInit {
       console.log(id);
 
       this.docForm.patchValue({
-        
+
         'activtyname': res.activityMasterBean.activtyname,
         'activtyid': res.activityMasterBean.activtyid,
         'Description': res.activityMasterBean.Description,
@@ -103,22 +103,26 @@ export class AddDesingnationMasterComponent implements OnInit {
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/designation-Master/list-designation']);
+    this.router.navigate(['/master/Activity-master/list-activity']);
 
   }
 
   onCancel(){
-    this.router.navigate(['/master/designation-Master/list-designation']);
+    this.router.navigate(['/master/Activity-master/list-activity']);
   }
-  
+
   reset(){
+    if (!this.edit) {
     this.docForm = this.fb.group({
       activtyname: [""],
       activtyid: [""],
       Description: [""],
       active: [""],
-      
+
     });
+  } else {
+    this.fetchDetails(this.requestId);
+  }
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
