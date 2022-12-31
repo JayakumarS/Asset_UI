@@ -14,21 +14,21 @@ import { UomCategoryService } from '../uom-category.service';
 })
 export class AddUOMCategoryComponent implements OnInit {
 
- 
+
   docForm: FormGroup;
   uomCategory: UomCategory;
   requestId: number;
   dialogData: any;
-  edit:boolean=false;
-  constructor(private fb: FormBuilder,public router:Router,private snackBar: MatSnackBar,
-    public uomCategoryService: UomCategoryService,public route: ActivatedRoute,private httpService: HttpServiceService) { 
+  edit: boolean = false;
+  constructor(private fb: FormBuilder, public router: Router, private snackBar: MatSnackBar,
+    public uomCategoryService: UomCategoryService, public route: ActivatedRoute, private httpService: HttpServiceService) {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       categoryName: ["", [Validators.required]],
-      description:[""],
-      active:[""],
-      uomCode:[""]
+      description: [""],
+      active: [""],
+      uomCode: [""]
     });
 
   }
@@ -38,23 +38,23 @@ export class AddUOMCategoryComponent implements OnInit {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       categoryName: ["", [Validators.required]],
-      description:[""],
-      active:[""],
-      uomID:[""]
+      description: [""],
+      active: [""],
+      uomID: [""]
     });
     this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
-       this.requestId = params.id;
-       this.edit=true;
-       //For User login Editable mode
-       this.fetchDetails(this.requestId) ;
+      if (params.id != undefined && params.id != 0) {
+        this.requestId = params.id;
+        this.edit = true;
+        //For User login Editable mode
+        this.fetchDetails(this.requestId);
 
       }
-     });
+    });
 
   }
 
-  onSubmit(){
+  onSubmit() {
     this.uomCategory = this.docForm.value;
     this.uomCategoryService.addUomCategory(this.uomCategory);
     this.showNotification(
@@ -69,21 +69,22 @@ export class AddUOMCategoryComponent implements OnInit {
 
   // Edit
   fetchDetails(uomID: any): void {
-    this.httpService.get(this.uomCategoryService.editUomCategory + "?uomID=" + uomID).subscribe((res: any) => {
-      console.log(uomID);
+    const obj = {
+      editId: uomID
+    }
+    this.uomCategoryService.editAsset(obj).subscribe({
+      next: (res) => {
+        this.docForm.patchValue({
+          'uomID': res.uomBean.uomID,
+          'categoryName': res.uomBean.categoryName,
+          'description': res.uomBean.description,
+          'active': res.uomBean.active,
 
-      this.docForm.patchValue({
-        'uomID': res.uomBean.uomID,
-        'categoryName': res.uomBean.categoryName,
-        'description': res.uomBean.description,
-        'active': res.uomBean.active,
-
-     });
-        },
-      (err: HttpErrorResponse) => {
-         // error code here
+        });
+      },
+      error: (error) => {
       }
-    );
+    });
     /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
       console.log(id);
       },
@@ -94,7 +95,7 @@ export class AddUOMCategoryComponent implements OnInit {
   }
 
 
-  update(){
+  update() {
 
     this.uomCategory = this.docForm.value;
     this.uomCategoryService.uomCategoryUpdate(this.uomCategory);
@@ -109,7 +110,7 @@ export class AddUOMCategoryComponent implements OnInit {
   }
 
 
-  onCancel(){
+  onCancel() {
     this.router.navigate(['/inventory/UOM-catagory/list-UOMCategory']);
   }
 
@@ -127,7 +128,7 @@ export class AddUOMCategoryComponent implements OnInit {
   // }
 
 
-  reset(){
+  reset() {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       categoryName: ["", [Validators.required]],

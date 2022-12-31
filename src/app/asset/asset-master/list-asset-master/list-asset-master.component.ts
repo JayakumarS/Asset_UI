@@ -28,8 +28,8 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
   displayedColumns = [
     "assetName",
     "assetCode",
-    "assetLocation",
-    "category",
+    "Location",
+    "Category",
     "status",
     "actions"
   ];
@@ -203,10 +203,10 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
             const searchStr = (
               assetMaster.assetName +
               assetMaster.assetCode +
-              assetMaster.assetLocation +
-              assetMaster.category +
+              assetMaster.Location +
+              assetMaster.Category +
               assetMaster.status +
-              assetMaster.asset_id
+              assetMaster.id
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -234,8 +234,8 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
       //For to sort number or string Added by GOKUL
       let isNumber: boolean = false;
       switch (this._sort.active) {
-        case "asset_id":
-          [propertyA, propertyB] = [a.asset_id, b.asset_id];
+        case "id":
+          [propertyA, propertyB] = [a.id, b.id];
           break;
         case "assetName":
           [propertyA, propertyB] = [a.assetName, b.assetName];
@@ -243,11 +243,11 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
         case "assetCode":
           [propertyA, propertyB] = [a.assetCode, b.assetCode];
           break;
-        case "assetLocation":
-          [propertyA, propertyB] = [a.assetLocation, b.assetLocation];
+        case "Location":
+          [propertyA, propertyB] = [a.Location, b.Location];
           break;
-        case "category":
-          [propertyA, propertyB] = [a.category, b.category];
+        case "Category":
+          [propertyA, propertyB] = [a.Category, b.Category];
           break;
         case "status":
           [propertyA, propertyB] = [a.status, b.status];

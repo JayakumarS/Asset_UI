@@ -22,7 +22,7 @@ export class AddManageUomComponent implements OnInit {
   requestId: number;
   edit:boolean=false;
   constructor(private fb: FormBuilder,public router:Router,private snackBar: MatSnackBar,
-    private manageUomService: ManageUomService,public route: ActivatedRoute,private httpService: HttpServiceService) { 
+    private manageUomService: ManageUomService,public route: ActivatedRoute,private httpService: HttpServiceService) {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -95,7 +95,7 @@ export class AddManageUomComponent implements OnInit {
         'unitMeasure': res.uomBean.unitMeasure,
         'uomCategory': res.uomBean.uomCategory,
         'description': res.uomBean.description,
-      
+
 
      })
       },
@@ -108,7 +108,7 @@ export class AddManageUomComponent implements OnInit {
   onCancel(){
     this.router.navigate(['/inventory/manage-UOM/list-uomManage']);
   }
-  
+
   reset(){}
 
   showNotification(colorName, text, placementFrom, placementAlign) {

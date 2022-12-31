@@ -57,7 +57,7 @@ export class AddCommodityComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.docForm.valid){
+    {
     this.commodityMaster = this.docForm.value;
     console.log(this.commodityMaster);
     this.commodityService.addCommodity(this.commodityMaster);
@@ -67,46 +67,46 @@ export class AddCommodityComponent implements OnInit {
       "bottom",
       "center"
     );
-     this.router.navigate(['/master/commodity/listCommodity']);
+     this.router.navigate(['/master/vendor/listVendor']);
     }
   }
 
+ 
+
+
   fetchDetails(vendorId: any): void {
-    this.httpService.get(this.commodityService.editcommodity+"?commodityMaster="+vendorId).subscribe((res: any)=> {
-      console.log(vendorId);
+    const obj = {
+      editId: parseInt(vendorId)
+    }
+    this.commodityService.editVonder(obj).subscribe({
+      next: (res) => {
 
       this.docForm.patchValue({
-        'vendorId': res.countryMasterBean.vendorId,
-        'vendorName': res.countryMasterBean.vendorName,
-        'vendorCountry': res.countryMasterBean.vendorCountry,
-        'currency': res.countryMasterBean.currency,
-        'vendorPhoneNumber': res.countryMasterBean.vendorPhoneNumber,
-        'vendorShortName' : res.countryMasterBean.vendorShortName,
-        'vendorAddress': res.countryMasterBean.vendorAddress,
-        'vendorEmail':res.countryMasterBean.vendorEmail,
-        'vendorContact':res.countryMasterBean.vendorContact
-     })
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
+        
+        'vendorName': res.venderBean.vendorName,
+        'vendorCountry': res.venderBean.vendorCountry,
+        'currency': res.venderBean.currency,
+        'vendorPhoneNumber': res.venderBean.vendorPhoneNumber,
+        'vendorShortName' : res.venderBean.vendorShortName,
+        'vendorAddress': res.venderBean.vendorAddress,
+        'vendorEmail':res.venderBean.vendorEmail,
+        'vendorId': res.venderBean.vendorId,
+        'vendorContact':res.venderBean.vendorContact
+
+     });
+    },
     
-  }
-  keyPressPCB(event: any) {
+   });
+}
+
+keyPressPCB(event: any) {
     const pattern = /[0-9.]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
   }
+
   update(){
     this.commodityMaster = this.docForm.value;
     this.commodityService.updateCommodity(this.commodityMaster);
@@ -116,12 +116,12 @@ export class AddCommodityComponent implements OnInit {
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/commodity/listCommodity']);
+    this.router.navigate(['/master/vendor/listVendor']);
 
   }
 
   onCancel(){
-    this.router.navigate(['/master/commodity/listCommodity']);
+    this.router.navigate(['/master/vendor/listVendor']);
   
   }
   

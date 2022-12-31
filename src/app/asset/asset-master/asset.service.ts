@@ -39,8 +39,8 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   //new
   
-  public editasset = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/edit`;
   public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/addAssetUpload`;
+  public multipleAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/multipleAssetuploadExefile`;
   public categoryDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getCategoryDropdown`;
   public locationDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getLocationDropdown`;
   public departmentDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getDepartmentDropdown`;
@@ -99,16 +99,35 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
+  multipleAssetUpload(assetMaster: AssetMaster): void {
+    this.dialogData = assetMaster;
+    this.httpService.post<AssetMaster>(this.saveAssetMaster, assetMaster).subscribe(data => {
+      console.log(data);
+      
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
+
   editAsset(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.editAssetMaster, obj);
   }
 
-  assetMasterUpdate(assetMaster: AssetMaster): Observable<any> {
-    return this.httpClient.post<AssetMaster>(this.updateAssetMaster, assetMaster);
-  }
+
+  assetupdate(assetMaster: AssetMaster): void {
+      this.dialogData = assetMaster;
+      this.httpService.post<AssetMaster>(this.updateAssetMaster, assetMaster).subscribe(data => {
+        console.log(data);
+        //this.dialogData = employees;
+        },
+        (err: HttpErrorResponse) => {
+          
+      });
+    }
 
   deleteAsset(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.deleteAssetMaster, obj);
   }
-
+ 
 }
