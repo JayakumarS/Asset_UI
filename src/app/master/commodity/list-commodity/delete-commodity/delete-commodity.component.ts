@@ -14,12 +14,12 @@ export class DeleteCommodityComponent implements OnInit {
     public commodityService: CommodityService) { }
 
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close({ data: 'CANCEL' })
     }
     confirmDelete(): void {
-      this.commodityService.deleteCommodity(this.data.vendorId);
-
+      this.dialogRef.close({ data: true })
     }
+
   ngOnInit(): void {
   }
 
