@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { ReportsService } from '../reports.service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-depreciation-report',
@@ -16,6 +19,9 @@ export class AddDepreciationReportComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public commonService: CommonService,
+    private httpService: HttpServiceService,
+    public reportsService:ReportsService,
+
 ) { }
 
   ngOnInit(): void {
@@ -36,7 +42,14 @@ export class AddDepreciationReportComponent implements OnInit {
 
   searchData()
   {
-
+    // this.reportscategory=this.docForm.value;
+    this.httpService.get(this.reportsService.depreciationSerach+"?depreciation=" +this.docForm.controls.asset.value ).subscribe((res: any) => {
+      console.log(res);
+      // this.loList=res.assetList;
+    },
+    (err: HttpErrorResponse) => {
+    }
+  );
   }
 
   reset()

@@ -21,7 +21,11 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   }
 
   getDate(date): any {
-    return moment(date).format('MM/DD/YYYY');
+    return moment(date).format('DD/MM/YYYY');
+  }
+
+  getDateObj(string): any {
+    return moment(string, 'DD/MM/YYYY')
   }
 
   getMonthYear(date): any {
