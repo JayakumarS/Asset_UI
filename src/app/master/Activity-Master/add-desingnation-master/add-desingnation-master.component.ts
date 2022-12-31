@@ -108,7 +108,7 @@ export class AddDesingnationMasterComponent implements OnInit {
   }
 
   onCancel(){
-    this.router.navigate(['/master/Activity-master/list-activity']);
+     this.router.navigate(['/master/Activity-master/list-activity']);
   }
 
   reset(){
