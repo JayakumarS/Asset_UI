@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
@@ -100,6 +100,16 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
     );
     return this.currencyList;
   }
+  editLoction(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editLocation, obj);
+  }
+  
+  DesgMasterUpdate(locationMaster: LocationMaster): Observable<any> {
+    return this.httpClient.post<LocationMaster>(this.updateLocation, locationMaster);
+  }
 
+  Deletedesg(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.deleteLocation, obj);
+  }
  
 }

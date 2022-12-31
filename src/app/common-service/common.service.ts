@@ -21,13 +21,18 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   }
 
   getDate(date): any {
-    return moment(date).format('MM/DD/YYYY');
+    return moment(date).format('DD/MM/YYYY');
+  }
+
+  getDateObj(string): any {
+    return moment(string, 'DD/MM/YYYY')
   }
 
   getMonthYear(date): any {
     return moment(date).format('MM/YYYY');
   }
 
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
   public getAssetCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetCategoryDropdown`;
 
@@ -43,7 +48,9 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getParentCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getParentCategoryDropdown`;
 
-  public getCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCategoryDropdown`;
+  // public getCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCategoryDropdown`;
+
+  public getCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetCategoryDropdown`;
 
   public getCommonDropdownByformId = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCommonDropdownByformId`;
 
@@ -51,4 +58,9 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getItemMasterDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterDropdown`;
 
+  public getCurrencyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCurrencyDropdown`;
+
+  public getCountryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryDropdown`;
+
+  
 }

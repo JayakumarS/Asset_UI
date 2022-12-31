@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Commodity } from './commodity.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
@@ -27,13 +27,13 @@ export class CommodityService extends UnsubscribeOnDestroyAdapter {
     super();
   }
   private getAllCommodity = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/getList`;
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getVendorList`;
-  private saveCommodity = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/saveVendor`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/getVendorList`;
+  private saveCommodity = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/saveVendor`;
   // public deleteCommodityUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/delete`;
-  public deleteCommodityUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/deleteVendor`;
+  public deleteCommodity = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/deleteVendor`;
   public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/getCurrencyList`;
   // public editcommodity = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/edit`;
-  public editcommodity = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/editVendor`;
+  public editcommodity = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/editVendor`;
   // public updatecommodity = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/update`;
   public updatecommodity = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/updateVendor`;
   
@@ -50,7 +50,7 @@ export class CommodityService extends UnsubscribeOnDestroyAdapter {
     this.subs.sink = this.httpService.get<CommodityResultBean>(this.getAllMasters).subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.countryMasterDetails);
+        this.dataChange.next(data.vonderDetails);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -85,15 +85,15 @@ export class CommodityService extends UnsubscribeOnDestroyAdapter {
     );*/
     });
   }
-  deleteCommodity(vendorId: any): void {
-    this.httpService.get(this.deleteCommodityUrl + "?vendorId=" + vendorId).subscribe(data => {
-      console.log(vendorId);
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
-  }
+  // deleteCommodity(vendorId: any): void {
+  //   this.httpService.get(this.deleteCommodityUrl + "?vendorId=" + vendorId).subscribe(data => {
+  //     console.log(vendorId);
+  //   },
+  //     (err: HttpErrorResponse) => {
+  //       // error code here
+  //     }
+  //   );
+  // }
 
   getCurrencyList() {
 
@@ -107,6 +107,13 @@ export class CommodityService extends UnsubscribeOnDestroyAdapter {
       }
     );
     return this.currencyList;
+  }
+  editVonder(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editcommodity, obj);
+  }
+
+  deleteVonder(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.deleteCommodity, obj);
   }
 
 

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CurrencyMasterModule } from './currency-master/currency-master.module';
 import { CountryMasterModule } from './country-master/country-master.module';
-import { DesignationMasterModule } from './designation-master/designation-master.module';
+import { DesignationMasterModule } from './Activity-Master/designation-master.module';
 import { DepartmentMasterModule } from './department-master/department-master.module';
 
 const routes: Routes = [
@@ -12,14 +12,14 @@ const routes: Routes = [
       import("./currency-master/currency-master.module").then((m) => m.CurrencyMasterModule),
   },
   {
-    path: "category-Master",
+    path: "countryMaster",
     loadChildren: () =>
       import("./country-master/country-master.module").then((m) => m.CountryMasterModule),
   },
   {
     path: "Activity-master",
     loadChildren: () =>
-      import("./designation-master/designation-master.module").then((m) => m.DesignationMasterModule),
+      import("./Activity-Master/designation-master.module").then((m) => m.DesignationMasterModule),
   },
   {
     path: "department-Master",
@@ -41,6 +41,11 @@ const routes: Routes = [
     loadChildren: () => 
     import("./location/location.module").then((m) => m.LocationModule),
   },
+  // {
+  //   path: "customer",
+  //   loadChildren: () => 
+  //   import("./customer/customer.module").then((m) => m.CustomerModule),
+  // },
   
 
 ];

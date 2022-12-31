@@ -1,18 +1,21 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from "@angular/material/paginator";
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmployeePopupComponent } from 'src/app/admin/employees/employee-popup/employee-popup.component';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { AddMultipleAssetMasterComponent } from '../add-multiple-asset-master/add-multiple-asset-master.component';
 import { AssetMaster } from '../asset-model';
 import { AssetMasterResultBean } from '../asset-result-bean';
 import { AssetService } from '../asset.service';
+import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 
 
 export const MY_DATE_FORMATS = {
@@ -41,7 +44,9 @@ export const MY_DATE_FORMATS = {
   ]
 
 })
-export class AddAssetMasterComponent implements OnInit {
+export class AddAssetMasterComponent
+ extends UnsubscribeOnDestroyAdapter
+ implements OnInit {
   docForm: FormGroup;
   hide3 = true;
   agree3 = false;
@@ -53,12 +58,15 @@ export class AddAssetMasterComponent implements OnInit {
   departmentDdList=[]
   requestId: any;
   edit:boolean=false;
+  spinner: any;
   
   
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
     private  assetService: AssetService, private commonService: CommonService,
     public router:Router,private snackBar: MatSnackBar,public notificationService:NotificationService,
     private cmnService:CommonService,public dialog: MatDialog,public route: ActivatedRoute) {
+    super();
+    
     this.docForm = this.fb.group({
 
       
@@ -104,13 +112,15 @@ export class AddAssetMasterComponent implements OnInit {
       
       
     });
+    
   }
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit(): void {
     // this.commodityList();
    
 
-     this.httpService.get<any>(this.commonService.getAssetCategoryDropdown).subscribe({
+     this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
       next: (data) => {
         this.categoryList = data;
       },
@@ -166,27 +176,60 @@ export class AddAssetMasterComponent implements OnInit {
     
      //this.router.navigate(['/admin/country-Master/list-CountryMaster']);
    }
+   refresh() {
+    const currentRoute = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentRoute]);
+    });
+  }
   
- 
+   update(){
+
+    this.assetMaster = this.docForm.value;
+    this.assetService.assetupdate(this.assetMaster);
+    this.showNotification(
+      "snackbar-success",
+      "Edit Record Successfully...!!!",
+      "bottom",
+      "center"
+    
+    );
+   
+    
+    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+   
+
+   }
     // Edit
     fetchDetails(id: any): void {
-     this.httpService.get(this.assetService.editAssetMaster+"?id="+id).subscribe((res: any)=> {
-       console.log(id);
+      const obj = {
+        editId: id
+      }
+      
+      this.assetService.editAsset(obj).subscribe({
+        next: (res: any) => {
+          
+     
  
        this.docForm.patchValue({
          
          'assetName': res.addAssetBean.assetName,
          'assetCode': res.addAssetBean.assetCode,
-         'assetLocation': res.addAssetBean.assetLocation,
-         'category': res.addAssetBean.category,
+         'location': res.addAssetBean.locationName,
+         'category': res.addAssetBean.categoryName,
          'status' : res.addAssetBean.status,
-         'id' : res.addAssetBean.id
+         'id': res.addAssetBean.id
       })
        },
-       (err: HttpErrorResponse) => {
-          // error code here
-       }
-     );
+       error: (error) => {
+       
+        // error code here
+      }
+      
+    });
+    
+     
+   
      /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
        console.log(id);
        },
@@ -195,6 +238,7 @@ export class AddAssetMasterComponent implements OnInit {
        }
      );*/
    }
+   
    commodityList(){
      this.httpService.get<AssetMasterResultBean>(this.assetService.commoditylist).subscribe( 
        (data) => {
@@ -217,6 +261,46 @@ export class AddAssetMasterComponent implements OnInit {
        panelClass: colorName,
      });
    }
+   private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
+
+  multipleuploadpopupCall() {
+    //this.id = row.id;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(AddMultipleAssetMasterComponent, {
+      data: {
+       // employees: row,
+        action: "edit",
+      },
+      width: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+        // When using an edit things are little different, firstly we find record inside DataService by id
+       // const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
+       //   (x) => x.id === this.id
+       // );
+        // Then you update that record using data from dialogData (values you enetered)
+        //this.exampleDatabase.dataChange.value[foundIndex] =
+         //this.employeesService.getDialogData();
+        // And lastly refresh table
+        this.refreshTable();
+        this.showNotification(
+          "black",
+          "Edit Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
  
    getDateString(event,inputFlag,index){
      let cdate = this.cmnService.getDate(event.target.value);
@@ -308,6 +392,11 @@ export class AddAssetMasterComponent implements OnInit {
        });
    
      }
+
+    //  goMultipleUpload(){
+
+    //   this.router.navigate(['listAssetMaster']);
+    //  }
  
  }
  

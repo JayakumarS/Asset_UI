@@ -99,6 +99,8 @@ export class AddScheduleActivityComponent implements OnInit {
       "bottom",
       "center"
     );
+    this.router.navigate(['/admin/scheduler/list-schedule-activity']);
+
   }
 
   getDateString(event,inputFlag,index){
@@ -117,6 +119,23 @@ export class AddScheduleActivityComponent implements OnInit {
 
  ngOnInit(): void {
 
+
+  this.docForm = this.fb.group({
+    activityType:[""],
+    location:["",[Validators.required]],
+    userGroup:["",[Validators.required]],
+    description:["",[Validators.required]],
+    assignee:["",[Validators.required]],
+    attachFiles:["",[Validators.required]],
+    occurs:["",[Validators.required]],
+    startdate:[""],
+    startdateObj:[""],
+    enddate:[""],
+    enddateObj:[""],
+    activityReminders:["",[Validators.required]],
+    cc:[""],
+    scheduleId:[""]
+  });
   this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
     next: (data) => {
       this.locationList = data;
@@ -163,18 +182,22 @@ export class AddScheduleActivityComponent implements OnInit {
   fetchDetails(id: any): void {
     this.httpService.get(this.scheduleActivityService.editScheduleMaster+"?scheduleMaster="+id).subscribe((res: any)=> {
       console.log(id);
-
+      let hdate = this.cmnService.getDateObj(res.scheduleMasterBean.startdate);
+      this.activityList;
+      let edate = this.cmnService.getDateObj(res.scheduleMasterBean.enddate);
       this.docForm.patchValue({
         
-        'activityType': res.scheduleMasterBean.activityType,
+        'activityType': res.scheduleMasterBean.activityType.toString(),
         'location': res.scheduleMasterBean.location.replace(/\s/g,''),
         'userGroup': res.scheduleMasterBean.userGroup,
         'description': res.scheduleMasterBean.description,
         'assignee' : res.scheduleMasterBean.assignee,
         'attachFiles' : res.scheduleMasterBean.attachFiles,
         'occurs' : res.scheduleMasterBean.occurs.replace(/\s/g,''),
+        'startdateObj' :hdate,
         'startdate' : res.scheduleMasterBean.startdate,
         'enddate' : res.scheduleMasterBean.enddate,
+        'enddateObj' : edate,
         'activityReminders' : res.scheduleMasterBean.activityReminders.replace(/\s/g,''),
         'cc' : res.scheduleMasterBean.cc,
         'scheduleId' : id

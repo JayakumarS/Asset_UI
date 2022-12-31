@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { DeleteCountryMasterComponent } from './delete-country-master/delete-country-master.component';
 import { CountryMasterService} from '../country-master.service'
 import { CountryMaster} from '../country-master.model';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -10,12 +11,15 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatMenuTrigger } from "@angular/material/menu";
 import { BehaviorSubject, fromEvent, merge, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { DeleteComponent } from './delete/delete.component';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+
 @Component({
   selector: 'app-list-country-master',
   templateUrl: './list-country-master.component.html',
@@ -23,15 +27,11 @@ import { DeleteComponent } from './delete/delete.component';
 })
 export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-   // "select",
-    // "countryCode",
-    // "countryName",
-    // "currency",
-    
-    "categoryName",
-    "description",
-    "parentCategory",
-    "actions"
+    "countryCode",
+    "countryName",
+    "clientType",
+    "currencyName",
+    "actions",
   ];
 
   dataSource: ExampleDataSource | null;
@@ -39,15 +39,19 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
   selection = new SelectionModel<CountryMaster>(true, []);
   index: number;
   id: number;
-  customerMaster: CountryMaster | null;
+  countryMaster: CountryMaster | null;
+  
   constructor(
+    private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public countryMasterService: CountryMasterService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
-    private httpService:HttpServiceService,
+    private serverUrl: serverLocations,
+    private httpService: HttpServiceService,
     public router: Router,
+    private tokenStorage: TokenStorageService,
+    public commonService: CommonService,
   ) {
     super();
   }
@@ -63,86 +67,79 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
     this.loadData();
   }
 
-  refresh(){
-    this.loadData();
+
+  refresh() {
+    const currentRoute = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentRoute]);
+    });
   }
 
   public loadData() {
-    this.exampleDatabase = new CountryMasterService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new CountryMasterService(this.httpClient, this.serverUrl, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
       this.sort
     );
-    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
+    this.subs.sink = fromEvent(this.filter?.nativeElement, "keyup").subscribe(
       () => {
         if (!this.dataSource) {
           return;
         }
-        this.dataSource.filter = this.filter.nativeElement.value;
+        this.dataSource.filter = this.filter?.nativeElement?.value;
       }
     );
   }
 
-  
   editCall(row) {
-    this.router.navigate(['/master/category-Master/add-CategoryMaster/'+row.categoryId]);
+    this.router.navigate(['/master/countryMaster/addCountryMaster/'+row.countryId]);
   }
 
-  deleteItem(i: number, row) {
-    this.index = i;
-    this.id = row.categoryId;
+  deleteItem(row) {
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteComponent, {
+    const dialogRef = this.dialog.open(DeleteCountryMasterComponent, {
       height: "270px",
       width: "400px",
       data: row,
       direction: tempDirection,
+      disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
       if (data.data == true) {
-        this.httpService.get(this.countryMasterService.deleteCountryUrl+ "?categoryId=" + this.id).subscribe((res: any) => { 
-      this.loadData();
-
-        this.showNotification(
-          "snackbar-success",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-        this.loadData();
-      },
-        (err: HttpErrorResponse) => {
-          // error code here
+        const obj = {
+          deletingId: row.countryId
         }
-      );
-    
-    } else{
-      this.loadData();
-    }
-  });
+        this.spinner.show();
+        this.countryMasterService.deleteCountry(obj).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+          }
+        });
 
-}
+      }
+    });
 
-
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
   }
-// context menu
-  onContextMenu(event: MouseEvent, item: CountryMaster) {
-    event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + "px";
-    this.contextMenuPosition.y = event.clientY + "px";
-    this.contextMenu.menuData = { item: item };
-    this.contextMenu.menu.focusFirstItem("mouse");
-    this.contextMenu.openMenu();
-  }
-  
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -151,12 +148,22 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
       panelClass: colorName,
     });
   }
+
+  // context menu
+  onContextMenu(event: MouseEvent, item: CountryMaster) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + "px";
+    this.contextMenuPosition.y = event.clientY + "px";
+    this.contextMenu.menuData = { item: item };
+    this.contextMenu.menu.focusFirstItem("mouse");
+    this.contextMenu.openMenu();
+  }
 }
 
 export class ExampleDataSource extends DataSource<CountryMaster> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
-    return this.filterChange.value;
+    return this.filterChange.value.trim();
   }
   set filter(filter: string) {
     this.filterChange.next(filter);
@@ -181,21 +188,18 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList();
+    this.exampleDatabase.getAllCountrys();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((customerMaster: CountryMaster) => {
+          .filter((countryMaster: CountryMaster) => {
             const searchStr = (
-              // customerMaster.countryCode +
-              // customerMaster.countryName +
-              // customerMaster.currency
-              customerMaster.categoryName +
-              customerMaster.description +
-              customerMaster.parentCategory
-             
+              countryMaster.countryCode +
+              countryMaster.countryName +
+              countryMaster.currencyName +
+              countryMaster.clientType 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -211,7 +215,7 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
       })
     );
   }
-  disconnect() {}
+  disconnect() { }
   /** Returns a sorted copy of the database data. */
   sortData(data: CountryMaster[]): CountryMaster[] {
     if (!this._sort.active || this._sort.direction === "") {
@@ -221,24 +225,23 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        case "countryCode":
+          [propertyA, propertyB] = [a.countryCode, b.countryCode];
           break;
-        case "categoryName":
-          [propertyA, propertyB] = [a.categoryName, b.categoryName];
+        case "countryName":
+          [propertyA, propertyB] = [a.countryName, b.countryName];
           break;
-        case "description":
-          [propertyA, propertyB] = [a.description, b.description];
+        case "currencyName":
+          [propertyA, propertyB] = [a.currencyName, b.currencyName];
           break;
-        case "parentCategory":
-          [propertyA, propertyB] = [a.parentCategory, b.parentCategory];
+        case "clientType":
+          [propertyA, propertyB] = [a.clientType, b.clientType];
           break;
-        
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
       return (
-        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+        (valueA.toString().toLowerCase() < valueB.toString().toLowerCase() ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
       );
     });
   }

@@ -1,8 +1,7 @@
+import { CountryMaster } from "./country-master.model";
 
 export class CountryMasterResultBean {
     Success: boolean;
-    countryMasterDetails: [];
-    currencyList:[];
-    //categoryName: [];
-    assetList:[];
+    countryMaster: CountryMaster;
+    countryMasterList: [];
 }

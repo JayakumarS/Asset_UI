@@ -5,8 +5,13 @@ import { CountryMasterService } from 'src/app/master/country-master/country-mast
 import { CountryMaster } from '../country-master.model';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CountryMasterResultBean } from '../country-master-result-bean';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { HttpErrorResponse } from "@angular/common/http";
+import { NotificationService } from 'src/app/core/service/notification.service';
+import { serverLocations } from 'src/app/auth/serverLocations';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-country-master',
@@ -14,125 +19,226 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ['./add-country-master.component.sass']
 })
 export class AddCountryMasterComponent implements OnInit {
-  [x: string]: any;
-
   docForm: FormGroup;
   countryMaster: CountryMaster;
-  currencyList:[];
-  requestId: number;
-  edit:boolean=false;
+  currencyList: [];
+  edit: boolean = false;
+  requestId: any;
+  decryptRequestId: any;
 
   constructor(private fb: FormBuilder,
-    public router:Router,
-    private snackBar: MatSnackBar,
-    private countryMasterService: CountryMasterService,
+    public router: Router,
+    private notificationService: NotificationService,
+    public countryMasterService: CountryMasterService,
     private httpService: HttpServiceService,
-    public route: ActivatedRoute,) { 
+    public route: ActivatedRoute,
+    private tokenStorage: TokenStorageService,
+    private commonService: CommonService,
+    private spinner: NgxSpinnerService,
+    private snackBar: MatSnackBar) {
 
     this.docForm = this.fb.group({
-      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      
-      categoryName: ["", [Validators.required]],
-      description:[""],
-      parentCategory:[""],
-      isActive:[""],
-      categoryId:[""]
+      countryId: [""],
+      countryCode: ["", [Validators.required]],
+      countryName: ["", [Validators.required]],
+      currencyId: ["", [Validators.required]],
+      clientType: [""],
+      countryIsActive: [""],
+      loginedUser: this.tokenStorage.getUserId(),
     });
 
   }
-  
-   ngOnInit()  {
-    
-     //Currency list dropdown
-    this.httpService.get<CountryMasterResultBean>(this.countryMasterService.currencyListUrl).subscribe(
-       (data) => {
-         this.currencyList = data.currencyList;
-       },
-       (error: HttpErrorResponse) => {
-         console.log(error.name + " " + error.message);
-       }
-     );
-     this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
-       this.requestId = params.id;
-       this.edit=true;
-       //For User login Editable mode
-       this.fetchDetails(this.requestId) ;
 
+  ngOnInit() {
+    //Currency  Dropdown List
+    this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe({
+      next: (data) => {
+        this.currencyList = data;
+      },
+      error: (error) => {
       }
-     });
-   }
+    });
 
-  onSubmit(){
-    this.countryMaster = this.docForm.value;
-    console.log(this.countryMaster);
-    this.countryMasterService.addCountry(this.countryMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/category-Master/list-CategoryMaster']);
+    this.route.params.subscribe(params => {
+      if (params.id != undefined && params.id != 0) {
+        this.requestId = params.id;
+        this.edit = true;
+        //For Editable mode
+        this.fetchDetails(this.requestId);
+      }
+    });
   }
-  fetchDetails(categoryId: any): void {
-    this.httpService.get(this.countryMasterService.editCountryMaster + "?countryMaster=" + categoryId).subscribe((res: any) => {
-      console.log(categoryId);
 
-      this.docForm.patchValue({
-    
-        'categoryId': res.countryMasterBean.categoryId,
-        'categoryName': res.countryMasterBean.categoryName,
-        'description': res.countryMasterBean.description,
-        'parentCategory': res.countryMasterBean.parentCategory,
-        'isActive': res.countryMasterBean.isActive,
-        
-        
-      })
-    },
-      (err: HttpErrorResponse) => {
+  onSubmit() {
+    if (this.docForm.valid) {
+      this.countryMaster = this.docForm.value;
+      this.spinner.show();
+      this.countryMasterService.addCountry(this.countryMaster).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
+  }
+  
+  fetchDetails(id: any): void {
+    const obj = {
+      editId: id
+    }
+    this.spinner.show();
+    this.countryMasterService.editCountry(obj).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        this.docForm.patchValue({
+          'countryId': res.countryMaster.countryId,
+          'countryCode': res.countryMaster.countryCode,
+          'countryName': res.countryMaster.countryName,
+          'currencyId': res.countryMaster.currencyId,
+          'clientType': res.countryMaster.clientType,
+          'countryIsActive': res.countryMaster.countryIsActive,
+        })
+      },
+      error: (error) => {
+        this.spinner.hide();
         // error code here
       }
-    );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
-  }
-  
-  update() {
-
-    this.countryMaster = this.docForm.value;
-    this.countryMasterService.countryUpdate(this.countryMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Edit Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/category-Master/list-CategoryMaster']);
-
-  }
-
-  onCancel(){
-    this.router.navigate(['/master/category-Master/list-CategoryMaster']);
-  }
-  
-  reset(){
-    this.docForm = this.fb.group({
-      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      
-      categoryName: [""],
-      description:[""],
-      parentCategory:[""],
-      isActive:[""],
-      
     });
-    
-    
+  }
+
+  update() {
+    if (this.docForm.valid) {
+      this.countryMaster = this.docForm.value;
+      this.spinner.show();
+      this.countryMasterService.updateCountry(this.countryMaster).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Edit Record Successfully",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Updated Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
+  }
+
+
+  reset() {
+    if (!this.edit) {
+      this.docForm.reset();
+      this.docForm.patchValue({
+        'countryCode': '',
+        'countryName': '',
+        'currencyId': '',
+        'clientType': '',
+        'countryIsActive': false,
+        'loginedUser': this.tokenStorage.getUserId()
+      })
+    } else {
+      this.fetchDetails(this.requestId);
+    }
+  }
+
+  getBoolean(value) {
+    switch (value) {
+      case true:
+      case "true":
+      case 1:
+      case "1":
+      case "on":
+      case "yes":
+      case "t":
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  onCancel() {
+    this.router.navigate(['/master/countryMaster/listCountryMaster']);
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -142,6 +248,18 @@ export class AddCountryMasterComponent implements OnInit {
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
+  }
+
+  validateCountry(event) {
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "country" + "&columnName=" + "country_name" + "&columnValue=" + event).subscribe((res: any) => {
+        if (res) {
+          this.docForm.controls['countryName'].setErrors({ country: true });
+        } else {
+          this.docForm.controls['countryName'].setErrors(null);
+        }
+      });
+    }
   }
 
 }

@@ -42,6 +42,7 @@ export class ListCommodityComponent extends UnsubscribeOnDestroyAdapter implemen
    index: number;
    id: number;
    customerMaster: Commodity | null;
+  spinner: any;
    constructor(
      public httpClient: HttpClient,
      public dialog: MatDialog,
@@ -89,14 +90,12 @@ export class ListCommodityComponent extends UnsubscribeOnDestroyAdapter implemen
  
    editCall(row) {
  
-     this.router.navigate(['/master/commodity/addCommodity/'+row.vendorId]);
+     this.router.navigate(['/master/vendor/addVendor/'+row.vendorId]);
  
    }
  
    deleteItem(i: number, row) {
-     this.index = i;
-     this.id = row.vendorId;
-     let tempDirection;
+      let tempDirection;
      if (localStorage.getItem("isRtl") === "true") {
        tempDirection = "rtl";
      } else {
@@ -107,27 +106,38 @@ export class ListCommodityComponent extends UnsubscribeOnDestroyAdapter implemen
        width: "400px",
        data: row,
        direction: tempDirection,
+       disableClose: true
      });
      this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-       
-       this.loadData();
-         this.showNotification(
-           "snackbar-success",
-           "Delete Record Successfully...!!!",
-           "bottom",
-           "center"
-         );
-       
-       // else{
-       //   this.showNotification(
-       //     "snackbar-danger",
-       //     "Error in Delete....",
-       //     "bottom",
-       //     "center"
-       //   );
-       // }
+       if (data.data == true) {
+         const obj = {
+           deletingId: row.vendorId
+         }
+         this.commodityService.deleteVonder(obj).subscribe({
+          next: (data) => {
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+               );
+             }
+           },
+           error: (error) => {
+           }
+         });
+ 
+       }
      });
+ 
    }
+
+
+
+
+ 
  
    private refreshTable() {
      this.paginator._changePageSize(this.paginator.pageSize);

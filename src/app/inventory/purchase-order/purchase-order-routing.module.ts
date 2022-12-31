@@ -5,11 +5,11 @@ import { ListPurchaseOrderComponent } from './list-purchase-order/list-purchase-
 
 const routes: Routes = [
   {
-    path: "listAssetMaster",
+    path: "listPurchaseOrder",
     component: ListPurchaseOrderComponent,
   },
   {
-    path: "addAssetMaster/:id",
+    path: "addPurchaseOrder/:id",
     component: AddPurchaseOrderComponent,
   },
 ];
