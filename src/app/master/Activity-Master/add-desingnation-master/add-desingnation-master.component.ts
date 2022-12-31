@@ -63,7 +63,7 @@ export class AddDesingnationMasterComponent implements OnInit {
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/Activity-master/list-activity']);
+    this.router.navigate(['master/Activity-master/list-activity']);
   }
 
   // Edit
@@ -103,12 +103,12 @@ export class AddDesingnationMasterComponent implements OnInit {
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/designation-Master/list-designation']);
+    this.router.navigate(['/master/Activity-master/list-activity']);
 
   }
 
   onCancel(){
-    this.router.navigate(['/master/designation-Master/list-designation']);
+    this.router.navigate(['master/Activity-master/list-activity']);
   }
   
   reset(){
