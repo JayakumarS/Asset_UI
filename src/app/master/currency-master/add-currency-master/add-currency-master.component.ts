@@ -21,11 +21,13 @@ export class AddCurrencyMasterComponent implements OnInit {
   currencyMaster: CurrencyMaster;
 
   constructor(private fb: FormBuilder,
-    public router: Router,
-    private CurrencyMasterService: CurrencyMasterService,
-    private httpService: HttpServiceService,
-    private snackBar: MatSnackBar,
-    public route: ActivatedRoute,) {
+              public router: Router,
+              // tslint:disable-next-line:no-shadowed-variable
+              private CurrencyMasterService: CurrencyMasterService,
+              private httpService: HttpServiceService,
+              private snackBar: MatSnackBar,
+              public route: ActivatedRoute,
+    ) {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -50,7 +52,7 @@ export class AddCurrencyMasterComponent implements OnInit {
       if (params.id != undefined && params.id != 0) {
         this.requestId = params.id;
         this.edit = true;
-        //For User login Editable mode
+        // For User login Editable mode
         this.fetchDetails(this.requestId);
       }
     });
@@ -69,10 +71,12 @@ export class AddCurrencyMasterComponent implements OnInit {
     this.router.navigate(['/master/currencyMaster/listCurrency']);
   }
 
-  fetchDetails(currencyCode: any): void {
-    this.httpService.get(this.CurrencyMasterService.editDepartment + "?currencyMaster=" + currencyCode).subscribe((res: any) => {
-      console.log(currencyCode);
-
+  fetchDetails(currencyId: any): void {
+    const obj = {
+      editId: currencyId
+    }
+    this.CurrencyMasterService.editAsset(obj).subscribe({
+      next: (res) => {
       this.docForm.patchValue({
         'currencyCode': res.currencyMasterBean.currencyCode,
         'currencyName': res.currencyMasterBean.currencyName,
@@ -82,21 +86,13 @@ export class AddCurrencyMasterComponent implements OnInit {
         'fractionPart': res.currencyMasterBean.fractionPart,
         'isActive': res.currencyMasterBean.isActive,
         'bookCurrency': res.currencyMasterBean.bookCurrency,
-        
-      })
+
+      });
     },
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
-  }
+    error: (error) => {
+    }
+  });
+}
   update() {
 
     this.currencyMaster = this.docForm.value;
@@ -114,7 +110,25 @@ export class AddCurrencyMasterComponent implements OnInit {
     this.router.navigate(['/master/currencyMaster/listCurrency']);
   }
 
-  reset() { }
+  reset() {
+    this.docForm = this.fb.group({
+      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+      currencyCode: ["", [Validators.required]],
+      currencyName: ["", [Validators.required]],
+      fromcurrency: ["", [Validators.required]],
+      toCurrency: ["", [Validators.required]],
+      emailId: [
+        "",
+        [Validators.required, Validators.email, Validators.minLength(5)],
+      ],
+      defaultValue: ["", [Validators.required]],
+      fractionPart: ["", [Validators.required]],
+      isActive: [""],
+      bookCurrency: [""],
+      designation: [""],
+    });
+
+   }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -122,5 +136,12 @@ export class AddCurrencyMasterComponent implements OnInit {
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
+  }
+  keyPressNumeric(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 }

@@ -17,8 +17,7 @@ export class DeleteCurrencyComponent implements OnInit {
       this.dialogRef.close();
     }
     confirmDelete(): void {
-      this.currencyMasterService.currencydelete(this.data.currencyCode);
-
+      this.dialogRef.close({ data: true })
     }
 
   ngOnInit(): void {

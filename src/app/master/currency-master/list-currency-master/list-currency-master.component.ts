@@ -24,6 +24,7 @@ import { DeleteCurrencyComponent } from './delete-currency/delete-currency.compo
 })
 export class ListCurrencyMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
+    "currencyId",
     "currencyCode",
     "currencyName",
     "actions"
@@ -80,47 +81,88 @@ export class ListCurrencyMasterComponent extends UnsubscribeOnDestroyAdapter imp
   }
 
 
- // edit 
- editCall(row: { currencyCode: string; }) {
+ // edit
+ editCall(row: { currencyId: string; }) {
 
-  this.router.navigate(['/master/currencyMaster/addCurrency/'+row.currencyCode]);
+  this.router.navigate(['/master/currencyMaster/addCurrency/' + row.currencyId]);
 
 }
-  deleteItem(row){
+//   deleteItem(row){
 
-    this.id = row.currencyCode;
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
+//     this.id = row.currencyId;
+//     let tempDirection;
+//     if (localStorage.getItem("isRtl") === "true") {
+//       tempDirection = "rtl";
+//     } else {
+//       tempDirection = "ltr";
+//     }
+//     const dialogRef = this.dialog.open(DeleteCurrencyComponent, {
+//       height: "270px",
+//       width: "400px",
+//       data: row,
+//       direction: tempDirection,
+//     });
+//     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+
+//       this.loadData();
+//         this.showNotification(
+//           "snackbar-success",
+//           "Delete Record Successfully...!!!",
+//           "bottom",
+//           "center"
+//         );
+
+//       // else{
+//       //   this.showNotification(
+//       //     "snackbar-danger",
+//       //     "Error in Delete....",
+//       //     "bottom",
+//       //     "center"
+//       //   );
+//       // }
+//     });
+//  }
+
+
+deleteItem(row) {
+  let tempDirection;
+  if (localStorage.getItem("isRtl") === "true") {
+    tempDirection = "rtl";
+  } else {
+    tempDirection = "ltr";
+  }
+  const dialogRef = this.dialog.open(DeleteCurrencyComponent, {
+    height: "270px",
+    width: "400px",
+    data: row,
+    direction: tempDirection,
+    disableClose: true
+  });
+  this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+    if (data.data == true) {
+      const obj = {
+        deletingId: row.currencyId
+      }
+      this.countryMasterService.currencydelete(obj).subscribe({
+        next: (data) => {
+          if (data.success) {
+            this.loadData();
+            this.showNotification(
+              "snackbar-success",
+              "Delete Record Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+        }
+      });
+
     }
-    const dialogRef = this.dialog.open(DeleteCurrencyComponent, {
-      height: "270px",
-      width: "400px",
-      data: row,
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      this.loadData();
-        this.showNotification(
-          "snackbar-success",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
- }
+  });
+}
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -179,7 +221,7 @@ export class ExampleDataSource extends DataSource<CurrencyMaster> {
             const searchStr = (
               currencyMaster.currencyCode +
               currencyMaster.currencyName
-             
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -214,7 +256,7 @@ export class ExampleDataSource extends DataSource<CurrencyMaster> {
         case "currencyName":
           [propertyA, propertyB] = [a.currencyName, b.currencyName];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

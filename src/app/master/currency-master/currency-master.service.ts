@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { CurrencyMaster } from "./currency-master.model";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
@@ -17,7 +17,7 @@ const httpOptions = {
 })
 export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
 
-  
+
   isTblLoading = true;
   dataChange: BehaviorSubject<CurrencyMaster[]> = new BehaviorSubject<CurrencyMaster[]>(
     []
@@ -31,7 +31,7 @@ export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
   }
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/getList`;
   private saveCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/save`;
-   public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/edit`;
+  public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/edit`;
   public updateCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/update`;
   public deleteCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/delete`;
   get data(): CurrencyMaster[] {
@@ -41,7 +41,7 @@ export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
     return this.dialogData;
   }
   /** CRUD METHODS */
-  
+
   getAllList(): void {
         this.subs.sink = this.httpService.get<CurrencyMasterResultBean>(this.getAllMasters).subscribe(
           (data) => {
@@ -54,40 +54,45 @@ export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
           }
         );
   }
+  editAsset(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editDepartment, obj);
+  }
+  // tslint:disable-next-line:no-shadowed-variable
   addCurrency(CurrencyMaster: CurrencyMaster): void {
     this.dialogData = CurrencyMaster;
-      
-    
-    
+
     this.httpService.post<CurrencyMaster>(this.saveCurrency, CurrencyMaster).subscribe(data => {
       console.log(data);
-      //this.dialogData = employees;
+      // this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
-        
+
     });
   }
- 
+
+  // tslint:disable-next-line:no-shadowed-variable
   currencyUpdate(CurrencyMaster: CurrencyMaster): void {
     this.dialogData = CurrencyMaster;
     this.httpService.post<CurrencyMaster>(this.updateCurrency, CurrencyMaster).subscribe(data => {
       console.log(data);
-      //this.dialogData = employees;
+      // this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
-        
+
     });
   }
+  currencydelete(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.deleteCurrency, obj);
+ }
+  //  currencydelete(currencyCode: any): void {
+  //    this.httpService.get(this.deleteCurrency + "?currencyCode=" + currencyCode).subscribe(data => {
+  //      console.log(currencyCode);
+  //      },
+  //      (err: HttpErrorResponse) => {
+  //         // error code here
+  //      }
+  //    );
 
-   currencydelete (currencyCode: any): void {
-     this.httpService.get(this.deleteCurrency+"?currencyCode="+currencyCode).subscribe(data => {
-       console.log(currencyCode);
-       },
-       (err: HttpErrorResponse) => {
-          // error code here
-       }
-     );
-   
-   }
+  //  }
 }
 

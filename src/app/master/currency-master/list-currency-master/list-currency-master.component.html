@@ -3,14 +3,14 @@
     <div class="block-header">
       <!-- breadcrumb -->
        <app-breadcrumb [title]="'Currency'" [items]="['Master']" [active_item]="'Currency List'">
-      </app-breadcrumb>  
+      </app-breadcrumb>
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
           <div class="body">
             <div class="table-responsive">
-              <div class="materialTableHeader">
+              <div class="materialTableHeader"style="padding-top: 1%;padding-bottom: 4%;">
                 <div class="row">
                   <div class="col-8">
                     <ul class="header-buttons-left ms-0">
@@ -23,18 +23,18 @@
                           aria-label="Search box">
                       </li>
                       <li>
+
                         <div class="m-l-10" matTooltip="ADD">
-                          <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                          <button mat-mini-fab color="primary"  [routerLink]="'/master/currencyMaster/addCurrency/0'" >
-                            <mat-icon class="col-white">add</mat-icon>
-                          </button>
+                          <button color="primary" type="button" class="btn-space"
+                            [routerLink]="'/master/currencyMaster/addCurrency/0'" mat-raised-button><i
+                              class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                         </div>
                       </li>
                       <li>
-                        <div class="m-l-10" matTooltip="REFRESH">
-                          <button mat-mini-fab color="primary" (click)="refresh()">
-                            <mat-icon class="col-white">refresh</mat-icon>
-                          </button>
+
+                        <div class="m-l-10" matTooltip="Reset">
+                          <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
+                            <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
                         </div>
                       </li>
                     </ul>
@@ -69,7 +69,10 @@
             </div>
             <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
               #exporter="matTableExporter">
-              
+              <ng-container matColumnDef="currencyId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Currency Id</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currencyId}}</mat-cell>
+              </ng-container>
               <ng-container matColumnDef="currencyCode">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Currency Code</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currencyCode}}</mat-cell>
@@ -78,10 +81,10 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Currency Name</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currencyName}}</mat-cell>
               </ng-container>
-              
-             
-             
-             
+
+
+
+
               <!-- actions -->
               <ng-container matColumnDef="actions">
                 <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
