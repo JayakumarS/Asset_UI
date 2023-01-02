@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: "vendor",
     loadChildren: () =>
-    import("./commodity/commodity.module").then((m) => m.CommodityModule),
+    import("./vendor/vendor.module").then((m) => m.VendorModule),
   },
   {
     path: "customerType",

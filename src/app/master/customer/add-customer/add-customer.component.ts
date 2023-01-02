@@ -37,7 +37,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       auditorname: [""],
       registercode: ["",[Validators.required]],
       person:[""],
-      email:[""],
+      email:['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       phone:[""],
       address:[""],
       addresstwo:[""],
@@ -69,6 +69,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
   onsubmit(){
   {
+    if(this.docForm.valid){
     this.customerMaster = this.docForm.value;
     console.log(this.customerMaster);
     this.customerService.addCustomer(this.customerMaster);
@@ -80,6 +81,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
     );
      this.router.navigate(['/master/customer/list-customer']);
     }
+  }
 }  
 
 fetchDetails(cus_id: any): void {
