@@ -86,41 +86,6 @@ export class ListCurrencyMasterComponent extends UnsubscribeOnDestroyAdapter imp
   this.router.navigate(['/master/currencyMaster/addCurrency/' + row.currencyId]);
 
 }
-//   deleteItem(row){
-
-//     this.id = row.currencyId;
-//     let tempDirection;
-//     if (localStorage.getItem("isRtl") === "true") {
-//       tempDirection = "rtl";
-//     } else {
-//       tempDirection = "ltr";
-//     }
-//     const dialogRef = this.dialog.open(DeleteCurrencyComponent, {
-//       height: "270px",
-//       width: "400px",
-//       data: row,
-//       direction: tempDirection,
-//     });
-//     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-
-//       this.loadData();
-//         this.showNotification(
-//           "snackbar-success",
-//           "Delete Record Successfully...!!!",
-//           "bottom",
-//           "center"
-//         );
-
-//       // else{
-//       //   this.showNotification(
-//       //     "snackbar-danger",
-//       //     "Error in Delete....",
-//       //     "bottom",
-//       //     "center"
-//       //   );
-//       // }
-//     });
-//  }
 
 
 deleteItem(row) {
@@ -149,6 +114,13 @@ deleteItem(row) {
             this.showNotification(
               "snackbar-success",
               "Delete Record Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }else {
+            this.showNotification(
+              "snackbar-danger",
+              data.message,
               "bottom",
               "center"
             );
