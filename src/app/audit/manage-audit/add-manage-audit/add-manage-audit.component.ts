@@ -8,75 +8,64 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
-import { Addaudit, Aidaudit } from 'src/app/admin/audit/audit.model';
-import { AuditService } from 'src/app/admin/audit/audit.service';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { CommonService } from 'src/app/common-service/common.service';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ManageAuditServiceService } from '../manage-audit-service.service';
+import { ManageAudit } from '../manage-audit.model';
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 
 
 @Component({
   selector: 'app-add-manage-audit',
   templateUrl: './add-manage-audit.component.html',
-  styleUrls: ['./add-manage-audit.component.sass']
+  styleUrls: ['./add-manage-audit.component.sass'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: {
+      display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY'
+      },
+  } },CommonService
+  ]
 })
 export class AddManageAuditComponent implements OnInit {
 
-  displayedColumns = [
-  
-  
-   
-    "startdate",
-    "enddate",
-    "auditname",
-    "auditArray",
-    "actions"
-  ];
-auditlist:[""];
-loacationlist:[""];
-departmentlist:[""];
-categorylist:[""];
-
-
-
-
-
-
 docForm: FormGroup;
 Formdoc: FormGroup;
-billOfMaterialDtlObjBean: FormArray;
 requestId: any;
 edit:boolean=false;
- addaudit : Addaudit;
- auditArray: any;
- aidaudit : Aidaudit;
 
- 
-
-
-
-subs: any;
-dataSource: ExampleDataSource | null;
-exampleDatabase: AuditService | null;
-selection = new SelectionModel<Addaudit>(true, []);
-index: number;
+selection = new SelectionModel<ManageAudit>(true, []);
 id: number;
-
-
+  auditList: any;
+  categoryList: any;
+  loacationList: any;
+  departmentList: any;
 constructor(private fb: FormBuilder,
-  private auditservice : AuditService,
   private commonService: CommonService,
   private httpService: HttpServiceService,
   // private snackBar:MatSnackBar,
   public route: ActivatedRoute,
   private router:Router,
   public httpClient: HttpClient,
-  public auditService: AuditService,
+  public manageAuditServiceService: ManageAuditServiceService,
   public dialog: MatDialog,
   private snackBar: MatSnackBar,
-  private serverUrl: serverLocations,
-){
+  private serverUrl: serverLocations,){
 }
 
 
@@ -88,26 +77,7 @@ constructor(private fb: FormBuilder,
   contextMenuPosition = { x: "0px", y: "0px" };
 
 
-  refresh(){
-    this.loadData();
-  }
-
-  public loadData() {
-    this.exampleDatabase = new AuditService(this.httpClient, this.serverUrl, this.httpService);
-    this.dataSource = new ExampleDataSource(
-      this.exampleDatabase,
-      this.paginator,
-      this.sort
-    );
-    // this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
-    //   () => {
-    //     if (!this.dataSource) {
-    //       return;
-    //     }
-    //     this.dataSource.filter = this.filter.nativeElement.value;
-    //   }
-    // );
-  }
+  
 
 
   editCall(row) {
@@ -115,52 +85,25 @@ constructor(private fb: FormBuilder,
     this.router.navigate(['/admin/audit/auditlist/'+row.id]);
 
   }
-  // deleteItem(row){
-
-  //   this.id = row.id;
-  //   let tempDirection;
-  //   if (localStorage.getItem("isRtl") === "true") {
-  //     tempDirection = "rtl";
-  //   } else {
-  //     tempDirection = "ltr";
-  //   }
-  //   const dialogRef = this.dialog.open(DeleteauditComponent, {
-  //     height: "270px",
-  //     width: "400px",
-  //     data: row,
-  //     direction: tempDirection,
-  //   });
-  //   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-  //     this.loadData();
-  //       this.showNotification(
-  //         "snackbar-success",
-  //         "Delete Record Successfully...!!!",
-  //         "bottom",
-  //         "center"
-  //       );
-      
-  //     // else{
-  //     //   this.showNotification(
-  //     //     "snackbar-danger",
-  //     //     "Error in Delete....",
-  //     //     "bottom",
-  //     //     "center"
-  //     //   );
-  //     // }
-  //   });
-
-  // }
+  
 
 ngOnInit(): void {
   this.docForm = this.fb.group({
-    auditArray: [""],
-    startdate:[""],
-    enddate:[""],
-    auditname:["", [Validators.required]],
-    id:[""]
-
- 
+    
+    startDate:["",[Validators.required]],
+    startDateObj:[""],
+    endDate:["",[Validators.required]],
+    endDateObj:[""],
+    auditName:["", [Validators.required]],
+    auditField: ["", [Validators.required]],
+    auditType: ["Self"],
+    manageAuditDtlObjBean: this.fb.array([
+      this.fb.group({
+        category:["", [Validators.required]],
+        location:[""],
+        department:[""]
+      }) 
+    ])
   });
 
   this.Formdoc = this.fb.group({
@@ -169,10 +112,9 @@ ngOnInit(): void {
     auditArraya: [""],
     startdatea:[""],
     enddatea:[""],
+    auditType: ["Aided"],
     auditnamea:["", [Validators.required]],
     auditNo:[""],
-
-
      manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],
@@ -190,17 +132,43 @@ ngOnInit(): void {
  
   });
 
-  this.loadData();
  
-  this.httpService.get<any>(this.commonService.activityserviceurl).subscribe({
+  this.httpService.get<any>(this.manageAuditServiceService.auditFieldListUrl).subscribe({
     next: (data) => {
-      this.auditlist = data;
+      this.auditList = data.auditfielslist;
+    },
+    error: (error) => {
+
+    }
+  });
+
+  this.httpService.get<any>(this.manageAuditServiceService.categoryUrl).subscribe({
+    next: (data) => {
+      this.categoryList = data.categoryList;
     },
     error: (error) => {
 
     }
   }
   );
+
+
+  this.httpService.get<any>(this.manageAuditServiceService.locationUrl).subscribe({
+    next: (data) => {
+      this.loacationList = data.locationList;
+    },
+    error: (error) => {
+
+    }
+  } );
+  this.httpService.get<any>(this.manageAuditServiceService.departmentUrl).subscribe({
+    next: (data) => {
+      this.departmentList = data.departmentList;
+    },
+    error: (error) => {
+
+    }
+  });
 
   this.route.params.subscribe(params => {
     if(params.id!=undefined && params.id!=0){
@@ -211,100 +179,68 @@ ngOnInit(): void {
     }
   });
 
-  this.loadData();
-
-  this.httpService.get<any>(this.commonService.getAssetCategoryDropdown).subscribe({
-    next: (data) => {
-      this.categorylist = data;
-    },
-    error: (error) => {
-
-    }
-  }
-  );
-
-  this.route.params.subscribe(params => {
-    if(params.id!=undefined && params.id!=0){
-     this.requestId = params.id;
-     this.edit=true;
-     //For User login Editable mode
-     this.fetchDetails(this.requestId) ;
-    }
-  });
-
-  this.loadData();
-  this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-    next: (data) => {
-      this.loacationlist = data;
-    },
-    error: (error) => {
-
-    }
-  }
-  );
-  this.route.params.subscribe(params => {
-    if(params.id!=undefined && params.id!=0){
-     this.requestId = params.id;
-     this.edit=true;
-     //For User login Editable mode
-     this.fetchDetails(this.requestId) ;
-    }
-  });
-
-  this.loadData();
-  this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
-    next: (data) => {
-      this.departmentlist = data;
-    },
-    error: (error) => {
-
-    }
-  }
-  );
-  this.route.params.subscribe(params => {
-    if(params.id!=undefined && params.id!=0){
-     this.requestId = params.id;
-     this.edit=true;
-     //For User login Editable mode
-     this.fetchDetails(this.requestId) ;
-    }
-  });
 }
 
-onSubmit(){
-
-this.addaudit = this.docForm.value;
-  console.log(this.addaudit);
-  this.auditservice.saveaudit(this.addaudit);
-  this.showNotification(
-    "snackbar-success",
-    "Add Record Successfully...!!!",
-    "bottom",
-    "center"
-  );
-  this.loadData();
-//  location.reload()
-  // this.router.navigate(['/admin/audit/auditlist/0']);
+onSubmitSelf(){
+if(this.docForm.valid){
+  this.httpService.post<any>(this.manageAuditServiceService.save, this.docForm.value).subscribe(data => {
+    if(data.success){
+      this.showNotification(
+        "snackbar-success",
+        "Record Added Successfully...!!!",
+        "bottom",
+        "center"
+      );
+      this.resetSelf();
+      this.router.navigate(['audit/manageaudit/listManageAudit']);
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        data.message + "...!!!",
+        "bottom",
+        "center"
+      );
+    }
+    
+    },
+    (err: HttpErrorResponse) => {
+      
+  });
+}
   
+
 }
 
-onSubmitaid(){
 
-  this.aidaudit = this.Formdoc.value;
-    console.log(this.aidaudit);
-    this.auditservice.saveauditAided(this.aidaudit);
+onSubmitAided(){
+   // this.manageAuditServiceService.saveauditAided(this.Formdoc.value);
     this.showNotification(
       "snackbar-success",
       "Add Record Successfully...!!!",
       "bottom",
       "center"
     );
-    this.loadData();
-   location.reload()
-    // this.router.navigate(['/admin/audit/auditlist/0']);
-    
   }
 
+
+addRowSelf(){
+  let dtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
+  let arraylen = dtlArray.length;
+  let newUsergroup: FormGroup = this.fb.group({
+        category:["", [Validators.required]],
+        location:[""],
+        department:[""]
+  })
+  dtlArray.insert(arraylen,newUsergroup);
+
+}
+
+removeRowSelf(index){
+  let dtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
+  dtlArray.removeAt(index);
+
+}
 
 addRow(){
   let bomDtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
@@ -321,82 +257,79 @@ addRow(){
 }
 
 removeRow(index){
-
- 
-let bomDtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
-bomDtlArray.removeAt(index);
-
-  
+  let bomDtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
+  bomDtlArray.removeAt(index);
 
 }
-
-fetchDetails(id:number){
-  this.httpService.get(this.auditservice.editDesignationMaster+"?id="+id).subscribe((res: any)=> {
-    console.log(id);
-
+fetchDetails(id){
+  this.httpService.get(this.manageAuditServiceService.edit+"?id="+id).subscribe((res: any)=> {
+    console.log(res);
     this.docForm.patchValue({
-      
-      'startdate': res.manageAuditBean.startdate,
-      'enddate': res.manageAuditBean.enddate,
-      'auditname': res.manageAuditBean.auditname,
-      'auditArray': res.manageAuditBean.auditArray,
-      'id': res.manageAuditBean.id,
- 
- 
-   })
+      'startDateObj': this.commonService.getDateObj(res.manageAuditBean.startDate),
+      'startDate': res.manageAuditBean.startDate,
+      'endDateObj': this.commonService.getDateObj(res.manageAuditBean.endDate),
+      'endDate': res.manageAuditBean.endDate,
+      'auditName': res.manageAuditBean.auditName,
+      'auditField': res.manageAuditBean.auditField
+   })  
+
+   
+   
+   let manageAuditDtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
+   manageAuditDtlArray.removeAt(0);
+   if(res.manageAuditBean.manageAuditDtlObjBean!=null){
+
+   
+    res.manageAuditBean.manageAuditDtlObjBean.forEach(element => {
+          let manageAuditDtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
+          let arraylen = manageAuditDtlArray.length;
+          let newUsergroup: FormGroup = this.fb.group({
+            category:[element.category],
+            location:[element.location],
+            department:[element.department]
+        })
+        manageAuditDtlArray.insert(arraylen,newUsergroup);
+      });
+    }
     },
     (err: HttpErrorResponse) => {
        // error code here
     }
   );
-  /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-    console.log(id);
-    },
-    (err: HttpErrorResponse) => {
-       // error code here
-    }
-  );*/
-
 
 }
-update(){
+updateSelf(){
 
-  this.addaudit = this.docForm.value;
-  this.auditservice.AuditUpdate(this.addaudit);
+  this.manageAuditServiceService.AuditUpdate(this.docForm.value);
   this.showNotification(
     "snackbar-success",
     "Edit Record Successfully...!!!",
     "bottom",
     "center"
   );
- 
-  
-  this.reset()
- 
-
-  // this.router.navigate(['/admin/audit/auditlist/0']);
- 
 
 }
 
-reset(){
+resetSelf(){
   this.docForm = this.fb.group({
-    startdate: [""],
-    enddate: [""],
-    auditname: [""],
-    auditArray: [""],
-    id:[""]
     
-})
+    startDate:[""],
+    startDateObj:[""],
+    endDate:[""],
+    endDateObj:[""],
+    auditName:["", [Validators.required]],
+    auditField: [""],
+    auditType: ["Self"],
+    manageAuditDtlObjBean: this.fb.array([
+      this.fb.group({
+        category:["", [Validators.required]],
+        location:[""],
+        department:[""]
+      }) 
+    ])
+  });
 }
 onCancel(){
-  this.docForm = this.fb.group({
-    startdate: [""],
-    enddate: [""],
-    auditname: [""],
-    auditArray: [""],
-    
-})
   this.router.navigate(['audit/manageaudit/listManageAudit']);
 
 }
@@ -411,7 +344,7 @@ onCancel(){
   }
 
 // context menu
-  onContextMenu(event: MouseEvent, item: Addaudit) {
+  onContextMenu(event: MouseEvent, item: ManageAudit) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -432,7 +365,7 @@ console.log(frmData);
 // var data = this.httpService.postData(this.fileUploadService.addFiles,frmData);
 // console.log(data);
 
-this.httpService.post<any>(this.auditService.addAssetUploadFiles, frmData).subscribe(data => {
+this.httpService.post<any>(this.manageAuditServiceService.addAssetUploadFiles, frmData).subscribe(data => {
     console.log(data);
     if(data.success){
       this.Formdoc.patchValue({
@@ -458,107 +391,14 @@ this.httpService.post<any>(this.auditService.addAssetUploadFiles, frmData).subsc
 
 }
 
+getDateString(event,inputFlag,index){
+  let cdate = this.commonService.getDate(event.target.value);
+  if(inputFlag=='startDate'){
+    this.docForm.patchValue({startDate:cdate});
+  }else if(inputFlag=='endDate'){
+    this.docForm.patchValue({endDate:cdate});
+  }
+ 
 }
 
-
-
-export class ExampleDataSource extends DataSource<Addaudit> {
-  filterChange = new BehaviorSubject("");
-  get filter(): string {
-    return this.filterChange.value;
-  }
-  set filter(filter: string) {
-    this.filterChange.next(filter);
-  }
-  filteredData: Addaudit[] = [];
-  renderedData: Addaudit[] = [];
-  constructor(
-    public exampleDatabase: AuditService,
-    public paginator: MatPaginator,
-    public _sort: MatSort
-  ) {
-    super();
-    // Reset to the first page when the user changes the filter.
-    this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
-  }
- /** Connect function called by the table to retrieve one stream containing the data to render. */
-connect(): Observable<Addaudit[]> {
-  // Listen for any changes in the base data, sorting, filtering, or pagination
-  const displayDataChanges = [
-    this.exampleDatabase.dataChange,
-    // this._sort.sortChange,
-    this.filterChange,
-    this.paginator.page,
-  ];
-  this.exampleDatabase.getAllList();
-  return merge(...displayDataChanges).pipe(
-    map(() => {
-      // Filter data
-      this.filteredData = this.exampleDatabase.data
-        .slice()
-        .filter((addaudit: Addaudit) => {
-          const searchStr = (
-            addaudit.id+
-            addaudit.startdate +
-            addaudit.enddate +
-            addaudit.auditname +
-            addaudit.auditArray 
-           
-          ).toLowerCase();
-          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-        });
-      // Sort filtered data
-      const sortedData = this.sortData(this.filteredData.slice());
-      // Grab the page's slice of the filtered sorted data.
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-      this.renderedData = sortedData.splice(
-        startIndex,
-        this.paginator.pageSize
-      );
-      return this.renderedData;
-    })
-  );
 }
-
-  disconnect() {}
-  /** Returns a sorted copy of the database data. */
-  sortData(data: Addaudit[]): Addaudit[] {
-    if (!this._sort.active || this._sort.direction === "") {
-      return data;
-    }
-    return data.sort((a, b) => {
-      let propertyA: number | string = "";
-      let propertyB: number | string = "";
-      switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
-          break;
-        case "startdate":
-          [propertyA, propertyB] = [a.startdate, b.startdate];
-          break;
-        case "enddate":
-          [propertyA, propertyB] = [a.enddate, b.enddate];
-          break;
-          case "auditname":
-          [propertyA, propertyB] = [a.auditname, b.auditname];
-          break;
-          case "auditArray":
-          [propertyA, propertyB] = [a.auditArray, b.auditArray];
-          break;
-          
-       
-        
-      }
-      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-      return (
-        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
-      );
-    });
-  }
-}
-
-function getCreditFile(event: MouseEvent) {
-  throw new Error('Function not implemented.');
-} 
-

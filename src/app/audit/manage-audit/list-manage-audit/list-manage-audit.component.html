@@ -23,7 +23,7 @@
                       <li>
                         <div class="m-l-10" matTooltip="ADD">
                           <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                          <button mat-mini-fab color="primary"  [routerLink]="'/audit/manageaudit/addManageAudit:id'" >
+                          <button mat-mini-fab color="primary"  [routerLink]="'/audit/manageaudit/addManageAudit/0'" >
                             <mat-icon class="col-white">add</mat-icon>
                           </button>
                         </div>
@@ -61,9 +61,9 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="exdDate">
+                <ng-container matColumnDef="extDate">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Extended Date</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.exdDate}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.extDate}}</mat-cell>
                 </ng-container>
                
                 <ng-container matColumnDef="status">

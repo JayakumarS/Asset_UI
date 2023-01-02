@@ -13,8 +13,8 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
-import { WorkOrderService } from 'src/app/operations/work-order/work-order.service';
-import { WorkOrder } from 'src/app/operations/work-order/work-order.model';
+import { ManageAuditServiceService } from '../manage-audit-service.service'; 
+import { ManageAudit } from '../manage-audit.model';
 
 @Component({
   selector: 'app-list-manage-audit',
@@ -25,21 +25,20 @@ export class ListManageAuditComponent implements OnInit {
   [x: string]: any;
 
   displayedColumns = [
-    "auditName",
-    "auditCode", "startDate", "endDate", "exdDate",
-    "status", "auditType"
+    "auditName","auditCode", "startDate", "endDate", "extDate",
+    "status", "auditType","actions"
   ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: WorkOrderService | null;
-  selection = new SelectionModel<WorkOrder>(true, []);
+  exampleDatabase: ManageAuditServiceService | null;
+  selection = new SelectionModel<ManageAudit>(true, []);
   index: number;
   id: number;
-  customerMaster: WorkOrder | null;
+  customerMaster: ManageAudit | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public countryMasterService: WorkOrderService,
+    public manageAuditServiceService: ManageAuditServiceService,
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
@@ -64,7 +63,7 @@ export class ListManageAuditComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new WorkOrderService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ManageAuditServiceService(this.httpClient, this.serverUrl, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -82,45 +81,9 @@ export class ListManageAuditComponent implements OnInit {
 
 
   editCall(row) { 
-    this.router.navigate(['/operations/workOrder/addWorkOrder/'+row.workorderNo]);
+    this.router.navigate(['/audit/manageaudit/addManageAudit/'+row.auditCode]);
   }
 
-  // deleteItem(row){
-
-  //   this.id = row.workorderNo;
-  //   let tempDirection;
-  //   if (localStorage.getItem("isRtl") === "true") {
-  //     tempDirection = "rtl";
-  //   } else {
-  //     tempDirection = "ltr";
-  //   }
-  //   const dialogRef = this.dialog.open(DeleteWorkOrderComponent, {
-  //     height: "270px",
-  //     width: "400px",
-  //     data: row,
-  //     direction: tempDirection,
-  //   });
-  //   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-  //     this.loadData();
-  //       this.showNotification(
-  //         "snackbar-success",
-  //         "Delete Record Successfully...!!!",
-  //         "bottom",
-  //         "center"
-  //       );
-      
-  //     // else{
-  //     //   this.showNotification(
-  //     //     "snackbar-danger",
-  //     //     "Error in Delete....",
-  //     //     "bottom",
-  //     //     "center"
-  //     //   );
-  //     // }
-  //   });
-
-  // }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
@@ -132,7 +95,7 @@ export class ListManageAuditComponent implements OnInit {
   }
 
 // context menu
-  onContextMenu(event: MouseEvent, item: WorkOrder) {
+  onContextMenu(event: MouseEvent, item: ManageAudit) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -143,7 +106,7 @@ export class ListManageAuditComponent implements OnInit {
 }
 
 
-export class ExampleDataSource extends DataSource<WorkOrder> {
+export class ExampleDataSource extends DataSource<ManageAudit> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -151,10 +114,10 @@ export class ExampleDataSource extends DataSource<WorkOrder> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: WorkOrder[] = [];
-  renderedData: WorkOrder[] = [];
+  filteredData: ManageAudit[] = [];
+  renderedData: ManageAudit[] = [];
   constructor(
-    public exampleDatabase: WorkOrderService,
+    public exampleDatabase: ManageAuditServiceService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -163,7 +126,7 @@ export class ExampleDataSource extends DataSource<WorkOrder> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<WorkOrder[]> {
+  connect(): Observable<ManageAudit[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -177,11 +140,15 @@ export class ExampleDataSource extends DataSource<WorkOrder> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((currencyMaster: WorkOrder) => {
+          .filter((manageAudit: ManageAudit) => {
             const searchStr = (
-              currencyMaster.workorderNo +
-              currencyMaster.workorderDate +
-              currencyMaster.salesOrderNo
+              manageAudit.auditName +
+              manageAudit.auditCode +
+              manageAudit.startDate +
+              manageAudit.endDate +
+              manageAudit.extDate +
+              manageAudit.status +
+              manageAudit.auditType 
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -200,7 +167,7 @@ export class ExampleDataSource extends DataSource<WorkOrder> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: WorkOrder[]): WorkOrder[] {
+  sortData(data: ManageAudit[]): ManageAudit[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -208,18 +175,28 @@ export class ExampleDataSource extends DataSource<WorkOrder> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        case "auditName":
+          [propertyA, propertyB] = [a.auditName, b.auditName];
           break;
-        case "workorderNo":
-          [propertyA, propertyB] = [a.workorderNo, b.workorderNo];
+        case "auditCode":
+          [propertyA, propertyB] = [a.auditCode, b.auditCode];
           break;
-        case "workorderDate":
-          [propertyA, propertyB] = [a.workorderDate, b.workorderDate];
+        case "startDate":
+          [propertyA, propertyB] = [a.startDate, b.startDate];
           break;
         
-        case "salesOrderNo":
-          [propertyA, propertyB] = [a.salesOrderNo, b.salesOrderNo];
+        case "endDate":
+          [propertyA, propertyB] = [a.endDate, b.endDate];
+          break;
+
+          case "extDate":
+          [propertyA, propertyB] = [a.extDate, b.extDate];
+          break;
+          case "status":
+          [propertyA, propertyB] = [a.status, b.status];
+          break;
+          case "auditType":
+          [propertyA, propertyB] = [a.auditType, b.auditType];
           break;
         
       }
