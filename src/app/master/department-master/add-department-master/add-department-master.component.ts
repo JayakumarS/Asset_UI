@@ -7,6 +7,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { DepartmentMaster } from '../department-master.model';
 import { DepartmentMasterResultBean } from '../department-master-result-bean';
 import { DepartmentMasterService } from '../department-master.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-add-department-master',
@@ -18,10 +19,14 @@ export class AddDepartmentMasterComponent implements OnInit {
   departmentMaster: DepartmentMaster;
   requestId: number;
   edit:boolean=false;
+  tokenStorage: any;
+  contactPersonList: [];
+  locationDdList=[];
 
   constructor(private fb: FormBuilder,
     private departmentMasterService : DepartmentMasterService,
     private httpService: HttpServiceService,
+    private commonService: CommonService,
     private snackBar:MatSnackBar,
     private router:Router,
     public route: ActivatedRoute,) { 
@@ -31,10 +36,12 @@ export class AddDepartmentMasterComponent implements OnInit {
       // departmentCode:["", [Validators.required]],
       //departmentName: ["", [Validators.required]],
       deptCode: [""],
-      departmentHead: ["", [Validators.required]],
+      departmentHead: [""],
       remarks:[""],
-      isactive:[""],
-      deptId:[""]
+      isactive:[false],
+      deptId:[""],
+      contactPerson:[""],
+      
     });
 
   }
@@ -49,16 +56,46 @@ export class AddDepartmentMasterComponent implements OnInit {
 
       }
      });
+
+     
+       // Contact Person dropdown
+       this.httpService.get<any>(this.departmentMasterService.getAdminDropdown).subscribe({
+        next: (data) => {
+          this.locationDdList = data;
+        },
+        error: (error) => {
+  
+        }
+      }
+      );
+
+      //ContactPerson  Dropdown List
+    // this.httpService.get<any>(this.commonService.getUserDropdown).subscribe({
+    //   next: (data) => {
+    //     this.contactPersonList = data;
+    //   },
+    //   error: (error) => {
+    //   }
+    // });
   }
 
   onSubmit(){
-    if(this.docForm.controls.isactive.value==""){
-      this.docForm.patchValue({
-         isactive:false
-      })
-    }
-    this.departmentMaster = this.docForm.value;
-    
+    // if(this.docForm.controls.isactive.value==""){
+    //   this.docForm.patchValue({
+    //      isactive:false
+    //   })
+    // }
+
+    if(this.docForm.valid){
+     if(this.docForm.value.isactive==true)
+     {
+      this.docForm.value.isactive="True"
+     }
+     else if(this.docForm.value.isactive==false)
+     {
+      this.docForm.value.isactive="False"
+     }
+      this.departmentMaster = this.docForm.value;
     console.log(this.departmentMaster);
     this.departmentMasterService.addDepartment(this.departmentMaster);
     this.showNotification(
@@ -68,7 +105,25 @@ export class AddDepartmentMasterComponent implements OnInit {
       "center"
     );
     this.router.navigate(['/master/department-Master/list-department']);
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Record Not Successfully Added...!!!",
+        "bottom",
+        "center"
+      );
+    }
     
+  }
+
+  validateDepartmentCode(event){
+    this.httpService.get<any>(this.departmentMasterService.validateDepartmentCodeUrl+ "?tableName=" +"assetdepartment"+"&columnName="+"departmentcode"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['deptCode'].setErrors({ country: true });
+      }else{
+        this.docForm.controls['deptCode'].setErrors(null);
+      }
+    });
   }
 
   fetchDetails(department: any): void {
@@ -84,7 +139,9 @@ export class AddDepartmentMasterComponent implements OnInit {
         'departmentHead': res.departmentBean.departmentHead,
         'remarks' : res.departmentBean.remarks,
         'isactive' : res.departmentBean.isactive,
-        'deptId' : res.departmentBean.deptId
+        'deptId' : res.departmentBean.deptId,
+        'contactPerson' : res.departmentBean.contactPerson
+  
      })
       },
       (err: HttpErrorResponse) => {
@@ -103,29 +160,77 @@ export class AddDepartmentMasterComponent implements OnInit {
   update(){
 
     this.departmentMaster = this.docForm.value;
-    this.departmentMasterService.departmentUpdate(this.departmentMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Edit Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/department-Master/list-department']);
+    this.httpService.post(this.departmentMasterService.updateDepartment, this.departmentMaster).subscribe((res: any) =>{
+     
+     if(res.success){
+      this.showNotification(
+        "snackbar-success",
+        "Edit Record Successfully...!!!",
+        "bottom",
+        "center"
+      );
+      this.router.navigate(['/master/department-Master/list-department']);
+     }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Edit Record UnSuccessfull...!!!",
+        "bottom",
+        "center"
+      );
+     }
+     
+    });
+    
+    
 
   }
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
 
   onCancel(){
     this.router.navigate(['/master/department-Master/list-department']);
   
   }
   
-  reset(){this.docForm = this.fb.group({
-    deptCode: [""],
-    departmentHead: [""],
-    remarks: [""],
-    isactive: [""],
-    
-  });}
+ 
+  reset() {
+    if (!this.edit) {
+      this.docForm.reset();
+      this.docForm.patchValue({
+        deptCode: ["",[Validators.required]],
+        departmentHead: [""],
+        remarks: [""],
+        isactive: [""],
+        contactPersonId:[""],
+        'loginedUser': this.tokenStorage.getUserId()
+      })
+    } else {
+      this.fetchDetails(this.requestId);
+    }
+  }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {

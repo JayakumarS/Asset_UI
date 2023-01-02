@@ -30,6 +30,7 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
     "deptCode",
     "departmentName",
     "departmentHead",
+    "contactPerson",
     "isactive",
     "actions"
   ];
@@ -93,7 +94,7 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
 
   deleteItem(row){
 
-    this.id = row.deptCode;
+    this.id = row.deptId;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";

@@ -31,7 +31,9 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/edit`;
   public updateDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/update`;
   public deleteDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/delete`;
-  
+  public validateDepartmentCodeUrl = `${this.serverUrl.apiServerAddress}api/auth/app/department/validateUniqueDepartmentCode`;
+  public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/department/getAdminDropdown`;
+
   get data(): DepartmentMaster[] {
     return this.dataChange.value;
   }

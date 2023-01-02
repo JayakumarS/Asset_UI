@@ -18,6 +18,8 @@ const routes: Routes = [
     path: "add-properties",
     component: AddPropertiesComponent,
   },
+ 
+  
 
   { path: "**", component: Page404Component },
 ];
