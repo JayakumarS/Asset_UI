@@ -69,9 +69,27 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  DeleteDesignationMaster(id: any): void {
-    this.httpService.get(this.deleteDesignationMaster+"?id="+id).subscribe(data => {
+  DeleteDesignationMaster(id: any,router,notificationService): void {
+    this.httpService.get<DesignationMaster>(this.deleteDesignationMaster+"?id="+id).subscribe(data => {
       console.log(id);
+      if(data.Success == true){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Deleted Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/Activity-master/list-activity']);
+      }
+      else if(data.Success == false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Deleted Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+
       },
       (err: HttpErrorResponse) => {
          // error code here

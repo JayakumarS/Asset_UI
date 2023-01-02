@@ -111,12 +111,12 @@ displayedColumns = [
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       
       this.loadData();
-        this.showNotification(
-          "snackbar-success",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
+        // this.showNotification(
+        //   "snackbar-success",
+        //   "Delete Record Successfully...!!!",
+        //   "bottom",
+        //   "center"
+        // );
       
       // else{
       //   this.showNotification(

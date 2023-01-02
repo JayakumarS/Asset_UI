@@ -5,6 +5,7 @@ export class DesignationMaster {
   activtyname: string;
   Description: string;
   active: any;
+  Success:boolean;
 
   
   constructor(designationMaster) {

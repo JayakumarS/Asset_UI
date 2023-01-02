@@ -26,6 +26,7 @@ import { DesignationMasterRoutingModule } from './designation-master-routing.mod
 import { AddDesingnationMasterComponent } from './add-desingnation-master/add-desingnation-master.component';
 import { ListDesingnationMasterComponent } from './list-desingnation-master/list-desingnation-master.component';
 import { DeleteDesignationMasterComponent } from './list-desingnation-master/delete-designation-master/delete-designation-master.component';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 
 @NgModule({
@@ -34,6 +35,9 @@ import { DeleteDesignationMasterComponent } from './list-desingnation-master/del
     ListDesingnationMasterComponent,
     DeleteDesignationMasterComponent,
   
+  ],
+  providers:[
+    NotificationService
   ],
   imports: [
     CommonModule,
