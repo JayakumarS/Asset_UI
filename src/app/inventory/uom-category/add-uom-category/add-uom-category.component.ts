@@ -7,6 +7,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { UomCategory } from '../uom-category.model';
 import { UomCategoryService } from '../uom-category.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-uom-category',
@@ -23,15 +25,18 @@ export class AddUOMCategoryComponent implements OnInit {
   edit: boolean = false;
   constructor(private fb: FormBuilder, public router: Router, private snackBar: MatSnackBar,
               public uomCategoryService: UomCategoryService,
-              public commonService: CommonService,
-              public route: ActivatedRoute, private httpService: HttpServiceService) {
+              public commonService: CommonService,  private spinner: NgxSpinnerService,
+              public route: ActivatedRoute, private httpService: HttpServiceService,
+              public tokenStorage: TokenStorageService,
+              ) {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       categoryName: ["", [Validators.required]],
       description: [""],
       active: [""],
-      uomCode: [""]
+      uomCode: [""],
+      loginedUser: this.tokenStorage.getUserId(),
     });
 
   }
@@ -57,18 +62,38 @@ export class AddUOMCategoryComponent implements OnInit {
 
   }
 
-  onSubmit() {
-    this.uomCategory = this.docForm.value;
-    this.uomCategoryService.addUomCategory(this.uomCategory);
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/inventory/UOM-catagory/list-UOMCategory']);
-  }
 
+  onSubmit() {
+      this.uomCategory = this.docForm.value;
+      this.uomCategoryService.addUomCategory(this.uomCategory).subscribe({
+        next: (data) => {
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+  }
 
   // Edit
   fetchDetails(uomID: any): void {
@@ -98,20 +123,54 @@ export class AddUOMCategoryComponent implements OnInit {
   }
 
 
-  update() {
+  // update() {
 
-    this.uomCategory = this.docForm.value;
-    this.uomCategoryService.uomCategoryUpdate(this.uomCategory);
-    this.showNotification(
-      "snackbar-success",
-      "Edit Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/inventory/UOM-catagory/list-UOMCategory']);
+  //   this.uomCategory = this.docForm.value;
+  //   this.uomCategoryService.uomCategoryUpdate(this.uomCategory);
+  //   this.showNotification(
+  //     "snackbar-success",
+  //     "Edit Record Successfully...!!!",
+  //     "bottom",
+  //     "center"
+  //   );
+  //   this.router.navigate(['/inventory/UOM-catagory/list-UOMCategory']);
+
+  // }
+  update() {
+      this.uomCategory = this.docForm.value;
+      this.spinner.show();
+      this.uomCategoryService.uomCategoryUpdate(this.uomCategory).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Edit Record Successfully",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Updated Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
 
   }
-
 
   onCancel() {
     this.router.navigate(['/inventory/UOM-catagory/list-UOMCategory']);
@@ -160,7 +219,8 @@ export class AddUOMCategoryComponent implements OnInit {
       categoryName: ["", [Validators.required]],
       description: [""],
       active: [""],
-      uomID: [""]
+      uomID: [""],
+      loginedUser: this.tokenStorage.getUserId(),
     });
   } else {
     this.fetchDetails(this.requestId);

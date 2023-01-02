@@ -66,19 +66,52 @@ export class AddCurrencyMasterComponent implements OnInit {
     });
   }
 
+  // onSubmit() {
+  //   this.currencyMaster = this.docForm.value;
+
+  //   this.CurrencyMasterService.addCurrency(this.currencyMaster);
+  //   this.showNotification(
+  //     "snackbar-success",
+  //     "Add Record Successfully...!!!",
+  //     "bottom",
+  //     "center"
+  //   );
+  //   this.router.navigate(['/master/currencyMaster/listCurrency']);
+  // }
   onSubmit() {
-    this.currencyMaster = this.docForm.value;
-
-    this.CurrencyMasterService.addCurrency(this.currencyMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/currencyMaster/listCurrency']);
+      this.currencyMaster = this.docForm.value;
+      this.spinner.show();
+      this.CurrencyMasterService.addCurrency(this.currencyMaster).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
   }
-
   fetchDetails(currencyId: any): void {
     const obj = {
       editId: currencyId

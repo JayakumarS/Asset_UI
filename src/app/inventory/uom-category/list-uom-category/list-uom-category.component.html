@@ -2,8 +2,8 @@
   <div class="content-block">
     <div class="block-header" style="padding: 0.5% !important;">
       <!-- breadcrumb -->
-       <app-breadcrumb [title]="'UOM Category'" [items]="['Inventory']" [active_item]="'UOM Category List'">
-      </app-breadcrumb>  
+       <app-breadcrumb [title]="'UOM '" [items]="['Inventory']" [active_item]="'UOM Category List'">
+      </app-breadcrumb>
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -23,7 +23,7 @@
                           aria-label="Search box">
                       </li>
                       <li>
-                       
+
                         <div class="m-l-10" matTooltip="ADD">
                           <button color="primary" type="button" class="btn-space" mat-raised-button
                           [routerLink]="'/inventory/UOM-catagory/add-UOMCategory/0'" ><i
@@ -31,7 +31,7 @@
                         </div>
                       </li>
                       <li>
-                      
+
                         <div class="m-l-10" matTooltip="Reset">
                           <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
                             <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
@@ -54,7 +54,7 @@
             </div>
             <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
               #exporter="matTableExporter">
-              
+
               <ng-container matColumnDef="uomID">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Category Code</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.uomID}}</mat-cell>
@@ -67,9 +67,9 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Category Description</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.description}}</mat-cell>
               </ng-container>
-             
-             
-             
+
+
+
               <!-- actions -->
               <ng-container matColumnDef="actions">
                 <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>

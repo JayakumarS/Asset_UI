@@ -58,29 +58,10 @@ export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<any>(this.editDepartment, obj);
   }
   // tslint:disable-next-line:no-shadowed-variable
-  addCurrency(CurrencyMaster: CurrencyMaster): void {
-    this.dialogData = CurrencyMaster;
-
-    this.httpService.post<CurrencyMaster>(this.saveCurrency, CurrencyMaster).subscribe(data => {
-      console.log(data);
-      // this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-
-    });
+  addCurrency(CurrencyMaster: CurrencyMaster): Observable<any> {
+    return this.httpClient.post<CurrencyMaster>(this.saveCurrency, CurrencyMaster);
   }
 
-  // tslint:disable-next-line:no-shadowed-variable
-  // currencyUpdate(CurrencyMaster: CurrencyMaster): void {
-  //   this.dialogData = CurrencyMaster;
-  //   this.httpService.post<CurrencyMaster>(this.updateCurrency, CurrencyMaster).subscribe(data => {
-  //     console.log(data);
-  //     // this.dialogData = employees;
-  //     },
-  //     (err: HttpErrorResponse) => {
-
-  //   });
-  // }
   updateCountry(currencyMaster: CurrencyMaster): Observable<any> {
     return this.httpClient.post<CurrencyMaster>(this.updateCurrency, currencyMaster);
   }

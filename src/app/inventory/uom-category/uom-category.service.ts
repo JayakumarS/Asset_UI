@@ -56,58 +56,30 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<any>(this.editUomCategory, obj);
   }
 
-  addUomCategory(uomCategory: UomCategory): void {
-    this.dialogData = uomCategory;
-    this.httpService.post<UomCategory>(this.saveUomCategory, uomCategory).subscribe(data => {
-      console.log(data);
-      // this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-
-    });
+  addUomCategory(uomCategory: UomCategory): Observable<any> {
+    return this.httpClient.post<UomCategory>(this.saveUomCategory, uomCategory);
   }
 
-  uomCategoryUpdate(uomCategory: UomCategory): void {
-    this.dialogData = uomCategory;
-    this.httpService.post<UomCategory>(this.updateUomCategory, uomCategory).subscribe(data => {
-      console.log(data);
-      // this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
+  // uomCategoryUpdate(uomCategory: UomCategory): void {
+  //   this.dialogData = uomCategory;
+  //   this.httpService.post<UomCategory>(this.updateUomCategory, uomCategory).subscribe(data => {
+  //     console.log(data);
+  //     // this.dialogData = employees;
+  //     },
+  //     (err: HttpErrorResponse) => {
 
-    });
-  }
-
-
-  // uomCategoryUpdate(uomCategory: UomCategory): Observable<any> {
-  //   return this.httpClient.post<UomCategory>(this.updateUomCategory, uomCategory);
+  //   });
   // }
+  uomCategoryUpdate(uomCategory: UomCategory): Observable<any> {
+    return this.httpClient.post<UomCategory>(this.updateUomCategory, uomCategory);
+  }
 
   DeleteUomCategory(obj: any): Observable<any> {
      return this.httpClient.post<any>(this.deleteUomCategory, obj);
   }
 
-//  DeleteUomCategory(uomID: any): void {
-//    this.httpService.get(this.deleteUomCategory + "?uomID= " + uomID).subscribe(data => {
-//       console.log(uomID);
-//        },
-//      (err: HttpErrorResponse) => {
-//         // error code here
-//      }
-//    );
-//    }
-
-
-
   updateEmployees(uomCategory: UomCategory): void {
     this.dialogData = uomCategory;
-    /* this.httpClient.put(this.API_URL + employees.id, employees).subscribe(data => {
-      this.dialogData = employees;
-    },
-    (err: HttpErrorResponse) => {
-      // error code here
-    }
-  );*/
   }
 
 

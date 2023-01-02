@@ -32,7 +32,7 @@ color:rgb(161 161 161);
     line-height: 2px;
 }
 .mat-mini-fab {
-    border-radius: 0% !important; 
+    border-radius: 0% !important;
     width: 30px !important;
     height: 30px !important;
 }
@@ -62,9 +62,15 @@ mat-row, mat-footer-row {
 }
 
 .mat-form-field-appearance-outline .mat-form-field-outline-start{
-    border-radius: 0px 0 0 0px !important;
+    border-radius: 5px 0px 0px 5px !important;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-outline-end {
-    border-radius: 0px 0 0 0px !important;
+    border-radius: 0px 5px 5px 0px !important;
+}
+.lable{
+    font-size:15px !important;
+    font-family: 'Arial', Times, serif !important;
+
+    font-weight:bold;
 }
