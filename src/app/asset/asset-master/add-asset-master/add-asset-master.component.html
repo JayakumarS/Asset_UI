@@ -46,10 +46,8 @@
                                         <mat-select class="inputTxt" formControlName="location">
                                             <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                                                 {{title.text}}
-
                                             </mat-option>
                                         </mat-select>
-
                                         <mat-error *ngIf="docForm.get('location').hasError('required')">
                                             Asset Location is required
                                         </mat-error>

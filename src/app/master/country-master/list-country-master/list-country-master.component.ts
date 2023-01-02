@@ -29,7 +29,7 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
   displayedColumns = [
     "countryCode",
     "countryName",
-    "clientType",
+    // "clientType",
     "currencyName",
     "actions",
   ];
@@ -198,8 +198,8 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
             const searchStr = (
               countryMaster.countryCode +
               countryMaster.countryName +
-              countryMaster.currencyName +
-              countryMaster.clientType 
+              countryMaster.currencyName 
+              // countryMaster.clientType 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -234,9 +234,9 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
         case "currencyName":
           [propertyA, propertyB] = [a.currencyName, b.currencyName];
           break;
-        case "clientType":
-          [propertyA, propertyB] = [a.clientType, b.clientType];
-          break;
+        // case "clientType":
+        //   [propertyA, propertyB] = [a.clientType, b.clientType];
+        //   break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

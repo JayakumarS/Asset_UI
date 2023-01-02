@@ -1,7 +1,7 @@
 import { formatDate } from "@angular/common";
 export class DesignationMaster {
   id: number;
-  activtyid: number;
+  activtyid: string;
   activtyname: string;
   Description: string;
   active: any;

@@ -42,7 +42,7 @@ export class AddCountryMasterComponent implements OnInit {
       countryCode: ["", [Validators.required]],
       countryName: ["", [Validators.required]],
       currencyId: ["", [Validators.required]],
-      clientType: [""],
+      // clientType: [""],
       countryIsActive: [""],
       loginedUser: this.tokenStorage.getUserId(),
     });
@@ -126,7 +126,7 @@ export class AddCountryMasterComponent implements OnInit {
           'countryCode': res.countryMaster.countryCode,
           'countryName': res.countryMaster.countryName,
           'currencyId': res.countryMaster.currencyId,
-          'clientType': res.countryMaster.clientType,
+          // 'clientType': res.countryMaster.clientType,
           'countryIsActive': res.countryMaster.countryIsActive,
         })
       },
@@ -189,7 +189,7 @@ export class AddCountryMasterComponent implements OnInit {
         'countryCode': '',
         'countryName': '',
         'currencyId': '',
-        'clientType': '',
+        // 'clientType': '',
         'countryIsActive': false,
         'loginedUser': this.tokenStorage.getUserId()
       })

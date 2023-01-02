@@ -118,7 +118,14 @@ export class AddAssetMasterComponent
 
   ngOnInit(): void {
     // this.commodityList();
-   
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+       this.edit=true;
+       this.fetchDetails(this.requestId) ;
+    
+      }
+     });
 
      this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
       next: (data) => {
@@ -152,14 +159,7 @@ export class AddAssetMasterComponent
       }
       );
  
- this.route.params.subscribe(params => {
-   if(params.id!=undefined && params.id!=0){
-    this.requestId = params.id;
-    this.edit=true;
-    this.fetchDetails(this.requestId) ;
  
-   }
-  });
  
    }
    onSubmit() {
@@ -215,10 +215,11 @@ export class AddAssetMasterComponent
          
          'assetName': res.addAssetBean.assetName,
          'assetCode': res.addAssetBean.assetCode,
-         'location': res.addAssetBean.locationName,
-         'category': res.addAssetBean.categoryName,
+         'location': res.addAssetBean.assetLocation+"",
+         'category': res.addAssetBean.assetCategory+"",
          'status' : res.addAssetBean.status,
-         'id': res.addAssetBean.id
+         'id': res.addAssetBean.id,
+         'brand': res.addAssetBean.brand
       })
        },
        error: (error) => {
