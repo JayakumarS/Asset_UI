@@ -24,7 +24,6 @@ import { DeleteCurrencyComponent } from './delete-currency/delete-currency.compo
 })
 export class ListCurrencyMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-    "currencyId",
     "currencyCode",
     "currencyName",
     "actions"

@@ -23,11 +23,18 @@
                           aria-label="Search box">
                       </li>
                       <li>
-                        <div class="m-l-10" matTooltip="ADD">
-                          <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                          <button mat-mini-fab color="primary"  [routerLink]="'/master/location/addLocation/0'">
-                            <mat-icon class="col-white">add</mat-icon>
-                          </button>
+
+                          <div class="m-l-10" matTooltip="ADD">
+                            <button color="primary" type="button" class="btn-space"
+                              [routerLink]="'/master/location/addLocation/0'" mat-raised-button><i
+                                class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
+                        </div>
+                      </li>
+                      <li>
+
+                        <div class="m-l-10" matTooltip="Reset">
+                          <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
+                            <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
                         </div>
                       </li>
                     </ul>
@@ -40,15 +47,15 @@
                             (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                         </div>
                       </li>
-                      
-                      
+
+
                     </ul>
                   </div>
                 </div>
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
-                
+
                 <ng-container matColumnDef="cslLocationCode">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Location Id</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cslLocationCode}}</mat-cell>
@@ -62,10 +69,10 @@
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.country}}
                   </mat-cell>
                 </ng-container>
-                
-               
-               
-               
+
+
+
+
                 <!-- actions -->
                 <ng-container matColumnDef="actions">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
@@ -142,7 +149,7 @@
               <!-- context menu end -->
               <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
                 [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-                
+
               </div>
               <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
                 [pageSizeOptions]="[5, 10, 25, 100]">

@@ -30,13 +30,7 @@
                               class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                         </div>
                       </li>
-                      <li>
 
-                        <div class="m-l-10" matTooltip="Reset">
-                          <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
-                            <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
-                        </div>
-                      </li>
                     </ul>
                   </div>
                   <div class="col-4">
@@ -69,10 +63,7 @@
             </div>
             <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
               #exporter="matTableExporter">
-              <ng-container matColumnDef="currencyId">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Currency Id</mat-header-cell>
-                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currencyId}}</mat-cell>
-              </ng-container>
+
               <ng-container matColumnDef="currencyCode">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Currency Code</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currencyCode}}</mat-cell>
@@ -103,7 +94,7 @@
 
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-              <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+              <mat-row *matRowDef="let row; columns: displayedColumns;"
                 [style.cursor]="'pointer'" matRipple>
               </mat-row>
             </mat-table>
