@@ -34,6 +34,8 @@ export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
   public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/edit`;
   public updateCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/update`;
   public deleteCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/delete`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
+
   get data(): CurrencyMaster[] {
     return this.dataChange.value;
   }

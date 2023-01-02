@@ -83,8 +83,8 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
   }
   editCall(row) {
 
-    this.router.navigate(['/master/location/addLocation/'+row.cslLocationCode]);
-  
+    this.router.navigate(['/master/location/addLocation/' + row.cslLocationCode]);
+
   }
 
  deleteItem(i, row) {
@@ -103,7 +103,7 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
       this.loadData();
         this.showNotification(
           "snackbar-success",
@@ -111,7 +111,7 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
           "bottom",
           "center"
         );
-      
+
       // else{
       //   this.showNotification(
       //     "snackbar-danger",
@@ -189,7 +189,7 @@ export class ExampleDataSource extends DataSource<LocationMaster> {
               locationMaster.cslLocationCode +
               locationMaster.locationName +
               locationMaster.country
-             
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -227,7 +227,7 @@ export class ExampleDataSource extends DataSource<LocationMaster> {
         case "country":
           [propertyA, propertyB] = [a.country, b.country];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
