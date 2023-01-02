@@ -60,16 +60,6 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<UomCategory>(this.saveUomCategory, uomCategory);
   }
 
-  // uomCategoryUpdate(uomCategory: UomCategory): void {
-  //   this.dialogData = uomCategory;
-  //   this.httpService.post<UomCategory>(this.updateUomCategory, uomCategory).subscribe(data => {
-  //     console.log(data);
-  //     // this.dialogData = employees;
-  //     },
-  //     (err: HttpErrorResponse) => {
-
-  //   });
-  // }
   uomCategoryUpdate(uomCategory: UomCategory): Observable<any> {
     return this.httpClient.post<UomCategory>(this.updateUomCategory, uomCategory);
   }

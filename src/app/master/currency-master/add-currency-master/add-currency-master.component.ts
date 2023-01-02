@@ -42,10 +42,6 @@ export class AddCurrencyMasterComponent implements OnInit {
       currencyName: ["", [Validators.required]],
       fromcurrency: ["", [Validators.required]],
       toCurrency: ["", [Validators.required]],
-      emailId: [
-        "",
-        [Validators.required, Validators.email, Validators.minLength(5)],
-      ],
       defaultValue: ["", [Validators.required]],
       fractionPart: ["", [Validators.required]],
       isActive: [""],
@@ -66,19 +62,8 @@ export class AddCurrencyMasterComponent implements OnInit {
     });
   }
 
-  // onSubmit() {
-  //   this.currencyMaster = this.docForm.value;
-
-  //   this.CurrencyMasterService.addCurrency(this.currencyMaster);
-  //   this.showNotification(
-  //     "snackbar-success",
-  //     "Add Record Successfully...!!!",
-  //     "bottom",
-  //     "center"
-  //   );
-  //   this.router.navigate(['/master/currencyMaster/listCurrency']);
-  // }
   onSubmit() {
+    if(this.docForm.valid){
       this.currencyMaster = this.docForm.value;
       this.spinner.show();
       this.CurrencyMasterService.addCurrency(this.currencyMaster).subscribe({
@@ -111,6 +96,15 @@ export class AddCurrencyMasterComponent implements OnInit {
           );
         }
       });
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill The All Required fields",
+        "bottom",
+        "center"
+      );
+    }
   }
   fetchDetails(currencyId: any): void {
     const obj = {
@@ -136,18 +130,6 @@ export class AddCurrencyMasterComponent implements OnInit {
     }
   });
 }
-  // update() {
-  //   this.currencyMaster = this.docForm.value;
-  //   this.CurrencyMasterService.updateCountry(this.currencyMaster);
-  //   this.showNotification(
-  //     "snackbar-success",
-  //     "Edit Record Successfully...!!!",
-  //     "bottom",
-  //     "center"
-  //   );
-  //   this.router.navigate(['/master/currencyMaster/listCurrency']);
-
-  // }
 
   update() {
       this.currencyMaster = this.docForm.value;
@@ -182,7 +164,6 @@ export class AddCurrencyMasterComponent implements OnInit {
           );
         }
       });
-      // this.router.navigate(['/master/currencyMaster/listCurrency']);
     }
 
   onCancel() {
@@ -252,15 +233,15 @@ export class AddCurrencyMasterComponent implements OnInit {
       event.preventDefault();
     }
   }
-  validateCountry(event) {
-    if (event != undefined && event != null && event != "") {
-      this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "currency" + "&columnName=" + "currency_name" + "&columnValue=" + event).subscribe((res: any) => {
-        if (res) {
-          this.docForm.controls['currencyName'].setErrors({ country: true });
-        } else {
-          this.docForm.controls['currencyName'].setErrors(null);
-        }
-      });
-    }
+
+  validateCurrencyCode(event){
+    this.httpService.get<any>(this.CurrencyMasterService.uniqueValidateUrl+ "?tableName=" +"currency"+"&columnName="+"currency_code"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['currencyCode'].setErrors({ currency: true });
+      }else{
+        this.docForm.controls['currencyCode'].setErrors(null);
+      }
+    });
   }
+
 }

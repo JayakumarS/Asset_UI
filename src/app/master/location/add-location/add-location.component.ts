@@ -32,7 +32,7 @@ export class AddLocationComponent implements OnInit {
     private snackBar: MatSnackBar,
     private locationMasterService: LocationMasterService,
     private authService: AuthService,
-    private httpService: HttpServiceService) { 
+    private httpService: HttpServiceService) {
     this.docForm = this.fb.group({
       locationId:[""],
       locationCode: ["", [Validators.required]],
@@ -116,7 +116,7 @@ export class AddLocationComponent implements OnInit {
      });
   }
 
- 
+
 
   fetchDetails(cslLocationCode: any): void {
     this.httpService.get(this.locationMasterService.editLocation+"?locationMaster="+cslLocationCode).subscribe((res: any)=> {
@@ -150,7 +150,7 @@ export class AddLocationComponent implements OnInit {
         // 'fromDate': res.locationMasterBean.fromDate,
         // 'toDate' : res.locationMasterBean.toDate,
         // 'locationName': res.locationMasterBean.locationName,
-       
+
      })
       },
       (err: HttpErrorResponse) => {
@@ -181,13 +181,17 @@ export class AddLocationComponent implements OnInit {
   }
 
   reset(){
+    if (!this.edit) {
     this.docForm = this.fb.group({
       locationCode: [""],
       region: [""],
       country: [""],
       active: [""],
-      
+
     });
+  } else {
+    this.fetchDetails(this.requestId);
+  }
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

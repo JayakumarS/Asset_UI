@@ -17,10 +17,27 @@
                     <mat-label class="lable">Currency Code</mat-label>
                     </div>
                     <div class=" col-md-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="currencyCode" required maxlength="3">
+                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="currencyCode"(blur)="validateCurrencyCode($event.target.value)" required maxlength="3">
                       <mat-error *ngIf="docForm.get('currencyCode').hasError('required')">
                         Currency code is required
+                      </mat-error>
+
+
+                      <mat-error *ngIf="docForm.get('currencyCode').hasError('currency')">
+                        Currency code Already Exists !!!
+                      </mat-error>
+                    </mat-form-field> -->
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <!-- <mat-label>Currency Code</mat-label> -->
+                      <input matInput formControlName="currencyCode" maxlength="3" [ngModel]="value" (ngModelChange)="value=$event.toUpperCase()" (blur)="validateCurrencyCode($event.target.value)"  required>
+
+                      <!-- <input matInput formControlName="currencyCode" (input) = "setDataOnChange($event.target.value)" (blur)="validateCurrencyCode($event.target.value)" required maxlength="3"> -->
+                      <mat-error *ngIf="docForm.get('currencyCode').hasError('required')">
+                        Currency code is required
+                      </mat-error>
+                      <mat-error *ngIf="docForm.get('currencyCode').hasError('currency')">
+                        Currency code Already Exists !!!
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -29,9 +46,9 @@
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                       <input matInput formControlName="currencyName"maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" required>
+                       <input matInput formControlName="currencyName"maxlength="15"  (keypress)="keyPressName($event)" required>
                       <mat-error *ngIf="docForm.get('currencyName').hasError('required')">
-                        Currency Name Code is required
+                        Currency Name is required
                       </mat-error>
                     </mat-form-field>
                   </div>
