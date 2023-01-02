@@ -15,21 +15,24 @@
                   <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
                     <mat-label><b></b></mat-label>
                   </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" *ngIf="!edit">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Country Code</mat-label>
-                      <input matInput formControlName="countryCode" 
-                        maxlength="3" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="countryCode" (blur)="validateCountryCode($event.target.value)" 
+                        maxlength="3" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()" required>
                       <mat-error *ngIf="docForm.get('countryCode').hasError('required')">
                         Country code is required
                       </mat-error>
-                  
+                      <mat-error *ngIf="docForm.get('countryCode').hasError('country')">
+                        Country code is Already Exists...!!
+                      </mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" *ngIf="!edit">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Country Name</mat-label>
-                      <input matInput formControlName="countryName" maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="countryName" (blur)="validateCountryName($event.target.value)"
+                      maxlength="15" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()" required>
                       <mat-error *ngIf="docForm.get('countryName').hasError('required')">
                         Country Name is required
                       </mat-error>
@@ -38,6 +41,32 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" *ngIf="edit">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Country Code</mat-label>
+                      <input matInput formControlName="countryCode" 
+                        maxlength="3" (keypress)="keyPressName($event)" readonly>
+                      <mat-error *ngIf="docForm.get('countryCode').hasError('required')">
+                        Country code is required
+                      </mat-error>
+                  
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" *ngIf="edit">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Country Name</mat-label>
+                      <!-- <input matInput formControlName="countryName" maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" readonly> -->
+                      <input matInput formControlName="countryName" maxlength="15" (keypress)="keyPressName($event)" readonly>
+                      <mat-error *ngIf="docForm.get('countryName').hasError('required')">
+                        Country Name is required
+                      </mat-error>
+                      <mat-error *ngIf="docForm.controls['countryName'].hasError('country') ">
+                        Country Name Already Exists !!!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
                 </div>
 
                 <div class="row">

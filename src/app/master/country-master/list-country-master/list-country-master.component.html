@@ -2,7 +2,7 @@
   <div class="content-block">
     <div class="block-header" style="padding: 0.5% !important;">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Master'" [items]="['Master']" [active_item]="'Country List'">
+      <app-breadcrumb [title]="'Country Master'" [items]="['Master']" [active_item]="'Country List'">
       </app-breadcrumb>
     </div>
     <div class="row">
@@ -57,10 +57,10 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Country Name </mat-header-cell>
                   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.countryName}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="clientType">
+                <!-- <ng-container matColumnDef="clientType">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Client Type </mat-header-cell>
                   <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.clientType}}</mat-cell>
-                </ng-container>
+                </ng-container> -->
                 <ng-container matColumnDef="currencyName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Currency </mat-header-cell>
                   <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.currencyName}}</mat-cell>
