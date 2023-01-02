@@ -334,7 +334,7 @@ export class ManageAuditComponent implements OnInit {
   }
 
   fetchDetails(id:number){
-    this.httpService.get(this.auditservice.edit+"?id="+id).subscribe((res: any)=> {
+    this.httpService.get(this.auditservice.editDesignationMaster+"?id="+id).subscribe((res: any)=> {
       console.log(id);
 
       this.docForm.patchValue({
