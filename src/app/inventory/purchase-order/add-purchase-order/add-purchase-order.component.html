@@ -1,1 +1,436 @@
-<p>add-purchase-order works!</p>
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add Purchase Order'" [items]="['Inventory']" [active_item]="'Add Purchase Order'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="box-shadow">
+            <div class="card">
+              <div class="body">
+                <form class="m-4" [formGroup]="docForm">
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Organization Name</mat-label>
+                        <mat-select formControlName="organizationName" required>
+                          <mat-option [value]="'ASSETCHEK'"> ASSETCHEK </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" *ngIf="flagPoNo">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>PO Number</mat-label>
+                        <input matInput formControlName="poNo" required readonly>
+                        <mat-error *ngIf="docForm.get('poNo').hasError('required')"> PO Number is required </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Request Type</mat-label>
+                        <mat-select formControlName="requestType" required>
+                          <mat-option [value]="'Work Order'"> Work Order </mat-option>
+                          <mat-option [value]="'Purchase Order'"> Purchase Order </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>PO Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="poDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')" id="poDate" required (dateChange)="getDateString($event, 'poDate',0)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Cost Center</mat-label>
+                        <mat-select name="costCenter" formControlName="costCenter">
+                          <mat-option *ngFor="let title of countryList" [value]="title.id">
+                            {{title.text}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>WO Type</mat-label>
+                        <mat-select formControlName="woType" required>
+                          <mat-error *ngIf="docForm.get('woType').hasError('required')"> WO Type is required </mat-error>
+                          <mat-option [value]="'Select'"> --Select-- </mat-option>
+                          <mat-option [value]="'Revex WO'"> Revex WO </mat-option>
+                          <mat-option [value]="'Capex WO'"> Capex WO </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Purchase Type</mat-label>
+                        <mat-select formControlName="purchaseType" required>
+                          <mat-option [value]="1"> Regular </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Purchase For</mat-label>
+                        <mat-select formControlName="purchaseFor" required>
+                          <mat-option [value]="1"> Stock </mat-option>
+                          <mat-option [value]="2"> Consumable </mat-option>
+                          <mat-option [value]="3"> Asset </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Vendor</mat-label>
+                        <mat-error *ngIf="docForm.get('vendorId').hasError('required')"> Vendor is required </mat-error>
+                        <mat-select formControlName="vendorId" (selectionChange)="getVendorDetails($event.value)" required>
+                          <mat-option *ngFor="let title of vendorList" [value]="title.id">
+                            {{title.text}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Terms & Conditions</mat-label>
+                        <input matInput formControlName="termsConditions">
+                        <mat-error *ngIf="docForm.get('termsConditions').hasError('required')"> Terms & Conditions is required </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Remarks</mat-label>
+                        <input matInput formControlName="remarks">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Place Of Delivery</mat-label>
+                        <mat-select formControlName="destinationLocation" required>
+                          <mat-option *ngFor="let title of locationList" [value]="title.id">
+                            {{title.text}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Payment Terms</mat-label>
+                        <input matInput formControlName="paymentTerms" (keypress)="keyPressNumberInt($event)">
+                      </mat-form-field>
+                    </div>
+                  
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Currency </mat-label>
+                        <mat-select formControlName="currency" required>
+                          <mat-option *ngFor="let title of currencyList" [value]="title.id">
+                            {{title.text}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Advance</mat-label>
+                        <input matInput formControlName="advance" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>SubTotal</mat-label>
+                        <input matInput formControlName="subTotal" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Discount</mat-label>
+                        <input matInput formControlName="discount" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>VAT</mat-label>
+                        <input matInput formControlName="cgst" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Freight</mat-label>
+                        <input matInput formControlName="freight" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Freight Tax(%)</mat-label>
+                        <input matInput formControlName="freightTaxPercent" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Freight Total</mat-label>
+                        <input matInput formControlName="freightTotal" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Other Charges</mat-label>
+                        <input matInput formControlName="otherCharges" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Total</mat-label>
+                        <input matInput formControlName="total" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Remarks Other Charges</mat-label>
+                        <input matInput formControlName="remarksOtherCharges" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Purchase Requistion Number</mat-label>
+                        <input matInput formControlName="requisitionNo" (keypress)="keyPressNumberDouble($event)">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <app-file-upload formControlName="lopFile" (change)="getCreditFileDetails($event)"></app-file-upload>
+                      <a href="{{filePath}}{{lopFile}}" target="_blank">{{lopFile}}</a>
+                    </div>
+                  </div>
+                  <br>
+                  
+                  <div style="overflow-x: auto;">
+                    <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                      <thead class="">
+                        <tr>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Item Code-Item Name</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Item Description</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">EDD</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Purchase UOM</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Purchase Qty</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Vendor UOM</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Vendor Qty</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Available Qty</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Location</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Unit Price</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Old Unit Price</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Price</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Discount Type</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Discount</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Discount(%)</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Cost Center</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                    width: 12%; border-radius: 0.05rem;">Net Price</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                    width: 12%; border-radius: 0.05rem;">VAT</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                     width: 12%; border-radius: 0.05rem;">VAT(%)</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                     width: 12%;border-radius: 0.07rem;">Total</th>
+                        </tr>
+                      </thead>
+                      <ng-container *ngFor="let purchaseOrderDetail of docForm.get('purchaseOrderDetail')['controls']; let i = index">
+                        <tbody [formGroup]="purchaseOrderDetail">
+                          <tr>
+                           <td class="padding-both-side-2">
+                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Item Code-Item Name</mat-label>
+                                <mat-select name="itemId{{i}}" formControlName="itemId">
+                                  <mat-option *ngFor="let title of itemList" [value]="title.id">
+                                    {{title.text}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Item Description</mat-label>
+                                <input matInput name="itemDescription{{i}}" formControlName="itemDescription">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>EDD</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="eddObj" name="edd{{i}}" (dateChange)="getDateString($event,'edd',i)">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Purchase UOM</mat-label>
+                                <mat-select formControlName="purchaseUOM" required>
+                                  <mat-option *ngFor="let title of uomList" [value]="title.id">
+                                    {{title.text}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Purchase Qty</mat-label>
+                                <input matInput name="purchaseQty{{i}}" (change)="priceCalculation(i)" name="edd{{i}}" formControlName="purchaseQty" (keypress)="keyPressNumberDouble($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Vendor UOM</mat-label>
+                                <mat-select name="vendorUOM{{i}}" formControlName="vendorUOM">
+                                  <mat-option *ngFor="let title of uomList" [value]="title.id">
+                                    {{title.text}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Vendor Qty</mat-label>
+                                <input matInput name="vendorQty{{i}}" formControlName="vendorQty" (keypress)="keyPressNumberDouble($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Available Qty</mat-label>
+                                <input matInput name="availableQty{{i}}" formControlName="availableQty" (keypress)="keyPressNumberDouble($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Location</mat-label>
+                                <input matInput name="location{{i}}" formControlName="location" readonly>
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Unit Price</mat-label>
+                                <input matInput name="unitPrice{{i}}" (change)="priceCalculation(i)" formControlName="unitPrice" (keypress)="keyPressNumberDouble($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Old Unit Price</mat-label>
+                                <input matInput name="oldUnitPrice{{i}}" formControlName="oldUnitPrice" (keypress)="keyPressNumberDouble($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Price</mat-label>
+                                <input matInput name="price{{i}}" formControlName="price" (keypress)="keyPressNumberInt($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Discount Type</mat-label>
+                                <input matInput name="discountType{{i}}" formControlName="discountType" (keypress)="keyPressNumberInt($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Discount</mat-label>
+                                <input matInput name="discount{{i}}" formControlName="discount" (keypress)="keyPressNumberDouble($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Discount(%)</mat-label>
+                                <input matInput name="discountPercent{{i}}" formControlName="discountPercent" (keypress)="keyPressNumberDouble($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Cost Center</mat-label>
+                                <input matInput name="costCenter{{i}}" formControlName="costCenter">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Net Price</mat-label>
+                                <input matInput name="netPrice{{i}}" formControlName="netPrice" (keypress)="keyPressNumberDouble($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>VAT</mat-label>
+                                <input matInput name="taxCGST{{i}}" formControlName="taxCGST" (keypress)="keyPressNumberDouble($event)">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>VAT(%)</mat-label>
+                                  <input matInput name ="taxCGSTinPercent{{i}}" formControlName = "taxCGSTinPercent" (keypress)="keyPressDouble($event)">
+                              </mat-form-field>
+                          </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Total</mat-label>
+                                <input matInput name ="finalTotal{{i}}"  formControlName = "finalTotal" (keypress)="keyPressDouble($event)">
+                                
+                              </mat-form-field>
+                            </td>
+
+                            </tr>
+                            </tbody>
+                            </ng-container>
+                            </table>
+                            </div>
+                            
+                            <br>
+                            <br>
+                            <div class="row">
+                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="primary" style="margin-left: 44%;">Submit</button>
+                                <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="primary" style="margin-left: 44%;">Update</button>
+                                <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                              </div>
+                            </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,15 +1,540 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from '@angular/router';
+import { PurchaseOrderService } from '../purchase-order.service';
+import { PurchaseOrder } from '../purchase-order-model';
+import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { NotificationService } from 'src/app/core/service/notification.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
+
 
 @Component({
   selector: 'app-add-purchase-order',
   templateUrl: './add-purchase-order.component.html',
-  styleUrls: ['./add-purchase-order.component.sass']
+  styleUrls: ['./add-purchase-order.component.sass'],
+  // Date Related code
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: MAT_DATE_FORMATS, useValue: {
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY'
+        },
+      }
+    }, CommonService
+  ]
 })
+
 export class AddPurchaseOrderComponent implements OnInit {
+  docForm: FormGroup;
+  purchaseOrder: PurchaseOrder;
+  hide3 = true;
+  agree3 = false;
+  dataarray = [];
+  dataarray1 = [];
+  currencyList: [];
+  itemList = [];
+  cusMasterData = [];
+  lpoDetails: [];
+  locationList = [];
+  uomList = [];
+  poList = [];
+  vendorList = [];
+  poNo: any;
+  totPrice: any;
+  flag: boolean = false;
+  flagPoNo: boolean = false;
+  lopFile: any;
+  // For Encryption
+  requestId: any;
+  decryptRequestId: any;
+  //  purchaseRequestDetail= new DetailRowComponent;
+  maxDate = moment(new Date()).add(0, 'days').format('YYYY-MM-DD');
+  edit: boolean = false;
+  purchaseRequestDtlBean = [];
+  tmpDate: string;
+  value1: number;
+  filePath: any;
+  countryList: [];
+  lop: any;
 
-  constructor() { }
+  constructor(private fb: FormBuilder,
+    public router: Router,
+    private notificationService: NotificationService,
+    public purchaseOrderService: PurchaseOrderService,
+    private httpService: HttpServiceService,
+    public route: ActivatedRoute,
+    private tokenStorage: TokenStorageService,
+    private commonService: CommonService,
+    private spinner: NgxSpinnerService,
+    private snackBar: MatSnackBar) {
 
-  ngOnInit(): void {
+      this.docForm = this.fb.group({
+        purchaseOrderId: [""],
+        organizationName: [""],
+        poNo: [""],
+        requestType: [""],
+        poDate: [""],
+        poDateObj: ["", [Validators.required]],
+        costCenter: [""],
+        woType: [""],
+        purchaseType: [""],
+        purchaseFor: [""],
+        vendorId: [],
+        termsConditions: [""],
+        remarks: [""],
+        destinationLocation: [""],
+        paymentTerms: [""],
+        currency: [""],
+        advance: [""],
+        subTotal: [""],
+        address: [""],
+        city: [""],
+        state: [""],
+        zip: [""],
+        country: [""],
+        discount: [""],
+        cgst: [""],
+        sgst: [""],
+        igst: [""],
+        freight: [""],
+        freightTaxPercent: [""],
+        freightTotal: [""],
+        otherCharges: [""],
+        total: [""],
+        remarksOtherCharges: [""],
+        destinationAddress: [""],
+        destinationCity: [""],
+        destinationState: [""],
+        destinationZip: [""],
+        destinationCountry: [""],
+        requisitionNo: [''],
+        lopFile: [""],
+        lopUpload: [""],
+        loginedUser: this.tokenStorage.getUserId(),
+
+        purchaseOrderDetail: this.fb.array([
+          this.fb.group({
+            purchaseOrderId: [""],
+            requisitionNo: [""],
+            itemId: [''],
+            itemDescription: [''],
+            edd: [''],
+            eddObj: [''],
+            purchaseUOM: [''],
+            purchaseQty: [''],
+            vendorUOM: [''],
+            vendorQty: [''],
+            availableQty: [''],
+            location: [''],
+            unitPrice: [''],
+            oldUnitPrice: [''],
+            price: [''],
+            discountType: [''],
+            discount: [''],
+            discountPercent: [''],
+            costCenter: [''],
+            netPrice: [''],
+            taxCGST: [''],
+            taxSGST: [''],
+            taxIGST: [''],
+            taxCGSTinPercent: [''],
+            taxSGSTinPercent: [''],
+            taxIGSTinPercent: [''],
+            finalTotal: [''],
+            requisitionId: ['']
+          })
+        ]),
+      }); 
+  }
+
+  ngOnInit() {
+    //Currency  Dropdown List
+    this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe({
+      next: (data) => {
+        this.currencyList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    //Location Dropdown List
+    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+      next: (data) => {
+        this.locationList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+     //Vendor  Dropdown List
+     this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+      next: (data) => {
+        this.vendorList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+      //Item Master Dropdown List
+      this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
+        next: (data) => {
+          this.itemList = data;
+        },
+        error: (error) => {
+        }
+      });
+
+          //UOM Dropdown List
+    this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
+      next: (data) => {
+        this.uomList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+        //UOM Dropdown List
+        this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+          next: (data) => {
+            this.countryList = data;
+          },
+          error: (error) => {
+          }
+        });
+    
+    this.route.params.subscribe(params => {
+      if (params.id != undefined && params.id != 0) {
+        this.requestId = params.id;
+        this.edit = true;
+        //For Editable mode
+        this.fetchDetails(this.requestId);
+      }
+    });
+  }
+
+  onSubmit() {
+    if (this.docForm.valid) {
+      this.purchaseOrder = this.docForm.value;
+      this.spinner.show();
+      this.purchaseOrderService.addPurchaseOrder(this.purchaseOrder).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
+  }
+  
+  fetchDetails(id: any): void {
+    const obj = {
+      editId: id
+    }
+    this.spinner.show();
+    this.purchaseOrderService.editPurchaseOrder(obj).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        let hdate = this.commonService.getDateObj(res.purchaseOrder.poDate);
+        this.docForm.patchValue({
+          'requisitionNo': res.purchaseOrder.requisitionNo,
+          'purchaseOrderId': res.purchaseOrder.purchaseOrderId,
+          'organizationName': res.purchaseOrder.organizationName,
+          'poNo': res.purchaseOrder.poNo,
+          'requestType': res.purchaseOrder.requestType,
+          'poDate': res.purchaseOrder.poDate,
+          'poDateObj': hdate,
+          'woType': res.purchaseOrder.woType,
+          'purchaseType': res.purchaseOrder.purchaseType,
+          'purchaseFor': res.purchaseOrder.purchaseFor,
+          'vendorId': res.purchaseOrder.vendorId,
+          'destinationLocation': res.purchaseOrder.destinationLocation,
+          'advance': res.purchaseOrder.advance,
+          'currency': res.purchaseOrder.currency,
+          'costCenter': res.purchaseOrder.costCenter,
+          'termsConditions': res.purchaseOrder.termsConditions,
+          'remarks': res.purchaseOrder.remarks,
+          'paymentTerms': res.purchaseOrder.paymentTerms,
+          'address': res.purchaseOrder.vendorAddress,
+          'vendorAddress': res.purchaseOrder.vendorAddress,
+          'city': res.purchaseOrder.vendorCity,
+          'state': res.purchaseOrder.vendorState,
+          'zip': res.purchaseOrder.vendorZip,
+          'country': res.purchaseOrder.vendorCountry,
+          'destinationAddress': res.purchaseOrder.destinationAddress,
+          'destinationCity': res.purchaseOrder.destinationCity,
+          'destinationState': res.purchaseOrder.destinationState,
+          'destinationZip': res.purchaseOrder.destinationZip,
+          'destinationCountry': res.purchaseOrder.destinationCountry,
+          'subTotal': res.purchaseOrder.subTotal,
+          'discount': res.purchaseOrder.discount,
+          'cgst': res.purchaseOrder.cgst,
+          'sgst': res.purchaseOrder.sgst,
+          'igst': res.purchaseOrder.igst,
+          'freight': res.purchaseOrder.freight,
+          'freightTaxPercent': res.purchaseOrder.freightTaxPercent,
+          'freightTotal': res.purchaseOrder.freightTotal,
+          'otherCharges': res.purchaseOrder.otherCharges,
+          'remarksOtherCharges': res.purchaseOrder.remarksOtherCharges,
+          'total': res.purchaseOrder.total,
+          'lopUpload': res.purchaseOrder.lopUpload
+        })
+
+      if(res.purchaseOrderDetailList!=null && res.purchaseOrderDetailList.length>=1){
+        let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+        purchaseOrderDetailArray.removeAt(0);
+        res.purchaseOrderDetailList.forEach(element => {
+          let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+          let cdate = this.commonService.getDateObj(element.edd);
+          let arraylen = purchaseOrderDetailArray.length;
+       
+  
+            let newUsergroup: FormGroup = this.fb.group({
+              // item:[element.item],
+              purchaseOrderId: [element.purchaseOrderId],
+              purchaseReqNo: [element.requisitionNo],
+              itemId: [element.itemId],
+              itemDescription: [element.itemDescription],
+              edd: [element.edd],
+              eddObj: cdate,
+              purchaseUOM: [element.purchaseUOM],
+              purchaseQty: [element.purchaseQty],
+              vendorUOM: [element.vendorUOM],
+              vendorQty: [element.vendorQty],
+              availableQty: [element.availableQty],
+              //location: [element.],
+              unitPrice: [element.unitPrice],
+              oldUnitPrice: [element.oldUnitPrice],
+              price: [element.price],
+              discount: [element.discount],
+              discountType: [element.discountType],
+              discountPercent: [element.discountPercent],
+              costCenter: [element.costCenter],
+              netPrice: [element.netPrice],
+              taxCGST: [element.taxCGST],
+              taxSGST: [element.taxSGST],
+              taxIGST: [element.taxIGST],
+              taxCGSTinPercent: [element.taxCGSTinPercent],
+              taxSGSTinPercent: [element.taxSGSTinPercent],
+              taxIGSTinPercent: [element.taxIGSTinPercent],
+              finalTotal: [element.finalTotal],
+              requisitionId: [element.requisitionId],
+            })
+            purchaseOrderDetailArray.insert(arraylen, newUsergroup);
+          
+        });
+      }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        // error code here
+      }
+    });
+  }
+
+  update() {
+    if (this.docForm.valid) {
+      this.purchaseOrder = this.docForm.value;
+      this.spinner.show();
+      this.purchaseOrderService.updatePurchaseOrder(this.purchaseOrder).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Edit Record Successfully",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Updated Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
+  }
+
+
+  reset() {
+    if (!this.edit) {
+      this.docForm.reset();
+      this.docForm.patchValue({
+        'loginedUser': this.tokenStorage.getUserId()
+      })
+    } else {
+      this.fetchDetails(this.requestId);
+    }
+  }
+
+  getBoolean(value) {
+    switch (value) {
+      case true:
+      case "true":
+      case 1:
+      case "1":
+      case "on":
+      case "yes":
+      case "t":
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  onCancel() {
+    this.router.navigate(['/inventory/purchase/listPurchaseOrder']);
+  }
+
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
+
+  getVendorDetails(vendorCode: any) {
+    // this.httpService.get(this.lopService.vendorAddressDetails + "?vendorCode=" + vendorCode).subscribe((res: any) => {
+    //   this.docForm.patchValue({
+    //     'address': res.vendorMasterBean[0].address,
+    //     'country': res.vendorMasterBean[0].countryName,
+    //   })
+    // })
+  }
+
+  // For Date related code
+  getDateString(event, inputFlag, index) {
+    let cdate = this.commonService.getDate(event.target.value);
+    if (inputFlag == 'poDate') {
+      this.docForm.patchValue({ poDate: cdate });
+    }
+  }
+
+
+  getCreditFileDetails(event) {
+    // var docfile = event.target.files[0];
+    // var fileExtension = docfile.name;
+    // var frmData: FormData = new FormData();
+    // frmData.append("file", docfile);
+    // frmData.append("fileName", fileExtension);
+
+    // this.httpService.post<any>(this.lopService.addCreditFiles, frmData).subscribe(data => {
+    //   console.log(data);
+    //   if (data.success) {
+    //     this.docForm.patchValue({
+    //       'lopUpload': data.filePath
+    //     })
+    //   }
+    //   else {
+    //     this.notificationService.showNotification(
+    //       "snackbar-danger",
+    //       data.message,
+    //       "bottom",
+    //       "center"
+    //     );
+    //   }
+
+    // },
+    //   (err: HttpErrorResponse) => {
+
+    //   });
+
   }
 
 }
