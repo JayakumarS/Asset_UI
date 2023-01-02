@@ -1,0 +1,159 @@
+<div class="section">
+
+    <div class="row"  style="background-color: rgb(114, 196, 67); margin-top: 3%; font:montserrat;" >
+        <h2 style="padding-bottom: 5px;
+        padding-top: 5px;color:#e7dfdb">Ticket List</h2><br>
+      </div><br>
+
+    <div class="row" style="padding-bottom:50px;padding-left: 50px;">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+ 
+
+        </div>
+        </div>
+
+         <div class="mat-card" style="margin-left: 10%;">
+        <div style="margin-top:0px;"> 
+        <mat-card class="l-bg-purple-dark" style="width:17%;">CLOSED
+             </mat-card>
+        </div>
+        &nbsp;
+       <div>
+      <mat-card class="bg-cyan" style="width:17%; margin-left: 20%; margin-top: -6%;">ASSIGNED</mat-card> 
+             </div> 
+             &nbsp;
+             <div>
+            <mat-card class=" bg-green" style="width:17%;margin-left: 40%;margin-top: -72px;">OPENED</mat-card>
+            &nbsp;
+        </div>
+        <div>
+            <mat-card class=" l-bg-orange" style="width:17%;margin-left: 60%;margin-top: -72px;">HOLD</mat-card> &nbsp;
+        </div> 
+        
+        </div>
+        
+      
+       
+<BR>
+<div class="row" style="padding-bottom:50px;padding-left: 50px;">
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+<div class button-grp  style="margin-left: 40%;">
+    <button [routerLink]="'/helpdesk/itsupport/additsupport'" mat-raised-button style="background-color:#0dcaf0; color:aliceblue" >NEW TICKET</button>
+</div>
+</div>
+</div>
+
+
+<mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell"
+#exporter="matTableExporter" [hiddenColumns]="[8]">
+
+<ng-container matColumnDef="ticketno">
+  <mat-header-cell *matHeaderCellDef mat-sort-header> TICKETNO </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.ticketno}}</mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="tickettype">
+  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> TICKET TYPE </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.tickettype}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="asset">
+  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> ASSET </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.asset}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="assetlocation">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>LOCATION </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.assetlocation}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="category">
+  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> CATEGORY </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.category}}</mat-cell>
+</ng-container>
+
+
+<ng-container matColumnDef="priority">
+  <mat-header-cell *matHeaderCellDef mat-sort-header> PRIORITY </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.priority}}</mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="status">
+  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">STATUS</mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.status}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="ticketgrp">
+  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">TICKETGROUP</mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.ticketgrp}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="assignee">
+  <mat-header-cell *matHeaderCellDef mat-sort-header> ASSIGNEE </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.assignee}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="tatinday">
+  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> TATINDAY </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.tatinday}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="reportedby">
+  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> REORTED BY </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.reportedby}}</mat-cell>
+</ng-container>
+
+
+
+<!-- actions -->
+<ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
+  <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+      class="tbl-action-btn">
+      <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+    </button>
+    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="deleteItem(row)"
+      class="tbl-action-btn">
+      <app-feather-icons matTooltip="Delete" [icon]="'trash-2'" [class]="'tbl-fav-delete'">
+      </app-feather-icons>
+    </button>
+  </mat-cell>
+</ng-container>
+
+
+<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+<mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple>
+</mat-row>
+</mat-table>
+
+<mat-menu #contextMenu="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button mat-menu-item [routerLink]="'/asset/assetMaster/addAssetMaster'">
+      <mat-icon>add_box</mat-icon>
+      <span>Add Record</span>
+    </button>
+    <button mat-menu-item (click)="editCall(item)">
+      <mat-icon>create</mat-icon>
+      <span>Edit Record</span>
+    </button>
+    <button mat-menu-item (click)="deleteItem(item)">
+      <mat-icon>delete</mat-icon>
+      <span>Delete Record</span>
+    </button>
+  </ng-template>
+</mat-menu>
+
+<div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
+[style.display]="dataSource?.renderedData?.length == 0 ? '' : 'none'">
+No results
+</div>
+<mat-paginator #paginator [length]="dataSource?.filteredData?.length" [pageIndex]="0" [pageSize]="10"
+[pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
+
+</div>

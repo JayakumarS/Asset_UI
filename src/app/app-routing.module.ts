@@ -152,6 +152,15 @@ const routes: Routes = [
         loadChildren: () =>
         import("./audit/audit.module").then((m) => m.AuditModule),
       },
+      {
+        path: "helpdesk",
+        canActivate: [AuthGuard],
+        data: {
+          role: Role.Admin,
+        },
+        loadChildren: () =>
+        import("./helpdesk/helpdesk.module").then((m) => m.HelpdeskModule),
+      },
     ],
   },
   {
