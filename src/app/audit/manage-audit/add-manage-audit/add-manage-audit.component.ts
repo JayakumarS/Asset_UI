@@ -15,6 +15,7 @@ import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-ad
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ManageAuditServiceService } from '../manage-audit-service.service';
 import { ManageAudit } from '../manage-audit.model';
+import { MatTabGroup } from '@angular/material/tabs';
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -50,11 +51,14 @@ requestId: any;
 edit:boolean=false;
 
 selection = new SelectionModel<ManageAudit>(true, []);
+@ViewChild('tabs') tabGroup: MatTabGroup;
 id: number;
   auditList: any;
   categoryList: any;
   loacationList: any;
   departmentList: any;
+  filePath:string;
+  filePathUrl:string;
 constructor(private fb: FormBuilder,
   private commonService: CommonService,
   private httpService: HttpServiceService,
@@ -77,19 +81,12 @@ constructor(private fb: FormBuilder,
   contextMenuPosition = { x: "0px", y: "0px" };
 
 
-  
-
-
-  editCall(row) {
-
-    this.router.navigate(['/admin/audit/auditlist/'+row.id]);
-
-  }
-  
 
 ngOnInit(): void {
+  this.filePath = this.serverUrl.apiServerAddress;
+  
   this.docForm = this.fb.group({
-    
+    auditCode:[""],
     startDate:["",[Validators.required]],
     startDateObj:[""],
     endDate:["",[Validators.required]],
@@ -107,27 +104,24 @@ ngOnInit(): void {
   });
 
   this.Formdoc = this.fb.group({
-    uploadImg:[""],
-    auditfile:[""],
-    auditArraya: [""],
-    startdatea:[""],
-    enddatea:[""],
+    auditCode:[""],
+    startDate:["",[Validators.required]],
+    startDateObj:[""],
+    endDate:["",[Validators.required]],
+    endDateObj:[""],
+    auditName:["", [Validators.required]],
+    auditField: ["", [Validators.required]],
     auditType: ["Aided"],
-    auditnamea:["", [Validators.required]],
-    auditNo:[""],
-     manageAuditDtlObjBean: this.fb.array([
+    auditImg : [""],
+    auditFile : [""],
+    manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],
         location:[""],
         department:[""],
-        audituser:[""],
-        aidid:[""],
-        auditNo:[""],
-        id:[""]
-       
-       
+        auditUser:[""]
       }) 
-     ])
+    ])
 
  
   });
@@ -212,17 +206,37 @@ if(this.docForm.valid){
 
 }
 
-
 onSubmitAided(){
-   // this.manageAuditServiceService.saveauditAided(this.Formdoc.value);
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
+  // if(this.Formdoc.valid){
+  // }
+  
+  this.httpService.post<any>(this.manageAuditServiceService.save, this.Formdoc.value).subscribe(data => {
+    if(data.success){
+      this.showNotification(
+        "snackbar-success",
+        "Record Added Successfully...!!!",
+        "bottom",
+        "center"
+      );
+      this.resetAided();
+      this.router.navigate(['audit/manageaudit/listManageAudit']);
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        data.message + "...!!!",
+        "bottom",
+        "center"
+      );
+    }
+    
+    },
+    (err: HttpErrorResponse) => {
+      
+  });
+    
+  
   }
-
 
 addRowSelf(){
   let dtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
@@ -242,55 +256,96 @@ removeRowSelf(index){
 
 }
 
-addRow(){
-  let bomDtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
-  let arraylen = bomDtlArray.length;
+addRowAided(){
+  let dtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
+  let arraylen = dtlArray.length;
   let newUsergroup: FormGroup = this.fb.group({
-    category:["", [Validators.required]],
+        category:["", [Validators.required]],
         location:[""],
         department:[""],
-        audituser:[""],
-        aidid:[""],
+        auditUser:[""]
   })
-  bomDtlArray.insert(arraylen,newUsergroup);
+  dtlArray.insert(arraylen,newUsergroup);
 
 }
 
-removeRow(index){
-  let bomDtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
-  bomDtlArray.removeAt(index);
+removeRowAided(index){
+  let dtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
+  dtlArray.removeAt(index);
 
 }
 fetchDetails(id){
   this.httpService.get(this.manageAuditServiceService.edit+"?id="+id).subscribe((res: any)=> {
     console.log(res);
-    this.docForm.patchValue({
-      'startDateObj': this.commonService.getDateObj(res.manageAuditBean.startDate),
-      'startDate': res.manageAuditBean.startDate,
-      'endDateObj': this.commonService.getDateObj(res.manageAuditBean.endDate),
-      'endDate': res.manageAuditBean.endDate,
-      'auditName': res.manageAuditBean.auditName,
-      'auditField': res.manageAuditBean.auditField
-   })  
 
-   
-   
-   let manageAuditDtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
-   manageAuditDtlArray.removeAt(0);
-   if(res.manageAuditBean.manageAuditDtlObjBean!=null){
+    if(res.manageAuditBean.auditType=="Self"){
+      this.tabGroup.selectedIndex = 0;
+      this.docForm.patchValue({
+        'startDateObj': this.commonService.getDateObj(res.manageAuditBean.startDate),
+        'startDate': res.manageAuditBean.startDate,
+        'endDateObj': this.commonService.getDateObj(res.manageAuditBean.endDate),
+        'endDate': res.manageAuditBean.endDate,
+        'auditName': res.manageAuditBean.auditName,
+        'auditField': res.manageAuditBean.auditField,
+        'auditCode':res.manageAuditBean.auditCode
+     })  
+  
+     
+     
+     let manageAuditDtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
+     manageAuditDtlArray.removeAt(0);
+     if(res.manageAuditBean.manageAuditDtlObjBean!=null){
+  
+     
+      res.manageAuditBean.manageAuditDtlObjBean.forEach(element => {
+            let manageAuditDtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
+            let arraylen = manageAuditDtlArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              category:[element.category],
+              location:[element.location],
+              department:[element.department]
+          })
+          manageAuditDtlArray.insert(arraylen,newUsergroup);
+        });
+      }
 
-   
-    res.manageAuditBean.manageAuditDtlObjBean.forEach(element => {
-          let manageAuditDtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
-          let arraylen = manageAuditDtlArray.length;
-          let newUsergroup: FormGroup = this.fb.group({
-            category:[element.category],
-            location:[element.location],
-            department:[element.department]
-        })
-        manageAuditDtlArray.insert(arraylen,newUsergroup);
-      });
+    }else if(res.manageAuditBean.auditType=="Aided"){
+      this.tabGroup.selectedIndex = 1;
+      this.Formdoc.patchValue({
+        'startDateObj': this.commonService.getDateObj(res.manageAuditBean.startDate),
+        'startDate': res.manageAuditBean.startDate,
+        'endDateObj': this.commonService.getDateObj(res.manageAuditBean.endDate),
+        'endDate': res.manageAuditBean.endDate,
+        'auditName': res.manageAuditBean.auditName,
+        'auditField': res.manageAuditBean.auditField,
+        'auditFile': res.manageAuditBean.auditFile,
+        'auditCode':res.manageAuditBean.auditCode
+     })  
+  
+     this.filePathUrl = res.manageAuditBean.auditFile;
+     
+     let manageAuditDtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
+     manageAuditDtlArray.removeAt(0);
+     if(res.manageAuditBean.manageAuditDtlObjBean!=null){
+  
+     
+      res.manageAuditBean.manageAuditDtlObjBean.forEach(element => {
+            let manageAuditDtlArray = this.Formdoc.controls.manageAuditDtlObjBean as FormArray;
+            let arraylen = manageAuditDtlArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              category:[element.category],
+              location:[element.location],
+              department:[element.department],
+              auditUser:[element.auditUser],
+          })
+          manageAuditDtlArray.insert(arraylen,newUsergroup);
+        });
+      }
+
+      
     }
+
+    
     },
     (err: HttpErrorResponse) => {
        // error code here
@@ -298,18 +353,62 @@ fetchDetails(id){
   );
 
 }
-updateSelf(){
-
-  this.manageAuditServiceService.AuditUpdate(this.docForm.value);
-  this.showNotification(
-    "snackbar-success",
-    "Edit Record Successfully...!!!",
-    "bottom",
-    "center"
-  );
-
+updateSelf(){ 
+  if(this.docForm.valid){
+    this.httpService.post<any>(this.manageAuditServiceService.updateUrl, this.docForm.value).subscribe(data => {
+      if(data.success){
+        this.showNotification(
+          "snackbar-success",
+          "Record Added Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        this.resetSelf();
+        this.router.navigate(['audit/manageaudit/listManageAudit']);
+      }
+      else{
+        this.showNotification(
+          "snackbar-danger",
+          data.message + "...!!!",
+          "bottom",
+          "center"
+        );
+      }
+      
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
 }
 
+updateAided(){
+  this.httpService.post<any>(this.manageAuditServiceService.updateUrl, this.Formdoc.value).subscribe(data => {
+    if(data.success){
+      this.showNotification(
+        "snackbar-success",
+        "Record Added Successfully...!!!",
+        "bottom",
+        "center"
+      );
+      this.resetAided();
+      this.router.navigate(['audit/manageaudit/listManageAudit']);
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        data.message + "...!!!",
+        "bottom",
+        "center"
+      );
+    }
+    
+    },
+    (err: HttpErrorResponse) => {
+      
+  });
+
+}
 resetSelf(){
   this.docForm = this.fb.group({
     
@@ -329,9 +428,29 @@ resetSelf(){
     ])
   });
 }
+
+resetAided(){
+  this.Formdoc = this.fb.group({
+    
+    startDate:[""],
+    startDateObj:[""],
+    endDate:[""],
+    endDateObj:[""],
+    auditName:["", [Validators.required]],
+    auditField: [""],
+    auditType: ["Self"],
+    manageAuditDtlObjBean: this.fb.array([
+      this.fb.group({
+        category:["", [Validators.required]],
+        location:[""],
+        department:[""],
+        auditUser:[""]
+      }) 
+    ])
+  });
+}
 onCancel(){
   this.router.navigate(['audit/manageaudit/listManageAudit']);
-
 }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -361,16 +480,11 @@ var frmData: FormData = new FormData();
 frmData.append("file", docfile);
 frmData.append("fileName",fileExtension);
 console.log(frmData);
-
-// var data = this.httpService.postData(this.fileUploadService.addFiles,frmData);
-// console.log(data);
-
 this.httpService.post<any>(this.manageAuditServiceService.addAssetUploadFiles, frmData).subscribe(data => {
     console.log(data);
     if(data.success){
       this.Formdoc.patchValue({
-        'auditfile': data.filePath     
-       
+        'auditFile': data.filePath  
      })
     }
     else{
@@ -393,11 +507,22 @@ this.httpService.post<any>(this.manageAuditServiceService.addAssetUploadFiles, f
 
 getDateString(event,inputFlag,index){
   let cdate = this.commonService.getDate(event.target.value);
-  if(inputFlag=='startDate'){
-    this.docForm.patchValue({startDate:cdate});
-  }else if(inputFlag=='endDate'){
-    this.docForm.patchValue({endDate:cdate});
+  
+  if(this.docForm.get('auditType').value=="Self"){
+    if(inputFlag=='startDate'){
+      this.docForm.patchValue({startDate:cdate});
+    }else if(inputFlag=='endDate'){
+      this.docForm.patchValue({endDate:cdate});
+    }
+  }else if (this.docForm.get('auditType').value=="Aided"){
+    if(inputFlag=='startDate'){
+      this.Formdoc.patchValue({startDate:cdate});
+    }else if(inputFlag=='endDate'){
+      this.Formdoc.patchValue({endDate:cdate});
+    }
   }
+
+  
  
 }
 
