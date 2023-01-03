@@ -2,7 +2,7 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Item Category'" [items]="['inventory']" [active_item]="'Item Category List'">      </app-breadcrumb>  
+      <app-breadcrumb [title]="'Item Category'" [items]="['inventory']" [active_item]="'Item Category List'">      </app-breadcrumb>
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -22,20 +22,14 @@
                           aria-label="Search box">
                       </li>
                       <li>
+
                         <div class="m-l-10" matTooltip="ADD">
-                          <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                          <button mat-mini-fab color="primary"   [routerLink]="'/inventory/item-category/add-category/0'" >
-                            <mat-icon class="col-white">add</mat-icon>
-                          </button>
-                        </div>
+                          <button color="primary" type="button" class="btn-space" style="background-color: rgb(48, 46, 141)!important;"
+                            [routerLink]="'/inventory/item-category/add-category/0'" mat-raised-button><i
+                              class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
+                      </div>
                       </li>
-                      <li>
-                        <div class="m-l-10" matTooltip="REFRESH">
-                          <button mat-mini-fab color="primary" (click)="refresh()">
-                            <mat-icon class="col-white">refresh</mat-icon>
-                          </button>
-                        </div>
-                      </li>
+
                     </ul>
                   </div>
                   <div class="col-4">
@@ -64,23 +58,23 @@
                     </ul>
                   </div>
                 </div>
-              </div> 
+              </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"  #exporter="matTableExporter">
                 <ng-container matColumnDef="categoryName">
                    <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
                    <mat-cell *matCellDef="let row" >{{row.categoryName}}</mat-cell>
                  </ng-container>
-             
+
                  <ng-container matColumnDef="parentTypeName">
                    <mat-header-cell *matHeaderCellDef mat-sort-header>Parent Category</mat-header-cell>
                    <mat-cell *matCellDef="let row"> {{row.parentCategory}}</mat-cell>
                  </ng-container>
-             
+
                  <ng-container matColumnDef="categoryTypeName">
                    <mat-header-cell *matHeaderCellDef mat-sort-header>Category Type</mat-header-cell>
                    <mat-cell *matCellDef="let row"> {{row.categoryType}}</mat-cell>
                  </ng-container>
-             
+
              <!-- actions -->
              <ng-container matColumnDef="actions">
               <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
@@ -95,13 +89,13 @@
                 </button>
               </mat-cell>
             </ng-container>
-             
+
                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-               </mat-table> 
+               </mat-table>
               <mat-paginator #paginator  [pageIndex]="0" [pageSize]="10"
               [pageSizeOptions]="[5, 10, 25, 100]">
-            </mat-paginator> 
+            </mat-paginator>
           </div>
         </div>
       </div>

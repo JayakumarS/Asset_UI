@@ -9,14 +9,14 @@
       <div class="col-md-12">
         <div class="box-shadow">
           <div class="card">
-            <div class="body pageproperty" style="padding-left: 280px;">
+            <div class="body" style="padding-left: 280px;">
               <form class="m-4" [formGroup]="docForm">
 
                 <div class="row">
                   <div class="col-md-2">
                     <mat-label class="lable">Currency Code<span class="errorColor">*</span></mat-label>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                       <input type="text" class="form-control"  formControlName="currencyCode" maxlength="3" [ngModel]="value"
                         (ngModelChange)="value=$event.toUpperCase()" (blur)="validateCurrencyCode($event.target.value)"
                         required>
@@ -32,7 +32,7 @@
                   <div class=" col-md-2 spaceBetweenTwoFields">
                     <mat-label class="lable">Currency Name<span class="errorColor">*</span></mat-label>
                   </div>
-                  <div class=" col-md-2">
+                  <div class=" col-md-3">
                       <input type="text" class="form-control" formControlName="currencyName" maxlength="15" (keypress)="keyPressName($event)"
                         required>
                       <mat-error *ngIf="submitted && docForm.get('currencyName').hasError('required')">
@@ -46,7 +46,7 @@
                   <div class=" col-md-2">
                     <mat-label class="lable">Exchange Rate To Base Currency:From<span class="errorColor">*</span></mat-label>
                   </div>
-                  <div class=" col-md-2">
+                  <div class=" col-md-3">
                       <input type="text" class="form-control"  formControlName="fromcurrency" (keypress)="keyPressNumeric($event)" required>
                       <mat-error *ngIf="submitted && docForm.get('fromcurrency').hasError('required')">
                         Exchange Rate To Base Currency :From is required
@@ -55,7 +55,7 @@
                   <div class=" col-md-2 spaceBetweenTwoFields">
                     <mat-label class="lable">Exchange Rate To Base Currency:To<span class="errorColor">*</span></mat-label>
                   </div>
-                  <div class=" col-md-2">
+                  <div class=" col-md-3">
                       <input type="text" class="form-control" formControlName="toCurrency" (keypress)="keyPressNumeric($event)" required>
                       <mat-error *ngIf="submitted && docForm.get('toCurrency').hasError('required')">
                         Exchange Rate To Base Currency :To is required
@@ -68,7 +68,7 @@
                   <div class=" col-md-2">
                     <mat-label class="lable">Default Value<span class="errorColor">*</span></mat-label>
                   </div>
-                  <div class=" col-md-2">
+                  <div class=" col-md-3">
                       <input type="text" class="form-control" formControlName="defaultValue" maxlength="2" (keypress)="keyPressNumeric($event)">
                       <mat-error *ngIf="submitted && docForm.get('defaultValue').hasError('required')">
                         Default Value is required
@@ -77,7 +77,7 @@
                   <div class="col-md-2 spaceBetweenTwoFields">
                     <mat-label class="lable">Fraction Part<span class="errorColor">*</span></mat-label>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                       <input type="text" class="form-control" formControlName="fractionPart" maxlength="2" (keypress)="keyPressNumeric($event)"
                         required>
                       <mat-error *ngIf="submitted && docForm.get('fractionPart').hasError('required')">
@@ -89,18 +89,15 @@
                 <br>
 
                 <div class="row">
-                  <div class="col-md-2">
+                  <div class=" col-md-2"><mat-label class="lable">Active</mat-label></div>
+                  <div class=" col-md-3">
+                     <mat-checkbox  ngInit="checked=true" formControlName="isActive"></mat-checkbox>
                   </div>
-                  <div class="col-md-3">
-                    <mat-checkbox formControlName="isActive" ngInit="checked=true"><mat-label
-                        class="lable">Active</mat-label></mat-checkbox>
+                  <div class=" col-md-3"><mat-label class="lable" style="margin-left:30%;">Book Currency</mat-label></div>
+                  <div class=" col-md-3">
+                     <mat-checkbox  ngInit="checked=true" formControlName="bookCurrency"></mat-checkbox>
                   </div>
-                  <div class="col-md-2">
-                  </div>
-                  <div class="col-md-3">
-                    <mat-checkbox formControlName="bookCurrency" ngInit="checked=true"><mat-label class="lable">Book
-                        Currency</mat-label></mat-checkbox>
-                  </div>
+
                 </div>
                 <br>
 
