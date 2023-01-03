@@ -17,7 +17,7 @@ const httpOptions = {
 export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
 
   isTblLoading = true;
-  currencyList:[];
+  currencyList: [];
   dataChange: BehaviorSubject<LocationMaster[]> = new BehaviorSubject<LocationMaster[]>(
     []
   );
@@ -38,7 +38,7 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
   getDialogData() {
     return this.dialogData;
   }
-  // CRUD METHODS 
+  // CRUD METHODS
   getAllList(): void {
         this.subs.sink = this.httpService.get<LocationMasterResultBean>(this.getAllMasters).subscribe(
           (data) => {
@@ -51,50 +51,18 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
           }
         );
   }
-  addLocation(locationMaster: LocationMaster): void {
-    this.dialogData = locationMaster;
-      
-    
-    
-    this.httpService.post<LocationMaster>(this.saveLocation, locationMaster).subscribe(data => {
-      console.log(data);
-      //this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
-  }
-  
-  locationUpdate(locationMaster: LocationMaster): void {
-    this.dialogData = locationMaster;
-    this.httpService.post<LocationMaster>(this.updateLocation, locationMaster).subscribe(data => {
-      console.log(data);
-      //this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
-  }
-
-  locationDelete(cslLocationCode: any): void {
-    this.httpService.get(this.deleteLocation + "?cslLocationCode=" + cslLocationCode).subscribe(data => {
-      console.log(cslLocationCode);
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
-  }
- 
-
+// tslint:disable-next-line:no-shadowed-variable
+addLocation(locationMaster: LocationMaster): Observable<any> {
+  return this.httpClient.post<LocationMaster>(this.saveLocation, locationMaster);
+}
   getCurrencyList() {
-   
+
     this.httpService.get<LocationMasterResultBean>(this.currencyListUrl).subscribe(
       (data) => {
         this.currencyList = data.currencyList;
       },
       (error: HttpErrorResponse) => {
-        
+
         console.log(error.name + " " + error.message);
       }
     );
@@ -103,13 +71,13 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
   editLoction(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.editLocation, obj);
   }
-  
-  DesgMasterUpdate(locationMaster: LocationMaster): Observable<any> {
+
+
+  update(locationMaster: LocationMaster): Observable<any> {
     return this.httpClient.post<LocationMaster>(this.updateLocation, locationMaster);
   }
-
-  Deletedesg(obj: any): Observable<any> {
+  delete(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.deleteLocation, obj);
-  }
- 
+ }
+
 }

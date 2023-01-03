@@ -26,9 +26,8 @@ import { LocationMaster } from '../location-master.model';
 export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
    // "select",
-    "cslLocationCode",
+    "locationCode",
     "locationName",
-    "country",
     "actions"
   ];
 
@@ -43,9 +42,9 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
     public dialog: MatDialog,
     public locationMasterService: LocationMasterService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
+    private serverUrl: serverLocations,
     private router: Router,
-    private httpService:HttpServiceService
+    private httpService: HttpServiceService
   ) {
     super();
   }
@@ -83,52 +82,57 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
   }
   editCall(row) {
 
-    this.router.navigate(['/master/location/addLocation/' + row.cslLocationCode]);
+    this.router.navigate(['/master/location/addLocation/' + row.locationId]);
 
   }
 
- deleteItem(i, row) {
-    this.index = i;
-    this.id = row.cslLocationCode;
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
+
+deleteItem(row) {
+  let tempDirection;
+  if (localStorage.getItem("isRtl") === "true") {
+    tempDirection = "rtl";
+  } else {
+    tempDirection = "ltr";
+  }
+  const dialogRef = this.dialog.open(DeleteLocationComponent, {
+    height: "270px",
+    width: "400px",
+    data: row,
+    direction: tempDirection,
+    disableClose: true
+  });
+  this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+    if (data.data == true) {
+      const obj = {
+        deletingId: row
+      }
+      this.locationMasterService.delete(obj).subscribe({
+        next: (data) => {
+          if (data.success) {
+            this.loadData();
+            this.showNotification(
+              "snackbar-success",
+              "Delete Record Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }else {
+            this.showNotification(
+              "snackbar-danger",
+              data.message,
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+        }
+      });
+
     }
-    const dialogRef = this.dialog.open(DeleteLocationComponent, {
-      height: "270px",
-      width: "400px",
-      data: row,
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+  });
+}
 
-      this.loadData();
-        this.showNotification(
-          "snackbar-success",
-          " Successfully deleted",
-          "bottom",
-          "center"
-        );
-
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
-  }
-  // showNotification(arg0: string, arg1: string, arg2: string, arg3: string) {
-  //   throw new Error('Method not implemented.');
-  // }
-
-  // private refreshTable() {
-  //   this.paginator._changePageSize(this.paginator.pageSize);
-  // }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, " ", {
       duration: 2000,
@@ -186,10 +190,8 @@ export class ExampleDataSource extends DataSource<LocationMaster> {
           .slice()
           .filter((locationMaster: LocationMaster) => {
             const searchStr = (
-              locationMaster.cslLocationCode +
-              locationMaster.locationName +
-              locationMaster.country
-
+              locationMaster.locationCode +
+              locationMaster.locationName
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -215,19 +217,12 @@ export class ExampleDataSource extends DataSource<LocationMaster> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
-          break;
-        case "cslLocationCode":
-          [propertyA, propertyB] = [a.cslLocationCode, b.cslLocationCode];
+        case "locationCode":
+          [propertyA, propertyB] = [a.locationCode, b.locationCode];
           break;
         case "locationName":
           [propertyA, propertyB] = [a.locationName, b.locationName];
           break;
-        case "country":
-          [propertyA, propertyB] = [a.country, b.country];
-          break;
-
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

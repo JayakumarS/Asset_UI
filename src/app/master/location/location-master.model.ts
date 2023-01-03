@@ -2,6 +2,7 @@ import { formatDate } from "@angular/common";
 export class LocationMaster {
   [x: string]: any;
   id: number;
+  locationCode:number;
   cslLocationCode: number;
   locationName: string;
   country: string;
@@ -10,7 +11,7 @@ export class LocationMaster {
   constructor(locationMaster) {
     {
       this.id = locationMaster.id || this.getRandomID();
-      this.cslLocationCode = locationMaster.cslLocationCode || "";
+      this.locationCode = locationMaster.locationCode || "";
       this.locationName = locationMaster.locationName || "";
       this.country = locationMaster.country || "";
     }

@@ -56,19 +56,15 @@
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
 
-                <ng-container matColumnDef="cslLocationCode">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Location Id</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cslLocationCode}}</mat-cell>
+                <ng-container matColumnDef="locationCode">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Location Code</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.locationCode}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="locationName">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Location Name</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Location </mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.locationName}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="country">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>country</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.country}}
-                  </mat-cell>
-                </ng-container>
+
 
 
 

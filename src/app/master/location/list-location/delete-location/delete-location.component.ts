@@ -15,9 +15,9 @@ export class DeleteLocationComponent implements OnInit {
     onNoClick(): void {
       this.dialogRef.close();
     }
-    confirmDelete(): void {
-      this.locationMasterService.locationDelete(this.data.cslLocationCode);
 
+    confirmDelete(): void {
+      this.dialogRef.close({ data: true })
     }
 
   ngOnInit(): void {
