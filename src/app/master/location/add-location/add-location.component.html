@@ -23,20 +23,20 @@
                     </mat-form-field>
                   </div>
 
-              </div>
-                <div class="row">
-                  <div class=" col-md-2">
-                    <mat-label class="lable">Location</mat-label>
+                    <div class=" col-md-2">
+                      <mat-label class="lable">Location</mat-label>
+                      </div>
+                      <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="locationName" required>
+                        <mat-error *ngIf="docForm.get('locationName').hasError('required')">
+                          Location is required
+                        </mat-error>
+                      </mat-form-field>
                     </div>
-                    <div class=" col-md-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="locationName" required>
-                      <mat-error *ngIf="docForm.get('locationName').hasError('required')">
-                        Location is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                 </div>
+
+              </div>
+
                 <div class="row">
                     <div class=" col-md-2">
                     <mat-label class="lable">Location Code</mat-label>
@@ -49,8 +49,7 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                </div>
-                <div class="row">
+
                   <div class=" col-md-2">
                     <mat-label class="lable">Description</mat-label>
                     </div>
@@ -63,20 +62,7 @@
                     </mat-form-field>
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class=" col-md-2"><mat-label class="lable">Inventory Location</mat-label></div>
-                  <div class=" col-md-4">
-                     <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class=" col-md-2"><mat-label class="lable">Cascade</mat-label></div>
-                  <div class=" col-md-4">
-                     <mat-checkbox  ngInit="checked=true" formControlName="cascade"></mat-checkbox>
-                  </div>
-                </div>
-                <div class="row">
+                 <div class="row">
                   <div class=" col-md-2">
                     <mat-label class="lable">Primary Location Head</mat-label>
                     </div>
@@ -88,10 +74,9 @@
                             {{title.text}}
                         </mat-option>
                     </mat-select>
-</mat-form-field>
+                  </mat-form-field>
                   </div>
-                </div>
-                <div class="row">
+
                   <div class=" col-md-2">
                     <mat-label class="lable">Alternate Location Head</mat-label>
                     </div>
@@ -103,9 +88,22 @@
                             {{title.text}}
                         </mat-option>
                     </mat-select>
-</mat-form-field>
+                </mat-form-field>
+                </div>
+                </div>
+
+                <div class="row">
+                  <div class=" col-md-2"><mat-label class="lable">Inventory Location</mat-label></div>
+                  <div class=" col-md-3">
+                     <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
+                  </div>
+
+                  <div class=" col-md-2"><mat-label class="lable">Cascade</mat-label></div>
+                  <div class=" col-md-3">
+                     <mat-checkbox  ngInit="checked=true" formControlName="cascade"></mat-checkbox>
                   </div>
                 </div>
+
 
                 <!-- <mat-tab-group>
                   <mat-tab label="">

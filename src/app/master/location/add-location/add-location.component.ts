@@ -102,14 +102,7 @@ export class AddLocationComponent implements OnInit {
 
       }
     });
-    this.httpService.get<transferResultBean>(this.transferservice.transferListUrl).subscribe(
-        (data) => {
-          this.transferList = data.transferList;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-      );
+
   }
 
   onSubmit() {
