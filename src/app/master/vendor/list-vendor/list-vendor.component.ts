@@ -46,7 +46,7 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
     //  "unNo",
     //  "flashPoint",
     "vendorName",
-    "vendorCountry",
+    "vendorCountryName",
     "currency",
     "vendorPhoneNumber",
      "actions"
@@ -215,7 +215,7 @@ export class ExampleDataSource extends DataSource<Commodity> {
           .filter((commodity: Commodity) => {
             const searchStr = (
               commodity.vendorName +
-              commodity.vendorCountry +
+              commodity.vendorCountryName +
               commodity.currency +
               commodity.vendorPhoneNumber 
              
@@ -250,9 +250,9 @@ export class ExampleDataSource extends DataSource<Commodity> {
         case "vendorName":
           [propertyA, propertyB] = [a.vendorName, b.vendorName];
           break;
-        case "vendorCountry":
-          [propertyA, propertyB] = [a.vendorCountry, b.vendorCountry];
-          break;
+        // case "vendorCountryName":
+        //   [propertyA, propertyB] = [a.vendorCountryName, b.vendorCountryName];
+        //   break;
         case "currency":
           [propertyA, propertyB] = [a.currency, b.currency];
           break;

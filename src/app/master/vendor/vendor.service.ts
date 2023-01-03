@@ -40,7 +40,7 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
   public deleteCommodity = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/deleteVendor`;
   public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/getCurrencyList`;
   public editcommodity = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/editVendor`;
-  public updatecommodity = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/updateVendor`;
+  public updatecommodity = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/updateVendor`;
   public countryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/getCountryList`;
 
   
@@ -66,9 +66,6 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
   }
   addCommodity(commodity: Commodity): void {
     this.dialogData = commodity;
-
-
-
     this.httpService.post<Commodity>(this.saveCommodity, commodity).subscribe(data => {
       console.log(data);
       //this.dialogData = employees;
