@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddAuditReportComponent } from './add-audit-report/add-audit-report.component';
 import { AddDepreciationReportComponent } from './add-depreciation-report/add-depreciation-report.component';
 import { AddreportsComponent } from './addreports/addreports.component';
+import { AssetsReturnComponent } from './assets-return/assets-return.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path:"addAuditReport",
     component:AddAuditReportComponent,
+  },
+  {
+    path:"assets-return",
+    component:AssetsReturnComponent,
   },
 
 ];

@@ -26,6 +26,7 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AddDepreciationReportComponent } from './add-depreciation-report/add-depreciation-report.component';
 import { AddAuditReportComponent } from './add-audit-report/add-audit-report.component';
+import { AssetsReturnComponent } from './assets-return/assets-return.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { AddAuditReportComponent } from './add-audit-report/add-audit-report.com
     AddreportsComponent,
     AddDepreciationReportComponent,
     AddAuditReportComponent,
+    AssetsReturnComponent,
 
   ],
   imports: [

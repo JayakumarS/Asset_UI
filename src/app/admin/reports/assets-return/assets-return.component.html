@@ -1,0 +1,93 @@
+<div class="block-header">
+    <!-- assets return due form -->
+       <app-breadcrumb [title]="'Reports'" [items]="['Home','Reports']" [active_item]="'AssetsReturn'">
+       </app-breadcrumb>
+</div>
+             <div class="card">
+               <div class="body" style="padding-left: 110px; padding: 2%;">
+               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+                 <h2 _ngcontent-nrk-c304="" style="padding-bottom: 5px; padding-top: 5px; color: #004AAD;">Assets due for return</h2>
+
+                   <div class="tabgrp">
+                
+                   <form class="m-4" >
+                   <div class="rowtab" >
+                   <div class="row">
+                       
+                     <div class="col-xl-3 col-lg- col-md-12 col-sm-12" style="margin-left: 5px;">
+                       <label>From Date</label>
+                    </div>
+                       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+                           <mat-form-field appearance="fill">
+                               <input matInput [matDatepicker]="picker1" formControlName="startdate" required>
+                               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                               <mat-datepicker #picker1></mat-datepicker>
+                             <mat-error >
+                               Start Date is required
+                             </mat-error>
+                           </mat-form-field>
+                         </div>
+       
+                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;margin-top: 32px;">
+                           <button  color="primary" type="button" class="btn-space" 
+                             mat-raised-button>Search</button>
+                         </div>
+      
+       </div>
+       
+       <div class="row">
+       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+         <label>To Date</label>
+</div>
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
+   <mat-form-field appearance="fill">
+       <input matInput [matDatepicker]="picker2" formControlName="enddate" required>
+       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+       <mat-datepicker #picker2></mat-datepicker>
+     <mat-error >
+       End date required
+     </mat-error>
+   </mat-form-field>
+ </div>
+
+</div>
+</div>
+</form>
+
+<div class="container">
+   <table id="excel-table" class="table table-striped">
+     <thead>
+         <tr >
+           <th style="background-color:#c1ddf5;">Asset Code</th>
+           <th style="background-color:#c1ddf5;">Asset Name</th>
+           <th style="background-color:#c1ddf5;">Asset Location</th>
+           <th style="background-color:#c1ddf5;">Transferred To</th>
+           <th style="background-color:#c1ddf5;">Department</th>
+           <th style="background-color:#c1ddf5;">Allotted Upto</th>
+         </tr>
+     </thead>
+     <tbody>
+   
+            
+     </tbody>
+     </table>
+     </div>
+
+
+
+
+    
+       <form class="m-4" >
+       <div class="rowtab" >
+      <div class="row">
+
+
+</div>
+</div>
+</form>
+
+</div>
+
+</div>
+</div>
