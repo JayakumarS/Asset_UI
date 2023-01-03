@@ -22,6 +22,9 @@ export class AddCurrencyComponent implements OnInit {
   agree3 = false;
   dataarray = [];
   currencyMaster: CurrencyMaster;
+  submitted: boolean=false;
+
+  
   constructor(private fb: FormBuilder, private authService: AuthService, public commonService: CommonService,public router: Router,
               private currencyService: CurrencyService, private httpService: HttpServiceService
     ,         private snackBar: MatSnackBar, ) {

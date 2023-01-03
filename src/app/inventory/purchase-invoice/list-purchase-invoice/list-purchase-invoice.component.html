@@ -2,7 +2,7 @@
   <div class="content-block">
     <div class="block-header" style="padding: 0.5% !important;">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Purchase Order'" [items]="['Inventory']" [active_item]="'Purchase Order'">
+      <app-breadcrumb [title]="'Purchase Invoice'" [items]="['Inventory']" [active_item]="'Purchase Invoice'">
       </app-breadcrumb>
     </div>
     <div class="row">
@@ -22,7 +22,7 @@
                       </li>
                       <li>
                         <div class="m-l-10" matTooltip="ADD">
-                          <button color="primary" type="button" class="btn-space" [routerLink]="'/inventory/purchaseOrder/addPurchaseOrder/0'" mat-raised-button><i
+                          <button color="primary" type="button" class="btn-space" [routerLink]="'/inventory/purchaseInvoice/addPurchaseInvoice/0'" mat-raised-button><i
                             class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                         </div>
                       </li>
@@ -48,32 +48,24 @@
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell"
                 #exporter="matTableExporter" [hiddenColumns]="[5]">
-                displayedColumns = ['', '','','','','remarks','actions'];
+                
+                <ng-container matColumnDef="purchaseInvoiceNo">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Purchase Invoice No </mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.purchaseInvoiceNo}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="purchaseInvoiceDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Invoice Date </mat-header-cell>
+                  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.purchaseInvoiceDate}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="customer">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Customer </mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.customer}}</mat-cell>
+                </ng-container> 
+                <ng-container matColumnDef="currency">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Currency </mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.currency}}</mat-cell>
+                </ng-container>
 
-                <ng-container matColumnDef="poNo">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Purchase Order No </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.poNo}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="poDate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Purchase Order Date </mat-header-cell>
-                  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.poDate}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="requestType">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Request Type </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.requestType}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="vendor">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Vendor </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="purchaseType">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Type </mat-header-cell>
-                    <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.purchaseType}}</mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="remarks">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Status </mat-header-cell>
-                    <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.remarks}}</mat-cell>
-                  </ng-container>
                 <!-- actions -->
                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>

@@ -454,7 +454,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/inventory/purchase/listPurchaseOrder']);
+    this.router.navigate(['/inventory/purchaseOrder/listPurchaseOrder']);
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

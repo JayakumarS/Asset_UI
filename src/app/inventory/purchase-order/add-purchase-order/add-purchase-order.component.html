@@ -20,13 +20,7 @@
                         </mat-select>
                       </mat-form-field>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" *ngIf="flagPoNo">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>PO Number</mat-label>
-                        <input matInput formControlName="poNo" required readonly>
-                        <mat-error *ngIf="docForm.get('poNo').hasError('required')"> PO Number is required </mat-error>
-                      </mat-form-field>
-                    </div>
+
                     
                     <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -283,7 +277,13 @@
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Location</mat-label>
-                                <input matInput name="location{{i}}" formControlName="location" readonly>
+                                
+                                <mat-select name="location{{i}}" formControlName="location">
+                                  <mat-option *ngFor="let title of locationList" [value]="title.id">
+                                    {{title.text}}
+                                  </mat-option>
+                                </mat-select>
+
                               </mat-form-field>
                             </td>
                             <td class="padding-both-side-2">
@@ -334,7 +334,7 @@
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Total</mat-label>
-                                <input matInput name ="finalTotal{{i}}"  formControlName = "finalTotal" (keypress)="keyPressDouble($event)">
+                                <input matInput name ="finalTotal{{i}}"  formControlName = "finalTotal" (keypress)="keyPressNumberDouble($event)">
                                 
                               </mat-form-field>
                             </td>

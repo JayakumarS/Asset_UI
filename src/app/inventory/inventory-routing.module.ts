@@ -54,9 +54,14 @@ const routes: Routes = [
     import("./in-stock/in-stock.module").then((i) => i.InStockModule),
   },
   {
-    path: "purchase",
+    path: "purchaseOrder",
     loadChildren: () =>
     import("./purchase-order/purchase-order.module").then((p) => p.PurchaseOrderModule),
+  },
+  {
+    path: "purchaseInvoice",
+    loadChildren: () =>
+    import("./purchase-invoice/purchase-invoice.module").then((p) => p.PurchaseInvoiceModule),
   }
 ];
 

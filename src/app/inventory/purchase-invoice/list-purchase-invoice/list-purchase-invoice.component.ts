@@ -1,6 +1,6 @@
-import { DeletePurchaseOrderComponent } from './delete-purchase-order/delete-purchase-order.component';
-import { PurchaseOrderService } from '../purchase-order.service';
-import { PurchaseOrder } from '../purchase-order-model';
+import { DeletePurchaseInvoiceComponent } from './delete-purchase-invoice/delete-purchase-invoice.component';
+import { PurchaseInvoiceService } from '../purchase-invoice.service';
+import { PurchaseInvoice } from '../purchase-invoice.model';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
@@ -21,26 +21,30 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
-  selector: 'app-list-purchase-order',
-  templateUrl: './list-purchase-order.component.html',
-  styleUrls: ['./list-purchase-order.component.sass']
+  selector: 'app-list-purchase-invoice',
+  templateUrl: './list-purchase-invoice.component.html',
+  styleUrls: ['./list-purchase-invoice.component.sass']
 })
-export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
- 
-  displayedColumns = ['poNo', 'poDate','requestType','vendor','purchaseType','remarks','actions'];
+export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+  displayedColumns = [
+    "purchaseInvoiceNo",
+    "purchaseInvoiceDate",
+    "customer",
+    "actions"
+  ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: PurchaseOrderService | null;
-  selection = new SelectionModel<PurchaseOrder>(true, []);
+  exampleDatabase: PurchaseInvoiceService | null;
+  selection = new SelectionModel<PurchaseInvoice>(true, []);
   index: number;
   id: number;
-  purchaseOrder: PurchaseOrder | null;
-
+  purchaseInvoice: PurchaseInvoice | null;
+  
   constructor(
     private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public purchaseOrderService: PurchaseOrderService,
+    public purchaseInvoiceService: PurchaseInvoiceService,
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
@@ -71,7 +75,7 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   public loadData() {
-    this.exampleDatabase = new PurchaseOrderService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new PurchaseInvoiceService(this.httpClient, this.serverUrl, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -88,7 +92,7 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/purchaseOrder/addPurchaseOrder/' + row.purchaseOrderId]);
+    this.router.navigate(['/inventory/purchaseInvoice/addPurchaseInvoice/'+row.purchaseInvoiceNo]);
   }
 
   deleteItem(row) {
@@ -98,7 +102,7 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeletePurchaseOrderComponent, {
+    const dialogRef = this.dialog.open(DeletePurchaseInvoiceComponent, {
       height: "270px",
       width: "400px",
       data: row,
@@ -106,13 +110,13 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
       disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-
+      
       if (data.data == true) {
         const obj = {
-          deletingId: row.purchaseOrderId
+          deletingId: row.purchaseInvoiceNo
         }
         this.spinner.show();
-        this.purchaseOrderService.deletePurchaseOrder(obj).subscribe({
+        this.purchaseInvoiceService.deletePurchaseInvoice(obj).subscribe({
           next: (data) => {
             this.spinner.hide();
             if (data.success) {
@@ -145,7 +149,7 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   // context menu
-  onContextMenu(event: MouseEvent, item: PurchaseOrder) {
+  onContextMenu(event: MouseEvent, item: PurchaseInvoice) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -155,7 +159,7 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
   }
 }
 
-export class ExampleDataSource extends DataSource<PurchaseOrder> {
+export class ExampleDataSource extends DataSource<PurchaseInvoice> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value.trim();
@@ -163,10 +167,10 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: PurchaseOrder[] = [];
-  renderedData: PurchaseOrder[] = [];
+  filteredData: PurchaseInvoice[] = [];
+  renderedData: PurchaseInvoice[] = [];
   constructor(
-    public exampleDatabase: PurchaseOrderService,
+    public exampleDatabase: PurchaseInvoiceService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -175,7 +179,7 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<PurchaseOrder[]> {
+  connect(): Observable<PurchaseInvoice[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -183,19 +187,20 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllPurchaseOrders();
+
+
+    this.exampleDatabase.getAllPurchaseInvoices();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((purchaseOrder: PurchaseOrder) => {
+          .filter((purchaseInvoice: PurchaseInvoice) => {
             const searchStr = (
-              purchaseOrder.poNo +
-              purchaseOrder.poDate +
-              purchaseOrder.vendorName +
-              purchaseOrder.purchaseType +
-              purchaseOrder.remarks
+              purchaseInvoice.purchaseInvoiceDate +
+              purchaseInvoice.purchaseInvoiceNo +
+              purchaseInvoice.customer +
+              purchaseInvoice.amount 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -213,7 +218,7 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
   }
   disconnect() { }
   /** Returns a sorted copy of the database data. */
-  sortData(data: PurchaseOrder[]): PurchaseOrder[] {
+  sortData(data: PurchaseInvoice[]): PurchaseInvoice[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -221,20 +226,17 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "poNo":
-          [propertyA, propertyB] = [a.poNo, b.poNo];
+        case "purchaseInvoiceDate":
+          [propertyA, propertyB] = [a.purchaseInvoiceDate, b.purchaseInvoiceDate];
           break;
-        case "poDate":
-          [propertyA, propertyB] = [a.poDate, b.poDate];
+        case "purchaseInvoiceNo":
+          [propertyA, propertyB] = [a.purchaseInvoiceNo, b.purchaseInvoiceNo];
           break;
-        case "vendorName":
-          [propertyA, propertyB] = [a.vendorName, b.vendorName];
+        case "customer":
+          [propertyA, propertyB] = [a.customer, b.customer];
           break;
-        case "purchaseType":
-          [propertyA, propertyB] = [a.purchaseType, b.purchaseType];
-          break;
-        case "remarks":
-          [propertyA, propertyB] = [a.remarks, b.remarks];
+        case "amount":
+          [propertyA, propertyB] = [a.amount, b.amount];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

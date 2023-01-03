@@ -10,7 +10,7 @@ export class PurchaseOrder {
     vendorName: string;
     destinationLocation: string;
     advance: number;
-    currency: string;
+    currency: number;
     termsConditions: string;
     remarks: string;
     paymentTerms: string;
