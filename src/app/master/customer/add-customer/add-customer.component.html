@@ -10,7 +10,7 @@
 
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>Auditor Name*</label>
+                    <mat-label class="lable">Customer Name</mat-label>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -22,7 +22,7 @@
                 </div>  
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label>Registration Code</label>
+                  <mat-label class="lable">Registration Code</mat-label>
               </div>
         
               <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
@@ -37,7 +37,7 @@
 
                   <div class="row">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label>Contact Person</label>
+                      <mat-label class="lable">Contact Person</mat-label>
                   </div>
             
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
@@ -50,7 +50,7 @@
                   </div>  
   
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>Email</label>
+                    <mat-label class="lable">Email</mat-label>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -64,12 +64,12 @@
 
                     <div class="row">
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label>Contact Number</label>
+                        <mat-label class="lable">Contact Number</mat-label>
                     </div>
       
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="phone" required>
+                      <input matInput formControlName="phone" maxlength="10" (keypress)="keyPressPCB($event)"required>
                       <mat-error *ngIf="docForm.get('phone').hasError('required')">
                         Contact Number To is required
                       </mat-error>
@@ -78,7 +78,7 @@
 
 
                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label>Address1</label>
+                        <mat-label class="lable">Address1</mat-label>
                     </div>
       
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
@@ -94,7 +94,7 @@
 
                  <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>Address2</label>
+                    <mat-label class="lable">Address2</mat-label>
                 </div>
               <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -105,7 +105,7 @@
                 </mat-form-field>
               </div>   
                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>City</label>
+                    <mat-label class="lable">City</mat-label>
                  </div>
               <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -119,7 +119,7 @@
 
              <div class="row">
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label>State</label>
+                <mat-label class="lable">State</mat-label>
             </div>
           <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -130,11 +130,11 @@
             </mat-form-field>
           </div>   
              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label>PostalCode</label>
+                <mat-label class="lable">PIN CODE</mat-label>
              </div>
           <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="postalcode" required>
+              <input matInput formControlName="postalcode" maxlength="6" (keypress)="keyPressPCC($event)"required>
               <mat-error *ngIf="docForm.get('postalcode').hasError('required')">
                 PostalCode Number To is required
               </mat-error>
@@ -144,74 +144,54 @@
 
          <div class="row">
           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-            <label>Pan No</label>
+            <mat-label class="lable">PAN NO</mat-label>
         </div>
       <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="panno" required>
-          <mat-error *ngIf="docForm.get('panno').hasError('required')">
-            Pan No Number To is required
-          </mat-error>
-        </mat-form-field>
-      </div>   
-         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-            <label>VAT No</label>
-         </div>
-      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="vatno" required>
-          <mat-error *ngIf="docForm.get('vatno').hasError('required')">
-            VAT No Number To is required
-          </mat-error>
+         
         </mat-form-field>
       </div>  
-     </div>
-
-
-     <div class="row">
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-        <label>CST No</label>
+        <mat-label class="lable">CST NO</mat-label>
     </div>
   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
       <input matInput formControlName="cstno" required>
-      <mat-error *ngIf="docForm.get('cstno').hasError('required')">
-        GST No Number To is required
-      </mat-error>
+   
     </mat-form-field>
   </div>   
+      
+     </div>
+
+
+     <div class="row">
+   
      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-        <label>GST No</label>
+        <mat-label class="lable">GST NO</mat-label>
      </div>
   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
       <input matInput formControlName="gstno" required>
-      <mat-error *ngIf="docForm.get('gstno').hasError('required')">
-        GST No Number To is required
-      </mat-error>
+    
     </mat-form-field>
   </div>  
- </div>
 
-
- <div class="row">
   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-    <label>Remarks/Notes</label>
+    <mat-label class="lable">Remarks/Notes</mat-label>
 </div>
 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
   <input matInput formControlName="remarks" required>
-  <mat-error *ngIf="docForm.get('remarks').hasError('required')">
-   Remarks/Notes To is required
-  </mat-error>
+
 </mat-form-field>
 </div>  
 </div> 
 <div class="row">
-  <section class="example-section">
-    <mat-checkbox  ngInit="checked=true" formControlName="active">Auditor</mat-checkbox>
-  </section>
-  
+  <div class=" col-md-2"></div>
+  <div class=" col-md-3">
+     <mat-checkbox  ngInit="checked=true" formControlName="active"><mat-label class="lable">Active</mat-label></mat-checkbox>
+  </div>
 </div>
 <div class="row"> 
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
