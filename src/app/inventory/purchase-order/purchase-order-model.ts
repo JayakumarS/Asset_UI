@@ -1,12 +1,9 @@
 export class PurchaseOrder {
     id: number;
     purchaseOrderId: number;
-    requisitionNo: number;
     organizationName: string;
     poNo: string;
-    requestType: string;
     poDate: string;
-    woType: string;
     purchaseType: string;
     purchaseFor: string;
     vendorId: number;
@@ -32,9 +29,6 @@ export class PurchaseOrder {
     cgst: number;
     sgst: number;
     igst: number;
-    freight: number;
-    freightTaxPercent: number;
-    freightTotal: number;
     otherCharges: string;
     remarksOtherCharges: string;
     total: number;

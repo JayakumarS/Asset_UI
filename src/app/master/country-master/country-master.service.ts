@@ -34,10 +34,6 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter {
   public editCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/edit`;
   public updateCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/update`;
   public deleteCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/delete`;
-  public validateCountryCodeUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/validateUniqueCountryCode`;
-  public validateCountryNameUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/validateUniqueCountryName`;
-  
-
   
   get data(): CountryMaster[] {
     return this.dataChange.value;
@@ -45,7 +41,6 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter {
   getDialogData() {
     return this.dialogData;
   }
-
 
   getAllCountrys(): void {
     this.subs.sink = this.httpService.get<CountryMasterResultBean>(this.getAllMasters).subscribe(

@@ -109,7 +109,7 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
 
       if (data.data == true) {
         const obj = {
-          deletingId: row.countryId
+          deletingId: row.purchaseOrderId
         }
         this.spinner.show();
         this.purchaseOrderService.deletePurchaseOrder(obj).subscribe({

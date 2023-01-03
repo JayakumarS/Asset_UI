@@ -253,7 +253,7 @@ export class AddCountryMasterComponent implements OnInit {
 
   validateCountryCode(event) {
     if (event != undefined && event != null && event != "") {
-      this.httpService.get<any>(this.countryMasterService.validateCountryCodeUrl + "?tableName=" + "country" + "&columnName=" + "country_code" + "&columnValue=" + event).subscribe((res: any) => {
+      this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "country" + "&columnName=" + "country_code" + "&columnValue=" + event).subscribe((res: any) => {
         if (res) {
           this.docForm.controls['countryCode'].setErrors({ country: true });
         } else {
@@ -265,7 +265,7 @@ export class AddCountryMasterComponent implements OnInit {
 
   validateCountryName(event) {
     if (event != undefined && event != null && event != "") {
-      this.httpService.get<any>(this.countryMasterService.validateCountryNameUrl + "?tableName=" + "country" + "&columnName=" + "country_name" + "&columnValue=" + event).subscribe((res: any) => {
+      this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "country" + "&columnName=" + "country_name" + "&columnValue=" + event).subscribe((res: any) => {
         if (res) {
           this.docForm.controls['countryName'].setErrors({ country: true });
         } else {
