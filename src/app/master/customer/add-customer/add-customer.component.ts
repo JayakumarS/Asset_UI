@@ -34,6 +34,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       super(); 
 
     this.docForm = this.fb.group({
+      
       cus_id:[""],
       auditorname: [""],
       registercode: ["",[Validators.required]],
