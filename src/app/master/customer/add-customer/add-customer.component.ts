@@ -21,6 +21,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   agree3 = false;
   public customerMaster:CustomerMaster;
   requestId: number;
+  tokenStorage: any;
 
 
   constructor(private fb: FormBuilder,
@@ -34,10 +35,9 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       super(); 
 
     this.docForm = this.fb.group({
-      
       cus_id:[""],
       auditorname: [""],
-      registercode: ["",[Validators.required]],
+      registercode: [""],
       person:[""],
       email:['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       phone:[""],
@@ -151,25 +151,29 @@ update(){
 }
 
 reset(){
-  this.docForm = this.fb.group({
-    auditorname: [""],
-    registercode: [""],
-    person:[""],
-    email:[""],
-    phone:["", [Validators.required]],
-    address:[""],
-    addresstwo:[""],
-    city:[""],
-    state:[""],
-    postalcode:[""],
-    panno:[""],
-    vatno:[""],
-    gstno:[""],
-    cstno:[""],
-    remarks:[""],
-    active:[""],
-
-  });
+  if (!this.edit) {
+    this.docForm.reset();
+    this.docForm.patchValue({
+      cus_id:[""],
+      auditorname: [""],
+      registercode: [""],
+      person:[""],
+      phone:[""],
+      address:[""],
+      addresstwo:[""],
+      city:[""],
+      state:[""],
+      panno:[""],
+      vatno:[""],
+      gstno:[""],
+      cstno:[""],
+      remarks:[""],
+      active:[""],
+      'loginedUser': this.tokenStorage.getUserId()
+    })
+  } else {
+    this.fetchDetails(this.requestId);
+  }
 }
 
 onCancel(){
