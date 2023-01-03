@@ -16,7 +16,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { ItemCategoryResultBean } from '../item-category-result-bean';
 
 
- 
+
 
 @Component({
   selector: 'app-add-category',
@@ -44,7 +44,7 @@ displayedColumns = [
   "categoryType",
   "role",
   "degree",
- 
+
 ];
   constructor( private fb: FormBuilder,
     private snackBar: MatSnackBar,private httpService: HttpServiceService,
@@ -105,8 +105,8 @@ displayedColumns = [
         'itemCategoryId': res.listbean[0].itemCategoryId,
         'parentCategory': res.listbean[0].parentCategory,
         'incomingQty': this.qtyCheck,
-        
-   
+
+
       })
       },
       (err: HttpErrorResponse) => {
@@ -141,26 +141,31 @@ displayedColumns = [
     });
   }
 
-  onReset(){    
+  onReset(){
+    if (!this.edit) {
+
     this.docForm = this.fb.group({
       categoryName: [""],
       parentCategory: [""],
       categoryType: [""],
-      incomingQty:[""],
-      itemCategoryId:[""],
+      incomingQty: [""],
+      itemCategoryId: [""],
       });
+    } else {
+      this.fetchDetails(this.requestId);
+    }
   }
- 
+
   onCancel(){
     this.router.navigate(['/inventory/item-category/list-category']);
   }
 
   additem(){
     const dialogRef = this.dialog.open(AddPropertiesComponent, {
-     
+
     });
   }
-  
+
   deleteitem(){}
 }
 

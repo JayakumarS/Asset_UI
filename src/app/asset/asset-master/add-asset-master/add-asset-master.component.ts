@@ -55,7 +55,8 @@ export class AddAssetMasterComponent
   assetMaster: AssetMaster;
   categoryList=[];
   locationDdList=[];
-  departmentDdList=[]
+  departmentDdList=[];
+  vendorDdList=[];
   requestId: any;
   edit:boolean=false;
   spinner: any;
@@ -158,24 +159,72 @@ export class AddAssetMasterComponent
         }
       }
       );
+
+
+           // vendor dropdown
+           this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+            next: (data) => {
+              this.vendorDdList = data;
+            },
+            error: (error) => {
+      
+            }
+          }
+          );
  
  
  
    }
    onSubmit() {
-     console.log("Form Value", this.docForm.value);
+  if (this.docForm.valid) {
+     this.assetMaster = this.docForm.value;
+    //  this.spinner.show();
      this.assetMaster = this.docForm.value;
      console.log(this.assetMaster);
-     this.assetService.addAssetMaster(this.assetMaster);
-     const dialogRef = this.dialog.open(EmployeePopupComponent, {
-       height: "130px",
-       width: "600px",
-       // data: row,
-       // direction: tempDirection,
-     });
-    
-     //this.router.navigate(['/admin/country-Master/list-CountryMaster']);
-   }
+     this.assetService.addAssetMaster(this.assetMaster).subscribe({
+      next: (data) => {
+        // this.spinner.hide();
+        if (data.success) {
+          this.showNotification(
+            "snackbar-success",
+            "Record Added successfully...",
+            "bottom",
+            "center"
+          );
+          this.onCancel();
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Not Added...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        this.showNotification(
+          "snackbar-danger",
+          error.message + "...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please fill all the required details!",
+      "top",
+      "right"
+    );
+  }
+}
+
+onCancel() {
+  this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+}
+
    refresh() {
     const currentRoute = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -215,11 +264,35 @@ export class AddAssetMasterComponent
          
          'assetName': res.addAssetBean.assetName,
          'assetCode': res.addAssetBean.assetCode,
-         'location': res.addAssetBean.assetLocation+"",
-         'category': res.addAssetBean.assetCategory+"",
+         'location': res.addAssetBean.assetLocation,
+         'category': res.addAssetBean.assetCategory,
          'status' : res.addAssetBean.status,
          'id': res.addAssetBean.id,
-         'brand': res.addAssetBean.brand
+         'brand': res.addAssetBean.brand,
+         'model': res.addAssetBean.model,
+         'allottedUpto': res.addAssetBean.allottedUpto,
+         'captitalizationDate': res.addAssetBean.captitalizationDate,
+         'captitalizationPrice': res.addAssetBean.captitalizationPrice,
+         'condition': res.addAssetBean.condition,
+         'department': res.addAssetBean.department,
+         'depreciation': res.addAssetBean.depreciation,
+         'description': res.addAssetBean.description,
+         'endLife': res.addAssetBean.endLife,
+         'invoiceNo': res.addAssetBean.invoiceNo,
+         'imgUploadUrl': res.addAssetBean.imgUploadUrl,
+         'invoiceDate': res.addAssetBean.invoiceDate,
+         'linkedAsset': res.addAssetBean.linkedAsset,
+         'poNumber': res.addAssetBean.poNumber,
+         'purchasePrice': res.addAssetBean.purchasePrice,
+         'remarks': res.addAssetBean.remarks,
+         'scrapValue': res.addAssetBean.scrapValue,
+         'selfOrPartner': res.addAssetBean.selfOrPartner,
+         'serialNo': res.addAssetBean.serialNo,
+         'transferredTo': res.addAssetBean.transferredTo,
+         'uploadFiles': res.addAssetBean.uploadFiles,
+         'uploadImg': res.addAssetBean.uploadImg,
+         'vendor': res.addAssetBean.vendor,
+
       })
        },
        error: (error) => {
@@ -398,6 +471,12 @@ export class AddAssetMasterComponent
 
     //   this.router.navigate(['listAssetMaster']);
     //  }
+
+    cancel()
+    {
+      this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+
+    }
  
  }
  

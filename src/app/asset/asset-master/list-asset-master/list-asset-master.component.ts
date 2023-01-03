@@ -203,8 +203,8 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
             const searchStr = (
               assetMaster.assetName +
               assetMaster.assetCode +
-              assetMaster.Location +
-              assetMaster.Category +
+              assetMaster.locationName +
+              assetMaster.categoryName +
               assetMaster.status +
               assetMaster.id
             ).toLowerCase();
@@ -243,11 +243,11 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
         case "assetCode":
           [propertyA, propertyB] = [a.assetCode, b.assetCode];
           break;
-        case "Location":
-          [propertyA, propertyB] = [a.Location, b.Location];
+        case "locationName":
+          [propertyA, propertyB] = [a.locationName, b.locationName];
           break;
-        case "Category":
-          [propertyA, propertyB] = [a.Category, b.Category];
+        case "categoryName":
+          [propertyA, propertyB] = [a.categoryName, b.categoryName];
           break;
         case "status":
           [propertyA, propertyB] = [a.status, b.status];

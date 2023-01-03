@@ -44,7 +44,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   public categoryDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getCategoryDropdown`;
   public locationDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getLocationDropdown`;
   public departmentDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getDepartmentDropdown`;
-    public commoditylist = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
+  public commoditylist = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
 
   get data(): AssetMaster[] {
     return this.dataChange.value;
@@ -67,37 +67,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   }
 
-  // addAssetMaster(assetMaster: AssetMaster): Observable<any> {
-  //   return this.httpClient.post<AssetMaster>(this.saveAssetMaster, assetMaster);
-  // }
-  addAssetMaster(assetMaster: AssetMaster): void {
-    this.dialogData = assetMaster;
-    this.httpService.post<AssetMaster>(this.saveAssetMaster, assetMaster).subscribe(data => {
-      console.log(data);
-      
-
-      // if(data.Success == true){
-      //   notificationService.showNotification(
-      //     "snackbar-success",
-      //     "Add Record Successfully...!!!",
-      //     "bottom",
-      //     "center"
-      //   );
-      //   router.navigate(['/asset/assetMaster/listAssetMaster']);
-      // }
-      // else if(data.Success == false){
-      //   notificationService.showNotification(
-      //     "snackbar-danger",
-      //     "Not Updated Successfully...!!!",
-      //     "bottom",
-      //     "center"
-      //   );
-      //   }
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
-  }
+  
 
   multipleAssetUpload(assetMaster: AssetMaster): void {
     this.dialogData = assetMaster;
@@ -128,6 +98,11 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   deleteAsset(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.deleteAssetMaster, obj);
+  }
+
+
+  addAssetMaster(AssetMaster: AssetMaster): Observable<any> {
+    return this.httpClient.post<AssetMaster>(this.saveAssetMaster, AssetMaster);
   }
  
 }

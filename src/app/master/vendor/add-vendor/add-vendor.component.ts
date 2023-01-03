@@ -142,7 +142,7 @@ export class AddVendorComponent implements OnInit {
       this.docForm.patchValue({
         'vendorName': res.venderBean.vendorName,
         'vendorCountry': res.venderBean.vendorCountry,
-        'currency': res.venderBean.currency,
+        'currency': parseInt(res.venderBean.currency),
         'vendorPhoneNumber': res.venderBean.vendorPhoneNumber,
         'vendorShortName' : res.venderBean.vendorShortName,
         'vendorAddress': res.venderBean.vendorAddress,

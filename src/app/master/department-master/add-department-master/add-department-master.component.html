@@ -42,19 +42,22 @@
 
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label class="lable">Department Code</label>
+                    <label class="lable">Department Code<span class="errorColor">*</span></label>
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="deptCode"  maxlength="5" (keypress)="keyPressName($event)"oninput="this.value = this.value.toUpperCase()">
+                    <input matInput formControlName="deptCode"  maxlength="5" (blur)="validateDepartmentCode($event.target.value)" (keypress)="keyPressName($event)"oninput="this.value = this.value.toUpperCase()" required>
                     <mat-error *ngIf="docForm.get('deptCode').hasError('required')">
                       Department Code is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('deptCode').hasError('country')">
+                      Department Code Already Exists..!!
                     </mat-error>
                   </mat-form-field>
                 </div>
                  
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label class="lable">Department Name</label>
+                  <label class="lable">Department Name<span class="errorColor">*</span></label>
                 </div>
         
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
@@ -76,7 +79,7 @@
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="remarks"  maxlength="50" (keypress)="keyPressName($event)"  required>
+                        <input matInput formControlName="remarks"  maxlength="50" (keypress)="keyPressName($event)"  >
                         <mat-error *ngIf="docForm.get('remarks').hasError('required')">
                             description  is required
                         </mat-error>

@@ -1,64 +1,69 @@
 <section class="content">
     <div class="content-block">
       <div class="block-header">
-        <!-- breadcrumb -->
         <app-breadcrumb [title]="'Add Item Category'" [items]="['inventory']" [active_item]="'Add Item Category'">
-        </app-breadcrumb> 
+        </app-breadcrumb>
       </div>
       <div class="row clearfix">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-          <div class="card " style="padding-left: 150px;">
+
+          <div class="card " >
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
-                
-              <div class="row">
-                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -68px;">
-                    <label class="lable">Category name</label>
-                  </div> 
-                  <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 "  style="margin-left: -23%; margin-top: -2%;">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="categoryName" required>
-                  </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  style="margin-left: 6%;">
-                  <label class="lable">Parent Category</label>
-                </div>
-                <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -23%; margin-top: -2%;">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="parentCategory" type="search">
-                  </mat-form-field>
-                </div>  
-              </div><br>
-
-                  <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -68px;">
-                      <label class="lable">Category Type</label>
-                    </div>
-                    <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -23%;" >
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-top: -2%;">
-                         <input matInput formControlName="categoryType" required>
-                      </mat-form-field>
-                    </div>  
-                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 6%;">
-                        <label class="lable">Incoming Quality Check</label>
-                    </div> 
-                    <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -23%; margin-top: -2%;">
-                      <mat-checkbox formControlName="incomingQty" ></mat-checkbox >
-                    </div>
-                  </div>
-              
                 <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" style="margin-left: -20%;">
-                    <button mat-raised-button *ngIf="!edit" (click)="onSubmit()" ><i class="fa fa-save"></i> Save</button>&nbsp;
-                    <button mat-raised-button *ngIf="edit" (click)="update()" ><i class="fa fa-save"></i> Update</button>&nbsp;
-                    <button mat-raised-button (click)="onReset()" ><i class="fa fa-save"></i> Reset</button>&nbsp;&nbsp;&nbsp;
-                    <!-- <button mat-raised-button (click)="onReset()" ><i class="fa fa-undo"></i> Reset</button>&nbsp; -->
-                    <button mat-raised-button color="warn" (click)="onCancel()"><i class="fa fa-close"></i> Cancel</button>&nbsp;
+                  <div class=" col-md-2"></div>
+                  <div class=" col-md-2">
+                    <mat-label class="lable">Category name<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div class=" col-md-2">
+                      <input type="text" class="form-control" formControlName="categoryName"required>
+
+                  </div>
+                  <div class="col-md-2 ">
+                    <mat-label class="lable">Parent Category<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div class="col-md-2">
+                      <input type="text" class="form-control" formControlName="parentCategory">
+
+                  </div>
+
+                </div><br>
+
+              <br>
+              <div class="row">
+                <div class=" col-md-2"></div>
+
+                <div class=" col-md-2 " >
+                  <mat-label class="lable">Category Type<span class="errorColor">*</span></mat-label>
+                </div>
+                <div class=" col-md-2">
+                    <input type="text" class="form-control" formControlName="categoryType"required>
+
+                </div>
+
+                    <div class=" col-md-2"><mat-label class="lable"
+                     >Incoming Quality Check</mat-label></div>
+                    <div class=" col-md-2">
+                       <mat-checkbox  formControlName="incomingQty"></mat-checkbox>
+                    </div>
+                  </div><br>
+
+                <div class="row">
+
+               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+
+                    <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                    style="margin-left: 45%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                    style="background-color: #34d034;">Update</button>
+                    <button color="primary" type="button" class="btn-space" (click)="onReset()"
+                      mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                      mat-raised-button>Cancel</button>
                   </div>
                 </div>
               </form>
             </div>
-          </div>
+
         </div>
       </div>
     </div>
