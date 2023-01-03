@@ -64,6 +64,23 @@ export class AddVendorComponent implements OnInit {
 
 
    ngOnInit(): void {
+
+    this.docForm = this.fb.group({
+      
+      //AssetChek
+      vendorId:[""],
+      vendorName:["",[Validators.required]],
+      vendorShortName:["",[Validators.required]],
+      vendorAddress:["",[Validators.required]],
+      vendorCountry:["",[Validators.required]],
+      vendorEmail:['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      currency:["",[Validators.required]],
+      vendorContact:["",[Validators.required]],
+      vendorPhoneNumber:["",[Validators.required]],
+
+
+
+    });
     this.httpService.get<CommodityResultBean>(this.vendorService.currencyListUrl).subscribe(
       (data) => {
         this.currencyList = data.currencyList;
@@ -117,9 +134,12 @@ export class AddVendorComponent implements OnInit {
     }
     this.vendorService.editVonder(obj).subscribe({
       next: (res) => {
-
+        this.httpService.get<CommodityResultBean>(this.vendorService.countryListUrl).subscribe(
+          (data) => {
+            this.countryList = data.countryList;
+          },
+        )
       this.docForm.patchValue({
-        
         'vendorName': res.venderBean.vendorName,
         'vendorCountry': res.venderBean.vendorCountry,
         'currency': res.venderBean.currency,

@@ -11,7 +11,6 @@ export class CustomerMaster {
     state:string;
     postalcode:string;
     panno:string;
-    vatno:string;
     gstno:string;
     cstno:string;
     remarks:string;
@@ -31,7 +30,6 @@ export class CustomerMaster {
           this.state = CustomerMaster.state || "";
           this.postalcode = CustomerMaster.postalcode || "";
           this.panno = CustomerMaster.panno || "";
-          this.vatno = CustomerMaster.vatno || "";
           this.gstno = CustomerMaster.gstno || "";
           this.cstno = CustomerMaster.cstno || "";
           this.remarks = CustomerMaster.remarks || "";

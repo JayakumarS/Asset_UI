@@ -14,6 +14,7 @@ import { CustomerService } from '../customer.service';
   styleUrls: ['./add-customer.component.sass']
 })
 export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implements OnInit {
+
   docForm:FormGroup;
   edit:boolean=false;
   hide3 = true;
@@ -33,6 +34,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       super(); 
 
     this.docForm = this.fb.group({
+      
       cus_id:[""],
       auditorname: [""],
       registercode: ["",[Validators.required]],
@@ -43,7 +45,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       addresstwo:[""],
       city:[""],
       state:[""],
-      postalcode:[""],
+      postalcode:["",[Validators.required]],
       panno:[""],
       vatno:[""],
       gstno:[""],
@@ -126,6 +128,14 @@ keyPressPCB(event: any) {
     event.preventDefault();
   }
 }
+keyPressPCC(event:any){
+  const pattern = /[0-9.]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 6 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+
+}
 
 update(){
   this.customerMaster = this.docForm.value;
@@ -146,7 +156,7 @@ reset(){
     registercode: [""],
     person:[""],
     email:[""],
-    phone:[""],
+    phone:["", [Validators.required]],
     address:[""],
     addresstwo:[""],
     city:[""],
@@ -177,5 +187,7 @@ showNotification(colorName, text, placementFrom, placementAlign) {
     panelClass: colorName,
   });
 }
+
+
 
 }     

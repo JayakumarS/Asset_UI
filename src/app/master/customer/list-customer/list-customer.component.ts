@@ -60,6 +60,12 @@ exporter: any;
 
   ngOnInit(): void {
     this.loadData();
+    //window.location.reload();
+    this.load();
+  }
+
+  load(){
+    this.router.navigate(['/master/customer/list-customer']);
   }
 
   refresh(){
@@ -212,7 +218,6 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
             customerMaster.state+ 
             customerMaster.postalcode+ 
             customerMaster.panno+ 
-            customerMaster.vatno+ 
             customerMaster.gstno+ 
             customerMaster.cstno+ 
             customerMaster.remarks+ 
@@ -276,9 +281,6 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
         break;  
         case "panno":
           [propertyA, propertyB] = [a.panno, b.panno];
-        break;  
-        case "vatno":
-          [propertyA, propertyB] = [a.vatno, b.vatno];
         break;  
         case "gstno":
           [propertyA, propertyB] = [a.gstno, b.gstno];
