@@ -15,7 +15,7 @@
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
                         <li class="dropdown">
-                          <h2>Vendor</h2>
+                          <h2>Auditor</h2>
                         </li>
                         <li class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
@@ -55,11 +55,11 @@
                   #exporter="matTableExporter">
                   
                   <ng-container matColumnDef="vendorName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor Name</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Auditor Name</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="vendorCountryName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor Country</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Auditor Country</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.vendorCountryName}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="currency">
