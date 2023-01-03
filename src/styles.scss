@@ -71,6 +71,16 @@ mat-row, mat-footer-row {
 .lable{
     font-size:15px !important;
     font-family: 'Arial', Times, serif !important;
-
+    margin-left: 3%;
     font-weight:bold;
+}
+
+ //add by gokul for error *   
+ .errorColor {
+    color: #dc3545;
+    font-size: 15px;
+} 
+
+.spaceBetweenTwoFields {  
+    margin-left: 7%;  
 }

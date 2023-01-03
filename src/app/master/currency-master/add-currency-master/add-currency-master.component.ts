@@ -19,9 +19,9 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class AddCurrencyMasterComponent implements OnInit {
   [x: string]: any;
-
   docForm: FormGroup;
   currencyMaster: CurrencyMaster;
+  submitted: boolean=false;
 
   constructor(private fb: FormBuilder,
               public router: Router,
@@ -63,6 +63,7 @@ export class AddCurrencyMasterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted=true;
     if(this.docForm.valid){
       this.currencyMaster = this.docForm.value;
       this.spinner.show();
@@ -132,6 +133,7 @@ export class AddCurrencyMasterComponent implements OnInit {
 }
 
   update() {
+    this.submitted=true;
       this.currencyMaster = this.docForm.value;
       this.spinner.show();
       this.CurrencyMasterService.updateCountry(this.currencyMaster).subscribe({

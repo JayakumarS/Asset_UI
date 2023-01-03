@@ -1,138 +1,123 @@
 <section class="content">
-    <div class="content-block">
-      <div class="block-header">
-        <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Add Currency'" [items]="['Master']" [active_item]="'Add Currency'">
-        </app-breadcrumb>
-      </div>
-      <div class="row clearfix ">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Add Currency'" [items]="['Master']" [active_item]="'Add Currency'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix ">
+      <div class="col-md-12">
         <div class="box-shadow">
           <div class="card">
-            <div class="body" style="padding-left: 110px;">
+            <div class="body" style="padding-left: 280px;">
               <form class="m-4" [formGroup]="docForm">
+
                 <div class="row">
-
-                  <div class=" col-md-2">
-                    <mat-label class="lable">Currency Code</mat-label>
-                    </div>
-                    <div class=" col-md-3">
-                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="currencyCode"(blur)="validateCurrencyCode($event.target.value)" required maxlength="3">
-                      <mat-error *ngIf="docForm.get('currencyCode').hasError('required')">
-                        Currency code is required
-                      </mat-error>
-
-
-                      <mat-error *ngIf="docForm.get('currencyCode').hasError('currency')">
-                        Currency code Already Exists !!!
-                      </mat-error>
-                    </mat-form-field> -->
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <!-- <mat-label>Currency Code</mat-label> -->
-                      <input matInput formControlName="currencyCode" maxlength="3" [ngModel]="value" (ngModelChange)="value=$event.toUpperCase()" (blur)="validateCurrencyCode($event.target.value)"  required>
-
-                      <!-- <input matInput formControlName="currencyCode" (input) = "setDataOnChange($event.target.value)" (blur)="validateCurrencyCode($event.target.value)" required maxlength="3"> -->
-                      <mat-error *ngIf="docForm.get('currencyCode').hasError('required')">
+                  <div class="col-md-2">
+                    <mat-label class="lable">Currency Code<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div class="col-md-2">
+                      <input type="text" class="form-control"  formControlName="currencyCode" maxlength="3" [ngModel]="value"
+                        (ngModelChange)="value=$event.toUpperCase()" (blur)="validateCurrencyCode($event.target.value)"
+                        required>
+                      <mat-error *ngIf="submitted && docForm.get('currencyCode').hasError('required')">
                         Currency code is required
                       </mat-error>
                       <mat-error *ngIf="docForm.get('currencyCode').hasError('currency')">
                         Currency code Already Exists !!!
                       </mat-error>
-                    </mat-form-field>
+                  </div>
+
+
+                  <div class=" col-md-2 spaceBetweenTwoFields">
+                    <mat-label class="lable">Currency Name<span class="errorColor">*</span></mat-label>
                   </div>
                   <div class=" col-md-2">
-                    <mat-label class="lable">Currency Name</mat-label>
-                    </div>
-                    <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                       <input matInput formControlName="currencyName"maxlength="15"  (keypress)="keyPressName($event)" required>
-                      <mat-error *ngIf="docForm.get('currencyName').hasError('required')">
+                      <input type="text" class="form-control" formControlName="currencyName" maxlength="15" (keypress)="keyPressName($event)"
+                        required>
+                      <mat-error *ngIf="submitted && docForm.get('currencyName').hasError('required')">
                         Currency Name is required
                       </mat-error>
-                    </mat-form-field>
                   </div>
                 </div>
+                <br>
+
                 <div class="row">
                   <div class=" col-md-2">
-                    <mat-label class="lable">Exchange Rate To</mat-label> <br>
-                    <mat-label class="lable">Base Currency:From</mat-label>
-
-                    </div>
-                    <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="fromcurrency" (keypress)="keyPressNumeric($event)"required>
-                        <mat-error *ngIf="docForm.get('fromcurrency').hasError('required')">
-                          Exchange Rate To Base Currency :From is required
-                        </mat-error>
-                      </mat-form-field>
+                    <mat-label class="lable">Exchange Rate To Base Currency:From<span class="errorColor">*</span></mat-label>
                   </div>
                   <div class=" col-md-2">
-                    <mat-label class="lable">Exchange Rate To </mat-label>
-                    <mat-label class="lable">Base Currency:To</mat-label>
-                    </div>
-                    <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="toCurrency"(keypress)="keyPressNumeric($event)" required>
-                      <mat-error *ngIf="docForm.get('toCurrency').hasError('required')">
+                      <input type="text" class="form-control"  formControlName="fromcurrency" (keypress)="keyPressNumeric($event)" required>
+                      <mat-error *ngIf="submitted && docForm.get('fromcurrency').hasError('required')">
+                        Exchange Rate To Base Currency :From is required
+                      </mat-error>
+                  </div>
+                  <div class=" col-md-2 spaceBetweenTwoFields">
+                    <mat-label class="lable">Exchange Rate To Base Currency:To<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div class=" col-md-2">
+                      <input type="text" class="form-control" formControlName="toCurrency" (keypress)="keyPressNumeric($event)" required>
+                      <mat-error *ngIf="submitted && docForm.get('toCurrency').hasError('required')">
                         Exchange Rate To Base Currency :To is required
                       </mat-error>
-                      </mat-form-field>
                   </div>
                 </div>
-                 <div class="row">
+                <br>
 
+                <div class="row">
                   <div class=" col-md-2">
-                    <mat-label class="lable">Default Value</mat-label>
-                    </div>
-                    <div class=" col-md-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="defaultValue"maxlength="2"(keypress)="keyPressNumeric($event)" >
-                      <mat-error *ngIf="docForm.get('defaultValue').hasError('required')">
+                    <mat-label class="lable">Default Value<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div class=" col-md-2">
+                      <input type="text" class="form-control" formControlName="defaultValue" maxlength="2" (keypress)="keyPressNumeric($event)">
+                      <mat-error *ngIf="submitted && docForm.get('defaultValue').hasError('required')">
                         Default Value is required
                       </mat-error>
-                    </mat-form-field>
                   </div>
-                  <div class=" col-md-2">
-                    <mat-label class="lable">Fraction Part</mat-label>
-                    </div>
-                    <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                       <input matInput formControlName="fractionPart"maxlength="2"(keypress)="keyPressNumeric($event)"required>
-                      <mat-error *ngIf="docForm.get('fractionPart').hasError('required')">
+                  <div class="col-md-2 spaceBetweenTwoFields">
+                    <mat-label class="lable">Fraction Part<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div class="col-md-2">
+                      <input type="text" class="form-control" formControlName="fractionPart" maxlength="2" (keypress)="keyPressNumeric($event)"
+                        required>
+                      <mat-error *ngIf="submitted && docForm.get('fractionPart').hasError('required')">
                         Fraction Part Code is required
                       </mat-error>
-                    </mat-form-field>
                   </div>
 
                 </div>
-                <div class="row">
-                  <div class=" col-md-5" style="margin-left: 250px;">
-                    <mat-checkbox formControlName="isActive" ngInit="checked=true"><mat-label class="lable">Active</mat-label></mat-checkbox>
-                  </div>
-
-                <div class=" col-md-4">
-                  <mat-checkbox formControlName="bookCurrency" ngInit="checked=true"><mat-label class="lable">Book Currency</mat-label></mat-checkbox>
-                </div>
-              </div>
                 <br>
-                <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
 
-                      <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-                      color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
-                      <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
-                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
-                    <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
+                <div class="row">
+                  <div class="col-md-4" style="margin-left: 220px;">
+                    <mat-checkbox formControlName="isActive" ngInit="checked=true"><mat-label
+                        class="lable">Active</mat-label></mat-checkbox>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-checkbox formControlName="bookCurrency" ngInit="checked=true"><mat-label class="lable">Book
+                        Currency</mat-label></mat-checkbox>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                      style="margin-left: 30%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                      style="margin-left: 30%;background-color: #34d034;">Update</button>
+                    <button color="primary" type="button" class="btn-space" (click)="reset()"
+                      mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                      mat-raised-button>Cancel</button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
         </div>
-        </div>
       </div>
     </div>
-  </section>
-
-
+  </div>
+</section>
