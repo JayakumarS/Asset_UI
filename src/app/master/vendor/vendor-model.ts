@@ -10,9 +10,9 @@ export class Commodity {
   blClause: string;
   unNo: string;
   flashPoint: string;
-
   vendorName: string;
-  vendorCountry: string;
+  vendorCountry: number;
+  vendorCountryName:String;
   currency: string;
   vendorPhoneNumber: string;
   vendorId:number;
@@ -33,6 +33,7 @@ export class Commodity {
       this.flashPoint = commodity.flashPoint || "";
       this.vendorName = commodity.vendorName || "";
       this.vendorCountry = commodity.vendorCountry || "";
+      this.vendorCountryName = commodity.vendorCountryName || "";
       this.currency = commodity.currency || "";
       this.vendorPhoneNumber = commodity.vendorPhoneNumber || "";
       this.vendorId = commodity.vendorId || "";
