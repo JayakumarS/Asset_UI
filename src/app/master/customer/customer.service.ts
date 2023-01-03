@@ -48,7 +48,6 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
 
 
   addCustomer(customerMaster:CustomerMaster): void{
-
   this.dialogData = customerMaster;
   this.httpService.post<CustomerMaster>(this.saveCoustomer, customerMaster).subscribe(data => {
     console.log(data);

@@ -25,16 +25,16 @@ export class ManageAuditServiceService extends UnsubscribeOnDestroyAdapter{
 
   }
 
-  private getList = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/list`;
+  public getList = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/list`;
   public save = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/save`;
   public auditFieldListUrl= `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/auditFieldList`;
   public categoryUrl= `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/categoryList`;
   public locationUrl= `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/locationList`;
   public departmentUrl= `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/departmentList`; 
   public edit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/edit`;
-  private Deleteauditlist = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/delete`;
-  private AuditUpdatelist = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/update`;
-  public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/auditUpload`;
+  public Deleteauditlist = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/delete`;
+  public updateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/update`;
+  public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/auditUpload`;
 
 
   get data(): ManageAudit[] {
@@ -42,18 +42,6 @@ export class ManageAuditServiceService extends UnsubscribeOnDestroyAdapter{
   }
   getDialogData() {
     return this.dialogData;
-  }
-
-
-  saveaudit(addaudit:ManageAudit): void {
-    this.dialogData = addaudit;  
-    this.httpService.post<ManageAudit>(this.save,addaudit ).subscribe(data => {
-      console.log(data);
-      //this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
   }
   getAllList(): void {
 
@@ -77,16 +65,6 @@ export class ManageAuditServiceService extends UnsubscribeOnDestroyAdapter{
          // error code here
       }
     );
-  }
-  AuditUpdate(addaudit: ManageAudit): void {
-    this.dialogData = addaudit;
-    this.httpService.post<ManageAudit>(this.AuditUpdatelist, addaudit).subscribe(data => {
-      console.log(data);
-      //this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
   }
 
 }
