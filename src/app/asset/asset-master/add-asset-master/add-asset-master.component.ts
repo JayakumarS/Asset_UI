@@ -474,7 +474,8 @@ onCancel() {
 
     cancel()
     {
-      
+      this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+
     }
  
  }
