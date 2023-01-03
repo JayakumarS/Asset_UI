@@ -21,17 +21,23 @@
                           aria-label="Search box">
                       </li>
                       <li>
-                        <div class="m-l-10" matTooltip="ADD">
+                        <!-- <div class="m-l-10" matTooltip="ADD">
                           <button color="primary" type="button" class="btn-space" [routerLink]="'/master/countryMaster/addCountryMaster/0'" mat-raised-button><i
-                            class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
+                            class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> </button>
+                        </div> -->
+                        <div class="m-l-10" matTooltip="ADD">
+                          <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
+                          <button mat-mini-fab color="primary"  [routerLink]="'/master/countryMaster/addCountryMaster/0'" mat-raised-button >
+                            <mat-icon class="col-white">add</mat-icon>
+                          </button>
                         </div>
                       </li>
-                      <li>
+                      <!-- <li>
                         <div class="m-l-10" matTooltip="Reset">
                           <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
                             <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
                         </div>
-                      </li>
+                      </li> -->
                     </ul>
                   </div>
                   <div class="col-4">
