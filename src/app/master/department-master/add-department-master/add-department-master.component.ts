@@ -35,8 +35,8 @@ export class AddDepartmentMasterComponent implements OnInit {
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       // departmentCode:["", [Validators.required]],
       //departmentName: ["", [Validators.required]],
-      deptCode: [""],
-      departmentHead: [""],
+      deptCode: ["",[Validators.required]],
+      departmentHead: ["",[Validators.required]],
       remarks:[""],
       isactive:[false],
       deptId:[""],
@@ -108,7 +108,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     }else{
       this.showNotification(
         "snackbar-danger",
-        "Department Code Already Exists...!!!",
+        "Invalid Data...!!!",
         "bottom",
         "center"
       );
