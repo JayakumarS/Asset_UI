@@ -11,6 +11,33 @@
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
                 <div class="row">
+                  <div class=" col-md-2">
+                    <mat-label class="lable">Parent Location Name</mat-label>
+                    </div>
+                    <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="parentLocation" required>
+                      <mat-error *ngIf="docForm.get('parentLocation').hasError('required')">
+                        Parent Location Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                    <div class=" col-md-2">
+                      <mat-label class="lable">Location</mat-label>
+                      </div>
+                      <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="locationName" required>
+                        <mat-error *ngIf="docForm.get('locationName').hasError('required')">
+                          Location is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+              </div>
+
+                <div class="row">
                     <div class=" col-md-2">
                     <mat-label class="lable">Location Code</mat-label>
                     </div>
@@ -22,43 +49,116 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                </div>
 
-                <div class="row">
                   <div class=" col-md-2">
-                    <mat-label class="lable">Region</mat-label>
+                    <mat-label class="lable">Description</mat-label>
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="region" required>
-                      <mat-error *ngIf="docForm.get('region').hasError('required')">
-                        Region is required
+                      <textarea matInput formControlName="description"></textarea>
+                      <mat-error *ngIf="docForm.get('description').hasError('required')">
+                        Description is required
                       </mat-error>
                     </mat-form-field>
                   </div>
-                 </div>
-                  <div class="row">
-                    <div class=" col-md-2">
-                      <mat-label class="lable">Country</mat-label>
-                      </div>
-                      <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="country" required>
-                        <mat-error *ngIf="docForm.get('country').hasError('required')">
-                          Country Name is required
-                        </mat-error>
-                      </mat-form-field>
+                </div>
+                 <div class="row">
+                  <div class=" col-md-2">
+                    <mat-label class="lable">Primary Location Head</mat-label>
                     </div>
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
+                      <mat-select class="inputTxt" formControlName="primaryLocation">
+                        <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
+
+                  <div class=" col-md-2">
+                    <mat-label class="lable">Alternate Location Head</mat-label>
+                    </div>
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                      <mat-select class="inputTxt" formControlName="alternateLocation">
+                        <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
                 </div>
 
                 <div class="row">
-                  <div class=" col-md-2"></div>
-                  <div class=" col-md-4">
-                     <mat-checkbox  ngInit="checked=true" formControlName="active"><mat-label class="lable">Active</mat-label></mat-checkbox>
+                  <div class=" col-md-2"><mat-label class="lable">Inventory Location</mat-label></div>
+                  <div class=" col-md-3">
+                     <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
+                  </div>
+
+                  <div class=" col-md-2"><mat-label class="lable">Cascade</mat-label></div>
+                  <div class=" col-md-3">
+                     <mat-checkbox  ngInit="checked=true" formControlName="cascade"></mat-checkbox>
                   </div>
                 </div>
 
+
+                <!-- <mat-tab-group>
+                  <mat-tab label="">
+                    <div>
+                      <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                        <thead class="">
+                          <tr>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                             width: 12%; border-radius: 0.05rem;">Department</th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                           width: 12%;border-radius: 0.07rem;">Users</th>
+                           </tr>
+                          </thead>
+                          <ng-container
+                        *ngFor="let itemMasterDetailBean of docForm.get('itemMasterDetailBean')['controls']; let i = index">
+                        <tbody [formGroup]="itemMasterDetailBean">
+                          <tr>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Department</mat-label>
+                                <mat-select name="department{{i}}" formControlName="department">
+                                  <mat-option *ngFor="let title of departmentList" [value]="title.id">
+                                    {{title.text}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Users</mat-label>
+                                <mat-select name="user{{i}}" formControlName="Users">
+                                  <mat-option [value]="'1'">
+                                    Credit
+                                  </mat-option>
+                                  <mat-option [value]="'2'">
+                                    Full Payment
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </td></tr></tbody></ng-container>
+
+                        </table>
+                      </div>
+                      <div class="row">
+                        <div>
+                          <button mat-mini-fab color="warn" (click)="removeRow(-1)">
+                            <mat-icon class="col-white">delete</mat-icon>
+                          </button>&nbsp;
+                          <button mat-mini-fab color="primary" (click)="addRow()">
+                            <mat-icon class="col-white">add</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                  </mat-tab>
+                </mat-tab-group> -->
                 <br><br>
                 <div class="row" style="
                 margin-left: 10%;">
