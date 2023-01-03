@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <div class="box-shadow">
           <div class="card">
-            <div class="body" style="padding-left: 280px;">
+            <div class="body pageproperty" style="padding-left: 280px;">
               <form class="m-4" [formGroup]="docForm">
 
                 <div class="row">
@@ -89,12 +89,15 @@
                 <br>
 
                 <div class="row">
-                  <div class="col-md-4" style="margin-left: 220px;">
+                  <div class="col-md-2">
+                  </div>
+                  <div class="col-md-3">
                     <mat-checkbox formControlName="isActive" ngInit="checked=true"><mat-label
                         class="lable">Active</mat-label></mat-checkbox>
                   </div>
-
-                  <div class="col-md-4">
+                  <div class="col-md-2">
+                  </div>
+                  <div class="col-md-3">
                     <mat-checkbox formControlName="bookCurrency" ngInit="checked=true"><mat-label class="lable">Book
                         Currency</mat-label></mat-checkbox>
                   </div>

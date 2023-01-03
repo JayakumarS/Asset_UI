@@ -15,7 +15,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-add-currency-master',
   templateUrl: './add-currency-master.component.html',
-  styleUrls: ['./add-currency-master.component.sass']
+  styleUrls: ['./add-currency-master.component.scss']
 })
 export class AddCurrencyMasterComponent implements OnInit {
   [x: string]: any;
