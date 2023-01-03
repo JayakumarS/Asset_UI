@@ -5,6 +5,7 @@ export class DepartmentMaster {
   departmentHead: string;
   remarks: string;
   isactive: boolean;
+  isactiveForList:boolean;
   profitCenter: string;
   deptId:number;
   

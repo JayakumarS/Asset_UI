@@ -31,7 +31,7 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
     "departmentName",
     "departmentHead",
     "contactPerson",
-    "isactive",
+    "isactiveForList",
     "actions"
   ];
 

@@ -100,7 +100,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     this.departmentMasterService.addDepartment(this.departmentMaster);
     this.showNotification(
       "snackbar-success",
-      "Add Record Successfully...!!!",
+      "Successfully Added...!!!",
       "bottom",
       "center"
     );
@@ -108,7 +108,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     }else{
       this.showNotification(
         "snackbar-danger",
-        "Record Not Successfully Added...!!!",
+        "Department Code Already Exists...!!!",
         "bottom",
         "center"
       );
@@ -165,7 +165,7 @@ export class AddDepartmentMasterComponent implements OnInit {
      if(res.success){
       this.showNotification(
         "snackbar-success",
-        "Edit Record Successfully...!!!",
+        "Record Successfully Added...!!!",
         "bottom",
         "center"
       );
@@ -173,7 +173,7 @@ export class AddDepartmentMasterComponent implements OnInit {
      }else{
       this.showNotification(
         "snackbar-danger",
-        "Edit Record UnSuccessfull...!!!",
+        "Department Code Already Exists...!!!",
         "bottom",
         "center"
       );

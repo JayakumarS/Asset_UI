@@ -7,41 +7,51 @@
       </div>
       <div class="row clearfix">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-          <div class="card " style="margin-top: 0.75em;">
+          <div class="card " style="padding-left: 150px;">
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
-                <div class="row">
-                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Category name</mat-label>
-                      <input matInput formControlName="categoryName" required>
-                   </mat-form-field>
-                  </div>
-                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 "style="margin-right: 20px;">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Parent Category</mat-label>
-                      <input matInput formControlName="parentCategory" type="search">
-                    </mat-form-field>
-                  </div>
-                 </div>
-                  <div class="row">
-                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 " >
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Category Type</mat-label>
-                      <input matInput formControlName="categoryType" required>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 " style="    margin-top: -20px;">
-                    <mat-checkbox formControlName="incomingQty" >Incoming Quality Check</mat-checkbox>
+                
+              <div class="row">
+                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -68px;">
+                    <label class="lable">Category name</label>
+                  </div> 
+                  <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 "  style="margin-left: -23%; margin-top: -2%;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="categoryName" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  style="margin-left: 6%;">
+                  <label class="lable">Parent Category</label>
+                </div>
+                <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -23%; margin-top: -2%;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="parentCategory" type="search">
+                  </mat-form-field>
+                </div>  
+              </div><br>
 
+                  <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -68px;">
+                      <label class="lable">Category Type</label>
+                    </div>
+                    <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -23%;" >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-top: -2%;">
+                         <input matInput formControlName="categoryType" required>
+                      </mat-form-field>
+                    </div>  
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 6%;">
+                        <label class="lable">Incoming Quality Check</label>
+                    </div> 
+                    <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -23%; margin-top: -2%;">
+                      <mat-checkbox formControlName="incomingQty" ></mat-checkbox >
+                    </div>
                   </div>
-                 </div>
               
                 <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" style="margin-left: -20%;">
                     <button mat-raised-button *ngIf="!edit" (click)="onSubmit()" ><i class="fa fa-save"></i> Save</button>&nbsp;
                     <button mat-raised-button *ngIf="edit" (click)="update()" ><i class="fa fa-save"></i> Update</button>&nbsp;
-                    <button mat-raised-button (click)="onReset()" ><i class="fa fa-save"></i> Reset</button>&nbsp;
+                    <button mat-raised-button (click)="onReset()" ><i class="fa fa-save"></i> Reset</button>&nbsp;&nbsp;&nbsp;
                     <!-- <button mat-raised-button (click)="onReset()" ><i class="fa fa-undo"></i> Reset</button>&nbsp; -->
                     <button mat-raised-button color="warn" (click)="onCancel()"><i class="fa fa-close"></i> Cancel</button>&nbsp;
                   </div>
