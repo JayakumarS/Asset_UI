@@ -16,7 +16,7 @@
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="parentLocation" required>
+                      <input matInput formControlName="parentLocation"maxlength="15" required>
                       <mat-error *ngIf="docForm.get('parentLocation').hasError('required')">
                         Parent Location Name is required
                       </mat-error>
@@ -28,7 +28,7 @@
                       </div>
                       <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="locationName" required>
+                        <input matInput formControlName="locationName" maxlength="15"required>
                         <mat-error *ngIf="docForm.get('locationName').hasError('required')">
                           Location is required
                         </mat-error>
@@ -43,7 +43,7 @@
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="locationCode" required>
+                      <input matInput formControlName="locationCode"maxlength="15" (keypress)="keyPressNumeric($event)" required>
                       <mat-error *ngIf="docForm.get('locationCode').hasError('required')">
                         Location Code is required
                       </mat-error>
@@ -55,7 +55,7 @@
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                      <mat-select class="inputTxt" formControlName="primaryLocation">
+                      <mat-select class="inputTxt" formControlName="primaryLocation"maxlength="15">
                         <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                             {{title.text}}
                         </mat-option>
