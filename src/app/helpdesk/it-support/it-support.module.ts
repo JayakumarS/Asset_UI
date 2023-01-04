@@ -30,11 +30,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatCardModule} from '@angular/material/card';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { DeleteitsupportComponent } from './list-it-support/deleteitsupport/deleteitsupport.component';
 
 @NgModule({
   declarations: [
     AddItSupportComponent,
-    ListItSupportComponent
+    ListItSupportComponent,
+    DeleteitsupportComponent
   ],
   providers:[
     NotificationService

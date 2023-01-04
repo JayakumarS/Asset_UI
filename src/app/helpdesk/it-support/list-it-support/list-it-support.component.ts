@@ -1,99 +1,174 @@
-import { DataSource } from '@angular/cdk/collections';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { BehaviorSubject, Observable, merge, map, fromEvent } from 'rxjs';
-import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { DataSource } from "@angular/cdk/collections";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatMenuTrigger } from "@angular/material/menu";
+import { BehaviorSubject, fromEvent, merge, Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { SelectionModel } from "@angular/cdk/collections";
+import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
-import { TokenStorageService } from 'src/app/auth/token-storage.service';
-import { Itsupport } from '../it-support.model';
+import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Itsupportservice } from '../it-support.service';
+import { Router } from '@angular/router';
+import { DeleteLocationComponent } from 'src/app/master/location/list-location/delete-location/delete-location.component';
+import { Itsupport } from '../it-support.model'; 
+import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component'; 
+import { DeleteitsupportComponent } from './deleteitsupport/deleteitsupport.component';
+
 
 @Component({
   selector: 'app-list-it-support',
   templateUrl: './list-it-support.component.html',
   styleUrls: ['./list-it-support.component.sass']
 })
-export class ListItSupportComponent implements OnInit {
+export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-    "ticketno",
+   // "select",
     "tickettype",
     "asset",
     "assetlocation",
-    "category",
     "priority",
-    "status",
-    "ticketgrp",
+    "ticketgroup",
     "assignee",
-    "tatinday",
-    "reportedby"
+    "reportedby",
+  
   ];
 
-
-
-  docForm: FormGroup
-  fb: any;
-  itsupport:Itsupport
-  exampleDatabase: Itsupportservice;
-  httpClient: HttpClient;
-  serverUrl: serverLocations;
-  httpService: HttpServiceService;
-  tokenStorage: TokenStorageService;
-  dataSource: ExampleDataSource;
-  paginator: MatPaginator;
-  sort: MatSort;
-  subs: any;
-  filter: any;
-  constructor() { 
-
+  dataSource: ExampleDataSource | null;
+  exampleDatabase: Itsupportservice | null;
+  selection = new SelectionModel<Itsupport>(true, []);
+  index: number;
+  id: number;
+  locationMaster: Itsupport | null;
+  spinner: any;
+  constructor(
+    public httpClient: HttpClient,
+    public dialog: MatDialog,
+    public itsupportservice: Itsupportservice,
+    private snackBar: MatSnackBar,
+    private serverUrl:serverLocations,
+    private router: Router,
+    private httpService:HttpServiceService
+  ) {
+    super();
   }
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    this.docForm = this.fb.group({
-    
-      reportdate:[""],
-      uploadImg:["", [Validators.required]],
- 
-
-   
-    });
+    this.loadData();
   }
-  onclick(){
 
-    
+  refresh(){
+    this.loadData();
   }
 
   public loadData() {
-    this.exampleDatabase = new Itsupportservice(this.httpClient, this.serverUrl, this.httpService, this.tokenStorage);
+    this.exampleDatabase = new Itsupportservice(this.httpClient,this.serverUrl,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
       this.sort
     );
-    this.subs.sink = fromEvent(this.filter?.nativeElement, "keyup").subscribe(
+    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
         if (!this.dataSource) {
           return;
         }
-        this.dataSource.filter = this.filter?.nativeElement?.value;
+        this.dataSource.filter = this.filter.nativeElement.value;
       }
     );
   }
+  editCall(row) {
+
+    this.router.navigate(['/helpdesk/itsupport/additsupport/'+row.support_id]);
   
-  editCall(row){
+  }
+
+  deleteItem(row) {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteitsupportComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+      disableClose: true
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      if (data.data == true) {
+        const obj = {
+          deletingId: row.support_id
+        }
+        this.spinner.show();
+        this.itsupportservice.deleteitsupport(obj).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+          }
+        });
+
+      }
+    });
 
   }
-  deleteItem(row) {
 
+  // showNotification(arg0: string, arg1: string, arg2: string, arg3: string) {
+  //   throw new Error('Method not implemented.');
+  // }
 
+  // private refreshTable() {
+  //   this.paginator._changePageSize(this.paginator.pageSize);
+  // }
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, " ", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
+// context menu
+
+  onContextMenu(event: MouseEvent, item: Itsupport) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + "px";
+    this.contextMenuPosition.y = event.clientY + "px";
+    this.contextMenu.menuData = { item: item };
+    this.contextMenu.menu.focusFirstItem("mouse");
+    this.contextMenu.openMenu();
   }
 }
+
+
 export class ExampleDataSource extends DataSource<Itsupport> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
-    return this.filterChange.value.trim();
+    return this.filterChange.value;
   }
   set filter(filter: string) {
     this.filterChange.next(filter);
@@ -124,20 +199,12 @@ export class ExampleDataSource extends DataSource<Itsupport> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((itsupport: Itsupport) => {
+          .filter((locationMaster: Itsupport) => {
             const searchStr = (
-              itsupport.ticketno +
-              itsupport.tickettype +
-              itsupport.asset +
-              itsupport.assetlocation +
-              itsupport.category +
-              itsupport.priority +
-              itsupport.status +
-              itsupport.ticketgrp +
-              itsupport.assignee +
-              itsupport.tatinday +
-              itsupport.reportedby+
-              itsupport.id
+              locationMaster.tickettype +
+              locationMaster.asset +
+              locationMaster.assetlocation
+             
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -153,7 +220,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
       })
     );
   }
-  disconnect() { }
+  disconnect() {}
   /** Returns a sorted copy of the database data. */
   sortData(data: Itsupport[]): Itsupport[] {
     if (!this._sort.active || this._sort.direction === "") {
@@ -162,14 +229,9 @@ export class ExampleDataSource extends DataSource<Itsupport> {
     return data.sort((a, b) => {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
-      //For to sort number or string Added by GOKUL
-      let isNumber: boolean = false;
       switch (this._sort.active) {
         case "id":
           [propertyA, propertyB] = [a.id, b.id];
-          break;
-        case "ticketno":
-          [propertyA, propertyB] = [a.ticketno, b.ticketno];
           break;
         case "tickettype":
           [propertyA, propertyB] = [a.tickettype, b.tickettype];
@@ -180,41 +242,13 @@ export class ExampleDataSource extends DataSource<Itsupport> {
         case "assetlocation":
           [propertyA, propertyB] = [a.assetlocation, b.assetlocation];
           break;
-        case "status":
-          [propertyA, propertyB] = [a.status, b.status];
-          break;
-          case "category":
-            [propertyA, propertyB] = [a.category, b.category];
-            break;
-          case "priority":
-            [propertyA, propertyB] = [a.priority, b.priority];
-            break;
-          case "ticketgrp":
-            [propertyA, propertyB] = [a.ticketgrp, b.ticketgrp];
-            break;
-          case "assignee":
-            [propertyA, propertyB] = [a.assignee, b.assignee];
-            break;
-          case "tatinday":
-              [propertyA, propertyB] = [a.tatinday, b.tatinday];
-              break;
-          case "reportedby":
-              [propertyA, propertyB] = [a.reportedby, b.reportedby];
-              break;
+        
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-
-      if (isNumber) {
-        return (
-          (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
-        );
-      } else {
-        return (
-          (valueA.toString().toLowerCase() < valueB.toString().toLowerCase() ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
-        );
-      }
-
+      return (
+        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+      );
     });
   }
 }
