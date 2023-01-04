@@ -7,7 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from "@angular/material/paginator";
 import { Router, ActivatedRoute } from '@angular/router';
-import { EmployeePopupComponent } from 'src/app/admin/employees/employee-popup/employee-popup.component';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
@@ -51,7 +50,10 @@ export class AddAssetMasterComponent
   hide3 = true;
   agree3 = false;
   dropdownList = [];
- 
+  filePathUrl:string;
+  filePathUploadUrl:string;
+  submitted: boolean=false;
+
   assetMaster: AssetMaster;
   categoryList=[];
   locationDdList=[];
@@ -60,6 +62,7 @@ export class AddAssetMasterComponent
   requestId: any;
   edit:boolean=false;
   spinner: any;
+  fileImgPathUrl: any;
   
   
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
@@ -118,7 +121,6 @@ export class AddAssetMasterComponent
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit(): void {
-    // this.commodityList();
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -174,14 +176,14 @@ export class AddAssetMasterComponent
    }
    
    onSubmit() {
+    this.submitted=true;
+
   if (this.docForm.valid) {
-     this.assetMaster = this.docForm.value;
-    //  this.spinner.show();
+
      this.assetMaster = this.docForm.value;
      console.log(this.assetMaster);
      this.assetService.addAssetMaster(this.assetMaster).subscribe({
       next: (data) => {
-        // this.spinner.hide();
         if (data.success) {
           this.showNotification(
             "snackbar-success",
@@ -241,10 +243,8 @@ onCancel() {
       "center"
     
     );
-   
     
     this.router.navigate(['/asset/assetMaster/listAssetMaster']);
-   
 
    }
     // Edit
@@ -252,12 +252,9 @@ onCancel() {
       const obj = {
         editId: id
       }
-      
       this.assetService.editAsset(obj).subscribe({
         next: (res: any) => {
           
-     
- 
        this.docForm.patchValue({
          
          'assetName': res.addAssetBean.assetName,
@@ -295,32 +292,20 @@ onCancel() {
          'vendor': res.addAssetBean.vendor,
 
       })
+
+      this.fileImgPathUrl = res.addAssetBean.uploadImg;
+      this.filePathUploadUrl = res.addAssetBean.uploadFiles;
        },
        error: (error) => {
        
-        // error code here
       }
-      
     });
-    
-     
-   
-     /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-       console.log(id);
-       },
-       (err: HttpErrorResponse) => {
-          // error code here
-       }
-     );*/
    }
    
    commodityList(){
      this.httpService.get<AssetMasterResultBean>(this.assetService.commoditylist).subscribe( 
        (data) => {
- 
-         
-        this.dropdownList =data.countryMasterDetails;
-         
+        this.dropdownList =data.countryMasterDetails;  
        },
        (error: HttpErrorResponse) => {
          console.log(error.name + " " + error.message);
@@ -341,7 +326,6 @@ onCancel() {
   }
 
   multipleuploadpopupCall() {
-    //this.id = row.id;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -350,7 +334,6 @@ onCancel() {
     }
     const dialogRef = this.dialog.open(AddMultipleAssetMasterComponent, {
       data: {
-       // employees: row,
         action: "edit",
       },
       width: "640px",
@@ -358,14 +341,6 @@ onCancel() {
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
-        // When using an edit things are little different, firstly we find record inside DataService by id
-       // const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-       //   (x) => x.id === this.id
-       // );
-        // Then you update that record using data from dialogData (values you enetered)
-        //this.exampleDatabase.dataChange.value[foundIndex] =
-         //this.employeesService.getDialogData();
-        // And lastly refresh table
         this.refreshTable();
         this.showNotification(
           "black",
@@ -390,93 +365,83 @@ onCancel() {
      }
    }
  
- 
- // File upload
- getCreditFile(event) {
-   var docfile = event.target.files[0];
-   var fileExtension = docfile.name;
-   var frmData: FormData = new FormData();
-   frmData.append("file", docfile);
-   frmData.append("fileName",fileExtension);
-   console.log(frmData);
-   
-   // var data = this.httpService.postData(this.fileUploadService.addFiles,frmData);
-   // console.log(data);
-   
-   this.httpService.post<any>(this.assetService.addAssetUploadFiles, frmData).subscribe(data => {
-       console.log(data);
-       if(data.success){
-         this.docForm.patchValue({
-           'imgUploadUrl': data.filePath     
+  // File upload
+  getCreditFile(event) {
+    var docfile = event.target.files[0];
+    var fileExtension = docfile.name;
+    var frmData: FormData = new FormData();
+    frmData.append("file", docfile);
+    frmData.append("fileName",fileExtension);
+    console.log(frmData);
+    this.httpService.post<any>(this.assetService.addAssetImageUploadFiles, frmData).subscribe(data => {
+        console.log(data);
+        if(data.success){
+          this.docForm.patchValue({
+            'uploadImg': data.filePath  
+         })
+        }
+        else{
+          this.showNotification(
+            "snackbar-success",
+            "Edit Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+    
           
-        })
-       }
-       else{
-         this.showNotification(
-           "snackbar-success",
-           "Edit Record Successfully...!!!",
-           "bottom",
-           "center"
-         );
- 
-         
-       }
-       
-       },
-       (err: HttpErrorResponse) => {
-         
-     });
- 
-   }
- 
+        }
+        
+        },
+        (err: HttpErrorResponse) => {
+          
+      });
+    
+    }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
  
    // File upload
    getCreditFileDetails(event) {
-     var docfile = event.target.files[0];
-     var fileExtension = docfile.name;
-     var frmData: FormData = new FormData();
-     frmData.append("file", docfile);
-     frmData.append("fileName",fileExtension);
-     console.log(frmData);
-     
-     // var data = this.httpService.postData(this.fileUploadService.addFiles,frmData);
-     // console.log(data);
-     
-     this.httpService.post<any>(this.assetService.addAssetUploadFiles, frmData).subscribe(data => {
-         console.log(data);
-         if(data.success){
-           this.docForm.patchValue({
-             'fileUploadUrl': data.filePath     
-            
-          })
-         }
-         else{
-           this.showNotification(
-             "snackbar-success",
-             "Edit Record Successfully...!!!",
-             "bottom",
-             "center"
-           );
- 
-           
-         }
-         
-         },
-         (err: HttpErrorResponse) => {
-           
-       });
-   
-     }
-
-    //  goMultipleUpload(){
-
-    //   this.router.navigate(['listAssetMaster']);
-    //  }
+  var docfile = event.target.files[0];
+  var fileExtension = docfile.name;
+  var frmData: FormData = new FormData();
+  frmData.append("file", docfile);
+  frmData.append("fileName",fileExtension);
+  console.log(frmData);
+  this.httpService.post<any>(this.assetService.addAssetUploadFiles, frmData).subscribe(data => {
+      console.log(data);
+      if(data.success){
+        this.docForm.patchValue({
+          'uploadFiles': data.filePath  
+       })
+      }
+      else{
+        this.showNotification(
+          "snackbar-success",
+          "Edit Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+  
+        
+      }
+      
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  
+  }
 
     cancel()
     {
       this.router.navigate(['/asset/assetMaster/listAssetMaster']);
-
     }
  
  }
