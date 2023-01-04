@@ -30,6 +30,7 @@ import { AddAssetMasterComponent } from './add-asset-master/add-asset-master.com
 import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { AddMultipleAssetMasterComponent } from './add-multiple-asset-master/add-multiple-asset-master.component';
+import { AssetProfileViewComponent } from './asset-profile-view/asset-profile-view.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { AddMultipleAssetMasterComponent } from './add-multiple-asset-master/add
     ListAssetMasterComponent,
     DeleteAssetMasterComponent,
     AddAssetMasterComponent,
-    AddMultipleAssetMasterComponent
+    AddMultipleAssetMasterComponent,
+    AssetProfileViewComponent
   ],
   providers:[
     NotificationService
