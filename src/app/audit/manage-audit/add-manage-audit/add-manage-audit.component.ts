@@ -514,7 +514,7 @@ getDateString(event,inputFlag,index){
     }else if(inputFlag=='endDate'){
       this.docForm.patchValue({endDate:cdate});
     }
-  }else if (this.docForm.get('auditType').value=="Aided"){
+  }else if (this.Formdoc.get('auditType').value=="Aided"){
     if(inputFlag=='startDate'){
       this.Formdoc.patchValue({startDate:cdate});
     }else if(inputFlag=='endDate'){
