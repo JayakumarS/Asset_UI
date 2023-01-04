@@ -1,159 +1,219 @@
-<div class="section">
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'IT Support'" [items]="['Help Desk']" [active_item]="'IT Support List'">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="table-responsive">
 
-    <div class="row"  style="background-color: rgb(114, 196, 67); margin-top: 3%; font:montserrat;" >
-        <h2 style="padding-bottom: 5px;
-        padding-top: 5px;color:#e7dfdb">Ticket List</h2><br>
-      </div><br>
-
-    <div class="row" style="padding-bottom:50px;padding-left: 50px;">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
- 
-
-        </div>
-        </div>
-
-         <div class="mat-card" style="margin-left: 10%;">
-        <div style="margin-top:0px;"> 
-        <mat-card class="l-bg-purple-dark" style="width:17%;">CLOSED
-             </mat-card>
-        </div>
-        &nbsp;
-       <div>
-      <mat-card class="bg-cyan" style="width:17%; margin-left: 20%; margin-top: -6%;">ASSIGNED</mat-card> 
-             </div> 
-             &nbsp;
-             <div>
-            <mat-card class=" bg-green" style="width:17%;margin-left: 40%;margin-top: -72px;">OPENED</mat-card>
-            &nbsp;
-        </div>
-        <div>
-            <mat-card class=" l-bg-orange" style="width:17%;margin-left: 60%;margin-top: -72px;">HOLD</mat-card> &nbsp;
-        </div> 
+              <div class="row"  style="background-color: rgb(114, 196, 67); margin-top: 3%; font:montserrat;" >
+                <h2 style="padding-bottom: 5px;
+                padding-top: 5px;color:#e7dfdb">Ticket List</h2><br>
+              </div><br>
         
-        </div>
+            <div class="row" style="padding-bottom:50px;padding-left: 50px;">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+         
         
-      
-       
-<BR>
-<div class="row" style="padding-bottom:50px;padding-left: 50px;">
-<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
-<div class button-grp  style="margin-left: 40%;">
-    <button [routerLink]="'/helpdesk/itsupport/additsupport'" mat-raised-button style="background-color:#0dcaf0; color:aliceblue" >NEW TICKET</button>
+                </div>
+                </div>
+        
+                 <div class="mat-card" style="margin-left: 10%;">
+                <div style="margin-top:0px;"> 
+                <mat-card class="l-bg-purple-dark" style="width:17%;">CLOSED
+                     </mat-card>
+                </div>
+                &nbsp;
+               <div>
+              <mat-card class="bg-cyan" style="width:17%; margin-left: 20%; margin-top: -6%;">ASSIGNED</mat-card> 
+                     </div> 
+                     &nbsp;
+                     <div>
+                    <mat-card class=" bg-green" style="width:17%;margin-left: 40%;margin-top: -72px;">OPENED</mat-card>
+                    &nbsp;
+                </div>
+                <div>
+                    <mat-card class=" l-bg-orange" style="width:17%;margin-left: 60%;margin-top: -72px;">HOLD</mat-card> &nbsp;
+                </div> 
+                
+                </div>
+                
+              
+               
+        <BR>
+        <div class="row" style="padding-bottom:50px;padding-left: 50px;">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+        <div class button-grp  style="margin-left: 40%;">
+            <button [routerLink]="'/helpdesk/itsupport/additsupport'" mat-raised-button style="background-color:#0dcaf0; color:aliceblue" >NEW TICKET</button>
+        </div>
+        </div>
+        </div>
+
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ms-0">
+                      <li class="dropdown">
+                        <h2>IT Support</h2>
+                      </li>
+                      <li class="dropdown m-l-20">
+                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                        <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                          aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="m-l-10" matTooltip="ADD">
+                          <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
+                          <button mat-mini-fab color="primary"  [routerLink]="'/admin/scheduler/add-schedule-activity/0'">
+                            <mat-icon class="col-white">add</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="XLSX">
+                          <img src="assets/images/icons/xlsx.png" alt=""
+                            (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                        </div>
+                      </li>
+                      
+                      
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                #exporter="matTableExporter">
+                
+                <ng-container matColumnDef="tickettype">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Type</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.tickettype}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="asset">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Asset</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.asset}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="assetlocation">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Location</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetlocation}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="priority">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.priority}}</mat-cell>
+                </ng-container>
+                
+                <ng-container matColumnDef="ticketgroup">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Group</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.ticketgroup}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="assignee">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Assignee</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assignee}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="reportedby">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Reported By</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.reportedby}}
+                  </mat-cell>
+                </ng-container>
+                
+               
+               
+               
+                <!-- actions -->
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                      class="tbl-action-btn">
+                      <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    </button>
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                      (click)="deleteItem(i, row)" class="tbl-action-btn">
+                      <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                  [style.cursor]="'pointer'" matRipple>
+                </mat-row>
+              </mat-table>
+              <!-- Loading spinner -->
+              <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                </mat-progress-spinner>
+              </div>
+              <!-- context menu start -->
+              <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+                [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+              </div>
+              <mat-menu #contextMenu="matMenu">
+                <ng-template matMenuContent let-item="item">
+                  <button mat-menu-item (click)="addNew()">
+                    <mat-icon>add_box</mat-icon>
+                    <span>Add Record</span>
+                  </button>
+                  <button mat-menu-item (click)="editCall(item)">
+                    <mat-icon>create</mat-icon>
+                    <span>Edit Record</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteItem(item.id,item)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete Record</span>
+                  </button>
+                  <button mat-menu-item (click)="refresh()">
+                    <mat-icon>refresh</mat-icon>
+                    <span>Refresh Record</span>
+                  </button>
+                  <button mat-menu-item disabled>
+                    <mat-icon>no_encryption</mat-icon>
+                    <span>Disable</span>
+                  </button>
+                  <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
+                    <mat-icon>list_alt</mat-icon>
+                    <span> Nested Menu</span>
+                  </button>
+                </ng-template>
+              </mat-menu>
+              <mat-menu #nestedmenu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>mail_outline</mat-icon>
+                  <span>Item 1</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>call</mat-icon>
+                  <span>Item 2</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>chat</mat-icon>
+                  <span>Item 3</span>
+                </button>
+              </mat-menu>
+              <!-- context menu end -->
+              <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                
+              </div>
+              <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-
-
-<mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell"
-#exporter="matTableExporter" [hiddenColumns]="[8]">
-
-<ng-container matColumnDef="ticketno">
-  <mat-header-cell *matHeaderCellDef mat-sort-header> TICKETNO </mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.ticketno}}</mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="tickettype">
-  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> TICKET TYPE </mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.tickettype}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="asset">
-  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> ASSET </mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.asset}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="assetlocation">
-  <mat-header-cell *matHeaderCellDef mat-sort-header>LOCATION </mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.assetlocation}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="category">
-  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> CATEGORY </mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.category}}</mat-cell>
-</ng-container>
-
-
-<ng-container matColumnDef="priority">
-  <mat-header-cell *matHeaderCellDef mat-sort-header> PRIORITY </mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.priority}}</mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="status">
-  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">STATUS</mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.status}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="ticketgrp">
-  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">TICKETGROUP</mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.ticketgrp}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="assignee">
-  <mat-header-cell *matHeaderCellDef mat-sort-header> ASSIGNEE </mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.assignee}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="tatinday">
-  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> TATINDAY </mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.tatinday}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="reportedby">
-  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> REORTED BY </mat-header-cell>
-  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.reportedby}}</mat-cell>
-</ng-container>
-
-
-
-<!-- actions -->
-<ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
-  <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
-  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
-      class="tbl-action-btn">
-      <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-    </button>
-    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="deleteItem(row)"
-      class="tbl-action-btn">
-      <app-feather-icons matTooltip="Delete" [icon]="'trash-2'" [class]="'tbl-fav-delete'">
-      </app-feather-icons>
-    </button>
-  </mat-cell>
-</ng-container>
-
-
-<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-<mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple>
-</mat-row>
-</mat-table>
-
-<mat-menu #contextMenu="matMenu">
-  <ng-template matMenuContent let-item="item">
-    <button mat-menu-item [routerLink]="'/asset/assetMaster/addAssetMaster'">
-      <mat-icon>add_box</mat-icon>
-      <span>Add Record</span>
-    </button>
-    <button mat-menu-item (click)="editCall(item)">
-      <mat-icon>create</mat-icon>
-      <span>Edit Record</span>
-    </button>
-    <button mat-menu-item (click)="deleteItem(item)">
-      <mat-icon>delete</mat-icon>
-      <span>Delete Record</span>
-    </button>
-  </ng-template>
-</mat-menu>
-
-<div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
-[style.display]="dataSource?.renderedData?.length == 0 ? '' : 'none'">
-No results
-</div>
-<mat-paginator #paginator [length]="dataSource?.filteredData?.length" [pageIndex]="0" [pageSize]="10"
-[pageSizeOptions]="[5, 10, 25, 100]">
-</mat-paginator>
-
-</div>
+</section>

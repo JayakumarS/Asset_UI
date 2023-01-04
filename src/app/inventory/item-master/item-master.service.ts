@@ -50,15 +50,8 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
         );
         router.navigate(['/inventory/item-master/list-item-master']);
       }
-      else if(data.Success == false){
-        notificationService.showNotification(
-          "snackbar-danger",
-          "Not Updated Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      }
     },
+      
       (err: HttpErrorResponse) => {
         throw new Error('Method not implemented.');
       });
@@ -89,14 +82,14 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
         );
         router.navigate(['/inventory/item-master/list-item-master']);
       }
-      else if(data.Success == false){
-        notificationService.showNotification(
-          "snackbar-danger",
-          "Not Updated Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      }
+      // else if(data.Success == false){
+      //   notificationService.showNotification(
+      //     "snackbar-danger",
+      //     "Not Updated Successfully...!!!",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
     });
   }
   itemDelete(itemId: any): void {

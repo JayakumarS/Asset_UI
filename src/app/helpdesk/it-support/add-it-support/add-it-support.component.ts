@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,24 +7,57 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { Itsupport } from '../it-support.model';
 import { Itsupportservice } from '../it-support.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 
 @Component({
   selector: 'app-add-it-support',
   templateUrl: './add-it-support.component.html',
-  styleUrls: ['./add-it-support.component.sass']
+  styleUrls: ['./add-it-support.component.sass'],
+
+  // Date Related code
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: {
+      display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY',
+      },
+  } },CommonService
+  ]
+
+
 })
+
 export class AddItSupportComponent implements OnInit {
+  [x: string]: any;
   docForm: FormGroup;
+  itsupport: Itsupport;
   assetnamelist:[""]
+  assetlocationlist:[""]
  
   constructor(private cmnService:CommonService,private fb: FormBuilder,private httpService: HttpServiceService,
     private  itsupportservice: Itsupportservice, private commonService: CommonService,
-    public router:Router,private snackBar: MatSnackBar,public notificationService:NotificationService,
+    public router:Router,private snackBar: MatSnackBar,
     public dialog: MatDialog,public route: ActivatedRoute) { 
     this.docForm = this.fb.group({
     
       reportdate:[""],
+      reportdateObj:[""],
       uploadImg:[""],
       asset:[""],
       assetlocation:[""],
@@ -53,11 +87,39 @@ export class AddItSupportComponent implements OnInit {
     }
   }
   );
-  }
-  submit(){
 
+    
   }
+  onsubmit(){
+    this.itsupport = this.docForm.value;
+      console.log(this.itsupport);
+      this.itsupportservice.addassetticket(this.itsupport);
+    
+      this.router.navigate(['/helpdesk/itsupport/listitsupport']);
+  
+}
+fetchlocationdetails(salesQuoteNo: any): void {
+  this.httpService.get(this.itsupportservice.fetchassetlocaton + "?workOrder=" + salesQuoteNo).subscribe((res: any) => {
+    console.log(salesQuoteNo);
 
+     this.docForm.patchValue({
+       'customer': res.assetlocation.customer,
+     })
+
+
+  },
+    (err: HttpErrorResponse) => {
+      // error code here
+    }
+  );
+  /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
+    console.log(id);
+    },
+    (err: HttpErrorResponse) => {
+       // error code here
+    }
+  );*/
+}
   update(){
 
   }
@@ -74,15 +136,9 @@ export class AddItSupportComponent implements OnInit {
 
   getDateString(event,inputFlag,index){
     let cdate = this.cmnService.getDate(event.target.value);
-    if(inputFlag=='startdate'){
-      this.docForm.patchValue({startdate:cdate});
+    if(inputFlag=='reportdate'){
+      this.docForm.patchValue({reportdate:cdate});
     }
-    else if(inputFlag=='enddate'){
-      this.docForm.patchValue({enddate:cdate});
-    }
-    // else if(inputFlag=='expectedDate'){
-    //   this.docForm.patchValue({expectedDate:cdate});
-    // }
   }
 
   getCreditFile(event) {
@@ -121,8 +177,7 @@ export class AddItSupportComponent implements OnInit {
   //     });
   
   //   }
-  // showNotification(arg0: string, arg1: string, arg2: string, arg3: string) {
-  //   throw new Error('Method not implemented.');
+ 
   }
     
     }

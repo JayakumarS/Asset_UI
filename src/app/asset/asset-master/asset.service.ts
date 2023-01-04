@@ -39,7 +39,9 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   //new
   
+  public addAssetImageUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/addAssetImageUpload`;
   public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/addAssetUpload`;
+
   public multipleAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/multipleAssetuploadExefile`;
   public categoryDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getCategoryDropdown`;
   public locationDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getLocationDropdown`;

@@ -12,43 +12,41 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { Itsupportservice } from '../it-support.service';
+import { AuditableAssetService } from '../auditable-asset.service';
 import { Router } from '@angular/router';
 import { DeleteLocationComponent } from 'src/app/master/location/list-location/delete-location/delete-location.component';
-import { Itsupport } from '../it-support.model'; 
+import { AuditableAsset } from '../auditable-asset-model';
 import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component'; 
-import { DeleteitsupportComponent } from './deleteitsupport/deleteitsupport.component';
 
 
 @Component({
-  selector: 'app-list-it-support',
-  templateUrl: './list-it-support.component.html',
-  styleUrls: ['./list-it-support.component.sass']
+  selector: 'app-list-auditable-asset',
+  templateUrl: './list-auditable-asset.component.html',
+  styleUrls: ['./list-auditable-asset.component.sass']
 })
-export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-   // "select",
-    "tickettype",
-    "asset",
-    "assetlocation",
-    "priority",
-    "ticketgroup",
-    "assignee",
-    "reportedby",
-  
+    "slno",
+    "assetid",
+    "assetname",
+    "acquisitiondt",
+    "currency",
+    "acquisitionvalue",
+    "accudepreciation",
+    "bookvalue",
+    "actions"
   ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: Itsupportservice | null;
-  selection = new SelectionModel<Itsupport>(true, []);
+  exampleDatabase: AuditableAssetService | null;
+  selection = new SelectionModel<AuditableAsset>(true, []);
   index: number;
   id: number;
-  locationMaster: Itsupport | null;
-  spinner: any;
+  locationMaster: AuditableAsset | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public itsupportservice: Itsupportservice,
+    public locationMasterService: AuditableAssetService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private router: Router,
@@ -73,7 +71,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 
   public loadData() {
-    this.exampleDatabase = new Itsupportservice(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new AuditableAssetService(this.httpClient,this.serverUrl,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -90,53 +88,46 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   }
   editCall(row) {
 
-    this.router.navigate(['/helpdesk/itsupport/additsupport/'+row.support_id]);
+    this.router.navigate(['/admin/scheduler/add-schedule-activity/'+row.scheduleId]);
   
   }
 
-  deleteItem(row) {
+ deleteItem(i, row) {
+    this.index = i;
+    this.id = row.scheduleId;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteitsupportComponent, {
+    const dialogRef = this.dialog.open(DeleteScheduleActivityComponent, {
       height: "270px",
       width: "400px",
       data: row,
       direction: tempDirection,
-      disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      if (data.data == true) {
-        const obj = {
-          deletingId: row.support_id
-        }
-        this.spinner.show();
-        this.itsupportservice.deleteitsupport(obj).subscribe({
-          next: (data) => {
-            this.spinner.hide();
-            if (data.success) {
-              this.loadData();
-              this.showNotification(
-                "snackbar-success",
-                "Delete Record Successfully...!!!",
-                "bottom",
-                "center"
-              );
-            }
-          },
-          error: (error) => {
-            this.spinner.hide();
-          }
-        });
-
-      }
+      
+      this.loadData();
+      if(data==1)[
+        this.showNotification(
+          "snackbar-success",
+          " Successfully deleted",
+          "bottom",
+          "center"
+        )
+        ]
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
     });
-
   }
-
   // showNotification(arg0: string, arg1: string, arg2: string, arg3: string) {
   //   throw new Error('Method not implemented.');
   // }
@@ -154,7 +145,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 // context menu
 
-  onContextMenu(event: MouseEvent, item: Itsupport) {
+  onContextMenu(event: MouseEvent, item: AuditableAsset) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -165,7 +156,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
 }
 
 
-export class ExampleDataSource extends DataSource<Itsupport> {
+export class ExampleDataSource extends DataSource<AuditableAsset> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -173,10 +164,10 @@ export class ExampleDataSource extends DataSource<Itsupport> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: Itsupport[] = [];
-  renderedData: Itsupport[] = [];
+  filteredData: AuditableAsset[] = [];
+  renderedData: AuditableAsset[] = [];
   constructor(
-    public exampleDatabase: Itsupportservice,
+    public exampleDatabase: AuditableAssetService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -185,7 +176,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Itsupport[]> {
+  connect(): Observable<AuditableAsset[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -193,17 +184,22 @@ export class ExampleDataSource extends DataSource<Itsupport> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getItList();
+    this.exampleDatabase.getAllList();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((locationMaster: Itsupport) => {
+          .filter((locationMaster: AuditableAsset) => {
             const searchStr = (
-              locationMaster.tickettype +
-              locationMaster.asset +
-              locationMaster.assetlocation
+              locationMaster.slno +
+              locationMaster.assetid +
+              locationMaster.assetname +
+              locationMaster.acquisitiondt +
+              locationMaster.currency +
+              locationMaster.acquisitionvalue +
+              locationMaster.accudepreciation +
+              locationMaster.bookvalue
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -222,7 +218,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: Itsupport[]): Itsupport[] {
+  sortData(data: AuditableAsset[]): AuditableAsset[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -233,14 +229,29 @@ export class ExampleDataSource extends DataSource<Itsupport> {
         case "id":
           [propertyA, propertyB] = [a.id, b.id];
           break;
-        case "tickettype":
-          [propertyA, propertyB] = [a.tickettype, b.tickettype];
+        case "slno":
+          [propertyA, propertyB] = [a.slno, b.slno];
           break;
-        case "asset":
-          [propertyA, propertyB] = [a.asset, b.asset];
+        case "assetid":
+          [propertyA, propertyB] = [a.assetid, b.assetid];
           break;
-        case "assetlocation":
-          [propertyA, propertyB] = [a.assetlocation, b.assetlocation];
+        case "assetname":
+          [propertyA, propertyB] = [a.assetname, b.assetname];
+          break;
+          case "acquisitiondt":
+          [propertyA, propertyB] = [a.acquisitiondt, b.acquisitiondt];
+          break;
+        case "currency":
+          [propertyA, propertyB] = [a.currency, b.currency];
+          break;
+        case "acquisitionvalue":
+          [propertyA, propertyB] = [a.acquisitionvalue, b.acquisitionvalue];
+          break;
+          case "accudepreciation":
+          [propertyA, propertyB] = [a.accudepreciation, b.accudepreciation];
+          break;
+        case "bookvalue":
+          [propertyA, propertyB] = [a.bookvalue, b.bookvalue];
           break;
         
       }

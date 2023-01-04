@@ -6,7 +6,12 @@ const routes: Routes = [
     path: "manageaudit",
     loadChildren: () =>
     import("./manage-audit/manage-audit.module").then((m) => m.ManageAuditModule),
-  }  
+  },
+  {
+    path: "auditableAsset",
+    loadChildren: () =>
+    import("./auditable-asset/auditable-asset.module").then((m) => m.AuditableAssetModule),
+  }   
 ];
 
 @NgModule({

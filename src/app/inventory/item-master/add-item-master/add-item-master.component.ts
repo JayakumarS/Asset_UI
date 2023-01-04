@@ -184,14 +184,7 @@ export class AddItemMasterComponent implements OnInit {
       this.itemMaster = this.docForm.value;
       console.log(this.itemMaster);
       this.itemMasterService.addItem(this.itemMaster,this.router,this.notificationService);
-  //  }
-    // else {
-    //   this.showNotification(
-    //     "snackbar-danger",
-    //     "Please fill all the required details!",
-    //     "top",
-    //     "right");
-    // }  
+      this.router.navigate(['/inventory/item-master/list-item-master']);
   }
   fetchDetails(itemId: any): void {
     this.httpService.get(this.itemMasterService.editItem +"?itemMaster="+encodeURIComponent(itemId)).subscribe((res: any) => {
@@ -223,6 +216,9 @@ export class AddItemMasterComponent implements OnInit {
         'mrp':res.itemMasterBean.mrp,
         'expiryDate':res.itemMasterBean.expiryDate,
         'manufactureDetails':res.itemMasterBean.manufactureDetails,
+        'vendorName':res.itemMasterBean.vendorName,
+        'deliveryLeadTime':res.itemMasterBean.deliveryLeadTime,
+        'paymentMethod':res.itemMasterBean.paymentMethod,
         //INVENTORY
          'inventoryValuation':res.itemMasterBean.inventoryValuation+"",
          'issueMethod':res.itemMasterBean.issueMethod+"",
@@ -242,7 +238,7 @@ export class AddItemMasterComponent implements OnInit {
         let newUsergroup: FormGroup = this.fb.group({
         
          itemId:[element.itemId],
-         vendorName:[element.vendorName+""],
+         vendorName:[parseInt(element.vendorName)],
          vendorItemName:[element.vendorItemName],
          vendorItemCode:[element.vendorItemCode],
          itemCode:[element.itemCode],
@@ -262,7 +258,7 @@ export class AddItemMasterComponent implements OnInit {
         let arraylen = productDetailBeanArray.length;
         let newUsergroup: FormGroup = this.fb.group({
             itemId: [""],
-            itemName: [element.itemName+""],              
+            itemName: [element.itemName],              
             itemDescription: [element.itemDescription],                 
         })
         productDetailBeanArray.insert(arraylen, newUsergroup);
@@ -286,6 +282,7 @@ export class AddItemMasterComponent implements OnInit {
       "bottom",
       "center"
     );
+    this.router.navigate(['/inventory/item-master/list-item-master']);
     }
 
 
@@ -358,7 +355,7 @@ export class AddItemMasterComponent implements OnInit {
     this.dataarray.push(this.itemMasterDetailBean)
 
   }
-  removeRow1(index){
+  removeRow5(index){
     this.dataarray.splice(index, 1);
   }
 
@@ -381,12 +378,12 @@ export class AddItemMasterComponent implements OnInit {
     itemMasteDtlArray.insert(arraylen,newUsergroup);
   }
  
-  removeRow(index){
+  removeRow1(index){
 
     let itemMasteDtlArray = this.docForm.controls.itemMasterDetailBean as FormArray;
     itemMasteDtlArray.removeAt(index);
   }
-  addRow2(){
+  addRow3(){
 
     let productDetailBeanArray = this.docForm.controls.productDetailBean as FormArray;
     let arraylen = productDetailBeanArray.length;
