@@ -25,7 +25,7 @@ export class ListManageAuditComponent implements OnInit {
   [x: string]: any;
 
   displayedColumns = [
-    "auditName","auditCode", "startDate", "endDate", "extDate",
+    "auditCode", "auditName","startDate", "endDate", "extDate",
     "status", "auditType","actions"
   ];
 
