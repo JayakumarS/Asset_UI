@@ -67,4 +67,6 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getuserlocation = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAdminDropdown`;
 
+  public commonUploadFile = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/commonUploadFile`;
+
 }
