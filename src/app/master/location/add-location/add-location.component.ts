@@ -165,7 +165,7 @@ fetchDetails(locationId: any): void {
         'locationCode': res.locationMasterBean.locationCode,
         'locationName': res.locationMasterBean.locationName,
         'parentLocation' : res.locationMasterBean.parentLocation,
-        'description' : res.locationMasterBean.active,
+        'description' : res.locationMasterBean.description,
         'active': res.locationMasterBean.active,
         'cascade':  res.locationMasterBean.cascade,
         'primaryLocation': res.locationMasterBean.primaryLocation,

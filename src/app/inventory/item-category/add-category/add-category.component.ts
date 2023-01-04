@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { ItemCategoryResultBean } from '../item-category-result-bean';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -46,11 +47,14 @@ displayedColumns = [
   "degree",
 
 ];
+
+  submitted: boolean;
   constructor( private fb: FormBuilder,
-    private snackBar: MatSnackBar,private httpService: HttpServiceService,
-    public router: Router,public dialog: MatDialog,
-     public itemCategoryService: ItemCategoryService,
-     public route: ActivatedRoute) {
+               private snackBar: MatSnackBar, private httpService: HttpServiceService,
+               public router: Router, public dialog: MatDialog,
+               public itemCategoryService: ItemCategoryService,
+               public route: ActivatedRoute,
+               private spinner: NgxSpinnerService ) {
     this.docForm = this.fb.group({
     categoryName: ["",[Validators.required]],
     parentCategory: [""],
@@ -76,17 +80,61 @@ displayedColumns = [
 
   }
 
-  onSubmit(){
-    this.itemCategory = this.docForm.value;
-    this.itemCategoryService.addItemCatagory(this.itemCategory);
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center");
-      this.router.navigate(['/inventory/item-category/list-category']);
+  // onSubmit(){
+  //   this.itemCategory = this.docForm.value;
+  //   this.itemCategoryService.addItemCatagory(this.itemCategory);
+  //   this.showNotification(
+  //     "snackbar-success",
+  //     "Add Record Successfully...!!!",
+  //     "bottom",
+  //     "center");
+  //     this.router.navigate(['/inventory/item-category/list-category']);
+  // }
+  onSubmit() {
+    this. submitted = true;
+    if (this.docForm.valid){
+      this.itemCategory = this.docForm.value;
+      this.spinner.show();
+      this.itemCategoryService.addItemCatagory(this.itemCategory).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill The All Required fields",
+        "bottom",
+        "center"
+      );
+    }
   }
-
   fetchDetails(itemCategoryId: any): void {
     this.httpService.get(this.itemCategoryService.editItemCategory+"?itemCategory="+itemCategoryId).subscribe((res: any)=> {
       console.log(itemCategoryId);

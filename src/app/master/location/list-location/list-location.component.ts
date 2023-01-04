@@ -104,7 +104,7 @@ deleteItem(row) {
   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
     if (data.data == true) {
       const obj = {
-        deletingId: row
+        deletingId:row.locationId
       }
       this.locationMasterService.delete(obj).subscribe({
         next: (data) => {
