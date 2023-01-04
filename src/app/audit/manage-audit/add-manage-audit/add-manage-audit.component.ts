@@ -526,4 +526,13 @@ getDateString(event,inputFlag,index){
  
 }
 
+getDateStrAided(event,inputFlag,index){
+  let cdate = this.commonService.getDate(event.target.value);
+  if(inputFlag=='startDate'){
+    this.Formdoc.patchValue({startDate:cdate});
+  }else if(inputFlag=='endDate'){
+    this.Formdoc.patchValue({endDate:cdate});
+  }
+}
+
 }
