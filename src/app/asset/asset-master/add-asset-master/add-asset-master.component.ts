@@ -171,10 +171,8 @@ export class AddAssetMasterComponent
             }
           }
           );
- 
- 
- 
    }
+   
    onSubmit() {
   if (this.docForm.valid) {
      this.assetMaster = this.docForm.value;
@@ -264,13 +262,15 @@ onCancel() {
          
          'assetName': res.addAssetBean.assetName,
          'assetCode': res.addAssetBean.assetCode,
-         'location': res.addAssetBean.assetLocation,
-         'category': res.addAssetBean.assetCategory,
+         'location': res.addAssetBean.location,
+         'category': res.addAssetBean.category,
          'status' : res.addAssetBean.status,
          'id': res.addAssetBean.id,
          'brand': res.addAssetBean.brand,
          'model': res.addAssetBean.model,
+         'allottedUptoobj': this.commonService.getDateObj(res.addAssetBean.allottedUpto),
          'allottedUpto': res.addAssetBean.allottedUpto,
+         'captitalizationDateobj': this.commonService.getDateObj(res.addAssetBean.captitalizationDate),
          'captitalizationDate': res.addAssetBean.captitalizationDate,
          'captitalizationPrice': res.addAssetBean.captitalizationPrice,
          'condition': res.addAssetBean.condition,
@@ -280,6 +280,7 @@ onCancel() {
          'endLife': res.addAssetBean.endLife,
          'invoiceNo': res.addAssetBean.invoiceNo,
          'imgUploadUrl': res.addAssetBean.imgUploadUrl,
+         'invoiceDateobj': this.commonService.getDateObj(res.addAssetBean.invoiceDate),
          'invoiceDate': res.addAssetBean.invoiceDate,
          'linkedAsset': res.addAssetBean.linkedAsset,
          'poNumber': res.addAssetBean.poNumber,
