@@ -58,20 +58,17 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Purchase Order Date </mat-header-cell>
                   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.poDate}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="requestType">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Request Type </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.requestType}}</mat-cell>
-                </ng-container>
+               
                 <ng-container matColumnDef="vendor">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Vendor </mat-header-cell>
                   <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="purchaseType">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Type </mat-header-cell>
-                    <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.purchaseType}}</mat-cell>
+                <ng-container matColumnDef="purchaseTypeName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Purchase Type </mat-header-cell>
+                    <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.purchaseTypeName}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="remarks">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Status </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Remarks </mat-header-cell>
                     <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.remarks}}</mat-cell>
                   </ng-container>
                 <!-- actions -->

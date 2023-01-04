@@ -27,7 +27,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 })
 export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
  
-  displayedColumns = ['poNo', 'poDate','requestType','vendor','purchaseType','remarks','actions'];
+  displayedColumns = ['poNo', 'poDate','vendor','purchaseTypeName','remarks','actions'];
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: PurchaseOrderService | null;
@@ -194,7 +194,7 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
               purchaseOrder.poNo +
               purchaseOrder.poDate +
               purchaseOrder.vendorName +
-              purchaseOrder.purchaseType +
+              purchaseOrder.purchaseTypeName +
               purchaseOrder.remarks
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -230,8 +230,8 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
         case "vendorName":
           [propertyA, propertyB] = [a.vendorName, b.vendorName];
           break;
-        case "purchaseType":
-          [propertyA, propertyB] = [a.purchaseType, b.purchaseType];
+        case "purchaseTypeName":
+          [propertyA, propertyB] = [a.purchaseTypeName, b.purchaseTypeName];
           break;
         case "remarks":
           [propertyA, propertyB] = [a.remarks, b.remarks];

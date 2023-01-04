@@ -92,10 +92,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       amount: [""],
       currency: [""],
       exchangerate: [""],
-      exchangeRateksh: [""],
       lpoNo: [""],
-      bcAmount: [""],
-      tcAmount: [""],
+      loginedUser: this.tokenStorage.getUserId(),
 
 
       purchaseInvoiceDetailList: this.fb.array([
@@ -219,7 +217,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         let hdueDate = this.commonService.getDateObj(res.purchaseInvoice.dueDate);
 
         this.docForm.patchValue({
-          'purchaseInvoiceNo': res.purchaseInvoice.purchaseInvoiceNo,
           'purchaseInvoiceId': res.purchaseInvoice.purchaseInvoiceId,
           'purchaseOrderNo': res.purchaseInvoice.purchaseOrderNo,
           'partyInvoiceNo': res.purchaseInvoice.partyInvoiceNo,
@@ -237,9 +234,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           'narration': res.purchaseInvoice.narration,
           'deliveryNo': res.purchaseInvoice.deliveryNo,
           'exchangerate': res.purchaseInvoice.exchangerate,
-          'exchangeRateksh': res.purchaseInvoice.exchangeRateksh,
-          'tcAmount': res.purchaseInvoice.tcAmount,
-          'bcAmount': res.purchaseInvoice.bcAmount,
         });
       if(res.purchaseInvoiceDetailList!=null && res.purchaseInvoiceDetailList.length>=1){
         let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;

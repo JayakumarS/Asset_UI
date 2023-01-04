@@ -5,6 +5,7 @@ export class PurchaseOrder {
     poNo: string;
     poDate: string;
     purchaseType: string;
+    purchaseTypeName: string;
     purchaseFor: string;
     vendorId: number;
     vendorName: string;
@@ -41,6 +42,5 @@ export class PurchaseOrder {
     success: boolean;
     lopFile: string;
     lopUpload: string;
-    purchaseTypeName: String;
     purchaseForName: String;
 }

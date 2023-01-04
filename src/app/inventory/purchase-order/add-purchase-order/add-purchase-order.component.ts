@@ -340,7 +340,7 @@ export class AddPurchaseOrderComponent implements OnInit {
               vendorUOM: [element.vendorUOM],
               vendorQty: [element.vendorQty],
               availableQty: [element.availableQty],
-              //location: [element.],
+              location: [element.location],
               unitPrice: [element.unitPrice],
               oldUnitPrice: [element.oldUnitPrice],
               price: [element.price],
