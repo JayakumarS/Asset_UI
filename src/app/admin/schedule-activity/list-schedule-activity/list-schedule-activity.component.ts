@@ -188,8 +188,8 @@ export class ExampleDataSource extends DataSource<ScheduleActivityMaster> {
           .slice()
           .filter((locationMaster: ScheduleActivityMaster) => {
             const searchStr = (
-              locationMaster.activityType +
-              locationMaster.location +
+              locationMaster.activityTypename +
+              locationMaster.locationname +
               locationMaster.userGroup
              
             ).toLowerCase();

@@ -44,15 +44,15 @@
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
-                
-                <ng-container matColumnDef="auditName">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Audit Name</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditName}}</mat-cell>
-                </ng-container>
                 <ng-container matColumnDef="auditCode">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Audit Code</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditCode}}</mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="auditName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Audit Name</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditName}}</mat-cell>
+                </ng-container>
+                
                 <ng-container matColumnDef="startDate">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startDate}}</mat-cell>

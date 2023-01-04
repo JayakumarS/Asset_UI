@@ -51,11 +51,11 @@
                 
                 <ng-container matColumnDef="activityType">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>ActivityType</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.activityType}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.activityTypename}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="location">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.location}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.locationname}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="userGroup">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>UserGroup</mat-header-cell>
