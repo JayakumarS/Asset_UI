@@ -26,7 +26,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   agree3 = false;
   dataarray = [];
   custList = [];
-  currList = [];
   DeliveryNoList = [];
   itemList = [];
   uomList = [];
@@ -87,6 +86,15 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   ngOnInit() {
+    //Vendor  Dropdown List
+    this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+      next: (data) => {
+        this.vendorList = data;
+      },
+      error: (error) => {
+      }
+    });
+
     //Currency  Dropdown List
     this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe({
       next: (data) => {
@@ -95,6 +103,25 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       error: (error) => {
       }
     });
+    //Item Master Dropdown List
+    this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
+      next: (data) => {
+        this.itemList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    //UOM Dropdown List
+    this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
+      next: (data) => {
+        this.uomList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+
 
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
@@ -253,7 +280,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     if (!this.edit) {
       this.docForm.reset();
       this.docForm.patchValue({
-        'companyName':'ASSETCHEK',
+        'companyName': 'ASSETCHEK',
         'loginedUser': this.tokenStorage.getUserId()
       })
     } else {
@@ -262,16 +289,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   // For Date related code
-getDateString(event,inputFlag,index){
-  let cdate = this.commonService.getDate(event.target.value);
-  if(inputFlag=='purchaseInvoiceDate'){
-    this.docForm.patchValue({purchaseInvoiceDate:cdate});
-  }else if(inputFlag=='partyInvoiceDate'){
-    this.docForm.patchValue({partyInvoiceDate:cdate});
-  }else if(inputFlag=='dueDate'){
-    this.docForm.patchValue({dueDate:cdate});
+  getDateString(event, inputFlag, index) {
+    let cdate = this.commonService.getDate(event.target.value);
+    if (inputFlag == 'purchaseInvoiceDate') {
+      this.docForm.patchValue({ purchaseInvoiceDate: cdate });
+    } else if (inputFlag == 'partyInvoiceDate') {
+      this.docForm.patchValue({ partyInvoiceDate: cdate });
+    } else if (inputFlag == 'dueDate') {
+      this.docForm.patchValue({ dueDate: cdate });
+    }
   }
-}
   getBoolean(value) {
     switch (value) {
       case true:
@@ -324,19 +351,19 @@ getDateString(event,inputFlag,index){
     });
   }
 
-  addRow(){
+  addRow() {
     let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailBean as FormArray;
     let arraylen = purchaseInvoiceDtlArray.length;
     let newUsergroup: FormGroup = this.fb.group({
-      itemId:[""],
-      qty:[""],
-      uomid:[""],
-      quotePrice:[""],
+      itemId: [""],
+      qty: [""],
+      uomid: [""],
+      quotePrice: [""],
     })
     purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
   }
-  
-  removeRow(index){
+
+  removeRow(index) {
     let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailBean as FormArray;
     purchaseInvoiceDtlArray.removeAt(index);
   }
