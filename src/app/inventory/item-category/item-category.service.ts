@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
@@ -22,13 +22,13 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
   // Temporarily stores data from dialogs
   dialogData: any;
   constructor(
-    private httpClient: HttpClient, 
-    private serverUrl: serverLocations, 
+    private httpClient: HttpClient,
+    private serverUrl: serverLocations,
     private httpService: HttpServiceService
-  ) 
-  { 
+  )
+  {
     super();
-  } 
+  }
 
   private getAllCategory = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/getList`;
   private saveItemCategory = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/save`;
@@ -60,18 +60,21 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
     );
 }
 
-// This is for save
-addItemCatagory(itemCategory: ItemCategory): void {
-  this.dialogData = itemCategory;
-  this.httpService.post<ItemCategory>(this.saveItemCategory, itemCategory).subscribe(data => {
-    console.log(data);
-    //this.dialogData = employees;
-    },
-    (err: HttpErrorResponse) => {
-      
-  });
-}
+// // This is for save
+// addItemCatagory(itemCategory: ItemCategory): void {
+//   this.dialogData = itemCategory;
+//   this.httpService.post<ItemCategory>(this.saveItemCategory, itemCategory).subscribe(data => {
+//     console.log(data);
+//     //this.dialogData = employees;
+//     },
+//     (err: HttpErrorResponse) => {
 
+//   });
+// }
+// tslint:disable-next-line:no-shadowed-variable
+addItemCatagory(itemCategory: ItemCategory): Observable<any> {
+  return this.httpClient.post<ItemCategory>(this.saveItemCategory, itemCategory);
+}
 itemCategoryUpdate(itemCategory: ItemCategory): void {
   this.dialogData = itemCategory;
   this.httpService.post<ItemCategory>(this.updateItemCategory, itemCategory).subscribe(data => {
@@ -79,7 +82,7 @@ itemCategoryUpdate(itemCategory: ItemCategory): void {
     //this.dialogData = employees;
     },
     (err: HttpErrorResponse) => {
-      
+
   });
 }
 
@@ -91,7 +94,7 @@ itemCategorydelete(itemCategoryId: any): void {
        // error code here
     }
   );
-  
+
 }
 
 }
