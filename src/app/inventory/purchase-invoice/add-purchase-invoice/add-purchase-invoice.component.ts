@@ -21,7 +21,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   currencyList: [];
   edit: boolean = false;
   requestId: any;
-  purchaseInvoiceDetailBean = [];
+  purchaseInvoiceDetailList = [];
   hide3 = true;
   agree3 = false;
   dataarray = [];
@@ -49,6 +49,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
     this.docForm = this.fb.group({
       purchaseInvoiceNo: [""],
+      purchaseInvoiceId: [""],
       purchaseInvoiceDate: [""],
       purchaseInvoiceDateObj: [""],
       partyInvoiceNo: [""],
@@ -60,7 +61,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       companyName: ["ASSETCHEK"],
       deliveryNo: [""],
       narration: [""],
-      customer: [""],
+      vendor: [""],
       amount: [""],
       currency: [""],
       exchangerate: [""],
@@ -70,7 +71,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       tcAmount: [""],
 
 
-      purchaseInvoiceDetailBean: this.fb.array([
+      purchaseInvoiceDetailList: this.fb.array([
         this.fb.group({
           itemId: [""],
           qty: [""],
@@ -186,43 +187,46 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.purchaseInvoiceService.editPurchaseInvoice(obj).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        let hdate = this.commonService.getDateObj(res.financePurchaseInvoiceBean.purchaseInvoiceDate);
+        let hdate = this.commonService.getDateObj(res.purchaseInvoice.purchaseInvoiceDate);
         this.docForm.patchValue({
-          'purchaseInvoiceNo': res.financePurchaseInvoiceBean.purchaseInvoiceNo,
-          'purchaseOrderNo': res.financePurchaseInvoiceBean.purchaseOrderNo,
-          'partyInvoiceNo': res.financePurchaseInvoiceBean.partyInvoiceNo,
-          'companyName': res.financePurchaseInvoiceBean.companyName,
+          'purchaseInvoiceNo': res.purchaseInvoice.purchaseInvoiceNo,
+          'purchaseInvoiceId': res.purchaseInvoice.purchaseInvoiceId,
+          'purchaseOrderNo': res.purchaseInvoice.purchaseOrderNo,
+          'partyInvoiceNo': res.purchaseInvoice.partyInvoiceNo,
+          'companyName': res.purchaseInvoice.companyName,
           'purchaseInvoiceDateObj': hdate,
-          'purchaseInvoiceDate': res.financePurchaseInvoiceBean.purchaseInvoiceDate,
+          'purchaseInvoiceDate': res.purchaseInvoice.purchaseInvoiceDate,
           'partyInvoiceDateObj': hdate,
-          'partyInvoiceDate': res.financePurchaseInvoiceBean.partyInvoiceDate,
+          'partyInvoiceDate': res.purchaseInvoice.partyInvoiceDate,
           'dueDateObj': hdate,
-          'dueDate': res.financePurchaseInvoiceBean.dueDate,
-          'customer': res.financePurchaseInvoiceBean.customer,
-          'lpoNo': res.financePurchaseInvoiceBean.lpoNo,
-          'currency': res.financePurchaseInvoiceBean.currency,
-          'amount': res.financePurchaseInvoiceBean.amount,
-          'narration': res.financePurchaseInvoiceBean.narration,
-          'deliveryNo': res.financePurchaseInvoiceBean.deliveryNo,
-          'exchangerate': res.financePurchaseInvoiceBean.exchangerate,
-          'exchangeRateksh': res.financePurchaseInvoiceBean.exchangeRateksh,
-          'tcAmount': res.financePurchaseInvoiceBean.tcAmount,
-          'bcAmount': res.financePurchaseInvoiceBean.bcAmount,
+          'dueDate': res.purchaseInvoice.dueDate,
+          'vendor': res.purchaseInvoice.vendor,
+          'lpoNo': res.purchaseInvoice.lpoNo,
+          'currency': res.purchaseInvoice.currency,
+          'amount': res.purchaseInvoice.amount,
+          'narration': res.purchaseInvoice.narration,
+          'deliveryNo': res.purchaseInvoice.deliveryNo,
+          'exchangerate': res.purchaseInvoice.exchangerate,
+          'exchangeRateksh': res.purchaseInvoice.exchangeRateksh,
+          'tcAmount': res.purchaseInvoice.tcAmount,
+          'bcAmount': res.purchaseInvoice.bcAmount,
         });
-        let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailBean as FormArray;
+      if(res.purchaseInvoiceDetailList!=null && res.purchaseInvoiceDetailList.length>=1){
+        let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
         purchaseInvoiceDtlArray.removeAt(0);
-        res.purchaseInvoiceDetailBean.forEach(element => {
-          let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailBean as FormArray;
+        res.purchaseInvoiceDetailList.forEach(element => {
+          let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
           let arraylen = purchaseInvoiceDtlArray.length;
           let newUsergroup: FormGroup = this.fb.group({
-            itemId: [element.itemId + ""],
+            itemId: [element.itemId],
             qty: [element.qty],
-            uomid: [element.uomid + ""],
+            uomid: [element.uomid],
             quotePrice: [element.quotePrice],
             userId: [element.userId]
           })
           purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
         });
+      }
       },
       error: (error) => {
         this.spinner.hide();
@@ -352,7 +356,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   addRow() {
-    let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailBean as FormArray;
+    let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
     let arraylen = purchaseInvoiceDtlArray.length;
     let newUsergroup: FormGroup = this.fb.group({
       itemId: [""],
@@ -364,7 +368,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   removeRow(index) {
-    let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailBean as FormArray;
+    let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
     purchaseInvoiceDtlArray.removeAt(index);
   }
 

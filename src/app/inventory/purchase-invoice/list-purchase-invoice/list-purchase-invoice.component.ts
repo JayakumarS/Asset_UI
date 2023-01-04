@@ -29,7 +29,7 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
   displayedColumns = [
     "purchaseInvoiceNo",
     "purchaseInvoiceDate",
-    "customer",
+    "vendorName",
     "actions"
   ];
 
@@ -92,7 +92,7 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/purchaseInvoice/addPurchaseInvoice/'+row.purchaseInvoiceNo]);
+    this.router.navigate(['/inventory/purchaseInvoice/addPurchaseInvoice/'+row.purchaseInvoiceId]);
   }
 
   deleteItem(row) {
@@ -113,7 +113,7 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
       
       if (data.data == true) {
         const obj = {
-          deletingId: row.purchaseInvoiceNo
+          deletingId: row.purchaseInvoiceId
         }
         this.spinner.show();
         this.purchaseInvoiceService.deletePurchaseInvoice(obj).subscribe({
@@ -199,7 +199,7 @@ export class ExampleDataSource extends DataSource<PurchaseInvoice> {
             const searchStr = (
               purchaseInvoice.purchaseInvoiceDate +
               purchaseInvoice.purchaseInvoiceNo +
-              purchaseInvoice.customer +
+              purchaseInvoice.vendorName +
               purchaseInvoice.amount 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -232,8 +232,8 @@ export class ExampleDataSource extends DataSource<PurchaseInvoice> {
         case "purchaseInvoiceNo":
           [propertyA, propertyB] = [a.purchaseInvoiceNo, b.purchaseInvoiceNo];
           break;
-        case "customer":
-          [propertyA, propertyB] = [a.customer, b.customer];
+        case "vendorName":
+          [propertyA, propertyB] = [a.vendorName, b.vendorName];
           break;
         case "amount":
           [propertyA, propertyB] = [a.amount, b.amount];

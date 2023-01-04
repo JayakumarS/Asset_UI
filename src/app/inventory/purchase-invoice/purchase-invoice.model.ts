@@ -2,7 +2,9 @@
 export class PurchaseInvoice{
     purchaseInvoiceDate: string;
     purchaseInvoiceNo: string;
-    customer: string;
+    purchaseInvoiceId: number;
+    vendorName: string;
+    vendor: number;
     currency: number;
     exchangeRate:String;
     amount: number;
@@ -11,7 +13,7 @@ export class PurchaseInvoice{
     lpoNo: string;
     companyName:string;
     itemIdName:string;
-    purchaseInvoiceDetailBean:any;
+    purchaseInvoiceDetailList:any;
     deliveryOrderDtlList:any;
     Success:boolean;
 }

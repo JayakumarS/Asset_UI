@@ -57,9 +57,9 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Invoice Date </mat-header-cell>
                   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.purchaseInvoiceDate}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="customer">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Customer </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.customer}}</mat-cell>
+                <ng-container matColumnDef="vendorName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> vendor  </mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
                 </ng-container> 
                 <ng-container matColumnDef="currency">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Currency </mat-header-cell>
