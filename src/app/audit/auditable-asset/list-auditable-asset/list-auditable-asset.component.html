@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Auditor'" [items]="['Master']" [active_item]="'Auditor List'">
+        <app-breadcrumb [title]="'Auditable Asset'" [items]="['Audit']" [active_item]="'Auditable Asset List'">
         </app-breadcrumb>
       </div>
       <div class="row">
@@ -10,12 +10,12 @@
           <div class="card">
             <div class="body">
               <div class="table-responsive">
-                <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                <div class="materialTableHeader">
                   <div class="row">
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
                         <li class="dropdown">
-                          <h2>Auditor</h2>
+                          <h2>Auditable Asset</h2>
                         </li>
                         <li class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
@@ -24,15 +24,10 @@
                         </li>
                         <li>
                           <div class="m-l-10" matTooltip="ADD">
-                            <button color="primary" type="button" class="btn-space"
-                              [routerLink]="'/master/vendor/addVendor/0'" mat-raised-button><i
-                                class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="m-l-10" matTooltip="Reset">
-                            <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
-                              <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
+                            <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
+                            <button mat-mini-fab color="primary"  [routerLink]="'/audit/auditableAsset/addAuditableAsset/0'">
+                              <mat-icon class="col-white">add</mat-icon>
+                            </button>
                           </div>
                         </li>
                       </ul>
@@ -54,23 +49,39 @@
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
                   
-                  <ng-container matColumnDef="vendorName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Auditor Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
+                  <ng-container matColumnDef="slno">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sl No</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.slno}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="vendorCountryName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Auditor Country</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.vendorCountryName}}</mat-cell>
+                  <ng-container matColumnDef="assetid">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Id</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetid}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="assetname">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetname}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="acquisitiondt">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Acquisition Date</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitiondt}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="currency">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Currency</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currency}}
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currency}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="acquisitionvalue">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Acquisition Value</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitionvalue}}
                     </mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="vendorPhoneNumber">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.vendorPhoneNumber}}
-                    </mat-cell>
+                  <ng-container matColumnDef="accudepreciation">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Accured Depreciation</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.accudepreciation}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="bookvalue">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Book Value</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.bookvalue}}</mat-cell>
                   </ng-container>
                   
                  
@@ -94,7 +105,7 @@
   
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                  <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
                     [style.cursor]="'pointer'" matRipple>
                   </mat-row>
                 </mat-table>
@@ -117,10 +128,10 @@
                       <mat-icon>create</mat-icon>
                       <span>Edit Record</span>
                     </button>
-                    <!-- <button mat-menu-item (click)="deleteItem(item.id,item)">
+                    <button mat-menu-item (click)="deleteItem(item.id,item)">
                       <mat-icon>delete</mat-icon>
                       <span>Delete Record</span>
-                    </button> -->
+                    </button>
                     <button mat-menu-item (click)="refresh()">
                       <mat-icon>refresh</mat-icon>
                       <span>Refresh Record</span>
@@ -152,7 +163,7 @@
                 <!-- context menu end -->
                 <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
                   [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-                  No results
+                  
                 </div>
                 <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
                   [pageSizeOptions]="[5, 10, 25, 100]">

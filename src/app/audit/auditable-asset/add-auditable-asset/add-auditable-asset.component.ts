@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
-import { ScheduleResultBean } from '../schedule-activity-resultbean';
-import { ScheduleActivityService } from '../schedule-activity.service';
-import { ScheduleActivityMaster } from '../schedule-acvtivity.model';
+import { ScheduleResultBean } from 'src/app/admin/schedule-activity/schedule-activity-resultbean'; 
+import { ScheduleActivityService } from 'src/app/admin/schedule-activity/schedule-activity.service';
+import { ScheduleActivityMaster } from 'src/app/admin/schedule-activity/schedule-acvtivity.model';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
@@ -24,9 +24,9 @@ export const MY_DATE_FORMATS = {
 };
 
 @Component({
-  selector: 'app-add-schedule-activity',
-  templateUrl: './add-schedule-activity.component.html',
-  styleUrls: ['./add-schedule-activity.component.sass'],
+  selector: 'app-add-auditable-asset',
+  templateUrl: './add-auditable-asset.component.html',
+  styleUrls: ['./add-auditable-asset.component.sass'],
   // Date Related code
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
@@ -38,7 +38,7 @@ export const MY_DATE_FORMATS = {
   } },CommonService
   ]
 })
-export class AddScheduleActivityComponent implements OnInit {
+export class AddAuditableAssetComponent implements OnInit {
   [x: string]: any;
   docForm: FormGroup;
   scheduleActivityMaster:ScheduleActivityMaster;
@@ -185,13 +185,10 @@ export class AddScheduleActivityComponent implements OnInit {
       let hdate = this.cmnService.getDateObj(res.scheduleMasterBean.startdate);
       this.activityList;
       let edate = this.cmnService.getDateObj(res.scheduleMasterBean.enddate);
-
-     // let loacationtext = this.locationList.some(({locationList:id }) => id === res.scheduleMasterBean.location);
-      
       this.docForm.patchValue({
         
-        'activityType': res.scheduleMasterBean.activityType,
-        'location': parseInt(res.scheduleMasterBean.location),
+        'activityType': res.scheduleMasterBean.activityType.toString(),
+        'location': res.scheduleMasterBean.location.replace(/\s/g,''),
         'userGroup': res.scheduleMasterBean.userGroup,
         'description': res.scheduleMasterBean.description,
         'assignee' : res.scheduleMasterBean.assignee,

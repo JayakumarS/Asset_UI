@@ -9,12 +9,39 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 
 @Component({
   selector: 'app-add-purchase-invoice',
   templateUrl: './add-purchase-invoice.component.html',
-  styleUrls: ['./add-purchase-invoice.component.sass']
+  styleUrls: ['./add-purchase-invoice.component.sass'],
+   // Date Related code
+   providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: MAT_DATE_FORMATS, useValue: {
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY'
+        },
+      }
+    }, CommonService
+  ]
 })
+
 export class AddPurchaseInvoiceComponent implements OnInit {
   docForm: FormGroup;
   purchaseInvoice: PurchaseInvoice;
@@ -187,18 +214,21 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.purchaseInvoiceService.editPurchaseInvoice(obj).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        let hdate = this.commonService.getDateObj(res.purchaseInvoice.purchaseInvoiceDate);
+        let hpurchaseInvoiceDate= this.commonService.getDateObj(res.purchaseInvoice.purchaseInvoiceDate);
+        let hpartyInvoiceDate = this.commonService.getDateObj(res.purchaseInvoice.partyInvoiceDate);
+        let hdueDate = this.commonService.getDateObj(res.purchaseInvoice.dueDate);
+
         this.docForm.patchValue({
           'purchaseInvoiceNo': res.purchaseInvoice.purchaseInvoiceNo,
           'purchaseInvoiceId': res.purchaseInvoice.purchaseInvoiceId,
           'purchaseOrderNo': res.purchaseInvoice.purchaseOrderNo,
           'partyInvoiceNo': res.purchaseInvoice.partyInvoiceNo,
           'companyName': res.purchaseInvoice.companyName,
-          'purchaseInvoiceDateObj': hdate,
+          'purchaseInvoiceDateObj': hpurchaseInvoiceDate,
           'purchaseInvoiceDate': res.purchaseInvoice.purchaseInvoiceDate,
-          'partyInvoiceDateObj': hdate,
+          'partyInvoiceDateObj': hpartyInvoiceDate,
           'partyInvoiceDate': res.purchaseInvoice.partyInvoiceDate,
-          'dueDateObj': hdate,
+          'dueDateObj': hdueDate,
           'dueDate': res.purchaseInvoice.dueDate,
           'vendor': res.purchaseInvoice.vendor,
           'lpoNo': res.purchaseInvoice.lpoNo,

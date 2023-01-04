@@ -12,6 +12,8 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
+import { HttpErrorResponse } from '@angular/common/http';
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -76,6 +78,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   filePath: any;
   countryList: [];
   lop: any;
+  filePathUrl:string;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -86,7 +89,8 @@ export class AddPurchaseOrderComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private serverUrl: serverLocations) {
 
       this.docForm = this.fb.group({
         purchaseOrderId: [""],
@@ -156,6 +160,8 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.filePath = this.serverUrl.apiServerAddress;
+
     //Currency  Dropdown List
     this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe({
       next: (data) => {
@@ -308,6 +314,10 @@ export class AddPurchaseOrderComponent implements OnInit {
           'total': res.purchaseOrder.total,
           'lopUpload': res.purchaseOrder.lopUpload
         })
+
+        if (res.purchaseOrder.lopUpload != undefined && res.purchaseOrder.lopUpload != null && res.purchaseOrder.lopUpload != '') {
+          this.filePathUrl = res.purchaseOrder.lopUpload;
+        }
 
       if(res.purchaseOrderDetailList!=null && res.purchaseOrderDetailList.length>=1){
         let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
@@ -484,34 +494,38 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
 
-  getCreditFileDetails(event) {
-    // var docfile = event.target.files[0];
-    // var fileExtension = docfile.name;
-    // var frmData: FormData = new FormData();
-    // frmData.append("file", docfile);
-    // frmData.append("fileName", fileExtension);
+  onSelectFile(event) {
+    var docfile = event.target.files[0];
+    var fileExtension = docfile.name;
+    var frmData: FormData = new FormData();
+    frmData.append("file", docfile);
+    frmData.append("fileName", fileExtension);
+    frmData.append("folderName", "PurchaseOrder");
 
-    // this.httpService.post<any>(this.lopService.addCreditFiles, frmData).subscribe(data => {
-    //   console.log(data);
-    //   if (data.success) {
-    //     this.docForm.patchValue({
-    //       'lopUpload': data.filePath
-    //     })
-    //   }
-    //   else {
-    //     this.notificationService.showNotification(
-    //       "snackbar-danger",
-    //       data.message,
-    //       "bottom",
-    //       "center"
-    //     );
-    //   }
-
-    // },
-    //   (err: HttpErrorResponse) => {
-
-    //   });
-
+    this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.docForm.patchValue({
+            'lopUpload': data.filePath
+          })
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Failed to upload File",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload File",
+          "bottom",
+          "center"
+        );
+      }
+    });
   }
 
 }

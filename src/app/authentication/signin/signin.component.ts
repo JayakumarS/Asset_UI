@@ -86,8 +86,9 @@ export class SigninComponent
                 this.tokenStorage.saveUsername(data.username);
                 this.tokenStorage.saveAuthorities(data.roles);
                 this.tokenStorage.saveUserId(data.email);
-                this.loading = false;               
-                this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
+                this.loading = false;            
+                this.router.navigate(["/admin/dashboard/main"]);   
+                // this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
               }, 1000);
               }else{
                  this.submitted = false;

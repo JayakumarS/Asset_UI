@@ -12,37 +12,41 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { ScheduleActivityService } from '../schedule-activity.service';
+import { AuditableAssetService } from '../auditable-asset.service';
 import { Router } from '@angular/router';
 import { DeleteLocationComponent } from 'src/app/master/location/list-location/delete-location/delete-location.component';
-import { ScheduleActivityMaster } from '../schedule-acvtivity.model'; 
-import { DeleteScheduleActivityComponent } from './delete-schedule-activity/delete-schedule-activity.component';
+import { AuditableAsset } from '../auditable-asset-model';
+import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component'; 
 
 
 @Component({
-  selector: 'app-list-schedule-activity',
-  templateUrl: './list-schedule-activity.component.html',
-  styleUrls: ['./list-schedule-activity.component.sass']
+  selector: 'app-list-auditable-asset',
+  templateUrl: './list-auditable-asset.component.html',
+  styleUrls: ['./list-auditable-asset.component.sass']
 })
-export class ListScheduleActivityComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-   // "select",
-    "activityType",
-    "location",
-    "userGroup",
+    "slno",
+    "assetid",
+    "assetname",
+    "acquisitiondt",
+    "currency",
+    "acquisitionvalue",
+    "accudepreciation",
+    "bookvalue",
     "actions"
   ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: ScheduleActivityService | null;
-  selection = new SelectionModel<ScheduleActivityMaster>(true, []);
+  exampleDatabase: AuditableAssetService | null;
+  selection = new SelectionModel<AuditableAsset>(true, []);
   index: number;
   id: number;
-  locationMaster: ScheduleActivityMaster | null;
+  locationMaster: AuditableAsset | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public locationMasterService: ScheduleActivityService,
+    public locationMasterService: AuditableAssetService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private router: Router,
@@ -67,7 +71,7 @@ export class ListScheduleActivityComponent extends UnsubscribeOnDestroyAdapter i
   }
 
   public loadData() {
-    this.exampleDatabase = new ScheduleActivityService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new AuditableAssetService(this.httpClient,this.serverUrl,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -141,7 +145,7 @@ export class ListScheduleActivityComponent extends UnsubscribeOnDestroyAdapter i
   }
 // context menu
 
-  onContextMenu(event: MouseEvent, item: ScheduleActivityMaster) {
+  onContextMenu(event: MouseEvent, item: AuditableAsset) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -152,7 +156,7 @@ export class ListScheduleActivityComponent extends UnsubscribeOnDestroyAdapter i
 }
 
 
-export class ExampleDataSource extends DataSource<ScheduleActivityMaster> {
+export class ExampleDataSource extends DataSource<AuditableAsset> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -160,10 +164,10 @@ export class ExampleDataSource extends DataSource<ScheduleActivityMaster> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: ScheduleActivityMaster[] = [];
-  renderedData: ScheduleActivityMaster[] = [];
+  filteredData: AuditableAsset[] = [];
+  renderedData: AuditableAsset[] = [];
   constructor(
-    public exampleDatabase: ScheduleActivityService,
+    public exampleDatabase: AuditableAssetService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -172,7 +176,7 @@ export class ExampleDataSource extends DataSource<ScheduleActivityMaster> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<ScheduleActivityMaster[]> {
+  connect(): Observable<AuditableAsset[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -186,11 +190,16 @@ export class ExampleDataSource extends DataSource<ScheduleActivityMaster> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((locationMaster: ScheduleActivityMaster) => {
+          .filter((locationMaster: AuditableAsset) => {
             const searchStr = (
-              locationMaster.activityTypename +
-              locationMaster.locationname +
-              locationMaster.userGroup
+              locationMaster.slno +
+              locationMaster.assetid +
+              locationMaster.assetname +
+              locationMaster.acquisitiondt +
+              locationMaster.currency +
+              locationMaster.acquisitionvalue +
+              locationMaster.accudepreciation +
+              locationMaster.bookvalue
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -209,7 +218,7 @@ export class ExampleDataSource extends DataSource<ScheduleActivityMaster> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: ScheduleActivityMaster[]): ScheduleActivityMaster[] {
+  sortData(data: AuditableAsset[]): AuditableAsset[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -220,14 +229,29 @@ export class ExampleDataSource extends DataSource<ScheduleActivityMaster> {
         case "id":
           [propertyA, propertyB] = [a.id, b.id];
           break;
-        case "activityType":
-          [propertyA, propertyB] = [a.activityType, b.activityType];
+        case "slno":
+          [propertyA, propertyB] = [a.slno, b.slno];
           break;
-        case "location":
-          [propertyA, propertyB] = [a.location, b.location];
+        case "assetid":
+          [propertyA, propertyB] = [a.assetid, b.assetid];
           break;
-        case "userGroup":
-          [propertyA, propertyB] = [a.userGroup, b.userGroup];
+        case "assetname":
+          [propertyA, propertyB] = [a.assetname, b.assetname];
+          break;
+          case "acquisitiondt":
+          [propertyA, propertyB] = [a.acquisitiondt, b.acquisitiondt];
+          break;
+        case "currency":
+          [propertyA, propertyB] = [a.currency, b.currency];
+          break;
+        case "acquisitionvalue":
+          [propertyA, propertyB] = [a.acquisitionvalue, b.acquisitionvalue];
+          break;
+          case "accudepreciation":
+          [propertyA, propertyB] = [a.accudepreciation, b.accudepreciation];
+          break;
+        case "bookvalue":
+          [propertyA, propertyB] = [a.bookvalue, b.bookvalue];
           break;
         
       }
