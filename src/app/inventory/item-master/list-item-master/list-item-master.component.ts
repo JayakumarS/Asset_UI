@@ -23,7 +23,7 @@ import { DeleteItemComponent } from './delete-item/delete-item.component';
   styleUrls: ['./list-item-master.component.css']
 })
 export class ListItemMasterComponent  extends UnsubscribeOnDestroyAdapter implements OnInit {
-  displayedColumns = ['itemCode','itemName','itemDescription','itemType', 'itemCategory', 'actions'];
+  displayedColumns = ['itemCode','itemName','itemDescription','itemType1', 'itemCategory', 'actions'];
   // exampleDatabase: AppService | null;
   dataSource: ExampleDataSource | null;
   exampleDatabase: ItemMasterService | null;
@@ -168,8 +168,8 @@ export class ExampleDataSource extends DataSource<ItemMaster> {
               itemMaster.itemDescription +
               // itemMaster.itemType +
               // itemMaster.itemCategory +
-              itemMaster.saleable +              
-              itemMaster.purchaseable
+              itemMaster.itemType1 +              
+              itemMaster.itemCategory1
              
   
             ).toLowerCase();

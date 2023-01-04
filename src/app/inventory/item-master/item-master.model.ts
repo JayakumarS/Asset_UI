@@ -10,7 +10,8 @@ export class ItemMaster {
   itemCategory1:string;
   saleable: string;
   purchaseable: string;
- 
+  itemType:string;
+  itemCategory:string;
   purchaseMethod:number;
   purchaseUom:string;
   purchaseReq:number;
@@ -42,6 +43,12 @@ export class ItemMaster {
       this.itemName = itemMaster.itemName || "";
       this.itemDescription = itemMaster.itemDescription || "";
       this.blno = itemMaster.blno || "";
+
+
+      this.itemType = itemMaster.itemType || "";
+      this.itemCategory = itemMaster.itemCategory || "";
+
+
 
       this.itemType1 = itemMaster.itemType1 || "";
       this.itemCategory1 = itemMaster.itemCategory1 || "";

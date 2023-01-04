@@ -24,22 +24,21 @@
                         </li>
                         <li>
                           <div class="m-l-10" matTooltip="ADD">
-                            <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                            <button mat-mini-fab color="primary"  [routerLink]="'/inventory/item-master/add-item-master/0'" >
-                              <mat-icon class="col-white">add</mat-icon>
-                            </button>
+                            <button color="primary" type="button" class="btn-space"
+                              [routerLink]="'/inventory/item-master/add-item-master/0'" mat-raised-button><i
+                                class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                           </div>
 
                         </li>
                         <li>
-                          <div class="m-l-10" matTooltip="REFRESH">
-                            <button mat-mini-fab color="primary" (click)="refresh()">
-                              <mat-icon class="col-white">refresh</mat-icon>
-                            </button>
+                          <div class="m-l-10" matTooltip="Reset">
+                            <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
+                              <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
                           </div>
                         </li>
                       </ul>
                     </div>
+                    <br><br><br><br><br>
                     <div class="col-4">
                       <ul class="header-buttons">
                         <li>
@@ -87,13 +86,13 @@
 
                   <ng-container matColumnDef="itemCategory">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Item Category</mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.itemCategory}}</mat-cell>
+                    <mat-cell *matCellDef="let row"> {{row.itemCategory1}}</mat-cell>
                   </ng-container>
 
 
-                  <ng-container matColumnDef="itemType">
+                  <ng-container matColumnDef="itemType1">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Item Type</mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.itemType}}</mat-cell>
+                    <mat-cell *matCellDef="let row"> {{row.itemType1}}</mat-cell>
                   </ng-container>
 
 
