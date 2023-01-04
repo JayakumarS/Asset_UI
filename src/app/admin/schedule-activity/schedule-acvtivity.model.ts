@@ -4,6 +4,8 @@ export class ScheduleActivityMaster {
   id: number;
   activityType: string;
   location: string;
+  activityTypename: any;
+  locationname: any;
   userGroup: string;
   description: string;
   assignee: string;

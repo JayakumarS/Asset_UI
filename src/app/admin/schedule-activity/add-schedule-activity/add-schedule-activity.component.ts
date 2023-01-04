@@ -185,10 +185,13 @@ export class AddScheduleActivityComponent implements OnInit {
       let hdate = this.cmnService.getDateObj(res.scheduleMasterBean.startdate);
       this.activityList;
       let edate = this.cmnService.getDateObj(res.scheduleMasterBean.enddate);
+
+     // let loacationtext = this.locationList.some(({locationList:id }) => id === res.scheduleMasterBean.location);
+      
       this.docForm.patchValue({
         
-        'activityType': res.scheduleMasterBean.activityType.toString(),
-        'location': res.scheduleMasterBean.location.replace(/\s/g,''),
+        'activityType': res.scheduleMasterBean.activityType,
+        'location': parseInt(res.scheduleMasterBean.location),
         'userGroup': res.scheduleMasterBean.userGroup,
         'description': res.scheduleMasterBean.description,
         'assignee' : res.scheduleMasterBean.assignee,
