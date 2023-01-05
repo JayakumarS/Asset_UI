@@ -32,7 +32,7 @@ export class AddDesingnationMasterComponent implements OnInit {
 
       activtyname: ["", [Validators.required]],
       activtyid: [""],
-      Description:[""],
+      Description:["", [Validators.required]],
       active:[""],
       id:[""]
     });
@@ -56,7 +56,9 @@ export class AddDesingnationMasterComponent implements OnInit {
   onSubmit(){
     this.designationMaster = this.docForm.value;
     console.log(this.designationMaster);
+    if(this.docForm.valid){
     this.designationMasterService.addDesignation(this.designationMaster);
+  
     this.showNotification(
       "snackbar-success",
       "Add Record Successfully...!!!",
@@ -64,6 +66,7 @@ export class AddDesingnationMasterComponent implements OnInit {
       "center"
     );
     this.router.navigate(['/master/Activity-master/list-activity']);
+  }
   }
 
   // Edit

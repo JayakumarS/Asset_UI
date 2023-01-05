@@ -89,9 +89,12 @@ export class AddScheduleActivityComponent implements OnInit {
 //   })
 // }
 
-  submit()
-  {this.scheduleActivityMaster = this.docForm.value;
+  submit() 
+  {
+    this.scheduleActivityMaster = this.docForm.value;
     console.log(this.scheduleActivityMaster);
+    if(this.docForm.valid){
+      this.scheduleActivityService.addSchedule(this.scheduleActivityMaster);
     this.scheduleActivityService.addSchedule(this.scheduleActivityMaster);
     this.showNotification(
       "snackbar-success",
@@ -102,6 +105,7 @@ export class AddScheduleActivityComponent implements OnInit {
     this.router.navigate(['/admin/scheduler/list-schedule-activity']);
 
   }
+}
 
   getDateString(event,inputFlag,index){
     let cdate = this.cmnService.getDate(event.target.value);
@@ -121,7 +125,7 @@ export class AddScheduleActivityComponent implements OnInit {
 
 
   this.docForm = this.fb.group({
-    activityType:[""],
+    activityType:["",[Validators.required]],
     location:["",[Validators.required]],
     userGroup:["",[Validators.required]],
     description:["",[Validators.required]],
