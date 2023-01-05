@@ -63,8 +63,8 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<any>(this.editCountryMaster, obj);
   }
 
-  updateCountry(drugInfoMaster: CountryMaster): Observable<any> {
-    return this.httpClient.post<CountryMaster>(this.updateCountryMaster, drugInfoMaster);
+  updateCountry(countryMaster: CountryMaster): Observable<any> {
+    return this.httpClient.post<CountryMaster>(this.updateCountryMaster, countryMaster);
   }
 
   deleteCountry(obj: any): Observable<any> {

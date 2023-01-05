@@ -66,8 +66,8 @@ export class PurchaseOrderService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<any>(this.editPurchaseOrderMaster, obj);
   }
 
-  updatePurchaseOrder(drugInfoMaster: PurchaseOrder): Observable<any> {
-    return this.httpClient.post<PurchaseOrder>(this.updatePurchaseOrderMaster, drugInfoMaster);
+  updatePurchaseOrder(purchaseOrder: PurchaseOrder): Observable<any> {
+    return this.httpClient.post<PurchaseOrder>(this.updatePurchaseOrderMaster, purchaseOrder);
   }
 
   deletePurchaseOrder(obj: any): Observable<any> {
