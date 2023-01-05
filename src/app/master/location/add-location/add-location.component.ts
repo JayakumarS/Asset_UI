@@ -106,7 +106,7 @@ export class AddLocationComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.docForm.valid){
+    if (this.docForm.valid){
       this.locationMaster = this.docForm.value;
       this.spinner.show();
       this.locationMasterService.addLocation(this.locationMaster).subscribe({
@@ -139,15 +139,15 @@ export class AddLocationComponent implements OnInit {
           );
         }
       });
-    // }
-    // else{
-    //   this.showNotification(
-    //     "snackbar-danger",
-    //     "Please Fill The All Required fields",
-    //     "bottom",
-    //     "center"
-    //   );
-    // }
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill The All Required fields",
+        "bottom",
+        "center"
+      );
+    }
   }
 
  onCancel(){
