@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { PurchaseOrderService } from '../../purchase-order/purchase-order.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -59,6 +60,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   lpoList = [];
   vendorList = [];
   fetchLpoList = [];
+  purchaseOrderNumberList= [];
   value1: number;
   value2: number;
   value3: number;
@@ -72,7 +74,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private purchaseOrderService:PurchaseOrderService) {
 
     this.docForm = this.fb.group({
       purchaseInvoiceNo: [""],
@@ -109,6 +112,15 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   ngOnInit() {
+     //PurchaseOrderNumber Dropdown List
+     this.httpService.get<any>(this.commonService.getPurchaseOrderNumberDropdown).subscribe({
+      next: (data) => {
+        this.purchaseOrderNumberList = data;
+      },
+      error: (error) => {
+      }
+    });
+
     //Vendor  Dropdown List
     this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
       next: (data) => {
@@ -241,8 +253,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             itemId: [element.itemId],
             qty: [element.qty],
             uomid: [element.uomid],
-            quotePrice: [element.quotePrice],
-            userId: [element.userId]
+            quotePrice: [element.quotePrice]
           })
           purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
         });
@@ -392,4 +403,34 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     purchaseInvoiceDtlArray.removeAt(index);
   }
 
+  getPurchaseInvoiceDetails(POID:number) {
+    if (POID != undefined && POID != null) {
+      this.spinner.show();
+      this.httpService.get<any>(this.purchaseOrderService.getPurchaseOrderDetailsList + "?purchaseOrderId="+POID).subscribe({
+        next: (res: any) => {
+        this.spinner.hide();
+        if (res.success) {
+          if(res.purchaseOrderDetailList!=null && res.purchaseOrderDetailList.length>=1){
+            let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
+            purchaseInvoiceDtlArray.clear();
+            res.purchaseOrderDetailList.forEach(element => {
+              let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
+              let arraylen = purchaseInvoiceDtlArray.length;
+              let newUsergroup: FormGroup = this.fb.group({
+                itemId: [element.itemId],
+                qty: [element.purchaseQty],
+                uomid: [element.purchaseUOM],
+                quotePrice: [element.price]
+              })
+              purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
+            });
+          }
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
+    }
+  }
 }

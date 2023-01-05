@@ -78,7 +78,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   filePath: any;
   countryList: [];
   lop: any;
-  filePathUrl:string;
+  filePathUrl: string;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -92,65 +92,65 @@ export class AddPurchaseOrderComponent implements OnInit {
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations) {
 
-      this.docForm = this.fb.group({
-        purchaseOrderId: [""],
-        organizationName: [""],
-        poNo: [""],
-        poDate: [""],
-        poDateObj: ["", [Validators.required]],
-        purchaseType: [""],
-        purchaseFor: [""],
-        vendorId: [],
-        termsConditions: [""],
-        remarks: [""],
-        destinationLocation: [""],
-        paymentTerms: [""],
-        currency: [""],
-        advance: [""],
-        subTotal: [""],
-        address: [""],
-        city: [""],
-        state: [""],
-        zip: [""],
-        country: [""],
-        discount: [""],
-        otherCharges: [""],
-        total: [""],
-        remarksOtherCharges: [""],
-        destinationAddress: [""],
-        destinationCity: [""],
-        destinationState: [""],
-        destinationZip: [""],
-        destinationCountry: [""],
-        lopFile: [""],
-        lopUpload: [""],
-        loginedUser: this.tokenStorage.getUserId(),
+    this.docForm = this.fb.group({
+      purchaseOrderId: [""],
+      organizationName: [""],
+      poNo: [""],
+      poDate: [""],
+      poDateObj: ["", [Validators.required]],
+      purchaseType: [""],
+      purchaseFor: [""],
+      vendorId: [],
+      termsConditions: [""],
+      remarks: [""],
+      destinationLocation: [""],
+      paymentTerms: [""],
+      currency: [""],
+      advance: [""],
+      subTotal: [""],
+      address: [""],
+      city: [""],
+      state: [""],
+      zip: [""],
+      country: [""],
+      discount: [""],
+      otherCharges: [""],
+      total: [""],
+      remarksOtherCharges: [""],
+      destinationAddress: [""],
+      destinationCity: [""],
+      destinationState: [""],
+      destinationZip: [""],
+      destinationCountry: [""],
+      lopFile: [""],
+      lopUpload: [""],
+      loginedUser: this.tokenStorage.getUserId(),
 
-        purchaseOrderDetail: this.fb.array([
-          this.fb.group({
-            purchaseOrderId: [""],
-            itemId: [''],
-            itemDescription: [''],
-            edd: [''],
-            eddObj: [''],
-            purchaseUOM: [''],
-            purchaseQty: [''],
-            vendorUOM: [''],
-            vendorQty: [''],
-            availableQty: [''],
-            location: [''],
-            unitPrice: [''],
-            oldUnitPrice: [''],
-            price: [''],
-            discountType: [''],
-            discount: [''],
-            discountPercent: [''],
-            netPrice: [''],
-            finalTotal: [''],
-            requisitionId: ['']
-          })
-        ]),
-      }); 
+      purchaseOrderDetail: this.fb.array([
+        this.fb.group({
+          purchaseOrderId: [""],
+          itemId: [''],
+          itemDescription: [''],
+          edd: [''],
+          eddObj: [''],
+          purchaseUOM: [''],
+          purchaseQty: [''],
+          vendorUOM: [''],
+          vendorQty: [''],
+          availableQty: [''],
+          location: [''],
+          unitPrice: [''],
+          oldUnitPrice: [''],
+          price: [''],
+          discountType: [''],
+          discount: [''],
+          discountPercent: [''],
+          netPrice: [''],
+          finalTotal: [''],
+          requisitionId: ['']
+        })
+      ]),
+    });
   }
 
   ngOnInit() {
@@ -174,8 +174,8 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
-     //Vendor  Dropdown List
-     this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+    //Vendor  Dropdown List
+    this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
       next: (data) => {
         this.vendorList = data;
       },
@@ -183,16 +183,16 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
-      //Item Master Dropdown List
-      this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
-        next: (data) => {
-          this.itemList = data;
-        },
-        error: (error) => {
-        }
-      });
+    //Item Master Dropdown List
+    this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
+      next: (data) => {
+        this.itemList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-          //UOM Dropdown List
+    //UOM Dropdown List
     this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
       next: (data) => {
         this.uomList = data;
@@ -201,15 +201,15 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
-        //UOM Dropdown List
-        this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
-          next: (data) => {
-            this.countryList = data;
-          },
-          error: (error) => {
-          }
-        });
-    
+    //UOM Dropdown List
+    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+      next: (data) => {
+        this.countryList = data;
+      },
+      error: (error) => {
+      }
+    });
+
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
         this.requestId = params.id;
@@ -254,7 +254,7 @@ export class AddPurchaseOrderComponent implements OnInit {
           );
         }
       });
-    }else{
+    } else {
       this.showNotification(
         "snackbar-danger",
         "Please fill all the required details!",
@@ -263,7 +263,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       );
     }
   }
-  
+
   fetchDetails(id: any): void {
     const obj = {
       editId: id
@@ -311,17 +311,14 @@ export class AddPurchaseOrderComponent implements OnInit {
           this.filePathUrl = res.purchaseOrder.lopUpload;
         }
 
-      if(res.purchaseOrderDetailList!=null && res.purchaseOrderDetailList.length>=1){
-        let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-        purchaseOrderDetailArray.removeAt(0);
-        res.purchaseOrderDetailList.forEach(element => {
+        if (res.purchaseOrderDetailList != null && res.purchaseOrderDetailList.length >= 1) {
           let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-          let cdate = this.commonService.getDateObj(element.edd);
-          let arraylen = purchaseOrderDetailArray.length;
-       
-  
+          purchaseOrderDetailArray.removeAt(0);
+          res.purchaseOrderDetailList.forEach(element => {
+            let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+            let cdate = this.commonService.getDateObj(element.edd);
+            let arraylen = purchaseOrderDetailArray.length;
             let newUsergroup: FormGroup = this.fb.group({
-              // item:[element.item],
               purchaseOrderId: [element.purchaseOrderId],
               itemId: [element.itemId],
               itemDescription: [element.itemDescription],
@@ -344,9 +341,8 @@ export class AddPurchaseOrderComponent implements OnInit {
               requisitionId: [element.requisitionId],
             })
             purchaseOrderDetailArray.insert(arraylen, newUsergroup);
-          
-        });
-      }
+          });
+        }
       },
       error: (error) => {
         this.spinner.hide();
@@ -389,7 +385,7 @@ export class AddPurchaseOrderComponent implements OnInit {
           );
         }
       });
-    }else{
+    } else {
       this.showNotification(
         "snackbar-danger",
         "Please fill all the required details!",
@@ -514,5 +510,39 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
   }
+
+  removeRow(index) {
+    let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+    purchaseOrderDetailArray.removeAt(index);
+  }
+
+  addRow() {
+    let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+    let arraylen = purchaseOrderDetailArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      purchaseOrderId: [""],
+      itemId: [''],
+      itemDescription: [''],
+      edd: [''],
+      eddObj: [''],
+      purchaseUOM: [''],
+      purchaseQty: [''],
+      vendorUOM: [''],
+      vendorQty: [''],
+      availableQty: [''],
+      location: [''],
+      unitPrice: [''],
+      oldUnitPrice: [''],
+      price: [''],
+      discountType: [''],
+      discount: [''],
+      discountPercent: [''],
+      netPrice: [''],
+      finalTotal: [''],
+      requisitionId: ['']
+    })
+    purchaseOrderDetailArray.insert(arraylen, newUsergroup);
+  }
+
 
 }
