@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit ,ViewChild} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray,FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -47,6 +47,7 @@ export class AddAssetMasterComponent
  extends UnsubscribeOnDestroyAdapter
  implements OnInit {
   docForm: FormGroup;
+
   hide3 = true;
   agree3 = false;
   dropdownList = [];
@@ -63,6 +64,7 @@ export class AddAssetMasterComponent
   edit:boolean=false;
   spinner: any;
   fileImgPathUrl: any;
+  assetnamelist: any;
   
   
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
@@ -80,6 +82,7 @@ export class AddAssetMasterComponent
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
+      isLine:[""],
       id: [""],
       uploadImg: [""],
       //tab1
@@ -112,7 +115,19 @@ export class AddAssetMasterComponent
       captitalizationDateobj:[""],
       allottedUptoobj:[""],
       fileUploadUrl:[""],
-      imgUploadUrl:[""]
+      imgUploadUrl:[""],
+      //tab5
+     assetMasterBean: this.fb.array([
+        this.fb.group({
+          assName:[""],
+          assCode:[""],
+          assLocation:[""],
+          assCategory:[""],
+          assStatus:[""],
+          
+         
+        }) 
+      ])
       
       
     });
@@ -173,6 +188,18 @@ export class AddAssetMasterComponent
             }
           }
           );
+
+
+             // assetname dropdown
+   this.httpService.get<any>(this.commonService.getassetname).subscribe({
+    next: (data) => {
+      this.assetnamelist = data;
+    },
+    error: (error) => {
+
+    }
+  }
+  );
    }
    
    onSubmit() {
@@ -202,7 +229,7 @@ export class AddAssetMasterComponent
         }
       },
       error: (error) => {
-        this.spinner.hide();
+        // this.spinner.hide();
         this.showNotification(
           "snackbar-danger",
           error.message + "...!!!",
@@ -232,21 +259,51 @@ onCancel() {
     });
   }
   
-   update(){
+  update() {
+    this.submitted=true;
 
-    this.assetMaster = this.docForm.value;
-    this.assetService.assetupdate(this.assetMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Edit Record Successfully...!!!",
-      "bottom",
-      "center"
-    
-    );
-    
-    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
-
-   }
+    if (this.docForm.valid) {
+      this.assetMaster = this.docForm.value;
+      // this.spinner.show();
+      this.assetService.updateAssetMaster(this.assetMaster).subscribe({
+        next: (data) => {
+          // this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Edit Record Successfully",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Updated Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          // this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
+  }
     // Edit
     fetchDetails(id: any): void {
       const obj = {
@@ -443,6 +500,28 @@ onCancel() {
     {
       this.router.navigate(['/asset/assetMaster/listAssetMaster']);
     }
+
+
+    addRowSelf(){
+      let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+      let arraylen = dtlArray.length;
+      let newUsergroup: FormGroup = this.fb.group({
+        assName:[""],
+        assCode:[""],
+        assLocation:[""],
+        assCategory:[""],
+        assStatus:[""],
+      })
+      dtlArray.insert(arraylen,newUsergroup);
+    
+    }
+    
+    removeRowSelf(index){
+      let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+      dtlArray.removeAt(index);
+    
+    }
+    
  
  }
  
