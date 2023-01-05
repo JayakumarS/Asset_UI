@@ -48,7 +48,6 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
           "bottom",
           "center"
         );
-        router.navigate(['/inventory/item-master/list-item-master']);
       }
     },
       
