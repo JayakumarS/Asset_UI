@@ -12,17 +12,17 @@ import { Itsupportservice } from '../it-support.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY'
-  },
-};
+// export const MY_DATE_FORMATS = {
+//   parse: {
+//     dateInput: 'DD/MM/YYYY',
+//   },
+//   display: {
+//     dateInput: 'DD/MM/YYYY',
+//     monthYearLabel: 'MMMM YYYY',
+//     dateA11yLabel: 'LL',
+//     monthYearA11yLabel: 'MMMM YYYY'
+//   },
+// };
 
 @Component({
   selector: 'app-add-it-support',
@@ -68,15 +68,41 @@ export class AddItSupportComponent implements OnInit {
       priority:[""],
       cc:[""],
       description:[""],
-      report:[""]
-
+      report:[""],
+      status:[""]
 
    
     });
     }
   ngOnInit(): void {
-  
-  
+    this.docForm = this.fb.group({
+    
+      reportdate:[""],
+      reportdateObj:[""],
+      uploadImg:[""],
+      asset:[""],
+      assetlocation:[""],
+      reportedby:[""],
+      tickettype:[""],
+      ticketgroup:[""],
+      assignee:[""],
+      priority:[""],
+      cc:[""],
+      description:[""],
+      report:[""],
+      status:[""]
+
+
+   
+    });
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+       this.edit=true;
+       this.fetchDetails(this.requestId) ;
+   
+      }
+     });
    // assetname dropdown
    this.httpService.get<any>(this.commonService.getassetname).subscribe({
     next: (data) => {
@@ -93,90 +119,72 @@ export class AddItSupportComponent implements OnInit {
   onsubmit(){
     this.itsupport = this.docForm.value;
       console.log(this.itsupport);
-      this.itsupportservice.addassetticket(this.itsupport);
+      // this.itsupportservice.addassetticket(this.itsupport);
     
+      if(this.docForm.valid){
+        this.itsupportservice.addassetticket(this.itsupport);
+
       this.router.navigate(['/helpdesk/itsupport/listitsupport']);
-  
+  }
 }
-fetchlocationdetails(salesQuoteNo: any): void {
-  this.httpService.get(this.itsupportservice.fetchassetlocaton + "?workOrder=" + salesQuoteNo).subscribe((res: any) => {
-    console.log(salesQuoteNo);
 
-     this.docForm.patchValue({
-       'customer': res.assetlocation.customer,
+  fetchDetails(id: any): void {
+    this.httpService.get(this.itsupportservice.editItSupport+"?id="+id).subscribe((res: any)=> {
+      console.log(id);
+      let cdate = this.cmnService.getDateObj(res.itSupportBean.reportdate);
+
+     // let loacationtext = this.locationList.some(({locationList:id }) => id === res.scheduleMasterBean.location);
+      
+      this.docForm.patchValue({
+        
+       'reportdate': res.itSupportBean.reportdate,
+       'reportdateObj':cdate,
+        'uploadImg': res.itSupportBean.uploadImg,
+        'asset':  parseInt(res.itSupportBean.asset),
+        'assetlocation' :res.itSupportBean.assetlocation,
+        'reportedby' : res.itSupportBean.reportedby,
+        'tickettype' : res.itSupportBean.tickettype,
+        'ticketgroup' : res.itSupportBean.ticketgroup,
+        'assignee' : res.itSupportBean.assignee,
+        'priority' : res.itSupportBean.priority,
+        'description' : res.itSupportBean.description,
+        'report' : res.itSupportBean.report,
+        'cc' : res.itSupportBean.cc,
+        'support_id' : id
      })
-
-
-  },
-    (err: HttpErrorResponse) => {
-      // error code here
-    }
-  );
-  /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-    console.log(id);
-    },
-    (err: HttpErrorResponse) => {
-       // error code here
-    }
-  );*/
-}
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
+      console.log(id);
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );*/
+  }
   update(){
 
+
+    this.Itsupport = this.docForm.value;
+    this.itsupportservice.scheduleUpdate(this.Itsupport,this.router,this.notificationService);
+    this.router.navigate(['/helpdesk/itsupport/listitsupport']);
+
+
   }
 
-  refresh(){
-
-  }
-  reset(){
-
-  }
+ 
   onCancel(){
-
+  
+    this.router.navigate(['/helpdesk/itsupport/listitsupport']);
   }
 
   getDateString(event,inputFlag,index){
-    let cdate = this.cmnService.getDate(event.target.value);
-    if(inputFlag=='reportdate'){
-      this.docForm.patchValue({reportdate:cdate});
-    }
   }
 
   getCreditFile(event) {
-  //   var docfile = event.target.files[0];
-  //   var fileExtension = docfile.name;
-  //   var frmData: FormData = new FormData();
-  //   frmData.append("file", docfile);
-  //   frmData.append("fileName",fileExtension);
-  //   console.log(frmData);
-    
-  //   // var data = this.httpService.postData(this.fileUploadService.addFiles,frmData);
-  //   // console.log(data);
-    
-  //   this.httpService.post<any>(this.auditService.addAssetUploadFiles, frmData).subscribe(data => {
-  //       console.log(data);
-  //       if(data.success){
-  //         this.Formdoc.patchValue({
-  //           'auditfile': data.filePath     
-           
-  //        })
-  //       }
-  //       else{
-  //         this.showNotification(
-  //           "snackbar-success",
-  //           "Edit Record Successfully...!!!",
-  //           "bottom",
-  //           "center"
-  //         );
-  
-          
-  //       }
-        
-  //       },
-  //       (err: HttpErrorResponse) => {
-          
-  //     });
-  
-  //   }
  
   }
     

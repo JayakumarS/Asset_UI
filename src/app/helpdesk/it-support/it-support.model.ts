@@ -2,8 +2,9 @@
 import { formatDate } from "@angular/common";
 export class Itsupport {
     ticketno : string;
-    tickettype : number;
+    tickettype : string;
     asset : string;
+    assetnamelist: any;
     assetlocation : string;
     category : string;
     priority : number;
@@ -18,7 +19,8 @@ export class Itsupport {
     cc: string;
     description: string;
     report: Boolean;
-
+  Success: boolean;
+   
   
   constructor(itsupport) {
     {
@@ -26,6 +28,7 @@ export class Itsupport {
       this.ticketno = itsupport.ticketno || "";
       this.tickettype = itsupport.tickettype || "";
       this.asset = itsupport.asset || "";
+      this.assetnamelist = itsupport.assetnamelist || "";
       this.assetlocation = itsupport.assetlocation || "";
       this.category = itsupport.category || "";
       this.priority = itsupport.priority || "";
@@ -39,6 +42,7 @@ export class Itsupport {
       this.cc = itsupport.cc || "";
       this.description = itsupport.description || "";
       this.report = itsupport.report || "";
+     
     }
     }
   

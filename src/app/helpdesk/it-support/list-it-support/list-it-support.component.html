@@ -14,6 +14,12 @@
               <div class="row"  style="background-color: rgb(114, 196, 67); margin-top: 3%; font:montserrat;" >
                 <h2 style="padding-bottom: 5px;
                 padding-top: 5px;color:#e7dfdb">Ticket List</h2><br>
+
+    <div class="example-button-container" style="margin-left:93%; margin-top: -3%;">
+     <button (click)="notificationpopup()" mat-mini-fab color="accent" aria-label="Example icon button with a bell icon">
+      <mat-icon>notifications</mat-icon>
+     </button>
+    </div>
               </div><br>
         
             <div class="row" style="padding-bottom:50px;padding-left: 50px;">
@@ -23,22 +29,22 @@
                 </div>
                 </div>
         
-                 <div class="mat-card" style="margin-left: 10%;">
-                <div style="margin-top:0px;"> 
-                <mat-card class="l-bg-purple-dark" style="width:17%;">CLOSED
+                 <div class="" style="margin-left: 10%;">
+                <div> 
+                <mat-card class="l-bg-purple-dark" style="width:17%; margin-top: 10px;">CLOSED
                      </mat-card>
                 </div>
-                &nbsp;
+               
                <div>
-              <mat-card class="bg-cyan" style="width:17%; margin-left: 20%; margin-top: -6%;">ASSIGNED</mat-card> 
+              <mat-card class="bg-cyan" style="width:17%; margin-left: 20%; margin-top: -5%;">ASSIGNED</mat-card> 
                      </div> 
-                     &nbsp;
+                   
                      <div>
-                    <mat-card class=" bg-green" style="width:17%;margin-left: 40%;margin-top: -72px;">OPENED</mat-card>
-                    &nbsp;
+                    <mat-card class=" bg-green" style="width:17%;margin-left: 40%;margin-top: -52px;">OPENED</mat-card>
+                   
                 </div>
                 <div>
-                    <mat-card class=" l-bg-orange" style="width:17%;margin-left: 60%;margin-top: -72px;">HOLD</mat-card> &nbsp;
+                    <mat-card class=" l-bg-orange" style="width:17%;margin-left: 60%;margin-top: -52px;">HOLD</mat-card> &nbsp;
                 </div> 
                 
                 </div>
@@ -49,7 +55,7 @@
         <div class="row" style="padding-bottom:50px;padding-left: 50px;">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
         <div class button-grp  style="margin-left: 40%;">
-            <button [routerLink]="'/helpdesk/itsupport/additsupport'" mat-raised-button style="background-color:#0dcaf0; color:aliceblue" >NEW TICKET</button>
+            <button [routerLink]="'/helpdesk/itsupport/additsupport/0'" mat-raised-button style="background-color:#0dcaf0; color:aliceblue" >NEW TICKET</button>
         </div>
         </div>
         </div>
@@ -57,33 +63,11 @@
               <div class="materialTableHeader">
                 <div class="row">
                   <div class="col-8">
-                    <ul class="header-buttons-left ms-0">
-                      <li class="dropdown">
-                        <h2>IT Support</h2>
-                      </li>
-                      <li class="dropdown m-l-20">
-                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                        <input placeholder="Search" type="text" #filter class="browser-default search-field"
-                          aria-label="Search box">
-                      </li>
-                      <li>
-                        <div class="m-l-10" matTooltip="ADD">
-                          <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                          <button mat-mini-fab color="primary"  [routerLink]="'/admin/scheduler/add-schedule-activity/0'">
-                            <mat-icon class="col-white">add</mat-icon>
-                          </button>
-                        </div>
-                      </li>
-                    </ul>
+                   
                   </div>
                   <div class="col-4">
                     <ul class="header-buttons">
-                      <li>
-                        <div class="export-button m-l-10" matTooltip="XLSX">
-                          <img src="assets/images/icons/xlsx.png" alt=""
-                            (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
-                        </div>
-                      </li>
+                     
                       
                       
                     </ul>
@@ -99,7 +83,7 @@
                 </ng-container>
                 <ng-container matColumnDef="asset">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Asset</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.asset}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetnamelist}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="assetlocation">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Location</mat-header-cell>
@@ -110,7 +94,11 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.priority}}</mat-cell>
                 </ng-container>
-                
+                <ng-container matColumnDef="Status">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.Status}}
+                  </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="ticketgroup">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Group</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.ticketgroup}}

@@ -18,7 +18,20 @@ import { DeleteLocationComponent } from 'src/app/master/location/list-location/d
 import { Itsupport } from '../it-support.model'; 
 import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component'; 
 import { DeleteitsupportComponent } from './deleteitsupport/deleteitsupport.component';
+import { NotificationpopComponent } from './notificationpop/notificationpop.component';
 
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 
 @Component({
   selector: 'app-list-it-support',
@@ -35,7 +48,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     "ticketgroup",
     "assignee",
     "reportedby",
-  
+    "actions"
   ];
 
   dataSource: ExampleDataSource | null;
@@ -44,6 +57,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   index: number;
   id: number;
   locationMaster: Itsupport | null;
+  assetnamelist: [""]
   spinner: any;
   constructor(
     public httpClient: HttpClient,
@@ -79,22 +93,17 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
       this.paginator,
       this.sort
     );
-    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
-      () => {
-        if (!this.dataSource) {
-          return;
-        }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      }
-    );
+    
   }
   editCall(row) {
 
-    this.router.navigate(['/helpdesk/itsupport/additsupport/'+row.support_id]);
+    this.router.navigate(['/helpdesk/itsupport/additsupport/'+row.id]);
   
   }
 
-  deleteItem(row) {
+  deleteItem(i, row) {
+    this.index = i;
+    this.id = row.support_id;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -106,44 +115,67 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
       width: "400px",
       data: row,
       direction: tempDirection,
-      disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      if (data.data == true) {
-        const obj = {
-          deletingId: row.support_id
-        }
-        this.spinner.show();
-        this.itsupportservice.deleteitsupport(obj).subscribe({
-          next: (data) => {
-            this.spinner.hide();
-            if (data.success) {
-              this.loadData();
-              this.showNotification(
-                "snackbar-success",
-                "Delete Record Successfully...!!!",
-                "bottom",
-                "center"
-              );
-            }
-          },
-          error: (error) => {
-            this.spinner.hide();
-          }
-        });
-
-      }
+      
+      this.loadData();
+      if(data==1)[
+        this.showNotification(
+          "snackbar-success",
+          " Successfully deleted",
+          "bottom",
+          "center"
+        )
+        ]
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
     });
-
   }
-
-  // showNotification(arg0: string, arg1: string, arg2: string, arg3: string) {
-  //   throw new Error('Method not implemented.');
-  // }
-
-  // private refreshTable() {
-  //   this.paginator._changePageSize(this.paginator.pageSize);
-  // }
+   
+  notificationpopup(){
+   
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(NotificationpopComponent, {
+      height: "400px",
+      width: "270px",
+    
+      
+      
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+      this.loadData();
+      if(data==1)[
+        this.showNotification(
+          "snackbar-success",
+          " Successfully deleted",
+          "bottom",
+          "center"
+        )
+        ]
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
+    });
+  }
+ 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, " ", {
       duration: 2000,
@@ -202,7 +234,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
           .filter((locationMaster: Itsupport) => {
             const searchStr = (
               locationMaster.tickettype +
-              locationMaster.asset +
+              locationMaster.assetnamelist +
               locationMaster.assetlocation
              
             ).toLowerCase();
