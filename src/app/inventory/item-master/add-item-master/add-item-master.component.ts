@@ -60,7 +60,7 @@ export class AddItemMasterComponent implements OnInit {
       size: [""],
       remarks: [],
       itemId: [""],
-      itemCode: ["", [Validators.required]],
+     itemCode: [""],
       itemName: ["", [Validators.required]],
       itemDescription: ["", [Validators.required]],
       itemType: ["", [Validators.required]],
@@ -180,11 +180,12 @@ export class AddItemMasterComponent implements OnInit {
 
 
   onSubmit(){
-  //  if(this.docForm.valid){
+   if(this.docForm.valid){
       this.itemMaster = this.docForm.value;
       console.log(this.itemMaster);
       this.itemMasterService.addItem(this.itemMaster,this.router,this.notificationService);
       this.router.navigate(['/inventory/item-master/list-item-master']);
+   }
   }
   fetchDetails(itemId: any): void {
     this.httpService.get(this.itemMasterService.editItem +"?itemMaster="+encodeURIComponent(itemId)).subscribe((res: any) => {
