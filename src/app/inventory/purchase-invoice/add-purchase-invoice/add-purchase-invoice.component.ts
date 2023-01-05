@@ -86,13 +86,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       dueDateObj: [""],
       dueDate: [""],
       companyName: ["ASSETCHEK"],
-      deliveryNo: [""],
       narration: [""],
       vendor: [""],
       amount: [""],
       currency: [""],
       exchangerate: [""],
-      lpoNo: [""],
       loginedUser: this.tokenStorage.getUserId(),
 
 
@@ -103,7 +101,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           uomid: [""],
           quotePrice: [""],
           ginDtlId: [""],
-          deliveryNo: [""],
           userId: [""]
         })
       ])
@@ -232,7 +229,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           'currency': res.purchaseInvoice.currency,
           'amount': res.purchaseInvoice.amount,
           'narration': res.purchaseInvoice.narration,
-          'deliveryNo': res.purchaseInvoice.deliveryNo,
           'exchangerate': res.purchaseInvoice.exchangerate,
         });
       if(res.purchaseInvoiceDetailList!=null && res.purchaseInvoiceDetailList.length>=1){

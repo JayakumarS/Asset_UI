@@ -9,8 +9,6 @@ export class PurchaseInvoice{
     exchangeRate:String;
     amount: number;
     narration: string;
-    deliveryNo: string;
-    lpoNo: string;
     companyName:string;
     itemIdName:string;
     purchaseInvoiceDetailList:any;

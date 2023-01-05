@@ -243,7 +243,7 @@
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Purchase Qty</mat-label>
-                                <input matInput name="purchaseQty{{i}}" (change)="priceCalculation(i)" name="edd{{i}}" formControlName="purchaseQty" (keypress)="keyPressNumberDouble($event)">
+                                <input matInput name="purchaseQty{{i}}"  name="edd{{i}}" formControlName="purchaseQty" (keypress)="keyPressNumberDouble($event)">
                               </mat-form-field>
                             </td>
                             <td class="padding-both-side-2">
@@ -283,7 +283,7 @@
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Unit Price</mat-label>
-                                <input matInput name="unitPrice{{i}}" (change)="priceCalculation(i)" formControlName="unitPrice" (keypress)="keyPressNumberDouble($event)">
+                                <input matInput name="unitPrice{{i}}"  formControlName="unitPrice" (keypress)="keyPressNumberDouble($event)">
                               </mat-form-field>
                             </td>
                             <td class="padding-both-side-2">
