@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ListItSupportComponent
   },
   {
-    path: "additsupport",
+    path: "additsupport/:id",
     component: AddItSupportComponent
 
   },

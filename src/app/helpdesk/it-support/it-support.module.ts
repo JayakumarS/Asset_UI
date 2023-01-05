@@ -31,12 +31,14 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatCardModule} from '@angular/material/card';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { DeleteitsupportComponent } from './list-it-support/deleteitsupport/deleteitsupport.component';
+import { NotificationpopComponent } from './list-it-support/notificationpop/notificationpop.component';
 
 @NgModule({
   declarations: [
     AddItSupportComponent,
     ListItSupportComponent,
-    DeleteitsupportComponent
+    DeleteitsupportComponent,
+    NotificationpopComponent
   ],
   providers:[
     NotificationService

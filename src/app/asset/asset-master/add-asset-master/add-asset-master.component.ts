@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit ,ViewChild} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray,FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -47,6 +47,7 @@ export class AddAssetMasterComponent
  extends UnsubscribeOnDestroyAdapter
  implements OnInit {
   docForm: FormGroup;
+
   hide3 = true;
   agree3 = false;
   dropdownList = [];
@@ -61,8 +62,10 @@ export class AddAssetMasterComponent
   vendorDdList=[];
   requestId: any;
   edit:boolean=false;
+  isLineIn:boolean=false;
   spinner: any;
   fileImgPathUrl: any;
+  assetnamelist: any;
   
   
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
@@ -80,6 +83,7 @@ export class AddAssetMasterComponent
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
+      isLine:[false],
       id: [""],
       uploadImg: [""],
       //tab1
@@ -112,7 +116,19 @@ export class AddAssetMasterComponent
       captitalizationDateobj:[""],
       allottedUptoobj:[""],
       fileUploadUrl:[""],
-      imgUploadUrl:[""]
+      imgUploadUrl:[""],
+      //tab5
+     assetMasterBean: this.fb.array([
+        this.fb.group({
+          assName:[""],
+          assCode:[""],
+          assLocation:[""],
+          assCategory:[""],
+          assStatus:[""],
+          
+         
+        }) 
+      ])
       
       
     });
@@ -126,7 +142,8 @@ export class AddAssetMasterComponent
        this.requestId = params.id;
        this.edit=true;
        this.fetchDetails(this.requestId) ;
-    
+       this.getInLine(event); 
+
       }
      });
 
@@ -173,12 +190,32 @@ export class AddAssetMasterComponent
             }
           }
           );
+
+
+  // assetname dropdown
+   this.httpService.get<any>(this.commonService.getassetname).subscribe({
+    next: (data) => {
+      this.assetnamelist = data;
+    },
+    error: (error) => {
+
+    }
+  }
+  );
    }
    
    onSubmit() {
     this.submitted=true;
 
   if (this.docForm.valid) {
+    // if(this.docForm.value.isLine==true)
+    //  {
+    //   this.docForm.value.isLine="True"
+    //  }
+    //  else if(this.docForm.value.isLine==false)
+    //  {
+    //   this.docForm.value.isLine="False"
+    //  }
 
      this.assetMaster = this.docForm.value;
      console.log(this.assetMaster);
@@ -202,7 +239,7 @@ export class AddAssetMasterComponent
         }
       },
       error: (error) => {
-        this.spinner.hide();
+        // this.spinner.hide();
         this.showNotification(
           "snackbar-danger",
           error.message + "...!!!",
@@ -232,29 +269,59 @@ onCancel() {
     });
   }
   
-   update(){
+  update() {
+    this.submitted=true;
 
-    this.assetMaster = this.docForm.value;
-    this.assetService.assetupdate(this.assetMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Edit Record Successfully...!!!",
-      "bottom",
-      "center"
-    
-    );
-    
-    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
-
-   }
+    if (this.docForm.valid) {
+      this.assetMaster = this.docForm.value;
+      // this.spinner.show();
+      this.assetService.updateAssetMaster(this.assetMaster).subscribe({
+        next: (data) => {
+          // this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Edit Record Successfully",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Updated Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          // this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
+  }
     // Edit
     fetchDetails(id: any): void {
       const obj = {
         editId: id
       }
+
       this.assetService.editAsset(obj).subscribe({
         next: (res: any) => {
-          
        this.docForm.patchValue({
          
          'assetName': res.addAssetBean.assetName,
@@ -262,6 +329,7 @@ onCancel() {
          'location': res.addAssetBean.location,
          'category': res.addAssetBean.category,
          'status' : res.addAssetBean.status,
+         'isLine' : res.addAssetBean.isLine,
          'id': res.addAssetBean.id,
          'brand': res.addAssetBean.brand,
          'model': res.addAssetBean.model,
@@ -293,6 +361,8 @@ onCancel() {
 
       })
 
+      this.getInLine(res.addAssetBean.isLine);
+     
       this.fileImgPathUrl = res.addAssetBean.uploadImg;
       this.filePathUploadUrl = res.addAssetBean.uploadFiles;
        },
@@ -442,6 +512,39 @@ onCancel() {
     cancel()
     {
       this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+    }
+
+
+    addRowSelf(){
+      let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+      let arraylen = dtlArray.length;
+      let newUsergroup: FormGroup = this.fb.group({
+        assName:[""],
+        assCode:[""],
+        assLocation:[""],
+        assCategory:[""],
+        assStatus:[""],
+      })
+      dtlArray.insert(arraylen,newUsergroup);
+    
+    }
+    
+    removeRowSelf(index){
+      let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+      dtlArray.removeAt(index);
+    
+    }
+    
+    getInLine(event: any)
+    {
+      if(event)
+      {
+        this.isLineIn=true;
+      }
+      else
+      {
+        this.isLineIn=false;
+      }
     }
  
  }

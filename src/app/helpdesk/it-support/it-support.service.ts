@@ -36,9 +36,10 @@ const httpOptions = {
     public addticket = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/saveticket`;
     public getAlllist = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/list`;
     public deleteItSupport = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/delete`;
+    public editItSupport = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/edit`;
+    public updateIT = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/update`;
 
     
-    public fetchassetlocaton
     
     get data(): Itsupport[] {
       return this.dataChange.value;
@@ -73,7 +74,40 @@ const httpOptions = {
   
     }
     
-    deleteitsupport(obj: any): Observable<any> {
-      return this.httpClient.post<any>(this.deleteItSupport, obj);
+    ITsupportDelete(support_id: any): void {
+      this.httpService.get(this.deleteItSupport + "?support_id=" + support_id).subscribe(data => {
+        console.log(support_id);
+      },
+        (err: HttpErrorResponse) => {
+          // error code here
+        }
+      );
+    }
+
+    scheduleUpdate(itsupport: Itsupport,router,notificationService): void {
+      this.dialogData = itsupport;
+      this.httpService.post<Itsupport>(this.updateIT, itsupport).subscribe(data => {
+        console.log(data);
+        if(data.Success == true){
+          notificationService.showNotification(
+            "snackbar-success",
+            "Add Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          router.navigate(['/helpdesk/itsupport/listitsupport']);
+        }
+        else if(data.Success == false){
+          notificationService.showNotification(
+            "snackbar-danger",
+            "Not Updated Successfully...!!!",
+            "bottom",
+            "center"
+          );
+        }
+        },
+        (err: HttpErrorResponse) => {
+          
+      });
     }
 }

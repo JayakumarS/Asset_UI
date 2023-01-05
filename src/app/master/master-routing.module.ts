@@ -38,15 +38,20 @@ const routes: Routes = [
   },
   {
     path: "location",
-    loadChildren: () => 
+    loadChildren: () =>
     import("./location/location.module").then((m) => m.LocationModule),
   },
    {
      path: "customer",
-     loadChildren: () => 
+     loadChildren: () =>
      import("./customer/customer.module").then((m) => m.CustomerModule),
    },
-  
+   {
+    path: "userMaster",
+    loadChildren: () =>
+    import("./user-master/user-master.module").then((m) => m.UserMasterModule),
+  },
+
 
 ];
 
