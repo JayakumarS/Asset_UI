@@ -59,7 +59,7 @@
                                     <mat-label class="lable"style="margin-left: 50%;">Category <span class="errorColor">*</span></mat-label>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"> 
-                                      <mat-select type="text" tabindex="3"  class="form-control"  formControlName="category">
+                                      <mat-select type="text" tabindex="4"  class="form-control"  formControlName="category">
                                         <mat-option *ngFor="let title of categoryList" [value]="title.id">
                                           {{title.text}}
                                         </mat-option>
@@ -73,7 +73,7 @@
                                     <mat-label class="lable"style="margin-left: 50%;">Status <span class="errorColor">*</span></mat-label>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"> 
-                                      <mat-select type="text" tabindex="3"  class="form-control"  formControlName="status">
+                                      <mat-select type="text" tabindex="5"  class="form-control"  formControlName="status">
                                         <mat-option [value]="'Good'">
                                             Good
                                         </mat-option>
@@ -96,19 +96,19 @@
                                     <mat-label  class="lable"style="margin-left: 55%;">In Line</mat-label>
                                   </div>
                                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"> 
-                                    <mat-checkbox  tabindex="6" ngInit="checked=true" formControlName="isLine"></mat-checkbox>
+                                    <input type="checkbox"  tabindex="6"  formControlName="isLine" (change)="getInLine($event.target.checked)">
                                 </div>
                             </div>
                             <br>
                             <div class="row">
 
                             <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label  class="lable"style="margin-left: 45%;">Asset Image<span class="errorColor">*</span></mat-label>
+                                    <mat-label  class="lable" style="margin-left: 45%;">Asset Image<span class="errorColor">*</span></mat-label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                                 <app-file-upload class="example-width form-control-sm" tabindex="7" formControlName="uploadImg" (change)="getCreditFile($event)" style="width: 20%;"></app-file-upload>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" style="margin-left: 45%;"  *ngIf="edit">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" style="margin-left: 65%;"  *ngIf="edit">
                                     <a href="{{fileImgPath}}{{fileImgPathUrl}}"  target="_blank">{{fileImgPathUrl?.split('/').pop()}}</a><br>
                             </div>
                         </div>
@@ -197,19 +197,17 @@
                                                     </mat-form-field>
                                                 </div>
                                             </div>
-                                            <div>
-
+                                            <div class="row">
+                                            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                                <mat-label>Upload File</mat-label>
+                                            </div>
                                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                                                        <mat-label><b>Upload File</b></mat-label>
                                                         <app-file-upload class="example-width form-control-sm" tabindex="14" formControlName="uploadFiles" (change)="getCreditFileDetails($event)" style="width: 20%;"></app-file-upload>
                                             </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="edit">
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" style="margin-left: 17%;" *ngIf="edit">
                                                         <a href="{{fileUplodPath}}{{filePathUploadUrl}}"  target="_blank">{{filePathUploadUrl?.split('/').pop()}}</a><br>
                                             </div>
-
-
-
-                                            </div>
+                                        </div>
                                         </mat-tab>
                                         <mat-tab label="Purchase Information">
                                             <br>
@@ -397,7 +395,7 @@
                                             </div>
                                         </mat-tab>
 
-                                        <mat-tab label="Line Item Information">
+                                        <mat-tab label="Line Item Information" *ngIf="isLineIn">
                                             <br>
                                                 <div>
                                                     <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
@@ -418,38 +416,38 @@
                                                         <ng-container *ngFor="let assetMasterBean of docForm.get('assetMasterBean')['controls']; let i = index">
                                                             <tbody [formGroup]="assetMasterBean">
                                                                 <tr>
-                                                                    <td class="padding-both-side-2">
+                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">
                                                                         <mat-label>Asset Name</mat-label>
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <mat-select tabindex="30" formControlName="assName" multiple>
+                                                                            <mat-select tabindex="30" formControlName="assName">
                                                                                 <mat-option *ngFor="let title of assetnamelist" [value]="title.id" >
                                                                                     {{title.text}}
                                                                                 </mat-option>
                                                                             </mat-select>
                                                                         </mat-form-field>
                                                                     </td>
-                                                                    <td class="padding-both-side-2">
+                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">  
                                                                         <mat-label>Asset Code</mat-label>
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                                             <input matInput  tabindex="31" formControlName="assCode" disabled>
                                                                            </mat-form-field>
                                                                     </td>
-                                                                    <td class="padding-both-side-2">
+                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">
                                                                         <mat-label>Location</mat-label>
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                                             <input matInput  tabindex="32" formControlName="assLocation" disabled>
                                                                            </mat-form-field>
                                                                     </td>
-                                                                    <td class="padding-both-side-2">
+                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">
                                                                         <mat-label>Category</mat-label>
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                                             <input matInput tabindex="33" formControlName="assCategory" disabled>
                                                                            </mat-form-field>
                                                                     </td>
-                                                                    <td class="padding-both-side-2">
+                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">
                                                                         <mat-label>Status</mat-label>
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <input matInput tabindex="34" formControlName="assStatus" disabled>
+                                                                            <input matInput tabindex="34" disabled selected formControlName="assStatus" disabled>
                                                                            </mat-form-field>
                                                                     </td>
                                                                     <td>

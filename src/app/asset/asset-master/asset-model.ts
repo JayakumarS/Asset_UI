@@ -4,7 +4,9 @@ export class AssetMaster {
     assetCode: string;
     locationName: string; 
     categoryName: string;
-    status: string;  
+    status: string;
+	isLine: boolean;
+  
 
       allottedUpto:  string;
 	  allottedUptoobj:  string;

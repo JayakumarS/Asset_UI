@@ -62,6 +62,7 @@ export class AddAssetMasterComponent
   vendorDdList=[];
   requestId: any;
   edit:boolean=false;
+  isLineIn:boolean=false;
   spinner: any;
   fileImgPathUrl: any;
   assetnamelist: any;
@@ -82,7 +83,7 @@ export class AddAssetMasterComponent
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
-      isLine:[""],
+      isLine:[false],
       id: [""],
       uploadImg: [""],
       //tab1
@@ -141,7 +142,8 @@ export class AddAssetMasterComponent
        this.requestId = params.id;
        this.edit=true;
        this.fetchDetails(this.requestId) ;
-    
+       this.getInLine(event); 
+
       }
      });
 
@@ -190,7 +192,7 @@ export class AddAssetMasterComponent
           );
 
 
-             // assetname dropdown
+  // assetname dropdown
    this.httpService.get<any>(this.commonService.getassetname).subscribe({
     next: (data) => {
       this.assetnamelist = data;
@@ -206,6 +208,14 @@ export class AddAssetMasterComponent
     this.submitted=true;
 
   if (this.docForm.valid) {
+    // if(this.docForm.value.isLine==true)
+    //  {
+    //   this.docForm.value.isLine="True"
+    //  }
+    //  else if(this.docForm.value.isLine==false)
+    //  {
+    //   this.docForm.value.isLine="False"
+    //  }
 
      this.assetMaster = this.docForm.value;
      console.log(this.assetMaster);
@@ -309,9 +319,9 @@ onCancel() {
       const obj = {
         editId: id
       }
+
       this.assetService.editAsset(obj).subscribe({
         next: (res: any) => {
-          
        this.docForm.patchValue({
          
          'assetName': res.addAssetBean.assetName,
@@ -319,6 +329,7 @@ onCancel() {
          'location': res.addAssetBean.location,
          'category': res.addAssetBean.category,
          'status' : res.addAssetBean.status,
+         'isLine' : res.addAssetBean.isLine,
          'id': res.addAssetBean.id,
          'brand': res.addAssetBean.brand,
          'model': res.addAssetBean.model,
@@ -350,6 +361,8 @@ onCancel() {
 
       })
 
+      this.getInLine(res.addAssetBean.isLine);
+     
       this.fileImgPathUrl = res.addAssetBean.uploadImg;
       this.filePathUploadUrl = res.addAssetBean.uploadFiles;
        },
@@ -522,6 +535,17 @@ onCancel() {
     
     }
     
+    getInLine(event: any)
+    {
+      if(event)
+      {
+        this.isLineIn=true;
+      }
+      else
+      {
+        this.isLineIn=false;
+      }
+    }
  
  }
  
