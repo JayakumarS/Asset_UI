@@ -22,6 +22,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   public customerMaster:CustomerMaster;
   requestId: number;
   tokenStorage: any;
+  locationList:[""];
 
 
   constructor(private fb: FormBuilder,
@@ -52,6 +53,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       cstno:[""],
       remarks:[""],
       active:[""],
+      location:[""]
      
    
     });
@@ -65,8 +67,15 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
        this.fetchDetails(this.requestId) ;
 
       }
+      
      });
-   
+     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+      next: (data) => {
+        this.locationList = data;
+      },
+      error: (error) => {
+      }
+    });
   }
 
   onsubmit(){
