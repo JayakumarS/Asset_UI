@@ -41,7 +41,7 @@ export class AddUserMasterComponent implements OnInit {
       userId: [""],
       fullName: ["", [Validators.required]],
       emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-      contNumber: [""],
+      contNumber: ["", [Validators.required]],
       role: ["", [Validators.required]],
       department: [""],
       repmanager: [""],
@@ -263,5 +263,29 @@ update() {
       event.preventDefault();
     }
   }
+  validateFullName(event){
+    this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl+ "?tableName=" +"user_master"+"&columnName="+"full_name"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['fullName'].setErrors({ currency: true });
+      }else{
+        this.docForm.controls['fullName'].setErrors(null);
+      }
+    });
+  }
 
+keyPressPCB(event: any) {
+  const pattern = /[0-9.]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
+keyPressPCC(event:any){
+  const pattern = /[0-9.]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 6 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+
+}
 }

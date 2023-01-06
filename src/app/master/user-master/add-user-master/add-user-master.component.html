@@ -17,12 +17,25 @@
                       <mat-label class="lable">Full Name</mat-label>
                       </div>
                        <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="fullName"  maxlength="15" (keypress)="keyPressName($event)" required>
                         <mat-error *ngIf="docForm.get('fullName').hasError('required')">
                          Full Name is required
                          </mat-error>
+                      </mat-form-field> -->
+
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="fullName"  maxlength="50" [ngModel]="value"
+                        (blur)="validateFullName($event.target.value)"
+                        required>
+                        <mat-error *ngIf="docForm.get('fullName').hasError('required')">
+                          Full Name is required
+                        </mat-error> <mat-error *ngIf="docForm.get('fullName').hasError('currency')">
+                          Name Already Exists !!!
+                        </mat-error>
                       </mat-form-field>
+
+
                     </div>
                     <div class=" col-md-2">
                       <mat-label class="lable">Email Id</mat-label>
@@ -45,7 +58,7 @@
                       </div>
                       <div class=" col-md-3">
                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="contNumber"maxlength="12" (keypress)="keyPressNumeric($event)"  required>
+                          <input matInput formControlName="contNumber" maxlength="10" (keypress)="keyPressPCB($event)"  required>
                           <mat-error *ngIf="docForm.get('contNumber').hasError('required')">
                             Contact Number is required
                           </mat-error>
