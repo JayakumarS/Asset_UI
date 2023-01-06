@@ -22,7 +22,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   public customerMaster:CustomerMaster;
   requestId: number;
   tokenStorage: any;
-  locationList:[""];
+  locationList:[];
 
 
   constructor(private fb: FormBuilder,
@@ -31,9 +31,9 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
     private router:Router,private cmnService:CommonService,
     private customerService: CustomerService,
     private commonService: CommonService,
-    public route: ActivatedRoute,) 
+    public route: ActivatedRoute,)
     {
-      super(); 
+      super();
 
     this.docForm = this.fb.group({
       cus_id:[""],
@@ -54,8 +54,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       remarks:[""],
       active:[""],
       location:[""]
-     
-   
+
+
     });
   }
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
        this.fetchDetails(this.requestId) ;
 
       }
-      
+
      });
      this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
@@ -93,7 +93,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
      this.router.navigate(['/master/customer/list-customer']);
     }
   }
-}  
+}
 
 fetchDetails(cus_id: any): void {
   const obj = {
@@ -120,11 +120,11 @@ fetchDetails(cus_id: any): void {
       'cstno':res.customerBean.cstno,
       'remarks':res.customerBean.remarks,
       'active':res.customerBean.active
-     
+
 
    });
   },
-  
+
  });
 
 
@@ -205,4 +205,4 @@ showNotification(colorName, text, placementFrom, placementAlign) {
 
 
 
-}     
+}

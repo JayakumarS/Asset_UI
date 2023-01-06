@@ -3,10 +3,203 @@
     <app-breadcrumb [title]="'ADD Customer'" [items]="['Master']" [active_item]="'ADD Customer'">
     </app-breadcrumb>
   </div>
-  <div class="card">
+  <div class="card pageproperty">
     <div class="body" style="padding-left: 110px; padding: 2%;">
       <form class="m-4" [formGroup]="docForm">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">Customer Name<span class="errorColor">*</span></mat-label>
+            </div>
+             <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="auditorname"  maxlength="50" required>
+              <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
+                Auditor Name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class=" col-md-2">
+            <mat-label class="lable">Registration Code</mat-label>
+            </div>
+
+          <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="registercode" maxlength="15" >
+              <mat-error *ngIf="docForm.get('registercode').hasError('required')">
+                Registration Code is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">Contact Person<span class="errorColor">*</span></mat-label>
+            </div>
+             <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="person"  maxlength="50" required>
+              <mat-error *ngIf="docForm.get('person').hasError('required')">
+                Contact Person is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class=" col-md-2">
+            <mat-label class="lable">Email<span class="errorColor">*</span></mat-label>
+            </div>
+
+          <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="email" maxlength="50" required>
+              <mat-error *ngIf="docForm.get('email').hasError('required')">
+                Email is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">Contact Number<span class="errorColor">*</span></mat-label>
+            </div>
+             <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="phone"maxlength="10" (keypress)="keyPressPCB($event)"required>
+              <mat-error *ngIf="docForm.get('phone').hasError('required')">
+                Contact Number is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class=" col-md-2">
+            <mat-label class="lable">Address1<span class="errorColor">*</span></mat-label>
+            </div>
+
+          <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="address" maxlength="50" required>
+              <mat-error *ngIf="docForm.get('address').hasError('required')">
+                Address1 is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">Address2</mat-label>
+            </div>
+             <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="addresstwo"maxlength="50" >
+              <mat-error *ngIf="docForm.get('addresstwo').hasError('required')">
+                Address2 is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class=" col-md-2">
+            <mat-label class="lable">City<span class="errorColor">*</span></mat-label>
+            </div>
+
+          <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="city" maxlength="50" required>
+              <mat-error *ngIf="docForm.get('city').hasError('required')">
+                City is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">State<span class="errorColor">*</span></mat-label>
+            </div>
+             <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="state"maxlength="20" required>
+              <mat-error *ngIf="docForm.get('state').hasError('required')">
+                State is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class=" col-md-2">
+            <mat-label class="lable">PIN CODE<span class="errorColor">*</span></mat-label>
+            </div>
+
+          <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="postalcode" maxlength="6" (keypress)="keyPressPCC($event)"required>
+              <mat-error *ngIf="docForm.get('postalcode').hasError('required')">
+                PostalCode is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">PAN NO</mat-label>
+            </div>
+             <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="panno"maxlength="20" >
+            </mat-form-field>
+          </div>
+          <div class=" col-md-2">
+            <mat-label class="lable">CST NO</mat-label>
+            </div>
+
+          <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="cstno" maxlength="20" >
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">GST NO</mat-label>
+            </div>
+             <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="gstno"maxlength="20" >
+            </mat-form-field>
+          </div>
+          <div class=" col-md-2">
+            <mat-label class="lable">Remarks</mat-label>
+            </div>
+
+          <div class=" col-md-4">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="remarks" maxlength="100" >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">Location</mat-label>
+            </div>
+             <div class=" col-md-4">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <mat-select class="inputTxt" formControlName="location">
+                <mat-option *ngFor="let title of locationList" [value]="title.id">
+                    {{title.text}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+
+            <div class=" col-md-2"><mat-label class="lable">Active</mat-label></div>
+          <div class=" col-md-3">
+             <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
+          </div>
+        </div>
+<!--
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
                     <mat-label  class="lable" required>Customer Name<span class="errorColor">*</span></mat-label>
@@ -18,22 +211,22 @@
                       Auditor Name To is required
                     </mat-error>
                   </mat-form-field>
-                </div>  
+                </div>
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                   <mat-label class="lable">Registration Code</mat-label>
               </div>
-        
+
               <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " >
                 <mat-form-field style="width:189px;" class="example-full-width form-control-sm" appearance="outline">
                   <input matInput formControlName="registercode">
                 </mat-form-field>
-              </div>  
-              <br> 
+              </div>
+              <br>
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <mat-label class="lable">Contact Person<span class="errorColor">*</span></mat-label>
             </div>
-      
+
             <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " >
               <mat-form-field style="width:189px;"class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="person" required>
@@ -41,11 +234,11 @@
                   Contact person is required
                 </mat-error>
               </mat-form-field>
-            </div>  
+            </div>
 
-                  </div>
+                  </div> -->
 
-                  <div class="row">
+                  <!-- <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <mat-label class="lable">Email<span class="errorColor">*</span></mat-label>
                 </div>
@@ -56,7 +249,7 @@
                       Email To is required
                     </mat-error>
                   </mat-form-field>
-                </div>  
+                </div>
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                   <mat-label class="lable">Contact Number<span class="errorColor">*</span></mat-label>
               </div>
@@ -68,7 +261,7 @@
                   Contact Number To is required
                 </mat-error>
               </mat-form-field>
-            </div>   
+            </div>
 
 
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
@@ -83,16 +276,16 @@
             </mat-error>
           </mat-form-field>
         </div>
-           </div>
+           </div> -->
 
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                         <mat-label style="width:189px;"class="lable">Address2</mat-label>
                     </div>
                   <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " >
                     <mat-form-field style="width:189px;"class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="addresstwo">                    </mat-form-field>
-                  </div> 
+                  </div>
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <mat-label style="width:189px;"class="lable">City<span class="errorColor">*</span></mat-label>
                  </div>
@@ -103,7 +296,7 @@
                     City Number To is required
                   </mat-error>
                 </mat-form-field>
-              </div>  
+              </div>
 <br>
 <br>
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
@@ -116,12 +309,12 @@
                 State Number To is required
               </mat-error>
             </mat-form-field>
-          </div>   
+          </div>
 
-                 </div>
-
+                 </div> -->
+<!--
                  <div class="row">
-                
+
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <mat-label class="lable">PIN CODE<span class="errorColor">*</span></mat-label>
                  </div>
@@ -132,7 +325,7 @@
                     PostalCode Number To is required
                   </mat-error>
                 </mat-form-field>
-              </div>  
+              </div>
 
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <mat-label class="lable">PAN NO</mat-label>
@@ -140,23 +333,23 @@
           <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " >
             <mat-form-field style="width:189px;"class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="panno" >
-             
+
             </mat-form-field>
-          </div>  
+          </div>
           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
             <mat-label class="lable">CST NO</mat-label>
         </div>
       <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " >
         <mat-form-field style="width:189px;"class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="cstno">
-       
-        </mat-form-field>
-      </div>   
-         
-             </div>
 
-             <div class="row">
-         
+        </mat-form-field>
+      </div>
+
+             </div> -->
+
+             <!-- <div class="row">
+
 
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <mat-label class="lable">GST NO</mat-label>
@@ -164,9 +357,9 @@
           <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " >
             <mat-form-field style="width:189px;"class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="gstno" >
-            
+
             </mat-form-field>
-          </div>  
+          </div>
 
           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
             <mat-label class="lable">Remarks</mat-label>
@@ -174,7 +367,7 @@
         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " >
         <mat-form-field style="width:189px;"class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="remarks" >
-        
+
         </mat-form-field>
       </div>
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
@@ -187,23 +380,23 @@
           {{title.text}}
         </mat-option>
       </mat-select>
-    
-    </mat-form-field>
-  </div>  
-</div>
 
-<div class="row">
+    </mat-form-field>
+  </div>
+</div> -->
+
+<!-- <div class="row">
 
       <div class=" col-md-2">
-  
+
       <div class=" col-md-3">
          <mat-checkbox  style="margin-left: 220px;" ngInit="checked=true" formControlName="active"><mat-label class="lable"style="margin-left: -240px;">Active</mat-label></mat-checkbox>
       </div>
 </div>
-</div>
+</div> -->
       </div>
       <br><br><br>
-<div class="row"> 
+<div class="row">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
     <button *ngIf="!edit" (click) = "onsubmit()" class="btn-space" mat-raised-button
     color="accent" style="margin-left: 40%;background-color: #34d034;">Submit</button>
@@ -218,7 +411,7 @@
       </form></div>
       </div>
       </section>
-      
+
 
 
 
