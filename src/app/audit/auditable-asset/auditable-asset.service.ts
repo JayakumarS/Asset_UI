@@ -25,8 +25,16 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
     super();
   }
-
+  
   private getScheduleActivity = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getList`;
+  public assetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAssetList`;
+  public fetchAssetNameUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getfetchAssetName`;
+  public assetTypeListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getassetTypeList`;
+  public depreciationMethodUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getdepreciationMethodList`;
+  public saveAuditableAsset = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/save`;
+  public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getCurrencyList`;
+  public assetPopUpUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAssetDetailsForPopUp`;
+  public financialChangeUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getfinancialChangeDetails`;
   public saveschedule = `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/save`;
   public locationserviceUrl= `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/getlocationList`;
   public activityserviceurl= `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/getactivityList`;
@@ -41,9 +49,9 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
 
   }
 
-  getAllList(){
-
-    this.subs.sink = this.httpService.get<AuditableAssetResultBean>(this.getScheduleActivity).subscribe(
+  getAllList(object){
+    console.log(object);
+    this.subs.sink = this.httpService.get<AuditableAssetResultBean>(this.getScheduleActivity,object).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.auditableAssetDetails);
@@ -54,6 +62,33 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
       }
     );
 
+  }
+
+  addAuditableAsset(auditableAsset:AuditableAsset,router,notificationService): void {
+    this.dialogData = auditableAsset;  
+    this.httpService.post<AuditableAsset>(this.saveAuditableAsset,auditableAsset ).subscribe(data => {
+      console.log(data);
+      if(data.success===true){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Record Added successfully...",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/audit/auditableAsset/listAuditableAsset']);
+      }
+      else if(data.success===false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
   }
 
   

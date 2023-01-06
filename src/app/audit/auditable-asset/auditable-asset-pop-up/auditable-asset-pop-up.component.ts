@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { AuditableAssetResultBean } from '../auditable-asset-result-bean';
 import { AuditableAssetService } from '../auditable-asset.service';
 import { AuditableAsset } from '../auditable-asset-model';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -25,9 +26,9 @@ export const MY_DATE_FORMATS = {
 };
 
 @Component({
-  selector: 'app-add-auditable-asset',
-  templateUrl: './add-auditable-asset.component.html',
-  styleUrls: ['./add-auditable-asset.component.sass'],
+  selector: 'app-auditable-asset-pop-up',
+  templateUrl: './auditable-asset-pop-up.component.html',
+  styleUrls: ['./auditable-asset-pop-up.component.sass'],
   // Date Related code
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
@@ -39,7 +40,7 @@ export const MY_DATE_FORMATS = {
   } },CommonService
   ]
 })
-export class AddAuditableAssetComponent implements OnInit {
+export class AuditableAssetPopUpComponent implements OnInit {
   docForm: FormGroup;
   auditableAsset:AuditableAsset;
   requestId: any;
@@ -48,6 +49,9 @@ export class AddAuditableAssetComponent implements OnInit {
   currencyList: [];
   assetTypeList:[];
   depreciationMethodList:[];
+  getAuditableAssetDetails:[];
+  financialChangeDetails:[];
+  fullLifeFlag:boolean=false;
 
   constructor(private fb: FormBuilder,
     public auditableAssetService:AuditableAssetService,
@@ -56,7 +60,9 @@ export class AddAuditableAssetComponent implements OnInit {
     private router:Router,private cmnService:CommonService,
     private commonService: CommonService,
     private notificationService: NotificationService,
-    public route: ActivatedRoute,) 
+    public route: ActivatedRoute,
+    public dialogRef: MatDialogRef<AuditableAssetPopUpComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,) 
     {
     this.docForm = this.fb.group({
       assetid:[""],
@@ -81,7 +87,7 @@ export class AddAuditableAssetComponent implements OnInit {
     value:["",[Validators.required]],
     salvageValue:["",[Validators.required]],
     assetType:["",[Validators.required]],
-    depreciationMethod:["",[Validators.required]]
+    depreciationMethod:[""]
   });
 
   // Currency list dropdown
@@ -123,6 +129,15 @@ export class AddAuditableAssetComponent implements OnInit {
       console.log(error.name + " " + error.message);
     }
   );
+
+  this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetPopUpUrl + "?asset=" + this.data.assetid).subscribe((res: any) => {
+    console.log(this.data.assetid);
+    this.auditableAsset = res.getAuditableAssetDetails;
+    },
+    (err: HttpErrorResponse) => {
+       // error code here
+    }
+  );
   
   this.route.params.subscribe(params => {
    if(params.id!=undefined && params.id!=0){
@@ -133,6 +148,35 @@ export class AddAuditableAssetComponent implements OnInit {
    }
   });
 
+}
+
+checkFullLife(event:any){
+  if(event.checked){
+    this.fullLifeFlag = true;
+    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.financialChangeUrl + "?assetId=" + this.data.assetid+"&asset="+'').subscribe((res: any) => {
+      console.log();
+      this.financialChangeDetails = res.financialChangeDetails;
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+  }
+  else{
+    this.fullLifeFlag = false;
+  }
+}
+
+financialChange(asset:any){
+    
+  this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.financialChangeUrl + "?assetId=" + this.data.assetid+"&asset="+asset).subscribe((res: any) => {
+      console.log(asset);
+      this.financialChangeDetails = res.financialChangeDetails;
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
 }
 
 fetchAssetName(asset:any){
@@ -221,7 +265,8 @@ fetchAssetName(asset:any){
   }
 
   onCancel(){
-    this.router.navigate(['/audit/auditableAsset/listAuditableAsset']);
+    this.dialogRef.close();
+    // this.router.navigate(['/audit/auditableAsset/listAuditableAsset']);
    }
 
    reset(){
