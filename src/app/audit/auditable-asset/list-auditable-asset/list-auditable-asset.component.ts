@@ -74,7 +74,7 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    this.loadData();
+    this.onSubmit();
   }
 
   refresh(){
@@ -105,8 +105,11 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
   }
 
   onSubmit(){
-
-  }
+   
+    this.locationMaster = this.docForm.value;
+    console.log(this.locationMaster);
+    this.loadData();
+}
 
   viewCall(row) {
     // this.index = i;

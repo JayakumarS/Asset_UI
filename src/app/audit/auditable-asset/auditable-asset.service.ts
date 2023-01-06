@@ -51,7 +51,7 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
 
   getAllList(object){
     console.log(object);
-    this.subs.sink = this.httpService.get<AuditableAssetResultBean>(this.getScheduleActivity,object).subscribe(
+    this.subs.sink = this.httpService.post<AuditableAssetResultBean>(this.getScheduleActivity,object).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.auditableAssetDetails);
