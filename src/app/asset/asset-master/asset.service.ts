@@ -35,7 +35,9 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   private updateAsset = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/update`;
   public editAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/edit`;
   public deleteAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/delete`;
+  public getAssetDetails = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetDetails`;
 
+  
 
   //new
   

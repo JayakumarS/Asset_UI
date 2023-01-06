@@ -66,6 +66,7 @@ export class AddAssetMasterComponent
   spinner: any;
   fileImgPathUrl: any;
   assetnamelist: any;
+  assetDetailsList: any;
   
   
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
@@ -192,6 +193,8 @@ export class AddAssetMasterComponent
           );
 
 
+
+
   // assetname dropdown
    this.httpService.get<any>(this.commonService.getassetname).subscribe({
     next: (data) => {
@@ -202,6 +205,37 @@ export class AddAssetMasterComponent
     }
   }
   );
+   }
+
+// assetDetailsList
+
+assetDetails(value:any){
+
+    this.httpService.get<any>(this.assetService.getAssetDetails+"?assetId=" +value).subscribe({
+    next: (res: any) => {
+        // if (res.success) {
+        //   if(res.purchaseOrderDetailList!=null && res.purchaseOrderDetailList.length>=1){
+        //     let dtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
+        //     dtlArray.clear();
+        //     res.purchaseOrderDetailList.forEach(element => {
+        //       let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
+        //       let arraylen = purchaseInvoiceDtlArray.length;
+        //       let newUsergroup: FormGroup = this.fb.group({
+        //         itemId: [element.itemId],
+        //         qty: [element.purchaseQty],
+        //         uomid: [element.purchaseUOM],
+        //         quotePrice: [element.price]
+        //       })
+        //       purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
+        //     });
+        //   }
+        // }
+      },
+    error: (error) => {
+
+  }
+}
+);
    }
    
    onSubmit() {
