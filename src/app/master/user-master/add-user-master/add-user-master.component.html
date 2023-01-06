@@ -1,0 +1,152 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add UserMaster'" [items]="['Master']" [active_item]="'Add UserMaster'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-md-12">
+          <div class="box-shadow">
+            <div class="card pageproperty">
+              <div class="body " style="padding-left: 220px;">
+                <form class="m-4" [formGroup]="docForm">
+
+                  <div class="row">
+                    <div class=" col-md-2">
+                      <mat-label class="lable">Full Name</mat-label>
+                      </div>
+                       <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="fullName"  maxlength="15" (keypress)="keyPressName($event)" required>
+                        <mat-error *ngIf="docForm.get('fullName').hasError('required')">
+                         Full Name is required
+                         </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class=" col-md-2">
+                      <mat-label class="lable">Email Id</mat-label>
+                      </div>
+
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="emailId" maxlength=""  required>
+                    <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                      Email To is required
+                    </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <br>
+
+                  <div class="row">
+                    <div class=" col-md-2">
+                      <mat-label class="lable">Contact Number</mat-label>
+                      </div>
+                      <div class=" col-md-3">
+                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="contNumber"maxlength="12" (keypress)="keyPressNumeric($event)"  required>
+                          <mat-error *ngIf="docForm.get('contNumber').hasError('required')">
+                            Contact Number is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                  <div class=" col-md-2">
+                    <mat-label class="lable">Role</mat-label>
+                    </div>
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="role" maxlength="50" (keypress)="keyPressName($event)" required>
+                        <mat-error *ngIf="docForm.get('role').hasError('required')">
+                          Role is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=" col-md-2">
+                      <mat-label class="lable">Department</mat-label>
+                      </div>
+                      <div class=" col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                        <mat-select class="inputTxt" formControlName="department">
+                          <mat-option *ngFor="let title of departmentDdList" [value]="title.id">
+                              {{title.text}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  </div>
+                  <div class=" col-md-2">
+                    <mat-label class="lable">Reporting Manager</mat-label>
+                    </div>
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                      <mat-select class="inputTxt" formControlName="repmanager">
+                        <mat-option *ngFor="let title of userLocationDdList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div></div>
+                      <br>
+                      <div class="row">
+                        <div class=" col-md-2">
+                            <mat-label class="lable">Default Language</mat-label>
+                            </div>
+                            <div class=" col-md-3">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <input matInput formControlName="language" maxlength="50" (keypress)="keyPressName($event)" required>
+                                <mat-error *ngIf="docForm.get('language').hasError('required')">
+                                  Default Language is required
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+
+                        <div class=" col-md-2">
+                            <mat-label class="lable">Primary Location</mat-label>
+                            </div>
+                            <div class=" col-md-3">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                              <mat-select class="inputTxt" formControlName="location">
+                                <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                    {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        </div></div>
+                     <br>
+                     <div class="row">
+                        <div class=" col-md-2"><mat-label class="lable">OTP Required</mat-label></div>
+                      <div class=" col-md-3">
+                         <mat-checkbox  ngInit="checked=true" formControlName="otp"></mat-checkbox>
+                      </div>
+                      <div class=" col-md-2"><mat-label class="lable" >Track User Location</mat-label></div>
+                      <div class=" col-md-1">
+                         <mat-checkbox  ngInit="checked=true" formControlName="userLocation"></mat-checkbox>
+                      </div>
+                    </div>
+                  <br>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                        style="margin-left: 30%;background-color: #34d034;">Submit</button>
+                      <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                        style="margin-left: 30%;background-color: #34d034;">Update</button>
+                      <button color="primary" type="button" class="btn-space" (click)="reset()"
+                        mat-raised-button>Reset</button>
+                      <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                        mat-raised-button>Cancel</button>
+                    </div>
+                  </div>
+                  </form>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </section>

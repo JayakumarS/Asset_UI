@@ -63,8 +63,8 @@ export class PurchaseInvoiceService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<any>(this.editPurchaseInvoiceMaster, obj);
   }
 
-  updatePurchaseInvoice(drugInfoMaster: PurchaseInvoice): Observable<any> {
-    return this.httpClient.post<PurchaseInvoice>(this.updatePurchaseInvoiceMaster, drugInfoMaster);
+  updatePurchaseInvoice(purchaseInvoice: PurchaseInvoice): Observable<any> {
+    return this.httpClient.post<PurchaseInvoice>(this.updatePurchaseInvoiceMaster, purchaseInvoice);
   }
 
   deletePurchaseInvoice(obj: any): Observable<any> {

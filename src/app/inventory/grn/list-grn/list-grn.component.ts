@@ -1,4 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { DeleteGrnComponent } from './delete-grn/delete-grn.component';
+import { GrnService } from '../grn.service';
+import { Grn } from '../grn-model';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -12,61 +15,36 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { Itsupportservice } from '../it-support.service';
 import { Router } from '@angular/router';
-import { DeleteLocationComponent } from 'src/app/master/location/list-location/delete-location/delete-location.component';
-import { Itsupport } from '../it-support.model'; 
-import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component'; 
-import { DeleteitsupportComponent } from './deleteitsupport/deleteitsupport.component';
-import { NotificationpopComponent } from './notificationpop/notificationpop.component';
-
-
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY'
-  },
-};
+import { NgxSpinnerService } from "ngx-spinner";
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
-  selector: 'app-list-it-support',
-  templateUrl: './list-it-support.component.html',
-  styleUrls: ['./list-it-support.component.sass']
+  selector: 'app-list-grn',
+  templateUrl: './list-grn.component.html',
+  styleUrls: ['./list-grn.component.sass']
 })
-export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-  displayedColumns = [
-   // "select",
-    "tickettype",
-    "asset",
-    "assetlocation",
-    "priority",
-    "ticketgroup",
-    "assignee",
-    "reportedby",
-    "actions"
-  ];
-
+export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+  displayedColumns = ['grnNumber', 'grnDate','vendorName','purchaseOrderNo','preparedBy','actions'];
   dataSource: ExampleDataSource | null;
-  exampleDatabase: Itsupportservice | null;
-  selection = new SelectionModel<Itsupport>(true, []);
+  exampleDatabase: GrnService | null;
+  selection = new SelectionModel<Grn>(true, []);
   index: number;
   id: number;
-  locationMaster: Itsupport | null;
-  assetnamelist: [""]
-  spinner: any;
+  grn: Grn | null;
+  
   constructor(
+    private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public itsupportservice: Itsupportservice,
+    public grnService: GrnService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
-    private router: Router,
-    private httpService:HttpServiceService
+    private serverUrl: serverLocations,
+    private httpService: HttpServiceService,
+    public router: Router,
+    private tokenStorage: TokenStorageService,
+    public commonService: CommonService,
   ) {
     super();
   }
@@ -82,111 +60,90 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     this.loadData();
   }
 
-  refresh(){
-    this.loadData();
+
+  refresh() {
+    const currentRoute = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentRoute]);
+    });
   }
 
   public loadData() {
-    this.exampleDatabase = new Itsupportservice(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new GrnService(this.httpClient, this.serverUrl, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
       this.sort
     );
-    
+    this.subs.sink = fromEvent(this.filter?.nativeElement, "keyup").subscribe(
+      () => {
+        if (!this.dataSource) {
+          return;
+        }
+        this.dataSource.filter = this.filter?.nativeElement?.value;
+      }
+    );
   }
+
   editCall(row) {
-
-    this.router.navigate(['/helpdesk/itsupport/additsupport/'+row.id]);
-  
+    this.router.navigate(['/inventory/grn/addGrn/'+row.countryId]);
   }
 
-  deleteItem(i, row) {
-    this.index = i;
-    this.id = row.support_id;
+  deleteItem(row) {
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteitsupportComponent, {
+    const dialogRef = this.dialog.open(DeleteGrnComponent, {
       height: "270px",
       width: "400px",
       data: row,
       direction: tempDirection,
+      disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       
-      this.loadData();
-      if(data==1)[
-        this.showNotification(
-          "snackbar-success",
-          " Successfully deleted",
-          "bottom",
-          "center"
-        )
-        ]
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
+      if (data.data == true) {
+        const obj = {
+          deletingId: row.countryId
+        }
+        this.spinner.show();
+        this.grnService.deleteGrn(obj).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+          }
+        });
+
+      }
     });
+
   }
-   
-  notificationpopup(){
-   
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(NotificationpopComponent, {
-      height: "400px",
-      width: "270px",
-    
-      
-      
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      this.loadData();
-      if(data==1)[
-        this.showNotification(
-          "snackbar-success",
-          " Successfully deleted",
-          "bottom",
-          "center"
-        )
-        ]
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
-  }
- 
+
   showNotification(colorName, text, placementFrom, placementAlign) {
-    this.snackBar.open(text, " ", {
+    this.snackBar.open(text, "", {
       duration: 2000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
   }
-// context menu
 
-  onContextMenu(event: MouseEvent, item: Itsupport) {
+  // context menu
+  onContextMenu(event: MouseEvent, item: Grn) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -196,19 +153,18 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 }
 
-
-export class ExampleDataSource extends DataSource<Itsupport> {
+export class ExampleDataSource extends DataSource<Grn> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
-    return this.filterChange.value;
+    return this.filterChange.value.trim();
   }
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: Itsupport[] = [];
-  renderedData: Itsupport[] = [];
+  filteredData: Grn[] = [];
+  renderedData: Grn[] = [];
   constructor(
-    public exampleDatabase: Itsupportservice,
+    public exampleDatabase: GrnService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -217,7 +173,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Itsupport[]> {
+  connect(): Observable<Grn[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -225,18 +181,19 @@ export class ExampleDataSource extends DataSource<Itsupport> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getItList();
+    this.exampleDatabase.getAllGrns();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((locationMaster: Itsupport) => {
+          .filter((grn: Grn) => {
             const searchStr = (
-              locationMaster.tickettype +
-              locationMaster.assetnamelist +
-              locationMaster.assetlocation
-             
+              grn.grnNumber +
+              grn.grnDate +
+              grn.vendorName +
+              grn.purchaseOrderNo +
+              grn.preparedBy
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -252,9 +209,9 @@ export class ExampleDataSource extends DataSource<Itsupport> {
       })
     );
   }
-  disconnect() {}
+  disconnect() { }
   /** Returns a sorted copy of the database data. */
-  sortData(data: Itsupport[]): Itsupport[] {
+  sortData(data: Grn[]): Grn[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -262,24 +219,26 @@ export class ExampleDataSource extends DataSource<Itsupport> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        case "grnNumber":
+          [propertyA, propertyB] = [a.grnNumber, b.grnNumber];
           break;
-        case "tickettype":
-          [propertyA, propertyB] = [a.tickettype, b.tickettype];
+        case "grnDate":
+          [propertyA, propertyB] = [a.grnDate, b.grnDate];
           break;
-        case "asset":
-          [propertyA, propertyB] = [a.asset, b.asset];
+        case "vendorName":
+          [propertyA, propertyB] = [a.vendorName, b.vendorName];
           break;
-        case "assetlocation":
-          [propertyA, propertyB] = [a.assetlocation, b.assetlocation];
+          case "purchaseOrderNo":
+          [propertyA, propertyB] = [a.purchaseOrderNo, b.purchaseOrderNo];
           break;
-        
+          case "preparedBy":
+          [propertyA, propertyB] = [a.preparedBy, b.preparedBy];
+          break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
       return (
-        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+        (valueA.toString().toLowerCase() < valueB.toString().toLowerCase() ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
       );
     });
   }
