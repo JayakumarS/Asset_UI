@@ -39,4 +39,6 @@ export class AssetMaster {
 	  vendor:  string;
 
     Success: boolean;
-}
+
+	assetDetailsList:[]
+} 

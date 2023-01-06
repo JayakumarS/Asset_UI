@@ -126,7 +126,7 @@ export class AddAssetMasterComponent
           assLocation:[""],
           assCategory:[""],
           assStatus:[""],
-          
+          assetId:[""]
          
         }) 
       ])
@@ -223,9 +223,10 @@ assetDetails(value:any,i){
               let newUsergroup: FormGroup = this.fb.group({
                 assName:[value.value],
                 assCode:[element.assetCode],
-                assLocation:[element.location],
-                assCategory:[element.category],
+                assLocation:[element.locationName],
+                assCategory:[element.categoryName],
                 assStatus:[element.status],
+                assetId:[element.assetId]
               })
               purchaseInvoiceDtlArray.insert(i, newUsergroup);
             });
@@ -559,6 +560,7 @@ onCancel() {
         assLocation:[""],
         assCategory:[""],
         assStatus:[""],
+        assetId:[""]
       })
       dtlArray.insert(arraylen,newUsergroup);
     
