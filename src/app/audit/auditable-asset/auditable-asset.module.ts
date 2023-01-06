@@ -28,6 +28,7 @@ import { AuditableAssetRoutingModule } from './auditable-asset-routing.module';
 import { ListAuditableAssetComponent } from './list-auditable-asset/list-auditable-asset.component';
 import { AddAuditableAssetComponent } from './add-auditable-asset/add-auditable-asset.component';
 import { AuditableAssetPopUpComponent } from './auditable-asset-pop-up/auditable-asset-pop-up.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 
@@ -64,7 +65,8 @@ import { AuditableAssetPopUpComponent } from './auditable-asset-pop-up/auditable
     MatTooltipModule,
     MatProgressSpinnerModule,
     ComponentsModule,
-    SharedModule
+    SharedModule,
+    MatRadioModule
   ]
 })
 export class AuditableAssetModule { }
