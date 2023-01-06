@@ -71,4 +71,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getPurchaseOrderNumberDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseOrderNumberDropdown`;
 
+
+  public getItemNameDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterDropdown`;
+
 }

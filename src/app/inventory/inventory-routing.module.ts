@@ -62,7 +62,13 @@ const routes: Routes = [
     path: "purchaseInvoice",
     loadChildren: () =>
     import("./purchase-invoice/purchase-invoice.module").then((p) => p.PurchaseInvoiceModule),
+  },
+  {
+    path: "inventory-reports",
+    loadChildren: () =>
+    import("./inventory-reports/inventory-reports.module").then((p) => p.InventoryReportsModule),
   }
+
 ];
 
 @NgModule({
