@@ -10,6 +10,11 @@ export class AuditableAsset {
   accudepreciation: any;
   bookvalue: any;
   success: boolean;
+  depreciationMethod:any;
+  assetType:any;
+  salvageValue:any;
+  lifeInYears:any;
+  value:any;
 
   constructor(auditableAsset) {
     {
@@ -22,6 +27,10 @@ export class AuditableAsset {
       this.acquisitionvalue = auditableAsset.acquisitionvalue || "";
       this.accudepreciation = auditableAsset.accudepreciation || "";
       this.bookvalue = auditableAsset.bookvalue || "";
+      this.depreciationMethod = auditableAsset.depreciationMethod || "";
+      this.assetType = auditableAsset.assetType || "";
+      this.assetType = auditableAsset.assetType || "";
+      this.lifeInYears = auditableAsset.lifeInYears || "";
       this.success = auditableAsset.success || "";
     }
   }

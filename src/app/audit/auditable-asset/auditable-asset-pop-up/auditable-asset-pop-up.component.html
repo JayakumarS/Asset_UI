@@ -1,0 +1,202 @@
+<!-- <section class="content"> -->
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Auditable Asset'" [items]="['Audit']" [active_item]="'Auditable Asset'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card ">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm" >
+
+                <div class="row">
+                    <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " >
+                      <label class="lable">Asset Id :</label>
+                  </div> 
+                  <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 ">
+                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="assetid"  maxlength="5" required>
+                      <mat-error *ngIf="docForm.get('assetid').hasError('required')">
+                        Department Code is required
+                      </mat-error>
+                    </mat-form-field> -->
+                    {{auditableAsset.assetid}}
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " >
+                    <label class="lable">Asset Name :</label>
+                  </div>
+          
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " >
+                  <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput   formControlName="assetname"  maxlength="30" required>
+                    <mat-error *ngIf="docForm.get('assetname').hasError('required')">
+                      Department Name is required
+                    </mat-error>
+                  </mat-form-field> -->
+                  {{auditableAsset.assetname}}
+                  </div>  
+                </div><br>
+
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-2 col-md-2 col-sm-12 " >
+                        <label class="lable">Acquisition Value :</label>
+                    </div> 
+                    <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -50px;">
+                        <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Currency</mat-label>
+                        <mat-select formControlName="currency">
+                            <mat-option *ngFor="let title of currencyList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="docForm.get('currency').hasError('required')">
+                            Currency is required
+                        </mat-error>
+                      </mat-form-field> -->
+                      {{auditableAsset.value}}
+                    </div>
+                    <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 48px;">
+                        <label class="lable">Useful Years :</label>
+                    </div> 
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " >
+                        <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Life In Years</mat-label>
+                        <input matInput formControlName="lifeInYears" (keypress)="keyPressPCB($event)">
+                        <mat-error *ngIf="docForm.get('lifeInYears').hasError('required')">
+                            Life In Years is required
+                        </mat-error>
+                      </mat-form-field> -->
+                      {{auditableAsset.lifeInYears}}
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " >
+                        <label class="lable">Salvage Value :</label>
+                    </div> 
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " >
+                        <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Value</mat-label>
+                        <input matInput formControlName="value" (change)="salvageValueValidation($event.target.value)" (keypress)="keyPressPCB($event)">
+                        <mat-error *ngIf="docForm.get('value').hasError('required')">
+                            Value is required
+                        </mat-error>
+                      </mat-form-field> -->
+                      {{auditableAsset.salvageValue}}
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " >
+                        <label class="lable">Show Full Life :</label>
+                    </div> 
+                    <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " >
+                      <mat-checkbox formControlName="assetType" ngInit="checked=true" (change)="checkFullLife($event)"></mat-checkbox>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " *ngIf="!fullLifeFlag">
+                        <label class="lable">Financial Year :</label>
+                    </div> 
+                    <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 " *ngIf="!fullLifeFlag">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select formControlName="depreciationMethod" (selectionChange)="financialChange($event.value)">
+                            <mat-option [value]="'2028'">
+                            2028
+                            </mat-option>
+                            <mat-option [value]="'2027'">
+                            2027
+                            </mat-option>
+                            <mat-option [value]="'2026'">
+                            2026
+                            </mat-option>
+                            <mat-option [value]="'2025'">
+                            2025
+                            </mat-option>
+                            <mat-option [value]="'2024'">
+                            2024
+                            </mat-option>
+                            <mat-option [value]="'2023'">
+                            2023
+                            </mat-option>
+                            <mat-option [value]="'2022'">
+                            2022
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="docForm.get('depreciationMethod').hasError('required')">
+                            Depreciation Method  is required
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>
+
+
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " *ngIf="fullLifeFlag">
+                        <label class="lable">Financial Year :</label>
+                    </div> 
+                    <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 " *ngIf="fullLifeFlag">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select formControlName="depreciationMethod" [disabled]="true">
+                            <mat-option [value]="'2023'">
+                            2023
+                            </mat-option>
+                            <mat-option [value]="'2022'">
+                            2022
+                            </mat-option>
+                            <mat-option [value]="'2021'">
+                            2021
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="docForm.get('depreciationMethod').hasError('required')">
+                            Depreciation Method  is required
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>
+
+                  </div><br>
+
+                  <div class="container" style="height: 200px ;overflow-y: scroll">
+                  <!-- <img src="assets/images/icons/xlsx.png" alt="" style="margin-left:97%"/> -->
+                  
+                
+                    <table id="excel-table" class="table table-striped">
+                      <thead>
+                          <tr style="position: sticky;top: 0;">
+                            <th style="background-color:#c1ddf5;">Financial Year</th>
+                            <th style="background-color:#c1ddf5;">Book Value</th>
+                            <th style="background-color:#c1ddf5;">Depreciation</th>
+                            <th style="background-color:#c1ddf5;">Accured Depreciation</th>
+                            <th style="background-color:#c1ddf5;">Book Value End</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                            <tr *ngFor="let visitReport of financialChangeDetails;">
+                            <!-- <tr> -->
+                              <td>{{visitReport.financial_year}}</td>
+                              <td>{{visitReport.bookvalue}}</td>
+                              <td>{{visitReport.depreciation}}</td>
+                              <td>{{visitReport.accudepreciation}}</td>
+                              <td>{{visitReport.bookvalueend}}</td>
+                            </tr>        
+                      </tbody>
+                    </table>
+                </div><br>
+
+              
+                <div class="row"> 
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <!-- <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    <button (click) = "reset()" class="btn-space" mat-raised-button
+                      color="primary" >Reset</button> -->
+                    <button (click) = "onCancel()" style="margin-left: 45%;" color="warn" type="button" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- </section> -->

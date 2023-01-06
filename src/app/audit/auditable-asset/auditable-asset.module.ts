@@ -22,16 +22,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 import { AuditableAssetRoutingModule } from './auditable-asset-routing.module';
 import { ListAuditableAssetComponent } from './list-auditable-asset/list-auditable-asset.component';
 import { AddAuditableAssetComponent } from './add-auditable-asset/add-auditable-asset.component';
+import { AuditableAssetPopUpComponent } from './auditable-asset-pop-up/auditable-asset-pop-up.component';
+
 
 
 @NgModule({
   declarations: [
     ListAuditableAssetComponent,
-    AddAuditableAssetComponent
+    AddAuditableAssetComponent,
+    AuditableAssetPopUpComponent
+  ],
+  providers:[
+    NotificationService 
   ],
   imports: [
     CommonModule,
