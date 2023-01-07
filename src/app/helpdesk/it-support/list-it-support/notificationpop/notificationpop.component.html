@@ -3,24 +3,25 @@
 <ul>
     <li> 
        <mat-card class="l-bg-purple-dark" >CLOSED
-         <h5>0</h5></mat-card>
+        <h5>{{closeCountValue}}</h5>
+        </mat-card>
         </li>
     &nbsp;
    <li>
      <mat-card class="bg-cyan" >ASSIGNED
-        <h5>1</h5>
+        <h5>{{AssignedCountValue}}</h5>
      </mat-card> 
    </li> 
          &nbsp;   
     <li>
         <mat-card class=" bg-green" >OPENED
-            <h5>2</h5>
+            <h5>{{OpenedCountValue}}</h5>
         </mat-card>
         &nbsp;
     </li>
     <li>
         <mat-card class=" l-bg-orange" >HOLD
-            <h5>3</h5>
+            <h5>{{HoldCountValue}}</h5>
         </mat-card> &nbsp;
     </li> 
     
