@@ -49,6 +49,7 @@ export class AddItSupportComponent implements OnInit {
   itsupport: Itsupport;
   assetnamelist:[""]
   assetlocationlist:[""]
+  id: any;
  
   constructor(private cmnService:CommonService,private fb: FormBuilder,private httpService: HttpServiceService,
     private  itsupportservice: Itsupportservice, private commonService: CommonService,
@@ -69,8 +70,8 @@ export class AddItSupportComponent implements OnInit {
       cc:[""],
       description:[""],
       report:[""],
-      status:[""]
-
+      status:[""],
+      support_id:[""]
    
     });
     }
@@ -90,7 +91,9 @@ export class AddItSupportComponent implements OnInit {
       cc:[""],
       description:[""],
       report:[""],
-      status:[""]
+      status:[""],
+      support_id:[""]
+     
 
 
    
@@ -181,8 +184,7 @@ export class AddItSupportComponent implements OnInit {
     this.router.navigate(['/helpdesk/itsupport/listitsupport']);
   }
 
-  getDateString(event,inputFlag,index){
-  }
+ 
 
   getCreditFile(event) {
  

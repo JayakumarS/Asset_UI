@@ -5,7 +5,7 @@ export class UserMaster {
   userId: number;
   fullName: string ;
   emailId: string;
-  contNumber: string;
+  contNumber: number;
   role: string;
   department: string;
   repmanager: string;
@@ -13,7 +13,6 @@ export class UserMaster {
   location: string;
   otp: string;
   userLocation: string;
-
   constructor(userMaster) {
     {
       this.id = userMaster.id || this.getRandomID();

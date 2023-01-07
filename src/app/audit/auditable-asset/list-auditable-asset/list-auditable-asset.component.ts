@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
 import { DeleteLocationComponent } from 'src/app/master/location/list-location/delete-location/delete-location.component';
 import { AuditableAsset } from '../auditable-asset-model';
 import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component'; 
+import { AuditableAssetPopUpComponent } from '../auditable-asset-pop-up/auditable-asset-pop-up.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -34,7 +36,7 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
     "acquisitionvalue",
     "accudepreciation",
     "bookvalue",
-    "actions"
+    // "actions"
   ];
 
   dataSource: ExampleDataSource | null;
@@ -42,6 +44,7 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
   selection = new SelectionModel<AuditableAsset>(true, []);
   index: number;
   id: number;
+  docForm: FormGroup;
   locationMaster: AuditableAsset | null;
   constructor(
     public httpClient: HttpClient,
@@ -50,9 +53,17 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private router: Router,
-    private httpService:HttpServiceService
+    private httpService:HttpServiceService,
+    private fb: FormBuilder
   ) {
     super();
+
+    this.docForm = this.fb.group({
+      financial_year: [""],
+      currentFinancialYear: [""],
+      previousFinancialYear:[""]
+    });
+
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -63,7 +74,7 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    this.loadData();
+    this.onSubmit();
   }
 
   refresh(){
@@ -75,7 +86,8 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort
+      this.sort,
+      this.docForm
     );
     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
@@ -90,6 +102,30 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
 
     this.router.navigate(['/admin/scheduler/add-schedule-activity/'+row.scheduleId]);
   
+  }
+
+  onSubmit(){
+   
+    this.locationMaster = this.docForm.value;
+    console.log(this.locationMaster);
+    this.loadData();
+}
+
+  viewCall(row) {
+    // this.index = i;
+    this.id = row.scheduleId;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(AuditableAssetPopUpComponent, {
+      // height: "480px",
+      // width: "800px",
+      data: row,
+      direction: tempDirection,
+    });
   }
 
  deleteItem(i, row) {
@@ -169,7 +205,8 @@ export class ExampleDataSource extends DataSource<AuditableAsset> {
   constructor(
     public exampleDatabase: AuditableAssetService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    public docForm: FormGroup
   ) {
     super();
     // Reset to the first page when the user changes the filter.
@@ -184,7 +221,7 @@ export class ExampleDataSource extends DataSource<AuditableAsset> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList();
+    this.exampleDatabase.getAllList(this.docForm.value);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

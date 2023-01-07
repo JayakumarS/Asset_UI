@@ -64,10 +64,11 @@ const routes: Routes = [
     import("./purchase-invoice/purchase-invoice.module").then((p) => p.PurchaseInvoiceModule),
   },
   {
-    path: "grn",
+    path: "inventory-reports",
     loadChildren: () =>
-    import("./grn/grn.module").then((g) => g.GrnModule),
+    import("./inventory-reports/inventory-reports.module").then((p) => p.InventoryReportsModule),
   }
+
 ];
 
 @NgModule({

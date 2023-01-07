@@ -419,7 +419,7 @@
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">
                                                                         <mat-label>Asset Name</mat-label>
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <mat-select tabindex="30" formControlName="assName">
+                                                                            <mat-select tabindex="30" formControlName="assName" (selectionChange)="assetDetails($event,i)">
                                                                                 <mat-option *ngFor="let title of assetnamelist" [value]="title.id" >
                                                                                     {{title.text}}
                                                                                 </mat-option>
@@ -429,25 +429,25 @@
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">  
                                                                         <mat-label>Asset Code</mat-label>
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <input matInput  tabindex="31" formControlName="assCode" disabled>
+                                                                            <input matInput  tabindex="31" formControlName="assCode" [readonly]="true">
                                                                            </mat-form-field>
                                                                     </td>
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">
                                                                         <mat-label>Location</mat-label>
-                                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <input matInput  tabindex="32" formControlName="assLocation" disabled>
+                                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                                                                            <input matInput  tabindex="32" formControlName="assLocation" [readonly]="true">
                                                                            </mat-form-field>
                                                                     </td>
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">
                                                                         <mat-label>Category</mat-label>
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <input matInput tabindex="33" formControlName="assCategory" disabled>
+                                                                            <input matInput tabindex="33" formControlName="assCategory" [readonly]="true">
                                                                            </mat-form-field>
                                                                     </td>
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">
                                                                         <mat-label>Status</mat-label>
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <input matInput tabindex="34" disabled selected formControlName="assStatus" disabled>
+                                                                            <input matInput tabindex="34" disabled selected formControlName="assStatus" [readonly]="true">
                                                                            </mat-form-field>
                                                                     </td>
                                                                     <td>

@@ -66,6 +66,7 @@ export class AddAssetMasterComponent
   spinner: any;
   fileImgPathUrl: any;
   assetnamelist: any;
+  assetDetailsList: any;
   
   
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
@@ -125,7 +126,7 @@ export class AddAssetMasterComponent
           assLocation:[""],
           assCategory:[""],
           assStatus:[""],
-          
+          assetId:[""]
          
         }) 
       ])
@@ -192,6 +193,8 @@ export class AddAssetMasterComponent
           );
 
 
+
+
   // assetname dropdown
    this.httpService.get<any>(this.commonService.getassetname).subscribe({
     next: (data) => {
@@ -202,6 +205,39 @@ export class AddAssetMasterComponent
     }
   }
   );
+   }
+
+// assetDetailsList
+
+assetDetails(value:any,i){
+
+    this.httpService.get<any>(this.assetService.getAssetDetails+"?assetId=" +value.value).subscribe({
+    next: (res: any) => {
+        if (res.success) {
+          if(res.assetList!=null && res.assetList.length>=1){
+            let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+            dtlArray.removeAt(i);
+            res.assetList.forEach(element => {
+              let purchaseInvoiceDtlArray = this.docForm.controls.assetMasterBean as FormArray;
+              let arraylen = purchaseInvoiceDtlArray.length;
+              let newUsergroup: FormGroup = this.fb.group({
+                assName:[value.value],
+                assCode:[element.assetCode],
+                assLocation:[element.locationName],
+                assCategory:[element.categoryName],
+                assStatus:[element.status],
+                assetId:[element.assetId]
+              })
+              purchaseInvoiceDtlArray.insert(i, newUsergroup);
+            });
+          }
+        }
+      },
+    error: (error) => {
+
+  }
+}
+);
    }
    
    onSubmit() {
@@ -524,6 +560,7 @@ onCancel() {
         assLocation:[""],
         assCategory:[""],
         assStatus:[""],
+        assetId:[""]
       })
       dtlArray.insert(arraylen,newUsergroup);
     

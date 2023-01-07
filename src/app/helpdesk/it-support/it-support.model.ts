@@ -20,11 +20,12 @@ export class Itsupport {
     description: string;
     report: Boolean;
   Success: boolean;
-   
+  support_id: number;
   
   constructor(itsupport) {
     {
-      this.id = itsupport.id || this.getRandomID();
+      this.id = itsupport.id || "";
+      this.support_id = itsupport.support_id || "";
       this.ticketno = itsupport.ticketno || "";
       this.tickettype = itsupport.tickettype || "";
       this.asset = itsupport.asset || "";
@@ -46,12 +47,7 @@ export class Itsupport {
     }
     }
   
-  public getRandomID(): string {
-    const S4 = () => {
-      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-    };
-    return S4() + S4();
-  }
+ 
 }
 
 
