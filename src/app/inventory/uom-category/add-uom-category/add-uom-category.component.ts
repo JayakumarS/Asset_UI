@@ -64,6 +64,7 @@ export class AddUOMCategoryComponent implements OnInit {
 
 
   onSubmit() {
+    if(this.docForm.valid){
       this.uomCategory = this.docForm.value;
       this.uomCategoryService.addUomCategory(this.uomCategory).subscribe({
         next: (data) => {
@@ -93,6 +94,15 @@ export class AddUOMCategoryComponent implements OnInit {
           );
         }
       });
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill The All Required fields",
+        "bottom",
+        "center"
+      );
+    }
   }
 
   // Edit

@@ -136,7 +136,7 @@ export class AddCurrencyMasterComponent implements OnInit {
     this.submitted=true;
       this.currencyMaster = this.docForm.value;
       this.spinner.show();
-      this.CurrencyMasterService.updateCountry(this.currencyMaster).subscribe({
+    this.CurrencyMasterService.updateCountry(this.currencyMaster).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
