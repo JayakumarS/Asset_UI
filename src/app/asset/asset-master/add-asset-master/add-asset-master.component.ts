@@ -218,8 +218,8 @@ assetDetails(value:any,i){
             let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
             dtlArray.removeAt(i);
             res.assetList.forEach(element => {
-              let purchaseInvoiceDtlArray = this.docForm.controls.assetMasterBean as FormArray;
-              let arraylen = purchaseInvoiceDtlArray.length;
+              let assetListDtlArray = this.docForm.controls.assetMasterBean as FormArray;
+              let arraylen = assetListDtlArray.length;
               let newUsergroup: FormGroup = this.fb.group({
                 assName:[value.value],
                 assCode:[element.assetCode],
@@ -228,7 +228,7 @@ assetDetails(value:any,i){
                 assStatus:[element.status],
                 assetId:[element.assetId]
               })
-              purchaseInvoiceDtlArray.insert(i, newUsergroup);
+              assetListDtlArray.insert(i, newUsergroup);
             });
           }
         }
@@ -395,13 +395,34 @@ onCancel() {
          'uploadImg': res.addAssetBean.uploadImg,
          'vendor': res.addAssetBean.vendor,
 
+
+
+         
       })
 
       this.getInLine(res.addAssetBean.isLine);
      
       this.fileImgPathUrl = res.addAssetBean.uploadImg;
       this.filePathUploadUrl = res.addAssetBean.uploadFiles;
-       },
+
+
+      if (res.detailList != null && res.detailList.length >= 1) {
+        let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+        detailListArray.clear();
+        res.detailList.forEach(element => {
+          let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+          let arraylen = detailListArray.length;
+          let newUsergroup: FormGroup = this.fb.group({
+            assName: [element.assName],
+            assCode: [element.assCode],
+            assLocation: [element.assLocation],
+            assCategory: [element.assCategory],
+            assStatus: [element.assStatus],
+          })
+          detailListArray.insert(arraylen, newUsergroup);
+        });
+      }
+    },
        error: (error) => {
        
       }

@@ -41,4 +41,6 @@ export class AssetMaster {
     Success: boolean;
 
 	assetDetailsList:[]
+
+	detailList: any;
 } 
