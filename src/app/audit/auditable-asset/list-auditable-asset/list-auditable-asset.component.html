@@ -95,41 +95,50 @@
                   
                   <ng-container matColumnDef="slno">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Sl No</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.slno}}</mat-cell>
+                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.slno}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="assetid">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Id</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetid}}</mat-cell>
+                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetid}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="assetname">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetname}}
+                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetname}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="acquisitiondt">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Acquisition Date</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitiondt}}</mat-cell>
+                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitiondt}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="currency">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Currency</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currency}}</mat-cell>
+                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currency}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="acquisitionvalue">
+                  <!-- <ng-container matColumnDef="acquisitionvalue">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Acquisition Value</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitionvalue}}
+                    <mat-cell  *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitionvalue}}
                     </mat-cell>
-                  </ng-container>
+                  </ng-container> -->
+               <!-- style -->
+               <ng-container matColumnDef="acquisitionvalue">
+                <mat-header-cell style="justify-content: right" *matHeaderCellDef mat-sort-header>Acquisition Value</mat-header-cell>
+                <mat-cell class="data-align-right" style="padding-right: 15px;" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitionvalue}}
+                </mat-cell>
+              </ng-container>
+               <!-- style -->
+
+
                   <ng-container matColumnDef="accudepreciation">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Accured Depreciation</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="color: blue;"> <a (click)="viewCall(row)">{{row.accudepreciation}}</a></mat-cell>
+                    <mat-header-cell  style="justify-content: right" *matHeaderCellDef mat-sort-header>Acc Depreciation</mat-header-cell>
+                    <mat-cell class="data-align-right" style="padding-right: 25px;" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="color: blue;"> <a (click)="viewCall(row)">{{row.accudepreciation}}</a></mat-cell>
                   </ng-container>
                   <!-- <ng-container matColumnDef="accudepreciation">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Accured Depreciation</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.accudepreciation}}</mat-cell>
                   </ng-container> -->
                   <ng-container matColumnDef="bookvalue">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Book Value</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.bookvalue}}</mat-cell>
+                    <mat-header-cell style="justify-content: right" *matHeaderCellDef mat-sort-header>Book Value</mat-header-cell>
+                    <mat-cell  class="data-align-right" style="padding-right: 45px;" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.bookvalue}}</mat-cell>
                   </ng-container>
                   
                  

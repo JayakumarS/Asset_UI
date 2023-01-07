@@ -36,7 +36,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./reports/reports.module").then((m) => m.ReportsModule)
     },
-    
+    // {
+    //   path: "userrights",
+    //   loadChildren: () =>
+    //     import("./user-right/user-right.module").then((m) => m.UserRightModule)
+    //   }
 ];
 
 @NgModule({
