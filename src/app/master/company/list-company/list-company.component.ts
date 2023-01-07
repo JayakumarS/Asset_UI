@@ -64,8 +64,12 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
   ngOnInit(): void {
     this.loadData();
   }
-  refresh(){
-    this.loadData();
+  
+  refresh() {
+    const currentRoute = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentRoute]);
+    });
   }
 
   public loadData() {
