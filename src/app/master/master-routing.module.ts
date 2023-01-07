@@ -51,7 +51,12 @@ const routes: Routes = [
     loadChildren: () =>
     import("./user-master/user-master.module").then((m) => m.UserMasterModule),
   },
-
+  {
+    path: "company",
+    loadChildren: () => 
+    import("./company/company.module").then((m) => m.CompanyModule)
+  },
+  
 
 ];
 
