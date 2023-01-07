@@ -37,15 +37,15 @@ export class AddPropertiesComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.httpService.get<ItemPropertiesResultBean>(this.itemPropertiesService.getpropertyType).subscribe(
-      (data) => {
-        this.property = data.propertyTypeList;
-        console.log(this.property);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-    );
+    // this.httpService.get<ItemPropertiesResultBean>(this.itemPropertiesService.getpropertyType).subscribe(
+    //   (data) => {
+    //     this.property = data.propertyTypeList;
+    //     console.log(this.property);
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     console.log(error.name + " " + error.message);
+    //   }
+    // );
   }
   onSubmit(){}
      getpropertyValue(propertyId: any): void {

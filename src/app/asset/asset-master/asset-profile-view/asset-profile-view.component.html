@@ -1,1 +1,338 @@
-<p>asset-profile-view works!</p>
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Asset Profile'" [items]="['Asset ']" [active_item]="'AssetProfile'">
+            </app-breadcrumb>
+        </div>
+        <!-- Your content goes here  -->
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-12">
+                <div class="card">
+                    <div class="m-b-20">
+                        <div class="contact-grid">
+                            <div class="profile-header bg-dark">
+                                <div class="user-name">{{profileViewDetails?.assetName}}</div>
+                                <div class="name-center">{{profileViewDetails?.assetCode}}</div>
+                            </div>
+                            <img src={{profileViewDetails?.uploadImg}} class="user-img" alt="">
+                            <p>
+                                {{profileViewDetails?.category}}
+                                <br />{{profileViewDetails?.status}}
+                            </p>
+                            <div>
+                                <span class="location">
+                    <i class="material-icons"> location_on</i>{{profileViewDetails?.location}}</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5>{{profileViewDetails?.purchasePrice}}</h5>
+                                    <small>Purchase Value </small>
+                                </div>
+                                <div class="col-4">
+                                    <h5>{{profileViewDetails?.captitalizationPrice}}</h5>
+                                    <small>Captitalization Price</small>
+                                </div>
+                                <div class="col-4">
+                                    <h5>{{profileViewDetails?.depreciation}}</h5>
+                                    <small>Depreciation</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Files </h2>
+                        </div>
+                        <div class="body">
+                            <div class="doc-file-type">
+                                <ul class="list-unstyled" style="position: relative; max-height: 285px;" [perfectScrollbar]>
+                                    <li class="d-flex mb-3">
+                                        <span class="msr-3 align-self-center img-icon success-rgba text-success"><i
+                                  class="far fa-file-excel"></i></span>
+                                        <div class="set-flex">
+                                            <h5 class="font-16 mb-1">{{profileViewDetails?.uploadFiles}}</h5>
+                                            <!-- <p>.doc, 4.3 MB</p> -->
+                                        </div>
+                                        <div class="ms-auto">
+                                            <td>
+                                                <i class="far fa-arrow-alt-circle-down"></i>
+                                            </td>
+                                        </div>
+                                    </li>
+
+
+
+
+                                </ul>
+                                <!-- <div class="text-center p-t-20">
+                                    <button mat-stroked-button color="primary">More Records</button>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="card">
+                    <mat-tab-group>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <mat-icon class="example-tab-icon msr-2">face</mat-icon>
+                                About
+                            </ng-template>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="project_widget">
+                                    <div class="header">
+                                        <h2><strong>Asset Info</strong></h2>
+                                    </div>
+                                    <div class="body">
+                                        <div class="row">
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Brand</strong>
+                                                <br>
+                                                <p class="text-muted">{{profileViewDetails?.brand}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Model</strong>
+                                                <br>
+                                                <p class="text-muted">{{profileViewDetails?.model}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Serial No</strong>
+                                                <br>
+                                                <p class="text-muted">{{profileViewDetails?.serialNo}}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Condition</strong>
+                                                <br>
+                                                <p class="text-muted">{{profileViewDetails?.status}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>linked Asset</strong>
+                                                <br>
+                                                <p class="text-muted">{{profileViewDetails?.linkedAsset}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Discription</strong>
+                                                <br>
+                                                <p class="text-muted">{{profileViewDetails?.description}}</p>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="project_widget">
+                                    <div class="header">
+                                        <h2><strong>Purchase Info</strong></h2>
+                                    </div>
+                                    <div class="body">
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Vendor Name</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.vendor}}</p>
+                                            </div>
+
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>PO Number</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.poNumber}}</p>
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Invoice Date</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.invoiceDate}}</p>
+                                            </div>
+
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Invoice Number</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.invoiceNo}}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Purchase Price</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.purchasePrice}}</p>
+                                            </div>
+
+
+                                            <!-- <div class="col-md-2 col-4 b-r">
+                                                <strong>Invoice Number</strong>
+
+                                            </div> -->
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.selfOrPartner}}</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="project_widget">
+                                    <div class="header">
+                                        <h2><strong>Financial Info</strong></h2>
+                                    </div>
+                                    <div class="body">
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Captitalization Price</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.captitalizationPrice}}</p>
+                                            </div>
+
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Captitalization Date</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.captitalizationDate}}</p>
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>End of life</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.endLife}}</p>
+                                            </div>
+
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Scrap Value</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.scrapValue}}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Depreciation</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.depreciation}}</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="project_widget">
+                                    <div class="header">
+                                        <h2><strong>Alloted Info</strong></h2>
+                                    </div>
+                                    <div class="body">
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Department</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.department}}</p>
+                                            </div>
+
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Allotted Upto</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.allottedUpto}}</p>
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Transferred To</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.transferredTo}}</p>
+                                            </div>
+
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Remarks</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.remarks}}</p>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+
+
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

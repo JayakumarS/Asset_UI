@@ -60,7 +60,7 @@ export class AddScheduleActivityComponent implements OnInit {
       description:["",[Validators.required]],
       assignee:["",[Validators.required]],
       attachFiles:["",[Validators.required]],
-      occurs:["",[Validators.required]],
+      occurs:["",[Validators.required]], 
       startdate:[""],
       startdateObj:[""],
       enddate:[""],

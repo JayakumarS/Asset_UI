@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -19,7 +19,7 @@ import { Itsupport } from '../it-support.model';
 import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component'; 
 import { DeleteitsupportComponent } from './deleteitsupport/deleteitsupport.component';
 import { NotificationpopComponent } from './notificationpop/notificationpop.component';
-
+import { ItSupportresultbean } from '../it-support-result-bean';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -58,7 +58,13 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   id: number;
   locationMaster: Itsupport | null;
   assetnamelist: [""]
+  closedListCount=[];
+  AssignedListCount=[];
   spinner: any;
+  closeCountValue: any;
+  AssignedCountValue: any;
+  OpenedCountValue: any;
+  HoldCountValue: any;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -80,7 +86,50 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
 
   ngOnInit(): void {
     this.loadData();
+
+    this.httpService.get<ItSupportresultbean>(this.itsupportservice.closedListCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.closeCountValue = data.closedListCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+
+    this.httpService.get<ItSupportresultbean>(this.itsupportservice.openListCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.OpenedCountValue = data.openedListCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+
+    );
+    this.httpService.get<ItSupportresultbean>(this.itsupportservice.holdListCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.HoldCountValue = data.holdListCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+    this.httpService.get<ItSupportresultbean>(this.itsupportservice.AssignedListCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.AssignedCountValue = data.assignedListCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
   }
+
+  
 
   refresh(){
     this.loadData();
@@ -269,7 +318,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
           [propertyA, propertyB] = [a.tickettype, b.tickettype];
           break;
         case "asset":
-          [propertyA, propertyB] = [a.asset, b.asset];
+          [propertyA, propertyB] = [a.assetnamelist, b.assetnamelist];
           break;
         case "assetlocation":
           [propertyA, propertyB] = [a.assetlocation, b.assetlocation];

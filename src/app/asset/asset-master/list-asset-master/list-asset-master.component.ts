@@ -98,6 +98,10 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
     this.router.navigate(['/asset/assetMaster/addAssetMaster/' + row.id]);
   }
 
+  viewCall(row) {
+    this.router.navigate(['/asset/assetMaster/viewAssetMaster/' + row.id]);
+  }
+
   deleteItem(row) {
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {

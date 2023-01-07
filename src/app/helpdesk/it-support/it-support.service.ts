@@ -38,7 +38,12 @@ const httpOptions = {
     public deleteItSupport = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/delete`;
     public editItSupport = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/edit`;
     public updateIT = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/update`;
+    public closedListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getClosedListCount`;
+    public AssignedListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getAssignedListCount`;
+    public openListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getopenListCount`;
+    public holdListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getholdListCount`;
 
+    
     
     
     get data(): Itsupport[] {
