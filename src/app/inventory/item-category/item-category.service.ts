@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from "rxjs";
+import { ItemCategory } from './Item-category.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+import { ItemCategoryResultBean } from './Item-category-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { ItemCategory } from "./item-category.models";
-import { ItemCategoryResultBean } from './item-category-result-bean';
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,29 +16,25 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
+
   isTblLoading = true;
   dataChange: BehaviorSubject<ItemCategory[]> = new BehaviorSubject<ItemCategory[]>(
     []
   );
+
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(
-    private httpClient: HttpClient,
-    private serverUrl: serverLocations,
-    private httpService: HttpServiceService
-  )
-  {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
+    private httpService: HttpServiceService) {
     super();
   }
 
-  private getAllCategory = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/getList`;
-  private saveItemCategory = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/save`;
-  public editItemCategory = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/edit`;
-  public updateItemCategory = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/update`;
-  private deleteItemCategory = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/delete`;
-  public getPropertyValue = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/getproperValue`;
-  public getCategoryType = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/getCategoryType`;
-
+  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/getList`;
+  public saveItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/save`;
+  public editItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/edit`;
+  public updateItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/update`;
+  public deleteItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/delete`;
+  
   get data(): ItemCategory[] {
     return this.dataChange.value;
   }
@@ -45,56 +42,33 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
     return this.dialogData;
   }
 
-  /** CRUD METHODS */
-
-  getAllList(): void {
-    this.subs.sink = this.httpService.get<ItemCategoryResultBean>(this.getAllCategory).subscribe(
+  getAllItemCategorys(): void {
+    this.subs.sink = this.httpService.get<ItemCategoryResultBean>(this.getAllMasters).subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.listbean);
+        this.dataChange.next(data.itemCategoryList);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
         console.log(error.name + " " + error.message);
       }
     );
-}
+  }
 
-// // This is for save
-// addItemCatagory(itemCategory: ItemCategory): void {
-//   this.dialogData = itemCategory;
-//   this.httpService.post<ItemCategory>(this.saveItemCategory, itemCategory).subscribe(data => {
-//     console.log(data);
-//     //this.dialogData = employees;
-//     },
-//     (err: HttpErrorResponse) => {
+  addItemCategory(itemCategory: ItemCategory): Observable<any> {
+    return this.httpClient.post<ItemCategory>(this.saveItemCategoryMaster, itemCategory);
+  }
 
-//   });
-// }
-// tslint:disable-next-line:no-shadowed-variable
-addItemCatagory(itemCategory: ItemCategory): Observable<any> {
-  return this.httpClient.post<ItemCategory>(this.saveItemCategory, itemCategory);
-}
-itemCategoryUpdate(itemCategory: ItemCategory): void {
-  this.dialogData = itemCategory;
-  this.httpService.post<ItemCategory>(this.updateItemCategory, itemCategory).subscribe(data => {
-    console.log(data);
-    //this.dialogData = employees;
-    },
-    (err: HttpErrorResponse) => {
+  editItemCategory(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editItemCategoryMaster, obj);
+  }
 
-  });
-}
+  updateItemCategory(itemCategory: ItemCategory): Observable<any> {
+    return this.httpClient.post<ItemCategory>(this.updateItemCategoryMaster, ItemCategory);
+  }
 
-itemCategorydelete(itemCategoryId: any): void {
-  this.httpService.get(this.deleteItemCategory+"?itemCategory="+itemCategoryId).subscribe(data => {
-    console.log(itemCategoryId);
-    },
-    (err: HttpErrorResponse) => {
-       // error code here
-    }
-  );
-
-}
+  deleteItemCategory(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.deleteItemCategoryMaster, obj);
+  }
 
 }

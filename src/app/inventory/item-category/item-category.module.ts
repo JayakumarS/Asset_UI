@@ -22,17 +22,17 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 
+
 import { ItemCategoryRoutingModule } from './item-category-routing.module';
-import { ListCategoryComponent } from './list-category/list-category.component';
-import { AddCategoryComponent } from './add-category/add-category.component';
-import { AddPropertiesComponent } from './add-properties/add-properties.component';
-import { DeleteItemCategoryComponent } from './list-category/delete-item-category/delete-item-category.component';
+import { AddItemCategoryComponent } from './add-item-category/add-item-category.component';
+import { ListItemCategoryComponent } from './list-item-category/list-item-category.component';
+import { DeleteItemCategoryComponent } from './list-item-category/delete-item-category/delete-item-category.component';
+
 
 @NgModule({
   declarations: [
-    ListCategoryComponent,
-    AddCategoryComponent,
-    AddPropertiesComponent,
+    AddItemCategoryComponent,
+    ListItemCategoryComponent,
     DeleteItemCategoryComponent
   ],
   imports: [
@@ -62,4 +62,5 @@ import { DeleteItemCategoryComponent } from './list-category/delete-item-categor
     SharedModule,
   ]
 })
+
 export class ItemCategoryModule { }

@@ -55,16 +55,16 @@ export class ItemPropertiesService extends UnsubscribeOnDestroyAdapter {
     );
   }
 
-  addItemProperties(ItemProperties: ItemProperties): Observable<any> {
-    return this.httpClient.post<ItemProperties>(this.saveItemPropertiesMaster, ItemProperties);
+  addItemProperties(itemProperties: ItemProperties): Observable<any> {
+    return this.httpClient.post<ItemProperties>(this.saveItemPropertiesMaster, itemProperties);
   }
 
   editItemProperties(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.editItemPropertiesMaster, obj);
   }
 
-  updateItemProperties(ItemProperties: ItemProperties): Observable<any> {
-    return this.httpClient.post<ItemProperties>(this.updateItemPropertiesMaster, ItemProperties);
+  updateItemProperties(itemProperties: ItemProperties): Observable<any> {
+    return this.httpClient.post<ItemProperties>(this.updateItemPropertiesMaster, itemProperties);
   }
 
   deleteItemProperties(obj: any): Observable<any> {

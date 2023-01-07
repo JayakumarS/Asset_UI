@@ -1,7 +1,7 @@
+import { ItemCategory } from "./Item-category.model";
 
-export class ItemCategoryResultBean{
-    success:boolean;
-    itemCategoryDetails: [];
-    categoryTypeList: [];
-  listbean: [];
+export class ItemCategoryResultBean {
+    Success: boolean;
+    itemCategory: ItemCategory;
+    itemCategoryList: [];
 }
