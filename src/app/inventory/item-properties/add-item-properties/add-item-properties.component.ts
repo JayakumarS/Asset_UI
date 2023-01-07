@@ -33,7 +33,6 @@ export class AddItemPropertiesComponent implements OnInit {
     private httpService: HttpServiceService) { 
 
     this.docForm = this.fb.group({
-      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       propertyName: ["", [Validators.required]],
       defaultValue: ["",[Validators.required]],
       value: [""],

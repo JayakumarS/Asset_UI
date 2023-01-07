@@ -26,7 +26,7 @@ import { CommonService } from 'src/app/common-service/common.service';
   styleUrls: ['./list-grn.component.sass']
 })
 export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-  displayedColumns = ['grnNumber', 'grnDate','vendorName','purchaseOrderNo','preparedBy','actions'];
+  displayedColumns = ['grnNumber', 'grnDate','vendorName','purchaseInvoiceId','preparedBy','actions'];
   dataSource: ExampleDataSource | null;
   exampleDatabase: GrnService | null;
   selection = new SelectionModel<Grn>(true, []);
@@ -192,7 +192,7 @@ export class ExampleDataSource extends DataSource<Grn> {
               grn.grnNumber +
               grn.grnDate +
               grn.vendorName +
-              grn.purchaseOrderNo +
+              grn.purchaseInvoiceId +
               grn.preparedBy
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -228,8 +228,8 @@ export class ExampleDataSource extends DataSource<Grn> {
         case "vendorName":
           [propertyA, propertyB] = [a.vendorName, b.vendorName];
           break;
-          case "purchaseOrderNo":
-          [propertyA, propertyB] = [a.purchaseOrderNo, b.purchaseOrderNo];
+          case "purchaseInvoiceId":
+          [propertyA, propertyB] = [a.purchaseInvoiceId, b.purchaseInvoiceId];
           break;
           case "preparedBy":
           [propertyA, propertyB] = [a.preparedBy, b.preparedBy];

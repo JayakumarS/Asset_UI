@@ -1,8 +1,8 @@
 export class Grn{
      organizationName:string;
-     purchaseOrderNo:string;
+     purchaseInvoiceId:number;
      grnDate:string;
-     poType:string;
+     poType:number;
      vendorId:number;
      vendorAddress:string;
      vendorCity:string;
@@ -27,6 +27,7 @@ export class Grn{
      loginedUser:string;
 
      //For GRN List 
+     grnId: number;
      grnNumber: string;
      vendorName : string;
      preparedBy : string;

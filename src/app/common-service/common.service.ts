@@ -70,5 +70,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public commonUploadFile = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/commonUploadFile`;
 
   public getPurchaseOrderNumberDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseOrderNumberDropdown`;
+  
+  public getPurchaseInvoiceNumberDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseInvoiceNumberDropdown`;
 
 }

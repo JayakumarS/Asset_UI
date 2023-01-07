@@ -36,8 +36,7 @@
                       </mat-form-field>
                   </div>
                 </div>
-                <div class="row" *ngIf="docForm.get('propertyType').value =='75'">
-                    <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
+                <div class="row">                    <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
                       <mat-label><b></b></mat-label>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
@@ -56,8 +55,8 @@
                     </mat-form-field>
                   </div>
                 </div> 
-                <div class="row" *ngIf="docForm.get('propertyType').value =='75'">
-                  <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
+                <div class="row">
+                                    <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
                     <mat-label><b></b></mat-label>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
@@ -71,176 +70,6 @@
                 </div>
               </div>
 
-              <div class="row" *ngIf="docForm.get('propertyType').value =='76'">
-                <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-                  <mat-label><b></b></mat-label>
-              </div>
-              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Property Name</mat-label>
-                  <input matInput formControlName="propertyName" required>
-                  <mat-error *ngIf="docForm.get('propertyName').hasError('required')">
-                    Property Name is required
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Length</mat-label>
-                  <input matInput formControlName="length">
-                </mat-form-field>
-              </div>
-            </div> 
-            <div class="row" *ngIf="docForm.get('propertyType').value =='76'">
-              <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-                <mat-label><b></b></mat-label>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-label>Default Value</mat-label>
-                <input matInput formControlName="defaultValue">
-              </mat-form-field>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-              <mat-checkbox  formControlName="active" ngInit="checked=true">Is Mandatory</mat-checkbox>
-            </div>
-          </div>
-
-              <div class="row" *ngIf="docForm.get('propertyType').value =='77'">
-                <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-                  <mat-label><b></b></mat-label>
-              </div>
-              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Property Name</mat-label>
-                  <input matInput formControlName="propertyName" required>
-                  <mat-error *ngIf="docForm.get('propertyName').hasError('required')">
-                    Property Name is required
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Value</mat-label>
-                  <input matInput formControlName="value">
-                </mat-form-field>
-              </div>
-            </div> 
-            <div class="row" *ngIf="docForm.get('propertyType').value =='77'">
-              <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-                <mat-label><b></b></mat-label>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-label>Default Value</mat-label>
-                <input matInput formControlName="defaultValue">
-              </mat-form-field>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-              <mat-checkbox  formControlName="active" ngInit="checked=true">Is Mandatory</mat-checkbox>
-            </div>
-          </div>
-
-          <div class="row" *ngIf="docForm.get('propertyType').value =='78'">
-            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-              <mat-label><b></b></mat-label>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-label>Property Name</mat-label>
-              <input matInput formControlName="propertyName" required>
-              <mat-error *ngIf="docForm.get('propertyName').hasError('required')">
-                Property Name is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-label>Value</mat-label>
-              <input matInput formControlName="value">
-            </mat-form-field>
-          </div>
-        </div> 
-        <div class="row" *ngIf="docForm.get('propertyType').value =='78'">
-          <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-            <mat-label><b></b></mat-label>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <mat-label>Default Value</mat-label>
-            <input matInput formControlName="defaultValue">
-          </mat-form-field>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-          <mat-checkbox  formControlName="active" ngInit="checked=true">Is Mandatory</mat-checkbox>
-        </div>
-      </div>
-
-      <div class="row" *ngIf="docForm.get('propertyType').value =='79'">
-        <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-          <mat-label><b></b></mat-label>
-      </div>
-      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-label>Property Name</mat-label>
-          <input matInput formControlName="propertyName" required>
-          <mat-error *ngIf="docForm.get('propertyName').hasError('required')">
-            Property Name is required
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-label>Value</mat-label>
-          <input matInput formControlName="value">
-        </mat-form-field>
-      </div>
-    </div> 
-    <div class="row" *ngIf="docForm.get('propertyType').value =='79'">
-      <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-        <mat-label><b></b></mat-label>
-    </div>
-    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <mat-label>Default Value</mat-label>
-        <input matInput formControlName="defaultValue">
-      </mat-form-field>
-    </div>
-    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-      <mat-checkbox  formControlName="active" ngInit="checked=true">Is Mandatory</mat-checkbox>
-    </div>
-  </div>
-
-          <div class="row" *ngIf="docForm.get('propertyType').value =='80'">
-            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-              <mat-label><b></b></mat-label>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-label>Property Name</mat-label>
-              <input matInput formControlName="propertyName" required>
-              <mat-error *ngIf="docForm.get('propertyName').hasError('required')">
-                Property Name is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-label>Value</mat-label>
-              <input matInput formControlName="value">
-            </mat-form-field>
-          </div>
-        </div> 
-        <div class="row" *ngIf="docForm.get('propertyType').value ==='3'">
-          <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12" style="margin-left: 50px;">
-            <mat-label><b></b></mat-label>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-          <mat-checkbox  formControlName="active" ngInit="checked=true">Is Mandatory</mat-checkbox>
-        </div>
-      </div>
                 <br>
                 <div class="row"> 
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">

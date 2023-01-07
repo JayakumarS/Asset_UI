@@ -51,7 +51,7 @@ export class AddGrnComponent implements OnInit {
   docForm: FormGroup;
   grn: Grn;
   grnDetailList = [];
-  purchaseOrderNumberList= [];
+  purchaseInvoiceNumber= [];
   vendorList = [];
   countryList = [];
   locationList: [];
@@ -74,7 +74,7 @@ export class AddGrnComponent implements OnInit {
     
     this.docForm = this.fb.group({
       organizationName: ["", [Validators.required]],
-      purchaseOrderNo: ["",[Validators.required]],
+      purchaseInvoiceId: ["",[Validators.required]],
       grnDate:[moment().format('YYYY-MM-DD'),[Validators.required]],
       poType: ["", [Validators.required]],
       vendorId: [""],
@@ -99,6 +99,7 @@ export class AddGrnComponent implements OnInit {
       total:[""],
       remarks:[""],
       loginedUser: this.tokenStorage.getUserId(),
+      preparedBy: this.tokenStorage.getUsername(),
 
       grnDetailList: this.fb.array([
       this.fb.group({
@@ -117,10 +118,10 @@ export class AddGrnComponent implements OnInit {
   }
 
   ngOnInit() {
-   //PurchaseOrderNumber Dropdown List
-   this.httpService.get<any>(this.commonService.getPurchaseOrderNumberDropdown).subscribe({
+   //PurchaseInvoiceNumber Dropdown List
+   this.httpService.get<any>(this.commonService.getPurchaseInvoiceNumberDropdown).subscribe({
     next: (data) => {
-      this.purchaseOrderNumberList = data;
+      this.purchaseInvoiceNumber = data;
     },
     error: (error) => {
     }
@@ -293,7 +294,8 @@ export class AddGrnComponent implements OnInit {
         'currencyId': '',
         // 'clientType': '',
         'countryIsActive': false,
-        'loginedUser': this.tokenStorage.getUserId()
+        'loginedUser': this.tokenStorage.getUserId(),
+        'preparedBy': this.tokenStorage.getUsername(),
       })
     } else {
       this.fetchDetails(this.requestId);

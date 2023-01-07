@@ -29,11 +29,11 @@ export class GrnService extends UnsubscribeOnDestroyAdapter {
     super();
   }
 
-  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/Grn/getList`;
-  public saveGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/Grn/save`;
-  public editGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/Grn/edit`;
-  public updateGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/Grn/update`;
-  public deleteGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/Grn/delete`;
+  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/grn/getList`;
+  public saveGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/grn/save`;
+  public editGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/grn/edit`;
+  public updateGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/grn/update`;
+  public deleteGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/grn/delete`;
   
   get data(): Grn[] {
     return this.dataChange.value;
