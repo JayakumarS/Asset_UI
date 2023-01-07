@@ -94,7 +94,7 @@
   
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                  <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"  (click)="editCall(row)"
                     [style.cursor]="'pointer'" matRipple>
                   </mat-row>
                 </mat-table>
@@ -104,52 +104,26 @@
                   </mat-progress-spinner>
                 </div>
                 <!-- context menu start -->
-                <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
-                  [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
-                </div>
-                <mat-menu #contextMenu="matMenu">
-                  <ng-template matMenuContent let-item="item">
-                    <button mat-menu-item (click)="addNew()">
-                      <mat-icon>add_box</mat-icon>
-                      <span>Add Record</span>
-                    </button>
-                    <button mat-menu-item (click)="editCall(item)">
-                      <mat-icon>create</mat-icon>
-                      <span>Edit Record</span>
-                    </button>
-                    <!-- <button mat-menu-item (click)="deleteItem(item.id,item)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete Record</span>
-                    </button> -->
-                    <button mat-menu-item (click)="refresh()">
-                      <mat-icon>refresh</mat-icon>
-                      <span>Refresh Record</span>
-                    </button>
-                    <button mat-menu-item disabled>
-                      <mat-icon>no_encryption</mat-icon>
-                      <span>Disable</span>
-                    </button>
-                    <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
-                      <mat-icon>list_alt</mat-icon>
-                      <span> Nested Menu</span>
-                    </button>
-                  </ng-template>
-                </mat-menu>
-                <mat-menu #nestedmenu="matMenu">
-                  <button mat-menu-item>
-                    <mat-icon>mail_outline</mat-icon>
-                    <span>Item 1</span>
-                  </button>
-                  <button mat-menu-item>
-                    <mat-icon>call</mat-icon>
-                    <span>Item 2</span>
-                  </button>
-                  <button mat-menu-item>
-                    <mat-icon>chat</mat-icon>
-                    <span>Item 3</span>
-                  </button>
-                </mat-menu>
-                <!-- context menu end -->
+            <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+            [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+          </div>
+          <mat-menu #contextMenu="matMenu">
+            <ng-template matMenuContent let-item="item">
+              <button mat-menu-item [routerLink]="'/master/vendor/addVendor/0'">
+                <mat-icon>add_box</mat-icon>
+                <span>Add Record</span>
+              </button>
+              <button mat-menu-item (click)="editCall(row)">
+                <mat-icon>create</mat-icon>
+                <span>Edit Record</span>
+              </button>
+              <button mat-menu-item (click)="deleteItem(row)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete Record</span>
+              </button>
+            </ng-template>
+          </mat-menu>
+          <!-- context menu end -->
                 <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
                   [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
                   No results
