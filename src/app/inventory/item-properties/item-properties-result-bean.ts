@@ -1,7 +1,7 @@
+import { ItemProperties } from "./item-properties-model";
 
 export class ItemPropertiesResultBean{
-    success:boolean;
-    itemPropertiesDetails: [];
-    propertyTypeList:[];
-    dataTypeList:[];
+    Success: boolean;
+    itemProperties: ItemProperties;
+    itemPropertiesList: [];
 }

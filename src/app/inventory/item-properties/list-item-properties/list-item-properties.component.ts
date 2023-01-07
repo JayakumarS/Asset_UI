@@ -1,4 +1,7 @@
-import { Component, OnInit, ViewChild , ElementRef } from '@angular/core';
+import { DeleteItemPropertiesComponent } from './delete-item-properties/delete-item-properties.component';
+import { ItemPropertiesService } from '../item-properties.service';
+import { ItemProperties } from '../item-properties-model';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -12,27 +15,33 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { FormDialogComponent } from 'src/app/admin/employees/allEmployees/dialogs/form-dialog/form-dialog.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemProperties } from '../item-properties-model';
-import { ItemPropertiesService } from '../item-properties.service';
-import { DeleteItemPropertiesComponent } from './delete-item-properties/delete-item-properties.component';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-list-item-properties',
   templateUrl: './list-item-properties.component.html',
   styleUrls: ['./list-item-properties.component.sass']
 })
-export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter implements OnInit{
-  displayedColumns = ['text', 'propertyName','typeName','defaultValue','actions'];
-  // exampleDatabase: AppService | null;
+export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+  displayedColumns = [
+    "attributeDataTypeName",
+    "attributeName",
+    "attributeTypeName",
+    "actions",
+  ];
+
   dataSource: ExampleDataSource | null;
   exampleDatabase: ItemPropertiesService | null;
   selection = new SelectionModel<ItemProperties>(true, []);
-  itemProperties:ItemProperties|null;
-  id : number;
-
+  index: number;
+  id: number;
+  itemProperties: ItemProperties | null;
+  
   constructor(
+    private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public itemPropertiesService: ItemPropertiesService,
@@ -40,11 +49,12 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
     public router: Router,
-    public route: ActivatedRoute
-  ) 
-  { 
+    private tokenStorage: TokenStorageService,
+    public commonService: CommonService,
+  ) {
     super();
   }
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
@@ -55,8 +65,13 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
   ngOnInit(): void {
     this.loadData();
   }
-  refresh(){
-    this.loadData();
+
+
+  refresh() {
+    const currentRoute = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentRoute]);
+    });
   }
 
   public loadData() {
@@ -66,25 +81,21 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
       this.paginator,
       this.sort
     );
-    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
+    this.subs.sink = fromEvent(this.filter?.nativeElement, "keyup").subscribe(
       () => {
         if (!this.dataSource) {
           return;
         }
-        this.dataSource.filter = this.filter.nativeElement.value;
+        this.dataSource.filter = this.filter?.nativeElement?.value;
       }
     );
   }
 
-
   editCall(row) {
-
-    this.router.navigate(['/inventory/item-properties/add-itemproperties/'+row.itemPropertyId]);
-
+    this.router.navigate(['/inventory/item-properties/add-itemproperties/'+row.dynamicAttributeId]);
   }
 
-  deleteItem(row){ 
-    this.id = row.itemPropertyId;
+  deleteItem(row) {
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -96,32 +107,38 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
       width: "400px",
       data: row,
       direction: tempDirection,
+      disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       
-      this.loadData();
-        this.showNotification(
-          "snackbar-success",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
+      if (data.data == true) {
+        const obj = {
+          deletingId: row.dynamicAttributeId
+        }
+        this.spinner.show();
+        this.itemPropertiesService.deleteItemProperties(obj).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+          }
+        });
+
+      }
     });
 
   }
 
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -130,7 +147,8 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
       panelClass: colorName,
     });
   }
-// context menu
+
+  // context menu
   onContextMenu(event: MouseEvent, item: ItemProperties) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
@@ -144,7 +162,7 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
 export class ExampleDataSource extends DataSource<ItemProperties> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
-    return this.filterChange.value;
+    return this.filterChange.value.trim();
   }
   set filter(filter: string) {
     this.filterChange.next(filter);
@@ -169,7 +187,7 @@ export class ExampleDataSource extends DataSource<ItemProperties> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList();
+    this.exampleDatabase.getAllItemProperties();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
@@ -177,17 +195,9 @@ export class ExampleDataSource extends DataSource<ItemProperties> {
           .slice()
           .filter((itemProperties: ItemProperties) => {
             const searchStr = (
-              itemProperties.propertyType +
-              itemProperties.type +
-              itemProperties.propertyName +
-              itemProperties.length +
-              itemProperties.value +
-              itemProperties.defaultValue +
-              itemProperties.active +
-              itemProperties.itemPropertyId +
-              itemProperties.text + 
-              itemProperties.typeName
-             
+              itemProperties.attributeDataTypeName +
+              itemProperties.attributeName +
+              itemProperties.attributeTypeName 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -203,7 +213,7 @@ export class ExampleDataSource extends DataSource<ItemProperties> {
       })
     );
   }
-  disconnect() {}
+  disconnect() { }
   /** Returns a sorted copy of the database data. */
   sortData(data: ItemProperties[]): ItemProperties[] {
     if (!this._sort.active || this._sort.direction === "") {
@@ -213,42 +223,21 @@ export class ExampleDataSource extends DataSource<ItemProperties> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "propertyType":
-          [propertyA, propertyB] = [a.propertyType, b.propertyType];
+        case "attributeDataTypeName":
+          [propertyA, propertyB] = [a.attributeDataTypeName, b.attributeDataTypeName];
           break;
-        case "type":
-          [propertyA, propertyB] = [a.type, b.type];
+        case "attributeName":
+          [propertyA, propertyB] = [a.attributeName, b.attributeName];
           break;
-        case "propertyName":
-          [propertyA, propertyB] = [a.propertyName, b.propertyName];
-          break;
-        case "length":
-          [propertyA, propertyB] = [a.length, b.length];
-          break;
-        case "value":
-          [propertyA, propertyB] = [a.value, b.value];
-          break;
-        case "defaultValue":
-          [propertyA, propertyB] = [a.defaultValue, b.defaultValue];
-          break;
-        case "itemPropertyId":
-          [propertyA, propertyB] = [a.itemPropertyId, b.itemPropertyId];
-          break; 
-        case "text":
-          [propertyA, propertyB] = [a.text, b.text];
-          break;  
-        case "typeName":
-          [propertyA, propertyB] = [a.typeName, b.typeName];
+        case "attributeTypeName":
+          [propertyA, propertyB] = [a.attributeTypeName, b.attributeTypeName];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
       return (
-        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+        (valueA.toString().toLowerCase() < valueB.toString().toLowerCase() ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
       );
     });
   }
-  
-
-
 }
