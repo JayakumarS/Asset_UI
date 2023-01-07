@@ -22,7 +22,7 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
-
+import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { AssetMasterRoutingModule } from './asset-master-routing.module';
 import { ListAssetMasterComponent } from './list-asset-master/list-asset-master.component';
 import { DeleteAssetMasterComponent } from './list-asset-master/delete-asset-master/delete-asset-master.component';
@@ -49,6 +49,7 @@ import { AssetProfileViewComponent } from './asset-profile-view/asset-profile-vi
     AssetMasterRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    PerfectScrollbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
