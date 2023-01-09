@@ -6,6 +6,7 @@ export class DesignationMaster {
   Description: string;
   active: any;
   Success:boolean;
+  isactiveForList: string;
 
   
   constructor(designationMaster) {
