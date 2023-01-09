@@ -486,6 +486,9 @@ this.httpService.post<any>(this.manageAuditServiceService.addAssetUploadFiles, f
       this.Formdoc.patchValue({
         'auditFile': data.filePath  
      })
+     console.log(this.filePath);
+     console.log(this.filePathUrl);
+
     }
     else{
       this.showNotification(

@@ -15,6 +15,7 @@ import { AssetMaster } from '../asset-model';
 import { AssetMasterResultBean } from '../asset-result-bean';
 import { AssetService } from '../asset.service';
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 
 export const MY_DATE_FORMATS = {
@@ -67,12 +68,23 @@ export class AddAssetMasterComponent
   fileImgPathUrl: any;
   assetnamelist: any;
   assetDetailsList: any;
+  filePath1: any;
+  filePath: any;
+  uomList: any;
+  filePathUrl1: any;
   
   
-  constructor(private fb: FormBuilder,private httpService: HttpServiceService,
-    private  assetService: AssetService, private commonService: CommonService,
-    public router:Router,private snackBar: MatSnackBar,public notificationService:NotificationService,
-    private cmnService:CommonService,public dialog: MatDialog,public route: ActivatedRoute) {
+  constructor(private fb: FormBuilder,
+    private httpService: HttpServiceService,
+    private  assetService: AssetService, 
+    private commonService: CommonService,
+    public router:Router,
+    private snackBar: MatSnackBar,
+    public notificationService:NotificationService,
+    private cmnService:CommonService,
+    public dialog: MatDialog,
+    public route: ActivatedRoute,
+    private serverUrl: serverLocations) {
     super();
     
     this.docForm = this.fb.group({
@@ -138,6 +150,9 @@ export class AddAssetMasterComponent
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit(): void {
+    this.filePath = this.serverUrl.apiServerAddress;
+    this.filePath1 = this.serverUrl.apiServerAddress;
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -182,15 +197,14 @@ export class AddAssetMasterComponent
 
 
            // vendor dropdown
-           this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
-            next: (data) => {
-              this.vendorDdList = data;
-            },
-            error: (error) => {
-      
-            }
-          }
-          );
+           //UOM Dropdown List
+    this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
+      next: (data) => {
+        this.uomList = data;
+      },
+      error: (error) => {
+      }
+    });
 
 
 
@@ -244,14 +258,6 @@ assetDetails(value:any,i){
     this.submitted=true;
 
   if (this.docForm.valid) {
-    // if(this.docForm.value.isLine==true)
-    //  {
-    //   this.docForm.value.isLine="True"
-    //  }
-    //  else if(this.docForm.value.isLine==false)
-    //  {
-    //   this.docForm.value.isLine="False"
-    //  }
 
      this.assetMaster = this.docForm.value;
      console.log(this.assetMaster);
@@ -397,13 +403,13 @@ onCancel() {
 
 
 
-         
       })
 
       this.getInLine(res.addAssetBean.isLine);
      
-      this.fileImgPathUrl = res.addAssetBean.uploadImg;
-      this.filePathUploadUrl = res.addAssetBean.uploadFiles;
+      this.filePathUrl= res.addAssetBean.uploadImg;
+      this.filePathUrl1= res.addAssetBean.uploadFiles;
+
 
 
       if (res.detailList != null && res.detailList.length >= 1) {
@@ -493,7 +499,7 @@ onCancel() {
    }
  
   // File upload
-  getCreditFile(event) {
+  onSelectFile(event) {
     var docfile = event.target.files[0];
     var fileExtension = docfile.name;
     var frmData: FormData = new FormData();
@@ -504,8 +510,11 @@ onCancel() {
         console.log(data);
         if(data.success){
           this.docForm.patchValue({
-            'uploadImg': data.filePath  
+            'uploadImg': data.filePath1  
          })
+         this.filePathUrl=data.filePath1; 
+         console.log(this.filePath);
+     console.log(this.filePathUrl);
         }
         else{
           this.showNotification(
@@ -547,6 +556,9 @@ onCancel() {
         this.docForm.patchValue({
           'uploadFiles': data.filePath  
        })
+       this.filePathUrl1=data.filePath1; 
+         console.log(this.filePath);
+     console.log(this.filePathUrl1);
       }
       else{
         this.showNotification(
