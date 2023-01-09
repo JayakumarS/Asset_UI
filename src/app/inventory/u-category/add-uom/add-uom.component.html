@@ -1,0 +1,72 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <app-breadcrumb [title]="'Add UOM-Category '" [items]="['Inventory']" [active_item]="'Add UOM Category'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body" style="padding-left: 110px;">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row">
+                  <div class=" col-md-2">
+                    <mat-label class="lable">Category Name</mat-label>
+                    </div>
+                    <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="categoryName" maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
+                       category name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class=" col-md-2">
+                    <mat-label class="lable">Category Code</mat-label>
+                    </div>
+                    <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="uomCode" maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('uomCode').hasError('required')">
+                        Category Code is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                </div>
+
+                  <div class="row">
+                    <div class=" col-md-2">
+                      <mat-label class="lable">Description</mat-label>
+                      </div>
+                      <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <textarea matInput formControlName="description"></textarea>
+                        <mat-error *ngIf="docForm.get('description').hasError('required')">
+                          Description is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                <br>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button  *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                      <button  *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
