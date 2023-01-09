@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -25,6 +25,7 @@ export class AccountPopupComponent implements OnInit {
               private customerService: CustomerService,
               private httpService: HttpServiceService,
               private commonService: CommonService,
+              @Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<AccountPopupComponent>, ) {
   }
   ngOnInit(): void {
@@ -103,7 +104,7 @@ export class AccountPopupComponent implements OnInit {
     });
   }
   onCancel() {
-    this.dialogRef.close({ data: 'CANCEL' });
+    this.dialogRef.close({ data: true });
   }
 
 }

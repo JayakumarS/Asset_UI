@@ -17,15 +17,9 @@
                       <mat-label class="lable">Full Name</mat-label>
                       </div>
                        <div class=" col-md-3">
-                      <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="fullName"  maxlength="15" (keypress)="keyPressName($event)" required>
-                        <mat-error *ngIf="docForm.get('fullName').hasError('required')">
-                         Full Name is required
-                         </mat-error>
-                      </mat-form-field> -->
-
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="fullName"  maxlength="50" [ngModel]="value"
+                        <input matInput formControlName="fullName"  maxlength="50"
+                        [ngModel]="inputvalue"(ngModelChange)="inputvalue = $event.toUpperCase()"  [ngModel]="value"
                         (blur)="validateFullName($event.target.value)"
                         required>
                         <mat-error *ngIf="docForm.get('fullName').hasError('required')">
@@ -69,7 +63,8 @@
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="role" maxlength="50" (keypress)="keyPressName($event)" required>
+                        <input matInput formControlName="role" maxlength="50"[ngModel]="inputvalue2"
+                        (ngModelChange)="inputvalue2 = $event.toUpperCase()" (keypress)="keyPressName($event)" required>
                         <mat-error *ngIf="docForm.get('role').hasError('required')">
                           Role is required
                         </mat-error>
@@ -110,7 +105,8 @@
                             </div>
                             <div class=" col-md-3">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <input matInput formControlName="language" maxlength="50" (keypress)="keyPressName($event)" required>
+                                <input matInput formControlName="language" maxlength="50"[ngModel]="inputvalue1"
+                                (ngModelChange)="inputvalue1 = $event.toUpperCase()"(keypress)="keyPressName($event)" required>
                                 <mat-error *ngIf="docForm.get('language').hasError('required')">
                                   Default Language is required
                                 </mat-error>

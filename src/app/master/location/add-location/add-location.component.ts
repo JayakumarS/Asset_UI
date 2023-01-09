@@ -20,6 +20,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class AddLocationComponent implements OnInit {
   locationMaster: LocationMaster;
+  inputvalue = "";
+  inputvalue1 = "";
   docForm: FormGroup;
   requestId: number;
   edit:boolean=false;
@@ -216,7 +218,7 @@ fetchDetails(locationId: any): void {
     if (!this.edit) {
       this.docForm = this.fb.group({
         locationId: [""],
-        locationCode: ["", [Validators.required]],
+        locationCode: ["", [Validators.required], ],
         locationName: ["", [Validators.required]],
         // cslLocationCode: ["", [Validators.required]],
         parentLocation: ["", [Validators.required]],

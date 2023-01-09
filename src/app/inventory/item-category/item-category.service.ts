@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { ItemCategory } from './Item-category.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
-import { ItemCategoryResultBean } from './Item-category-result-bean';
+import { ItemCategoryResultBean } from './item-category-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 
@@ -25,7 +25,7 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
   // Temporarily stores data from dialogs
   dialogData: any;
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
-    private httpService: HttpServiceService) {
+              private httpService: HttpServiceService) {
     super();
   }
 
@@ -34,7 +34,7 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
   public editItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/edit`;
   public updateItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/update`;
   public deleteItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/delete`;
-  
+
   get data(): ItemCategory[] {
     return this.dataChange.value;
   }

@@ -26,7 +26,7 @@ import { LocationMaster } from '../location-master.model';
 export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
    // "select",
-    "locationCode",
+    "parentLocation",
     "locationName",
     "actions"
   ];

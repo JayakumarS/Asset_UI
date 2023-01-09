@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserMaster } from '../user-master.model';
 import { CommonService } from 'src/app/common-service/common.service';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+
 
 
 
@@ -31,6 +33,7 @@ export class AddUserMasterComponent implements OnInit {
                private httpService: HttpServiceService,
                public route: ActivatedRoute,
                public commonService: CommonService,
+               private tokenStorage: TokenStorageService,
                // tslint:disable-next-line:no-shadowed-variable
                private UserMasterService: UserMasterService,
                private snackBar: MatSnackBar,
@@ -49,6 +52,7 @@ export class AddUserMasterComponent implements OnInit {
       location: [""],
       otp: [""],
       userLocation: [""],
+      loginedUser: this.tokenStorage.getUserId(),
 
     //  loginedUser: this.tokenStorage.getUserId(),
     });

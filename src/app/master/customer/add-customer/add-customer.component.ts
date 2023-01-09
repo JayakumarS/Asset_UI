@@ -12,8 +12,6 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountPopupComponent } from './account-popup/account-popup.component';
 import { LocationMaster } from '../../location/location-master.model';
-import { NgxSpinnerService } from 'ngx-spinner';
-
 
 
 @Component({
@@ -45,7 +43,6 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
               private serverUrl: serverLocations,
               private ced: CommonService,
               public dialog: MatDialog,
-              private spinner: NgxSpinnerService,
               public route: ActivatedRoute,
               )
     {
@@ -101,7 +98,6 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       }
 
      });
-
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
         this.locationList = data;
@@ -131,68 +127,22 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 });
   }
 
-//   onsubmit(){
-//   {
-//     if(this.docForm.valid){
-//     this.customerMaster = this.docForm.value;
-//     console.log(this.customerMaster);
-//     this.customerService.addCustomer(this.customerMaster);
-//     this.showNotification(
-//       "snackbar-success",
-//       "Add Record Successfully...!!!",
-//       "bottom",
-//       "center"
-//     );
-//      this.router.navigate(['/master/customer/list-customer']);
-//     }
-//   }
-// }
-
-onSubmit() {
-  if (this.docForm.valid){
+  onsubmit(){
+  {
+    if(this.docForm.valid){
     this.customerMaster = this.docForm.value;
-    this.spinner.show();
-    this.customerService.addCustomer(this.customerMaster).subscribe({
-      next: (data) => {
-        this.spinner.hide();
-        if (data.success) {
-          this.showNotification(
-            "snackbar-success",
-            "Record Added successfully...",
-            "bottom",
-            "center"
-          );
-          this.onCancel();
-        } else {
-          this.showNotification(
-            "snackbar-danger",
-            "Not Added...!!!",
-            "bottom",
-            "center"
-          );
-        }
-      },
-      error: (error) => {
-        this.spinner.hide();
-        this.showNotification(
-          "snackbar-danger",
-          error.message + "...!!!",
-          "bottom",
-          "center"
-        );
-      }
-    });
-  }
-  else{
+    console.log(this.customerMaster);
+    this.customerService.addCustomer(this.customerMaster);
     this.showNotification(
-      "snackbar-danger",
-      "Please Fill The All Required fields",
+      "snackbar-success",
+      "Add Record Successfully...!!!",
       "bottom",
       "center"
     );
+     this.router.navigate(['/master/customer/list-customer']);
+    }
   }
 }
-
 
 fetchDetails(cus_id: any): void {
   const obj = {
