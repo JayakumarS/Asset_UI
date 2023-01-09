@@ -22,7 +22,7 @@
                                     <mat-label  class="lable"style="margin-left: 45%;">Asset Name<span class="errorColor">*</span></mat-label>
                                   </div>
                                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"> 
-                                      <input  type="text" tabindex="1" class="form-control"  formControlName="assetName"   maxlength="40" required>
+                                      <input  type="text" tabindex="1" class="form-control"  formControlName="assetName"   maxlength="40" required (keypress)="keyPressName($event)">
                                       <mat-error *ngIf="submitted && docForm.get('assetName').hasError('required')">
                                         Asset Name is required
                                       </mat-error>
@@ -32,7 +32,7 @@
                                     <mat-label  class="lable"style="margin-left: 45%;">Asset Code<span class="errorColor">*</span></mat-label>
                                   </div>
                                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"> 
-                                      <input  type="text" tabindex="2" class="form-control"  formControlName="assetCode"   maxlength="40" required>
+                                      <input  type="text" tabindex="2" class="form-control"  formControlName="assetCode"   maxlength="40" required (keypress)="keyPressNumberInt($event)">
                                       <mat-error *ngIf="submitted && docForm.get('assetName').hasError('required')">
                                         Asset Code is required
                                       </mat-error>
@@ -93,21 +93,23 @@
                                   </div>
                                 
                                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label  class="lable"style="margin-left: 55%;">In Line</mat-label>
+                                    <mat-label  class="lable" style="margin-left: 55%;">In Line</mat-label>
                                   </div>
                                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"> 
                                     <input type="checkbox"  tabindex="6"  formControlName="isLine" (change)="getInLine($event.target.checked)">
                                 </div>
                             </div>
                             <br>
-                            <div class="row" style="margin-left: 6.5%">
+                            <div class="row">
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                    <mat-label class="lable" style="margin-left: 45%;">Asset Image <span class="errorColor">*</span></mat-label>
+                                </div>
                                 <div class="col-xl-6 col-lg-2 col-md-12 col-sm-12">             
-                                      <mat-label ><b>Asset Image</b></mat-label>
                                       <app-file-upload class="example-width form-control-sm" formControlName="uploadImg" (change)="onSelectFile($event)" style="width: 20%;"></app-file-upload>
                                 </div>
                                 </div>
-                                <div class="row" style="margin-left: 6.5%">
-                                    <div class="col-md-6" *ngIf="edit">
+                                <div class="row">
+                                    <div class="col-md-6" *ngIf="edit" style="margin-left: 17%;">
                                         <a href="{{filePath}}{{filePathUrl}}"  target="_blank">{{filePathUrl?.split('/').pop()}}</a><br>
                                     </div>
                              </div>
@@ -128,7 +130,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="8" formControlName="brand">
+                                                        <input matInput tabindex="8" formControlName="brand" (keypress)="keyPressName($event)">
                                                     </mat-form-field>
                                                 </div>
 
@@ -137,7 +139,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="9" formControlName="model">
+                                                        <input matInput tabindex="9" formControlName="model" (keypress)="keyPressNameNumber($event)">
                                                     </mat-form-field>
                                                 </div>
 
@@ -183,7 +185,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="12" formControlName="linkedAsset">
+                                                        <input matInput tabindex="12" formControlName="linkedAsset" (keypress)="keyPressName($event)">
                                                     </mat-form-field>
                                                 </div>
 
@@ -192,7 +194,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="13" formControlName="description">
+                                                        <input matInput tabindex="13" formControlName="description" (keypress)="keyPressName($event)">
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -276,7 +278,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="20" formControlName="purchasePrice" (keypress)="keyPressNumberInt($event)">
+                                                        <input matInput tabindex="20" formControlName="purchasePrice" (keypress)="keyPressNumberDouble($event)">
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -290,7 +292,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
-                                                        <input matInput tabindex="21" formControlName="captitalizationPrice" (keypress)="keyPressNumberInt($event)">
+                                                        <input matInput tabindex="21" formControlName="captitalizationPrice" (keypress)="keyPressNumberDouble($event)">
                                                     </mat-form-field>
                                                 </div>
 
@@ -315,7 +317,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="23" formControlName="endLife">
+                                                        <input matInput tabindex="23" formControlName="endLife" (keypress)="keyPressNameNumber($event)">
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -325,7 +327,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="24" formControlName="scrapValue" (keypress)="keyPressNumberInt($event)">
+                                                        <input matInput tabindex="24" formControlName="scrapValue" (keypress)="keyPressNumberDouble($event)">
                                                     </mat-form-field>
                                                 </div>
 
@@ -378,7 +380,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
-                                                        <input matInput tabindex="28" formControlName="transferredTo">
+                                                        <input matInput tabindex="28" formControlName="transferredTo" (keypress)="keyPressName($event)">
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -388,7 +390,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="29" formControlName="remarks">
+                                                        <input matInput tabindex="29" formControlName="remarks" (keypress)="keyPressNameNumber($event)">
                                                     </mat-form-field>
                                                 </div>
                                             </div>

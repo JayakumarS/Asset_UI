@@ -504,7 +504,7 @@ onCancel() {
     var fileExtension = docfile.name;
     var frmData: FormData = new FormData();
     frmData.append("file", docfile);
-    frmData.append("fileName",fileExtension);
+    frmData.append("fileName1",fileExtension);
     console.log(frmData);
     this.httpService.post<any>(this.assetService.addAssetImageUploadFiles, frmData).subscribe(data => {
         console.log(data);
@@ -536,6 +536,30 @@ onCancel() {
 
   keyPressNumberInt(event: any) {
     const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNameNumber(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+   keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
