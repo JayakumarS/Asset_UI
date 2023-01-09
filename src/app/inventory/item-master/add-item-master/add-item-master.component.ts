@@ -35,7 +35,7 @@ export class AddItemMasterComponent implements OnInit {
   fetchItemCategoryList:[];
   uomList = [];
   commonDropDownItemTypeList= [];
-  
+
   // For Encryption
   requestId: any;
   decryptRequestId: any;
@@ -89,7 +89,7 @@ export class AddItemMasterComponent implements OnInit {
       issueMethod: [""],
       openingBalance: [""],
       defaultPrice: [""],
-      //Vendor 
+      //Vendor
       itemMasterDetailBean: this.fb.array([
         this.fb.group({
           itemId: '',
@@ -190,7 +190,7 @@ export class AddItemMasterComponent implements OnInit {
   fetchDetails(itemId: any): void {
     this.httpService.get(this.itemMasterService.editItem +"?itemMaster="+encodeURIComponent(itemId)).subscribe((res: any) => {
       console.log(itemId);
- 
+
       this.docForm.patchValue({
         'itemId': res.itemMasterBean.itemId,
         'itemCode': res.itemMasterBean.itemCode,
@@ -233,11 +233,11 @@ export class AddItemMasterComponent implements OnInit {
 
      let itemMasteDtlArray = this.docForm.controls.itemMasterDetailBean as FormArray;
      itemMasteDtlArray.removeAt(0);
-    res.itemMasterDetailBean.forEach(element => {
+      res.itemMasterDetailBean.forEach(element => {
         let itemMasteDtlArray = this.docForm.controls.itemMasterDetailBean as FormArray;
         let arraylen = itemMasteDtlArray.length;
         let newUsergroup: FormGroup = this.fb.group({
-        
+
          itemId:[element.itemId],
          vendorName:[parseInt(element.vendorName)],
          vendorItemName:[element.vendorItemName],
@@ -250,7 +250,7 @@ export class AddItemMasterComponent implements OnInit {
          paymentMethod:[element.paymentMethod+""],
       })
       itemMasteDtlArray.insert(arraylen,newUsergroup);
-        
+
       });
       let productDetailBeanArray = this.docForm.controls.productDetailBean as FormArray;
       productDetailBeanArray.removeAt(0);
@@ -259,11 +259,11 @@ export class AddItemMasterComponent implements OnInit {
         let arraylen = productDetailBeanArray.length;
         let newUsergroup: FormGroup = this.fb.group({
             itemId: [""],
-            itemName: [element.itemName],              
-            itemDescription: [element.itemDescription],                 
+            itemName: [element.itemName],
+            itemDescription: [element.itemDescription],
         })
         productDetailBeanArray.insert(arraylen, newUsergroup);
-  
+
       });
     },
       (err: HttpErrorResponse) => {
@@ -294,7 +294,7 @@ export class AddItemMasterComponent implements OnInit {
         event.preventDefault();
       }
     }
-    
+
  onCancel(){
      this.router.navigate(['/inventory/item-master/list-item-master']);
 }
@@ -320,14 +320,14 @@ export class AddItemMasterComponent implements OnInit {
       minimumQty:[""],
       maximumQty:[""],
      //GRN
-       batchNo:[""], 
+       batchNo:[""],
        mrp:[""],
        expiryDate:[""],
        manufactureDetails:[""],
       //INVENTORY
-       inventoryValuation:[""], 
+       inventoryValuation:[""],
        issueMethod:[""],
-     //Vendor 
+     //Vendor
           itemMasterDetailBean: this.fb.array([
             this.fb.group({
               itemId:'',
@@ -344,12 +344,12 @@ export class AddItemMasterComponent implements OnInit {
            ]),
            productDetailBean: this.fb.array([
             this.fb.group({
-              itemName:'',            
+              itemName:'',
              itemDescription:'',
             })
            ])
     });
-    
+
   }
   addRow1(){
     this.itemMasterDetailBean= this.itemMasterDetailBean;
@@ -378,7 +378,7 @@ export class AddItemMasterComponent implements OnInit {
     })
     itemMasteDtlArray.insert(arraylen,newUsergroup);
   }
- 
+
   removeRow1(index){
 
     let itemMasteDtlArray = this.docForm.controls.itemMasterDetailBean as FormArray;
@@ -389,14 +389,14 @@ export class AddItemMasterComponent implements OnInit {
     let productDetailBeanArray = this.docForm.controls.productDetailBean as FormArray;
     let arraylen = productDetailBeanArray.length;
     let newUsergroup: FormGroup = this.fb.group({
-      
-         itemName:[""],            
+
+         itemName:[""],
          itemDescription:[""],
-      
+
     })
     productDetailBeanArray.insert(arraylen,newUsergroup);
   }
- 
+
   removeRow2(index){
 
     let productDetailBeanArray = this.docForm.controls.productDetailBean as FormArray;

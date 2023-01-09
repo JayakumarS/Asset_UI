@@ -10,11 +10,11 @@
         <div class="card" style="padding-left: 150px;">
           <div class="body">
             <form class="m-4" [formGroup]="docForm">
-             
+
               <div class="row" >
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -75px;">
                   <label class="lable">Item Type</label>
-               </div> 
+               </div>
                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -48px; margin-top: -10px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                   <mat-select formControlName="itemType">
@@ -31,14 +31,14 @@
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="itemName" maxlength="50" required>
               </mat-form-field>
-             </div>  
+             </div>
            </div><br>
-              
-              
+
+
               <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -75px;">
                  <label class="lable">Item Category</label>
-               </div> 
+               </div>
                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 "  style="margin-left: -48px; margin-top: -10px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-select formControlName="itemCategory">
@@ -55,14 +55,14 @@
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="itemDescription" maxlength="200">
               </mat-form-field>
-             </div>  
+             </div>
            </div><br>
 
-              
+
               <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -75px;">
                  <label class="lable">HS Code</label>
-               </div> 
+               </div>
                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 "  style="margin-left: -48px; margin-top: -10px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput formControlName="blno" maxlength="200">
@@ -79,20 +79,20 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-             </div>  
+             </div>
            </div><br>
-             
+
            <div class="row">
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -75px;">
                 <label class="lable">Saleable</label>
-            </div> 
+            </div>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -44px; margin-top: -8px;">
               <mat-checkbox formControlName="saleable" ngInit="checked=true"></mat-checkbox>
             </div>
 
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 68px;">
               <label class="lable">Purchaseable</label>
-          </div> 
+          </div>
           <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -44px; margin-top: -8px;">
             <mat-checkbox formControlName="purchaseable" ngInit="checked=true"></mat-checkbox>
           </div>
