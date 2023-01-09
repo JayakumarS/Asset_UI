@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from "moment";
-import { HttpClient,HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -17,7 +17,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
     super();
   }
 
@@ -70,11 +70,21 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public commonUploadFile = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/commonUploadFile`;
 
   public getPurchaseOrderNumberDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseOrderNumberDropdown`;
-  
-  public getPurchaseInvoiceNumberDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseInvoiceNumberDropdown`;
 
+  public getPurchaseInvoiceNumberDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseInvoiceNumberDropdown`;
 
   public getItemNameDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterDropdown`;
 
   public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAdminDropdown`;
+
+  public getItempropertiesDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItempropertiesDropdown`;
+
+  public getPurchaseTaxDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseTaxDropdown`;
+
+  public getSalesTaxDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getSalesTaxDropdown`;
+
+  public getExpenseAccountHeadDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getExpenseAccountHeadDropdown`;
+
+  public getIncomeAccountHeadDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getIncomeAccountHeadDropdown`;
+
 }
