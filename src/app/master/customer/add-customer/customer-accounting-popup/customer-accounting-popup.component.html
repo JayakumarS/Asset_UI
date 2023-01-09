@@ -1,0 +1,77 @@
+
+
+
+<div class="card ">
+  <div class="body " >
+
+      <h4>Address</h4>
+    <div class="row">
+<div class=" col-md-2">
+<mat-label class="lable">Name<span class="errorColor">*</span></mat-label>
+</div>
+<div class=" col-md-4">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+<input matInput formControlName="name"  maxlength="50" required>
+
+</mat-form-field>
+</div>
+<div class=" col-md-2">
+<mat-label class="lable">Job Positiom<span class="errorColor">*</span></mat-label>
+</div>
+
+<div class=" col-md-4">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+<input matInput formControlName="position" maxlength="50" required>
+
+</mat-form-field>
+</div>
+</div>
+
+<div class="row">
+<div class=" col-md-2">
+<mat-label class="lable">Email<span class="errorColor">*</span></mat-label>
+</div>
+
+<div class=" col-md-4">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  <input matInput formControlName="conEmail" maxlength="50" >
+  <mat-error *ngIf="docForm.get('email').hasError('required')">
+    Email is required
+  </mat-error>
+</mat-form-field>
+</div>
+<div class=" col-md-2">
+<mat-label class="lable">Phone<span class="errorColor">*</span></mat-label>
+</div>
+
+<div class=" col-md-4">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+<input matInput formControlName="conPhone" maxlength="10" >
+
+</mat-form-field>
+</div>
+</div>
+<div class="row">
+<div class=" col-md-2">
+<mat-label class="lable">Mobile<span class="errorColor">*</span></mat-label>
+</div>
+
+<div class=" col-md-4">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  <input matInput formControlName="mobile" maxlength="10" >
+
+</mat-form-field>
+</div></div>
+
+
+
+<div class="row">
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+  <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+  color="accent" style="margin-left: 40%;background-color: #34d034;">Add To Submit</button>
+  <button  (click) = "onCancel()"color="warn" type="button" mat-raised-button>Cancel</button>
+</div>
+</div>
+
+</div>
+</div>

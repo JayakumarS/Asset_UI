@@ -26,6 +26,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DeleteComponent } from './list-customer/delete/delete.component';
+import { CustomerAccountingPopupComponent } from './add-customer/customer-accounting-popup/customer-accounting-popup.component';
+import { AccountPopupComponent } from './add-customer/account-popup/account-popup.component';
 
 
 
@@ -33,7 +35,9 @@ import { DeleteComponent } from './list-customer/delete/delete.component';
   declarations: [
     AddCustomerComponent,
     ListCustomerComponent,
-    DeleteComponent
+    DeleteComponent,
+    CustomerAccountingPopupComponent,
+    AccountPopupComponent
   ],
   imports: [
     CommonModule,
@@ -59,8 +63,8 @@ import { DeleteComponent } from './list-customer/delete/delete.component';
     MatTooltipModule,
     MatProgressSpinnerModule,
     ComponentsModule,
-    SharedModule
-  
+    SharedModule,
+
   ]
 })
 export class CustomerModule { }

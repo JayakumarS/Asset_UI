@@ -3,7 +3,7 @@
     <app-breadcrumb [title]="'ADD Customer'" [items]="['Master']" [active_item]="'ADD Customer'">
     </app-breadcrumb>
   </div>
-  <div class="card pageproperty">
+  <div class="card ">
     <div class="body" style="padding-left: 110px; padding: 2%;">
       <form class="m-4" [formGroup]="docForm">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -199,6 +199,7 @@
              <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
           </div>
         </div>
+      </div>
 <!--
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
@@ -394,7 +395,341 @@
       </div>
 </div>
 </div> -->
+<mat-tab-group>
+  <mat-tab label="Address">
+    <div class="row">
+      <div class=" col-md-2">
+        <mat-label class="lable">Vendor Location</mat-label>
+        </div>
+         <div class=" col-md-4">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="vendorLocation">
+            <mat-option *ngFor="let title of locationList" [value]="title.id">
+                {{title.text}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
       </div>
+      <div class=" col-md-2">
+        <mat-label class="lable">Shipping Address</mat-label>
+        </div>
+         <div class=" col-md-4">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="shipperAddress"maxlength="50" >
+
+        </mat-form-field>
+      </div>
+     </div>
+     <div class="row">
+      <div class=" col-md-2">
+        <mat-label class="lable">Billing Address</mat-label>
+        </div>
+         <div class=" col-md-4">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="billingAddress"maxlength="50" >
+      </mat-form-field>
+      </div>
+      <div class=" col-md-2">
+
+        </div>
+         <!-- <div class=" col-md-2">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="location">
+            <mat-option *ngFor="let title of locationList" [value]="title.id">
+                {{title.text}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div> -->
+      <div class=" col-md-2">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="shipperState"maxlength="50"placeholder="State" >
+
+      </mat-form-field></div>
+      <div class=" col-md-2">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="shipperZip"maxlength="50"placeholder="Zip" >
+
+        </mat-form-field></div>
+
+<div class=" col-md-2"></div>
+        <!-- <div class=" col-md-2">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="location">
+            <mat-option *ngFor="let title of locationList" [value]="title.id">
+                {{title.text}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div> -->
+       <div class=" col-md-2">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="billingState"maxlength="50"placeholder="State" >
+
+          </mat-form-field></div>
+          <div class=" col-md-2">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="billingZip"maxlength="50"placeholder="Zip" >
+
+            </mat-form-field></div>
+
+            <div class=" col-md-2"></div>
+            <div class=" col-md-4">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <mat-select class="inputTxt" formControlName="shipperCountry">
+                <mat-option *ngFor="let title of countryList" [value]="title.id">
+                    {{title.text}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class=" col-md-2"></div>
+        <div class=" col-md-4">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="billingCountry">
+            <mat-option *ngFor="let title of countryList" [value]="title.id">
+                {{title.text}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div class=" col-md-2">
+        <mat-label class="lable">Delivery Address</mat-label>
+        </div>
+         <div class=" col-md-4">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="deliveryAddress"maxlength="50" >
+      </mat-form-field>
+      </div>
+
+
+<div class=" col-md-8"></div>
+        <!-- <div class=" col-md-2">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="location">
+            <mat-option *ngFor="let title of locationList" [value]="title.id">
+                {{title.text}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div> -->
+       <div class=" col-md-2">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="deliveryState"maxlength="50"placeholder="State" >
+
+          </mat-form-field></div>
+          <div class=" col-md-2">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="deliveryZip"maxlength="50"placeholder="Zip" >
+
+            </mat-form-field></div>
+            <div class=" col-md-8"></div>
+            <div class=" col-md-4">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <mat-select class="inputTxt" formControlName="deliveryCountry">
+                <mat-option *ngFor="let title of countryList" [value]="title.id">
+                    {{title.text}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+          </div>
+    </mat-tab>
+      <mat-tab label="Contact">
+        <div>
+          <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+            <thead class="">
+              <tr>
+                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%; border-radius: 0.05rem;">Name</th>
+                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+               width: 12%;border-radius: 0.07rem;">Email</th>
+                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+               width: 12%;border-radius: 0.07rem;">Mobile</th>
+         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+         width: 12%;border-radius: 0.07rem;">Phone</th>
+              </tr>
+            </thead>
+                 <tr>
+
+                <td class="padding-both-side-2">
+
+                </td>
+
+                <td class="padding-both-side-2">
+
+                </td>
+
+                <td class="padding-both-side-2">
+
+                </td>
+
+                <td class="padding-both-side-2">
+
+                </td></tr>
+          </table>
+            </div>
+            <div class="row">
+              <div>
+                <button mat-mini-fab color="warn"(click)="removeRow1(-1)">
+                  <mat-icon class="col-white">delete</mat-icon>
+                </button>&nbsp;
+                <button mat-mini-fab color="primary" (click)="addRow1()">
+                  <mat-icon class="col-white">add</mat-icon>
+                </button>
+              </div>
+            </div>
+
+    </mat-tab>
+    <mat-tab label="Internal Notes">
+      <div class="row">
+
+          <div class=" col-md-12">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <textarea matInput formControlName="internalNotes" placeholder="Put On Internal Notes.."></textarea>
+
+          </mat-form-field>
+        </div>
+      </div>
+
+    </mat-tab>
+    <mat-tab label="Purchase">
+      <div class="row">
+        <div class=" col-md-2">
+          <mat-label class="lable">Responsible Person</mat-label>
+          </div>
+          <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+            <mat-select class="inputTxt" formControlName="resPerson">
+              <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                  {{title.text}}
+              </mat-option>
+          </mat-select>
+      </mat-form-field>
+      </div>
+      <div class=" col-md-2">
+        <mat-label class="lable">Delivery Method</mat-label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <mat-label>Payment Method</mat-label>
+            <mat-select  formControlName="method">
+              <mat-option [value]="'1'">
+                In Person
+              </mat-option>
+              <mat-option [value]="'2'">
+                Courier
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    </div>
+    </mat-tab>
+
+<mat-tab label="Accounting">
+<h4>Supplier</h4>
+  <div class="row">
+    <div class=" col-md-2">
+      <mat-label class="lable">Account Receivable<span class="errorColor">*</span></mat-label>
+      </div>
+       <div class=" col-md-4">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="state"maxlength="20" required>
+
+      </mat-form-field>
+    </div>
+    <div class=" col-md-2">
+      <mat-label class="lable">Supplier Payment Term<span class="errorColor">*</span></mat-label>
+      </div>
+
+    <div class=" col-md-4">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="postalcode" maxlength="6" (keypress)="keyPressPCC($event)"required>
+
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class=" col-md-2">
+      <mat-label class="lable">Total Receivable<span class="errorColor">*</span></mat-label>
+      </div>
+       <div class=" col-md-4">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="state"maxlength="20" required>
+
+      </mat-form-field>
+    </div>
+    <div class=" col-md-2">
+      <mat-label class="lable">Credit Limit<span class="errorColor">*</span></mat-label>
+      </div>
+
+    <div class=" col-md-4">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="postalcode" maxlength="6" (keypress)="keyPressPCC($event)"required>
+
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div>
+    <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+      <thead class="">
+        <tr>
+          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+           width: 12%; border-radius: 0.05rem;">Bank Name</th>
+          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+         width: 12%;border-radius: 0.07rem;">Account Type</th>
+          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+         width: 12%;border-radius: 0.07rem;">Account Number</th>
+   <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+   width: 12%;border-radius: 0.07rem;">Address</th>
+   <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+   width: 12%;border-radius: 0.07rem;">IFSC Code</th>
+        </tr>
+      </thead>
+           <tr>
+
+          <td class="padding-both-side-2">
+
+          </td>
+
+          <td class="padding-both-side-2">
+
+          </td>
+          <td class="padding-both-side-2">
+
+          </td>
+
+          <td class="padding-both-side-2">
+
+          </td>
+
+          <td class="padding-both-side-2">
+
+          </td></tr>
+    </table>
+      </div>
+      <div class="row">
+        <div>
+          <button mat-mini-fab color="warn"(click)="removeRow1(-1)">
+            <mat-icon class="col-white">delete</mat-icon>
+          </button>&nbsp;
+          <button mat-mini-fab color="primary" (click)="addRow2()">
+            <mat-icon class="col-white">add</mat-icon>
+          </button>
+        </div>
+      </div>
+
+    </mat-tab>
+
+</mat-tab-group>
+
+
       <br><br><br>
 <div class="row">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">

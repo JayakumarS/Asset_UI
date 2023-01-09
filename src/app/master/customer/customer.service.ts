@@ -33,9 +33,10 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
   public editcustomer = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/edit`;
   public updatecustomer = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/update`;
   public deletecustomer = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/delete`;
+  // public saveContact = `${this.serverUrl.apiServerAddress}api/auth/customerMaster/save`;
 
- 
-  
+
+
 
   get data(): CustomerMaster[] {
     return this.dataChange.value;
@@ -47,17 +48,20 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
 
 
 
-  addCustomer(customerMaster:CustomerMaster): void{
-  this.dialogData = customerMaster;
-  this.httpService.post<CustomerMaster>(this.saveCoustomer, customerMaster).subscribe(data => {
-    console.log(data);
-    //this.dialogData = employees;
-  },
-    (err: HttpErrorResponse) => {
+//   addCustomer(customerMaster:CustomerMaster): void{
+//   this.dialogData = customerMaster;
+//   this.httpService.post<CustomerMaster>(this.saveCoustomer, customerMaster).subscribe(data => {
+//     console.log(data);
+//     // this.dialogData = employees;
+//   },
+//     (err: HttpErrorResponse) => {
 
-    });
-  
-  
+//     });
+// }
+
+// tslint:disable-next-line:no-shadowed-variable
+addCustomer(customerMaster: CustomerMaster): Observable<any> {
+  return this.httpClient.post<CustomerMaster>(this.saveCoustomer, customerMaster);
 }
 
 getAllList(): void {
