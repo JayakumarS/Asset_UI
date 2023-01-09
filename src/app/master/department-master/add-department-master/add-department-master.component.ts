@@ -185,8 +185,16 @@ export class AddDepartmentMasterComponent implements OnInit {
 
   }
 
-  keyPressName(event: any) {
+  keyPressNameWithNumber(event: any) {
     const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();

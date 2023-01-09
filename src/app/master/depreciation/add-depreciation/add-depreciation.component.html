@@ -1,0 +1,146 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Depreciation'" [items]="['Master']" [active_item]="'Add Depreciation'">
+        </app-breadcrumb> 
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body" style="padding-left: 110px;">
+              <form class="m-4" [formGroup]="docForm">
+               
+                <div class="row">
+                
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="
+                  margin-top: 7px;
+              ">
+                    <label class="lable">Name<span class="errorColor">*</span></label>
+                </div> 
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="
+                  margin-left: -15%;
+                  margin-top: -2%;
+              ">
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="docForm.get('name').hasError('required')">
+                    Name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+               
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="
+                    margin-top: 7px;
+                " >
+                      <label class="lable">Code<span class="errorColor">*</span></label>
+                  </div> 
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="
+                    margin-left: -15%;
+                    margin-top: -2%;
+                ">
+                      <input matInput formControlName="code" required>
+                      <mat-error *ngIf="docForm.get('code').hasError('required')">
+                      Code is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;" >
+                    <label class="lable">Is Active</label>
+                </div> 
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -159px;">
+                  <mat-checkbox formControlName="active"  ngInit="checked=true"></mat-checkbox>
+                </div>
+              </div>
+               
+                <br>
+                <div>
+
+                 <!-- detail table -->
+
+                 <div>
+                  <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                      <thead class="">
+                          <tr>
+                            <th class="table-heading text-center" style="margin-left: 10px; width: 11%; border-radius: 0.05rem;">
+                              <label class="i-checks m-b-none">
+                                   <i></i>
+                              </label></th>
+                              <th class="" style="width: 10%;border-radius: 0.05rem;text-align: revert;">Percentage</th>
+                              <th class="" style="width: 30%;border-radius: 0.05rem;text-align: center;">Remarks</th>
+                              
+                          </tr>
+                          </thead>
+                          <tbody >
+                            <tr [formGroup]="manageLineDtlObjBean" *ngFor="let manageLineDtlObjBean of docForm.get('manageLineDtlObjBean')['controls']; let i = index">
+                           
+                              <td>
+                                <button mat-mini-fab color="primary" (click)="addRowSelf()" style="margin-left: 30%;">
+                                  <mat-icon class="col-white">add</mat-icon>
+                              </button>
+                                <button mat-mini-fab color="warn" (click)="removeRowSelf(i)" style="margin-left: 15%;">
+                                    <mat-icon class="col-white">delete</mat-icon>
+                                </button>
+                            </td>
+                           
+                              <td class="padding-both-side-2">
+                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"  (keypress)="keyPressNumberDouble($event)" style="margin-left: 15%;
+                                    width: 220px; ">
+                                      <input matInput formControlName="percentage" required>
+                                      <!-- <mat-error *ngIf="docForm.get('name').hasError('required')">
+                                      Name is required
+                                      </mat-error> -->
+                                    </mat-form-field>
+                                    <span class="material-symbols-outlined">
+                                      percent
+                                      </span>
+                                  </td>
+                                  <td class="padding-both-side-2">
+                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                                      <input matInput formControlName="remarks" required>
+                                      <!-- <mat-error *ngIf="docForm.get('name').hasError('required')">
+                                      Name is required
+                                      </mat-error> -->
+                                    </mat-form-field>
+                                  </td>
+                     
+                               
+                                 
+                                </tr>
+                          </tbody>
+                      
+                  </table>
+                  
+                  
+              </div>
+
+                 <!-- detail table -->
+
+
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space"  (click)="cancel()"mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
