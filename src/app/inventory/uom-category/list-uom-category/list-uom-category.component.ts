@@ -25,7 +25,7 @@ import { DeleteUomCategoryComponent } from './delete-uom-category/delete-uom-cat
   styleUrls: ['./list-uom-category.component.sass']
 })
 export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-  displayedColumns = ["uomID", "categoryName", "description", "actions"];
+  displayedColumns = ["uomID", "categoryName", "description","category", "actions"];
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: UomCategoryService | null;
@@ -185,7 +185,8 @@ export class ExampleDataSource extends DataSource<UomCategory> {
             const searchStr = (
               uomCategory.uomID +
               uomCategory.categoryName +
-              uomCategory.description
+              uomCategory.description+
+              uomCategory.name
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -220,7 +221,10 @@ export class ExampleDataSource extends DataSource<UomCategory> {
         case "description":
           [propertyA, propertyB] = [a.description, b.description];
           break;
-
+          case "category":
+            [propertyA, propertyB] = [a.category, b.category];
+            break;
+  
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

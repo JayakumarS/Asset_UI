@@ -66,6 +66,10 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.description}}</mat-cell>
               </ng-container>
+              <ng-container matColumnDef="category">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.uomCategory}}</mat-cell>
+              </ng-container>
 
 
 

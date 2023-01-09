@@ -17,12 +17,13 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 })
 export class AddUOMCategoryComponent implements OnInit {
 
-
+  categoryDdList:[]
   docForm: FormGroup;
   uomCategory: UomCategory;
   requestId: number;
   dialogData: any;
   edit: boolean = false;
+  
   constructor(private fb: FormBuilder, public router: Router, private snackBar: MatSnackBar,
               public uomCategoryService: UomCategoryService,
               public commonService: CommonService,  private spinner: NgxSpinnerService,
@@ -36,6 +37,7 @@ export class AddUOMCategoryComponent implements OnInit {
       description: [""],
       active: [""],
       uomCode: [""],
+      name:[""],
       loginedUser: this.tokenStorage.getUserId(),
     });
 
@@ -48,7 +50,8 @@ export class AddUOMCategoryComponent implements OnInit {
       categoryName: ["", [Validators.required]],
       description: [""],
       active: [""],
-      uomID: [""]
+      uomID: [""],
+      name:[""]
     });
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
@@ -59,6 +62,15 @@ export class AddUOMCategoryComponent implements OnInit {
 
       }
     });
+    this.httpService.get<any>(this.commonService.getuserCategoryname).subscribe({
+      next: (data) => {
+        this.categoryDdList = data;
+      },
+      error: (error) => {
+
+      }
+    });
+
 
   }
 
@@ -116,6 +128,7 @@ export class AddUOMCategoryComponent implements OnInit {
           'uomID': res.uomBean.uomID,
           'categoryName': res.uomBean.categoryName,
           'description': res.uomBean.description,
+          'name':res.uomBean.name,
           'active': res.uomBean.active,
 
         });

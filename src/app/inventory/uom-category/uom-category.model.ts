@@ -5,6 +5,8 @@ export class UomCategory {
   uomCode: string;
   categoryName: string;
   description: string;
+  name:number;
+  category:string
   
   constructor(uomCategory) {
     {
@@ -12,6 +14,9 @@ export class UomCategory {
       this.uomID = uomCategory.uomID || "";
       this.categoryName = uomCategory.categoryName || "";
       this.description = uomCategory.description || "";
+      this.name=uomCategory.name||""
+      this.category=uomCategory.category||""
+
     }
   }
   public getRandomID(): string {

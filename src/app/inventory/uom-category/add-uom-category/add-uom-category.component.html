@@ -23,6 +23,19 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+                  <div class=" col-md-2">
+                    <mat-label class="lable">Category Name</mat-label>
+                    </div>
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                      <mat-select class="inputTxt" formControlName="name"maxlength="15">
+                        <mat-option *ngFor="let title of categoryDdList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
 
                 </div>
 
@@ -38,10 +51,6 @@
                         </mat-error>
                       </mat-form-field>
                     </div>
-                  </div>
-
-
-            <div class="row">
               <div class=" col-md-2"><mat-label class="lable">Active</mat-label></div>
               <div class=" col-md-3">
                  <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
