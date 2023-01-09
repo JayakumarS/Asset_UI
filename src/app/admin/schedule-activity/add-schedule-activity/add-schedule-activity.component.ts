@@ -95,7 +95,7 @@ export class AddScheduleActivityComponent implements OnInit {
     console.log(this.scheduleActivityMaster);
     if(this.docForm.valid){
       this.scheduleActivityService.addSchedule(this.scheduleActivityMaster);
-    this.scheduleActivityService.addSchedule(this.scheduleActivityMaster);
+    //this.scheduleActivityService.addSchedule(this.scheduleActivityMaster);
     this.showNotification(
       "snackbar-success",
       "Add Record Successfully...!!!",
