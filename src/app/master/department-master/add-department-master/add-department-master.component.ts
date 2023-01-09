@@ -36,7 +36,7 @@ export class AddDepartmentMasterComponent implements OnInit {
       // departmentCode:["", [Validators.required]],
       //departmentName: ["", [Validators.required]],
       deptCode: ["",[Validators.required]],
-      departmentHead: ["",[Validators.required]],
+      departmentHead: [""],
       remarks:[""],
       isactive:[false],
       deptId:[""],
