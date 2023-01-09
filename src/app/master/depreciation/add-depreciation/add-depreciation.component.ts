@@ -89,7 +89,7 @@ export class AddDepreciationComponent implements OnInit {
 
     }
 
-    if(this.totalValue1 > 100){
+    if(this.totalValue1 > 101){
       this.showNotification(
         "snackbar-danger",
         "Percentage Value Should Not Exceed 100% .. !!!",
@@ -201,7 +201,7 @@ update(){
 
   }
 
-  if(this.totalValue1 < 100){
+  if(this.totalValue1 <= 100){
   this.depreciationMaster.id = this.requestId;
   this.httpService.post(this.depreciationService.updateDepreciation, this.depreciationMaster).subscribe((res: any) =>{
    
@@ -233,8 +233,6 @@ update(){
   );
 }
   
-  
-
 }
 
 keyPressNumberDouble(event: any) {
