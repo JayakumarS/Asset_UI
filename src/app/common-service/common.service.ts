@@ -57,8 +57,6 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getUOMDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUOMDropdown`;
 
-  public getItemMasterDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterDropdown`;
-
   public getCurrencyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCurrencyDropdown`;
 
   public getCountryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryDropdown`;
@@ -77,8 +75,6 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAdminDropdown`;
 
-  public getItempropertiesDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItempropertiesDropdown`;
-
   public getPurchaseTaxDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseTaxDropdown`;
 
   public getSalesTaxDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getSalesTaxDropdown`;
@@ -86,5 +82,11 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getExpenseAccountHeadDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getExpenseAccountHeadDropdown`;
 
   public getIncomeAccountHeadDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getIncomeAccountHeadDropdown`;
+
+  public getItempropertiesDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItempropertiesDropdown`;
+
+  public getItemCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemCategoryDropdown`;
+
+  public getItemMasterDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterDropdown`;
 
 }
