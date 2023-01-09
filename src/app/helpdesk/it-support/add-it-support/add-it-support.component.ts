@@ -120,7 +120,17 @@ export class AddItSupportComponent implements OnInit {
     
   }
   onsubmit(){
-    this.itsupport = this.docForm.value;
+  //   this.itsupport = this.docForm.value;
+  //     console.log(this.itsupport);
+  //     // this.itsupportservice.addassetticket(this.itsupport);
+    
+  //     if(this.docForm.valid){
+  //       this.itsupportservice.addassetticket(this.itsupport);
+
+  //     this.router.navigate(['/helpdesk/itsupport/listitsupport' ]);
+     
+  // }
+  this.itsupport = this.docForm.value;
       console.log(this.itsupport);
       // this.itsupportservice.addassetticket(this.itsupport);
     
@@ -130,7 +140,11 @@ export class AddItSupportComponent implements OnInit {
       this.router.navigate(['/helpdesk/itsupport/listitsupport']);
   }
 }
+refresh(){
 
+    this.loadData();
+  
+}
   fetchDetails(id: any): void {
     this.httpService.get(this.itsupportservice.editItSupport+"?id="+id).subscribe((res: any)=> {
       console.log(id);
@@ -186,9 +200,7 @@ export class AddItSupportComponent implements OnInit {
 
  
 
-  getCreditFile(event) {
- 
-  }
+  
     
     }
     

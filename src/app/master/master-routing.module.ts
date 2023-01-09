@@ -61,7 +61,11 @@ const routes: Routes = [
     loadChildren: () => 
     import("./depreciation/depreciation.module").then((m) => m.DepreciationModule),
   },
-  
+  {
+    path: "category",
+  loadChildren: () => 
+  import("./category/category.module").then((m) => m.CategoryModule),
+},
 
 ];
 

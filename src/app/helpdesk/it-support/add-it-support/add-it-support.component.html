@@ -120,6 +120,9 @@
                       LOW
                   </mat-option>
                   </mat-select>
+                  <mat-error *ngIf="docForm.get('priority').hasError('required')">
+                    priority is required
+                  </mat-error>
               </mat-form-field>  
               </div>  
                 
@@ -177,14 +180,7 @@
                 
                 </div>
 
-                <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label>UPLOAD FILES</label>
-              </div>
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
-                <app-file-upload class="example-width" formControlName="uploadImg"  (change)="getCreditFile($event)" ></app-file-upload>
-                </div>
-                 </div>
+              
                
               
             

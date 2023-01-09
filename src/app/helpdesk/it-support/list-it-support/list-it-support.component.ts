@@ -149,7 +149,9 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     this.router.navigate(['/helpdesk/itsupport/additsupport/'+row.id]);
   
   }
-
+  addNew(){
+    this.router.navigate(['/helpdesk/itsupport/additsupport/0']);
+  }
   deleteItem(i, row) {
     this.index = i;
     this.id = row.support_id;

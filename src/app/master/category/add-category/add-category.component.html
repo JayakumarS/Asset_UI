@@ -1,0 +1,95 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add assetcategory'" [items]="['Master']" [active_item]="'Add assetcategory'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body" style="padding-left: 150px;">
+              <form class="m-4" [formGroup]="docForm">
+         
+
+                <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label class="lable">Category Name<span class="errorColor">*</span></label>
+                </div> 
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="categoryName"  maxlength="5"  (keypress)="keyPressName($event)" required>
+                    <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
+                        Category Name is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('categoryName').hasError('country')">
+                      DCategory Name Already Exists..!!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                 
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <label class="lable">Parent Category<span class="errorColor">*</span></label>
+                </div>
+        
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput   formControlName="parentCategory"  maxlength="30" (keypress)="keyPressName($event)" required>
+                  <mat-error *ngIf="docForm.get('parentCategory').hasError('required')">
+                    Parent Category is required
+                  </mat-error>
+                </mat-form-field>
+                </div>  
+              </div>
+
+                 
+               
+
+                <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label class="lable">Description</label>
+                </div> 
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="Description"  maxlength="50" (keypress)="keyPressName($event)"  >
+                        <mat-error *ngIf="docForm.get('Description').hasError('required')">
+                            description  is required
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+                 
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label class="lable">Is Active</label>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-checkbox  ngInit="checked=false" formControlName="isactive"></mat-checkbox>
+                  </div>
+ 
+              </div><br>
+
+              <div class="row">
+                 
+            
+            </div>
+
+                <br>
+                <div class="row"> 
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button  (click) = "onSubmit()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                      <!-- <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button> -->
+                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
