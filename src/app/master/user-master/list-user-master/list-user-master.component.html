@@ -15,7 +15,7 @@
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
                         <li class="dropdown">
-                          <h2>Currency</h2>
+                          <h2>UserMaster</h2>
                         </li>
                         <li class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
@@ -41,21 +41,21 @@
                               (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                           </div>
                         </li>
-                        <li>
+                        <!-- <li>
                           <div class="export-button m-l-10" matTooltip="CSV">
                             <img src="assets/images/icons/csv.png" alt="" (click)="exporter.exportTable('csv')" />
                           </div>
-                        </li>
-                        <li>
+                        </li> -->
+                        <!-- <li>
                           <div class="export-button m-l-10" matTooltip="JSON">
                             <img src="assets/images/icons/json.png" alt="" (click)="exporter.exportTable('json')" />
                           </div>
-                        </li>
-                        <li>
+                        </li> -->
+                        <!-- <li>
                           <div class="export-button m-l-10" matTooltip="TXT">
                             <img src="assets/images/icons/txt.png" alt="" (click)="exporter.exportTable('txt')" />
                           </div>
-                        </li>
+                        </li> -->
                       </ul>
                     </div>
                   </div>
@@ -134,7 +134,7 @@
                   </button>
                   <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
                     <mat-icon>list_alt</mat-icon>
-                    <span> Nested Menu</span>
+                    <span>Nested Menu</span>
                   </button>
                 </ng-template>
               </mat-menu>

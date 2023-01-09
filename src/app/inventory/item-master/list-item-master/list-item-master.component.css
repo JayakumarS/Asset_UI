@@ -92,7 +92,7 @@
 }
 .mat-raised-button:nth-child(1){
   color: rgba(252, 246, 246, 0.87);
-  background-color: rgb(33 126 10 / 75%);
+  background-color: #3f51b5;
 }
 .mat-raised-button:nth-child(2){
   color: rgba(250, 248, 248, 0.87);
