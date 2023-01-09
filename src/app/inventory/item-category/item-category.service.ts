@@ -64,7 +64,7 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
   }
 
   updateItemCategory(itemCategory: ItemCategory): Observable<any> {
-    return this.httpClient.post<ItemCategory>(this.updateItemCategoryMaster, ItemCategory);
+    return this.httpClient.post<ItemCategory>(this.updateItemCategoryMaster, itemCategory);
   }
 
   deleteItemCategory(obj: any): Observable<any> {

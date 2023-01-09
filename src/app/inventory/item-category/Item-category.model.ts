@@ -13,4 +13,9 @@ export class ItemCategory{
     mrp :  boolean;
     expiryDate :  boolean;
     manufactureDetails :  boolean;
+    itemCategoryDetailList : any;
+
+    //Below Two for list page
+	categoryTypeName: string;
+    parentCategoryName: string;
 }
