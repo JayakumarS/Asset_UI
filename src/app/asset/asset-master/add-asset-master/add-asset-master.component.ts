@@ -96,7 +96,7 @@ export class AddAssetMasterComponent
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
-      isLine:[false],
+      isLine:[false, [Validators.required]],
       id: [""],
       uploadImg: [""],
       //tab1
