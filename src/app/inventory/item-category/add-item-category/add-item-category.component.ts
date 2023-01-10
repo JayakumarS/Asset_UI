@@ -48,10 +48,10 @@ export class AddItemCategoryComponent implements OnInit {
       parentCategoryId: [""],
       categoryTypeId: ["", [Validators.required]],
       qualityCheck: false,
-      salesTaxesId: ["", [Validators.required]],
-      purchaseTaxesId: ["", [Validators.required]],
-      incomeAccountId: ["", [Validators.required]],
-      expenseAccountId: ["", [Validators.required]],
+      // salesTaxesId: ["", [Validators.required]],
+      // purchaseTaxesId: ["", [Validators.required]],
+      // incomeAccountId: ["", [Validators.required]],
+      // expenseAccountId: ["", [Validators.required]],
       batchNo: false,
       mrp: false,
       expiryDate: false,
@@ -216,10 +216,10 @@ export class AddItemCategoryComponent implements OnInit {
           'parentCategoryId': res.itemCategory.parentCategoryId,
           'categoryTypeId': res.itemCategory.categoryTypeId,
           'qualityCheck': res.itemCategory.qualityCheck,
-          'salesTaxesId': res.itemCategory.salesTaxesId,
-          'purchaseTaxesId': res.itemCategory.purchaseTaxesId,
-          'incomeAccountId': res.itemCategory.incomeAccountId,
-          'expenseAccountId': res.itemCategory.expenseAccountId,
+          // 'salesTaxesId': res.itemCategory.salesTaxesId,
+          // 'purchaseTaxesId': res.itemCategory.purchaseTaxesId,
+          // 'incomeAccountId': res.itemCategory.incomeAccountId,
+          // 'expenseAccountId': res.itemCategory.expenseAccountId,
           'batchNo': res.itemCategory.batchNo,
           'mrp': res.itemCategory.mrp,
           'expiryDate': res.itemCategory.expiryDate,
@@ -375,6 +375,11 @@ export class AddItemCategoryComponent implements OnInit {
       isMandatory: [""],
     })
     itemCategoryDetailArray.insert(arraylen, newUsergroup);
+  }
+
+  removeRow(index) {
+    let itemCategoryDetailArray = this.docForm.controls.itemCategoryDetailList as FormArray;
+    itemCategoryDetailArray.removeAt(index);
   }
 
   getItemPropertiesDetails(dynamicAttributeId:number,index:number){

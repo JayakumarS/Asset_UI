@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExampleDataSource } from 'src/app/admin/employees/allEmployees/allemployees.component';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { ItemMasterService } from '../item-master.service';
-import { MultipleRowComponent } from 'src/app/inventory/item-master/multiple-row/multiple-row.component';
 import { ItemMaster } from '../item-master.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ItemMasterResultBean } from '../item-master-result-bean';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+
 @Component({
   selector: 'app-add-item',
   templateUrl: './add-item-master.component.html',
@@ -28,23 +25,22 @@ export class AddItemMasterComponent implements OnInit {
   listOfItem = [];
   datas:any;
   itemMasterDetailBean=[];
-  parentCategoryList:[];
   categoryList:[];
   itemMasterDetailsList:[];
   catagoryTypeDropDownList:[];
   fetchItemCategoryList:[];
   uomList = [];
-  commonDropDownItemTypeList= [];
+  itemTypeList= [];
 
   // For Encryption
   requestId: any;
-  decryptRequestId: any;
   vendorList: any;
   product:Boolean=false;
   productDetail:[];
   itemName: any;
   itemDescription= [];
   locationList: any;
+  specificationList= [];
 
   constructor(private fb: FormBuilder,
     private itemMasterService: ItemMasterService,
@@ -53,67 +49,70 @@ export class AddItemMasterComponent implements OnInit {
     private router: Router,
     public route: ActivatedRoute, private commonService: CommonService,
     public notificationService: NotificationService) {
+
+      this.docForm = this.fb.group({
+        size: [""],
+        remarks: [],
+        itemId: [""],
+       itemCode: [""],
+        itemName: ["", [Validators.required]],
+        itemDescription: ["", [Validators.required]],
+        itemType: ["", [Validators.required]],
+        itemCategory: ["", [Validators.required]],
+        blno: ["", [Validators.required]],
+        location: [""],
+        saleable: [""],
+        purchaseable: [""],
+        purchaseReq: [""],
+        costingMethod: [""],
+        costPrice: [""],
+        warranty: [""],
+        leadTime: [""],
+        purchaseMethod: [""],
+        purchaseUom: [""],
+        reorderLevel: [""],
+        minimumQty: [""],
+        maximumQty: [""],
+        //GRN
+        batchNo: [""],
+        mrp: [""],
+        expiryDate: [""],
+        manufactureDetails: [""],
+        //INVENTORY
+        inventoryValuation: [""],
+        issueMethod: [""],
+        openingBalance: [""],
+        defaultPrice: [""],
+        //Vendor
+        itemMasterDetailBean: this.fb.array([
+          this.fb.group({
+            itemId: '',
+            vendorName: '',
+            vendorItemName: '',
+            vendorItemCode: '',
+            itemCode: '',
+            itemName: '',
+            vendorminimumQty: '',
+            vendorUom: '',
+            deliveryLeadTime: '',
+            paymentMethod: '',
+          })
+        ]),
+        productDetailBean: this.fb.array([
+          this.fb.group({
+            itemId: '',
+            itemCode: '',
+            itemName: '',
+            itemDescription: ''
+          })
+        ])
+      });
+
+      
   }
 
   ngOnInit(): void {
-    this.docForm = this.fb.group({
-      size: [""],
-      remarks: [],
-      itemId: [""],
-     itemCode: [""],
-      itemName: ["", [Validators.required]],
-      itemDescription: ["", [Validators.required]],
-      itemType: ["", [Validators.required]],
-      itemCategory: ["", [Validators.required]],
-      blno: ["", [Validators.required]],
-      location: [""],
-      saleable: [""],
-      purchaseable: [""],
-      purchaseReq: [""],
-      costingMethod: [""],
-      costPrice: [""],
-      warranty: [""],
-      leadTime: [""],
-      purchaseMethod: [""],
-      purchaseUom: [""],
-      reorderLevel: [""],
-      minimumQty: [""],
-      maximumQty: [""],
-      //GRN
-      batchNo: [""],
-      mrp: [""],
-      expiryDate: [""],
-      manufactureDetails: [""],
-      //INVENTORY
-      inventoryValuation: [""],
-      issueMethod: [""],
-      openingBalance: [""],
-      defaultPrice: [""],
-      //Vendor
-      itemMasterDetailBean: this.fb.array([
-        this.fb.group({
-          itemId: '',
-          vendorName: '',
-          vendorItemName: '',
-          vendorItemCode: '',
-          itemCode: '',
-          itemName: '',
-          vendorminimumQty: '',
-          vendorUom: '',
-          deliveryLeadTime: '',
-          paymentMethod: '',
-        })
-      ]),
-      productDetailBean: this.fb.array([
-        this.fb.group({
-          itemId: '',
-          itemCode: '',
-          itemName: '',
-          itemDescription: ''
-        })
-      ])
-    });
-
+    
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
         this.requestId = params.id;
@@ -123,23 +122,24 @@ export class AddItemMasterComponent implements OnInit {
       }
     });
 
-    //Parent Category Dropdown List
-    this.httpService.get<any>(this.commonService.getParentCategoryDropdown).subscribe({
+    //Item Type Dropdown List
+    this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 6).subscribe({
       next: (data) => {
-        this.parentCategoryList = data;
+        this.itemTypeList = data;
+      },
+      error: (error) => {
+      }
+    });
+    //Parent Category Dropdown List
+    this.httpService.get<any>(this.commonService.getItemCategoryDropdown).subscribe({
+      next: (data) => {
+        this.categoryList = data;
       },
       error: (error) => {
       }
     });
 
-    //Item Type Dropdown List
-    this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 1).subscribe({
-      next: (data) => {
-        this.commonDropDownItemTypeList = data;
-      },
-      error: (error) => {
-      }
-    });
+    
 
     //Location Dropdown List
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
