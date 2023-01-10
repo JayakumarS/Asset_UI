@@ -25,12 +25,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DeleteCategoryComponent } from './list-category/delete-category/delete-category.component';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 
 @NgModule({
   declarations: [
     AddCategoryComponent,
-    ListCategoryComponent
+    ListCategoryComponent,
+    DeleteCategoryComponent
+  ],
+  providers:[
+    NotificationService
   ],
   imports: [
     CommonModule,
