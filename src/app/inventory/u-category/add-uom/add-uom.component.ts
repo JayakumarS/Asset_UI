@@ -29,10 +29,11 @@ export class AddUomComponent implements OnInit {
     public tokenStorage: TokenStorageService,
     )  {
       this.docForm = this.fb.group({
-        categoryName: ["", [Validators.required]],
+        uomcategoryName: ["", [Validators.required]],
         description: ["",[Validators.required]],
-        uomCode: ["",[Validators.required]],
-        uom_id:[""]
+        uomcategoryCode: ["",[Validators.required]],
+        uomcategoryId:[""],
+        loginedUser: this.tokenStorage.getUserId(),
       });
 
 
@@ -93,17 +94,17 @@ export class AddUomComponent implements OnInit {
   }
 }
 
-fetchDetails(uom_id: any): void {
+fetchDetails(uomcategoryId: any): void {
   const obj = {
-    editId: uom_id
+    editId: uomcategoryId
   }
   this.uomService.editCategory(obj).subscribe({
     next: (res) => {
 
     this.docForm.patchValue({
-      'uom_id': res.uomBean.uom_id,
-      'categoryName':res.uomBean.categoryName,
-      'uomCode': res.uomBean.uomCode,
+      'uomcategoryId': res.uomBean.uomcategoryId,
+      'uomcategoryName':res.uomBean.uomcategoryName,
+      'uomcategoryCode': res.uomBean.uomcategoryCode,
       'registercode': res.uomBean.registercode,
       'description': res.uomBean.description,
 
@@ -193,9 +194,11 @@ keyPressName(event: any) {
   if (!this.edit) {
     this.docForm.reset();
     this.docForm.patchValue({
-      'categoryName': '',
+      'uomcategoryName': '',
       'description': '',
-      'uomCode': '',
+      'uomcategoryCode': '',
+      'loginedUser': this.tokenStorage.getUserId()
+
     })
   } else {
     this.fetchDetails(this.requestId);
@@ -214,9 +217,9 @@ validateCountry(event) {
   if (event != undefined && event != null && event != "") {
     this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "country" + "&columnName=" + "country_name" + "&columnValue=" + event).subscribe((res: any) => {
       if (res) {
-        this.docForm.controls['categoryName'].setErrors({ country: true });
+        this.docForm.controls['uomcategoryName'].setErrors({ country: true });
       } else {
-        this.docForm.controls['categoryName'].setErrors(null);
+        this.docForm.controls['uomcategoryName'].setErrors(null);
       }
     });
   }

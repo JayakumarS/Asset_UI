@@ -68,7 +68,7 @@
               </ng-container>
               <ng-container matColumnDef="category">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
-                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.uomCategory}}</mat-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style="  text-transform: capitalize;"> {{row.uomCategory}}</mat-cell>
               </ng-container>
 
 

@@ -23,12 +23,18 @@ export class CategoryMasterService extends UnsubscribeOnDestroyAdapter {
     );
     // Temporarily stores data from dialogs
     dialogData: any;
+    assetcategory:Assetcategory;
     constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) {
       super();
     }
    public getcategory = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/getList`;
    public savecategory = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/save`;
+   public editcategory = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/edit`;
+   public deletecategory = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/delete`;
+   public updatecategory = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/update`;
 
+   
+   
 get data(): Assetcategory[] {
     return this.dataChange.value;
   }
@@ -61,4 +67,31 @@ get data(): Assetcategory[] {
         
     });
   }
+  categoryUpdate(assetcategory: Assetcategory,router,notificationService): void {
+    this.dialogData = assetcategory;
+    this.httpService.post<Assetcategory>(this.updatecategory, assetcategory).subscribe(data => {
+      console.log(data);
+      if(data.Success == true){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Add Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/category/list-category']);
+      }
+      else if(data.Success == false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
+
 }

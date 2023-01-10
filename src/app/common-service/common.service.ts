@@ -47,6 +47,10 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getVendorDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getVendorDropdown`;
 
+  public getParentCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getParentCategoryDropdown`;
+
+  // public getCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCategoryDropdown`;
+
   public getCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetCategoryDropdown`;
 
   public getCommonDropdownByformId = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCommonDropdownByformId`;
@@ -88,6 +92,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getuserCategoryname = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getuserCategoryname`;
 
-  public getEmployeeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterDropdown`;
+  public getEmployeeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeeDropdown`;
+
+  public getCompanyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyDropdown`;
 
 }

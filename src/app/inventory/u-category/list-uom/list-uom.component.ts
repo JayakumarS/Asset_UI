@@ -84,7 +84,7 @@ export class ListUomComponent extends UnsubscribeOnDestroyAdapter implements OnI
   
   editCall(row) {
  
-    this.router.navigate(['/inventory/UOM-catagory/add-UOM-Category/'+row.uom_id]);
+    this.router.navigate(['/inventory/UOM-catagory/add-UOM-Category/'+row.uomcategoryId]);
 
   }
   deleteItem(row) {
@@ -105,7 +105,7 @@ export class ListUomComponent extends UnsubscribeOnDestroyAdapter implements OnI
       
       if (data.data == true) {
         const obj = {
-          deletingId: row.uom_id
+          deletingId: row.uomcategoryId
         }
         this.spinner.show();
         this.uomService.DeleteUomCategory(obj).subscribe({
@@ -189,10 +189,10 @@ export class ExampleDataSource extends DataSource<UCategory> {
           .slice()
           .filter((uCategory: UCategory) => {
             const searchStr = (
-              uCategory.categoryName +
-              uCategory.description+
-              uCategory.uomCode+
-              uCategory.uom_id
+              uCategory.uomcategoryId +
+              uCategory.uomcategoryName+
+              uCategory.uomcategoryCode+
+              uCategory.description
               // countryMaster.clientType 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -219,17 +219,17 @@ export class ExampleDataSource extends DataSource<UCategory> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "uom_id":
-          [propertyA, propertyB] = [a.uom_id, b.uom_id];
+        case "uomcategoryId":
+          [propertyA, propertyB] = [a.uomcategoryId, b.uomcategoryId];
           break;
-        case "categoryName":
-          [propertyA, propertyB] = [a.categoryName, b.categoryName];
+        case "uomcategoryName":
+          [propertyA, propertyB] = [a.uomcategoryName, b.uomcategoryName];
           break;
         case "description":
           [propertyA, propertyB] = [a.description, b.description];
           break;
-        case "uomCode":
-          [propertyA, propertyB] = [a.uomCode, b.uomCode];
+        case "uomcategoryCode":
+          [propertyA, propertyB] = [a.uomcategoryCode, b.uomcategoryCode];
           break;
        
       }

@@ -64,7 +64,7 @@
                   </ng-container>
                   <ng-container matColumnDef="personIncharge">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Person In-Charge</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.personIncharge}}
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style=" text-transform: capitalize;"> {{row.personIncharge}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="telephoneNo">
@@ -74,7 +74,7 @@
                   </ng-container>
                   <ng-container matColumnDef="isactive">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.isactive}}
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style=" text-transform: capitalize;"> {{row.isactive}}
                     </mat-cell>
                   </ng-container>
                   

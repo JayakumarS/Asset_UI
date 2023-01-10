@@ -12,23 +12,23 @@
               <form class="m-4" [formGroup]="docForm">
                 <div class="row">
                   <div class=" col-md-2">
-                    <mat-label class="lable">Category Name</mat-label>
-                    </div>
+                    <label class="lable"> Category Name<span class="errorColor">*</span></label>
+                  </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="categoryName" maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" required>
-                      <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
+                      <input matInput formControlName="uomcategoryName" maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('uomcategoryName').hasError('required')">
                        category name is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                   <div class=" col-md-2">
-                    <mat-label class="lable">Category Code</mat-label>
+                    <label class="lable"> Category Code<span class="errorColor">*</span></label>
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="uomCode" maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" required>
-                      <mat-error *ngIf="docForm.get('uomCode').hasError('required')">
+                      <input matInput formControlName="uomcategoryCode" maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('uomcategoryCode').hasError('required')">
                         Category Code is required
                       </mat-error>
                     </mat-form-field>
@@ -41,12 +41,12 @@
                       <mat-label class="lable">Description</mat-label>
                       </div>
                       <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <textarea matInput formControlName="description"></textarea>
-                        <mat-error *ngIf="docForm.get('description').hasError('required')">
-                          Description is required
-                        </mat-error>
-                      </mat-form-field>
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <textarea matInput formControlName="description"></textarea>
+                          <mat-error *ngIf="docForm.get('description').hasError('required')">
+                            Description is required
+                          </mat-error>
+                        </mat-form-field>
                     </div>
                   </div>
                 <br>

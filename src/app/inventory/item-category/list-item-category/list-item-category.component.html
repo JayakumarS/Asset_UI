@@ -55,7 +55,7 @@
                   </ng-container>
                   <ng-container matColumnDef="parentCategoryName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Parent Category </mat-header-cell>
-                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.parentCategoryName}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"style="  text-transform: capitalize;"> {{row.parentCategoryName}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="categoryTypeName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> category Type </mat-header-cell>

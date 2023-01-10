@@ -26,6 +26,7 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DeleteVendorComponent } from './list-vendor/delete/delete.component';
+// import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { DeleteVendorComponent } from './list-vendor/delete/delete.component';
     DeleteVendorComponent
   ],
   imports: [
+    // BrowserModule,
     CommonModule,
     VendorRoutingModule,
     FormsModule,
@@ -61,6 +63,8 @@ import { DeleteVendorComponent } from './list-vendor/delete/delete.component';
     SharedModule,
 
 
-  ]
+  ],
+  providers: [],
+  bootstrap: [AddVendorComponent]
 })
 export class VendorModule { }

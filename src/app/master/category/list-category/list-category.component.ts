@@ -1,5 +1,5 @@
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -12,6 +12,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { Assetcategory } from '../category.model';
 import { CategoryMasterService } from '../category.service';
+import { DeleteCategoryComponent } from './delete-category/delete-category.component';
 
 @Component({
   selector: 'app-list-category',
@@ -25,7 +26,7 @@ export class ListCategoryComponent implements OnInit {
     "categoryName",
     "parentCategory",
     "Description",
-    "isactive",
+    "isactiveForList",
     "actions"
 
     
@@ -38,11 +39,12 @@ export class ListCategoryComponent implements OnInit {
   selection = new SelectionModel<Assetcategory>(true, []);
   index: number;
   id: number;
+  category_id: number;
   assetcategory: Assetcategory | null;
   subs: any;
   constructor(    public httpClient: HttpClient,
     public dialog: MatDialog,
-    public sategoryMasterService: CategoryMasterService,
+    public categoryMasterService: CategoryMasterService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
@@ -79,6 +81,67 @@ export class ListCategoryComponent implements OnInit {
       }
     );
   }
+
+  editCall(row) {
+
+    this.router.navigate(['/master/category/add-category/'+row.id]);
+
+  }
+
+  deleteItem(row){
+
+    this.id = row.id;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteCategoryComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+
+      if (data.data == true) {
+
+        this.httpService.get(this.categoryMasterService.deletecategory+ "?category_id=" + this.id).subscribe((res: any) => {
+          this.showNotification(
+            "snackbar-success",
+            "Delete Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          this.loadData();
+        },
+          (err: HttpErrorResponse) => {
+            // error code here
+          }
+        );
+
+      
+      } else{
+        this.loadData();
+      }
+
+
+        
+      
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
+    });
+
+  }
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -97,6 +160,7 @@ export class ListCategoryComponent implements OnInit {
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
   }
+  
 }
 
 

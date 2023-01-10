@@ -33,6 +33,7 @@ import { CommodityResultBean } from '../vendor-result-bean';
 
 
 export class AddVendorComponent implements OnInit {
+
   docForm: FormGroup;
   hide3 = true;
   agree3 = false;
@@ -52,12 +53,12 @@ export class AddVendorComponent implements OnInit {
       vendorShortName:["",[Validators.required]],
       vendorAddress:["",[Validators.required]],
       vendorCountry:["",[Validators.required]],
-      vendorEmail:['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      vendorEmail:['', [Validators.required,Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       currency:["",[Validators.required]],
       vendorContact:["",[Validators.required]],
       vendorPhoneNumber:["",[Validators.required]],
 
-
+      
 
     });
     }
@@ -73,7 +74,7 @@ export class AddVendorComponent implements OnInit {
       vendorShortName:["",[Validators.required]],
       vendorAddress:["",[Validators.required]],
       vendorCountry:["",[Validators.required]],
-      vendorEmail:['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      vendorEmail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       currency:["",[Validators.required]],
       vendorContact:["",[Validators.required]],
       vendorPhoneNumber:["",[Validators.required]],
@@ -204,5 +205,34 @@ keyPressPCB(event: any) {
       panelClass: colorName,
     });
   }
+
+  // validateEmail(event){
+  //   this.httpService.get<any>(this.authService.validateEmailUrl+ "?tableName=" +"user_details"+"&columnName="+"email_id"+"&columnValue="+event).subscribe((res: any) => {
+  //     if(res){
+  //       this.authForm.controls['emailId'].setErrors({ emailPwd: true });
+  //     }else{
+  //       this.authForm.controls['emailId'].setErrors(null);
+  //     }
+  //   });
+  // }
+
+   //validate common mail 
+
+//    commonMailValidator(control) {
+//   const commonMailDomains = ['/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/'];
+//    const email = control;
+//    const domain = email.split('@')[1];
+//    if (commonMailDomains.includes(domain)) {
+//      this.docForm.patchValue({
+//        'emailId':""
+//      })
+//      this.docForm.controls['emailId'].setErrors({ checkMail: true });
+//    }else{
+//      this.docForm.controls['emailId'].setErrors(null);
+//    }
+  
+//  }
+
+
 
 }
