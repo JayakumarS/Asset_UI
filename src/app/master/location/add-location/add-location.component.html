@@ -12,8 +12,8 @@
               <form class="m-4" [formGroup]="docForm">
                 <div class="row">
                   <div class=" col-md-2">
-                    <mat-label class="lable">Parent Location Name</mat-label>
-                    </div>
+                    <label class="lable"> Parent Location Name<span class="errorColor">*</span></label>
+                  </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="parentLocation"maxlength="15"[ngModel]="inputvalue"
@@ -25,8 +25,8 @@
                   </div>
 
                     <div class=" col-md-2">
-                      <mat-label class="lable">Location</mat-label>
-                      </div>
+                      <label class="lable"> Location<span class="errorColor">*</span></label>
+                    </div>
                       <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="locationName" maxlength="15"[ngModel]="inputvalue1"
@@ -41,7 +41,7 @@
 
                 <div class="row">
                     <div class=" col-md-2">
-                    <mat-label class="lable">Location Code</mat-label>
+                      <label class="lable"> Location Code<span class="errorColor">*</span></label>
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
