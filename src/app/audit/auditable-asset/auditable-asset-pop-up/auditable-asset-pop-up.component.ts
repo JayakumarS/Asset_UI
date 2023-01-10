@@ -167,10 +167,23 @@ checkFullLife(event:any){
   }
 }
 
-financialChange(asset:any){
+// financialChange(asset:any){
     
-  this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.financialChangeUrl + "?assetId=" + this.data.assetid+"&asset="+asset).subscribe((res: any) => {
-      console.log(asset);
+//   this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.financialChangeUrl + "?assetId=" + this.data.assetid+"&asset="+asset).subscribe((res: any) => {
+//       console.log(asset);
+//       this.financialChangeDetails = res.financialChangeDetails;
+//       },
+//       (err: HttpErrorResponse) => {
+//          // error code here
+//       }
+//     );
+// }
+
+financialChange(){
+  console.log(this.docForm.value);
+  console.log(this.docForm.value.depreciationMethod);
+  this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.financialChangeUrl + "?assetId=" + this.data.assetid+"&asset="+this.docForm.value.depreciationMethod).subscribe((res: any) => {
+      
       this.financialChangeDetails = res.financialChangeDetails;
       },
       (err: HttpErrorResponse) => {
@@ -198,19 +211,19 @@ fetchAssetName(asset:any){
 
   onSubmit(){
 
-  if(this.docForm.valid){
+  // if(this.docForm.valid){
     this.auditableAsset = this.docForm.value;
     console.log(this.auditableAsset);
     this.auditableAssetService.addAuditableAsset(this.auditableAsset,this.router,this.notificationService);
-  }
-  else{
-    this.showNotification(
-      "snackbar-danger",
-      "Please fill all the required details!",
-      "top",
-      "right"
-    );
-  }
+  // }
+  // else{
+  //   this.showNotification(
+  //     "snackbar-danger",
+  //     "Please fill all the required details!",
+  //     "top",
+  //     "right"
+  //   );
+  // }
 
   }
 

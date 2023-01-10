@@ -13,7 +13,7 @@
 
                 <div class="row">
                     <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " >
-                      <label class="lable">Asset Id :</label>
+                      <label class="lable" style="font-size:12">Asset Id :</label>
                   </div> 
                   <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 ">
                     {{auditableAsset.assetid}}
@@ -65,10 +65,10 @@
                     <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " >
                       <mat-checkbox formControlName="assetType" ngInit="checked=true" (change)="checkFullLife($event)"></mat-checkbox>
                     </div> -->
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " *ngIf="!fullLifeFlag">
-                        <label class="lable">Financial Year :</label>
+                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 " *ngIf="!fullLifeFlag">
+                        <label class="lable">FY :</label>
                     </div> 
-                    <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 " *ngIf="!fullLifeFlag">
+                    <!-- <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 " *ngIf="!fullLifeFlag">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select formControlName="depreciationMethod" (selectionChange)="financialChange($event.value)">
                             <mat-option [value]="'2028'">
@@ -94,13 +94,37 @@
                             </mat-option>
                         </mat-select>
                       </mat-form-field>
+                    </div> -->
+
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" *ngIf="!fullLifeFlag" style="margin-left: -25px;">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Financial Year</mat-label>
+                        <input matInput formControlName="depreciationMethod" maxlength="4" (change)="financialChange($event.target.value)" (keypress)="keyPressPCB($event)">
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2" style="padding-top: 16px;" *ngIf="!fullLifeFlag">
+                      <i class="fa fa-search" aria-hidden="true" (click)="financialChange()"></i>
                     </div>
 
 
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " *ngIf="fullLifeFlag">
-                        <label class="lable">Financial Year :</label>
+                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 " *ngIf="fullLifeFlag">
+                        <label class="lable">FY :</label>
                     </div> 
-                    <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 " *ngIf="fullLifeFlag">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" *ngIf="fullLifeFlag" style="margin-left: -25px;">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Financial Year</mat-label>
+                        <input matInput formControlName="depreciationMethod" maxlength="4" (change)="financialChange($event.target.value)" (keypress)="keyPressPCB($event)" readonly>
+                      </mat-form-field>
+                      
+                    </div>
+                  
+                    <div class="col-md-2" style="padding-top: 16px;" *ngIf="fullLifeFlag">
+                      <i class="fa fa-search" aria-hidden="true" (click)="financialChange()"></i>
+                    </div>
+
+                    
+                    <!-- <div class="col-xl-4 col-lg-3 col-md-12 col-sm-12 " *ngIf="fullLifeFlag">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select formControlName="depreciationMethod" [disabled]="true">
                             <mat-option [value]="'2023'">
@@ -114,7 +138,14 @@
                             </mat-option>
                         </mat-select>
                       </mat-form-field>
-                    </div>
+                    </div> -->
+
+                    <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 " style="margin-left: -32px;" >
+                      <label class="lable">Dep Method :</label>
+                  </div> 
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " >
+                    {{auditableAsset.depreciationMethod}}
+                  </div>
 
                   </div><br>
 
@@ -128,21 +159,23 @@
                     <table id="excel-table" class="table table-striped">
                       <thead>
                           <tr style="position: sticky;top: 0;">
-                            <th style="background-color:#c1ddf5;">Financial Year</th>
+                            <th style="background-color:#c1ddf5;">Sl No</th>
+                            <th style="background-color:#c1ddf5;">FY</th>
                             <th style="background-color:#c1ddf5;">Book Value</th>
                             <th style="background-color:#c1ddf5;">Depreciation</th>
-                            <th style="background-color:#c1ddf5;">Accured Depreciation</th>
+                            <th style="background-color:#c1ddf5;">Acc Depreciation</th>
                             <th style="background-color:#c1ddf5;">Book Value End</th>
                           </tr>
                       </thead>
                       <tbody>
                             <tr *ngFor="let visitReport of financialChangeDetails;">
                             <!-- <tr> -->
+                              <td>{{visitReport.yearseq}}</td>
                               <td>{{visitReport.financial_year}}</td>
-                              <td>{{visitReport.bookvalue}}</td>
-                              <td>{{visitReport.depreciation}}</td>
-                              <td>{{visitReport.accudepreciation}}</td>
-                              <td>{{visitReport.bookvalueend}}</td>
+                              <td style="text-align: right;">{{visitReport.bookvalue.toFixed(2)}}</td>
+                              <td style="text-align: right;">{{visitReport.depreciation.toFixed(2)}}</td>
+                              <td style="text-align: right;">{{visitReport.accudepreciation.toFixed(2)}}</td>
+                              <td style="text-align: right;">{{visitReport.bookvalueend.toFixed(2)}}</td>
                             </tr>        
                       </tbody>
                     </table>

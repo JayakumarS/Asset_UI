@@ -35,11 +35,9 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
   public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getCurrencyList`;
   public assetPopUpUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAssetDetailsForPopUp`;
   public financialChangeUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getfinancialChangeDetails`;
-  public saveschedule = `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/save`;
-  public locationserviceUrl= `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/getlocationList`;
-  public activityserviceurl= `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/getactivityList`;
-  public editScheduleMaster= `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/edit`;
-  public updateSchedule =  `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/update`;
+  public editAuditableAsset = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/edit`;
+  public updateauditable = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/update`;
+  public validateAssetIdUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/validateAssetId`;
   public deleteschedule = `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/delete`;
   get data(): AuditableAsset[] {
     return this.dataChange.value;
@@ -91,18 +89,6 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
     });
   }
 
-  
-  addSchedule(addaudit:AuditableAsset): void {
-    this.dialogData = addaudit;  
-    this.httpService.post<AuditableAsset>(this.saveschedule,addaudit ).subscribe(data => {
-      console.log(data);
-      //this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
-  }
-
   scheduleDelete(scheduleid: any): void {
     this.httpService.get(this.deleteschedule + "?scheduleid=" + scheduleid).subscribe(data => {
       console.log(scheduleid);
@@ -113,9 +99,9 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
     );
   }
 
-  scheduleUpdate(scheduleActivityMaster: AuditableAsset,router,notificationService): void {
+  auditableUpdate(scheduleActivityMaster: AuditableAsset,router,notificationService): void {
     this.dialogData = scheduleActivityMaster;
-    this.httpService.post<AuditableAsset>(this.updateSchedule, scheduleActivityMaster).subscribe(data => {
+    this.httpService.post<AuditableAsset>(this.updateauditable, scheduleActivityMaster).subscribe(data => {
       console.log(data);
       if(data.success == true){
         notificationService.showNotification(
@@ -124,7 +110,7 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-        router.navigate(['/operations/workOrder/listWorkOrder']);
+        router.navigate(['/audit/auditableAsset/listAuditableAsset']);
       }
       else if(data.success == false){
         notificationService.showNotification(

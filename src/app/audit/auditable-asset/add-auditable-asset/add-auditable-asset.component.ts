@@ -11,6 +11,7 @@ import { AuditableAssetResultBean } from '../auditable-asset-result-bean';
 import { AuditableAssetService } from '../auditable-asset.service';
 import { AuditableAsset } from '../auditable-asset-model';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -44,6 +45,7 @@ export class AddAuditableAssetComponent implements OnInit {
   auditableAsset:AuditableAsset;
   requestId: any;
   edit:boolean=false;
+  assetFlag:boolean=false;
   assetList:[];
   currencyList: [];
   assetTypeList:[];
@@ -56,7 +58,8 @@ export class AddAuditableAssetComponent implements OnInit {
     private router:Router,private cmnService:CommonService,
     private commonService: CommonService,
     private notificationService: NotificationService,
-    public route: ActivatedRoute,) 
+    public route: ActivatedRoute,
+    private tokenStorage:TokenStorageService) 
     {
     this.docForm = this.fb.group({
       assetid:[""],
@@ -75,7 +78,7 @@ export class AddAuditableAssetComponent implements OnInit {
 
   this.docForm = this.fb.group({
     assetid:["",[Validators.required]],
-    assetname:["",[Validators.required]],
+    assetname:[""],
     currency:["",[Validators.required]],
     lifeInYears:["",[Validators.required]],
     value:["",[Validators.required]],
@@ -84,6 +87,8 @@ export class AddAuditableAssetComponent implements OnInit {
     depreciationMethod:["",[Validators.required]]
   });
 
+  // console.log(this.dfdfd.getUserId());
+  console.log(this.tokenStorage.getUserId());
   // Currency list dropdown
   this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListUrl).subscribe(
     (data) => {
@@ -136,20 +141,33 @@ export class AddAuditableAssetComponent implements OnInit {
 }
 
 fetchAssetName(asset:any){
-    
-  this.httpService.get(this.auditableAssetService.fetchAssetNameUrl + "?asset=" + asset).subscribe((res: any) => {
-      console.log(asset);
 
-      console.log(res.getAssetName.assetname);
-
-      this.docForm.patchValue({
-        'assetname': res.getAssetName.assetname
-     })
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
+    this.httpService.get<any>(this.auditableAssetService.validateAssetIdUrl+ "?tableName=" +"asset_depreciation"+"&columnName="+"asset_id"+"&columnValue="+asset).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['assetid'].setErrors({ country: true });
+        this.assetFlag = false;
+      }else{
+        this.docForm.controls['assetid'].setErrors(null);
+        this.assetFlag = true;
       }
-    );
+    });
+  
+    // if(this.assetFlag == true){
+      this.httpService.get(this.auditableAssetService.fetchAssetNameUrl + "?asset=" + asset).subscribe((res: any) => {
+        console.log(asset);
+  
+        console.log(res.getAssetName.assetname);
+  
+        this.docForm.patchValue({
+          'assetname': res.getAssetName.assetname
+       })
+        },
+        (err: HttpErrorResponse) => {
+           // error code here
+        }
+      );
+    // }
+
 }
 
   onSubmit(){
@@ -214,10 +232,35 @@ fetchAssetName(asset:any){
   }
 
   fetchDetails(id: any): void {
+
+    this.httpService.get(this.auditableAssetService.editAuditableAsset+"?asset="+id).subscribe((res: any)=> {
+      console.log(id);
+      
+      this.docForm.patchValue({
+        
+        'assetid': res.auditableAssetBean.assetid,
+        'currency': res.auditableAssetBean.currency,
+        'assetname' : res.auditableAssetBean.assetname,
+        'lifeInYears': res.auditableAssetBean.lifeInYears,
+        'value' : res.auditableAssetBean.value,
+        'salvageValue' : res.auditableAssetBean.salvageValue,
+        'assetType' : res.auditableAssetBean.assetType,
+        'depreciationMethod' : res.auditableAssetBean.depreciationMethod,
+     })
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+
   }
 
 
   update(){
+
+    this.auditableAsset = this.docForm.value;
+    this.auditableAssetService.auditableUpdate(this.auditableAsset,this.router,this.notificationService);
+
   }
 
   onCancel(){
