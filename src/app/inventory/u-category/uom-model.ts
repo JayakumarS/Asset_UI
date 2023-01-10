@@ -1,8 +1,8 @@
 export class UCategory {
-    uom_id: number;
-    categoryName: string;
+    uomcategoryId: number;
+    uomcategoryName: string;
     description: number;
-    uomCode: string;
+    uomcategoryCode: string;
   
 }
 

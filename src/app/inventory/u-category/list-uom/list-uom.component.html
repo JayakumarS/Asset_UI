@@ -54,11 +54,11 @@
 
                   <ng-container matColumnDef="uomCode">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Category Code</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.uomCode}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.uomcategoryCode}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="categoryName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.categoryName}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.uomcategoryName}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="description">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
