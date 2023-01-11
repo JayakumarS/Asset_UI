@@ -23,11 +23,12 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { NotificationService } from "src/app/core/service/notification.service";
+import {MatRadioModule} from '@angular/material/radio';
 
 import { ItemMasterRoutingModule } from './item-master-routing.module';
 import { AddItemMasterComponent } from './add-item-master/add-item-master.component';
 import { ListItemMasterComponent } from './list-item-master/list-item-master.component';
-import { DeleteItemComponent } from './list-item-master/delete-item/delete-item.component';
+import { DeleteItemMasterComponent } from './list-item-master/delete-item-master/delete-item-master.component';
 
 
 
@@ -35,7 +36,7 @@ import { DeleteItemComponent } from './list-item-master/delete-item/delete-item.
   declarations: [
     AddItemMasterComponent,
     ListItemMasterComponent,
-    DeleteItemComponent,
+    DeleteItemMasterComponent,
   ],
   providers: [
     NotificationService
@@ -65,7 +66,9 @@ import { DeleteItemComponent } from './list-item-master/delete-item/delete-item.
     ItemMasterRoutingModule,
     ComponentsModule,
     SharedModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule
+
   ]
 })
 export class ItemMasterModule { }

@@ -1,66 +1,53 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { serverLocations } from 'src/app/auth/serverLocations';
-import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
-import { ItemMasterResultBean } from './item-master-result-bean';
+import { BehaviorSubject, Observable } from "rxjs";
 import { ItemMaster } from './item-master.model';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+import { ItemMasterResultBean } from './item-master-result-bean';
+import { serverLocations } from 'src/app/auth/serverLocations';
+import { HttpServiceService } from 'src/app/auth/http-service.service';
+
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 @Injectable({
   providedIn: 'root'
 })
 export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
+
   isTblLoading = true;
-  // currencyList:[];
   dataChange: BehaviorSubject<ItemMaster[]> = new BehaviorSubject<ItemMaster[]>(
     []
   );
+
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient,
-    private serverUrl: serverLocations,
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
     private httpService: HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/getList`;
-  private saveItemMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/save`;
-  public deleteItem = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/delete`;
-  public editItem = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/edit`;
-  public updateItem = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/update`;
-  //public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCurrencyList`;
+
+  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/getList`;
+  public saveItemMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/save`;
+  public editItemMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/edit`;
+  public updateItemMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/update`;
+  public deleteItemMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/delete`;
+  public attributeDetails = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/attributeDetails`;
+
   get data(): ItemMaster[] {
     return this.dataChange.value;
   }
   getDialogData() {
     return this.dialogData;
   }
-  addItem(itemMaster: ItemMaster,router,notificationService): void {
-    this.dialogData = itemMaster;
-    this.httpService.post<ItemMaster>(this.saveItemMaster, itemMaster).subscribe(data => {
-      console.log(data);
-      if(data.Success == true){
-        notificationService.showNotification(
-          "snackbar-success",
-          "Record Added successfully...",
-          "bottom",
-          "center"
-        );
-      }
-    },
-      
-      (err: HttpErrorResponse) => {
-        throw new Error('Method not implemented.');
-      });
-  }
- 
-  getAllList(): void {
+
+  getAllItemMasters(): void {
     this.subs.sink = this.httpService.get<ItemMasterResultBean>(this.getAllMasters).subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.itemMasterDetails);
+        this.dataChange.next(data.itemMasterList);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -68,36 +55,21 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
-  itemUpdate(itemMaster: ItemMaster,router,notificationService): void {
-    this.dialogData = itemMaster;
-    this.httpService.post<ItemMaster>(this.updateItem, itemMaster).subscribe(data => {
-      console.log(data);
-      if(data.Success == true){
-        notificationService.showNotification(
-          "snackbar-success",
-          "Add Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-        router.navigate(['/inventory/item-master/list-item-master']);
-      }
-      // else if(data.Success == false){
-      //   notificationService.showNotification(
-      //     "snackbar-danger",
-      //     "Not Updated Successfully...!!!",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
+
+  addItem(itemMaster: ItemMaster): Observable<any> {
+    return this.httpClient.post<ItemMaster>(this.saveItemMaster, itemMaster);
   }
-  itemDelete(itemId: any): void {
-    this.httpService.get(this.deleteItem + "?itemId=" + itemId).subscribe(data => {
-      console.log(itemId);
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
+
+  editItem(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editItemMaster, obj);
   }
+
+  updateItem(itemMaster: ItemMaster): Observable<any> {
+    return this.httpClient.post<ItemMaster>(this.updateItemMaster, itemMaster);
+  }
+
+  deleteItem(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.deleteItemMaster, obj);
+  }
+
 }

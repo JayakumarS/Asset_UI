@@ -7,13 +7,13 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-12">
-        <div class="card" style="padding-left: 150px;">
+        <div class="card" style="padding-left: 80px;">
           <div class="body">
             <form class="m-4" [formGroup]="docForm">
 
               <div class="row">
                 <div class="col-md-2">
-                  <label class="lable">Item Type</label>
+                  <label class="lable">Item Type <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -22,37 +22,49 @@
                         {{title.text}}
                       </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="docForm.get('itemType').hasError('required')">
+                      Item Type is required
+                    </mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-2 spaceBetweenTwoFields">
-                  <label class="lable">Item Name</label>
+                  <label class="lable">Item Name <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="itemName" maxlength="50" required>
+                    <input matInput formControlName="itemName" (keypress)="keyPressName($event)" maxlength="30" required>
+                    <mat-error *ngIf="docForm.get('itemName').hasError('required')">
+                      Item Name is required
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-2">
-                  <label class="lable">Item Code</label>
+                  <label class="lable">Item Code <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="itemCode" maxlength="200">
+                    <input matInput formControlName="itemCode" (keypress)="keyPressName($event)" maxlength="10">
+                    <mat-error *ngIf="docForm.get('itemCode').hasError('required')">
+                      Item Code is required
+                    </mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-2 spaceBetweenTwoFields">
-                  <label class="lable">Item Category</label>
+                  <label class="lable">Item Category <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select formControlName="itemCategory">
+                    <mat-select formControlName="itemCategory" (selectionChange)="getAttributeDetails($event.value)">
                       <mat-option *ngFor="let title of categoryList" [value]="title.id" required>
                         {{title.text}}
                       </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="docForm.get('itemCategory').hasError('required')">
+                      Item Category is required
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
@@ -63,7 +75,7 @@
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="itemDescription" maxlength="200">
+                    <input matInput formControlName="itemDescription" (keypress)="keyPressName($event)" maxlength="50">
                   </mat-form-field>
                 </div>
               </div><br>
@@ -72,102 +84,149 @@
               <mat-tab-group>
                 <mat-tab label="Specification">
                   <br>
-                  <div class="row" *ngFor="let item of specificationList">
-                    <!-- Text Start -->
-                    <div class="col-md-3" *ngIf="item.typeinput == 'Text'">
-                      <label class="lable">{{item.labelName}}</label>
-                    </div>
-                    <div class="col-md-3" *ngIf="item.typeinput == 'Text'">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="specificationText" maxlength="200">
-                      </mat-form-field>
-                    </div>
-                    <!-- Text End -->
-
-                    <!-- DropDown Start -->
-                    <div class="col-md-3" *ngIf="item.typeinput == 'DropDown'">
-                      <label class="lable">Drop Down</label>
-                    </div>
-                    <div class="col-md-3" *ngIf="item.typeinput == 'DropDown'">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-select formControlName="specificationDropDown">
-                          <mat-option [value]="item.defaultvalue">
-                            {{item.defaultvalue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                    <!-- DropDown End -->
+                  <ng-container
+                    *ngFor="let specificationList of docForm.get('specificationList')['controls']; let i = index">
+                    <tbody [formGroup]="specificationList">
+                      
+                      <div class="row">
+                        <!-- Text Start -->
+                        <div class="col-md-3" *ngIf="specificationList.controls.typeinput.value === 'Text'">
+                          <label class="lable">{{specificationList.controls.labelName.value}}</label>
+                        </div>
+                        <div class="col-md-8" *ngIf="specificationList.controls.typeinput.value === 'Text'">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <input matInput name="dynamicAttributeValue{{i}}" formControlName="dynamicAttributeValue" (keypress)="keyPressName($event)" maxlength="50">
+                          </mat-form-field>
+                        </div>
+                        <!-- Text End -->
                    
-                    <!-- Text Area Start -->
-                    <div class="col-md-3" *ngIf="item.typeinput == 'Text Area'">
-                      <label class="lable">{{item.labelName}}</label>
-                    </div>
-                    <div class="col-md-3" *ngIf="item.typeinput == 'Text Area'">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <textarea matInput formControlName="specificationTextArea" maxlength="250"></textarea>
-                      </mat-form-field>
-                    </div>
-                    <!-- Text Area End -->
+                        <!-- DropDown Start -->
+                        <div class="col-md-3" *ngIf="specificationList.controls.typeinput.value == 'DropDown'">
+                          <label class="lable">Drop Down</label>
+                        </div>
+                        <div class="col-md-8" *ngIf="specificationList.controls.typeinput.value == 'DropDown'">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select name="dynamicAttributeValue{{i}}" formControlName="dynamicAttributeValue">
+                              <mat-option [value]="specificationList.controls.defaultvalue.value">
+                                {{specificationList.controls.defaultvalue.value}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <!-- DropDown End -->
+                      
+                        <!-- Text Area Start -->
+                        <div class="col-md-3" *ngIf="specificationList.controls.typeinput.value == 'Text Area'">
+                          <label class="lable">{{specificationList.controls.labelName.value}}</label>
+                        </div>
+                        <div class="col-md-8" *ngIf="specificationList.controls.typeinput.value == 'Text Area'">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <textarea matInput name="dynamicAttributeValue{{i}}" formControlName="dynamicAttributeValue"  (keypress)="keyPressName($event)" maxlength="50"></textarea>
+                          </mat-form-field>
+                        </div>
+                        <!-- Text Area End -->
+                     
 
+                        <!-- CheckBox Start -->
+                        <div class="col-md-3" *ngIf="specificationList.controls.typeinput.value == 'CheckBox'">
+                          <label class="lable">{{specificationList.controls.labelName.value}}</label>
+                        </div>
+                        <div class="col-md-8" *ngIf="specificationList.controls.typeinput.value == 'CheckBox'">
+                          <p><input type="checkbox" style="margin-left: 16px;" name="dynamicAttributeValue{{i}}" formControlName="dynamicAttributeValue">&nbsp; <b>{{specificationList.controls.defaultvalue.value}}</b></p>
+                        </div>
+                        <!-- CheckBox End -->
+                      
+                        <!-- Radio Button Start -->
+                        <div class="col-md-3" *ngIf="specificationList.controls.typeinput.value == 'Radio Button'">
+                          <label class="lable">Radio button</label>
+                        </div>
+                        <div class="col-md-8" *ngIf="specificationList.controls.typeinput.value == 'Radio Button'">
+                          <mat-radio-group  name="dynamicAttributeValue{{i}}" formControlName="dynamicAttributeValue">
+                            <mat-radio-button value="specificationList.controls.defaultvalue.value"  style="margin-left: 16px;">&nbsp;&nbsp; {{specificationList.controls.defaultvalue.value}} &nbsp;</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <!-- Radio Button End -->
+                      
+                        <!-- Number Start -->
+                        <div class="col-md-3" *ngIf="specificationList.controls.typeinput.value == 'Number'">
+                          <label class="lable">Number</label>
+                        </div>
+                        <div class="col-md-8" *ngIf="specificationList.controls.typeinput.value == 'Number'">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <input matInput name="dynamicAttributeValue{{i}}" formControlName="dynamicAttributeValue" (keypress)="keyPressName($event)"  maxlength="50">
+                          </mat-form-field>
+                        </div>
+                        <!-- Number End -->
+                      
 
-                    <!-- CheckBox Start -->
-                    <div class="col-md-3" *ngIf="item.typeinput == 'CheckBox'">
-                      <label class="lable">{{item.defaultvalue}}</label>
                     </div>
-                    <div class="col-md-3" *ngIf="item.typeinput == 'CheckBox'">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-checkbox ngInit="checked=true" formControlName="specificationCheckBox"></mat-checkbox>
-                      </mat-form-field>
-                    </div>
-                    <!-- CheckBox End -->
-
-                    <!-- Radio Button Start -->
-                    <div class="col-md-3" *ngIf="item.typeinput == 'Radio Button'">
-                      <label class="lable">Radio button</label>
-                    </div>
-                    <div class="col-md-3" *ngIf="item.typeinput == 'Radio Button'">
-                      <mat-radio-group tabindex="17" formControlName="specificationRadioButton">
-                        <mat-radio-button value="{{item.defaultvalue}}">{{item.defaultvalue}}</mat-radio-button>
-                      </mat-radio-group>
-
-                    </div>
-                    <!-- Radio Button End -->
-
-                    <!-- Number Start -->
-                    <div class="col-md-3" *ngIf="item.typeinput == 'Number'">
-                      <label class="lable">Number</label>
-                    </div>
-                    <div class="col-md-3" *ngIf="item.typeinput == 'Number'">
-                      <input matInput formControlName="specificationNumber" maxlength="10">
-                    </div>
-                    <!-- Number End -->
-
-                  </div>
+                  </ng-container>
                 </mat-tab>
 
                 <mat-tab label="Vendor">
-                  <div>
+                  <div style="overflow-x: auto;">
                     <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                       <thead class="">
                         <tr>
+                          <th style="width: 1%;"></th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                           width: 12%; border-radius: 0.05rem;">Vendor Name</th>
+                   width: 12%; border-radius: 0.05rem;">Vendor</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                         width: 12%;border-radius: 0.07rem;">Delivery Lead Time</th>
+                   width: 12%;border-radius: 0.07rem;">Vendor Item Name</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                         width: 12%;border-radius: 0.07rem;">Payment Method</th>
+                   width: 12%;border-radius: 0.07rem;">Vendor Item Code</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Minimum Quantity</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Vendor Uom</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Delivery Lead Time</th>
+                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Pricing Type</th>
                         </tr>
                       </thead>
-                      <ng-container
-                        *ngFor="let itemMasterDetailBean of docForm.get('itemMasterDetailBean')['controls']; let i = index">
-                        <tbody [formGroup]="itemMasterDetailBean">
+                      <ng-container *ngFor="let vendorList of docForm.get('vendorList')['controls']; let i = index">
+                        <tbody [formGroup]="vendorList">
                           <tr>
+                            <td>
+                              <button mat-mini-fab color="warn" (click)="removeRow(i)">
+                                <mat-icon class="col-white">delete</mat-icon>
+                              </button>
+                              </td>     
+                           <td class="padding-both-side-2">
+                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Vendor</mat-label>
+                                <mat-select name="vendorId{{i}}" formControlName="vendorId">
+                                  <mat-option *ngFor="let title of vendorDropdownList" [value]="title.id">
+                                    {{title.text}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </td>
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Vendor Name</mat-label>
-                                <mat-select name="vendorName{{i}}" formControlName="vendorName">
-                                  <mat-option *ngFor="let title of vendorList" [value]="title.id">
+                                <mat-label>Vendor Item Name</mat-label>
+                                <input matInput name="vendorItemName{{i}}" formControlName="vendorItemName" (keypress)="keyPressName($event)" maxlength="50">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Vendor Item Code</mat-label>
+                                <input matInput name="vendorItemCode{{i}}" formControlName="vendorItemCode" (keypress)="keyPressName($event)" maxlength="25">
+                              </mat-form-field>
+                            </td>
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Minimum Quantity</mat-label>
+                                <input matInput name="vendorminimumQty{{i}}" formControlName="vendorminimumQty"  (keypress)="keyPressNumberInt($event)" maxlength="9">
+                              </mat-form-field>
+                            </td>
+                            
+                            <td class="padding-both-side-2">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Vendor UOM</mat-label>
+                                <mat-select name="vendorUomId{{i}}" formControlName="vendorUomId">
+                                  <mat-option *ngFor="let title of uomList" [value]="title.id">
                                     {{title.text}}
                                   </mat-option>
                                 </mat-select>
@@ -176,74 +235,62 @@
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Delivery Lead Time</mat-label>
-                                <input matInput name="deliveryLeadTime{{i}}" formControlName="deliveryLeadTime">
+                                <input matInput name="deliveryLeadTime{{i}}" formControlName="deliveryLeadTime" (keypress)="keyPressNumberInt($event)" maxlength="9">
                               </mat-form-field>
                             </td>
-
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Payment Method</mat-label>
-                                <mat-select name="paymentMethod{{i}}" formControlName="paymentMethod">
-                                  <mat-option [value]="'1'">
-                                    Credit
-                                  </mat-option>
-                                  <mat-option [value]="'2'">
-                                    Full Payment
+                                <mat-label>Pricing Type</mat-label>
+                                <mat-select name="pricingType{{i}}" formControlName="pricingType">
+                                  <mat-option *ngFor="let title of pricingTypeList" [value]="title.id">
+                                    {{title.text}}
                                   </mat-option>
                                 </mat-select>
                               </mat-form-field>
                             </td>
-
-                          </tr>
-                        </tbody>
-                      </ng-container>
-                    </table>
-                  </div>
-
-                  <div class="row">
-                    <div>
-                      <button mat-mini-fab color="warn" (click)="removeRow1(-1)">
-                        <mat-icon class="col-white">delete</mat-icon>
-                      </button>&nbsp;
-                      <button mat-mini-fab color="primary" (click)="addRow()">
-                        <mat-icon class="col-white">add</mat-icon>
-                      </button>
-                    </div>
-                  </div>
+                            
+                            </tr>
+                            </tbody>
+                            </ng-container>
+                            </table>
+                            </div>
+                            <div>
+                              <button mat-mini-fab color="primary" (click)="addRow()">
+                                <mat-icon class="col-white">add</mat-icon>
+                              </button>
+                            </div> 
                 </mat-tab>
 
                 <mat-tab label="Inventory">
+                  <br>
                   <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <div class="col-md-2">
+                      <label class="lable">Inventory Valuation <span class="errorColor">*</span></label>
+                    </div>
+                    <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Inventory Valuation</mat-label>
-                        <mat-select formControlName="inventoryValuation" required>
-                          <mat-option [value]="'1'">
-                            FIFO
-                          </mat-option>
-                          <mat-option [value]="'2'">
-                            LIFO
-                          </mat-option>
-                          <mat-option [value]="'24'">
-                            WEIGHTED AVERAGE
+                        <mat-select formControlName="inventoryValuation">
+                          <mat-option *ngFor="let title of inventoryValuvationList" [value]="title.id" required>
+                            {{title.text}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <div class="col-md-2 spaceBetweenTwoFields">
+                      <label class="lable">Issue Method <span class="errorColor">*</span></label>
+                    </div>
+                    <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Issue Method</mat-label>
-                        <mat-select formControlName="issueMethod" required>
-                          <mat-option [value]="'1'">
-                            FIFO
-                          </mat-option>
-                          <mat-option [value]="'2'">
-                            LIFO
+                        <mat-select formControlName="issueMethod">
+                          <mat-option *ngFor="let title of issueList" [value]="title.id" required>
+                            {{title.text}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
                   </div>
+
+
                 </mat-tab>
 
                 <mat-tab label="GRN Attribute">
@@ -264,20 +311,6 @@
                       <mat-checkbox style="margin: 10px 10px;" formControlName="manufactureDetails"
                         ngInit="checked=true">Manufacturer Details</mat-checkbox>
                     </div>
-                    <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
-                          <mat-checkbox style="margin: 10px 10px;" formControlName="batchNo" ngInit="checked=true">Batch No</mat-checkbox>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
-                          <mat-checkbox style="margin: 10px 10px;" formControlName="expiryDate" ngInit="checked=true">Expiry Date</mat-checkbox>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
-                          <mat-checkbox style="margin: 10px 10px;" formControlName="mrp" ngInit="checked=true">MRP</mat-checkbox>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
-                          <mat-checkbox style="margin: 10px 10px;" formControlName="manufactureDetails" ngInit="checked=true">Manufacture Details</mat-checkbox>
-                        </div> -->
                   </div>
                 </mat-tab>
               </mat-tab-group>

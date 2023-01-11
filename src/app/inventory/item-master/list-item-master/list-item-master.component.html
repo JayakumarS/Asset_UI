@@ -1,131 +1,133 @@
 <section class="content">
-    <div class="content-block">
-      <div class="block-header">
-        <!-- breadcrumb -->
-         <app-breadcrumb [title]="'Item Master'" [items]="['Inventory']" [active_item]="'Item Master List'">
-        </app-breadcrumb>
-      </div>
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="card">
-            <div class="body">
-              <div class="table-responsive">
-                <div class="materialTableHeader">
-                  <div class="row">
-                    <div class="col-8">
-                      <ul class="header-buttons-left ms-0">
-                        <li class="dropdown">
-                          <h2>Manage_Item</h2>
-                        </li>
-                        <li class="dropdown m-l-20">
-                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                          <input placeholder="Search" type="text" #filter class="browser-default search-field"
-                            aria-label="Search box">
-                        </li>
-                        <li>
-                          <div class="m-l-10" matTooltip="ADD">
-                            <button color="primary" type="button" class="btn-space"
-                              [routerLink]="'/inventory/item-master/add-item-master/0'" mat-raised-button><i
-                                class="fas fa-plus-circle" style="font-size: 20px;color: rgb(241, 242, 251);"></i> Create New</button>
-                          </div>
-
-                        </li>
-                        <!-- <li>
-                          <div class="m-l-10" matTooltip="Reset">
-                            <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
-                              <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
-                          </div>
-                        </li> -->
-                      </ul>
-                    </div>
-                    <br><br><br><br><br>
-                    <div class="col-4">
-                      <ul class="header-buttons">
-                        <li>
-                          <div class="export-button m-l-10" matTooltip="XLSX">
-                            <img src="assets/images/icons/xlsx.png" alt=""
-                              (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
-                          </div>
-                        </li>
-                        <!-- <li>
-                          <div class="export-button m-l-10" matTooltip="CSV">
-                            <img src="assets/images/icons/csv.png" alt="" (click)="exporter.exportTable('csv')" />
-                          </div>
-                        </li>
-                        <li>
-                          <div class="export-button m-l-10" matTooltip="JSON">
-                            <img src="assets/images/icons/json.png" alt="" (click)="exporter.exportTable('json')" />
-                          </div>
-                        </li>
-                        <li>
-                          <div class="export-button m-l-10" matTooltip="TXT">
-                            <img src="assets/images/icons/txt.png" alt="" (click)="exporter.exportTable('txt')" />
-                          </div>
-                        </li> -->
-                      </ul>
-                    </div>
+  <div class="content-block">
+    <div class="block-header" style="padding: 0.5% !important;">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Item Master'" [items]="['Master']" [active_item]="'Item Master List'">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="table-responsive">
+              <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ms-0">
+                      <li class="dropdown m-l-20 ">
+                        <h2>Item Master</h2>
+                      </li>
+                      <li class="dropdown m-l-20">
+                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                        <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                          aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="m-l-10" matTooltip="ADD">
+                          <button color="primary" type="button" class="btn-space" [routerLink]="'/inventory/item-master/add-item-master/0'" mat-raised-button><i
+                            class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
+                        </div>
+                      </li>
+                       <!-- <li>
+                        <div class="m-l-10" matTooltip="Reset">
+                          <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
+                            <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
+                        </div>
+                      </li>  -->
+                    </ul>
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="XLSX">
+                          <img src="assets/images/icons/xlsx.png" alt=""
+                            (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                        </div>
+                      </li>                     
+                    </ul>
                   </div>
                 </div>
-                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-                #exporter="matTableExporter">
+              </div>
+              <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell"
+                #exporter="matTableExporter" [hiddenColumns]="[5]">
+                <ng-container matColumnDef="itemName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Item Name </mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.itemName}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="itemCategoryName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Category </mat-header-cell>
+                  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.itemCategoryName}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="itemDescription">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Description </mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.itemDescription}}</mat-cell>
+                </ng-container> 
+                <ng-container matColumnDef="itemTypeName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Type</mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.itemTypeName}}</mat-cell>
+                </ng-container> 
+                <ng-container matColumnDef="itemCode">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Code </mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.itemCode}}</mat-cell>
+                </ng-container>
 
-                  <!--- Note that these columns can be defined in any order.
-                        The actual rendered columns are set as a property on the row definition" -->
-                        <ng-container matColumnDef="itemCode">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header>Item Code</mat-header-cell>
-                          <mat-cell *matCellDef="let row"> {{row.itemCode}}</mat-cell>
-                        </ng-container>
-                  <ng-container matColumnDef="itemName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Item Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" >{{row.itemName}}</mat-cell>
-                  </ng-container>
-               <ng-container matColumnDef="itemDescription">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Item Description</mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.itemDescription}}</mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="itemCategory">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Item Category</mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.itemCategory1}}</mat-cell>
-                  </ng-container>
+                <!-- actions -->
+                <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
+                  <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                      class="tbl-action-btn">
+                      <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    </button>
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                      (click)="deleteItem(row)" class="tbl-action-btn">
+                      <app-feather-icons matTooltip="Delete" [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                    </button>
+                  </mat-cell>
+                </ng-container>
 
 
-                  <ng-container matColumnDef="itemType1">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Item Type</mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.itemType1}}</mat-cell>
-                  </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                  [style.cursor]="'pointer'" matRipple>
+                </mat-row>
+              </mat-table>
+              <!-- Loading spinner -->
+              <div *ngIf="exampleDatabase?.isTblLoading" class="tbl-spinner">
+                <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                </mat-progress-spinner>
+              </div>
 
+              <!-- context menu start -->
+            <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+            [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+          </div>
+          <mat-menu #contextMenu="matMenu">
+            <ng-template matMenuContent let-item="item">
+              <button mat-menu-item [routerLink]="'/inventory/item-master/add-item-master/0'">
+                <mat-icon>add_box</mat-icon>
+                <span>Add Record</span>
+              </button>
+              <button mat-menu-item (click)="editCall(item)">
+                <mat-icon>create</mat-icon>
+                <span>Edit Record</span>
+              </button>
+              <button mat-menu-item (click)="deleteItem(item)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete Record</span>
+              </button>
+            </ng-template>
+          </mat-menu>
+          <!-- context menu end -->
 
-
-                  <!-- actions -->
-                  <ng-container matColumnDef="actions">
-                <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
-                <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                  <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
-                    class="tbl-action-btn">
-                    <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                  </button>
-                  <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                    (click)="deleteItem(i, row)" class="tbl-action-btn">
-                    <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                  </button>
-                </mat-cell>
-              </ng-container>
-
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
-
-                <!-- <div class="no-results" >
-                  No results
-                </div> -->
-                <mat-paginator #paginator  [pageIndex]="0" [pageSize]="10"
+              <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
+                [style.display]="dataSource?.renderedData?.length == 0 ? '' : 'none'">
+                No results
+              </div>
+              <mat-paginator #paginator [length]="dataSource?.filteredData?.length" [pageIndex]="0" [pageSize]="100"
                 [pageSizeOptions]="[5, 10, 25, 100]">
               </mat-paginator>
             </div>
-          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>

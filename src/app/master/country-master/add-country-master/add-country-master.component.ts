@@ -5,9 +5,7 @@ import { CountryMasterService } from 'src/app/master/country-master/country-mast
 import { CountryMaster } from '../country-master.model';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CountryMasterResultBean } from '../country-master-result-bean';
-import { HttpErrorResponse } from "@angular/common/http";
 import { NotificationService } from 'src/app/core/service/notification.service';
-import { serverLocations } from 'src/app/auth/serverLocations';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { MatSnackBar } from '@angular/material/snack-bar';
