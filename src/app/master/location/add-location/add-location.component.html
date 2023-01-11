@@ -93,6 +93,22 @@
                 </div>
 
                 <div class="row">
+                  <div class=" col-md-2" >
+                    <mat-label class="lable">Company</mat-label>
+                    </div>
+                    <div class=" col-md-3" style=" margin-top: -15px;">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                      <mat-select class="inputTxt" formControlName="company">
+                        <mat-option *ngFor="let title of companyList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
+               </div>
+
+                <div class="row">
                   <div class=" col-md-2"><mat-label class="lable">Inventory Location</mat-label></div>
                   <div class=" col-md-1">
                      <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>

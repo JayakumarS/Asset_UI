@@ -32,6 +32,7 @@ export class AddLocationComponent implements OnInit {
   cusMasterData = [];
   salesEntryData = [];
   locationDdList = [];
+  companyList = [];
   transferList: [];
   // tslint:disable-next-line:new-parens
   salesDetailRowData = new SalesEntryDetailRowComponent;
@@ -82,6 +83,7 @@ export class AddLocationComponent implements OnInit {
       cascade: [""],
       primaryLocation: [""],
       alternateLocation: [""],
+      company:[""],
     });
     this.route.params.subscribe(params => {
       if (params.id!=undefined && params.id!=0){
@@ -105,7 +107,19 @@ export class AddLocationComponent implements OnInit {
       }
     });
 
+    // Location dropdown
+    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+      next: (data) => {
+        this.companyList = data;
+      },
+      error: (error) => {
+
+      }
+    });
+
   }
+
+  
 
   onSubmit() {
     if (this.docForm.valid){
