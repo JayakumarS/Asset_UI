@@ -22,6 +22,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { VendorService } from '../vendor.service';
 import { Commodity } from '../vendor-model';
 import { CommodityResultBean } from '../vendor-result-bean';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ import { CommodityResultBean } from '../vendor-result-bean';
 
 
 export class AddVendorComponent implements OnInit {
+
   docForm: FormGroup;
   hide3 = true;
   agree3 = false;
@@ -43,7 +45,7 @@ export class AddVendorComponent implements OnInit {
   currencyList: [];
   constructor(private fb: FormBuilder,private router:Router,
     public route: ActivatedRoute,private snackBar: MatSnackBar,
-    private vendorService: VendorService,private httpService: HttpServiceService) {
+    private vendorService: VendorService,private httpService: HttpServiceService, private notificationService: NotificationService) {
     this.docForm = this.fb.group({
       
       //AssetChek
@@ -52,12 +54,12 @@ export class AddVendorComponent implements OnInit {
       vendorShortName:["",[Validators.required]],
       vendorAddress:["",[Validators.required]],
       vendorCountry:["",[Validators.required]],
-      vendorEmail:['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      vendorEmail:['', [Validators.required,Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       currency:["",[Validators.required]],
       vendorContact:["",[Validators.required]],
       vendorPhoneNumber:["",[Validators.required]],
 
-
+      
 
     });
     }
@@ -73,7 +75,7 @@ export class AddVendorComponent implements OnInit {
       vendorShortName:["",[Validators.required]],
       vendorAddress:["",[Validators.required]],
       vendorCountry:["",[Validators.required]],
-      vendorEmail:['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      vendorEmail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       currency:["",[Validators.required]],
       vendorContact:["",[Validators.required]],
       vendorPhoneNumber:["",[Validators.required]],
@@ -109,20 +111,21 @@ export class AddVendorComponent implements OnInit {
   }
 
   onsubmit(){
-    {
+    
       if(this.docForm.valid){
     this.commodityMaster = this.docForm.value;
     console.log(this.commodityMaster);
-    this.vendorService.addCommodity(this.commodityMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-     this.router.navigate(['/master/vendor/listVendor']);
+    this.vendorService.addCommodity(this.commodityMaster,this.router,this.notificationService);
+    
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
     }
-  }
+  
   }
 
  
@@ -204,5 +207,34 @@ keyPressPCB(event: any) {
       panelClass: colorName,
     });
   }
+
+  // validateEmail(event){
+  //   this.httpService.get<any>(this.authService.validateEmailUrl+ "?tableName=" +"user_details"+"&columnName="+"email_id"+"&columnValue="+event).subscribe((res: any) => {
+  //     if(res){
+  //       this.authForm.controls['emailId'].setErrors({ emailPwd: true });
+  //     }else{
+  //       this.authForm.controls['emailId'].setErrors(null);
+  //     }
+  //   });
+  // }
+
+   //validate common mail 
+
+//    commonMailValidator(control) {
+//   const commonMailDomains = ['/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/'];
+//    const email = control;
+//    const domain = email.split('@')[1];
+//    if (commonMailDomains.includes(domain)) {
+//      this.docForm.patchValue({
+//        'emailId':""
+//      })
+//      this.docForm.controls['emailId'].setErrors({ checkMail: true });
+//    }else{
+//      this.docForm.controls['emailId'].setErrors(null);
+//    }
+  
+//  }
+
+
 
 }

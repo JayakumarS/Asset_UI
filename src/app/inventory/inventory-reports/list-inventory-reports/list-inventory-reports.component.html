@@ -60,7 +60,7 @@
                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
               #exporter="matTableExporter">
               <ng-container matColumnDef="itemCode">
-                <mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20px;font-size: 13px !important;">Code</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20px;font-size: 13px !important;">Item Code</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.itemCode}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="itemWise">

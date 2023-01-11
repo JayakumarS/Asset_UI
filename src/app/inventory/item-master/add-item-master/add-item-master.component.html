@@ -6,229 +6,143 @@
       </app-breadcrumb>
     </div>
     <div class="row clearfix">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="col-md-12">
         <div class="card" style="padding-left: 150px;">
           <div class="body">
             <form class="m-4" [formGroup]="docForm">
 
-              <div class="row" >
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -75px;">
+              <div class="row">
+                <div class="col-md-2">
                   <label class="lable">Item Type</label>
-               </div>
-               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -48px; margin-top: -10px;">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                  <mat-select formControlName="itemType">
-                   <mat-option *ngFor="let title of commonDropDownItemTypeList" [value]="title.id">
-                     {{title.text}}
-                   </mat-option>
-                 </mat-select>
-               </mat-form-field>
-             </div>
-             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 68px;">
-              <label class="lable">Item Name</label>
-             </div>
-             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -48px; margin-top: -10px;">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="itemName" maxlength="50" required>
-              </mat-form-field>
-             </div>
-           </div><br>
-
-
-              <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -75px;">
-                 <label class="lable">Item Category</label>
-               </div>
-               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 "  style="margin-left: -48px; margin-top: -10px;">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-select formControlName="itemCategory">
-                    <mat-option *ngFor="let title of parentCategoryList" [value]="title.id" required>
-                      {{title.text}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-             </div>
-             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  style="margin-left: 68px;">
-               <label class="lable">Item Description</label>
-             </div>
-             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -48px; margin-top: -10px;">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="itemDescription" maxlength="200">
-              </mat-form-field>
-             </div>
-           </div><br>
-
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-select formControlName="itemType">
+                      <mat-option *ngFor="let title of itemTypeList" [value]="title.id">
+                        {{title.text}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2 spaceBetweenTwoFields">
+                  <label class="lable">Item Name</label>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="itemName" maxlength="50" required>
+                  </mat-form-field>
+                </div>
+              </div>
 
               <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -75px;">
-                 <label class="lable">HS Code</label>
-               </div>
-               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 "  style="margin-left: -48px; margin-top: -10px;">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="blno" maxlength="200">
-                </mat-form-field>
-             </div>
-             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  style="margin-left: 68px;">
-               <label class="lable">Location</label>
-             </div>
-             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -48px; margin-top: -10px;">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-select formControlName="location">
-                  <mat-option *ngFor="let title of locationList" [value]="title.id">
-                    {{title.text}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-             </div>
-           </div><br>
+                <div class="col-md-2">
+                  <label class="lable">Item Code</label>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="itemCode" maxlength="200">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2 spaceBetweenTwoFields">
+                  <label class="lable">Item Category</label>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-select formControlName="itemCategory">
+                      <mat-option *ngFor="let title of categoryList" [value]="title.id" required>
+                        {{title.text}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
 
-           <div class="row">
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: -75px;">
-                <label class="lable">Saleable</label>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -44px; margin-top: -8px;">
-              <mat-checkbox formControlName="saleable" ngInit="checked=true"></mat-checkbox>
-            </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="lable">Item Description</label>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="itemDescription" maxlength="200">
+                  </mat-form-field>
+                </div>
+              </div><br>
 
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 68px;">
-              <label class="lable">Purchaseable</label>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -44px; margin-top: -8px;">
-            <mat-checkbox formControlName="purchaseable" ngInit="checked=true"></mat-checkbox>
-          </div>
-          </div><br>
+
               <mat-tab-group>
-                <mat-tab label="Information">
-                  <!-- Sales Start -->
-                  <div *ngIf="docForm.get('saleable').value == true">
-                    <div style="font-size: 18px;">Sales</div>
-                    <div class="row">
-                      <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Costing Method</mat-label>
-                          <mat-select formControlName="costingMethod" required>
-                            <mat-option [value]="'1'">
-                              Actual Cost
-                            </mat-option>
-                            <mat-option [value]="'2'">
-                              Weighted Average
-                            </mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Cost Price</mat-label>
-                          <input matInput formControlName="costPrice" (keypress)="keyPressNumberDouble($event)"
-                            required>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Warranty</mat-label>
-                          <input matInput formControlName="warranty" (keypress)="keyPressNumberDouble($event)" required>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Lead Time</mat-label>
-                          <input matInput formControlName="leadTime" (keypress)="keyPressNumberDouble($event)" appearance="outline">
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- purchase -->
-                  <div *ngIf="docForm.get('purchaseable').value == true">
-                    <div style="font-size: 18px;">Purchase</div>
-                    <div class="row">
-                      <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Purchase Method</mat-label>
-                          <mat-select formControlName="purchaseMethod" required>
-                            <mat-option [value]="'1'">
-                              General
-                            </mat-option>
-                            <mat-option [value]="'2'">
-                              Rate Contract
-                            </mat-option>
-                            <mat-option [value]="'3'">
-                              Consignment
-                            </mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-checkbox formControlName="purchaseReq" ngInit="checked=true">Purchase Requisition
-                        </mat-checkbox>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Purchase UOM</mat-label>
-                          <mat-select formControlName="purchaseUom" required>
-                            <mat-option *ngFor="let title of uomList" [value]="title.id">
-                              {{title.text}}
-                            </mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Reorder Level</mat-label>
-                          <input matInput formControlName="reorderLevel" maxlength="10" appearance="outline">
-                        </mat-form-field>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Minimum Quantity</mat-label>
-                          <input matInput formControlName="minimumQty" appearance="outline"
-                            (keypress)="keyPressNumberDouble($event)">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Maximum Quantity</mat-label>
-                          <input matInput formControlName="maximumQty" appearance="outline"
-                            (keypress)="keyPressNumberDouble($event)">
-                        </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-                </mat-tab>
-
                 <mat-tab label="Specification">
                   <br>
-                  <div class="row">
-                    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                  <div class="row" *ngFor="let item of specificationList">
+                    <!-- Text Start -->
+                    <div class="col-md-3" *ngIf="item.typeinput == 'Text'">
+                      <label class="lable">{{item.labelName}}</label>
                     </div>
-                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
+                    <div class="col-md-3" *ngIf="item.typeinput == 'Text'">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Size</mat-label>
-                        <input matInput formControlName="size" required>
+                        <input matInput formControlName="specificationText" maxlength="200">
                       </mat-form-field>
                     </div>
-                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
+                    <!-- Text End -->
+
+                    <!-- DropDown Start -->
+                    <div class="col-md-3" *ngIf="item.typeinput == 'DropDown'">
+                      <label class="lable">Drop Down</label>
+                    </div>
+                    <div class="col-md-3" *ngIf="item.typeinput == 'DropDown'">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Remark</mat-label>
-                        <input matInput formControlName="remarks" required>
+                        <mat-select formControlName="specificationDropDown">
+                          <mat-option [value]="item.defaultvalue">
+                            {{item.defaultvalue}}
+                          </mat-option>
+                        </mat-select>
                       </mat-form-field>
                     </div>
+                    <!-- DropDown End -->
+                   
+                    <!-- Text Area Start -->
+                    <div class="col-md-3" *ngIf="item.typeinput == 'Text Area'">
+                      <label class="lable">{{item.labelName}}</label>
+                    </div>
+                    <div class="col-md-3" *ngIf="item.typeinput == 'Text Area'">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <textarea matInput formControlName="specificationTextArea" maxlength="250"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <!-- Text Area End -->
+
+
+                    <!-- CheckBox Start -->
+                    <div class="col-md-3" *ngIf="item.typeinput == 'CheckBox'">
+                      <label class="lable">{{item.defaultvalue}}</label>
+                    </div>
+                    <div class="col-md-3" *ngIf="item.typeinput == 'CheckBox'">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-checkbox ngInit="checked=true" formControlName="specificationCheckBox"></mat-checkbox>
+                      </mat-form-field>
+                    </div>
+                    <!-- CheckBox End -->
+
+                    <!-- Radio Button Start -->
+                    <div class="col-md-3" *ngIf="item.typeinput == 'Radio Button'">
+                      <label class="lable">Radio button</label>
+                    </div>
+                    <div class="col-md-3" *ngIf="item.typeinput == 'Radio Button'">
+                      <mat-radio-group tabindex="17" formControlName="specificationRadioButton">
+                        <mat-radio-button value="{{item.defaultvalue}}">{{item.defaultvalue}}</mat-radio-button>
+                      </mat-radio-group>
+
+                    </div>
+                    <!-- Radio Button End -->
+
+                    <!-- Number Start -->
+                    <div class="col-md-3" *ngIf="item.typeinput == 'Number'">
+                      <label class="lable">Number</label>
+                    </div>
+                    <div class="col-md-3" *ngIf="item.typeinput == 'Number'">
+                      <input matInput formControlName="specificationNumber" maxlength="10">
+                    </div>
+                    <!-- Number End -->
+
                   </div>
                 </mat-tab>
 
@@ -243,7 +157,6 @@
                          width: 12%;border-radius: 0.07rem;">Delivery Lead Time</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                          width: 12%;border-radius: 0.07rem;">Payment Method</th>
-
                         </tr>
                       </thead>
                       <ng-container
@@ -264,7 +177,6 @@
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Delivery Lead Time</mat-label>
                                 <input matInput name="deliveryLeadTime{{i}}" formControlName="deliveryLeadTime">
-
                               </mat-form-field>
                             </td>
 
@@ -331,21 +243,6 @@
                         </mat-select>
                       </mat-form-field>
                     </div>
-
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Opening Balance</mat-label>
-                        <input matInput formControlName="openingBalance" (keypress)="keyPressPCB($event)"
-                          maxlength="200">
-                      </mat-form-field>
-                    </div>
-
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Default Price</mat-label>
-                        <input matInput formControlName="defaultPrice" (keypress)="keyPressPCB($event)" maxlength="200">
-                      </mat-form-field>
-                    </div>
                   </div>
                 </mat-tab>
 
@@ -383,59 +280,8 @@
                         </div> -->
                   </div>
                 </mat-tab>
-
-                <mat-tab label="Product">
-                  <br>
-                  <div>
-                    <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-                      <thead class="">
-                        <tr>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                           width: 12%; border-radius: 0.05rem;">Item Name</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                         width: 12%;border-radius: 0.07rem;">Item Description</th>
-                        </tr>
-                      </thead>
-                      <ng-container
-                        *ngFor="let productDetailBean of docForm.get('productDetailBean')['controls']; let i = index">
-                        <tbody [formGroup]="productDetailBean">
-                          <tr>
-                            <td class="padding-both-side-2">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Item Name</mat-label>
-                                <mat-select name="itemName{{i}}" formControlName="itemName"
-                                  (selectionChange)="fetchProductDetails($event.value,i)">
-                                  <mat-option *ngFor="let title of itemList" [value]="title.id">
-                                    {{title.text}}
-                                  </mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                            </td>
-                            <td class="padding-both-side-2">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Item Description</mat-label>
-                                <input matInput name="itemDescription{{i}}" formControlName="itemDescription">
-                              </mat-form-field>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </ng-container>
-                    </table>
-                  </div>
-
-                  <div class="row">
-                    <div>
-                      <button mat-mini-fab color="warn" (click)="removeRow2(-1)">
-                        <mat-icon class="col-white">delete</mat-icon>
-                      </button>&nbsp;
-                      <button mat-mini-fab color="primary" (click)="addRow3()">
-                        <mat-icon class="col-white">add</mat-icon>
-                      </button>
-                    </div>
-                  </div>
-                </mat-tab>
               </mat-tab-group>
-               <br>
+              <br>
 
 
               <div class="row">

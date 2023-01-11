@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { NotificationService } from 'src/app/core/service/notification.service';
 import { Assetcategory } from '../category.model';
 import { CategoryMasterService } from '../category.service';
 
@@ -14,6 +16,7 @@ import { CategoryMasterService } from '../category.service';
   styleUrls: ['./add-category.component.sass']
 })
 export class AddCategoryComponent implements OnInit {
+
   docForm: FormGroup;
   requestId: any;
   edit: boolean = false;
@@ -24,7 +27,7 @@ export class AddCategoryComponent implements OnInit {
     private categoryMasterService: CategoryMasterService,
     private commonService: CommonService,
     private snackBar:MatSnackBar,
-    private router:Router,
+    private router:Router,private notificationservice:NotificationService,
     public route: ActivatedRoute,)
      {  this.docForm = this.fb.group({
   
@@ -32,6 +35,7 @@ export class AddCategoryComponent implements OnInit {
       parentCategory: [""],
       Description:[""],
       isactive:[false],
+      id:[""]
    
     
   }); }
@@ -48,13 +52,40 @@ export class AddCategoryComponent implements OnInit {
      });
 
   }
-  fetchDetails(requestId: any) {
-   
-  }
+  fetchDetails(category_id: any) {
+    this.requestId = category_id;
+  this.httpService.get(this.categoryMasterService.editcategory + "?category_id=" + category_id).subscribe((res: any) => {
+
+    console.log(category_id);
+
+    this.docForm.patchValue({
+     
+      'categoryName': res.assetCategoryBean.categoryName,
+      'parentCategory': res.assetCategoryBean.parentCategory,
+      'Description' : res.assetCategoryBean.Description, 
+      'isactive' : res.assetCategoryBean.isactive, 
+      'id' : res.assetCategoryBean.id
+
+   })
+
+    },
+    (err: HttpErrorResponse) => {
+       // error code here
+    }
+  );
+ 
+}
   onSubmit(){
 
     if(this.docForm.valid){
-      
+      if(this.docForm.value.isactive==true)
+      {
+       this.docForm.value.isactive="True"
+      }
+      else if(this.docForm.value.isactive==false)
+      {
+       this.docForm.value.isactive="False"
+      } 
        this.assetcategory = this.docForm.value;
      console.log(this.assetcategory);
      this.categoryMasterService.addcategory(this.assetcategory);
@@ -78,17 +109,23 @@ export class AddCategoryComponent implements OnInit {
 
   update(){
 
+    this.assetcategory = this.docForm.value;
+    this.categoryMasterService.categoryUpdate(this.assetcategory,this.router,this.notificationservice);
+    // this.router.navigate(['/master/category/list-category']);
+
+
   }
   reset() {
-      this.docForm.reset();
-      this.docForm.patchValue({
-        categoryName: [""],
-        parentCategory: [""],
-        Description: [""],
-        isactive: [""],
-       
-       
-      })
+    this.docForm = this.fb.group({
+  
+      categoryName: [""],
+      parentCategory: [""],
+      Description:[""],
+      isactive:[false],
+      id:[""]
+   
+    
+  });
    
   }
   

@@ -1,91 +1,267 @@
 <section class="content">
-    <div class="content-block">
-      <div class="block-header">
-        <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Add Item Properties'" [items]="['Inventory']"
-          [active_item]="'Add Item Properties'"></app-breadcrumb>
-      </div>
-      <div class="row clearfix ">
-        <div class="col-md-12">
-          <div class="box-shadow">
-            <div class="card pageproperty">
-              <div class="body" style="padding-left: 150px;">
-                <form class="m-4" [formGroup]="docForm">
-                  <div class="row">
-                    <div class="col-md-2">
-                        <label class="lable">Category Name</label>
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Add Item Properties'" [items]="['Inventory']"
+        [active_item]="'Add Item Properties'"></app-breadcrumb>
+    </div>
+    <div class="row clearfix ">
+      <div class="col-md-12">
+        <div class="box-shadow">
+          <div class="card pageproperty">
+            <div class="body" style="padding-left: 95px;">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row">
+                  <div class="col-md-2">
+                    <label class="lable"> Category Name <span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="categoryName" maxlength="50" (keypress)="keyPressName($event)"
+                        required>
+                      <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
+                        Category Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-2 spaceBetweenTwoFields">
+                    <label class="lable"> Category Type <span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="categoryTypeId">
+                        <mat-option *ngFor="let title of categoryTypeList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+
+                      <mat-error *ngIf="docForm.get('categoryTypeId').hasError('required')">
+                        Type is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-md-2">
+                    <label class="lable">Parent Category</label>
+                  </div>
+                  <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="parentCategoryId">
+                        <mat-option *ngFor="let title of itemCategoryList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-2 spaceBetweenTwoFields"> <label class="lable"> Incoming Quality Check </label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-checkbox ngInit="checked=true" formControlName="qualityCheck"></mat-checkbox>
+                  </div>
+                </div>
+                <br>
+
+                <mat-tab-group>
+                  <!-- <mat-tab label="Accounting">
+                    <br>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label class="lable"> Sales Taxes <span class="errorColor">*</span></label>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="categoryName" maxlength="20" (keypress)="keyPressName($event)"
-                            required>
-                          <mat-error *ngIf="docForm.get('categoryName').hasError('required')"> 
-                            Category Name is required
+                          <mat-select formControlName="salesTaxesId">
+                            <mat-option *ngFor="let title of salesTaxList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('salesTaxesId').hasError('required')">
+                            Sales Taxes is required
                           </mat-error>
                         </mat-form-field>
                       </div>
 
-                    <div class="col-md-2 spaceBetweenTwoFields">
-                      <label class="lable ">Category Type</label>
-                    </div>
-                    <div class="col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-select formControlName="categoryTypeId">
-                          <mat-option *ngFor="let title of dataTypeList" [value]="title.id">
-                            {{title.text}}
-                          </mat-option>
-                        </mat-select>
-  
-                        <mat-error *ngIf="docForm.get('categoryTypeId').hasError('required')">
-                          Type  is required
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class=" col-md-2">
-                        <label class="lable">Parent Category</label>
+                      <div class="col-md-2 spaceBetweenTwoFields">
+                        <label class="lable"> Purchase Taxes <span class="errorColor">*</span></label>
                       </div>
-                      <div class=" col-md-3">
+                      <div class="col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-select formControlName="parentCategory">
-                            <mat-option *ngFor="let title of propertyTypeList" [value]="title.id">
+                          <mat-select formControlName="purchaseTaxesId">
+                            <mat-option *ngFor="let title of purchaseTaxList" [value]="title.id">
                               {{title.text}}
                             </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="docForm.get('parentCategory').hasError('required')">
-                            Parent Category is required
+
+                          <mat-error *ngIf="docForm.get('purchaseTaxesId').hasError('required')">
+                            Purchase Taxes is required
                           </mat-error>
                         </mat-form-field>
                       </div>
-                    
-                    <div class="col-md-2 spaceBetweenTwoFields">                  <label class="lable"> Incoming Quality Check </label>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                      <mat-checkbox ngInit="checked=true" formControlName="qualityCheck"></mat-checkbox>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label class="lable">Income Account <span class="errorColor">*</span></label>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select formControlName="incomeAccountId">
+                            <mat-option *ngFor="let title of incomeAccountHeadList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('incomeAccountId').hasError('required')">
+                            Income Account is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-2 spaceBetweenTwoFields">
+                        <label class="lable ">Expense Account</label>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select formControlName="expenseAccountId">
+                            <mat-option *ngFor="let title of expenseAccountHeadList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+
+                          <mat-error *ngIf="docForm.get('expenseAccountId').hasError('required')">
+                            Expense Account is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
                     </div>
+                    <br>
+                  </mat-tab> -->
+
+
+
+                  <mat-tab label="Item Properties">
+                    <div>
+                      <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                        <thead class="">
+                          <tr>
+                            <th style="width: 1%;"></th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                         width: 12%; border-radius: 0.05rem;">Property Name</th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                         width: 12%; border-radius: 0.05rem;">Property Type</th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                         width: 12%;border-radius: 0.07rem;">Length</th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                         width: 12%;border-radius: 0.07rem;">Is Mandatory</th>
+                          </tr>
+                        </thead>
+
+                        <ng-container
+                          *ngFor="let itemCategoryDetailList of docForm.get('itemCategoryDetailList')['controls']; let i = index">
+                          <tbody [formGroup]="itemCategoryDetailList">
+                            <tr>
+
+                              <td class="padding-both-side-2">
+                                <button mat-mini-fab color="warn" (click)="removeRow(-1)">
+                                  <mat-icon class="col-white">delete</mat-icon>
+                                </button>
+                              </td>
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Property Name</mat-label>
+                                  <mat-select name="dynamicAttributeId{{i}}" formControlName="dynamicAttributeId"
+                                    (selectionChange)="getItemPropertiesDetails($event.value,i)">
+                                    <mat-option *ngFor="let title of itemPropertiesList" [value]="title.id">
+                                      {{title.text}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </td>
+
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Property Type</mat-label>
+                                  <mat-select name="propertyType{{i}}" formControlName="propertyType" [disabled]="true">
+                                    <mat-option *ngFor="let title of propertyTypeList" [value]="title.id">
+                                      {{title.text}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </td>
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Length</mat-label>
+                                  <input matInput name="length{{i}}" formControlName="length" readonly>
+                                </mat-form-field>
+                              </td>
+
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Is Mandatory</mat-label>
+                                  <input matInput name="isMandatory{{i}}" formControlName="isMandatory" readonly>
+                                </mat-form-field>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </ng-container>
+                      </table>
+                    </div>
+                    <div class="row">
+                      <div>
+                        <button mat-mini-fab color="primary" (click)="addRow()">
+                          <mat-icon class="col-white">add</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+
+                  </mat-tab>
+
+
+                  <mat-tab label="GRN Attribute">
+                    <br>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+                        <mat-checkbox style="margin: 10px 10px;" formControlName="batchNo" ngInit="checked=true">Batch
+                          No</mat-checkbox>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+                        <mat-checkbox style="margin: 10px 10px;" formControlName="mrp"
+                          ngInit="checked=true">MRP</mat-checkbox>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+                        <mat-checkbox style="margin: 10px 10px;" formControlName="expiryDate"
+                          ngInit="checked=true">Expiry
+                          Date</mat-checkbox>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+                        <mat-checkbox style="margin: 10px 10px;" formControlName="manufactureDetails"
+                          ngInit="checked=true">Manufacturer Details</mat-checkbox>
+                      </div>
+                    </div>
+                    <br>
+                  </mat-tab>
+                </mat-tab-group>
+
+
+                <br>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                      style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                      style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    <button color="primary" type="button" class="btn-space" (click)="reset()"
+                      mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                      mat-raised-button>Cancel</button>
                   </div>
-  
-  
-                  <br>
-                  <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-  
-                      <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
-                        style="margin-left: 36%;background-color: #34d034;">Submit</button>
-                      <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
-                        style="margin-left: 36%;background-color: #34d034;">Update</button>
-                      <button color="primary" type="button" class="btn-space" (click)="reset()"
-                        mat-raised-button>Reset</button>
-                      <button color="warn" type="button" class="btn-space" (click)="onCancel()"
-                        mat-raised-button>Cancel</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>

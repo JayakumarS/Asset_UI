@@ -36,7 +36,7 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
     "acquisitionvalue",
     "accudepreciation",
     "bookvalue",
-    // "actions"
+    "actions"
   ];
 
   dataSource: ExampleDataSource | null;
@@ -100,8 +100,22 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
   }
   editCall(row) {
 
-    this.router.navigate(['/admin/scheduler/add-schedule-activity/'+row.scheduleId]);
+    this.router.navigate(['/audit/auditableAsset/addAuditableAsset/'+row.assetid]);
   
+  }
+
+  keyPressPCB(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  financialYearPatch(event:any){
+    this.docForm.patchValue({
+      'financial_year': event.value,
+   })
   }
 
   onSubmit(){

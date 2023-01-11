@@ -16,6 +16,7 @@ import { AssetMasterResultBean } from '../asset-result-bean';
 import { AssetService } from '../asset.service';
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 export const MY_DATE_FORMATS = {
@@ -64,7 +65,6 @@ export class AddAssetMasterComponent
   requestId: any;
   edit:boolean=false;
   isLineIn:boolean=false;
-  spinner: any;
   fileImgPathUrl: any;
   assetnamelist: any;
   assetDetailsList: any;
@@ -84,7 +84,8 @@ export class AddAssetMasterComponent
     private cmnService:CommonService,
     public dialog: MatDialog,
     public route: ActivatedRoute,
-    private serverUrl: serverLocations) {
+    private serverUrl: serverLocations,
+    private spinner: NgxSpinnerService,) {
     super();
     
     this.docForm = this.fb.group({
@@ -96,7 +97,7 @@ export class AddAssetMasterComponent
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
-      isLine:[false, [Validators.required]],
+      isLine:[false],
       id: [""],
       uploadImg: [""],
       //tab1
@@ -312,14 +313,12 @@ onCancel() {
   }
   
   update() {
-    this.submitted=true;
-
     if (this.docForm.valid) {
       this.assetMaster = this.docForm.value;
-      // this.spinner.show();
+       this.spinner.show();
       this.assetService.updateAssetMaster(this.assetMaster).subscribe({
         next: (data) => {
-          // this.spinner.hide();
+          this.spinner.hide();
           if (data.success) {
             this.showNotification(
               "snackbar-success",

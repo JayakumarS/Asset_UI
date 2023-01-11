@@ -29,12 +29,12 @@
                               [routerLink]="'/master/location/addLocation/0'" mat-raised-button><i
                                 class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                         </div>
-                       <li>
+                       <!-- <li>
                           <div class="m-l-10" matTooltip="Reset">
                             <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
                               <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
                           </div>
-                        </li>
+                        </li> -->
                     </ul>
                   </div>
                   <div class="col-4">
@@ -61,6 +61,10 @@
                 <ng-container matColumnDef="locationName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Location </mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.locationName}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="company">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Company </mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyName}}</mat-cell>
                 </ng-container>
 
 

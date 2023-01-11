@@ -28,6 +28,7 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
    // "select",
     "parentLocation",
     "locationName",
+    "company",
     "actions"
   ];
 

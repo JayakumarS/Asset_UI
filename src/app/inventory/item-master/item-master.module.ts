@@ -27,7 +27,6 @@ import { NotificationService } from "src/app/core/service/notification.service";
 import { ItemMasterRoutingModule } from './item-master-routing.module';
 import { AddItemMasterComponent } from './add-item-master/add-item-master.component';
 import { ListItemMasterComponent } from './list-item-master/list-item-master.component';
-import { MultipleRowComponent } from './multiple-row/multiple-row.component';
 import { DeleteItemComponent } from './list-item-master/delete-item/delete-item.component';
 
 
@@ -36,7 +35,6 @@ import { DeleteItemComponent } from './list-item-master/delete-item/delete-item.
   declarations: [
     AddItemMasterComponent,
     ListItemMasterComponent,
-    MultipleRowComponent,
     DeleteItemComponent,
   ],
   providers: [

@@ -35,7 +35,7 @@ export class ManageAuditServiceService extends UnsubscribeOnDestroyAdapter{
   public Deleteauditlist = `${this.serverUrl.apiServerAddress}api/auth/app/manageaudit/delete`;
   public updateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/update`;
   public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/auditUpload`;
-
+  public deletemanageAudit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/delete`;
 
   get data(): ManageAudit[] {
     return this.dataChange.value;
@@ -63,6 +63,16 @@ export class ManageAuditServiceService extends UnsubscribeOnDestroyAdapter{
       },
       (err: HttpErrorResponse) => {
          // error code here
+      }
+    );
+  }
+
+  manageAuditDelete(scheduleid: any): void {
+    this.httpService.get(this.deletemanageAudit + "?scheduleid=" + scheduleid).subscribe(data => {
+      console.log(scheduleid);
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
       }
     );
   }

@@ -39,6 +39,7 @@ import {
   HTTP_INTERCEPTORS,
   HttpClient,
 } from "@angular/common/http";
+import { MatDialogModule } from "@angular/material/dialog";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -83,6 +84,7 @@ export function createTranslateLoader(http: HttpClient): any {
         SharedModule,
         MatToolbarModule,
         MatMenuModule,
+        MatDialogModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

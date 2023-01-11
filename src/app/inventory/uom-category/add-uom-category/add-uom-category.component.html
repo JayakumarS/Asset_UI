@@ -13,7 +13,7 @@
               <form class="m-4" [formGroup]="docForm">
                 <div class="row">
                   <div class=" col-md-2">
-                    <mat-label class="lable">Unit</mat-label>
+                    <label class="lable">Unit<span class="errorColor">*</span></label>
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -29,7 +29,7 @@
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                      <mat-select class="inputTxt" formControlName="name"maxlength="15">
+                      <mat-select class="inputTxt" formControlName="uomcategoryName"maxlength="15">
                         <mat-option *ngFor="let title of categoryDdList" [value]="title.id">
                             {{title.text}}
                         </mat-option>

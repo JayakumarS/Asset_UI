@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemCategoryService } from '../item-category.service';
 import { ItemCategory } from '../Item-category.model';
@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { ItemPropertiesService } from '../../item-properties/item-properties.service';
 
 @Component({
   selector: 'app-add-item-category',
@@ -20,10 +21,15 @@ export class AddItemCategoryComponent implements OnInit {
   itemCategory: ItemCategory;
   edit: boolean = false;
   requestId: any;
+  categoryTypeList: [];
   propertyTypeList: [];
-  dataTypeList: [];
+  itemCategoryList: [];
+  salesTaxList: [];
+  purchaseTaxList: [];
+  expenseAccountHeadList: [];
+  incomeAccountHeadList: [];
+  itemPropertiesList: [];
 
-  
   constructor(private fb: FormBuilder,
     public router: Router,
     private notificationService: NotificationService,
@@ -33,46 +39,113 @@ export class AddItemCategoryComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private itemPropertiesService: ItemPropertiesService) {
 
     this.docForm = this.fb.group({
-      itemCategoryId : ["", [Validators.required]],
-      categoryName : ["", [Validators.required]],
-      parentCategory : [""],
-      categoryTypeId : ["", [Validators.required]],
-      qualityCheck : false,
-      salesTaxesId : ["", [Validators.required]],
-      purchaseTaxesId : ["", [Validators.required]],
-      incomeAccountId : ["", [Validators.required]],
-      expenseAccountId : ["", [Validators.required]],
-      batchNo : false,
-      mrp : false,
-      expiryDate : false,
-      manufactureDetails : false,
+      itemCategoryId: [""],
+      categoryName: ["", [Validators.required]],
+      parentCategoryId: [""],
+      categoryTypeId: ["", [Validators.required]],
+      qualityCheck: false,
+      // salesTaxesId: ["", [Validators.required]],
+      // purchaseTaxesId: ["", [Validators.required]],
+      // incomeAccountId: ["", [Validators.required]],
+      // expenseAccountId: ["", [Validators.required]],
+      batchNo: false,
+      mrp: false,
+      expiryDate: false,
+      manufactureDetails: false,
       loginedUser: this.tokenStorage.getUserId(),
-    });
 
+
+      itemCategoryDetailList: this.fb.array([
+        this.fb.group({
+          dynamicAttributeId: ["", [Validators.required]],
+          propertyType: [""],
+          length: [""],
+          isMandatory: [""],
+        })
+      ])
+
+    });
   }
 
   ngOnInit() {
-    
-   //propertyType list dropdown
-   this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 38).subscribe({
-    next: (data) => {
-      this.propertyTypeList = data;
-    },
-    error: (error) => {
-    }
-  });
 
-  //type list
-  this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 53).subscribe({
-    next: (data) => {
-      this.dataTypeList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //category Type list
+    this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 6).subscribe({
+      next: (data) => {
+        this.categoryTypeList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    //ItemCategory list dropdown
+    this.httpService.get<any>(this.commonService.getItemCategoryDropdown).subscribe({
+      next: (data) => {
+        this.itemCategoryList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    //SalesTax list dropdown
+    this.httpService.get<any>(this.commonService.getSalesTaxDropdown).subscribe({
+      next: (data) => {
+        this.salesTaxList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    //PurchaseTax list dropdown
+    this.httpService.get<any>(this.commonService.getPurchaseTaxDropdown).subscribe({
+      next: (data) => {
+        this.purchaseTaxList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    //Expense Account Head list dropdown
+    this.httpService.get<any>(this.commonService.getExpenseAccountHeadDropdown).subscribe({
+      next: (data) => {
+        this.expenseAccountHeadList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    //Income Account Head list dropdown
+    this.httpService.get<any>(this.commonService.getIncomeAccountHeadDropdown).subscribe({
+      next: (data) => {
+        this.incomeAccountHeadList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+
+    //type list
+    this.httpService.get<any>(this.commonService.getItempropertiesDropdown).subscribe({
+      next: (data) => {
+        this.itemPropertiesList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+     //propertyType list dropdown
+     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 38).subscribe({
+      next: (data) => {
+        this.propertyTypeList = data;
+      },
+      error: (error) => {
+      }
+    });
+
 
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
@@ -118,7 +191,7 @@ export class AddItemCategoryComponent implements OnInit {
           );
         }
       });
-    }else{
+    } else {
       this.showNotification(
         "snackbar-danger",
         "Please fill all the required details!",
@@ -127,8 +200,8 @@ export class AddItemCategoryComponent implements OnInit {
       );
     }
   }
-  
-  
+
+
   fetchDetails(id: any): void {
     const obj = {
       editId: id
@@ -138,13 +211,37 @@ export class AddItemCategoryComponent implements OnInit {
       next: (res: any) => {
         this.spinner.hide();
         this.docForm.patchValue({
-          'countryId': res.itemCategory.countryId,
-          'countryCode': res.itemCategory.countryCode,
-          'countryName': res.itemCategory.countryName,
-          'currencyId': res.itemCategory.currencyId,
-          // 'clientType': res.itemCategory.clientType,
-          'countryIsActive': res.itemCategory.countryIsActive,
+          'itemCategoryId': res.itemCategory.itemCategoryId,
+          'categoryName': res.itemCategory.categoryName,
+          'parentCategoryId': res.itemCategory.parentCategoryId,
+          'categoryTypeId': res.itemCategory.categoryTypeId,
+          'qualityCheck': res.itemCategory.qualityCheck,
+          // 'salesTaxesId': res.itemCategory.salesTaxesId,
+          // 'purchaseTaxesId': res.itemCategory.purchaseTaxesId,
+          // 'incomeAccountId': res.itemCategory.incomeAccountId,
+          // 'expenseAccountId': res.itemCategory.expenseAccountId,
+          'batchNo': res.itemCategory.batchNo,
+          'mrp': res.itemCategory.mrp,
+          'expiryDate': res.itemCategory.expiryDate,
+          'manufactureDetails': res.itemCategory.manufactureDetails
         })
+
+        if (res.itemCategoryDetailList != null && res.itemCategoryDetailList.length >= 1) {
+          let itemCategoryDetailArray = this.docForm.controls.itemCategoryDetailList as FormArray;
+         itemCategoryDetailArray.clear();
+          res.itemCategoryDetailList.forEach(element => {
+            let itemCategoryDetailArray = this.docForm.controls.itemCategoryDetailList as FormArray;
+            let arraylen = itemCategoryDetailArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              dynamicAttributeId: [element.dynamicAttributeId],
+              propertyType: [element.propertyType],
+              length: [element.length],
+              isMandatory: [element.isMandatory],
+            })
+            itemCategoryDetailArray.insert(arraylen, newUsergroup);
+          });
+        }
+
       },
       error: (error) => {
         this.spinner.hide();
@@ -187,7 +284,7 @@ export class AddItemCategoryComponent implements OnInit {
           );
         }
       });
-    }else{
+    } else {
       this.showNotification(
         "snackbar-danger",
         "Please fill all the required details!",
@@ -202,13 +299,15 @@ export class AddItemCategoryComponent implements OnInit {
     if (!this.edit) {
       this.docForm.reset();
       this.docForm.patchValue({
-        'qualityCheck' : false,
-        'batchNo' : false,
-        'mrp' : false,
-        'expiryDate' : false,
-        'manufactureDetails' : false,
+        'qualityCheck': false,
+        'batchNo': false,
+        'mrp': false,
+        'expiryDate': false,
+        'manufactureDetails': false,
         'loginedUser': this.tokenStorage.getUserId()
       })
+      let itemCategoryDetailArray = this.docForm.controls.itemCategoryDetailList as FormArray;
+      itemCategoryDetailArray.clear();
     } else {
       this.fetchDetails(this.requestId);
     }
@@ -254,7 +353,7 @@ export class AddItemCategoryComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/master/itemCategory/listCountryMaster']);
+    this.router.navigate(['/inventory/item-category/listItemCategory']);
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -266,4 +365,42 @@ export class AddItemCategoryComponent implements OnInit {
     });
   }
 
+  addRow() {
+    let itemCategoryDetailArray = this.docForm.controls.itemCategoryDetailList as FormArray;
+    let arraylen = itemCategoryDetailArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      dynamicAttributeId: [""],
+      propertyType: [""],
+      length: [""],
+      isMandatory: [""],
+    })
+    itemCategoryDetailArray.insert(arraylen, newUsergroup);
+  }
+
+  removeRow(index) {
+    let itemCategoryDetailArray = this.docForm.controls.itemCategoryDetailList as FormArray;
+    itemCategoryDetailArray.removeAt(index);
+  }
+
+  getItemPropertiesDetails(dynamicAttributeId:number,index:number){
+    const obj = {
+      editId: dynamicAttributeId
+    }
+    this.spinner.show();
+    this.itemPropertiesService.editItemProperties(obj).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        let itemCategoryDetailArray = this.docForm.controls.itemCategoryDetailList as FormArray;
+        itemCategoryDetailArray.at(index).patchValue({
+          propertyType: res.itemProperties.attributeDataType,
+          length: res.itemProperties.atttributeLength,
+          isMandatory:  res.itemProperties.isMandatory
+      });
+      },
+      error: (error) => {
+        this.spinner.hide();
+        // error code here
+      }
+    });
+  }
 }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MultipleRowComponent } from './multiple-row.component';
+import { DeleteManageAuditComponent } from './delete-manage-audit.component';
 
-describe('MultipleRowComponent', () => {
-  let component: MultipleRowComponent;
-  let fixture: ComponentFixture<MultipleRowComponent>;
+describe('DeleteManageAuditComponent', () => {
+  let component: DeleteManageAuditComponent;
+  let fixture: ComponentFixture<DeleteManageAuditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MultipleRowComponent ]
+      declarations: [ DeleteManageAuditComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MultipleRowComponent);
+    fixture = TestBed.createComponent(DeleteManageAuditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

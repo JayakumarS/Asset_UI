@@ -90,7 +90,10 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getItemMasterDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterDropdown`;
 
-  public getuserCategoryname = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getuserCategoryname`;
+  public getuserCategoryName = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUomCategoryName`;
 
+  public getEmployeeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeeDropdown`;
+
+  public getCompanyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyDropdown`;
 
 }

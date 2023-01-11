@@ -8,16 +8,30 @@
         <!-- <span class="logo-name">assetchek</span> -->
       </a>
     </div>
+
+    
     <app-nested-menu></app-nested-menu>
     <div _ngcontent-cud-c186 style="margin-left: auto;">
 
       <ul class="nav navbar-nav navbar-right">
+
+        <li>
+          <div class="example-button-container" style="margin-left:30%; margin-top: 20%;">
+            <button (click)="notificationpopup()" aria-label="Example icon button with a bell icon" style="background-color: #004aad;border: none;color: aliceblue;">
+             <mat-icon>notifications</mat-icon>
+            </button>
+           </div>
+          </li>
         <!-- Full Screen Button -->
         <li class="fullscreen">
           <button mat-icon-button (click)="callFullscreen()" class=" nav-notification-icons">
             <app-feather-icons [icon]="'maximize'" [class]="'header-icon'"></app-feather-icons>
           </button>
         </li>
+       
+
+
+
         <li class="nav-item btnNotification" ngbDropdown>
         
           <div ngbDropdownMenu class="notification-dropdown pullDown">
@@ -50,6 +64,7 @@
               All Notifications</a>
           </div>
         </li>
+       
         <li class="nav-item user_profile btnUserDropdown" ngbDropdown>
           <div class="chip dropdown-toggle" ngbDropdownToggle class="nav-notification-icons pt-0">
             <img src="{{userImg}}" class="user_img" width="32" height="32" alt="User">

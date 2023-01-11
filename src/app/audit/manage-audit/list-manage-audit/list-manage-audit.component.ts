@@ -15,6 +15,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { ManageAuditServiceService } from '../manage-audit-service.service'; 
 import { ManageAudit } from '../manage-audit.model';
+import { DeleteManageAuditComponent } from './delete-manage-audit/delete-manage-audit.component';
 
 @Component({
   selector: 'app-list-manage-audit',
@@ -82,6 +83,35 @@ export class ListManageAuditComponent implements OnInit {
 
   editCall(row) { 
     this.router.navigate(['/audit/manageaudit/addManageAudit/'+row.auditCode]);
+  }
+
+  deleteItem(i, row) {
+    this.index = i;
+    this.id = row.auditCode;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteManageAuditComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+    });
+    // this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+    //   this.loadData();
+    //   if(data==1)[
+    //     this.showNotification(
+    //       "snackbar-success",
+    //       " Successfully deleted",
+    //       "bottom",
+    //       "center"
+    //     )
+    //     ]
+    // });
   }
 
 

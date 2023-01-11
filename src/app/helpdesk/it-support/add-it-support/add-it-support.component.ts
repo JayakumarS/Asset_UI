@@ -11,6 +11,7 @@ import { Itsupport } from '../it-support.model';
 import { Itsupportservice } from '../it-support.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 // export const MY_DATE_FORMATS = {
 //   parse: {
@@ -54,7 +55,9 @@ export class AddItSupportComponent implements OnInit {
   constructor(private cmnService:CommonService,private fb: FormBuilder,private httpService: HttpServiceService,
     private  itsupportservice: Itsupportservice, private commonService: CommonService,
     public router:Router,private snackBar: MatSnackBar,
-    public dialog: MatDialog,public route: ActivatedRoute) { 
+    public dialog: MatDialog,public route: ActivatedRoute,private tokenStorageService:TokenStorageService) 
+    
+    { 
     this.docForm = this.fb.group({
     
       reportdate:[""],
@@ -65,7 +68,7 @@ export class AddItSupportComponent implements OnInit {
       reportedby:[""],
       tickettype:[""],
       ticketgroup:[""],
-      assignee:[""],
+      assignee:this.loginedUser,
       priority:[""],
       cc:[""],
       description:[""],
@@ -76,6 +79,10 @@ export class AddItSupportComponent implements OnInit {
     });
     }
   ngOnInit(): void {
+   
+    this.loginedUser=this.tokenStorageService.getUsername();
+    console.log(this.loginedUser);
+
     this.docForm = this.fb.group({
     
       reportdate:[""],
@@ -83,10 +90,10 @@ export class AddItSupportComponent implements OnInit {
       uploadImg:[""],
       asset:[""],
       assetlocation:[""],
-      reportedby:[""],
+      reportedby:this.loginedUser,
       tickettype:[""],
       ticketgroup:[""],
-      assignee:[""],
+      assignee:this.loginedUser,
       priority:[""],
       cc:[""],
       description:[""],
@@ -95,7 +102,7 @@ export class AddItSupportComponent implements OnInit {
       support_id:[""]
      
 
-
+     
    
     });
     this.route.params.subscribe(params => {
@@ -117,9 +124,27 @@ export class AddItSupportComponent implements OnInit {
   }
   );
 
-    
+    // assetname dropdown
+   this.httpService.get<any>(this.commonService.getassetname).subscribe({
+    next: (data) => {
+      this.assetnamelist = data;
+    },
+    error: (error) => {
+
+    }
   }
-  onsubmit(){
+  );
+  }
+  onsubmit(){// assetname dropdown
+    this.httpService.get<any>(this.commonService.getassetname).subscribe({
+     next: (data) => {
+       this.assetnamelist = data;
+     },
+     error: (error) => {
+ 
+     }
+   }
+   );
   //   this.itsupport = this.docForm.value;
   //     console.log(this.itsupport);
   //     // this.itsupportservice.addassetticket(this.itsupport);
@@ -145,6 +170,8 @@ refresh(){
     this.loadData();
   
 }
+
+
   fetchDetails(id: any): void {
     this.httpService.get(this.itsupportservice.editItSupport+"?id="+id).subscribe((res: any)=> {
       console.log(id);
@@ -167,8 +194,11 @@ refresh(){
         'description' : res.itSupportBean.description,
         'report' : res.itSupportBean.report,
         'cc' : res.itSupportBean.cc,
-        'support_id' : id
+        'support_id' : id,
+        
+
      })
+
       },
       (err: HttpErrorResponse) => {
          // error code here
