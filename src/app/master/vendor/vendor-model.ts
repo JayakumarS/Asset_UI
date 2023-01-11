@@ -15,7 +15,9 @@ export class Commodity {
   vendorCountryName:String;
   currency: string;
   vendorPhoneNumber: string;
+  success: boolean;
   vendorId:number;
+  message:string;
   
 
   

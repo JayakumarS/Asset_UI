@@ -26,6 +26,7 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DeleteVendorComponent } from './list-vendor/delete/delete.component';
+import { NotificationService } from 'src/app/core/service/notification.service';
 // import { BrowserModule } from '@angular/platform-browser';
 
 
@@ -34,6 +35,9 @@ import { DeleteVendorComponent } from './list-vendor/delete/delete.component';
     AddVendorComponent,
     ListVendorComponent,
     DeleteVendorComponent
+  ],
+  providers:[
+    NotificationService
   ],
   imports: [
     // BrowserModule,
@@ -64,7 +68,6 @@ import { DeleteVendorComponent } from './list-vendor/delete/delete.component';
 
 
   ],
-  providers: [],
   bootstrap: [AddVendorComponent]
 })
 export class VendorModule { }
