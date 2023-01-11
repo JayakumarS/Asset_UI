@@ -96,6 +96,9 @@ export class AddItemMasterComponent implements OnInit {
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 6).subscribe({
       next: (data) => {
         this.itemTypeList = data;
+        this.docForm.patchValue({
+          'itemType': 15
+        });
       },
       error: (error) => {
       }

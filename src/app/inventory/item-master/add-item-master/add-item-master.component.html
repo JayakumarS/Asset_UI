@@ -7,7 +7,7 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-12">
-        <div class="card" style="padding-left: 80px;">
+        <div class="card" style="padding-left: 40px;">
           <div class="body">
             <form class="m-4" [formGroup]="docForm">
 
@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select formControlName="itemType">
+                    <mat-select formControlName="itemType"  [disabled]="true">
                       <mat-option *ngFor="let title of itemTypeList" [value]="title.id">
                         {{title.text}}
                       </mat-option>
