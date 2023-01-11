@@ -30,7 +30,7 @@ export class AddUomComponent implements OnInit {
     )  {
       this.docForm = this.fb.group({
         uomcategoryName: ["", [Validators.required]],
-        description: ["",[Validators.required]],
+        description: [""],
         uomcategoryCode: ["",[Validators.required]],
         uomcategoryId:[""],
         loginedUser: this.tokenStorage.getUserId(),
