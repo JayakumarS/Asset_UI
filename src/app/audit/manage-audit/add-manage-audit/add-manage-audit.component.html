@@ -63,6 +63,9 @@
                                                 
                                             </mat-form-field>
                                         </div>
+  
+                               
+
                                     </div>
 
                                   
@@ -211,6 +214,29 @@
                                             </mat-form-field>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left:25%;">
+                                            <!-- <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                                                <mat-label>Company Name</mat-label>
+                                                <mat-select formControlName="companyName" multiple  required>
+                                                    <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                                        {{title.text}}
+                                                    </mat-option>
+                                    
+                                                </mat-select>
+                                            </mat-form-field> -->
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                <mat-label>Company Name</mat-label>
+                                                <mat-select formControlName="companyName">
+                                                  <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                                    {{title.text}}
+                                                  </mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+                                        </div>
+
+                                        </div>
+
                                     <div class="row" style="margin-left:50px">
                                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" style="margin-left: 22%;">
                                             <mat-label><b>Upload A File For Audit</b></mat-label>

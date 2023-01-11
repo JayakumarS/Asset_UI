@@ -56,6 +56,7 @@ id: number;
   auditList: any;
   categoryList: any;
   loacationList: any;
+  companyList:any;
   departmentList: any;
   filePath:string;
   filePathUrl:string;
@@ -98,7 +99,8 @@ ngOnInit(): void {
       this.fb.group({
         category:["", [Validators.required]],
         location:[""],
-        department:[""]
+        department:[""],
+        
       }) 
     ])
   });
@@ -114,12 +116,14 @@ ngOnInit(): void {
     auditType: ["Aided"],
     auditImg : [""],
     auditFile : [""],
-    manageAuditDtlObjBean: this.fb.array([
+    companyName:[""],
+   manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],
         location:[""],
         department:[""],
         auditUser:[""]
+
       }) 
     ])
 
@@ -146,6 +150,7 @@ ngOnInit(): void {
   }
   );
 
+  
 
   this.httpService.get<any>(this.manageAuditServiceService.locationUrl).subscribe({
     next: (data) => {
@@ -163,7 +168,17 @@ ngOnInit(): void {
 
     }
   });
+  this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+    next: (data) => {
+      this.companyList = data;
+    },
+    error: (error) => {
 
+    }
+  });
+
+
+  
   this.route.params.subscribe(params => {
     if(params.id!=undefined && params.id!=0){
      this.requestId = params.id;

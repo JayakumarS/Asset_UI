@@ -61,10 +61,10 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="extDate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Extended Date</mat-header-cell>
+                <!-- <ng-container matColumnDef="extDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.extDate}}</mat-cell>
-                </ng-container>
+                </ng-container>  -->
                
                 <ng-container matColumnDef="status">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
@@ -74,6 +74,11 @@
                 <ng-container matColumnDef="auditType">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Audit Type</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditType}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="cName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cName}}</mat-cell>
                 </ng-container>
 
 
