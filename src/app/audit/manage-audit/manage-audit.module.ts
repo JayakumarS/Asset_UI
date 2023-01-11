@@ -26,12 +26,14 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { WorkOrderRoutingModule } from 'src/app/operations/work-order/work-order-routing.module';
+import { DeleteManageAuditComponent } from './list-manage-audit/delete-manage-audit/delete-manage-audit.component';
 
 
 @NgModule({
   declarations: [
     AddManageAuditComponent,
-    ListManageAuditComponent
+    ListManageAuditComponent,
+    DeleteManageAuditComponent
   ],
   imports: [
     CommonModule,

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import {
   ChartComponent,
@@ -16,6 +17,9 @@ import {
   ApexTitleSubtitle,
   ApexResponsive,
 } from "ng-apexcharts";
+import { HttpServiceService } from "src/app/auth/http-service.service";
+import { MainResultBean } from "../main-result-bean";
+import { MainService } from "../main.service";
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -41,6 +45,7 @@ export type ChartOptions = {
   styleUrls: ["./main.component.scss"],
 })
 export class MainComponent implements OnInit {
+  assetsCount = [];
   public cardChart1: any;
   public cardChart1Data: any;
   public cardChart1Label: any;
@@ -63,12 +68,14 @@ export class MainComponent implements OnInit {
   public performanceRateChartOptions: Partial<ChartOptions>;
 
   // Doughnut chart start
-  public doughnutChartLabels: string[] = ["India", "USA", "Itely", "Shrilanka"];
-  public doughnutChartData: number[] = [22, 31, 28, 19];
+  // public doughnutChartLabels: string[] = ["India", "USA", "Itely", "Shrilanka"];
+  public doughnutChartLabels: string[] = ["Assets"];
+  public doughnutChartData = this.assetsCount;
   public doughnutChartLegend = false;
   public doughnutChartColors: any[] = [
     {
-      backgroundColor: ["#735A84", "#E76412", "#9BC311", "#DC3545"],
+      // backgroundColor: ["#735A84", "#E76412", "#9BC311", "#DC3545"],
+      backgroundColor: ["#e86f66"],
     },
   ];
   public doughnutChartType = "doughnut";
@@ -76,8 +83,12 @@ export class MainComponent implements OnInit {
     animation: false,
     responsive: true,
   };
+  earningsCountValue: any;
+  auditorsCountValue: any;
+  assetsCountValue: any;
+  usersCountValue: any;
 
-  constructor() {}
+  constructor(private httpService:HttpServiceService,private mainService:MainService) {}
   ngOnInit() {
     this.smallChart1();
     this.smallChart2();
@@ -87,6 +98,57 @@ export class MainComponent implements OnInit {
     this.chart2();
     this.chart4();
     this.projectChart();
+
+    this.httpService.get<MainResultBean>(this.mainService.earningsListCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.earningsCountValue = data.earningsCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+    this.httpService.get<MainResultBean>(this.mainService.auditorsListCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.auditorsCountValue = data.auditorsCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+    this.httpService.get<MainResultBean>(this.mainService.assetsListCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.assetsCountValue = data.assetsCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+    this.httpService.get<MainResultBean>(this.mainService.usersListCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.usersCountValue = data.usersCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+    this.httpService.get<MainResultBean>(this.mainService.assetsListCountUrl).subscribe(
+      (doughnutChartData) => {
+        console.log(doughnutChartData);
+        this.assetsCount.push(doughnutChartData.assetsCount);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+    
   }
 
   private smallChart1() {
