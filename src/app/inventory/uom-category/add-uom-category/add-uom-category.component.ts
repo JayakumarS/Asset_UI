@@ -37,7 +37,7 @@ export class AddUOMCategoryComponent implements OnInit {
       description: [""],
       active: [""],
       uomCode: [""],
-      name:[""],
+      uomcategoryName:[""],
       loginedUser: this.tokenStorage.getUserId(),
     });
 
@@ -51,7 +51,7 @@ export class AddUOMCategoryComponent implements OnInit {
       description: [""],
       active: [""],
       uomID: [""],
-      name:[""]
+      uomcategoryName:[""]
     });
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
@@ -62,7 +62,7 @@ export class AddUOMCategoryComponent implements OnInit {
 
       }
     });
-    this.httpService.get<any>(this.commonService.getuserCategoryname).subscribe({
+    this.httpService.get<any>(this.commonService.getuserCategoryName).subscribe({
       next: (data) => {
         this.categoryDdList = data;
       },
@@ -128,7 +128,7 @@ export class AddUOMCategoryComponent implements OnInit {
           'uomID': res.uomBean.uomID,
           'categoryName': res.uomBean.categoryName,
           'description': res.uomBean.description,
-          'name':res.uomBean.name,
+          'uomcategoryName':res.uomBean.uomcategoryName,
           'active': res.uomBean.active,
 
         });

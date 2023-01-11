@@ -14,6 +14,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { InventoryReports } from '../inventory-reports-model';
 import { InventoryReportsService } from '../inventory-reports.service';
 
@@ -46,8 +47,8 @@ export const MY_DATE_FORMATS = {
   ]
  
 })
-export class ListInventoryReportsComponent implements OnInit {
-  [x: string]: any;
+export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter implements OnInit{
+
   displayedColumns=[
 
     "itemCode",
@@ -68,23 +69,23 @@ export class ListInventoryReportsComponent implements OnInit {
   docForm:FormGroup;
   index: number;
   id: number;
+  item:[""];
   itemList:[""];
   requestId: any;
   edit:Boolean=false;
   httpClient: HttpClient;
-  serverUrl: serverLocations;
   exampleDatabase: InventoryReportsService;
-
+ 
   constructor(private fb: FormBuilder,
     public inventoryReportsService:InventoryReportsService,
     private httpService: HttpServiceService,
     private notificationService : NotificationService,
+    private serverUrl:serverLocations,
     private snackBar:MatSnackBar,
     private router:Router,private cmnService:CommonService,
-    public route: ActivatedRoute,)  
-  { 
-  
-  }
+    public route: ActivatedRoute,) {
+      super();
+    }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
@@ -109,16 +110,7 @@ export class ListInventoryReportsComponent implements OnInit {
       fromDate:[""],
       toDate:[""],
     });
-
     
-    this.route.params.subscribe(params => {
-      if (params.id != undefined && params.id != 0) {
-        this.requestId = params.id;
-        this.edit = true;
-        this.fetchDetails(this.requestId);
-      }
-    });
-
     this.httpService.get<any>(this.cmnService.getItemNameDropdown).subscribe({
       next: (data) => {
         this.itemList = data;
@@ -127,7 +119,23 @@ export class ListInventoryReportsComponent implements OnInit {
       }
     });
 
+    
+    this.loadData();
+    this.route.params.subscribe(params => {
+      if (params.id != undefined && params.id != 0) {
+        this.requestId = params.id;
+        this.edit = true;
+        this.fetchDetails(this.requestId);
+      }
+    });
+
+ 
+
   }
+  refresh(){
+    this.loadData();
+  }
+
 
   public loadData() {
     this.exampleDatabase = new InventoryReportsService(this.httpClient,this.serverUrl,this.httpService);
@@ -247,7 +255,6 @@ export class ExampleDataSource extends DataSource<InventoryReports> {
    this.exampleDatabase.getAllList();
    return merge(...displayDataChanges).pipe(
      map(() => {
-       // Filter data
        this.filteredData = this.exampleDatabase.data
          .slice()
          .filter((inventoryReports: InventoryReports) => {
