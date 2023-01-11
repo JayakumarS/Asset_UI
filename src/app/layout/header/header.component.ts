@@ -14,6 +14,8 @@ import { LanguageService } from "src/app/core/service/language.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { AppService } from 'src/app/app.service';
+import { NotificationpopComponent } from "src/app/helpdesk/it-support/list-it-support/notificationpop/notificationpop.component";
+import { MatDialog } from "@angular/material/dialog";
 const document: any = window.document;
 
 @Component({
@@ -44,7 +46,10 @@ export class HeaderComponent
     private router: Router,
     public languageService: LanguageService,
     private app:AppService,
-    private token: TokenStorageService
+    private token: TokenStorageService,
+    public dialog: MatDialog,
+
+    
   ) {
     super();
   }
@@ -105,6 +110,9 @@ export class HeaderComponent
     },
   ];
   ngOnInit() {
+
+   
+    
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
     this.userImg = this.authService.currentUserValue.img;
@@ -131,6 +139,7 @@ export class HeaderComponent
       this.flagvalue = val.map((element) => element.flag);
     }
   }
+
 
   ngAfterViewInit() {
     // set theme on startup
@@ -247,5 +256,24 @@ export class HeaderComponent
 
   }
 
- 
+
+  notificationpopup(){
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(NotificationpopComponent, {
+      height: "400px",
+      width: "270px",
+    
+      
+      
+      direction: tempDirection,
+    });
+    
+  
+  }
+  
 }

@@ -22,6 +22,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { VendorService } from '../vendor.service';
 import { Commodity } from '../vendor-model';
 import { CommodityResultBean } from '../vendor-result-bean';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 
 @Component({
@@ -44,7 +45,7 @@ export class AddVendorComponent implements OnInit {
   currencyList: [];
   constructor(private fb: FormBuilder,private router:Router,
     public route: ActivatedRoute,private snackBar: MatSnackBar,
-    private vendorService: VendorService,private httpService: HttpServiceService) {
+    private vendorService: VendorService,private httpService: HttpServiceService, private notificationService: NotificationService) {
     this.docForm = this.fb.group({
       
       //AssetChek
@@ -110,20 +111,21 @@ export class AddVendorComponent implements OnInit {
   }
 
   onsubmit(){
-    {
+    
       if(this.docForm.valid){
     this.commodityMaster = this.docForm.value;
     console.log(this.commodityMaster);
-    this.vendorService.addCommodity(this.commodityMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-     this.router.navigate(['/master/vendor/listVendor']);
+    this.vendorService.addCommodity(this.commodityMaster,this.router,this.notificationService);
+    
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
     }
-  }
+  
   }
 
  

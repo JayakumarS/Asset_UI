@@ -20,6 +20,7 @@ import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity
 import { DeleteitsupportComponent } from './deleteitsupport/deleteitsupport.component';
 import { NotificationpopComponent } from './notificationpop/notificationpop.component';
 import { ItSupportresultbean } from '../it-support-result-bean';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -65,6 +66,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   AssignedCountValue: any;
   OpenedCountValue: any;
   HoldCountValue: any;
+  loginedUser: any;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -72,7 +74,8 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private router: Router,
-    private httpService:HttpServiceService
+    private httpService:HttpServiceService,
+    private tokenStorage: TokenStorageService,
   ) {
     super();
   }
@@ -86,6 +89,8 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
 
   ngOnInit(): void {
     this.loadData();
+
+  
 
     this.httpService.get<ItSupportresultbean>(this.itsupportservice.closedListCountUrl).subscribe(
       (data) => {
@@ -189,43 +194,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     });
   }
    
-  notificationpopup(){
-   
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(NotificationpopComponent, {
-      height: "400px",
-      width: "270px",
-    
-      
-      
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      this.loadData();
-      if(data==1)[
-        this.showNotification(
-          "snackbar-success",
-          " Successfully deleted",
-          "bottom",
-          "center"
-        )
-        ]
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
-  }
+ 
  
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, " ", {

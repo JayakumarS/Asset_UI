@@ -32,6 +32,7 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
+ 
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
     super();
   }
@@ -64,11 +65,37 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
-  addCommodity(commodity: Commodity): void {
+  addCommodity(commodity: Commodity,router,notificationService): void {
     this.dialogData = commodity;
     this.httpService.post<Commodity>(this.saveCommodity, commodity).subscribe(data => {
       console.log(data);
-      //this.dialogData = employees;
+      if(data.success===true){
+        if(data.message != ""){
+          notificationService.showNotification(
+            "snackbar-danger",
+            "Email Already Exists!!!",
+            "bottom",
+            "center"
+          );
+        }else{
+        notificationService.showNotification(
+          "snackbar-success",
+          "Record Added successfully...",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/vendor/listVendor']);
+        }
+       
+      }
+      else if(data.success===false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
     },
       (err: HttpErrorResponse) => {
 

@@ -6,8 +6,10 @@ import { MatmenuComponent } from './matmenu/matmenu.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatdynamicsubmenuComponent } from "./matdynamicmenu/matdynamicsubmenu/matdynamicsubmenu.component";
 import { MatnestedmenuComponent } from './matnestedmenu/matnestedmenu.component';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatDialogModule } from "@angular/material/dialog";
 @NgModule({
-  imports: [CommonModule, NgbModule, MatTabsModule, MatMenuModule],
+  imports: [CommonModule, NgbModule, MatTabsModule, MatMenuModule,MatDialogModule],
   declarations: [
     MatdynamicsubmenuComponent,
     MatnestedmenuComponent
