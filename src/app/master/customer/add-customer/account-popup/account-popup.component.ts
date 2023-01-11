@@ -27,6 +27,15 @@ export class AccountPopupComponent implements OnInit {
               private commonService: CommonService,
               @Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<AccountPopupComponent>, ) {
+                this.docForm = this.fb.group({
+                  bankName: [""],
+      accType: [""],
+      accNo: [""],
+      ifscCode: [""],
+      address: [""],
+      state: [""],
+      addresstwo: [""],
+                });
   }
   ngOnInit(): void {
     this.docForm = this.fb.group({
@@ -51,49 +60,58 @@ export class AccountPopupComponent implements OnInit {
       }
     });
   }
-  onSubmit() {
-    if (this.docForm.valid){
-      this.customerMaster = this.docForm.value;
-      this.spinner.show();
-      this.customerService.addCustomer(this.customerMaster).subscribe({
-        next: (data) => {
-          this.spinner.hide();
-          if (data.success) {
-            this.showNotification(
-              "snackbar-success",
-              "Record Added successfully...",
-              "bottom",
-              "center"
-            );
-            this.onCancel();
-          } else {
-            this.showNotification(
-              "snackbar-danger",
-              "Not Added...!!!",
-              "bottom",
-              "center"
-            );
-          }
-        },
-        error: (error) => {
-          this.spinner.hide();
-          this.showNotification(
-            "snackbar-danger",
-            error.message + "...!!!",
-            "bottom",
-            "center"
-          );
-        }
-      });
+
+  public onSubmit(): void {
+    this.dialogRef.close({ account: this.docForm.value });
+
     }
-    else{
-      this.showNotification(
-        "snackbar-danger",
-        "Please Fill The All Required fields",
-        "bottom",
-        "center"
-      );
-    }
+  // onSubmit() {
+  //   if (this.docForm.valid){
+  //     this.customerMaster = this.docForm.value;
+  //     this.spinner.show();
+  //     this.customerService.addCustomer(this.customerMaster).subscribe({
+  //       next: (data) => {
+  //         this.spinner.hide();
+  //         if (data.success) {
+  //           this.showNotification(
+  //             "snackbar-success",
+  //             "Record Added successfully...",
+  //             "bottom",
+  //             "center"
+  //           );
+  //           this.onCancel();
+  //         } else {
+  //           this.showNotification(
+  //             "snackbar-danger",
+  //             "Not Added...!!!",
+  //             "bottom",
+  //             "center"
+  //           );
+  //         }
+  //       },
+  //       error: (error) => {
+  //         this.spinner.hide();
+  //         this.showNotification(
+  //           "snackbar-danger",
+  //           error.message + "...!!!",
+  //           "bottom",
+  //           "center"
+  //         );
+  //       }
+  //     });
+  //   }
+  //   else{
+  //     this.showNotification(
+  //       "snackbar-danger",
+  //       "Please Fill The All Required fields",
+  //       "bottom",
+  //       "center"
+  //     );
+  //   }
+  // }
+
+  onCancel() {
+    this.dialogRef.close({ data: 'CANCEL' });
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
@@ -103,7 +121,7 @@ export class AccountPopupComponent implements OnInit {
       panelClass: colorName,
     });
   }
-  onCancel() {
+  oncancel() {
     this.dialogRef.close({ data: true });
   }
 

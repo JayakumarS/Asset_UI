@@ -12,6 +12,10 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountPopupComponent } from './account-popup/account-popup.component';
 import { LocationMaster } from '../../location/location-master.model';
+import { NgxSpinnerService } from "ngx-spinner";
+import { NotificationService } from 'src/app/core/service/notification.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+
 
 
 @Component({
@@ -25,12 +29,13 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   edit:boolean=false;
   hide3 = true;
   agree3 = false;
-  public customerMaster: CustomerMaster;
+  customerMaster: CustomerMaster;
   requestId: number;
   tokenStorage: any;
   locationList: [];
   countryList = [];
   locationDdList = [];
+  list= [];
 
 
   constructor(private fb: FormBuilder,
@@ -38,11 +43,12 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
               private snackBar: MatSnackBar,
               private router: Router,
               private cmnService: CommonService,
-              private customerService: CustomerService,
+              public customerService: CustomerService,
               private commonService: CommonService,
               private serverUrl: serverLocations,
               private ced: CommonService,
               public dialog: MatDialog,
+              private spinner: NgxSpinnerService,
               public route: ActivatedRoute,
               )
     {
@@ -83,6 +89,33 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       internalNotes: [""],
       resPerson: [""],
       method: [""],
+
+      contactDetail: this.fb.array([
+        this.fb.group({
+          name: [""],
+          position: [""],
+          conEmail: [""],
+          conPhone: [""],
+          mobile: [""]
+        })
+      ]),
+      accountDetail: this.fb.array([
+        this.fb.group({
+          bankName: [""],
+          accType: [""],
+          accNo: [""],
+          ifscCode: [""],
+          address: [""],
+          state: [""],
+          accName:[""],
+          addresstwo: [""],
+          acctReceivable: [""],
+          supplier: [""],
+          totalReceivable: [""],
+          creditLimit: [""],
+
+        })
+      ]),
 
 
     });
@@ -127,22 +160,51 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 });
   }
 
-  onsubmit(){
-  {
-    if(this.docForm.valid){
-    this.customerMaster = this.docForm.value;
-    console.log(this.customerMaster);
-    this.customerService.addCustomer(this.customerMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-     this.router.navigate(['/master/customer/list-customer']);
+  onSubmit() {
+    if (this.docForm.valid){
+      this.customerMaster = this.docForm.value;
+      this.spinner.show();
+      this.customerService.item(this.customerMaster).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill The All Required fields",
+        "bottom",
+        "center"
+      );
     }
   }
-}
+
 
 fetchDetails(cus_id: any): void {
   const obj = {
@@ -207,7 +269,7 @@ update(){
   this.router.navigate(['/master/customer/list-customer']);
 
 }
-addRow1() {
+openPopupContactDetails() {
 
   let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {
@@ -222,13 +284,27 @@ addRow1() {
     disableClose: true
   });
   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-    setTimeout(() => {
-    }, 300);
+    if (data != null) {
+      let contactDetailArray = this.docForm.controls.contactDetail as FormArray;
+      let arraylen = contactDetailArray.length;
+      let newUsergroup: FormGroup = this.fb.group({
+          name: [data.contact.name],
+          position: [data.contact.position],
+          conEmail: [data.contact.conEmail],
+          conPhone: [data.contact.conPhone],
+          mobile: [data.contact.mobile]
+    })
+      contactDetailArray.insert(arraylen, newUsergroup);
+    }
   });
 }
 
+removeRow(index) {
+  let contactDetailArray = this.docForm.controls.contactDetail as FormArray;
+  contactDetailArray.removeAt(index);
+}
 
-addRow2() {
+openPopupAccountDetails() {
 
   let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {
@@ -243,10 +319,29 @@ addRow2() {
     disableClose: true
   });
   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-    setTimeout(() => {
-    }, 300);
+    if (data != null) {
+      let accountDetailArray = this.docForm.controls.accountDetail as FormArray;
+      let arraylen = accountDetailArray.length;
+      let newUsergroup: FormGroup = this.fb.group({
+        bankName: [data.account.bankName],
+        accType: [data.account.accType],
+        accNo: [data.account.accNo],
+        ifscCode: [data.account.ifscCode],
+        address: [data.account.address],
+        state: [data.account.state],
+        addresstwo: [data.account.addresstwo]
+
+    })
+      accountDetailArray.insert(arraylen, newUsergroup);
+    }
   });
 }
+
+removeRowAccount(index) {
+  let accountDetailArray = this.docForm.controls.accountDetail as FormArray;
+  accountDetailArray.removeAt(index);
+}
+
 reset(){
   if (!this.edit) {
     this.docForm.reset();

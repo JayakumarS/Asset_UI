@@ -34,7 +34,7 @@ export class CustomerMaster {
           this.cstno = CustomerMaster.cstno || "";
           this.remarks = CustomerMaster.remarks || "";
           this.active = CustomerMaster.active || "";
-    
+
         }
       }
       public getRandomID(): string {
@@ -44,4 +44,3 @@ export class CustomerMaster {
         return S4() + S4();
       }
     }
-    

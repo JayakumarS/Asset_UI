@@ -7,14 +7,15 @@ import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroy
 import { CustomerMaster } from './customer-model';
 import { CustomerResultBean } from './customer-result-bean';
 
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService extends UnsubscribeOnDestroyAdapter {
-
   isTblLoading = true;
   currencyList: [];
   dataChange: BehaviorSubject<CustomerMaster[]> = new BehaviorSubject<CustomerMaster[]>(
@@ -59,11 +60,9 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
 //     });
 // }
 
-// tslint:disable-next-line:no-shadowed-variable
-addCustomer(customerMaster: CustomerMaster): Observable<any> {
+item(customerMaster: CustomerMaster): Observable<any> {
   return this.httpClient.post<CustomerMaster>(this.saveCoustomer, customerMaster);
 }
-
 getAllList(): void {
   this.subs.sink = this.httpService.get<CustomerResultBean>(this.getAllMasters).subscribe(
     (data) => {
