@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssetService } from '../asset.service';
+import { MatDialog } from "@angular/material/dialog";
+import { AuditableAssetPopUpComponent } from 'src/app/audit/auditable-asset/auditable-asset-pop-up/auditable-asset-pop-up.component';
+import { AssetMaster } from '../asset-model';
+import { AuditableAsset } from 'src/app/audit/auditable-asset/auditable-asset-model';
+import { AuditableAssetResultBean } from 'src/app/audit/auditable-asset/auditable-asset-result-bean';
+import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { AuditableAssetService } from 'src/app/audit/auditable-asset/auditable-asset.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-asset-profile-view',
@@ -13,8 +21,15 @@ export class AssetProfileViewComponent implements OnInit {
   docForm: FormGroup;
   requestId: any;
   profileViewDetails: any;
+  id: number;
+  assetMaster:AssetMaster;
+  auditableAsset:AuditableAsset;
+  fullLifeFlag:boolean=false;
+  financialChangeDetails:[];
 
-  constructor( public router:Router,private fb: FormBuilder,private  assetService: AssetService,public route: ActivatedRoute) {
+  constructor( public router:Router,private fb: FormBuilder,private  assetService: AssetService,
+    public route: ActivatedRoute,public dialog: MatDialog,private httpService: HttpServiceService,
+    public auditableAssetService:AuditableAssetService,) {
 
     this.docForm = this.fb.group({
 
@@ -57,7 +72,9 @@ export class AssetProfileViewComponent implements OnInit {
       captitalizationDateobj:[""],
       allottedUptoobj:[""],
       fileUploadUrl:[""],
-      imgUploadUrl:[""]
+      imgUploadUrl:[""],
+
+      depreciationMethod:[""]
       
       
     });
@@ -84,11 +101,9 @@ export class AssetProfileViewComponent implements OnInit {
       next: (res: any) => {
         
    this.profileViewDetails=res.addAssetBean;
+   this.auditableAsset=res.getAuditableAssetDetails;
 
    console.log(this.profileViewDetails);
-
-    
-    
      
     },
     error: (error) => {
@@ -100,5 +115,59 @@ export class AssetProfileViewComponent implements OnInit {
   
    
   }
+
+  financialChange(){
+    console.log(this.docForm.value);
+    console.log(this.docForm.value.depreciationMethod);
+    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.financialChangeUrl + "?assetId=" + this.requestId+"&asset="+this.docForm.value.depreciationMethod).subscribe((res: any) => {
+        
+        this.financialChangeDetails = res.financialChangeDetails;
+        },
+        (err: HttpErrorResponse) => {
+           // error code here
+        }
+      );
+  }
+
+  checkFullLife(event:any){
+    if(event.checked){
+      this.fullLifeFlag = true;
+      this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.financialChangeUrl + "?assetId=" + this.requestId+"&asset="+'').subscribe((res: any) => {
+        console.log();
+        this.financialChangeDetails = res.financialChangeDetails;
+        },
+        (err: HttpErrorResponse) => {
+           // error code here
+        }
+      );
+    }
+    else{
+      this.fullLifeFlag = false;
+    }
+  }
+
+  accurredDepreciationPopUp(row) {
+
+    console.log(row.tab.textLabel);
+
+    // if(row.tab.textLabel.startsWith("Accurred Depreciation")){
+    // this.index = i;
+    // this.id = row.scheduleId;
+    // let tempDirection;
+    // if (localStorage.getItem("isRtl") === "true") {
+    //   tempDirection = "rtl";
+    // } else {
+    //   tempDirection = "ltr";
+    // }
+    // const dialogRef = this.dialog.open(AuditableAssetPopUpComponent, {
+    //   data: row,
+    //   direction: tempDirection,
+    // });
+  // }
+  }
+
+  // accurredDepreciationPopUp(){
+
+  // }
 
 }
