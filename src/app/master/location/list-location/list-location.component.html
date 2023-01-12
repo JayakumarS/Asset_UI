@@ -55,7 +55,7 @@
                 #exporter="matTableExporter">
 
                 <ng-container matColumnDef="parentLocation">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Present Location</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Parent Location</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.parentLocation}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="locationName">

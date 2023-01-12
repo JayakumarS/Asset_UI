@@ -24,7 +24,7 @@ export class AddCurrencyComponent implements OnInit {
   currencyMaster: CurrencyMaster;
   submitted: boolean=false;
 
-  
+
   constructor(private fb: FormBuilder, private authService: AuthService, public commonService: CommonService,public router: Router,
               private currencyService: CurrencyService, private httpService: HttpServiceService
     ,         private snackBar: MatSnackBar, ) {
@@ -56,7 +56,7 @@ export class AddCurrencyComponent implements OnInit {
   reset(){}
 
   keyPressName(event: any) {
-    const pattern = /[A-Z,a-z 0-9]/;
+    const pattern = /[A-Z,a-z]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();

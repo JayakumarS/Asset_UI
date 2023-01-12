@@ -19,7 +19,7 @@
                        <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="fullName"  maxlength="50"
-                        [ngModel]="inputvalue"(ngModelChange)="inputvalue = $event.toUpperCase()"  [ngModel]="value"
+                        [ngModel]="inputvalue" (ngModelChange)="inputvalue=$event.toUpperCase()"(keypress)="string($event)"  [ngModel]="value"
                         (blur)="validateFullName($event.target.value)"
                         required>
                         <mat-error *ngIf="docForm.get('fullName').hasError('required')">
@@ -37,7 +37,7 @@
 
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="emailId" maxlength=""  required>
+                        <input matInput formControlName="emailId" maxlength="50"  required>
                     <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                       Email To is required
                     </mat-error>
@@ -52,7 +52,7 @@
                       </div>
                       <div class=" col-md-3">
                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="contNumber" maxlength="10" (keypress)="keyPressPCB($event)"  required>
+                          <input matInput formControlName="contNumber" maxlength="10" (keypress)="keyPressNumeric1($event)"  required>
                           <mat-error *ngIf="docForm.get('contNumber').hasError('required')">
                             Contact Number is required
                           </mat-error>
@@ -64,7 +64,7 @@
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="role" maxlength="50"[ngModel]="inputvalue2"
-                        (ngModelChange)="inputvalue2 = $event.toUpperCase()" (keypress)="keyPressName($event)" required>
+                        (ngModelChange)="inputvalue2 = $event.toUpperCase()"(keypress)="keyPressNumeric($event)" required>
                         <mat-error *ngIf="docForm.get('role').hasError('required')">
                           Role is required
                         </mat-error>
@@ -105,8 +105,8 @@
                             </div>
                             <div class=" col-md-3">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <input matInput formControlName="language" maxlength="50"[ngModel]="inputvalue1"
-                                (ngModelChange)="inputvalue1 = $event.toUpperCase()"(keypress)="keyPressName($event)" required>
+                                <input matInput formControlName="language" maxlength="50"[ngModel]="inputvalue3"
+                                (ngModelChange)="inputvalue3 = $event.toUpperCase()"(keypress)="string($event)"   required>
                                 <mat-error *ngIf="docForm.get('language').hasError('required')">
                                   Default Language is required
                                 </mat-error>
@@ -126,6 +126,22 @@
                             </mat-select>
                         </mat-form-field>
                         </div></div>
+
+
+                        <div class="row">
+                          <div class=" col-md-2">
+                              <mat-label class="lable">Company</mat-label>
+                              </div>
+                              <div class=" col-md-3">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                                  <mat-select class="inputTxt" formControlName="company">
+                                    <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                        {{title.text}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                              </div></div>
                      <br>
                      <div class="row">
                         <div class=" col-md-2"><mat-label class="lable">OTP Required</mat-label></div>

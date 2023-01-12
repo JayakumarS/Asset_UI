@@ -236,6 +236,13 @@ export class AddCurrencyMasterComponent implements OnInit {
     }
   }
 
+  string(event: any) {
+    const pattern = /[A-Za-z]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   validateCurrencyCode(event){
     this.httpService.get<any>(this.CurrencyMasterService.uniqueValidateUrl+ "?tableName=" +"currency"+"&columnName="+"currency_code"+"&columnValue="+event).subscribe((res: any) => {
       if(res){

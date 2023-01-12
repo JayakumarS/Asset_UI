@@ -25,6 +25,10 @@ export class AddUserMasterComponent implements OnInit {
   userMaster: UserMaster;
   submitted: boolean = false;
   locationDdList = [];
+  companyList = [];
+  language:any;
+  role:any;
+  fullName:any;
   // validateEmail = true;
   // emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
@@ -43,7 +47,7 @@ export class AddUserMasterComponent implements OnInit {
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       userId: [""],
       fullName: ["", [Validators.required]],
-      emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      emailId: ['',  [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       contNumber: ["", [Validators.required]],
       role: ["", [Validators.required]],
       department: [""],
@@ -52,6 +56,7 @@ export class AddUserMasterComponent implements OnInit {
       location: [""],
       otp: [""],
       userLocation: [""],
+      company: [""],
       loginedUser: this.tokenStorage.getUserId(),
 
     //  loginedUser: this.tokenStorage.getUserId(),
@@ -91,6 +96,17 @@ export class AddUserMasterComponent implements OnInit {
     this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
       next: (data) => {
         this.departmentDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
+    // company dropdown
+    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+      next: (data) => {
+        this.companyList = data;
       },
       error: (error) => {
 
@@ -171,6 +187,7 @@ export class AddUserMasterComponent implements OnInit {
         'language': res.userMasterBean.language,
         'location': res.userMasterBean.location,
         'otp': res.userMasterBean.otp,
+        'company': res.userMasterBean.company,
         'userLocation': res.userMasterBean.userLocation,
 
 
@@ -218,18 +235,17 @@ update() {
   reset() {
     if (!this.edit) {
       this.docForm = this.fb.group({
-        // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
         fullName: ["", [Validators.required]],
-        emailId: [""],
+        emailId: ["", [Validators.required]],
         contNumber: [""],
-        role: ["", [Validators.required]],
+        role: [""],
         department: [""],
         repmanager: [""],
         language: ["", [Validators.required]],
         location: [""],
         otp: [""],
+        company: [""],
         userLocation: [""],
-      //  loginedUser: this.tokenStorage.getUserId(),
       });
     } else {
     this.fetchDetails(this.requestId);
@@ -237,36 +253,7 @@ update() {
 
    }
 
-   keyPressName(event: any) {
-    const pattern = /[A-Z,a-z 0-9]/;
-    const inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
 
-  keyPressNumberDouble(event: any) {
-    const pattern = /[0-9.]/;
-    const inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
-
-  keyPressNumberInt(event: any) {
-    const pattern = /[0-9]/;
-    const inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
-  keyPressNumeric(event: any) {
-    const pattern = /[0-9]/;
-    const inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
   validateFullName(event){
     this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl+ "?tableName=" +"user_master"+"&columnName="+"full_name"+"&columnValue="+event).subscribe((res: any) => {
       if(res){
@@ -276,20 +263,39 @@ update() {
       }
     });
   }
+  validateEmail(event){
+    this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl+ "?tableName=" +"user_master"+"&columnName="+"email_id"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['emailId'].setErrors({ currency: true });
+      }else{
+        this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
 
-keyPressPCB(event: any) {
-  const pattern = /[0-9.]/;
+keyPressNumeric(event: any) {
+  const pattern = /[A-Za-z,0-9]/;
   const inputChar = String.fromCharCode(event.charCode);
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();
   }
 }
-keyPressPCC(event:any){
-  const pattern = /[0-9.]/;
+
+keyPressNumeric1(event: any) {
+  const pattern = /[0-9]/;
   const inputChar = String.fromCharCode(event.charCode);
-  if (event.keyCode != 6 && !pattern.test(inputChar)) {
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();
   }
+}
 
+string(event: any) {
+  const pattern = /[A-Za-z]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
 }
 }
+
+

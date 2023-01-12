@@ -17,7 +17,7 @@
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="parentLocation"maxlength="15"[ngModel]="inputvalue"
-                      (ngModelChange)="inputvalue = $event.toUpperCase()" required>
+                      (ngModelChange)="inputvalue = $event.toUpperCase()"  (keypress)="string($event)"required>
                       <mat-error *ngIf="docForm.get('parentLocation').hasError('required')">
                         Parent Location Name is required
                       </mat-error>
@@ -30,7 +30,7 @@
                       <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="locationName" maxlength="15"[ngModel]="inputvalue1"
-                        (ngModelChange)="inputvalue1 = $event.toUpperCase()" required>
+                        (ngModelChange)="inputvalue1 = $event.toUpperCase()"  (keypress)="string($event)"required>
                         <mat-error *ngIf="docForm.get('locationName').hasError('required')">
                           Location is required
                         </mat-error>
@@ -97,12 +97,12 @@
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-  
+
                       <mat-select class="inputTxt" formControlName="company">
                         <mat-option *ngFor="let title of companyList" [value]="title.id">
                             {{title.text}}
                         </mat-option>
-                        
+
                     </mat-select>
                     <mat-error *ngIf="docForm.get('company').hasError('required')">
                       Company is required
@@ -111,7 +111,7 @@
                   </div>
           </div>
 
-               
+
 
                 <div class="row">
                   <div class=" col-md-2"><mat-label class="lable">Inventory Location</mat-label></div>
