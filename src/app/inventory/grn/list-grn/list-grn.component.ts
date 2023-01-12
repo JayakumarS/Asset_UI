@@ -26,7 +26,7 @@ import { CommonService } from 'src/app/common-service/common.service';
   styleUrls: ['./list-grn.component.sass']
 })
 export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-  displayedColumns = ['grnNumber', 'grnDate','vendorName','purchaseInvoiceId','preparedBy','actions'];
+  displayedColumns = ['grnNumber', 'grnDate','vendorName','purchaseOrderNumber','actions'];
   dataSource: ExampleDataSource | null;
   exampleDatabase: GrnService | null;
   selection = new SelectionModel<Grn>(true, []);
@@ -86,7 +86,7 @@ export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnI
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/grn/addGrn/'+row.countryId]);
+    this.router.navigate(['/inventory/grn/addGrn/'+row.grnId]);
   }
 
   deleteItem(row) {
@@ -107,7 +107,7 @@ export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnI
       
       if (data.data == true) {
         const obj = {
-          deletingId: row.countryId
+          deletingId: row.grnId
         }
         this.spinner.show();
         this.grnService.deleteGrn(obj).subscribe({
@@ -192,8 +192,7 @@ export class ExampleDataSource extends DataSource<Grn> {
               grn.grnNumber +
               grn.grnDate +
               grn.vendorName +
-              grn.purchaseInvoiceId +
-              grn.preparedBy
+              grn.purchaseOrderNumber 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -228,12 +227,10 @@ export class ExampleDataSource extends DataSource<Grn> {
         case "vendorName":
           [propertyA, propertyB] = [a.vendorName, b.vendorName];
           break;
-          case "purchaseInvoiceId":
-          [propertyA, propertyB] = [a.purchaseInvoiceId, b.purchaseInvoiceId];
+          case "purchaseOrderNumber":
+          [propertyA, propertyB] = [a.purchaseOrderNumber, b.purchaseOrderNumber];
           break;
-          case "preparedBy":
-          [propertyA, propertyB] = [a.preparedBy, b.preparedBy];
-          break;
+          
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

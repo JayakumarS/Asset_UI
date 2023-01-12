@@ -2,7 +2,6 @@ export class Grn{
      organizationName:string;
      purchaseInvoiceId:number;
      grnDate:string;
-     poType:number;
      vendorId:number;
      vendorAddress:string;
      vendorCity:string;
@@ -17,19 +16,11 @@ export class Grn{
      description:string;
      delOrderNo:string;
      delOrderDate:string;
-
-     //After Detail Row
-     subTotal:string;
-     discount:string;
-     otherCharges:string;
-     total:string;
-     remarks:string;
      loginedUser:string;
-
+     grnDetailList:any;
      //For GRN List 
      grnId: number;
      grnNumber: string;
      vendorName : string;
-     preparedBy : string;
-     
+     purchaseOrderNumber : string;
 }

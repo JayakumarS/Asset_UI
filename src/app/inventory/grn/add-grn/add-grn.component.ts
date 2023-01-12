@@ -34,8 +34,8 @@ export const MY_DATE_FORMATS = {
   selector: 'app-add-grn',
   templateUrl: './add-grn.component.html',
   styleUrls: ['./add-grn.component.sass'],
-   // Date Related code
-   providers: [
+  // Date Related code
+  providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     {
       provide: MAT_DATE_FORMATS, useValue: {
@@ -51,7 +51,7 @@ export class AddGrnComponent implements OnInit {
   docForm: FormGroup;
   grn: Grn;
   grnDetailList = [];
-  purchaseInvoiceNumber= [];
+  purchaseOrderNumber = [];
   vendorList = [];
   countryList = [];
   locationList: [];
@@ -71,97 +71,88 @@ export class AddGrnComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
     private purchaseOrderService: PurchaseOrderService) {
-    
+
     this.docForm = this.fb.group({
-      organizationName: ["", [Validators.required]],
-      purchaseInvoiceId: ["",[Validators.required]],
-      grnDate:[moment().format('YYYY-MM-DD'),[Validators.required]],
+      grnDate: [""],
+      grnDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+      purchaseOrderId: ["", [Validators.required]],
       poType: ["", [Validators.required]],
       vendorId: [""],
-      vendorAddress:[""],
-      vendorCity:[""],
-      vendorState:[""],
-      vendorCountry:[""],
-      transMode:1,
+      vendorAddress: [""],
+      vendorCity: [""],
+      vendorState: [""],
+      vendorCountry: [""],
+      transMode: 1,
       invoiceNo: [""],
-      dueDate: [""],
-      invoiceDate: [moment().format('YYYY-MM-DD')],
+      invoiceDate: [""],
+      invoiceDateObj: [moment().format('YYYY-MM-DD')],
       sourceLocId: [""],
       deliveryLocId: [""],
-      description: [""],
       delOrderNo: [""],
       delOrderDate: [""],
-
-      //After Detail Row
-      subTotal:[""],
-      discount:[""],
-      otherCharges:[""],
-      total:[""],
-      remarks:[""],
+      delOrderDateObj: [""],
       loginedUser: this.tokenStorage.getUserId(),
-      preparedBy: this.tokenStorage.getUsername(),
 
       grnDetailList: this.fb.array([
-      this.fb.group({
-        itemId: [""],  
-        price: [""],
-        discount: [""],
-        discountPercentage:[""],
-        netPrice: [""],
-        finalTotal:[""],
-      })
-    ])
- 
-  });
+        this.fb.group({
+          itemId: [""],
+          itemCode: [""],
+          itemName: [""],
+          unitPrice: [""],
+          receivingQty: [""],
+        })
+      ])
+
+    });
 
 
   }
 
   ngOnInit() {
-   //PurchaseInvoiceNumber Dropdown List
-   this.httpService.get<any>(this.commonService.getPurchaseInvoiceNumberDropdown).subscribe({
-    next: (data) => {
-      this.purchaseInvoiceNumber = data;
-    },
-    error: (error) => {
-    }
-  });
+    //purchaseOrderNumber Dropdown List
+    this.httpService.get<any>(this.commonService.getPurchaseOrderNumberDropdown).subscribe({
+      next: (data) => {
+        this.purchaseOrderNumber = data;
+      },
+      error: (error) => {
+      }
+    });
 
-  //Vendor  Dropdown List
-  this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
-    next: (data) => {
-      this.vendorList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //Vendor  Dropdown List
+    this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+      next: (data) => {
+        this.vendorList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-  //Country  Dropdown List
-  this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
-    next: (data) => {
-      this.countryList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //Country  Dropdown List
+    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+      next: (data) => {
+        this.countryList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-   //Location Dropdown List
-   this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-    next: (data) => {
-      this.locationList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //Location Dropdown List
+    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+      next: (data) => {
+        this.locationList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-  //Item Master Dropdown List
-  this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
-    next: (data) => {
-      this.itemList = data;
-    },
-    error: (error) => {
-    }
-  });
+    //Item Master Dropdown List
+    this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
+      next: (data) => {
+        this.itemList = data;
+      },
+      error: (error) => {
+      }
+    });
 
 
 
@@ -210,7 +201,7 @@ export class AddGrnComponent implements OnInit {
           );
         }
       });
-    }else{
+    } else {
       this.showNotification(
         "snackbar-danger",
         "Please fill all the required details!",
@@ -219,8 +210,8 @@ export class AddGrnComponent implements OnInit {
       );
     }
   }
-  
-  
+
+
   fetchDetails(id: any): void {
     const obj = {
       editId: id
@@ -229,8 +220,23 @@ export class AddGrnComponent implements OnInit {
     this.grnService.editGrn(obj).subscribe({
       next: (res: any) => {
         this.spinner.hide();
+        let ggrnDateObj = this.commonService.getDateObj(res.grn.grnDate);
+        let ginvoiceDateObj = this.commonService.getDateObj(res.grn.invoiceDate);
+        let gdelOrderDateObj = this.commonService.getDateObj(res.grn.delOrderDate);
+
         this.docForm.patchValue({
-          
+          'grnDateObj': ggrnDateObj,
+          'grnDate': res.grn.grnDate,
+          'purchaseOrderId': res.grn.purchaseOrderId,
+          'vendorId':res.grn.vendorId,
+          'invoiceNo': res.grn.invoiceNo,
+          'invoiceDate': res.grn.invoiceDate,
+          'invoiceDateObj': ginvoiceDateObj,
+          'sourceLocId': res.grn.sourceLocId,
+          'deliveryLocId': res.grn.deliveryLocId,
+          'delOrderNo': res.grn.delOrderNo,
+          'delOrderDate': res.grn.delOrderDate,
+          'delOrderDateObj': gdelOrderDateObj
         })
       },
       error: (error) => {
@@ -274,7 +280,7 @@ export class AddGrnComponent implements OnInit {
           );
         }
       });
-    }else{
+    } else {
       this.showNotification(
         "snackbar-danger",
         "Please fill all the required details!",
@@ -289,13 +295,7 @@ export class AddGrnComponent implements OnInit {
     if (!this.edit) {
       this.docForm.reset();
       this.docForm.patchValue({
-        'countryCode': '',
-        'countryName': '',
-        'currencyId': '',
-        // 'clientType': '',
-        'countryIsActive': false,
         'loginedUser': this.tokenStorage.getUserId(),
-        'preparedBy': this.tokenStorage.getUsername(),
       })
     } else {
       this.fetchDetails(this.requestId);
@@ -354,45 +354,59 @@ export class AddGrnComponent implements OnInit {
     });
   }
 
-  getDateString(event,inputFlag){
+  getDateString(event, inputFlag) {
     let cdate = this.commonService.getDate(event.target.value);
-    if(inputFlag=='delOrderDate'){
-      this.docForm.patchValue({delOrderDate:cdate});
+    if (inputFlag == 'grnDate') {
+      this.docForm.patchValue({grnDate: cdate });
+    } else if(inputFlag=='invoiceDate'){
+      this.docForm.patchValue({invoiceDate: cdate});
+    } else if(inputFlag=='delOrderDate'){
+      this.docForm.patchValue({delOrderDate: cdate});
     }
   };
 
-  
 
-  getPurchaseInvoiceDetails(POID:number) {
+
+  getPurchaseOrderDetails(POID: number) {
     if (POID != undefined && POID != null) {
       this.spinner.show();
-      this.httpService.get<any>(this.purchaseOrderService.getPurchaseOrderDetailsList + "?purchaseOrderId="+POID).subscribe({
+      this.httpService.get<any>(this.purchaseOrderService.getPurchaseOrderDetailsList + "?purchaseOrderId=" + POID).subscribe({
         next: (res: any) => {
-        this.spinner.hide();
-        if (res.success) {
-          if(res.purchaseOrderDetailList!=null && res.purchaseOrderDetailList.length>=1){
-            let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
-            grnDetailArray.clear();
-            res.purchaseOrderDetailList.forEach(element => {
-              let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
-              let arraylen = grnDetailArray.length;
-              let newUsergroup: FormGroup = this.fb.group({
-                itemId: [element.itemId],  
-                price: [element.price],
-                discount: [element.discount],
-                discountPercentage:[element.discountPercent],
-                netPrice: [element.netPrice],
-                finalTotal:[element.finalTotal],
+          this.spinner.hide();
+          if (res.success) {
+            if (res.purchaseOrder != null) {
+              this.docForm.patchValue({
+                'poType': res.purchaseOrder.purchaseType,
+                'vendorId': res.purchaseOrder.vendorId,
+                'vendorAddress': res.purchaseOrder.vendorAddress,
+                'vendorCity': "",
+                'vendorState': "",
+                'vendorCountry': "",
+                'deliveryLocId': res.purchaseOrder.destinationLocation
               })
-              grnDetailArray.insert(arraylen, newUsergroup);
-            });
+            }
+            if (res.purchaseOrderDetailList != null && res.purchaseOrderDetailList.length >= 1) {
+              let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
+              grnDetailArray.clear();
+              res.purchaseOrderDetailList.forEach(element => {
+                let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
+                let arraylen = grnDetailArray.length;
+                let newUsergroup: FormGroup = this.fb.group({
+                  itemId: [element.itemId],
+                  itemCode: [element.itemCode],
+                  itemName: [element.itemName],
+                  unitPrice: [element.unitPrice],
+                  receivingQty: [""],
+                })
+                grnDetailArray.insert(arraylen, newUsergroup);
+              });
+            }
           }
+        },
+        error: (error) => {
+          this.spinner.hide();
         }
-      },
-      error: (error) => {
-        this.spinner.hide();
-      }
-    });
+      });
     }
   }
 
