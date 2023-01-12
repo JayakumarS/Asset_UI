@@ -23,6 +23,7 @@ import { VendorService } from '../vendor.service';
 import { Commodity } from '../vendor-model';
 import { CommodityResultBean } from '../vendor-result-bean';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 
 @Component({
@@ -41,11 +42,12 @@ export class AddVendorComponent implements OnInit {
   commodityMaster : Commodity;
   requestId: number;
   countryList:[];
-  edit:boolean=false;
+  companyList:[];
+    edit:boolean=false;
   currencyList: [];
   constructor(private fb: FormBuilder,private router:Router,
     public route: ActivatedRoute,private snackBar: MatSnackBar,
-    private vendorService: VendorService,private httpService: HttpServiceService, private notificationService: NotificationService) {
+    private vendorService: VendorService,private commonService:CommonService,private httpService: HttpServiceService, private notificationService: NotificationService) {
     this.docForm = this.fb.group({
       
       //AssetChek
@@ -58,6 +60,7 @@ export class AddVendorComponent implements OnInit {
       currency:["",[Validators.required]],
       vendorContact:["",[Validators.required]],
       vendorPhoneNumber:["",[Validators.required]],
+      company:["",[Validators.required]]
 
       
 
@@ -79,6 +82,7 @@ export class AddVendorComponent implements OnInit {
       currency:["",[Validators.required]],
       vendorContact:["",[Validators.required]],
       vendorPhoneNumber:["",[Validators.required]],
+      company:["",[Validators.required]],
 
 
 
@@ -94,6 +98,14 @@ export class AddVendorComponent implements OnInit {
     this.httpService.get<CommodityResultBean>(this.vendorService.countryListUrl).subscribe(
       (data) => {
         this.countryList = data.countryList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe(
+      (data) => {
+        this.companyList = data;
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);

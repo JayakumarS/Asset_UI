@@ -35,6 +35,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   locationList: [];
   countryList = [];
   locationDdList = [];
+  stateDdList = [];
+  cityDdList = [];
   list= [];
 
 
@@ -78,12 +80,15 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       billingAddress: [""],
       shipperState: [""],
       shipperZip: [""],
+      shipperCity: [""],
       shipperCountry: [""],
       billingState: [""],
+      billingCity: [""],
       billingZip: [""],
       billingCountry: [""],
       deliveryAddress: [""],
       deliveryState: [""],
+      deliverycity: [""],
       deliveryZip: [""],
       deliveryCountry: [""],
       internalNotes: [""],
@@ -148,7 +153,24 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
   }
 });
+  // State dropdown
+    this.httpService.get<any>(this.commonService.getStateDropdown).subscribe({
+    next: (data) => {
+      this.stateDdList = data;
+    },
+    error: (error) => {
 
+    }
+  });
+  // City dropdown
+  this.httpService.get<any>(this.commonService.getCityDropdown).subscribe({
+    next: (data) => {
+      this.cityDdList = data;
+    },
+    error: (error) => {
+
+    }
+  });
 // country dropdown
     this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
   next: (data) => {

@@ -7,13 +7,16 @@ export class LocationMaster {
   locationName: string;
   country: string;
   active:boolean;
-
+  // company:string;
+  // companyName:string;
   constructor(locationMaster) {
     {
       this.id = locationMaster.id || this.getRandomID();
       this.locationCode = locationMaster.locationCode || "";
       this.locationName = locationMaster.locationName || "";
       this.country = locationMaster.country || "";
+      // this.company = locationMaster.company || "";
+      // this.companyName = locationMaster.companyName || "";
     }
   }
   public getRandomID(): string {

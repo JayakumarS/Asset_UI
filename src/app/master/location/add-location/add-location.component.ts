@@ -83,7 +83,7 @@ export class AddLocationComponent implements OnInit {
       cascade: [""],
       primaryLocation: [""],
       alternateLocation: [""],
-      company:[""],
+      company:["", [Validators.required]],
     });
     this.route.params.subscribe(params => {
       if (params.id!=undefined && params.id!=0){
@@ -186,7 +186,7 @@ fetchDetails(locationId: any): void {
         'cascade':  res.locationMasterBean.cascade,
         'primaryLocation': res.locationMasterBean.primaryLocation,
         'alternateLocation': res.locationMasterBean.alternateLocation,
-
+        'company':res.locationMasterBean.company,
     });
   },
   error: (error) => {
@@ -241,6 +241,7 @@ fetchDetails(locationId: any): void {
         cascade: [""],
         primaryLocation: [""],
         alternateLocation: [""],
+        company:["",[Validators.required]],
       });
   } else {
     this.fetchDetails(this.requestId);
