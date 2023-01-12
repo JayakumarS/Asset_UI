@@ -20,12 +20,6 @@
   <div class=" col-md-2">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
         <input matInput formControlName="accType"  maxlength="50" required>
-
-    <!-- <mat-select class="inputTxt" formControlName="location">
-      <mat-option *ngFor="let title of locationList" [value]="title.id">
-          {{title.text}}
-      </mat-option>
-  </mat-select> -->
   </mat-form-field>
 </div>
 </div>
@@ -35,7 +29,7 @@
       </div>
        <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="accNo"  maxlength="50" required>
+        <input matInput formControlName="accNo"  maxlength="20"(keypress)="keyPressNumeric($event)" required>
 
       </mat-form-field>
     </div>
@@ -45,7 +39,7 @@
 
     <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="ifscCode" maxlength="15" >
+        <input matInput formControlName="ifscCode" maxlength="15"(keypress)="keyPressNumeric($event)" >
 
       </mat-form-field>
     </div>
@@ -63,17 +57,7 @@
 
     <div class="row">
       <div class=" col-md-2"></div>
-   <!-- <div class=" col-md-2">
-    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="accName"  maxlength="50" required>
 
-    <mat-select class="inputTxt" formControlName="location">
-      <mat-option *ngFor="let title of locationList" [value]="title.id">
-          {{title.text}}
-      </mat-option>
-  </mat-select>
-  </mat-form-field>
-</div> -->
  <div class=" col-md-2">
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
     <mat-select class="inputTxt" formControlName="state"maxlength="30"placeholder="State" required>
@@ -84,7 +68,7 @@
   </mat-form-field></div>
     <div class=" col-md-2">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="state"maxlength="50"placeholder="Zip" >
+        <input matInput formControlName="state"maxlength="10"placeholder="Zip"(keypress)="keyPressNumeric($event)" >
 
       </mat-form-field></div>
       <div class="row">

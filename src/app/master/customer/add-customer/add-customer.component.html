@@ -14,7 +14,8 @@
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="auditorname"  maxlength="50" required>
+              <input matInput formControlName="auditorname" [ngModel]="value"
+              (ngModelChange)="value=$event.toUpperCase()" maxlength="50"(keypress)="string($event)" required>
               <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
                 Auditor Name is required
               </mat-error>
@@ -26,7 +27,7 @@
 
           <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="registercode" maxlength="15" >
+              <input matInput formControlName="registercode" (keypress)="keyPressNumeric($event)" maxlength="15" >
               <mat-error *ngIf="docForm.get('registercode').hasError('required')">
                 Registration Code is required
               </mat-error>
@@ -40,7 +41,7 @@
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="person"  maxlength="50" required>
+              <input matInput formControlName="person"  (keypress)="string($event)" maxlength="30" required>
               <mat-error *ngIf="docForm.get('person').hasError('required')">
                 Contact Person is required
               </mat-error>
@@ -66,7 +67,7 @@
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="phone"maxlength="10" (keypress)="keyPressPCB($event)"required>
+              <input matInput formControlName="phone"maxlength="10" (keypress)="keyPressNumeric($event)"required>
               <mat-error *ngIf="docForm.get('phone').hasError('required')">
                 Contact Number is required
               </mat-error>
@@ -126,12 +127,7 @@
                   </mat-option>
               </mat-select>
               </mat-form-field>
-            <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="state"maxlength="20" required>
-              <mat-error *ngIf="docForm.get('state').hasError('required')">
-                State is required
-              </mat-error>
-            </mat-form-field> -->
+
           </div>
           <div class=" col-md-2">
             <mat-label class="lable">PIN CODE<span class="errorColor">*</span></mat-label>
@@ -139,7 +135,7 @@
 
           <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="postalcode" maxlength="6" (keypress)="keyPressPCC($event)"required>
+              <input matInput formControlName="postalcode" maxlength="6" (keypress)="keyPressNumeric($event)"required>
               <mat-error *ngIf="docForm.get('postalcode').hasError('required')">
                 PostalCode is required
               </mat-error>
@@ -153,7 +149,7 @@
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="panno"maxlength="20" >
+              <input matInput formControlName="panno"maxlength="20" (keypress)="keyPressNumeric($event)" >
             </mat-form-field>
           </div>
           <div class=" col-md-2">
@@ -162,7 +158,7 @@
 
           <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="cstno" maxlength="20" >
+              <input matInput formControlName="cstno" maxlength="20"  (keypress)="keyPressNumeric($event)">
             </mat-form-field>
           </div>
         </div>
@@ -174,7 +170,7 @@
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="gstno"maxlength="20" >
+              <input matInput formControlName="gstno"maxlength="20"  (keypress)="keyPressNumeric($event)">
             </mat-form-field>
           </div>
           <div class=" col-md-2">
@@ -264,20 +260,12 @@
       </div>
       <div class=" col-md-1">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="shipperZip"maxlength="50"placeholder="Zip" >
+          <input matInput formControlName="shipperZip"maxlength="10"placeholder="Zip" (keypress)="keyPressNumeric($event)" >
 
         </mat-form-field></div>
 
 <div class=" col-md-2"></div>
-        <!-- <div class=" col-md-2">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="location">
-            <mat-option *ngFor="let title of locationList" [value]="title.id">
-                {{title.text}}
-            </mat-option>
-        </mat-select>
-        </mat-form-field>
-      </div> -->
+
        <div class=" col-md-2">
 
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -298,7 +286,7 @@
             </mat-form-field></div>
           <div class=" col-md-1">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="billingZip"maxlength="50"placeholder="Zip" >
+              <input matInput formControlName="billingZip"maxlength="10"placeholder="Zip" (keypress)="keyPressNumeric($event)" >
 
             </mat-form-field></div>
 
@@ -355,7 +343,7 @@
           </mat-form-field></div>
           <div class=" col-md-1">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="deliveryZip"maxlength="50"placeholder="Zip" >
+              <input matInput formControlName="deliveryZip"maxlength="50"placeholder="Zip"  (keypress)="keyPressNumeric($event)">
 
             </mat-form-field></div>
             <div class=" col-md-8"></div>
@@ -419,13 +407,13 @@
                 <td class="padding-both-side-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Phone</mat-label>
-                    <input matInput name="conPhone{{i}}"  formControlName="conPhone">
+                    <input matInput name="conPhone{{i}}"  formControlName="conPhone"maxlength="10" (keypress)="keyPressNumeric($event)">
                   </mat-form-field>
                 </td>
                 <td class="padding-both-side-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Mobile</mat-label>
-                    <input matInput name="mobile{{i}}"  formControlName="mobile">
+                    <input matInput name="mobile{{i}}"  formControlName="mobile"maxlength="10" (keypress)="keyPressNumeric($event)">
                   </mat-form-field>
                 </td>
 
@@ -449,7 +437,7 @@
 
           <div class=" col-md-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <textarea matInput formControlName="internalNotes" placeholder="Put On Internal Notes.."></textarea>
+            <textarea matInput formControlName="internalNotes"maxlength="200" placeholder="Put On Internal Notes.."></textarea>
 
           </mat-form-field>
         </div>
@@ -508,7 +496,7 @@
 
     <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="supplier" maxlength="6" (keypress)="keyPressPCC($event)"required>
+        <input matInput formControlName="supplier" maxlength="20"(keypress)="keyPressNumeric($event)"required>
 
       </mat-form-field>
     </div>
@@ -520,7 +508,7 @@
       </div>
        <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="totalReceivable"maxlength="20" required>
+        <input matInput formControlName="totalReceivable"maxlength="20"(keypress)="keyPressNumeric($event)" required>
 
       </mat-form-field>
     </div>
@@ -530,7 +518,7 @@
 
     <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="creditLimit" maxlength="6" (keypress)="keyPressPCC($event)"required>
+        <input matInput formControlName="creditLimit" maxlength="20" (keypress)="keyPressNumeric($event)"required>
 
       </mat-form-field>
     </div>

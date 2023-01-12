@@ -103,4 +103,21 @@ showNotification(colorName, text, placementFrom, placementAlign) {
 onNoClick(): void {
   this.dialogRef.close();
 }
+
+
+string(event: any) {
+  const pattern = /[A-Za-z]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
+
+keyPressNumeric(event: any) {
+  const pattern = /[0-9]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
 }

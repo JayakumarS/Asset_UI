@@ -35,7 +35,7 @@
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="currencyName" maxlength="15"[ngModel]="value1"
-                      (ngModelChange)="value1=$event.toUpperCase()" (keypress)="string($event)"(keypress)="keyPressName($event)" required>
+                      (ngModelChange)="value1=$event.toUpperCase()" (keypress)="string($event)" required>
                       <mat-error *ngIf="docForm.get('currencyName').hasError('required')">
                         Currency Name  is required
                       </mat-error>

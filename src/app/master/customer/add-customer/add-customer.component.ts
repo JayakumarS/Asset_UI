@@ -38,6 +38,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   stateDdList = [];
   cityDdList = [];
   list= [];
+  value = [];
 
 
   constructor(private fb: FormBuilder,
@@ -163,7 +164,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
     }
   });
   // City dropdown
-  this.httpService.get<any>(this.commonService.getCityDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getCityDropdown).subscribe({
     next: (data) => {
       this.cityDdList = data;
     },
@@ -243,17 +244,63 @@ fetchDetails(cus_id: any): void {
       'email': res.customerBean.email,
       'phone' : res.customerBean.phone,
       'address': res.customerBean.address,
-      'addresstwo':res.customerBean.addresstwo,
+      'addresstwo': res.customerBean.addresstwo,
       'city': res.customerBean.city,
-      'state':res.customerBean.state,
-      'postalcode':res.customerBean.postalcode,
-      'panno':res.customerBean.panno,
-      'vatno':res.customerBean.vatno,
-      'gstno':res.customerBean.gstno,
-      'cstno':res.customerBean.cstno,
-      'remarks':res.customerBean.remarks,
-      'active':res.customerBean.active,
-      'resperson':res.customerBean.resperson
+      'state': res.customerBean.state,
+      'postalcode': res.customerBean.postalcode,
+      'panno': res.customerBean.panno,
+      'vatno': res.customerBean.vatno,
+      'gstno': res.customerBean.gstno,
+      'cstno': res.customerBean.cstno,
+      'remarks': res.customerBean.remarks,
+      'active': res.customerBean.active,
+      'resperson': res.customerBean.resperson,
+      'location': res.customerBean.location,
+      'vendorLocation': res.customerBean.vendorLocation,
+      'shipperAddress': res.customerBean.shipperAddress,
+      'billingAddress': res.customerBean.billingAddress,
+      'shipperState': res.customerBean.shipperState,
+      'shipperZip': res.customerBean.shipperZip,
+      'shipperCity': res.customerBean.shipperCity,
+      'shipperCountry': res.customerBean.shipperCountry,
+      'billingState': res.customerBean.billingState,
+      'billingCity': res.customerBean.billingCity,
+      'billingZip': res.customerBean.billingZip,
+      'billingCountry': res.customerBean.billingCountry,
+      'deliveryAddress': res.customerBean.deliveryAddress,
+      'deliveryState': res.customerBean.deliveryState,
+      'deliverycity': res.customerBean.deliverycity,
+      'deliveryZip': res.customerBean.deliveryZip,
+      'deliveryCountry': res.customerBean.deliveryCountry,
+      'internalNotes': res.customerBean.internalNotes,
+      'method': res.customerBean.method,
+
+      contactDetail: this.fb.array([
+        this.fb.group({
+          'name': res.customerBean.name,
+          'position': res.customerBean.position,
+          'conEmail': res.customerBean.conEmail,
+          'conPhone': res.customerBean.conPhone,
+          'mobile': res.customerBean.mobile,
+        })
+      ]),
+      accountDetail: this.fb.array([
+        this.fb.group({
+          'bankName': res.customerBean.bankName,
+          'accType': res.customerBean.accType,
+          'accNo': res.customerBean.accNo,
+          'ifscCode': res.customerBean.ifscCode,
+          'address': res.customerBean.address,
+          'state': res.customerBean.state,
+          'accName': res.customerBean.accName,
+          'addresstwo': res.customerBean.addresstwo,
+          'acctReceivable': res.customerBean.acctReceivable,
+          'supplier': res.customerBean.supplier,
+          'totalReceivable': res.customerBean.totalReceivable,
+          'creditLimit': res.customerBean.creditLimit,
+
+        })
+      ]),
 
    });
   },
@@ -277,6 +324,14 @@ keyPressPCC(event:any){
     event.preventDefault();
   }
 
+}
+
+keyPressNumeric(event: any) {
+  const pattern = /[0-9]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
 }
 
 update(){
@@ -424,5 +479,12 @@ addRow(){
 }
 
 
+string(event: any) {
+  const pattern = /[A-Za-z]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
 
 }
