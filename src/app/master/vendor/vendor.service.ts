@@ -70,7 +70,7 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
     this.httpService.post<Commodity>(this.saveCommodity, commodity).subscribe(data => {
       console.log(data);
       if(data.success===true){
-        if(data.message != ""){
+        if(data.message != null && data.message != ""){
           notificationService.showNotification(
             "snackbar-danger",
             "Email Already Exists!!!",
