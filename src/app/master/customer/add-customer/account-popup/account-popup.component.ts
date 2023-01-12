@@ -18,6 +18,7 @@ export class AccountPopupComponent implements OnInit {
   docForm: FormGroup;
   customerMaster: any;
   countryList = [];
+  stateDdList = [];
 
   constructor(private fb: FormBuilder,
               private snackBar: MatSnackBar,
@@ -59,8 +60,17 @@ export class AccountPopupComponent implements OnInit {
 
       }
     });
-  }
 
+ // State dropdown
+    this.httpService.get<any>(this.commonService.getStateDropdown).subscribe({
+  next: (data) => {
+    this.stateDdList = data;
+  },
+  error: (error) => {
+
+  }
+});
+  }
   public onSubmit(): void {
     this.dialogRef.close({ account: this.docForm.value });
 

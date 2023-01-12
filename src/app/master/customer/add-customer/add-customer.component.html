@@ -103,11 +103,12 @@
             </div>
 
           <div class=" col-md-4">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="city" maxlength="50" required>
-              <mat-error *ngIf="docForm.get('city').hasError('required')">
-                City is required
-              </mat-error>
+             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <mat-select class="inputTxt" formControlName="city"maxlength="30" required>
+                <mat-option *ngFor="let title of cityDdList" [value]="title.id">
+                    {{title.text}}
+                </mat-option>
+            </mat-select>
             </mat-form-field>
           </div>
         </div>
@@ -118,12 +119,19 @@
             <mat-label class="lable">State<span class="errorColor">*</span></mat-label>
             </div>
              <div class=" col-md-4">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <mat-select class="inputTxt" formControlName="state"maxlength="30" required>
+                  <mat-option *ngFor="let title of stateDdList" [value]="title.id">
+                      {{title.text}}
+                  </mat-option>
+              </mat-select>
+              </mat-form-field>
+            <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="state"maxlength="20" required>
               <mat-error *ngIf="docForm.get('state').hasError('required')">
                 State is required
               </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
           </div>
           <div class=" col-md-2">
             <mat-label class="lable">PIN CODE<span class="errorColor">*</span></mat-label>
@@ -235,24 +243,26 @@
           <input matInput formControlName="billingAddress"maxlength="50" >
       </mat-form-field>
       </div>
+      <div class=" col-md-2"></div>
       <div class=" col-md-2">
-
-        </div>
-         <!-- <div class=" col-md-2">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="location">
-            <mat-option *ngFor="let title of locationList" [value]="title.id">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="shipperState"maxlength="30"placeholder="State" required>
+            <mat-option *ngFor="let title of stateDdList" [value]="title.id">
                 {{title.text}}
             </mat-option>
         </mat-select>
         </mat-form-field>
-      </div> -->
-      <div class=" col-md-2">
-      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="shipperState"maxlength="50"placeholder="State" >
-
-      </mat-form-field></div>
-      <div class=" col-md-2">
+      </div>
+      <div class=" col-md-1">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="shipperCity"maxlength="30"placeholder="City" required>
+            <mat-option *ngFor="let title of cityDdList" [value]="title.id">
+                {{title.text}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div class=" col-md-1">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="shipperZip"maxlength="50"placeholder="Zip" >
 
@@ -269,11 +279,24 @@
         </mat-form-field>
       </div> -->
        <div class=" col-md-2">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput formControlName="billingState"maxlength="50"placeholder="State" >
 
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <mat-select class="inputTxt" formControlName="billingState"maxlength="30"placeholder="State" required>
+              <mat-option *ngFor="let title of stateDdList" [value]="title.id">
+                  {{title.text}}
+              </mat-option>
+          </mat-select>
           </mat-form-field></div>
-          <div class=" col-md-2">
+          <div class=" col-md-1">
+
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <mat-select class="inputTxt" formControlName="billingCity"maxlength="30"placeholder="City" required>
+                <mat-option *ngFor="let title of cityDdList" [value]="title.id">
+                    {{title.text}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field></div>
+          <div class=" col-md-1">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="billingZip"maxlength="50"placeholder="Zip" >
 
@@ -313,21 +336,24 @@
 
 
 <div class=" col-md-8"></div>
-        <!-- <div class=" col-md-2">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="location">
-            <mat-option *ngFor="let title of locationList" [value]="title.id">
+
+       <div class=" col-md-2">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="deliveryState"maxlength="30"placeholder="State" required>
+            <mat-option *ngFor="let title of stateDdList" [value]="title.id">
                 {{title.text}}
             </mat-option>
         </mat-select>
-        </mat-form-field>
-      </div> -->
-       <div class=" col-md-2">
+        </mat-form-field></div>
+        <div class=" col-md-1">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput formControlName="deliveryState"maxlength="50"placeholder="State" >
-
+            <mat-select class="inputTxt" formControlName="deliverycity"maxlength="30"placeholder="City" required>
+              <mat-option *ngFor="let title of cityDdList" [value]="title.id">
+                  {{title.text}}
+              </mat-option>
+          </mat-select>
           </mat-form-field></div>
-          <div class=" col-md-2">
+          <div class=" col-md-1">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="deliveryZip"maxlength="50"placeholder="Zip" >
 
@@ -472,7 +498,7 @@
       </div>
        <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="state"maxlength="20" required>
+        <input matInput formControlName="acctReceivable"maxlength="20" required>
 
       </mat-form-field>
     </div>
@@ -482,7 +508,7 @@
 
     <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="postalcode" maxlength="6" (keypress)="keyPressPCC($event)"required>
+        <input matInput formControlName="supplier" maxlength="6" (keypress)="keyPressPCC($event)"required>
 
       </mat-form-field>
     </div>
@@ -494,7 +520,7 @@
       </div>
        <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="state"maxlength="20" required>
+        <input matInput formControlName="totalReceivable"maxlength="20" required>
 
       </mat-form-field>
     </div>
@@ -504,7 +530,7 @@
 
     <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="postalcode" maxlength="6" (keypress)="keyPressPCC($event)"required>
+        <input matInput formControlName="creditLimit" maxlength="6" (keypress)="keyPressPCC($event)"required>
 
       </mat-form-field>
     </div>

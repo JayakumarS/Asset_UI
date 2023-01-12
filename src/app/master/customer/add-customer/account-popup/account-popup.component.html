@@ -75,10 +75,13 @@
   </mat-form-field>
 </div> -->
  <div class=" col-md-2">
-    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="state"maxlength="50"placeholder="State" >
-
-    </mat-form-field></div>
+  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+    <mat-select class="inputTxt" formControlName="state"maxlength="30"placeholder="State" required>
+      <mat-option *ngFor="let title of stateDdList" [value]="title.id">
+          {{title.text}}
+      </mat-option>
+  </mat-select>
+  </mat-form-field></div>
     <div class=" col-md-2">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
         <input matInput formControlName="state"maxlength="50"placeholder="Zip" >
