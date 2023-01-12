@@ -76,7 +76,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   locationList =[];
   mainList =[];
 
-  columnsToDisplay = ["itemName", "itemDesc", "location", "quantity"];
+  columnsToDisplay = ["assetName", "categoryName", "location", "quantity"];
   innerDisplayedColumns = ["date","docType","docRef","inQty","outQty"];
 
   expandedElement: MainList | null;
@@ -186,22 +186,22 @@ this.viewReport();
     this.mainList=[];
     this.gllist=[];
     this.httpService.post(this.inventoryReportService.getInvemtoryReports, this.customerMaster).subscribe((res: any) => {
-      console.log(res.inventoryReportDetails);
-      this.mainList=res.inventoryReportDetails;
-      if(this.mainList!=null){
-      this.mainList.forEach(data => {
-        if (data.subList && Array.isArray(data.subList) && data.subList.length) {
-          this.gllist = [...this.gllist,
-            { ...data, subList: new MatTableDataSource(data.subList) }
-          ];
-        } 
+      console.log(res.inventoryReportsDetails);
+      this.mainList=res.inventoryReportsDetails;
+    //   if(this.mainList!=null){
+    //   this.mainList.forEach(data => {
+    //     if (data.subList && Array.isArray(data.subList) && data.subList.length) {
+    //       this.gllist = [...this.gllist,
+    //         { ...data, subList: new MatTableDataSource(data.subList) }
+    //       ];
+    //     } 
       
-        else {
-          this.gllist = [...this.gllist, data];
-        }
-      });
-    }
-      this.dataSource = new MatTableDataSource(this.gllist);
+    //     else {
+    //       this.gllist = [...this.gllist, data];
+    //     }
+    //   });
+    // }
+      this.dataSource = new MatTableDataSource(this.mainList);
       this.dataSource.sort = this.sort;
     });
  
@@ -238,7 +238,7 @@ this.viewReport();
   }
   
   toggleElement(row1: MainList) {
-    const index = this.expandedElements.findIndex(x => x.itemName == row1.itemName);
+    const index = this.expandedElements.findIndex(x => x.assetName == row1.assetName);
     if (index === -1) {
       this.expandedElements.push(row1);
     } else {
@@ -247,7 +247,7 @@ this.viewReport();
   }
   
   isExpanded(row1: MainList): string {
-    const index = this.expandedElements.findIndex(x => x.itemName == row1.itemName);
+    const index = this.expandedElements.findIndex(x => x.assetName == row1.assetName);
     if (index !== -1) {
       return 'expanded';
     }
@@ -256,9 +256,9 @@ this.viewReport();
 }
 
 export interface MainList {
-  itemName:String;
+  assetName:String;
   location:String;
-  itemDesc:String;
+  categoryName:String;
   quantity:String;
   subList?: SubList[] | MatTableDataSource<SubList>;
 }

@@ -66,14 +66,14 @@
           <table mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows
           class="mat-elevation-z8" matSort>
           
-          <ng-container matColumnDef="itemName">
+          <ng-container matColumnDef="assetName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;Item Name</th>
-              <td mat-cell *matCellDef="let row"> {{row.itemName}}
+              <td mat-cell *matCellDef="let row"> {{row.assetName}}
               </td>
           </ng-container>
-          <ng-container matColumnDef="itemDesc">
+          <ng-container matColumnDef="categoryName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Description</th>
-              <td mat-cell *matCellDef="let row"> {{row.itemDesc}}
+              <td mat-cell *matCellDef="let row"> {{row.categoryName}}
               </td>
           </ng-container>
           <ng-container matColumnDef="location">
@@ -83,7 +83,7 @@
           </ng-container>
           <ng-container matColumnDef="quantity">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
-              <td mat-cell *matCellDef="let row"> {{row.balanceQty}}
+              <td mat-cell *matCellDef="let row"> {{row.quantity}}
               </td>
           </ng-container>
           

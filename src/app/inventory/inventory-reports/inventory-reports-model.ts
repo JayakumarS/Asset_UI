@@ -5,7 +5,7 @@ export class InventoryReports{
     availableQty: string;
     orderQty: string;
     workInQty: string;
-    itemDesc: string | number;
+    categoryName: string | number;
     locationName: string | number;
     openingBalance: string | number;
     itemCode: string | number;
@@ -14,7 +14,7 @@ export class InventoryReports{
     consumedQty: number;
     sold: any;
     price: any;
-    itemName: string;
+    assetName: string;
     quantity:string;
     item: string;
     location: string;
@@ -25,7 +25,7 @@ export class InventoryReports{
           this.availableQty = inventoryReport.availableQty || "";
           this.orderQty = inventoryReport.orderQty || "";
           this.workInQty = inventoryReport.workInQty || "";
-          this.itemName = inventoryReport.itemName || "";
+          this.assetName = inventoryReport.assetName || "";
           this.quantity = inventoryReport.quantity || "";
         }
       }
