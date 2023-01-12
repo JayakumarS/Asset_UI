@@ -1,18 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-add-vendor',
-//   templateUrl: './add-vendor.component.html',
-//   styleUrls: ['./add-vendor.component.sass']
-// })
-// export class AddVendorComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,6 +9,7 @@ import { Commodity } from '../vendor-model';
 import { CommodityResultBean } from '../vendor-result-bean';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { DataSource, SelectionModel } from '@angular/cdk/collections';
 
 
 @Component({
@@ -43,12 +29,15 @@ export class AddVendorComponent implements OnInit {
   requestId: number;
   countryList:[];
   companyList:[];
-    edit:boolean=false;
+  edit:boolean=false;
   currencyList: [];
+  selection = new SelectionModel<Commodity>(true, []);
+
   constructor(private fb: FormBuilder,private router:Router,
     public route: ActivatedRoute,private snackBar: MatSnackBar,
     private vendorService: VendorService,private commonService:CommonService,private httpService: HttpServiceService, private notificationService: NotificationService) {
-    this.docForm = this.fb.group({
+   
+      this.docForm = this.fb.group({
       
       //AssetChek
       vendorId:[""],
@@ -103,14 +92,23 @@ export class AddVendorComponent implements OnInit {
         console.log(error.name + " " + error.message);
       }
     );
-    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe(
-      (data) => {
+    // this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe(
+    //   (data) => {
+    //     this.companyList = data;
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     console.log(error.name + " " + error.message);
+    //   }
+    // );
+    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+      next: (data) => {
         this.companyList = data;
       },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
+      error: (error) => {
+  
       }
-    );
+    });
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -163,7 +161,8 @@ export class AddVendorComponent implements OnInit {
         'vendorAddress': res.venderBean.vendorAddress,
         'vendorEmail':res.venderBean.vendorEmail,
         'vendorId': res.venderBean.vendorId,
-        'vendorContact':res.venderBean.vendorContact
+        'vendorContact':res.venderBean.vendorContact,
+        'company':res.venderBean.company,
 
      });
     },
@@ -181,15 +180,7 @@ keyPressPCB(event: any) {
 
   update(){
     this.commodityMaster = this.docForm.value;
-    this.vendorService.updateCommodity(this.commodityMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Edit Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/vendor/listVendor']);
-
+    this.vendorService.updateCommodity(this.commodityMaster,this.router,this.notificationService);
   }
 
   onCancel(){

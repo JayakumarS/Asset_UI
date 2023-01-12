@@ -102,17 +102,37 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
       });
   }
 
-  updateCommodity(commodity: Commodity): void {
+  updateCommodity(commodity: Commodity,router,notificationService): void {
     this.dialogData = commodity;
     this.httpService.post<Commodity>(this.updatecommodity, commodity).subscribe(data => {
       console.log(data);
-      /* this.httpClient.put(this.API_URL + employees.id, employees).subscribe(data => {
-        this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-        // error code here
+      if(data.success===true){
+        if(data.message != null && data.message != ""){
+          notificationService.showNotification(
+            "snackbar-danger",
+            "Email Already Exists!!!",
+            "bottom",
+            "center"
+          );
+        }else{
+        notificationService.showNotification(
+          "snackbar-success",
+          "Edit Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/vendor/listVendor']);
+        }
+       
       }
-    );*/
+      else if(data.success===false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
     });
   }
   // deleteCommodity(vendorId: any): void {
