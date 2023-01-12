@@ -1,44 +1,40 @@
 export class InventoryReports{
-
-  fromDateObj:string;
-      toDateObj:string
-      item:string
-      itemCode:string
-      itemWise:string
-      itemdescription:string
-      location:string
-      maxquality:number
-      minquality:number
-      size:number
-      cost:number
-      defaultprice:number
-      fromDate:string
-      toDate:string
-  constructor(InventoryReports) {
-    {
-      this.itemCode = InventoryReports.itemCode || this.getRandomID();
-      this.fromDateObj = InventoryReports.fromDateObj || "";
-      this.toDateObj = InventoryReports.toDateObj || "";
-      this.item = InventoryReports.item || "";
-      this.itemWise = InventoryReports.itemWise || "";
-      this.itemdescription = InventoryReports.itemdescription || "";
-      this.location = InventoryReports.location || "";
-      this.maxquality = InventoryReports.maxquality || "";
-      this.minquality = InventoryReports.minquality || "";
-      this.size = InventoryReports.size || "";
-      this.cost = InventoryReports.cost || "";
-      this.defaultprice = InventoryReports.defaultprice || "";
-      
-    }
-  }
-  public getRandomID(): string {
-    const S4 = () => {
-      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-    };
-    return S4() + S4();
-  }
   
-
-
-
-}
+    itemId: number;
+    itemWise: string;
+    availableQty: string;
+    orderQty: string;
+    workInQty: string;
+    itemDesc: string | number;
+    locationName: string | number;
+    openingBalance: string | number;
+    itemCode: string | number;
+    fromDate: any;
+    toDate: any;
+    consumedQty: number;
+    sold: any;
+    price: any;
+    itemName: string;
+    quantity:string;
+    item: string;
+    location: string;
+    
+      constructor(inventoryReport) {
+        {
+          this.itemWise = inventoryReport.itemWise || "";
+          this.availableQty = inventoryReport.availableQty || "";
+          this.orderQty = inventoryReport.orderQty || "";
+          this.workInQty = inventoryReport.workInQty || "";
+          this.itemName = inventoryReport.itemName || "";
+          this.quantity = inventoryReport.quantity || "";
+        }
+      }
+      public getRandomID(): string {
+        const S4 = () => {
+          return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        };
+        return S4() + S4();
+      }
+    
+    
+    }

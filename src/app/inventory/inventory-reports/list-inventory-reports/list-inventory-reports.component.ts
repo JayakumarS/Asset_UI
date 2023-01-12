@@ -1,13 +1,15 @@
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import {  FormBuilder, FormGroup } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -15,7 +17,10 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+import { StockVerificationResultBean } from '../../stock-verification/stock-verification-result-bean';
+import { StockVerificationService } from '../../stock-verification/stock-verification.service';
 import { InventoryReports } from '../inventory-reports-model';
+import { InventoryResultBean } from '../inventory-reports-resiltBean';
 import { InventoryReportsService } from '../inventory-reports.service';
 
 export const MY_DATE_FORMATS = {
@@ -49,149 +54,120 @@ export const MY_DATE_FORMATS = {
 })
 export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter implements OnInit{
 
-  displayedColumns=[
-
-    "itemCode",
-    "itemWise",
-    "itemdescription",
-    "location",
-    "maxquality",
-    "minquality",
-    "size",
-    "cost",
-    "defaultprice"
-  ];
-  dataSource:ExampleDataSource|null;
+  @ViewChild('outerSort', { static: true }) sort: MatSort;
+  @ViewChildren('innerSort') innerSort: QueryList<MatSort>;
+  @ViewChildren('innerTables') innerTables: QueryList<MatTable<SubList>>;
+ 
+  dataSource: MatTableDataSource<MainList>;
+  table:boolean=false;
+  //dataSource: ExampleDataSource | null;
+  exampleDatabase: InventoryReportsService | null;
   selection = new SelectionModel<InventoryReports>(true, []);
-  inventoryReports: InventoryReports | null;
-  viewReportList: any;
-  isTblLoading: boolean;
-  docForm:FormGroup;
   index: number;
   id: number;
-  item:[""];
-  itemList:[""];
-  requestId: any;
-  edit:Boolean=false;
-  httpClient: HttpClient;
-  exampleDatabase: InventoryReportsService;
- 
-  constructor(private fb: FormBuilder,
-    public inventoryReportsService:InventoryReportsService,
-    private httpService: HttpServiceService,
-    private notificationService : NotificationService,
+  customerMaster: InventoryReports | null;
+  groupHeadList = [];
+  docForm: FormGroup;
+  itemList = [];
+  inventoryReport :InventoryReports
+  countValue: any;
+  viewReportList: any;
+  isTblLoading: boolean;
+  locationList =[];
+  mainList =[];
+
+  columnsToDisplay = ["itemName", "itemDesc", "location", "quantity"];
+  innerDisplayedColumns = ["date","docType","docRef","inQty","outQty"];
+
+  expandedElement: MainList | null;
+  expandedElements: any[] = [];
+  innerExpandedElements: any[] = [];
+  glList=[];
+  gllist: MainList[] = [];
+  locationDdList: any;
+  itemNameDdList: any;
+
+  constructor(
+    public httpClient: HttpClient,
+    public dialog: MatDialog,
     private serverUrl:serverLocations,
-    private snackBar:MatSnackBar,
-    private router:Router,private cmnService:CommonService,
-    public route: ActivatedRoute,) {
-      super();
-    }
+    private httpService:HttpServiceService,
+    public router:Router,
+    private notificationService : NotificationService,
+    private fb: FormBuilder,
+    private inventoryReportService: InventoryReportsService,
+    private cmnService:CommonService,
+    private stockVerificationService: StockVerificationService,
+    private cd: ChangeDetectorRef,
+    private commonService: CommonService,
+
+
+    
+  ) {
+  super();{ 
+  }
+    this.docForm = this.fb.group({
+     
+      item: [""],
+      fromDateObj: [""],
+      toDateObj:[""],
+      fromDate: [""],
+      toDate: [""],
+      itemWise: [""],
+      availableQty: [""],
+      orderQty: [""],
+      workInQty: [""],
+      location: [""]
+    });
+  }
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
   @ViewChild(MatMenuTrigger)
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    this.docForm = this.fb.group({
-      fromDateObj:[""],
-      toDateObj:[""],
-      item:[""],
-      itemCode:[""],
-      itemWise:[""],
-      itemdescription:[""],
-      location:[""],
-      maxquality:[""],
-      minquality:[""],
-      size:[""],
-      cost:[""],
-      defaultprice:[""],
-      fromDate:[""],
-      toDate:[""],
-    });
-    
-    this.httpService.get<any>(this.cmnService.getItemNameDropdown).subscribe({
-      next: (data) => {
-        this.itemList = data;
-      },
-      error: (error) => {
-      }
-    });
-
-    
-    this.loadData();
-    this.route.params.subscribe(params => {
-      if (params.id != undefined && params.id != 0) {
-        this.requestId = params.id;
-        this.edit = true;
-        this.fetchDetails(this.requestId);
-      }
-    });
-
- 
-
-  }
-  refresh(){
-    this.loadData();
-  }
-
-
-  public loadData() {
-    this.exampleDatabase = new InventoryReportsService(this.httpClient,this.serverUrl,this.httpService);
-    this.dataSource = new ExampleDataSource(
-      this.exampleDatabase,
-      this.paginator,
-      this.sort,
-    );
-    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
-      () => {
-        if (!this.dataSource) {
-          return;
-        }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      }
-    );
-  }
-
- 
-
-  exportExcel(){
-    this.httpService.post<any>(this.inventoryReportsService.excelExportUrl,this.docForm.value).subscribe(data => {
-      console.log(data);
-      if(data.success){
-      window.open(this.serverUrl.apiServerAddress+data.filePath, '_blank');
-      }
-      else{
-        this.notificationService.showNotification(
-          "snackbar-danger",
-          data.message,
-          "bottom",
-          "center"
-        );
-      }
-      
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
-  }
-
-  onSubmit(){
-    this.inventoryReports = this.docForm.value;
-    console.log(this.inventoryReports);
-    this.loadData();
-
-
-  }
   
-  fetchDetails(id:any):void{
+// this.httpService.get<InventoryResultBean>(this.inventoryReportService.inventoryDetails,).subscribe(
+//   (data) => {
+//     console.log(data);
+//     this.itemList = data.itemList;
+//   },
+//   (error: HttpErrorResponse) => {
+//     console.log(error.name + " " + error.message);
+//   }
+// );
+
+    
+this.viewReport();
+
+
+
+ // Location dropdown
+ this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+  next: (data) => {
+    this.locationDdList = data;
+  },
+  error: (error) => {
 
   }
-  searchData(){
+}
+);
+
+
+ // Location dropdown
+ this.httpService.get<any>(this.commonService.getItemNameDropdown).subscribe({
+  next: (data) => {
+    this.itemNameDdList = data;
+  },
+  error: (error) => {
 
   }
-  reset(){
+}
+);
+
+
 
   }
 
@@ -202,146 +178,96 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
     }else if(inputFlag == 'toDate'){
       this.docForm.patchValue({toDate:cdate});
     }
-  }
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
-// context menu
-  onContextMenu(event: MouseEvent, item: InventoryReports) {
-    event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + "px";
-    this.contextMenuPosition.y = event.clientY + "px";
-    this.contextMenu.menuData = { item: item };
-    this.contextMenu.menu.focusFirstItem("mouse");
-    this.contextMenu.openMenu();
-  }
-  
-  showNotification(colorName, text, placementFrom, placementAlign) {
-    this.snackBar.open(text, "", {
-      duration: 2000,
-      verticalPosition: placementFrom,
-      horizontalPosition: placementAlign,
-      panelClass: colorName,
+
+  };
+
+  viewReport(){
+    this.customerMaster = this.docForm.value;
+    this.mainList=[];
+    this.gllist=[];
+    this.httpService.post(this.inventoryReportService.getInvemtoryReports, this.customerMaster).subscribe((res: any) => {
+      console.log(res.inventoryReportDetails);
+      this.mainList=res.inventoryReportDetails;
+      if(this.mainList!=null){
+      this.mainList.forEach(data => {
+        if (data.subList && Array.isArray(data.subList) && data.subList.length) {
+          this.gllist = [...this.gllist,
+            { ...data, subList: new MatTableDataSource(data.subList) }
+          ];
+        } 
+      
+        else {
+          this.gllist = [...this.gllist, data];
+        }
+      });
+    }
+      this.dataSource = new MatTableDataSource(this.gllist);
+      this.dataSource.sort = this.sort;
     });
+ 
+  }
+
+
+  reset(){
+   
+    this.docForm = this.fb.group({
+      item: [""],
+      fromDateObj: [""],
+      toDateObj:[""],
+      location: [""]
+    });
+    this.mainList=[];
+    this.gllist=[];
+    this.viewReport();
+  }
+
+  applyFilter(filterValue: string) {
+    this.innerTables.forEach(
+      (table, index) =>
+        ((table.dataSource as MatTableDataSource<SubList>).filter = filterValue.trim().toLowerCase())
+    );
+  }
+  
+  toggleRow(element: MainList) {
+    element.subList &&(element.subList as MatTableDataSource<SubList>).data.length? this.toggleElement(element): null;
+    this.cd.detectChanges();
+    this.innerTables.forEach(
+      (table, index) =>
+        ((table.dataSource as MatTableDataSource<SubList>).sort = this.innerSort.toArray()[index])
+    );
+  }
+  
+  toggleElement(row1: MainList) {
+    const index = this.expandedElements.findIndex(x => x.itemName == row1.itemName);
+    if (index === -1) {
+      this.expandedElements.push(row1);
+    } else {
+      this.expandedElements.splice(index, 1);
+    }
+  }
+  
+  isExpanded(row1: MainList): string {
+    const index = this.expandedElements.findIndex(x => x.itemName == row1.itemName);
+    if (index !== -1) {
+      return 'expanded';
+    }
+    return 'collapsed';
   }
 }
 
-export class ExampleDataSource extends DataSource<InventoryReports> {
- filterChange = new BehaviorSubject("");
- get filter(): string {
-   return this.filterChange.value;
- }
- set filter(filter: string) {
-   this.filterChange.next(filter);
- }
- filteredData: InventoryReports[] = [];
- renderedData: InventoryReports[] = [];
- constructor(
-   public exampleDatabase: InventoryReportsService,
-   public paginator: MatPaginator,
-   public _sort: MatSort
- ) {
-   super();
-  
-   this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
- }
- connect(): Observable<InventoryReports[]> {
-   const displayDataChanges = [
-     this.exampleDatabase.dataChange,
-     this._sort.sortChange,
-     this.filterChange,
-     this.paginator.page,
-   ];
-   this.exampleDatabase.getAllList();
-   return merge(...displayDataChanges).pipe(
-     map(() => {
-       this.filteredData = this.exampleDatabase.data
-         .slice()
-         .filter((inventoryReports: InventoryReports) => {
-           const searchStr = (
-            inventoryReports.fromDateObj+
-            inventoryReports.toDate+
-            inventoryReports.item+
-            inventoryReports.itemCode+
-            inventoryReports.itemWise+
-            inventoryReports.itemdescription+ 
-            inventoryReports.location+ 
-            inventoryReports.maxquality+ 
-            inventoryReports.minquality+ 
-            inventoryReports.cost+ 
-            inventoryReports.size+ 
-            inventoryReports.defaultprice
-            
-           ).toLowerCase();
-           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-         });
-       // Sort filtered data
-       const sortedData = this.sortData(this.filteredData.slice());
-       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-       this.renderedData = sortedData.splice(
-         startIndex,
-         this.paginator.pageSize
-       );
-       return this.renderedData;
-     })
-   );
- }
- disconnect() {}
- sortData(data: InventoryReports[]): InventoryReports[] {
-   if (!this._sort.active || this._sort.direction === "") {
-     return data;
-   }
-   return data.sort((a, b) => {
-     let propertyA: number | string |boolean= "";
-     let propertyB: number | string |boolean= "";
-     switch (this._sort.active) {
-      
-       case "fromDateObj":
-         [propertyA, propertyB] = [a.fromDateObj, b.fromDateObj];
-         break;
-       case "toDateObj":
-         [propertyA, propertyB] = [a.toDateObj, b.toDateObj];
-         break;
-         case "item":
-          [propertyA, propertyB] = [a.item, b.item];
-          break;
-       case "itemCode":
-         [propertyA, propertyB] = [a.itemCode, b.itemCode];
-         break;
-       case "itemWise":
-           [propertyA, propertyB] = [a.itemWise, b.itemWise];
-         break;  
-         case "itemdescription":
-          [propertyA, propertyB] = [a.itemdescription, b.itemdescription];
-        break;  
-        case "location":
-          [propertyA, propertyB] = [a.location, b.location];
-        break;  
-        case "maxquality":
-          [propertyA, propertyB] = [a.maxquality, b.maxquality];
-        break;  
-        case "minquality":
-          [propertyA, propertyB] = [a.minquality, b.minquality];
-        break;  
-        case "size":
-          [propertyA, propertyB] = [a.size, b.size];
-        break;  
-        case "cost":
-          [propertyA, propertyB] = [a.cost, b.cost];
-        break;  
-        case "defaultprice":
-          [propertyA, propertyB] = [a.defaultprice, b.defaultprice];
-        break;  
-      
-      
-     }
-     const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-     const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-     return (
-       (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
-     );
-   });
- }
-
-
+export interface MainList {
+  itemName:String;
+  location:String;
+  itemDesc:String;
+  quantity:String;
+  subList?: SubList[] | MatTableDataSource<SubList>;
 }
+
+export interface SubList {
+  date:String;
+  docType:String;
+  docRef:String;
+  inQty:String;
+  outQty:String;
+}
+

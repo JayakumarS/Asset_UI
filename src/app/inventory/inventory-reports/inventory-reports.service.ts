@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
@@ -11,6 +11,9 @@ import { InventoryResultBean } from './inventory-reports-resiltBean';
   providedIn: 'root'
 })
 export class InventoryReportsService extends UnsubscribeOnDestroyAdapter {
+ 
+
+
   isTblLoading: boolean;
   dataChange: BehaviorSubject<InventoryReports[]> = new BehaviorSubject<InventoryReports[]>(
     []
@@ -24,7 +27,8 @@ export class InventoryReportsService extends UnsubscribeOnDestroyAdapter {
 
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/inventoryReport/getList`;
   public excelExportUrl = `${this.serverUrl.apiServerAddress}api/auth/app/inventoryReport/excelExport`;
-
+  public editAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/inventoryReport/editAssetMaster`;
+  public getInvemtoryReports = `${this.serverUrl.apiServerAddress}api/auth/app/inventoryReports/getInvemtoryReports`;
 
 
   get data(): InventoryReports[] {
@@ -44,4 +48,5 @@ export class InventoryReportsService extends UnsubscribeOnDestroyAdapter {
     );
   
   }
+  
 }
