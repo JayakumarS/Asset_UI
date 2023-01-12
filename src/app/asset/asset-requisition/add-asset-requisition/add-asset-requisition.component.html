@@ -1,0 +1,191 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add Asset Requisition'" [items]="['Asset']" [active_item]="'Add Asset Requisition'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="box-shadow ">
+            <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm" >
+                <div class="row">
+                    
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Requisition Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="requisitionDateObj" 
+                            (dateInput)="$event.value.format('DD/MM/YYYY')" id="requisitionDate" 
+                            (dateChange)="getDateString($event, 'requisitionDate',0)" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-error *ngIf="docForm.get('requisitionDate').hasError('required')">
+                                Requisition Date is required
+                            </mat-error>
+
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                            <mat-label>Requested By</mat-label>
+                            <mat-select formControlName="requestedBy"   required>
+                                <mat-option *ngFor="let data of employeeList" [value]="data.id" >
+                                    {{data.text}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="docForm.get('requestedBy').hasError('required')">
+                                Requested By is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Source Location</mat-label>
+                            <mat-select formControlName="sourceLocation"  (selectionChange)="getAssetItemList($event.value)" required>
+                                <mat-option *ngFor="let data of locationList" [value]="data.id" >
+                                    {{data.text}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="docForm.get('sourceLocation').hasError('required')">
+                                Source Location is required
+                            </mat-error>
+                            <mat-error *ngIf="docForm.get('sourceLocation').hasError('sourceLocation')">
+                                Source Location should not be same as Destination Location
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                            <mat-label>Destination Location</mat-label>
+                            <mat-select formControlName="destinationLocation"  (selectionChange)="validationLocations($event.value)" required>
+                                <mat-option *ngFor="let data of locationList" [value]="data.id" >
+                                    {{data.text}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="docForm.get('destinationLocation').hasError('required')">
+                                Destination Location is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div class="row">
+                        
+                       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Asset Item</mat-label>
+                            <mat-select formControlName="itemId" (selectionChange)="fetchAssetDtls($event.value)"  required>
+                                <mat-option *ngFor="let data of assetItemList" [value]="data.id" >
+                                    {{data.text}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="docForm.get('itemId').hasError('required')">
+                                Asset Item is required
+                            </mat-error>
+                        </mat-form-field>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Quantity</mat-label>
+                                <input matInput formControlName="quantity" readonly required >
+                                
+                              </mat-form-field>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                                <mat-label>Company</mat-label>
+                                <mat-select formControlName="companyId"  required>
+                                    <mat-option *ngFor="let data of companyList" [value]="data.id" >
+                                        {{data.text}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="docForm.get('companyId').hasError('required')">
+                                    Company is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>EDD</mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="eddDateObj" 
+                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="eddDate" 
+                                (dateChange)="getDateString($event, 'eddDate',0)" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                                <mat-error *ngIf="docForm.get('eddDate').hasError('required')">
+                                    EDD is required
+                                </mat-error>
+    
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <div class="row" *ngIf="showassetDtl">
+                        <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                            <thead class="">
+                                <tr>
+                                    <th ><input type="checkbox" [value]="docForm.get('assetRequisitionDtl')['controls']" (change)="checkAll($event,docForm.get('assetRequisitionDtl')['controls'])"></th>
+                                    
+                                    <th >Asset Track No</th>
+                                    <th >Asset Name</th>
+                                    <th >Serial No</th>
+                                    <th >Asset Location</th>
+                                    <th >Responsible</th>
+                                    <th >Asset User</th>
+                                   
+                                </tr>
+                            </thead>
+                            <ng-container *ngFor="let assetRequisitionDtl of docForm.get('assetRequisitionDtl')['controls']; let i = index">
+                                <tbody [formGroup]="assetRequisitionDtl">
+                                    <tr >
+                                        <td >
+                                            <input type="checkbox" formControlName="assetTrackConfirm" [value]="assetTrackConfirm"  (change)="onCount($event.target.checked,assetRequisitionDtl)">
+                                        </td>
+                                        <td >
+                                            {{assetRequisitionDtl.get('assettrackNo').value}}
+                                        </td>
+
+                                        <td >
+                                            <!-- <input formControlName="assettrackName" type="text" /> -->
+                                            {{assetRequisitionDtl.get('assettrackName').value}}
+                                        </td>
+                                        <td >
+                                            {{assetRequisitionDtl.get('serialNo').value}}
+                                        </td>
+                                        <td >
+                                            {{assetRequisitionDtl.get('asstlocation').value}}
+                                        </td>
+
+                                        <td >
+                                            {{assetRequisitionDtl.get('resAsset').value}}
+                                        </td>
+                                        <td >
+                                            {{assetRequisitionDtl.get('user').value}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                        </table>
+
+                        
+                    </div>
+                  <br>
+                <div class="row"> 
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    <button (click) = "reset()" class="btn-space" mat-raised-button
+                      color="primary" >Reset</button>
+                    <button (click) = "onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
