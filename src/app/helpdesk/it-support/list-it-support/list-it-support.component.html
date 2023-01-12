@@ -27,7 +27,7 @@
         
                  <div class="" style="margin-left: 10%;">
                 <div >
-                <mat-card class="l-bg-purple-dark" style="width:17%; margin-top: 10px;">CLOSED
+                <mat-card class="l-bg-purple-dark" style="width:17%; margin-top: 10px;" (click)="status('CLOSED')">CLOSED
                   <h2>{{closeCountValue}}</h2>
                      </mat-card>
                 </div>
@@ -35,20 +35,20 @@
 
                
                <div>
-              <mat-card class="bg-cyan" style="width:17%; margin-left: 20%; margin-top: -86px;">ASSIGNED
+              <mat-card class="bg-cyan" style="width:17%; margin-left: 20%; margin-top: -86px;" (click)="status('ASSIGNED')">ASSIGNED
                 <h2>{{AssignedCountValue}}</h2>
                 
               </mat-card> 
                      </div> 
                    
                      <div>
-                <mat-card class=" bg-green" style="width:17%;margin-left: 40%;margin-top: -85px;">OPENED
+                <mat-card class=" bg-green" style="width:17%;margin-left: 40%;margin-top: -85px;" (click)="status('OPENED')">OPENED
                   <h2>{{OpenedCountValue}}</h2>
                 </mat-card>
                    
                 </div>
                 <div>
-                <mat-card class=" l-bg-orange" style="width:17%;margin-left: 60%;margin-top: -86px;">HOLD
+                <mat-card class=" l-bg-orange" style="width:17%;margin-left: 60%;margin-top: -86px;" (click)="status('HOLD')">HOLD
                   <h2>{{HoldCountValue}}</h2>
                 </mat-card> &nbsp;
                 </div> 

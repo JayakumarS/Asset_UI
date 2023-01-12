@@ -32,9 +32,11 @@ const httpOptions = {
     constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
       super();
     }
+    
 
     public addticket = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/saveticket`;
     public getAlllist = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/list`;
+    public getStatusList = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/statuslist`;
     public deleteItSupport = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/delete`;
     public editItSupport = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/edit`;
     public updateIT = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/update`;
@@ -78,6 +80,21 @@ const httpOptions = {
       );
   
     }
+
+
+    getstatusList(ticketStatus: any): void {
+      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getStatusList + "?ticketStatus=" + ticketStatus).subscribe(
+        (data) => {
+        this.isTblLoading = false;
+        this.dataChange.next(data.getstatusticketlist);
+      }),
+      (error: HttpErrorResponse) => {
+        this.isTblLoading = false;
+        console.log(error.name + " " + error.message);
+      }
+      }
+      
+    
     
     ITsupportDelete(support_id: any): void {
       this.httpService.get(this.deleteItSupport + "?support_id=" + support_id).subscribe(data => {

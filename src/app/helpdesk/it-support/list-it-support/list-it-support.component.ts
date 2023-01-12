@@ -52,8 +52,9 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     "actions"
   ];
 
-  dataSource: ExampleDataSource | null;
+  dataSource: ExampleDataSource | ExampleDataSource1 |null;
   exampleDatabase: Itsupportservice | null;
+  exampleDatabase1: Itsupportservice | null;
   selection = new SelectionModel<Itsupport>(true, []);
   index: number;
   id: number;
@@ -213,6 +214,114 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     this.contextMenu.menuData = { item: item };
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
+  }
+
+  status(ticketStatus){
+    this.exampleDatabase1 = new Itsupportservice(this.httpClient,this.serverUrl,this.httpService);
+   // this.httpService.get(this.itsupportservice.getstatusList+"?ticketStatus="+ticketStatus).subscribe((res: any)=>{
+   //  console.log(res);
+    // this.exampleDatabase1 = res;
+   this.dataSource = new ExampleDataSource1(
+    this.exampleDatabase1,
+      this.paginator,
+      this.sort,
+      ticketStatus
+   
+    );
+   
+    
+
+  }
+}
+
+//list based on ticketstatus
+
+export class ExampleDataSource1 extends DataSource<Itsupport> {
+  filterChange = new BehaviorSubject("");
+  get filter(): string {
+    return this.filterChange.value;
+  }
+  set filter(filter: string) {
+    this.filterChange.next(filter);
+  }
+  filteredData: Itsupport[] = [];
+  renderedData: Itsupport[] = [];
+  constructor(
+    public exampleDatabase1: Itsupportservice,
+    public paginator: MatPaginator,
+    public _sort: MatSort,
+    public ticketStatus 
+  ) {
+    super();
+    // Reset to the first page when the user changes the filter.
+    this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
+  }
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<Itsupport[]> {
+    // Listen for any changes in the base data, sorting, filtering, or pagination
+    const displayDataChanges = [
+      this.exampleDatabase1.dataChange,
+      this._sort.sortChange,
+      this.filterChange,
+      this.paginator.page,
+    ];
+    this.exampleDatabase1.getstatusList(this.ticketStatus);
+    return merge(...displayDataChanges).pipe(
+      map(() => {
+        // Filter data
+        this.filteredData = this.exampleDatabase1.data
+          .slice()
+          .filter((locationMaster: Itsupport) => {
+            const searchStr = (
+              locationMaster.tickettype +
+              locationMaster.assetnamelist +
+              locationMaster.assetlocation
+             
+            ).toLowerCase();
+            return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+          });
+        // Sort filtered data
+        const sortedData = this.sortData(this.filteredData.slice());
+        // Grab the page's slice of the filtered sorted data.
+        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        this.renderedData = sortedData.splice(
+          startIndex,
+          this.paginator.pageSize
+        );
+        return this.renderedData;
+      })
+    );
+  }
+  disconnect() {}
+  /** Returns a sorted copy of the database data. */
+  sortData(data: Itsupport[]): Itsupport[] {
+    if (!this._sort.active || this._sort.direction === "") {
+      return data;
+    }
+    return data.sort((a, b) => {
+      let propertyA: number | string = "";
+      let propertyB: number | string = "";
+      switch (this._sort.active) {
+        case "id":
+          [propertyA, propertyB] = [a.id, b.id];
+          break;
+        case "tickettype":
+          [propertyA, propertyB] = [a.tickettype, b.tickettype];
+          break;
+        case "asset":
+          [propertyA, propertyB] = [a.assetnamelist, b.assetnamelist];
+          break;
+        case "assetlocation":
+          [propertyA, propertyB] = [a.assetlocation, b.assetlocation];
+          break;
+        
+      }
+      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+      return (
+        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+      );
+    });
   }
 }
 

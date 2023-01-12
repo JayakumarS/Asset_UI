@@ -1,5 +1,6 @@
 export class ItSupportresultbean {
     getticketlist: [];
+    getstatusticketlist :[];
     itSupportBean:[];
     closedListCount:[];
     assignedListCount:[];
