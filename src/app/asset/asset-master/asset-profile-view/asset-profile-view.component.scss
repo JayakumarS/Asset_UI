@@ -2,3 +2,9 @@
     --bs-bg-opacity: 1;
     background-color: #004AAD !important;
 }
+
+
+:host ::ng-deep.mat-tab-body-content {
+    height: 100%;
+     overflow-x: hidden!important; 
+}
