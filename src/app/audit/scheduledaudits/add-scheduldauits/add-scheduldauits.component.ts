@@ -9,6 +9,7 @@ import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { ScheduledauditsService } from '../scheduledaudits.service';
 
@@ -63,7 +64,9 @@ export class AddScheduldauitsComponent implements OnInit {
     public scheduledauditsService: ScheduledauditsService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private serverUrl: serverLocations
+    private serverUrl: serverLocations,    
+    public tokenStorage: TokenStorageService,
+
   )
    { 
 
@@ -78,13 +81,15 @@ export class AddScheduldauitsComponent implements OnInit {
       location:[""],
       Quantity:[""],
       remarks:[""],
+      loginedUser: this.tokenStorage.getUserId(),
 
-      scheduledList: this.fb.array([
+      scheduledDetailbean: this.fb.array([
         this.fb.group({
           assetName: '',
           location: '',
-          Quantity: '',
+          sampleQty: '',
           remarks: '',
+
          
         })
       ]),
@@ -288,7 +293,7 @@ export class AddScheduldauitsComponent implements OnInit {
       startDate:[""],
       assetName:[""],
       location:[""],
-      Quantity:[""],
+      sampleQty:[""],
       remarks:[""],
      
     })

@@ -88,8 +88,8 @@
                                           width: 12%; border-radius: 0.05rem;">Remarks</th>
                     
                                              </thead>
-                                             <ng-container *ngFor="let scheduledList of docForm.get('scheduledList')['controls']; let i = index">
-                                               <tbody [formGroup]="scheduledList">
+                                             <ng-container *ngFor="let scheduledDetailbean of docForm.get('scheduledDetailbean')['controls']; let i = index">
+                                               <tbody [formGroup]="scheduledDetailbean">
                                                  <tr>
                                                    <td>
                                                      <button mat-mini-fab color="warn" (click)="removeRow(i)">
@@ -109,7 +109,7 @@
                                                    <td class="padding-both-side-2">
                                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                        <mat-label>Location</mat-label>
-                                                       <mat-select name="location{{i}}" formControlName="assetName">
+                                                       <mat-select name="location{{i}}" formControlName="location">
                                                         <mat-option *ngFor="let title of locationDropdownList" [value]="title.id">
                                                           {{title.text}}
                                                         </mat-option>
@@ -119,7 +119,7 @@
                                                    <td class="padding-both-side-2">
                                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                        <mat-label>Physical Quantity</mat-label>
-                                                       <input matInput name="Quantity{{i}}" formControlName="Quantity" (keypress)="keyPressNumberInt($event)" maxlength="25">
+                                                       <input matInput name="sampleQty{{i}}" formControlName="sampleQty" (keypress)="keyPressNumberInt($event)" maxlength="25">
                                                      </mat-form-field>
                                                    </td>
                                                    <td class="padding-both-side-2">
@@ -144,10 +144,10 @@
 
                                                    <div class="row">
                                                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                                                       <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                                                       <button  (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
                                                          style="margin-left: 36%;background-color: #34d034;">Submit</button>
-                                                       <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
-                                                         style="margin-left: 36%;background-color: #34d034;">Update</button>
+                                                       <!-- <button (click)="update()" class="btn-space" mat-raised-button color="accent"
+                                                         style="margin-left: 0%;background-color: #34d034;">Update</button> -->
                                                        <button color="primary" type="button" class="btn-space" (click)="reset()"
                                                          mat-raised-button>Reset</button>
                                                        <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>

@@ -81,6 +81,12 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cName}}</mat-cell>
                   </ng-container>
+
+                  <!-- <ng-container matColumnDef="auditorName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Auditor Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cName}}</mat-cell>
+                  </ng-container> -->
+
   
                   <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
