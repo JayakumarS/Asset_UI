@@ -102,5 +102,6 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getAuditorDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAuditorDropdown`;
  
+  public getCompanyStringDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyStringDropdown`;
 
 }

@@ -100,7 +100,7 @@ export class AddVendorComponent implements OnInit {
     //     console.log(error.name + " " + error.message);
     //   }
     // );
-    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getCompanyStringDropdown).subscribe({
       next: (data) => {
         this.companyList = data;
       },
