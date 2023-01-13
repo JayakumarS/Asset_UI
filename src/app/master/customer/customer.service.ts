@@ -64,12 +64,16 @@ editCustomer(obj: any): Observable<any> {
   return this.httpClient.post<any>(this.editcustomer, obj);
 }
 
-updateCustomer(customerMaster: CustomerMaster): void {
-  this.dialogData = customerMaster;
-  this.httpService.post<CustomerMaster>(this.updatecustomer, customerMaster).subscribe(data => {
-    console.log(data);
+// updateCustomer(customerMaster: CustomerMaster): void {
+//   this.dialogData = customerMaster;
+//   this.httpService.post<CustomerMaster>(this.updatecustomer, customerMaster).subscribe(data => {
+//     console.log(data);
 
-  });
+//   });
+// }
+
+updateCustomer(customerMaster: CustomerMaster): Observable<any> {
+  return this.httpClient.post<CustomerMaster>(this.updatecustomer, customerMaster);
 }
 deleteCustomer(obj: any): Observable<any> {
   return this.httpClient.post<any>(this.deletecustomer, obj);

@@ -22,31 +22,30 @@ import { DeleteComponent } from './delete/delete.component';
 })
 export class ListCustomerComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
-  displayedColumns=[
+  displayedColumns = [
     "auditorname",
     "person",
     "email",
     "phone",
-    "state",
     "actions"
 
 
   ];
 
-exampleDatabase:CustomerService | null;
-dataSource:ExampleDataSource|null;
+exampleDatabase: CustomerService | null;
+dataSource: ExampleDataSource|null;
   selection = new SelectionModel<CustomerMaster>(true, []);
 exporter: any;
 
 
 
   constructor( public httpClient: HttpClient,
-    public dialog: MatDialog,
-    public customerService: CustomerService,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private serverUrl:serverLocations,
-    private httpService:HttpServiceService,
+               public dialog: MatDialog,
+               public customerService: CustomerService,
+               private snackBar: MatSnackBar,
+               private router: Router,
+               private serverUrl: serverLocations,
+               private httpService: HttpServiceService,
   ) {
     super();
   }
@@ -60,7 +59,7 @@ exporter: any;
 
   ngOnInit(): void {
     this.loadData();
-    //window.location.reload();
+    // window.location.reload();
     this.load();
   }
 
@@ -90,25 +89,25 @@ exporter: any;
   }
 
   editCall(row) {
- 
-    this.router.navigate(['/master/customer/add-customer/'+row.cus_id]);
+
+    this.router.navigate(['/master/customer/add-customer/' + row.cus_id]);
 
   }
   deleteItem(row) {
     let tempDirection;
-   if (localStorage.getItem("isRtl") === "true") {
+    if (localStorage.getItem("isRtl") === "true") {
      tempDirection = "rtl";
    } else {
      tempDirection = "ltr";
    }
-   const dialogRef = this.dialog.open(DeleteComponent, {
+    const dialogRef = this.dialog.open(DeleteComponent, {
      height: "270px",
      width: "400px",
      data: row,
      direction: tempDirection,
      disableClose: true
    });
-   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
      if (data.data == true) {
        const obj = {
          deletingId: row.cus_id
@@ -133,22 +132,6 @@ exporter: any;
    });
 
  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
@@ -161,7 +144,7 @@ exporter: any;
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
   }
-  
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -188,7 +171,7 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
    public _sort: MatSort
  ) {
    super();
-  
+
    this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
  }
  /** Connect function called by the table to retrieve one stream containing the data to render. */
@@ -211,18 +194,18 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
             customerMaster.auditorname +
             customerMaster.registercode +
             customerMaster.person +
-            customerMaster.phone+ 
-            customerMaster.address+ 
-            customerMaster.addresstwo+ 
-            customerMaster.city+ 
-            customerMaster.state+ 
-            customerMaster.postalcode+ 
-            customerMaster.panno+ 
-            customerMaster.gstno+ 
-            customerMaster.cstno+ 
-            customerMaster.remarks+ 
+            customerMaster.phone +
+            customerMaster.address +
+            customerMaster.addresstwo +
+            customerMaster.city +
+            customerMaster.state +
+            customerMaster.postalcode +
+            customerMaster.panno +
+            customerMaster.gstno +
+            customerMaster.cstno +
+            customerMaster.remarks +
             customerMaster.active
-            
+
            ).toLowerCase();
            return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
          });
@@ -245,10 +228,10 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
      return data;
    }
    return data.sort((a, b) => {
-     let propertyA: number | string |boolean= "";
-     let propertyB: number | string |boolean= "";
+     let propertyA: number | string |boolean = "";
+     let propertyB: number | string |boolean = "";
      switch (this._sort.active) {
-      
+
        case "auditorname":
          [propertyA, propertyB] = [a.auditorname, b.auditorname];
          break;
@@ -260,41 +243,41 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
          break;
        case "email":
            [propertyA, propertyB] = [a.email, b.email];
-         break;  
+           break;
          case "phone":
           [propertyA, propertyB] = [a.phone, b.phone];
-        break;  
+          break;
         case "address":
           [propertyA, propertyB] = [a.address, b.address];
-        break;  
+          break;
         case "addresstwo":
           [propertyA, propertyB] = [a.addresstwo, b.addresstwo];
-        break;  
+          break;
         case "city":
           [propertyA, propertyB] = [a.city, b.city];
-        break;  
+          break;
         case "state":
           [propertyA, propertyB] = [a.state, b.state];
-        break;  
+          break;
         case "postalcode":
           [propertyA, propertyB] = [a.postalcode, b.postalcode];
-        break;  
+          break;
         case "panno":
           [propertyA, propertyB] = [a.panno, b.panno];
-        break;  
+          break;
         case "gstno":
           [propertyA, propertyB] = [a.gstno, b.gstno];
-        break;  
+          break;
         case "cstno":
           [propertyA, propertyB] = [a.cstno, b.cstno];
-        break;  
+          break;
         case "remarks":
           [propertyA, propertyB] = [a.remarks, b.remarks];
-        break;  
+          break;
 
         case "active":
           [propertyA, propertyB] = [a.active, b.active];
-        break; 
+          break;
      }
      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

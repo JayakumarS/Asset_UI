@@ -39,6 +39,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   cityDdList = [];
   list= [];
   value = [];
+  submitted: boolean=false;
 
 
   constructor(private fb: FormBuilder,
@@ -269,7 +270,7 @@ fetchDetails(cus_id: any): void {
       'billingCountry': res.customerBean.billingCountry,
       'deliveryAddress': res.customerBean.deliveryAddress,
       'deliveryState': res.customerBean.deliveryState,
-      'deliverycity': res.customerBean.deliverycity,
+      'deliveryCity': res.customerBean.deliveryCity,
       'deliveryZip': res.customerBean.deliveryZip,
       'deliveryCountry': res.customerBean.deliveryCountry,
       'internalNotes': res.customerBean.internalNotes,
@@ -293,7 +294,8 @@ fetchDetails(cus_id: any): void {
           'address': res.customerBean.address,
           'state': res.customerBean.state,
           'accName': res.customerBean.accName,
-          'addresstwo': res.customerBean.addresstwo,
+          'country': res.customerBean.country,
+          'zip': res.customerBean.zip,
           'acctReceivable': res.customerBean.acctReceivable,
           'supplier': res.customerBean.supplier,
           'totalReceivable': res.customerBean.totalReceivable,
@@ -334,18 +336,54 @@ keyPressNumeric(event: any) {
   }
 }
 
-update(){
-  this.customerMaster = this.docForm.value;
-  this.customerService.updateCustomer(this.customerMaster);
-  this.showNotification(
-    "snackbar-success",
-    "Edit Record Successfully...!!!",
-    "bottom",
-    "center"
-  );
-  this.router.navigate(['/master/customer/list-customer']);
+// update(){
+//   this.customerMaster = this.docForm.value;
+//   this.customerService.updateCustomer(this.customerMaster);
+//   this.showNotification(
+//     "snackbar-success",
+//     "Edit Record Successfully...!!!",
+//     "bottom",
+//     "center"
+//   );
+//   this.router.navigate(['/master/customer/list-customer']);
 
-}
+// }
+
+update() {
+  this.submitted = true;
+  this.customerMaster = this.docForm.value;
+  this.spinner.show();
+  this.customerService.updateCustomer(this.customerMaster).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.showNotification(
+            "snackbar-success",
+            "Edit Record Successfully",
+            "bottom",
+            "center"
+          );
+          this.onCancel();
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Not Updated Successfully...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        this.showNotification(
+          "snackbar-danger",
+          error.message + "...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
 openPopupContactDetails() {
 
   let tempDirection;

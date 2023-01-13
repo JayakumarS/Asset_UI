@@ -35,7 +35,12 @@ export class AccountPopupComponent implements OnInit {
       ifscCode: [""],
       address: [""],
       state: [""],
-      addresstwo: [""],
+      zip: [""],
+      country: [""],
+      acctReceivable: [""],
+      supplier: [""],
+      totalReceivable: [""],
+      creditLimit: [""],
                 });
   }
   ngOnInit(): void {
@@ -46,7 +51,12 @@ export class AccountPopupComponent implements OnInit {
       ifscCode: [""],
       address: [""],
       state: [""],
-      addresstwo: [""],
+      zip: [""],
+      country: [""],
+      acctReceivable: [""],
+      supplier: [""],
+      totalReceivable: [""],
+      creditLimit: [""],
 
 
     });
@@ -75,50 +85,7 @@ export class AccountPopupComponent implements OnInit {
     this.dialogRef.close({ account: this.docForm.value });
 
     }
-  // onSubmit() {
-  //   if (this.docForm.valid){
-  //     this.customerMaster = this.docForm.value;
-  //     this.spinner.show();
-  //     this.customerService.addCustomer(this.customerMaster).subscribe({
-  //       next: (data) => {
-  //         this.spinner.hide();
-  //         if (data.success) {
-  //           this.showNotification(
-  //             "snackbar-success",
-  //             "Record Added successfully...",
-  //             "bottom",
-  //             "center"
-  //           );
-  //           this.onCancel();
-  //         } else {
-  //           this.showNotification(
-  //             "snackbar-danger",
-  //             "Not Added...!!!",
-  //             "bottom",
-  //             "center"
-  //           );
-  //         }
-  //       },
-  //       error: (error) => {
-  //         this.spinner.hide();
-  //         this.showNotification(
-  //           "snackbar-danger",
-  //           error.message + "...!!!",
-  //           "bottom",
-  //           "center"
-  //         );
-  //       }
-  //     });
-  //   }
-  //   else{
-  //     this.showNotification(
-  //       "snackbar-danger",
-  //       "Please Fill The All Required fields",
-  //       "bottom",
-  //       "center"
-  //     );
-  //   }
-  // }
+
 
   onCancel() {
     this.dialogRef.close({ data: 'CANCEL' });

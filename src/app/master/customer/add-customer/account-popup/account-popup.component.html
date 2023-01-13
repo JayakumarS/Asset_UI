@@ -68,7 +68,7 @@
   </mat-form-field></div>
     <div class=" col-md-2">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="state"maxlength="10"placeholder="Zip"(keypress)="keyPressNumeric($event)" >
+        <input matInput formControlName="zip"maxlength="10"placeholder="Zip"(keypress)="keyPressNumeric($event)" >
 
       </mat-form-field></div>
       <div class="row">
@@ -76,7 +76,7 @@
           </div>
           <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <mat-select class="inputTxt" formControlName="location">
+            <mat-select class="inputTxt" formControlName="country">
               <mat-option *ngFor="let title of countryList" [value]="title.id">
                   {{title.text}}
               </mat-option>
