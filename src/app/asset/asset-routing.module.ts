@@ -17,7 +17,12 @@ const routes: Routes = [
     path: "assetRequisition",
     loadChildren: () =>
       import("./asset-requisition/asset-requisition.module").then((m)=>m.AssetRequisitionModule)
-  }
+  },
+  {
+    path: "assetTransfer",
+    loadChildren: () =>
+      import("./transfer-asset/transfer-asset.module").then((m)=>m.TransferAssetModule)
+  },
 
 ];
 
