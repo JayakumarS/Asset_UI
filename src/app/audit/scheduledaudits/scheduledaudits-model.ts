@@ -1,4 +1,4 @@
-export class ManageAudit {
+export class ScheduleAudit {
     auditCode:string;
     auditType:string;
     startDate:string;
@@ -7,4 +7,5 @@ export class ManageAudit {
     extDate:string;
     status:string;
     companyName:string
+     
 }

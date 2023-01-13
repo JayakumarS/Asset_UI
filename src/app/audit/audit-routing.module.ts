@@ -11,6 +11,11 @@ const routes: Routes = [
     path: "auditableAsset",
     loadChildren: () =>
     import("./auditable-asset/auditable-asset.module").then((m) => m.AuditableAssetModule),
+  } ,  
+  {
+    path: "scheduledaudits",
+    loadChildren: () =>
+    import("./scheduledaudits/scheduledaudits.module").then((m) => m.ScheduledauditsModule),
   }   
 ];
 

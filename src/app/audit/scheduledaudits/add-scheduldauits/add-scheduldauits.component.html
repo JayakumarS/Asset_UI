@@ -1,0 +1,166 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Add scheduled Audit'" [items]="['Audit']" [active_item]="'Add scheduled Audit'">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card ">
+                    <div class="body">
+                            <form class="m-4" [formGroup]="docForm">
+                                <div class="rowtab">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left:25%;">
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                                                <mat-label>Audit Name</mat-label>
+                                                <input matInput placeholder="audit Name" formControlName="auditName" required>
+                                                <mat-error *ngIf="docForm.get('auditName').hasError('required')">
+                                                    Audit Name is required
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3"  style="margin-left: -30%;">
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                                                <mat-label>Audit Code</mat-label>
+                                                <input matInput placeholder="audit code" formControlName="auditCode" required>
+                                                <mat-error *ngIf="docForm.get('auditCode').hasError('required')">
+                                                    Audit Code is required
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                        </div>  
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left:25%;">
+                                                <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                                                    <mat-label>Company Name</mat-label>
+                                                    <mat-select formControlName="companyName">
+                                                        <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                                          {{title.text}}
+                                                        </mat-option>
+                                                      </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left: -30%;">
+                                                <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                    <mat-label>Audit Date</mat-label>
+                                                    <input matInput [matDatepicker]="picker1" formControlName="startDateObj" 
+                                                    (dateInput)="$event.value.format('DD/MM/YYYY')" id="startDate" 
+                                                    (dateChange)="getDateString($event, 'startDate',0)" required>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker1></mat-datepicker>
+                                                    <mat-error *ngIf="docForm.get('startDate').hasError('required')">
+                                                        Audit Date is required
+                                                      </mat-error>
+    
+                                                </mat-form-field>
+                                            </div>
+                                            </div>
+                                             <div class="row">
+
+                                            <div class="col-xl-3 col-lg-8 col-md-12 col-sm-12 mb-3" style="margin-left:25%;">
+                                                
+                                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                    <mat-label>Auditor Name </mat-label>
+                                                    <mat-select formControlName="auditorName">
+                                                      <mat-option *ngFor="let title of auditorList" [value]="title.id">
+                                                        {{title.text}}
+                                                      </mat-option>
+                                                    </mat-select>
+                                                  </mat-form-field>
+                                           </div>
+                                           </div>
+
+                                           <div style="overflow-x: auto;">
+                                           <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                                             <thead class="">
+                                               <tr>
+                                                 <th style="width: 1%;"></th>
+                                                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                          width: 12%; border-radius: 0.05rem;">Asset Name</th>
+                                                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                          width: 12%;border-radius: 0.07rem;">Location</th>
+                                                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                          width: 12%;border-radius: 0.07rem;">Physical Quantity</th>
+                                                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                          width: 12%; border-radius: 0.05rem;">Remarks</th>
+                    
+                                             </thead>
+                                             <ng-container *ngFor="let scheduledList of docForm.get('scheduledList')['controls']; let i = index">
+                                               <tbody [formGroup]="scheduledList">
+                                                 <tr>
+                                                   <td>
+                                                     <button mat-mini-fab color="warn" (click)="removeRow(i)">
+                                                       <mat-icon class="col-white">delete</mat-icon>
+                                                     </button>
+                                                     </td>     
+                                                  <td class="padding-both-side-2">
+                                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                       <mat-label>Asset Name</mat-label>
+                                                       <mat-select name="assetName{{i}}" formControlName="assetName">
+                                                         <mat-option *ngFor="let title of assetDropdownList" [value]="title.id">
+                                                           {{title.text}}
+                                                         </mat-option>
+                                                       </mat-select>
+                                                     </mat-form-field>
+                                                   </td>
+                                                   <td class="padding-both-side-2">
+                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                       <mat-label>Location</mat-label>
+                                                       <mat-select name="location{{i}}" formControlName="assetName">
+                                                        <mat-option *ngFor="let title of locationDropdownList" [value]="title.id">
+                                                          {{title.text}}
+                                                        </mat-option>
+                                                      </mat-select>
+                                                     </mat-form-field>
+                                                   </td>
+                                                   <td class="padding-both-side-2">
+                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                       <mat-label>Physical Quantity</mat-label>
+                                                       <input matInput name="Quantity{{i}}" formControlName="Quantity" (keypress)="keyPressNumberInt($event)" maxlength="25">
+                                                     </mat-form-field>
+                                                   </td>
+                                                   <td class="padding-both-side-2">
+                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                       <mat-label>Remarks</mat-label>
+                                                       <input matInput name="remarks{{i}}" formControlName="remarks"  (keypress)="keyPressName($event)" maxlength="9">
+                                                     </mat-form-field>
+                                                   </td>
+                                                  </tr>
+                                                   </tbody>
+                                                   </ng-container>
+                                                   </table>
+                                                   </div>
+                                                   <div>
+                                                     <button mat-mini-fab color="primary" (click)="addRow()">
+                                                       <mat-icon class="col-white">add</mat-icon>
+                                                     </button>
+                                                   </div> 
+
+                                                   <br>
+
+
+                                                   <div class="row">
+                                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                                       <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                                                         style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                                                       <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                                                         style="margin-left: 36%;background-color: #34d034;">Update</button>
+                                                       <button color="primary" type="button" class="btn-space" (click)="reset()"
+                                                         mat-raised-button>Reset</button>
+                                                       <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                                                     </div>
+                                                   </div>
+                                           
+
+                             </div>
+                             </form>
+                             </div>
+                             </div>
+                             </div>
+                             </div>
+                             </div>
+                             </section>
+                             

@@ -302,7 +302,9 @@ fetchDetails(id){
         'endDate': res.manageAuditBean.endDate,
         'auditName': res.manageAuditBean.auditName,
         'auditField': res.manageAuditBean.auditField,
-        'auditCode':res.manageAuditBean.auditCode
+        'auditCode':res.manageAuditBean.auditCode,
+        'companyName':res.manageAuditBean.companyName
+
      })  
   
      
@@ -334,7 +336,9 @@ fetchDetails(id){
         'auditName': res.manageAuditBean.auditName,
         'auditField': res.manageAuditBean.auditField,
         'auditFile': res.manageAuditBean.auditFile,
-        'auditCode':res.manageAuditBean.auditCode
+        'auditCode':res.manageAuditBean.auditCode,
+        'companyName':res.manageAuditBean.companyName
+
      })  
   
      this.filePathUrl = res.manageAuditBean.auditFile;

@@ -13,16 +13,15 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
-import { ManageAuditServiceService } from '../manage-audit-service.service'; 
-import { ManageAudit } from '../manage-audit.model';
-import { DeleteManageAuditComponent } from './delete-manage-audit/delete-manage-audit.component';
+import { ScheduledauditsService } from '../scheduledaudits.service';
+import { ScheduleAudit } from '../scheduledaudits-model';
 
-@Component({
-  selector: 'app-list-manage-audit',
-  templateUrl: './list-manage-audit.component.html',
-  styleUrls: ['./list-manage-audit.component.sass']
-})
-export class ListManageAuditComponent implements OnInit {
+ @Component({
+   selector: 'app-list-scheduledaudits',
+  templateUrl: './list-scheduledaudits.component.html',
+  styleUrls: ['./list-scheduledaudits.component.sass']
+ })
+ export class ListScheduledauditsComponent implements OnInit {
   [x: string]: any;
 
   displayedColumns = [
@@ -31,15 +30,15 @@ export class ListManageAuditComponent implements OnInit {
   ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: ManageAuditServiceService | null;
-  selection = new SelectionModel<ManageAudit>(true, []);
+  exampleDatabase: ScheduledauditsService | null;
+  selection = new SelectionModel<ScheduleAudit>(true, []);
   index: number;
   id: number;
-  customerMaster: ManageAudit | null;
+  scheduleAudit: ScheduleAudit | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public manageAuditServiceService: ManageAuditServiceService,
+    public scheduledauditsService: ScheduledauditsService,
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
@@ -64,7 +63,7 @@ export class ListManageAuditComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new ManageAuditServiceService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ScheduledauditsService(this.httpClient, this.serverUrl, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -80,40 +79,12 @@ export class ListManageAuditComponent implements OnInit {
     );
   }
 
-
   editCall(row) { 
-    this.router.navigate(['/audit/manageaudit/addManageAudit/'+row.auditCode]);
+    this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/'+row.auditCode]);
   }
+  
 
-  deleteItem(i, row) {
-    this.index = i;
-    this.id = row.auditCode;
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(DeleteManageAuditComponent, {
-      height: "270px",
-      width: "400px",
-      data: row,
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      this.loadData();
-      if(data==1)[
-        this.showNotification(
-          "snackbar-success",
-          " Successfully deleted",
-          "bottom",
-          "center"
-        )
-        ]
-    });
-  }
-
-
+ 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -124,7 +95,7 @@ export class ListManageAuditComponent implements OnInit {
   }
 
 // context menu
-  onContextMenu(event: MouseEvent, item: ManageAudit) {
+  onContextMenu(event: MouseEvent, item: ScheduleAudit) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -135,7 +106,7 @@ export class ListManageAuditComponent implements OnInit {
 }
 
 
-export class ExampleDataSource extends DataSource<ManageAudit> {
+export class ExampleDataSource extends DataSource<ScheduleAudit> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -143,10 +114,10 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: ManageAudit[] = [];
-  renderedData: ManageAudit[] = [];
+  filteredData: ScheduleAudit[] = [];
+  renderedData: ScheduleAudit[] = [];
   constructor(
-    public exampleDatabase: ManageAuditServiceService,
+    public exampleDatabase: ScheduledauditsService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -155,7 +126,7 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<ManageAudit[]> {
+  connect(): Observable<ScheduleAudit[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -163,21 +134,21 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList();
+    this.exampleDatabase.getAllLists();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((manageAudit: ManageAudit) => {
+          .filter((scheduleAudit: ScheduleAudit) => {
             const searchStr = (
-              manageAudit.auditName +
-              manageAudit.auditCode +
-              manageAudit.startDate +
-              manageAudit.endDate +
-              manageAudit.extDate +
-              manageAudit.status +
-              manageAudit.auditType 
+              scheduleAudit.auditName +
+              scheduleAudit.auditCode +
+              scheduleAudit.startDate +
+              scheduleAudit.endDate +
+              scheduleAudit.extDate +
+              scheduleAudit.status +
+              scheduleAudit.auditType 
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -196,7 +167,7 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: ManageAudit[]): ManageAudit[] {
+  sortData(data: ScheduleAudit[]): ScheduleAudit[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -237,4 +208,5 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
     });
   }
 }
+
 
