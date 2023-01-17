@@ -24,6 +24,7 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
   
   private listUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/list`;
   public saveUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/save`;
+  public editUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/edit`;
   public assetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetItemList`;
   public assetQuantityUrl =  `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetItemList`;
   public assetTrackListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetTrackDetails`;

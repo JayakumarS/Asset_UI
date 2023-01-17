@@ -47,6 +47,7 @@ export class AddAssetRequisitionComponent implements OnInit {
   docForm: FormGroup;
   assetRequisition:AssetRequisition;
   requestId: any;
+  requestType:any;
   edit:boolean=false;
   locationList:[];
   employeeList: [];
@@ -140,12 +141,46 @@ export class AddAssetRequisitionComponent implements OnInit {
    if(params.id!=undefined && params.id!=0){
     this.requestId = params.id;
     this.edit=true;
-    this.fetchDetails(this.requestId) ;
+    this.requestType = params.type;
+    this.fetchDetails(this.requestId,this.requestType) ;
 
    }
   });
 
 }
+
+
+fetchDetails(id: any,type:any): void {
+  this.httpService.get(this.assetRequisitionService.editUrl+"?assetRequistionId="+id+"&type="+type).subscribe((res: any)=> {
+    console.log(res);
+    this.getAssetItemList(res.assetRequisition.sourceLocation);
+    this.docForm.patchValue({
+      
+      'requisitionNumber': res.assetRequisition.requisitionNumber,
+      'requisitionDateObj': this.commonService.getDateObj(res.assetRequisition.requisitionDate),
+      'requisitionDate': res.assetRequisition.requisitionDate,
+      'requestedBy': res.assetRequisition.requestedBy,
+      'sourceLocation': res.assetRequisition.sourceLocation,
+      'destinationLocation': res.assetRequisition.destinationLocation,
+      'itemId': res.assetRequisition.itemId,
+      'quantity': res.assetRequisition.quantity,
+      'companyId':  res.assetRequisition.companyId,
+      'eddDateObj':this.commonService.getDateObj(res.assetRequisition.eddDate),
+      'eddDate': res.assetRequisition.eddDate
+   })
+    },
+    (err: HttpErrorResponse) => {
+      this.showNotification(
+        "snackbar-danger",
+        "Error while getting information !",
+        "top",
+        "right"
+      );
+    }
+  );
+}
+
+
 
 fetchAssetDtls(itemId){
   
@@ -338,9 +373,6 @@ validationLocations(id){
     }else{
       this.docForm.controls['salvageValue'].setErrors(null);
     }
-  }
-
-  fetchDetails(id: any): void {
   }
 
 

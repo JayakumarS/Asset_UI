@@ -176,8 +176,8 @@
                     <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
                     color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
                     <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
-                    <button (click) = "reset()" class="btn-space" mat-raised-button
-                      color="primary" >Reset</button>
+                    <button *ngIf="!edit" (click) = "reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
+                    <button *ngIf="edit" (click) = "fetchDetails(requestId,requestType)" class="btn-space" mat-raised-button color="primary" >Reset</button>
                     <button (click) = "onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
                   </div>
                 </div>
