@@ -73,7 +73,8 @@ export class AddGrnComponent implements OnInit {
     private purchaseOrderService: PurchaseOrderService) {
 
     this.docForm = this.fb.group({
-      grnDate: [""],
+      grnId: [""],
+      grnDate: [moment().format('DD/MM/YYYY')],
       grnDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
       purchaseOrderId: ["", [Validators.required]],
       poType: ["", [Validators.required]],
@@ -84,7 +85,7 @@ export class AddGrnComponent implements OnInit {
       vendorCountry: [""],
       transMode: 1,
       invoiceNo: [""],
-      invoiceDate: [""],
+      invoiceDate: [moment().format('DD/MM/YYYY')],
       invoiceDateObj: [moment().format('YYYY-MM-DD')],
       sourceLocId: [""],
       deliveryLocId: [""],
@@ -225,10 +226,16 @@ export class AddGrnComponent implements OnInit {
         let gdelOrderDateObj = this.commonService.getDateObj(res.grn.delOrderDate);
 
         this.docForm.patchValue({
+          'grnId': res.grn.grnId,
           'grnDateObj': ggrnDateObj,
           'grnDate': res.grn.grnDate,
           'purchaseOrderId': res.grn.purchaseOrderId,
-          'vendorId':res.grn.vendorId,
+          'poType': res.grn.poType,
+          'vendorId': res.grn.vendorId,
+          'vendorAddress': res.grn.vendorAddress,
+          'vendorCity': res.grn.vendorCity,
+          'vendorState': res.grn.vendorState,
+          'vendorCountry': res.grn.vendorCountry,
           'invoiceNo': res.grn.invoiceNo,
           'invoiceDate': res.grn.invoiceDate,
           'invoiceDateObj': ginvoiceDateObj,
@@ -238,6 +245,24 @@ export class AddGrnComponent implements OnInit {
           'delOrderDate': res.grn.delOrderDate,
           'delOrderDateObj': gdelOrderDateObj
         })
+
+        if (res.grnDetailList != null && res.grnDetailList.length >= 1) {
+          let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
+          grnDetailArray.clear();
+          res.grnDetailList.forEach(element => {
+            let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
+            let arraylen = grnDetailArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              itemId: [element.itemId],
+              itemCode: [element.itemCode],
+              itemName: [element.itemName],
+              unitPrice: [element.unitPrice],
+              receivingQty: [element.receivingQty],
+            })
+            grnDetailArray.insert(arraylen, newUsergroup);
+          });
+        }
+
       },
       error: (error) => {
         this.spinner.hide();
@@ -379,9 +404,9 @@ export class AddGrnComponent implements OnInit {
                 'poType': res.purchaseOrder.purchaseType,
                 'vendorId': res.purchaseOrder.vendorId,
                 'vendorAddress': res.purchaseOrder.vendorAddress,
-                'vendorCity': "",
-                'vendorState': "",
-                'vendorCountry': "",
+                'vendorCity': res.purchaseOrder.vendorCity,
+                'vendorState': res.purchaseOrder.vendorState,
+                'vendorCountry': res.purchaseOrder.vendorCountry,
                 'deliveryLocId': res.purchaseOrder.destinationLocation
               })
             }
