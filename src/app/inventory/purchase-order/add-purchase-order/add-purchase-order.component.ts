@@ -61,7 +61,6 @@ export class AddPurchaseOrderComponent implements OnInit {
   uomList = [];
   poList = [];
   vendorList = [];
-  poNo: any;
   totPrice: any;
   flag: boolean = false;
   flagPoNo: boolean = false;
@@ -76,9 +75,12 @@ export class AddPurchaseOrderComponent implements OnInit {
   tmpDate: string;
   value1: number;
   filePath: any;
-  countryList: [];
-  lop: any;
+
+
   filePathUrl: string;
+  purchaseTypeList: [];
+  purchaseForList: [];
+  discountTypeList: [];
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -94,34 +96,27 @@ export class AddPurchaseOrderComponent implements OnInit {
 
     this.docForm = this.fb.group({
       purchaseOrderId: [""],
-      organizationName: [""],
-      poNo: [""],
-      poDate: [""],
-      poDateObj: ["", [Validators.required]],
-      purchaseType: [""],
-      purchaseFor: [""],
-      vendorId: [],
+      purchaseFor:  ["", [Validators.required]],
+      poDate: [moment().format('DD/MM/YYYY')],
+      poDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+      purchaseType:  ["", [Validators.required]],
+      vendorId:  ["", [Validators.required]],
+      vendorAddress: [""],
+      vendorCity: [""],
+      vendorState: [""],
+      vendorCountry: [""],
+      destinationLocation: [""],
       termsConditions: [""],
       remarks: [""],
-      destinationLocation: [""],
       paymentTerms: [""],
       currency: [""],
-      advance: [""],
+
+      //After detail row
       subTotal: [""],
-      address: [""],
-      city: [""],
-      state: [""],
-      zip: [""],
-      country: [""],
       discount: [""],
       otherCharges: [""],
       total: [""],
-      remarksOtherCharges: [""],
-      destinationAddress: [""],
-      destinationCity: [""],
-      destinationState: [""],
-      destinationZip: [""],
-      destinationCountry: [""],
+
       lopFile: [""],
       lopUpload: [""],
       loginedUser: this.tokenStorage.getUserId(),
@@ -138,7 +133,7 @@ export class AddPurchaseOrderComponent implements OnInit {
           vendorUOM: [''],
           vendorQty: [''],
           availableQty: [''],
-          location: [''],
+          locationId: [''],
           unitPrice: [''],
           oldUnitPrice: [''],
           price: [''],
@@ -155,6 +150,25 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   ngOnInit() {
     this.filePath = this.serverUrl.apiServerAddress;
+
+    //category Type list
+    this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 11).subscribe({
+      next: (data) => {
+        this.purchaseForList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    //category Type list
+    this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 12).subscribe({
+      next: (data) => {
+        this.purchaseTypeList = data;
+      },
+      error: (error) => {
+      }
+    });
+
 
     //Currency  Dropdown List
     this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe({
@@ -192,6 +206,16 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
+     //Discount Type List 
+     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 28).subscribe({
+      next: (data) => {
+        this.discountTypeList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+
     //UOM Dropdown List
     this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
       next: (data) => {
@@ -201,14 +225,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
-    //UOM Dropdown List
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
-      next: (data) => {
-        this.countryList = data;
-      },
-      error: (error) => {
-      }
-    });
+ 
 
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
@@ -273,36 +290,28 @@ export class AddPurchaseOrderComponent implements OnInit {
       next: (res: any) => {
         this.spinner.hide();
         let hdate = this.commonService.getDateObj(res.purchaseOrder.poDate);
+       
+       
         this.docForm.patchValue({
           'purchaseOrderId': res.purchaseOrder.purchaseOrderId,
-          'organizationName': res.purchaseOrder.organizationName,
-          'poNo': res.purchaseOrder.poNo,
+          'purchaseFor': res.purchaseOrder.purchaseFor,
           'poDate': res.purchaseOrder.poDate,
           'poDateObj': hdate,
           'purchaseType': res.purchaseOrder.purchaseType,
-          'purchaseFor': res.purchaseOrder.purchaseFor,
           'vendorId': res.purchaseOrder.vendorId,
+          'vendorAddress': res.purchaseOrder.vendorAddress,
+          'vendorCity': res.purchaseOrder.vendorCity,
+          'vendorState': res.purchaseOrder.vendorState,
+          'vendorCountry': res.purchaseOrder.vendorCountry,
           'destinationLocation': res.purchaseOrder.destinationLocation,
-          'advance': res.purchaseOrder.advance,
-          'currency': res.purchaseOrder.currency,
           'termsConditions': res.purchaseOrder.termsConditions,
           'remarks': res.purchaseOrder.remarks,
           'paymentTerms': res.purchaseOrder.paymentTerms,
-          'address': res.purchaseOrder.vendorAddress,
-          'vendorAddress': res.purchaseOrder.vendorAddress,
-          'city': res.purchaseOrder.vendorCity,
-          'state': res.purchaseOrder.vendorState,
-          'zip': res.purchaseOrder.vendorZip,
-          'country': res.purchaseOrder.vendorCountry,
-          'destinationAddress': res.purchaseOrder.destinationAddress,
-          'destinationCity': res.purchaseOrder.destinationCity,
-          'destinationState': res.purchaseOrder.destinationState,
-          'destinationZip': res.purchaseOrder.destinationZip,
-          'destinationCountry': res.purchaseOrder.destinationCountry,
+          'currency': res.purchaseOrder.currency,
+          //After detail row
           'subTotal': res.purchaseOrder.subTotal,
           'discount': res.purchaseOrder.discount,
           'otherCharges': res.purchaseOrder.otherCharges,
-          'remarksOtherCharges': res.purchaseOrder.remarksOtherCharges,
           'total': res.purchaseOrder.total,
           'lopUpload': res.purchaseOrder.lopUpload
         })
@@ -329,7 +338,7 @@ export class AddPurchaseOrderComponent implements OnInit {
               vendorUOM: [element.vendorUOM],
               vendorQty: [element.vendorQty],
               availableQty: [element.availableQty],
-              location: [element.location],
+              locationId: [element.locationId],
               unitPrice: [element.unitPrice],
               oldUnitPrice: [element.oldUnitPrice],
               price: [element.price],
@@ -459,14 +468,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
   }
 
-  getVendorDetails(vendorCode: any) {
-    // this.httpService.get(this.lopService.vendorAddressDetails + "?vendorCode=" + vendorCode).subscribe((res: any) => {
-    //   this.docForm.patchValue({
-    //     'address': res.vendorMasterBean[0].address,
-    //     'country': res.vendorMasterBean[0].countryName,
-    //   })
-    // })
-  }
+
 
   // For Date related code
   getDateString(event, inputFlag, index) {
@@ -530,7 +532,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       vendorUOM: [''],
       vendorQty: [''],
       availableQty: [''],
-      location: [''],
+      locationId: [''],
       unitPrice: [''],
       oldUnitPrice: [''],
       price: [''],
@@ -543,6 +545,21 @@ export class AddPurchaseOrderComponent implements OnInit {
     })
     purchaseOrderDetailArray.insert(arraylen, newUsergroup);
   }
-
-
+	
+  //Vendor Address Details
+  getVendorAddressDetails(vendorId: number) {
+    this.httpService.get<any>(this.commonService.getVendorAddressDetails + "?vendorId=" + vendorId).subscribe({
+      next: (data) => {
+        this.docForm.patchValue({
+          'vendorId': data.id,
+          'vendorAddress': data.address,
+          'vendorCity': data.cityName,
+          'vendorState': data.stateName,
+          'vendorCountry': data.countryName
+        })
+      },
+      error: (error) => {
+      }
+    });
+  }
 }
