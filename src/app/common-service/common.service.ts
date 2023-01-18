@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { Observable } from 'rxjs';
 
 
 const httpOptions = {
@@ -67,6 +68,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public commonUploadFile = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/commonUploadFile`;
 
+  public commonViewDocument = `${this.serverUrl.apiServerAddress}api/auth/app/commonViewDocument/view_document`;
+
   public getPurchaseOrderNumberDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseOrderNumberDropdown`;
 
   public getPurchaseInvoiceNumberDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseInvoiceNumberDropdown`;
@@ -101,11 +104,27 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getCityDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCityDropdown`;
 
   public getAuditorDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAuditorDropdown`;
- 
+
   public getCompanyStringDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyStringDropdown`;
 
   public getRequisitionList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getRequisitionList`;
 
   public getVendorAddressDetails = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getVendorAddressDetails`;
+
+
+  //FOR DOCUMENT VIEW ADDED BY GOKUL
+  viewDocument(filePath: any): Observable<Blob> {
+    var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      "Authorization": authorization, responseType: 'blob'
+    });
+
+    return this.httpClient.post<Blob>(this.commonViewDocument, filePath, {
+      headers: headers, responseType:
+        'blob' as 'json'
+    });
+  }
 
 }

@@ -74,7 +74,6 @@ export class AddPurchaseOrderComponent implements OnInit {
   purchaseRequestDtlBean = [];
   tmpDate: string;
   value1: number;
-  filePath: any;
 
 
   filePathUrl: string;
@@ -96,11 +95,11 @@ export class AddPurchaseOrderComponent implements OnInit {
 
     this.docForm = this.fb.group({
       purchaseOrderId: [""],
-      purchaseFor:  ["", [Validators.required]],
+      purchaseFor: ["", [Validators.required]],
       poDate: [moment().format('DD/MM/YYYY')],
       poDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
-      purchaseType:  ["", [Validators.required]],
-      vendorId:  ["", [Validators.required]],
+      purchaseType: ["", [Validators.required]],
+      vendorId: ["", [Validators.required]],
       vendorAddress: [""],
       vendorCity: [""],
       vendorState: [""],
@@ -149,7 +148,6 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filePath = this.serverUrl.apiServerAddress;
 
     //category Type list
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 11).subscribe({
@@ -206,8 +204,8 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
-     //Discount Type List 
-     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 28).subscribe({
+    //Discount Type List 
+    this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 28).subscribe({
       next: (data) => {
         this.discountTypeList = data;
       },
@@ -225,7 +223,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
- 
+
 
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
@@ -290,8 +288,8 @@ export class AddPurchaseOrderComponent implements OnInit {
       next: (res: any) => {
         this.spinner.hide();
         let hdate = this.commonService.getDateObj(res.purchaseOrder.poDate);
-       
-       
+
+
         this.docForm.patchValue({
           'purchaseOrderId': res.purchaseOrder.purchaseOrderId,
           'purchaseFor': res.purchaseOrder.purchaseFor,
@@ -479,6 +477,59 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
 
+
+
+  removeRow(index) {
+    let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+    purchaseOrderDetailArray.removeAt(index);
+  }
+
+  addRow() {
+    let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+    let arraylen = purchaseOrderDetailArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      purchaseOrderId: [""],
+      itemId: [''],
+      itemDescription: [''],
+      edd: [''],
+      eddObj: [''],
+      purchaseUOM: [''],
+      purchaseQty: [''],
+      vendorUOM: [''],
+      vendorQty: [''],
+      availableQty: [''],
+      locationId: [''],
+      unitPrice: [''],
+      oldUnitPrice: [''],
+      price: [''],
+      discountType: [''],
+      discount: [''],
+      discountPercent: [''],
+      netPrice: [''],
+      finalTotal: [''],
+      requisitionId: ['']
+    })
+    purchaseOrderDetailArray.insert(arraylen, newUsergroup);
+  }
+
+  //Vendor Address Details
+  getVendorAddressDetails(vendorId: number) {
+    this.httpService.get<any>(this.commonService.getVendorAddressDetails + "?vendorId=" + vendorId).subscribe({
+      next: (data) => {
+        this.docForm.patchValue({
+          'vendorId': data.id,
+          'vendorAddress': data.address,
+          'vendorCity': data.cityName,
+          'vendorState': data.stateName,
+          'vendorCountry': data.countryName
+        })
+      },
+      error: (error) => {
+      }
+    });
+  }
+
+  //FOR DOCUMENT UPLOAD ADDED BY GOKUL
   onSelectFile(event) {
     var docfile = event.target.files[0];
     var fileExtension = docfile.name;
@@ -513,53 +564,34 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
   }
 
-  removeRow(index) {
-    let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-    purchaseOrderDetailArray.removeAt(index);
-  }
-
-  addRow() {
-    let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-    let arraylen = purchaseOrderDetailArray.length;
-    let newUsergroup: FormGroup = this.fb.group({
-      purchaseOrderId: [""],
-      itemId: [''],
-      itemDescription: [''],
-      edd: [''],
-      eddObj: [''],
-      purchaseUOM: [''],
-      purchaseQty: [''],
-      vendorUOM: [''],
-      vendorQty: [''],
-      availableQty: [''],
-      locationId: [''],
-      unitPrice: [''],
-      oldUnitPrice: [''],
-      price: [''],
-      discountType: [''],
-      discount: [''],
-      discountPercent: [''],
-      netPrice: [''],
-      finalTotal: [''],
-      requisitionId: ['']
-    })
-    purchaseOrderDetailArray.insert(arraylen, newUsergroup);
-  }
-	
-  //Vendor Address Details
-  getVendorAddressDetails(vendorId: number) {
-    this.httpService.get<any>(this.commonService.getVendorAddressDetails + "?vendorId=" + vendorId).subscribe({
-      next: (data) => {
-        this.docForm.patchValue({
-          'vendorId': data.id,
-          'vendorAddress': data.address,
-          'vendorCity': data.cityName,
-          'vendorState': data.stateName,
-          'vendorCountry': data.countryName
-        })
+  //FOR DOCUMENT VIEW ADDED BY GOKUL
+  viewDocuments(filePath: any, fileName: any) {
+    this.spinner.show();
+    this.commonService.viewDocument(filePath).pipe().subscribe({
+      next: (result: any) => {
+        this.spinner.hide();
+        var blob = result;
+        var fileURL = URL.createObjectURL(blob);
+        if (fileName.split('.').pop().toLowerCase() === 'pdf') {
+          window.open(fileURL);
+        } else {
+          var a = document.createElement("a");
+          a.href = fileURL;
+          a.target = '_blank';
+          a.download = fileName;
+          a.click();
+        }
       },
       error: (error) => {
+        this.spinner.hide();
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to View File",
+          "bottom",
+          "center"
+        );
       }
     });
   }
+
 }
