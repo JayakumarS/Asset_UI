@@ -10,7 +10,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { AssetRequisitionService } from '../asset-requisition.service';
 import { AssetRequisition } from '../asset-requisition.model';
 import { NotificationService } from 'src/app/core/service/notification.service';
-
+import * as moment from 'moment';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -68,8 +68,8 @@ export class AddAssetRequisitionComponent implements OnInit {
     {
       this.docForm = this.fb.group({
         requisitionNumber:[""],
-        requisitionDate:[""],
-        requisitionDateObj:[""],
+        requisitionDate:[moment().format('DD/MM/YYYY')],
+        requisitionDateObj:[moment().format('YYYY-MM-DD')],
         requestedBy:[""],
         requisitionType:[""],
         sourceLocation:[""],
@@ -167,7 +167,23 @@ fetchDetails(id: any,type:any): void {
       'companyId':  res.assetRequisition.companyId,
       'eddDateObj':this.commonService.getDateObj(res.assetRequisition.eddDate),
       'eddDate': res.assetRequisition.eddDate
-   })
+   });
+   this.fetchAssetDtls(res.assetRequisition.itemId);
+  //  if(res.manageAuditBean.manageAuditDtlObjBean!=null){
+  
+     
+  //   res.manageAuditBean.manageAuditDtlObjBean.forEach(element => {
+  //         let manageAuditDtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
+  //         let arraylen = manageAuditDtlArray.length;
+  //         let newUsergroup: FormGroup = this.fb.group({
+  //           category:[element.category],
+  //           location:[element.location],
+  //           department:[element.department]
+  //       })
+  //       manageAuditDtlArray.insert(arraylen,newUsergroup);
+  //     });
+  //   }
+
     },
     (err: HttpErrorResponse) => {
       this.showNotification(
@@ -197,11 +213,11 @@ fetchAssetDtls(itemId){
         console.log(data);
         if(data.success){
           this.assetTrackList = data.assetTrackList;
-
+         
+          this.docForm.controls.assetRequisitionDtl.reset;
           if(data.assetTrackList!=null){
-            let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
-            DtlArray.removeAt(0);
-     
+            
+            
             data.assetTrackList.forEach(element => {
                   let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
                   let arraylen = DtlArray.length;
