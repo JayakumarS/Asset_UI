@@ -50,20 +50,22 @@
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                       <label>ASSET LOCATION</label>
                   </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <mat-form-field appearance="outline" style="width:310px">
-                      <mat-select formControlName="assetlocation" required>
-                        <mat-option value="CHENNAI">CHENNAI</mat-option>
-                        <mat-option value="MUMBAI">MUMBAI</mat-option>
-                        <mat-option value="DELHI">DELHI</mat-option>
+
+                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12" style="margin-left: 5px;">
+                    <mat-form-field  appearance="outline"  style="width:310px">
+                      <mat-select formControlName="assetlocation" >
+                        <mat-option *ngFor="let title of assetlocationlist" [value]="title.id" required>
+                          {{title.text}}
+                        </mat-option>
                       </mat-select>
-                      <mat-error *ngIf="docForm.get('assetlocation').hasError('required')">
-                        location is required
-                      </mat-error>
+
+                     
                     </mat-form-field>
                   </div> 
 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 8%;" >
+
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
                       <label >TICKET GROUP</label>
                   </div>
 

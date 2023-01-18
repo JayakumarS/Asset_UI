@@ -124,10 +124,10 @@ export class AddItSupportComponent implements OnInit {
   }
   );
 
-    // assetname dropdown
-   this.httpService.get<any>(this.commonService.getassetname).subscribe({
+    // assetlocationlist dropdown
+   this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
     next: (data) => {
-      this.assetnamelist = data;
+      this.assetlocationlist = data;
     },
     error: (error) => {
 
@@ -140,6 +140,7 @@ export class AddItSupportComponent implements OnInit {
      next: (data) => {
        this.assetnamelist = data;
      },
+
      error: (error) => {
  
      }
@@ -185,7 +186,7 @@ refresh(){
        'reportdateObj':cdate,
         'uploadImg': res.itSupportBean.uploadImg,
         'asset':  parseInt(res.itSupportBean.asset),
-        'assetlocation' :res.itSupportBean.assetlocation,
+        'assetlocation' :parseInt(res.itSupportBean.assetlocation),
         'reportedby' : res.itSupportBean.reportedby,
         'tickettype' : res.itSupportBean.tickettype,
         'ticketgroup' : res.itSupportBean.ticketgroup,
