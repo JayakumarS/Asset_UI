@@ -4,12 +4,13 @@ export class PurchaseInvoice{
     purchaseInvoiceNo: string;
     purchaseInvoiceId: number;
     vendorName: string;
-    vendor: number;
-    currency: number;
+    vendorId: number;
+    locationId: number;
+    currencyId: number;
     exchangeRate:String;
     amount: number;
-    narration: string;
-    companyName:string;
+    total: string;
+    description:string;
     itemIdName:string;
     purchaseInvoiceDetailList:any;
     deliveryOrderDtlList:any;

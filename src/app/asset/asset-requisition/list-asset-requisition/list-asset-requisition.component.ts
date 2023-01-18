@@ -100,7 +100,7 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
 
 
   editCall(row) { 
-  //  this.router.navigate(['/audit/manageaudit/addManageAudit/'+row.auditCode]);
+    this.router.navigate(['/asset/assetRequisition/addAssetRequisition/'+row.assetRequisitionId+'/'+row.requisitionType]);
   }
 
 

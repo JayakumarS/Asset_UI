@@ -5,4 +5,5 @@ export class AssetRequisition {
     requisitionDate: string;
     sourceLocationText: any;
     destinationLocationText:any;
+    requisitionType:any;
 }

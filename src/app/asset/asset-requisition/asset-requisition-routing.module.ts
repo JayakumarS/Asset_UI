@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ListAssetRequisitionComponent,
   },
   {
-    path: "addAssetRequisition/:id",
+    path: "addAssetRequisition/:id/:type",
     component: AddAssetRequisitionComponent,
   }
 ];

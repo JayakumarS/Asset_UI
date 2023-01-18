@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssetService } from '../asset.service';
@@ -10,6 +10,12 @@ import { AuditableAssetResultBean } from 'src/app/audit/auditable-asset/auditabl
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { AuditableAssetService } from 'src/app/audit/auditable-asset/auditable-asset.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CommonService } from 'src/app/common-service/common.service';
+import { InventoryReports } from 'src/app/inventory/inventory-reports/inventory-reports-model';
+import { MainList } from 'src/app/inventory/inventory-reports/list-inventory-reports/list-inventory-reports.component';
+import { InventoryReportsService } from 'src/app/inventory/inventory-reports/inventory-reports.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-asset-profile-view',
@@ -18,6 +24,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AssetProfileViewComponent implements OnInit {
 
+ @ViewChild('outerSort', { static: true }) sort: MatSort;
+  @ViewChildren('innerSort') innerSort: QueryList<MatSort>;
   docForm: FormGroup;
   requestId: any;
   profileViewDetails: any;
@@ -26,10 +34,19 @@ export class AssetProfileViewComponent implements OnInit {
   auditableAsset:AuditableAsset;
   fullLifeFlag:boolean=false;
   financialChangeDetails:[];
+  itemNameDdList: any;
+  locationDdList: any;
+  customerMaster: InventoryReports | null;
+  mainList =[];
+  glList=[];
+  gllist: MainList[] = [];
+  dataSource: MatTableDataSource<MainList>;
+  columnsToDisplay = ["assetName", "categoryName", "location", "quantity"];
 
   constructor( public router:Router,private fb: FormBuilder,private  assetService: AssetService,
     public route: ActivatedRoute,public dialog: MatDialog,private httpService: HttpServiceService,
-    public auditableAssetService:AuditableAssetService,) {
+    public auditableAssetService:AuditableAssetService,private commonService: CommonService,
+    private cmnService:CommonService,private inventoryReportService: InventoryReportsService,) {
 
     this.docForm = this.fb.group({
 
@@ -73,8 +90,11 @@ export class AssetProfileViewComponent implements OnInit {
       allottedUptoobj:[""],
       fileUploadUrl:[""],
       imgUploadUrl:[""],
-
-      depreciationMethod:[""]
+      depreciationMethod:[""],
+      //tab5
+      item: [""],
+      fromDateObj: [""],
+      toDateObj:[""],
       
       
     });
@@ -89,7 +109,84 @@ export class AssetProfileViewComponent implements OnInit {
     
       }
      });
+
+     this.viewReport();
+
+      // Location dropdown
+ this.httpService.get<any>(this.commonService.getItemNameDropdown).subscribe({
+  next: (data) => {
+    this.itemNameDdList = data;
+  },
+  error: (error) => {
+
   }
+}
+);
+
+
+ // Location dropdown
+ this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+  next: (data) => {
+    this.locationDdList = data;
+  },
+  error: (error) => {
+
+  }
+}
+);
+  }
+
+
+  getDateString(event,inputFlag){
+    let cdate = this.cmnService.getDate(event.target.value);
+    if(inputFlag=='fromDate'){
+      this.docForm.patchValue({fromDate:cdate});
+    }else if(inputFlag == 'toDate'){
+      this.docForm.patchValue({toDate:cdate});
+    }
+
+  };
+
+  viewReport(){
+    this.customerMaster = this.docForm.value;
+    this.mainList=[];
+    this.gllist=[];
+    this.httpService.post(this.inventoryReportService.getInvemtoryReports, this.customerMaster).subscribe((res: any) => {
+      console.log(res.inventoryReportsDetails);
+      this.mainList=res.inventoryReportsDetails;
+    //   if(this.mainList!=null){
+    //   this.mainList.forEach(data => {
+    //     if (data.subList && Array.isArray(data.subList) && data.subList.length) {
+    //       this.gllist = [...this.gllist,
+    //         { ...data, subList: new MatTableDataSource(data.subList) }
+    //       ];
+    //     } 
+      
+    //     else {
+    //       this.gllist = [...this.gllist, data];
+    //     }
+    //   });
+    // }
+      this.dataSource = new MatTableDataSource(this.mainList);
+      this.dataSource.sort = this.sort;
+    });
+ 
+  }
+
+
+  reset(){
+   
+    this.docForm = this.fb.group({
+      item: [""],
+      fromDateObj: [""],
+      toDateObj:[""],
+      location: [""]
+    });
+    this.mainList=[];
+    this.gllist=[];
+    this.viewReport();
+  }
+
 
   viewprofile(id: any){
 

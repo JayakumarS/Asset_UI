@@ -1,46 +1,32 @@
 export class PurchaseOrder {
-    id: number;
     purchaseOrderId: number;
-    organizationName: string;
     poNo: string;
+    purchaseFor: string;
     poDate: string;
     purchaseType: string;
     purchaseTypeName: string;
-    purchaseFor: string;
     vendorId: number;
     vendorName: string;
-    destinationLocation: string;
-    advance: number;
-    currency: number;
-    termsConditions: string;
-    remarks: string;
-    paymentTerms: string;
     vendorAddress: string;
     vendorCity: string;
     vendorState: string;
-    vendorZip: number;
     vendorCountry: string;
-    destinationAddress: string;
-    destinationCity: string;
-    destinationState: string;
-    destinationZip: number;
-    destinationCountry: string;
+    destinationLocation: string;
+    termsConditions: string;
+    remarks: string;
+    paymentTerms: string;
+    currency: number;
+
+    //After detail row
     subTotal: number;
     discount: number;
-    cgst: number;
-    sgst: number;
-    igst: number;
     otherCharges: string;
-    remarksOtherCharges: string;
     total: number;
-    purchaseOrderDetail: any;
-    address: string;
-    city: string;
-    state: string;
-    zip: number;
-    country: string;
-    success: boolean;
     lopFile: string;
     lopUpload: string;
-    purchaseForName: String;
+    loginedUser: string;
+
+    //purchase Order Detail List
+    purchaseOrderDetail: any;
+
 }
