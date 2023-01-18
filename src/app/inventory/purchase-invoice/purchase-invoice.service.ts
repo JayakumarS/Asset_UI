@@ -34,7 +34,8 @@ export class PurchaseInvoiceService extends UnsubscribeOnDestroyAdapter {
   public editPurchaseInvoiceMaster = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseInvoice/edit`;
   public updatePurchaseInvoiceMaster = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseInvoice/update`;
   public deletePurchaseInvoiceMaster = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseInvoice/delete`;
-  
+  public getPurchaseInvoiceDetails = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseInvoice/getPurchaseInvoiceDetails`;
+
   get data(): PurchaseInvoice[] {
     return this.dataChange.value;
   }

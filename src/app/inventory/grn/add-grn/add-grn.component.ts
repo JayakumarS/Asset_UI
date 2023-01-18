@@ -53,10 +53,8 @@ export class AddGrnComponent implements OnInit {
   grnDetailList = [];
   purchaseOrderNumber = [];
   vendorList = [];
-  countryList = [];
   locationList: [];
-  itemList = [];
-  uomList = [];
+  itemCodeNameList = [];
   edit: boolean = false;
   requestId: any;
 
@@ -97,10 +95,8 @@ export class AddGrnComponent implements OnInit {
       grnDetailList: this.fb.array([
         this.fb.group({
           itemId: [""],
-          itemCode: [""],
-          itemName: [""],
           unitPrice: [""],
-          receivingQty: [""],
+          receivingQty: ["", [Validators.required]],
         })
       ])
 
@@ -128,14 +124,7 @@ export class AddGrnComponent implements OnInit {
       }
     });
 
-    //Country  Dropdown List
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
-      next: (data) => {
-        this.countryList = data;
-      },
-      error: (error) => {
-      }
-    });
+
 
     //Location Dropdown List
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
@@ -149,7 +138,7 @@ export class AddGrnComponent implements OnInit {
     //Item Master Dropdown List
     this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
       next: (data) => {
-        this.itemList = data;
+        this.itemCodeNameList = data;
       },
       error: (error) => {
       }
@@ -254,8 +243,6 @@ export class AddGrnComponent implements OnInit {
             let arraylen = grnDetailArray.length;
             let newUsergroup: FormGroup = this.fb.group({
               itemId: [element.itemId],
-              itemCode: [element.itemCode],
-              itemName: [element.itemName],
               unitPrice: [element.unitPrice],
               receivingQty: [element.receivingQty],
             })
@@ -382,20 +369,36 @@ export class AddGrnComponent implements OnInit {
   getDateString(event, inputFlag) {
     let cdate = this.commonService.getDate(event.target.value);
     if (inputFlag == 'grnDate') {
-      this.docForm.patchValue({grnDate: cdate });
-    } else if(inputFlag=='invoiceDate'){
-      this.docForm.patchValue({invoiceDate: cdate});
-    } else if(inputFlag=='delOrderDate'){
-      this.docForm.patchValue({delOrderDate: cdate});
+      this.docForm.patchValue({ grnDate: cdate });
+    } else if (inputFlag == 'invoiceDate') {
+      this.docForm.patchValue({ invoiceDate: cdate });
+    } else if (inputFlag == 'delOrderDate') {
+      this.docForm.patchValue({ delOrderDate: cdate });
     }
   };
 
+
+  removeRow(index) {
+    let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
+    grnDetailArray.removeAt(index);
+  }
+
+  addRow() {
+    let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
+    let arraylen = grnDetailArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      itemId: [""],
+      unitPrice: [""],
+      receivingQty: ["", [Validators.required]],
+    })
+    grnDetailArray.insert(arraylen, newUsergroup);
+  }
 
 
   getPurchaseOrderDetails(POID: number) {
     if (POID != undefined && POID != null) {
       this.spinner.show();
-      this.httpService.get<any>(this.purchaseOrderService.getPurchaseOrderDetailsList + "?purchaseOrderId=" + POID).subscribe({
+      this.httpService.get<any>(this.purchaseOrderService.getPurchaseOrderDetails + "?purchaseOrderId=" + POID).subscribe({
         next: (res: any) => {
           this.spinner.hide();
           if (res.success) {
@@ -418,8 +421,6 @@ export class AddGrnComponent implements OnInit {
                 let arraylen = grnDetailArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
                   itemId: [element.itemId],
-                  itemCode: [element.itemCode],
-                  itemName: [element.itemName],
                   unitPrice: [element.unitPrice],
                   receivingQty: [""],
                 })

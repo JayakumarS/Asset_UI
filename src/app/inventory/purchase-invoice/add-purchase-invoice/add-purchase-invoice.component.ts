@@ -11,8 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { PurchaseOrderService } from '../../purchase-order/purchase-order.service';
 import * as moment from 'moment';
+import { GrnService } from '../../grn/grn.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -51,10 +51,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   edit: boolean = false;
   requestId: any;
   purchaseInvoiceDetailList = [];
-  itemList = [];
+  itemCodeNameList = [];
   uomList = [];
   vendorList = [];
-  purchaseOrderNumberList = [];
+  grnNumberList = [];
   locationList = [];
 
   constructor(private fb: FormBuilder,
@@ -67,7 +67,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
-    private purchaseOrderService: PurchaseOrderService) {
+    private grnService: GrnService) {
 
     this.docForm = this.fb.group({
       purchaseInvoiceNo: [""],
@@ -75,7 +75,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       purchaseInvoiceDate: [moment().format('DD/MM/YYYY')],
       purchaseInvoiceDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
       partyInvoiceNo: ["", [Validators.required]],
-      purchaseOrderNo: ["", [Validators.required]],
+      grnId: ["", [Validators.required]],
       partyInvoiceDate: [""],
       partyInvoiceDateObj: [""],
       dueDate: [moment().format('DD/MM/YYYY')],
@@ -93,11 +93,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       purchaseInvoiceDetailList: this.fb.array([
         this.fb.group({
           itemId: [""],
-          qty: [""],
-          uomid: [""],
-          quotePrice: [""],
-          ginDtlId: [""],
-          userId: [""]
+          unitPrice: [""],
+          receivingQty: [""],
         })
       ])
     });
@@ -106,9 +103,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
   ngOnInit() {
     //PurchaseOrderNumber Dropdown List
-    this.httpService.get<any>(this.commonService.getPurchaseOrderNumberDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getGRNNumberDropdown).subscribe({
       next: (data) => {
-        this.purchaseOrderNumberList = data;
+        this.grnNumberList = data;
       },
       error: (error) => {
       }
@@ -132,7 +129,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       }
     });
 
-    
+
 
     //Currency  Dropdown List
     this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe({
@@ -143,9 +140,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       }
     });
     //Item Master Dropdown List
-    this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
       next: (data) => {
-        this.itemList = data;
+        this.itemCodeNameList = data;
       },
       error: (error) => {
       }
@@ -231,7 +228,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
         this.docForm.patchValue({
           'purchaseInvoiceId': res.purchaseInvoice.purchaseInvoiceId,
-          'purchaseOrderNo': res.purchaseInvoice.purchaseOrderNo,
+          'grnId': res.purchaseInvoice.grnId,
           'partyInvoiceNo': res.purchaseInvoice.partyInvoiceNo,
           'description': res.purchaseInvoice.description,
           'purchaseInvoiceDateObj': hpurchaseInvoiceDate,
@@ -256,9 +253,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             let arraylen = purchaseInvoiceDtlArray.length;
             let newUsergroup: FormGroup = this.fb.group({
               itemId: [element.itemId],
-              qty: [element.qty],
-              uomid: [element.uomid],
-              quotePrice: [element.quotePrice]
+              unitPrice: [element.unitPrice],
+              receivingQty: [element.receivingQty]
             })
             purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
           });
@@ -395,9 +391,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     let arraylen = purchaseInvoiceDtlArray.length;
     let newUsergroup: FormGroup = this.fb.group({
       itemId: [""],
-      qty: [""],
-      uomid: [""],
-      quotePrice: [""],
+      unitPrice: [""],
+      receivingQty: [""],
     })
     purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
   }
@@ -407,24 +402,23 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     purchaseInvoiceDtlArray.removeAt(index);
   }
 
-  getPurchaseInvoiceDetails(POID: number) {
-    if (POID != undefined && POID != null) {
+  getGRNDetails(GRNID: number) {
+    if (GRNID != undefined && GRNID != null) {
       this.spinner.show();
-      this.httpService.get<any>(this.purchaseOrderService.getPurchaseOrderDetailsList + "?purchaseOrderId=" + POID).subscribe({
+      this.httpService.get<any>(this.grnService.getGRNDetails + "?grnId=" + GRNID).subscribe({
         next: (res: any) => {
           this.spinner.hide();
           if (res.success) {
-            if (res.purchaseOrderDetailList != null && res.purchaseOrderDetailList.length >= 1) {
+            if (res.grnDetailList != null && res.grnDetailList.length >= 1) {
               let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
               purchaseInvoiceDtlArray.clear();
-              res.purchaseOrderDetailList.forEach(element => {
+              res.grnDetailList.forEach(element => {
                 let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
                 let arraylen = purchaseInvoiceDtlArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
                   itemId: [element.itemId],
-                  qty: [element.purchaseQty],
-                  uomid: [element.purchaseUOM],
-                  quotePrice: [element.price]
+                  unitPrice: [element.unitPrice],
+                  receivingQty: [element.receivingQty]
                 })
                 purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
               });

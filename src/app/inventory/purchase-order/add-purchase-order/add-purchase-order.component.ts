@@ -49,33 +49,15 @@ export const MY_DATE_FORMATS = {
 export class AddPurchaseOrderComponent implements OnInit {
   docForm: FormGroup;
   purchaseOrder: PurchaseOrder;
-  hide3 = true;
-  agree3 = false;
-  dataarray = [];
-  dataarray1 = [];
-  currencyList: [];
   itemCodeNameList = [];
-  cusMasterData = [];
-  lpoDetails: [];
   locationList = [];
   uomList = [];
-  poList = [];
   vendorList = [];
-  totPrice: any;
-  flag: boolean = false;
-  flagPoNo: boolean = false;
   lopFile: any;
-  // For Encryption
   requestId: any;
-  decryptRequestId: any;
-  //  purchaseRequestDetail= new DetailRowComponent;
   maxDate = moment(new Date()).add(0, 'days').format('YYYY-MM-DD');
   edit: boolean = false;
   purchaseRequestDtlBean = [];
-  tmpDate: string;
-  value1: number;
-
-
   filePathUrl: string;
   purchaseTypeList: [];
   purchaseForList: [];
@@ -159,15 +141,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
 
 
-    //Currency  Dropdown List
-    this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe({
-      next: (data) => {
-        this.currencyList = data;
-      },
-      error: (error) => {
-      }
-    });
-
+   
     //Location Dropdown List
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
