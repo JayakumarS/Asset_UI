@@ -46,6 +46,8 @@ export type ChartOptions = {
 })
 export class MainComponent implements OnInit {
   assetsCount = [];
+  auditableAssetList = [];
+  assetList = [];
   public cardChart1: any;
   public cardChart1Data: any;
   public cardChart1Label: any;
@@ -87,6 +89,9 @@ export class MainComponent implements OnInit {
   auditorsCountValue: any;
   assetsCountValue: any;
   usersCountValue: any;
+  purchaseAssetsCountValue: any;
+  depreciatedCountValue: any;
+  config1: { itemsPerPage: number; currentPage: number; totalItems: number; };
 
   constructor(private httpService:HttpServiceService,private mainService:MainService) {}
   ngOnInit() {
@@ -148,7 +153,58 @@ export class MainComponent implements OnInit {
         console.log(error.name + " " + error.message);
       }
     );
+
+    this.httpService.get<MainResultBean>(this.mainService.purchaseAssetsCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.purchaseAssetsCountValue = data.purchaseAssetsCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+    this.httpService.get<MainResultBean>(this.mainService.depreciatedCountUrl).subscribe(
+      (data) => {
+        console.log(data);
+        this.depreciatedCountValue = data.depreciatedCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+    this.getInvList();
+    this.getAssetList();
     
+  }
+
+  getInvList(){
+    this.httpService.get<MainResultBean>(this.mainService.getAuditableAssetListUrl).subscribe(
+      (data) => {
+        
+        this.auditableAssetList = data.auditableAssetList;
+        this.config1 = {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.auditableAssetList.length
+        }; 
+      }
+    );
+  }
+
+  getAssetList(){
+    this.httpService.get<MainResultBean>(this.mainService.getAssetListUrl).subscribe(
+      (data) => {
+        
+        this.assetList = data.assetList;
+        this.config1 = {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.auditableAssetList.length
+        }; 
+      }
+    );
   }
 
   private smallChart1() {
