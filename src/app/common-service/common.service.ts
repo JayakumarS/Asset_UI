@@ -74,6 +74,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getPurchaseInvoiceNumberDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseInvoiceNumberDropdown`;
 
+  public getGRNDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getGRNDropdown`;
+
   public getItemNameDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterDropdown`;
 
   public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAdminDropdown`;
@@ -93,6 +95,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getItemMasterDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterDropdown`;
 
+  public getItemMasterNameWithItemCodeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getItemMasterNameWithItemCodeDropdown`;
+  
   public getuserCategoryName = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUomCategoryName`;
 
   public getEmployeeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeeDropdown`;

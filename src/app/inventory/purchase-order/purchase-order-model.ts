@@ -1,7 +1,6 @@
 export class PurchaseOrder {
     purchaseOrderId: number;
     poNo: string;
-    purchaseFor: string;
     poDate: string;
     purchaseType: string;
     purchaseTypeName: string;
@@ -14,8 +13,6 @@ export class PurchaseOrder {
     destinationLocation: string;
     termsConditions: string;
     remarks: string;
-    paymentTerms: string;
-    currency: number;
 
     //After detail row
     subTotal: number;

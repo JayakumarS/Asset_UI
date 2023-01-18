@@ -54,7 +54,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   dataarray = [];
   dataarray1 = [];
   currencyList: [];
-  itemList = [];
+  itemCodeNameList = [];
   cusMasterData = [];
   lpoDetails: [];
   locationList = [];
@@ -95,7 +95,6 @@ export class AddPurchaseOrderComponent implements OnInit {
 
     this.docForm = this.fb.group({
       purchaseOrderId: [""],
-      purchaseFor: ["", [Validators.required]],
       poDate: [moment().format('DD/MM/YYYY')],
       poDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
       purchaseType: ["", [Validators.required]],
@@ -104,11 +103,10 @@ export class AddPurchaseOrderComponent implements OnInit {
       vendorCity: [""],
       vendorState: [""],
       vendorCountry: [""],
+      vendorZip: [""],
       destinationLocation: [""],
       termsConditions: [""],
       remarks: [""],
-      paymentTerms: [""],
-      currency: [""],
 
       //After detail row
       subTotal: [""],
@@ -124,23 +122,16 @@ export class AddPurchaseOrderComponent implements OnInit {
         this.fb.group({
           purchaseOrderId: [""],
           itemId: [''],
-          itemDescription: [''],
           edd: [''],
           eddObj: [''],
-          purchaseUOM: [''],
-          purchaseQty: [''],
-          vendorUOM: [''],
-          vendorQty: [''],
-          availableQty: [''],
-          locationId: [''],
+          uomId: [''],
+          qty: [''],
           unitPrice: [''],
-          oldUnitPrice: [''],
           price: [''],
           discountType: [''],
           discount: [''],
           discountPercent: [''],
           netPrice: [''],
-          finalTotal: [''],
           requisitionId: ['']
         })
       ]),
@@ -196,9 +187,9 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
 
     //Item Master Dropdown List
-    this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
       next: (data) => {
-        this.itemList = data;
+        this.itemCodeNameList = data;
       },
       error: (error) => {
       }
@@ -292,7 +283,6 @@ export class AddPurchaseOrderComponent implements OnInit {
 
         this.docForm.patchValue({
           'purchaseOrderId': res.purchaseOrder.purchaseOrderId,
-          'purchaseFor': res.purchaseOrder.purchaseFor,
           'poDate': res.purchaseOrder.poDate,
           'poDateObj': hdate,
           'purchaseType': res.purchaseOrder.purchaseType,
@@ -301,11 +291,11 @@ export class AddPurchaseOrderComponent implements OnInit {
           'vendorCity': res.purchaseOrder.vendorCity,
           'vendorState': res.purchaseOrder.vendorState,
           'vendorCountry': res.purchaseOrder.vendorCountry,
+          'vendorZip': res.purchaseOrder.vendorZip,
           'destinationLocation': res.purchaseOrder.destinationLocation,
           'termsConditions': res.purchaseOrder.termsConditions,
           'remarks': res.purchaseOrder.remarks,
-          'paymentTerms': res.purchaseOrder.paymentTerms,
-          'currency': res.purchaseOrder.currency,
+  
           //After detail row
           'subTotal': res.purchaseOrder.subTotal,
           'discount': res.purchaseOrder.discount,
@@ -328,23 +318,16 @@ export class AddPurchaseOrderComponent implements OnInit {
             let newUsergroup: FormGroup = this.fb.group({
               purchaseOrderId: [element.purchaseOrderId],
               itemId: [element.itemId],
-              itemDescription: [element.itemDescription],
               edd: [element.edd],
               eddObj: cdate,
-              purchaseUOM: [element.purchaseUOM],
-              purchaseQty: [element.purchaseQty],
-              vendorUOM: [element.vendorUOM],
-              vendorQty: [element.vendorQty],
-              availableQty: [element.availableQty],
-              locationId: [element.locationId],
+              uomId: [element.uomId],
+              qty: [element.qty],
               unitPrice: [element.unitPrice],
-              oldUnitPrice: [element.oldUnitPrice],
               price: [element.price],
               discount: [element.discount],
               discountType: [element.discountType],
               discountPercent: [element.discountPercent],
               netPrice: [element.netPrice],
-              finalTotal: [element.finalTotal],
               requisitionId: [element.requisitionId],
             })
             purchaseOrderDetailArray.insert(arraylen, newUsergroup);
@@ -490,23 +473,16 @@ export class AddPurchaseOrderComponent implements OnInit {
     let newUsergroup: FormGroup = this.fb.group({
       purchaseOrderId: [""],
       itemId: [''],
-      itemDescription: [''],
       edd: [''],
       eddObj: [''],
-      purchaseUOM: [''],
-      purchaseQty: [''],
-      vendorUOM: [''],
-      vendorQty: [''],
-      availableQty: [''],
-      locationId: [''],
+      uomId: [''],
+      qty: [''],
       unitPrice: [''],
-      oldUnitPrice: [''],
       price: [''],
       discountType: [''],
       discount: [''],
       discountPercent: [''],
       netPrice: [''],
-      finalTotal: [''],
       requisitionId: ['']
     })
     purchaseOrderDetailArray.insert(arraylen, newUsergroup);
@@ -521,7 +497,8 @@ export class AddPurchaseOrderComponent implements OnInit {
           'vendorAddress': data.address,
           'vendorCity': data.cityName,
           'vendorState': data.stateName,
-          'vendorCountry': data.countryName
+          'vendorCountry': data.countryName,
+          'vendorZip': data.zip,
         })
       },
       error: (error) => {
