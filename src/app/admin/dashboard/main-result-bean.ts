@@ -9,4 +9,7 @@ export class MainResultBean {
     usersCount:[];
     // pie chart array
     countvalue:[];
+    purchaseAssetsCount:[];
+    depreciatedCount:[];
+    auditableAssetList:[];
 }

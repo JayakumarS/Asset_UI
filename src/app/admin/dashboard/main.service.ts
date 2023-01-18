@@ -35,6 +35,11 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
   public auditorsListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getAuditorsListCount`;
   public assetsListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getAssetsListCount`;
   public usersListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getUsersListCount`;
+  public purchaseAssetsCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/purchaseAssetsCount`;
+  public depreciatedCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/depreciatedCount`;
+  public getAuditableAssetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAuditableAssetList`;
+  public getAssetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetList`;
+
   get data(): main[] {
     return this.dataChange.value;
   }

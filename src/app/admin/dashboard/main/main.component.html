@@ -37,7 +37,7 @@
                     <h5 class="float-end">Earning</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0"> 20,125</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3>
                   </div>
                 </div>
               </div>
@@ -107,7 +107,7 @@
           </div>
         </div>
         <div class="card-bnner">
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-lg-6">
               <img src="assets/images/pages/home-1.png" alt="">
             </div>
@@ -116,7 +116,7 @@
               <p>Download employee salary reports.</p>
               <a [routerLink]="['/asset/assetMaster/listAssetMaster']">Download <i class="fas fa-arrow-down"></i> </a>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -138,14 +138,14 @@
             <div class="row">
               <div class="col-md-12 col-xl-4 d-flex flex-column justify-content-center">
                 <div class="m-l-10 m-b-20">
-                  <h1>$1,17,289</h1>
+                  <h1>{{earningsCountValue}}</h1>
                   <h4 class="font-weight-light col-green">Total Income</h4>
                   <p class="mb-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                     Aenean commodo ligula eget dolor.
                   </p>
                 </div>
                 <div class="m-l-10">
-                  <h1>$65,984</h1>
+                  <h1>0</h1>
                   <h4 class="font-weight-light col-orange">Total Expense</h4>
                   <p class="mb-2"> Cras dapibus. Vivamus elementum semper nisi. Aenean
                     vulputate eleifend tellus.
@@ -155,55 +155,55 @@
               <div class="col-md-12 col-xl-8">
                 <div class="row">
                   <div class="col-md-6">
-                    <h5 class="tx-primary m-b-30">Country Wise Sales</h5>
+                    <h5 class="tx-primary m-b-30">Summary</h5>
                     <div class="mb-3 mt-3">
                       <table class="table table-borderless">
                         <tbody>
                           <tr class="tr-height-m">
-                            <td class="text-muted">India</td>
+                            <td class="text-muted">Total Purchase Asset</td>
                             <td class="w-100 px-0">
                               <mat-progress-bar mode="determinate" class="progress-m progress-round progress-shadow"
                                 value="40">
                               </mat-progress-bar>
                             </td>
                             <td>
-                              <h5 class="font-weight-bold mb-0">154</h5>
+                              <h5 class="font-weight-bold mb-0">{{purchaseAssetsCountValue}}</h5>
                             </td>
                           </tr>
                           <tr class="tr-height-m">
-                            <td class="text-muted">USA</td>
+                            <td class="text-muted">Total Depreciated</td>
                             <td class="w-100 px-0">
                               <mat-progress-bar mode="determinate"
                                 class="progress-m progress-round green-progress progress-shadow" value="40">
                               </mat-progress-bar>
                             </td>
                             <td>
-                              <h5 class="font-weight-bold mb-0">423</h5>
+                              <h5 class="font-weight-bold mb-0">{{depreciatedCountValue}}</h5>
                             </td>
                           </tr>
                           <tr class="tr-height-m">
-                            <td class="text-muted">Shrilanka</td>
+                            <td class="text-muted">Total Sold</td>
                             <td class="w-100 px-0">
                               <mat-progress-bar mode="determinate"
                                 class="progress-m progress-round sky-progress progress-shadow" value="40">
                               </mat-progress-bar>
                             </td>
                             <td>
-                              <h5 class="font-weight-bold mb-0">265</h5>
+                              <h5 class="font-weight-bold mb-0">8</h5>
                             </td>
                           </tr>
                           <tr class="tr-height-m">
-                            <td class="text-muted">Australia</td>
+                            <td class="text-muted">Total Scrap</td>
                             <td class="w-100 px-0">
                               <mat-progress-bar mode="determinate"
                                 class="progress-m progress-round orange-progress progress-shadow" value="40">
                               </mat-progress-bar>
                             </td>
                             <td>
-                              <h5 class="font-weight-bold mb-0">341</h5>
+                              <h5 class="font-weight-bold mb-0">7</h5>
                             </td>
                           </tr>
-                          <tr class="tr-height-m">
+                          <!-- <tr class="tr-height-m">
                             <td class="text-muted">Japan</td>
                             <td class="w-100 px-0">
                               <mat-progress-bar mode="determinate"
@@ -224,7 +224,7 @@
                             <td>
                               <h5 class="font-weight-bold mb-0">153</h5>
                             </td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </table>
                     </div>
@@ -236,35 +236,35 @@
                         [options]="doughnutChartOptions" [legend]="doughnutChartLegend" [chartType]="doughnutChartType"
                         [colors]="doughnutChartColors"></canvas>
                     </div>
-                    <div class="country-chart">
+                    <div class="country-chart" *ngFor="let data of auditableAssetList">
                       <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-green"></span>
-                          <span>Itely</span>
+                          <span>{{data.assetname}}</span>
                         </div>
-                        <p class="mb-0">$30,289</p>
+                        <p class="mb-0">{{data.acquisitionvalue}}</p>
                       </div>
-                      <div class="d-flex justify-content-between mx-xl-5 mt-3">
+                      <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-orange"></span>
-                          <span>USA</span>
+                          <span>Mobile</span>
                         </div>
-                        <p class="mb-0">$25,968</p>
+                        <p class="mb-0">25,968</p>
                       </div>
                       <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-purple"></span>
-                          <span>India</span>
+                          <span>Book</span>
                         </div>
-                        <p class="mb-0">$45,278</p>
-                      </div>
-                      <div class="d-flex justify-content-between mx-xl-5 mt-3">
+                        <p class="mb-0">45,278</p>
+                      </div> -->
+                      <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-red"></span>
                           <span>Shrilanka</span>
                         </div>
                         <p class="mb-0">$21,376</p>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -279,7 +279,7 @@
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <div class="card">
           <div class="header">
-            <h2>Invoices</h2>
+            <h2>Depreciated Report/Calculation</h2>
             <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -294,15 +294,23 @@
               <table class="table table-hover ">
                 <thead>
                   <tr>
-                    <th>Invoice No</th>
-                    <th>Client Name</th>
-                    <th>Due Date</th>
-                    <th>Status</th>
-                    <th>Total </th>
+                    <th >Item</th>
+                    <th>Value</th>
+                    <th>Acc Depreciation</th>
+                    <!-- <th>Status</th> -->
+                    <!-- <th>Total </th> -->
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
+                  <tr *ngFor="let data of auditableAssetList">
+                    <td>{{data.assetname}}</td>
+                    <td>{{data.acquisitionvalue}}</td>
+                    <td>{{data.accudepreciation}}</td>
+                    <!-- <td>{{data.amount}}</td> -->
+                    <!-- <td>{{data.actions}}</td> -->
+                  </tr>
+                  <!-- <tr>
                     <td><a [routerLink]="['/admin/accounts/invoice']"> #IN7865 </a></td>
                     <td><img src="assets/images/user/user1.jpg" alt="" class="user_img">John Doe</td>
                     <td>12/05/2016 </td>
@@ -378,7 +386,7 @@
                     <td>
                       $147
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>
@@ -453,7 +461,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="card">
           <div class="header">
-            <h2>Projects</h2>
+            <h2>Asset List</h2>
             <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -465,7 +473,29 @@
           </div>
           <div class="tableBody">
             <div class="table-responsive">
-              <table class="table text-center">
+
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th >Asset Name</th>
+                    <th>Asset Code</th>
+                    <th>Location</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                  <tr *ngFor="let data of assetList">
+                    <td>{{data.assetName}}</td>
+                    <td>{{data.assetCode}}</td>
+                    <td>{{data.locationName}}</td>
+                    <td>{{data.categoryName}}</td>
+                    <td>{{data.status}}</td>
+                  </tr>
+                </tbody>
+              </table>  
+              <!-- <table class="table text-center">
                 <thead>
                   <tr>
                     <th>Project Name</th>
@@ -715,7 +745,7 @@
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> -->
             </div>
           </div>
         </div>
