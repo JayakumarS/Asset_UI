@@ -239,6 +239,7 @@ export class AssetProfileViewComponent implements OnInit {
       );
     }
     else{
+      this.financialChangeDetails=[],
       this.fullLifeFlag = false;
     }
   }
