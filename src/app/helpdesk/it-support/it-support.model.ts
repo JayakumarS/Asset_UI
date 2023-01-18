@@ -5,6 +5,7 @@ export class Itsupport {
     tickettype : string;
     asset : string;
     assetnamelist: any;
+    assetlocationlist: any;
     assetlocation : string;
     category : string;
     priority : number;
@@ -30,6 +31,7 @@ export class Itsupport {
       this.tickettype = itsupport.tickettype || "";
       this.asset = itsupport.asset || "";
       this.assetnamelist = itsupport.assetnamelist || "";
+      this.assetlocationlist = itsupport.assetlocationlist || "";
       this.assetlocation = itsupport.assetlocation || "";
       this.category = itsupport.category || "";
       this.priority = itsupport.priority || "";

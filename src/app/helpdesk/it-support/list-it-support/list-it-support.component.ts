@@ -60,6 +60,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   id: number;
   locationMaster: Itsupport | null;
   assetnamelist: [""]
+  assetlocationlist: [""]
   closedListCount=[];
   AssignedListCount=[];
   spinner: any;
@@ -275,7 +276,7 @@ export class ExampleDataSource1 extends DataSource<Itsupport> {
             const searchStr = (
               locationMaster.tickettype +
               locationMaster.assetnamelist +
-              locationMaster.assetlocation
+              locationMaster.assetlocationlist
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -312,7 +313,7 @@ export class ExampleDataSource1 extends DataSource<Itsupport> {
           [propertyA, propertyB] = [a.assetnamelist, b.assetnamelist];
           break;
         case "assetlocation":
-          [propertyA, propertyB] = [a.assetlocation, b.assetlocation];
+          [propertyA, propertyB] = [a.assetlocationlist, b.assetlocationlist];
           break;
         
       }
@@ -364,7 +365,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
             const searchStr = (
               locationMaster.tickettype +
               locationMaster.assetnamelist +
-              locationMaster.assetlocation
+              locationMaster.assetlocationlist
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -401,7 +402,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
           [propertyA, propertyB] = [a.assetnamelist, b.assetnamelist];
           break;
         case "assetlocation":
-          [propertyA, propertyB] = [a.assetlocation, b.assetlocation];
+          [propertyA, propertyB] = [a.assetlocationlist, b.assetlocationlist];
           break;
         
       }
