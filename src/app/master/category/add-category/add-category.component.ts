@@ -21,6 +21,7 @@ export class AddCategoryComponent implements OnInit {
   requestId: any;
   edit: boolean = false;
   assetcategory: Assetcategory;
+  categoryDdList=[];
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -35,7 +36,8 @@ export class AddCategoryComponent implements OnInit {
       parentCategory: [""],
       Description:[""],
       isactive:[false],
-      id:[""]
+      id:[""],
+      
    
     
   }); }
@@ -50,6 +52,18 @@ export class AddCategoryComponent implements OnInit {
 
       }
      });
+
+
+     // Parent Category dropdown
+     this.httpService.get<any>(this.commonService.getAssetCategoryDropdown).subscribe({
+      next: (data) => {
+        this.categoryDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
 
   }
   fetchDetails(category_id: any) {

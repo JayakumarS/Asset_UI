@@ -157,7 +157,7 @@ export class AddUserMasterComponent implements OnInit {
         "right"
       );
     }
-  }
+  } 
   onCancel() {
   this.router.navigate(['/master/userMaster/list-user-master/']);
   }
