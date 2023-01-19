@@ -566,4 +566,62 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
   }
 
+  calculatePrice(data:any,index:number){
+    if (data.get('qty').value != undefined && data.get('qty').value != null && data.get('qty').value != '' && data.get('unitPrice').value != undefined && data.get('unitPrice').value != null && data.get('unitPrice').value != '') {
+      let totalPrice = Number(Number(data.get('qty').value) * Number(data.get('unitPrice').value)).toFixed(2);
+      let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+      purchaseOrderDetailArray.at(index).patchValue({
+        price: totalPrice,
+        netPrice: totalPrice
+      });
+      this.calculateNetPrice(data,index);
+    }else{
+      let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+      purchaseOrderDetailArray.at(index).patchValue({
+        price: 0.00,
+        netPrice: 0.00
+      });
+    }
+  }
+
+  calculateNetPrice(data:any,index:number){
+    if (data.get('discountType').value != undefined && data.get('discountType').value != null && data.get('discountType').value != '' && data.get('price').value != undefined && data.get('price').value != null && data.get('price').value != 0.00 && data.get('price').value != ''){
+      if(data.get('discountType').value === 59){
+        if (data.get('discount').value != undefined && data.get('discount').value != null  && data.get('discount').value != '') {
+           let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+           let totalNetPrice = Number(Number(data.get('price').value) - Number(data.get('discount').value)).toFixed(2);
+            purchaseOrderDetailArray.at(index).patchValue({
+               netPrice: totalNetPrice
+            });
+        }else{
+          let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+          purchaseOrderDetailArray.at(index).patchValue({
+            netPrice: Number(data.get('price').value).toFixed(2)
+          });
+        }
+      }else if(data.get('discountType').value === 58){
+        if (data.get('discountPercent').value != undefined && data.get('discountPercent').value != null && data.get('discountPercent').value != '') {
+          let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+          let discountAmount = (Number(data.get('discountPercent').value)/100)*Number(data.get('price').value);
+          let totalNetPrice = Number(Number(data.get('price').value) - Number(discountAmount)).toFixed(2);
+          purchaseOrderDetailArray.at(index).patchValue({
+              netPrice: totalNetPrice
+           });
+       }else{
+         let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+         purchaseOrderDetailArray.at(index).patchValue({
+           netPrice: Number(data.get('price').value).toFixed(2)
+         });
+       }
+      }
+    }else{
+      let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+      purchaseOrderDetailArray.at(index).patchValue({
+        netPrice: 0.00
+      });
+    }
+  }
+
+  
+
 }
