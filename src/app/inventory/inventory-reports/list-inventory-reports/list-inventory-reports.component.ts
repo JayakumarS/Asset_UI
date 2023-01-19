@@ -157,7 +157,7 @@ this.viewReport();
 
 
  // Location dropdown
- this.httpService.get<any>(this.commonService.getItemNameDropdown).subscribe({
+ this.httpService.get<any>(this.commonService.getassetname).subscribe({
   next: (data) => {
     this.itemNameDdList = data;
   },
@@ -188,19 +188,7 @@ this.viewReport();
     this.httpService.post(this.inventoryReportService.getInvemtoryReports, this.customerMaster).subscribe((res: any) => {
       console.log(res.inventoryReportsDetails);
       this.mainList=res.inventoryReportsDetails;
-    //   if(this.mainList!=null){
-    //   this.mainList.forEach(data => {
-    //     if (data.subList && Array.isArray(data.subList) && data.subList.length) {
-    //       this.gllist = [...this.gllist,
-    //         { ...data, subList: new MatTableDataSource(data.subList) }
-    //       ];
-    //     } 
-      
-    //     else {
-    //       this.gllist = [...this.gllist, data];
-    //     }
-    //   });
-    // }
+  
       this.dataSource = new MatTableDataSource(this.mainList);
       this.dataSource.sort = this.sort;
     });
