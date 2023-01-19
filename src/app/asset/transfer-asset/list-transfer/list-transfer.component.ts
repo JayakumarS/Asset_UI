@@ -23,7 +23,7 @@ import { DeleteTransferComponent } from './delete-transfer/delete-transfer.compo
 export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     
-    "status",
+    "statusName",
     "sourceLocation",
     "destinationLocation",
     "transferDate",
@@ -79,7 +79,7 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
   }
   editCall(row) {
 
-    this.router.navigate(['/asset/assetTransfer/addtransfer/'+row.tid]);
+    this.router.navigate(['/asset/assetTransfer/addtransfer/'+row.headerID]);
   }
 
   receive(row){
@@ -195,7 +195,7 @@ export class ExampleDataSource extends DataSource<TransferBean> {
           .filter((traansferService: TransferBean) => {
             const searchStr = (
              traansferService.tid+
-             traansferService.status+
+             traansferService.statusName+
              traansferService.department+
              traansferService.location+
              traansferService.transfer+
@@ -229,8 +229,8 @@ export class ExampleDataSource extends DataSource<TransferBean> {
       let propertyA: number | string | boolean = "";
       let propertyB: number | string | boolean = "";
       switch (this._sort.active) {
-        case "status":
-          [propertyA, propertyB] = [a.status, b.status];
+        case "statusName":
+          [propertyA, propertyB] = [a.statusName, b.statusName];
           break;
        
           case "department":
