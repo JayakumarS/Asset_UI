@@ -97,13 +97,13 @@ export class AddCategoryComponent implements OnInit {
      );
      this.router.navigate(['/master/category/list-category']);
      }else{
-       this.showNotification(
-         "snackbar-danger",
-         "Invalid Data...!!!",
-         "bottom",
-         "center"
-       );
-     }
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
      
    }
 

@@ -108,9 +108,9 @@ export class AddDepartmentMasterComponent implements OnInit {
     }else{
       this.showNotification(
         "snackbar-danger",
-        "Invalid Data...!!!",
-        "bottom",
-        "center"
+        "Please fill all the required details!",
+        "top",
+        "right"
       );
     }
     
