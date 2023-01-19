@@ -593,7 +593,7 @@ onCancel() {
     var frmData: FormData = new FormData();
     frmData.append("file", imgfile);
     frmData.append("fileName", fileExtension);
-    frmData.append("folderName", "PurchaseOrder");
+    frmData.append("folderName", "AssetProfileImg");
 
     this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
       next: (data) => {
@@ -650,7 +650,7 @@ onCancel() {
     var frmData: FormData = new FormData();
     frmData.append("file", docfile);
     frmData.append("fileName", fileExtension);
-    frmData.append("folderName", "PurchaseOrder");
+    frmData.append("folderName", "AssetProfileFile");
 
     this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
       next: (data) => {
