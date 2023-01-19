@@ -46,9 +46,9 @@
                     </div>
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                     #exporter="matTableExporter">
-                    <ng-container matColumnDef="status">
+                    <ng-container matColumnDef="statusName">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Trasfer Status</mat-header-cell>
-                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.status}}</mat-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.statusName}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="sourceLocation">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Source Location</mat-header-cell>
@@ -67,7 +67,7 @@
                     <ng-container matColumnDef="actions">
                       <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                       <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                        <button *ngIf="row.receivedStatus==''" (click)="receive(row)" class="btn-space" style="text-align:left"
+                        <button *ngIf="row.receivedStatus==''" (click)="editCall(row)" class="btn-space" style="text-align:left"
                         mat-raised-button color="primary">Receive</button>
                         <span *ngIf="row.receivedStatus=='Received'">Received</span>
                       </mat-cell>
@@ -76,7 +76,7 @@
     
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" 
                       [style.cursor]="'pointer'" matRipple>
                     </mat-row>
                   </mat-table>
@@ -86,9 +86,9 @@
                     </mat-progress-spinner>
                   </div>
               
-                  <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+                  <!-- <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
                     [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
-                  </div>
+                  </div> -->
                   <mat-menu #contextMenu="matMenu">
                     <ng-template matMenuContent let-item="item">
                       <button mat-menu-item (click)="addNew()">

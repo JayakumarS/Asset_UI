@@ -29,7 +29,7 @@
                   </mat-form-field>
                 </div>
                  
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                   <label class="lable">Parent Category<span class="errorColor">*</span></label>
                 </div>
         
@@ -41,7 +41,25 @@
                   </mat-error>
                 </mat-form-field>
                 </div>  
-              </div>
+              </div> -->
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label class="lable">Parent Category</label>
+            </div>
+      
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                <mat-select class="inputTxt" formControlName="parentCategory">
+                    <mat-option *ngFor="let title of categoryDdList" [value]="title.text">
+                        {{title.text}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="docForm.get('parentCategory').hasError('required')">
+                  Parent Category is required
+                </mat-error>
+            </mat-form-field>
+            </div> 
+                </div>
 
                  
                

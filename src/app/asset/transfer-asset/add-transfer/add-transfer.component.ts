@@ -5,6 +5,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -56,6 +57,7 @@ export class AddTransferComponent implements OnInit {
   companyList=[];
   assetList=[];
   requisitionList=[];
+  requestId:number;
   maxDate = moment(new Date()).add(0, 'days').format('YYYY-MM-DD');
 
   constructor(private fb: FormBuilder,
@@ -83,7 +85,7 @@ export class AddTransferComponent implements OnInit {
       destinationLocation: [""],
       deliveryMethod: ["", [Validators.required]],
       hospital: ["", [Validators.required]],
-      status: ["", [Validators.required]],
+      status: [1, [Validators.required]],
       itemName: [""],
       itemCategory: [""],
       requestedQuantity: [""],
@@ -164,6 +166,42 @@ export class AddTransferComponent implements OnInit {
     }
   );
 
+  this.docForm.controls.status.disable();
+
+  this.route.params.subscribe(params => {
+    if(params.id!=undefined && params.id!=0){
+     this.requestId = params.id;
+     this.edit=true;
+     this.fetchDetails(this.requestId) ;
+     this.docForm.controls.status.enable();
+    }
+   });
+
+  }
+
+
+  fetchDetails(id: any,): void {
+    this.httpService.get(this.transferAssetService.editTransfer+"?transfer="+id).subscribe((res: any)=> {
+      console.log(res);
+        this.docForm.patchValue({
+          'transferDateObj': this.commonService.getDateObj(res.transferBean.transferDate),
+          'transferDate': res.transferBean.transferDate,
+          'requisitionNo':res.transferBean.requisitionNo,
+          'transportationType':res.transferBean.transportationType,
+          'deliveryMethod':res.transferBean.deliveryMethod,
+          'transferQuantity':res.transferBean.transferQuantity
+        });
+        this.getRequestDetails(res.transferBean.requisitionNo);
+      },
+      (err: HttpErrorResponse) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Error while getting information !",
+          "top",
+          "right"
+        );
+      }
+    );
   }
 
   reset() {
@@ -239,6 +277,7 @@ export class AddTransferComponent implements OnInit {
             'itemName':data5.transferBean.itemName,
             'itemCategory':data5.transferBean.itemCategory,
             'requestedQuantity':data5.transferBean.requestedQuantity,
+            'hospital':data5.transferBean.companyId,
             'eddDate':data5.transferBean.eddDate
           })
 
@@ -278,10 +317,45 @@ export class AddTransferComponent implements OnInit {
 
     update(){
 
+      if(this.docForm.get("status").value==2){
+        this.httpService.get(this.transferAssetService.updateStatus+ "?headerID=" + this.requestId).subscribe((res: any) => {
+          this.showNotification(
+            "snackbar-success",
+            "Received Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          this.router.navigate(['/asset/assetTransfer/listtransfer']);
+        },
+          (err: HttpErrorResponse) => {
+            // error code here
+          }
+        );
+      }else{
+        this.docForm.controls['status'].setErrors({ status: true });
+        this.showNotification(
+          "snackbar-danger",
+          "Please Approve Status",
+          "top",
+          "right"
+        );
+      }
     }
 
     onCancel(){
       this.router.navigate(['/asset/assetTransfer/listtransfer']);
     }
+
+
+    checkQuantity(val){
+      
+      if(this.docForm.get("requestedQuantity").value!=""){
+        if(parseInt(val)>parseInt(this.docForm.get("requestedQuantity").value)){
+          this.docForm.controls['transferQuantity'].setErrors({ quantity: true });
+        }
+      }
+     
+
+;    }
 
 }

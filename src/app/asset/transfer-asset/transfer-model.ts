@@ -35,6 +35,7 @@ export class TransferBean {
     eddDate: string;
     transferQuantity: string;
     addAssetDetail:[];
+    statusName:string;
     constructor(traansferService) {
         {
           this.getRandomID();

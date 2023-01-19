@@ -256,7 +256,10 @@ export class HeaderComponent
 
   }
 
+showPaymentPage(){
 
+  this.router.navigate(['/payments/initiatePayment/subscription']);
+}
   notificationpopup(){
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {

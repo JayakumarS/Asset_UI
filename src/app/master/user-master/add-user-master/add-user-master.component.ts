@@ -149,16 +149,15 @@ export class AddUserMasterComponent implements OnInit {
           );
         }
       });
-    }
-    else{
+    }else{
       this.showNotification(
         "snackbar-danger",
         "Please Fill The All Required fields",
-        "bottom",
-        "center"
+        "top",
+        "right"
       );
     }
-  }
+  } 
   onCancel() {
   this.router.navigate(['/master/userMaster/list-user-master/']);
   }

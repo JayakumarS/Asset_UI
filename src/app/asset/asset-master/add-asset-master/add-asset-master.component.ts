@@ -17,6 +17,7 @@ import { AssetService } from '../asset.service';
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { NgxSpinnerService } from "ngx-spinner";
+import { GrnService } from 'src/app/inventory/grn/grn.service';
 
 
 export const MY_DATE_FORMATS = {
@@ -61,6 +62,10 @@ export class AddAssetMasterComponent
   vendorDdList=[];
   requestId: any;
   edit:boolean=false;
+  grnFlag: boolean = false;
+  grnNumberList = [];
+  purchaseOrderNumber = [];
+
   isLineIn:boolean=false;
   assetnamelist: any;
   assetDetailsList: any;
@@ -81,7 +86,9 @@ export class AddAssetMasterComponent
     public dialog: MatDialog,
     public route: ActivatedRoute,
     private serverUrl: serverLocations,
-    private spinner: NgxSpinnerService,) {
+    private spinner: NgxSpinnerService,
+    public grnService: GrnService
+    ) {
     super();
     
     this.docForm = this.fb.group({
@@ -96,6 +103,8 @@ export class AddAssetMasterComponent
       isLine:[false],
       id: [""],
       uploadImg: [""],
+      grnList:[""],
+      grnId:[""],
       //tab1
       brand: [""],
       model:[""],
@@ -138,8 +147,7 @@ export class AddAssetMasterComponent
           assetId:[""]
          
         }) 
-      ])
-      
+      ]),
       
     });
     
@@ -152,7 +160,7 @@ export class AddAssetMasterComponent
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
        this.edit=true;
-       this.fetchDetails(this.requestId) ;
+       this.fetchDetails(this.requestId);
        this.getInLine(event); 
 
       }
@@ -190,7 +198,14 @@ export class AddAssetMasterComponent
       }
       );
 
-
+ //purchaseOrderNumber Dropdown List
+ this.httpService.get<any>(this.commonService.getPurchaseOrderNumberDropdown).subscribe({
+  next: (data) => {
+    this.purchaseOrderNumber = data;
+  },
+  error: (error) => {
+  }
+});
            // vendor dropdown
            //UOM Dropdown List
     this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
@@ -202,7 +217,14 @@ export class AddAssetMasterComponent
     });
 
 
-
+//PurchaseOrderNumber Dropdown List
+this.httpService.get<any>(this.commonService.getGRNNumberDropdown).subscribe({
+  next: (data) => {
+    this.grnNumberList = data;
+  },
+  error: (error) => {
+  }
+});
 
   // assetname dropdown
    this.httpService.get<any>(this.commonService.getassetname).subscribe({
@@ -214,6 +236,9 @@ export class AddAssetMasterComponent
     }
   }
   );
+
+
+
    }
 
 // assetDetailsList
@@ -256,8 +281,10 @@ assetDetails(value:any,i){
 
      this.assetMaster = this.docForm.value;
      console.log(this.assetMaster);
+     this.spinner.show();
      this.assetService.addAssetMaster(this.assetMaster).subscribe({
       next: (data) => {
+        this.spinner.hide();
         if (data.success) {
           this.showNotification(
             "snackbar-success",
@@ -567,6 +594,18 @@ onCancel() {
       }
     }
 
+    getGRN(event: any)
+    {
+      if(event)
+      {
+        this.grnFlag=true;
+      }
+      else
+      {
+        this.grnFlag=false;
+      }
+    }
+
     //FOR IMAGE UPLOAD ADDED BY GOKUL
   onSelectImage(event) {
     var imgfile = event.target.files[0];
@@ -709,6 +748,35 @@ onCancel() {
         );
       }
     });
+  }
+
+
+  getGRNDetails(GRNID: number) {
+    if (GRNID != undefined && GRNID != null) {
+      this.spinner.show();
+      this.httpService.get<any>(this.grnService.getGRNDetails + "?grnId=" + GRNID).subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          if (res.success) {
+            if (res.grn != null) {
+              this.docForm.patchValue({
+         
+         'location': res.grn.deliveryLocId,
+         'invoiceNo': res.grn.invoiceNo,
+         'invoiceDateobj':res.grn.invoiceDate!=null? this.commonService.getDateObj(res.grn.invoiceDate):"",
+         'invoiceDate': res.grn.invoiceDate,
+         'poNumber': res.grn.purchaseOrderId,
+         'vendor': res.grn.vendorName,
+                
+              })
+            }
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+        }
+      });
+    }
   }
 
  

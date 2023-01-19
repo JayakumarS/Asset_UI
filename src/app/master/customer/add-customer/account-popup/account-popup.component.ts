@@ -29,7 +29,7 @@ export class AccountPopupComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<AccountPopupComponent>, ) {
                 this.docForm = this.fb.group({
-                  bankName: [""],
+      bankName: [""],
       accType: [""],
       accNo: [""],
       ifscCode: [""],

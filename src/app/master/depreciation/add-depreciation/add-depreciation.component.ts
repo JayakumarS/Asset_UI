@@ -108,6 +108,14 @@ export class AddDepreciationComponent implements OnInit {
     this.router.navigate(['/master/depreciation/list-depreciation']);
     }
   }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please fill the required details",
+      "top",
+      "right"
+    );
+  }
   
 }
  

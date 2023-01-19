@@ -161,6 +161,15 @@ const routes: Routes = [
         loadChildren: () =>
         import("./helpdesk/helpdesk.module").then((m) => m.HelpdeskModule),
       },
+      {
+        path: "payments",
+        canActivate: [AuthGuard],
+        data: {
+          role: Role.Admin,
+        },
+        loadChildren: () =>
+        import("./payments/payments.module").then((m) => m.PaymentsModule),
+      },
     ],
   },
   {
