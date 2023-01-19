@@ -281,8 +281,10 @@ assetDetails(value:any,i){
 
      this.assetMaster = this.docForm.value;
      console.log(this.assetMaster);
+     this.spinner.show();
      this.assetService.addAssetMaster(this.assetMaster).subscribe({
       next: (data) => {
+        this.spinner.hide();
         if (data.success) {
           this.showNotification(
             "snackbar-success",
