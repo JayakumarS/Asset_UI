@@ -45,49 +45,7 @@ public onSubmit(): void {
   this.dialogRef.close({ contact: this.docForm.value });
 
   }
-//   if (this.docForm.valid){
-//     this.customerMaster = this.docForm.value;
-//     this.spinner.show();
-//     this.customerService.addCustomer(this.customerMaster).subscribe({
-//       next: (data) => {
-//         this.spinner.hide();
-//         if (data.success) {
-//           this.showNotification(
-//             "snackbar-success",
-//             "Record Added successfully...",
-//             "bottom",
-//             "center"
-//           );
-//           this.onCancel();
-//         } else {
-//           this.showNotification(
-//             "snackbar-danger",
-//             "Not Added...!!!",
-//             "bottom",
-//             "center"
-//           );
-//         }
-//       },
-//       error: (error) => {
-//         this.spinner.hide();
-//         this.showNotification(
-//           "snackbar-danger",
-//           error.message + "...!!!",
-//           "bottom",
-//           "center"
-//         );
-//       }
-//     });
-//   }
-//   else{
-//     this.showNotification(
-//       "snackbar-danger",
-//       "Please Fill The All Required fields",
-//       "bottom",
-//       "center"
-//     );
-//   }
-// }
+
 
 onCancel() {
   this.dialogRef.close({ data: 'CANCEL' });

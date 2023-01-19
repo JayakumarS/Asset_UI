@@ -90,12 +90,16 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       billingCountry: [""],
       deliveryAddress: [""],
       deliveryState: [""],
-      deliverycity: [""],
+      deliveryCity: [""],
       deliveryZip: [""],
       deliveryCountry: [""],
       internalNotes: [""],
       resPerson: [""],
       method: [""],
+      creditLimit: [""],
+      acctReceivable: [""],
+      supplier: [""],
+      totalReceivable: [""],
 
       contactDetail: this.fb.array([
         this.fb.group({
@@ -114,12 +118,10 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
           ifscCode: [""],
           address: [""],
           state: [""],
-          accName:[""],
+          accName: [""],
           addresstwo: [""],
-          acctReceivable: [""],
-          supplier: [""],
-          totalReceivable: [""],
-          creditLimit: [""],
+
+
 
         })
       ]),
@@ -255,7 +257,7 @@ fetchDetails(cus_id: any): void {
       'cstno': res.customerBean.cstno,
       'remarks': res.customerBean.remarks,
       'active': res.customerBean.active,
-      'resperson': res.customerBean.resperson,
+      'resPerson': res.customerBean.resPerson,
       'location': res.customerBean.location,
       'vendorLocation': res.customerBean.vendorLocation,
       'shipperAddress': res.customerBean.shipperAddress,
@@ -275,42 +277,84 @@ fetchDetails(cus_id: any): void {
       'deliveryCountry': res.customerBean.deliveryCountry,
       'internalNotes': res.customerBean.internalNotes,
       'method': res.customerBean.method,
-
-      contactDetail: this.fb.array([
-        this.fb.group({
-          'name': res.customerBean.name,
-          'position': res.customerBean.position,
-          'conEmail': res.customerBean.conEmail,
-          'conPhone': res.customerBean.conPhone,
-          'mobile': res.customerBean.mobile,
-        })
-      ]),
-      accountDetail: this.fb.array([
-        this.fb.group({
-          'bankName': res.customerBean.bankName,
-          'accType': res.customerBean.accType,
-          'accNo': res.customerBean.accNo,
-          'ifscCode': res.customerBean.ifscCode,
-          'address': res.customerBean.address,
-          'state': res.customerBean.state,
-          'accName': res.customerBean.accName,
-          'country': res.customerBean.country,
-          'zip': res.customerBean.zip,
-          'acctReceivable': res.customerBean.acctReceivable,
-          'supplier': res.customerBean.supplier,
-          'totalReceivable': res.customerBean.totalReceivable,
-          'creditLimit': res.customerBean.creditLimit,
-
-        })
-      ]),
-
-   });
-  },
-
- });
+      'acctReceivable': res.customerBean.acctReceivable,
+      'supplier': res.customerBean.supplier,
+      'totalReceivable': res.customerBean.totalReceivable,
+      'creditLimit': res.customerBean.creditLimit,
+    })
+    if (res.accountDetails != null && res.accountDetails.length >= 1) {
+        let accountDetailsListArray = this.docForm.controls.accountDetails as FormArray;
+        accountDetailsListArray.removeAt(0);
+        res.accountDetails.forEach(element => {
+          let accountDetailsListArray = this.docForm.controls.accountDetails as FormArray;
+          let arraylen = accountDetailsListArray.length;
+          let newUsergroup: FormGroup = this.fb.group({
+            bankName: [res.customerBean.bankName],
+            accType: [res.customerBean.accType],
+            accNo: [res.customerBean.accNo],
+            ifscCode: [res.customerBean.ifscCode],
+            address: [res.customerBean.address],
+            state: [res.customerBean.state],
+            country: [res.customerBean.country],
+            zip: [res.customerBean.zip],
+            acctReceivable: [res.customerBean.acctReceivable],
+            supplier: [res.customerBean.supplier],
+            totalReceivable: [res.customerBean.totalReceivable],
+            creditLimit: [res.customerBean.creditLimit]
+          })
+          accountDetailsListArray.insert(arraylen, newUsergroup);
+        });
+      }
 
 
+    if (res.contactDetails != null && res.contactDetails.length >= 1) {
+        let contactDetailsArray = this.docForm.controls.contactDetail as FormArray;
+        contactDetailsArray.removeAt(0);
+        res.contactDetails.forEach(element => {
+          let contactDetailsArray = this.docForm.controls.contactDetail as FormArray;
+          let arraylen = contactDetailsArray.length;
+          let newUsergroup: FormGroup = this.fb.group({
+            name: [ res.customerBean.name],
+            position: [ res.customerBean.position],
+            conEmail: [ res.customerBean.conEmail],
+            conPhone: [ res.customerBean.conPhone],
+            mobile: [ res.customerBean.mobile],
+          })
+          contactDetailsArray.insert(arraylen, newUsergroup);
+        });
+      }
+
+    },
+    error: (error) => {
+      this.spinner.hide();
+      // error code here
+    }
+  });
 }
+
+
+          // 'name': res.customerBean.name,
+          // 'position': res.customerBean.position,
+          // 'conEmail': res.customerBean.conEmail,
+          // 'conPhone': res.customerBean.conPhone,
+          // 'mobile': res.customerBean.mobile,
+
+      // accountDetail: this.fb.array([
+      //   this.fb.group({
+      //     'bankName': res.customerBean.bankName,
+      //     'accType': res.customerBean.accType,
+      //     'accNo': res.customerBean.accNo,
+      //     'ifscCode': res.customerBean.ifscCode,
+      //     'address': res.customerBean.address,
+      //     'state': res.customerBean.state,
+      //     'country': res.customerBean.country,
+      //     'zip': res.customerBean.zip,
+      //     'acctReceivable': res.customerBean.acctReceivable,
+      //     'supplier': res.customerBean.supplier,
+      //     'totalReceivable': res.customerBean.totalReceivable,
+      //     'creditLimit': res.customerBean.creditLimit,
+
+
 
 keyPressPCB(event: any) {
   const pattern = /[0-9.]/;
@@ -336,18 +380,6 @@ keyPressNumeric(event: any) {
   }
 }
 
-// update(){
-//   this.customerMaster = this.docForm.value;
-//   this.customerService.updateCustomer(this.customerMaster);
-//   this.showNotification(
-//     "snackbar-success",
-//     "Edit Record Successfully...!!!",
-//     "bottom",
-//     "center"
-//   );
-//   this.router.navigate(['/master/customer/list-customer']);
-
-// }
 
 update() {
   this.submitted = true;
@@ -461,23 +493,23 @@ reset(){
   if (!this.edit) {
     this.docForm.reset();
     this.docForm.patchValue({
-      cus_id:[""],
+      cus_id: [""],
       auditorname: [""],
       registercode: [""],
-      person:[""],
-      email:[""],
-      phone:[""],
-      address:[""],
-      addresstwo:[""],
-      city:[""],
-      state:[""],
-      postalcode:[""],
-      panno:[""],
-      vatno:[""],
-      gstno:[""],
-      cstno:[""],
-      remarks:[""],
-      active:[""],
+      person: [""],
+      email: [""],
+      phone: [""],
+      address: [""],
+      addresstwo: [""],
+      city: [""],
+      state: [""],
+      postalcode: [""],
+      panno: [""],
+      vatno: [""],
+      gstno: [""],
+      cstno: [""],
+      remarks: [""],
+      active: [""],
       'loginedUser': this.tokenStorage.getUserId()
     })
   } else {
@@ -524,5 +556,62 @@ string(event: any) {
     event.preventDefault();
   }
 }
+
+
+getAttributeDetails(cus_id: any) {
+  if (cus_id != undefined && cus_id != null) {
+    this.spinner.show();
+    // this.specificationList=[];
+    const obj = {
+      editId: cus_id
+    }
+    this.customerService.editCustomer(obj).subscribe({
+
+    // this.httpService.get<ItemMasterResultBean>(this.itemMasterService.attributeDetails + "?itemCategoryId=" + itemCategoryId).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.success) {
+          if (res.accountDetails != null && res.accountDetails.length >= 1) {
+            let accountDetailsListArray = this.docForm.controls.accountDetails as FormArray;
+            accountDetailsListArray.clear();
+            res.accountDetails.forEach(element => {
+              let accountDetailsListArray = this.docForm.controls.accountDetails as FormArray;
+              let arraylen = accountDetailsListArray.length;
+              let newUsergroup: FormGroup = this.fb.group({
+                name: [element.name],
+            position: [element.position],
+            conEmail: [element.conEmail],
+            conPhone: [element.conPhone],
+            mobile: [element.defmobileaultvalue],
+              })
+              accountDetailsListArray.insert(arraylen, newUsergroup);
+            });
+          }
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
+  }
+}
+
+// removeRow(index) {
+//   let contactDetailArray = this.docForm.controls.vendorList as FormArray;
+//   contactDetailArray.removeAt(index);
+// }
+
+// addRow() {
+//   let contactDetailArray = this.docForm.controls.vendorList as FormArray;
+//   let arraylen = contactDetailArray.length;
+//   let newUsergroup: FormGroup = this.fb.group({
+//     name: [""],
+//     position: [""],
+//     conEmail: [""],
+//     conPhone: [""],
+//     mobile: [""]
+//   })
+//   contactDetailArray.insert(arraylen, newUsergroup);
+// }
 
 }
