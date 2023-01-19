@@ -62,7 +62,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   purchaseTypeList: [];
   purchaseForList: [];
   discountTypeList: [];
-
+  private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   constructor(private fb: FormBuilder,
     public router: Router,
     private notificationService: NotificationService,
@@ -483,6 +483,24 @@ export class AddPurchaseOrderComponent implements OnInit {
   //FOR DOCUMENT UPLOAD ADDED BY GOKUL
   onSelectFile(event) {
     var docfile = event.target.files[0];
+    if (!this.acceptFileTypes.includes(docfile.type)) {
+      this.showNotification(
+        "snackbar-danger",
+        "Invalid Image type",
+        "bottom",
+        "center"
+      );
+      return;
+    }
+    if (docfile.size > 5242880) {
+      this.showNotification(
+        "snackbar-danger",
+        "Please upload valid image with less than 5mb",
+        "bottom",
+        "center"
+      );
+      return;
+    }
     var fileExtension = docfile.name;
     var frmData: FormData = new FormData();
     frmData.append("file", docfile);
@@ -492,9 +510,12 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
       next: (data) => {
         if (data.success) {
-          this.docForm.patchValue({
-            'lopUpload': data.filePath
-          })
+          if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+            this.docForm.patchValue({
+              'lopUpload': data.filePath
+            })
+            this.filePathUrl=data.filePath;
+          }
         } else {
           this.showNotification(
             "snackbar-danger",

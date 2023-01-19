@@ -110,19 +110,26 @@
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label class="lable" style="margin-left: 45%;">Asset Image <span class="errorColor">*</span></mat-label>
-                                </div>
-                                <div class="col-xl-6 col-lg-2 col-md-12 col-sm-12">             
-                                      <app-file-upload class="example-width form-control-sm" formControlName="uploadImg" (change)="onSelectFile($event)" style="width: 20%;"></app-file-upload>
-                                </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6" *ngIf="edit" style="margin-left: 17%;">
-                                        <a href="{{filePath}}{{filePathUrl}}"  target="_blank">{{filePathUrl?.split('/').pop()}}</a><br>
-                                    </div>
+                                <div class="col-md-2">
+                                     <mat-label class="lable" style="margin-left: 44%;">Asset Image <span class="errorColor">*</span></mat-label>
+
+                                             
+                                           </div>
+                                           <div class="col-md-5">
+                                            <app-file-upload class="example-width form-control-sm" formControlName="uploadFiles"
+                                              (change)="onSelectImage($event)"></app-file-upload>
+                                          </div>
+                                           <div class="row" *ngIf="(imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
+                                           
+                                            <div class="iconCard" style="margin-left: 16%;">
+                                               <span><i class="far fa-file-alt docIcons"></i>{{imgPathUrl?.split('##').pop()}}</span>
+                                               <a class="downloadView" (click)="viewDocuments(imgPathUrl, imgPathUrl?.split('##').pop())">
+                                                 <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
+                                               </a>
+                                             </div>
+                                           </div>
+                                     <br>
                              </div>
-                        <br>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="header">
                                     <h2 style="color:#F6682F">Additional Information</h2>
@@ -207,17 +214,25 @@
                                                     </mat-form-field>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                                <mat-label>Upload File</mat-label>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                                                        <app-file-upload class="example-width form-control-sm" tabindex="14" formControlName="uploadFiles" (change)="getCreditFileDetails($event)" style="width: 20%;"></app-file-upload>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" style="margin-left: 17%;" *ngIf="edit">
-                                                        <a href="{{filePath1}}{{filePathUrl1}}"  target="_blank">{{filePathUrl1?.split('/').pop()}}</a><br>
-                                            </div>
-                                        </div>
+    <div class="row">
+       <div class="col-md-2">
+            <mat-label style="margin-left: 2.5%;">Upload File</mat-label>
+        </div>
+                    <div class="col-md-5">
+                      <app-file-upload class="example-width form-control-sm" formControlName="auditImg"
+                        (change)="onSelectFile($event)"></app-file-upload>
+                    </div>
+                  
+                  <div class="row" *ngIf="(filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
+                    <div class="iconCard"  style="margin-left: 16%;">
+                      <span><i class="far fa-file-alt docIcons"></i>{{filePathUrl?.split('##').pop()}}</span>
+                      <a class="downloadView" (click)="viewDocuments(filePathUrl, filePathUrl?.split('##').pop())">
+                        <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
+                      </a>
+                    </div>
+                  </div>
+            <br>
+    </div>
                                         </mat-tab>
                                         <mat-tab label="Purchase Information">
                                             <br>

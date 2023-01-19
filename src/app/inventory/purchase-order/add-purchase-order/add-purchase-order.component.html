@@ -1,307 +1,324 @@
 <section class="content">
-    <div class="content-block">
-      <div class="block-header">
-        <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Add Purchase Order'" [items]="['Inventory']" [active_item]="'Add Purchase Order'">
-        </app-breadcrumb>
-      </div>
-      <div class="row clearfix ">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-          <div class="box-shadow">
-            <div class="card">
-              <div class="body">
-                <form class="m-4" [formGroup]="docForm">
-                  <div class="row">
-                   
-                    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>PO Date</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="poDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')" id="poDate" required (dateChange)="getDateString($event, 'poDate',0)">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                    </div>    
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Purchase Type</mat-label>
-                        <mat-select formControlName="purchaseType">
-                          <mat-option *ngFor="let title of purchaseTypeList" [value]="title.id">
-                            {{title.text}}
-                          </mat-option>
-                        </mat-select>
-  
-                        <mat-error *ngIf="docForm.get('purchaseType').hasError('required')">
-                          Purchase Type is required
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Add Purchase Order'" [items]="['Inventory']" [active_item]="'Add Purchase Order'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix ">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row">
 
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Vendor</mat-label>
-                        <mat-select formControlName="vendorId" (selectionChange)="getVendorAddressDetails($event.value)" required>
-                          <mat-option *ngFor="let title of vendorList" [value]="title.id">
-                            {{title.text}}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="docForm.get('vendorId').hasError('required')">
-                          Vendor is required
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Vendor Address</mat-label>
-                        <input matInput formControlName="vendorAddress" [readonly]="true">
-                      </mat-form-field>
-                    </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>PO Date</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="poDateObj"
+                        (dateInput)="$event.value.format('DD/MM/YYYY')" id="poDate" required
+                        (dateChange)="getDateString($event, 'poDate',0)">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Purchase Type</mat-label>
+                      <mat-select formControlName="purchaseType">
+                        <mat-option *ngFor="let title of purchaseTypeList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+
+                      <mat-error *ngIf="docForm.get('purchaseType').hasError('required')">
+                        Purchase Type is required
+                      </mat-error>
+                    </mat-form-field>
                   </div>
 
-                  <div class="row">  
-                    
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                       <mat-label> City</mat-label>
-                       <input matInput formControlName="vendorCity" [readonly]="true">
-                     </mat-form-field>
-                   </div>
-                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                     <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                       <mat-label> State</mat-label>                   
-                     <input matInput formControlName="vendorState" [readonly]="true">
-                     </mat-form-field>
-                   </div>
-                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                       <mat-label> Country</mat-label>
-                       <input matInput formControlName="vendorCountry" [readonly]="true">
-                     </mat-form-field>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label> Zip</mat-label>
-                        <input matInput formControlName="vendorZip" [readonly]="true">
-                      </mat-form-field>
-                     </div>
-                 </div>
-
-                  <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Destination Location </mat-label>
-                        <mat-select formControlName="destinationLocation" required>
-                          <mat-option *ngFor="let title of locationList" [value]="title.id">
-                            {{title.text}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Terms & Conditions</mat-label>
-                        <input matInput formControlName="termsConditions">
-                        <mat-error *ngIf="docForm.get('termsConditions').hasError('required')"> Terms & Conditions is required </mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Remarks</mat-label>
-                        <input matInput formControlName="remarks">
-                      </mat-form-field>
-                    </div>
-                   
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Vendor</mat-label>
+                      <mat-select formControlName="vendorId" (selectionChange)="getVendorAddressDetails($event.value)"
+                        required>
+                        <mat-option *ngFor="let title of vendorList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="docForm.get('vendorId').hasError('required')">
+                        Vendor is required
+                      </mat-error>
+                    </mat-form-field>
                   </div>
-
-
-
-                  <div class="row">
-                    <div class="col-md-5">
-                        <app-file-upload class="example-width form-control-sm" formControlName="auditImg" (change)="onSelectFile($event)"></app-file-upload>
-                    </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Vendor Address</mat-label>
+                      <input matInput formControlName="vendorAddress" [readonly]="true">
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="row" *ngIf="edit && (filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
+
+                <div class="row">
+
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> City</mat-label>
+                      <input matInput formControlName="vendorCity" [readonly]="true">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> State</mat-label>
+                      <input matInput formControlName="vendorState" [readonly]="true">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> Country</mat-label>
+                      <input matInput formControlName="vendorCountry" [readonly]="true">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> Zip</mat-label>
+                      <input matInput formControlName="vendorZip" [readonly]="true">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Destination Location </mat-label>
+                      <mat-select formControlName="destinationLocation" required>
+                        <mat-option *ngFor="let title of locationList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Terms & Conditions</mat-label>
+                      <input matInput formControlName="termsConditions">
+                      <mat-error *ngIf="docForm.get('termsConditions').hasError('required')"> Terms & Conditions is
+                        required </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Remarks</mat-label>
+                      <input matInput formControlName="remarks">
+                    </mat-form-field>
+                  </div>
+
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-5">
+                    <app-file-upload class="example-width form-control-sm" formControlName="lopUpload"
+                      (change)="onSelectFile($event)"></app-file-upload>
+                  </div>
+                </div>
+                <div class="row" *ngIf="(filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
                   <div class="iconCard">
                     <span><i class="far fa-file-alt docIcons"></i>{{filePathUrl?.split('##').pop()}}</span>
                     <a class="downloadView" (click)="viewDocuments(filePathUrl, filePathUrl?.split('##').pop())">
-                        <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
+                      <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
                     </a>
+                  </div>
                 </div>
-                </div>
-                  <br>
-                  
-                  <div style="overflow-x: auto;">
-                    <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-                      <thead class="">
-                        <tr>
-                          <th style="width: 1%;"></th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                <br>
+
+                <div style="overflow-x: auto;">
+                  <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                    <thead class="">
+                      <tr>
+                        <th style="width: 1%;"></th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%; border-radius: 0.05rem;">Item Code-Item Name</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">EDD</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">UOM</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">Qty</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%; border-radius: 0.05rem;">Unit Price</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">Price</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%; border-radius: 0.05rem;">Discount Type</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%; border-radius: 0.05rem;" >Discount</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%; border-radius: 0.05rem;">Discount</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">Discount(%)</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                     width: 12%; border-radius: 0.05rem;">Net Price</th>
-                     
+
+                      </tr>
+                    </thead>
+                    <ng-container
+                      *ngFor="let purchaseOrderDetail of docForm.get('purchaseOrderDetail')['controls']; let i = index">
+                      <tbody [formGroup]="purchaseOrderDetail">
+                        <tr>
+                          <td>
+                            <button mat-mini-fab color="warn" (click)="removeRow(i)">
+                              <mat-icon class="col-white">delete</mat-icon>
+                            </button>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>Item Code-Item Name</mat-label>
+                              <mat-select name="itemId{{i}}" formControlName="itemId">
+                                <mat-option *ngFor="let title of itemCodeNameList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </td>
+
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>EDD</mat-label>
+                              <input matInput [matDatepicker]="picker1" formControlName="eddObj" name="edd{{i}}"
+                                (dateChange)="getDateString($event,'edd',i)">
+                              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                              <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>UOM</mat-label>
+                              <mat-select name="uomId{{i}}" formControlName="uomId">
+                                <mat-option *ngFor="let title of uomList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label> Qty</mat-label>
+                              <input matInput name="qty{{i}}" formControlName="qty"
+                                (keypress)="keyPressNumberDouble($event)" maxlength="15">
+                            </mat-form-field>
+                          </td>
+
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>Unit Price</mat-label>
+                              <input matInput name="unitPrice{{i}}" formControlName="unitPrice"
+                                (keypress)="keyPressNumberDouble($event)" maxlength="15">
+                            </mat-form-field>
+                          </td>
+
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>Price</mat-label>
+                              <input matInput name="price{{i}}" formControlName="price"
+                                (keypress)="keyPressNumberInt($event)" maxlength="9">
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>Discount Type</mat-label>
+                              <mat-select name="discountType{{i}}" formControlName="discountType">
+                                <mat-option *ngFor="let title of discountTypeList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2"
+                            *ngIf="purchaseOrderDetail.controls.discountType.value === 59">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>Discount</mat-label>
+                              <input matInput name="discount{{i}}" formControlName="discount"
+                                (keypress)="keyPressNumberInt($event)" maxlength="9">
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2" *ngIf="purchaseOrderDetail.controls.discountType.value != 59">
+
+                          </td>
+
+                          <td class="padding-both-side-2"
+                            *ngIf="purchaseOrderDetail.controls.discountType.value === 58">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>Discount(%)</mat-label>
+                              <input matInput name="discountPercent{{i}}" formControlName="discountPercent"
+                                (keypress)="keyPressNumberDouble($event)" maxlength="15">
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2" *ngIf="purchaseOrderDetail.controls.discountType.value != 58">
+                          </td>
+
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>Net Price</mat-label>
+                              <input matInput name="netPrice{{i}}" formControlName="netPrice"
+                                (keypress)="keyPressNumberDouble($event)" maxlength="15">
+                            </mat-form-field>
+                          </td>
+
                         </tr>
-                      </thead>
-                      <ng-container *ngFor="let purchaseOrderDetail of docForm.get('purchaseOrderDetail')['controls']; let i = index">
-                        <tbody [formGroup]="purchaseOrderDetail">
-                          <tr>
-                            <td>
-                              <button mat-mini-fab color="warn" (click)="removeRow(i)">
-                                <mat-icon class="col-white">delete</mat-icon>
-                              </button>
-                              </td>     
-                           <td class="padding-both-side-2">
-                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Item Code-Item Name</mat-label>
-                                <mat-select name="itemId{{i}}" formControlName="itemId">
-                                  <mat-option *ngFor="let title of itemCodeNameList" [value]="title.id">
-                                    {{title.text}}
-                                  </mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                            </td>
-                           
-                            <td class="padding-both-side-2">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>EDD</mat-label>
-                                <input matInput [matDatepicker]="picker1" formControlName="eddObj" name="edd{{i}}" (dateChange)="getDateString($event,'edd',i)">
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                <mat-datepicker #picker1></mat-datepicker>
-                              </mat-form-field>
-                            </td>
-                            <td class="padding-both-side-2">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>UOM</mat-label>
-                                <mat-select name="uomId{{i}}" formControlName="uomId">
-                                  <mat-option *ngFor="let title of uomList" [value]="title.id">
-                                    {{title.text}}
-                                  </mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                            </td>
-                            <td class="padding-both-side-2">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label> Qty</mat-label>
-                                <input matInput name="qty{{i}}" formControlName="qty" (keypress)="keyPressNumberDouble($event)"  maxlength="15">
-                              </mat-form-field>
-                            </td>
-                          
-                            <td class="padding-both-side-2">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Unit Price</mat-label>
-                                <input matInput name="unitPrice{{i}}"  formControlName="unitPrice" (keypress)="keyPressNumberDouble($event)"  maxlength="15">
-                              </mat-form-field>
-                            </td>
+                      </tbody>
+                    </ng-container>
+                  </table>
+                </div>
+                <div>
+                  <button mat-mini-fab color="primary" (click)="addRow()">
+                    <mat-icon class="col-white">add</mat-icon>
+                  </button>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>SubTotal</mat-label>
+                      <input matInput formControlName="subTotal" (keypress)="keyPressNumberDouble($event)">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Discount</mat-label>
+                      <input matInput formControlName="discount" (keypress)="keyPressNumberDouble($event)">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Other Charges</mat-label>
+                      <input matInput formControlName="otherCharges" (keypress)="keyPressNumberDouble($event)">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Total</mat-label>
+                      <input matInput formControlName="total" (keypress)="keyPressNumberDouble($event)">
+                    </mat-form-field>
+                  </div>
+                </div>
 
-                            <td class="padding-both-side-2">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Price</mat-label>
-                                <input matInput name="price{{i}}" formControlName="price" (keypress)="keyPressNumberInt($event)"  maxlength="9">
-                              </mat-form-field>
-                            </td>
-                            <td class="padding-both-side-2">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Discount Type</mat-label>
-                                  <mat-select name="discountType{{i}}" formControlName="discountType">
-                                    <mat-option *ngFor="let title of discountTypeList" [value]="title.id">
-                                      {{title.text}}
-                                    </mat-option>
-                                  </mat-select>
-                                </mat-form-field>
-                            </td>
-                            <td class="padding-both-side-2" *ngIf="purchaseOrderDetail.controls.discountType.value === 59">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Discount</mat-label>
-                                <input matInput name="discount{{i}}" formControlName="discount" (keypress)="keyPressNumberInt($event)"  maxlength="9">
-                              </mat-form-field>
-                            </td>
-                            <td class="padding-both-side-2" *ngIf="purchaseOrderDetail.controls.discountType.value != 59">
-                           
-                            </td>
 
-                            <td class="padding-both-side-2" *ngIf="purchaseOrderDetail.controls.discountType.value === 58">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Discount(%)</mat-label>
-                                <input matInput name="discountPercent{{i}}" formControlName="discountPercent" (keypress)="keyPressNumberDouble($event)"  maxlength="15">
-                              </mat-form-field>
-                            </td>
-                             <td class="padding-both-side-2" *ngIf="purchaseOrderDetail.controls.discountType.value != 58">
-                            </td>
-
-                            <td class="padding-both-side-2">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Net Price</mat-label>
-                                <input matInput name="netPrice{{i}}" formControlName="netPrice" (keypress)="keyPressNumberDouble($event)"  maxlength="15">
-                              </mat-form-field>
-                            </td>
-
-                            </tr>
-                            </tbody>
-                            </ng-container>
-                            </table>
-                            </div>
-                            <div>
-                              <button mat-mini-fab color="primary" (click)="addRow()">
-                                <mat-icon class="col-white">add</mat-icon>
-                              </button>
-                            </div> 
-                            <br>
-                            <div class="row">
-                              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>SubTotal</mat-label>
-                                  <input matInput formControlName="subTotal" (keypress)="keyPressNumberDouble($event)">
-                                </mat-form-field>
-                              </div>
-                              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Discount</mat-label>
-                                  <input matInput formControlName="discount" (keypress)="keyPressNumberDouble($event)">
-                                </mat-form-field>
-                              </div>
-                              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Other Charges</mat-label>
-                                  <input matInput formControlName="otherCharges" (keypress)="keyPressNumberDouble($event)">
-                                </mat-form-field>
-                              </div>
-                              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Total</mat-label>
-                                  <input matInput formControlName="total" (keypress)="keyPressNumberDouble($event)">
-                                </mat-form-field>
-                              </div>
-                            </div>
-          
-          
-                            <br>
-                            <div class="row">
-                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                                <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="primary" style="margin-left: 44%;">Submit</button>
-                                <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="primary" style="margin-left: 44%;">Update</button>
-                                <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
-                              </div>
-                            </div>
-                </form>
-              </div>
+                <br>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="primary"
+                      style="margin-left: 44%;">Submit</button>
+                    <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="primary"
+                      style="margin-left: 44%;">Update</button>
+                    <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>

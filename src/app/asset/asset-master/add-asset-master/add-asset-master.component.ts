@@ -53,8 +53,7 @@ export class AddAssetMasterComponent
   hide3 = true;
   agree3 = false;
   dropdownList = [];
-  filePathUrl:string;
-  filePathUploadUrl:string;
+
   submitted: boolean=false;
 
   assetMaster: AssetMaster;
@@ -71,8 +70,10 @@ export class AddAssetMasterComponent
   filePath1: any;
   filePath: any;
   uomList: any;
-  filePathUrl1: any;
-  
+  filePathUrl: string;
+  imgPathUrl: string;
+  private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
+  private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -406,9 +407,12 @@ onCancel() {
 
       this.getInLine(res.addAssetBean.isLine);
      
-      this.filePathUrl= res.addAssetBean.uploadImg;
-      this.filePathUrl1= res.addAssetBean.uploadFiles;
-
+      if (res.addAssetBean.uploadImg != undefined && res.addAssetBean.uploadImg != null && res.addAssetBean.uploadImg != '') {
+        this.imgPathUrl = res.addAssetBean.uploadImg;
+      }
+      if (res.addAssetBean.uploadFiles != undefined && res.addAssetBean.uploadFiles != null && res.addAssetBean.uploadFiles != '') {
+        this.filePathUrl = res.addAssetBean.uploadFiles;
+      }
 
 
       if (res.detailList != null && res.detailList.length >= 1) {
@@ -497,42 +501,6 @@ onCancel() {
      }
    }
  
-  // File upload
-  onSelectFile(event) {
-    var docfile = event.target.files[0];
-    var fileExtension = docfile.name;
-    var frmData: FormData = new FormData();
-    frmData.append("file", docfile);
-    frmData.append("fileName1",fileExtension);
-    console.log(frmData);
-    this.httpService.post<any>(this.assetService.addAssetImageUploadFiles, frmData).subscribe(data => {
-        console.log(data);
-        if(data.success){
-          this.docForm.patchValue({
-            'uploadImg': data.filePath1  
-         })
-         this.filePathUrl=data.filePath1; 
-         console.log(this.filePath);
-     console.log(this.filePathUrl);
-        }
-        else{
-          this.showNotification(
-            "snackbar-success",
-            "Edit Record Successfully...!!!",
-            "bottom",
-            "center"
-          );
-    
-          
-        }
-        
-        },
-        (err: HttpErrorResponse) => {
-          
-      });
-    
-    }
-
   keyPressNumberInt(event: any) {
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
@@ -565,41 +533,7 @@ onCancel() {
     }
   }
  
-   // File upload
-   getCreditFileDetails(event) {
-  var docfile = event.target.files[0];
-  var fileExtension = docfile.name;
-  var frmData: FormData = new FormData();
-  frmData.append("file", docfile);
-  frmData.append("fileName",fileExtension);
-  console.log(frmData);
-  this.httpService.post<any>(this.assetService.addAssetUploadFiles, frmData).subscribe(data => {
-      console.log(data);
-      if(data.success){
-        this.docForm.patchValue({
-          'uploadFiles': data.filePath  
-       })
-       this.filePathUrl1=data.filePath1; 
-         console.log(this.filePath);
-     console.log(this.filePathUrl1);
-      }
-      else{
-        this.showNotification(
-          "snackbar-success",
-          "Edit Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-  
-        
-      }
-      
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
-  
-  }
+ 
 
     cancel()
     {
@@ -639,6 +573,151 @@ onCancel() {
         this.isLineIn=false;
       }
     }
+
+    //FOR IMAGE UPLOAD ADDED BY GOKUL
+  onSelectImage(event) {
+    var imgfile = event.target.files[0];
+    if (!this.acceptImageTypes.includes(imgfile.type)) {
+      this.showNotification(
+        "snackbar-danger",
+        "Invalid Image type",
+        "bottom",
+        "center"
+      );
+      return;
+    }
+    if (imgfile.size > 2000000) {
+      this.showNotification(
+        "snackbar-danger",
+        "Please upload valid image with less than 2mb",
+        "bottom",
+        "center"
+      );
+      return;
+    }
+
+    var fileExtension = imgfile.name;
+    var frmData: FormData = new FormData();
+    frmData.append("file", imgfile);
+    frmData.append("fileName", fileExtension);
+    frmData.append("folderName", "PurchaseOrder");
+
+    this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
+      next: (data) => {
+        if (data.success) {
+          if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+            this.docForm.patchValue({
+              'uploadImg': data.filePath
+            })
+            this.imgPathUrl=data.filePath;
+          }
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Failed to upload Image",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload Image",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+
+
+      //FOR DOCUMENT UPLOAD ADDED BY GOKUL
+  onSelectFile(event) {
+    var docfile = event.target.files[0];
+    if (!this.acceptFileTypes.includes(docfile.type)) {
+      this.showNotification(
+        "snackbar-danger",
+        "Invalid Image type",
+        "bottom",
+        "center"
+      );
+      return;
+    }
+    if (docfile.size > 5242880) {
+      this.showNotification(
+        "snackbar-danger",
+        "Please upload valid image with less than 5mb",
+        "bottom",
+        "center"
+      );
+      return;
+    }
+    var fileExtension = docfile.name;
+    var frmData: FormData = new FormData();
+    frmData.append("file", docfile);
+    frmData.append("fileName", fileExtension);
+    frmData.append("folderName", "PurchaseOrder");
+
+    this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
+      next: (data) => {
+        if (data.success) {
+          if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+            this.docForm.patchValue({
+              'uploadFiles': data.filePath
+            })
+            this.filePathUrl=data.filePath;
+          }
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Failed to upload File",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload File",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+
+  //FOR DOCUMENT VIEW ADDED BY GOKUL
+  viewDocuments(filePath: any, fileName: any) {
+    this.spinner.show();
+    this.commonService.viewDocument(filePath).pipe().subscribe({
+      next: (result: any) => {
+        this.spinner.hide();
+        var blob = result;
+        var fileURL = URL.createObjectURL(blob);
+        if (fileName.split('.').pop().toLowerCase() === 'pdf') {
+          window.open(fileURL);
+        } else {
+          var a = document.createElement("a");
+          a.href = fileURL;
+          a.target = '_blank';
+          a.download = fileName;
+          a.click();
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to View File",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+
  
  }
  
