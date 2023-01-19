@@ -53,9 +53,7 @@ export class AddAssetMasterComponent
   hide3 = true;
   agree3 = false;
   dropdownList = [];
-
   submitted: boolean=false;
-
   assetMaster: AssetMaster;
   categoryList=[];
   locationDdList=[];
@@ -64,11 +62,8 @@ export class AddAssetMasterComponent
   requestId: any;
   edit:boolean=false;
   isLineIn:boolean=false;
-  fileImgPathUrl: any;
   assetnamelist: any;
   assetDetailsList: any;
-  filePath1: any;
-  filePath: any;
   uomList: any;
   filePathUrl: string;
   imgPathUrl: string;
@@ -152,8 +147,6 @@ export class AddAssetMasterComponent
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit(): void {
-    this.filePath = this.serverUrl.apiServerAddress;
-    this.filePath1 = this.serverUrl.apiServerAddress;
 
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
@@ -283,7 +276,7 @@ assetDetails(value:any,i){
         }
       },
       error: (error) => {
-        // this.spinner.hide();
+         this.spinner.hide();
         this.showNotification(
           "snackbar-danger",
           error.message + "...!!!",
@@ -338,7 +331,7 @@ onCancel() {
           }
         },
         error: (error) => {
-          // this.spinner.hide();
+           this.spinner.hide();
           this.showNotification(
             "snackbar-danger",
             error.message + "...!!!",

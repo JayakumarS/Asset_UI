@@ -16,6 +16,9 @@ import { MainList } from 'src/app/inventory/inventory-reports/list-inventory-rep
 import { InventoryReportsService } from 'src/app/inventory/inventory-reports/inventory-reports.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-asset-profile-view',
@@ -42,11 +45,12 @@ export class AssetProfileViewComponent implements OnInit {
   gllist: MainList[] = [];
   dataSource: MatTableDataSource<MainList>;
   columnsToDisplay = ["assetName", "categoryName", "location", "quantity"];
+  imagePath: any;
 
   constructor( public router:Router,private fb: FormBuilder,private  assetService: AssetService,
     public route: ActivatedRoute,public dialog: MatDialog,private httpService: HttpServiceService,
     public auditableAssetService:AuditableAssetService,private commonService: CommonService,
-    private cmnService:CommonService,private inventoryReportService: InventoryReportsService,) {
+    private sanitizer: DomSanitizer,private cmnService:CommonService,private snackBar: MatSnackBar,private spinner: NgxSpinnerService,private inventoryReportService: InventoryReportsService,) {
 
     this.docForm = this.fb.group({
 
@@ -200,8 +204,12 @@ export class AssetProfileViewComponent implements OnInit {
    this.profileViewDetails=res.addAssetBean;
    this.auditableAsset=res.getAuditableAssetDetails;
 
-   console.log(this.profileViewDetails);
-     
+   //For Img added by gokul
+   if (res.addAssetBean.imgFile != undefined && res.addAssetBean.imgFile != null && res.addAssetBean.imgFile != '') {
+       let objectURL = 'data:image/png;base64,' + res.addAssetBean.imgFile;
+       this.imagePath = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+   }
+
     },
     error: (error) => {
     
@@ -267,5 +275,46 @@ export class AssetProfileViewComponent implements OnInit {
   // accurredDepreciationPopUp(){
 
   // }
+
+
+  
+  //FOR DOCUMENT VIEW ADDED BY GOKUL
+  viewDocuments(filePath: any, fileName: any) {
+    this.spinner.show();
+    this.commonService.viewDocument(filePath).pipe().subscribe({
+      next: (result: any) => {
+        this.spinner.hide();
+        var blob = result;
+        var fileURL = URL.createObjectURL(blob);
+        if (fileName.split('.').pop().toLowerCase() === 'pdf') {
+          window.open(fileURL);
+        } else {
+          var a = document.createElement("a");
+          a.href = fileURL;
+          a.target = '_blank';
+          a.download = fileName;
+          a.click();
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to View File",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
 
 }

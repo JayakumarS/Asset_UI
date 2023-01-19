@@ -17,7 +17,9 @@
                                 <div class="user-name">{{profileViewDetails?.assetName}}</div>
                                 <div class="name-center">{{profileViewDetails?.assetCode}}</div>
                             </div>
-                            <img src={{profileViewDetails?.uploadImg}} class="user-img" alt="">
+                            <div class="col-md-4 sign-img" style="margin-left: 33%;">
+                                <img [attr.src]="this.imagePath"  class="user-img" />
+                            </div>
                             <p>
                                 {{profileViewDetails?.category}}
                                 <br />{{profileViewDetails?.status}}
@@ -48,32 +50,12 @@
                         <div class="header">
                             <h2>Files </h2>
                         </div>
-                        <div class="body">
-                            <div class="doc-file-type">
-                                <ul class="list-unstyled" style="position: relative; max-height: 285px;" [perfectScrollbar]>
-                                    <li class="d-flex mb-3">
-                                        <span class="msr-3 align-self-center img-icon success-rgba text-success"><i
-                                  class="far fa-file-excel"></i></span>
-                                        <div class="set-flex">
-                                            <h5 class="font-16 mb-1">{{profileViewDetails?.uploadFiles}}</h5>
-                                            <!-- <p>.doc, 4.3 MB</p> -->
-                                        </div>
-                                        <div class="ms-auto">
-                                            <td>
-                                                <i class="far fa-arrow-alt-circle-down"></i>
-                                            </td>
-                                        </div>
-                                    </li>
-
-
-
-
-                                </ul>
-                                <!-- <div class="text-center p-t-20">
-                                    <button mat-stroked-button color="primary">More Records</button>
-                                </div> -->
-                            </div>
-                        </div>
+                            <div class="iconCard" style="margin-left: 3%;">
+                                <span><i class="far fa-file-alt docIcons"></i>{{profileViewDetails?.uploadFiles?.split('##').pop()}}</span>
+                                <a class="downloadView" (click)="viewDocuments(profileViewDetails?.uploadFiles, profileViewDetails?.uploadFiles?.split('##').pop())">
+                                  <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
+                                </a>
+                              </div>
                     </div>
                 </div>
             </div>
