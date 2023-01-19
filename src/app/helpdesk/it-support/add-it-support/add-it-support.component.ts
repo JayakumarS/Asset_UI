@@ -13,17 +13,17 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
-// export const MY_DATE_FORMATS = {
-//   parse: {
-//     dateInput: 'DD/MM/YYYY',
-//   },
-//   display: {
-//     dateInput: 'DD/MM/YYYY',
-//     monthYearLabel: 'MMMM YYYY',
-//     dateA11yLabel: 'LL',
-//     monthYearA11yLabel: 'MMMM YYYY'
-//   },
-// };
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 
 @Component({
   selector: 'app-add-it-support',
@@ -170,6 +170,12 @@ refresh(){
 
     this.loadData();
   
+}
+getDateString(event,inputFlag,index){
+  let cdate = this.cmnService.getDate(event.target.value);
+  if(inputFlag=='reportdate'){
+    this.docForm.patchValue({reportdate:cdate});
+  }
 }
 
 
