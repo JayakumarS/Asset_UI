@@ -32,6 +32,9 @@ import { NotificationService } from 'src/app/core/service/notification.service';
 import { AddMultipleAssetMasterComponent } from './add-multiple-asset-master/add-multiple-asset-master.component';
 import { AssetProfileViewComponent } from './asset-profile-view/asset-profile-view.component';
 
+import { ChartsModule as chartjsModule } from "ng2-charts";
+import { NgApexchartsModule } from "ng-apexcharts";
+
 
 @NgModule({
   declarations: [
@@ -70,7 +73,9 @@ import { AssetProfileViewComponent } from './asset-profile-view/asset-profile-vi
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatRadioModule
+    MatRadioModule,
+    NgApexchartsModule,
+    PerfectScrollbarModule,
   ]
 })
 export class AssetMasterModule { }

@@ -195,12 +195,12 @@ export class MainComponent implements OnInit {
     );
 
     ////chart Asset Survey Dynamic List
-    this.httpService.get<any>(this.mainService.getAssetSurveyURL).subscribe(
-      (data) => {
-        this.projectOptions.series=data.getAssetListGraph
+    // this.httpService.get<any>(this.mainService.getAssetSurveyURL).subscribe(
+    //   (data) => {
+    //     this.projectOptions.series=data.getAssetListGraph
         
-        console.log(this.projectOptions);
-    }); 
+    //     console.log(this.projectOptions);
+    // }); 
 
     this.getInvList();
     this.getAssetList();
@@ -218,6 +218,20 @@ export class MainComponent implements OnInit {
         console.log(error.name + " " + error.message);
       }
     );
+    this.clientSurvayGraph(asset);  
+  }
+
+  clientSurvayGraph(asset:any){
+
+    this.httpService.get<any>(this.mainService.getClientSurveyURL + "?assetId=" +asset+"&asset="+'').subscribe(
+      (data) => {
+        this.areaChartOptions.series=data.getAssetListGraphForClient
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+    
   }
 
   getInvList(){
@@ -532,12 +546,16 @@ export class MainComponent implements OnInit {
     this.areaChartOptions = {
       series: [
         {
-          name: "New Clients",
+          name: "Book Value",
           data: [31, 40, 28, 51, 42, 85, 77],
         },
         {
-          name: "Old Clients",
+          name: "Depreciation",
           data: [11, 32, 45, 32, 34, 52, 41],
+        },
+        {
+          name: "Accured Depreciation",
+          data: [11, 32, 25, 32, 77, 52, 15],
         },
       ],
       chart: {
@@ -548,7 +566,7 @@ export class MainComponent implements OnInit {
         },
         foreColor: "#9aa0ac",
       },
-      colors: ["#FC8380", "#6973C6"],
+      colors: ["#FC8380", "#6973C6", "#006600"],
       dataLabels: {
         enabled: false,
       },
@@ -557,14 +575,23 @@ export class MainComponent implements OnInit {
       },
       xaxis: {
         type: "datetime",
+        // categories: [
+        //   "2018-09-19",
+        //   "2018-09-20",
+        //   "2018-09-21",
+        //   "2018-09-22",
+        //   "2018-09-23",
+        //   "2018-09-24",
+        //   "2018-09-25",
+        // ],
         categories: [
-          "2018-09-19",
-          "2018-09-20",
-          "2018-09-21",
-          "2018-09-22",
-          "2018-09-23",
-          "2018-09-24",
-          "2018-09-25",
+          "01/01/2023",
+          "01/01/2024",
+          "01/01/2025",
+          "01/01/2026",
+          "01/01/2027",
+          "01/01/2028",
+          "01/01/2029",
         ],
       },
       legend: {
