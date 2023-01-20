@@ -143,14 +143,5 @@ export class SigninComponent
   }
 
 
-  reg() {
-    this.submitted = true;
-    // stop here if form is invalid
-    if (this.authForm.invalid) {
-      return;
-    } else {
-      this.router.navigate(["/authentication/userlogin"]);
-    }
-  }
 
 }

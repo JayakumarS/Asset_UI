@@ -58,6 +58,7 @@ export class AddUserMasterComponent implements OnInit {
       userLocation: [""],
       company: [""],
       loginedUser: this.tokenStorage.getUserId(),
+      empid: [""],
 
     //  loginedUser: this.tokenStorage.getUserId(),
     });
@@ -169,9 +170,9 @@ export class AddUserMasterComponent implements OnInit {
       panelClass: colorName,
     });
   }
-  fetchDetails(userId: any): void {
+  fetchDetails(empid: any): void {
     const obj = {
-      editId: userId
+      editId: empid
     }
     this.UserMasterService.editUser(obj).subscribe({
       next: (res) => {
@@ -188,6 +189,7 @@ export class AddUserMasterComponent implements OnInit {
         'otp': res.userMasterBean.otp,
         'company': res.userMasterBean.company,
         'userLocation': res.userMasterBean.userLocation,
+        'empid': res.userMasterBean.empid,
 
 
       });
@@ -198,7 +200,7 @@ export class AddUserMasterComponent implements OnInit {
 }
 update() {
   if (this.docForm.valid){
-    if(this.docForm.value.fullName!=""){
+    if(this.docForm.value.emailId !=""){
   this.userMaster = this.docForm.value;
   this.spinner.show();
   this.UserMasterService.updateUser(this.userMaster).subscribe({
@@ -249,7 +251,7 @@ update() {
       "right"
     );
   }
-  
+
   }
 
   reset() {

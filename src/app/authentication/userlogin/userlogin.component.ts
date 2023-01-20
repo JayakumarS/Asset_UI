@@ -38,7 +38,8 @@ export class UserloginComponent implements OnInit {
                // tslint:disable-next-line:no-shadowed-variable
                private AuthenticationModule: AuthenticationModule,
                private snackBar: MatSnackBar,
-               public router: Router,public userMasterService : UserMasterService,
+               public router: Router,
+               public userMasterService: UserMasterService,
                ) {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -48,13 +49,13 @@ export class UserloginComponent implements OnInit {
       contNumber: ["", [Validators.required]],
       role: ["", [Validators.required]],
       department: [""],
-      repmanager: [""],
       language: ["", [Validators.required]],
       location: [""],
       otp: [""],
       userLocation: [""],
       company: [""],
       loginedUser: this.tokenStorage.getUserId(),
+      empid: [""],
 
     //  loginedUser: this.tokenStorage.getUserId(),
     });
@@ -67,15 +68,6 @@ export class UserloginComponent implements OnInit {
         this.edit = true;
         // For User login Editable mode
         this.fetchDetails(this.requestId);
-      }
-    });
-    // User Location dropdown
-    this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
-      next: (data) => {
-        this.userLocationDdList = data;
-      },
-      error: (error) => {
-
       }
     });
 
@@ -167,88 +159,6 @@ export class UserloginComponent implements OnInit {
       panelClass: colorName,
     });
   }
-  fetchDetails(userId: any): void {
-    const obj = {
-      editId: userId
-    }
-    this.userMasterService.editUser(obj).subscribe({
-      next: (res) => {
-      this.docForm.patchValue({
-        'userId': res.userMasterBean.userId,
-         'fullName': res.userMasterBean.fullName,
-        'emailId': res.userMasterBean.emailId,
-        'contNumber': res.userMasterBean.contNumber,
-        'role': res.userMasterBean.role,
-        'department': res.userMasterBean.department,
-        'repmanager': res.userMasterBean.repmanager,
-        'language': res.userMasterBean.language,
-        'location': res.userMasterBean.location,
-        'otp': res.userMasterBean.otp,
-        'company': res.userMasterBean.company,
-        'userLocation': res.userMasterBean.userLocation,
-
-
-      });
-    },
-    error: (error) => {
-    }
-  });
-}
-update() {
-  this.userMaster = this.docForm.value;
-  this.spinner.show();
-  this.userMasterService.updateUser(this.userMaster).subscribe({
-      next: (data) => {
-        this.spinner.hide();
-        if (data.success) {
-          this.showNotification(
-            "snackbar-success",
-            "update Record Successfully",
-            "bottom",
-            "center"
-          );
-          this.onCancel();
-        } else {
-          this.showNotification(
-            "snackbar-danger",
-            "Not Updated Successfully...!!!",
-            "bottom",
-            "center"
-          );
-        }
-      },
-      error: (error) => {
-        this.spinner.hide();
-        this.showNotification(
-          "snackbar-danger",
-          error.message + "...!!!",
-          "bottom",
-          "center"
-        );
-      }
-    });
-  }
-
-  reset() {
-    if (!this.edit) {
-      this.docForm = this.fb.group({
-        fullName: ["", [Validators.required]],
-        emailId: ["", [Validators.required]],
-        contNumber: [""],
-        role: [""],
-        department: [""],
-        repmanager: [""],
-        language: ["", [Validators.required]],
-        location: [""],
-        otp: [""],
-        company: [""],
-        userLocation: [""],
-      });
-    } else {
-    this.fetchDetails(this.requestId);
-  }
-
-   }
 
 
    validateEmail(event){
