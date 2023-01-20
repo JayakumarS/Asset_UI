@@ -332,7 +332,7 @@ this.subType = type;
         "snackbar-success",
         "Your transaction is successful, "+response.razorpay_payment_id,
         "top",
-        "center"
+        "right"
       );
       
       // call your backend api to verify payment signature & capture transaction
