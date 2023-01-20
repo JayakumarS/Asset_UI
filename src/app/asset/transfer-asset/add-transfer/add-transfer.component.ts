@@ -92,7 +92,8 @@ export class AddTransferComponent implements OnInit {
       eddDate: [""],
       transferQuantity: ["", [Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
-
+      destinationLocationId: [""],
+      assetId:[""],
       addAssetDetail: this.fb.array([
         this.fb.group({
           assetTrackNo: [""],
@@ -268,7 +269,7 @@ export class AddTransferComponent implements OnInit {
     getRequestDetails(data:any){
       this.httpService.get<any>(this.transferAssetService.getRequestDetails + "?requestId=" + data).subscribe(
         (data5) => {
-          console.log(data);
+          console.log(data5);
           this.docForm.patchValue({
             'requisitionDate':data5.transferBean.requisitionDate,
             'requestedBy':data5.transferBean.requestedBy,
@@ -278,7 +279,9 @@ export class AddTransferComponent implements OnInit {
             'itemCategory':data5.transferBean.itemCategory,
             'requestedQuantity':data5.transferBean.requestedQuantity,
             'hospital':data5.transferBean.companyId,
-            'eddDate':data5.transferBean.eddDate
+            'eddDate':data5.transferBean.eddDate,
+            'destinationLocationId':data5.transferBean.destLocationId,
+            'assetId':data5.transferBean.assetId
           })
 
           let addAssetDetailArray = this.docForm.controls.addAssetDetail as FormArray;
@@ -318,7 +321,7 @@ export class AddTransferComponent implements OnInit {
     update(){
 
       if(this.docForm.get("status").value==2){
-        this.httpService.get(this.transferAssetService.updateStatus+ "?headerID=" + this.requestId).subscribe((res: any) => {
+        this.httpService.get(this.transferAssetService.updateStatus+ "?headerID=" + this.requestId+"&destinationLocationId="+this.docForm.get("destinationLocationId").value+"&assetId="+this.docForm.get("assetId").value).subscribe((res: any) => {
           this.showNotification(
             "snackbar-success",
             "Received Successfully...!!!",
