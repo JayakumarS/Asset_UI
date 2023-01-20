@@ -205,7 +205,7 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label> Qty</mat-label>
                               <input matInput name="qty{{i}}" formControlName="qty"
-                                (keypress)="keyPressNumberDouble($event)"  (keyup)="calculatePrice(purchaseOrderDetail,i)" maxlength="15">
+                                (keypress)="keyPressNumberInt($event)"  (keyup)="calculatePrice(purchaseOrderDetail,i)" maxlength="9">
                             </mat-form-field>
                           </td>
 
@@ -324,9 +324,11 @@
                 <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="primary"
-                      style="margin-left: 44%;">Submit</button>
+                      style="margin-left: 44%;background-color: #34d034;">Submit</button>
                     <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="primary"
-                      style="margin-left: 44%;">Update</button>
+                      style="margin-left: 44%;background-color: #34d034;">Update</button>
+                      <button color="primary" type="button" class="btn-space" (click)="reset()"
+                      mat-raised-button>Reset</button>
                     <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
                   </div>
                 </div>

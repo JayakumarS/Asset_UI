@@ -54,31 +54,31 @@
 
                 <ng-container matColumnDef="poNo">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Purchase Order No </mat-header-cell>
-                  <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.poNo}}</mat-cell>
+                  <mat-cell *matCellDef="let row"   (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.poNo}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="poDate">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Purchase Order Date </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.poDate}}</mat-cell>
+                  <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.poDate}}</mat-cell>
                 </ng-container>
                
                 <ng-container matColumnDef="vendor">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Vendor </mat-header-cell>
-                  <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
+                  <mat-cell *matCellDef="let row"   (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="purchaseTypeName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Purchase Type </mat-header-cell>
-                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.purchaseTypeName}}</mat-cell>
+                    <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.purchaseTypeName}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="remarks">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Remarks </mat-header-cell>
-                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.remarks}}</mat-cell>
+                    <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.remarks}}</mat-cell>
                   </ng-container>
                 <!-- actions -->
                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
                     <button mat-icon-button color="accent" (click)="$event.stopPropagation()" 
-                      class="tbl-action-btn">
+                    (click)="editCall(row)" class="tbl-action-btn">
                       <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
                     <button mat-icon-button color="accent" (click)="$event.stopPropagation()"

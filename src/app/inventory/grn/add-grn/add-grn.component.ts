@@ -243,7 +243,7 @@ export class AddGrnComponent implements OnInit {
             let arraylen = grnDetailArray.length;
             let newUsergroup: FormGroup = this.fb.group({
               itemId: [element.itemId],
-              unitPrice: [element.unitPrice],
+              unitPrice: [Number(element.unitPrice).toFixed(2)],
               receivingQty: [element.receivingQty],
             })
             grnDetailArray.insert(arraylen, newUsergroup);
@@ -306,8 +306,14 @@ export class AddGrnComponent implements OnInit {
   reset() {
     if (!this.edit) {
       this.docForm.reset();
+      let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
+      grnDetailArray.clear();
       this.docForm.patchValue({
         'loginedUser': this.tokenStorage.getUserId(),
+        'grnDate': moment().format('DD/MM/YYYY'),
+        'grnDateObj': moment().format('YYYY-MM-DD'),
+        'invoiceDate': moment().format('DD/MM/YYYY'),
+        'invoiceDateObj': moment().format('YYYY-MM-DD'),
       })
     } else {
       this.fetchDetails(this.requestId);

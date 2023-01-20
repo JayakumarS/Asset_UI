@@ -15,10 +15,10 @@ export class PurchaseOrder {
     remarks: string;
 
     //After detail row
-    subTotal: number;
-    discount: number;
+    subTotal: string;
+    discount: string;
     otherCharges: string;
-    total: number;
+    total: string;
     lopFile: string;
     lopUpload: string;
     loginedUser: string;

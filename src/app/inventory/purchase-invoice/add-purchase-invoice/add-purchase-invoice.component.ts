@@ -242,7 +242,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           'locationId': res.purchaseInvoice.locationId,
           'currencyId': res.purchaseInvoice.currencyId,
           'amount': res.purchaseInvoice.amount,
-          'total': res.purchaseInvoice.total,
+          'total': Number(res.purchaseInvoice.total).toFixed(2),
           'exchangerate': res.purchaseInvoice.exchangerate,
         });
         if (res.purchaseInvoiceDetailList != null && res.purchaseInvoiceDetailList.length >= 1) {
@@ -253,7 +253,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             let arraylen = purchaseInvoiceDtlArray.length;
             let newUsergroup: FormGroup = this.fb.group({
               itemId: [element.itemId],
-              unitPrice: [element.unitPrice],
+              unitPrice: [Number(element.unitPrice).toFixed(2)],
               receivingQty: [element.receivingQty]
             })
             purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
@@ -316,7 +316,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     if (!this.edit) {
       this.docForm.reset();
       this.docForm.patchValue({
-        'loginedUser': this.tokenStorage.getUserId()
+        'loginedUser': this.tokenStorage.getUserId(),
+        'purchaseInvoiceDate': moment().format('DD/MM/YYYY'),
+        'purchaseInvoiceDateObj': moment().format('YYYY-MM-DD'),
+        'dueDate': moment().format('DD/MM/YYYY'),
+        'dueDateObj': moment().format('YYYY-MM-DD'),
       })
     } else {
       this.fetchDetails(this.requestId);

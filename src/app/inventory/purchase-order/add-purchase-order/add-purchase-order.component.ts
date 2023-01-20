@@ -271,11 +271,11 @@ export class AddPurchaseOrderComponent implements OnInit {
           'remarks': res.purchaseOrder.remarks,
 
           //After detail row
-          'subTotal': res.purchaseOrder.subTotal,
-          'discount': res.purchaseOrder.discount,
-          'otherCharges': res.purchaseOrder.otherCharges,
-          'total': res.purchaseOrder.total,
-          'lopUpload': res.purchaseOrder.lopUpload
+          'subTotal': Number(res.purchaseOrder.subTotal).toFixed(2),
+          'discount': Number(res.purchaseOrder.discount).toFixed(2),
+          'otherCharges': Number(res.purchaseOrder.otherCharges).toFixed(2),
+          'total': Number(res.purchaseOrder.total).toFixed(2), 
+          'lopUpload':  res.purchaseOrder.lopUpload
         })
 
         if (res.purchaseOrder.lopUpload != undefined && res.purchaseOrder.lopUpload != null && res.purchaseOrder.lopUpload != '') {
@@ -296,12 +296,12 @@ export class AddPurchaseOrderComponent implements OnInit {
               eddObj: cdate,
               uomId: [element.uomId],
               qty: [element.qty],
-              unitPrice: [element.unitPrice],
-              price: [element.price],
-              discount: [element.discount],
+              unitPrice: [Number(element.unitPrice).toFixed(2)],
+              price: [Number(element.price).toFixed(2)],
+              discount: [Number(element.discount).toFixed(2)],
               discountType: [element.discountType],
-              discountPercent: [element.discountPercent],
-              netPrice: [element.netPrice],
+              discountPercent: [Number(element.discountPercent).toFixed(2)],
+              netPrice: [Number(element.netPrice).toFixed(2)],
               requisitionId: [element.requisitionId],
             })
             purchaseOrderDetailArray.insert(arraylen, newUsergroup);
@@ -363,8 +363,12 @@ export class AddPurchaseOrderComponent implements OnInit {
   reset() {
     if (!this.edit) {
       this.docForm.reset();
+      let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+      purchaseOrderDetailArray.clear();
       this.docForm.patchValue({
-        'loginedUser': this.tokenStorage.getUserId()
+        'loginedUser': this.tokenStorage.getUserId(),
+        'poDate': moment().format('DD/MM/YYYY'),
+        'poDateObj': moment().format('YYYY-MM-DD'),
       })
     } else {
       this.fetchDetails(this.requestId);
