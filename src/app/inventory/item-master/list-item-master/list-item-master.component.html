@@ -56,7 +56,7 @@
                 </ng-container>
                 <ng-container matColumnDef="itemCategoryName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Category </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.itemCategoryName}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.itemCategoryName}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="itemDescription">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Description </mat-header-cell>
@@ -64,7 +64,7 @@
                 </ng-container> 
                 <ng-container matColumnDef="itemTypeName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Type</mat-header-cell>
-                  <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.itemTypeName}}</mat-cell>
+                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.itemTypeName}}</mat-cell>
                 </ng-container> 
                 <ng-container matColumnDef="itemCode">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Code </mat-header-cell>
@@ -75,7 +75,7 @@
                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" 
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
                       class="tbl-action-btn">
                       <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
