@@ -7,9 +7,9 @@
     <div class="col-sm-6 auth-form-section">
       <div class="form-section">
         <div class="auth-wrapper">
-         
+
           <div class="d-flex justify-content-between lbl-alert mb-3">
-            
+
             <img src="assets/images/AssetChekLogo.png" alt="bitu-tech logo" style="width: 50%; margin-left: 27%;">
           </div>
           <h2 class="login-title">Sign in</h2>
@@ -50,7 +50,7 @@
                   </span>
                 </label>
               </div>
-      
+
             </div> -->
             <div *ngIf="error" class="alert alert-danger mt-3 mb-0 alertColor">{{error}}</div>
             <div class="container-auth-form-btn">
@@ -58,9 +58,16 @@
                 <button mat-raised-button color="primary" style="background-color: #004aad"   [class.auth-spinner]="loading" [disabled]="loading"
                   class="auth-form-btn" [disabled]="!authForm.valid " type="submit">Login</button>
               </div>
+            </div><br>
+            <div class="container-auth-form-btn">
+              <div style="text-align:center">
+                <button mat-raised-button color="primary" style="background-color: #004aad"
+                (click)="reg()">Register</button>
+              </div>
             </div>
+
           </form>
-         
+
         </div>
       </div>
     </div>
