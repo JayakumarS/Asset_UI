@@ -93,6 +93,7 @@ export class AssetProfileViewComponent implements OnInit {
       endLife:[""],
       scrapValue:[""],
       depreciation:[""],
+      assetType:[true],
       //tab4
       department:[""],
       allottedUpto:[""],
@@ -147,6 +148,7 @@ export class AssetProfileViewComponent implements OnInit {
   }
 }
 );
+this.checkFullLife(true);
   }
 
 
@@ -280,8 +282,8 @@ export class AssetProfileViewComponent implements OnInit {
   }
 
   checkFullLife(event:any){
-    if(event.checked){
-      this.fullLifeFlag = true;
+    if(event.checked || event==true){
+      // this.fullLifeFlag = true;
       this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.financialChangeUrl + "?assetId=" + this.requestId+"&asset="+'').subscribe((res: any) => {
         console.log();
         this.financialChangeDetails = res.financialChangeDetails;
@@ -292,8 +294,8 @@ export class AssetProfileViewComponent implements OnInit {
       );
     }
     else{
-      this.financialChangeDetails=[],
-      this.fullLifeFlag = false;
+      this.financialChangeDetails=[]
+      // this.fullLifeFlag = false;
     }
   }
 
@@ -325,6 +327,8 @@ export class AssetProfileViewComponent implements OnInit {
   
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocuments(filePath: any, fileName: any) {
+
+
     this.spinner.show();
     this.commonService.viewDocument(filePath).pipe().subscribe({
       next: (result: any) => {
