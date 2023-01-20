@@ -28,7 +28,7 @@ export class AddUserMasterComponent implements OnInit {
   companyList = [];
   language:any;
   role:any;
-  fullName:any;
+  // fullName:any;
   // validateEmail = true;
   // emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
@@ -197,6 +197,8 @@ export class AddUserMasterComponent implements OnInit {
   });
 }
 update() {
+  if (this.docForm.valid){
+    if(this.docForm.value.fullName!=""){
   this.userMaster = this.docForm.value;
   this.spinner.show();
   this.UserMasterService.updateUser(this.userMaster).subscribe({
@@ -229,6 +231,24 @@ update() {
         );
       }
     });
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please Fill Full Name",
+      "top",
+      "right"
+    );
+  }
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please Fill The All Required fields",
+      "top",
+      "right"
+    );
+  }
   }
 
   reset() {
