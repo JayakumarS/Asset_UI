@@ -122,11 +122,19 @@ export class AddCategoryComponent implements OnInit {
    }
 
   update(){
-
+    if(this.docForm.valid){
     this.assetcategory = this.docForm.value;
     this.categoryMasterService.categoryUpdate(this.assetcategory,this.router,this.notificationservice);
     // this.router.navigate(['/master/category/list-category']);
-
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please fill all the required details!",
+      "top",
+      "right"
+    );
+  }
 
   }
   reset() {

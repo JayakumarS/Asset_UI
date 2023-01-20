@@ -24,7 +24,8 @@
                         required>
                         <mat-error *ngIf="docForm.get('fullName').hasError('required')">
                           Full Name is required
-                        </mat-error> <mat-error *ngIf="docForm.get('fullName').hasError('currency')">
+                        </mat-error> 
+                        <mat-error *ngIf="docForm.get('fullName').hasError('currency')">
                           Name Already Exists !!!
                         </mat-error>
                       </mat-form-field>
