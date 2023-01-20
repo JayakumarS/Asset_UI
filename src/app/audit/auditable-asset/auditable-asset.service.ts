@@ -39,6 +39,8 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
   public updateauditable = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/update`;
   public validateAssetIdUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/validateAssetId`;
   public deleteschedule = `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/delete`;
+  public assetListDashboardUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAssetListDashboard`;
+
   get data(): AuditableAsset[] {
     return this.dataChange.value;
   }

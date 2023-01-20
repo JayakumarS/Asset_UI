@@ -196,7 +196,8 @@ fetchDetails(depreciation: any): void {
 }
 
 update(){
-
+  
+  if (this.docForm.valid){
   this.depreciationMaster = this.docForm.value;
   let dtlBean = this.docForm.controls.manageLineDtlObjBean as FormArray;      // this.value1=purchaseInvoiceDetailArray.value[index].detailQuantity * purchaseInvoiceDetailArray.value[index].detailUnitPrice;
  
@@ -216,7 +217,7 @@ update(){
    if(res.success){
     this.showNotification(
       "snackbar-success",
-      "Record Successfully Added...!!!",
+      "Record Updated Successfully...!!!",
       "bottom",
       "center"
     );
@@ -240,6 +241,16 @@ update(){
     "center"
   );
 }
+}
+else{
+  this.showNotification(
+    "snackbar-danger",
+    "Please Fill The All Required fields",
+    "top",
+    "right"
+  );
+}
+  
   
 }
 

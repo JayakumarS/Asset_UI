@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Add User Master'" [items]="['Master']" [active_item]="'Add User Master'">
+        <app-breadcrumb [title]="'User Login'" [items]="['Master']" [active_item]="'Add UserMaster'">
         </app-breadcrumb>
       </div>
       <div class="row clearfix ">
@@ -12,38 +12,37 @@
               <div class="body " style="padding-left: 220px;">
                 <form class="m-4" [formGroup]="docForm">
 
+                  <div class="row">
+                    <div class=" col-md-2">
+                      <mat-label class="lable">Full Name</mat-label>
+                      </div>
+                       <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="fullName"  maxlength="50"
+                        [ngModel]="inputvalue" (ngModelChange)="inputvalue=$event.toUpperCase()"(keypress)="string($event)"required>
+                        <mat-error *ngIf="docForm.get('fullName').hasError('required')">
+                          Full Name is required
+                        </mat-error>
+                      </mat-form-field>
 
-<div class="row">
-  <div class=" col-md-2">
-    <mat-label class="lable">Full Name</mat-label>
-    </div>
-     <div class=" col-md-3">
-    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="fullName"  maxlength="50"
-      [ngModel]="inputvalue" (ngModelChange)="inputvalue=$event.toUpperCase()"(keypress)="string($event)"required>
-      <mat-error *ngIf="docForm.get('fullName').hasError('required')">
-        Full Name is required
-      </mat-error>
-    </mat-form-field>
 
+                    </div>
+                    <div class=" col-md-2">
+                      <mat-label class="lable">Email Id</mat-label>
+                      </div>
 
-  </div>
-  <div class=" col-md-2">
-    <mat-label class="lable">Email Id</mat-label>
-    </div>
-
-  <div class=" col-md-3">
-    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="emailId" maxlength="50" [ngModel]="value" (blur)="validateEmail($event.target.value)" required>
-  <mat-error *ngIf="docForm.get('emailId').hasError('required')">
-    Email To is required
-  </mat-error>
-  <mat-error *ngIf="docForm.get('emailId').hasError('currency')">
-    EmailId Already Exists !!!
-  </mat-error>
-    </mat-form-field>
-  </div>
-</div>
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="emailId" maxlength="50" [ngModel]="value" (blur)="validateEmail($event.target.value)" required>
+                    <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                      Email To is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('emailId').hasError('currency')">
+                      EmailId Already Exists !!!
+                    </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
                   <br>
 
                   <div class="row">

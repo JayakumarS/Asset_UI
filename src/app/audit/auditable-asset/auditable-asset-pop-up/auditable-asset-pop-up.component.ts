@@ -163,6 +163,7 @@ checkFullLife(event:any){
     );
   }
   else{
+    this.financialChangeDetails = [];
     this.fullLifeFlag = false;
   }
 }

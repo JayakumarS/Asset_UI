@@ -1,34 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NgxSpinnerService } from "ngx-spinner";
-import { UserMasterService } from '../user-master.service';
+import { AuthenticationModule } from '../authentication.module';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserMaster } from '../user-master.model';
 import { CommonService } from 'src/app/common-service/common.service';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
-
-
-
-
+import { UserMaster } from 'src/app/master/user-master/user-master.model';
+import { UserMasterService } from 'src/app/master/user-master/user-master.service';
 
 
 @Component({
-  selector: 'app-add-user-master',
-  templateUrl: './add-user-master.component.html',
-  styleUrls: ['./add-user-master.component.sass']
+  selector: 'app-userlogin',
+  templateUrl: './userlogin.component.html',
+  styleUrls: ['./userlogin.component.sass']
 })
-export class AddUserMasterComponent implements OnInit {
+export class UserloginComponent implements OnInit {
   docForm: FormGroup;
   [x: string]: any;
   userMaster: UserMaster;
   submitted: boolean = false;
   locationDdList = [];
   companyList = [];
-  language:any;
-  role:any;
-  // fullName:any;
+  language: any;
+  role: any;
+  fullName: any;
   // validateEmail = true;
   // emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
@@ -39,9 +36,9 @@ export class AddUserMasterComponent implements OnInit {
                public commonService: CommonService,
                private tokenStorage: TokenStorageService,
                // tslint:disable-next-line:no-shadowed-variable
-               private UserMasterService: UserMasterService,
+               private AuthenticationModule: AuthenticationModule,
                private snackBar: MatSnackBar,
-               public router: Router,
+               public router: Router,public userMasterService : UserMasterService,
                ) {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -115,11 +112,12 @@ export class AddUserMasterComponent implements OnInit {
     );
 
   }
+
   onSubmit() {
     if (this.docForm.valid){
       this.userMaster = this.docForm.value;
       this.spinner.show();
-      this.UserMasterService.addUser(this.userMaster).subscribe({
+      this.userMasterService.addUser(this.userMaster).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -159,8 +157,8 @@ export class AddUserMasterComponent implements OnInit {
     }
   }
   onCancel() {
-  this.router.navigate(['/master/userMaster/list-user-master/']);
-  }
+    this.router.navigate(['/authentication/signin']);
+    }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -173,7 +171,7 @@ export class AddUserMasterComponent implements OnInit {
     const obj = {
       editId: userId
     }
-    this.UserMasterService.editUser(obj).subscribe({
+    this.userMasterService.editUser(obj).subscribe({
       next: (res) => {
       this.docForm.patchValue({
         'userId': res.userMasterBean.userId,
@@ -197,11 +195,9 @@ export class AddUserMasterComponent implements OnInit {
   });
 }
 update() {
-  if (this.docForm.valid){
-    if(this.docForm.value.fullName!=""){
   this.userMaster = this.docForm.value;
   this.spinner.show();
-  this.UserMasterService.updateUser(this.userMaster).subscribe({
+  this.userMasterService.updateUser(this.userMaster).subscribe({
       next: (data) => {
         this.spinner.hide();
         if (data.success) {
@@ -232,24 +228,6 @@ update() {
       }
     });
   }
-  else{
-    this.showNotification(
-      "snackbar-danger",
-      "Please Fill Full Name",
-      "top",
-      "right"
-    );
-  }
-  }
-  else{
-    this.showNotification(
-      "snackbar-danger",
-      "Please Fill The All Required fields",
-      "top",
-      "right"
-    );
-  }
-  }
 
   reset() {
     if (!this.edit) {
@@ -274,7 +252,7 @@ update() {
 
 
    validateEmail(event){
-    this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl + "?tableName=" + "user_master" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+    this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + " user_master" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
       if (res){
         this.docForm.controls['emailId'].setErrors({ currency: true });
       }else{
@@ -282,9 +260,6 @@ update() {
       }
     });
   }
-
-
-
 keyPressNumeric(event: any) {
   const pattern = /[A-Za-z,0-9]/;
   const inputChar = String.fromCharCode(event.charCode);

@@ -7,4 +7,5 @@ export class AuditableAssetResultBean {
     currencyList:[];
     getAuditableAssetDetails:[];
     financialChangeDetails:[];
+    assetListDashboard:[];
 }
