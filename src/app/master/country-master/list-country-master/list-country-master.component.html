@@ -54,26 +54,26 @@
                 
                 <ng-container matColumnDef="countryCode">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Country Code </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.countryCode}}</mat-cell>
+                  <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.countryCode}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="countryName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Country Name </mat-header-cell>
-                  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.countryName}}</mat-cell>
+                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.countryName}}</mat-cell>
                 </ng-container>
                 <!-- <ng-container matColumnDef="clientType">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Client Type </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.clientType}}</mat-cell>
+                  <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.clientType}}</mat-cell>
                 </ng-container> -->
                 <ng-container matColumnDef="currencyName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Currency </mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.currencyName}}</mat-cell>
+                  <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.currencyName}}</mat-cell>
                 </ng-container>
 
                 <!-- actions -->
                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" 
                       class="tbl-action-btn">
                       <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
