@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
@@ -39,6 +40,13 @@ export const MY_DATE_FORMATS = {
   selector: 'app-list-inventory-reports',
   templateUrl: './list-inventory-reports.component.html',
   styleUrls: ['./list-inventory-reports.component.sass'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
@@ -77,7 +85,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   mainList =[];
 
   columnsToDisplay = ["assetName", "categoryName", "location", "quantity"];
-  innerDisplayedColumns = ["date","docType","docRef","inQty","outQty"];
+  innerDisplayedColumns = ["transferDate","transferQuantity","sourceLocation","destinationLocation"];
 
   expandedElement: MainList | null;
   expandedElements: any[] = [];
@@ -181,19 +189,33 @@ this.viewReport();
 
   };
 
-  viewReport(){
-    this.customerMaster = this.docForm.value;
-    this.mainList=[];
-    this.gllist=[];
-    this.httpService.post(this.inventoryReportService.getInvemtoryReports, this.customerMaster).subscribe((res: any) => {
-      console.log(res.inventoryReportsDetails);
-      this.mainList=res.inventoryReportsDetails;
-  
-      this.dataSource = new MatTableDataSource(this.mainList);
-      this.dataSource.sort = this.sort;
-    });
+    viewReport(){
+      this.customerMaster = this.docForm.value;
+      this.mainList=[];
+      this.gllist=[];
+      this.httpService.post(this.inventoryReportService.getInvemtoryReports, this.customerMaster).subscribe((res: any) => {
+        console.log(res.receivableAgewiseDetails);
+        this.mainList=res.inventoryReportsDetails;
+        if(this.mainList!=null){
+        this.mainList.forEach(data => {
+          if (data.subList && Array.isArray(data.subList) && data.subList.length) {
+            this.gllist = [...this.gllist,
+              { ...data, subList: new MatTableDataSource(data.subList) }
+            ];
+          } 
+        
+          else {
+            this.gllist = [...this.gllist, data];
+          }
+        });
+      }
+        this.dataSource = new MatTableDataSource(this.gllist);
+        this.dataSource.sort = this.sort;
+      });
+   
+    }
  
-  }
+
 
 
   reset(){
@@ -252,10 +274,9 @@ export interface MainList {
 }
 
 export interface SubList {
-  date:String;
-  docType:String;
-  docRef:String;
-  inQty:String;
-  outQty:String;
+  transferDate:String;
+  transferQuantity:String;
+  sourceLocation:String;
+  destinationLocation:String;
 }
 
