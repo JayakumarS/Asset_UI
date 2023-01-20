@@ -77,7 +77,7 @@ export class SigninComponent
 
 
       this.authService.attemptAuth(this.loginInfo).subscribe(
-      data => {        
+      data => {
 
         if (data) {
               if(data.success){
@@ -86,28 +86,28 @@ export class SigninComponent
                 this.tokenStorage.saveUsername(data.username);
                 this.tokenStorage.saveAuthorities(data.roles);
                 this.tokenStorage.saveUserId(data.email);
-                this.loading = false;            
-                //this.router.navigate(["/admin/dashboard/main"]);   
-                 this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
+                this.loading = false;
+                this.router.navigate(["/admin/dashboard/main"]);
+                //  this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
               }, 1000);
               }else{
                  this.submitted = false;
                   this.loading = false;
                   this.error = "Invalid Login";
-                console.log(data.message); 
+                console.log(data.message);
               }
-              
+
             } else {
               this.error = "Invalid Login";
             }
-        
+
       },
         error => {
             this.submitted = false;
             this.loading = false;
             this.error = "Server Down!!!";
-            console.log(error); 
-            
+            console.log(error);
+
         }
       );
 
@@ -141,4 +141,16 @@ export class SigninComponent
       //   );
     }
   }
+
+
+  reg() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.authForm.invalid) {
+      return;
+    } else {
+      this.router.navigate(["/authentication/userlogin"]);
+    }
+  }
+
 }

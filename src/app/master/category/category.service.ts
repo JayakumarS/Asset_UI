@@ -74,7 +74,7 @@ get data(): Assetcategory[] {
       if(data.Success == true){
         notificationService.showNotification(
           "snackbar-success",
-          "Add Record Successfully...!!!",
+          "Record Updated Successfully...!!!",
           "bottom",
           "center"
         );
@@ -92,6 +92,7 @@ get data(): Assetcategory[] {
       (err: HttpErrorResponse) => {
         
     });
+    
   }
 
 }
