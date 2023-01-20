@@ -87,6 +87,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     // }
 
     if(this.docForm.valid){
+      if(this.docForm.value.deptCode!=""){
      if(this.docForm.value.isactive==true)
      {
       this.docForm.value.isactive="True"
@@ -104,7 +105,17 @@ export class AddDepartmentMasterComponent implements OnInit {
       "bottom",
       "center"
     );
+    
     this.router.navigate(['/master/department-Master/list-department']);
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please Fill Department Code",
+      "top",
+      "right"
+    );
+  }
     }else{
       this.showNotification(
         "snackbar-danger",
@@ -158,14 +169,14 @@ export class AddDepartmentMasterComponent implements OnInit {
   }
 
   update(){
-
+    if (this.docForm.valid){
     this.departmentMaster = this.docForm.value;
     this.httpService.post(this.departmentMasterService.updateDepartment, this.departmentMaster).subscribe((res: any) =>{
      
      if(res.success){
       this.showNotification(
         "snackbar-success",
-        "Record Successfully Added...!!!",
+        "Record Updated Successfully...!!!",
         "bottom",
         "center"
       );
@@ -180,7 +191,15 @@ export class AddDepartmentMasterComponent implements OnInit {
      }
      
     });
-    
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please Fill The All Required fields",
+      "top",
+      "right"
+    );
+  }
     
 
   }

@@ -249,6 +249,7 @@ update() {
       "right"
     );
   }
+  
   }
 
   reset() {
