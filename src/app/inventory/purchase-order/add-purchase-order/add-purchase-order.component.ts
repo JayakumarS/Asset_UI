@@ -141,7 +141,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
 
 
-   
+
     //Location Dropdown List
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
@@ -269,7 +269,7 @@ export class AddPurchaseOrderComponent implements OnInit {
           'destinationLocation': res.purchaseOrder.destinationLocation,
           'termsConditions': res.purchaseOrder.termsConditions,
           'remarks': res.purchaseOrder.remarks,
-  
+
           //After detail row
           'subTotal': res.purchaseOrder.subTotal,
           'discount': res.purchaseOrder.discount,
@@ -439,6 +439,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   removeRow(index) {
     let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
     purchaseOrderDetailArray.removeAt(index);
+    this.calculateFinalsubTotalDiscountAndTotal();
   }
 
   addRow() {
@@ -514,7 +515,7 @@ export class AddPurchaseOrderComponent implements OnInit {
             this.docForm.patchValue({
               'lopUpload': data.filePath
             })
-            this.filePathUrl=data.filePath;
+            this.filePathUrl = data.filePath;
           }
         } else {
           this.showNotification(
@@ -535,6 +536,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
   }
+
 
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocuments(filePath: any, fileName: any) {
@@ -566,7 +568,28 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
   }
 
-  calculatePrice(data:any,index:number){
+  //FOR DISCOUNT PERCENTAGE VALIDATION ADDED BY GOKUL
+  discountPercentageValidation(data: any, index: number) {
+    if (data.get('discountPercent').value != undefined && data.get('discountPercent').value != null && data.get('discountPercent').value != '') {
+      if (data.get('discountPercent').value < 1) {
+        data.controls.discountPercent.setValidators(Validators.compose([Validators.required, Validators.max(100), Validators.min(1), Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]));
+        data.controls.discountPercent.setValidators(Validators.compose([Validators.required, Validators.max(100), Validators.min(1), Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]));
+        data.controls['discountPercent'].updateValueAndValidity();
+      } else if (data.get('discountPercent').value > 100) {
+        data.controls.discountPercent.setValidators(Validators.compose([Validators.required, Validators.max(100), Validators.min(1), Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]));
+        data.controls['discountPercent'].updateValueAndValidity();
+      } else {
+        data.controls.discountPercent.clearValidators();
+        data.controls['discountPercent'].updateValueAndValidity();
+      }
+    } else {
+      data.controls.discountPercent.clearValidators();
+      data.controls['discountPercent'].updateValueAndValidity();
+    }
+  }
+
+  //FOR CALCULATE PRICE ADDED BY GOKUL
+  calculatePrice(data: any, index: number) {
     if (data.get('qty').value != undefined && data.get('qty').value != null && data.get('qty').value != '' && data.get('unitPrice').value != undefined && data.get('unitPrice').value != null && data.get('unitPrice').value != '') {
       let totalPrice = Number(Number(data.get('qty').value) * Number(data.get('unitPrice').value)).toFixed(2);
       let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
@@ -574,54 +597,81 @@ export class AddPurchaseOrderComponent implements OnInit {
         price: totalPrice,
         netPrice: totalPrice
       });
-      this.calculateNetPrice(data,index);
-    }else{
-      let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-      purchaseOrderDetailArray.at(index).patchValue({
-        price: 0.00,
-        netPrice: 0.00
-      });
+      this.calculateNetPrice(data, index);
     }
   }
 
-  calculateNetPrice(data:any,index:number){
-    if (data.get('discountType').value != undefined && data.get('discountType').value != null && data.get('discountType').value != '' && data.get('price').value != undefined && data.get('price').value != null && data.get('price').value != 0.00 && data.get('price').value != ''){
-      if(data.get('discountType').value === 59){
-        if (data.get('discount').value != undefined && data.get('discount').value != null  && data.get('discount').value != '') {
-           let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-           let totalNetPrice = Number(Number(data.get('price').value) - Number(data.get('discount').value)).toFixed(2);
-            purchaseOrderDetailArray.at(index).patchValue({
-               netPrice: totalNetPrice
-            });
-        }else{
+  //FOR CALCULATE NET PRICE ADDED BY GOKUL
+  calculateNetPrice(data: any, index: number) {
+    if (data.get('discountType').value != undefined && data.get('discountType').value != null && data.get('discountType').value != '' && data.get('price').value != undefined && data.get('price').value != null && data.get('price').value != 0.00 && data.get('price').value != '') {
+      if (data.get('discountType').value === 59) {
+        if (data.get('discount').value != undefined && data.get('discount').value != null && data.get('discount').value != '') {
+          let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+          let totalNetPrice = Number(Number(data.get('price').value) - Number(data.get('discount').value)).toFixed(2);
+          purchaseOrderDetailArray.at(index).patchValue({
+            netPrice: totalNetPrice
+          });
+        } else {
           let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
           purchaseOrderDetailArray.at(index).patchValue({
             netPrice: Number(data.get('price').value).toFixed(2)
           });
         }
-      }else if(data.get('discountType').value === 58){
+      } else if (data.get('discountType').value === 58) {
         if (data.get('discountPercent').value != undefined && data.get('discountPercent').value != null && data.get('discountPercent').value != '') {
           let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-          let discountAmount = (Number(data.get('discountPercent').value)/100)*Number(data.get('price').value);
+          let discountAmount = (Number(data.get('discountPercent').value) / 100) * Number(data.get('price').value);
           let totalNetPrice = Number(Number(data.get('price').value) - Number(discountAmount)).toFixed(2);
           purchaseOrderDetailArray.at(index).patchValue({
-              netPrice: totalNetPrice
-           });
-       }else{
-         let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-         purchaseOrderDetailArray.at(index).patchValue({
-           netPrice: Number(data.get('price').value).toFixed(2)
-         });
-       }
+            netPrice: totalNetPrice,
+            discount: discountAmount
+          });
+        } else {
+          let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+          purchaseOrderDetailArray.at(index).patchValue({
+            netPrice: Number(data.get('price').value).toFixed(2)
+          });
+        }
       }
-    }else{
+    } else {
       let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
       purchaseOrderDetailArray.at(index).patchValue({
-        netPrice: 0.00
+        netPrice: Number(data.get('price').value).toFixed(2)
       });
     }
+    this.calculateFinalsubTotalDiscountAndTotal();
   }
 
-  
+  //FOR CALCULATE SUB TOTAL,DISCOUNT AND TOTAL ADDED BY GOKUL
+  calculateFinalsubTotalDiscountAndTotal() {
+    //Start Calculate SubTotal And Total
+    let totalAmount = Number(0.00);
+    let discountAmount = Number(0.00);
+    this.docForm.controls.purchaseOrderDetail['controls'].forEach((element) => {
+      if (element.get('netPrice').value != undefined && element.get('netPrice').value != null && element.get('netPrice').value != '') {
+        totalAmount = Number(totalAmount) + Number(element.get('netPrice').value);
+      }
+      if (element.get('discount').value != undefined && element.get('discount').value != null && element.get('discount').value != '') {
+        discountAmount = Number(discountAmount) + Number(element.get('discount').value);
+      }
+    });
+    this.docForm.patchValue({
+      'subTotal': Number(totalAmount).toFixed(2),
+      'total': Number(totalAmount).toFixed(2),
+      'discount':  Number(discountAmount).toFixed(2),
+    });
+    //End
+
+    if (this.docForm.controls.otherCharges.value != undefined && this.docForm.controls.otherCharges.value != null && this.docForm.controls.otherCharges.value != '') {
+      let subtotalPlusOtherCharges = Number(Number(this.docForm.controls.subTotal.value) + Number(this.docForm.controls.otherCharges.value)).toFixed(2);
+      this.docForm.patchValue({
+        'total': subtotalPlusOtherCharges
+      });
+    }
+
+   
+  }
+
+
 
 }
