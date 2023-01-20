@@ -26,12 +26,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ScheduledViewComponent } from './scheduled-view/scheduled-view.component';
 
 
 @NgModule({
   declarations: [
     ListScheduledauditsComponent,
-    AddScheduldauitsComponent
+    AddScheduldauitsComponent,
+    ScheduledViewComponent
   ],
   imports: [
     CommonModule,

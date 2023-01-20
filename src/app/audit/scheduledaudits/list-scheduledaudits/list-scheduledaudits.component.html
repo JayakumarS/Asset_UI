@@ -92,10 +92,16 @@
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
 
-                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                        <button mat-icon-button color="accent" *ngIf="row.statusNew!='Submit'" (click)="$event.stopPropagation()" (click)="editCall(row)"
                         class="tbl-action-btn">
                         <button mat-raised-button color="primary" >Start Audit</button>
 
+                    </button>
+                    <span *ngIf="row.statusNew=='Submit'">Submitted</span>
+
+                    <button mat-icon-button color="accent"   (click)="$event.stopPropagation()" (click)="viewCall(row)" style="margin-left: 70px;"  class="tbl-action-btn">
+                      <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                      </app-feather-icons>
                     </button>
                       
                     </mat-cell>

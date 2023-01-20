@@ -1,0 +1,143 @@
+<section class="content">
+    <div class="content-block">
+        <form class="m-4" [formGroup]="docForm">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Audit Profile'" [items]="['Audit']" [active_item]="'AuditProfile'">
+            </app-breadcrumb>
+        </div>
+        <div class="col-lg-10 col-md-12">
+            <div class="card">
+                        
+                            <mat-tab-group (selectedTabChange)="accurredDepreciationPopUp($event);">
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        Audits Header
+                                    </ng-template>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="project_widget">
+                                            <div class="header">
+                                                <h2><strong>Audits Info</strong></h2>
+                                            </div>
+                                            <div class="body">
+
+                                                <div class="row">
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Audit Name</strong>
+                                                        <br>
+                                                    
+                                                        <p class="text-muted">{{profileViewDetails?.auditName}}</p>
+                                                    </div>
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Audit Code</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{profileViewDetails?.auditCode}}</p>
+                                                    </div>
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Company Name</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{profileViewDetails?.companyName}}</p>
+                                                    </div>
+        
+                                                </div>
+                                                <br><br>
+        
+                                                       <div class="row">
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Audit Date</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{profileViewDetails?.startDateObj}}</p>
+                                                    </div>
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Auditor Name</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{profileViewDetails?.auditName}}</p>
+                                                    </div>
+                                                    
+                                                    </div>
+                                                    <br><br>
+
+                                                    <!-- <table mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows
+                                                    class="mat-elevation-z8" matSort style="width: 100%;">
+                                                    
+                                                    
+                                                    <ng-container matColumnDef="assetName">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset Name </th>
+                                                        <td mat-cell *matCellDef="let row"> {{row.assetName}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="location">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+                                                        <td mat-cell *matCellDef="let row"> {{row.locationName}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Quantity">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Physical Quantity</th>
+                                                        <td mat-cell *matCellDef="let row"> {{row.Quantity}}
+                                                        </td>
+                                                    </ng-container>
+
+                                                    <ng-container matColumnDef="remarks">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarks</th>
+                                                        <td mat-cell *matCellDef="let row"> {{row.remarks}}
+                                                        </td>
+                                                    </ng-container>
+                                                    </table> -->
+
+                                                    <div class="container" style="height: 200px ;overflow-y: scroll">
+                                            
+                                                          <table id="excel-table" class="table table-striped">
+                                                            <thead>
+                                                                <tr style="position: sticky;top: 0;">
+                                                                  <th style="background-color:#c1ddf5;">Asset Name</th>
+                                                                  <th style="background-color:#c1ddf5;">Location</th>
+                                                                  <th style="background-color:#c1ddf5;">Physical Quantity</th>
+                                                                  <th style="background-color:#c1ddf5;">Remarks</th>
+                                                
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                  <tr *ngFor="let visitReport of financialChangeDetails;">
+
+                                                                    <td >{{visitReport.assetName}}</td>
+                                                                    <td >{{visitReport.location}}</td>
+                                                                    <td >{{visitReport.quantity}}</td>
+                                                                    <td >{{visitReport.remarks}}</td>
+                                                                  </tr>        
+                                                            </tbody>
+                                                          </table>
+                                                      </div>
+
+                                                      <button mat-raised-button color="warn" type="button" (click)="exitCall()"  style="margin-left: 436px;">Exit</button>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    </mat-tab>
+                                                    </mat-tab-group>
+                                                    </div>
+                                                    </div>
+                                                    </form>
+                                                    </div>
+                                                    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                              
+                                                   
+
+
+
+
+
+
+

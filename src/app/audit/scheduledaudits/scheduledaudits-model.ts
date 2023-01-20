@@ -7,5 +7,9 @@ export class ScheduleAudit {
     extDate:string;
     status:string;
     companyName:string
-     
+    assetName:string
+    location:string
+    Quantity:string
+    remarks:string
+    schedule_audits_id:number
 }
