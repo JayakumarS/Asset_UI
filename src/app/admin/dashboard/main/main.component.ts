@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -17,6 +18,8 @@ import {
   ApexTitleSubtitle,
   ApexResponsive,
 } from "ng-apexcharts";
+import { AuditableAssetResultBean } from "src/app/audit/auditable-asset/auditable-asset-result-bean";
+import { AuditableAssetService } from "src/app/audit/auditable-asset/auditable-asset.service";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { MainResultBean } from "../main-result-bean";
 import { MainService } from "../main.service";
@@ -45,9 +48,11 @@ export type ChartOptions = {
   styleUrls: ["./main.component.scss"],
 })
 export class MainComponent implements OnInit {
+  docForm: FormGroup;
   assetsCount = [];
   auditableAssetList = [];
   assetList = [];
+  assetListDashboard = [];
   public cardChart1: any;
   public cardChart1Data: any;
   public cardChart1Label: any;
@@ -93,8 +98,14 @@ export class MainComponent implements OnInit {
   depreciatedCountValue: any;
   config1: { itemsPerPage: number; currentPage: number; totalItems: number; };
 
-  constructor(private httpService:HttpServiceService,private mainService:MainService) {}
+  constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,
+    public auditableAssetService:AuditableAssetService) {}
   ngOnInit() {
+
+    this.docForm = this.fb.group({
+      assetid:[""]
+    });
+
     this.smallChart1();
     this.smallChart2();
     this.smallChart3();
@@ -174,9 +185,39 @@ export class MainComponent implements OnInit {
       }
     );
 
+    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl).subscribe(
+      (data) => {
+        this.assetListDashboard = data.assetListDashboard;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+    ////chart Asset Survey Dynamic List
+    this.httpService.get<any>(this.mainService.getAssetSurveyURL).subscribe(
+      (data) => {
+        this.projectOptions.series=data.getAssetListGraph
+        
+        console.log(this.projectOptions);
+    }); 
+
     this.getInvList();
     this.getAssetList();
+    this.fetchAssetName(16);
     
+  }
+
+  fetchAssetName(asset:any){
+
+    this.httpService.get<any>(this.mainService.getAssetSurveyURL + "?assetId=" +asset+"&asset="+'').subscribe(
+      (data) => {
+        this.projectOptions.series=data.getAssetListGraph
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
   }
 
   getInvList(){
@@ -622,17 +663,17 @@ export class MainComponent implements OnInit {
     this.projectOptions = {
       series: [
         {
-          name: "Project A",
+          name: "Book Value",
           type: "column",
           data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
         },
         {
-          name: "Project B",
+          name: "Depreciation",
           type: "area",
           data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
         },
         {
-          name: "Project C",
+          name: "Accured Depreciation",
           type: "line",
           data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
         },
@@ -665,18 +706,31 @@ export class MainComponent implements OnInit {
           stops: [0, 100, 100, 100],
         },
       },
+      // labels: [
+      //   "01/01/2003",
+      //   "02/01/2003",
+      //   "03/01/2003",
+      //   "04/01/2003",
+      //   "05/01/2003",
+      //   "06/01/2003",
+      //   "07/01/2003",
+      //   "08/01/2003",
+      //   "09/01/2003",
+      //   "10/01/2003",
+      //   "11/01/2003",
+      // ],
       labels: [
-        "01/01/2003",
-        "02/01/2003",
-        "03/01/2003",
-        "04/01/2003",
-        "05/01/2003",
-        "06/01/2003",
-        "07/01/2003",
-        "08/01/2003",
-        "09/01/2003",
-        "10/01/2003",
-        "11/01/2003",
+        "01/01/2023",
+        "01/01/2024",
+        "01/01/2025",
+        "01/01/2026",
+        "01/01/2027",
+        "01/01/2028",
+        "01/01/2029",
+        "01/01/2030",
+        "01/01/2031",
+        "01/01/2032",
+        "01/01/2033",
       ],
       markers: {
         size: 0,
@@ -697,7 +751,8 @@ export class MainComponent implements OnInit {
         y: {
           formatter: function (y) {
             if (typeof y !== "undefined") {
-              return y.toFixed(0) + "k" + " dollars";
+              // return y.toFixed(0) + "k" + " dollars";
+              return y.toFixed(2);
             }
             return y;
           },
