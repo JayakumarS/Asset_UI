@@ -169,6 +169,7 @@ export class AddDepartmentMasterComponent implements OnInit {
   }
 
   update(){
+    if(this.docForm.value.deptCode!=""){
     if (this.docForm.valid){
     this.departmentMaster = this.docForm.value;
     this.httpService.post(this.departmentMasterService.updateDepartment, this.departmentMaster).subscribe((res: any) =>{
@@ -196,6 +197,15 @@ export class AddDepartmentMasterComponent implements OnInit {
     this.showNotification(
       "snackbar-danger",
       "Please Fill The All Required fields",
+      "top",
+      "right"
+    );
+  }
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please Fill Department Code",
       "top",
       "right"
     );

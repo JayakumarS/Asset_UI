@@ -146,7 +146,7 @@ export class AddCountryMasterComponent implements OnInit {
           if (data.success) {
             this.showNotification(
               "snackbar-success",
-              "Edit Record Successfully",
+              "Record Updated Successfully",
               "bottom",
               "center"
             );
