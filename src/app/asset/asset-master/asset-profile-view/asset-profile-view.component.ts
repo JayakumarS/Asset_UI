@@ -19,6 +19,7 @@ import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
+import { element } from 'protractor';
 
 // For bar chart
 
@@ -40,6 +41,7 @@ import {
   ApexResponsive,
 } from "ng-apexcharts";
 import { MainService } from 'src/app/admin/dashboard/main.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -62,8 +64,15 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-asset-profile-view',
-  templateUrl: './asset-profile-view.component.html',
-  styleUrls: ['./asset-profile-view.component.scss']
+  templateUrl:'./asset-profile-view.component.html',
+  styleUrls: ['./asset-profile-view.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class AssetProfileViewComponent implements OnInit {
 
@@ -85,10 +94,10 @@ export class AssetProfileViewComponent implements OnInit {
   glList=[];
   gllist: MainList[] = [];
   dataSource: MatTableDataSource<MainList>;
-  columnsToDisplay = ["assetName", "categoryName", "location", "quantity"];
+  columnsToDisplay = ["assetName", "categoryName", "locationName", "quantity"];
   imagePath: any;
 
-  innerDisplayedColumns = ["date","docType","docRef","inQty","outQty"];
+  innerDisplayedColumns = ["transferDate","transferQuantity","sourceLocation","destinationLocation"];
 
   expandedElement: MainList | null;
   expandedElements: any[] = [];
@@ -232,19 +241,19 @@ fetchAssetName(asset:any){
     this.httpService.post(this.assetService.getAssetList, this.customerMaster).subscribe((res: any) => {
       console.log(res.assetList);
       this.mainList=res.assetList;
-    //   if(this.mainList!=null){
-    //   this.mainList.forEach(data => {
-    //     if (data.subList && Array.isArray(data.subList) && data.subList.length) {
-    //       this.gllist = [...this.gllist,
-    //         { ...data, subList: new MatTableDataSource(data.subList) }
-    //       ];
-    //     } 
+      if(this.mainList!=null){
+      this.mainList.forEach(data => {
+        if (data.subList && Array.isArray(data.subList) && data.subList.length) {
+          this.gllist = [...this.gllist,
+            { ...data, subList: new MatTableDataSource(data.subList) }
+          ];
+        } 
       
-    //     else {
-    //       this.gllist = [...this.gllist, data];
-    //     }
-    //   });
-    // }
+        else {
+          this.gllist = [...this.gllist, data];
+        }
+      });
+    }
       this.dataSource = new MatTableDataSource(this.mainList);
       this.dataSource.sort = this.sort;
     });
@@ -272,7 +281,7 @@ fetchAssetName(asset:any){
     );
   }
   toggleRow(element: MainList) {
-    element.subList &&(element.subList as MatTableDataSource<SubList>).data.length? this.toggleElement(element): null;
+    element.subList &&(element.subList as MatTableDataSource<SubList>)? this.toggleElement(element): null;
     this.cd.detectChanges();
     this.innerTables.forEach(
       (table, index) =>
@@ -281,7 +290,7 @@ fetchAssetName(asset:any){
   }
 
   toggleElement(row1: MainList) {
-    const index = this.expandedElements.findIndex(x => x.assetName == row1.assetName);
+    const index = this.expandedElements.findIndex(x => x.aName == row1.aName);
     if (index === -1) {
       this.expandedElements.push(row1);
     } else {
@@ -290,7 +299,7 @@ fetchAssetName(asset:any){
   }
 
   isExpanded(row1: MainList): string {
-    const index = this.expandedElements.findIndex(x => x.assetName == row1.assetName);
+    const index = this.expandedElements.findIndex(x => x.aName == row1.aName);
     if (index !== -1) {
       return 'expanded';
     }
@@ -530,18 +539,26 @@ fetchAssetName(asset:any){
 
 }
 
+
+
+
 export interface MainList {
   assetName:String;
-  location:String;
+  aName:String;
+  locationName:String;
   categoryName:String;
   quantity:String;
   subList?: SubList[] | MatTableDataSource<SubList>;
 }
 
 export interface SubList {
-  date:String;
-  docType:String;
-  docRef:String;
-  inQty:String;
-  outQty:String;
+  // date:String;
+  // docType:String;
+  // docRef:String;
+  // inQty:String;
+  // outQty:String;
+  transferDate:String;
+  transferQuantity:String;
+  sourceLocation:String;
+  destinationLocation:String;
 }
