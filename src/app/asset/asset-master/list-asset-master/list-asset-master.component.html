@@ -46,6 +46,12 @@
                                 </div>
                             </div>
                             <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
+                                
+                                <ng-container matColumnDef="assetId">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Asset No </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                        {{row.assetId}}</mat-cell>
+                                </ng-container>
 
                                 <ng-container matColumnDef="assetName">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Asset Name </mat-header-cell>

@@ -20,7 +20,7 @@
                                     <mat-label  class="lable" style="margin-left: 55%;">GRN </mat-label>
                                   </div>
                                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"> 
-                                    <input type="checkbox"  tabindex="1"  formControlName="grnList" (change)="getGRN($event.target.checked)">
+                                    <input type="checkbox"  tabindex="1"  formControlName="isGrnBasedAsset" (change)="getGRN($event.target.checked)">
                                   </div>
 
 
@@ -39,10 +39,132 @@
                                     </mat-form-field>
                                   </div>
                             </div>
+
+                            <!-- GRN Based Save Mutiple Asset Start-->
+                            <div *ngIf="grnFlag">
+                                <h6 class="headingValue"> GRN Item Based Asset </h6>
+                                <div style="overflow-x: auto;zoom: 90%;">
+                                  <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                                    <thead class="">
+                                      <tr>
+                                        <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">Item Code-Item Name</th>
+                                        <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Asset Name</th>
+                                        <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Asset Code</th>
+                                          <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">Location</th>
+                                        <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Category</th>
+                                        <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Status</th>
+                                        </tr>
+                                    </thead>
+                
+                                    <ng-container *ngFor="let grnBasedAssetList of docForm.get('grnBasedAssetList')['controls']; let i = index">
+                                      <tbody [formGroup]="grnBasedAssetList">
+                                        <tr>
+                                          <td class="padding-both-side-2">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                              <mat-label>Item Code-Item Name</mat-label>
+                                              <mat-select name="itemId{{i}}" formControlName="itemId" [disabled]="true" >
+                                                <mat-option *ngFor="let title of itemCodeNameList" [value]="title.id">
+                                                  {{title.text}}
+                                                </mat-option>
+                                              </mat-select>
+                                              <mat-error  *ngIf="grnBasedAssetList.controls['itemId'].hasError('required')">
+                                                Item Code-Item Name is required
+                                                </mat-error> 
+
+                                            </mat-form-field>
+                                          </td>
+                
+                                          <td class="padding-both-side-2">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                              <mat-label>Asset Name</mat-label>
+                                              <input matInput name="assetName{{i}}" formControlName="assetName"  
+                                                (keypress)="keyPressName($event)" maxlength="150">
+                                                <mat-error  *ngIf="grnBasedAssetList.controls['assetName'].hasError('required')">
+                                                    Asset Name is required
+                                                    </mat-error> 
+                                            </mat-form-field>
+                                          </td>
+                
+                                          <td class="padding-both-side-2">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                              <mat-label>Asset Code</mat-label>
+                                              <input matInput name="assetCode{{i}}" formControlName="assetCode"  
+                                                (keypress)="keyPressNameNumber($event)" maxlength="9">
+                                                <mat-error  *ngIf="grnBasedAssetList.controls['assetCode'].hasError('required')">
+                                                    Asset Code is required
+                                                    </mat-error> 
+                                            </mat-form-field>
+                                          </td>
+                
+                                          <td class="padding-both-side-2">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                              <mat-label>Location</mat-label>
+                                              <mat-select name="location{{i}}" formControlName="location" required>
+                                                <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                                    {{title.text}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error  *ngIf="grnBasedAssetList.controls['location'].hasError('required')">
+                                                Location is required
+                                                </mat-error> 
+                                         </mat-form-field>
+                                          </td>
+
+                                          <td class="padding-both-side-2">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                              <mat-label>Category</mat-label>
+                                              <mat-select name="category{{i}}" formControlName="category" required>
+                                                <mat-option *ngFor="let title of categoryList" [value]="title.id">
+                                                    {{title.text}}
+                                                </mat-option>
+                                            </mat-select>
+                                                <mat-error *ngIf="grnBasedAssetList.controls['category'].hasError('required')">
+                                                    Category is required
+                                                    </mat-error>
+                                          </mat-form-field>
+                                          </td>
+
+                                          <td class="padding-both-side-2">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                              <mat-label>Status</mat-label>
+                                              <mat-select name="status{{i}}" formControlName="status" required>
+                                                <mat-option [value]="'Good'">
+                                                    Good
+                                                </mat-option>
+                                                <mat-option [value]="'Damaged'">
+                                                    Damaged
+                                                </mat-option>
+                                                <mat-option [value]="'In repair'">
+                                                    In repair
+                                                </mat-option>
+                                                <mat-option [value]="'In stock'">
+                                                    In stock
+                                                </mat-option>
+                                              </mat-select>
+                                              <mat-error *ngIf="grnBasedAssetList.controls['status'].hasError('required')">
+                                                Status is required
+                                                </mat-error> 
+                                            </mat-form-field>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </ng-container>
+                                  </table>
+                                </div>
+                
+                
+                            </div>
+                            <!-- GRN Based Save Mutiple Asset End-->
+
+                            <!-- Normal Asset Save Start-->
+                            <div *ngIf="!grnFlag">
                             <div class="row">
-
-                               
-
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                     <mat-label  class="lable"style="margin-left: 45%;">Asset Name<span class="errorColor">*</span></mat-label>
                                   </div>
@@ -79,12 +201,10 @@
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
-
-                                
                             </div>
                             <br>
-                            <div class="row">
 
+                            <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                     <mat-label class="lable"style="margin-left: 50%;">Category <span class="errorColor">*</span></mat-label>
                                     </div>
@@ -100,7 +220,6 @@
                                             </mat-error>
                                         </mat-form-field>
                                   </div>
-                        
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                     <mat-label class="lable"style="margin-left: 50%;">Status <span class="errorColor">*</span></mat-label>
                                     </div>
@@ -136,12 +255,10 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-2">
-                                     <mat-label class="lable" style="margin-left: 44%;">Asset Image <span class="errorColor">*</span></mat-label>
-
-                                             
+                                     <mat-label class="lable" style="margin-left: 44%;">Asset Image <span class="errorColor">*</span></mat-label>                                            
                                            </div>
                                            <div class="col-md-5">
-                                            <app-file-upload class="example-width form-control-sm" formControlName="uploadFiles"
+                                            <app-file-upload class="example-width form-control-sm" formControlName="uploadImg"
                                               (change)="onSelectImage($event)"></app-file-upload>
                                           </div>
                                            <div class="row" *ngIf="(imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
@@ -155,6 +272,11 @@
                                            </div>
                                      <br>
                              </div>
+                            </div>
+                            <!-- Normal Asset Save End-->
+
+
+
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="header">
                                     <h2 style="color:#F6682F">Additional Information</h2>
@@ -244,7 +366,7 @@
             <mat-label style="margin-left: 2.5%;">Upload File</mat-label>
         </div>
                     <div class="col-md-5">
-                      <app-file-upload class="example-width form-control-sm" formControlName="auditImg"
+                      <app-file-upload class="example-width form-control-sm" formControlName="uploadFiles"
                         (change)="onSelectFile($event)"></app-file-upload>
                     </div>
                   
@@ -529,9 +651,10 @@
                     <div class="row" style="padding-bottom:50px;padding-left: 50px;">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
 
-                            <button *ngIf="!edit" class="btn-space" (click)="onSubmit()" style="margin-left: 38%;" mat-raised-button color="primary">Submit</button>
-                            <button *ngIf="edit" mat-raised-button color="primary" style="margin-left: 38%;" (click)="update()">update</button>
-                            <button mat-raised-button color="primary" style="margin-left:2%" (click)="cancel()">Cancel</button>
+                            <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()" style="margin-left: 38%;" mat-raised-button color="primary">Submit</button>
+                            <button *ngIf="!edit && grnFlag" class="btn-space" (click)="saveGRNBasedMutipleAsset()" style="margin-left: 38%;" mat-raised-button color="primary">Submit</button>
+                            <button *ngIf="edit" mat-raised-button color="primary" style="margin-left: 38%;" (click)="update()">update</button>&nbsp;
+                            <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
                         </div>
                     </div>
                 </div>

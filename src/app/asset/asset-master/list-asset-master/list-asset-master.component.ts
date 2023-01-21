@@ -26,6 +26,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 })
 export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
+    "assetId",
     "assetName",
     "assetCode",
     "Location",
@@ -206,6 +207,7 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
           .filter((assetMaster: AssetMaster) => {
             const searchStr = (
               assetMaster.assetName +
+              assetMaster.assetId +
               assetMaster.assetCode +
               assetMaster.locationName +
               assetMaster.categoryName +
@@ -240,6 +242,9 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
       switch (this._sort.active) {
         case "id":
           [propertyA, propertyB] = [a.id, b.id];
+          break;
+          case "assetId":
+          [propertyA, propertyB] = [a.assetId, b.assetId];
           break;
         case "assetName":
           [propertyA, propertyB] = [a.assetName, b.assetName];
