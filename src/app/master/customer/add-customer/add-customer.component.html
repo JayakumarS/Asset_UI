@@ -101,34 +101,32 @@
             </mat-form-field>
           </div>
           <div class=" col-md-2">
-            <mat-label class="lable">City<span class="errorColor">*</span></mat-label>
-            </div>
-
-          <div class=" col-md-4">
-             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-select class="inputTxt" formControlName="city"maxlength="30" required>
-                <mat-option *ngFor="let title of cityDdList" [value]="title.id">
-                    {{title.text}}
-                </mat-option>
-            </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class=" col-md-2">
             <mat-label class="lable">State<span class="errorColor">*</span></mat-label>
             </div>
              <div class=" col-md-4">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="state"maxlength="30" required>
+                <mat-select class="inputTxt" formControlName="state" (selectionChange)="getCityDropdown($event.value)"maxlength="30" required>
                   <mat-option *ngFor="let title of stateDdList" [value]="title.id">
                       {{title.text}}
                   </mat-option>
               </mat-select>
               </mat-form-field>
 
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">City<span class="errorColor">*</span></mat-label>
+            </div>
+             <div class=" col-md-4">
+             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <mat-select class="inputTxt" formControlName="city" maxlength="30" required>
+                <mat-option *ngFor="let title of cityDdList;" [value]="title.id">
+                    {{title.text}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
           </div>
           <div class=" col-md-2">
             <mat-label class="lable">PIN CODE<span class="errorColor">*</span></mat-label>
@@ -143,7 +141,32 @@
             </mat-form-field>
           </div>
         </div>
-
+        <div class="row">
+          <div class=" col-md-2">
+            <mat-label class="lable">Country<span class="errorColor">*</span></mat-label>
+            </div>
+        <div class=" col-md-4">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="country">
+            <mat-option *ngFor="let title of countryList" [value]="title.id">
+                {{title.text}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div class=" col-md-2">
+        <mat-label class="lable">Location</mat-label>
+        </div>
+         <div class=" col-md-4">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="location">
+            <mat-option *ngFor="let title of locationList" [value]="title.id">
+                {{title.text}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      </div>
         <div class="row">
           <div class=" col-md-2">
             <mat-label class="lable">PAN NO</mat-label>
@@ -186,20 +209,7 @@
         </div>
 
         <div class="row">
-          <div class=" col-md-2">
-            <mat-label class="lable">Location</mat-label>
-            </div>
-             <div class=" col-md-4">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-select class="inputTxt" formControlName="location">
-                <mat-option *ngFor="let title of locationList" [value]="title.id">
-                    {{title.text}}
-                </mat-option>
-            </mat-select>
-            </mat-form-field>
-          </div>
-
-            <div class=" col-md-2"><mat-label class="lable">Active</mat-label></div>
+          <div class=" col-md-2"><mat-label class="lable">Active</mat-label></div>
           <div class=" col-md-3">
              <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
           </div>
@@ -243,7 +253,7 @@
       <div class=" col-md-2"></div>
       <div class=" col-md-2">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="shipperState"maxlength="30"placeholder="State" required>
+          <mat-select class="inputTxt" formControlName="shipperState" (selectionChange)="getCityDropdown($event.value)"maxlength="30"placeholder="State" required>
             <mat-option *ngFor="let title of stateDdList" [value]="title.id">
                 {{title.text}}
             </mat-option>
@@ -270,7 +280,7 @@
        <div class=" col-md-2">
 
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <mat-select class="inputTxt" formControlName="billingState"maxlength="30"placeholder="State" required>
+            <mat-select class="inputTxt" formControlName="billingState" (selectionChange)="getCityDropdown($event.value)"maxlength="30"placeholder="State" required>
               <mat-option *ngFor="let title of stateDdList" [value]="title.id">
                   {{title.text}}
               </mat-option>
@@ -328,7 +338,7 @@
 
        <div class=" col-md-2">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="deliveryState"maxlength="30"placeholder="State" required>
+          <mat-select class="inputTxt" formControlName="deliveryState" (selectionChange)="getCityDropdown($event.value)"maxlength="30"placeholder="State" required>
             <mat-option *ngFor="let title of stateDdList" [value]="title.id">
                 {{title.text}}
             </mat-option>
