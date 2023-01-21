@@ -287,7 +287,7 @@
                                             <app-file-upload class="example-width form-control-sm" formControlName="uploadImg"
                                               (change)="onSelectImage($event)"></app-file-upload>
                                           </div>
-                                           <div class="row" *ngIf="(imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
+                                           <div style="margin-left: 33%;" class="row" *ngIf="(imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
                                            
                                             <div class="iconCard" style="margin-left: 16%;">
                                                <span><i class="far fa-file-alt docIcons"></i>{{imgPathUrl?.split('##').pop()}}</span>
