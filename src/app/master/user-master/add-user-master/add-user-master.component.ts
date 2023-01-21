@@ -8,6 +8,7 @@ import { UserMaster } from '../user-master.model';
 import { CommonService } from 'src/app/common-service/common.service';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -116,6 +117,32 @@ export class AddUserMasterComponent implements OnInit {
     );
 
   }
+  fetchDetails(empid: any) {
+    this.requestId = empid; 
+    this.httpService.get(this.UserMasterService.editUserMaster + "?empid=" + empid).subscribe((res: any) => {
+      console.log(empid);
+    
+      this.docForm.patchValue({
+        'userId': res.userMasterBean.userId,
+         'fullName': res.userMasterBean.fullName,
+        'emailId': res.userMasterBean.emailId,
+        'contNumber': res.userMasterBean.contNumber,
+        'role': res.userMasterBean.role,
+        'department': res.userMasterBean.department,
+        'repmanager': res.userMasterBean.repmanager,
+        'language': res.userMasterBean.language,
+        'location': res.userMasterBean.location,
+        'otp': res.userMasterBean.otp,
+        'company': res.userMasterBean.company,
+        'userLocation': res.userMasterBean.userLocation,
+        'empid': res.userMasterBean.empid,
+     })
+    },
+    (err: HttpErrorResponse) => {   
+      
+     }
+  );
+}
   onSubmit() {
     if (this.docForm.valid){
       this.userMaster = this.docForm.value;
@@ -170,34 +197,7 @@ export class AddUserMasterComponent implements OnInit {
       panelClass: colorName,
     });
   }
-  fetchDetails(empid: any): void {
-    const obj = {
-      editId: empid
-    }
-    this.UserMasterService.editUser(obj).subscribe({
-      next: (res) => {
-      this.docForm.patchValue({
-        'userId': res.userMasterBean.userId,
-         'fullName': res.userMasterBean.fullName,
-        'emailId': res.userMasterBean.emailId,
-        'contNumber': res.userMasterBean.contNumber,
-        'role': res.userMasterBean.role,
-        'department': res.userMasterBean.department,
-        'repmanager': res.userMasterBean.repmanager,
-        'language': res.userMasterBean.language,
-        'location': res.userMasterBean.location,
-        'otp': res.userMasterBean.otp,
-        'company': res.userMasterBean.company,
-        'userLocation': res.userMasterBean.userLocation,
-        'empid': res.userMasterBean.empid,
-
-
-      });
-    },
-    error: (error) => {
-    }
-  });
-}
+ 
 update() {
   if (this.docForm.valid){
     if(this.docForm.value.emailId !=""){

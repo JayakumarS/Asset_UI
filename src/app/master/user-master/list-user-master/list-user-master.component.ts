@@ -84,7 +84,7 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
 
  // edit
- editCall(row: { empid: string; }) {
+ editCall(row) {
 
   this.router.navigate(['/master/userMaster/add-user-master/' + row.empid]);
 
