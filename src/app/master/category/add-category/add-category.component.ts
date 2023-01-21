@@ -138,6 +138,8 @@ export class AddCategoryComponent implements OnInit {
 
   }
   reset() {
+    if (!this.edit) {
+
     this.docForm = this.fb.group({
   
       categoryName: [""],
@@ -146,11 +148,12 @@ export class AddCategoryComponent implements OnInit {
       isactive:[false],
       id:[""]
    
-    
   });
    
+  }else {
+    this.fetchDetails(this.requestId);
   }
-  
+}
   
   onCancel(){
     this.router.navigate(['/master/category/list-category']);
