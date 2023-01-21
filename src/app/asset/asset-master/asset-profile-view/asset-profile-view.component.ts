@@ -20,6 +20,46 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 
+// For bar chart
+
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexDataLabels,
+  ApexTooltip,
+  ApexYAxis,
+  ApexPlotOptions,
+  ApexStroke,
+  ApexLegend,
+  ApexFill,
+  ApexMarkers,
+  ApexGrid,
+  ApexTitleSubtitle,
+  ApexResponsive,
+} from "ng-apexcharts";
+import { MainService } from 'src/app/admin/dashboard/main.service';
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
+  stroke: ApexStroke;
+  tooltip: ApexTooltip;
+  dataLabels: ApexDataLabels;
+  legend: ApexLegend;
+  responsive: ApexResponsive[];
+  plotOptions: ApexPlotOptions;
+  fill: ApexFill;
+  colors: string[];
+  labels: string[];
+  markers: ApexMarkers;
+  grid: ApexGrid;
+  title: ApexTitleSubtitle;
+};
+
 @Component({
   selector: 'app-asset-profile-view',
   templateUrl: './asset-profile-view.component.html',
@@ -56,10 +96,14 @@ export class AssetProfileViewComponent implements OnInit {
  
   assetNameForList: any;
 
+  // For Bar Chart Code
+
+  public projectOptions: Partial<ChartOptions>;
+
   constructor( public router:Router,private fb: FormBuilder,private  assetService: AssetService,
     public route: ActivatedRoute,public dialog: MatDialog,private httpService: HttpServiceService, private sanitizer: DomSanitizer,private snackBar: MatSnackBar,private spinner: NgxSpinnerService,
     public auditableAssetService:AuditableAssetService,private commonService: CommonService,private cd: ChangeDetectorRef,
-    private cmnService:CommonService,private inventoryReportService: InventoryReportsService,) {
+    private cmnService:CommonService,private inventoryReportService: InventoryReportsService,private mainService:MainService) {
 
     this.docForm = this.fb.group({
 
@@ -122,6 +166,7 @@ export class AssetProfileViewComponent implements OnInit {
        this.viewprofile(this.requestId) ;
     
       }
+      this.fetchAssetName(this.requestId);
      });
 
      
@@ -148,8 +193,23 @@ export class AssetProfileViewComponent implements OnInit {
   }
 }
 );
+
+this.projectChart();
 this.checkFullLife(true);
-  }
+ 
+}
+
+fetchAssetName(asset:any){
+
+  this.httpService.get<any>(this.mainService.getAssetSurveyURL + "?assetId=" +asset+"&asset="+'').subscribe(
+    (data) => {
+      this.projectOptions.series=data.getAssetListGraph
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  ); 
+}
 
 
   getDateString(event,inputFlag){
@@ -364,6 +424,108 @@ this.checkFullLife(true);
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
+  }
+
+  private projectChart() {
+    this.projectOptions = {
+      series: [
+        {
+          name: "Book Value",
+          type: "column",
+          data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
+        },
+        {
+          name: "Depreciation",
+          type: "area",
+          data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
+        },
+        {
+          name: "Accured Depreciation",
+          type: "line",
+          data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
+        },
+      ],
+      chart: {
+        height: 400,
+        type: "line",
+        stacked: false,
+        foreColor: "#9aa0ac",
+      },
+      colors: ["#7F7D7F", "#AC93E5", "#FEA861"],
+      stroke: {
+        width: [0, 2, 5],
+        curve: "smooth",
+      },
+      plotOptions: {
+        bar: {
+          columnWidth: "50%",
+        },
+      },
+
+      fill: {
+        opacity: [0.85, 0.25, 1],
+        gradient: {
+          inverseColors: false,
+          shade: "light",
+          type: "vertical",
+          opacityFrom: 0.85,
+          opacityTo: 0.55,
+          stops: [0, 100, 100, 100],
+        },
+      },
+      // labels: [
+      //   "01/01/2003",
+      //   "02/01/2003",
+      //   "03/01/2003",
+      //   "04/01/2003",
+      //   "05/01/2003",
+      //   "06/01/2003",
+      //   "07/01/2003",
+      //   "08/01/2003",
+      //   "09/01/2003",
+      //   "10/01/2003",
+      //   "11/01/2003",
+      // ],
+      labels: [
+        "01/01/2023",
+        "01/01/2024",
+        "01/01/2025",
+        "01/01/2026",
+        "01/01/2027",
+        "01/01/2028",
+        "01/01/2029",
+        "01/01/2030",
+        "01/01/2031",
+        "01/01/2032",
+        "01/01/2033",
+      ],
+      markers: {
+        size: 0,
+      },
+      xaxis: {
+        type: "datetime",
+      },
+      yaxis: {
+        title: {
+          text: "Revenue",
+        },
+        min: 0,
+      },
+      tooltip: {
+        theme: "dark",
+        shared: true,
+        intersect: false,
+        y: {
+          formatter: function (y) {
+            if (typeof y !== "undefined") {
+              // return y.toFixed(0) + "k" + " dollars";
+              return y.toFixed(2);
+            }
+            return y;
+          },
+        },
+      },
+    };
   }
 
 }

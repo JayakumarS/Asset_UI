@@ -1,15 +1,14 @@
 <section class="content">
     <div class="content-block">
       <div class="block-header">
-        <!-- breadcrumb -->
-        <app-breadcrumb [title]="'User Login'" [items]="['Master']" [active_item]="'Add UserMaster'">
-        </app-breadcrumb>
+
       </div>
       <div class="row clearfix ">
         <div class="col-md-12">
           <div class="box-shadow">
             <div class="card pageproperty">
-              <div class="body " style="padding-left: 220px;">
+              <h3 style="text-align: center;padding: 3%;background-color: cadetblue;">Registration</h3>
+              <div class="body " style="padding-left: 220px; background-color: antiquewhite;margin-top: -1%;">
                 <form class="m-4" [formGroup]="docForm">
 
                   <div class="row">
@@ -84,19 +83,21 @@
                       </mat-select>
                   </mat-form-field>
                   </div>
-                  <div class=" col-md-2">
-                    <mat-label class="lable">Reporting Manager</mat-label>
-                    </div>
-                    <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                      <mat-select class="inputTxt" formControlName="repmanager">
-                        <mat-option *ngFor="let title of userLocationDdList" [value]="title.id">
-                            {{title.text}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                </div></div>
+                    <div class=" col-md-2">
+                        <mat-label class="lable">Company</mat-label>
+                        </div>
+                        <div class=" col-md-3">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                            <mat-select class="inputTxt" formControlName="company">
+                              <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                  {{title.text}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                        </div>
+            </div>
                       <br>
                       <div class="row">
                         <div class=" col-md-2">
@@ -127,20 +128,7 @@
                         </div></div>
 
 
-                        <div class="row">
-                          <div class=" col-md-2">
-                              <mat-label class="lable">Company</mat-label>
-                              </div>
-                              <div class=" col-md-3">
-                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                                  <mat-select class="inputTxt" formControlName="company">
-                                    <mat-option *ngFor="let title of companyList" [value]="title.id">
-                                        {{title.text}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                              </div></div>
                      <br>
                      <div class="row">
                         <div class=" col-md-2"><mat-label class="lable">OTP Required</mat-label></div>
@@ -154,16 +142,11 @@
                     </div>
                   <br>
 
-                  <div class="row">
+                  <div class="row" style="text-align: center;">
                     <div class="col-md-12">
-                      <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
-                        style="margin-left: 30%;background-color: #34d034;">Submit</button>
-                      <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
-                        style="margin-left: 30%;background-color: #34d034;">Update</button>
-                      <button color="primary" type="button" class="btn-space" (click)="reset()"
-                        mat-raised-button>Reset</button>
-                      <button color="warn" type="button" class="btn-space" (click)="onCancel()"
-                        mat-raised-button>Cancel</button>
+                      <button  (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                        style=" margin-left: -12%;background-color: #0a5d0a;">Registration</button>
+
                     </div>
                   </div>
                   </form>

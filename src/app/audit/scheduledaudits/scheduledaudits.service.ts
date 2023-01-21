@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
@@ -21,6 +21,10 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter{
   public getList = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/list`;
   public edit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/edit`;
   public save = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/save`;
+  public editAudit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/editAudit`;
+  public draftsave = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/draftsave`;
+
+
 
   get data(): ScheduleAudit[] {
     return this.dataChange.value;
@@ -41,6 +45,11 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter{
         console.log(error.name + " " + error.message);
       }
     );
+  }
+  editAsset(obj: any): Observable<any> {
+
+    return this.httpClient.post<any>(this.editAudit, obj);
+
   }
 
 }

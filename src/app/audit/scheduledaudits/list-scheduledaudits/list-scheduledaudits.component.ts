@@ -34,6 +34,7 @@ import { ScheduleAudit } from '../scheduledaudits-model';
   selection = new SelectionModel<ScheduleAudit>(true, []);
   index: number;
   id: number;
+  edit:boolean=false;
   scheduleAudit: ScheduleAudit | null;
   constructor(
     public httpClient: HttpClient,
@@ -82,7 +83,9 @@ import { ScheduleAudit } from '../scheduledaudits-model';
   editCall(row) { 
     this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/'+row.auditCode]);
   }
-  
+  viewCall(row) {
+    this.router.navigate(['/audit/scheduledaudits/scheduled-view/' + row.auditCode]);
+  }
 
  
   showNotification(colorName, text, placementFrom, placementAlign) {

@@ -171,6 +171,28 @@ refresh(){
     this.loadData();
   
 }
+
+reset(){
+  this.docForm = this.fb.group({
+  
+    reportdate:[""],
+    reportdateObj:[""],
+    uploadImg:[""],
+    asset:[""],
+    assetlocation:[""],
+    reportedby:this.loginedUser,
+    tickettype:[""],
+    ticketgroup:[""],
+    assignee:this.loginedUser,
+    priority:[""],
+    cc:[""],
+    description:[""],
+    report:[""],
+    status:[""],
+    support_id:[""]
+  
+});
+}
 getDateString(event,inputFlag,index){
   let cdate = this.cmnService.getDate(event.target.value);
   if(inputFlag=='reportdate'){

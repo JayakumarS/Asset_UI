@@ -20,14 +20,19 @@
                             <div class="col-md-4 sign-img" style="margin-left: 33%;">
                                 <img [attr.src]="this.imagePath"  class="user-img" />
                             </div>
-                            <p>
-                                {{profileViewDetails?.category}}
-                                <br />{{profileViewDetails?.status}}
-                            </p>
-                            <div>
-                                <span><i class="material-icons"> location_on</i></span>
-                                <span>{{profileViewDetails?.locationName}}</span>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <!-- <span>{{profileViewDetails?.category}}</span><br> -->
+                                    <span>{{profileViewDetails?.status}}</span>
                             </div>
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                    <span><i class="material-icons"> location_on</i></span>
+                                    <span>{{profileViewDetails?.locationName}}</span>
+                                </div>
+                            </div><br><br>
+                            
                             <div class="row">
                                 <div class="col-4">
                                     <h5>{{profileViewDetails?.purchasePrice}}</h5>
@@ -57,6 +62,49 @@
                                 </a>
                               </div>
                     </div>
+                </div>
+                <div class="card">
+
+                    <div class="body p-5">
+                        <apx-chart [series]="projectOptions.series" [chart]="projectOptions.chart" [yaxis]="projectOptions.yaxis"
+                          [xaxis]="projectOptions.xaxis" [labels]="projectOptions.labels" [stroke]="projectOptions.stroke"
+                          [plotOptions]="projectOptions.plotOptions" [markers]="projectOptions.markers" [fill]="projectOptions.fill"
+                          [tooltip]="projectOptions.tooltip" [colors]="projectOptions.colors"></apx-chart>
+                      </div>
+
+                    <!-- <div class="m-b-20">
+                        <div class="contact-grid">
+                            <div class="profile-header bg-dark">
+                                <div class="user-name">{{profileViewDetails?.assetName}}</div>
+                                <div class="name-center">{{profileViewDetails?.assetCode}}</div>
+                            </div>
+                            <div class="col-md-4 sign-img" style="margin-left: 33%;">
+                                <img [attr.src]="this.imagePath"  class="user-img" />
+                            </div>
+                            <p>
+                                {{profileViewDetails?.category}}
+                                <br />{{profileViewDetails?.status}}
+                            </p>
+                            <div>
+                                <span><i class="material-icons"> location_on</i></span>
+                                <span>{{profileViewDetails?.locationName}}</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5>{{profileViewDetails?.purchasePrice}}</h5>
+                                    <small>Purchase Value </small>
+                                </div>
+                                <div class="col-4">
+                                    <h5>{{profileViewDetails?.captitalizationPrice}}</h5>
+                                    <small>Captitalization Price</small>
+                                </div>
+                                <div class="col-4">
+                                    <h5>{{profileViewDetails?.depreciation}}</h5>
+                                    <small>Depreciation</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
             </div>
             <div class="col-lg-8 col-md-12">

@@ -28,8 +28,8 @@
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <label>TICKET TYPE</label>
             </div>
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-              <mat-form-field appearance="outline" style="width:310px">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: -1px;">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width:310px">
                 <mat-select formControlName="tickettype" required>
                   <mat-option value="CLOSED">CLOSED</mat-option>
                   <mat-option value="ASSIGNED">ASSIGNED</mat-option>
@@ -52,7 +52,7 @@
                   </div>
 
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12" style="margin-left: 5px;">
-                    <mat-form-field  appearance="outline"  style="width:310px">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="width:307px;    margin-left: -6px;">
                       <mat-select formControlName="assetlocation" >
                         <mat-option *ngFor="let title of assetlocationlist" [value]="title.id" required>
                           {{title.text}}
@@ -66,7 +66,7 @@
 
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
-                      <label >TICKET GROUP</label>
+                      <label style="margin-left: -6px;" >TICKET GROUP</label>
                   </div>
 
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 "style="margin-left: -5px;" >
@@ -84,7 +84,7 @@
                       <label>Assignee</label>
                   </div>
             
-                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " style="margin-left: -5px;" >
+                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="assignee" required>
                     </mat-form-field>
@@ -106,10 +106,13 @@
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                       <label>PROIRITY</label>
+                      
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+
                   <mat-form-field class="example-full-width form-control-sm"
                   appearance="outline">
+
                   <mat-select
                       formControlName="priority">
                       <mat-option [value]="'HIGH'">
@@ -122,10 +125,12 @@
                       LOW
                   </mat-option>
                   </mat-select>
+
                   <mat-error *ngIf="docForm.get('priority').hasError('required')">
                     priority is required
                   </mat-error>
               </mat-form-field>  
+
               </div>  
                 
                 </div>
@@ -148,11 +153,11 @@
                       </mat-error>
                     </mat-form-field>
                   </div> 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style=" margin-top: 12px;">
                     <label>NOTIFY REPORT BY</label>
                 </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="padding-left: 69px;">
-                    <mat-checkbox formControlName="report"  ngInit="checked=true"></mat-checkbox>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style=" padding-left: 15px; margin-top: 12px;">
+                    <mat-checkbox class="example-full-width form-control-sm" formControlName="report"  ngInit="checked=true"></mat-checkbox>
                   </div>
                   </div>
                 
@@ -184,9 +189,17 @@
 
               
                
-              
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" >
+                    <button *ngIf="!edit" mat-raised-button color="primary" style ="margin-left: 38%; "(click)="onSubmit()" >save</button>
+                    <button *ngIf="edit" mat-raised-button color="primary" style ="margin-left: 38%; "(click)="update()" >update</button>
+                    &nbsp;
+                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
+                  </div>
+                  </div>
             
-              <div class="row"> 
+              <!-- <div class="row"> 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                  
                  
@@ -196,7 +209,7 @@
                   &nbsp;
                   <button *ngIf="!edit"  (click) = "onsubmit()" class="btn-space" mat-raised-button color="plain" >SAVE AND NOTIFY</button>
                 </div>
-              </div>
+              </div> -->
             </form>
           </div>
         </div>

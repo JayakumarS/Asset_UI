@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PaymentsHistoryComponent } from './payments-history/payments-history.component';
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from "@angular/material/table";
@@ -22,37 +23,19 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
-import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
-import { AssetMasterRoutingModule } from './asset-master-routing.module';
-import { ListAssetMasterComponent } from './list-asset-master/list-asset-master.component';
-import { DeleteAssetMasterComponent } from './list-asset-master/delete-asset-master/delete-asset-master.component';
-import { AddAssetMasterComponent } from './add-asset-master/add-asset-master.component';
-import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
-import { NotificationService } from 'src/app/core/service/notification.service';
-import { AddMultipleAssetMasterComponent } from './add-multiple-asset-master/add-multiple-asset-master.component';
-import { AssetProfileViewComponent } from './asset-profile-view/asset-profile-view.component';
-
-import { ChartsModule as chartjsModule } from "ng2-charts";
-import { NgApexchartsModule } from "ng-apexcharts";
+import { PaymentsHistoryRoutingModule } from './payments-history-routing.module';
 
 
 @NgModule({
   declarations: [
-    ListAssetMasterComponent,
-    DeleteAssetMasterComponent,
-    AddAssetMasterComponent,
-    AddMultipleAssetMasterComponent,
-    AssetProfileViewComponent
-  ],
-  providers:[
-    NotificationService
+    PaymentsHistoryComponent
   ],
   imports: [
     CommonModule,
-    AssetMasterRoutingModule,
+    PaymentsHistoryRoutingModule,
+    
     FormsModule,
     ReactiveFormsModule,
-    PerfectScrollbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
@@ -73,9 +56,6 @@ import { NgApexchartsModule } from "ng-apexcharts";
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatRadioModule,
-    NgApexchartsModule,
-    PerfectScrollbarModule,
   ]
 })
-export class AssetMasterModule { }
+export class PaymentsHistoryModule { }

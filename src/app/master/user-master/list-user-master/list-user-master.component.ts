@@ -84,9 +84,9 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
 
  // edit
- editCall(row: { userId: string; }) {
+ editCall(row) {
 
-  this.router.navigate(['/master/userMaster/add-user-master/' + row.userId]);
+  this.router.navigate(['/master/userMaster/add-user-master/' + row.empid]);
 
 }
 
@@ -108,7 +108,7 @@ deleteItem(row) {
   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
     if (data.data == true) {
       const obj = {
-        deletingId: row.userId
+        deletingid: row.empid
       }
       this.userMasterService.userdelete(obj).subscribe({
         next: (data) => {

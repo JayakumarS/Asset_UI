@@ -57,7 +57,6 @@ export class AddScheduldauitsComponent implements OnInit {
     constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private httpService: HttpServiceService,
-    // private snackBar:MatSnackBar,
     public route: ActivatedRoute,
     private router:Router,
     public httpClient: HttpClient,
@@ -81,6 +80,7 @@ export class AddScheduldauitsComponent implements OnInit {
       location:[""],
       Quantity:[""],
       remarks:[""],
+      type:[""],
       loginedUser: this.tokenStorage.getUserId(),
 
       scheduledDetailbean: this.fb.array([
@@ -110,7 +110,6 @@ export class AddScheduldauitsComponent implements OnInit {
     if(params.id!=undefined && params.id!=0){
      this.requestId = params.id;
      this.edit=true;
-     //For User login Editable mode
      this.fetchDetails(this.requestId) ;
     }
   });
@@ -206,6 +205,9 @@ export class AddScheduldauitsComponent implements OnInit {
 
   onSubmit(){
     if(this.docForm.valid){
+      this.docForm.patchValue({
+        'type':'Submit'
+      })
       this.httpService.post<any>(this.scheduledauditsService.save, this.docForm.value).subscribe(data => {
         if(data.success){
           this.showNotification(
@@ -234,11 +236,73 @@ export class AddScheduldauitsComponent implements OnInit {
 
   }
 
+  saveasdraft(){
+    if(this.docForm.valid){
+      this.docForm.patchValue({
+        'type':'Draft'
+      })
+      this.httpService.post<any>(this.scheduledauditsService.save, this.docForm.value).subscribe(data => {
+        if(data.success){
+          this.showNotification(
+            "snackbar-success",
+            "Record Added Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          this.reset();
+          this.router.navigate(['audit/scheduledaudits/list-scheduledaudits']);
+        }
+        else{
+          this.showNotification(
+            "snackbar-danger",
+            data.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+        
+        },
+        (err: HttpErrorResponse) => {
+          
+      });
+    }
+
+
+
+  }
+
   update()
   {
 
   }
   reset(){
+    this.docForm = this.fb.group({
+      auditName:[""],
+      auditCode:["",[Validators.required]],
+      startDateObj:[""],
+      companyName:["",[Validators.required]],
+      auditorName:[""],
+      startDate:[""],
+      assetName:[""],
+      location:[""],
+      Quantity:[""],
+      remarks:[""],
+      loginedUser: this.tokenStorage.getUserId(),
+
+      scheduledDetailbean: this.fb.array([
+        this.fb.group({
+          assetName: '',
+          location: '',
+          sampleQty: '',
+          remarks: '',
+
+         
+        })
+      ]),
+
+
+  });
+
 
   }
 
@@ -284,9 +348,10 @@ export class AddScheduldauitsComponent implements OnInit {
     }
    
   }
+ 
 
   addRow(){
-    let scheduledListDetailArray = this.docForm.controls.scheduledList as FormArray;
+    let scheduledListDetailArray = this.docForm.controls.scheduledDetailbean as FormArray;
     let arraylen = scheduledListDetailArray.length;
     let newUsergroup: FormGroup = this.fb.group({
       auditorName:[""],
