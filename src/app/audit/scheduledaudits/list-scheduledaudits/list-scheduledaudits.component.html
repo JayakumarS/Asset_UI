@@ -99,11 +99,11 @@
                     </button>
                     <span *ngIf="row.statusNew=='Submit'">Submitted</span>
 
-                    <button mat-icon-button color="accent"   (click)="$event.stopPropagation()" (click)="viewCall(row)" style="margin-left: 70px;"  class="tbl-action-btn">
+                    <button mat-icon-button color="accent"  *ngIf="row.statusNew!='Draft'"  (click)="$event.stopPropagation()" (click)="viewCall(row)" style="margin-left: 70px;"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                       </app-feather-icons>
                     </button>
-                      
+                    <span *ngIf="row.statusNew=='Draft'"></span>
                     </mat-cell>
                   </ng-container>
   
