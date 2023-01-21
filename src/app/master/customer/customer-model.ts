@@ -7,7 +7,7 @@ export class CustomerMaster {
     phone:number;
     address:string;
     addresstwo:string;
-    city:string;
+    city:number;
     state:string;
     postalcode:string;
     panno:string;
