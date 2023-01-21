@@ -96,9 +96,9 @@ export class AssetProfileViewComponent implements OnInit {
   dataSource: MatTableDataSource<MainList>;
   columnsToDisplay = ["assetName", "categoryName", "locationName", "quantity"];
   imagePath: any;
-
   innerDisplayedColumns = ["transferDate","transferQuantity","sourceLocation","destinationLocation"];
-
+  profileImg: any;
+  qrCodeImg: any;
   expandedElement: MainList | null;
   expandedElements: any[] = [];
   innerExpandedElements: any[] = [];
@@ -320,11 +320,14 @@ fetchAssetName(asset:any){
    this.assetNameForList=this.profileViewDetails.assetName;
 
    //For Img added by gokul
-   if (res.addAssetBean.imgFile != undefined && res.addAssetBean.imgFile != null && res.addAssetBean.imgFile != '') {
-    let objectURL = 'data:image/png;base64,' + res.addAssetBean.imgFile;
-    this.imagePath = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-}
-   console.log(this.profileViewDetails);
+   if (res.addAssetBean.profileFile != undefined && res.addAssetBean.profileFile != null && res.addAssetBean.profileFile != '') {
+    let objectProfileURL = 'data:image/png;base64,' + res.addAssetBean.profileFile;
+    this.profileImg = this.sanitizer.bypassSecurityTrustUrl(objectProfileURL);
+   }
+   if (res.addAssetBean.qrCodeFile != undefined && res.addAssetBean.qrCodeFile != null && res.addAssetBean.qrCodeFile != '') {
+    let objectQRCodeURL = 'data:image/png;base64,' + res.addAssetBean.qrCodeFile;
+    this.qrCodeImg = this.sanitizer.bypassSecurityTrustUrl(objectQRCodeURL);
+   }
    this.viewReport(this.assetNameForList);
     },
     error: (error) => {

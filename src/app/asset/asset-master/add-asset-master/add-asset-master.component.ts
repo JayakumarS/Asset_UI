@@ -19,7 +19,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { NgxSpinnerService } from "ngx-spinner";
 import { GrnService } from 'src/app/inventory/grn/grn.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
-
+import * as moment from 'moment';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -95,14 +95,14 @@ export class AddAssetMasterComponent
     super();
 
     this.docForm = this.fb.group({
-
-
       //info
       assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       assetCode: ["", [Validators.required]],
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
+      putUseDate: [moment().format('DD/MM/YYYY')],
+      putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
       isLine: [false],
       id: [""],
       uploadImg: [""],
@@ -161,6 +161,8 @@ export class AddAssetMasterComponent
           location: [""],
           category: [""],
           status: [""],
+          putUseDate: [moment().format('DD/MM/YYYY')],
+          putUseDateObj: [moment().format('YYYY-MM-DD')],
         })
       ])
     });
@@ -284,7 +286,8 @@ export class AddAssetMasterComponent
                 assLocation: [element.locationName],
                 assCategory: [element.categoryName],
                 assStatus: [element.status],
-                assetId: [element.assetId]
+                assetId: [element.assetId],
+
               })
               assetListDtlArray.insert(i, newUsergroup);
             });
@@ -409,13 +412,14 @@ export class AddAssetMasterComponent
     this.assetService.editAsset(obj).subscribe({
       next: (res: any) => {
         this.docForm.patchValue({
-
           'assetName': res.addAssetBean.assetName,
           'assetCode': res.addAssetBean.assetCode,
           'location': res.addAssetBean.location,
           'category': res.addAssetBean.category,
           'status': res.addAssetBean.status,
           'isLine': res.addAssetBean.isLine,
+          'putUseDate': res.addAssetBean.putUseDate,
+          'putUseDateObj': res.addAssetBean.putUseDate != null ? this.commonService.getDateObj(res.addAssetBean.putUseDate) : "",
           'id': res.addAssetBean.id,
           'brand': res.addAssetBean.brand,
           'model': res.addAssetBean.model,
@@ -542,7 +546,14 @@ export class AddAssetMasterComponent
     }
     else if (inputFlag == 'allottedUpto') {
       this.docForm.patchValue({ allottedUpto: cdate });
-    }
+    } else if (inputFlag == 'putUseDate') {
+      this.docForm.patchValue({ putUseDate: cdate });
+    } else if (inputFlag == 'putUseDateArray') {
+      let grnBasedAssetArray = this.docForm.controls.grnBasedAssetList as FormArray;
+      grnBasedAssetArray.at(index).patchValue({
+        putUseDate: cdate
+      });
+    } 
   }
 
   keyPressNumberInt(event: any) {
@@ -827,6 +838,8 @@ export class AddAssetMasterComponent
                   location: ["", [Validators.required]],
                   category: ["", [Validators.required]],
                   status: ["", [Validators.required]],
+                  putUseDate: [moment().format('DD/MM/YYYY')],
+                  putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
                 })
                 grnBasedAssetArray.insert(arraylen, newUsergroup);
               });
