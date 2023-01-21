@@ -37,19 +37,16 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   public deleteAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/delete`;
   public getAssetDetails = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetDetails`;
   public getAssetList = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetListFor`;
-
-  
-
   //new
-  
   public addAssetImageUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/addAssetImageUpload`;
   public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/addAssetUpload`;
-
   public multipleAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/multipleAssetuploadExefile`;
   public categoryDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getCategoryDropdown`;
   public locationDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getLocationDropdown`;
   public departmentDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getDepartmentDropdown`;
   public commoditylist = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
+  public saveGRNBasedMutipleAsset = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/saveGRNBasedMutipleAsset`;
+
 
   get data(): AssetMaster[] {
     return this.dataChange.value;
@@ -93,12 +90,16 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<any>(this.deleteAssetMaster, obj);
   }
 
-  addAssetMaster(AssetMaster: AssetMaster): Observable<any> {
-    return this.httpClient.post<AssetMaster>(this.saveAssetMaster, AssetMaster);
+  addAssetMaster(assetMaster: AssetMaster): Observable<any> {
+    return this.httpClient.post<AssetMaster>(this.saveAssetMaster, assetMaster);
   }
 
-  updateAssetMaster(AssetMaster: AssetMaster): Observable<any> {
-    return this.httpClient.post<AssetMaster>(this.updateAsset, AssetMaster);
+  updateAssetMaster(assetMaster: AssetMaster): Observable<any> {
+    return this.httpClient.post<AssetMaster>(this.updateAsset, assetMaster);
   }
  
+  addGRNBasedMutipleAsset(assetMaster: AssetMaster): Observable<any> {
+    return this.httpClient.post<AssetMaster>(this.saveGRNBasedMutipleAsset, assetMaster);
+  }
+
 }

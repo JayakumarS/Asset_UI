@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit ,ViewChild} from '@angular/core';
-import { FormArray,FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,6 +18,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { NgxSpinnerService } from "ngx-spinner";
 import { GrnService } from 'src/app/inventory/grn/grn.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 export const MY_DATE_FORMATS = {
@@ -37,36 +38,37 @@ export const MY_DATE_FORMATS = {
   styleUrls: ['./add-asset-master.component.sass'],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: {
-      display: {
+    {
+      provide: MAT_DATE_FORMATS, useValue: {
+        display: {
           dateInput: 'DD/MM/YYYY',
           monthYearLabel: 'MMMM YYYY'
-      },
-  } },CommonService
+        },
+      }
+    }, CommonService
   ]
 
 })
 export class AddAssetMasterComponent
- extends UnsubscribeOnDestroyAdapter
- implements OnInit {
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit {
   docForm: FormGroup;
-
   hide3 = true;
   agree3 = false;
   dropdownList = [];
-  submitted: boolean=false;
+  submitted: boolean = false;
   assetMaster: AssetMaster;
-  categoryList=[];
-  locationDdList=[];
-  departmentDdList=[];
-  vendorDdList=[];
+  categoryList = [];
+  locationDdList = [];
+  departmentDdList = [];
+  vendorDdList = [];
   requestId: any;
-  edit:boolean=false;
+  edit: boolean = false;
   grnFlag: boolean = false;
   grnNumberList = [];
   purchaseOrderNumber = [];
-
-  isLineIn:boolean=false;
+  itemCodeNameList = [];
+  isLineIn: boolean = false;
   assetnamelist: any;
   assetDetailsList: any;
   uomList: any;
@@ -74,99 +76,112 @@ export class AddAssetMasterComponent
   imgPathUrl: string;
   private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
-  
+
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
-    private  assetService: AssetService, 
+    private assetService: AssetService,
     private commonService: CommonService,
-    public router:Router,
+    public router: Router,
     private snackBar: MatSnackBar,
-    public notificationService:NotificationService,
-    private cmnService:CommonService,
+    public notificationService: NotificationService,
+    private cmnService: CommonService,
     public dialog: MatDialog,
     public route: ActivatedRoute,
     private serverUrl: serverLocations,
     private spinner: NgxSpinnerService,
-    public grnService: GrnService
-    ) {
+    public grnService: GrnService,
+    private tokenStorage: TokenStorageService,
+  ) {
     super();
-    
+
     this.docForm = this.fb.group({
 
-      
+
       //info
       assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      assetCode: ["",[Validators.required]],
+      assetCode: ["", [Validators.required]],
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
-      isLine:[false],
+      isLine: [false],
       id: [""],
       uploadImg: [""],
-      grnList:[""],
-      grnId:[""],
+      isGrnBasedAsset: [false],
+      grnId: [""],
+      loginedUser: this.tokenStorage.getUserId(),
       //tab1
       brand: [""],
-      model:[""],
-      serialNo:[""],
-      condition:[""],
-      linkedAsset:[""],
-      description:[""],
-      uploadFiles:[""],
+      model: [""],
+      serialNo: [""],
+      condition: [""],
+      linkedAsset: [""],
+      description: [""],
+      uploadFiles: [""],
       //tab2
-      vendor:[""],
+      vendor: [""],
       poNumber: [""],
-      selfOrPartner:[""],
+      selfOrPartner: [""],
       invoiceDate: [""],
       invoiceNo: [""],
       purchasePrice: [""],
       //tab3
-      captitalizationPrice:[""],
-      captitalizationDate:[""],
-      endLife:[""],
-      scrapValue:[""],
-      depreciation:[""],
+      captitalizationPrice: [""],
+      captitalizationDate: [""],
+      endLife: [""],
+      scrapValue: [""],
+      depreciation: [""],
       //tab4
-      department:[""],
-      allottedUpto:[""],
-      transferredTo:[""],
-      remarks:[""],
-      invoiceDateobj:[""],
-      captitalizationDateobj:[""],
-      allottedUptoobj:[""],
-      fileUploadUrl:[""],
-      imgUploadUrl:[""],
+      department: [""],
+      allottedUpto: [""],
+      transferredTo: [""],
+      remarks: [""],
+      invoiceDateobj: [""],
+      captitalizationDateobj: [""],
+      allottedUptoobj: [""],
+      fileUploadUrl: [""],
+      imgUploadUrl: [""],
       //tab5
-     assetMasterBean: this.fb.array([
+      assetMasterBean: this.fb.array([
         this.fb.group({
-          assName:[""],
-          assCode:[""],
-          assLocation:[""],
-          assCategory:[""],
-          assStatus:[""],
-          assetId:[""]
-         
-        }) 
+          assName: [""],
+          assCode: [""],
+          assLocation: [""],
+          assCategory: [""],
+          assStatus: [""],
+          assetId: [""]
+
+        })
       ]),
-      
+
+      grnBasedAssetList: this.fb.array([
+        this.fb.group({
+          itemId: [""],
+          assetName: [""],
+          assetCode: [""],
+          location: [""],
+          category: [""],
+          status: [""],
+        })
+      ])
     });
-    
   }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
-       this.requestId = params.id;
-       this.edit=true;
-       this.fetchDetails(this.requestId);
-       this.getInLine(event); 
+      if (params.id != undefined && params.id != 0) {
+        this.requestId = params.id;
+        this.edit = true;
+        this.fetchDetails(this.requestId);
+        this.getInLine(event);
 
       }
-     });
+    });
 
-     this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
+
+
+    this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
       next: (data) => {
         this.categoryList = data;
       },
@@ -175,39 +190,48 @@ export class AddAssetMasterComponent
       }
     }
     );
- 
-       // Location dropdown
-       this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-        next: (data) => {
-          this.locationDdList = data;
-        },
-        error: (error) => {
-  
-        }
-      }
-      );
- 
-       // department dropdown
-       this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
-        next: (data) => {
-          this.departmentDdList = data;
-        },
-        error: (error) => {
-  
-        }
-      }
-      );
 
- //purchaseOrderNumber Dropdown List
- this.httpService.get<any>(this.commonService.getPurchaseOrderNumberDropdown).subscribe({
-  next: (data) => {
-    this.purchaseOrderNumber = data;
-  },
-  error: (error) => {
-  }
-});
-           // vendor dropdown
-           //UOM Dropdown List
+    // Location dropdown
+    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+      next: (data) => {
+        this.locationDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
+    //Item Master Dropdown List
+    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
+      next: (data) => {
+        this.itemCodeNameList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    // department dropdown
+    this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
+      next: (data) => {
+        this.departmentDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
+    //purchaseOrderNumber Dropdown List
+    this.httpService.get<any>(this.commonService.getPurchaseOrderNumberDropdown).subscribe({
+      next: (data) => {
+        this.purchaseOrderNumber = data;
+      },
+      error: (error) => {
+      }
+    });
+    // vendor dropdown
+    //UOM Dropdown List
     this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
       next: (data) => {
         this.uomList = data;
@@ -217,126 +241,126 @@ export class AddAssetMasterComponent
     });
 
 
-//PurchaseOrderNumber Dropdown List
-this.httpService.get<any>(this.commonService.getGRNNumberDropdown).subscribe({
-  next: (data) => {
-    this.grnNumberList = data;
-  },
-  error: (error) => {
-  }
-});
+    //PurchaseOrderNumber Dropdown List
+    this.httpService.get<any>(this.commonService.getGRNNumberDropdown).subscribe({
+      next: (data) => {
+        this.grnNumberList = data;
+      },
+      error: (error) => {
+      }
+    });
 
-  // assetname dropdown
-   this.httpService.get<any>(this.commonService.getassetname).subscribe({
-    next: (data) => {
-      this.assetnamelist = data;
-    },
-    error: (error) => {
+    // assetname dropdown
+    this.httpService.get<any>(this.commonService.getassetname).subscribe({
+      next: (data) => {
+        this.assetnamelist = data;
+      },
+      error: (error) => {
 
+      }
     }
+    );
+
+
+
   }
-  );
 
+  // assetDetailsList
 
+  assetDetails(value: any, i) {
 
-   }
-
-// assetDetailsList
-
-assetDetails(value:any,i){
-
-    this.httpService.get<any>(this.assetService.getAssetDetails+"?assetId=" +value.value).subscribe({
-    next: (res: any) => {
+    this.httpService.get<any>(this.assetService.getAssetDetails + "?assetId=" + value.value).subscribe({
+      next: (res: any) => {
         if (res.success) {
-          if(res.assetList!=null && res.assetList.length>=1){
+          if (res.assetList != null && res.assetList.length >= 1) {
             let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
             dtlArray.removeAt(i);
             res.assetList.forEach(element => {
               let assetListDtlArray = this.docForm.controls.assetMasterBean as FormArray;
               let arraylen = assetListDtlArray.length;
               let newUsergroup: FormGroup = this.fb.group({
-                assName:[value.value],
-                assCode:[element.assetCode],
-                assLocation:[element.locationName],
-                assCategory:[element.categoryName],
-                assStatus:[element.status],
-                assetId:[element.assetId]
+                assName: [value.value],
+                assCode: [element.assetCode],
+                assLocation: [element.locationName],
+                assCategory: [element.categoryName],
+                assStatus: [element.status],
+                assetId: [element.assetId]
               })
               assetListDtlArray.insert(i, newUsergroup);
             });
           }
         }
       },
-    error: (error) => {
+      error: (error) => {
 
+      }
+    }
+    );
   }
-}
-);
-   }
-   
-   onSubmit() {
-    this.submitted=true;
 
-  if (this.docForm.valid) {
+  onSubmit() {
+    this.submitted = true;
 
-     this.assetMaster = this.docForm.value;
-     console.log(this.assetMaster);
-     this.spinner.show();
-     this.assetService.addAssetMaster(this.assetMaster).subscribe({
-      next: (data) => {
-        this.spinner.hide();
-        if (data.success) {
-          this.showNotification(
-            "snackbar-success",
-            "Record Added successfully...",
-            "bottom",
-            "center"
-          );
-          this.onCancel();
-        } else {
+    if (this.docForm.valid) {
+
+      this.assetMaster = this.docForm.value;
+      console.log(this.assetMaster);
+      this.spinner.show();
+      this.assetService.addAssetMaster(this.assetMaster).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
           this.showNotification(
             "snackbar-danger",
-            "Not Added...!!!",
+            error.message + "...!!!",
             "bottom",
             "center"
           );
         }
-      },
-      error: (error) => {
-         this.spinner.hide();
-        this.showNotification(
-          "snackbar-danger",
-          error.message + "...!!!",
-          "bottom",
-          "center"
-        );
-      }
-    });
-  }else{
-    this.showNotification(
-      "snackbar-danger",
-      "Please fill all the required details!",
-      "top",
-      "right"
-    );
+      });
+    } else {
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
   }
-}
 
-onCancel() {
-  this.router.navigate(['/asset/assetMaster/listAssetMaster']);
-}
+  onCancel() {
+    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+  }
 
-   refresh() {
+  refresh() {
     const currentRoute = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentRoute]);
     });
   }
-  
+
   update() {
     if (this.docForm.valid) {
       this.assetMaster = this.docForm.value;
-       this.spinner.show();
+      this.spinner.show();
       this.assetService.updateAssetMaster(this.assetMaster).subscribe({
         next: (data) => {
           this.spinner.hide();
@@ -358,7 +382,7 @@ onCancel() {
           }
         },
         error: (error) => {
-           this.spinner.hide();
+          this.spinner.hide();
           this.showNotification(
             "snackbar-danger",
             error.message + "...!!!",
@@ -367,7 +391,7 @@ onCancel() {
           );
         }
       });
-    }else{
+    } else {
       this.showNotification(
         "snackbar-danger",
         "Please fill all the required details!",
@@ -376,108 +400,108 @@ onCancel() {
       );
     }
   }
-    // Edit
-    fetchDetails(id: any): void {
-      const obj = {
-        editId: id
-      }
+  // Edit
+  fetchDetails(id: any): void {
+    const obj = {
+      editId: id
+    }
 
-      this.assetService.editAsset(obj).subscribe({
-        next: (res: any) => {
-       this.docForm.patchValue({
-         
-         'assetName': res.addAssetBean.assetName,
-         'assetCode': res.addAssetBean.assetCode,
-         'location': res.addAssetBean.location,
-         'category': res.addAssetBean.category,
-         'status' : res.addAssetBean.status,
-         'isLine' : res.addAssetBean.isLine,
-         'id': res.addAssetBean.id,
-         'brand': res.addAssetBean.brand,
-         'model': res.addAssetBean.model,
-         'allottedUptoobj': res.addAssetBean.allottedUpto!=null? this.commonService.getDateObj(res.addAssetBean.allottedUpto):"",
-         'allottedUpto': res.addAssetBean.allottedUpto,
-         'captitalizationDateobj': res.addAssetBean.captitalizationDate!=null? this.commonService.getDateObj(res.addAssetBean.captitalizationDate):"",
-         'captitalizationDate': res.addAssetBean.captitalizationDate,
-         'captitalizationPrice': res.addAssetBean.captitalizationPrice,
-         'condition': res.addAssetBean.condition,
-         'department': res.addAssetBean.department,
-         'depreciation': res.addAssetBean.depreciation,
-         'description': res.addAssetBean.description,
-         'endLife': res.addAssetBean.endLife,
-         'invoiceNo': res.addAssetBean.invoiceNo,
-         'imgUploadUrl': res.addAssetBean.imgUploadUrl,
-         'invoiceDateobj':res.addAssetBean.invoiceDate!=null? this.commonService.getDateObj(res.addAssetBean.invoiceDate):"",
-         'invoiceDate': res.addAssetBean.invoiceDate,
-         'linkedAsset': res.addAssetBean.linkedAsset,
-         'poNumber': res.addAssetBean.poNumber,
-         'purchasePrice': res.addAssetBean.purchasePrice,
-         'remarks': res.addAssetBean.remarks,
-         'scrapValue': res.addAssetBean.scrapValue,
-         'selfOrPartner': res.addAssetBean.selfOrPartner,
-         'serialNo': res.addAssetBean.serialNo,
-         'transferredTo': res.addAssetBean.transferredTo,
-         'uploadFiles': res.addAssetBean.uploadFiles,
-         'uploadImg': res.addAssetBean.uploadImg,
-         'vendor': res.addAssetBean.vendor,
+    this.assetService.editAsset(obj).subscribe({
+      next: (res: any) => {
+        this.docForm.patchValue({
 
-
-
-      })
-
-      this.getInLine(res.addAssetBean.isLine);
-     
-      if (res.addAssetBean.uploadImg != undefined && res.addAssetBean.uploadImg != null && res.addAssetBean.uploadImg != '') {
-        this.imgPathUrl = res.addAssetBean.uploadImg;
-      }
-      if (res.addAssetBean.uploadFiles != undefined && res.addAssetBean.uploadFiles != null && res.addAssetBean.uploadFiles != '') {
-        this.filePathUrl = res.addAssetBean.uploadFiles;
-      }
+          'assetName': res.addAssetBean.assetName,
+          'assetCode': res.addAssetBean.assetCode,
+          'location': res.addAssetBean.location,
+          'category': res.addAssetBean.category,
+          'status': res.addAssetBean.status,
+          'isLine': res.addAssetBean.isLine,
+          'id': res.addAssetBean.id,
+          'brand': res.addAssetBean.brand,
+          'model': res.addAssetBean.model,
+          'allottedUptoobj': res.addAssetBean.allottedUpto != null ? this.commonService.getDateObj(res.addAssetBean.allottedUpto) : "",
+          'allottedUpto': res.addAssetBean.allottedUpto,
+          'captitalizationDateobj': res.addAssetBean.captitalizationDate != null ? this.commonService.getDateObj(res.addAssetBean.captitalizationDate) : "",
+          'captitalizationDate': res.addAssetBean.captitalizationDate,
+          'captitalizationPrice': res.addAssetBean.captitalizationPrice,
+          'condition': res.addAssetBean.condition,
+          'department': res.addAssetBean.department,
+          'depreciation': res.addAssetBean.depreciation,
+          'description': res.addAssetBean.description,
+          'endLife': res.addAssetBean.endLife,
+          'invoiceNo': res.addAssetBean.invoiceNo,
+          'imgUploadUrl': res.addAssetBean.imgUploadUrl,
+          'invoiceDateobj': res.addAssetBean.invoiceDate != null ? this.commonService.getDateObj(res.addAssetBean.invoiceDate) : "",
+          'invoiceDate': res.addAssetBean.invoiceDate,
+          'linkedAsset': res.addAssetBean.linkedAsset,
+          'poNumber': res.addAssetBean.poNumber,
+          'purchasePrice': res.addAssetBean.purchasePrice,
+          'remarks': res.addAssetBean.remarks,
+          'scrapValue': res.addAssetBean.scrapValue,
+          'selfOrPartner': res.addAssetBean.selfOrPartner,
+          'serialNo': res.addAssetBean.serialNo,
+          'transferredTo': res.addAssetBean.transferredTo,
+          'uploadFiles': res.addAssetBean.uploadFiles,
+          'uploadImg': res.addAssetBean.uploadImg,
+          'vendor': res.addAssetBean.vendor,
 
 
-      if (res.detailList != null && res.detailList.length >= 1) {
-        let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
-        detailListArray.clear();
-        res.detailList.forEach(element => {
+
+        })
+
+        this.getInLine(res.addAssetBean.isLine);
+
+        if (res.addAssetBean.uploadImg != undefined && res.addAssetBean.uploadImg != null && res.addAssetBean.uploadImg != '') {
+          this.imgPathUrl = res.addAssetBean.uploadImg;
+        }
+        if (res.addAssetBean.uploadFiles != undefined && res.addAssetBean.uploadFiles != null && res.addAssetBean.uploadFiles != '') {
+          this.filePathUrl = res.addAssetBean.uploadFiles;
+        }
+
+
+        if (res.detailList != null && res.detailList.length >= 1) {
           let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
-          let arraylen = detailListArray.length;
-          let newUsergroup: FormGroup = this.fb.group({
-            assName: [element.assName],
-            assCode: [element.assCode],
-            assLocation: [element.assLocation],
-            assCategory: [element.assCategory],
-            assStatus: [element.assStatus],
-          })
-          detailListArray.insert(arraylen, newUsergroup);
-        });
-      }
-    },
-       error: (error) => {
-       
+          detailListArray.clear();
+          res.detailList.forEach(element => {
+            let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+            let arraylen = detailListArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              assName: [element.assName],
+              assCode: [element.assCode],
+              assLocation: [element.assLocation],
+              assCategory: [element.assCategory],
+              assStatus: [element.assStatus],
+            })
+            detailListArray.insert(arraylen, newUsergroup);
+          });
+        }
+      },
+      error: (error) => {
+
       }
     });
-   }
-   
-   commodityList(){
-     this.httpService.get<AssetMasterResultBean>(this.assetService.commoditylist).subscribe( 
-       (data) => {
-        this.dropdownList =data.countryMasterDetails;  
-       },
-       (error: HttpErrorResponse) => {
-         console.log(error.name + " " + error.message);
-       }
-     );
-   }
- 
-   showNotification(colorName, text, placementFrom, placementAlign) {
-     this.snackBar.open(text, "", {
-       duration: 2000,
-       verticalPosition: placementFrom,
-       horizontalPosition: placementAlign,
-       panelClass: colorName,
-     });
-   }
-   private refreshTable() {
+  }
+
+  commodityList() {
+    this.httpService.get<AssetMasterResultBean>(this.assetService.commoditylist).subscribe(
+      (data) => {
+        this.dropdownList = data.countryMasterDetails;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+  }
+
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
+  private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
 
@@ -507,20 +531,20 @@ onCancel() {
       }
     });
   }
- 
-   getDateString(event,inputFlag,index){
-     let cdate = this.cmnService.getDate(event.target.value);
-     if(inputFlag=='captitalizationDate'){
-       this.docForm.patchValue({captitalizationDate:cdate});
-     }
-     else if(inputFlag=='invoiceDate'){
-       this.docForm.patchValue({invoiceDate:cdate});
-     }
-     else if(inputFlag=='allottedUpto'){
-       this.docForm.patchValue({allottedUpto:cdate});
-     }
-   }
- 
+
+  getDateString(event, inputFlag, index) {
+    let cdate = this.cmnService.getDate(event.target.value);
+    if (inputFlag == 'captitalizationDate') {
+      this.docForm.patchValue({ captitalizationDate: cdate });
+    }
+    else if (inputFlag == 'invoiceDate') {
+      this.docForm.patchValue({ invoiceDate: cdate });
+    }
+    else if (inputFlag == 'allottedUpto') {
+      this.docForm.patchValue({ allottedUpto: cdate });
+    }
+  }
+
   keyPressNumberInt(event: any) {
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
@@ -545,68 +569,88 @@ onCancel() {
     }
   }
 
-   keyPressNumberDouble(event: any) {
+  keyPressNumberDouble(event: any) {
     const pattern = /[0-9.]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
   }
- 
- 
-
-    cancel()
-    {
-      this.router.navigate(['/asset/assetMaster/listAssetMaster']);
-    }
 
 
-    addRowSelf(){
-      let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
-      let arraylen = dtlArray.length;
-      let newUsergroup: FormGroup = this.fb.group({
-        assName:[""],
-        assCode:[""],
-        assLocation:[""],
-        assCategory:[""],
-        assStatus:[""],
-        assetId:[""]
-      })
-      dtlArray.insert(arraylen,newUsergroup);
-    
-    }
-    
-    removeRowSelf(index){
-      let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
-      dtlArray.removeAt(index);
-    
-    }
-    
-    getInLine(event: any)
-    {
-      if(event)
-      {
-        this.isLineIn=true;
-      }
-      else
-      {
-        this.isLineIn=false;
-      }
-    }
 
-    getGRN(event: any)
-    {
-      if(event)
-      {
-        this.grnFlag=true;
-      }
-      else
-      {
-        this.grnFlag=false;
-      }
-    }
+  cancel() {
+    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+  }
 
-    //FOR IMAGE UPLOAD ADDED BY GOKUL
+
+  addRowSelf() {
+    let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+    let arraylen = dtlArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      assName: [""],
+      assCode: [""],
+      assLocation: [""],
+      assCategory: [""],
+      assStatus: [""],
+      assetId: [""]
+    })
+    dtlArray.insert(arraylen, newUsergroup);
+
+  }
+
+  removeRowSelf(index) {
+    let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+    dtlArray.removeAt(index);
+
+  }
+
+  getInLine(event: any) {
+    if (event) {
+      this.isLineIn = true;
+    }
+    else {
+      this.isLineIn = false;
+    }
+  }
+
+  getGRN(event: any) {
+    if (event) {
+      this.grnFlag = true;
+      this.docForm.controls.grnId.setValidators(Validators.required);
+      this.docForm.controls['grnId'].updateValueAndValidity();
+
+      this.docForm.controls.assetName.clearValidators();
+      this.docForm.controls['assetName'].updateValueAndValidity();
+      this.docForm.controls.assetCode.clearValidators();
+      this.docForm.controls['assetCode'].updateValueAndValidity();
+      this.docForm.controls.location.clearValidators();
+      this.docForm.controls['location'].updateValueAndValidity();
+      this.docForm.controls.category.clearValidators();
+      this.docForm.controls['category'].updateValueAndValidity();
+      this.docForm.controls.status.clearValidators();
+      this.docForm.controls['status'].updateValueAndValidity();
+    }
+    else {
+      this.grnFlag = false;
+      this.docForm.controls.grnId.clearValidators();
+      this.docForm.controls['grnId'].updateValueAndValidity();
+
+      this.docForm.controls.assetName.setValidators(Validators.required);
+      this.docForm.controls['assetName'].updateValueAndValidity();
+      this.docForm.controls.assetCode.setValidators(Validators.required);
+      this.docForm.controls['assetCode'].updateValueAndValidity();
+      this.docForm.controls.location.setValidators(Validators.required);
+      this.docForm.controls['location'].updateValueAndValidity();
+      this.docForm.controls.category.setValidators(Validators.required);
+      this.docForm.controls['category'].updateValueAndValidity();
+      this.docForm.controls.status.setValidators(Validators.required);
+      this.docForm.controls['status'].updateValueAndValidity();
+
+    }
+  }
+
+  //FOR IMAGE UPLOAD ADDED BY GOKUL
   onSelectImage(event) {
     var imgfile = event.target.files[0];
     if (!this.acceptImageTypes.includes(imgfile.type)) {
@@ -641,7 +685,7 @@ onCancel() {
             this.docForm.patchValue({
               'uploadImg': data.filePath
             })
-            this.imgPathUrl=data.filePath;
+            this.imgPathUrl = data.filePath;
           }
         } else {
           this.showNotification(
@@ -664,7 +708,7 @@ onCancel() {
   }
 
 
-      //FOR DOCUMENT UPLOAD ADDED BY GOKUL
+  //FOR DOCUMENT UPLOAD ADDED BY GOKUL
   onSelectFile(event) {
     var docfile = event.target.files[0];
     if (!this.acceptFileTypes.includes(docfile.type)) {
@@ -698,7 +742,7 @@ onCancel() {
             this.docForm.patchValue({
               'uploadFiles': data.filePath
             })
-            this.filePathUrl=data.filePath;
+            this.filePathUrl = data.filePath;
           }
         } else {
           this.showNotification(
@@ -760,16 +804,34 @@ onCancel() {
           if (res.success) {
             if (res.grn != null) {
               this.docForm.patchValue({
-         
-         'location': res.grn.deliveryLocId,
-         'invoiceNo': res.grn.invoiceNo,
-         'invoiceDateobj':res.grn.invoiceDate!=null? this.commonService.getDateObj(res.grn.invoiceDate):"",
-         'invoiceDate': res.grn.invoiceDate,
-         'poNumber': res.grn.purchaseOrderId,
-         'vendor': res.grn.vendorName,
-                
+
+                'location': res.grn.deliveryLocId,
+                'invoiceNo': res.grn.invoiceNo,
+                'invoiceDateobj': res.grn.invoiceDate != null ? this.commonService.getDateObj(res.grn.invoiceDate) : "",
+                'invoiceDate': res.grn.invoiceDate,
+                'poNumber': res.grn.purchaseOrderId,
+                'vendor': res.grn.vendorName,
+
               })
             }
+            if (res.grnDetailList != null && res.grnDetailList.length >= 1) {
+              let grnBasedAssetArray = this.docForm.controls.grnBasedAssetList as FormArray;
+              grnBasedAssetArray.clear();
+              res.grnDetailList.forEach(element => {
+                let grnBasedAssetArray = this.docForm.controls.grnBasedAssetList as FormArray;
+                let arraylen = grnBasedAssetArray.length;
+                let newUsergroup: FormGroup = this.fb.group({
+                  itemId: [element.itemId],
+                  assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+                  assetCode: ["", [Validators.required]],
+                  location: ["", [Validators.required]],
+                  category: ["", [Validators.required]],
+                  status: ["", [Validators.required]],
+                })
+                grnBasedAssetArray.insert(arraylen, newUsergroup);
+              });
+            }
+
           }
         },
         error: (error) => {
@@ -779,6 +841,50 @@ onCancel() {
     }
   }
 
- 
- }
- 
+
+  saveGRNBasedMutipleAsset() {
+    if (this.docForm.valid) {
+      this.assetMaster = this.docForm.value;
+      this.spinner.show();
+      this.assetService.addGRNBasedMutipleAsset(this.assetMaster).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    } else {
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
+  }
+
+
+}
