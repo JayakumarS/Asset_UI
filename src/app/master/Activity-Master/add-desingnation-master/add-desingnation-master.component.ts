@@ -102,7 +102,7 @@ export class AddDesingnationMasterComponent implements OnInit {
     this.designationMasterService.designationMasterUpdate(this.designationMaster);
     this.showNotification(
       "snackbar-success",
-      "Edit Record Successfully...!!!",
+      "Record Updated Successfully...!!!",
       "bottom",
       "center"
     );
