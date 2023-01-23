@@ -437,14 +437,14 @@ export class AddAssetMasterComponent
           'imgUploadUrl': res.addAssetBean.imgUploadUrl,
           'invoiceDateobj': res.addAssetBean.invoiceDate != null ? this.commonService.getDateObj(res.addAssetBean.invoiceDate) : "",
           'invoiceDate': res.addAssetBean.invoiceDate,
-          'linkedAsset': res.addAssetBean.linkedAsset,
+          'linkedAsset': parseInt(res.addAssetBean.linkedAsset),
           'poNumber': res.addAssetBean.poNumber,
           'purchasePrice': res.addAssetBean.purchasePrice,
           'remarks': res.addAssetBean.remarks,
           'scrapValue': res.addAssetBean.scrapValue,
           'selfOrPartner': res.addAssetBean.selfOrPartner,
           'serialNo': res.addAssetBean.serialNo,
-          'transferredTo': res.addAssetBean.transferredTo,
+          'transferredTo': parseInt(res.addAssetBean.transferredTo),
           'uploadFiles': res.addAssetBean.uploadFiles,
           'uploadImg': res.addAssetBean.uploadImg,
           'vendor': res.addAssetBean.vendor,
@@ -899,5 +899,79 @@ export class AddAssetMasterComponent
     }
   }
 
+  resetSelf(){
+    this.docForm = this.fb.group({
+      
+      assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+      assetCode: ["", [Validators.required]],
+      location: ["", [Validators.required]],
+      category: ["", [Validators.required]],
+      status: ["", [Validators.required]],
+      putUseDate: [moment().format('DD/MM/YYYY')],
+      putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+      isLine: [false],
+      id: [""],
+      uploadImg: [""],
+      isGrnBasedAsset: [false],
+      grnId: [""],
+      loginedUser: this.tokenStorage.getUserId(),
+      //tab1
+      brand: [""],
+      model: [""],
+      serialNo: [""],
+      condition: [""],
+      linkedAsset: [""],
+      description: [""],
+      uploadFiles: [""],
+      //tab2
+      vendor: [""],
+      poNumber: [""],
+      selfOrPartner: [""],
+      invoiceDate: [""],
+      invoiceNo: [""],
+      purchasePrice: [""],
+      //tab3
+      captitalizationPrice: [""],
+      captitalizationDate: [""],
+      endLife: [""],
+      scrapValue: [""],
+      depreciation: [""],
+      //tab4
+      department: [""],
+      allottedUpto: [""],
+      transferredTo: [""],
+      remarks: [""],
+      invoiceDateobj: [""],
+      captitalizationDateobj: [""],
+      allottedUptoobj: [""],
+      fileUploadUrl: [""],
+      imgUploadUrl: [""],
+      //tab5
+      assetMasterBean: this.fb.array([
+        this.fb.group({
+          assName: [""],
+          assCode: [""],
+          assLocation: [""],
+          assCategory: [""],
+          assStatus: [""],
+          assetId: [""]
+
+        })
+      ]),
+
+      grnBasedAssetList: this.fb.array([
+        this.fb.group({
+          itemId: [""],
+          assetName: [""],
+          assetCode: [""],
+          location: [""],
+          category: [""],
+          status: [""],
+          putUseDate: [moment().format('DD/MM/YYYY')],
+          putUseDateObj: [moment().format('YYYY-MM-DD')],
+        })
+      ])
+    });
+  }
 
 }

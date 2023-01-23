@@ -374,7 +374,11 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="13" formControlName="linkedAsset" (keypress)="keyPressName($event)">
+                                                    <mat-select tabindex="13" formControlName="linkedAsset">
+                                                        <mat-option *ngFor="let title of assetnamelist" [value]="title.id" >
+                                                            {{title.text}}
+                                                        </mat-option>
+                                                    </mat-select>
                                                     </mat-form-field>
                                                 </div>
 
@@ -580,9 +584,13 @@
                                                     <mat-label>Transferred To</mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
-                                                        <input matInput tabindex="28" formControlName="transferredTo" (keypress)="keyPressName($event)">
-                                                    </mat-form-field>
+                                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                    <mat-select tabindex="28" formControlName="transferredTo">
+                                                        <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                                            {{title.text}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -676,10 +684,12 @@
                     </div>
                     <div class="row" style="padding-bottom:50px;padding-left: 50px;">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
-                            <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()" style="margin-left: 38%;" mat-raised-button color="primary">Submit</button>
-                            <button *ngIf="!edit && grnFlag" class="btn-space" (click)="saveGRNBasedMutipleAsset()" style="margin-left: 38%;" mat-raised-button color="primary">Submit</button>
-                            <button *ngIf="edit" mat-raised-button color="primary" style="margin-left: 38%;" (click)="update()">update</button>&nbsp;
+                            <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()" style="margin-left: 38%;background-color: green;" mat-raised-button color="primary">Submit</button>
+                            <button *ngIf="!edit && grnFlag" class="btn-space" (click)="saveGRNBasedMutipleAsset()" style="margin-left: 38%;background-color: green;" mat-raised-button color="primary">Submit</button>
+                            <button *ngIf="edit" mat-raised-button color="primary" style="margin-left: 38%;background-color: green;" (click)="update()">update</button>&nbsp;
                             <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                            <button *ngIf="edit"color="primary" style="margin-left: 1%" type="button" class="btn-space" (click)="fetchDetails(requestId)"  mat-raised-button>Reset</button> &nbsp;
+                            <button *ngIf="!edit" color="primary" type="button" class="btn-space" (click)="resetSelf()"  mat-raised-button>Reset</button>
                         </div>
                     </div>
                 </div>
