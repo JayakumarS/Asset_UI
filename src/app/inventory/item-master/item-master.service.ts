@@ -35,6 +35,7 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
   public updateItemMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/update`;
   public deleteItemMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/delete`;
   public attributeDetails = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/attributeDetails`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
   get data(): ItemMaster[] {
     return this.dataChange.value;

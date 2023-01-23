@@ -25,7 +25,7 @@ import { DeleteUomCategoryComponent } from './delete-uom-category/delete-uom-cat
   styleUrls: ['./list-uom-category.component.sass']
 })
 export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-  displayedColumns = ["uomID", "categoryName", "description","category", "actions"];
+  displayedColumns = [ "categoryName", "description","category", "actions"];
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: UomCategoryService | null;

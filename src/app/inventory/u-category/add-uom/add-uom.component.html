@@ -27,9 +27,12 @@
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="uomcategoryCode" maxlength="15" (blur)="validateCountry($event.target.value)" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="uomcategoryCode" maxlength="15" 
+                      (blur)="validateCategoryCode($event.target.value)" required (keypress)="keyPressName($event)" required>
                       <mat-error *ngIf="docForm.get('uomcategoryCode').hasError('required')">
                         Category Code is required
+                      </mat-error><mat-error *ngIf="docForm.get('uomcategoryCode').hasError('uom_category')">
+                        Category Code Already Exists !!!
                       </mat-error>
                     </mat-form-field>
                   </div>

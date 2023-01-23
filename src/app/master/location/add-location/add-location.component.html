@@ -20,6 +20,8 @@
                       (ngModelChange)="inputvalue = $event.toUpperCase()"  (keypress)="string($event)"required>
                       <mat-error *ngIf="docForm.get('parentLocation').hasError('required')">
                         Parent Location Name is required
+                      </mat-error><mat-error *ngIf="docForm.get('parentLocation').hasError('parentLocation')">
+                        Parent Location Name Exists !!!
                       </mat-error>
                     </mat-form-field>
                   </div>

@@ -549,6 +549,15 @@ string(event: any) {
     event.preventDefault();
   }
 }
+validateCustomer(event){
+  this.httpService.get<any>(this.customerService.uniqueValidateUrl+ "?tableName=" +"customer_master"+"&columnName="+"name"+"&columnValue="+event).subscribe((res: any) => {
+    if(res){
+      this.docForm.controls['auditorname'].setErrors({ customer_master: true });
+    }else{
+      this.docForm.controls['auditorname'].setErrors(null);
+    }
+  });
+}
 
 
 // getAttributeDetails(cus_id: any) {

@@ -352,6 +352,16 @@ export class AddItemCategoryComponent implements OnInit {
     }
   }
 
+  validateItemCategory(event){
+    this.httpService.get<any>(this.itemCategoryService.uniqueValidateUrl+ "?tableName=" +"item_category"+"&columnName="+"category_name"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['categoryName'].setErrors({ item_category: true });
+      }else{
+        this.docForm.controls['categoryName'].setErrors(null);
+      }
+    });
+  }
+
   onCancel() {
     this.router.navigate(['/inventory/item-category/listItemCategory']);
   }

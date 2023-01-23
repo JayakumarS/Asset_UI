@@ -224,4 +224,15 @@ validateCountry(event) {
     });
   }
 }
+validateCategoryCode(event) {
+  if (event != undefined && event != null && event != "") {
+    this.httpService.get<any>(this.uomService.uniqueValidateUrl + "?tableName=" + "uom_category" + "&columnName=" + "uomcategory_code" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res) {
+        this.docForm.controls['uomcategoryCode'].setErrors({ uom_category: true });
+      } else {
+        this.docForm.controls['uomcategoryCode'].setErrors(null);
+      }
+    });
+  }
+}
 }

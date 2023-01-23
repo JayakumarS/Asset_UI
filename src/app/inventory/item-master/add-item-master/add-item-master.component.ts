@@ -373,6 +373,15 @@ export class AddItemMasterComponent implements OnInit {
       event.preventDefault();
     }
   }
+  validateItemCode(event){
+    this.httpService.get<any>(this.itemMasterService.uniqueValidateUrl+ "?tableName=" +"item"+"&columnName="+"item_code"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['itemCode'].setErrors({ item: true });
+      }else{
+        this.docForm.controls['itemCode'].setErrors(null);
+      }
+    });
+  }
 
   onCancel() {
     this.router.navigate(['/inventory/item-master/list-item-master']);

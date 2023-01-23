@@ -32,9 +32,11 @@
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="companyName" required>
+                    <input matInput formControlName="companyName"  (blur)="validateCompanyName($event.target.value)"required>
                     <mat-error *ngIf="docForm.get('companyName').hasError('required')">
                       Company Name is required
+                    </mat-error><mat-error *ngIf="docForm.get('companyName').hasError('company')">
+                      Company Name Already Exists !!!
                     </mat-error>
                   </mat-form-field>
                 </div>

@@ -27,6 +27,7 @@ export class UomService extends UnsubscribeOnDestroyAdapter{
   public editUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uomgcateory/edit`;
   public updateUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uomgcateory/update`;
   public deleteUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uomgcateory/delete`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
 
 

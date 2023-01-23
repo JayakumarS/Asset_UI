@@ -46,9 +46,13 @@
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="itemCode" (keypress)="keyPressName($event)" maxlength="10">
+                    <input matInput formControlName="itemCode" (keypress)="keyPressName($event)" maxlength="10"
+                    (blur)="validateItemCode($event.target.value)" required>
                     <mat-error *ngIf="docForm.get('itemCode').hasError('required')">
                       Item Code is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('itemCode').hasError('item')">
+                      Item Code Already Exists !!!
                     </mat-error>
                   </mat-form-field>
                 </div>

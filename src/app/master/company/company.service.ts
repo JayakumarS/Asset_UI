@@ -36,6 +36,8 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
 
   // public editCompany = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
   public editCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
+
  
 
   get data(): Company[] {

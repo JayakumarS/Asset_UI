@@ -17,11 +17,15 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="categoryName" maxlength="50" (keypress)="keyPressName($event)"
+                      <input matInput formControlName="categoryName" maxlength="50"
+                      (blur)="validateItemCategory($event.target.value)" (keypress)="keyPressName($event)"
                         required>
                       <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
                         Category Name is required
+                      </mat-error><mat-error *ngIf="docForm.get('categoryName').hasError('item_category')">
+                        Category Name Already Exists !!!
                       </mat-error>
+                      
                     </mat-form-field>
                   </div>
 

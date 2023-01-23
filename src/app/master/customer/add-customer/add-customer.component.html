@@ -15,9 +15,12 @@
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="auditorname" [ngModel]="value"
-              (ngModelChange)="value=$event.toUpperCase()" maxlength="50"(keypress)="string($event)" required>
+              (ngModelChange)="value=$event.toUpperCase()" maxlength="50"(keypress)="string($event)"
+               (blur)="validateCustomer($event.target.value)" required>
               <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
                 Auditor Name is required
+              </mat-error><mat-error *ngIf="docForm.get('auditorname').hasError('customer_master')">
+                Auditor Name Already Exists !!!
               </mat-error>
             </mat-form-field>
           </div>

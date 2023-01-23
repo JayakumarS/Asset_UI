@@ -212,5 +212,16 @@ export class AddCompanyComponent implements OnInit {
       panelClass: colorName,
     });
   }
+  validateCompanyName(event) {
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "company" + "&columnName=" + "company_name" + "&columnValue=" + event).subscribe((res: any) => {
+        if (res) {
+          this.docForm.controls['companyName'].setErrors({ company: true });
+        } else {
+          this.docForm.controls['companyName'].setErrors(null);
+        }
+      });
+    }
+  }
 
 }

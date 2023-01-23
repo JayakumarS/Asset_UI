@@ -24,7 +24,7 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
 
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
+   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
               private httpService: HttpServiceService) {
     super();
   }
@@ -34,6 +34,7 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
   public editItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/edit`;
   public updateItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/update`;
   public deleteItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/delete`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
   get data(): ItemCategory[] {
     return this.dataChange.value;
