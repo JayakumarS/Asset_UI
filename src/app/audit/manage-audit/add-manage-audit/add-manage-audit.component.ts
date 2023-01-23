@@ -55,6 +55,7 @@ selection = new SelectionModel<ManageAudit>(true, []);
 id: number;
   auditList: any;
   categoryList: any;
+  auditorList:any;
   loacationList: any;
   companyList:any;
   departmentList: any;
@@ -131,14 +132,15 @@ ngOnInit(): void {
   });
 
  
-  this.httpService.get<any>(this.manageAuditServiceService.auditFieldListUrl).subscribe({
+  this.httpService.get<any>(this.commonService.getAuditorDropdown).subscribe({
     next: (data) => {
-      this.auditList = data.auditfielslist;
+      this.auditorList = data;
     },
     error: (error) => {
 
     }
   });
+
 
   this.httpService.get<any>(this.manageAuditServiceService.categoryUrl).subscribe({
     next: (data) => {

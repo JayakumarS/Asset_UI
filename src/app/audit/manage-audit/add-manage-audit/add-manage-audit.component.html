@@ -259,7 +259,7 @@
                                                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">Category</th>
                                                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">Location</th>
                                                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%;border-radius: 0.07rem;">Department</th>
-                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%;border-radius: 0.07rem;">Audit User</th>
+                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%;border-radius: 0.07rem;">Auditor Name </th>
                                                 <th class="table-heading text-center" style="margin-left: 10px; width: 11%; border-radius: 0.05rem;">
                                                     <label class="i-checks m-b-none">
                                                          <i></i>
@@ -306,9 +306,9 @@
                                                     </td>
                                                     <td class="padding-both-side-2">
                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                            <mat-label>Audit User</mat-label>
+                                                            <mat-label>auditor Name</mat-label>
                                                             <mat-select formControlName="auditUser" >
-                                                                <mat-option *ngFor="let department of departmentList" [value]="department.id" >
+                                                                <mat-option *ngFor="let department of auditorList" [value]="department.id" >
                                                                     {{department.text}}
                                                                 </mat-option>
                                                             </mat-select>
