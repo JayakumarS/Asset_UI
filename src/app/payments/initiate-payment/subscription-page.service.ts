@@ -31,6 +31,7 @@ export class SubscriptionPageService extends UnsubscribeOnDestroyAdapter{
 
   public initiatePaymentUrl = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/Subscriptionpayment`;
   public paymentHistoryUrl = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/paymentHistory`;
+  public verifyPromoCodeUrl = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/verifyPromoCode`;
 
   get data(): Payments[] {
     return this.dataChange.value;

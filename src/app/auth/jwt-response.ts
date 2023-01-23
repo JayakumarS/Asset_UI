@@ -1,3 +1,6 @@
+import { Role } from "../core/models/role";
+
+
 export class JwtResponse {
     accessToken: string;
     type: string;
@@ -6,4 +9,5 @@ export class JwtResponse {
     success:boolean;
     message:string;
     email:string;
+    role:Role;
 }

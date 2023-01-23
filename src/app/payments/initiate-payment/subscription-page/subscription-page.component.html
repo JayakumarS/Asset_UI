@@ -17,136 +17,70 @@
               <div class="container">
                 <form class="m-4" [formGroup]="docForm" >
                 <div class="row">
-                    <div class="col-md-12">
-                        
-                     
+                    <div class="col-md-4 col-sm-6">
                         <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
-                            <!-- <mat-label>Currency</mat-label> -->
+                            <mat-label>Currency</mat-label>
                             <mat-select  (selectionChange)="changeCurrency($event.value)" formControlName="currency">
                                 <mat-option *ngFor="let currency of currencyList" [value]="currency.id">
                                     {{currency.text}}
                                   </mat-option>
                             </mat-select>
-                            
                         </mat-form-field>
                         
                     </div>
+                    <div class="col-md-4 col-sm-6">
+                      <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                          <mat-label>No.of Users</mat-label>
+                          <input matInput formControlName="noOfUsers" (keypress)="keyPressNumber($event)" required>
+                        <mat-error *ngIf="docForm.get('noOfUsers').hasError('required')">
+                           No.of Users is required
+                        </mat-error>
+                        <mat-error *ngIf="docForm.get('noOfUsers').hasError('object')">
+                          No.of Users is required
+                       </mat-error>
+                      </mat-form-field>
+                      
+                  </div>
                 </div>
+
+                  <div class="row">
+                  
+                    
+                    <div class="col-md-12 col-sm-6">
+                      <div class="pricingTable blueColor">
+                        <div class="pricingTable-header">
+                          <i class="material-icons">spa</i>
+                          <div class="price-value"> {{stdAmt}}.00
+                           
+                          </div>
+                        </div>
+                        <h3 class="heading">PREMIUM</h3>
+                        <div class="pricing-content">
+                          <ul>
+                            <li>
+                              <b>70GB</b> Disk Space</li>
+                            <li>
+                              <b>70</b> Email Accounts</li>
+                            <li>
+                              <b>70GB</b> Monthly Bandwidth</li>
+                          </ul>
+                        </div>
+                        <div >
+                          <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                              <mat-label >Promotion Code</mat-label>
+                              <input matInput formControlName="promotionCode" (keypress)="keyPressNameNumber($event)" (change)="verifyPromoCode($event.target.value)">
+                          </mat-form-field>
+                          
+                      </div>
+                        <div class="pricingTable-signup">
+                          <a href="javascript:void(0);" style="text-decoration:none;"(click)="initiatePaymentModule('standard')">Proceed to Pay</a>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
                 </form>
-                <div class="row">
-                  <div class="col-md-3 col-sm-6">
-                    <div class="pricingTable">
-                      <div class="pricingTable-header">
-                        <i class="material-icons">brightness_medium</i>
-                        <div class="price-value"> {{stdAmt}}.00
-                          <span class="month">per month</span>
-                        </div>
-                      </div>
-                      <h3 class="heading">Standard</h3>
-                      <div class="pricing-content">
-                        <ul>
-                          <li>
-                            <b>50GB</b> Disk Space</li>
-                          <li>
-                            <b>50</b> Email Accounts</li>
-                          <li>
-                            <b>50GB</b> Monthly Bandwidth</li>
-                          <li>
-                            <b>10</b> subdomains</li>
-                          <li>
-                            <b>15</b> Domains</li>
-                        </ul>
-                      </div>
-                      <div class="pricingTable-signup">
-                        <a href="javascript:void(0);" (click)="initiatePaymentModule('standard')">Proceed to Pay</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-sm-6">
-                    <div class="pricingTable greenColor">
-                      <div class="pricingTable-header">
-                        <i class="material-icons">local_mall</i>
-                        <div class="price-value"> {{busAmt}}.00
-                          <span class="month">per month</span>
-                        </div>
-                      </div>
-                      <h3 class="heading">Business</h3>
-                      <div class="pricing-content">
-                        <ul>
-                          <li>
-                            <b>60GB</b> Disk Space</li>
-                          <li>
-                            <b>60</b> Email Accounts</li>
-                          <li>
-                            <b>60GB</b> Monthly Bandwidth</li>
-                          <li>
-                            <b>15</b> subdomains</li>
-                          <li>
-                            <b>20</b> Domains</li>
-                        </ul>
-                      </div>
-                      <div class="pricingTable-signup">
-                        <a href="javascript:void(0);" (click)="initiatePaymentModule('Professional')">Proceed to Pay</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-sm-6">
-                    <div class="pricingTable blueColor">
-                      <div class="pricingTable-header">
-                        <i class="material-icons">spa</i>
-                        <div class="price-value"> {{preAmt}}.00
-                          <span class="month">per month</span>
-                        </div>
-                      </div>
-                      <h3 class="heading">PREMIUM</h3>
-                      <div class="pricing-content">
-                        <ul>
-                          <li>
-                            <b>70GB</b> Disk Space</li>
-                          <li>
-                            <b>70</b> Email Accounts</li>
-                          <li>
-                            <b>70GB</b> Monthly Bandwidth</li>
-                          <li>
-                            <b>20</b> subdomains</li>
-                          <li>
-                            <b>25</b> Domains</li>
-                        </ul>
-                      </div>
-                      <div class="pricingTable-signup">
-                        <a href="javascript:void(0);" (click)="initiatePaymentModule('Enterprice')">Proceed to Pay</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-sm-6">
-                    <div class="pricingTable redColor">
-                      <div class="pricingTable-header">
-                        <i class="material-icons">filter_vintage</i>
-                        <div class="price-value"> {{extAmt}}.00
-                          <span class="month">per month</span>
-                        </div>
-                      </div>
-                      <h3 class="heading">EXTRA</h3>
-                      <div class="pricing-content">
-                        <ul>
-                          <li>
-                            <b>80GB</b> Disk Space</li>
-                          <li>
-                            <b>80</b> Email Accounts</li>
-                          <li>
-                            <b>80GB</b> Monthly Bandwidth</li>
-                          <li>
-                            <b>20</b> subdomains</li>
-                          <li>
-                            <b>35</b> Domains</li>
-                        </ul>
-                      </div>
-                      <div class="pricingTable-signup">
-                        <a href="javascript:void(0);" (click)="initiatePaymentModule('Ultimate')">Proceed to Pay</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>

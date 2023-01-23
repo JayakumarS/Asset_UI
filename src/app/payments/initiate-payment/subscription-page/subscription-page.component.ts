@@ -60,21 +60,24 @@ export class SubscriptionPageComponent implements OnInit {
     
     this.docForm = this.fb.group({
       currency:["INR"],
+      noOfUsers:["", [Validators.required]],
+      promotionCode:[""]
     });
-    this.stdAmt = "₹500";
+    this.stdAmt = "₹50,000";
       this.busAmt = "₹1000";
       this.preAmt = "₹5000";
       this.extAmt = "₹10000";
   }
 
   ngOnInit(): void {
+
   }
 
   changeCurrency(currency){
 
 
     if(currency=="INR"){
-      this.stdAmt = "₹500";
+      this.stdAmt = "₹50,000";
       this.busAmt = "₹1000";
       this.preAmt = "₹5000";
       this.extAmt = "₹10000";
@@ -103,196 +106,208 @@ export class SubscriptionPageComponent implements OnInit {
 
   initiatePaymentModule(type){
     
-this.subType = type;
+    if(this.docForm.valid){
+          this.subType = type;
+        
+          if(type =='standard'){
+            this.pay.amount = 50000;
+          }
+          else if(type=='Professional'){
+            this.pay.amount = 499900;
+          }
+          else if(type=='Enterprice'){
+            this.pay.amount = 999900;
+          }
+          else if(type=='Ultimate'){
+            this.pay.amount = 7499900;
+          }
     
-      if(type =='standard'){
-        this.pay.amount = 10000;
-      }
-      else if(type=='Professional'){
-        this.pay.amount = 499900;
-      }
-      else if(type=='Enterprice'){
-        this.pay.amount = 999900;
-      }
-      else if(type=='Ultimate'){
-        this.pay.amount = 7499900;
-      }
- 
- 
-      this.pay ={
-      amount:0,
-      currency:'USD',
-      receipt:'ASSETCHEK',exAmount:0,
-  }
-  
-
     
-      if(type =='standard'){
-        this.pay.amount = 1000;
-      }
-      else if(type=='Professional'){
-        this.pay.amount = 10000;
-      }
-      else if(type=='Enterprice'){
-        this.pay.amount = 20000;
-      }
-      else if(type=='Ultimate'){
-        this.pay.amount = 100000;
-      }
- 
-      this.pay ={
-      amount:0,
-      currency:'AED',
-      receipt:'ASSETCHEK',exAmount:0,
-  }
-  
-
-    
-      if(type =='standard'){
-        this.pay.amount = 1000;
-      }
-      else if(type=='Professional'){
-        this.pay.amount = 40000;
-      }
-      else if(type=='Enterprice'){
-        this.pay.amount = 80000;
-      }
-      else if(type=='Ultimate'){
-        this.pay.amount = 380000;
-      }
- 
- 
-      this.pay ={
-      amount:0,
-      currency:'MYR',
-      receipt:'ASSETCHEK',exAmount:0,
-  }
-  
-
-    
-      if(type =='standard'){
-        this.pay.amount = 1000;
-      }
-      else if(type=='Professional'){
-        this.pay.amount = 40000;
-      }
-      else if(type=='Enterprice'){
-        this.pay.amount = 80000;
-      }
-      else if(type=='Ultimate'){
-        this.pay.amount = 380000;
-      }
- 
- 
-      this.pay ={
-      amount:0,
-      currency:'SGD',
-      receipt:'ASSETCHEK',
-      exAmount:0,
-  }
-  
-
-    
-      if(type =='standard'){
-        this.pay.amount = 1000;
-      }
-      else if(type=='Professional'){
-        this.pay.amount = 12000;
-      }
-      else if(type=='Enterprice'){
-        this.pay.amount = 24000;
-      }
-      else if(type=='Ultimate'){
-        this.pay.amount = 120000;
+          this.pay ={
+          amount:0,
+          currency:'USD',
+          receipt:'ASSETCHEK',exAmount:0,
       }
       
- 
-      this.pay.currency = this.docForm.get("currency").value; 
-      this.pay.receipt = 'ASSETCHEK';
- 
- if(type =='standard'){
-   if(this.docForm.get("currency").value =='INR'){
-    this.pay.amount = 500 *100;
-    this.pay.exAmount = 500;
-    }else if (this.docForm.get("currency").value =='USD'){
-      this.pay.amount = 1000;
-      this.pay.exAmount =1000;
-    }else if (this.docForm.get("currency").value == 'AED'){
-      this.pay.amount = 1000;
-      this.pay.exAmount = 1000;
-    }else if (this.docForm.get("currency").value == 'MYR'){
-      this.pay.amount = 1000;
-      this.pay.exAmount = 1000;
-    }else if (this.docForm.get("currency").value == 'SGD'){
-      this.pay.amount = 1000;
-      this.pay.exAmount = 1000;
-    }
- }
-   else if(type=='Professional'){
-     if(this.docForm.get("currency").value =='INR'){
-      this.pay.amount = 1000*100;
-      this.pay.exAmount=  1000;
-    }else if (this.docForm.get("currency").value =='USD'){
-      this.pay.amount = 100*100;
-      this.pay.exAmount=  100;
-    }else if (this.docForm.get("currency").value == 'AED'){
-      this.pay.amount = 40000;
-      this.pay.exAmount=  40000;
-    }else if (this.docForm.get("currency").value == 'MYR'){
-      this.pay.amount = 40000;
-      this.pay.exAmount=  40000;
-    }else if (this.docForm.get("currency").value == 'SGD'){
-      this.pay.amount = 12000;
-      this.pay.exAmount=  12000;
-    }
-   }
-   else if(type=='Enterprice'){
-     if(this.docForm.get("currency").value =='INR'){
-      this.pay.amount = 5000*100;
-      this.pay.exAmount=5000;
-    }else if (this.docForm.get("currency").value =='USD'){
-      this.pay.amount = 20000;
-      this.pay.exAmount= 20000;
-    }else if (this.docForm.get("currency").value == 'AED'){
-      this.pay.amount = 80000;
-      this.pay.exAmount=  80000;
-    }else if (this.docForm.get("currency").value == 'MYR'){
-      this.pay.amount = 80000;
-      this.pay.exAmount= 80000;
-    }else if (this.docForm.get("currency").value == 'SGD'){
-      this.pay.amount =  24000;
-      this.pay.exAmount= 24000;
-    }
-   }
-   else if(type=='Ultimate'){
-     if(this.docForm.get("currency").value =='INR'){
-      this.pay.amount = 10000*100;
-      this.pay.exAmount= 10000;
-    }else if (this.docForm.get("currency").value =='USD'){
-      this.pay.amount =  100000;
-      this.pay.exAmount= 100000;
-    }else if (this.docForm.get("currency").value == 'AED'){
-      this.pay.amount = 380000;
-      this.pay.exAmount= 380000;
-    }else if (this.docForm.get("currency").value == 'MYR'){
-      this.pay.amount = 380000;
-      this.pay.exAmount=380000;
-    }else if (this.docForm.get("currency").value == 'SGD'){
-      this.pay.amount = 120000;
-      this.pay.exAmount= 120000;
-    }
-   }
- 
 
-
-
-   this.httpService.post<any>(this.subscriptionPageService.initiatePaymentUrl, this.pay).subscribe(data => {
+        
+          if(type =='standard'){
+            this.pay.amount = 50000;
+          }
+          else if(type=='Professional'){
+            this.pay.amount = 10000;
+          }
+          else if(type=='Enterprice'){
+            this.pay.amount = 20000;
+          }
+          else if(type=='Ultimate'){
+            this.pay.amount = 100000;
+          }
     
-    this.payWithRazor(data);
-    },
-    (err: HttpErrorResponse) => {
+          this.pay ={
+          amount:0,
+          currency:'AED',
+          receipt:'ASSETCHEK',exAmount:0,
+      }
       
-  });
+
+        
+          if(type =='standard'){
+            this.pay.amount = 50000;
+          }
+          else if(type=='Professional'){
+            this.pay.amount = 40000;
+          }
+          else if(type=='Enterprice'){
+            this.pay.amount = 80000;
+          }
+          else if(type=='Ultimate'){
+            this.pay.amount = 380000;
+          }
+    
+    
+          this.pay ={
+          amount:0,
+          currency:'MYR',
+          receipt:'ASSETCHEK',exAmount:0,
+      }
+      
+
+        
+          if(type =='standard'){
+            this.pay.amount = 50000;
+          }
+          else if(type=='Professional'){
+            this.pay.amount = 40000;
+          }
+          else if(type=='Enterprice'){
+            this.pay.amount = 80000;
+          }
+          else if(type=='Ultimate'){
+            this.pay.amount = 380000;
+          }
+    
+    
+          this.pay ={
+          amount:0,
+          currency:'SGD',
+          receipt:'ASSETCHEK',
+          exAmount:0,
+      }
+      
+
+        
+          if(type =='standard'){
+            this.pay.amount = 50000;
+          }
+          else if(type=='Professional'){
+            this.pay.amount = 12000;
+          }
+          else if(type=='Enterprice'){
+            this.pay.amount = 24000;
+          }
+          else if(type=='Ultimate'){
+            this.pay.amount = 120000;
+          }
+          
+    
+          this.pay.currency = this.docForm.get("currency").value; 
+          this.pay.receipt = 'ASSETCHEK';
+    
+    if(type =='standard'){
+      if(this.docForm.get("currency").value =='INR'){
+        this.pay.amount = 50000 *100;
+        this.pay.exAmount = 50000;
+        }else if (this.docForm.get("currency").value =='USD'){
+          this.pay.amount = 1000;
+          this.pay.exAmount =1000;
+        }else if (this.docForm.get("currency").value == 'AED'){
+          this.pay.amount = 1000;
+          this.pay.exAmount = 1000;
+        }else if (this.docForm.get("currency").value == 'MYR'){
+          this.pay.amount = 1000;
+          this.pay.exAmount = 1000;
+        }else if (this.docForm.get("currency").value == 'SGD'){
+          this.pay.amount = 1000;
+          this.pay.exAmount = 1000;
+        }
+    }
+      else if(type=='Professional'){
+        if(this.docForm.get("currency").value =='INR'){
+          this.pay.amount = 1000*100;
+          this.pay.exAmount=  1000;
+        }else if (this.docForm.get("currency").value =='USD'){
+          this.pay.amount = 100*100;
+          this.pay.exAmount=  100;
+        }else if (this.docForm.get("currency").value == 'AED'){
+          this.pay.amount = 40000;
+          this.pay.exAmount=  40000;
+        }else if (this.docForm.get("currency").value == 'MYR'){
+          this.pay.amount = 40000;
+          this.pay.exAmount=  40000;
+        }else if (this.docForm.get("currency").value == 'SGD'){
+          this.pay.amount = 12000;
+          this.pay.exAmount=  12000;
+        }
+      }
+      else if(type=='Enterprice'){
+        if(this.docForm.get("currency").value =='INR'){
+          this.pay.amount = 50000*100;
+          this.pay.exAmount=50000;
+        }else if (this.docForm.get("currency").value =='USD'){
+          this.pay.amount = 20000;
+          this.pay.exAmount= 20000;
+        }else if (this.docForm.get("currency").value == 'AED'){
+          this.pay.amount = 80000;
+          this.pay.exAmount=  80000;
+        }else if (this.docForm.get("currency").value == 'MYR'){
+          this.pay.amount = 80000;
+          this.pay.exAmount= 80000;
+        }else if (this.docForm.get("currency").value == 'SGD'){
+          this.pay.amount =  24000;
+          this.pay.exAmount= 24000;
+        }
+      }
+      else if(type=='Ultimate'){
+        if(this.docForm.get("currency").value =='INR'){
+          this.pay.amount = 10000*100;
+          this.pay.exAmount= 10000;
+        }else if (this.docForm.get("currency").value =='USD'){
+          this.pay.amount =  100000;
+          this.pay.exAmount= 100000;
+        }else if (this.docForm.get("currency").value == 'AED'){
+          this.pay.amount = 380000;
+          this.pay.exAmount= 380000;
+        }else if (this.docForm.get("currency").value == 'MYR'){
+          this.pay.amount = 380000;
+          this.pay.exAmount=380000;
+        }else if (this.docForm.get("currency").value == 'SGD'){
+          this.pay.amount = 120000;
+          this.pay.exAmount= 120000;
+        }
+      }
+    
+
+
+
+      this.httpService.post<any>(this.subscriptionPageService.initiatePaymentUrl, this.pay).subscribe(data => {
+        
+        this.payWithRazor(data);
+        },
+        (err: HttpErrorResponse) => {
+          
+      });
+
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill No.of Users",
+        "top",
+        "right"
+      );
+    }
+
+
 
   }
 
@@ -343,7 +358,9 @@ this.subType = type;
         subscriptype:this.subType,
         subscripamt:this.pay.exAmount.toString(),
         userId:this.tokenStorage.getUserId(),
-        firstName:this.tokenStorage.getUsername()
+        firstName:this.tokenStorage.getUsername(),
+        noOfUsers:this.docForm.get("noOfUsers").value,
+        promoCode:this.docForm.get("promotionCode").value
     }
     
     this.savePaymentHistory(payhistory);
@@ -357,6 +374,34 @@ this.subType = type;
     rzp.open();
   }
 
+  verifyPromoCode(promoCode){
+    
+    if(promoCode!=""){
+      
+      this.httpService.get<any>(this.subscriptionPageService.verifyPromoCodeUrl+"?promoCode="+promoCode).subscribe(data => {
+          if(data.success){
+            this.showNotification(
+              "snackbar-success",
+              "Promocode is valid",
+              "top",
+              "right"
+            );
+          }else{
+            this.showNotification(
+              "snackbar-danger",
+              data.message,
+              "top",
+              "right"
+            );
+          }
+      },
+        (err: HttpErrorResponse) => {
+          
+      });
+
+    }
+    
+  }
 
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -377,5 +422,21 @@ this.subType = type;
   }
 
 
+
+  keyPressNumber(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNameNumber(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
 }

@@ -50,8 +50,8 @@ public currentUser: Observable<User>;
           this.userObj['username'] = user.email;
           this.userObj['token'] = user.accessToken;
           this.userObj['roles'] = user.roles;
-          this.userObj["img"] = "assets/images/user/admin.jpg"
-
+          this.userObj["img"] = "assets/images/user/admin.jpg";
+          this.userObj['role'] = user.role;
           this.currentUserSubject.next(this.userObj);
           return user;
         })
