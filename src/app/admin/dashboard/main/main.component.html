@@ -124,7 +124,41 @@
             </div>
           </div>
         </div>
-        <div class="card-bnner">
+        <div class="card-bnner" style="padding: 0px 0px 30px 0px!important;" >
+          <div class="card">
+            <div class="header">
+              <h2>Depreciated Report/Calculation</h2>
+              <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>Action</button>
+                <button mat-menu-item>Another action</button>
+                <button mat-menu-item>Something else here</button>
+              </mat-menu>
+            </div>
+            <div class="tableBody">
+              <div class="table-responsive">
+                <table class="table table-hover ">
+                  <thead>
+                    <tr>
+                      <th >Item</th>
+                      <th>Value</th>
+                      <th>Acc Depreciation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <tr *ngFor="let data of auditableAssetList">
+                      <td>{{data.assetname}}</td>
+                      <td>{{data.acquisitionvalue}}</td>
+                      <td>{{data.accudepreciation}}</td>
+                    </tr>
+          </tbody>
+                </table>
+              </div>
+            </div>
+          </div> 
           <!-- <div class="row">
             <div class="col-lg-6">
               <img src="assets/images/pages/home-1.png" alt="">
@@ -294,7 +328,8 @@
     </div>
 
     <div class="row clearfix">
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+      <!-- Depreciated Card Start -->
+      <!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <div class="card">
           <div class="header">
             <h2>Depreciated Report/Calculation</h2>
@@ -315,8 +350,6 @@
                     <th >Item</th>
                     <th>Value</th>
                     <th>Acc Depreciation</th>
-                    <!-- <th>Status</th> -->
-                    <!-- <th>Total </th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -325,9 +358,7 @@
                     <td>{{data.assetname}}</td>
                     <td>{{data.acquisitionvalue}}</td>
                     <td>{{data.accudepreciation}}</td>
-                    <!-- <td>{{data.amount}}</td> -->
-                    <!-- <td>{{data.actions}}</td> -->
-                  </tr>
+                  </tr> -->
                   <!-- <tr>
                     <td><a [routerLink]="['/admin/accounts/invoice']"> #IN7865 </a></td>
                     <td><img src="assets/images/user/user1.jpg" alt="" class="user_img">John Doe</td>
@@ -405,13 +436,15 @@
                       $147
                     </td>
                   </tr> -->
-                </tbody>
+                <!-- </tbody>
               </table>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+      </div> -->
+<!-- Depreciated Card End -->
+
+      <!-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="card">
           <div class="card-body">
             <div class="float-start">
@@ -428,13 +461,13 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="row">
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="card">
           <div class="header">
-            <h2>Client Survay</h2>
+            <h2>Three Year Survay</h2>
             <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
             </button>

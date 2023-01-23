@@ -194,6 +194,14 @@ export class MainComponent implements OnInit {
       }
     );
 
+    // ticket survey
+    this.httpService.get<any>(this.mainService.getItSupportTicketURL).subscribe(
+      (data) => {
+        this.barChartOptions.series=data.getTicketListGraphForClient;
+        
+        console.log(this.barChartOptions);
+    });
+
     ////chart Asset Survey Dynamic List
     // this.httpService.get<any>(this.mainService.getAssetSurveyURL).subscribe(
     //   (data) => {
@@ -617,19 +625,19 @@ export class MainComponent implements OnInit {
     this.barChartOptions = {
       series: [
         {
-          name: "New Errors",
+          name: "Closed",
           data: [44, 55, 41, 67, 22, 43],
         },
         {
-          name: "Bugs",
+          name: "Assigned",
           data: [13, 23, 20, 8, 13, 27],
         },
         {
-          name: "Development",
+          name: "Opened",
           data: [11, 17, 15, 15, 21, 14],
         },
         {
-          name: "Payment",
+          name: "Hold",
           data: [21, 7, 25, 13, 22, 8],
         },
       ],

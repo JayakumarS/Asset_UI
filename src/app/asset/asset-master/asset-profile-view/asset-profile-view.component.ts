@@ -458,7 +458,7 @@ fetchAssetName(asset:any){
         },
       ],
       chart: {
-        height: 400,
+        height: 180,
         type: "line",
         stacked: false,
         foreColor: "#9aa0ac",
@@ -470,7 +470,7 @@ fetchAssetName(asset:any){
       },
       plotOptions: {
         bar: {
-          columnWidth: "50%",
+          columnWidth: "25%",
         },
       },
 
