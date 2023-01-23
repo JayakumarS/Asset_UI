@@ -115,6 +115,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getVendorAddressDetails = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getVendorAddressDetails`;
 
+  public getCompanyByUser = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyByUser`;
 
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocument(filePath: any): Observable<Blob> {

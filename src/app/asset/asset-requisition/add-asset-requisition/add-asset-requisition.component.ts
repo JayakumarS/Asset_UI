@@ -11,6 +11,7 @@ import { AssetRequisitionService } from '../asset-requisition.service';
 import { AssetRequisition } from '../asset-requisition.model';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import * as moment from 'moment';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -57,6 +58,8 @@ export class AddAssetRequisitionComponent implements OnInit {
   assetTrackList:[];
   totalCheckedCount = 0;
   chkAll = false;
+  userName: any;
+  userId: string;
   constructor(private fb: FormBuilder,
     public assetRequisitionService:AssetRequisitionService,
     private httpService: HttpServiceService,
@@ -64,6 +67,7 @@ export class AddAssetRequisitionComponent implements OnInit {
     private router:Router,private cmnService:CommonService,
     private commonService: CommonService,
     private notificationService: NotificationService,
+    private token: TokenStorageService,
     public route: ActivatedRoute,) 
     {
       this.docForm = this.fb.group({
@@ -101,7 +105,23 @@ export class AddAssetRequisitionComponent implements OnInit {
 
   ngOnInit(): void {
 
+      this.userId = this.token.getUserId();
+
+     this.docForm.patchValue({
+       'requestedBy':this.userId
+    })
+
     
+  this.httpService.get<any>(this.commonService.getCompanyByUser + "?user=" + this.userId).subscribe(
+    (data) => {
+      this.docForm.patchValue({
+        'companyId':data
+     })
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
 
   // Location list dropdown
   this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe(

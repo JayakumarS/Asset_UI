@@ -59,6 +59,7 @@ export class AddTransferComponent implements OnInit {
   requisitionList=[];
   requestId:number;
   maxDate = moment(new Date()).add(0, 'days').format('YYYY-MM-DD');
+  userName: any;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -70,6 +71,7 @@ export class AddTransferComponent implements OnInit {
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
+    private token: TokenStorageService,
     private serverUrl: serverLocations) { }
 
   ngOnInit(): void {
@@ -105,6 +107,12 @@ export class AddTransferComponent implements OnInit {
         })
       ]),
     });
+
+    // this.userName = this.token.getUsername();
+
+    //  this.docForm.patchValue({
+    //    'requestedBy':this.userName
+    // })
 
      //Vendor  Dropdown List
      this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
