@@ -44,6 +44,7 @@ export class AddScheduleActivityComponent implements OnInit {
   scheduleActivityMaster:ScheduleActivityMaster;
   locationList:[];
   activityList:[];
+  userDdList=[];
 
   constructor(private fb: FormBuilder,
     public scheduleActivityService:ScheduleActivityService,
@@ -159,6 +160,18 @@ export class AddScheduleActivityComponent implements OnInit {
     }
   }
   );
+
+  
+       // User dropdown
+       this.httpService.get<any>(this.commonService.getAdminDropdown).subscribe({
+        next: (data) => {
+          this.userDdList = data;
+        },
+        error: (error) => {
+  
+        }
+      }
+      );
   
   this.route.params.subscribe(params => {
    if(params.id!=undefined && params.id!=0){
