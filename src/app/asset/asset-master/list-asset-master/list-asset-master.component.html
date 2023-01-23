@@ -40,6 +40,12 @@
                                     <div class="col-4">
                                         <ul class="header-buttons">
                                             <li>
+                                                <div class="m-l-10" matTooltip="Print Asset QRCode">
+                                                  <button type="button" class="btn-space" mat-raised-button color="accent"
+                                                    style="background-color: rgb(50, 124, 173);cursor: pointer;" (click)="assetQRcodeExportPdf()">Print Asset QRCode</button>
+                                                </div>
+                                            </li>
+                                            <li>
                                                 <div class="export-button m-l-10" matTooltip="XLSX">
                                                     <img src="assets/images/icons/xlsx.png" alt="" (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                                                 </div>
@@ -50,6 +56,20 @@
                             </div>
                             <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
                                 
+                                <ng-container matColumnDef="select">
+                                    <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">
+                                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                                        [checked]="selection.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()" [ngClass]="'tbl-checkbox'">
+                                      </mat-checkbox>
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-6'">
+                                      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                                        [checked]="selection.isSelected(row)" [ngClass]="'tbl-checkbox'">
+                                      </mat-checkbox>
+                                    </mat-cell>
+                                  </ng-container>
+                                  
                                 <ng-container matColumnDef="assetId">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Asset No </mat-header-cell>
                                     <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">

@@ -26,6 +26,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 })
 export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
+    "select",
     "assetId",
     "assetName",
     "assetCode",
@@ -41,7 +42,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
   index: number;
   id: number;
   assetMaster: AssetMaster | null;
-
+  checkedIDs: any = [];
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -165,9 +166,61 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
     this.contextMenu.openMenu();
   }
 
-  exportQRCode() {
-
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.renderedData.length;
+    return numSelected === numRows;
   }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.renderedData.forEach((row) =>
+          this.selection.select(row)
+        );
+  }
+  
+  //FOR QR CODE PDF ADDED BY GOKUL
+  assetQRcodeExportPdf() {
+    this.selection.selected.forEach((item) => {
+      const index: number = this.dataSource.renderedData.findIndex(
+        (d) => d === item
+      );
+    });
+    if(this.selection.selected.length>=1){
+      this.checkedIDs = [];
+      for (let i = 0; i < this.selection.selected.length; i++) {
+        this.checkedIDs.push(this.selection.selected[i].id);
+      }
+    }
+    const obj={
+      checkedAssetListIDs:this.checkedIDs
+    }
+    this.spinner.show();
+    this.assetService.assetQRcodeExportPdf(obj).pipe().subscribe({
+      next: (result: any) => {
+        this.spinner.hide();
+        if(result!=null){
+          var file = new Blob([result], { type: 'application/pdf' });
+          var fileURL = window.URL.createObjectURL(file);
+          window.open(fileURL);
+          this.selection = new SelectionModel<AssetMaster>(true, []);
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to Print QR code",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+
 }
 
 export class ExampleDataSource extends DataSource<AssetMaster> {

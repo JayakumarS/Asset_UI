@@ -46,6 +46,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   public departmentDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getDepartmentDropdown`;
   public commoditylist = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
   public saveGRNBasedMutipleAsset = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/saveGRNBasedMutipleAsset`;
+  public exportPdfBulkAssetQRcode = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/exportPdf_BulkAssetQRcode`;
 
 
   get data(): AssetMaster[] {
@@ -100,6 +101,21 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
  
   addGRNBasedMutipleAsset(assetMaster: AssetMaster): Observable<any> {
     return this.httpClient.post<AssetMaster>(this.saveGRNBasedMutipleAsset, assetMaster);
+  }
+
+  //FOR QR CODE PDF ADDED BY GOKUL
+  assetQRcodeExportPdf(obj: any): Observable<Blob> {
+    var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      "Authorization": authorization, responseType: 'blob'
+    });
+
+    return this.httpClient.post<Blob>(this.exportPdfBulkAssetQRcode, obj, {
+      headers: headers, responseType:
+        'blob' as 'json'
+    });
   }
 
 }
