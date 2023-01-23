@@ -20,6 +20,7 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter{
   }
   public getList = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/list`;
   public edit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/edit`;
+  public scheduleedit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/edit`;
   public save = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/save`;
   public editAudit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/editAudit`;
   public draftsave = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/draftsave`;

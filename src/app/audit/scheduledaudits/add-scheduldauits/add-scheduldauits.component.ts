@@ -47,12 +47,16 @@ export class AddScheduldauitsComponent implements OnInit {
   docForm: FormGroup;
   Formdoc: FormGroup;
   auditorList:any;
+  flag:boolean;
+  
   requestId: any;
   edit:boolean=false;
   locationDropdownList:any
   assetDropdownList:any
   companyList:any
   @ViewChild('tabs') tabGroup: MatTabGroup;
+  val: any;
+  dateChange: boolean = false;
 
     constructor(private fb: FormBuilder,
     private commonService: CommonService,
@@ -89,6 +93,9 @@ export class AddScheduldauitsComponent implements OnInit {
           location: '',
           sampleQty: '',
           remarks: '',
+          newQty:'',
+          diffqty:'',
+          stack:''
 
          
         })
@@ -110,7 +117,15 @@ export class AddScheduldauitsComponent implements OnInit {
     if(params.id!=undefined && params.id!=0){
      this.requestId = params.id;
      this.edit=true;
-     this.fetchDetails(this.requestId) ;
+     if(params.id.includes("AU")){
+      this.flag = true;
+      this.fetchDetails(this.requestId) ;
+
+     }
+     else {
+      this.flag =false ;
+     this.fetchDetailsA(this.requestId);
+     }
     }
   });
 
@@ -181,7 +196,15 @@ export class AddScheduldauitsComponent implements OnInit {
           'startDate': this.commonService.getDateObj(res.manageAuditBean.startDate),
           'auditName': res.manageAuditBean.auditName,
           'auditCode':res.manageAuditBean.auditCode,
-          'companyName':res.manageAuditBean.companyName
+          'companyName':res.manageAuditBean.companyName,
+          'auditorName':res.manageAuditBean.auditorName,
+          'assetName':res.manageAuditBean.assetName,
+          'location':res.manageAuditBean.location,
+          'Quantity':res.manageAuditBean.quantity,
+          'remarks':res.manageAuditBean.remarks,
+          
+
+
        })  
     
        
@@ -203,11 +226,66 @@ export class AddScheduldauitsComponent implements OnInit {
   
   }
 
+  fetchDetailsA(id): void {
+    this.requestId = id;
+    this.httpService.get(this.scheduledauditsService.scheduleedit + "?id=" + id).subscribe((res: any) => {
+  
+      console.log(id);
+  
+      this.docForm.patchValue({
+        'startDateObj': this.commonService.getDateObj(res.scheduledBean.startDate),
+          'startDate': this.commonService.getDateObj(res.scheduledBean.startDate),
+          'auditName': res.scheduledBean.auditName,
+          'auditCode':res.scheduledBean.auditCode,
+          'companyName':res.scheduledBean.companyName,
+          'auditorName':parseInt(res.scheduledBean.auditorName)
+     })
+  
+  
+     
+     let manageAuditDtlArray = this.docForm.controls.scheduledDetailbean as FormArray;
+     manageAuditDtlArray.removeAt(0);
+     if(res.scheduledBean.scheduledDetailbean!=null){
+  
+     
+      res.scheduledBean.scheduledDetailbean.forEach(element => {
+            let manageAuditDtlArray = this.docForm.controls.scheduledDetailbean as FormArray;
+            let arraylen = manageAuditDtlArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              assetName:[element.assetName],
+              location:[element.location],
+              sampleQty:[element.quantity],
+              remarks:[element.remarks],
+              newQty:[element.newQty],
+              diffqty:[element.diffqty],
+              stack:[element.stack]
+    
+
+            
+              
+          })
+          manageAuditDtlArray.insert(arraylen,newUsergroup);
+        });
+      }
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+   
+  }
+
   onSubmit(){
     if(this.docForm.valid){
       this.docForm.patchValue({
-        'type':'Submit'
+        'type':'Submit',
       })
+if(this.dateChange==false){
+  let cdate = this.commonService.getDate(this.docForm.get('startDateObj').value);
+  this.docForm.patchValue({startDate:cdate});
+}
+   
+
       this.httpService.post<any>(this.scheduledauditsService.save, this.docForm.value).subscribe(data => {
         if(data.success){
           this.showNotification(
@@ -295,6 +373,9 @@ export class AddScheduldauitsComponent implements OnInit {
           location: '',
           sampleQty: '',
           remarks: '',
+          newQty:'',
+          diffqty:'',
+          stack:''
 
          
         })
@@ -339,9 +420,10 @@ export class AddScheduldauitsComponent implements OnInit {
   }
 
   getDateString(event,inputFlag,index){
+    this.dateChange=true;
     let cdate = this.commonService.getDate(event.target.value);
-    if(inputFlag=='startdate'){
-      this.docForm.patchValue({startdate:cdate});
+    if(inputFlag=='startDate'){
+      this.docForm.patchValue({startDate:cdate});
     }
     else if(inputFlag=='enddate'){
       this.docForm.patchValue({enddate:cdate});
@@ -360,6 +442,10 @@ export class AddScheduldauitsComponent implements OnInit {
       location:[""],
       sampleQty:[""],
       remarks:[""],
+      newQty:'',
+      diffqty:'',
+      stack:''
+
      
     })
     scheduledListDetailArray.insert(arraylen, newUsergroup);

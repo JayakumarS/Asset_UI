@@ -12,4 +12,12 @@ export class ScheduleAudit {
     Quantity:string
     remarks:string
     schedule_audits_id:number
+    scheduleId:number
+    AvailableQty:string
+    newQty:number;
+    diffqty:number
+    stack:string
+
+   
+
 }

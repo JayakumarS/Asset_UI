@@ -87,6 +87,11 @@ import { ScheduleAudit } from '../scheduledaudits-model';
     this.router.navigate(['/audit/scheduledaudits/scheduled-view/' + row.auditCode]);
   }
 
+  reviewCall(row){
+    this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/' + row.scheduleId]);
+
+  }
+
  
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
