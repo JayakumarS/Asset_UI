@@ -211,6 +211,16 @@ keyPressPCB(event: any) {
     });
   }
 
+  validateEmail(event){
+    this.httpService.get<any>(this.vendorService.uniqueValidateUrl+ "?tableName=" +"auditor_master"+"&columnName="+"email"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['vendorEmail'].setErrors({ auditor_master: true });
+      }else{
+        this.docForm.controls['vendorEmail'].setErrors(null);
+      }
+    });
+  }
+
   // validateEmail(event){
   //   this.httpService.get<any>(this.authService.validateEmailUrl+ "?tableName=" +"user_details"+"&columnName="+"email_id"+"&columnValue="+event).subscribe((res: any) => {
   //     if(res){

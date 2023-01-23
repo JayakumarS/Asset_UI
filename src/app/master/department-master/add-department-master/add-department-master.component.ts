@@ -278,4 +278,14 @@ export class AddDepartmentMasterComponent implements OnInit {
     });
   }
 
+  validateDepartmentMaster(event){
+    this.httpService.get<any>(this.departmentMasterService.uniqueValidateUrl+ "?tableName=" +"assetdepartment"+"&columnName="+"departmentname"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['departmentHead'].setErrors({ assetdepartment: true });
+      }else{
+        this.docForm.controls['departmentHead'].setErrors(null);
+      }
+    });
+  }
+
 }

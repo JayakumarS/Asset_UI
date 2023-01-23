@@ -6,6 +6,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { DepreciationMaster } from '../depreciation-model';
 import { DepreciationService } from '../depreciation.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-add-depreciation',
@@ -269,6 +270,16 @@ showNotification(colorName, text, placementFrom, placementAlign) {
     verticalPosition: placementFrom,
     horizontalPosition: placementAlign,
     panelClass: colorName,
+  });
+}
+
+validateDepreciation(event){
+  this.httpService.get<any>(this.depreciationService.uniqueValidateUrl+ "?tableName=" +"asset_depreciation_config"+"&columnName="+"depreciation_code"+"&columnValue="+event).subscribe((res: any) => {
+    if(res){
+      this.docForm.controls['code'].setErrors({ asset_depreciation_config: true });
+    }else{
+      this.docForm.controls['code'].setErrors(null);
+    }
   });
 }
 

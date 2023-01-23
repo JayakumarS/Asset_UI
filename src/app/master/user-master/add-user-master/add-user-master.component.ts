@@ -311,6 +311,16 @@ string(event: any) {
     event.preventDefault();
   }
 }
+
+validateUserMaster(event){
+  this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl+ "?tableName=" +"employee"+"&columnName="+"email_id"+"&columnValue="+event).subscribe((res: any) => {
+    if(res){
+      this.docForm.controls['emailId'].setErrors({ employee: true });
+    }else{
+      this.docForm.controls['emailId'].setErrors(null);
+    }
+  });
+}
 }
 
 

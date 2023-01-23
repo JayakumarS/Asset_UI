@@ -43,6 +43,7 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
   public editcommodity = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/editVendor`;
   public updatecommodity = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/updateVendor`;
   public countryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/getCountryList`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
   
   

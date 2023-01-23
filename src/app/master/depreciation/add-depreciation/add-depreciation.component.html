@@ -43,10 +43,14 @@
                     margin-left: -15%;
                     margin-top: -2%;
                 ">
-                      <input matInput formControlName="code" required>
+                      <input matInput formControlName="code"
+                      (blur)="validateDepreciation($event.target.value)" required>
                       <mat-error *ngIf="docForm.get('code').hasError('required')">
                       Code is required
                       </mat-error>
+                    <mat-error *ngIf="docForm.get('code').hasError('asset_depreciation_config')">
+                      code Already Exists..!!
+                    </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
