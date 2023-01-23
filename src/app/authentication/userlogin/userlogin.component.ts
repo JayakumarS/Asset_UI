@@ -47,8 +47,6 @@ export class UserloginComponent implements OnInit {
       fullName: ["", [Validators.required]],
       emailId: ['',  [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       contNumber: ["", [Validators.required]],
-      role: ["", [Validators.required]],
-      department: [""],
       language: ["", [Validators.required]],
       location: [""],
       otp: [""],
@@ -162,7 +160,7 @@ export class UserloginComponent implements OnInit {
 
 
    validateEmail(event){
-    this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + " user_master" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+    this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + " employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
       if (res){
         this.docForm.controls['emailId'].setErrors({ currency: true });
       }else{

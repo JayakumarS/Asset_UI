@@ -66,7 +66,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
 
@@ -89,7 +89,7 @@
                 <ng-container matColumnDef="actions">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" 
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
                     (click)="editCall(row)" class="tbl-action-btn">
                       <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
@@ -155,6 +155,7 @@
               <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
                 [pageSizeOptions]="[5, 10, 25, 100]">
               </mat-paginator>
+            </div>
             </div>
         </div>
       </div>

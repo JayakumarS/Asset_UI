@@ -17,7 +17,7 @@
                       <li class="dropdown">
                         <h2>Country</h2>
                       </li>
-                      
+
                       <li class="dropdown m-l-20">
                         <label for="search-input"><i class="material-icons search-icon">search</i></label>
                         <input placeholder="Search" type="text" #filter class="browser-default search-field"
@@ -44,14 +44,14 @@
                           <img src="assets/images/icons/xlsx.png" alt=""
                             (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                         </div>
-                      </li>                     
+                      </li>
                     </ul>
                   </div>
                 </div>
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell"
                 #exporter="matTableExporter" [hiddenColumns]="[5]">
-                
+
                 <ng-container matColumnDef="countryCode">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Country Code </mat-header-cell>
                   <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.countryCode}}</mat-cell>
@@ -73,7 +73,7 @@
                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" 
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
                     (click)="editCall(row)"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
@@ -86,7 +86,7 @@
 
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                <mat-row *matRowDef="let row; columns: displayedColumns;"
                   [style.cursor]="'pointer'" matRipple>
                 </mat-row>
               </mat-table>

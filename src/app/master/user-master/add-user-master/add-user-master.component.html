@@ -34,10 +34,10 @@
 
   <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="emailId" maxlength="50" [ngModel]="value" (blur)="validateEmail($event.target.value)" required readonly>
+      <input matInput formControlName="emailId" maxlength="50" [ngModel]="value" (blur)="validateEmail($event.target.value)" required >
       <input matInput formControlName="emailId" required *ngIf="edit == false">
   <mat-error *ngIf="docForm.get('emailId').hasError('required')">
-    Email To is required
+    Email Id is required
   </mat-error>
   <mat-error *ngIf="docForm.get('emailId').hasError('currency')">
     EmailId Already Exists !!!

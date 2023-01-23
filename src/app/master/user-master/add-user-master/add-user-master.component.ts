@@ -118,10 +118,10 @@ export class AddUserMasterComponent implements OnInit {
 
   }
   fetchDetails(empid: any) {
-    this.requestId = empid; 
+    this.requestId = empid;
     this.httpService.get(this.UserMasterService.editUserMaster + "?empid=" + empid).subscribe((res: any) => {
       console.log(empid);
-    
+
       this.docForm.patchValue({
         'userId': res.userMasterBean.userId,
          'fullName': res.userMasterBean.fullName,
@@ -138,8 +138,8 @@ export class AddUserMasterComponent implements OnInit {
         'empid': res.userMasterBean.empid,
      })
     },
-    (err: HttpErrorResponse) => {   
-      
+    (err: HttpErrorResponse) => {
+
      }
   );
 }
@@ -197,7 +197,7 @@ export class AddUserMasterComponent implements OnInit {
       panelClass: colorName,
     });
   }
- 
+
 update() {
   if (this.docForm.valid){
     if(this.docForm.value.emailId !=""){
@@ -277,7 +277,7 @@ update() {
 
 
    validateEmail(event){
-    this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl + "?tableName=" + "user_master" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+    this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
       if (res){
         this.docForm.controls['emailId'].setErrors({ currency: true });
       }else{

@@ -4,18 +4,29 @@
 
       </div>
       <div class="row clearfix ">
-        <div class="col-md-12">
-          <div class="box-shadow">
-            <div class="card pageproperty">
-              <h3 style="text-align: center;padding: 3%;background-color: cadetblue;">Registration</h3>
-              <div class="body " style="padding-left: 220px; background-color: antiquewhite;margin-top: -1%;">
-                <form class="m-4" [formGroup]="docForm">
+        <div class="card">
+          <div class="body" style=" background-color:#7dc3d4;">
+            <form class="m-4" [formGroup]="docForm">
 
+
+
+
+        <div class="col-md-12">
+          <div class="row">
+          <div class="col-md-6">
+
+          <div class="box-shadow">
+              <h3 style="text-align: left;color:#fff;padding: 3%;background-color: #063970;">Registration</h3>
+              <div class="body " style=" background-color: #cecfd096;margin-top: -1%;">
+
+                    <br>
                   <div class="row">
-                    <div class=" col-md-2">
-                      <mat-label class="lable">Full Name</mat-label>
+                    <div class=" col-md-1" ></div>
+
+                    <div class=" col-md-4">
+                      <mat-label class="lable">Full Name<span class="errorColor">*</span></mat-label>
                       </div>
-                       <div class=" col-md-3">
+                       <div class=" col-md-5">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="fullName"  maxlength="50"
                         [ngModel]="inputvalue" (ngModelChange)="inputvalue=$event.toUpperCase()"(keypress)="string($event)"required>
@@ -25,12 +36,15 @@
                       </mat-form-field>
 
 
-                    </div>
-                    <div class=" col-md-2">
-                      <mat-label class="lable">Email Id</mat-label>
+                    </div></div>
+                    <div class="row">
+                      <div class=" col-md-1"></div>
+
+                    <div class=" col-md-4">
+                      <mat-label class="lable">Email Id<span class="errorColor">*</span></mat-label>
                       </div>
 
-                    <div class=" col-md-3">
+                    <div class=" col-md-5">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="emailId" maxlength="50" [ngModel]="value" (blur)="validateEmail($event.target.value)" required>
                     <mat-error *ngIf="docForm.get('emailId').hasError('required')">
@@ -41,119 +55,108 @@
                     </mat-error>
                       </mat-form-field>
                     </div>
+
                   </div>
                   <br>
 
                   <div class="row">
-                    <div class=" col-md-2">
-                      <mat-label class="lable">Contact Number</mat-label>
+                    <div class=" col-md-1"></div>
+
+                    <div class=" col-md-4">
+                      <mat-label class="lable">Contact Number<span class="errorColor">*</span></mat-label>
                       </div>
-                      <div class=" col-md-3">
+                      <div class=" col-md-5">
                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="contNumber" maxlength="10" (keypress)="keyPressNumeric1($event)"  required>
                           <mat-error *ngIf="docForm.get('contNumber').hasError('required')">
                             Contact Number is required
                           </mat-error>
                         </mat-form-field>
-                      </div>
-                  <div class=" col-md-2">
-                    <mat-label class="lable">Role</mat-label>
-                    </div>
-                    <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="role" maxlength="50"[ngModel]="inputvalue2"
-                        (ngModelChange)="inputvalue2 = $event.toUpperCase()"(keypress)="keyPressNumeric($event)" required>
-                        <mat-error *ngIf="docForm.get('role').hasError('required')">
-                          Role is required
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class=" col-md-2">
-                      <mat-label class="lable">Department</mat-label>
-                      </div>
-                      <div class=" col-md-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      </div></div>
+                      <div class="row">
+                        <div class=" col-md-1"></div>
 
-                        <mat-select class="inputTxt" formControlName="department">
-                          <mat-option *ngFor="let title of departmentDdList" [value]="title.id">
-                              {{title.text}}
-                          </mat-option>
-                      </mat-select>
-                  </mat-form-field>
-                  </div>
-
-                    <div class=" col-md-2">
-                        <mat-label class="lable">Company</mat-label>
+                      <div class=" col-md-4">
+                        <mat-label class="lable">Primary Location</mat-label>
                         </div>
-                        <div class=" col-md-3">
+                        <div class=" col-md-5">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                            <mat-select class="inputTxt" formControlName="company">
-                              <mat-option *ngFor="let title of companyList" [value]="title.id">
-                                  {{title.text}}
-                              </mat-option>
-                          </mat-select>
-                      </mat-form-field>
-                        </div>
-            </div>
+                          <mat-select class="inputTxt" formControlName="location">
+                            <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                {{title.text}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    </div>
+
+                  </div>
+
                       <br>
                       <div class="row">
-                        <div class=" col-md-2">
-                            <mat-label class="lable">Default Language</mat-label>
-                            </div>
-                            <div class=" col-md-3">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <input matInput formControlName="language" maxlength="50"[ngModel]="inputvalue3"
-                                (ngModelChange)="inputvalue3 = $event.toUpperCase()"(keypress)="string($event)"   required>
-                                <mat-error *ngIf="docForm.get('language').hasError('required')">
-                                  Default Language is required
-                                </mat-error>
-                              </mat-form-field>
-                            </div>
+                        <div class=" col-md-1"></div>
 
-                        <div class=" col-md-2">
-                            <mat-label class="lable">Primary Location</mat-label>
-                            </div>
-                            <div class=" col-md-3">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <div class=" col-md-4">
+                          <mat-label class="lable">Language<span class="errorColor">*</span></mat-label>
+                          </div>
+                          <div class=" col-md-5">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                              <mat-select class="inputTxt" formControlName="location">
-                                <mat-option *ngFor="let title of locationDdList" [value]="title.id">
-                                    {{title.text}}
+                              <mat-select  formControlName="language">
+                                <mat-option [value]="'1'">
+                                 ENGLISH
                                 </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        </div></div>
+                                <mat-option [value]="'2'">
+                                  OTHERS
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                      </div></div>
+                      <div class="row">
+                        <div class=" col-md-1"></div>
 
+                            <div class=" col-md-4"><mat-label class="lable">OTP Required</mat-label></div>
+                            <div class=" col-md-5">
+                               <mat-checkbox  ngInit="checked=true" formControlName="otp"></mat-checkbox>
+                            </div>
 
+                       </div>
 
+                      <br>
+                      <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                          <button  (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                            style="background-color: #24bd24">Register</button>
+
+                            <button  (click)="onCancel()" class="btn-space" mat-raised-button color="accent"
+                            style="background-color: #ea1313;">Back To Login</button>
+
+                        </div>
+                      </div>
+                      <br>
+                    </div>
+
+                    </div>
+
+                    </div>
+                     <div class="col-md-6">
+                      <img src="assets/images/RegisterLogo.png"
+                      style="height: 575px;
+                      width: 596px;
+                      margin-left: -22px;
+                      border-radius: 7px;">
+
+                    </div>
+                    </div>
+                  </div>
                      <br>
-                     <div class="row">
-                        <div class=" col-md-2"><mat-label class="lable">OTP Required</mat-label></div>
-                      <div class=" col-md-3">
-                         <mat-checkbox  ngInit="checked=true" formControlName="otp"></mat-checkbox>
-                      </div>
-                      <div class=" col-md-2"><mat-label class="lable" >Track User Location</mat-label></div>
-                      <div class=" col-md-1">
-                         <mat-checkbox  ngInit="checked=true" formControlName="userLocation"></mat-checkbox>
-                      </div>
-                    </div>
-                  <br>
 
-                  <div class="row" style="text-align: center;">
-                    <div class="col-md-12">
-                      <button  (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
-                        style=" margin-left: -12%;background-color: #0a5d0a;">Registration</button>
 
-                    </div>
-                  </div>
-                  </form>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
+
+                </form>
+
+                </div>
+              </div>
                 </div>
               </div>
             </section>
