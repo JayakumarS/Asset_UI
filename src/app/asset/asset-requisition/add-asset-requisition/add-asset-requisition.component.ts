@@ -216,7 +216,9 @@ fetchAssetDtls(itemId){
          
           this.docForm.controls.assetRequisitionDtl.reset;
           if(data.assetTrackList!=null){
-            
+            let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
+            DtlArray.removeAt(0);
+            DtlArray.clear();
             
             data.assetTrackList.forEach(element => {
                   let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;

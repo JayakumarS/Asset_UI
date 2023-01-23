@@ -68,7 +68,7 @@
           
           <ng-container matColumnDef="assetName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;Asset Name</th>
-              <td mat-cell *matCellDef="let row"> {{row.assetName}}
+              <td mat-cell *matCellDef="let row"> <a href="javascript:void(0);" style="text-decoration:none;">{{row.assetName}}</a>
               </td>
           </ng-container>
           <ng-container matColumnDef="categoryName">
