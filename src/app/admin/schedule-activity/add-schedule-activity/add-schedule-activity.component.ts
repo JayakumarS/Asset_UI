@@ -211,7 +211,7 @@ export class AddScheduleActivityComponent implements OnInit {
         'location': parseInt(res.scheduleMasterBean.location),
         'userGroup': res.scheduleMasterBean.userGroup,
         'description': res.scheduleMasterBean.description,
-        'assignee' : res.scheduleMasterBean.assignee,
+        'assignee' : res.scheduleMasterBean.assignee.replace(/\s/g,''),
         'attachFiles' : res.scheduleMasterBean.attachFiles,
         'occurs' : res.scheduleMasterBean.occurs.replace(/\s/g,''),
         'startdateObj' :hdate,
