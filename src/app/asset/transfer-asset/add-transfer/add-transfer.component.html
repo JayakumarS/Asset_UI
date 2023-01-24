@@ -28,28 +28,26 @@
                           <mat-label>Requisition No</mat-label>
                           <mat-error *ngIf="docForm.get('requisitionNo').hasError('required')"> Requisition No is required </mat-error>
                           <mat-select formControlName="requisitionNo" (selectionChange)="getRequestDetails($event.value)">
-                            <mat-option *ngFor="let title of requisitionList" [value]="title.id">
-                              {{title.text}}
+                            <mat-option *ngFor="let title of requisitionAll" [value]="title.assetRequisitionId"> 
+                              {{title.requisitionNumber}}
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
 
-                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Transportation Type</mat-label>
-                          <mat-error *ngIf="docForm.get('transportationType').hasError('required')"> Transportation Type is required </mat-error>
-                          <mat-select formControlName="transportationType" required>
-                            <mat-option [value]="1"> By Person </mat-option>
-                            <mat-option [value]="2"> Courier </mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
+                      
 
                       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>Requisition Date</mat-label>
                           <input matInput formControlName="requisitionDate" readonly>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>Source Location</mat-label>
+                          <input matInput formControlName="sourceLocation" readonly>
                         </mat-form-field>
                       </div>
                    
@@ -58,12 +56,7 @@
                   <div class="row">
                     
                     
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Source Location</mat-label>
-                        <input matInput formControlName="sourceLocation" readonly>
-                      </mat-form-field>
-                    </div>
+                    
 
                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -79,20 +72,6 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Delivery Method</mat-label>
-                          <mat-error *ngIf="docForm.get('deliveryMethod').hasError('required')"> Delivery Method is required </mat-error>
-                          <mat-select formControlName="deliveryMethod" required>
-                            <mat-option [value]="1"> Partial </mat-option>
-                            <mat-option [value]="2"> All at Once </mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                  </div>
-
-                  <div class="row">
-                 
                       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>Company</mat-label>
@@ -116,6 +95,32 @@
                           <mat-error *ngIf="docForm.get('status').hasError('status')">
                             Please choose Approve
                         </mat-error>
+                        </mat-form-field>
+                      </div>
+                      
+                  </div>
+
+                  <div class="row">
+                 
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>Transportation Type</mat-label>
+                          <mat-error *ngIf="docForm.get('transportationType').hasError('required')"> Transportation Type is required </mat-error>
+                          <mat-select formControlName="transportationType" required>
+                            <mat-option [value]="1"> By Person </mat-option>
+                            <mat-option [value]="2"> Courier </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>Delivery Method</mat-label>
+                          <mat-error *ngIf="docForm.get('deliveryMethod').hasError('required')"> Delivery Method is required </mat-error>
+                          <mat-select formControlName="deliveryMethod" required>
+                            <mat-option [value]="1"> Partial </mat-option>
+                            <mat-option [value]="2"> All at Once </mat-option>
+                          </mat-select>
                         </mat-form-field>
                       </div>
                       
@@ -183,7 +188,7 @@
                         <tr>
                           <th style="width: 1%;"></th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%; border-radius: 0.05rem;">Asset Track No</th>
+                   width: 12%; border-radius: 0.05rem;">Asset Code</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">Asset Name</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
@@ -191,7 +196,7 @@
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%; border-radius: 0.05rem;">Asset Location</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%; border-radius: 0.05rem;">Responsible</th>
+                   width: 12%; border-radius: 0.05rem;">Asset Category</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">Asset User</th>
                         </tr>
@@ -206,14 +211,14 @@
                               </td>     
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Asset Track No</mat-label>
-                                  <input matInput name="assetTrackNo{{i}}" formControlName="assetTrackNo">
+                                  <mat-label>Asset Code</mat-label>
+                                  <input matInput name="assetTrackNo{{i}}" formControlName="assetTrackNo" readonly>
                                 </mat-form-field>
                               </td>
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Asset Name</mat-label>
-                                <mat-select formControlName="assetName" required>
+                                <mat-select formControlName="assetName" required disabled>
                                   <mat-option *ngFor="let title of assetList" [value]="title.text">
                                     {{title.text}}
                                   </mat-option>
@@ -223,13 +228,13 @@
                             <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Serial No</mat-label>
-                                  <input matInput name="serialNo{{i}}" formControlName="serialNo">
+                                  <input matInput name="serialNo{{i}}" formControlName="serialNo" readonly>
                                 </mat-form-field>
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Asset Location</mat-label>
-                                  <mat-select formControlName="assetLocation" required>
+                                  <mat-select formControlName="assetLocation" required disabled >
                                     <mat-option *ngFor="let title of locationList" [value]="title.id">
                                       {{title.text}}
                                     </mat-option>
@@ -238,14 +243,14 @@
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Responsible</mat-label>
-                                  <input matInput name="responsible{{i}}" formControlName="responsible">
+                                  <mat-label>Asset Category</mat-label>
+                                  <input matInput name="responsible{{i}}" formControlName="responsible" readonly>
                                 </mat-form-field>
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Asset User</mat-label>
-                                  <input matInput name="assetUser{{i}}" formControlName="assetUser">
+                                  <input matInput name="assetUser{{i}}" formControlName="assetUser" readonly>
                                 </mat-form-field>
                               </td>
                             </tr>
@@ -253,17 +258,18 @@
                             </ng-container>
                             </table>
                             </div>
-                            <div>
+                            <!-- <div>
                               <button mat-mini-fab color="primary" (click)="addRow()">
                                 <mat-icon class="col-white">add</mat-icon>
                               </button>
-                            </div> 
+                            </div>  -->
                             <br>
                             <br>
                             <div class="row">
                               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                                <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="primary" style="margin-left: 44%;">Submit</button>
+                                <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="primary" style="margin-left: 44%;background-color: #34d034;">Submit</button>
                                 <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="primary" style="margin-left: 44%;">Approve</button>
+                                <button (click)="reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
                                 <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
                               </div>
                             </div>
