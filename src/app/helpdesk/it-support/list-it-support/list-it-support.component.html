@@ -88,13 +88,19 @@
                       </ul>
                     </div>
               
-                  <div class="col-4">
-                    <ul class="header-buttons">
-                     
-                      
-                      
-                    </ul>
-                  </div>
+                  
+                    <div class="col-4">
+                      <ul class="header-buttons">
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="XLSX">
+                            <img src="assets/images/icons/xlsx.png" alt=""
+                              (click)="exporter.exportTable('xlsx', {fileName:'Ticket list', sheet: 'sheet1'})" />
+                          </div>
+                        </li>
+                        
+                        
+                      </ul>
+                    </div>
                 </div>
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"

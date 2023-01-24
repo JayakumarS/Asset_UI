@@ -5,19 +5,19 @@
       <app-breadcrumb [title]="'ADD TICKET'" [items]="['Help Desk']" [active_item]="'IT Support'">
       </app-breadcrumb>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix" style="margin-left:-10%">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card " style="padding-left: 150px;">
           <div class="body">
             <form class="m-4" [formGroup]="docForm" >
               <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label>ASSET</label>
+                  <label>ASSET<span class="errorColor">*</span></label>
               </div> 
-              <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-select formControlName="asset" >
-                    <mat-option *ngFor="let title of assetnamelist" [value]="title.id" required>
+              <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                  <mat-select formControlName="asset" (selectionChange)="fetchlocationDetails($event.value)" >
+                    <mat-option *ngFor="let title of assetnamelist" [value]="title.id" required >
                       {{title.text}}
                     </mat-option>
                   </mat-select>
@@ -26,11 +26,11 @@
               </div>
                
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label>TICKET TYPE</label>
+                <label>TICKET TYPE<span class="errorColor">*</span></label>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: -1px;">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width:310px">
-                <mat-select formControlName="tickettype" required>
+                <mat-select formControlName="tickettype" [(ngModel)]="modeselect" required>
                   <mat-option value="CLOSED">CLOSED</mat-option>
                   <mat-option value="ASSIGNED">ASSIGNED</mat-option>
                   <mat-option value="OPENED">OPENED</mat-option>
@@ -48,7 +48,7 @@
 
               <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label>ASSET LOCATION</label>
+                      <label>ASSET LOCATION<span class="errorColor">*</span></label>
                   </div>
 
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12" style="margin-left: 5px;">
@@ -58,6 +58,9 @@
                           {{title.text}}
                         </mat-option>
                       </mat-select>
+                      <mat-error *ngIf="docForm.get('assetlocation').hasError('required')">
+                        asset location by is required
+                      </mat-error>
 
                      
                     </mat-form-field>
@@ -66,27 +69,42 @@
 
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
-                      <label style="margin-left: -6px;" >TICKET GROUP</label>
+                      <label style="margin-left: -6px;" >TICKET GROUP<span class="errorColor">*</span></label>
                   </div>
 
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 "style="margin-left: -5px;" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="ticketgroup" required>
+                      <mat-error *ngIf="docForm.get('ticketgroup').hasError('required')">
+                        ticket group by is required
+                      </mat-error>
                     </mat-form-field>
+                   
                   </div>  
                 
                 </div>
 
                 <div class="row" >
- 
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label>REPORTED BY<span class="errorColor">*</span></label>
+                </div>
+
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="reportedby" required readonly>
+                
+                 
+                </mat-form-field>
+                </div>  
+
                     
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 50%;" >
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
                       <label>Assignee</label>
                   </div>
             
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="assignee" required>
+                      <input matInput formControlName="assignee" readonly>
                     </mat-form-field>
                   </div>  
 
@@ -94,18 +112,27 @@
 
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>REPORTED BY</label>
+                    <label>Start Date<span class="errorColor">*</span></label>
                 </div>
-
+          
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="reportedby" required>
+                    <!-- <mat-label>Expected Date Of Delivery</mat-label> -->
+                    <input matInput [matDatepicker]="picker1" formControlName="reportdateObj"
+                      (dateInput)="$event.value.format('DD/MM/YYYY')" id="reportdate" 
+                                             (dateChange)="getDateString($event, 'reportdate',0)"> 
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1>
+                      <mat-error *ngIf="docForm.get('reportdate').hasError('required')">
+                        Expected Date Of Delivery is required
+                      </mat-error>
+                    </mat-datepicker>
+                   
                   </mat-form-field>
-                </div>  
-
+                </div>
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label>PROIRITY</label>
+                      <label>PROIRITY<span class="errorColor">*</span></label>
                       
                   </div>
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
@@ -136,80 +163,80 @@
                 </div>
 
                 <div class="row">
+                  
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label>Start Date</label>
-                  </div>
-            
-                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <!-- <mat-label>Expected Date Of Delivery</mat-label> -->
-                      <input matInput [matDatepicker]="picker1" formControlName="reportdateObj"
-                        (dateInput)="$event.value.format('DD/MM/YYYY')" id="reportdate" 
-                                               (dateChange)="getDateString($event, 'reportdate',0)"> 
-                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                      <mat-datepicker #picker1></mat-datepicker>
-                      <mat-error *ngIf="docForm.get('reportdate').hasError('required')">
-                        Expected Date Of Delivery is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div> 
+                    <label>DESCRIPTION</label>
+                </div>
+          
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <textarea matInput formControlName="description" required></textarea>
+                    <mat-error *ngIf="docForm.get('description').hasError('required')">
+                      description is required
+                    </mat-error>
+                  </mat-form-field>
+                </div> 
+
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style=" margin-top: 12px;">
                     <label>NOTIFY REPORT BY</label>
                 </div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style=" padding-left: 15px; margin-top: 12px;">
                     <mat-checkbox class="example-full-width form-control-sm" formControlName="report"  ngInit="checked=true"></mat-checkbox>
+                    <mat-error *ngIf="docForm.get('report').hasError('required')">
+                      report is required
+                    </mat-error>
                   </div>
                   </div>
                 
 
                 <div class="row">
-
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label>DESCRIPTION</label>
-              </div>
-        
-              <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <textarea matInput formControlName="description" required></textarea>
-                </mat-form-field>
-              </div> 
+                  <div class="col-xl-2 col-lg-2 col-md-36 col-sm-12">
+                    <mat-label class="lable" style=" margin-left: -2%;">Asset Image </mat-label>                                            
+                          </div>
+                          <div class="col-md-4" style=" margin-left: -2%;margin-top: -2%;">
+                           <app-file-upload class="example-width form-control-sm" formControlName="uploadImg"
+                             (change)="onSelectImage($event)"></app-file-upload>
+                         </div>
+                          <div style="margin-left: 33%;" class="row" *ngIf="(imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
+                          
+                           <div class="iconCard" style="margin-left: 16%;">
+                              <span><i class="far fa-file-alt docIcons"></i>{{imgPathUrl?.split('##').pop()}}</span>
+                              <a class="downloadView" (click)="viewDocuments(imgPathUrl, imgPathUrl?.split('##').pop())">
+                                <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
+                              </a>
+                            </div>
+                          </div>
+             
                   
 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 2%;" >
                       <label>CC</label>
                   </div>
             
-                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
+                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " style="margin-left: -4px;" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="cc" required>
+                      <mat-error *ngIf="docForm.get('cc').hasError('required')">
+                        cc is required
+                      </mat-error>
                     </mat-form-field>
                   </div>    
                 
                 </div>
 
-              
+                
                
                 <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" >
-                    <button *ngIf="!edit" mat-raised-button color="primary" style ="margin-left: 38%; "(click)="onSubmit()" >save</button>
-                    <button *ngIf="edit" mat-raised-button color="primary" style ="margin-left: 38%; "(click)="update()" >update</button>
+                    <button *ngIf="!edit" mat-raised-button color="primary" style ="margin-left: 38%;"(click)="onsubmit()" >save</button>
+                    <button *ngIf="edit" mat-raised-button color="primary" style ="margin-left: 38%; color:accent; background-color: #34d034; "(click)="update()" >update</button>
                     &nbsp;
                     <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
                     <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
                   </div>
                   </div>
             
-              <!-- <div class="row"> 
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                 
-                 
-                  <button (click) = "onCancel()" color="plain" type="button" STYLE="margin-left: 65%;" mat-raised-button>CANCEL</button>
-                  &nbsp;
-                  <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="background-color: #34d034;">Update</button>
-                  &nbsp;
-                  <button *ngIf="!edit"  (click) = "onsubmit()" class="btn-space" mat-raised-button color="plain" >SAVE AND NOTIFY</button>
-                </div>
-              </div> -->
+           
             </form>
           </div>
         </div>

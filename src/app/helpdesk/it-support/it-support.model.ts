@@ -15,6 +15,7 @@ export class Itsupport {
     tatinday : string;
     reportedby : string;
     id: number;
+    assetid: number;
     reportdate: Date;
     uploadImg: string;
     cc: string;
