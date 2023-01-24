@@ -438,7 +438,6 @@ updateAided(){
 }
 resetSelf(){
   this.docForm = this.fb.group({
-    
     startDate:[""],
     startDateObj:[""],
     endDate:[""],
