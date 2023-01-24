@@ -38,7 +38,7 @@ import { DeleteVendorComponent } from './delete/delete.component';
   styleUrls: ['./list-vendor.component.sass']
 })
 export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-  
+
   displayedColumns = [
     //"select",
     //  "commodity",
@@ -51,7 +51,7 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
     "vendorPhoneNumber",
      "actions"
    ];
- 
+
    dataSource: ExampleDataSource | null;
    exampleDatabase: VendorService | null;
    selection = new SelectionModel<Commodity>(true, []);
@@ -70,22 +70,22 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
    ) {
      super();
    }
- 
+
    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
    @ViewChild(MatSort, { static: true }) sort: MatSort;
    @ViewChild("filter", { static: true }) filter: ElementRef;
    @ViewChild(MatMenuTrigger)
    contextMenu: MatMenuTrigger;
    contextMenuPosition = { x: "0px", y: "0px" };
- 
+
    ngOnInit(): void {
      this.loadData();
    }
- 
+
    refresh(){
      this.loadData();
    }
- 
+
    public loadData() {
      this.exampleDatabase = new VendorService(this.httpClient,this.serverUrl,this.httpService);
      this.dataSource = new ExampleDataSource(
@@ -102,32 +102,32 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
        }
      );
    }
- 
- 
+
+
    editCall(row) {
- 
-     this.router.navigate(['/master/vendor/addVendor/'+row.vendorId]);
- 
+
+     this.router.navigate(['/master/vendor/addVendor/' + row.empid]);
+
    }
- 
+
    deleteItem(i: number, row) {
       let tempDirection;
-     if (localStorage.getItem("isRtl") === "true") {
+      if (localStorage.getItem("isRtl") === "true") {
        tempDirection = "rtl";
      } else {
        tempDirection = "ltr";
      }
-     const dialogRef = this.dialog.open(DeleteVendorComponent, {
+      const dialogRef = this.dialog.open(DeleteVendorComponent, {
        height: "270px",
        width: "400px",
        data: row,
        direction: tempDirection,
        disableClose: true
      });
-     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
        if (data.data == true) {
          const obj = {
-           deletingId: row.vendorId
+          deletingid: row.empid
          }
          this.vendorService.deleteVonder(obj).subscribe({
           next: (data) => {
@@ -144,17 +144,17 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
            error: (error) => {
            }
          });
- 
+
        }
      });
- 
+
    }
 
 
 
 
- 
- 
+
+
    private refreshTable() {
      this.paginator._changePageSize(this.paginator.pageSize);
    }
@@ -167,7 +167,7 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
      this.contextMenu.menu.focusFirstItem("mouse");
      this.contextMenu.openMenu();
    }
-   
+
    showNotification(colorName, text, placementFrom, placementAlign) {
      this.snackBar.open(text, "", {
        duration: 2000,
@@ -217,8 +217,8 @@ export class ExampleDataSource extends DataSource<Commodity> {
               commodity.vendorName +
               commodity.vendorCountryName +
               commodity.currency +
-              commodity.vendorPhoneNumber 
-             
+              commodity.vendorPhoneNumber
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -258,8 +258,8 @@ export class ExampleDataSource extends DataSource<Commodity> {
           break;
         case "vendorPhoneNumber":
             [propertyA, propertyB] = [a.vendorPhoneNumber, b.vendorPhoneNumber];
-          break;  
-        
+          break;
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
