@@ -27,13 +27,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { ViewTransferAssetComponent } from './view-transfer-asset/view-transfer-asset.component';
 
 
 @NgModule({
   declarations: [
     AddTransferComponent,
     ListTransferComponent,
-    DeleteTransferComponent
+    DeleteTransferComponent,
+    ViewTransferAssetComponent
   ],
   imports: [
     CommonModule,

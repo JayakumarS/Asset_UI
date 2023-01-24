@@ -70,6 +70,11 @@
                         <button *ngIf="row.receivedStatus=='Pending'" (click)="editCall(row)" class="btn-space" style="text-align:left"
                         mat-raised-button color="primary">Receive</button>
                         <span *ngIf="row.receivedStatus=='Received'">Received by {{row.receivedBy}}</span>
+
+                        <button *ngIf="row.receivedStatus=='Received'" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="viewCall(row)" class="tbl-action-btn">
+                          <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                          </app-feather-icons>
+                        </button>
                       </mat-cell>
       
                     </ng-container>

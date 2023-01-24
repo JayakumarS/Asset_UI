@@ -82,6 +82,10 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
     this.router.navigate(['/asset/assetTransfer/addtransfer/'+row.headerID]);
   }
 
+  viewCall(row){
+    this.router.navigate(['/asset/assetTransfer/viewtransfer/'+row.headerID]);
+  }
+
   receive(row){
     this.httpService.get(this.transferservice.updateStatus+ "?headerID=" + row.headerID).subscribe((res: any) => {
       this.showNotification(
