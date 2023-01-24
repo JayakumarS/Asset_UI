@@ -10,6 +10,7 @@ import { CommodityResultBean } from '../vendor-result-bean';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 @Component({
@@ -24,34 +25,40 @@ export class AddVendorComponent implements OnInit {
 
   docForm: FormGroup;
   hide3 = true;
+  [x: string]: any;
   agree3 = false;
-  commodityMaster : Commodity;
+  commodityMaster: Commodity;
   requestId: number;
-  countryList:[];
-  companyList:[];
+  countryList: [];
+  companyList: [];
   edit:boolean=false;
   currencyList: [];
   selection = new SelectionModel<Commodity>(true, []);
 
-  constructor(private fb: FormBuilder,private router:Router,
-    public route: ActivatedRoute,private snackBar: MatSnackBar,
-    private vendorService: VendorService,private commonService:CommonService,private httpService: HttpServiceService, private notificationService: NotificationService) {
-   
-      this.docForm = this.fb.group({
-      
-      //AssetChek
-      vendorId:[""],
-      vendorName:["",[Validators.required]],
-      vendorShortName:["",[Validators.required]],
-      vendorAddress:["",[Validators.required]],
-      vendorCountry:["",[Validators.required]],
-      vendorEmail:['', [Validators.required,Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-      currency:["",[Validators.required]],
-      vendorContact:["",[Validators.required]],
-      vendorPhoneNumber:["",[Validators.required]],
-      company:["",[Validators.required]]
+  constructor(private fb: FormBuilder, private router: Router,
+              public route: ActivatedRoute, private snackBar: MatSnackBar,
+              private vendorService: VendorService,
+              private commonService: CommonService,
+              private httpService: HttpServiceService,
+              private notificationService: NotificationService,
+              private spinner: NgxSpinnerService,) {
 
-      
+      this.docForm = this.fb.group({
+
+      // AssetChek
+      vendorId: [""],
+      vendorName: ["", [Validators.required]],
+      vendorShortName: ["", [Validators.required]],
+      vendorAddress: ["", [Validators.required]],
+      vendorCountry: ["", [Validators.required]],
+      vendorEmail: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      currency: ["", [Validators.required]],
+      vendorContact: ["", [Validators.required]],
+      remarks: [""],
+      company: ["", [Validators.required]],
+      empid: [""],
+
+
 
     });
     }
@@ -60,18 +67,19 @@ export class AddVendorComponent implements OnInit {
    ngOnInit(): void {
 
     this.docForm = this.fb.group({
-      
-      //AssetChek
-      vendorId:[""],
-      vendorName:["",[Validators.required]],
-      vendorShortName:["",[Validators.required]],
-      vendorAddress:["",[Validators.required]],
-      vendorCountry:["",[Validators.required]],
+
+      // AssetChek
+      vendorId: [""],
+      vendorName: ["", [Validators.required]],
+      vendorShortName: ["", [Validators.required]],
+      vendorAddress: ["", [Validators.required]],
+      vendorCountry: ["", [Validators.required]],
       vendorEmail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-      currency:["",[Validators.required]],
-      vendorContact:["",[Validators.required]],
-      vendorPhoneNumber:["",[Validators.required]],
-      company:["",[Validators.required]],
+      currency: ["", [Validators.required]],
+      vendorContact: ["", [Validators.required]],
+      company: ["", [Validators.required]],
+      empid: [""],
+      remarks: [""],
 
 
 
@@ -92,28 +100,21 @@ export class AddVendorComponent implements OnInit {
         console.log(error.name + " " + error.message);
       }
     );
-    // this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe(
-    //   (data) => {
-    //     this.companyList = data;
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     console.log(error.name + " " + error.message);
-    //   }
-    // );
+
     this.httpService.get<any>(this.commonService.getCompanyStringDropdown).subscribe({
       next: (data) => {
         this.companyList = data;
       },
       error: (error) => {
-  
+
       }
     });
 
     this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
+      if (params.id!=undefined && params.id !=0 ){
        this.requestId = params.id;
        this.edit=true;
-       //For User login Editable mode
+       // For User login Editable mode
        this.fetchDetails(this.requestId) ;
 
       }
@@ -121,12 +122,12 @@ export class AddVendorComponent implements OnInit {
   }
 
   onsubmit(){
-    
-      if(this.docForm.valid){
+
+      if (this.docForm.valid){
     this.commodityMaster = this.docForm.value;
     console.log(this.commodityMaster);
-    this.vendorService.addCommodity(this.commodityMaster,this.router,this.notificationService);
-    
+    this.vendorService.addCommodity(this.commodityMaster, this.router, this.notificationService);
+
     }else{
       this.showNotification(
         "snackbar-danger",
@@ -135,41 +136,32 @@ export class AddVendorComponent implements OnInit {
         "right"
       );
     }
-  
+
   }
+  fetchDetails(empid: any): void {
 
- 
-
-
-  fetchDetails(vendorId: any): void {
-    const obj = {
-      editId: parseInt(vendorId)
-    }
-    this.vendorService.editVonder(obj).subscribe({
-      next: (res) => {
-        this.httpService.get<CommodityResultBean>(this.vendorService.countryListUrl).subscribe(
-          (data) => {
-            this.countryList = data.countryList;
-          },
-        )
+      this.requestId = empid;
+      this.httpService.get(this.vendorService.editcommodity + "?empid=" + empid).subscribe((res: any) => {
+      console.log(empid);
       this.docForm.patchValue({
         'vendorName': res.venderBean.vendorName,
         'vendorCountry': res.venderBean.vendorCountry,
         'currency': parseInt(res.venderBean.currency),
-        'vendorPhoneNumber': res.venderBean.vendorPhoneNumber,
         'vendorShortName' : res.venderBean.vendorShortName,
         'vendorAddress': res.venderBean.vendorAddress,
-        'vendorEmail':res.venderBean.vendorEmail,
-        'vendorId': res.venderBean.vendorId,
-        'vendorContact':res.venderBean.vendorContact,
-        'company':res.venderBean.company,
+        'vendorEmail': res.venderBean.vendorEmail,
+        'vendorContact': res.venderBean.vendorContact,
+        'company': res.venderBean.company,
+        'remarks': res.venderBean.remarks,
+        'empid': res.venderBean.empid,
 
-     });
+      })
     },
-    
-   });
-}
+    (err: HttpErrorResponse) => {
 
+     }
+  );
+}
 keyPressPCB(event: any) {
     const pattern = /[0-9.]/;
     const inputChar = String.fromCharCode(event.charCode);
@@ -178,27 +170,81 @@ keyPressPCB(event: any) {
     }
   }
 
-  update(){
-    this.commodityMaster = this.docForm.value;
-    this.vendorService.updateCommodity(this.commodityMaster,this.router,this.notificationService);
-  }
+  // update(){
+  //   this.commodityMaster = this.docForm.value;
+  //   this.vendorService.updateCommodity(this.commodityMaster, this.router, this.notificationService);
+  // }
 
+  update() {
+    // if (this.docForm.valid){
+      if (this.docForm.value.emailId !=""){
+    this.commodityMaster = this.docForm.value;
+    this.spinner.show();
+    this.vendorService.updateCommodity(this.commodityMaster).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "update Record Successfully",
+              "bottom",
+              "center"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Updated Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      });
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill Full Name",
+        "top",
+        "right"
+      );
+    }
+    // }
+    // else{
+    //   this.showNotification(
+    //     "snackbar-danger",
+    //     "Please Fill The All Required fields",
+    //     "top",
+    //     "right"
+    //   );
+    // }
+
+    }
   onCancel(){
     this.router.navigate(['/master/vendor/listVendor']);
-  
+
   }
-  
+
   reset(){
     this.docForm = this.fb.group({
-      //AssetChek
-      vendorName:[""],
-      vendorShortName:[""],
-      vendorAddress:[""],
-      vendorCountry:[""],
-      vendorEmail:[""],
-      currency:[""],
-      vendorContact:[""],
-      vendorPhoneNumber:[""]
+      // AssetChek
+      vendorName: [""],
+      vendorShortName: [""],
+      vendorAddress: [""],
+      vendorCountry: [""],
+      vendorEmail: [""],
+      currency: [""],
+      vendorContact: [""],
     });
   }
 
@@ -212,42 +258,14 @@ keyPressPCB(event: any) {
   }
 
   validateEmail(event){
-    this.httpService.get<any>(this.vendorService.uniqueValidateUrl+ "?tableName=" +"auditor_master"+"&columnName="+"email"+"&columnValue="+event).subscribe((res: any) => {
-      if(res){
-        this.docForm.controls['vendorEmail'].setErrors({ auditor_master: true });
+    // tslint:disable-next-line:max-line-length
+    this.httpService.get<any>(this.vendorService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.docForm.controls['vendorEmail'].setErrors({ employee: true });
       }else{
         this.docForm.controls['vendorEmail'].setErrors(null);
       }
     });
   }
-
-  // validateEmail(event){
-  //   this.httpService.get<any>(this.authService.validateEmailUrl+ "?tableName=" +"user_details"+"&columnName="+"email_id"+"&columnValue="+event).subscribe((res: any) => {
-  //     if(res){
-  //       this.authForm.controls['emailId'].setErrors({ emailPwd: true });
-  //     }else{
-  //       this.authForm.controls['emailId'].setErrors(null);
-  //     }
-  //   });
-  // }
-
-   //validate common mail 
-
-//    commonMailValidator(control) {
-//   const commonMailDomains = ['/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/'];
-//    const email = control;
-//    const domain = email.split('@')[1];
-//    if (commonMailDomains.includes(domain)) {
-//      this.docForm.patchValue({
-//        'emailId':""
-//      })
-//      this.docForm.controls['emailId'].setErrors({ checkMail: true });
-//    }else{
-//      this.docForm.controls['emailId'].setErrors(null);
-//    }
-  
-//  }
-
-
 
 }

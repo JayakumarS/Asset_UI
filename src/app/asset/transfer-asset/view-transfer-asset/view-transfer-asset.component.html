@@ -1,0 +1,190 @@
+<section class="content">
+    <div class="content-block">
+        <form class="m-4" >
+        <div class="block-header">
+            <app-breadcrumb [title]="'Transfer Asset'" [items]="['Asset']" [active_item]="'Transfer Asset'">
+            </app-breadcrumb>
+        </div>
+        <div class="col-lg-10 col-md-12">
+            <div class="card">
+                        
+                            <mat-tab-group (selectedTabChange)="accurredDepreciationPopUp($event);">
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        Transfer Asset Header
+                                    </ng-template>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="project_widget">
+                                            <div class="header">
+                                                <h2><strong>Transfer Info</strong></h2>
+                                            </div>
+                                            <div class="body">
+
+                                                <div class="row">
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Transfer Date</strong>
+                                                        <br>
+                                                    
+                                                        <p class="text-muted">{{transferDetails2?.transferDate}}</p>
+                                                    </div>
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Requisition No</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{transferDetails?.requisitionNumber}}</p>
+                                                    </div>
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Requisition Date</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{transferDetails?.requisitionDate}}</p>
+                                                    </div>
+        
+                                                </div>
+                                                <br><br>
+        
+                                                       <div class="row">
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Source Location</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{transferDetails?.sourceLocation}}</p>
+                                                    </div>
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Destination Location</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{transferDetails?.destinationLocation}}</p>
+                                                    </div>
+                                                    <div class="col-md-4 col-6 b-r">
+                                                        <strong>Requested By</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{transferDetails?.requestedBy}}</p>
+                                                    </div>
+                                                    
+                                                    </div>
+                                                    <br><br>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-6 b-r">
+                                                            <strong>Company</strong>
+                                                            <br>
+                                                            <p class="text-muted">{{transferDetails?.companyName}}</p>
+                                                        </div>
+                                                        <div class="col-md-4 col-6 b-r">
+                                                            <strong>Status</strong>
+                                                            <br>
+                                                            <p class="text-muted">Approved</p>
+                                                        </div>
+                                                        <div class="col-md-4 col-6 b-r">
+                                                            <strong>Transportation Type</strong>
+                                                            <br>
+                                                            <p class="text-muted">{{transferDetails2?.transportationType}}</p>
+                                                        </div>
+                                                        
+                                                        </div>
+                                                        <br><br>
+
+                                                        <div class="row">
+                                                            
+                                                            <div class="col-md-4 col-6 b-r">
+                                                                <strong>Delivery Method</strong>
+                                                                <br>
+                                                                <p class="text-muted">{{transferDetails2?.deliveryMethod}}</p>
+                                                            </div>
+                                                        </div>
+                                                            <br><br>
+
+                                                            <div class="row">
+                                                                <div class="col-md-4 col-6 b-r">
+                                                                    <strong>Item Name</strong>
+                                                                    <br>
+                                                                    <p class="text-muted">{{transferDetails?.itemName}}</p>
+                                                                </div>
+                                                                <div class="col-md-4 col-6 b-r">
+                                                                    <strong>Item Category</strong>
+                                                                    <br>
+                                                                    <p class="text-muted">{{transferDetails?.itemCategory}}</p>
+                                                                </div>
+                                                                <div class="col-md-4 col-6 b-r">
+                                                                    <strong>EDD Date</strong>
+                                                                    <br>
+                                                                    <p class="text-muted">{{transferDetails?.eddDate}}</p>
+                                                                </div>
+                                                                
+                                                                </div>
+                                                                <br><br>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-4 col-6 b-r">
+                                                                        <strong>Requested Quantity</strong>
+                                                                        <br>
+                                                                        <p class="text-muted">{{transferDetails?.requestedQuantity}}</p>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-6 b-r">
+                                                                        <strong>Transfer Quantity</strong>
+                                                                        <br>
+                                                                        <p class="text-muted">{{transferDetails2?.transferQuantity}}</p>
+                                                                    </div>
+                                                                </div>
+                                                                    <br><br>
+
+
+                                                    <div class="container" style="height: 200px ;overflow-y: scroll">
+                                            
+                                                          <table id="excel-table" class="table table-striped">
+                                                            <thead>
+                                                                <tr style="position: sticky;top: 0;">
+                                                                  <th style="background-color:#c1ddf5;">Asset Code</th>
+                                                                  <th style="background-color:#c1ddf5;">Asset Name</th>
+                                                                  <th style="background-color:#c1ddf5;">Serial No</th>
+                                                                  <th style="background-color:#c1ddf5;">Asset Location</th>
+                                                                  <th style="background-color:#c1ddf5;">Asset Category</th>
+                                                                  <th style="background-color:#c1ddf5;">Asset User</th>
+                                                
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                  <tr *ngFor="let val of detailValue;">
+
+                                                                    <td >{{val.assetTrackNo}}</td>
+                                                                    <td >{{val.assetName}}</td>
+                                                                    <td >{{val.serialNo}}</td>
+                                                                    <td >{{val.assetLocation}}</td>
+                                                                    <td >{{val.responsible}}</td>
+                                                                    <td >{{val.assetUser}}</td>
+                                                                  </tr>        
+                                                            </tbody>
+                                                          </table>
+                                                      </div>
+
+                                                      <button mat-raised-button color="warn" type="button" (click)="exitCall()"  style="margin-left: 436px;">Back</button>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    </mat-tab>
+                                                    </mat-tab-group>
+                                                    </div>
+                                                    </div>
+                                                    </form>
+                                                    </div>
+                                                    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                              
+                                                   
+
+
+
+
+
+
+

@@ -1,19 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-list-vendor',
-//   templateUrl: './list-vendor.component.html',
-//   styleUrls: ['./list-vendor.component.sass']
-// })
-// export class ListVendorComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
@@ -29,40 +13,38 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { VendorService } from '../vendor.service';
-import { Commodity } from '../vendor-model';
-import { DeleteVendorComponent } from './delete/delete.component';
+import { MainService } from '../../dashboard/main.service'; 
+import { main } from '../../dashboard/main-model'; 
+import { DeleteVendorComponent } from 'src/app/master/vendor/list-vendor/delete/delete.component';
+import * as moment from 'moment';
+
 @Component({
-  selector: 'app-list-vendor',
-  templateUrl: './list-vendor.component.html',
-  styleUrls: ['./list-vendor.component.sass']
+  selector: 'app-activity-pop-up',
+  templateUrl: './activity-pop-up.component.html',
+  styleUrls: ['./activity-pop-up.component.sass']
 })
-export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-
+export class ActivityPopUpComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+  
   displayedColumns = [
-    //"select",
-    //  "commodity",
-    //  "imdgClass",
-    //  "unNo",
-    //  "flashPoint",
-    "vendorName",
-    "vendorCountryName",
-    "currency",
-    "vendorPhoneNumber",
-     "actions"
+    "activityTypeText",
+    "locationText",
+    "enddate",
+    "startdate",
+    //  "actions"
    ];
-
+ 
    dataSource: ExampleDataSource | null;
-   exampleDatabase: VendorService | null;
-   selection = new SelectionModel<Commodity>(true, []);
+   exampleDatabase: MainService | null;
+   selection = new SelectionModel<main>(true, []);
    index: number;
    id: number;
-   customerMaster: Commodity | null;
+   customerMaster: main | null;
   spinner: any;
+  todayDate: string;
    constructor(
      public httpClient: HttpClient,
      public dialog: MatDialog,
-     public vendorService: VendorService,
+     public vendorService: MainService,
      private snackBar: MatSnackBar,
      private router: Router,
      private serverUrl:serverLocations,
@@ -70,28 +52,37 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
    ) {
      super();
    }
-
+ 
    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
    @ViewChild(MatSort, { static: true }) sort: MatSort;
    @ViewChild("filter", { static: true }) filter: ElementRef;
    @ViewChild(MatMenuTrigger)
    contextMenu: MatMenuTrigger;
    contextMenuPosition = { x: "0px", y: "0px" };
-
+ 
    ngOnInit(): void {
-     this.loadData();
+     this.onSubmit();
+
+     
    }
 
+   onSubmit(){
+    this.todayDate=moment().format('YYYY-MM-DD');
+    console.log(this.todayDate);
+    this.loadData();
+}
+ 
    refresh(){
      this.loadData();
    }
-
+ 
    public loadData() {
-     this.exampleDatabase = new VendorService(this.httpClient,this.serverUrl,this.httpService);
+     this.exampleDatabase = new MainService(this.httpClient,this.serverUrl,this.httpService);
      this.dataSource = new ExampleDataSource(
        this.exampleDatabase,
        this.paginator,
-       this.sort
+       this.sort,
+       this.todayDate
      );
      this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
        () => {
@@ -102,64 +93,24 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
        }
      );
    }
-
-
+ 
+ 
    editCall(row) {
-
-     this.router.navigate(['/master/vendor/addVendor/' + row.empid]);
-
-   }
-
-   deleteItem(i: number, row) {
-      let tempDirection;
-      if (localStorage.getItem("isRtl") === "true") {
-       tempDirection = "rtl";
-     } else {
-       tempDirection = "ltr";
-     }
-      const dialogRef = this.dialog.open(DeleteVendorComponent, {
-       height: "270px",
-       width: "400px",
-       data: row,
-       direction: tempDirection,
-       disableClose: true
-     });
-      this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-       if (data.data == true) {
-         const obj = {
-          deletingid: row.empid
-         }
-         this.vendorService.deleteVonder(obj).subscribe({
-          next: (data) => {
-            if (data.success) {
-              this.loadData();
-              this.showNotification(
-                "snackbar-success",
-                "Delete Record Successfully...!!!",
-                "bottom",
-                "center"
-               );
-             }
-           },
-           error: (error) => {
-           }
-         });
-
-       }
-     });
-
+ 
+     this.router.navigate(['/master/vendor/addVendor/'+row.vendorId]);
+ 
    }
 
 
 
 
-
-
+ 
+ 
    private refreshTable() {
      this.paginator._changePageSize(this.paginator.pageSize);
    }
  // context menu
-   onContextMenu(event: MouseEvent, item: Commodity) {
+   onContextMenu(event: MouseEvent, item: main) {
      event.preventDefault();
      this.contextMenuPosition.x = event.clientX + "px";
      this.contextMenuPosition.y = event.clientY + "px";
@@ -167,7 +118,7 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
      this.contextMenu.menu.focusFirstItem("mouse");
      this.contextMenu.openMenu();
    }
-
+   
    showNotification(colorName, text, placementFrom, placementAlign) {
      this.snackBar.open(text, "", {
        duration: 2000,
@@ -178,7 +129,7 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
    }
 }
 
-export class ExampleDataSource extends DataSource<Commodity> {
+export class ExampleDataSource extends DataSource<main> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -186,19 +137,20 @@ export class ExampleDataSource extends DataSource<Commodity> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: Commodity[] = [];
-  renderedData: Commodity[] = [];
+  filteredData: main[] = [];
+  renderedData: main[] = [];
   constructor(
-    public exampleDatabase: VendorService,
+    public exampleDatabase: MainService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    public todayDate
   ) {
     super();
     // Reset to the first page when the user changes the filter.
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Commodity[]> {
+  connect(): Observable<main[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -206,19 +158,19 @@ export class ExampleDataSource extends DataSource<Commodity> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList();
+    this.exampleDatabase.getAllList(this.todayDate);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((commodity: Commodity) => {
+          .filter((commodity: main) => {
             const searchStr = (
-              commodity.vendorName +
-              commodity.vendorCountryName +
-              commodity.currency +
-              commodity.vendorPhoneNumber
-
+              commodity.activityTypeText +
+              commodity.locationText +
+              commodity.startdate +
+              commodity.enddate 
+             
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -236,7 +188,7 @@ export class ExampleDataSource extends DataSource<Commodity> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: Commodity[]): Commodity[] {
+  sortData(data: main[]): main[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -247,19 +199,19 @@ export class ExampleDataSource extends DataSource<Commodity> {
         // case "id":
         //   [propertyA, propertyB] = [a.id, b.id];
         //   break;
-        case "vendorName":
-          [propertyA, propertyB] = [a.vendorName, b.vendorName];
+        case "activityTypeText":
+          [propertyA, propertyB] = [a.activityTypeText, b.activityTypeText];
           break;
         // case "vendorCountryName":
         //   [propertyA, propertyB] = [a.vendorCountryName, b.vendorCountryName];
         //   break;
-        case "currency":
-          [propertyA, propertyB] = [a.currency, b.currency];
+        case "locationText":
+          [propertyA, propertyB] = [a.locationText, b.locationText];
           break;
-        case "vendorPhoneNumber":
-            [propertyA, propertyB] = [a.vendorPhoneNumber, b.vendorPhoneNumber];
-          break;
-
+        case "enddate":
+            [propertyA, propertyB] = [a.enddate, b.enddate];
+          break;  
+        
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

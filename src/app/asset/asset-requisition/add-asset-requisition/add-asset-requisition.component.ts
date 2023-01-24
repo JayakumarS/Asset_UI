@@ -98,6 +98,7 @@ export class AddAssetRequisitionComponent implements OnInit {
                     user:[""],
                     userId:[""],
                     ledgerId:[""],
+                    assetCategory:[""]
           }) 
         ])
           
@@ -258,6 +259,7 @@ fetchAssetDtls(itemId){
                     user:[element.user],
                     userId:[element.userId],
                     ledgerId:[element.ledgerId],
+                    assetCategory:[element.assetCategory],
                   });
                 DtlArray.insert(arraylen,newUsergroup);
               });
@@ -301,6 +303,7 @@ getAssetItemList(id){
         (data) => {
           console.log(data);
           this.assetItemList = data.assetItemList;
+          this.fetchAssetDtls(0);
           
         },
         (error: HttpErrorResponse) => {
@@ -313,6 +316,7 @@ getAssetItemList(id){
       (data) => {
         console.log(data);
         this.assetItemList = data.assetItemList;
+        this.fetchAssetDtls(0);
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -375,12 +379,33 @@ validationLocations(id){
   }
 
   getDateString(event,inputFlag,index){
+
+    let currDate=new Date();
     let cdate = this.cmnService.getDate(event.target.value);
+
     if(inputFlag=='requisitionDate'){
       this.docForm.patchValue({requisitionDate:cdate});
     }else if(inputFlag=='eddDate'){
-      this.docForm.patchValue({eddDate:cdate});
+      if(event.target.value<currDate){
+        let s = this.cmnService.getDate(currDate);
+        this.docForm.patchValue({
+          eddDate:s,
+          eddDateObj:s
+        });
+        this.showNotification(
+          "snackbar-danger",
+          "Please select future date!",
+          "top",
+          "right"
+        );
+      }
+      else {
+        this.docForm.patchValue({eddDate:cdate});
+      }
     }
+   
+
+  
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -447,7 +472,8 @@ validationLocations(id){
         asstlocation:[""],
         resAsset:[""],
         user:[""],
-        ledgerId:[""]
+        ledgerId:[""],
+        assetCategory:[""]
       }) 
     ])
       

@@ -572,42 +572,4 @@ validateCustomer(event){
   });
 }
 
-
-// getAttributeDetails(cus_id: any) {
-//   if (cus_id != undefined && cus_id != null) {
-//     this.spinner.show();
-//     // this.specificationList=[];
-//     const obj = {
-//       editId: cus_id
-//     }
-//     this.customerService.editCustomer(obj).subscribe({
-
-//     // this.httpService.get<ItemMasterResultBean>(this.itemMasterService.attributeDetails + "?itemCategoryId=" + itemCategoryId).subscribe({
-//       next: (res: any) => {
-//         this.spinner.hide();
-//         if (res.success) {
-//           if (res.accountDetails != null && res.accountDetails.length >= 1) {
-//             let accountDetailsListArray = this.docForm.controls.accountDetails as FormArray;
-//             accountDetailsListArray.clear();
-//             res.accountDetails.forEach(element => {
-//               let accountDetailsListArray = this.docForm.controls.accountDetails as FormArray;
-//               let arraylen = accountDetailsListArray.length;
-//               let newUsergroup: FormGroup = this.fb.group({
-//                 name: [element.name],
-//             position: [element.position],
-//             conEmail: [element.conEmail],
-//             conPhone: [element.conPhone],
-//             mobile: [element.defmobileaultvalue],
-//               })
-//               accountDetailsListArray.insert(arraylen, newUsergroup);
-//             });
-//           }
-//         }
-//       },
-//       error: (error) => {
-//         this.spinner.hide();
-//       }
-//     });
-//   }
-// }
 }
