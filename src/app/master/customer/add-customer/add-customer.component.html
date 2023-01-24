@@ -256,7 +256,7 @@
       <div class=" col-md-2"></div>
       <div class=" col-md-2">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="shipperState" (selectionChange)="getCityDropdown($event.value)"maxlength="30"placeholder="State" required>
+          <mat-select class="inputTxt" formControlName="shipperState" (selectionChange)="getCityShipperDropdown($event.value)"maxlength="30"placeholder="State" required>
             <mat-option *ngFor="let title of stateDdList" [value]="title.id">
                 {{title.text}}
             </mat-option>
@@ -266,7 +266,7 @@
       <div class=" col-md-1">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <mat-select class="inputTxt" formControlName="shipperCity"maxlength="30"placeholder="City" required>
-            <mat-option *ngFor="let title of cityDdList" [value]="title.id">
+            <mat-option *ngFor="let title of cityShipperList" [value]="title.id">
                 {{title.text}}
             </mat-option>
         </mat-select>
@@ -283,7 +283,7 @@
        <div class=" col-md-2">
 
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <mat-select class="inputTxt" formControlName="billingState" (selectionChange)="getCityDropdown($event.value)"maxlength="30"placeholder="State" required>
+            <mat-select class="inputTxt" formControlName="billingState" (selectionChange)="getCityBillingDropdown($event.value)"maxlength="30"placeholder="State" required>
               <mat-option *ngFor="let title of stateDdList" [value]="title.id">
                   {{title.text}}
               </mat-option>
@@ -293,7 +293,7 @@
 
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <mat-select class="inputTxt" formControlName="billingCity"maxlength="30"placeholder="City" required>
-                <mat-option *ngFor="let title of cityDdList" [value]="title.id">
+                <mat-option *ngFor="let title of cityBillingList" [value]="title.id">
                     {{title.text}}
                 </mat-option>
             </mat-select>
@@ -341,7 +341,7 @@
 
        <div class=" col-md-2">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="deliveryState" (selectionChange)="getCityDropdown($event.value)"maxlength="30"placeholder="State" required>
+          <mat-select class="inputTxt" formControlName="deliveryState" (selectionChange)="getCityDeliveryDropdown($event.value)"maxlength="30"placeholder="State" required>
             <mat-option *ngFor="let title of stateDdList" [value]="title.id">
                 {{title.text}}
             </mat-option>
@@ -350,7 +350,7 @@
         <div class=" col-md-1">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <mat-select class="inputTxt" formControlName="deliveryCity"maxlength="30"placeholder="City" required>
-              <mat-option *ngFor="let title of cityDdList" [value]="title.id">
+              <mat-option *ngFor="let title of cityDeliveryList" [value]="title.id">
                   {{title.text}}
               </mat-option>
           </mat-select>
