@@ -19,7 +19,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-private currentUserSubject: BehaviorSubject<User>;
+ currentUserSubject: BehaviorSubject<User>;
 public currentUser: Observable<User>;
   constructor(private http: HttpClient,public serverURL: serverLocations,public httpService: HttpServiceService,) {
       this.currentUserSubject = new BehaviorSubject<User>(

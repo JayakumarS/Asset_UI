@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
-
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
@@ -40,6 +40,7 @@ import {
   HttpClient,
 } from "@angular/common/http";
 import { MatDialogModule } from "@angular/material/dialog";
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -84,7 +85,8 @@ export function createTranslateLoader(http: HttpClient): any {
         SharedModule,
         MatToolbarModule,
         MatMenuModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
