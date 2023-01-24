@@ -60,7 +60,7 @@
                   </ng-container>
                   <ng-container matColumnDef="vendorCountryName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Auditor Country</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.vendorCountryName}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.vendorCountry}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="currency">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Currency</mat-header-cell>
@@ -69,7 +69,7 @@
                   </ng-container>
                   <ng-container matColumnDef="vendorPhoneNumber">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.vendorPhoneNumber}}
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.vendorContact}}
                     </mat-cell>
                   </ng-container>
 
