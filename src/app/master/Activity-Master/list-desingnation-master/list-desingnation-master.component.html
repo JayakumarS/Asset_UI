@@ -3,7 +3,7 @@
       <div class="block-header">
         <!-- breadcrumb -->
        <app-breadcrumb [title]="'Activity Master'" [items]="['Master']" [active_item]="'Activity List'">
-        </app-breadcrumb>  
+        </app-breadcrumb>
       </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -14,9 +14,9 @@
                   <div class="row">
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
-                        <li class="dropdown">
+                        <li class="dropdown m-l-20 ">
                           <h2>Activity</h2>
-                        </li>               
+                        </li>
                         <li class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
                           <input placeholder="Search" type="text" #filter class="browser-default search-field"
@@ -63,45 +63,45 @@
                               (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                           </div>
                         </li>
-                        
+
                       </ul>
                     </div>
                   </div>
-                </div> 
+                </div>
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
-     
+
                   <!--- Note that these columns can be defined in any order.
                         The actual rendered columns are set as a property on the row definition" -->
-                        
+
 
                   <ng-container matColumnDef="activtyid">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Activty Id</mat-header-cell>
                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">{{row.activtyid}}</mat-cell>
                   </ng-container>
-              
+
                   <ng-container matColumnDef="activtyname">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Activty Name</mat-header-cell>
                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.activtyname}}</mat-cell>
                   </ng-container>
-                   
-                      
+
+
                   <ng-container matColumnDef="Description">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)" >{{row.Description}}</mat-cell>
                   </ng-container>
-              
+
                   <ng-container matColumnDef="active">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.isactiveForList}}</mat-cell>
                   </ng-container>
-              
-                 
+
+
                   <!-- actions -->
                   <ng-container matColumnDef="actions">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()" 
+                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
                       (click)="editCall(row)" class="tbl-action-btn">
                         <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                       </button>
@@ -111,7 +111,7 @@
                       </button>
                     </mat-cell>
                   </ng-container>
-                
+
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;"
                   [style.cursor]="'pointer'" matRipple>
