@@ -96,7 +96,8 @@ export class AddAssetRequisitionComponent implements OnInit {
                     resAssetId:[""],
                     serialNo:[""],
                     user:[""],
-                    userId:[""]
+                    userId:[""],
+                    ledgerId:[""],
           }) 
         ])
           
@@ -106,6 +107,7 @@ export class AddAssetRequisitionComponent implements OnInit {
   ngOnInit(): void {
 
       this.userId = this.token.getUserId();
+      this.userName=this.token.getUsername();
 
      this.docForm.patchValue({
        'requestedBy':this.userId
@@ -254,7 +256,8 @@ fetchAssetDtls(itemId){
                     resAssetId:[element.resAssetId],
                     serialNo:[element.serialNo],
                     user:[element.user],
-                    userId:[element.userId]
+                    userId:[element.userId],
+                    ledgerId:[element.ledgerId],
                   });
                 DtlArray.insert(arraylen,newUsergroup);
               });
@@ -443,7 +446,8 @@ validationLocations(id){
         serialNo:[""],
         asstlocation:[""],
         resAsset:[""],
-        user:[""]
+        user:[""],
+        ledgerId:[""]
       }) 
     ])
       
