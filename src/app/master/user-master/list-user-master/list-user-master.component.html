@@ -10,11 +10,11 @@
           <div class="card">
             <div class="body">
               <div class="table-responsive">
-                <div class="materialTableHeader"style="padding-top: 1%;padding-bottom: 4%;">
+                <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
                   <div class="row">
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
-                        <li class="dropdown">
+                        <li class="dropdown m-l-20 ">
                           <h2>User Master</h2>
                         </li>
                         <li class="dropdown m-l-20">
@@ -30,12 +30,7 @@
                                 class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                           </div>
                         </li>
-                        <!-- <li>
-                          <div class="m-l-10" matTooltip="Reset">
-                            <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
-                              <i class='fas fa-undo-alt' style="font-size: 15px;color: bisque;"></i> Reset</button>
-                          </div>
-                        </li> -->
+
 
                       </ul>
                     </div>
@@ -47,21 +42,7 @@
                               (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                           </div>
                         </li>
-                        <!-- <li>
-                          <div class="export-button m-l-10" matTooltip="CSV">
-                            <img src="assets/images/icons/csv.png" alt="" (click)="exporter.exportTable('csv')" />
-                          </div>
-                        </li> -->
-                        <!-- <li>
-                          <div class="export-button m-l-10" matTooltip="JSON">
-                            <img src="assets/images/icons/json.png" alt="" (click)="exporter.exportTable('json')" />
-                          </div>
-                        </li> -->
-                        <!-- <li>
-                          <div class="export-button m-l-10" matTooltip="TXT">
-                            <img src="assets/images/icons/txt.png" alt="" (click)="exporter.exportTable('txt')" />
-                          </div>
-                        </li> -->
+
                       </ul>
                     </div>
                   </div>
@@ -153,8 +134,8 @@
                 No results
               </div>
               <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
-                [pageSizeOptions]="[5, 10, 25, 100]">
-              </mat-paginator>
+              [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
             </div>
             </div>
         </div>

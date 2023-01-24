@@ -44,6 +44,7 @@ const httpOptions = {
     public AssignedListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getAssignedListCount`;
     public openListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getopenListCount`;
     public holdListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getholdListCount`;
+    public fetchlocationlist = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/locationList`;
 
     
     
@@ -82,20 +83,36 @@ const httpOptions = {
     }
 
 
-    getstatusList(ticketStatus: any): void {
-      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getStatusList + "?ticketStatus=" + ticketStatus).subscribe(
-        (data) => {
-        this.isTblLoading = false;
-        this.dataChange.next(data.getstatusticketlist);
-      }),
-      (error: HttpErrorResponse) => {
-        this.isTblLoading = false;
-        console.log(error.name + " " + error.message);
-      }
-      }
+    // fetchlocationdetaillist(assetid: any): void {
+    //   this.subs.sink = this.httpService.get<ItSupportresultbean>(this.fetchlocationlist + "?assetid=" + assetid).subscribe(
+    //     (data) => {
+    //     this.isTblLoading = false;
+    //     this.dataChange.next(data.getlocationList);
+    //   }),
+    //   (error: HttpErrorResponse) => {
+    //     this.isTblLoading = false;
+    //     console.log(error.name + " " + error.message);
+    //   }
+    //   }
+
+
+      getstatusList(ticketStatus: any): void {
+        this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getStatusList + "?ticketStatus=" + ticketStatus).subscribe(
+          (data) => {
+          this.isTblLoading = false;
+          this.dataChange.next(data.getstatusticketlist);
+        }),
+        (error: HttpErrorResponse) => {
+          this.isTblLoading = false;
+          console.log(error.name + " " + error.message);
+        }
+        }
       
     
     
+    
+
+  
     ITsupportDelete(support_id: any): void {
       this.httpService.get(this.deleteItSupport + "?support_id=" + support_id).subscribe(data => {
         console.log(support_id);

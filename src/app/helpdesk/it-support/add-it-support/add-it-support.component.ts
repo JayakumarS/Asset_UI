@@ -17,6 +17,7 @@ export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
   },
+  
   display: {
     dateInput: 'DD/MM/YYYY',
     monthYearLabel: 'MMMM YYYY',
@@ -24,6 +25,8 @@ export const MY_DATE_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY'
   },
 };
+
+
 
 @Component({
   selector: 'app-add-it-support',
@@ -51,7 +54,7 @@ export class AddItSupportComponent implements OnInit {
   assetnamelist:[""]
   assetlocationlist:[""]
   id: any;
- 
+  public modeselect = 'OPENED';
   constructor(private cmnService:CommonService,private fb: FormBuilder,private httpService: HttpServiceService,
     private  itsupportservice: Itsupportservice, private commonService: CommonService,
     public router:Router,private snackBar: MatSnackBar,
@@ -65,10 +68,10 @@ export class AddItSupportComponent implements OnInit {
       uploadImg:[""],
       asset:[""],
       assetlocation:[""],
-      reportedby:[""],
+      reportedby:this.loginedUser,
       tickettype:[""],
       ticketgroup:[""],
-      assignee:this.loginedUser,
+      assignee:["support@assetchek.com"],
       priority:[""],
       cc:[""],
       description:[""],
@@ -93,18 +96,21 @@ export class AddItSupportComponent implements OnInit {
       reportedby:this.loginedUser,
       tickettype:[""],
       ticketgroup:[""],
-      assignee:this.loginedUser,
+      assignee:["support@assetchek.com"],
       priority:[""],
       cc:[""],
       description:[""],
       report:[""],
       status:[""],
-      support_id:[""]
+      support_id:[""],
+      assetid:[""]
      
 
      
    
     });
+
+    
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -113,6 +119,8 @@ export class AddItSupportComponent implements OnInit {
    
       }
      });
+
+  
    // assetname dropdown
    this.httpService.get<any>(this.commonService.getassetname).subscribe({
     next: (data) => {
@@ -166,6 +174,108 @@ export class AddItSupportComponent implements OnInit {
       this.router.navigate(['/helpdesk/itsupport/listitsupport']);
   }
 }
+
+fetchlocationDetails(assetid: any) {
+
+  this.httpService.get(this.itsupportservice.fetchlocationlist + "?assetId=" + assetid).subscribe((res: any) => {
+    console.log(assetid);
+
+    this.assetlocationlist = res.getlocationList;
+    
+  },
+    (err: HttpErrorResponse) => {
+      // error code here
+    }
+  );
+
+
+}
+onSelectImage(event) {
+  var imgfile = event.target.files[0];
+  if (!this.acceptImageTypes.includes(imgfile.type)) {
+    this.showNotification(
+      "snackbar-danger",
+      "Invalid Image type",
+      "bottom",
+      "center"
+    );
+    return;
+  }
+  if (imgfile.size > 2000000) {
+    this.showNotification(
+      "snackbar-danger",
+      "Please upload valid image with less than 2mb",
+      "bottom",
+      "center"
+    );
+    return;
+  }
+
+  var fileExtension = imgfile.name;
+  var frmData: FormData = new FormData();
+  frmData.append("file", imgfile);
+  frmData.append("fileName", fileExtension);
+  frmData.append("folderName", "AssetProfileImg");
+
+  this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
+    next: (data) => {
+      if (data.success) {
+        if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+          this.docForm.patchValue({
+            'uploadImg': data.filePath
+          })
+          this.imgPathUrl = data.filePath;
+        }
+      } else {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload Image",
+          "bottom",
+          "center"
+        );
+      }
+    },
+    error: (error) => {
+      this.showNotification(
+        "snackbar-danger",
+        "Failed to upload Image",
+        "bottom",
+        "center"
+      );
+    }
+  });
+}
+
+viewDocuments(filePath: any, fileName: any) {
+  this.spinner.show();
+  this.commonService.viewDocument(filePath).pipe().subscribe({
+    next: (result: any) => {
+      this.spinner.hide();
+      var blob = result;
+      var fileURL = URL.createObjectURL(blob);
+      if (fileName.split('.').pop().toLowerCase() === 'pdf') {
+        window.open(fileURL);
+      } else {
+        var a = document.createElement("a");
+        a.href = fileURL;
+        a.target = '_blank';
+        a.download = fileName;
+        a.click();
+      }
+    },
+    error: (error) => {
+      this.spinner.hide();
+      this.showNotification(
+        "snackbar-danger",
+        "Failed to View File",
+        "bottom",
+        "center"
+      );
+    }
+  });
+}
+
+
 refresh(){
 
     this.loadData();
@@ -190,6 +300,9 @@ reset(){
     report:[""],
     status:[""],
     support_id:[""]
+
+
+
   
 });
 }

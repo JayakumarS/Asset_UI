@@ -24,9 +24,9 @@ import { DeleteDepartmentComponent } from './delete-department/delete-department
 })
 export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
- 
+
   displayedColumns = [
-   
+
     "deptCode",
     "departmentName",
     "departmentHead",
@@ -108,7 +108,7 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
 
       if (data.data == true) {
 
@@ -126,14 +126,14 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
           }
         );
 
-      
+
       } else{
         this.loadData();
       }
 
 
-        
-      
+
+
       // else{
       //   this.showNotification(
       //     "snackbar-danger",
@@ -206,7 +206,7 @@ export class ExampleDataSource extends DataSource<DepartmentMaster> {
              // departmentMaster.departmentName +
               departmentMaster.departmentHead +
               departmentMaster.remarks
-             
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
