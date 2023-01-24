@@ -74,7 +74,7 @@ export class AddCompanyComponent implements OnInit {
     );
 
        // Contact Person dropdown
-       this.httpService.get<any>(this.commonService.getAdminDropdown).subscribe({
+       this.httpService.get<any>(this.commonService.getpersoninchargeDropdown).subscribe({
         next: (data) => {
           this.userDdList = data;
         },
