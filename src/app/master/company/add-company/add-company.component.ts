@@ -46,7 +46,7 @@ export class AddCompanyComponent implements OnInit {
         companyName:["",[Validators.required]],
         shortName:[""],
         country:["",[Validators.required]],
-        faxNo:["",[Validators.required]],
+        faxNo:[""],
         address:["",[Validators.required]],
         emailId:["",[Validators.required]],
         telephoneNo:["",[Validators.required]],
