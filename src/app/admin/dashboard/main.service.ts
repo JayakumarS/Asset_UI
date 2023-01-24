@@ -42,6 +42,7 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
   public getAssetSurveyURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getAssetSurvey`;
   public getClientSurveyURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getClientSurvey`;
   public getItSupportTicketURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getItSupportTicket`;
+  public getActivityPopUpUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getActivityPopUpDetails`;
 
   get data(): main[] {
     return this.dataChange.value;
@@ -53,11 +54,11 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
 
 
     /** CRUD METHODS */
-    getAllList(): void {
-      this.subs.sink = this.httpService.get<MainResultBean>(this.getAllAssets).subscribe(
+    getAllList(date:any): void {
+      this.subs.sink = this.httpService.get<MainResultBean>(this.getActivityPopUpUrl+ "?todayDate=" +date).subscribe(
         (data) => {
           this.isTblLoading = false;
-          this.dataChange.next(data.assetList);
+          this.dataChange.next(data.scheduleActivityDetails);
         },
         (error: HttpErrorResponse) => {
           this.isTblLoading = false;

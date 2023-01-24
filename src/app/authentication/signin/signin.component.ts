@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "src/app/auth/auth.service";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { AuthLoginInfo } from 'src/app/auth/login-info';
-import { Role } from "src/app/core/models/role";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { User } from "src/app/core/models/user";
 import { BehaviorSubject,Observable } from 'rxjs';
@@ -37,7 +36,7 @@ export class SigninComponent
     private router: Router,
     private authService: AuthService,
     private app:AppService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
   ) {
     super();
   }
