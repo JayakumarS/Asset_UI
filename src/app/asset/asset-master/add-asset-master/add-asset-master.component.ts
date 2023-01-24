@@ -76,6 +76,7 @@ export class AddAssetMasterComponent
   imgPathUrl: string;
   private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
+  assetUserList: any;
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -135,6 +136,7 @@ export class AddAssetMasterComponent
       allottedUpto: [""],
       transferredTo: [""],
       remarks: [""],
+      assetUser: [""],
       invoiceDateobj: [""],
       captitalizationDateobj: [""],
       allottedUptoobj: [""],
@@ -263,7 +265,16 @@ export class AddAssetMasterComponent
     }
     );
 
-
+  //Assetuser dropdown
+  this.httpService.get<any>(this.commonService.getEmployeeDropdown).subscribe(
+    (data) => {
+      console.log(data);
+      this.assetUserList = data;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
 
   }
 
@@ -441,6 +452,7 @@ export class AddAssetMasterComponent
           'poNumber': res.addAssetBean.poNumber,
           'purchasePrice': res.addAssetBean.purchasePrice,
           'remarks': res.addAssetBean.remarks,
+          'assetUser':res.addAssetBean.assetUser,
           'scrapValue': res.addAssetBean.scrapValue,
           'selfOrPartner': res.addAssetBean.selfOrPartner,
           'serialNo': res.addAssetBean.serialNo,
@@ -941,6 +953,7 @@ export class AddAssetMasterComponent
       allottedUpto: [""],
       transferredTo: [""],
       remarks: [""],
+      assetUser: [""],
       invoiceDateobj: [""],
       captitalizationDateobj: [""],
       allottedUptoobj: [""],
@@ -972,6 +985,27 @@ export class AddAssetMasterComponent
         })
       ])
     });
+  }
+
+
+  //FOR DISCOUNT PERCENTAGE VALIDATION
+  depreciationValidation(data: any) {
+    if (data.get('depreciation').value != undefined && data.get('depreciation').value != null && data.get('depreciation').value != '') {
+      if (data.get('depreciation').value < 1) {
+        data.controls.depreciation.setValidators(Validators.compose([Validators.required, Validators.max(100), Validators.min(1), Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]));
+        data.controls.depreciation.setValidators(Validators.compose([Validators.required, Validators.max(100), Validators.min(1), Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]));
+        data.controls['depreciation'].updateValueAndValidity();
+      } else if (data.get('depreciation').value > 100) {
+        data.controls.depreciation.setValidators(Validators.compose([Validators.required, Validators.max(100), Validators.min(1), Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]));
+        data.controls['depreciation'].updateValueAndValidity();
+      } else {
+        data.controls.depreciation.clearValidators();
+        data.controls['depreciation'].updateValueAndValidity();
+      }
+    } else {
+      data.controls.depreciation.clearValidators();
+      data.controls['depreciation'].updateValueAndValidity();
+    }
   }
 
 }

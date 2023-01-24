@@ -152,6 +152,7 @@ export class AssetProfileViewComponent implements OnInit {
       allottedUpto:[""],
       transferredTo:[""],
       remarks:[""],
+      assetUser:[""],
       invoiceDateobj:[""],
       captitalizationDateobj:[""],
       allottedUptoobj:[""],
