@@ -47,7 +47,7 @@
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                     #exporter="matTableExporter">
                     <ng-container matColumnDef="statusName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> Trasfer Status</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Status</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.statusName}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="sourceLocation">
