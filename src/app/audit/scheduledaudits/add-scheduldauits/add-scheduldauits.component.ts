@@ -47,10 +47,11 @@ export class AddScheduldauitsComponent implements OnInit {
   docForm: FormGroup;
   Formdoc: FormGroup;
   auditorList:any;
-  flag:boolean;
-  
-  requestId: any;
   edit:boolean=false;
+  flag:boolean;
+
+
+  requestId: any;
   locationDropdownList:any
   assetDropdownList:any
   companyList:any
@@ -355,7 +356,7 @@ if(this.dateChange==false){
   }
   reset(){
     this.docForm = this.fb.group({
-      auditName:[""],
+      auditName:["", [Validators.required]],
       auditCode:["",[Validators.required]],
       startDateObj:[""],
       companyName:["",[Validators.required]],
@@ -376,13 +377,16 @@ if(this.dateChange==false){
           newQty:'',
           diffqty:'',
           stack:''
-
          
         })
       ]),
-
-
   });
+
+  if(this.flag==true){
+    this.fetchDetails(this.requestId)
+  }else{
+this.fetchDetailsA(this.requestId)
+  }
 
   }
 

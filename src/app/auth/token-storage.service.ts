@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-
+import { AuthService } from "src/app/auth/auth.service";
+import { BehaviorSubject,Observable } from 'rxjs';
+import { User } from "src/app/core/models/user";
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
@@ -10,10 +12,12 @@ const AUTHUSERID_KEY = 'AuthUserId';
 })
 export class TokenStorageService {
   private roles: Array<string> = [];
-  constructor() { }
+  constructor(private authService:AuthService) { }
 
   signOut() {
     window.sessionStorage.clear();
+    this.authService.currentUserSubject = new BehaviorSubject<User>(new User());
+    this.authService.currentUser = new BehaviorSubject<User>(new User());
     window.sessionStorage.removeItem(USERNAME_KEY);
   }
 

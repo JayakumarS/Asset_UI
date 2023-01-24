@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import {
   Router,
   CanActivate,
@@ -14,7 +15,7 @@ import { TokenStorageService } from "src/app/auth/token-storage.service";
   providedIn: "root",
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router,private tokenStorage:TokenStorageService,private app:AppService) {}
+  constructor(private authService: AuthService, private router: Router,private tokenStorage:TokenStorageService,private app:AppService,private snackBar:MatSnackBar) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
      if (this.authService.currentUserValue) {
@@ -22,6 +23,12 @@ export class AuthGuard implements CanActivate {
       if (route.data.role && route.data.role.indexOf(userRole) === -1) {
        this.logout();
         this.router.navigate(["/authentication/signin"]);
+        this.showNotification(
+          "snackbar-danger",
+          "Session has expired!!!",
+          "top",
+          "right"
+        );
         return false;
       }
        return true;
@@ -41,4 +48,13 @@ export class AuthGuard implements CanActivate {
      this.router.navigate(['/authentication/signin']);
  
    }
+
+   showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
 }

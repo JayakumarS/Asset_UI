@@ -15,7 +15,7 @@ import { DirectionService } from "./service/direction.service";
     AuthGuard,
     AuthService,
     DynamicScriptLoaderService,
-    DirectionService,
+    DirectionService
   ],
 })
 export class CoreModule {
