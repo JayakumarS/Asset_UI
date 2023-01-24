@@ -12,4 +12,5 @@ export class MainResultBean {
     purchaseAssetsCount:[];
     depreciatedCount:[];
     auditableAssetList:[];
+    scheduleActivityDetails:[];
 }

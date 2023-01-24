@@ -23,6 +23,10 @@ import { AuditableAssetService } from "src/app/audit/auditable-asset/auditable-a
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { MainResultBean } from "../main-result-bean";
 import { MainService } from "../main.service";
+import { MatDialog } from "@angular/material/dialog";
+import { ActivityPopUpComponent } from "../../schedule-activity/activity-pop-up/activity-pop-up.component";
+import * as moment from 'moment';
+import { TokenStorageService } from "src/app/auth/token-storage.service";
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -97,9 +101,11 @@ export class MainComponent implements OnInit {
   purchaseAssetsCountValue: any;
   depreciatedCountValue: any;
   config1: { itemsPerPage: number; currentPage: number; totalItems: number; };
+  popUpFlag:string;
+  activityflag: string;
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,
-    public auditableAssetService:AuditableAssetService) {}
+    public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
   ngOnInit() {
 
     this.docForm = this.fb.group({
@@ -202,6 +208,7 @@ export class MainComponent implements OnInit {
         console.log(this.barChartOptions);
     });
 
+    this.activityflag=this.tokenStorage.getSavepopUpFlag();
     ////chart Asset Survey Dynamic List
     // this.httpService.get<any>(this.mainService.getAssetSurveyURL).subscribe(
     //   (data) => {
@@ -213,7 +220,29 @@ export class MainComponent implements OnInit {
     this.getInvList();
     this.getAssetList();
     this.fetchAssetName(16);
+    this.popUp();
     
+  }
+
+  popUp(){
+    
+    // this.httpService.get<any>(this.mainService.getActivityPopUpUrl+ "?todayDate=" +moment().format('YYYY-MM-DD')).subscribe(
+    //   (data) => {
+    //     this.assetListDashboard = data.assetListDashboard;
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     console.log(error.name + " " + error.message);
+    //   }
+    // );
+  if(this.activityflag==null){
+    const dialogRef = this.dialog.open(ActivityPopUpComponent, {
+      height: "680px",
+      width: "1900px",
+    });
+    this.popUpFlag="true";
+    this.tokenStorage.savepopUpFlag(this.popUpFlag);
+  }
+
   }
 
   fetchAssetName(asset:any){

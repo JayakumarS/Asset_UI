@@ -55,7 +55,7 @@
                     <h5 class="float-end">Earning</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3>
                   </div>
                 </div>
               </div>
@@ -74,7 +74,7 @@
                     <h5 class="float-end">Auditors</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{auditorsCountValue!=null?auditorsCountValue.toFixed(2):auditorsCountValue}}</h3>
                   </div>
                 </div>
               </div>
@@ -93,7 +93,7 @@
                     <h5 class="float-end">Assets</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{assetsCountValue!=null?assetsCountValue.toFixed(2):assetsCountValue}}</h3>
                   </div>
                 </div>
               </div>
@@ -112,7 +112,7 @@
                     <h5 class="float-end">Users</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{usersCountValue}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3>
                   </div>
                 </div>
               </div>
@@ -150,9 +150,9 @@
                   <tbody>
                     <tr>
                     <tr *ngFor="let data of auditableAssetList">
-                      <td>{{data.assetname}}</td>
-                      <td>{{data.acquisitionvalue}}</td>
-                      <td>{{data.accudepreciation}}</td>
+                      <td>{{data.assetname!=null?data.assetname.toFixed(2):data.assetname}}</td>
+                      <td>{{data.acquisitionvalue!=null?data.acquisitionvalue.toFixed(2):data.acquisitionvalue}}</td>
+                      <td>{{data.accudepreciation!=null?data.accudepreciation.toFixed(2):data.accudepreciation}}</td>
                     </tr>
           </tbody>
                 </table>
