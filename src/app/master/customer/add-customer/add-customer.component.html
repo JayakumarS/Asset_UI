@@ -176,8 +176,8 @@
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="panno"maxlength="20" (keypress)="keyPressNumeric($event)" >
-            </mat-form-field>
+              <input matInput formControlName="panno"maxlength="20" [ngModel]="value1"
+              (ngModelChange)="value1=$event.toUpperCase()"(keypress)="keyPressAlphaNumeric($event)" >            </mat-form-field>
           </div>
           <div class=" col-md-2">
             <mat-label>CST NO</mat-label>
@@ -185,8 +185,8 @@
 
           <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="cstno" maxlength="20"  (keypress)="keyPressNumeric($event)">
-            </mat-form-field>
+              <input matInput formControlName="cstno" maxlength="20" [ngModel]="value2"
+              (ngModelChange)="value2=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">            </mat-form-field>
           </div>
         </div>
 
@@ -197,8 +197,8 @@
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="gstno"maxlength="20"  (keypress)="keyPressNumeric($event)">
-            </mat-form-field>
+              <input matInput formControlName="gstno"maxlength="20"[ngModel]="value3"
+              (ngModelChange)="value3=$event.toUpperCase()"  (keypress)="keyPressAlphaNumeric($event)">            </mat-form-field>
           </div>
           <div class=" col-md-2">
             <mat-label>REMARKS</mat-label>
