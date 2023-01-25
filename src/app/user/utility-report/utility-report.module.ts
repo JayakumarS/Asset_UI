@@ -1,12 +1,7 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
-import { DashboardRoutingModule } from "./dashboard-routing.module";
-import { MainComponent } from "./main/main.component";
-import { Dashboard2Component } from "./dashboard2/dashboard2.component";
-import { ChartsModule as chartjsModule } from "ng2-charts";
-import { NgApexchartsModule } from "ng-apexcharts";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
+import { UtilityReportRoutingModule } from './utility-report-routing.module';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
@@ -28,41 +23,23 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { MatProgressBarModule } from "@angular/material/progress-bar";
-
-
-import { NotificationService } from "src/app/core/service/notification.service";
-import { CompanyMapPopupComponent } from './main/company-map-popup/company-map-popup.component';
+import { AddUtilityReportComponent } from './add-utility-report/add-utility-report.component';
 
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent],
+  declarations: [
+    AddUtilityReportComponent
+  ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
-    chartjsModule,
-    NgApexchartsModule,
-    PerfectScrollbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatTooltipModule,
-    MatProgressBarModule,
-    ComponentsModule,
-    SharedModule,
-    MatTableExporterModule,
-    MatTableModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatPaginatorModule,
+    UtilityReportRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    
+    MatSnackBarModule,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
@@ -78,11 +55,6 @@ import { CompanyMapPopupComponent } from './main/company-map-popup/company-map-p
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatAutocompleteModule,
-    MatMenuModule
-    
-    
-  ],
-  providers: [NotificationService],
+  ]
 })
-export class DashboardModule {}
+export class UtilityReportModule { }

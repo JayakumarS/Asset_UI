@@ -8,6 +8,8 @@ import { AuthLoginInfo } from 'src/app/auth/login-info';
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { User } from "src/app/core/models/user";
 import { BehaviorSubject,Observable } from 'rxjs';
+import { MatDialog } from "@angular/material/dialog";
+import { CompanyMapPopupComponent } from "src/app/admin/dashboard/main/company-map-popup/company-map-popup.component";
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -37,13 +39,14 @@ export class SigninComponent
     private authService: AuthService,
     private app:AppService,
     private tokenStorage: TokenStorageService,
+    public dialog: MatDialog
   ) {
     super();
   }
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      username: ["admin", Validators.required],
+      username: ["kavin@gmail.com", Validators.required],
       password: ["paragon@01", Validators.required],
     });
   }
@@ -94,6 +97,10 @@ export class SigninComponent
                 this.tokenStorage.saveCompanies(data.userDetails.companies);
                 this.tokenStorage.saveRoles(data.userDetails.roles);
 
+                if(data.userDetails.companies.length>0){
+                  this.showPopUp();
+                }
+               
 
                 this.loading = false;
                 this.router.navigate(["/admin/dashboard/main"]);
@@ -151,6 +158,28 @@ export class SigninComponent
     }
   }
 
+showPopUp(){
+  
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    console.log(JSON.parse(this.tokenStorage.getCompanies()));
+    const dialogRef = this.dialog.open(CompanyMapPopupComponent, {
+      height: "270px",
+      width: "800px",
+      data: JSON.parse(this.tokenStorage.getCompanies()),
+      direction: tempDirection,
+      closeOnNavigation: true,
+      disableClose: true
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      if(data==1)[
 
+        ]
+    });
+}
 
 }

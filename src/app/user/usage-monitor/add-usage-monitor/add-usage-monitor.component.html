@@ -1,0 +1,388 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Usage Monitoring'" [items]="['User']" [active_item]="'Add Usage Monitoring'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <form class="m-4" [formGroup]="docForm">
+          <div class="card">
+            <div class="body" style="padding-left: 110px;">
+              
+               
+
+                <div class="row">
+                    <div class="col-md-2">
+                      <label class="lable">Asset<span class="errorColor">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select formControlName="asset"  >
+                          <mat-option *ngFor="let title of itemTypeList" [value]="title.id">
+                            {{title.text}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="docForm.get('asset').hasError('required')">
+                          Item Type is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <label class="lable">Location<span class="errorColor">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Location</mat-label>
+                        <mat-select formControlName="location" required>
+                          <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                              {{title.text}}
+                          </mat-option>
+                      </mat-select>
+                      <mat-error  *ngIf="docForm.get('location').hasError('required')">
+                          Location is required
+                          </mat-error> 
+                   </mat-form-field>
+                    </div>
+                  </div>    
+
+                  <div class="row">
+                
+                    <div class="col-md-2">
+                      <label class="lable">Occurence</label>
+                  </div> 
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      
+                      <input matInput formControlName="occurence" >
+                      <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+                        Description is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+               
+                  <div class="col-md-2">
+                      <label class="lable">Send Reminder</label>
+                  </div> 
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      
+                      <input matInput formControlName="remainder" >
+                      <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+                        Description is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+
+                  <div class="col-md-2" >
+                    <label class="lable">Assignee</label>
+                  </div>
+            
+                  <div class="col-md-3" >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="assignee" required>
+                        <mat-option *ngFor="let title of userDdList" [value]="title.id">
+                          {{title.text}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="docForm.get('assignee').hasError('required')">
+                        assignee is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>  
+
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <mat-label class="lable">Upload File <span class="errorColor">*</span></mat-label>                                            
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                         <app-file-upload class="example-width form-control-sm" formControlName="uploadFile"
+                           (change)="onSelectFile($event)"></app-file-upload>
+                       </div>
+                       <div class="row" *ngIf="(filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
+                        <div class="iconCard"  style="margin-left: 16%;">
+                          <span><i class="far fa-file-alt docIcons"></i>{{filePathUrl?.split('##').pop()}}</span>
+                          <a class="downloadView" (click)="viewDocuments(filePathUrl, filePathUrl?.split('##').pop())">
+                            <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
+                          </a>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-2" >
+                      <label class="lable">Start Date</label>
+                    </div>
+              
+                    <div class="col-md-3" >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <!-- <mat-label>Expected Date Of Delivery</mat-label> -->
+                        <input matInput [matDatepicker]="picker1" formControlName="startdateObj"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" id="startdate" 
+                                                 (dateChange)="getDateString($event, 'startdate',0)"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="docForm.get('startdateObj').hasError('required')">
+                          Expected Date Of Delivery is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div> 
+
+                    <div class="col-md-2" >
+                      <label class="lable">End Date</label>
+                    </div>
+  
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <!-- <mat-label>Expected Date Of Delivery</mat-label> -->
+                        <input matInput [matDatepicker]="picker" formControlName="enddateObj"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" id="enddate" 
+                                                 (dateChange)="getDateString($event, 'enddate',0)"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="docForm.get('enddateObj').hasError('required')">
+                          Expected Date Of Delivery is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div> 
+                  
+                  </div>
+               
+<div class="row">
+  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+    <label class="lable">Description<span class="errorColor">*</span></label>
+</div> 
+<div class="col-xl-3 " >
+  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  
+    <input matInput formControlName="description" >
+    <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+      Description is required
+    </mat-error> -->
+  </mat-form-field>
+</div>
+<div class="col-md-2">
+  <label class="lable">CC</label>
+</div> 
+<div class="col-md-3">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  
+  <input matInput formControlName="cc" >
+  <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+    Description is required
+  </mat-error> -->
+</mat-form-field>
+</div>
+</div>
+</div>
+ </div>
+            
+          <!-- <h4>Meter</h4>
+          <div class="card">
+            <div class="body" style="padding-left: 110px;">
+              
+               
+
+                <div class="row">
+                    <div class="col-md-2">
+                      <label class="lable">Meter<span class="errorColor">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                       
+                        <mat-select  formControlName="meter" required>
+                          <mat-option [value]="'Good'">
+                              Lost
+                          </mat-option>
+                          <mat-option [value]="'Damaged'">
+                              Stolen
+                          </mat-option>
+                          <mat-option [value]="'In repair'">
+                              Write-Off
+                          </mat-option>
+                          
+                        </mat-select>
+                        
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <label class="lable">Feed Value<span class="errorColor">*</span></label>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                       
+                        <mat-select  formControlName="feedValue" required>
+                          <mat-option [value]="'Good'">
+                              Lost
+                          </mat-option>
+                          <mat-option [value]="'Damaged'">
+                              Stolen
+                          </mat-option>
+                          <mat-option [value]="'In repair'">
+                              Write-Off
+                          </mat-option>
+                          
+                        </mat-select>
+                        
+                      </mat-form-field>
+                    </div>
+                  </div>    
+
+                  <div class="row">
+                
+                    <div class="col-md-2">
+                      <label class="lable">Multiplication Factor</label>
+                  </div> 
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      
+                      <input matInput formControlName="multiplicationFactor" >
+                      
+                    </mat-form-field>
+                  </div>
+               
+                  <div class="col-md-2">
+                      <label class="lable">Unit Rate</label>
+                  </div> 
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      
+                      <input matInput formControlName="unitRate" >
+                    
+                    </mat-form-field>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+
+                  <div class="col-md-2" >
+                    <label class="lable">Recording Time</label>
+                  </div>
+            
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      
+                      <input matInput formControlName="recordingTime" >
+                     
+                    </mat-form-field>
+                  </div>
+
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <mat-label class="lable">Allow Additional Unit <span class="errorColor">*</span></mat-label>                                            
+                        </div>
+                        
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
+                          <mat-checkbox formControlName="additionUnit"  ngInit="checked=true"></mat-checkbox>
+                        </div>   
+
+
+
+                  </div>
+               
+            </div>
+          </div> -->
+
+
+ <!-- detail table -->
+
+ <div>
+  <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+      <thead class="">
+          <tr>
+           
+              <th class="" style="width: 10%;border-radius: 0.05rem;text-align: center;">Meter</th>
+              <th class="" style="width: 10%;border-radius: 0.05rem;text-align: center;">Feed Value</th>
+              <th class="" style="width: 10%;border-radius: 0.05rem;text-align: center;">Multiplication Factor</th>
+              <th class="" style="width: 10%;border-radius: 0.05rem;text-align: center;">Unit Rate</th>
+              <th class="" style="width: 10%;border-radius: 0.05rem;text-align: center;">Recording Time</th>
+              <th class="" style="width: 10%;border-radius: 0.05rem;text-align: center;">Allow Additional Unit</th>
+              <th class="table-heading text-center" style="margin-left: 10px; width: 10%; border-radius: 0.05rem;">
+                <label class="i-checks m-b-none">
+                     <i></i>
+                </label></th>
+
+          </tr>
+          </thead>
+          <tbody >
+            <tr [formGroup]="usageMonitorDtlObjBean" *ngFor="let usageMonitorDtlObjBean of docForm.get('usageMonitorDtlObjBean')['controls']; let i = index">
+          
+              <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"  (keypress)="keyPressNumberDouble($event)" style="margin-left: 8%;
+                    width: 150px; ">
+                      <input matInput formControlName="meter" required>
+                    </mat-form-field>
+                    
+                  </td>
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 8%;
+                    width: 150px; ">
+                      <input matInput formControlName="feedValue" required>
+                     
+                    </mat-form-field>
+                  </td>
+
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"  (keypress)="keyPressNumberDouble($event)" style="width: 150px;">
+                      <input matInput formControlName="multiplicationFactor" required>
+                    </mat-form-field>
+                    
+                  </td>
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 6%;
+                    width: 150px; " >
+                      <input matInput formControlName="unitRate" required>
+                     
+                    </mat-form-field>
+                  </td>
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"  (keypress)="keyPressNumberDouble($event)" style="margin-left: 8%;
+                    width: 150px; ">
+                      <input matInput formControlName="recordingTime" required>
+                    </mat-form-field>
+                    
+                  </td>
+                  <td class="padding-both-side-2">
+                      <input type="checkbox" formControlName="additionUnit" required style="width: 93%;" >
+                  </td>
+
+                  <td>
+                    <button mat-mini-fab color="primary" (click)="addRowSelf()" style="margin-left: -3%;margin-top: -8%;">
+                      <mat-icon class="col-white">add</mat-icon>
+                  </button>
+                    <button mat-mini-fab color="warn" (click)="removeRowSelf(i)" style="margin-left: 15%;">
+                        <mat-icon class="col-white">delete</mat-icon>
+                    </button>
+                </td>
+     
+     
+               
+                 
+                </tr>
+          </tbody>
+      
+  </table>
+  
+  
+</div>
+
+ <!-- detail table -->
+
+
+
+
+        </form>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
