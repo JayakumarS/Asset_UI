@@ -430,6 +430,11 @@ fetchAssetName(asset:any){
     });
   }
 
+  back()
+  {
+    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+  }
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
