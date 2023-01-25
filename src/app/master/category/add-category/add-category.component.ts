@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { CategoryResultBean } from '../category-result-bean';
 import { Assetcategory } from '../category.model';
 import { CategoryMasterService } from '../category.service';
 
@@ -22,6 +23,8 @@ export class AddCategoryComponent implements OnInit {
   edit: boolean = false;
   assetcategory: Assetcategory;
   categoryDdList=[];
+  assettypelist=[];
+  depreciationlist=[];
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -37,6 +40,9 @@ export class AddCategoryComponent implements OnInit {
       Description:[""],
       isactive:[false],
       id:[""],
+      depreciation:[""],
+      assettype:[""]
+
       
       
    
@@ -66,7 +72,27 @@ export class AddCategoryComponent implements OnInit {
     }
     );
 
+    this.httpService.get<CategoryResultBean>(this.categoryMasterService.getAssetTypeDropdown).subscribe(
+      (data) => {
+        this.assettypelist = data.assettypelist;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+    this.httpService.get<CategoryResultBean>(this.categoryMasterService.getAssetDepreciationDropdown).subscribe(
+      (data) => {
+        this.depreciationlist = data.depreciationlist;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
   }
+
+  
   fetchDetails(category_id: any) {
     this.requestId = category_id;
   this.httpService.get(this.categoryMasterService.editcategory + "?category_id=" + category_id).subscribe((res: any) => {
