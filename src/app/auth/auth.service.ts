@@ -37,7 +37,7 @@ public currentUser: Observable<User>;
   insertCusMaster = `${this.serverURL.apiServerAddress}api/customerMaster/save`;
   // insertSalesEntry = `${this.serverURL.apiServerAddress}api/salesCallEntry/save`;
 
-  attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
+  attemptAuth(credentials: AuthLoginInfo): Observable<any> {
     return  this.http
       .post<JwtResponse>(this.loginUrl, credentials)
       .pipe(
@@ -49,9 +49,14 @@ public currentUser: Observable<User>;
          // let response ={};
           this.userObj['username'] = user.email;
           this.userObj['token'] = user.accessToken;
-          this.userObj['roles'] = user.roles;
+          this.userObj['roles'] = user.userDetails.roles;
           this.userObj["img"] = "assets/images/user/admin.jpg";
-          this.userObj['role'] = user.role;
+          this.userObj['role'] = user.userDetails.role;
+          this.userObj['roleId'] = user.userDetails.roleId;
+          this.userObj['company'] = user.userDetails.company;
+          this.userObj['companyId'] = user.userDetails.companyId;
+          this.userObj['branchId'] = user.userDetails.branchId;
+          this.userObj['companies'] = user.userDetails.companies;
           this.currentUserSubject.next(this.userObj);
           return user;
         })

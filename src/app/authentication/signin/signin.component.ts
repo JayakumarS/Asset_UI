@@ -85,6 +85,16 @@ export class SigninComponent
                 this.tokenStorage.saveUsername(data.username);
                 this.tokenStorage.saveAuthorities(data.roles);
                 this.tokenStorage.saveUserId(data.email);
+
+                this.tokenStorage.saveCompanyId(data.userDetails.companyId);
+                this.tokenStorage.saveCompanyText(data.userDetails.company);
+                this.tokenStorage.saveRoleId(data.userDetails.roleId);
+                this.tokenStorage.saveRoleText(data.userDetails.role);
+                this.tokenStorage.saveBranchId(data.userDetails.branchId);
+                this.tokenStorage.saveCompanies(data.userDetails.companies);
+                this.tokenStorage.saveRoles(data.userDetails.roles);
+
+
                 this.loading = false;
                 this.router.navigate(["/admin/dashboard/main"]);
                 //  this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
