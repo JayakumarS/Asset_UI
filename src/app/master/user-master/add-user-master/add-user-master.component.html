@@ -20,7 +20,7 @@
      <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
       <input matInput formControlName="fullName"  maxlength="50"
-      [ngModel]="inputvalue" (ngModelChange)="inputvalue=$event.toUpperCase()"(keypress)="string($event)"required>
+      [ngModel]="inputvalue" (ngModelChange)="inputvalue=$event.toUpperCase()"required>
       <mat-error *ngIf="docForm.get('fullName').hasError('required')">
         Full Name is required
       </mat-error>
@@ -69,7 +69,7 @@
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="role" maxlength="50"[ngModel]="inputvalue2"
-                        (ngModelChange)="inputvalue2 = $event.toUpperCase()"(keypress)="keyPressNumeric($event)" required>
+                        (ngModelChange)="inputvalue2 = $event.toUpperCase()" required>
                         <mat-error *ngIf="docForm.get('role').hasError('required')">
                           Role is required
                         </mat-error>
