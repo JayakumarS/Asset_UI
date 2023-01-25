@@ -25,6 +25,7 @@ export class AddCategoryComponent implements OnInit {
   categoryDdList=[];
   assettypelist=[];
   depreciationlist=[];
+  currencylist=[];
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -41,7 +42,8 @@ export class AddCategoryComponent implements OnInit {
       isactive:[false],
       id:[""],
       depreciation:[""],
-      assettype:[""]
+      assettype:[""],
+      currency:[""]
 
       
       
@@ -90,6 +92,16 @@ export class AddCategoryComponent implements OnInit {
       }
     );
 
+    //currencyList
+    this.httpService.get<CategoryResultBean>(this.categoryMasterService.getCurrencyDropdown).subscribe(
+      (data) => {
+        this.currencylist = data.currencylist;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
   }
 
   
@@ -102,9 +114,12 @@ export class AddCategoryComponent implements OnInit {
     this.docForm.patchValue({
      
       'categoryName': res.assetCategoryBean.categoryName,
-      'parentCategory': res.assetCategoryBean.parentCategory,
+      'parentCategory':  parseInt(res.assetCategoryBean.parentCategory),
       'Description' : res.assetCategoryBean.Description, 
       'isactive' : res.assetCategoryBean.isactive, 
+      'depreciation' : parseInt(res.assetCategoryBean.depreciation),
+      'assettype' : parseInt(res.assetCategoryBean.assettype),
+      'currency':  parseInt(res.assetCategoryBean.currency),
       'id' : res.assetCategoryBean.id
 
    })
@@ -173,7 +188,10 @@ export class AddCategoryComponent implements OnInit {
       parentCategory: [""],
       Description:[""],
       isactive:[false],
-      id:[""]
+      id:[""],
+      depreciation:[""],
+      assettype:[""],
+      currencye:[""]
    
   });
    
