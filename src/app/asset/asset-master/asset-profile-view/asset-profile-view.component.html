@@ -289,7 +289,7 @@
 
                                         <div class="row">
                                             <div class="col-md-2 col-4 b-r">
-                                                <strong>End of life</strong>
+                                                <strong>Life in years</strong>
 
                                             </div>
 
@@ -299,7 +299,7 @@
 
 
                                             <div class="col-md-2 col-4 b-r">
-                                                <strong>Scrap Value</strong>
+                                                <strong>Salvage Value</strong>
 
                                             </div>
 
@@ -374,13 +374,23 @@
                                             </div>
 
 
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Asset User</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.assetUser}}</p>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </mat-tab>
 
-                        <mat-tab label="Accurred Depreciation" style="overflow-x: hidden!important;" >
+                        <mat-tab label="Accured Depreciation" style="overflow-x: hidden!important;" >
                             <br>
                             <div class="row" style="overflow-x: hidden!important;">
                                 <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " >
@@ -553,6 +563,7 @@
                                       style=" color: aliceblue; background-color: green;" ><i class="fa fa-search"></i> View Report</button>
                                   <button color="warn"  type="button"  (click)="reset()" 
                                       mat-raised-button color="primary" style="background-color: rgb(14, 42, 126);">Reset</button>
+                                     
                               </div>
                           </div>
                           <br>
@@ -649,6 +660,13 @@
                     </mat-tab-group>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="display:flex; align-items: right; justify-content:right;" >
+            <button color="warn"  type="button"  (click)="back()" 
+            mat-raised-button color="primary" style="background-color: rgb(249, 17, 0);">Back</button>
+        </div>
         </div>
     </form>
     </div>

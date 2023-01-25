@@ -8,6 +8,13 @@ export class main {
   category: string;
   status: string;
 
+  activityType: any;
+  location: any;
+  enddate: any;
+  startdate: any;
+  activityTypeText: any;
+  locationText: any;
+
   //inventory
       item: string;
       invCategory:number;

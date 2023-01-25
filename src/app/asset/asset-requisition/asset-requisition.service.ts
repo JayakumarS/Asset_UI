@@ -22,7 +22,7 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
     super();
   }
   
-  private listUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/list`;
+  public listUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/list`;
   public saveUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/save`;
   public editUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/edit`;
   public assetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetItemList`;
@@ -37,9 +37,9 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
 
   }
 
-  getAllList(object){
-    console.log(object);
-    this.subs.sink = this.httpService.post<any>(this.listUrl,object).subscribe(
+  getAllList(){
+    console.log();
+    this.subs.sink = this.httpService.get<any>(this.listUrl).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.assetRequisitionDetails);

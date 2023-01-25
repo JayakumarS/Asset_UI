@@ -6,6 +6,7 @@ const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
 const AUTHUSERID_KEY = 'AuthUserId';
+const POPUPFLAG_KEY = 'PopUpFlag';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,15 @@ public getUserId(): string {
   public saveAuthorities(authorities: string[]) {
     window.sessionStorage.removeItem(AUTHORITIES_KEY);
     window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
+  }
+
+  public savepopUpFlag(flag: string) {
+    window.sessionStorage.removeItem(POPUPFLAG_KEY);
+    window.sessionStorage.setItem(POPUPFLAG_KEY, flag);
+  }
+
+  public getSavepopUpFlag(): string {
+    return sessionStorage.getItem(POPUPFLAG_KEY);
   }
 
   public getAuthorities(): string[] {

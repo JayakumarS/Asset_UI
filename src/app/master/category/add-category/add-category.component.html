@@ -51,7 +51,7 @@
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
                 <mat-select class="inputTxt" formControlName="parentCategory">
-                    <mat-option *ngFor="let title of categoryDdList" [value]="title.text">
+                    <mat-option *ngFor="let title of categoryDdList" [value]="title.id">
                         {{title.text}}
                     </mat-option>
                 </mat-select>
@@ -85,11 +85,67 @@
                     <mat-checkbox  ngInit="checked=false" formControlName="isactive"></mat-checkbox>
                   </div>
  
-              </div><br>
+              </div>
 
               <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <label class="lable">ASSET TYPE<span class="errorColor">*</span></label>
+              </div>
+
+              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="width:320px;    margin-left: -2px;">
+                  <mat-select formControlName="assettype" >
+                    <mat-option *ngFor="let title of assettypelist" [value]="title.id" required>
+                      {{title.text}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="docForm.get('assettype').hasError('required')">
+                    asset location by is required
+                  </mat-error>
+
                  
+                </mat-form-field>
+              </div>
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label class="lable">DEPRECIATION METHOD<span class="errorColor">*</span></label>
+            </div>
+
+            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="width:315px;">
+                <mat-select formControlName="depreciation" >
+                  <mat-option *ngFor="let title of depreciationlist" [value]="title.id" required>
+                    {{title.text}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="docForm.get('depreciation').hasError('required')">
+                  asset location by is required
+                </mat-error>
+
+               
+              </mat-form-field>
+            </div>    
             
+            </div>
+
+            <div class="row">
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label class="lable">Currency<span class="errorColor">*</span></label>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="width:320px;    margin-left: -2px;">
+                <mat-select formControlName="currency" >
+                  <mat-option *ngFor="let title of currencylist" [value]="title.id" required>
+                    {{title.text}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="docForm.get('currency').hasError('required')">
+                  currency by is required
+                </mat-error>
+
+               
+              </mat-form-field>
+            </div>
             </div>
 
                 <br>

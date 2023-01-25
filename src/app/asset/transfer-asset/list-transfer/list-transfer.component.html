@@ -11,11 +11,12 @@
           <div class="card">
             <div class="body">
               <div class="table-responsive">
-                <div class="materialTableHeader">
+                <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
                   <div class="row">
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
-                        <li class="dropdown">
+                        <li class="dropdown m-l-20 ">
+                          <h2>Transfer</h2>
                         </li>
                         <li class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
@@ -24,9 +25,8 @@
                         </li>
                         <li>
                           <div class="m-l-10" matTooltip="ADD">
-                            <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                            <button mat-mini-fab color="primary"  [routerLink]="'/asset/assetTransfer/addtransfer/0'" >
-                              <mat-icon class="col-white">add</mat-icon>
+                            <button color="primary" type="button" class="btn-space" [routerLink]="'/asset/assetTransfer/addtransfer/0'" mat-raised-button>
+                              <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
                             </button>
                           </div>
                         </li>
@@ -47,7 +47,7 @@
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                     #exporter="matTableExporter">
                     <ng-container matColumnDef="statusName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> Trasfer Status</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Status</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.statusName}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="sourceLocation">
@@ -67,9 +67,14 @@
                     <ng-container matColumnDef="actions">
                       <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                       <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                        <button *ngIf="row.receivedStatus==''" (click)="editCall(row)" class="btn-space" style="text-align:left"
+                        <button *ngIf="row.receivedStatus=='Pending'" (click)="editCall(row)" class="btn-space" style="text-align:left"
                         mat-raised-button color="primary">Receive</button>
-                        <span *ngIf="row.receivedStatus=='Received'">Received</span>
+                        <span *ngIf="row.receivedStatus=='Received'">Received by {{row.receivedBy}}</span>
+
+                        <button *ngIf="row.receivedStatus=='Received'" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="viewCall(row)" class="tbl-action-btn">
+                          <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                          </app-feather-icons>
+                        </button>
                       </mat-cell>
       
                     </ng-container>

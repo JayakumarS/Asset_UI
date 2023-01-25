@@ -10,11 +10,11 @@
         <div class="card">
           <div class="body">
             <div class="table-responsive">
-              <div class="materialTableHeader">
+              <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
                 <div class="row">
                   <div class="col-8">
                     <ul class="header-buttons-left ms-0">
-                      <li class="dropdown">
+                      <li class="dropdown m-l-20">
                         <h2>Group Head</h2>
                       </li>
                       <li class="dropdown m-l-20">
@@ -22,8 +22,13 @@
                         <input placeholder="Search" type="text" #filter class="browser-default search-field"
                           aria-label="Search box">
                       </li>
-                      <li> 
-                      </li>
+                      <!-- <li>
+                        <div class="m-l-10" matTooltip="ADD">
+                          <button color="primary" type="button" class="btn-space" [routerLink]="'/finance/master/currency/addCurrencyComponent'" mat-raised-button>
+                            <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
+                          </button>
+                        </div>
+                      </li> -->
                     </ul>
                   </div>
                   <div class="col-4">

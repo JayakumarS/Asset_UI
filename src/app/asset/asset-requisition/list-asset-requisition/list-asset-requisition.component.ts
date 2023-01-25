@@ -154,7 +154,7 @@ export class ExampleDataSource extends DataSource<AssetRequisition> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList(this.docForm.value);
+    this.exampleDatabase.getAllList();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

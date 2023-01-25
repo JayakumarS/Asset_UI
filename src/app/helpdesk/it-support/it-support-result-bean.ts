@@ -6,5 +6,6 @@ export class ItSupportresultbean {
     assignedListCount:[];
     openedListCount:[];
     holdListCount:[];
+    getlocationList:[];
 
 }

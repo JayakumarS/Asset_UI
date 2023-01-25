@@ -37,10 +37,13 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   locationDdList = [];
   stateDdList = [];
   cityDdList = [];
-  list= [];
+  list = [];
   value = [];
   submitted: boolean=false;
   state: string;
+  cityShipperList = [];
+  cityDeliveryList = [];
+  cityBillingList = [];
 
 
   constructor(private fb: FormBuilder,
@@ -124,20 +127,15 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
           country: [""],
           zip: [""],
           addresstwo: [""],
-
-
-
-        })
+           })
       ]),
-
-
-    });
+        });
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
+      if ( params.id!=undefined && params.id!=0){
        this.requestId = params.id;
-       this.edit=true;
+       this.edit = true;
        // For User login Editable mode
        this.fetchDetails(this.requestId) ;
 
@@ -172,17 +170,6 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   });
 
 
-  // // City dropdown
-  //   this.httpService.get<any>(this.commonService.getCityDropdown).subscribe({
-  //   next: (data) => {
-  //     this.cityDdList = data;
-  //   },
-  //   error: (error) => {
-
-  //   }
-  // });
-
-
 
 // country dropdown
     this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
@@ -194,13 +181,34 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   }
 });
   }
-  //////city list/////////////
+  // city list
     getCityDropdown(state: any): void {
-      // this.httpService.get(this.commonService.getCityDropdown + "?state=" + state).subscribe((data:any) => {
         this.httpService.get(this.commonService.getCityDropdown + "?state=" + state).subscribe((res: any) => {
           this.cityDdList = res.addressBean;
       });
     }
+     // city shipper list
+     getCityShipperDropdown(state: any): void {
+      this.httpService.get(this.commonService.getCityShipperDropdown+ "?state=" + state).subscribe((res: any) => {
+        this.cityShipperList = res.addressBean;
+    });
+  }
+   // city delivery list
+   getCityDeliveryDropdown(state: any): void {
+    this.httpService.get(this.commonService.getCityDeliveryDropdown+ "?state=" + state).subscribe((res: any) => {
+      this.cityDeliveryList = res.addressBean;
+  });
+}
+
+  // city Billing list
+  getCityBillingDropdown(state: any): void {
+    this.httpService.get(this.commonService.getCityBillingDropdown+ "?state=" + state).subscribe((res: any) => {
+      this.cityBillingList = res.addressBean;
+  });
+}
+
+
+
   onSubmit() {
     if (this.docForm.valid){
       this.customerMaster = this.docForm.value;
@@ -254,8 +262,12 @@ fetchDetails(cus_id: any): void {
 
   this.customerService.editCustomer(obj).subscribe({
     next: (res) => {
+      this.getCityDropdown(res.customerBean.state);
+      this.getCityShipperDropdown(res.customerBean.shipperState);
+      this.getCityBillingDropdown(res.customerBean.billingState);
+      this.getCityDeliveryDropdown(res.customerBean.deliveryState);
 
-    this.docForm.patchValue({
+      this.docForm.patchValue({
       'cus_id': res.customerBean.cus_id,
       'auditorname': res.customerBean.auditorname,
       'registercode': res.customerBean.registercode,
@@ -299,7 +311,7 @@ fetchDetails(cus_id: any): void {
       'totalReceivable': res.customerBean.totalReceivable,
       'creditLimit': res.customerBean.creditLimit,
     })
-    if (res.contactDetails != null && res.contactDetails.length >= 1) {
+      if (res.contactDetails != null && res.contactDetails.length >= 1) {
       let contactDetailsArray = this.docForm.controls.contactDetail as FormArray;
       contactDetailsArray.clear();
       res.contactDetails.forEach(element => {
@@ -315,7 +327,7 @@ fetchDetails(cus_id: any): void {
         contactDetailsArray.insert(arraylen, newUsergroup);
       });
     }
-    if (res.accountDetails != null && res.accountDetails.length >= 1) {
+      if (res.accountDetails != null && res.accountDetails.length >= 1) {
       let accountDetailArray = this.docForm.controls.accountDetail as FormArray;
       accountDetailArray.clear();
       res.accountDetails.forEach(element => {
@@ -510,6 +522,7 @@ reset(){
   }
 }
 
+
 onCancel(){
 
   this.router.navigate(['/master/customer/list-customer']);
@@ -559,42 +572,4 @@ validateCustomer(event){
   });
 }
 
-
-// getAttributeDetails(cus_id: any) {
-//   if (cus_id != undefined && cus_id != null) {
-//     this.spinner.show();
-//     // this.specificationList=[];
-//     const obj = {
-//       editId: cus_id
-//     }
-//     this.customerService.editCustomer(obj).subscribe({
-
-//     // this.httpService.get<ItemMasterResultBean>(this.itemMasterService.attributeDetails + "?itemCategoryId=" + itemCategoryId).subscribe({
-//       next: (res: any) => {
-//         this.spinner.hide();
-//         if (res.success) {
-//           if (res.accountDetails != null && res.accountDetails.length >= 1) {
-//             let accountDetailsListArray = this.docForm.controls.accountDetails as FormArray;
-//             accountDetailsListArray.clear();
-//             res.accountDetails.forEach(element => {
-//               let accountDetailsListArray = this.docForm.controls.accountDetails as FormArray;
-//               let arraylen = accountDetailsListArray.length;
-//               let newUsergroup: FormGroup = this.fb.group({
-//                 name: [element.name],
-//             position: [element.position],
-//             conEmail: [element.conEmail],
-//             conPhone: [element.conPhone],
-//             mobile: [element.defmobileaultvalue],
-//               })
-//               accountDetailsListArray.insert(arraylen, newUsergroup);
-//             });
-//           }
-//         }
-//       },
-//       error: (error) => {
-//         this.spinner.hide();
-//       }
-//     });
-//   }
-// }
 }

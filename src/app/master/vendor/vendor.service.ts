@@ -32,7 +32,7 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
- 
+
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
     super();
   }
@@ -45,8 +45,6 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
   public countryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/getCountryList`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
-  
-  
   get data(): Commodity[] {
     return this.dataChange.value;
   }
@@ -87,7 +85,7 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
         );
         router.navigate(['/master/vendor/listVendor']);
         }
-       
+
       }
       else if(data.success===false){
         notificationService.showNotification(
@@ -102,49 +100,43 @@ export class VendorService extends UnsubscribeOnDestroyAdapter {
 
       });
   }
-
-  updateCommodity(commodity: Commodity,router,notificationService): void {
-    this.dialogData = commodity;
-    this.httpService.post<Commodity>(this.updatecommodity, commodity).subscribe(data => {
-      console.log(data);
-      if(data.success===true){
-        if(data.message != null && data.message != ""){
-          notificationService.showNotification(
-            "snackbar-danger",
-            "Email Already Exists!!!",
-            "bottom",
-            "center"
-          );
-        }else{
-        notificationService.showNotification(
-          "snackbar-success",
-          "Edit Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-        router.navigate(['/master/vendor/listVendor']);
-        }
-       
-      }
-      else if(data.success===false){
-        notificationService.showNotification(
-          "snackbar-danger",
-          "Not Updated Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      }
-    });
+  updateCommodity(commodityMaster: Commodity): Observable<any> {
+    return this.httpClient.post<Commodity>(this.updatecommodity, commodityMaster);
   }
-  // deleteCommodity(vendorId: any): void {
-  //   this.httpService.get(this.deleteCommodityUrl + "?vendorId=" + vendorId).subscribe(data => {
-  //     console.log(vendorId);
-  //   },
-  //     (err: HttpErrorResponse) => {
-  //       // error code here
+  // updateCommodity(commodity: Commodity,router,notificationService): void {
+  //   this.dialogData = commodity;
+  //   this.httpService.post<Commodity>(this.updatecommodity, commodity).subscribe(data => {
+  //     console.log(data);
+  //     if(data.success===true){
+  //       if(data.message != null && data.message != ""){
+  //         notificationService.showNotification(
+  //           "snackbar-danger",
+  //           "Email Already Exists!!!",
+  //           "bottom",
+  //           "center"
+  //         );
+  //       }else{
+  //       notificationService.showNotification(
+  //         "snackbar-success",
+  //         "Edit Record Successfully...!!!",
+  //         "bottom",
+  //         "center"
+  //       );
+  //       router.navigate(['/master/vendor/listVendor']);
+  //       }
+
   //     }
-  //   );
+  //     else if(data.success===false){
+  //       notificationService.showNotification(
+  //         "snackbar-danger",
+  //         "Not Updated Successfully...!!!",
+  //         "bottom",
+  //         "center"
+  //       );
+  //     }
+  //   });
   // }
+
 
   getCurrencyList() {
 

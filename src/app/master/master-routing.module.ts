@@ -29,43 +29,53 @@ const routes: Routes = [
   {
     path: "vendor",
     loadChildren: () =>
-    import("./vendor/vendor.module").then((m) => m.VendorModule),
+      import("./vendor/vendor.module").then((m) => m.VendorModule),
   },
   {
     path: "customerType",
     loadChildren: () =>
-    import("./customer-type/customer-type.module").then((m) => m.CustomerTypeModule),
+      import("./customer-type/customer-type.module").then((m) => m.CustomerTypeModule),
   },
   {
     path: "location",
     loadChildren: () =>
-    import("./location/location.module").then((m) => m.LocationModule),
+      import("./location/location.module").then((m) => m.LocationModule),
   },
-   {
-     path: "customer",
-     loadChildren: () =>
-     import("./customer/customer.module").then((m) => m.CustomerModule),
-   },
-   {
+  {
+    path: "customer",
+    loadChildren: () =>
+      import("./customer/customer.module").then((m) => m.CustomerModule),
+  },
+  {
     path: "userMaster",
     loadChildren: () =>
-    import("./user-master/user-master.module").then((m) => m.UserMasterModule),
+      import("./user-master/user-master.module").then((m) => m.UserMasterModule),
   },
   {
     path: "company",
-    loadChildren: () => 
-    import("./company/company.module").then((m) => m.CompanyModule)
+    loadChildren: () =>
+      import("./company/company.module").then((m) => m.CompanyModule)
   },
   {
-    path: "depreciation", 
-    loadChildren: () => 
-    import("./depreciation/depreciation.module").then((m) => m.DepreciationModule),
+    path: "depreciation",
+    loadChildren: () =>
+      import("./depreciation/depreciation.module").then((m) => m.DepreciationModule),
   },
   {
     path: "category",
+    loadChildren: () =>
+      import("./category/category.module").then((m) => m.CategoryModule),
+  },
+  {
+    path: "roleMaster",
+    loadChildren: () =>
+      import("./role-master/role-master.module").then((r) => r.RoleMasterModule),
+  },
+  {
+    path: "Branch",
   loadChildren: () => 
-  import("./category/category.module").then((m) => m.CategoryModule),
-},
+  import("./Branch/Branch.module").then((m) => m.BranchModule),
+  },
 
 ];
 

@@ -152,6 +152,7 @@ export class AssetProfileViewComponent implements OnInit {
       allottedUpto:[""],
       transferredTo:[""],
       remarks:[""],
+      assetUser:[""],
       invoiceDateobj:[""],
       captitalizationDateobj:[""],
       allottedUptoobj:[""],
@@ -427,6 +428,11 @@ fetchAssetName(asset:any){
         );
       }
     });
+  }
+
+  back()
+  {
+    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

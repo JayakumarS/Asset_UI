@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
-import { CountryMasterService } from 'src/app/master/country-master/country-master.service';
+import { CountryMasterService } from '../country-master.service';
 import { CountryMaster } from '../country-master.model';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { CountryMasterResultBean } from '../country-master-result-bean';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -22,7 +21,6 @@ export class AddCountryMasterComponent implements OnInit {
   currencyList: [];
   edit: boolean = false;
   requestId: any;
-  decryptRequestId: any;
 
   constructor(private fb: FormBuilder,
     public router: Router,

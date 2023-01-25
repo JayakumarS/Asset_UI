@@ -1,5 +1,8 @@
 export class CategoryResultBean {
 
-    categoryMasterDetails
-    assetCategoryBean: [""]
+    categoryMasterDetails:[];
+    assetCategoryBean: [];
+    assettypelist:[];
+    depreciationlist:[];
+    currencylist:[];
 }

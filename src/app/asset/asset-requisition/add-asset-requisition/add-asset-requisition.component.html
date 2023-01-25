@@ -40,6 +40,20 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
+
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                            <mat-label>Company</mat-label>
+                            <mat-select formControlName="companyId"  required>
+                                <mat-option *ngFor="let data of companyList" [value]="data.id" >
+                                    {{data.text}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="docForm.get('companyId').hasError('required')">
+                                Company is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <mat-label>Source Location</mat-label>
@@ -56,23 +70,25 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                            <mat-label>Destination Location</mat-label>
-                            <mat-select formControlName="destinationLocation"  (selectionChange)="validationLocations($event.value)" required>
-                                <mat-option *ngFor="let data of locationList" [value]="data.id" >
-                                    {{data.text}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="docForm.get('destinationLocation').hasError('required')">
-                                Destination Location is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
+                    
                     </div>
                     <div class="row">
+
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                                <mat-label>Destination Location</mat-label>
+                                <mat-select formControlName="destinationLocation"  (selectionChange)="validationLocations($event.value)" required>
+                                    <mat-option *ngFor="let data of locationList" [value]="data.id" >
+                                        {{data.text}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="docForm.get('destinationLocation').hasError('required')">
+                                    Destination Location is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
                         
-                       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                       <!-- <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <mat-label>Asset Item</mat-label>
                             <mat-select formControlName="itemId" (selectionChange)="fetchAssetDtls($event.value)"  required>
@@ -84,7 +100,7 @@
                                 Asset Item is required
                             </mat-error>
                         </mat-form-field>
-                        </div>
+                        </div> -->
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>Quantity</mat-label>
@@ -92,19 +108,7 @@
                                 
                               </mat-form-field>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                                <mat-label>Company</mat-label>
-                                <mat-select formControlName="companyId"  required>
-                                    <mat-option *ngFor="let data of companyList" [value]="data.id" >
-                                        {{data.text}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="docForm.get('companyId').hasError('required')">
-                                    Company is required
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
+                        
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <mat-label>EDD</mat-label>
@@ -127,11 +131,11 @@
                                 <tr>
                                     <th ><input type="checkbox" [value]="docForm.get('assetRequisitionDtl')['controls']" (change)="checkAll($event,docForm.get('assetRequisitionDtl')['controls'])"></th>
                                     
-                                    <th >Asset Track No</th>
+                                    <th >Asset Code</th>
                                     <th >Asset Name</th>
                                     <th >Serial No</th>
                                     <th >Asset Location</th>
-                                    <th >Responsible</th>
+                                    <th >Category</th>
                                     <th >Asset User</th>
                                    
                                 </tr>
@@ -158,7 +162,7 @@
                                         </td>
 
                                         <td >
-                                            {{assetRequisitionDtl.get('resAsset').value}}
+                                            {{assetRequisitionDtl.get('assetCategory').value}}
                                         </td>
                                         <td >
                                             {{assetRequisitionDtl.get('user').value}}

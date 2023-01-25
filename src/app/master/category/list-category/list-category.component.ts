@@ -24,7 +24,7 @@ export class ListCategoryComponent implements OnInit {
   displayedColumns = [
    
     "categoryName",
-    "parentCategory",
+  
     "Description",
     "isactiveForList",
     "actions"

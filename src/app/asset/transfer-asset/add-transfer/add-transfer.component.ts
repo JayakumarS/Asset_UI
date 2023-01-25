@@ -13,6 +13,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { AssetRequisitionService } from '../../asset-requisition/asset-requisition.service';
 import { TransferAssetService } from '../transfer-asset.service';
 import { TransferBean } from '../transfer-model';
 
@@ -57,6 +58,8 @@ export class AddTransferComponent implements OnInit {
   companyList=[];
   assetList=[];
   requisitionList=[];
+  requisitionListNew=[];
+  requisitionAll=[];
   requestId:number;
   maxDate = moment(new Date()).add(0, 'days').format('YYYY-MM-DD');
   userName: any;
@@ -72,6 +75,7 @@ export class AddTransferComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
     private token: TokenStorageService,
+    private assetRequisitionService :AssetRequisitionService,
     private serverUrl: serverLocations) { }
 
   ngOnInit(): void {
@@ -137,6 +141,20 @@ export class AddTransferComponent implements OnInit {
   this.httpService.get<any>(this.commonService.getassetname).subscribe(
     (data2) => {
       this.assetList = data2;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
+
+  this.httpService.get<any>(this.assetRequisitionService.listUrl).subscribe(
+    (data5) => {
+      this.requisitionListNew = data5.assetRequisitionDetails;
+     for(let k=0;k<this.requisitionListNew.length;k++){
+     if(this.requisitionListNew[k].expiryStatus!='Expired'){
+      this.requisitionAll.push(this.requisitionListNew[k]);
+      }
+     }
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
@@ -214,14 +232,39 @@ export class AddTransferComponent implements OnInit {
   }
 
   reset() {
-    if (!this.edit) {
-      this.docForm.reset();
-      this.docForm.patchValue({
-        'loginedUser': this.tokenStorage.getUserId()
-      })
-    } else {
-      //this.fetchDetails(this.requestId);
-    }
+    this.docForm = this.fb.group({
+      transferDate: [""],
+      transferDateObj: [moment().format('YYYY-MM-DD'),[Validators.required]],
+      requisitionNo: ["", [Validators.required]],
+      transportationType: ["", [Validators.required]],
+      requisitionDate: [""],
+      sourceLocation: [""],
+      requestedBy: [""],
+      destinationLocation: [""],
+      deliveryMethod: ["", [Validators.required]],
+      hospital: ["", [Validators.required]],
+      status: [1, [Validators.required]],
+      itemName: [""],
+      itemCategory: [""],
+      requestedQuantity: [""],
+      eddDate: [""],
+      transferQuantity: ["", [Validators.required]],
+      loginedUser: this.tokenStorage.getUserId(),
+      destinationLocationId: [""],
+      assetId:[""],
+      addAssetDetail: this.fb.array([
+        this.fb.group({
+          assetTrackNo: [""],
+          assetName: [''],
+          serialNo: [''],
+          assetLocation: [''],
+          responsible: [''],
+          assetUser: [''],
+        })
+      ]),
+    });
+
+    this.docForm.controls.status.disable();
   }
 
     // For Date related code
@@ -327,9 +370,9 @@ export class AddTransferComponent implements OnInit {
     }
 
     update(){
-
+       this.userName=this.tokenStorage.getUsername();
       if(this.docForm.get("status").value==2){
-        this.httpService.get(this.transferAssetService.updateStatus+ "?headerID=" + this.requestId+"&destinationLocationId="+this.docForm.get("destinationLocationId").value+"&assetId="+this.docForm.get("assetId").value).subscribe((res: any) => {
+        this.httpService.get(this.transferAssetService.updateStatus+ "?headerID=" + this.requestId+"&destinationLocationId="+this.docForm.get("destinationLocationId").value+"&assetId="+this.docForm.get("assetId").value+"&userName="+this.userName).subscribe((res: any) => {
           this.showNotification(
             "snackbar-success",
             "Received Successfully...!!!",
@@ -346,7 +389,7 @@ export class AddTransferComponent implements OnInit {
         this.docForm.controls['status'].setErrors({ status: true });
         this.showNotification(
           "snackbar-danger",
-          "Please Approve Status",
+          "Please Change the Status",
           "top",
           "right"
         );
