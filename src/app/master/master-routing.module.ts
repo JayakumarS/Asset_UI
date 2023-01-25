@@ -71,6 +71,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./role-master/role-master.module").then((r) => r.RoleMasterModule),
   },
+  {
+    path: "Branch",
+  loadChildren: () => 
+  import("./Branch/Branch.module").then((m) => m.BranchModule),
+  },
 
 ];
 
