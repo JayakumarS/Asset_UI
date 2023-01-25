@@ -17,7 +17,7 @@
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="parentLocation"maxlength="15"[ngModel]="inputvalue"
-                      (ngModelChange)="inputvalue = $event.toUpperCase()"  (keypress)="string($event)"required>
+                      (ngModelChange)="inputvalue = $event.toUpperCase()"  required>
                       <mat-error *ngIf="docForm.get('parentLocation').hasError('required')">
                         Parent Location Name is required
                       </mat-error><mat-error *ngIf="docForm.get('parentLocation').hasError('parentLocation')">
@@ -32,7 +32,7 @@
                       <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="locationName" maxlength="15"[ngModel]="inputvalue1"
-                        (ngModelChange)="inputvalue1 = $event.toUpperCase()"  (keypress)="string($event)"required>
+                        (ngModelChange)="inputvalue1 = $event.toUpperCase()"  required>
                         <mat-error *ngIf="docForm.get('locationName').hasError('required')">
                           Location is required
                         </mat-error>
