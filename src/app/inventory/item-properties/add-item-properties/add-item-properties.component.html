@@ -9,11 +9,11 @@
       <div class="col-md-12">
         <div class="box-shadow">
           <div class="card pageproperty">
-            <div class="body" style="padding-left: 150px;">
+            <div class="body" style="padding-left: 80px;">
               <form class="m-4" [formGroup]="docForm">
                 <div class="row">
                   <div class=" col-md-2">
-                    <label class="lable"> Property Type<span class="errorColor">*</span></label>
+                    <label> PROPERTY TYPE<span class="errorColor">*</span></label>
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -28,7 +28,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-2 spaceBetweenTwoFields">
-                    <label class="lable">Type<span class="errorColor">*</span></label>
+                    <label>TYPE<span class="errorColor">*</span></label>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-2">
-                    <label class="lable">Property Name<span class="errorColor">*</span></label>
+                    <label>PROPERTY NAME<span class="errorColor">*</span></label>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -58,7 +58,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-2 spaceBetweenTwoFields" *ngIf="this.docForm.value.attributeDataType!='77'">
-                    <label class="lable">Length</label>
+                    <label>LENGTH</label>
                   </div>
                   <div class="col-md-3" *ngIf="this.docForm.value.attributeDataType!='77'">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -68,7 +68,7 @@
                   </div>
 
                   <div class="col-md-2 spaceBetweenTwoFields" *ngIf="this.docForm.value.attributeDataType=='77'">
-                    <label class="lable"> Value</label>
+                    <label> VALUE</label>
                   </div>
                   <div class="col-md-3" *ngIf="this.docForm.value.attributeDataType=='77'">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -79,7 +79,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-2">
-                    <label class="lable">Default Value</label>
+                    <label>DEFAULT VALUE</label>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -88,10 +88,10 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-2 spaceBetweenTwoFields">                  
-                    <label class="lable">Is Mandatory</label>
+                    <label>IS MANDATORY</label>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-checkbox ngInit="checked=true" formControlName="isMandatory"></mat-checkbox>
+                    <mat-checkbox ngInit="checked=true" formControlName="isMandatory" style="margin-left: 10px;"></mat-checkbox>
                   </div>
                 </div>
 

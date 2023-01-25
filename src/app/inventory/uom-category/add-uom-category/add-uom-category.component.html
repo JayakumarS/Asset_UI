@@ -5,15 +5,15 @@
         <app-breadcrumb [title]="'Add UOM '" [items]="['Master']" [active_item]="'Add UOM Category'">
         </app-breadcrumb>
       </div>
-      <div class="row clearfix ">
+      <div class="row clearfix" >
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="box-shadow">
           <div class="card">
-            <div class="body" style="padding-left: 110px;">
+            <div class="body" style="padding-left: 80px;">
               <form class="m-4" [formGroup]="docForm">
                 <div class="row">
                   <div class=" col-md-2">
-                    <label class="lable">Unit<span class="errorColor">*</span></label>
+                    <label >UNIT<span class="errorColor">*</span></label>
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -24,7 +24,7 @@
                     </mat-form-field>
                   </div>
                   <div class=" col-md-2">
-                    <mat-label class="lable">Category Name</mat-label>
+                    <mat-label >CATEGORY NAME</mat-label>
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -41,7 +41,7 @@
 
                   <div class="row">
                     <div class=" col-md-2">
-                      <mat-label class="lable">Description</mat-label>
+                      <mat-label >DESCRIPTION</mat-label>
                       </div>
                       <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -51,9 +51,9 @@
                         </mat-error>
                       </mat-form-field>
                     </div>
-              <div class=" col-md-2"><mat-label class="lable">Active</mat-label></div>
+              <div class=" col-md-2"><mat-label >ACTIVE</mat-label></div>
               <div class=" col-md-3">
-                 <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
+                 <mat-checkbox  ngInit="checked=true" formControlName="active" STYLE="MARGIN-LEFT:10PX"></mat-checkbox>
               </div>
               </div>
                 <br>

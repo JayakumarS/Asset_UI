@@ -13,7 +13,7 @@
 
               <div class="row">
                 <div class="col-md-2">
-                  <label class="lable">Item Type <span class="errorColor">*</span></label>
+                  <label >ITEM TYPE <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -28,7 +28,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-2 spaceBetweenTwoFields">
-                  <label class="lable">Item Name <span class="errorColor">*</span></label>
+                  <label >ITEM NAME <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -42,7 +42,7 @@
 
               <div class="row">
                 <div class="col-md-2">
-                  <label class="lable">Item Code <span class="errorColor">*</span></label>
+                  <label >ITEM CODE <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -57,7 +57,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-2 spaceBetweenTwoFields">
-                  <label class="lable">Item Category <span class="errorColor">*</span></label>
+                  <label>ITEM CATEGORY <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -75,7 +75,7 @@
 
               <div class="row">
                 <div class="col-md-2">
-                  <label class="lable">Item Description</label>
+                  <label >ITEM DESCRIPTION</label>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -86,7 +86,7 @@
 
 
               <mat-tab-group>
-                <mat-tab label="Specification">
+                <mat-tab label="SPECIFICATION">
                   <br>
                   <ng-container
                     *ngFor="let specificationList of docForm.get('specificationList')['controls']; let i = index">
@@ -106,7 +106,7 @@
                    
                         <!-- DropDown Start -->
                         <div class="col-md-3" *ngIf="specificationList.controls.typeinput.value == 'DropDown'">
-                          <label class="lable">Drop Down</label>
+                          <label >DROP DOWN</label>
                         </div>
                         <div class="col-md-8" *ngIf="specificationList.controls.typeinput.value == 'DropDown'">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -142,7 +142,7 @@
                       
                         <!-- Radio Button Start -->
                         <div class="col-md-3" *ngIf="specificationList.controls.typeinput.value == 'Radio Button'">
-                          <label class="lable">Radio button</label>
+                          <label>RADIO BUTTON</label>
                         </div>
                         <div class="col-md-8" *ngIf="specificationList.controls.typeinput.value == 'Radio Button'">
                           <mat-radio-group  name="dynamicAttributeValue{{i}}" formControlName="dynamicAttributeValue">
@@ -153,7 +153,7 @@
                       
                         <!-- Number Start -->
                         <div class="col-md-3" *ngIf="specificationList.controls.typeinput.value == 'Number'">
-                          <label class="lable">Number</label>
+                          <label>NUMBER</label>
                         </div>
                         <div class="col-md-8" *ngIf="specificationList.controls.typeinput.value == 'Number'">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -167,26 +167,26 @@
                   </ng-container>
                 </mat-tab>
 
-                <mat-tab label="Vendor">
+                <mat-tab label="VENDOR">
                   <div style="overflow-x: auto;">
                     <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                       <thead class="">
                         <tr>
                           <th style="width: 1%;"></th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%; border-radius: 0.05rem;">Vendor</th>
+                   width: 12%; border-radius: 0.05rem;">VENDOR</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%;border-radius: 0.07rem;">Vendor Item Name</th>
+                   width: 12%;border-radius: 0.07rem;">VENDOR ITEM NAME</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%;border-radius: 0.07rem;">Vendor Item Code</th>
+                   width: 12%;border-radius: 0.07rem;">VENDOR ITEM CODE</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%; border-radius: 0.05rem;">Minimum Quantity</th>
+                   width: 12%; border-radius: 0.05rem;">MINIMUM QUNATITY</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%; border-radius: 0.05rem;">Vendor Uom</th>
+                   width: 12%; border-radius: 0.05rem;">VENDOR UOM</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%;border-radius: 0.07rem;">Delivery Lead Time</th>
+                   width: 12%;border-radius: 0.07rem;">DELIVERY LEAD TIME</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%;border-radius: 0.07rem;">Pricing Type</th>
+                   width: 12%;border-radius: 0.07rem;">PRICING TYPE</th>
                         </tr>
                       </thead>
                       <ng-container *ngFor="let vendorList of docForm.get('vendorList')['controls']; let i = index">
@@ -199,7 +199,7 @@
                               </td>     
                            <td class="padding-both-side-2">
                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Vendor</mat-label>
+                                <mat-label>VENDOR</mat-label>
                                 <mat-select name="vendorId{{i}}" formControlName="vendorId">
                                   <mat-option *ngFor="let title of vendorDropdownList" [value]="title.id">
                                     {{title.text}}
@@ -209,26 +209,26 @@
                             </td>
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Vendor Item Name</mat-label>
+                                <mat-label>VENDOR ITEM NAME</mat-label>
                                 <input matInput name="vendorItemName{{i}}" formControlName="vendorItemName" (keypress)="keyPressName($event)" maxlength="50">
                               </mat-form-field>
                             </td>
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Vendor Item Code</mat-label>
+                                <mat-label>VENDOR ITEM CODE</mat-label>
                                 <input matInput name="vendorItemCode{{i}}" formControlName="vendorItemCode" (keypress)="keyPressName($event)" maxlength="25">
                               </mat-form-field>
                             </td>
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Minimum Quantity</mat-label>
+                                <mat-label>MINIMUM QUNATITY</mat-label>
                                 <input matInput name="vendorminimumQty{{i}}" formControlName="vendorminimumQty"  (keypress)="keyPressNumberInt($event)" maxlength="9">
                               </mat-form-field>
                             </td>
                             
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Vendor UOM</mat-label>
+                                <mat-label>VENDOR UOM</mat-label>
                                 <mat-select name="vendorUomId{{i}}" formControlName="vendorUomId">
                                   <mat-option *ngFor="let title of uomList" [value]="title.id">
                                     {{title.text}}
@@ -238,13 +238,13 @@
                             </td>
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Delivery Lead Time</mat-label>
+                                <mat-label>DELIVERY LEAD TIME</mat-label>
                                 <input matInput name="deliveryLeadTime{{i}}" formControlName="deliveryLeadTime" (keypress)="keyPressNumberInt($event)" maxlength="9">
                               </mat-form-field>
                             </td>
                             <td class="padding-both-side-2">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Pricing Type</mat-label>
+                                <mat-label>PRICING TYPE</mat-label>
                                 <mat-select name="pricingType{{i}}" formControlName="pricingType">
                                   <mat-option *ngFor="let title of pricingTypeList" [value]="title.id">
                                     {{title.text}}
@@ -265,11 +265,11 @@
                             </div> 
                 </mat-tab>
 
-                <mat-tab label="Inventory">
+                <mat-tab label="INVENTORY">
                   <br>
                   <div class="row">
                     <div class="col-md-2">
-                      <label class="lable">Inventory Valuation <span class="errorColor">*</span></label>
+                      <label>INVENTORY VALUTATION <span class="errorColor">*</span></label>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -281,7 +281,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-2 spaceBetweenTwoFields">
-                      <label class="lable">Issue Method <span class="errorColor">*</span></label>
+                      <label>ISSUE METHOD <span class="errorColor">*</span></label>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -297,11 +297,11 @@
 
                 </mat-tab>
 
-                <mat-tab label="GRN Attribute">
+                <mat-tab label="GRN ATTRIBUTE">
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
                       <mat-checkbox style="margin: 10px 10px;" formControlName="batchNo" ngInit="checked=true">Batch
-                        No</mat-checkbox>
+                        NO</mat-checkbox>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
                       <mat-checkbox style="margin: 10px 10px;" formControlName="mrp"
@@ -309,11 +309,11 @@
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
                       <mat-checkbox style="margin: 10px 10px;" formControlName="expiryDate" ngInit="checked=true">Expiry
-                        Date</mat-checkbox>
+                        DATE</mat-checkbox>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
                       <mat-checkbox style="margin: 10px 10px;" formControlName="manufactureDetails"
-                        ngInit="checked=true">Manufacturer Details</mat-checkbox>
+                        ngInit="checked=true">MANUFACTURE DETAILS</mat-checkbox>
                     </div>
                   </div>
                 </mat-tab>
