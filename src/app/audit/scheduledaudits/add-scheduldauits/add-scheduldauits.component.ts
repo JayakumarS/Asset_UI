@@ -453,9 +453,10 @@ this.fetchDetailsA(this.requestId)
     })
     scheduledListDetailArray.insert(arraylen, newUsergroup);
   }
+  
 
   removeRow(index){
-    let scheduledListDetailArray = this.docForm.controls.scheduledList as FormArray;
+    let scheduledListDetailArray = this.docForm.controls.scheduledDetailbean as FormArray;
     scheduledListDetailArray.removeAt(index);
   }
   }
