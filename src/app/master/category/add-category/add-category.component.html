@@ -5,7 +5,7 @@
         <app-breadcrumb [title]="'Asset Category'" [items]="['Master']" [active_item]="'Add Asset Category'">
         </app-breadcrumb>
       </div>
-      <div class="row clearfix ">
+      <div class="row clearfix" STYLE="margin-left:-10%;">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="box-shadow">
           <div class="card">
@@ -15,7 +15,7 @@
 
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label class="lable">Category Name<span class="errorColor">*</span></label>
+                    <label >CATEGORY NAME<span class="errorColor">*</span></label>
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -44,7 +44,7 @@
                 </div>  
               </div> -->
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label class="lable">Parent Category</label>
+                <label >PARENT CATEGORY</label>
             </div>
       
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
@@ -67,7 +67,7 @@
 
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label class="lable">Description</label>
+                    <label >DESCRIPTION</label>
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -79,21 +79,33 @@
                 </div>
                  
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label class="lable">Is Active</label>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-checkbox  ngInit="checked=false" formControlName="isactive"></mat-checkbox>
-                  </div>
- 
+                  <label >DEP METHOD<span class="errorColor">*</span></label>
               </div>
+  
+              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                  <mat-select formControlName="depreciation" >
+                    <mat-option *ngFor="let title of depreciationlist" [value]="title.id" required>
+                      {{title.text}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="docForm.get('depreciation').hasError('required')">
+                    asset location by is required
+                  </mat-error>
+  
+                 
+                </mat-form-field>
+              </div>   
+
+                
 
               <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label class="lable">ASSET TYPE<span class="errorColor">*</span></label>
+                  <label >ASSET TYPE<span class="errorColor">*</span></label>
               </div>
 
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="width:320px;    margin-left: -2px;">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline" style=" margin-left: 6px; " >
                   <mat-select formControlName="assettype" >
                     <mat-option *ngFor="let title of assettypelist" [value]="title.id" required>
                       {{title.text}}
@@ -106,34 +118,13 @@
                  
                 </mat-form-field>
               </div>
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label class="lable">DEPRECIATION METHOD<span class="errorColor">*</span></label>
-            </div>
-
-            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="width:315px;">
-                <mat-select formControlName="depreciation" >
-                  <mat-option *ngFor="let title of depreciationlist" [value]="title.id" required>
-                    {{title.text}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="docForm.get('depreciation').hasError('required')">
-                  asset location by is required
-                </mat-error>
-
-               
-              </mat-form-field>
-            </div>    
             
-            </div>
-
-            <div class="row">
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label class="lable">Currency<span class="errorColor">*</span></label>
+                <label style=" margin-left: 11px;">CURRENCY<span class="errorColor">*</span></label>
             </div>
 
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="width:320px;    margin-left: -2px;">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left:15px"  >
                 <mat-select formControlName="currency" >
                   <mat-option *ngFor="let title of currencylist" [value]="title.id" required>
                     {{title.text}}
@@ -146,6 +137,21 @@
                
               </mat-form-field>
             </div>
+
+          </div>
+            
+            </div>
+
+            <div class="row">
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label style="margin-left: 13px;">IS ACTIVE</label>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
+                <mat-checkbox  ngInit="checked=false" formControlName="isactive"  style="margin-left: 20px;"></mat-checkbox>
+              </div>
+
+         
             </div>
 
                 <br>
