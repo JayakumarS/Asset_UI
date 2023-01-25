@@ -25,10 +25,11 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
   public listUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/list`;
   public saveUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/save`;
   public editUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/edit`;
+  public updateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/update`;
   public assetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetItemList`;
   public assetQuantityUrl =  `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetItemList`;
   public assetTrackListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetTrackDetails`;
-
+  public assetTrackListUrlNew = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetTrackDetailsNew`;
   get data(): AssetRequisition[] {
     return this.dataChange.value;
   }
@@ -55,6 +56,33 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
   save(assetRequisition:AssetRequisition,router,notificationService): void {
     this.dialogData = assetRequisition;  
     this.httpService.post<any>(this.saveUrl,assetRequisition ).subscribe(data => {
+      console.log(data);
+      if(data.success){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Record Added successfully...",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/asset/assetRequisition/listAssetRequisition']);
+      }
+      else {
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated...!!!",
+          "bottom",
+          "center"
+        );
+      }
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
+
+  update(assetRequisition:AssetRequisition,router,notificationService): void {
+    this.dialogData = assetRequisition;  
+    this.httpService.post<any>(this.updateUrl,assetRequisition ).subscribe(data => {
       console.log(data);
       if(data.success){
         notificationService.showNotification(

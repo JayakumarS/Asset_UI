@@ -50,6 +50,7 @@ export class AddAssetRequisitionComponent implements OnInit {
   requestId: any;
   requestType:any;
   edit:boolean=false;
+  change:boolean=false;
   locationList:[];
   employeeList: [];
   assetItemList:[];
@@ -84,6 +85,7 @@ export class AddAssetRequisitionComponent implements OnInit {
         companyId:[""],
         eddDateObj:[""],
         eddDate:[""],
+        assetRequisitionId:[""],
         assetRequisitionDtl: this.fb.array([
           this.fb.group({
             assetTrackConfirm:[""],
@@ -163,6 +165,9 @@ export class AddAssetRequisitionComponent implements OnInit {
   this.route.params.subscribe(params => {
    if(params.id!=undefined && params.id!=0){
     this.requestId = params.id;
+    this.docForm.patchValue({
+      'assetRequisitionId':this.requestId
+   })
     this.edit=true;
     this.requestType = params.type;
     this.fetchDetails(this.requestId,this.requestType) ;
@@ -176,7 +181,7 @@ export class AddAssetRequisitionComponent implements OnInit {
 fetchDetails(id: any,type:any): void {
   this.httpService.get(this.assetRequisitionService.editUrl+"?assetRequistionId="+id+"&type="+type).subscribe((res: any)=> {
     console.log(res);
-    this.getAssetItemList(res.assetRequisition.sourceLocation);
+    this.getAssetItemList(res.assetRequisition.sourceLocation,'false');
     this.docForm.patchValue({
       
       'requisitionNumber': res.assetRequisition.requisitionNumber,
@@ -191,7 +196,7 @@ fetchDetails(id: any,type:any): void {
       'eddDateObj':this.commonService.getDateObj(res.assetRequisition.eddDate),
       'eddDate': res.assetRequisition.eddDate
    });
-   this.fetchAssetDtls(res.assetRequisition.itemId);
+   this.fetchAssetDtlsNew(res.assetRequisition.purchaseRequsitionDetailid);
   //  if(res.manageAuditBean.manageAuditDtlObjBean!=null){
   
      
@@ -219,6 +224,41 @@ fetchDetails(id: any,type:any): void {
   );
 }
 
+fetchAssetDtlsNew(id){
+  this.httpService.get<any>(this.assetRequisitionService.assetTrackListUrlNew+"?detailId="+id).subscribe(
+    (data) => {
+      if(data.assetTrackList!=null){
+        let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
+        DtlArray.removeAt(0);
+        DtlArray.clear();
+        this.showassetDtl=true;
+        data.assetTrackList.forEach(element => {
+              let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
+              let arraylen = DtlArray.length;
+              let newUsergroup: FormGroup = this.fb.group({
+                assetTrackConfirm:[element.assetTrackConfirm],
+                assettrackName:[element.assettrackName],
+                assettrackNo:[element.assettrackNo],
+                asstDetailId:[element.asstDetailId],
+                asstlocation:[element.asstlocation],
+                asstlocationId:[element.asstlocationId],
+                resAsset:[element.resAsset],
+                resAssetId:[element.resAssetId],
+                serialNo:[element.serialNo],
+                user:[element.user],
+                userId:[element.userId],
+                ledgerId:[element.ledgerId],
+                assetCategory:[element.assetCategory],
+              });
+            DtlArray.insert(arraylen,newUsergroup);
+          });
+        }
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  )
+}
 
 
 fetchAssetDtls(itemId){
@@ -266,14 +306,15 @@ fetchAssetDtls(itemId){
             }
 
           this.showassetDtl  = true;
-        }else{
-          this.showNotification(
-            "snackbar-danger",
-            data.errors,
-            "top",
-            "right"
-          );
         }
+        // else{
+        //   this.showNotification(
+        //     "snackbar-danger",
+        //     data.errors,
+        //     "top",
+        //     "right"
+        //   );
+        // }
         
       },
       (error: HttpErrorResponse) => {
@@ -286,7 +327,8 @@ fetchAssetDtls(itemId){
 
        
 
-getAssetItemList(id){
+getAssetItemList(id,selected){
+  this.change=true;
   if(this.docForm.get('sourceLocation').value!="" && this.docForm.get('destinationLocation').value!=""){
     if(this.docForm.get('sourceLocation').value == this.docForm.get('destinationLocation').value){
       this.showNotification(
@@ -303,8 +345,10 @@ getAssetItemList(id){
         (data) => {
           console.log(data);
           this.assetItemList = data.assetItemList;
-          this.fetchAssetDtls(0);
-          
+          if(selected=='true'){
+            this.fetchAssetDtls(0);
+          }
+       
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
@@ -316,7 +360,9 @@ getAssetItemList(id){
       (data) => {
         console.log(data);
         this.assetItemList = data.assetItemList;
-        this.fetchAssetDtls(0);
+        if(selected=='true'){
+          this.fetchAssetDtls(0);
+        }
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -443,6 +489,38 @@ validationLocations(id){
 
 
   update(){
+
+    if(this.docForm.valid){
+      if(parseInt(this.docForm.get('quantity').value)>0){
+        if(parseInt(this.docForm.get('quantity').value) === this.totalCheckedCount){
+          this.assetRequisitionService.update(this.docForm.value,this.router,this.notificationService);
+        }else{
+          this.showNotification(
+            "snackbar-danger",
+            "Check Fields Must equal to Quantity!",
+            "top",
+            "right"
+          );
+        }
+        
+      }else{
+        this.showNotification(
+          "snackbar-danger",
+          "Quantity Cannot be zero!",
+          "top",
+          "right"
+        );
+      }
+      
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
   }
 
   onCancel(){
