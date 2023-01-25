@@ -10,7 +10,7 @@
 
         <div class="row">
           <div class=" col-md-2">
-            <mat-label class="lable">Customer Name<span class="errorColor">*</span></mat-label>
+            <mat-label>CUSTOMER NAME<span class="errorColor">*</span></mat-label>
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -25,7 +25,7 @@
             </mat-form-field>
           </div>
           <div class=" col-md-2">
-            <mat-label class="lable">Registration Code</mat-label>
+            <mat-label >REGISTRATION CODE</mat-label>
             </div>
 
           <div class=" col-md-4">
@@ -40,7 +40,7 @@
 
         <div class="row">
           <div class=" col-md-2">
-            <mat-label class="lable">Contact Person<span class="errorColor">*</span></mat-label>
+            <mat-label>CONTACT PERSON<span class="errorColor">*</span></mat-label>
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -51,7 +51,7 @@
             </mat-form-field>
           </div>
           <div class=" col-md-2">
-            <mat-label class="lable">Email<span class="errorColor">*</span></mat-label>
+            <mat-label>EMAIL<span class="errorColor">*</span></mat-label>
             </div>
 
           <div class=" col-md-4">
@@ -67,7 +67,7 @@
 
         <div class="row">
           <div class=" col-md-2">
-            <mat-label class="lable">Contact Number<span class="errorColor">*</span></mat-label>
+            <mat-label>CONTACT NUMBER<span class="errorColor">*</span></mat-label>
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -78,7 +78,7 @@
             </mat-form-field>
           </div>
           <div class=" col-md-2">
-            <mat-label class="lable">Address1<span class="errorColor">*</span></mat-label>
+            <mat-label >ADDRESS 1<span class="errorColor">*</span></mat-label>
             </div>
 
           <div class=" col-md-4">
@@ -93,7 +93,7 @@
 
         <div class="row">
           <div class=" col-md-2">
-            <mat-label class="lable">Address2</mat-label>
+            <mat-label>ADDRESS 2</mat-label>
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -104,7 +104,7 @@
             </mat-form-field>
           </div>
           <div class=" col-md-2">
-            <mat-label class="lable">State<span class="errorColor">*</span></mat-label>
+            <mat-label>STATE<span class="errorColor">*</span></mat-label>
             </div>
              <div class=" col-md-4">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -120,7 +120,7 @@
 
         <div class="row">
           <div class=" col-md-2">
-            <mat-label class="lable">City<span class="errorColor">*</span></mat-label>
+            <mat-label>CITY<span class="errorColor">*</span></mat-label>
             </div>
              <div class=" col-md-4">
              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -132,7 +132,7 @@
             </mat-form-field>
           </div>
           <div class=" col-md-2">
-            <mat-label class="lable">PIN CODE<span class="errorColor">*</span></mat-label>
+            <mat-label>PIN CODE<span class="errorColor">*</span></mat-label>
             </div>
 
           <div class=" col-md-4">
@@ -146,7 +146,7 @@
         </div>
         <div class="row">
           <div class=" col-md-2">
-            <mat-label class="lable">Country<span class="errorColor">*</span></mat-label>
+            <mat-label>COUNTRY<span class="errorColor">*</span></mat-label>
             </div>
         <div class=" col-md-4">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -158,7 +158,7 @@
         </mat-form-field>
       </div>
       <div class=" col-md-2">
-        <mat-label class="lable">Location</mat-label>
+        <mat-label>LOCATION</mat-label>
         </div>
          <div class=" col-md-4">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -172,36 +172,36 @@
       </div>
         <div class="row">
           <div class=" col-md-2">
-            <mat-label class="lable">PAN NO</mat-label>
+            <mat-label>PAN NO</mat-label>
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="panno"maxlength="20" (keypress)="keyPressNumeric($event)" >
-            </mat-form-field>
+              <input matInput formControlName="panno"maxlength="20" [ngModel]="value1"
+              (ngModelChange)="value1=$event.toUpperCase()"(keypress)="keyPressAlphaNumeric($event)" >            </mat-form-field>
           </div>
           <div class=" col-md-2">
-            <mat-label class="lable">CST NO</mat-label>
+            <mat-label>CST NO</mat-label>
             </div>
 
           <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="cstno" maxlength="20"  (keypress)="keyPressNumeric($event)">
-            </mat-form-field>
+              <input matInput formControlName="cstno" maxlength="20" [ngModel]="value2"
+              (ngModelChange)="value2=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">            </mat-form-field>
           </div>
         </div>
 
 
         <div class="row">
           <div class=" col-md-2">
-            <mat-label class="lable">GST NO</mat-label>
+            <mat-label>GST NO</mat-label>
             </div>
              <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="gstno"maxlength="20"  (keypress)="keyPressNumeric($event)">
-            </mat-form-field>
+              <input matInput formControlName="gstno"maxlength="20"[ngModel]="value3"
+              (ngModelChange)="value3=$event.toUpperCase()"  (keypress)="keyPressAlphaNumeric($event)">            </mat-form-field>
           </div>
           <div class=" col-md-2">
-            <mat-label class="lable">Remarks</mat-label>
+            <mat-label>REMARKS</mat-label>
             </div>
 
           <div class=" col-md-4">
@@ -212,18 +212,18 @@
         </div>
 
         <div class="row">
-          <div class=" col-md-2"><mat-label class="lable">Active</mat-label></div>
+          <div class=" col-md-2"><mat-label>ACTIVE</mat-label></div>
           <div class=" col-md-3">
-             <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
+             <mat-checkbox  ngInit="checked=true" formControlName="active" style="margin-left: 10px;"></mat-checkbox>
           </div>
         </div>
       </div>
 
  <mat-tab-group>
-  <mat-tab label="Address">
+  <mat-tab label="ADDRESS">
     <div class="row">
       <div class=" col-md-2">
-        <mat-label class="lable">Vendor Location</mat-label>
+        <mat-label>VENDOR LOCATION</mat-label>
         </div>
          <div class=" col-md-4">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -235,7 +235,7 @@
         </mat-form-field>
       </div>
       <div class=" col-md-2">
-        <mat-label class="lable">Shipping Address</mat-label>
+        <mat-label >SHIPPING ADDRESS</mat-label>
         </div>
          <div class=" col-md-4">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -246,7 +246,7 @@
      </div>
      <div class="row">
       <div class=" col-md-2">
-        <mat-label class="lable">Billing Address</mat-label>
+        <mat-label>BILLING ADDRESS</mat-label>
         </div>
          <div class=" col-md-4">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -328,7 +328,7 @@
         </mat-form-field>
       </div>
       <div class=" col-md-2">
-        <mat-label class="lable">Delivery Address</mat-label>
+        <mat-label>DELIVERY ADDRESS</mat-label>
         </div>
          <div class=" col-md-4">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -373,22 +373,22 @@
           </div>
     </mat-tab>
 
-    <mat-tab label="Contact">
+    <mat-tab label="CONTACT">
       <div style="overflow-x: auto;">
         <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
           <thead class="">
             <tr>
               <th style="width: 1%;"></th>
               <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-              width: 12%; border-radius: 0.05rem;">Name</th>
+              width: 12%; border-radius: 0.05rem;">NAME</th>
                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                width: 12%;border-radius: 0.07rem;">Job Positiom</th>
+                width: 12%;border-radius: 0.07rem;">JOB POSITION</th>
              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-            width: 12%;border-radius: 0.07rem;">Email</th>
+            width: 12%;border-radius: 0.07rem;">EMAIL</th>
              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-            width: 12%;border-radius: 0.07rem;">Phone</th>
+            width: 12%;border-radius: 0.07rem;">PHONE</th>
       <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-      width: 12%;border-radius: 0.07rem;">Mobile</th>
+      width: 12%;border-radius: 0.07rem;">MOBILE</th>
             </tr>
           </thead>
           <ng-container *ngFor="let contactDetail of docForm.get('contactDetail')['controls']; let i = index">
@@ -402,31 +402,31 @@
 
                 <td class="padding-both-side-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Name</mat-label>
+                    <mat-label>NAME</mat-label>
                     <input matInput name="name{{i}}"  formControlName="name">
                   </mat-form-field>
                 </td>
                 <td class="padding-both-side-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Position</mat-label>
+                    <mat-label>POSITION</mat-label>
                     <input matInput name="position{{i}}"  formControlName="position">
                   </mat-form-field>
                 </td>
                 <td class="padding-both-side-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Email</mat-label>
+                    <mat-label>EMAIL</mat-label>
                     <input matInput name="conEmail{{i}}"  formControlName="conEmail">
                   </mat-form-field>
                 </td>
                 <td class="padding-both-side-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Phone</mat-label>
+                    <mat-label>PHONE</mat-label>
                     <input matInput name="conPhone{{i}}"  formControlName="conPhone"maxlength="10" (keypress)="keyPressNumeric($event)">
                   </mat-form-field>
                 </td>
                 <td class="padding-both-side-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Mobile</mat-label>
+                    <mat-label>MOBILE</mat-label>
                     <input matInput name="mobile{{i}}"  formControlName="mobile"maxlength="10" (keypress)="keyPressNumeric($event)">
                   </mat-form-field>
                 </td>
@@ -446,7 +446,7 @@
     </mat-tab>
 
 
-    <mat-tab label="Internal Notes">
+    <mat-tab label="INTERNAL NOTES">
       <div class="row">
 
           <div class=" col-md-12">
@@ -458,10 +458,10 @@
       </div>
 
     </mat-tab>
-    <mat-tab label="Purchase">
+    <mat-tab label="PURCHASE">
       <div class="row">
         <div class=" col-md-2">
-          <mat-label class="lable">Responsible Person</mat-label>
+          <mat-label >RESPONSIBLE PERSON</mat-label>
           </div>
           <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -474,11 +474,11 @@
       </mat-form-field>
       </div>
       <div class=" col-md-2">
-        <mat-label class="lable">Delivery Method</mat-label>
+        <mat-label >DELIVERY METHOD</mat-label>
         </div>
         <div class=" col-md-3">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <mat-label>Payment Method</mat-label>
+            <mat-label>PAYMENT METHOD</mat-label>
             <mat-select  formControlName="method">
               <mat-option [value]="'1'">
                 In Person
@@ -492,11 +492,11 @@
     </div>
     </mat-tab>
 
-<mat-tab label="Accounting">
+<mat-tab label="ACCOUNTING">
 <h4>Supplier</h4>
   <div class="row">
     <div class=" col-md-2">
-      <mat-label class="lable">Account Receivable<span class="errorColor">*</span></mat-label>
+      <mat-label >ACCOUNT RECEIVABLE<span class="errorColor">*</span></mat-label>
       </div>
        <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -505,7 +505,7 @@
       </mat-form-field>
     </div>
     <div class=" col-md-2">
-      <mat-label class="lable">Supplier Payment Term<span class="errorColor">*</span></mat-label>
+      <mat-label >SUPPLIER PAYMENT TERM<span class="errorColor">*</span></mat-label>
       </div>
 
     <div class=" col-md-4">
@@ -518,7 +518,7 @@
 
   <div class="row">
     <div class=" col-md-2">
-      <mat-label class="lable">Total Receivable<span class="errorColor">*</span></mat-label>
+      <mat-label>TOTAL RECEIVABLE<span class="errorColor">*</span></mat-label>
       </div>
        <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -527,7 +527,7 @@
       </mat-form-field>
     </div>
     <div class=" col-md-2">
-      <mat-label class="lable">Credit Limit<span class="errorColor">*</span></mat-label>
+      <mat-label>CREDIT LIMIT<span class="errorColor">*</span></mat-label>
       </div>
 
     <div class=" col-md-4">
@@ -544,15 +544,15 @@
           <tr>
             <th style="width: 1%;"></th>
             <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-            width: 12%; border-radius: 0.05rem;">Bank Name</th>
+            width: 12%; border-radius: 0.05rem;">BANK NAME</th>
               <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-              width: 12%;border-radius: 0.07rem;">Account Type</th>
+              width: 12%;border-radius: 0.07rem;">ACCOUNT TYPE</th>
            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-          width: 12%;border-radius: 0.07rem;">AccountNo</th>
+          width: 12%;border-radius: 0.07rem;">ACCOUNT NO</th>
            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-          width: 12%;border-radius: 0.07rem;">Address</th>
+          width: 12%;border-radius: 0.07rem;">ADDRESS</th>
     <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-    width: 12%;border-radius: 0.07rem;">IFSC Code</th>
+    width: 12%;border-radius: 0.07rem;">IFSC CODE</th>
           </tr>
         </thead>
         <ng-container *ngFor="let accountDetail of docForm.get('accountDetail')['controls']; let i = index">
@@ -566,31 +566,31 @@
 
               <td class="padding-both-side-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Bank Name</mat-label>
+                  <mat-label>BANK NAME</mat-label>
                   <input matInput name="bankName{{i}}"  formControlName="bankName">
                 </mat-form-field>
               </td>
               <td class="padding-both-side-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Account Type</mat-label>
+                  <mat-label>ACCOUNT TYPE</mat-label>
                   <input matInput name="accType{{i}}"  formControlName="accType">
                 </mat-form-field>
               </td>
               <td class="padding-both-side-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Account No</mat-label>
+                  <mat-label>ACCOUNT NO</mat-label>
                   <input matInput name="accName{{i}}"  formControlName="accNo">
                 </mat-form-field>
               </td>
               <td class="padding-both-side-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Address</mat-label>
+                  <mat-label>ADDRESS</mat-label>
                   <input matInput name="address{{i}}"  formControlName="address">
                 </mat-form-field>
               </td>
               <td class="padding-both-side-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>IFSC Code</mat-label>
+                  <mat-label>IFSC CODE</mat-label>
                   <input matInput name="ifscCode{{i}}"  formControlName="ifscCode">
                 </mat-form-field>
               </td>

@@ -1,0 +1,34 @@
+<div class="container">
+    <h3 mat-dialog-title>Please choose current Company!</h3>
+    <div mat-dialog-content>
+      <div class="row">
+        <!--Gift Icon-->
+        <!-- <div class="col text-center"> <i class="far fa-times-circle fa-6x col-red"></i> </div> -->
+        <!--Modal Text-->
+        
+            <div class="tableBody">
+                <div class="table-responsive">
+                  <table class="table table-hover ">
+                    <thead>
+                      <tr>
+                        <th>Choose</th>
+                        <th>Company</th>
+                        <th>Branch</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                      <tr *ngFor="let map of data">
+                        <td>
+                            <input type="radio" name="optradio" (change)="saveCompanyId(map)">
+                        </td>
+                        <td>{{map.companyName}}</td>
+                        <td>{{map.branchName}}</td>
+                      </tr>
+                    </tbody>
+                  </table> 
+                </div>
+            </div>
+      </div>
+    </div>
+  </div>

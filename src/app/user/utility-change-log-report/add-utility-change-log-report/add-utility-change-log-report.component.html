@@ -1,0 +1,75 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Utility Change Log'" [items]="['User']" [active_item]="'Add Utility Change Log'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <form class="m-4" [formGroup]="docForm">
+          <div class="card">
+            <div class="body" style="padding-left: 110px;">
+
+              <div class="row">
+                
+                <div class="col-md-2">
+                  <label class="lable">Date</label>
+              </div> 
+              <div class="col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  
+                  <input matInput formControlName="date" >
+                  <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+                    Description is required
+                  </mat-error> -->
+                </mat-form-field>
+              </div>
+              </div>
+
+              <div class="row">
+                
+                <div class="col-md-2">
+                  <label class="lable">Meter</label>
+              </div> 
+              <div class="col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  
+                  <input matInput formControlName="meter" >
+                  <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+                    Description is required
+                  </mat-error> -->
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-2" >
+                <label class="lable">Assignee</label>
+              </div>
+        
+              <div class="col-md-3" >
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-select formControlName="assignee" required>
+                    <mat-option *ngFor="let title of userDdList" [value]="title.id">
+                      {{title.text}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="docForm.get('assignee').hasError('required')">
+                    assignee is required
+                  </mat-error>
+                </mat-form-field>
+              </div>  
+              </div>
+
+
+
+
+
+            </div>
+        </div>
+      </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>

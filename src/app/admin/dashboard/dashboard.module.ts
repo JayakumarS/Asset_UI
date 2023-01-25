@@ -33,10 +33,11 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 
 import { NotificationService } from "src/app/core/service/notification.service";
+import { CompanyMapPopupComponent } from './main/company-map-popup/company-map-popup.component';
 
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component],
+  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

@@ -39,6 +39,9 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   cityDdList = [];
   list = [];
   value = [];
+  value1= [];
+  value2 = [];
+  value3 = [];
   submitted: boolean=false;
   state: string;
   cityShipperList = [];
@@ -379,6 +382,14 @@ keyPressPCC(event:any){
 
 keyPressNumeric(event: any) {
   const pattern = /[0-9]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
+
+keyPressAlphaNumeric(event: any) {
+  const pattern = /[A-Z,a-z 0-9]/;
   const inputChar = String.fromCharCode(event.charCode);
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();

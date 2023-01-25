@@ -70,12 +70,16 @@ const routes: Routes = [
     path: "roleMaster",
     loadChildren: () =>
       import("./role-master/role-master.module").then((r) => r.RoleMasterModule),
+  },{
+    path: "rolerights",
+    loadChildren: () =>
+      import("./role-rights/role-rights.module").then((m) => m.RoleRightsModule),
   },
-  {
-    path: "Branch",
-  loadChildren: () => 
-  import("./Branch/Branch.module").then((m) => m.BranchModule),
-  },
+
+  //   path: "Branch",
+  // loadChildren: () =>
+  // import("./Branch/Branch.module").then((m) => m.BranchModule),
+  // },
 
 ];
 

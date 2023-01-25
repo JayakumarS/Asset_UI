@@ -69,7 +69,16 @@ const routes: Routes = [
           role: Role.Admin,
         },
         loadChildren: () =>
-          import("./inventory/inventory.module").then((m) => m.InventoryModule),
+          import("./inventory/inventory.module").then((m) => m.InventoryModule)
+      },
+      {
+        path: "user",
+        canActivate: [AuthGuard],
+        data: {
+          role: Role.Admin,
+        },
+        loadChildren: () =>
+          import("./user/user.module").then((m) => m.UserModule)
       },
       {
         path: "crm",
@@ -180,6 +189,9 @@ const routes: Routes = [
         (m) => m.AuthenticationModule
       ),
   },
+
+ 
+  
   // {
   //   path: "purchase",
   //   canActivate: [AuthGuard],

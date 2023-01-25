@@ -162,7 +162,7 @@ export class UserloginComponent implements OnInit {
    validateEmail(event){
     this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + " employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
       if (res){
-        this.docForm.controls['emailId'].setErrors({ currency: true });
+        this.docForm.controls['emailId'].setErrors({ employee: true });
       }else{
         this.docForm.controls['emailId'].setErrors(null);
       }

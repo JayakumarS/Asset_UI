@@ -1,0 +1,118 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Role Rights'" [items]="['Master']" [active_item]="'Role Rights'">
+        </app-breadcrumb>
+      </div>
+      <div class="card">
+        <form [formGroup]="docForm">
+          <div class="row" style="margin-top: 0.5%;">
+            <div class="col-md-2"></div>
+            <div class="col-md-1">
+              <mat-label class="lable">Role<span class="errorColor"> *</span></mat-label>
+            </div>
+            <div class="col-md-2">
+              <mat-select type="text" tabindex="1" class="form-control" 
+              formControlName="roleId" (selectionChange)="roleBasedFormList()">
+                <mat-option *ngFor="let title of roleList" [value]="title.id">
+                  {{title.text}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="submitted && docForm.get('roleId').hasError('required')">
+                Role Name is required
+              </mat-error>
+            </div>
+  
+            <div class="col-md-1">
+              <mat-label class="lable">Module<span class="errorColor"> *</span></mat-label>
+            </div>
+            <div class="col-md-2">
+              <mat-select type="text" tabindex="2" class="form-control"
+                formControlName="moduleId" (selectionChange)="roleBasedFormList()">
+                <mat-option *ngFor="let title of moduleList" [value]="title.id">
+                  {{title.text}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="submitted && docForm.get('moduleId').hasError('required')">
+                Role Name is required
+              </mat-error>
+            </div>
+          </div>
+            <div class="row" style="padding: 0.5% !important;">
+              <div class="col-md-12">
+                <span> <span style="margin-left: 38%;"> </span>
+                </span>
+                <button (click)="onSubmit()" tabindex="3"
+                  class="btn-space" color="accent" mat-raised-button style="background-color: green;">Submit</button>
+                <button color="warn" tabindex="4" (click)="reset()" class="btn-space" type="button" mat-raised-button>
+                  Reset</button>
+              </div>
+            </div>
+        </form>
+      </div>
+  
+      <!-- Added by GOKUL For Role Rights -->
+      <div *ngIf="formList.length != 0" class="row">
+        <div class="col-md-12">
+          <div class="table-responsive-sm">
+            <table class="table table-bordered table-hover">
+              <thead class="theadRow thead-light">
+                <tr>
+                  <th scope="col" class="text-center">Form Name</th>
+                  <th scope="col" class="text-center">#
+                    <small>
+                      <label class="checkbox" style="cursor: pointer !important;">
+                        <input type="checkbox" [(ngModel)]="checkAllFormPropertysFlag"
+                          (change)="checkAllFormPropertys($event.target.checked ? 'on' : 'off')">
+                        <span class="default"></span>
+                      </label>
+                    </small>
+                  </th>
+                  <th scope="col" style="table-layout:fixed; width:10%; word-break:break-all;" class="text-center"
+                    *ngFor="let objProperty of propertyList">
+                    {{objProperty.propertyCode}} -
+                    <small style="font-size: 10px;"> {{objProperty.propertyName}}</small>
+                  </th>
+                </tr>
+              </thead>
+              <!-- START -->
+              <tbody *ngFor="let selectItem of formList;">
+                <ng-container>
+                  <tr>
+                    <td> {{selectItem.itemName !== null ? selectItem.itemName:'-'}}</td>
+                    <td class="text-center">
+                      <label class="checkbox" style="cursor: pointer !important;">
+                        <input type="checkbox" [checked]="selectItem.isFormChecked"
+                          (change)="selectCheckAllFormPropertyList($event.target.checked ? 'on' : 'off',selectItem)">
+                        <span class="default"></span>
+                      </label>
+                    </td>
+                    <td class="text-center" *ngFor="let objProperty of propertyList">
+                      <span *ngFor="let objFormProperty of formPropertyList">
+                        <span *ngIf="objFormProperty.formCode==selectItem.itemId">
+                          <span *ngIf="objFormProperty.propertyCode==objProperty.propertyCode">
+  
+                            <label class="checkbox" style="cursor: pointer !important;">
+                              <input type="checkbox" [checked]="objFormProperty.isCheckFormProperty"
+                                (change)="selectCheckFormPropertyList($event.target.checked ? 'on' : 'off',objFormProperty)">
+                              <span class="default"></span>
+                            </label>
+  
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+              <!-- END -->
+            </table>
+            <div *ngIf="formList.length === 0">
+              <p colspan="9" style="text-align: center;padding: 50px !important;">No Data Available</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

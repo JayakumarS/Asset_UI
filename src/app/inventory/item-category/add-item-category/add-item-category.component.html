@@ -9,11 +9,11 @@
       <div class="col-md-12">
         <div class="box-shadow">
           <div class="card pageproperty">
-            <div class="body" style="padding-left: 95px;">
+            <div class="body" style="padding-left: 60px;">
               <form class="m-4" [formGroup]="docForm">
                 <div class="row">
                   <div class="col-md-2">
-                    <label class="lable"> Category Name <span class="errorColor">*</span></label>
+                    <label > CATEGORY NAME <span class="errorColor">*</span></label>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -30,7 +30,7 @@
                   </div>
 
                   <div class="col-md-2 spaceBetweenTwoFields">
-                    <label class="lable"> Category Type <span class="errorColor">*</span></label>
+                    <label> CATEGORY TYPE <span class="errorColor">*</span></label>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="row">
                   <div class=" col-md-2">
-                    <label class="lable">Parent Category</label>
+                    <label >PARENT CATEGORY</label>
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -60,10 +60,10 @@
                     </mat-form-field>
                   </div>
 
-                  <div class="col-md-2 spaceBetweenTwoFields"> <label class="lable"> Incoming Quality Check </label>
+                  <div class="col-md-2 spaceBetweenTwoFields"> <label> INCOMING QUALITY CHECK </label>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-checkbox ngInit="checked=true" formControlName="qualityCheck"></mat-checkbox>
+                    <mat-checkbox ngInit="checked=true" formControlName="qualityCheck" style="margin-left: 10px;"></mat-checkbox>
                   </div>
                 </div>
                 <br>
@@ -144,20 +144,20 @@
 
 
 
-                  <mat-tab label="Item Properties">
+                  <mat-tab label="ITEM PROPERTIES">
                     <div>
                       <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                         <thead class="">
                           <tr>
                             <th style="width: 1%;"></th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                         width: 12%; border-radius: 0.05rem;">Property Name</th>
+                         width: 12%; border-radius: 0.05rem;">PROPERTY NAME</th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                         width: 12%; border-radius: 0.05rem;">Property Type</th>
+                         width: 12%; border-radius: 0.05rem;">PROPERTY TYPE</th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                         width: 12%;border-radius: 0.07rem;">Length</th>
+                         width: 12%;border-radius: 0.07rem;">LENGTH</th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                         width: 12%;border-radius: 0.07rem;">Is Mandatory</th>
+                         width: 12%;border-radius: 0.07rem;">IS MANDATORY</th>
                           </tr>
                         </thead>
 
@@ -173,7 +173,7 @@
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Property Name</mat-label>
+                                  <mat-label>PROPERTY NAME</mat-label>
                                   <mat-select name="dynamicAttributeId{{i}}" formControlName="dynamicAttributeId"
                                     (selectionChange)="getItemPropertiesDetails($event.value,i)">
                                     <mat-option *ngFor="let title of itemPropertiesList" [value]="title.id">
@@ -185,7 +185,7 @@
 
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Property Type</mat-label>
+                                  <mat-label>PROPERTY TYPE</mat-label>
                                   <mat-select name="propertyType{{i}}" formControlName="propertyType" [disabled]="true">
                                     <mat-option *ngFor="let title of propertyTypeList" [value]="title.id">
                                       {{title.text}}
@@ -195,14 +195,14 @@
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Length</mat-label>
+                                  <mat-label>LENGTH</mat-label>
                                   <input matInput name="length{{i}}" formControlName="length" readonly>
                                 </mat-form-field>
                               </td>
 
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Is Mandatory</mat-label>
+                                  <mat-label>IS MANDATORY</mat-label>
                                   <input matInput name="isMandatory{{i}}" formControlName="isMandatory" readonly>
                                 </mat-form-field>
                               </td>
@@ -222,12 +222,12 @@
                   </mat-tab>
 
 
-                  <mat-tab label="GRN Attribute">
+                  <mat-tab label="GRN ATTRIBUTE">
                     <br>
                     <div class="row">
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
                         <mat-checkbox style="margin: 10px 10px;" formControlName="batchNo" ngInit="checked=true">Batch
-                          No</mat-checkbox>
+                          NO</mat-checkbox>
                       </div>
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
                         <mat-checkbox style="margin: 10px 10px;" formControlName="mrp"
@@ -235,12 +235,12 @@
                       </div>
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
                         <mat-checkbox style="margin: 10px 10px;" formControlName="expiryDate"
-                          ngInit="checked=true">Expiry
-                          Date</mat-checkbox>
+                          ngInit="checked=true">EXPIRY
+                          DATE</mat-checkbox>
                       </div>
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
                         <mat-checkbox style="margin: 10px 10px;" formControlName="manufactureDetails"
-                          ngInit="checked=true">Manufacturer Details</mat-checkbox>
+                          ngInit="checked=true">MANUFACTURE DETAILS</mat-checkbox>
                       </div>
                     </div>
                     <br>
