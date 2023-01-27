@@ -14,6 +14,8 @@ const AUTHROLETEXT= 'AuthRoleText';
 const AUTHCOMPANIES = 'AuthCompanies';
 const AUTHROLES = 'AuthRoles';
 const AUTHBRANCHID = 'AuthBranchId';
+const ACTIVECOMPANY_KEY = 'ActiveCompanyFlag';
+
 
 @Injectable({
   providedIn: 'root'
@@ -67,7 +69,7 @@ public getUserId(): string {
   public getSavepopUpFlag(): string {
     return sessionStorage.getItem(POPUPFLAG_KEY);
   }
-
+  
   public getAuthorities(): string[] {
     this.roles = [];
 
@@ -140,4 +142,12 @@ public getUserId(): string {
     return sessionStorage.getItem(AUTHBRANCHID);
   }
   
+  public saveActiveCompanyFlag(flag: string) {
+    window.sessionStorage.removeItem(ACTIVECOMPANY_KEY);
+    window.sessionStorage.setItem(ACTIVECOMPANY_KEY, flag);
+  }
+
+  public getActiveCompanyFlag(): string {
+    return sessionStorage.getItem(ACTIVECOMPANY_KEY);
+  }
 }
