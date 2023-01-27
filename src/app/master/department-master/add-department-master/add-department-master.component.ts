@@ -22,6 +22,7 @@ export class AddDepartmentMasterComponent implements OnInit {
   tokenStorage: any;
   contactPersonList: [];
   locationDdList=[];
+  companyList=[];
 
   constructor(private fb: FormBuilder,
     private departmentMasterService : DepartmentMasterService,
@@ -41,6 +42,7 @@ export class AddDepartmentMasterComponent implements OnInit {
       isactive:[false],
       deptId:[""],
       contactPerson:[""],
+      company:[""]
       
     });
 
@@ -69,14 +71,14 @@ export class AddDepartmentMasterComponent implements OnInit {
       }
       );
 
-      //ContactPerson  Dropdown List
-    // this.httpService.get<any>(this.commonService.getUserDropdown).subscribe({
-    //   next: (data) => {
-    //     this.contactPersonList = data;
-    //   },
-    //   error: (error) => {
-    //   }
-    // });
+     // Company  Dropdown List
+    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+      next: (data) => {
+        this.companyList = data;
+      },
+      error: (error) => {
+      }
+    });
   }
 
   onSubmit(){

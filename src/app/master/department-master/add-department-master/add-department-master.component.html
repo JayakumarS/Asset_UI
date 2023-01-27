@@ -9,12 +9,12 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="box-shadow">
           <div class="card">
-            <div class="body" style="padding-left: 150px;">
+            <div class="body" style="padding-left: 70px;">
               <form class="m-4" [formGroup]="docForm">
                 
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label class="lable">Department Code<span class="errorColor">*</span></label>
+                    <label >DEPARTMENT CODE<span class="errorColor">*</span></label>
                   </div> 
 
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
@@ -30,7 +30,7 @@
                   </div>
                  
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label class="lable">Department Name<span class="errorColor">*</span></label>
+                  <label >DEPARTMENT NAME<span class="errorColor">*</span></label>
                   </div>
         
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
@@ -52,7 +52,7 @@
 
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label class="lable">Description</label>
+                    <label>DESCRIPTION</label>
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -64,7 +64,7 @@
                 </div>
                  
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label class="lable">Contact Person</label>
+                  <label >CONTACT PERSON</label>
                 </div>
         
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
@@ -80,14 +80,33 @@
                   </mat-error>
                   </mat-form-field>
                   </div>  
-                </div><br>
+                </div>
 
                 <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label >COMPANY</label>
+                  </div>
+          
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  
+                    <mat-select class="inputTxt" formControlName="company">
+                        <mat-option *ngFor="let title of companyList" [value]="title.text">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="docForm.get('company').hasError('required')">
+                        Contact Person is required
+                    </mat-error>
+                    </mat-form-field>
+                    </div>  
+
+
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label class="lable">Is Active</label>
+                  <label >IS ACTIVE</label>
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                <mat-checkbox  ngInit="checked=true" formControlName="isactive"></mat-checkbox>
+                <mat-checkbox  ngInit="checked=true" formControlName="isactive" STYLE="margin-left: 10px;"></mat-checkbox>
                 </div>
                 </div>
                 <br>
