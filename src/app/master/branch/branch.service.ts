@@ -21,7 +21,8 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
     super();
    }
 
-  private getScheduleActivity = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getList`;
+  private getBranchtList = `${this.serverUrl.apiServerAddress}api/auth/app/branch/getBranchtList`;
+  private saveBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/save`;
 
 
 
@@ -29,12 +30,12 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
     return this.dataChange.value;
   }
 
-  getAllList(object){
-    console.log(object);
-    this.subs.sink = this.httpService.post<BranchResultBean>(this.getScheduleActivity,object).subscribe(
+  getAllList(){
+    console.log();
+    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList).subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.branchDetails);
+        this.dataChange.next(data.branchList);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -42,6 +43,17 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
       }
     );
 
+  }
+
+  addBranch(branchMaster: Branch): void {
+    this.dialogData = branchMaster;
+    this.httpService.post<Branch>(this.saveBranch, branchMaster).subscribe(data => {
+      console.log(data);
+      //this.dialogData = employees;
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
   }
 
 

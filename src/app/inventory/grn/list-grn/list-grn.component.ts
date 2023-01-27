@@ -33,6 +33,7 @@ export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnI
   index: number;
   id: number;
   grn: Grn | null;
+  permissionList: any;
   
   constructor(
     private spinner: NgxSpinnerService,
@@ -57,6 +58,22 @@ export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnI
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1013',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList=data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -69,7 +86,7 @@ export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnI
   }
 
   public loadData() {
-    this.exampleDatabase = new GrnService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new GrnService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

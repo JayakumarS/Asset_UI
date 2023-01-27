@@ -1,20 +1,21 @@
 export class Branch {
   
-    id: number;
-    branchid: number;
-    branchcode: string;
-    branchname: string;
-    location: string;
-    companyname: string;
+    id: any;
+    branchid: any;
+    branchCode: any;
+    branchname: any;
+    locationName: any;
+    companyId: any;
+    companyName:any;
   
     constructor(branch) {
       {
         this.id = branch.id || this.getRandomID();
         this.branchid = branch.branchid || "";
-        this.branchcode = branch.branchcode || "";
+        this.branchCode = branch.branchCode || "";
         this.branchname = branch.branchname || "";
-        this.location = branch.location || "";
-        this.companyname = branch.companyname || "";
+        this.locationName = branch.locationName || "";
+        this.companyName = branch.companyName || "";
       }
     }
     public getRandomID(): string {

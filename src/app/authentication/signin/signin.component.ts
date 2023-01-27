@@ -46,8 +46,8 @@ export class SigninComponent
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      username: ["kavin@gmail.com", Validators.required],
-      password: ["paragon@01", Validators.required],
+      username: ["", Validators.required],
+      password: ["", Validators.required],
     });
   }
   get f() {
@@ -97,14 +97,16 @@ export class SigninComponent
                 this.tokenStorage.saveCompanies(data.userDetails.companies);
                 this.tokenStorage.saveRoles(data.userDetails.roles);
 
-                if(data.userDetails.companies.length>0){
-                  this.showPopUp();
-                }
-               
-
+                // if(data.userDetails.companies.length>0){
+                //   this.showPopUp();
+                // }
                 this.loading = false;
-                this.router.navigate(["/admin/dashboard/main"]);
-                //  this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
+                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2){
+                  this.router.navigate(["/admin/dashboard/main"]);
+                }
+                else if(data.userDetails.roleId == 3){
+                  this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
+                }
               }, 1000);
               }else{
                  this.submitted = false;
@@ -158,28 +160,5 @@ export class SigninComponent
     }
   }
 
-showPopUp(){
-  
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    console.log(JSON.parse(this.tokenStorage.getCompanies()));
-    const dialogRef = this.dialog.open(CompanyMapPopupComponent, {
-      height: "270px",
-      width: "800px",
-      data: JSON.parse(this.tokenStorage.getCompanies()),
-      direction: tempDirection,
-      closeOnNavigation: true,
-      disableClose: true
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      if(data==1)[
-
-        ]
-    });
-}
 
 }

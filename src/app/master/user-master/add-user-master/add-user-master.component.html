@@ -19,7 +19,8 @@
     </div>
      <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="fullName"  maxlength="50"(keypress)="stringSmall($event)"
+      <input matInput formControlName="fullName"  maxlength="50"[ngModel]="inputvalue"
+      (ngModelChange)="inputvalue = $event.toUpperCase()"(keypress)="string($event)"
       [ngModel]="inputvalue" required>
       <mat-error *ngIf="docForm.get('fullName').hasError('required')">
         Full Name is required
@@ -34,8 +35,8 @@
 
   <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="emailId" maxlength="50" (blur)="validateEmail($event.target.value)"required *ngIf="edit == false">
-      <input matInput formControlName="emailId" maxlength="50" required *ngIf="edit == true" readonly>
+      <input matInput formControlName="emailId" maxlength="20"(blur)="validateEmail($event.target.value)"required *ngIf="edit == false">
+      <input matInput formControlName="emailId" maxlength="20" required *ngIf="edit == true" readonly>
       <mat-error *ngIf="docForm.get('emailId').hasError('required')">
         Email is required
       </mat-error>
@@ -131,18 +132,33 @@
 
                         <div class="row">
                           <div class=" col-md-2">
-                              <mat-label class="lable">Company</mat-label>
+                              <mat-label class="lable">Company<span class="errorColor">*</span></mat-label>
                               </div>
                               <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                                  <mat-select class="inputTxt" formControlName="company">
+                                  <mat-select class="inputTxt" formControlName="company" required>
                                     <mat-option *ngFor="let title of companyList" [value]="title.id">
                                         {{title.text}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                              </div></div>
+                              </div>
+                              <div class=" col-md-2">
+                                <mat-label class="lable">Branch<span class="errorColor">*</span></mat-label>
+                                </div>
+                                <div class=" col-md-3">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                                    <mat-select class="inputTxt" formControlName="branch" required>
+                                      <mat-option *ngFor="let title of branchList" [value]="title.id">
+                                          {{title.text}}
+                                      </mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                                </div>
+
+                            </div>
                      <br>
                      <div class="row">
                         <div class=" col-md-2"><mat-label class="lable">OTP Required</mat-label></div>
@@ -153,7 +169,21 @@
                       <div class=" col-md-1">
                          <mat-checkbox  ngInit="checked=true" formControlName="userLocation"></mat-checkbox>
                       </div>
-                    </div>
+                    </div><br>
+                    <div class="row">
+                    <div class=" col-md-2">
+                      <mat-label  class="lable">ACTIVE</mat-label></div>
+                    <div class=" col-md-3">
+                       <mat-checkbox  ngInit="checked=true"  formControlName="active"></mat-checkbox>
+
+                  </div>
+                  <div class=" col-md-2">
+                    <mat-label  class="lable">Is Auditor</mat-label></div>
+                  <div class=" col-md-3">
+                     <mat-checkbox  ngInit="checked=true"  formControlName="auditor"></mat-checkbox>
+
+                </div>
+                </div>
                   <br>
 
                   <div class="row">

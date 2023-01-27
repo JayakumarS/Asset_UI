@@ -7,17 +7,13 @@
         <div class="card">
           <div class="body" style=" background-color:#7dc3d4;">
             <form class="m-4" [formGroup]="docForm">
-
-
-
-
-        <div class="col-md-12">
+          <div class="col-md-12">
           <div class="row">
           <div class="col-md-6">
 
           <div class="box-shadow">
               <h3 style="text-align: left;color:#fff;padding: 3%;background-color: #063970;">Registration</h3>
-              <div class="body " style=" background-color: #cecfd096;margin-top: -1%;">
+              <div class="body " style=" background-color:#f5d0d0;margin-top: -1%;">
 
                     <br>
                   <div class="row">
@@ -46,7 +42,7 @@
 
                     <div class=" col-md-5">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="emailId" maxlength="50" [ngModel]="value" (blur)="validateEmail($event.target.value)" required>
+                        <input matInput formControlName="emailId" maxlength="20" [ngModel]="value" (blur)="validateEmail($event.target.value)" required>
                     <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                       Email To is required
                     </mat-error>
@@ -112,6 +108,40 @@
                               </mat-select>
                             </mat-form-field>
                       </div></div>
+
+                      <div class="row">
+                        <div class=" col-md-1"></div>
+                        <div class=" col-md-4">
+                            <mat-label class="lable">Company<span class="errorColor">*</span></mat-label>
+                            </div>
+                            <div class=" col-md-5">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                                <mat-select class="inputTxt" formControlName="company" required>
+                                  <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                      {{title.text}}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                            </div>
+                            </div>
+                            <div class="row">
+                              <div class=" col-md-1"></div>
+                            <div class=" col-md-4">
+                              <mat-label class="lable">Branch<span class="errorColor">*</span></mat-label>
+                              </div>
+                              <div class=" col-md-5">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                                  <mat-select class="inputTxt" formControlName="branch" required>
+                                    <mat-option *ngFor="let title of branchList" [value]="title.id">
+                                        {{title.text}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                              </div>
+
+                          </div>
                       <div class="row">
                         <div class=" col-md-1"></div>
 
@@ -120,7 +150,17 @@
                                <mat-checkbox  ngInit="checked=true" formControlName="otp"></mat-checkbox>
                             </div>
 
-                       </div>
+                       </div><br>
+                       <div class="row">
+                        <div class=" col-md-1"></div>
+
+                        <div class=" col-md-4">
+                          <mat-label  class="lable">ACTIVE</mat-label></div>
+                        <div class=" col-md-5">
+                           <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
+
+                      </div>
+                    </div>
 
                       <br>
                       <div class="row" style="text-align: center;">
@@ -141,8 +181,8 @@
                     </div>
                      <div class="col-md-6">
                       <img src="assets/images/RegisterLogo.png"
-                      style="height: 575px;
-                      width: 596px;
+                      style="height: 755px;
+                      width: 827px;
                       margin-left: -22px;
                       border-radius: 7px;">
 
@@ -150,12 +190,8 @@
                     </div>
                   </div>
                      <br>
-
-
-
-                </form>
-
-                </div>
+               </form>
+               </div>
               </div>
                 </div>
               </div>

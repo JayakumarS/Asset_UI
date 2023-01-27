@@ -13,3 +13,22 @@
     color: #555;
     padding: 10px 15px 50px 17px;
 }
+
+:host::ng-deep.mat-dialog-container {
+    display: block;
+    padding: 24px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /* overflow: auto; */
+    overflow: hidden!important;
+    outline: 0;
+    width: 50%;
+    height: 90%;
+    min-height: inherit;
+    max-height: inherit;
+}
+
+:host::ng-deep.cdk-overlay-container 
+  {
+    justify-content: right;
+}

@@ -16,6 +16,7 @@ export class CompanyMapPopupComponent {
   saveCompanyId(map){
     this.tokenStorage.saveCompanyId(map.companyId);
     this.tokenStorage.saveCompanyText(map.companyName);
+    this.tokenStorage.saveActiveCompanyFlag("true");
     this.dialogRef.close();
   }
 }

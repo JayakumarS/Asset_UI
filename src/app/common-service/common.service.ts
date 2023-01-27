@@ -107,6 +107,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getCompanyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyDropdown`;
 
+  public getBranchDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getBranchDropdown`;
+
   public getStateDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getStateDropdown`;
 
   public getCityDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCityDropdown`;
@@ -127,6 +129,14 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getCompanyByUser = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyByUser`;
 
+  public getCompanyDetailDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyDetailDropdown`;
+
+  public getRoleDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getRoleDropdown`;
+
+
+  public getAllPagePermissionList = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/getAllPagePermissionList`;
+
+
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
@@ -140,6 +150,11 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
       headers: headers, responseType:
         'blob' as 'json'
     });
+  }
+
+  // based on role and form code page permission list - Added by Gokul
+  getAllPagePermission(obj: any): Observable<any> {
+    return  this.httpClient.post<any>(this.getAllPagePermissionList, obj);
   }
 
 }

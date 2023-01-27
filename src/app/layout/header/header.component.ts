@@ -16,6 +16,8 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { AppService } from 'src/app/app.service';
 import { NotificationpopComponent } from "src/app/helpdesk/it-support/list-it-support/notificationpop/notificationpop.component";
 import { MatDialog } from "@angular/material/dialog";
+import { CompanyMapPopupComponent } from "src/app/admin/dashboard/main/company-map-popup/company-map-popup.component";
+import { ActivityPopUpComponent } from "src/app/admin/schedule-activity/activity-pop-up/activity-pop-up.component";
 const document: any = window.document;
 
 @Component({
@@ -37,6 +39,8 @@ export class HeaderComponent
   defaultFlag: string;
   isOpenSidebar: boolean;
   userName:string; 
+  companyName:string;
+  roleBasedImgUrl: string;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -118,12 +122,23 @@ export class HeaderComponent
     this.userImg = this.authService.currentUserValue.img;
 
     this.userName = this.token.getUsername();
-    if (userRole === "Admin") {
+    // if (userRole === "Admin") {
+    //   this.homePage = "admin/dashboard/main";
+    // } else if (userRole === "Client") {
+    //   this.homePage = "client/dashboard";
+    // } else if (userRole === "Employee") {
+    //   this.homePage = "employee/dashboard";
+    // } else {
+    //   this.homePage = "admin/dashboard/main";
+    // }
+
+    this.roleBasedImgUrl = this.token.getRoleText();
+    if (this.roleBasedImgUrl === "superadmin") {
       this.homePage = "admin/dashboard/main";
-    } else if (userRole === "Client") {
-      this.homePage = "client/dashboard";
-    } else if (userRole === "Employee") {
-      this.homePage = "employee/dashboard";
+    } else if (this.roleBasedImgUrl === "companyadmin") {
+      this.homePage = "admin/dashboard/main";
+    } else if (this.roleBasedImgUrl === "checker") {
+      this.homePage = "asset/assetMaster/listAssetMaster";
     } else {
       this.homePage = "admin/dashboard/main";
     }
@@ -138,6 +153,13 @@ export class HeaderComponent
     } else {
       this.flagvalue = val.map((element) => element.flag);
     }
+
+    if(this.token.getActiveCompanyFlag()==null){
+      if( JSON.parse(this.token.getCompanies()).length>1){
+        this.showPopUp();
+      }
+    }
+    
   }
 
 
@@ -278,5 +300,44 @@ showPaymentPage(){
     
   
   }
+
+  activityPopUp(){
+
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(ActivityPopUpComponent, {
+      // height: "680px",
+      width: "30%",
+      height: "40%",
+    });
+  }
   
+  
+showPopUp(){
+  
+  let tempDirection;
+  if (localStorage.getItem("isRtl") === "true") {
+    tempDirection = "rtl";
+  } else {
+    tempDirection = "ltr";
+  }
+  console.log(JSON.parse(this.token.getCompanies()));
+  const dialogRef = this.dialog.open(CompanyMapPopupComponent, {
+    height: "270px",
+    width: "800px",
+    data: JSON.parse(this.token.getCompanies()),
+    direction: tempDirection,
+    closeOnNavigation: true,
+    disableClose: true
+  });
+  this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+    if(data==1)[
+
+      ]
+  });
+}
 }

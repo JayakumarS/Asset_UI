@@ -1,87 +1,96 @@
 <section class="content">
-    <div class="content-block">
-      <div class="block-header">
-        <app-breadcrumb [title]="'Branch'" [items]="['Branch']" [active_item]="'Branch List'">
-        </app-breadcrumb>
-      </div>
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="card">
-            <div class="body">
-              <div class="table-responsive">
-                
-                <div class="materialTableHeader">
-                  <div class="row">
-                    <div class="col-8">
-                      <ul class="header-buttons-left ms-0">
-                        <li class="dropdown">
-                          <h2>Branch List</h2>
-                        </li>
-                        <li>
-                          <div class="m-l-10" matTooltip="ADD">
-                            <button mat-mini-fab color="primary"  [routerLink]="'/master/Branch/addBranch'">
-                              <mat-icon class="col-white">add</mat-icon>
-                            </button>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-4">
-                      <ul class="header-buttons">
-                        <li>
-                          <!-- <div class="export-button m-l-10" matTooltip="XLSX">
-                            <img src="assets/images/icons/xlsx.png" alt=""
-                              (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
-                          </div> -->
-                        </li>
-                      </ul>
-                    </div>
+  <div class="content-block">
+    <div class="block-header">
+
+
+      <app-breadcrumb [title]="'Branch'" [items]="['admin']" [active_item]="'Branch List'">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="table-responsive">
+              <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ms-0">
+                      <li class="dropdown m-l-20 ">
+                        <h2>Branch</h2>
+                      </li>
+                      <li class="dropdown m-l-20">
+                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                        <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                          aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="m-l-10" matTooltip="ADD">
+                          <button color="primary" type="button" class="btn-space" [routerLink]="'/master/Branch/addBranch/0'" mat-raised-button>
+                            <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="XLSX">
+                          <img src="assets/images/icons/xlsx.png" alt=""
+                            (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                        </div>
+                      </li>                  
+                    </ul>
                   </div>
                 </div>
-                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                  </div>
+                  <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
-                  
-                  <ng-container matColumnDef="branchcode">
+                  <ng-container matColumnDef="branchCode">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Code</mat-header-cell>
-                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.branchcode}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.branchCode}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="branchname">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Name</mat-header-cell>
-                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.branchname}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.branchname}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="location">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.location}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="companyname">
+                  <ng-container matColumnDef="companyName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
-                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitiondt}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyName}}</mat-cell>
                   </ng-container>
-   
-                  <!-- actions -->
+                  <ng-container matColumnDef="locationName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Location Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.locationName}}</mat-cell>
+                  </ng-container>
                   <ng-container matColumnDef="actions">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
-                    <mat-cell style="justify-content:center" *matCellDef="let row; let i=index;" class="pr-0">
-                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
-                        class="tbl-action-btn">
-                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                      <button *ngIf="row.receivedStatus=='Pending'" (click)="editCall(row)" class="btn-space" style="text-align:left"
+                      mat-raised-button color="primary">Receive</button>
+                      <span *ngIf="row.receivedStatus=='Received'">Received by {{row.receivedBy}}</span>
+
+                      <button *ngIf="row.receivedStatus=='Received'" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="viewCall(row)" class="tbl-action-btn">
+                        <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                        </app-feather-icons>
                       </button>
                     </mat-cell>
+    
                   </ng-container>
-  
+                  
+                
   
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;"
+                  <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                  <mat-row *matRowDef="let row; columns: displayedColumns;" 
                     [style.cursor]="'pointer'" matRipple>
                   </mat-row>
                 </mat-table>
-                <!-- Loading spinner -->
-                <div  class="tbl-spinner">
+               
+                <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
                   <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
                   </mat-progress-spinner>
                 </div>
-                <!-- context menu start -->
+            
                 <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
                   [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
                 </div>
@@ -127,14 +136,14 @@
                     <span>Item 3</span>
                   </button>
                 </mat-menu>
-                <!-- context menu end -->
-                <!-- <div  class="no-results"
+        
+                <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
                   [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-                  
-                </div> -->
-                <!-- <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                  No results
+                </div>
+                <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5"
                   [pageSizeOptions]="[5, 10, 25, 100]">
-                </mat-paginator> -->
+                </mat-paginator> 
               </div>
           </div>
         </div>
