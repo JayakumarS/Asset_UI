@@ -227,7 +227,11 @@ export class AddAssetMasterComponent
     );
 
     //purchaseOrderNumber Dropdown List
-    this.httpService.get<any>(this.commonService.getPurchaseOrderNumberDropdown).subscribe({
+    const obj = {
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+    }
+    this.httpService.post<any>(this.commonService.getPurchaseOrderNumberDropdown,obj).subscribe({
       next: (data) => {
         this.purchaseOrderNumber = data;
       },
