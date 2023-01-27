@@ -220,24 +220,16 @@ export class MainComponent implements OnInit {
     this.getInvList();
     this.getAssetList();
     this.fetchAssetName(16);
-    this.popUp();
+    // this.popUp();
     
   }
 
   popUp(){
-    
-    // this.httpService.get<any>(this.mainService.getActivityPopUpUrl+ "?todayDate=" +moment().format('YYYY-MM-DD')).subscribe(
-    //   (data) => {
-    //     this.assetListDashboard = data.assetListDashboard;
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     console.log(error.name + " " + error.message);
-    //   }
-    // );
   if(this.activityflag==null){
     const dialogRef = this.dialog.open(ActivityPopUpComponent, {
-      height: "680px",
-      width: "1900px",
+      width: "30%",
+      height: "40%",
+
     });
     this.popUpFlag="true";
     this.tokenStorage.savepopUpFlag(this.popUpFlag);

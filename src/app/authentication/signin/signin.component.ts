@@ -46,8 +46,8 @@ export class SigninComponent
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      username: ["kavin@gmail.com", Validators.required],
-      password: ["paragon@01", Validators.required],
+      username: ["", Validators.required],
+      password: ["", Validators.required],
     });
   }
   get f() {
@@ -97,10 +97,16 @@ export class SigninComponent
                 this.tokenStorage.saveCompanies(data.userDetails.companies);
                 this.tokenStorage.saveRoles(data.userDetails.roles);
 
-
+                // if(data.userDetails.companies.length>0){
+                //   this.showPopUp();
+                // }
                 this.loading = false;
-                this.router.navigate(["/admin/dashboard/main"]);
-                //  this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
+                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2){
+                  this.router.navigate(["/admin/dashboard/main"]);
+                }
+                else if(data.userDetails.roleId == 3){
+                  this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
+                }
               }, 1000);
               }else{
                  this.submitted = false;

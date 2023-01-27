@@ -16,6 +16,8 @@ export class ScheduleActivityMaster {
   activityReminders: string;
   cc: string;
   Success: boolean;
+  activityTypeText:any;
+  locationText:any;
 
   constructor(ScheduleActivityMaster) {
     {
