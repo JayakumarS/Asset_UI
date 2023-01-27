@@ -91,6 +91,8 @@ export class AddGrnComponent implements OnInit {
       delOrderDate: [""],
       delOrderDateObj: [""],
       loginedUser: this.tokenStorage.getUserId(),
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
 
       grnDetailList: this.fb.array([
         this.fb.group({
@@ -314,6 +316,8 @@ export class AddGrnComponent implements OnInit {
       grnDetailArray.clear();
       this.docForm.patchValue({
         'loginedUser': this.tokenStorage.getUserId(),
+        'companyId': this.tokenStorage.getCompanyId(),
+        'branchId': this.tokenStorage.getBranchId(),
         'grnDate': moment().format('DD/MM/YYYY'),
         'grnDateObj': moment().format('YYYY-MM-DD'),
         'invoiceDate': moment().format('DD/MM/YYYY'),

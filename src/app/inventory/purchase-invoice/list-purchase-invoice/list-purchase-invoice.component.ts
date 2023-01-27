@@ -75,7 +75,7 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
   }
 
   public loadData() {
-    this.exampleDatabase = new PurchaseInvoiceService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new PurchaseInvoiceService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

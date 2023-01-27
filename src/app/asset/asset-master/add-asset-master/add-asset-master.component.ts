@@ -249,8 +249,8 @@ export class AddAssetMasterComponent
     });
 
 
-    //PurchaseOrderNumber Dropdown List
-    this.httpService.get<any>(this.commonService.getGRNNumberDropdown).subscribe({
+     //GRN Dropdown List
+    this.httpService.post<any>(this.commonService.getGRNNumberDropdown,obj).subscribe({
       next: (data) => {
         this.grnNumberList = data;
       },
