@@ -56,7 +56,7 @@
                   </ng-container>
                   <ng-container matColumnDef="companyname">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
-                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitiondt}}</mat-cell>
+                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyName}}</mat-cell>
                   </ng-container>
    
                   <!-- actions -->
@@ -128,13 +128,13 @@
                   </button>
                 </mat-menu>
                 <!-- context menu end -->
-                <!-- <div  class="no-results"
+               <div  class="no-results"
                   [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
                   
-                </div> -->
-                <!-- <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                </div> 
+                 <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
                   [pageSizeOptions]="[5, 10, 25, 100]">
-                </mat-paginator> -->
+                </mat-paginator>
               </div>
           </div>
         </div>

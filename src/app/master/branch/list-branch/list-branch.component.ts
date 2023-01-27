@@ -64,9 +64,27 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-
+    this.loadData();
  
   }
+
+  // public loadData() {
+  //   this.exampleDatabase = new BranchService(this.httpClient,this.serverUrl,this.httpService);
+  //   this.dataSource = new ExampleDataSource(
+  //     this.exampleDatabase,
+  //     this.paginator,
+  //     this.sort,
+  //     this.docForm
+  //   );
+  //   this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
+  //     () => {
+  //       if (!this.dataSource) {
+  //         return;
+  //       }
+  //       this.dataSource.filter = this.filter.nativeElement.value;
+  //     }
+  //   );
+  // }
 
   public loadData() {
     this.exampleDatabase = new BranchService(this.httpClient,this.serverUrl,this.httpService);
@@ -136,12 +154,11 @@ export class ExampleDataSource extends DataSource<Branch> {
           .slice()
           .filter((branchMaster: Branch) => {
             const searchStr = (
-              branchMaster.branchid +
+              // branchMaster.branchid +
               branchMaster.branchcode +
               branchMaster.branchname +
               branchMaster.location +
               branchMaster.companyname
-             
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
