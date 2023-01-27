@@ -16,12 +16,19 @@
       <ul class="nav navbar-nav navbar-right">
         
         <li>
+          <button mat-icon-button (click)="activityPopUp()" class=" nav-notification-icons">
+            <app-feather-icons [icon]="'triangle'" style="margin-left: 24px; color: white;" [class]="'header-icon'"></app-feather-icons>
+          </button>
+        </li> 
+
+        <li>
           <div class="example-button-container" style="margin-left:30%; margin-top: 20%;">
             <button (click)="notificationpopup()" aria-label="Example icon button with a bell icon" style="background-color: #004aad;border: none;color: aliceblue;">
              <mat-icon>notifications</mat-icon>
             </button>
-           </div>
-          </li>
+          </div>
+        </li> 
+
         <!-- Full Screen Button -->
         <li class="fullscreen">
           <button mat-icon-button (click)="callFullscreen()" class=" nav-notification-icons">

@@ -1,126 +1,32 @@
-<section class="content">
-    <div class="content-block">
-      <!-- <div class="block-header">
-        <app-breadcrumb [title]="'Auditor'" [items]="['Master']" [active_item]="'Auditor List'">
-        </app-breadcrumb>
-      </div> -->
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="card">
-            <div class="body">
-              <div class="table-responsive">
-                <!-- <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;"> -->
-                  <!-- <div class="row"> -->
-                    <!-- <div class="col-8">
-                      <ul class="header-buttons-left ms-0">
-                        <li class="dropdown">
-                          <h2>Auditor</h2>
-                        </li>
-                        <li class="dropdown m-l-20">
-                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                          <input placeholder="Search" type="text" #filter class="browser-default search-field"
-                            aria-label="Search box">
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-4">
-                      <ul class="header-buttons">
-                        <li>
-                          <div class="export-button m-l-10" matTooltip="XLSX">
-                            <img src="assets/images/icons/xlsx.png" alt=""
-                              (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
-                          </div>
-                        </li>
-                        
-                        
-                      </ul>
-                    </div> -->
-                  <!-- </div> -->
-                <!-- </div> -->
-                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-                  #exporter="matTableExporter">
-                  
-                  <ng-container matColumnDef="activityTypeText">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Activity Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.activityTypeText}}</mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="locationText">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.locationText}}</mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="enddate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.enddate}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="startdate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startdate}}
-                    </mat-cell>
-                  </ng-container>
-                  
-                 
-                 
-                 
-                  <!-- actions -->
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
-                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()" 
-                      (click)="editCall(row)" class="tbl-action-btn">
-                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                      </button>
-                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                        (click)="deleteItem(i, row)" class="tbl-action-btn">
-                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                      </button>
-                    </mat-cell>
-                  </ng-container>
-  
-  
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                  <mat-row *matRowDef="let row; columns: displayedColumns;" 
-                    [style.cursor]="'pointer'" matRipple>
-                  </mat-row>
-                </mat-table>
-                <!-- Loading spinner -->
-                <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
-                  <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
-                  </mat-progress-spinner>
-                </div>
-                <!--context menu start -->
-            <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
-            [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
-          </div>
-          <mat-menu #contextMenu="matMenu">
-            <ng-template matMenuContent let-item="item">
-              <button mat-menu-item [routerLink]="'/master/vendor/addVendor/0'">
-                <mat-icon>add_box</mat-icon>
-                <span>Add Record</span>
-              </button>
-              <button mat-menu-item (click)="editCall(item)"> 
-                <mat-icon>create</mat-icon>
-                <span>Edit Record</span>
-              </button>
-              <button mat-menu-item (click)="deleteItem(item)">
-                <mat-icon>delete</mat-icon>
-                <span>Delete Record</span>
-              </button>
-            </ng-template>
-          </mat-menu>
-          <!-- context menu end -->
-                <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
-                  [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-                  No results
-                </div>
-                <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
-                  [pageSizeOptions]="[5, 10, 25, 100]">
-                </mat-paginator>
-              </div>
+<!-- <section class="content"> -->
+  <div class="content-block">
+    <div class="block-header">
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card ">
+          <div class="body">
+            <form class="m-4" [formGroup]="docForm" >
+                <div class="container">
+                  <table id="excel-table" class="table table-striped">
+                    <thead>
+                        <tr style="position: sticky;top: 0;">
+                          <th style="background-color:#c1ddf5;">Activity Name</th>
+                          <th style="background-color:#c1ddf5;">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                          <tr *ngFor="let visitReport of scheduleActivityDetails;">
+                            <td>{{visitReport.activityTypeText}}</td>
+                            <td>{{visitReport.locationText}}</td>
+                          </tr>        
+                    </tbody>
+                  </table>
+              </div><br>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  </section>
+<!-- </section> -->
