@@ -1,0 +1,151 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Add User Group'" [items]="['Master']" [active_item]="'Add User Group'">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card ">
+                    <div class="body">
+                            <form class="m-4" [formGroup]="docForm">
+                                <div class="rowtab">
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3" style="margin-left:5%;">
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:280px">
+                                                <mat-label>Company Name</mat-label>
+                                                <mat-select formControlName="companyName">
+                                                    <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                                      {{title.text}}
+                                                    </mat-option>
+                                                  </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:280px">
+                                                <mat-label>Company Details</mat-label>
+                                                <mat-select formControlName="cmpdetails" (selectionChange)="fetchDetails($event.value)">
+                                                    <mat-option *ngFor="let title of companydetailList" [value]="title.id">
+                                                      {{title.text}}
+                                                    </mat-option>
+                                                  </mat-select>
+                                            </mat-form-field>
+
+                                        </div>  
+                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
+                                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <mat-label>Country</mat-label>
+                                                <mat-select formControlName="country">
+                                                    <mat-option *ngFor="let title of countryList" [value]="title.id">
+                                                      {{title.text}}
+                                                    </mat-option>
+                                                  </mat-select>
+                                          </mat-form-field>
+
+                                      </div> 
+                                      </div>
+                                       <div class="row">
+                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
+                                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <mat-label>Address</mat-label>
+                                            <input matInput name="" formControlName="address" >
+                                          </mat-form-field>
+
+                                      </div> 
+                                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                          <mat-label>Telephone Number</mat-label>
+                                          <input matInput name="" formControlName="telephone" >
+                                        </mat-form-field>
+
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
+                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                        <mat-label>Person-in-charge</mat-label>
+                                        <input matInput name="" formControlName="person" >
+                                      </mat-form-field>
+
+                                  </div> 
+                                       
+                                     
+                                      </div> 
+             <div style="overflow-x: auto;">
+               <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+              <thead class="">
+                        <tr>
+          <th style="width: 0%;"></th>
+          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+   width: 2%; border-radius: 0.05rem;">Users</th>
+          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 15px;padding-right: 440px;
+   width: 12%;border-radius: 0.07rem;">Roles</th>
+        
+                                            </thead>
+
+                                             <ng-container *ngFor="let userDetailbean of docForm.get('userDetailbean')['controls']; let i = index">
+                                               <tbody [formGroup]="userDetailbean">
+                                                 <tr>
+                                                   <td>
+                                                     <button mat-mini-fab color="warn" (click)="removeRow(i)">
+                                                       <mat-icon class="col-white">delete</mat-icon>
+                                                     </button>
+                                                     </td>     
+                                                  <td class="padding-both-side-2">
+                                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width:300px ;">
+                                                       <mat-label>Users</mat-label>
+                        
+                                                       <mat-select
+                                                       formControlName="users">
+                                                       <mat-option [value]="'END USER'">
+                                                           End User
+                                                       </mat-option>
+                                                       <mat-option [value]="'ADMIN'">
+                                                        ADMIN
+                                                       </mat-option>
+                                                   </mat-select>
+                                                     </mat-form-field>
+                                                   </td>
+                                                   <td class="padding-both-side-2">
+                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline"style="width:300px ;">
+                                                       <mat-label>Role</mat-label>
+                                                       <mat-select name="role{{i}}" formControlName="role">
+                                                        <mat-option *ngFor="let title of roleList" [value]="title.id">
+                                                          {{title.text}}
+                                                        </mat-option>
+                                                      </mat-select>
+                                                     </mat-form-field>
+                                                   </td>
+                                                </tr>
+                                            </tbody>
+                                            </ng-container>
+                                            </table>
+                                            </div>
+                                            <div>
+                                                <button mat-mini-fab color="primary" (click)="addRow()">
+                                                  <mat-icon class="col-white">add</mat-icon>
+                                                </button>
+                                              </div> 
+                                              <div class="row">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                                  <button (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                                                    style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                                                    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                                                  <button  color="primary" type="button" class="btn-space" (click)="reset()"
+                                                    mat-raised-button>Reset</button>
+                                                  <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                                                </div>
+                                              </div>
+                                              
+                                            </div>
+                                            </form>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </section>
+
+
+
+                                 
+                                    

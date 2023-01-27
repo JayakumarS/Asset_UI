@@ -71,11 +71,22 @@ const routes: Routes = [
     loadChildren: () =>
       import("./role-master/role-master.module").then((r) => r.RoleMasterModule),
   },
-  {
-    path: "Branch",
-  loadChildren: () => 
-  import("./Branch/Branch.module").then((m) => m.BranchModule),
-  },
+  // {
+  //   path: "Branch",
+  // loadChildren: () => 
+  // import("./Branch/Branch.module").then((m) => m.BranchModule),
+  // },
+
+ // import("./category/category.module").then((m) => m.CategoryModule),
+//},
+{
+  path: "usergroup",
+loadChildren: () => 
+import("./usergroup/usergroup.module").then((m) => m.UsergroupModule),
+},
+
+
+
 
 ];
 
