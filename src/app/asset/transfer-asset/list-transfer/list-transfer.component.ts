@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { TransferAssetService } from '../transfer-asset.service';
 import { TransferBean } from '../transfer-model';
@@ -45,6 +46,7 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
+    private token: TokenStorageService,
     public router:Router
   ) {
     super();
@@ -62,7 +64,7 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
  
 
   public loadData() {
-    this.exampleDatabase = new TransferAssetService (this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new TransferAssetService (this.httpClient,this.serverUrl,this.token,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

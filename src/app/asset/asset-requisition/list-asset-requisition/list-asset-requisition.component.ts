@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { AssetRequisitionService } from '../asset-requisition.service'; 
 import { AssetRequisition } from '../asset-requisition.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
+    private token: TokenStorageService,
     private router:Router,
     private fb: FormBuilder
   ) {
@@ -81,7 +83,7 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
 
 
   public loadData() {
-    this.exampleDatabase = new AssetRequisitionService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new AssetRequisitionService(this.httpClient, this.serverUrl,this.token, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

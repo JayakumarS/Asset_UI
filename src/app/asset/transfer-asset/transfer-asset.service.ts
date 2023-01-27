@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { TransferBean } from './transfer-model';
 import { transferResultBean } from './transfer-result-bean';
@@ -18,7 +19,8 @@ export class TransferAssetService extends UnsubscribeOnDestroyAdapter {
   );
   dialogData:any;
   getAllcodeList: any;
-  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) { 
+  companyId: string;
+  constructor(private httpClient: HttpClient, private serverUrl:serverLocations,private token: TokenStorageService, private httpService:HttpServiceService) { 
   super();
 
   }
@@ -35,6 +37,7 @@ export class TransferAssetService extends UnsubscribeOnDestroyAdapter {
   public codeserviceUrl=`${this.serverUrl.apiServerAddress}api/auth/app/transfer/getcodeList`;
   public transferCodeAll = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/gettransferCodelist`;
   public getRequestDetails = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/getRequestDetails`;
+  public checkRequestValidity = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/checkRequestValidity`;
   public getAlltransferNew=`${this.serverUrl.apiServerAddress}api/auth/app/transfer/getListNew`;
   get data(): TransferBean[] {
     return this.dataChange.value;
@@ -57,7 +60,8 @@ export class TransferAssetService extends UnsubscribeOnDestroyAdapter {
 }
 
 getAllListNew(): void {
-  this.subs.sink = this.httpService.get<transferResultBean>(this.getAlltransferNew).subscribe(
+  this.companyId=this.token.getCompanyId();
+  this.subs.sink = this.httpService.get<transferResultBean>(this.getAlltransferNew+"?companyId="+this.companyId).subscribe(
     (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.transferDetails);
