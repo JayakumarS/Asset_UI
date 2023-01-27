@@ -133,7 +133,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getBranchDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getBranchDropdown`;
 
-  
+  public getAllPagePermissionList = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/getAllPagePermissionList`;
+
   
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocument(filePath: any): Observable<Blob> {
@@ -148,6 +149,11 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
       headers: headers, responseType:
         'blob' as 'json'
     });
+  }
+
+  // based on role and form code page permission list - Added by Gokul
+  getAllPagePermission(obj: any): Observable<any> {
+    return  this.httpClient.post<any>(this.getAllPagePermissionList, obj);
   }
 
 }

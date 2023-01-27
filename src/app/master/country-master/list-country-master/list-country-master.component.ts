@@ -29,7 +29,6 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
   displayedColumns = [
     "countryCode",
     "countryName",
-    // "clientType",
     "currencyName",
     "actions",
   ];
@@ -40,6 +39,7 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
   index: number;
   id: number;
   countryMaster: CountryMaster | null;
+  permissionList: any;
   
   constructor(
     private spinner: NgxSpinnerService,
@@ -64,6 +64,23 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1027',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList=data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
+
     this.loadData();
   }
 
@@ -199,7 +216,6 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
               countryMaster.countryCode +
               countryMaster.countryName +
               countryMaster.currencyName 
-              // countryMaster.clientType 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -234,9 +250,6 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
         case "currencyName":
           [propertyA, propertyB] = [a.currencyName, b.currencyName];
           break;
-        // case "clientType":
-        //   [propertyA, propertyB] = [a.clientType, b.clientType];
-        //   break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

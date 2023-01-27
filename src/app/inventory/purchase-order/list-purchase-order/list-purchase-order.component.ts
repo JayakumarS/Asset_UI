@@ -35,6 +35,7 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
   index: number;
   id: number;
   purchaseOrder: PurchaseOrder | null;
+  permissionList: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -59,6 +60,22 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1012',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList=data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 

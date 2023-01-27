@@ -39,6 +39,7 @@ export class ListItemCategoryComponent extends UnsubscribeOnDestroyAdapter imple
   index: number;
   id: number;
   itemCategory: ItemCategory | null;
+  permissionList: any;
   
   constructor(
     private spinner: NgxSpinnerService,
@@ -63,6 +64,22 @@ export class ListItemCategoryComponent extends UnsubscribeOnDestroyAdapter imple
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1043',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList=data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 

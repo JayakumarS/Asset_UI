@@ -18,12 +18,12 @@
                         <h2>Item properties</h2>
                       </li>
                       
-                      <li class="dropdown m-l-20">
+                      <li [hidden]="!permissionList?.search" class="dropdown m-l-20">
                         <label for="search-input"><i class="material-icons search-icon">search</i></label>
                         <input placeholder="Search" type="text" #filter class="browser-default search-field"
                           aria-label="Search box">
                       </li>
-                      <li>
+                      <li *ngIf="permissionList?.add">
                         <div class="m-l-10" matTooltip="ADD">
                           <button color="primary" type="button" class="btn-space" [routerLink]="'/inventory/item-properties/add-itemproperties/0'" mat-raised-button><i
                             class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
@@ -37,7 +37,7 @@
                       </li>  -->
                     </ul>
                   </div>
-                  <div class="col-4">
+                  <div class="col-4" *ngIf="permissionList?.exportXL">
                     <ul class="header-buttons">
                       <li>
                         <div class="export-button m-l-10" matTooltip="XLSX">
@@ -70,11 +70,11 @@
                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                    <button *ngIf="permissionList?.modify" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
                       class="tbl-action-btn">
                       <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
-                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                    <button *ngIf="permissionList?.delete" mat-icon-button color="accent" (click)="$event.stopPropagation()"
                       (click)="deleteItem(row)" class="tbl-action-btn">
                       <app-feather-icons matTooltip="Delete" [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                     </button>
