@@ -23,6 +23,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./transfer-asset/transfer-asset.module").then((m)=>m.TransferAssetModule)
   },
+  {
+    path: "assetDiscard",
+    loadChildren: () =>
+      import("./discard-asset/discard-asset.module").then((m)=>m.DiscardAssetModule)
+  },
 
 ];
 

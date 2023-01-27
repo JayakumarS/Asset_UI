@@ -100,6 +100,10 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
     this.router.navigate(['/asset/assetMaster/addAssetMaster/' + row.id]);
   }
 
+  discardCall(row) {
+    this.router.navigate(['/asset/assetDiscard/addDiscardAsset/' + row.id]);
+  }
+
   viewCall(row) {
     this.router.navigate(['/asset/assetMaster/viewAssetMaster/' + row.id]);
   }

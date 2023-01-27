@@ -116,6 +116,18 @@
                         <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                         </app-feather-icons>
                       </button>
+<!-- 
+                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="discardCall(row)" class="tbl-action-btn">
+                        <app-feather-icons matTooltip="Delete" [icon]="'trash-2'" [class]="'tbl-fav-delete'" style="color: black!important;">
+                        </app-feather-icons>
+                      </button> -->
+
+                      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="demo-google-material-icon" (click)="$event.stopPropagation()" (click)="discardCall(row)">
+                          <i class="material-icons">delete_forever</i>
+                         
+                        </div>
+                      </div>
                                     </mat-cell>
                                 </ng-container>
 
