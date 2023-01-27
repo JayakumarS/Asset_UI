@@ -51,9 +51,12 @@ export class UserloginComponent implements OnInit {
       location: [""],
       otp: [""],
       userLocation: [""],
-      company: [""],
+      company: ["", [Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
       empid: [""],
+      branch: ["", [Validators.required]],
+      active: [""],
+
 
     //  loginedUser: this.tokenStorage.getUserId(),
     });
@@ -100,7 +103,16 @@ export class UserloginComponent implements OnInit {
       }
     }
     );
+     // branch dropdown
+    this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
+      next: (data) => {
+        this.branchList = data;
+      },
+      error: (error) => {
 
+      }
+    }
+    );
   }
 
   onSubmit() {
