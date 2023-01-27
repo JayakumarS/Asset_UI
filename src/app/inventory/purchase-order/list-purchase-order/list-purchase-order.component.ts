@@ -71,7 +71,7 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   public loadData() {
-    this.exampleDatabase = new PurchaseOrderService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new PurchaseOrderService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

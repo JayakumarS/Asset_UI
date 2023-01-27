@@ -99,6 +99,8 @@ export class AddPurchaseOrderComponent implements OnInit {
       lopFile: [""],
       lopUpload: [""],
       loginedUser: this.tokenStorage.getUserId(),
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
 
       purchaseOrderDetail: this.fb.array([
         this.fb.group({
@@ -367,6 +369,8 @@ export class AddPurchaseOrderComponent implements OnInit {
       purchaseOrderDetailArray.clear();
       this.docForm.patchValue({
         'loginedUser': this.tokenStorage.getUserId(),
+        'companyId': this.tokenStorage.getCompanyId(),
+        'branchId': this.tokenStorage.getBranchId(),
         'poDate': moment().format('DD/MM/YYYY'),
         'poDateObj': moment().format('YYYY-MM-DD'),
       })

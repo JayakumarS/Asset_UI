@@ -131,6 +131,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getRoleDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getRoleDropdown`;
 
+  public getBranchDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getBranchDropdown`;
+
   
   
   //FOR DOCUMENT VIEW ADDED BY GOKUL

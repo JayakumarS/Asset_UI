@@ -17,6 +17,7 @@ import { AppService } from 'src/app/app.service';
 import { NotificationpopComponent } from "src/app/helpdesk/it-support/list-it-support/notificationpop/notificationpop.component";
 import { MatDialog } from "@angular/material/dialog";
 import { CompanyMapPopupComponent } from "src/app/admin/dashboard/main/company-map-popup/company-map-popup.component";
+import { ActivityPopUpComponent } from "src/app/admin/schedule-activity/activity-pop-up/activity-pop-up.component";
 const document: any = window.document;
 
 @Component({
@@ -39,6 +40,7 @@ export class HeaderComponent
   isOpenSidebar: boolean;
   userName:string; 
   companyName:string;
+  roleBasedImgUrl: string;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -120,13 +122,23 @@ export class HeaderComponent
     this.userImg = this.authService.currentUserValue.img;
 
     this.userName = this.token.getUsername();
-    this.companyName = this.token.getCompanyText();
-    if (userRole === "Admin") {
+    // if (userRole === "Admin") {
+    //   this.homePage = "admin/dashboard/main";
+    // } else if (userRole === "Client") {
+    //   this.homePage = "client/dashboard";
+    // } else if (userRole === "Employee") {
+    //   this.homePage = "employee/dashboard";
+    // } else {
+    //   this.homePage = "admin/dashboard/main";
+    // }
+
+    this.roleBasedImgUrl = this.token.getRoleText();
+    if (this.roleBasedImgUrl === "superadmin") {
       this.homePage = "admin/dashboard/main";
-    } else if (userRole === "Client") {
-      this.homePage = "client/dashboard";
-    } else if (userRole === "Employee") {
-      this.homePage = "employee/dashboard";
+    } else if (this.roleBasedImgUrl === "companyadmin") {
+      this.homePage = "admin/dashboard/main";
+    } else if (this.roleBasedImgUrl === "checker") {
+      this.homePage = "asset/assetMaster/listAssetMaster";
     } else {
       this.homePage = "admin/dashboard/main";
     }
@@ -287,6 +299,21 @@ showPaymentPage(){
     });
     
   
+  }
+
+  activityPopUp(){
+
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(ActivityPopUpComponent, {
+      // height: "680px",
+      width: "30%",
+      height: "40%",
+    });
   }
   
   
