@@ -61,6 +61,7 @@ export class AddAssetRequisitionComponent implements OnInit {
   chkAll = false;
   userName: any;
   userId: string;
+  branchId: string;
   constructor(private fb: FormBuilder,
     public assetRequisitionService:AssetRequisitionService,
     private httpService: HttpServiceService,
@@ -83,6 +84,7 @@ export class AddAssetRequisitionComponent implements OnInit {
         itemId:[""],
         quantity:[""],
         companyId:[""],
+        branchId:[""],
         eddDateObj:[""],
         eddDate:[""],
         assetRequisitionId:[""],
@@ -100,7 +102,8 @@ export class AddAssetRequisitionComponent implements OnInit {
                     user:[""],
                     userId:[""],
                     ledgerId:[""],
-                    assetCategory:[""]
+                    assetCategory:[""],
+                    assetId:[""]
           }) 
         ])
           
@@ -111,9 +114,11 @@ export class AddAssetRequisitionComponent implements OnInit {
 
       this.userId = this.token.getUserId();
       this.userName=this.token.getUsername();
+      this.branchId= this.token.getBranchId();
 
      this.docForm.patchValue({
-       'requestedBy':this.userId
+       'requestedBy':this.userId,
+       'branchId':parseInt(this.branchId)
     })
 
     
@@ -249,9 +254,14 @@ fetchAssetDtlsNew(id){
                 userId:[element.userId],
                 ledgerId:[element.ledgerId],
                 assetCategory:[element.assetCategory],
+                assetId:[element.assetId],
               });
             DtlArray.insert(arraylen,newUsergroup);
           });
+        } else {
+          let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
+          DtlArray.removeAt(0);
+          DtlArray.clear();
         }
     },
     (error: HttpErrorResponse) => {
@@ -300,12 +310,21 @@ fetchAssetDtls(itemId){
                     userId:[element.userId],
                     ledgerId:[element.ledgerId],
                     assetCategory:[element.assetCategory],
+                    assetId:[element.assetId],
                   });
                 DtlArray.insert(arraylen,newUsergroup);
               });
+            } else {
+            let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
+            DtlArray.removeAt(0);
+            DtlArray.clear();
             }
 
           this.showassetDtl  = true;
+        } else {
+          let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
+            DtlArray.removeAt(0);
+            DtlArray.clear();
         }
         // else{
         //   this.showNotification(

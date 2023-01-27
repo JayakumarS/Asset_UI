@@ -21,6 +21,7 @@ export class TransferBean {
 
     transferDate: string;
     transferDateObj: string;
+    requisitionNumber: string;
     requisitionNo: string;
     transportationType: string;
     requisitionDate: string;
@@ -29,6 +30,7 @@ export class TransferBean {
     destinationLocation: string;
     deliveryMethod: string;
     hospital: string;
+    branchId: any;
     itemName: string;
     itemCategory: string;
     requestedQuantity: string;

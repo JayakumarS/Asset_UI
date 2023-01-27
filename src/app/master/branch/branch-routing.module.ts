@@ -5,7 +5,7 @@ import { ListBranchComponent } from './list-branch/list-branch.component';
 
 const routes: Routes = [
   {
-    path:"addBranch",
+    path:"addBranch/:id",
     component:AddBranchComponent,
   },
   {

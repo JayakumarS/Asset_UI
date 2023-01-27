@@ -278,7 +278,7 @@
                               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                                 <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="primary" style="margin-left: 44%;background-color: #34d034;">Submit</button>
                                 <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="primary" style="margin-left: 44%;">Approve</button>
-                                <button (click)="reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
+                                <button *ngIf="!edit" (click)="reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
                                 <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
                               </div>
                             </div>
