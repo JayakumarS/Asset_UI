@@ -30,9 +30,9 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
     return this.dataChange.value;
   }
 
-  getAllList(object){
-    console.log(object);
-    this.subs.sink = this.httpService.post<BranchResultBean>(this.getBranchtList,object).subscribe(
+  getAllList(){
+    console.log();
+    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.branchList);

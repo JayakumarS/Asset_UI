@@ -75,19 +75,19 @@ const routes: Routes = [
     loadChildren: () =>
       import("./role-rights/role-rights.module").then((m) => m.RoleRightsModule),
   },
-  // {
-  //   path: "Branch",
-  // loadChildren: () => 
-  // import("./Branch/Branch.module").then((m) => m.BranchModule),
-  // },
+  {
+    path: "Branch",
+  loadChildren: () => 
+  import("./Branch/Branch.module").then((m) => m.BranchModule),
+  },
 
   // import("./category/category.module").then((m) => m.CategoryModule),
-  //},
-  {
-    path: "usergroup",
-    loadChildren: () =>
-      import("./usergroup/usergroup.module").then((m) => m.UsergroupModule),
-  },
+  // },
+  // {
+  //   path: "usergroup",
+  //   loadChildren: () =>
+  //     import("./usergroup/usergroup.module").then((m) => m.UsergroupModule),
+  // },
 
 
 
