@@ -7,8 +7,13 @@ export class User {
   password: string;
   firstName: string;
   lastName: string;
-  role: Role;
+  role: string;
   token: string;
-
+  roleId:number;
+  company:string;
+  companyId:number;
+  branchId:number;
+  companies:[];
+  roles: [];
   
 }

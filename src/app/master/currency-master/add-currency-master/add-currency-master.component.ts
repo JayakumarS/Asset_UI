@@ -180,10 +180,7 @@ export class AddCurrencyMasterComponent implements OnInit {
       currencyName: ["", [Validators.required]],
       fromcurrency: ["", [Validators.required]],
       toCurrency: ["", [Validators.required]],
-      emailId: [
-        "",
-        [Validators.required, Validators.email, Validators.minLength(5)],
-      ],
+      emailId: [ "", [Validators.required, Validators.email, Validators.minLength(5)], ],
       defaultValue: ["", [Validators.required]],
       fractionPart: ["", [Validators.required]],
       isActive: [""],
@@ -237,7 +234,7 @@ export class AddCurrencyMasterComponent implements OnInit {
   }
 
   string(event: any) {
-    const pattern = /[A-Za-z]/;
+    const pattern = /[A-Z,a-z ]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();

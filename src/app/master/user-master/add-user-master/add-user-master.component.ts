@@ -24,6 +24,7 @@ export class AddUserMasterComponent implements OnInit {
   docForm: FormGroup;
   [x: string]: any;
   userMaster: UserMaster;
+  edit:boolean=false;
   submitted: boolean = false;
   locationDdList = [];
   companyList = [];
@@ -48,7 +49,7 @@ export class AddUserMasterComponent implements OnInit {
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       userId: [""],
       fullName: ["", [Validators.required]],
-      emailId: ['',  [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       contNumber: ["", [Validators.required]],
       role: ["", [Validators.required]],
       department: [""],
@@ -279,13 +280,12 @@ update() {
    validateEmail(event){
     this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
       if (res){
-        this.docForm.controls['emailId'].setErrors({ currency: true });
+        this.docForm.controls['emailId'].setErrors({ employee: true });
       }else{
         this.docForm.controls['emailId'].setErrors(null);
       }
     });
   }
-
 
 
 keyPressNumeric(event: any) {
@@ -296,6 +296,7 @@ keyPressNumeric(event: any) {
   }
 }
 
+
 keyPressNumeric1(event: any) {
   const pattern = /[0-9]/;
   const inputChar = String.fromCharCode(event.charCode);
@@ -305,21 +306,27 @@ keyPressNumeric1(event: any) {
 }
 
 string(event: any) {
-  const pattern = /[A-Za-z]/;
+  const pattern = /[A-Z,a-z ]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
+stringAlpha(event: any) {
+  const pattern = /[A-Z,a-z]/;
   const inputChar = String.fromCharCode(event.charCode);
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();
   }
 }
 
-validateUserMaster(event){
-  this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl+ "?tableName=" +"employee"+"&columnName="+"email_id"+"&columnValue="+event).subscribe((res: any) => {
-    if(res){
-      this.docForm.controls['emailId'].setErrors({ employee: true });
-    }else{
-      this.docForm.controls['emailId'].setErrors(null);
-    }
-  });
+
+stringSmall(event: any) {
+  const pattern = /[a-z ]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
 }
 }
 

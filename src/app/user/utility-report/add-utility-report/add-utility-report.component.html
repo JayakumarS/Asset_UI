@@ -1,0 +1,112 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Utility Report'" [items]="['User']" [active_item]="'Add Utility Report'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <form class="m-4" [formGroup]="docForm">
+          <div class="card">
+            <div class="body" style="padding-left: 110px;">
+  
+                <div class="row">
+                    <div class="col-md-2" >
+                      <label class="lable">Start Date</label>
+                    </div>
+              
+                    <div class="col-md-3" >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput [matDatepicker]="picker1" formControlName="startdateObj"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" id="startdate" 
+                                                 (dateChange)="getDateString($event, 'startdate',0)"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="docForm.get('startdateObj').hasError('required')">
+                          Expected Date Of Delivery is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div> 
+  
+                    <div class="col-md-2" >
+                      <label class="lable">End Date</label>
+                    </div>
+  
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  
+                        <input matInput [matDatepicker]="picker" formControlName="enddateObj"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" id="enddate" 
+                                                 (dateChange)="getDateString($event, 'enddate',0)"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="docForm.get('enddateObj').hasError('required')">
+                          Expected Date Of Delivery is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div> 
+                  </div> 
+                  <div class="row">
+                
+                    <div class="col-md-2">
+                      <label class="lable">Warning Name</label>
+                  </div> 
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      
+                      <input matInput formControlName="warning" >
+                      <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+                        Description is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label class="lable">Location<span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Location</mat-label>
+                      <mat-select formControlName="location" required>
+                        <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error  *ngIf="docForm.get('location').hasError('required')">
+                        Location is required
+                        </mat-error> 
+                 </mat-form-field>
+                  </div>
+                  </div>
+
+
+                  <div class="row">
+                
+                    <div class="col-md-2">
+                      <label class="lable">Search</label>
+                  </div> 
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      
+                      <input matInput formControlName="search" >
+                      <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+                        Description is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  </div>
+
+
+
+
+
+            </div>
+        </div>
+      </form>
+      </div>
+      </div>
+    </div>
+  </div>
+  </section>

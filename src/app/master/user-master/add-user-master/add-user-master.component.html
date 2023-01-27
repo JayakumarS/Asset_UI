@@ -19,8 +19,8 @@
     </div>
      <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="fullName"  maxlength="50"
-      [ngModel]="inputvalue" (ngModelChange)="inputvalue=$event.toUpperCase()"(keypress)="string($event)"required>
+      <input matInput formControlName="fullName"  maxlength="50"(keypress)="stringSmall($event)"
+      [ngModel]="inputvalue" required>
       <mat-error *ngIf="docForm.get('fullName').hasError('required')">
         Full Name is required
       </mat-error>
@@ -34,18 +34,14 @@
 
   <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-<!-- 
-      <input matInput formControlName="emailId" maxlength="50" [ngModel]="value" (blur)="validateEmail($event.target.value)" required >
-      <input matInput formControlName="emailId" required *ngIf="edit == false">
-       -->
-      <input matInput formControlName="emailId" maxlength="50" [ngModel]="value" (blur)="validateUserMaster($event.target.value)"  required *ngIf="!edit">
-      <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
-  <mat-error *ngIf="docForm.get('emailId').hasError('required')">
-    Email Id is required
-  </mat-error>
-  <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
-    EmailId Already Exists !!!
-  </mat-error>
+      <input matInput formControlName="emailId" maxlength="50" (blur)="validateEmail($event.target.value)"required *ngIf="edit == false">
+      <input matInput formControlName="emailId" maxlength="50" required *ngIf="edit == true" readonly>
+      <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
+        EmailId Already Exists !!!
+      </mat-error>
     </mat-form-field>
   </div>
 </div>
@@ -69,7 +65,7 @@
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="role" maxlength="50"[ngModel]="inputvalue2"
-                        (ngModelChange)="inputvalue2 = $event.toUpperCase()"(keypress)="keyPressNumeric($event)" required>
+                        (ngModelChange)="inputvalue2 = $event.toUpperCase()"(keypress)="string($event)" required>
                         <mat-error *ngIf="docForm.get('role').hasError('required')">
                           Role is required
                         </mat-error>
@@ -111,7 +107,7 @@
                             <div class=" col-md-3">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <input matInput formControlName="language" maxlength="50"[ngModel]="inputvalue3"
-                                (ngModelChange)="inputvalue3 = $event.toUpperCase()"(keypress)="string($event)"   required>
+                                (ngModelChange)="inputvalue3 = $event.toUpperCase()"(keypress)="stringAlpha($event)"  required>
                                 <mat-error *ngIf="docForm.get('language').hasError('required')">
                                   Default Language is required
                                 </mat-error>

@@ -70,33 +70,34 @@
                 <ng-container matColumnDef="actions">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                    (click)="editCall(row)" class="tbl-action-btn">
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                      class="tbl-action-btn">
                       <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
                     <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                      (click)="deleteItem(row)" class="tbl-action-btn">
+                      (click)="deleteItem(i, row)" class="tbl-action-btn">
                       <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                     </button>
                   </mat-cell>
                 </ng-container>
 
 
+
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
                   [style.cursor]="'pointer'" matRipple>
                 </mat-row>
               </mat-table>
               <!-- Loading spinner -->
-              <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
-                <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
-                </mat-progress-spinner>
-              </div>
+           <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+              <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+              </mat-progress-spinner>
+                       </div>
               <!-- context menu start -->
               <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
-                [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
-              </div>
+               [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+                    </div>
               <mat-menu #contextMenu="matMenu">
                 <ng-template matMenuContent let-item="item">
                   <button mat-menu-item [routerLink]="'/master/userMaster/add-user-master/0'">

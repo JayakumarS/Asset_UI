@@ -372,7 +372,7 @@ export class AddTransferComponent implements OnInit {
     update(){
        this.userName=this.tokenStorage.getUsername();
       if(this.docForm.get("status").value==2){
-        this.httpService.get(this.transferAssetService.updateStatus+ "?headerID=" + this.requestId+"&destinationLocationId="+this.docForm.get("destinationLocationId").value+"&assetId="+this.docForm.get("assetId").value+"&userName="+this.userName).subscribe((res: any) => {
+        this.httpService.get(this.transferAssetService.updateStatus+ "?headerID=" + this.requestId+"&destinationLocationId="+this.docForm.get("destinationLocationId").value+"&userName="+this.userName).subscribe((res: any) => {
           this.showNotification(
             "snackbar-success",
             "Received Successfully...!!!",

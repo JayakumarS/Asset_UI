@@ -97,7 +97,7 @@ export class AddAssetMasterComponent
 
     this.docForm = this.fb.group({
       //info
-      assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+      assetName: ["", [Validators.required]],
       assetCode: ["", [Validators.required]],
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
@@ -577,7 +577,7 @@ export class AddAssetMasterComponent
   }
 
   keyPressName(event: any) {
-    const pattern = /[A-Z,a-z]/;
+    const pattern = /[ a-z A-Z0-9 !@()#$%&*_+'\-=\;:\\|,.\/? ]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();

@@ -7,6 +7,13 @@ const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
 const AUTHUSERID_KEY = 'AuthUserId';
 const POPUPFLAG_KEY = 'PopUpFlag';
+const AUTHCOMPANYID = 'AuthCompanyId';
+const AUTHCOMPANYTEXT= 'AuthCompanyText';
+const AUTHROLEID = 'AuthRoleId';
+const AUTHROLETEXT= 'AuthRoleText';
+const AUTHCOMPANIES = 'AuthCompanies';
+const AUTHROLES = 'AuthRoles';
+const AUTHBRANCHID = 'AuthBranchId';
 
 @Injectable({
   providedIn: 'root'
@@ -72,4 +79,65 @@ public getUserId(): string {
 
     return this.roles;
   }
+
+  public saveCompanyId(companyId) {
+    window.sessionStorage.removeItem(AUTHCOMPANYID);
+    window.sessionStorage.setItem(AUTHCOMPANYID, companyId);
+  }
+  public getCompanyId() {
+    return sessionStorage.getItem(AUTHCOMPANYID);
+  }
+  
+  public saveCompanyText(companyText) {
+    window.sessionStorage.removeItem(AUTHCOMPANYTEXT);
+    window.sessionStorage.setItem(AUTHCOMPANYTEXT, companyText);
+  }
+  public getCompanyText() {
+    return sessionStorage.getItem(AUTHCOMPANYTEXT);
+  }
+
+  public saveRoleId(roleId) {
+    window.sessionStorage.removeItem(AUTHROLEID);
+    window.sessionStorage.setItem(AUTHROLEID, roleId);
+  }
+  public getRoleId() {
+    return sessionStorage.getItem(AUTHROLEID);
+  }
+
+  public saveRoleText(roleText) {
+    window.sessionStorage.removeItem(AUTHROLETEXT);
+    window.sessionStorage.setItem(AUTHROLETEXT, roleText);
+  }
+  public getRoleText() {
+    return sessionStorage.getItem(AUTHROLETEXT);
+  }
+
+  public saveRoles(roles) {
+    window.sessionStorage.removeItem(AUTHROLES);
+    window.sessionStorage.setItem(AUTHROLES, JSON.stringify(roles));
+  }
+
+  public getRoles() {
+    if (sessionStorage.getItem(TOKEN_KEY)) {
+      return sessionStorage.getItem(AUTHROLES);
+    }
+  }
+  public saveCompanies(companies) {
+    window.sessionStorage.removeItem(AUTHCOMPANIES);
+    window.sessionStorage.setItem(AUTHCOMPANIES, JSON.stringify(companies));
+  }
+
+  public getCompanies() {
+    if (sessionStorage.getItem(TOKEN_KEY)) {
+      return sessionStorage.getItem(AUTHCOMPANIES);
+    }
+  }
+  public saveBranchId(branchId) {
+    window.sessionStorage.removeItem(AUTHBRANCHID);
+    window.sessionStorage.setItem(AUTHBRANCHID, branchId);
+  }
+  public getBranchId() {
+    return sessionStorage.getItem(AUTHBRANCHID);
+  }
+  
 }

@@ -12,6 +12,8 @@ import { BranchService } from '../branch.service';
   styleUrls: ['./add-branch.component.sass']
 })
 export class AddBranchComponent implements OnInit {
+  companyList:any 
+  locationDdList:any
 
   docForm: FormGroup;
 
@@ -24,13 +26,11 @@ export class AddBranchComponent implements OnInit {
     private router:Router,
     public route: ActivatedRoute,) {
       this.docForm = this.fb.group({
-        branchCode: ["",[Validators.required]],
-        branchName: [""],
-        remarks:[""],
+        branchCode: [""],
+        branchname: [""],
+        companyName:[""],
+        location:[""],
         isactive:[false],
-        deptId:[""],
-        contactPerson:[""],
-        
       });
 
 

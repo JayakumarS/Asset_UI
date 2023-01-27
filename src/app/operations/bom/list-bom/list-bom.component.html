@@ -11,11 +11,13 @@
         <div class="card">
           <div class="body">
             <div class="table-responsive">
-              <div class="materialTableHeader">
+              <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
                 <div class="row">
                   <div class="col-8">
                     <ul class="header-buttons-left ms-0">
-                      
+                      <li class="dropdown m-l-20 ">
+                        <h2>Bill Of Material</h2>
+                      </li>
                       <li class="dropdown m-l-20">
                         <label for="search-input"><i class="material-icons search-icon">search</i></label>
                         <input placeholder="Search" type="text" #filter class="browser-default search-field"
@@ -23,9 +25,8 @@
                       </li>
                       <li>
                         <div class="m-l-10" matTooltip="ADD">
-                          <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                          <button mat-mini-fab color="primary"  [routerLink]="'/operations/billOfMeterial/addBom/0'" >
-                            <mat-icon class="col-white">add</mat-icon>
+                          <button color="primary" type="button" class="btn-space" [routerLink]="'/operations/billOfMeterial/addBom/0'" mat-raised-button>
+                            <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
                           </button>
                         </div>
                       </li>

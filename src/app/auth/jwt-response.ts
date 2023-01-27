@@ -5,9 +5,11 @@ export class JwtResponse {
     accessToken: string;
     type: string;
     username: string;
-    roles: string[];
+    roles: [];
     success:boolean;
     message:string;
     email:string;
-    role:Role;
+    role:string;
+    userDetails:any;
+    
 }
