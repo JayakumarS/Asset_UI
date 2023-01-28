@@ -6,6 +6,8 @@ export class Reportscategory{
     asset_name:string;
     asset_location:number;
     asset_category:string;
+    discard_date:string;
+    
     
     
 
@@ -19,6 +21,7 @@ export class Reportscategory{
           this.asset_name = reportscategory.asset_name || "";
           this.asset_location = reportscategory.asset_location || "";
           this.asset_category = reportscategory.asset_category || "";
+          this.discard_date = reportscategory.discard_date || "";
 
 
 
