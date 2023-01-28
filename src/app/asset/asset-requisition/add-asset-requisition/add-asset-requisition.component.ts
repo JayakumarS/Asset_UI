@@ -62,6 +62,7 @@ export class AddAssetRequisitionComponent implements OnInit {
   userName: any;
   userId: string;
   branchId: string;
+  companyId: string;
   constructor(private fb: FormBuilder,
     public assetRequisitionService:AssetRequisitionService,
     private httpService: HttpServiceService,
@@ -115,23 +116,24 @@ export class AddAssetRequisitionComponent implements OnInit {
       this.userId = this.token.getUserId();
       this.userName=this.token.getUsername();
       this.branchId= this.token.getBranchId();
-
-     this.docForm.patchValue({
+      this.companyId= this.token.getCompanyId();
+      this.docForm.patchValue({
        'requestedBy':this.userId,
-       'branchId':parseInt(this.branchId)
+       'branchId':parseInt(this.branchId),
+       'companyId':parseInt(this.companyId),
     })
 
     
-  this.httpService.get<any>(this.commonService.getCompanyByUser + "?user=" + this.userId).subscribe(
-    (data) => {
-      this.docForm.patchValue({
-        'companyId':data
-     })
-    },
-    (error: HttpErrorResponse) => {
-      console.log(error.name + " " + error.message);
-    }
-  );
+  // this.httpService.get<any>(this.commonService.getCompanyByUser + "?user=" + this.userId).subscribe(
+  //   (data) => {
+  //     this.docForm.patchValue({
+  //       'companyId':data
+  //    })
+  //   },
+  //   (error: HttpErrorResponse) => {
+  //     console.log(error.name + " " + error.message);
+  //   }
+  // );
 
   // Location list dropdown
   this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe(
@@ -281,7 +283,7 @@ fetchAssetDtls(itemId){
       "right"
     );
   }else{
-    this.httpService.get<any>(this.assetRequisitionService.assetTrackListUrl+"?itemId="+itemId+"&sourceLocation="+this.docForm.get('sourceLocation').value).subscribe(
+    this.httpService.get<any>(this.assetRequisitionService.assetTrackListUrl+"?itemId="+itemId+"&sourceLocation="+this.docForm.get('sourceLocation').value+"&companyId="+parseInt(this.companyId)).subscribe(
       (data) => {
         console.log(data);
         if(data.success){

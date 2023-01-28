@@ -332,7 +332,7 @@ export class AddTransferComponent implements OnInit {
       this.httpService.get<any>(this.transferAssetService.checkRequestValidity + "?request=" + data).subscribe(
         (data6) => {
 if(data6.count==0 || this.edit==true){
-          this.httpService.get<any>(this.transferAssetService.getRequestDetails + "?requestId=" + data).subscribe(
+          this.httpService.get<any>(this.transferAssetService.getRequestDetails + "?requestId=" + data+"&companyId="+this.companyId).subscribe(
             (data5) => {
               console.log(data5);
               this.docForm.patchValue({
