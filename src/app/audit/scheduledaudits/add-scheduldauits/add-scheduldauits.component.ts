@@ -87,6 +87,8 @@ export class AddScheduldauitsComponent implements OnInit {
       remarks:[""],
       type:[""],
       loginedUser: this.tokenStorage.getUserId(),
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
 
       scheduledDetailbean: this.fb.array([
         this.fb.group({
@@ -367,6 +369,8 @@ if(this.dateChange==false){
       Quantity:[""],
       remarks:[""],
       loginedUser: this.tokenStorage.getUserId(),
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
 
       scheduledDetailbean: this.fb.array([
         this.fb.group({
