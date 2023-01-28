@@ -106,7 +106,7 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
 
 
   editCall(row) {
-    if(this.permissionList?.modify){
+    if (this.permissionList?.modify){
     this.router.navigate(['/inventory/UOM-catagory/add-UOMCategory/' + row.uomID]);
     }
   }

@@ -13,7 +13,7 @@
               <mat-label class="lable">Role<span class="errorColor"> *</span></mat-label>
             </div>
             <div class="col-md-2">
-              <mat-select type="text" tabindex="1" class="form-control" 
+              <mat-select type="text" tabindex="1" class="form-control"
               formControlName="roleId" (selectionChange)="roleBasedFormList()">
                 <mat-option *ngFor="let title of roleList" [value]="title.id">
                   {{title.text}}
@@ -23,7 +23,7 @@
                 Role Name is required
               </mat-error>
             </div>
-  
+
             <div class="col-md-1">
               <mat-label class="lable">Module<span class="errorColor"> *</span></mat-label>
             </div>
@@ -51,7 +51,7 @@
             </div>
         </form>
       </div>
-  
+
       <!-- Added by GOKUL For Role Rights -->
       <div *ngIf="formList.length != 0" class="row">
         <div class="col-md-12">
@@ -92,13 +92,13 @@
                       <span *ngFor="let objFormProperty of formPropertyList">
                         <span *ngIf="objFormProperty.formCode==selectItem.itemId">
                           <span *ngIf="objFormProperty.propertyCode==objProperty.propertyCode">
-  
+
                             <label class="checkbox" style="cursor: pointer !important;">
                               <input type="checkbox" [checked]="objFormProperty.isCheckFormProperty"
                                 (change)="selectCheckFormPropertyList($event.target.checked ? 'on' : 'off',objFormProperty)">
                               <span class="default"></span>
                             </label>
-  
+
                           </span>
                         </span>
                       </span>

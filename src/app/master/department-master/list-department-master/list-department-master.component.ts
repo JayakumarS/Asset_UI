@@ -15,6 +15,9 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 import { DeleteDepartmentComponent } from './delete-department/delete-department.component';
 
 @Component({
@@ -42,15 +45,19 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
   selection = new SelectionModel<DepartmentMaster>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   customerMaster: DepartmentMaster | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public departmentMasterService: DepartmentMasterService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
-    private httpService:HttpServiceService,
-    public router:Router
+    private serverUrl: serverLocations,
+    private httpService: HttpServiceService,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
+    public router: Router
   ) {
     super();
   }
@@ -63,6 +70,22 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1038',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -89,9 +112,9 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
 
 
   editCall(row) {
-
+    if (this.permissionList?.modify){
     this.router.navigate(['/master/department-Master/add-department/'+row.deptId]);
-
+    }
   }
 
   deleteItem(row){

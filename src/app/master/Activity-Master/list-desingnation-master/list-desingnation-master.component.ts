@@ -16,6 +16,9 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 import { DeleteDesignationMasterComponent } from './delete-designation-master/delete-designation-master.component';
 
 
@@ -26,8 +29,7 @@ import { DeleteDesignationMasterComponent } from './delete-designation-master/de
 })
 export class ListDesingnationMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 displayedColumns = [
-  
-  
+
   "activtyid",
     "activtyname",
     "Description",
@@ -40,6 +42,7 @@ displayedColumns = [
   selection = new SelectionModel<DesignationMaster>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   designationMaster: DesignationMaster | null;
   constructor(
     public httpClient: HttpClient,
@@ -49,6 +52,9 @@ displayedColumns = [
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
     public router: Router,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
     public route: ActivatedRoute
   ) {
     super();
@@ -62,6 +68,22 @@ displayedColumns = [
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1028',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -88,9 +110,9 @@ displayedColumns = [
 
 
   editCall(row) {
-
-    this.router.navigate(['/master/Activity-master/add-activity/'+row.id]);
-
+    if (this.permissionList?.modify){
+    this.router.navigate(['/master/Activity-master/add-activity/' + row.id]);
+    }
   }
 
   deleteItem(row){
@@ -109,7 +131,7 @@ displayedColumns = [
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
       this.loadData();
         // this.showNotification(
         //   "snackbar-success",
@@ -117,7 +139,7 @@ displayedColumns = [
         //   "bottom",
         //   "center"
         // );
-      
+
       // else{
       //   this.showNotification(
       //     "snackbar-danger",
@@ -191,8 +213,8 @@ export class ExampleDataSource extends DataSource<DesignationMaster> {
               designationMaster.activtyid +
               designationMaster.activtyname +
               designationMaster.Description +
-              designationMaster.active 
-             
+              designationMaster.active
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -233,9 +255,9 @@ export class ExampleDataSource extends DataSource<DesignationMaster> {
           case "active":
           [propertyA, propertyB] = [a.active, b.active];
           break;
-          
-       
-        
+
+
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

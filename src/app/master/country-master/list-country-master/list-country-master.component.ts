@@ -40,7 +40,7 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
   id: number;
   countryMaster: CountryMaster | null;
   permissionList: any;
-  
+
   constructor(
     private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
@@ -73,7 +73,7 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
       next: (data) => {
         this.spinner.hide();
         if (data.success) {
-          this.permissionList=data;
+          this.permissionList = data;
         }
       },
       error: (error) => {
@@ -130,7 +130,7 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
       disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
       if (data.data == true) {
         const obj = {
           deletingId: row.countryId
@@ -217,7 +217,7 @@ export class ExampleDataSource extends DataSource<CountryMaster> {
             const searchStr = (
               countryMaster.countryCode +
               countryMaster.countryName +
-              countryMaster.currencyName 
+              countryMaster.currencyName
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
