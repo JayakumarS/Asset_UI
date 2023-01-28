@@ -9,13 +9,13 @@
         <div class="col-md-12">
           <div class="box-shadow">
             <div class="card pageproperty">
-              <div class="body " style="padding-left: 220px;">
+              <div class="body " style="padding-left: 135px;">
                 <form class="m-4" [formGroup]="docForm">
 
 
 <div class="row">
   <div class=" col-md-2">
-    <mat-label class="lable">Full Name<span class="errorColor">*</span></mat-label>
+    <mat-label >FULL NAME<span class="errorColor">*</span></mat-label>
     </div>
      <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -30,7 +30,7 @@
 
   </div>
   <div class=" col-md-2">
-    <mat-label class="lable">Email Id<span class="errorColor">*</span></mat-label>
+    <mat-label >EMAIL ID<span class="errorColor">*</span></mat-label>
     </div>
 
   <div class=" col-md-3">
@@ -53,7 +53,7 @@
 
                   <div class="row">
                     <div class=" col-md-2">
-                      <mat-label class="lable">Contact Number<span class="errorColor">*</span></mat-label>
+                      <mat-label >CONTACT NUMBER<span class="errorColor">*</span></mat-label>
                       </div>
                       <div class=" col-md-3">
                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -64,7 +64,7 @@
                         </mat-form-field>
                       </div>
                   <div class=" col-md-2">
-                    <mat-label class="lable">Role<span class="errorColor">*</span></mat-label>
+                    <mat-label >ROLE<span class="errorColor">*</span></mat-label>
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -78,7 +78,7 @@
                   </div>
                   <div class="row">
                     <div class=" col-md-2">
-                      <mat-label class="lable">Department</mat-label>
+                      <mat-label >Department</mat-label>
                       </div>
                       <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -91,7 +91,7 @@
                   </mat-form-field>
                   </div>
                   <div class=" col-md-2">
-                    <mat-label class="lable">Reporting Manager</mat-label>
+                    <mat-label >REPORTING MANAGER</mat-label>
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -106,7 +106,7 @@
                       <br>
                       <div class="row">
                         <div class=" col-md-2">
-                            <mat-label class="lable">Default Language<span class="errorColor">*</span></mat-label>
+                            <mat-label >DEFAULT LANGUAGE<span class="errorColor">*</span></mat-label>
                             </div>
                             <div class=" col-md-3">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -119,7 +119,7 @@
                             </div>
 
                         <div class=" col-md-2">
-                            <mat-label class="lable">Primary Location</mat-label>
+                            <mat-label>PRIMARY LOCATION</mat-label>
                             </div>
                             <div class=" col-md-3">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -135,7 +135,7 @@
 
                         <div class="row">
                           <div class=" col-md-2">
-                              <mat-label class="lable">Company<span class="errorColor">*</span></mat-label>
+                              <mat-label >COMPANY<span class="errorColor">*</span></mat-label>
                               </div>
                               <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -148,7 +148,7 @@
                             </mat-form-field>
                               </div>
                               <div class=" col-md-2">
-                                <mat-label class="lable">Branch<span class="errorColor">*</span></mat-label>
+                                <mat-label >BRANCH<span class="errorColor">*</span></mat-label>
                                 </div>
                                 <div class=" col-md-3">
                                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -164,26 +164,26 @@
                             </div>
                      <br>
                      <div class="row">
-                        <div class=" col-md-2"><mat-label class="lable">OTP Required</mat-label></div>
+                        <div class=" col-md-2"><mat-label >OTP REQUIRED</mat-label></div>
                       <div class=" col-md-3">
-                         <mat-checkbox  ngInit="checked=true" formControlName="otp"></mat-checkbox>
+                         <mat-checkbox  ngInit="checked=true" formControlName="otp" STYLE="margin-left: 10px;"></mat-checkbox>
                       </div>
-                      <div class=" col-md-2"><mat-label class="lable" >Track User Location</mat-label></div>
+                      <div class=" col-md-2"><mat-label >TRACK USER LOCATION</mat-label></div>
                       <div class=" col-md-1">
-                         <mat-checkbox  ngInit="checked=true" formControlName="userLocation"></mat-checkbox>
+                         <mat-checkbox  ngInit="checked=true" formControlName="userLocation" STYLE="margin-left: 10px;"></mat-checkbox>
                       </div>
                     </div><br>
                     <div class="row">
                     <div class=" col-md-2">
-                      <mat-label  class="lable">ACTIVE</mat-label></div>
+                      <mat-label  >ACTIVE</mat-label></div>
                     <div class=" col-md-3">
-                       <mat-checkbox  ngInit="checked=true"  formControlName="active"></mat-checkbox>
+                       <mat-checkbox  ngInit="checked=true"  formControlName="active" STYLE="margin-left: 10px;"></mat-checkbox>
 
                   </div>
                   <div class=" col-md-2">
-                    <mat-label  class="lable">Is Auditor</mat-label></div>
+                    <mat-label >IS AUDITOR</mat-label></div>
                   <div class=" col-md-3">
-                     <mat-checkbox  ngInit="checked=true"  formControlName="auditor"></mat-checkbox>
+                     <mat-checkbox  ngInit="checked=true"  formControlName="auditor" STYLE="margin-left: 10px;"></mat-checkbox>
 
                 </div>
                 </div>
