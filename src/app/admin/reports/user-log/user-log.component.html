@@ -1,0 +1,181 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'User Log'" [items]="['reports']" [active_item]="'User Log'">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="table-responsive">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label >START DATE</label>
+                </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" >
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          
+                         
+                            <input matInput [matDatepicker]="picker1" formControlName="startdateObj"
+                            (dateInput)="$event.value.format('DD/MM/YYYY')" id="startdate" 
+                                                   (dateChange)="getDateString($event, 'startdate',0)"> 
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1>
+                            <mat-error *ngIf="docForm.get('startdate').hasError('required')">
+                              Expected Date Of Delivery is required
+                            </mat-error>
+                          </mat-datepicker>
+                           
+                          </mat-form-field>
+                        </div>
+                        
+                      
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                          <label >END DATE</label>
+                      </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                           
+                            <input matInput [matDatepicker]="picker2" formControlName="enddateObj"
+                            (dateInput)="$event.value.format('DD/MM/YYYY')" id="enddate" 
+                                                   (dateChange)="getDateString($event, 'enddate',0)"> 
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2>
+                            <mat-error *ngIf="docForm.get('enddate').hasError('required')">
+                              Expected Date Of Delivery is required
+                            </mat-error>
+                          </mat-datepicker>
+                          </mat-form-field>
+                        </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <label>COMPANY</label>
+              </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                   
+                <mat-select class="inputTxt" formControlName="company">
+                  <mat-option *ngFor="let title of companyList" [value]="title.text">
+                      {{title.text}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="docForm.get('company').hasError('required')">
+                  Contact Person is required
+              </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <label >USER NAME</label>
+              </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    
+                    <mat-select class="inputTxt" formControlName="username">
+                      <mat-option *ngFor="let title of usernamelist" [value]="title.text">
+                          {{title.text}}
+                      </mat-option>
+                  </mat-select>
+                    <mat-error *ngIf="docForm.get('username').hasError('required')">
+                        Life In Years is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+    <div class="row">
+
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 470px;">
+                  <button class="btn-space" mat-raised-button (click) = "onSubmit()"
+                    color="accent" style="background-color: #34d034;">Search</button>
+                </div>
+
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-top: -34px; margin-left: 570px;">
+                  <button class="btn-space" mat-raised-button (click) = "onSubmit()"
+                    color="primary" >Refresh</button>
+                </div>
+              </div>
+            </form>
+              <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ms-0">
+                      <li class="dropdown m-l-20 ">
+                        <h2>User Log</h2>
+                      </li>
+                      <li class="dropdown m-l-20">
+                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                        <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                          aria-label="Search box">
+                      </li>
+                    
+                    </ul>
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="XLSX">
+                          <img src="assets/images/icons/xlsx.png" alt=""
+                            (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                #exporter="matTableExporter">
+                
+                <ng-container matColumnDef="startdate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>START DATE</mat-header-cell>
+                  <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startdate}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="enddate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>END DATE</mat-header-cell>
+                  <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.enddate}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="company">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>COMPANY</mat-header-cell>
+                  <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.company}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="username">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>USER NAME</mat-header-cell>
+                  <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.username}}</mat-cell>
+              </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                  [style.cursor]="'pointer'" matRipple>
+                </mat-row>
+              </mat-table>
+              <!-- Loading spinner -->
+              <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                </mat-progress-spinner>
+              </div>
+              <!-- context menu start -->
+              <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+                [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+              </div>
+            
+             
+              <!-- context menu end -->
+              <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                
+              </div>
+              <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

@@ -28,6 +28,7 @@ import { AddDepreciationReportComponent } from './add-depreciation-report/add-de
 import { AddAuditReportComponent } from './add-audit-report/add-audit-report.component';
 import { AssetsReturnComponent } from './assets-return/assets-return.component';
 import { DiscardAssetsComponent } from './discard-assets/discard-assets.component';
+import { UserLogComponent } from './user-log/user-log.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { DiscardAssetsComponent } from './discard-assets/discard-assets.componen
     AddAuditReportComponent,
     AssetsReturnComponent,
     DiscardAssetsComponent,
+    UserLogComponent
 
   ],
   imports: [

@@ -12,11 +12,14 @@ import { reportsresultbean } from './reports-result-bean';
 })
 export class ReportsService extends UnsubscribeOnDestroyAdapter {
   isTblLoading = true;
+  dialogData: Reportscategory;
   dataChange: BehaviorSubject<Reportscategory[]> = new BehaviorSubject<Reportscategory[]>(
     []
   );
+
+
   
-  dialogData:any;
+
   data: any;
   
 
@@ -33,13 +36,14 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     public depreciationSerach = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getDepreciationSerach`;
     public auditSerach = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getAuditSerach`;
     public getdiscardedReports = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getDiscardedReports`;
+    public getUserNameDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getusernamelist`;
 
 
    
     getDialogData() {
       return this.dialogData;
     }
-   
+    userloglist
     getAllList(){
   this.subs.sink = this.httpService.get<reportsresultbean>(this.reportserach).subscribe(
     (data) => {

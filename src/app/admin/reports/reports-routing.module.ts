@@ -5,6 +5,7 @@ import { AddDepreciationReportComponent } from './add-depreciation-report/add-de
 import { AddreportsComponent } from './addreports/addreports.component';
 import { AssetsReturnComponent } from './assets-return/assets-return.component';
 import { DiscardAssetsComponent } from './discard-assets/discard-assets.component';
+import { UserLogComponent } from './user-log/user-log.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
     path:"discarded-assets",
     component:DiscardAssetsComponent,
   },
+  {
+    path:"user_log",
+    component:UserLogComponent,
+
+  }
 
 ];
 

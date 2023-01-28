@@ -8,7 +8,12 @@ export class Reportscategory{
     asset_category:string;
     discard_date:string;
     
-    
+    startdate:string;
+    enddate:string;
+    company:string;
+    username:string;
+    startdateObj:string;
+    enddateObj:string;
     
 
     constructor(reportscategory) {
@@ -22,7 +27,12 @@ export class Reportscategory{
           this.asset_location = reportscategory.asset_location || "";
           this.asset_category = reportscategory.asset_category || "";
           this.discard_date = reportscategory.discard_date || "";
-
+          this.startdate = reportscategory.startdate || "";
+          this.enddate = reportscategory.enddate || "";
+          this.company = reportscategory.company || "";
+          this.username = reportscategory.username || "";
+          this.startdateObj = reportscategory.startdateObj || "";
+          this.enddateObj = reportscategory.enddateObj || "";
 
 
 
@@ -38,3 +48,5 @@ public getRandomID(): string {
   }
 
 }
+
+
