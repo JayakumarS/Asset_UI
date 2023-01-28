@@ -43,6 +43,7 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
   public getClientSurveyURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getClientSurvey`;
   public getItSupportTicketURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getItSupportTicket`;
   public getActivityPopUpUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getActivityPopUpDetails`;
+  public companyAuditorsCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getCompanyAuditorsCount`;
 
   get data(): main[] {
     return this.dataChange.value;

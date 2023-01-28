@@ -103,6 +103,9 @@ export class MainComponent implements OnInit {
   config1: { itemsPerPage: number; currentPage: number; totalItems: number; };
   popUpFlag:string;
   activityflag: string;
+  companyAuditorCount: string;
+  companyPurchaseAssetsCount: any;
+  companyUsersAssetsCount: any;
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
@@ -120,6 +123,8 @@ export class MainComponent implements OnInit {
     this.chart2();
     this.chart4();
     this.projectChart();
+
+    this.companyAuditorCount=this.tokenStorage.getCompanyId();
 
     this.httpService.get<MainResultBean>(this.mainService.earningsListCountUrl).subscribe(
       (data) => {
@@ -216,6 +221,18 @@ export class MainComponent implements OnInit {
         
     //     console.log(this.projectOptions);
     // }); 
+
+    // Company based Auditor count service
+
+    this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + this.companyAuditorCount).subscribe((res: any) => {
+      console.log(this.companyAuditorCount);
+      this.companyPurchaseAssetsCount = res.companyPurchaseAssetsCount;
+      this.companyUsersAssetsCount = res.companyUsersAssetsCount;
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
 
     this.getInvList();
     this.getAssetList();
@@ -583,7 +600,7 @@ export class MainComponent implements OnInit {
           data: [11, 32, 45, 32, 34, 52, 41],
         },
         {
-          name: "Accured Depreciation",
+          name: "Accrued Depreciation",
           data: [11, 32, 25, 32, 77, 52, 15],
         },
       ],
@@ -729,7 +746,7 @@ export class MainComponent implements OnInit {
           data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
         },
         {
-          name: "Accured Depreciation",
+          name: "Accrued Depreciation",
           type: "line",
           data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
         },
