@@ -1,7 +1,7 @@
 export class Branch {
   
     id: any;
-    branchid: any;
+    branchId: any;
     branchCode: any;
     branchname: any;
     locationName: any;
@@ -11,7 +11,7 @@ export class Branch {
     constructor(branch) {
       {
         this.id = branch.id || this.getRandomID();
-        this.branchid = branch.branchid || "";
+        this.branchId = branch.branchId || "";
         this.branchCode = branch.branchCode || "";
         this.branchname = branch.branchname || "";
         this.locationName = branch.locationName || "";
