@@ -24,6 +24,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   private getBranchtList = `${this.serverUrl.apiServerAddress}api/auth/app/branch/getBranchtList`;
   private saveBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/save`;
   public editBranchMaster = `${this.serverUrl.apiServerAddress}api/auth/app/branch/edit`;
+  public updateBranchMaster = `${this.serverUrl.apiServerAddress}api/auth/app/branch/update`;
 
 
 
@@ -49,6 +50,17 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   addBranch(branchMaster: Branch): void {
     this.dialogData = branchMaster;
     this.httpService.post<Branch>(this.saveBranch, branchMaster).subscribe(data => {
+      console.log(data);
+      //this.dialogData = employees;
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
+
+  branchUpdate(branch: Branch): void {
+    this.dialogData = branch;
+    this.httpService.post<Branch>(this.updateBranchMaster, branch).subscribe(data => {
       console.log(data);
       //this.dialogData = employees;
       },
