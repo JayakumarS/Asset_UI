@@ -4,6 +4,7 @@ export class UserGroupResultBean {
     Success: boolean;
     UserGroupMaster:UserGroupMaster
     userGroupList: [];
+    branchDropdownList:[];
 
 
 

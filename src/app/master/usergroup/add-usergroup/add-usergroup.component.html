@@ -15,7 +15,7 @@
                                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3" style="margin-left:5%;">
                                             <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:280px">
                                                 <mat-label>Company Name</mat-label>
-                                                <mat-select formControlName="companyName">
+                                                <mat-select  (selectionChange)="validationUserGroup($event.value)"formControlName="companyName">
                                                     <mat-option *ngFor="let title of companyList" [value]="title.id">
                                                       {{title.text}}
                                                     </mat-option>
@@ -26,7 +26,7 @@
                                           <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:280px">
                                             <mat-label>Branch</mat-label>
                                                 <mat-select formControlName="branch">
-                                                    <mat-option *ngFor="let title of branchList" [value]="title.id">
+                                                    <mat-option *ngFor="let title of branchDropDownList" [value]="title.id">
                                                       {{title.text}}
                                                     </mat-option>
                                                   </mat-select>
@@ -108,8 +108,8 @@
                                                   <td class="padding-both-side-2">
                                                       <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width:300px ;">
                                                        <mat-label>Users</mat-label>
-                                                       <mat-select name="users{{i}}" formControlName="users">
-                                                        <mat-option *ngFor="let title of userList" [value]="title.text">
+                                                       <mat-select name="users{{i}}" formControlName="users" (selectionChange)="checkUser($event.value,i)">
+                                                        <mat-option *ngFor="let title of userList" [value]="title.strId">
                                                           {{title.text}}
                                                         </mat-option>
                                                         </mat-select>

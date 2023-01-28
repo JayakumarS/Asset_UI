@@ -28,6 +28,7 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
   public editUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/edit`;
   public updateUserGroup = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/update`;
   public deleteUserGroup = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/delete`;
+  public branchDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/getDropdown`;
 
 
   get data(): UserGroupMaster[] {
@@ -40,6 +41,8 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
   editCompany(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.editUserMaster, obj);
   }
+
+  
 
   getAllCountrys(){
     this.subs.sink = this.httpService.get<UserGroupResultBean>(this.getAllMasters).subscribe(
@@ -60,6 +63,10 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
 
   deleteusergroup(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.deleteUserGroup, obj);
+  }
+
+  company(){
+
   }
   
 }

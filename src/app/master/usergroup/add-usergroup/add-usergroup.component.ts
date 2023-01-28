@@ -29,7 +29,8 @@ export class AddUsergroupComponent implements OnInit {
   requestId: any;
   edit:boolean=false;
   countryList:any;
-
+  branchDropdownList=[]
+  branchDropDownList=[];
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private httpService: HttpServiceService,
@@ -201,7 +202,8 @@ export class AddUsergroupComponent implements OnInit {
         (err: HttpErrorResponse) => {
           
       });
-    
+      this.router.navigate(['master/usergroup/listusergroup']);
+
 
   }
 
@@ -220,6 +222,25 @@ export class AddUsergroupComponent implements OnInit {
     scheduledListDetailArray.insert(arraylen, newUsergroup);
 
   }
+    checkUser(user:any,index:any){
+      let scheduledListDetailArray = this.docForm.controls.userDetailbean as FormArray;
+      let arraylen = scheduledListDetailArray.length;
+      for(var k=0;k<arraylen;k++){
+         if(scheduledListDetailArray.at(k).value.users ==user && k!=index){
+          this.showNotification(
+            "snackbar-danger",
+            "User already selected",
+            "bottom",
+            "center"
+          );
+          scheduledListDetailArray.at(index).patchValue({
+          'users':''
+          })
+         }
+       }
+  
+    }
+  
 reset(){
 if (!this.edit) {
   this.docForm.reset();
@@ -271,6 +292,24 @@ update(){
     this.router.navigate(['master/usergroup/listusergroup']);
 
 }
+
+validationUserGroup(branch: any) {
+
+  this.httpService.get(this.usergroupService.branchDropdown + "?Id=" + branch).subscribe((res: any) => {
+    console.log(branch);
+
+    this.branchDropDownList = res.branchDropDownList;
+
+  },
+    (err: HttpErrorResponse) => {
+      // error code here
+    }
+  );
+
+
+}
+
+
 
 onCancel(){
 this.router.navigate(['master/usergroup/listusergroup'])
