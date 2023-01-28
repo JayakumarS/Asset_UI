@@ -29,6 +29,7 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
     "branchname",
     "companyName",
     "locationName",
+    "actions"
   ];
 
   exampleDatabase:BranchService | null;
@@ -80,7 +81,7 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
   }
   editCall(row) {
 
-    this.router.navigate(['/asset/assetTransfer/addtransfer/'+row.headerID]);
+    // this.router.navigate(['/asset/assetTransfer/addtransfer/'+row.headerID]);
   }
 
   viewCall(row){

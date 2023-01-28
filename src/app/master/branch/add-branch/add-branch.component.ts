@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,7 +19,7 @@ export class AddBranchComponent implements OnInit {
   branchMaster:Branch;
 
   docForm: FormGroup;
-
+  edit:boolean=false;
 
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
@@ -78,6 +79,40 @@ export class AddBranchComponent implements OnInit {
     );
     this.router.navigate(['/master/Branch/listBranch']);
   }
+  }
+
+  // Edit
+  fetchDetails(id: any): void {
+    this.httpService.get(this.branchService.editBranchMaster+"?id="+id).subscribe((res: any)=> {
+      console.log(id);
+      console.log(res);
+
+    //   this.docForm.patchValue({
+
+    //     'activtyname': res.activityMasterBean.activtyname,
+    //     'activtyid': res.activityMasterBean.activtyid,
+    //     'Description': res.activityMasterBean.Description,
+    //     'active': res.activityMasterBean.active,
+    //     'id' : res.activityMasterBean.id
+    //  })
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
+      console.log(id);
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );*/
+  }
+
+  update(){
+
+    console.log();
+
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

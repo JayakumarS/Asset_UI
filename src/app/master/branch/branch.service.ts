@@ -23,6 +23,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
 
   private getBranchtList = `${this.serverUrl.apiServerAddress}api/auth/app/branch/getBranchtList`;
   private saveBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/save`;
+  public editBranchMaster = `${this.serverUrl.apiServerAddress}api/auth/app/branch/edit`;
 
 
 

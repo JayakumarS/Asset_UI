@@ -73,6 +73,7 @@ export class AddDesingnationMasterComponent implements OnInit {
   fetchDetails(id: any): void {
     this.httpService.get(this.designationMasterService.editDesignationMaster+"?id="+id).subscribe((res: any)=> {
       console.log(id);
+      
 
       this.docForm.patchValue({
 
