@@ -110,7 +110,9 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   editCall(row) {
-    this.router.navigate(['/master/countryMaster/addCountryMaster/'+row.countryId]);
+    if(this.permissionList?.modify){
+      this.router.navigate(['/master/countryMaster/addCountryMaster/'+row.countryId]);
+    }
   }
 
   deleteItem(row) {

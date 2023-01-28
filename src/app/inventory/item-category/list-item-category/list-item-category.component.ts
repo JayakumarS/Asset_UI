@@ -40,7 +40,7 @@ export class ListItemCategoryComponent extends UnsubscribeOnDestroyAdapter imple
   id: number;
   itemCategory: ItemCategory | null;
   permissionList: any;
-  
+
   constructor(
     private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
@@ -73,7 +73,7 @@ export class ListItemCategoryComponent extends UnsubscribeOnDestroyAdapter imple
       next: (data) => {
         this.spinner.hide();
         if (data.success) {
-          this.permissionList=data;
+          this.permissionList = data;
         }
       },
       error: (error) => {
@@ -109,7 +109,9 @@ export class ListItemCategoryComponent extends UnsubscribeOnDestroyAdapter imple
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/item-category/addItemCategory/'+row.itemCategoryId]);
+    if (this.permissionList?.modify) {
+      this.router.navigate(['/inventory/item-category/addItemCategory/' + row.itemCategoryId]);
+    }
   }
 
   deleteItem(row) {
@@ -127,7 +129,7 @@ export class ListItemCategoryComponent extends UnsubscribeOnDestroyAdapter imple
       disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
       if (data.data == true) {
         const obj = {
           deletingId: row.itemCategoryId
@@ -214,7 +216,7 @@ export class ExampleDataSource extends DataSource<ItemCategory> {
             const searchStr = (
               itemCategory.categoryName +
               itemCategory.parentCategoryName +
-              itemCategory.categoryTypeName 
+              itemCategory.categoryTypeName
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });

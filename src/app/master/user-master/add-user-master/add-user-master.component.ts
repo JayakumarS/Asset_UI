@@ -42,7 +42,7 @@ export class AddUserMasterComponent implements OnInit {
     this.docForm = this.fb.group({
       fullName: ["", [Validators.required]],
       // tslint:disable-next-line:max-line-length
-      emailId: ['', [Validators.required]],
+      emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       contNumber: ["", [Validators.required]],
       role: ["", [Validators.required]],
       department: [""],
@@ -296,7 +296,7 @@ update() {
       if (res){
         this.docForm.controls['emailId'].setErrors({ employee: true });
       }else{
-        this.docForm.controls['emailId'].setErrors(null);
+       // this.docForm.controls['emailId'].setErrors(null);
       }
     });
   }

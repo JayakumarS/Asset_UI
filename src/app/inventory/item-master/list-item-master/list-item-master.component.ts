@@ -111,7 +111,9 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/item-master/add-item-master/'+row.itemId]);
+    if(this.permissionList?.modify){
+      this.router.navigate(['/inventory/item-master/add-item-master/'+row.itemId]);
+    }
   }
 
   deleteItem(row) {

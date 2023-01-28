@@ -43,6 +43,9 @@
       <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
         EmailId Already Exists !!!
       </mat-error>
+      <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
+        Valid Email Id Required
+      </mat-error>
     </mat-form-field>
   </div>
 </div>

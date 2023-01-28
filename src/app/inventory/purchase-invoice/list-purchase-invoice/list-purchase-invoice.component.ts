@@ -109,7 +109,9 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/purchaseInvoice/addPurchaseInvoice/'+row.purchaseInvoiceId]);
+    if(this.permissionList?.modify){
+      this.router.navigate(['/inventory/purchaseInvoice/addPurchaseInvoice/'+row.purchaseInvoiceId]);
+    }
   }
 
   deleteItem(row) {

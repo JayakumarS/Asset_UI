@@ -103,7 +103,9 @@ export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnI
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/grn/addGrn/'+row.grnId]);
+    if(this.permissionList?.modify){
+        this.router.navigate(['/inventory/grn/addGrn/'+row.grnId]);
+    }
   }
 
   deleteItem(row) {

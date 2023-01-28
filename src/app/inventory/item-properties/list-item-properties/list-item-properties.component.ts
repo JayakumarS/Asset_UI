@@ -109,7 +109,9 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/item-properties/add-itemproperties/'+row.dynamicAttributeId]);
+    if(this.permissionList?.modify){
+       this.router.navigate(['/inventory/item-properties/add-itemproperties/'+row.dynamicAttributeId]);
+    }
   }
 
   deleteItem(row) {

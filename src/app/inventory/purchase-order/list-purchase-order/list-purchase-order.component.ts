@@ -105,7 +105,9 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/purchaseOrder/addPurchaseOrder/' + row.purchaseOrderId]);
+    if(this.permissionList?.modify){
+      this.router.navigate(['/inventory/purchaseOrder/addPurchaseOrder/' + row.purchaseOrderId]);
+    }
   }
 
   deleteItem(row) {
