@@ -6,6 +6,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { AssetService } from '../asset.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 @Component({
   selector: 'app-add-multiple-asset-master',
   templateUrl: './add-multiple-asset-master.component.html',
@@ -16,13 +17,17 @@ export class AddMultipleAssetMasterComponent implements OnInit {
   assetmultipleuploadForm: FormGroup;
   dialogTitle: string;
   excelFile : any;
+  companyId: string;
 
-  constructor(private fb: FormBuilder,public router:Router,private snackBar: MatSnackBar,private  assetService: AssetService,private httpService: HttpServiceService,public dialogRef: MatDialogRef<AddMultipleAssetMasterComponent>) {
+  constructor(private fb: FormBuilder,public router:Router,private snackBar: MatSnackBar,private  assetService: AssetService,private httpService: HttpServiceService,
+    private tokenStorage: TokenStorageService,public dialogRef: MatDialogRef<AddMultipleAssetMasterComponent>) {
 
     this.assetmultipleuploadForm = this.fb.group({
 
-      uploadfile:  [""]
-      
+      uploadfile:  [""],
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+
     });
   }
  
@@ -58,8 +63,8 @@ export class AddMultipleAssetMasterComponent implements OnInit {
     }
 
     upload(){
-
-      this.httpService.post<any>(this.assetService.multipleAssetUploadFiles,this.excelFile).subscribe(data => {
+      this.companyId=this.tokenStorage.getCompanyId();
+      this.httpService.post<any>(this.assetService.multipleAssetUploadFiles+"?companyId="+this.tokenStorage.getCompanyId(),this.excelFile).subscribe(data => {
         console.log(data);
         if(data.success){
           this.showNotification(
