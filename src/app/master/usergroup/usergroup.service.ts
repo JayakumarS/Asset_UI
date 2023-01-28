@@ -25,7 +25,9 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
  public save = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/save`;
   public editCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
   public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/getList`;
-
+  public editUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/edit`;
+  public updateUserGroup = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/update`;
+  public deleteUserGroup = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/delete`;
 
 
   get data(): UserGroupMaster[] {
@@ -36,7 +38,7 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
   }
 
   editCompany(obj: any): Observable<any> {
-    return this.httpClient.post<any>(this.editCompanyMaster, obj);
+    return this.httpClient.post<any>(this.editUserMaster, obj);
   }
 
   getAllCountrys(){
@@ -50,6 +52,14 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
         console.log(error.name + " " + error.message);
       }
     );
+  }
+
+  update(userGroupMaster: UserGroupMaster): Observable<any> {
+    return this.httpClient.post<UserGroupMaster>(this.updateUserGroup, userGroupMaster);
+  }
+
+  deleteusergroup(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.deleteUserGroup, obj);
   }
   
 }

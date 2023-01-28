@@ -16,6 +16,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { UserGroupMaster } from '../usergroup-model';
 import { UsergroupService } from '../usergroup.service';
+import { DeleteUsergroupComponent } from './delete-usergroup/delete-usergroup.component';
 
 @Component({
   selector: 'app-list-usergroup',
@@ -29,13 +30,7 @@ export class ListUsergroupComponent extends UnsubscribeOnDestroyAdapter implemen
     displayedColumns = [
      
       "companyName",
-      "cmpdetails",
-      "country",
-      "address",
-      "telephone",
-      "person",
-      // "role",
-      // "users",
+      "branch",
       "actions"
   
       
@@ -87,13 +82,67 @@ export class ListUsergroupComponent extends UnsubscribeOnDestroyAdapter implemen
     );
   }
 
-  editCall(){
+  editCall(row){
+    this.router.navigate(['/master/usergroup/addusergroup/' + row.user_mapping_id]);
+
 
   }
 
-  deleteItem(){
+  deleteItem(row) {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteUsergroupComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+      disableClose: true
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+      if (data.data == true) {
+        const obj = {
+          deletingId: row.user_mapping_id
+        }
+        this.spinner.show();
+        this.UsergroupService.deleteusergroup(obj).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+          }
+        });
+
+      }
+    });
+
+
+
 
   }
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
+  
   onContextMenu(event: MouseEvent, item: UserGroupMaster) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
@@ -140,12 +189,8 @@ export class ExampleDataSource extends DataSource<UserGroupMaster> {
           .slice()
           .filter((UserGroupMaster: UserGroupMaster) => {
             const searchStr = (
-              UserGroupMaster.companyName +
-              UserGroupMaster.cmpdetails +
-              UserGroupMaster.country +
-              UserGroupMaster.address+
-              UserGroupMaster.person+
-              UserGroupMaster.telephone+
+              UserGroupMaster.company +
+              UserGroupMaster.nbranch+
               UserGroupMaster.users+
               UserGroupMaster.role
               // countryMaster.clientType 
@@ -180,8 +225,8 @@ export class ExampleDataSource extends DataSource<UserGroupMaster> {
         case "cmpdetails":
           [propertyA, propertyB] = [a.cmpdetails, b.cmpdetails];
           break;
-        case "country":
-          [propertyA, propertyB] = [a.country, b.country];
+        case "branch":
+          [propertyA, propertyB] = [a.branch, b.branch];
           break;
 
           case "address":
