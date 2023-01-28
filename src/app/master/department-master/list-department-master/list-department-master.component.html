@@ -59,6 +59,14 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Department Code</mat-header-cell>
                   <mat-cell  *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.deptCode}}</mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="company">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Company</mat-header-cell>
+                  <mat-cell  *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.company}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="branchname">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Branch</mat-header-cell>
+                  <mat-cell  *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.branchname}}</mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="departmentName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Department Name</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.departmentHead}}</mat-cell>

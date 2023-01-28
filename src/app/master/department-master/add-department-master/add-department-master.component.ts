@@ -23,6 +23,7 @@ export class AddDepartmentMasterComponent implements OnInit {
   contactPersonList: [];
   locationDdList=[];
   companyList=[];
+  branchList=[];
 
   constructor(private fb: FormBuilder,
     private departmentMasterService : DepartmentMasterService,
@@ -42,7 +43,8 @@ export class AddDepartmentMasterComponent implements OnInit {
       isactive:[false],
       deptId:[""],
       contactPerson:[""],
-      company:[""]
+      company:["",[Validators.required]],
+      branchname:["",[Validators.required]],
       
     });
 
@@ -79,6 +81,15 @@ export class AddDepartmentMasterComponent implements OnInit {
       error: (error) => {
       }
     });
+
+      // Branch Dropdown List
+      this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
+        next: (data) => {
+          this.branchList = data;
+        },
+        error: (error) => {
+        }
+      });
   }
 
   onSubmit(){
@@ -153,7 +164,9 @@ export class AddDepartmentMasterComponent implements OnInit {
         'remarks' : res.departmentBean.remarks,
         'isactive' : res.departmentBean.isactive,
         'deptId' : res.departmentBean.deptId,
-        'contactPerson' : res.departmentBean.contactPerson
+        'contactPerson' : res.departmentBean.contactPerson,
+        'company' : res.departmentBean.company,
+        'branchname' : res.departmentBean.branchname, 
   
      })
       },
@@ -261,6 +274,8 @@ export class AddDepartmentMasterComponent implements OnInit {
       this.docForm.patchValue({
         deptCode: ["",[Validators.required]],
         departmentHead: [""],
+        branchname: [""],
+        company:[""],
         remarks: [""],
         isactive: [""],
         contactPersonId:[""],
@@ -289,5 +304,8 @@ export class AddDepartmentMasterComponent implements OnInit {
       }
     });
   }
+
+  
+
 
 }

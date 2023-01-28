@@ -28,6 +28,8 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
   displayedColumns = [
 
     "deptCode",
+    "company",
+    "branchname",
     "departmentName",
     "departmentHead",
     "contactPerson",
@@ -242,8 +244,14 @@ export class ExampleDataSource extends DataSource<DepartmentMaster> {
           [propertyA, propertyB] = [a.departmentHead, b.departmentHead];
           break;
 
+          case "company":
+            [propertyA, propertyB] = [a.company, b.company];
+            break;
+            case "branchname":
+            [propertyA, propertyB] = [a.branchname, b.branchname];
+            break;
           case "remarks":
-          [propertyA,propertyB]=[a.remarks,b.remarks];
+            [propertyA,propertyB]=[a.remarks,b.remarks];
           break;
 
           case "isactive":
