@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
@@ -82,14 +82,18 @@ getAllListNew(): void {
     });
   }
 
-  addtransferNew(traansferService:TransferBean): void {
-    this.dialogData = traansferService;  
-    this.httpService.post<TransferBean>(this.saveNew,traansferService ).subscribe(data => {
-      console.log(data);
-      },
-      (err: HttpErrorResponse) => {
+  // addtransferNew(traansferService:TransferBean): Observable<any> {
+  //   this.dialogData = traansferService;  
+  //   this.httpService.post<TransferBean>(this.saveNew,traansferService ).subscribe(data => {
+  //     console.log(data);
+  //     },
+  //     (err: HttpErrorResponse) => {
         
-    });
+  //   });
+  // }
+
+  addtransferNew(traansferService: TransferBean): Observable<any> {
+    return this.httpClient.post<TransferBean>(this.saveNew, traansferService);
   }
 
   transferUpdate(traansferService: TransferBean): void {

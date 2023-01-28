@@ -308,14 +308,29 @@ export class AddTransferComponent implements OnInit {
     if(this.docForm.valid){
       this.transferBean = this.docForm.value;
       console.log(this.transferBean)
-      this.transferAssetService.addtransferNew(this.transferBean);
-      this.showNotification(
-        "snackbar-success",
-        "Record Added Successfully...!!!",
-        "bottom",
-        "center"
-      );
-      this.router.navigate(['/asset/assetTransfer/listtransfer']);
+      // this.transferAssetService.addtransferNew(this.transferBean);
+      this.transferAssetService.addtransferNew(this.transferBean).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "bottom",
+              "center"
+            );
+            this.router.navigate(['/asset/assetTransfer/listtransfer']);
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        }
+      });
+      
           } 
       else {
         this.showNotification(
