@@ -29,6 +29,8 @@ export class AddItemCategoryComponent implements OnInit {
   expenseAccountHeadList: [];
   incomeAccountHeadList: [];
   itemPropertiesList: [];
+  companyId: any;
+  branchId: any;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -57,6 +59,8 @@ export class AddItemCategoryComponent implements OnInit {
       expiryDate: false,
       manufactureDetails: false,
       loginedUser: this.tokenStorage.getUserId(),
+      company:this.tokenStorage.getCompanyId(),
+      branchname:this.tokenStorage.getBranchId(),
 
 
       itemCategoryDetailList: this.fb.array([
@@ -72,6 +76,11 @@ export class AddItemCategoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    this.companyId = this.tokenStorage.getCompanyId();
+    console.log(this.companyId)
+    this.branchId = this.tokenStorage.getBranchId();
+    console.log(this.branchId)
 
     //category Type list
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 6).subscribe({

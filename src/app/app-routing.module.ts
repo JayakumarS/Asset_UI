@@ -72,7 +72,7 @@ const routes: Routes = [
           import("./inventory/inventory.module").then((m) => m.InventoryModule)
       },
       {
-        path: "user",
+        path: "usage",
         canActivate: [AuthGuard],
         data: {
           role: Role.Admin,

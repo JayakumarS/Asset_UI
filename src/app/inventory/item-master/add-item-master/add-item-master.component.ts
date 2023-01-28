@@ -29,6 +29,8 @@ export class AddItemMasterComponent implements OnInit {
   vendorDropdownList = [];
   uomList = [];
   pricingTypeList = [];
+  companyId: any;
+  branchId: any;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -49,6 +51,8 @@ export class AddItemMasterComponent implements OnInit {
       itemDescription: [""],
       itemCategory: ["", [Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
+      company:this.tokenStorage.getCompanyId(),
+      branchname:this.tokenStorage.getBranchId(),
 
       // Inventory
       inventoryValuation: ["", [Validators.required]],
@@ -91,6 +95,11 @@ export class AddItemMasterComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.companyId = this.tokenStorage.getCompanyId();
+    console.log(this.companyId)
+    this.branchId = this.tokenStorage.getBranchId();
+    console.log(this.branchId)
 
     //Item Type Dropdown List
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 6).subscribe({

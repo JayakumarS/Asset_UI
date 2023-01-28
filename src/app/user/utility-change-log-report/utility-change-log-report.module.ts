@@ -24,11 +24,13 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
+import { ListUtilityChangeLogReportComponent } from './list-utility-change-log-report/list-utility-change-log-report.component';
 
 
 @NgModule({
   declarations: [
-    AddUtilityChangeLogReportComponent
+    AddUtilityChangeLogReportComponent,
+    ListUtilityChangeLogReportComponent
   ],
   imports: [
     CommonModule,

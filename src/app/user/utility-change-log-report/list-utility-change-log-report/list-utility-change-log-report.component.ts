@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UomCategoryService } from '../uom-category.service'
-import { UomCategory } from '../uom-category.model';
-import { HttpClient } from "@angular/common/http";
+// import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { UtilityChangeLogReportService } from '../utility-change-log-report.service';
+import { UtilityChangeLogReport } from '../utility-change-log-report-model'; 
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -14,44 +15,39 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { FormDialogComponent } from 'src/app/admin/employees/allEmployees/dialogs/form-dialog/form-dialog.component';
-import { AddUOMCategoryComponent } from '../add-uom-category/add-uom-category.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DeleteUomCategoryComponent } from './delete-uom-category/delete-uom-category.component';
-import { TokenStorageService } from 'src/app/auth/token-storage.service';
-import { CommonService } from 'src/app/common-service/common.service';
-import { NgxSpinnerService } from "ngx-spinner";
-
+import { Router } from '@angular/router';
+import { DeleteDepreciationComponent } from 'src/app/master/depreciation/list-depreciation/delete-depreciation/delete-depreciation.component';
 
 @Component({
-  selector: 'app-list-uom-category',
-  templateUrl: './list-uom-category.component.html',
-  styleUrls: ['./list-uom-category.component.sass']
+  selector: 'app-list-utility-change-log-report',
+  templateUrl: './list-utility-change-log-report.component.html',
+  styleUrls: ['./list-utility-change-log-report.component.sass']
 })
-export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-  displayedColumns = [ "categoryName", "description","category", "actions"];
+export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+
+  displayedColumns = [
+   
+    "date",
+    "meter",
+    "assignee",
+    "actions"
+    
+  ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: UomCategoryService | null;
-  selection = new SelectionModel<UomCategory>(true, []);
-  uomCategory: UomCategory | null;
-  uomCode: string;
-  requestId: number;
+  exampleDatabase: UtilityChangeLogReportService | null;
+  selection = new SelectionModel<UtilityChangeLogReport>(true, []);
   index: number;
   id: number;
-  permissionList: any;
+  customerMaster: UtilityChangeLogReport | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public uomCategoryService: UomCategoryService,
+    public utilityChangeLogReportService: UtilityChangeLogReportService,
     private snackBar: MatSnackBar,
-    private serverUrl: serverLocations,
-    private httpService: HttpServiceService,
-    public router: Router,
-    private tokenStorage: TokenStorageService,
-    private spinner: NgxSpinnerService,
-    public commonService: CommonService,
-    public route: ActivatedRoute
+    private serverUrl:serverLocations,
+    private httpService:HttpServiceService,
+    public router:Router
   ) {
     super();
   }
@@ -64,31 +60,16 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    const permissionObj = {
-      formCode: 'F1040',
-      roleId: this.tokenStorage.getRoleId()
-    }
-    this.spinner.show();
-    this.commonService.getAllPagePermission(permissionObj).subscribe({
-      next: (data) => {
-        this.spinner.hide();
-        if (data.success) {
-          this.permissionList = data;
-        }
-      },
-      error: (error) => {
-        this.spinner.hide();
-      }
-    });
     this.loadData();
   }
 
-  refresh() {
+  refresh(){
     this.loadData();
   }
+
 
   public loadData() {
-    this.exampleDatabase = new UomCategoryService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new UtilityChangeLogReportService(this.httpClient,this.serverUrl,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -106,52 +87,66 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
 
 
   editCall(row) {
-    if (this.permissionList?.modify){
-    this.router.navigate(['/inventory/UOM-catagory/add-UOMCategory/' + row.uomID]);
-    }
+
+    this.router.navigate(['/usage/utilityChangeLogReport/addUtilityChangeLogReport/'+row.id]);
+
   }
-  deleteItem(row) {
+  
+
+  deleteItem(row){
+
+    this.id = row.id;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteUomCategoryComponent, {
+    const dialogRef = this.dialog.open(DeleteDepreciationComponent, {
       height: "270px",
       width: "400px",
       data: row,
       direction: tempDirection,
-      disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+
       if (data.data == true) {
-        const obj = {
-          deletingId: row.uomID
-        }
-        this.uomCategoryService.DeleteUomCategory(obj).subscribe({
-          next: (data) => {
-            if (data.success) {
-              this.loadData();
-              this.showNotification(
-                "snackbar-success",
-                "Delete Record Successfully...!!!",
-                "bottom",
-                "center"
-              );
-            }
-          },
-          error: (error) => {
+
+        this.httpService.get(this.utilityChangeLogReportService.deleteUtilityChangeLogReport+ "?depreciationCode=" + this.id).subscribe((res: any) => {
+          this.showNotification(
+            "snackbar-success",
+            "Delete Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          this.loadData();
+        },
+          (err: HttpErrorResponse) => {
+            // error code here
           }
-        });
+        );
 
+      
+      } else{
+        this.loadData();
       }
+
+
+        
+      
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
     });
+
   }
 
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -160,8 +155,9 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
       panelClass: colorName,
     });
   }
-  // context menu
-  onContextMenu(event: MouseEvent, item: UomCategory) {
+
+// context menu
+  onContextMenu(event: MouseEvent, item: UtilityChangeLogReport) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -171,8 +167,7 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
   }
 }
 
-
-export class ExampleDataSource extends DataSource<UomCategory> {
+export class ExampleDataSource extends DataSource<UtilityChangeLogReport> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -180,20 +175,20 @@ export class ExampleDataSource extends DataSource<UomCategory> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: UomCategory[] = [];
-  renderedData: UomCategory[] = [];
+  filteredData: UtilityChangeLogReport[] = [];
+  renderedData: UtilityChangeLogReport[] = [];
   constructor(
-    public exampleDatabase: UomCategoryService,
+    public exampleDatabase: UtilityChangeLogReportService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
     super();
-    // Reset to the first page when the user changes the filter.
+    
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<UomCategory[]> {
-    // Listen for any changes in the base data, sorting, filtering, or pagination
+  
+  connect(): Observable<UtilityChangeLogReport[]> {
+    
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
       this._sort.sortChange,
@@ -206,12 +201,14 @@ export class ExampleDataSource extends DataSource<UomCategory> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((uomCategory: UomCategory) => {
+          .filter((UsageMonitor: UtilityChangeLogReport) => {
             const searchStr = (
-              uomCategory.uomID +
-              uomCategory.categoryName +
-              uomCategory.description+
-              uomCategory.name
+              UsageMonitor.date +
+              UsageMonitor.meter +
+              UsageMonitor.assignee 
+              
+             
+             
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -227,29 +224,29 @@ export class ExampleDataSource extends DataSource<UomCategory> {
       })
     );
   }
-  disconnect() { }
+  disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: UomCategory[]): UomCategory[] {
+  sortData(data: UtilityChangeLogReport[]): UtilityChangeLogReport[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
     return data.sort((a, b) => {
-      let propertyA: number | string = "";
-      let propertyB: number | string = "";
+      let propertyA: number | string | boolean = "";
+      let propertyB: number | string | boolean = "";
       switch (this._sort.active) {
-        case "uomID":
-          [propertyA, propertyB] = [a.uomID, b.uomID];
-          break; case "categoryName":
-          [propertyA, propertyB] = [a.categoryName, b.categoryName];
+        case "date":
+          [propertyA, propertyB] = [a.date, b.date];
           break;
-        case "description":
-          [propertyA, propertyB] = [a.description, b.description];
+        
+          case "meter":
+          [propertyA, propertyB] = [a.meter, b.meter];
           break;
-          case "category":
-            [propertyA, propertyB] = [a.category, b.category];
-            break;
 
-      }
+          case "assignee":
+          [propertyA,propertyB]=[a.assignee,b.assignee];
+          break;
+
+             }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
       return (
@@ -257,4 +254,5 @@ export class ExampleDataSource extends DataSource<UomCategory> {
       );
     });
   }
+
 }
