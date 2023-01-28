@@ -17,7 +17,7 @@ export class AddBranchComponent implements OnInit {
   companyList:any 
   locationDdList:any
   branchMaster:Branch;
-
+  requestId: number;
   docForm: FormGroup;
   edit:boolean=false;
 
@@ -58,6 +58,16 @@ export class AddBranchComponent implements OnInit {
   
       }
     });
+
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+       this.edit=true;
+       //For User login Editable mode
+       this.fetchDetails(this.requestId) ;
+      }
+     });
+
   }
 
   
@@ -86,15 +96,15 @@ export class AddBranchComponent implements OnInit {
     this.httpService.get(this.branchService.editBranchMaster+"?id="+id).subscribe((res: any)=> {
       console.log(id);
       console.log(res);
+     this.edit = true;
+      this.docForm.patchValue({
 
-    //   this.docForm.patchValue({
-
-    //     'activtyname': res.activityMasterBean.activtyname,
-    //     'activtyid': res.activityMasterBean.activtyid,
-    //     'Description': res.activityMasterBean.Description,
-    //     'active': res.activityMasterBean.active,
-    //     'id' : res.activityMasterBean.id
-    //  })
+        'branchname': res.branchbean.branchname,
+        'companyId': res.branchbean.companyId,
+        'isactive': res.branchbean.isactive,
+        'location': res.branchbean.location,
+        'branchCode' : res.branchbean.branchCode
+     })
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -123,4 +133,20 @@ export class AddBranchComponent implements OnInit {
       panelClass: colorName,
     });
   }
+  onCancel(){
+    this.router.navigate(['/master/Branch/listBranch']);
+ }
+ reset(){
+  if (!this.edit) {
+  this.docForm = this.fb.group({
+    branchCode: [""],
+    location: [""],
+    branchname: [""],
+    companyId: [""],
+
+  });
+} else {
+  this.fetchDetails(this.requestId);
+}
+}
 }

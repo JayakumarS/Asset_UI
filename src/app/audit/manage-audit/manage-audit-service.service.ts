@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { serverLocations } from "src/app/auth/serverLocations";
+import { TokenStorageService } from "src/app/auth/token-storage.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { ManageAudit} from "./manage-audit.model";
 
@@ -20,7 +21,7 @@ export class ManageAuditServiceService extends UnsubscribeOnDestroyAdapter{
   dataChange: BehaviorSubject<ManageAudit[]> = new BehaviorSubject<ManageAudit[]>([]);
   
   dialogData:any;
-  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) { 
+  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,private tokenStorage: TokenStorageService) { 
   super();
 
   }
@@ -44,8 +45,11 @@ export class ManageAuditServiceService extends UnsubscribeOnDestroyAdapter{
     return this.dialogData;
   }
   getAllList(): void {
-
-    this.subs.sink = this.httpService.get<any>(this.getList).subscribe(
+    const obj = {
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+    }
+    this.subs.sink = this.httpService.post<any>(this.getList,obj).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.auditDetails);

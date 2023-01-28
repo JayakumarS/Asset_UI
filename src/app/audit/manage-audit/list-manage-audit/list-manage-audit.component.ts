@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { ManageAuditServiceService } from '../manage-audit-service.service'; 
 import { ManageAudit } from '../manage-audit.model';
 import { DeleteManageAuditComponent } from './delete-manage-audit/delete-manage-audit.component';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-list-manage-audit',
@@ -43,7 +44,8 @@ export class ListManageAuditComponent implements OnInit {
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
-    private router:Router
+    private router:Router,
+    private tokenStorage: TokenStorageService,
   ) {
     // super();
   }
@@ -64,7 +66,7 @@ export class ListManageAuditComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new ManageAuditServiceService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ManageAuditServiceService(this.httpClient, this.serverUrl, this.httpService, this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

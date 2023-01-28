@@ -16,6 +16,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { ManageAuditServiceService } from '../manage-audit-service.service';
 import { ManageAudit } from '../manage-audit.model';
 import { MatTabGroup } from '@angular/material/tabs';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -71,7 +73,8 @@ constructor(private fb: FormBuilder,
   public manageAuditServiceService: ManageAuditServiceService,
   public dialog: MatDialog,
   private snackBar: MatSnackBar,
-  private serverUrl: serverLocations,){
+  private serverUrl: serverLocations,
+  private tokenStorage: TokenStorageService){
 }
 
 
@@ -96,6 +99,10 @@ ngOnInit(): void {
     auditName:["", [Validators.required]],
     auditField: ["", [Validators.required]],
     auditType: ["Self"],
+    loginedUser: this.tokenStorage.getUserId(),
+    companyId: this.tokenStorage.getCompanyId(),
+    branchId: this.tokenStorage.getBranchId(),
+
     manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],
@@ -118,6 +125,9 @@ ngOnInit(): void {
     auditImg : [""],
     auditFile : [""],
     companyName:[""],
+    loginedUser: this.tokenStorage.getUserId(),
+    companyId: this.tokenStorage.getCompanyId(),
+    branchId: this.tokenStorage.getBranchId(),
    manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],
@@ -445,6 +455,9 @@ resetSelf(){
     auditName:["", [Validators.required]],
     auditField: [""],
     auditType: ["Self"],
+    loginedUser: this.tokenStorage.getUserId(),
+    companyId: this.tokenStorage.getCompanyId(),
+    branchId: this.tokenStorage.getBranchId(),
     manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],
@@ -465,6 +478,9 @@ resetAided(){
     auditName:["", [Validators.required]],
     auditField: [""],
     auditType: ["Self"],
+    loginedUser: this.tokenStorage.getUserId(),
+    companyId: this.tokenStorage.getCompanyId(),
+    branchId: this.tokenStorage.getBranchId(),
     manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],
