@@ -62,7 +62,7 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
   locationList =[];
   mainList =[];
 
-  columnsToDisplay = ["assetName", "discardReason", "location"];
+  columnsToDisplay = ["assetName", "discardReason","discardedDate", "location"];
   innerDisplayedColumns = ["locationName"];
 
   expandedElement: MainList | null;
