@@ -29,7 +29,7 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
     "branchname",
     "companyName",
     "locationName",
-    "actions"
+    "actions",
   ];
 
   exampleDatabase:BranchService | null;
@@ -81,11 +81,11 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
   }
   editCall(row) {
 
-    // this.router.navigate(['/asset/assetTransfer/addtransfer/'+row.headerID]);
+    this.router.navigate(['/master/Branch/addBranch/'+row.branchId]);
   }
 
   viewCall(row){
-    this.router.navigate(['/asset/assetTransfer/viewtransfer/'+row.headerID]);
+    this.router.navigate(['/asset/assetTransfer/viewtransfer/'+row.branchId]);
   }
 
  
@@ -183,6 +183,7 @@ export class ExampleDataSource extends DataSource<Branch> {
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
+       
           .slice()
           .filter((traansferService: Branch) => {
             const searchStr = (
@@ -195,13 +196,15 @@ export class ExampleDataSource extends DataSource<Branch> {
           });
       
         const sortedData = this.sortData(this.filteredData.slice());
-        
+        console.log(this.exampleDatabase.data);
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         this.renderedData = sortedData.splice(
           startIndex,
           this.paginator.pageSize
         );
         return this.renderedData;
+
+       
       })
     );
   }
