@@ -7,11 +7,12 @@
     font-weight: 500
     border: none
     width: 20%
+    overflow-x: hidden
 
 .tableBody 
     font-size: 14px
     color: #555
-    padding: 10px 15px 50px 17px
+    padding: 10px 15px 50px 17px	
 
 
 ::ng-deep .mat-dialog-container 
@@ -32,5 +33,33 @@
 
 ::ng-deep .mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type 
     /* padding-right: 24px */
+
+
+
+
+
+tbody 
+    display: block
+    height: 100%
+    overflow-y: auto
+    overflow-x: hidden
+
+thead, tbody tr 
+    display: table
+    width: 100%
+    table-layout: fixed
+     height: 100%
+   
+
+
+
+tbody tr:nth-child(odd)
+  background-color: #eee
+  color: black
+  
+
+
+
+
 
 

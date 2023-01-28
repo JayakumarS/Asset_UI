@@ -103,6 +103,8 @@ export class MainComponent implements OnInit {
   config1: { itemsPerPage: number; currentPage: number; totalItems: number; };
   popUpFlag:string;
   activityflag: string;
+  companyAuditorCount: string;
+  companyPurchaseAssetsCount: any;
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
@@ -120,6 +122,8 @@ export class MainComponent implements OnInit {
     this.chart2();
     this.chart4();
     this.projectChart();
+
+    this.companyAuditorCount=this.tokenStorage.getCompanyId();
 
     this.httpService.get<MainResultBean>(this.mainService.earningsListCountUrl).subscribe(
       (data) => {
@@ -216,6 +220,17 @@ export class MainComponent implements OnInit {
         
     //     console.log(this.projectOptions);
     // }); 
+
+    // Company based Auditor count service
+
+    this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + this.companyAuditorCount).subscribe((res: any) => {
+      console.log(this.companyAuditorCount);
+      this.companyPurchaseAssetsCount = res.companyPurchaseAssetsCount;
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
 
     this.getInvList();
     this.getAssetList();
