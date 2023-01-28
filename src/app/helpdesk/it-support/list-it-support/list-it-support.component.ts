@@ -15,12 +15,14 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Itsupportservice } from '../it-support.service';
 import { Router } from '@angular/router';
 import { DeleteLocationComponent } from 'src/app/master/location/list-location/delete-location/delete-location.component';
-import { Itsupport } from '../it-support.model'; 
-import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component'; 
+import { Itsupport } from '../it-support.model';
+import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component';
 import { DeleteitsupportComponent } from './deleteitsupport/deleteitsupport.component';
 import { NotificationpopComponent } from './notificationpop/notificationpop.component';
 import { ItSupportresultbean } from '../it-support-result-bean';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -58,12 +60,13 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   selection = new SelectionModel<Itsupport>(true, []);
   index: number;
   id: number;
+  permissionList: any;
+
   locationMaster: Itsupport | null;
   assetnamelist: [""]
   assetlocationlist: [""]
   closedListCount=[];
   AssignedListCount=[];
-  spinner: any;
   closeCountValue: any;
   AssignedCountValue: any;
   OpenedCountValue: any;
@@ -74,10 +77,12 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     public dialog: MatDialog,
     public itsupportservice: Itsupportservice,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
+    private serverUrl: serverLocations,
     private router: Router,
-    private httpService:HttpServiceService,
+    private httpService: HttpServiceService,
     private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
   ) {
     super();
   }
@@ -90,9 +95,23 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1021',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
-
-  
 
     this.httpService.get<ItSupportresultbean>(this.itsupportservice.closedListCountUrl).subscribe(
       (data) => {
@@ -136,7 +155,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     );
   }
 
-  
+
 
   refresh(){
     this.loadData();
@@ -149,12 +168,13 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
       this.paginator,
       this.sort
     );
-    
+
   }
   editCall(row) {
+    if (this.permissionList?.modify){
 
     this.router.navigate(['/helpdesk/itsupport/additsupport/'+row.id]);
-  
+    }
   }
   addNew(){
     this.router.navigate(['/helpdesk/itsupport/additsupport/0']);
@@ -175,7 +195,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
       this.loadData();
       if(data==1)[
         this.showNotification(
@@ -195,9 +215,9 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
       // }
     });
   }
-   
- 
- 
+
+
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, " ", {
       duration: 2000,
@@ -227,10 +247,10 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
       this.paginator,
       this.sort,
       ticketStatus
-   
+
     );
-   
-    
+
+
 
   }
 }
@@ -251,7 +271,7 @@ export class ExampleDataSource1 extends DataSource<Itsupport> {
     public exampleDatabase1: Itsupportservice,
     public paginator: MatPaginator,
     public _sort: MatSort,
-    public ticketStatus 
+    public ticketStatus
   ) {
     super();
     // Reset to the first page when the user changes the filter.
@@ -277,7 +297,7 @@ export class ExampleDataSource1 extends DataSource<Itsupport> {
               locationMaster.tickettype +
               locationMaster.assetnamelist +
               locationMaster.assetlocationlist
-             
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -315,7 +335,7 @@ export class ExampleDataSource1 extends DataSource<Itsupport> {
         case "assetlocation":
           [propertyA, propertyB] = [a.assetlocationlist, b.assetlocationlist];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
@@ -366,7 +386,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
               locationMaster.tickettype +
               locationMaster.assetnamelist +
               locationMaster.assetlocationlist
-             
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -404,7 +424,7 @@ export class ExampleDataSource extends DataSource<Itsupport> {
         case "assetlocation":
           [propertyA, propertyB] = [a.assetlocationlist, b.assetlocationlist];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

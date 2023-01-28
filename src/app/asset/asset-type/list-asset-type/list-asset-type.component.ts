@@ -13,9 +13,12 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
-import { AssetTypeService } from '../asset-type.service'; 
+import { AssetTypeService } from '../asset-type.service';
 import { AssetType } from '../asset-type.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-list-asset-type',
@@ -34,10 +37,11 @@ export class ListAssetTypeComponent  extends UnsubscribeOnDestroyAdapter impleme
   selection = new SelectionModel<AssetType>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   assetType: AssetType | null;
   docForm: FormGroup;
-  
-  assetCategoryList:[{code:'Tangible',text:'Tangible'},{code:'Intangible',text:'Intangible'}];
+
+  assetCategoryList: [{code: 'Tangible', text: 'Tangible'}, {code: 'Intangible', text: 'Intangible'}];
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -45,7 +49,10 @@ export class ListAssetTypeComponent  extends UnsubscribeOnDestroyAdapter impleme
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
-    private router:Router,
+    private router: Router,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
     private fb: FormBuilder
   ) {
      super();
@@ -64,6 +71,22 @@ export class ListAssetTypeComponent  extends UnsubscribeOnDestroyAdapter impleme
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1009',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.onSubmit();
   }
 
@@ -72,7 +95,7 @@ export class ListAssetTypeComponent  extends UnsubscribeOnDestroyAdapter impleme
   }
 
   onSubmit(){
-   
+
     this.assetType = this.docForm.value;
     console.log(this.assetType);
     this.loadData();
@@ -98,7 +121,9 @@ export class ListAssetTypeComponent  extends UnsubscribeOnDestroyAdapter impleme
   }
 
 
-  editCall(row) { 
+  editCall(row) {
+    if (this.permissionList?.modify){
+    }
   //  this.router.navigate(['/audit/manageaudit/addManageAudit/'+row.auditCode]);
   }
 
@@ -165,8 +190,8 @@ export class ExampleDataSource extends DataSource<AssetType> {
               assetType.assetCategory +
               assetType.assetClassName +
               assetType.assetTypeDesc +
-              assetType.depreciationRate 
-             
+              assetType.depreciationRate
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -201,7 +226,7 @@ export class ExampleDataSource extends DataSource<AssetType> {
         case "assetClassName":
           [propertyA, propertyB] = [a.assetClassName, b.assetClassName];
           break;
-        
+
         case "assetTypeDesc":
           [propertyA, propertyB] = [a.assetTypeDesc, b.assetTypeDesc];
           break;
@@ -209,7 +234,7 @@ export class ExampleDataSource extends DataSource<AssetType> {
           case "depreciationRate":
           [propertyA, propertyB] = [a.depreciationRate, b.depreciationRate];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
