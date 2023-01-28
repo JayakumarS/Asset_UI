@@ -176,7 +176,7 @@ export class UserloginComponent implements OnInit {
       if (res){
         this.docForm.controls['emailId'].setErrors({ employee: true });
       }else{
-        this.docForm.controls['emailId'].setErrors(null);
+        // this.docForm.controls['emailId'].setErrors(null);
       }
     });
   }

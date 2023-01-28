@@ -114,7 +114,7 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 }
 
 
-deleteItem(row) {
+deleteItem(i: number, row) {
   let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {
     tempDirection = "rtl";
