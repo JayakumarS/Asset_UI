@@ -112,7 +112,10 @@
                     <h5 class="float-end">Users</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3>
+                    <!-- Total Users -->
+                    <!-- <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3> -->
+                    <!-- Company based Users -->
+                    <h3 class="font-weight-bold float-end mb-0">{{companyUsersAssetsCount!=null?companyUsersAssetsCount.toFixed(2):companyUsersAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -219,7 +222,9 @@
                               </mat-progress-bar>
                             </td>
                             <td>
+                              <!-- Total Purchase Asset Count -->
                               <!-- <h5 class="font-weight-bold mb-0">{{purchaseAssetsCountValue}}</h5> -->
+                              <!-- Company based Purchase Asset Count -->
                               <h5 class="font-weight-bold mb-0">{{companyPurchaseAssetsCount}}</h5>
                             </td>
                           </tr>

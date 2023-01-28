@@ -101,10 +101,10 @@ export class SigninComponent
                 //   this.showPopUp();
                 // }
                 this.loading = false;
-                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 || data.userDetails.roleId == 4){
+                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 || data.userDetails.roleId == 3){
                   this.router.navigate(["/admin/dashboard/main"]);
                 }
-                else if(data.userDetails.roleId == 3){
+                else if(data.userDetails.roleId == 4){
                   this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
                 }
               }, 1000);

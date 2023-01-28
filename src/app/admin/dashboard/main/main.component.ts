@@ -105,6 +105,7 @@ export class MainComponent implements OnInit {
   activityflag: string;
   companyAuditorCount: string;
   companyPurchaseAssetsCount: any;
+  companyUsersAssetsCount: any;
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
@@ -226,6 +227,7 @@ export class MainComponent implements OnInit {
     this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + this.companyAuditorCount).subscribe((res: any) => {
       console.log(this.companyAuditorCount);
       this.companyPurchaseAssetsCount = res.companyPurchaseAssetsCount;
+      this.companyUsersAssetsCount = res.companyUsersAssetsCount;
       },
       (err: HttpErrorResponse) => {
          // error code here
