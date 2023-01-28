@@ -10,7 +10,17 @@ import { DiscardAsset } from '../discard-asset-model';
 import { DiscardAssetService } from '../discard-asset.service';
 import { AssetService } from '../../asset-master/asset.service';
 import { threadId } from 'worker_threads';
-
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 
 @Component({
   selector: 'app-add-discard',
@@ -86,13 +96,15 @@ export class AddDiscardComponent implements OnInit {
   }
 
 
-  getDateString(event, inputFlag, index) {
+
+  getDateString(event,inputFlag){
     let cdate = this.cmnService.getDate(event.target.value);
-    if (inputFlag == 'captitalizationDate') {
-      this.docForm.patchValue({ captitalizationDate: cdate });
+    if(inputFlag=='discardDate'){
+      this.docForm.patchValue({discardDate:cdate});
     }
-   
-  }
+    
+
+  };
 
   onSelectFile(event) {
     var docfile = event.target.files[0];

@@ -146,11 +146,11 @@
 
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <input matInput [matDatepicker]="picker" tabindex="18"
+                            <input matInput [matDatepicker]="picker" 
                                 formControlName="discardDateobj"
                                 (dateInput)="$event.value.format('DD/MM/YYYY')"
                                 id="discardDate"
-                                (dateChange)="getDateString($event, 'discardDate',0)">
+                                (dateChange)="getDateString($event, 'discardDate')">
                             <mat-datepicker-toggle matSuffix
                                 [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -158,6 +158,8 @@
                               Date is required
                             </mat-error>
                         </mat-form-field>
+
+
                     </div>
 
                 </div>

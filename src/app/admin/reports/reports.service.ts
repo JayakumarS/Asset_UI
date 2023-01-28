@@ -32,6 +32,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     public locationsearch = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getlocationserach`;
     public depreciationSerach = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getDepreciationSerach`;
     public auditSerach = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getAuditSerach`;
+    public getdiscardedReports = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getDiscardedReports`;
 
 
    
