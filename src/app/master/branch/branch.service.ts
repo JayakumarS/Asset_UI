@@ -14,6 +14,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   
   isTblLoading = true;
   dialogData: Branch;
+  Success:boolean;
   dataChange: BehaviorSubject<Branch[]> = new BehaviorSubject<Branch[]>(
     []
   );
@@ -25,6 +26,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   private saveBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/save`;
   public editBranchMaster = `${this.serverUrl.apiServerAddress}api/auth/app/branch/edit`;
   public updateBranchMaster = `${this.serverUrl.apiServerAddress}api/auth/app/branch/update`;
+  private deleteBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/delete`;
 
 
 
@@ -67,6 +69,41 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
       (err: HttpErrorResponse) => {
         
     });
+  }
+
+  DeleteBranch(branchId: any,router,notificationService): void {
+    this.httpService.get<Branch>(this.deleteBranch+"?branchId="+branchId).subscribe(data => {
+      console.log(branchId);
+      if(data.Success == true){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Deleted Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/Branch/listBranch']);
+      }
+      else if(data.Success == false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Deleted Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
+      console.log(id);
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );*/
   }
 
 

@@ -5,6 +5,7 @@ export class Branch {
     branchCode: any;
     branchname: any;
     locationName: any;
+    Success:boolean;
     companyId: any;
     companyName:any;
   

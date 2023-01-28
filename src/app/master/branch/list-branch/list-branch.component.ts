@@ -16,6 +16,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BranchService } from '../branch.service';
 import { Branch } from '../branch-model';
+import { DeleteBranchComponent } from './delete-branch/delete-branch.component';
 
 @Component({
   selector: 'app-list-branch',
@@ -38,6 +39,7 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
   exporter: any;
   id: number;
   tid:number;
+  index: number;
   
 
   constructor(
@@ -89,42 +91,41 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
   }
 
  
-  deleteItem(row){
-    this.id = row.tid;
+  deleteItem(i,row){
+    this.index = i;
+    this.id = row.branchId;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
     } else {
       tempDirection = "ltr";
     }
-    // const dialogRef = this.dialog.open(DeleteTransferComponent, {
-    //   height: "270px",
-    //   width: "400px",
-    //   data: row,
-    //   direction: tempDirection,
-    // });
-    // this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+    const dialogRef = this.dialog.open(DeleteBranchComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       
-
-    //   if (data.data == true) {
-    //     this.httpService.get(this.transferservice.deleteTransfer+ "?tid=" + this.id).subscribe((res: any) => {
-    //       this.showNotification(
-    //         "snackbar-success",
-    //         "Delete Record Successfully...!!!",
-    //         "bottom",
-    //         "center"
-    //       );
-    //       this.loadData();
-    //     },
-    //       (err: HttpErrorResponse) => {
-    //         // error code here
-    //       }
-    //     );
-      
-    //   } else{
-    //     this.loadData();
-    //   }
-    // });
+      // this.loadData();
+      // if(data==1)[
+      //   this.showNotification(
+      //     "snackbar-success",
+      //     " Successfully deleted",
+      //     "bottom",
+      //     "center"
+      //   )
+      //   ]
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
+    });
 
   }
 
