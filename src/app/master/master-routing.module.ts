@@ -78,16 +78,16 @@ const routes: Routes = [
   {
     path: "Branch",
   loadChildren: () => 
-  import("./Branch/Branch.module").then((m) => m.BranchModule),
+  import("./branch/branch.module").then((m) => m.BranchModule),
   },
 
   // import("./category/category.module").then((m) => m.CategoryModule),
   // },
-  // {
-  //   path: "usergroup",
-  //   loadChildren: () =>
-  //     import("./usergroup/usergroup.module").then((m) => m.UsergroupModule),
-  // },
+   {
+  path: "usergroup",
+   loadChildren: () =>
+    import("./usergroup/usergroup.module").then((m) => m.UsergroupModule),
+  },
 
 
 
