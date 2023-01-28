@@ -3,7 +3,7 @@
       <div class="block-header">
         <!-- breadcrumb -->
          <app-breadcrumb [title]="'Scheduled Audits'" [items]="['Audit']" [active_item]="'Scheduled Audit List'">
-        </app-breadcrumb>  
+        </app-breadcrumb>
       </div>
      <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -17,12 +17,12 @@
                         <li class="dropdown m-l-20 ">
                           <h2>Scheduled Audits</h2>
                         </li>
-                        <li class="dropdown m-l-20">
+                        <li [hidden]="!permissionList?.search"  class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
                           <input placeholder="Search" type="text" #filter class="browser-default search-field"
                             aria-label="Search box">
                         </li>
-                        <li>
+                        <li *ngIf="permissionList?.add">
                           <div class="m-l-10" matTooltip="ADD">
                             <button color="primary" type="button" class="btn-space" [routerLink]="'/audit/scheduledaudits/add-scheduledaudits/0'" mat-raised-button>
                               <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
@@ -32,14 +32,14 @@
 
                       </ul>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4"*ngIf="permissionList?.exportXL">
                       <ul class="header-buttons">
                         <li>
                           <div class="export-button m-l-10" matTooltip="XLSX">
                             <img src="assets/images/icons/xlsx.png" alt=""
                               (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                           </div>
-                        </li>                     
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -54,7 +54,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Audit Name</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditName}}</mat-cell>
                   </ng-container>
-                  
+
                   <ng-container matColumnDef="startDate">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startDate}}</mat-cell>
@@ -67,17 +67,17 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.extDate}}</mat-cell>
                   </ng-container>  -->
-                 
+
                   <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.status}}</mat-cell>
                   </ng-container>
-  
+
                   <ng-container matColumnDef="auditType">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Audit Type</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditType}}</mat-cell>
                   </ng-container>
-  
+
                   <ng-container matColumnDef="cName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cName}}</mat-cell>
@@ -88,7 +88,7 @@
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cName}}</mat-cell>
                   </ng-container> -->
 
-  
+
                   <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
@@ -99,19 +99,19 @@
                     </button>
                     <span *ngIf="row.statusNew=='Submit'">Submitted</span>
 
-                    <button mat-icon-button color="accent"  *ngIf="row.statusNew=='Submit'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                    <button   mat-icon-button color="accent"  *ngIf="row.statusNew=='Submit'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                       </app-feather-icons>
                     </button>
-                    
+
                     <button mat-icon-button color="accent" *ngIf="row.statusNew=='Submit'" (click)="$event.stopPropagation()" (click)="reviewCall(row)"
                     class="tbl-action-btn">
                     <button mat-raised-button color="primary" >Review</button>
                 </button>
                     </mat-cell>
                   </ng-container>
-  
-  
+
+
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
                     [style.cursor]="'pointer'" matRipple>
@@ -126,30 +126,19 @@
                 </div>
                 <mat-menu #contextMenu="matMenu">
                   <ng-template matMenuContent let-item="item">
-                    <button mat-menu-item (click)="addNew()">
+                    <button *ngIf="permissionList?.add"mat-menu-item (click)="addNew()">
                       <mat-icon>add_box</mat-icon>
                       <span>Add Record</span>
                     </button>
-                    <button mat-menu-item (click)="editCall(item)">
+                    <button *ngIf="permissionList?.modify"mat-menu-item (click)="editCall(item)">
                       <mat-icon>create</mat-icon>
                       <span>Edit Record</span>
                     </button>
-                    <button mat-menu-item (click)="deleteItem(item.id,item)">
+                    <button *ngIf="permissionList?.delete"mat-menu-item (click)="deleteItem(item.id,item)">
                       <mat-icon>delete</mat-icon>
                       <span>Delete Record</span>
                     </button>
-                    <button mat-menu-item (click)="refresh()">
-                      <mat-icon>refresh</mat-icon>
-                      <span>Refresh Record</span>
-                    </button>
-                    <button mat-menu-item disabled>
-                      <mat-icon>no_encryption</mat-icon>
-                      <span>Disable</span>
-                    </button>
-                    <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
-                      <mat-icon>list_alt</mat-icon>
-                      <span> Nested Menu</span>
-                    </button>
+
                   </ng-template>
                 </mat-menu>
                 <mat-menu #nestedmenu="matMenu">

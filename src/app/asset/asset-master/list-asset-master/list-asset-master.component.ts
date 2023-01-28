@@ -17,6 +17,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
+import { CommonService } from 'src/app/common-service/common.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
@@ -41,6 +42,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
   selection = new SelectionModel<AssetMaster>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   assetMaster: AssetMaster | null;
   checkedIDs: any = [];
 
@@ -53,6 +55,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
     public router: Router,
+    public commonService: CommonService,
     private tokenStorage: TokenStorageService,
   ) {
     super();
@@ -66,6 +69,22 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1005',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
 
     this.loadData();
 
@@ -97,8 +116,10 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
 
 
   editCall(row) {
+    if (this.permissionList?.modify){
     this.router.navigate(['/asset/assetMaster/addAssetMaster/' + row.id]);
   }
+}
 
   discardCall(row) {
     this.router.navigate(['/asset/assetDiscard/addDiscardAsset/' + row.id]);
@@ -185,7 +206,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
           this.selection.select(row)
         );
   }
-  
+
   //FOR QR CODE PDF ADDED BY GOKUL
   assetQRcodeExportPdf() {
     this.selection.selected.forEach((item) => {

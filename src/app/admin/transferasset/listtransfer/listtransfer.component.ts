@@ -14,6 +14,9 @@ import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroy
 import { TraansferService } from '../transfer-model';
 import { TransferService } from '../transfer.service';
 import { DeletetransferComponent } from './deletetransfer/deletetransfer.component';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-listtransfer',
@@ -22,7 +25,7 @@ import { DeletetransferComponent } from './deletetransfer/deletetransfer.compone
 })
 export class ListtransferComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-    
+
     "status",
     "department",
     "location",
@@ -31,22 +34,26 @@ export class ListtransferComponent extends UnsubscribeOnDestroyAdapter implement
     "actions"
   ];
 
-  exampleDatabase:TransferService | null;
+  exampleDatabase: TransferService | null;
   dataSource: ExampleDataSource | null;
   selection = new SelectionModel<TraansferService>(true, []);
 exporter: any;
   id: number;
-  tid:number;
-  
+  tid: number;
+  permissionList: any;
+
 
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public transferservice:TransferService,
+    public transferservice: TransferService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
-    private httpService:HttpServiceService,
-    public router:Router
+    private serverUrl: serverLocations,
+    private httpService: HttpServiceService,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
+    public router: Router
   ) {
     super();
   }
@@ -58,9 +65,25 @@ exporter: any;
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1007',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
- 
+
 
   public loadData() {
     this.exampleDatabase = new TransferService (this.httpClient,this.serverUrl,this.httpService);
@@ -79,10 +102,10 @@ exporter: any;
     );
   }
   editCall(row) {
-
+    if (this.permissionList?.modify){
     this.router.navigate(['/admin/transferasset/addtransfer/'+row.tid]);
 
-
+    }
   }
   deleteItem(row){
     this.id = row.tid;
@@ -99,7 +122,7 @@ exporter: any;
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
 
       if (data.data == true) {
         this.httpService.get(this.transferservice.deleteTransfer+ "?tid=" + this.id).subscribe((res: any) => {
@@ -115,7 +138,7 @@ exporter: any;
             // error code here
           }
         );
-      
+
       } else{
         this.loadData();
       }
@@ -123,7 +146,7 @@ exporter: any;
 
   }
 
-  
+
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
@@ -166,12 +189,12 @@ export class ExampleDataSource extends DataSource<TraansferService> {
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<TraansferService[]> {
-   
+
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
       this._sort.sortChange,
       this.filterChange,
-      this.paginator.page,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+      this.paginator.page,
     ];
     this.exampleDatabase.getAllList();
     return merge(...displayDataChanges).pipe(
@@ -186,17 +209,17 @@ export class ExampleDataSource extends DataSource<TraansferService> {
              traansferService.department+
              traansferService.location+
              traansferService.transfer+
-             traansferService.date+                                                                                                       
+             traansferService.date+
              traansferService.remarks+
              traansferService.files
-      
-             
+
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
-      
+
         const sortedData = this.sortData(this.filteredData.slice());
-        
+
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         this.renderedData = sortedData.splice(
           startIndex,
@@ -219,7 +242,7 @@ export class ExampleDataSource extends DataSource<TraansferService> {
         case "status":
           [propertyA, propertyB] = [a.status, b.status];
           break;
-       
+
           case "department":
           [propertyA, propertyB] = [a.department, b.department];
           break;

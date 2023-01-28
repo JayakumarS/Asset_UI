@@ -16,9 +16,12 @@ import { AuditableAssetService } from '../auditable-asset.service';
 import { Router } from '@angular/router';
 import { DeleteLocationComponent } from 'src/app/master/location/list-location/delete-location/delete-location.component';
 import { AuditableAsset } from '../auditable-asset-model';
-import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component'; 
+import { DeleteScheduleActivityComponent } from 'src/app/admin/schedule-activity/list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component';
 import { AuditableAssetPopUpComponent } from '../auditable-asset-pop-up/auditable-asset-pop-up.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 @Component({
@@ -45,15 +48,19 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
   index: number;
   id: number;
   docForm: FormGroup;
+  permissionList: any;
   locationMaster: AuditableAsset | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public locationMasterService: AuditableAssetService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
+    private serverUrl: serverLocations,
     private router: Router,
-    private httpService:HttpServiceService,
+    private httpService: HttpServiceService,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
     private fb: FormBuilder
   ) {
     super();
@@ -74,6 +81,22 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1002',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.onSubmit();
   }
 
@@ -99,9 +122,9 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
     );
   }
   editCall(row) {
-
+    if (this.permissionList?.modify){
     this.router.navigate(['/audit/auditableAsset/addAuditableAsset/'+row.assetid]);
-  
+    }
   }
 
   keyPressPCB(event: any) {
@@ -119,7 +142,7 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
   }
 
   onSubmit(){
-   
+
     this.locationMaster = this.docForm.value;
     console.log(this.locationMaster);
     this.loadData();
@@ -158,7 +181,7 @@ export class ListAuditableAssetComponent extends UnsubscribeOnDestroyAdapter imp
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
       this.loadData();
       if(data==1)[
         this.showNotification(
@@ -251,7 +274,7 @@ export class ExampleDataSource extends DataSource<AuditableAsset> {
               locationMaster.acquisitionvalue +
               locationMaster.accudepreciation +
               locationMaster.bookvalue
-             
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -304,7 +327,7 @@ export class ExampleDataSource extends DataSource<AuditableAsset> {
         case "bookvalue":
           [propertyA, propertyB] = [a.bookvalue, b.bookvalue];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

@@ -56,7 +56,7 @@
                   <!-- <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="padding-top: 10px;">
                     <mat-checkbox formControlName="previousFinancialYear" ngInit="checked=true">Previous Financial Year</mat-checkbox>
                   </div> -->
-                  
+
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 624px; margin-top: -56px;">
                     <button class="btn-space" mat-raised-button (click) = "onSubmit()"
                       color="accent" style="background-color: #34d034;">Search</button>
@@ -70,12 +70,12 @@
                         <li class="dropdown m-l-20 ">
                           <h2>Auditable Asset</h2>
                         </li>
-                        <li class="dropdown m-l-20">
+                        <li [hidden]="!permissionList?.search" class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
                           <input placeholder="Search" type="text" #filter class="browser-default search-field"
                             aria-label="Search box">
                         </li>
-                        <li>
+                        <li *ngIf="permissionList?.add">
                           <div class="m-l-10" matTooltip="ADD">
                             <button color="primary" type="button" class="btn-space" [routerLink]="'/audit/auditableAsset/addAuditableAsset/0'" mat-raised-button>
                               <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
@@ -84,7 +84,7 @@
                         </li>
                       </ul>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4"*ngIf="permissionList?.exportXL">
                       <ul class="header-buttons">
                         <li>
                           <div class="export-button m-l-10" matTooltip="XLSX">
@@ -98,7 +98,7 @@
                 </div>
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
-                  
+
                   <ng-container matColumnDef="slno">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Sl No</mat-header-cell>
                     <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.slno}}</mat-cell>
@@ -146,15 +146,15 @@
                     <mat-header-cell style="justify-content: right" *matHeaderCellDef mat-sort-header>Book Value</mat-header-cell>
                     <mat-cell  class="data-align-right" style="padding-right: 45px;" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.bookvalue}}</mat-cell>
                   </ng-container>
-                  
-                 
-                 
-                 
+
+
+
+
                   <!-- actions -->
                   <ng-container matColumnDef="actions">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell style="justify-content:center" *matCellDef="let row; let i=index;" class="pr-0">
-                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                      <button *ngIf="permissionList?.modify" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
                         class="tbl-action-btn">
                         <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                       </button>
@@ -164,8 +164,8 @@
                       </button> -->
                     </mat-cell>
                   </ng-container>
-  
-  
+
+
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
                   <mat-row *matRowDef="let row; columns: displayedColumns;"
@@ -183,30 +183,19 @@
                 </div>
                 <mat-menu #contextMenu="matMenu">
                   <ng-template matMenuContent let-item="item">
-                    <button mat-menu-item (click)="addNew()">
+                    <button *ngIf="permissionList?.add"mat-menu-item (click)="addNew()">
                       <mat-icon>add_box</mat-icon>
                       <span>Add Record</span>
                     </button>
-                    <button mat-menu-item (click)="editCall(item)">
+                    <button *ngIf="permissionList?.modify"mat-menu-item (click)="editCall(item)">
                       <mat-icon>create</mat-icon>
                       <span>Edit Record</span>
                     </button>
-                    <button mat-menu-item (click)="deleteItem(item.id,item)">
+                    <button *ngIf="permissionList?.delete"mat-menu-item (click)="deleteItem(item.id,item)">
                       <mat-icon>delete</mat-icon>
                       <span>Delete Record</span>
                     </button>
-                    <button mat-menu-item (click)="refresh()">
-                      <mat-icon>refresh</mat-icon>
-                      <span>Refresh Record</span>
-                    </button>
-                    <button mat-menu-item disabled>
-                      <mat-icon>no_encryption</mat-icon>
-                      <span>Disable</span>
-                    </button>
-                    <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
-                      <mat-icon>list_alt</mat-icon>
-                      <span> Nested Menu</span>
-                    </button>
+
                   </ng-template>
                 </mat-menu>
                 <mat-menu #nestedmenu="matMenu">
@@ -226,7 +215,7 @@
                 <!-- context menu end -->
                 <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
                   [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-                  
+
                 </div>
                 <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
                   [pageSizeOptions]="[5, 10, 25, 100]">

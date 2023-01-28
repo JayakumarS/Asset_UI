@@ -15,8 +15,11 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { ScheduledauditsService } from '../scheduledaudits.service';
 import { ScheduleAudit } from '../scheduledaudits-model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
- @Component({
+@Component({
    selector: 'app-list-scheduledaudits',
   templateUrl: './list-scheduledaudits.component.html',
   styleUrls: ['./list-scheduledaudits.component.sass']
@@ -25,7 +28,7 @@ import { ScheduleAudit } from '../scheduledaudits-model';
   [x: string]: any;
 
   displayedColumns = [
-    "auditCode", "auditName","startDate", 
+    "auditCode", "auditName","startDate",
     "status", "auditType","cName","actions"
   ];
 
@@ -35,6 +38,7 @@ import { ScheduleAudit } from '../scheduledaudits-model';
   index: number;
   id: number;
   edit:boolean=false;
+  permissionList: any;
   scheduleAudit: ScheduleAudit | null;
   constructor(
     public httpClient: HttpClient,
@@ -43,7 +47,10 @@ import { ScheduleAudit } from '../scheduledaudits-model';
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
-    private router:Router
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
+    private router: Router
   ) {
     // super();
   }
@@ -56,6 +63,22 @@ import { ScheduleAudit } from '../scheduledaudits-model';
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1003',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -80,9 +103,11 @@ import { ScheduleAudit } from '../scheduledaudits-model';
     );
   }
 
-  editCall(row) { 
-    this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/'+row.auditCode]);
+  editCall(row) {
+    if (this.permissionList?.modify){
+    this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/' + row.auditCode]);
   }
+}
   viewCall(row) {
     this.router.navigate(['/audit/scheduledaudits/scheduled-view/' + row.auditCode]);
   }
@@ -92,7 +117,7 @@ import { ScheduleAudit } from '../scheduledaudits-model';
 
   }
 
- 
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -156,8 +181,8 @@ export class ExampleDataSource extends DataSource<ScheduleAudit> {
               scheduleAudit.endDate +
               scheduleAudit.extDate +
               scheduleAudit.status +
-              scheduleAudit.auditType 
-             
+              scheduleAudit.auditType
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -192,7 +217,7 @@ export class ExampleDataSource extends DataSource<ScheduleAudit> {
         case "startDate":
           [propertyA, propertyB] = [a.startDate, b.startDate];
           break;
-        
+
         case "endDate":
           [propertyA, propertyB] = [a.endDate, b.endDate];
           break;
@@ -206,7 +231,7 @@ export class ExampleDataSource extends DataSource<ScheduleAudit> {
           case "auditType":
           [propertyA, propertyB] = [a.auditType, b.auditType];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
