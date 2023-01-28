@@ -16,6 +16,9 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 import { DeleteDepreciationComponent } from './delete-depreciation/delete-depreciation.component';
 
 @Component({
@@ -26,12 +29,12 @@ import { DeleteDepreciationComponent } from './delete-depreciation/delete-deprec
 export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   displayedColumns = [
-   
+
     "name",
     "code",
     "isactiveForList",
     "actions",
-    
+
   ];
 
   dataSource: ExampleDataSource | null;
@@ -39,15 +42,20 @@ export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter imple
   selection = new SelectionModel<DepreciationMaster>(true, []);
   index: number;
   id: number;
+  permissionList: any;
+
   customerMaster: DepreciationMaster | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public depreciationService: DepreciationService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
-    private httpService:HttpServiceService,
-    public router:Router
+    private serverUrl: serverLocations,
+    private httpService: HttpServiceService,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
+    public router: Router
   ) {
     super();
   }
@@ -60,6 +68,22 @@ export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter imple
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1024',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -87,11 +111,11 @@ export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter imple
 
 
   editCall(row) {
-
+    if(this.permissionList?.modify){
     this.router.navigate(['/master/depreciation/add-depreciation/'+row.id]);
-
+    }
   }
-  
+
 
   deleteItem(row){
 
@@ -109,7 +133,7 @@ export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter imple
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
 
       if (data.data == true) {
 
@@ -127,14 +151,14 @@ export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter imple
           }
         );
 
-      
+
       } else{
         this.loadData();
       }
 
 
-        
-      
+
+
       // else{
       //   this.showNotification(
       //     "snackbar-danger",
@@ -183,12 +207,12 @@ export class ExampleDataSource extends DataSource<DepreciationMaster> {
     public _sort: MatSort
   ) {
     super();
-    
+
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
-  
+
   connect(): Observable<DepreciationMaster[]> {
-    
+
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
       this._sort.sortChange,
@@ -205,9 +229,9 @@ export class ExampleDataSource extends DataSource<DepreciationMaster> {
             const searchStr = (
               depreciationMaster.name +
               depreciationMaster.code +
-              depreciationMaster.isactive 
-             
-             
+              depreciationMaster.isactive
+
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -236,7 +260,7 @@ export class ExampleDataSource extends DataSource<DepreciationMaster> {
         case "name":
           [propertyA, propertyB] = [a.name, b.name];
           break;
-        
+
           case "code":
           [propertyA, propertyB] = [a.code, b.code];
           break;

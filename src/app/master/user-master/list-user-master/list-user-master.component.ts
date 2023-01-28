@@ -16,6 +16,9 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { DeleteUserMasterComponent } from './delete-user-master/delete-user-master.component';
 import { UserMaster } from '../user-master.model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 // import { DeleteCurrencyComponent } from './delete-currency/delete-currency.component';
 
 @Component({
@@ -36,6 +39,7 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   selection = new SelectionModel<UserMaster>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   UserMaster: UserMaster | null;
 
   constructor(
@@ -46,6 +50,9 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
     public router: Router,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
   ) {
     super();
   }
@@ -58,6 +65,22 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1025',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -85,9 +108,9 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
  // edit
  editCall(row) {
-
+  if (this.permissionList?.modify){
   this.router.navigate(['/master/userMaster/add-user-master/' + row.empid]);
-
+  }
 }
 
 

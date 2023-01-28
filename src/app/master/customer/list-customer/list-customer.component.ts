@@ -14,6 +14,9 @@ import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroy
 import { CustomerMaster } from '../customer-model';
 import { CustomerService } from '../customer.service';
 import { DeleteComponent } from './delete/delete.component';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-list-customer',
@@ -36,6 +39,7 @@ exampleDatabase: CustomerService | null;
 dataSource: ExampleDataSource|null;
   selection = new SelectionModel<CustomerMaster>(true, []);
 exporter: any;
+permissionList: any;
 
 
 
@@ -46,6 +50,9 @@ exporter: any;
                private router: Router,
                private serverUrl: serverLocations,
                private httpService: HttpServiceService,
+               private tokenStorage: TokenStorageService,
+               private spinner: NgxSpinnerService,
+               public commonService: CommonService,
   ) {
     super();
   }
@@ -58,6 +65,22 @@ exporter: any;
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1045',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
     // window.location.reload();
     this.load();
@@ -89,9 +112,9 @@ exporter: any;
   }
 
   editCall(row) {
-
+    if (this.permissionList?.modify){
     this.router.navigate(['/master/customer/add-customer/' + row.cus_id]);
-
+    }
   }
   deleteItem(row) {
     let tempDirection;
