@@ -598,7 +598,7 @@ export class MainComponent implements OnInit {
           data: [11, 32, 45, 32, 34, 52, 41],
         },
         {
-          name: "Accured Depreciation",
+          name: "Accrued Depreciation",
           data: [11, 32, 25, 32, 77, 52, 15],
         },
       ],
@@ -744,7 +744,7 @@ export class MainComponent implements OnInit {
           data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
         },
         {
-          name: "Accured Depreciation",
+          name: "Accrued Depreciation",
           type: "line",
           data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
         },
