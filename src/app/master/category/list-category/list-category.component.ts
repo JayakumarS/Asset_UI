@@ -63,7 +63,7 @@ export class ListCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     const permissionObj = {
-      formCode: 'F1027',
+      formCode: 'F1023',
       roleId: this.tokenStorage.getRoleId()
     }
     this.spinner.show();
