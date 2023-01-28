@@ -85,7 +85,7 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
   }
 
   viewCall(row){
-    this.router.navigate(['/asset/assetTransfer/viewtransfer/'+row.branchId]);
+    this.router.navigate(['/master/Branch/addBranch/'+row.branchId]);
   }
 
  
