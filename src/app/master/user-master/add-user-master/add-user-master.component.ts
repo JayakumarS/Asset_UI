@@ -11,10 +11,6 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
-
-
-
-
 @Component({
   selector: 'app-add-user-master',
   templateUrl: './add-user-master.component.html',
@@ -24,15 +20,13 @@ export class AddUserMasterComponent implements OnInit {
   docForm: FormGroup;
   [x: string]: any;
   userMaster: UserMaster;
-  edit:boolean=false;
+  edit:boolean= false;
   submitted: boolean = false;
   locationDdList = [];
   companyList = [];
-  language:any;
-  role:any;
-  // fullName:any;
-  // validateEmail = true;
-  // emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  branchList = [];
+  language: any;
+  role: any;
 
   constructor( private spinner: NgxSpinnerService,
                private fb: FormBuilder,
@@ -46,10 +40,9 @@ export class AddUserMasterComponent implements OnInit {
                public router: Router,
                ) {
     this.docForm = this.fb.group({
-      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      userId: [""],
       fullName: ["", [Validators.required]],
-      emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      // tslint:disable-next-line:max-line-length
+      emailId: ['', [Validators.required]],
       contNumber: ["", [Validators.required]],
       role: ["", [Validators.required]],
       department: [""],
@@ -58,9 +51,12 @@ export class AddUserMasterComponent implements OnInit {
       location: [""],
       otp: [""],
       userLocation: [""],
-      company: [""],
+      company: ["", [Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
       empid: [""],
+      active: [""],
+      branch: ["", [Validators.required]],
+      auditor: [""],
 
     //  loginedUser: this.tokenStorage.getUserId(),
     });
@@ -116,6 +112,16 @@ export class AddUserMasterComponent implements OnInit {
       }
     }
     );
+       // branch dropdown
+    this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
+        next: (data) => {
+          this.branchList = data;
+        },
+        error: (error) => {
+
+        }
+      }
+      );
 
   }
   fetchDetails(empid: any) {
@@ -137,6 +143,11 @@ export class AddUserMasterComponent implements OnInit {
         'company': res.userMasterBean.company,
         'userLocation': res.userMasterBean.userLocation,
         'empid': res.userMasterBean.empid,
+        'active': res.userMasterBean.active,
+        'branch': res.userMasterBean.branch,
+        'auditor': res.userMasterBean.auditor,
+
+
      })
     },
     (err: HttpErrorResponse) => {
@@ -201,7 +212,7 @@ export class AddUserMasterComponent implements OnInit {
 
 update() {
   if (this.docForm.valid){
-    if(this.docForm.value.emailId !=""){
+    if (this.docForm.value.emailId !=""){
   this.userMaster = this.docForm.value;
   this.spinner.show();
   this.UserMasterService.updateUser(this.userMaster).subscribe({
@@ -259,16 +270,19 @@ update() {
     if (!this.edit) {
       this.docForm = this.fb.group({
         fullName: ["", [Validators.required]],
-        emailId: ["", [Validators.required]],
-        contNumber: [""],
-        role: [""],
+        contNumber: ["", [Validators.required]],
+        role: ["", [Validators.required]],
         department: [""],
         repmanager: [""],
         language: ["", [Validators.required]],
         location: [""],
         otp: [""],
-        company: [""],
         userLocation: [""],
+        company: ["", [Validators.required]],
+        loginedUser: this.tokenStorage.getUserId(),
+        empid: [""],
+        active: [""],
+        branch: ["", [Validators.required]],
       });
     } else {
     this.fetchDetails(this.requestId);
@@ -320,14 +334,6 @@ stringAlpha(event: any) {
   }
 }
 
-
-stringSmall(event: any) {
-  const pattern = /[a-z ]/;
-  const inputChar = String.fromCharCode(event.charCode);
-  if (event.keyCode != 8 && !pattern.test(inputChar)) {
-    event.preventDefault();
-  }
-}
 }
 
 

@@ -142,6 +142,9 @@ export class AddAssetMasterComponent
       allottedUptoobj: [""],
       fileUploadUrl: [""],
       imgUploadUrl: [""],
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+
       //tab5
       assetMasterBean: this.fb.array([
         this.fb.group({
@@ -154,6 +157,8 @@ export class AddAssetMasterComponent
 
         })
       ]),
+
+    
 
       grnBasedAssetList: this.fb.array([
         this.fb.group({
@@ -963,6 +968,9 @@ export class AddAssetMasterComponent
       allottedUptoobj: [""],
       fileUploadUrl: [""],
       imgUploadUrl: [""],
+      'companyId': this.tokenStorage.getCompanyId(),
+      'branchId': this.tokenStorage.getBranchId(),
+
       //tab5
       assetMasterBean: this.fb.array([
         this.fb.group({
@@ -975,7 +983,7 @@ export class AddAssetMasterComponent
 
         })
       ]),
-
+      
       grnBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],

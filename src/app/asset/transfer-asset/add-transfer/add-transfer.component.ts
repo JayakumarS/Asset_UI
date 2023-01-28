@@ -63,6 +63,8 @@ export class AddTransferComponent implements OnInit {
   requestId:number;
   maxDate = moment(new Date()).add(0, 'days').format('YYYY-MM-DD');
   userName: any;
+  companyId: string;
+  branchId: string;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -80,10 +82,14 @@ export class AddTransferComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.companyId=this.token.getCompanyId();
+    this.branchId=this.token.getBranchId();
+
     this.docForm = this.fb.group({
       transferDate: [""],
       transferDateObj: [moment().format('YYYY-MM-DD'),[Validators.required]],
-      requisitionNo: ["", [Validators.required]],
+      requisitionNo: [""],
+      requisitionNumber: [""],
       transportationType: ["", [Validators.required]],
       requisitionDate: [""],
       sourceLocation: [""],
@@ -91,6 +97,7 @@ export class AddTransferComponent implements OnInit {
       destinationLocation: [""],
       deliveryMethod: ["", [Validators.required]],
       hospital: ["", [Validators.required]],
+      branchId:[""],
       status: [1, [Validators.required]],
       itemName: [""],
       itemCategory: [""],
@@ -112,6 +119,9 @@ export class AddTransferComponent implements OnInit {
       ]),
     });
 
+    this.docForm.patchValue({
+      'branchId':this.branchId
+    })
     // this.userName = this.token.getUsername();
 
     //  this.docForm.patchValue({
@@ -147,7 +157,7 @@ export class AddTransferComponent implements OnInit {
     }
   );
 
-  this.httpService.get<any>(this.assetRequisitionService.listUrl).subscribe(
+  this.httpService.get<any>(this.assetRequisitionService.listUrl+"?companyId="+this.companyId).subscribe(
     (data5) => {
       this.requisitionListNew = data5.assetRequisitionDetails;
      for(let k=0;k<this.requisitionListNew.length;k++){
@@ -318,46 +328,63 @@ export class AddTransferComponent implements OnInit {
     }
 
     getRequestDetails(data:any){
-      this.httpService.get<any>(this.transferAssetService.getRequestDetails + "?requestId=" + data).subscribe(
-        (data5) => {
-          console.log(data5);
-          this.docForm.patchValue({
-            'requisitionDate':data5.transferBean.requisitionDate,
-            'requestedBy':data5.transferBean.requestedBy,
-            'sourceLocation':data5.transferBean.sourceLocation,
-            'destinationLocation':data5.transferBean.destinationLocation,
-            'itemName':data5.transferBean.itemName,
-            'itemCategory':data5.transferBean.itemCategory,
-            'requestedQuantity':data5.transferBean.requestedQuantity,
-            'hospital':data5.transferBean.companyId,
-            'eddDate':data5.transferBean.eddDate,
-            'destinationLocationId':data5.transferBean.destLocationId,
-            'assetId':data5.transferBean.assetId
-          })
 
-          let addAssetDetailArray = this.docForm.controls.addAssetDetail as FormArray;
-          addAssetDetailArray.removeAt(0);
-          addAssetDetailArray.clear();
-          data5.transferBean.addAssetDetail.forEach(element => {
-            let addAssetDetailArray = this.docForm.controls.addAssetDetail as FormArray;
-                let arraylen = addAssetDetailArray.length;
-                let newUsergroup: FormGroup = this.fb.group({
-                  
-                  assetTrackNo:[element.assetTrackNo],
-                  assetName:[element.assetName],
-                  serialNo:[element.serialNo],
-                  assetLocation:[element.assetLocation],
-                  responsible:[element.responsible],
-                  assetUser:[element.assetUser],
+      this.httpService.get<any>(this.transferAssetService.checkRequestValidity + "?request=" + data).subscribe(
+        (data6) => {
+if(data6.count==0 || this.edit==true){
+          this.httpService.get<any>(this.transferAssetService.getRequestDetails + "?requestId=" + data).subscribe(
+            (data5) => {
+              console.log(data5);
+              this.docForm.patchValue({
+                'requisitionDate':data5.transferBean.requisitionDate,
+                'requestedBy':data5.transferBean.requestedBy,
+                'sourceLocation':data5.transferBean.sourceLocation,
+                'destinationLocation':data5.transferBean.destinationLocation,
+                'itemName':data5.transferBean.itemName,
+                'itemCategory':data5.transferBean.itemCategory,
+                'requestedQuantity':data5.transferBean.requestedQuantity,
+                'hospital':data5.transferBean.companyId,
+                'eddDate':data5.transferBean.eddDate,
+                'destinationLocationId':data5.transferBean.destLocationId,
+                'assetId':data5.transferBean.assetId
+              })
+    
+              let addAssetDetailArray = this.docForm.controls.addAssetDetail as FormArray;
+              addAssetDetailArray.removeAt(0);
+              addAssetDetailArray.clear();
+              data5.transferBean.addAssetDetail.forEach(element => {
+                let addAssetDetailArray = this.docForm.controls.addAssetDetail as FormArray;
+                    let arraylen = addAssetDetailArray.length;
+                    let newUsergroup: FormGroup = this.fb.group({
+                      
+                      assetTrackNo:[element.assetTrackNo],
+                      assetName:[element.assetName],
+                      serialNo:[element.serialNo],
+                      assetLocation:[element.assetLocation],
+                      responsible:[element.responsible],
+                      assetUser:[element.assetUser],
+                    });
+                    addAssetDetailArray.insert(arraylen,newUsergroup);
                 });
-                addAssetDetailArray.insert(arraylen,newUsergroup);
-            });
-
+    
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.name + " " + error.message);
+            }
+          );
+  } else {
+    this.showNotification(
+      "snackbar-danger",
+      "Request number is already used",
+      "top",
+      "right"
+    );
+  }
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
         }
-      );
+        )
     }
 
     showNotification(colorName, text, placementFrom, placementAlign) {
