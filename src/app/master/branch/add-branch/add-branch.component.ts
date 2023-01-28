@@ -20,6 +20,7 @@ export class AddBranchComponent implements OnInit {
   requestId: number;
   docForm: FormGroup;
   edit:boolean=false;
+  branch : Branch;
 
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
@@ -121,7 +122,17 @@ export class AddBranchComponent implements OnInit {
 
   update(){
 
-    console.log();
+    // console.log();
+    this.branch = this.docForm.value;
+    this.branch.branchId = this.requestId;
+    this.branchService.branchUpdate(this.branch);
+    this.showNotification(
+      "snackbar-success",
+      "Record Updated Successfully...!!!",
+      "bottom",
+      "center"
+    );
+    this.router.navigate(['/master/Branch/listBranch']);
 
   }
 
