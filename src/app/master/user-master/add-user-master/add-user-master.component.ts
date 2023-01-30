@@ -26,6 +26,7 @@ export class AddUserMasterComponent implements OnInit {
   companyList = [];
   branchList = [];
   roleList = [];
+  roleAuditList = [];
   language: any;
   role: any;
   roleId:any;
@@ -146,12 +147,34 @@ export class AddUserMasterComponent implements OnInit {
 
   }
 
+  roleChange(){
+    this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
+      (data) => {
+        this.roleAuditList = data.roleAuditList;
+        this.docForm.patchValue({
+          role:'3',
+       })
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    ); 
+  }
+
   fieldsChange(values:any):void {
     if(values.checked){
-      this.docForm.patchValue({
-        role: 'Checker',
-     })
-     this.auditorFlag=true;
+      this.auditorFlag=true;
+      this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
+        (data) => {
+          this.roleAuditList = data.roleAuditList;
+          this.docForm.patchValue({
+            role:'3',
+         })
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      ); 
     }else{
       this.auditorFlag=false;
     }
@@ -170,6 +193,7 @@ export class AddUserMasterComponent implements OnInit {
 
       if(res.userMasterBean.auditor == true){
         this.auditorFlag=true;
+        this.roleChange();
       }else{
         this.auditorFlag=false;
       }
@@ -179,7 +203,7 @@ export class AddUserMasterComponent implements OnInit {
          'fullName': res.userMasterBean.fullName,
         'emailId': res.userMasterBean.emailId,
         'contNumber': res.userMasterBean.contNumber,
-        'role': res.userMasterBean.role,
+        'role': res.userMasterBean.role+"",
         'department': res.userMasterBean.department,
         'repmanager': res.userMasterBean.repmanager,
         'language': res.userMasterBean.language,

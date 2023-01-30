@@ -69,12 +69,18 @@
                   <div class=" col-md-2">
                     <mat-label >ROLE<span class="errorColor">*</span></mat-label>
                     </div>
-                    <div class=" col-md-3" *ngIf="auditorFlag">
+                    <!-- <div class=" col-md-3" *ngIf="auditorFlag">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="role" readonly>
-                        <!-- <mat-error *ngIf="docForm.get('role').hasError('required')">
-                          Role is required
-                        </mat-error> -->
+                      </mat-form-field>
+                    </div> -->
+                    <div class=" col-md-3" *ngIf="auditorFlag">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="role">
+                        <mat-option *ngFor="let title of roleAuditList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                      </mat-select>
                       </mat-form-field>
                     </div>
                     <div class=" col-md-3" *ngIf="!auditorFlag">
