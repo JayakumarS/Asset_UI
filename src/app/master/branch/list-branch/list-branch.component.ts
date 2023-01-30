@@ -17,6 +17,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { BranchService } from '../branch.service';
 import { Branch } from '../branch-model';
 import { DeleteBranchComponent } from './delete-branch/delete-branch.component';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-list-branch',
@@ -49,7 +50,8 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
-    public router:Router
+    public router:Router,
+    private tokenStorage: TokenStorageService
   ) {
     super();
   }
@@ -66,7 +68,7 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
  
 
   public loadData() {
-    this.exampleDatabase = new BranchService (this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new BranchService (this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
