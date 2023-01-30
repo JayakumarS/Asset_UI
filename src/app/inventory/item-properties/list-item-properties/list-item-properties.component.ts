@@ -92,7 +92,7 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
   }
 
   public loadData() {
-    this.exampleDatabase = new ItemPropertiesService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ItemPropertiesService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

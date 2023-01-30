@@ -94,7 +94,7 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   public loadData() {
-    this.exampleDatabase = new ItemMasterService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ItemMasterService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

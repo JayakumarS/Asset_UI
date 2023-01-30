@@ -88,7 +88,7 @@ export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implem
   }
 
   public loadData() {
-    this.exampleDatabase = new UomCategoryService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new UomCategoryService(this.httpClient, this.serverUrl, this.httpService, this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

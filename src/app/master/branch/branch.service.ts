@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Branch } from './branch-model';
 import { BranchResultBean } from './branch-resultbean';
@@ -15,10 +16,11 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   isTblLoading = true;
   dialogData: Branch;
   Success:boolean;
+  companyId: string;
   dataChange: BehaviorSubject<Branch[]> = new BehaviorSubject<Branch[]>(
     []
   );
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
    }
 
@@ -36,7 +38,8 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
 
   getAllList(){
     console.log();
-    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList).subscribe(
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList+"?companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.branchList);

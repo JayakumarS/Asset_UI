@@ -6,6 +6,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { DepartmentMasterResultBean } from './department-master-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +24,8 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) {
+  companyId: string;
+  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
   }
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/department/getList`;
@@ -43,7 +45,8 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllList(): void {
-        this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters).subscribe(
+    this.companyId=this.tokenStorage.getCompanyId();   
+        this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?companyId="+this.companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.departmentMasterDetails);
