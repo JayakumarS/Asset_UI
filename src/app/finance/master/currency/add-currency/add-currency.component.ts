@@ -9,6 +9,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CurrencyMaster } from '../currency.model';
 import { CommonService } from 'src/app/common-service/common.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-currency',
@@ -27,7 +28,7 @@ export class AddCurrencyComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService, public commonService: CommonService,public router: Router,
               private currencyService: CurrencyService, private httpService: HttpServiceService
-    ,         private snackBar: MatSnackBar, ) {
+    ,         private snackBar: MatSnackBar,private tokenStorage: TokenStorageService ) {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       currencyCode: ["", [Validators.required]],
@@ -37,7 +38,9 @@ export class AddCurrencyComponent implements OnInit {
       currencyDefault : ["", [Validators.required]],
       currencyFraction : ["", [Validators.required]],
       isActive : [""],
-      bookCurrency : [""]
+      bookCurrency : [""],
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId()
     });
   }
   ngOnInit(): void {

@@ -108,6 +108,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       acctReceivable: [""],
       supplier: [""],
       totalReceivable: [""],
+      companyId: [""],
+      branchId: [""],
 
       contactDetail: this.fb.array([
         this.fb.group({
@@ -135,6 +137,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
         });
   }
   ngOnInit(): void {
+
+    
     this.route.params.subscribe(params => {
       if ( params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -145,6 +149,11 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       }
 
      });
+
+     this.docForm.patchValue({
+      'companyId':this.tokenStorage.getCompanyId(),
+      'branchId':this.tokenStorage.getBranchId(),
+    }),
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
         this.locationList = data;
@@ -527,7 +536,9 @@ reset(){
       cstno: [""],
       remarks: [""],
       active: [""],
-      'loginedUser': this.tokenStorage.getUserId()
+      'loginedUser': this.tokenStorage.getUserId(),
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId()
     })
   } else {
     this.fetchDetails(this.requestId);

@@ -92,7 +92,7 @@ displayedColumns = [
   }
 
   public loadData() {
-    this.exampleDatabase = new DesignationMasterService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new DesignationMasterService(this.httpClient, this.serverUrl,this.tokenStorage, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

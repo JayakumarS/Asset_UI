@@ -6,6 +6,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { CountryMasterResultBean } from './country-master-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 const httpOptions = {
@@ -24,7 +25,7 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter {
 
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private tokenStorage: TokenStorageService,
     private httpService: HttpServiceService) {
     super();
   }
@@ -43,7 +44,8 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter {
   }
 
   getAllCountrys(): void {
-    this.subs.sink = this.httpService.get<CountryMasterResultBean>(this.getAllMasters).subscribe(
+    let companyId=this.tokenStorage.getCompanyId();
+    this.subs.sink = this.httpService.get<CountryMasterResultBean>(this.getAllMasters+"?companyId="+parseInt(companyId)).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.countryMasterList);

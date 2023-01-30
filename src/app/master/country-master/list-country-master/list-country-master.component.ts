@@ -93,7 +93,7 @@ export class ListCountryMasterComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   public loadData() {
-    this.exampleDatabase = new CountryMasterService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new CountryMasterService(this.httpClient, this.serverUrl,this.tokenStorage, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

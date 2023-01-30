@@ -6,6 +6,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { DesignationMaster } from './designation-master.model';
 import { DesignationMasterResultBean } from './designation-master-result-bean';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +19,7 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/getList`;
@@ -37,7 +38,8 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllList(): void {
-        this.subs.sink = this.httpService.get<DesignationMasterResultBean>(this.getAllMasters).subscribe(
+        let companyId=this.tokenStorage.getCompanyId();
+        this.subs.sink = this.httpService.get<DesignationMasterResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.activityMasterDetails);

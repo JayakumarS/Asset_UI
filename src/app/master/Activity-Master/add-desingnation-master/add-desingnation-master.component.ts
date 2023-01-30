@@ -7,6 +7,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { DesignationMaster } from '../designation-master.model';
 import { DesignationMasterResultBean } from '../designation-master-result-bean';
 import { DesignationMasterService } from '../designation-master.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class AddDesingnationMasterComponent implements OnInit {
     private httpService: HttpServiceService,
     private snackBar:MatSnackBar,
     public route: ActivatedRoute,
+    private tokenStorage: TokenStorageService,
     private router:Router) {
 
     this.docForm = this.fb.group({
@@ -34,7 +36,9 @@ export class AddDesingnationMasterComponent implements OnInit {
       activtyid: [""],
       Description:["", [Validators.required]],
       active:[""],
-      id:[""]
+      id:[""],
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId()
     });
 
   }
@@ -122,6 +126,8 @@ export class AddDesingnationMasterComponent implements OnInit {
       activtyid: [""],
       Description: [""],
       active: [""],
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId()
 
     });
   } else {

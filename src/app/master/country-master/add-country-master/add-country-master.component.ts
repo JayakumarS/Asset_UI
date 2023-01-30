@@ -41,6 +41,8 @@ export class AddCountryMasterComponent implements OnInit {
       // clientType: [""],
       countryIsActive: [""],
       loginedUser: this.tokenStorage.getUserId(),
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId(),
     });
 
   }
@@ -188,7 +190,9 @@ export class AddCountryMasterComponent implements OnInit {
         'currencyId': '',
         // 'clientType': '',
         'countryIsActive': false,
-        'loginedUser': this.tokenStorage.getUserId()
+        'loginedUser': this.tokenStorage.getUserId(),
+        'companyId':this.tokenStorage.getCompanyId(),
+        'branchId':this.tokenStorage.getBranchId(),
       })
     } else {
       this.fetchDetails(this.requestId);

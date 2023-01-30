@@ -8,6 +8,8 @@ export class CurrencyMaster {
   bookCurrency: string;
   fromc: number;
   toc: number;
+  companyId:any;
+  branchId:any;
 
   constructor(currencyMaster) {
     {

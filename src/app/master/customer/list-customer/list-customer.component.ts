@@ -40,6 +40,7 @@ dataSource: ExampleDataSource|null;
   selection = new SelectionModel<CustomerMaster>(true, []);
 exporter: any;
 permissionList: any;
+  companyId: string;
 
 
 
@@ -65,6 +66,8 @@ permissionList: any;
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+
+    this.companyId=this.tokenStorage.getCompanyId();
     const permissionObj = {
       formCode: 'F1045',
       roleId: this.tokenStorage.getRoleId()
@@ -95,7 +98,7 @@ permissionList: any;
   }
 
   public loadData() {
-    this.exampleDatabase = new CustomerService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new CustomerService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

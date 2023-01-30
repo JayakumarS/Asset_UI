@@ -89,7 +89,7 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
   }
 
   public loadData() {
-    this.exampleDatabase = new LocationMasterService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new LocationMasterService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

@@ -48,6 +48,8 @@ export class AddCurrencyMasterComponent implements OnInit {
       bookCurrency: [""],
       designation: [""],
       loginedUser: this.tokenStorage.getUserId(),
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId(),
     });
 
   }
@@ -187,6 +189,8 @@ export class AddCurrencyMasterComponent implements OnInit {
       bookCurrency: [""],
       designation: [""],
       loginedUser: this.tokenStorage.getUserId(),
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId()
     });
   } else {
     this.fetchDetails(this.requestId);

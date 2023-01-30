@@ -6,6 +6,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { CurrencyMasterResultBean } from './currency-master-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -26,7 +27,7 @@ export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
   dialogData: any;
   edit: string;
   update:string;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,public tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/getList`;
@@ -45,7 +46,8 @@ export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
   /** CRUD METHODS */
 
   getAllList(): void {
-        this.subs.sink = this.httpService.get<CurrencyMasterResultBean>(this.getAllMasters).subscribe(
+        let companyId=this.tokenStorage.getCompanyId();
+        this.subs.sink = this.httpService.get<CurrencyMasterResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.currencyMasterDetails);

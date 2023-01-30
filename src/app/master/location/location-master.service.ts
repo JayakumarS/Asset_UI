@@ -6,6 +6,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { LocationMaster } from './location-master.model';
 import { LocationMasterResultBean } from './location-master-result-bean';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +24,7 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,public tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/getList`;
@@ -40,7 +41,8 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
   }
   // CRUD METHODS
   getAllList(): void {
-        this.subs.sink = this.httpService.get<LocationMasterResultBean>(this.getAllMasters).subscribe(
+        let companyId=this.tokenStorage.getCompanyId();
+        this.subs.sink = this.httpService.get<LocationMasterResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.locationMasterDetails);

@@ -86,7 +86,7 @@ export class ListCurrencyMasterComponent extends UnsubscribeOnDestroyAdapter imp
   }
 
   public loadData() {
-    this.exampleDatabase = new CurrencyMasterService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new CurrencyMasterService(this.httpClient, this.serverUrl,this.tokenStorage, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
