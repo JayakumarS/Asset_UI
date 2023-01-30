@@ -29,7 +29,6 @@ export class AddUserMasterComponent implements OnInit {
   language: any;
   role: any;
   roleId:any;
-  roleIdFlag:boolean=false;
   auditorFlag:boolean=false;
 
   constructor( private spinner: NgxSpinnerService,
@@ -163,7 +162,13 @@ export class AddUserMasterComponent implements OnInit {
     this.httpService.get(this.userMasterService.editUserMaster + "?empid=" + empid).subscribe((res: any) => {
       console.log(empid);
 
-      if(res.userMasterBean.role == 'Checker'){
+      // if(res.userMasterBean.role == 'Checker'){
+      //   this.roleFlag=true;
+      // }else{
+      //   this.roleFlag=false;
+      // }
+
+      if(res.userMasterBean.auditor == true){
         this.auditorFlag=true;
       }else{
         this.auditorFlag=false;
@@ -201,7 +206,7 @@ export class AddUserMasterComponent implements OnInit {
       this.userMaster = this.docForm.value;
       this.spinner.show();
       if(this.auditorFlag==false){
-        if(this.docForm.value.company !="" && this.docForm.value.branch !="" ){
+        if(this.docForm.value.company !="" && this.docForm.value.branch !=""){
           this.userMasterService.addUser(this.userMaster).subscribe({
             next: (data) => {
               this.spinner.hide();
@@ -236,7 +241,7 @@ export class AddUserMasterComponent implements OnInit {
           this.spinner.hide();
           this.showNotification(
             "snackbar-danger",
-            "Please fill Company and Branch...!!",
+            "Please fill Company and Branch Fields...!!",
             "bottom",
             "center"
           );
@@ -298,48 +303,103 @@ export class AddUserMasterComponent implements OnInit {
 
 update() {
   if (this.docForm.valid){
-    if (this.docForm.value.emailId !=""){
-  this.userMaster = this.docForm.value;
-  this.spinner.show();
-  this.userMasterService.updateUser(this.userMaster).subscribe({
-      next: (data) => {
-        this.spinner.hide();
-        if (data.success) {
-          this.showNotification(
-            "snackbar-success",
-            "update Record Successfully",
-            "bottom",
-            "center"
-          );
-          this.onCancel();
-        } else {
-          this.showNotification(
-            "snackbar-danger",
-            "Not Updated Successfully...!!!",
-            "bottom",
-            "center"
-          );
-        }
-      },
-      error: (error) => {
-        this.spinner.hide();
+  if(this.auditorFlag==false){
+    if(this.docForm.value.company !=null && this.docForm.value.branch !=null){
+      if (this.docForm.value.emailId !=""){
+      this.userMaster = this.docForm.value;
+      this.spinner.show();
+      this.userMasterService.updateUser(this.userMaster).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.showNotification(
+                "snackbar-success",
+                "update Record Successfully",
+                "bottom",
+                "center"
+              );
+              this.onCancel();
+            } else {
+              this.showNotification(
+                "snackbar-danger",
+                "Not Updated Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+            this.showNotification(
+              "snackbar-danger",
+              error.message + "...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        });
+      }
+      else{
         this.showNotification(
           "snackbar-danger",
-          error.message + "...!!!",
-          "bottom",
-          "center"
+          "Please Fill Email Id Field..!!",
+          "top",
+          "right"
         );
       }
-    });
-  }
-  else{
-    this.showNotification(
-      "snackbar-danger",
-      "Please Fill Full Name",
-      "top",
-      "right"
-    );
-  }
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill The Company and Branch fields",
+        "top",
+        "right"
+      );
+    }
+    }else{
+      if (this.docForm.value.emailId !=""){
+        this.userMaster = this.docForm.value;
+        this.spinner.show();
+        this.userMasterService.updateUser(this.userMaster).subscribe({
+            next: (data) => {
+              this.spinner.hide();
+              if (data.success) {
+                this.showNotification(
+                  "snackbar-success",
+                  "update Record Successfully",
+                  "bottom",
+                  "center"
+                );
+                this.onCancel();
+              } else {
+                this.showNotification(
+                  "snackbar-danger",
+                  "Not Updated Successfully...!!!",
+                  "bottom",
+                  "center"
+                );
+              }
+            },
+            error: (error) => {
+              this.spinner.hide();
+              this.showNotification(
+                "snackbar-danger",
+                error.message + "...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          });
+        }
+        else{
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            "Please Fill Full Name",
+            "top",
+            "right"
+          );
+        }
+    }
   }
   else{
     this.showNotification(
