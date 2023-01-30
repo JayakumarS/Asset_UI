@@ -11,46 +11,39 @@
           <div class="body">
             <div class="table-responsive" style=" overflow: hidden;">
 
-              <div class="row"  style=" margin-top: 1%;margin-left: 0%;  font:montserrat;" >
-                <h4 style="padding-bottom: 5px;
-                padding-top: 5px;color:black; ">TICKET LIST</h4><br>
+             
 
-
-              </div><br>
-
-            <div class="row" style="padding-bottom:50px;padding-left: 50px;">
+            <!-- <div class="row" style="padding-bottom:50px;padding-left: 50px;">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
 
 
                 </div>
-                </div>
+                </div> -->
 
-                 <div class="" style="margin-left: 17%; margin-top: -6%;">
-                <div >
-                <mat-card class="l-bg-purple-dark" style="width:18%; margin-top: 10px;" (click)="status('CLOSED')">CLOSED
-                  <h2>{{closeCountValue}}</h2>
+                 <div class="" style=" margin-top: 3%; padding-left: 11px;">
+                <div style="    margin-left: 13%;" >
+                <mat-card class="l-bg-purple-dark" style="width:17%; margin-top: 10px;text-align: center;" (click)="status('CLOSED')">CLOSED
+                  <h2 >{{closeCountValue}}</h2>
                      </mat-card>
                 </div>
-
-
-
-               <div>
-              <mat-card class="bg-cyan" style="width:18%; margin-left: 20%; margin-top: -86px;" (click)="status('ASSIGNED')">ASSIGNED
+               <div  style="    margin-left: 15%;">
+              <mat-card class="bg-cyan" style="width:17%; margin-left: 18%; margin-top: -86px;text-align: center;" (click)="status('ASSIGNED')">ASSIGNED
                 <h2>{{AssignedCountValue}}</h2>
 
               </mat-card>
                      </div>
 
-                     <div>
-                <mat-card class=" bg-green" style="width:18%;margin-left: 40%;margin-top: -85px;" (click)="status('OPENED')">OPENED
+                     <div style="    margin-left: 12%;">
+                <mat-card class=" bg-green" style="width:17%;margin-left: 40%;margin-top: -85px; text-align: center;" (click)="status('OPENED')">OPENED
                   <h2>{{OpenedCountValue}}</h2>
                 </mat-card>
 
                 </div>
-                <div>
-                <mat-card class=" l-bg-orange" style="width:18%;margin-left: 60%;margin-top: -86px;" (click)="status('HOLD')">HOLD
+                <div  style="    margin-left: 11%;">
+                  
+                <mat-card class=" l-bg-orange" style="width:17%;margin-left: 60%;margin-top: -86px; text-align: center;" (click)="status('HOLD')">HOLD
                   <h2>{{HoldCountValue}}</h2>
-                </mat-card> &nbsp;
+                </mat-card> 
                 </div>
 
                 </div>
