@@ -92,7 +92,7 @@ export class ListItemCategoryComponent extends UnsubscribeOnDestroyAdapter imple
   }
 
   public loadData() {
-    this.exampleDatabase = new ItemCategoryService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ItemCategoryService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

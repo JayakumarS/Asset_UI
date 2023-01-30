@@ -6,6 +6,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { ItemPropertiesResultBean } from './item-properties-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 const httpOptions = {
@@ -24,8 +25,9 @@ export class ItemPropertiesService extends UnsubscribeOnDestroyAdapter {
 
   // Temporarily stores data from dialogs
   dialogData: any;
+  companyId: string;
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
-    private httpService: HttpServiceService) {
+    private httpService: HttpServiceService, private tokenStorage: TokenStorageService,) {
     super();
   }
 
@@ -43,7 +45,8 @@ export class ItemPropertiesService extends UnsubscribeOnDestroyAdapter {
   }
 
   getAllItemProperties(): void {
-    this.subs.sink = this.httpService.get<ItemPropertiesResultBean>(this.getAllMasters).subscribe(
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.subs.sink = this.httpService.get<ItemPropertiesResultBean>(this.getAllMasters+"?companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.itemPropertiesList);
