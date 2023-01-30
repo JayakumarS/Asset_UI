@@ -113,7 +113,8 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     });
     this.loadData();
 
-    this.httpService.get<ItSupportresultbean>(this.itsupportservice.closedListCountUrl).subscribe(
+    let companystrid=this.tokenStorage.getCompanyId();
+    this.httpService.get<ItSupportresultbean>(this.itsupportservice.closedListCountUrl+"?companyid="+parseInt(companystrid)).subscribe(
       (data) => {
         console.log(data);
         this.closeCountValue = data.closedListCount;
@@ -123,8 +124,8 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
       }
     );
 
-
-    this.httpService.get<ItSupportresultbean>(this.itsupportservice.openListCountUrl).subscribe(
+    let companyid=this.tokenStorage.getCompanyId();
+    this.httpService.get<ItSupportresultbean>(this.itsupportservice.openListCountUrl+"?companyid="+parseInt(companyid) ).subscribe(
       (data) => {
         console.log(data);
         this.OpenedCountValue = data.openedListCount;
@@ -134,7 +135,8 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
       }
 
     );
-    this.httpService.get<ItSupportresultbean>(this.itsupportservice.holdListCountUrl).subscribe(
+    let companystid=this.tokenStorage.getCompanyId();
+    this.httpService.get<ItSupportresultbean>(this.itsupportservice.holdListCountUrl+"?companyid="+parseInt(companystid) ).subscribe(
       (data) => {
         console.log(data);
         this.HoldCountValue = data.holdListCount;
@@ -143,8 +145,8 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
         console.log(error.name + " " + error.message);
       }
     );
-
-    this.httpService.get<ItSupportresultbean>(this.itsupportservice.AssignedListCountUrl).subscribe(
+    let companysid=this.tokenStorage.getCompanyId();
+    this.httpService.get<ItSupportresultbean>(this.itsupportservice.AssignedListCountUrl+"?companyid="+parseInt(companysid) ).subscribe(
       (data) => {
         console.log(data);
         this.AssignedCountValue = data.assignedListCount;
@@ -162,7 +164,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 
   public loadData() {
-    this.exampleDatabase = new Itsupportservice(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new Itsupportservice(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -238,7 +240,7 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 
   status(ticketStatus){
-    this.exampleDatabase1 = new Itsupportservice(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase1 = new Itsupportservice(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService);
    // this.httpService.get(this.itsupportservice.getstatusList+"?ticketStatus="+ticketStatus).subscribe((res: any)=>{
    //  console.log(res);
     // this.exampleDatabase1 = res;

@@ -77,8 +77,10 @@ export class AddItSupportComponent implements OnInit {
       description:[""],
       report:[""],
       status:[""],
-      support_id:[""]
-   
+      support_id:[""],
+      companyid:[""],
+      branchid:[""],
+    
     });
     }
   ngOnInit(): void {
@@ -87,13 +89,15 @@ export class AddItSupportComponent implements OnInit {
     console.log(this.loginedUser);
 
     this.docForm = this.fb.group({
-    
+
       reportdate:[""],
       reportdateObj:[""],
       uploadImg:[""],
       asset:[""],
       assetlocation:[""],
       reportedby:this.loginedUser,
+      companyid: this.tokenStorageService.getCompanyId(),
+      branchid: this.tokenStorageService.getBranchId(),
       tickettype:[""],
       ticketgroup:[""],
       assignee:["support@assetchek.com"],
@@ -103,11 +107,8 @@ export class AddItSupportComponent implements OnInit {
       report:[""],
       status:[""],
       support_id:[""],
-      assetid:[""]
-     
-
-     
-   
+      assetid:[""],
+ 
     });
 
     
