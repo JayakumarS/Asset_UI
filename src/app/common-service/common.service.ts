@@ -137,6 +137,11 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getAllPagePermissionList = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/getAllPagePermissionList`;
 
   public getUserDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUserDropdown`;
+
+  public getEmployeeDropdownByCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeeDropdownByCompany`;
+  
+  public getLocationDropdownByCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLocationDropdownByCompany`;
+
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
