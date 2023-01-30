@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
@@ -50,16 +50,21 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
           }
         );
   }
-  addDesignation(designationMaster: DesignationMaster): void {
-    this.dialogData = designationMaster;
-    this.httpService.post<DesignationMaster>(this.saveDesignation, designationMaster).subscribe(data => {
-      console.log(data);
-      //this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
+  // addDesignation(designationMaster: DesignationMaster): void {
+  //   this.dialogData = designationMaster;
+  //   this.httpService.post<DesignationMaster>(this.saveDesignation, designationMaster).subscribe(data => {
+  //     console.log(data);
+  //     //this.dialogData = employees;
+  //     },
+  //     (err: HttpErrorResponse) => {
         
-    });
+  //   });
+  // }
+
+  addDesignation(designationMaster: DesignationMaster): Observable<any> {
+    return this.httpClient.post<DesignationMaster>(this.saveDesignation, designationMaster);
   }
+
   designationMasterUpdate(designationMaster: DesignationMaster): void {
     this.dialogData = designationMaster;
     this.httpService.post<DesignationMaster>(this.updateDesignationMaster, designationMaster).subscribe(data => {

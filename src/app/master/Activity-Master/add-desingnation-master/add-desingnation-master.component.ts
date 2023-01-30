@@ -61,15 +61,36 @@ export class AddDesingnationMasterComponent implements OnInit {
     this.designationMaster = this.docForm.value;
     console.log(this.designationMaster);
     if(this.docForm.valid){
-    this.designationMasterService.addDesignation(this.designationMaster);
+    //this.designationMasterService.addDesignation(this.designationMaster);
+
+    this.designationMasterService.addDesignation(this.designationMaster).subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.showNotification(
+            "snackbar-success",
+            "Record Added successfully...",
+            "bottom",
+            "center"
+          );
+          this.router.navigate(['/master/Activity-master/list-activity']);
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Not Added...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      }
+    });
   
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/Activity-master/list-activity']);
+    // this.showNotification(
+    //   "snackbar-success",
+    //   "Add Record Successfully...!!!",
+    //   "bottom",
+    //   "center"
+    // );
+    // this.router.navigate(['/master/Activity-master/list-activity']);
   }
   }
 
