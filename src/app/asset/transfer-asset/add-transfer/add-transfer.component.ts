@@ -253,6 +253,7 @@ export class AddTransferComponent implements OnInit {
       destinationLocation: [""],
       deliveryMethod: ["", [Validators.required]],
       hospital: ["", [Validators.required]],
+      branchId:[""],
       status: [1, [Validators.required]],
       itemName: [""],
       itemCategory: [""],
@@ -275,6 +276,11 @@ export class AddTransferComponent implements OnInit {
     });
 
     this.docForm.controls.status.disable();
+
+    this.docForm.patchValue({
+      'branchId':parseInt(this.branchId),
+      'hospital':parseInt(this.companyId),
+   })
   }
 
     // For Date related code

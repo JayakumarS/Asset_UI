@@ -560,6 +560,7 @@ validationLocations(id){
     itemId:[""],
     quantity:[""],
     companyId:[""],
+    branchId:[""],
     eddDateObj:[""],
     eddDate:[""],
     assetRequisitionDtl: this.fb.array([
@@ -577,6 +578,12 @@ validationLocations(id){
     ])
       
   });
+
+  this.docForm.patchValue({
+    'requestedBy':this.userId,
+    'branchId':parseInt(this.branchId),
+    'companyId':parseInt(this.companyId),
+ })
 
 }
 
