@@ -106,6 +106,8 @@ export class SigninComponent
                 }
                 else if(data.userDetails.roleId == 4){
                   this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
+                }else{
+                  this.router.navigate(["/admin/dashboard/main"]);
                 }
               }, 1000);
               }else{

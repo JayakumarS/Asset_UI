@@ -33,6 +33,7 @@ export class AddLocationComponent implements OnInit {
   cusMasterData = [];
   salesEntryData = [];
   locationDdList = [];
+  locationList = [];
   companyList = [];
   transferList: [];
   // tslint:disable-next-line:new-parens
@@ -121,6 +122,12 @@ export class AddLocationComponent implements OnInit {
     });
 
   }
+// location list
+getCompanybasedlocationDropdown(companyId: any): void {
+  this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId=" + companyId).subscribe((res: any) => {
+  this.locationList = res.addressBean;
+});
+}
 
 
 
