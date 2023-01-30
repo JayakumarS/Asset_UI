@@ -56,6 +56,7 @@ export class MainComponent implements OnInit {
   assetsCount = [];
   auditableAssetList = [];
   assetList = [];
+  companyAssetList = [];
   assetListDashboard = [];
   public cardChart1: any;
   public cardChart1Data: any;
@@ -131,6 +132,7 @@ export class MainComponent implements OnInit {
 
     this.companyAuditorCount=this.tokenStorage.getCompanyId();
     this.roleId=this.tokenStorage.getRoleId();
+    
 
     if(this.roleId==3){
       this.roleIdFlag=true;
@@ -310,17 +312,31 @@ export class MainComponent implements OnInit {
   }
 
   getAssetList(){
-    this.httpService.get<MainResultBean>(this.mainService.getAssetListUrl).subscribe(
-      (data) => {
-        
-        this.assetList = data.assetList;
-        this.config1 = {
-          itemsPerPage: 5,
-          currentPage: 1,
-          totalItems: this.auditableAssetList.length
-        }; 
-      }
-    );
+
+    if(this.roleIdFlag==false){
+      this.httpService.get<MainResultBean>(this.mainService.getAssetListUrl).subscribe(
+        (data) => {
+          
+          this.assetList = data.getAssetListDashboard;
+          this.config1 = {
+            itemsPerPage: 5,
+            currentPage: 1,
+            totalItems: this.auditableAssetList.length
+          }; 
+        }
+      );
+    }
+    else{
+      this.httpService.get<MainResultBean>(this.mainService.getCompanyAssetListUrl + "?companyId=" + this.companyAuditorCount).subscribe((res: any) => {
+        console.log(this.companyAuditorCount);
+        this.companyAssetList = res.assetList;
+        },
+        (err: HttpErrorResponse) => {
+           // error code here
+        }
+      );
+    }
+
   }
 
   private smallChart1() {

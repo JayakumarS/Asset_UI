@@ -39,6 +39,7 @@ export class UserMasterService extends UnsubscribeOnDestroyAdapter {
   public updateUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/update`;
   public deleteUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/delete`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
+  public roleListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getRoleListDropdown`;
 
   getAllList(): void {
     this.subs.sink = this.httpService.get<UserMasterResultBean>(this.getUserList).subscribe(

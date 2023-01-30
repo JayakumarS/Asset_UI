@@ -547,9 +547,17 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
+                <tbody *ngIf="!roleIdFlag">
                   <tr *ngFor="let data of assetList">
+                    <td>{{data.assetName}}</td>
+                    <td>{{data.assetCode}}</td>
+                    <td>{{data.locationName}}</td>
+                    <td>{{data.categoryName}}</td>
+                    <td>{{data.status}}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="roleIdFlag">
+                  <tr *ngFor="let data of companyAssetList">
                     <td>{{data.assetName}}</td>
                     <td>{{data.assetCode}}</td>
                     <td>{{data.locationName}}</td>

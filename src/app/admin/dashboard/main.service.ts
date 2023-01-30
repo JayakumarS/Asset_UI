@@ -38,12 +38,13 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
   public purchaseAssetsCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/purchaseAssetsCount`;
   public depreciatedCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/depreciatedCount`;
   public getAuditableAssetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAuditableAssetList`;
-  public getAssetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetList`;
+  public getAssetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetListForDashboard`;
   public getAssetSurveyURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getAssetSurvey`;
   public getClientSurveyURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getClientSurvey`;
   public getItSupportTicketURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getItSupportTicket`;
   public getActivityPopUpUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getActivityPopUpDetails`;
   public companyAuditorsCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getCompanyAuditorsCount`;
+  public getCompanyAssetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetList`;
 
   get data(): main[] {
     return this.dataChange.value;

@@ -25,8 +25,12 @@ export class AddUserMasterComponent implements OnInit {
   locationDdList = [];
   companyList = [];
   branchList = [];
+  roleList = [];
   language: any;
   role: any;
+  roleId:any;
+  roleIdFlag:boolean=false;
+  auditorFlag:boolean=false;
 
   constructor( private spinner: NgxSpinnerService,
                private fb: FormBuilder,
@@ -35,7 +39,7 @@ export class AddUserMasterComponent implements OnInit {
                public commonService: CommonService,
                private tokenStorage: TokenStorageService,
                // tslint:disable-next-line:no-shadowed-variable
-               private UserMasterService: UserMasterService,
+               private userMasterService: UserMasterService,
                private snackBar: MatSnackBar,
                public router: Router,
                ) {
@@ -44,18 +48,18 @@ export class AddUserMasterComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       contNumber: ["", [Validators.required]],
-      role: ["", [Validators.required]],
+      role: [""],
       department: [""],
       repmanager: [""],
       language: ["", [Validators.required]],
       location: [""],
       otp: [""],
       userLocation: [""],
-      company: ["", [Validators.required]],
+      company: [""],
       loginedUser: this.tokenStorage.getUserId(),
       empid: [""],
       active: [""],
-      branch: ["", [Validators.required]],
+      branch: [""],
       auditor: [""],
 
     //  loginedUser: this.tokenStorage.getUserId(),
@@ -71,6 +75,14 @@ export class AddUserMasterComponent implements OnInit {
         this.fetchDetails(this.requestId);
       }
     });
+
+    this.roleId=this.tokenStorage.getRoleId();
+    if(this.roleId==1){
+      this.roleIdFlag=true;
+    }else{
+      this.roleIdFlag=false;
+    }
+
     // User Location dropdown
     this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
       next: (data) => {
@@ -123,11 +135,39 @@ export class AddUserMasterComponent implements OnInit {
       }
       );
 
+  //Role  Dropdown List
+  this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
+    (data) => {
+      this.roleList = data.roleList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );  
+
   }
+
+  fieldsChange(values:any):void {
+    if(values.checked){
+      this.docForm.patchValue({
+        role: 'Checker',
+     })
+     this.auditorFlag=true;
+    }else{
+      this.auditorFlag=false;
+    }
+  }
+
   fetchDetails(empid: any) {
     this.requestId = empid;
-    this.httpService.get(this.UserMasterService.editUserMaster + "?empid=" + empid).subscribe((res: any) => {
+    this.httpService.get(this.userMasterService.editUserMaster + "?empid=" + empid).subscribe((res: any) => {
       console.log(empid);
+
+      if(res.userMasterBean.role == 'Checker'){
+        this.auditorFlag=true;
+      }else{
+        this.auditorFlag=false;
+      }
 
       this.docForm.patchValue({
         'userId': res.userMasterBean.userId,
@@ -155,40 +195,84 @@ export class AddUserMasterComponent implements OnInit {
      }
   );
 }
+
   onSubmit() {
     if (this.docForm.valid){
       this.userMaster = this.docForm.value;
       this.spinner.show();
-      this.UserMasterService.addUser(this.userMaster).subscribe({
-        next: (data) => {
-          this.spinner.hide();
-          if (data.success) {
-            this.showNotification(
-              "snackbar-success",
-              "Record Added successfully...",
-              "bottom",
-              "center"
-            );
-            this.onCancel();
-          } else {
-            this.showNotification(
-              "snackbar-danger",
-              "Not Added...!!!",
-              "bottom",
-              "center"
-            );
-          }
-        },
-        error: (error) => {
+      if(this.auditorFlag==false){
+        if(this.docForm.value.company !="" && this.docForm.value.branch !="" ){
+          this.userMasterService.addUser(this.userMaster).subscribe({
+            next: (data) => {
+              this.spinner.hide();
+              if (data.success) {
+                this.showNotification(
+                  "snackbar-success",
+                  "Record Added successfully...",
+                  "bottom",
+                  "center"
+                );
+                this.onCancel();
+              } else {
+                this.showNotification(
+                  "snackbar-danger",
+                  "Not Added...!!!",
+                  "bottom",
+                  "center"
+                );
+              }
+            },
+            error: (error) => {
+              this.spinner.hide();
+              this.showNotification(
+                "snackbar-danger",
+                error.message + "...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          });
+        }else{
           this.spinner.hide();
           this.showNotification(
             "snackbar-danger",
-            error.message + "...!!!",
+            "Please fill Company and Branch...!!",
             "bottom",
             "center"
           );
         }
-      });
+      }else{
+        this.userMasterService.addUser(this.userMaster).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.showNotification(
+                "snackbar-success",
+                "Record Added successfully...",
+                "bottom",
+                "center"
+              );
+              this.onCancel();
+            } else {
+              this.showNotification(
+                "snackbar-danger",
+                "Not Added...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+            this.showNotification(
+              "snackbar-danger",
+              error.message + "...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        });
+      }
     }else{
       this.showNotification(
         "snackbar-danger",
@@ -198,9 +282,11 @@ export class AddUserMasterComponent implements OnInit {
       );
     }
   }
+
   onCancel() {
   this.router.navigate(['/master/userMaster/list-user-master/']);
   }
+  
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -215,7 +301,7 @@ update() {
     if (this.docForm.value.emailId !=""){
   this.userMaster = this.docForm.value;
   this.spinner.show();
-  this.UserMasterService.updateUser(this.userMaster).subscribe({
+  this.userMasterService.updateUser(this.userMaster).subscribe({
       next: (data) => {
         this.spinner.hide();
         if (data.success) {
@@ -292,7 +378,7 @@ update() {
 
 
    validateEmail(event){
-    this.httpService.get<any>(this.UserMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+    this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
       if (res){
         this.docForm.controls['emailId'].setErrors({ employee: true });
       }else{
