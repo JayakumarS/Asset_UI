@@ -32,6 +32,9 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { VendorService } from '../vendor.service';
 import { Commodity } from '../vendor-model';
 import { DeleteVendorComponent } from './delete/delete.component';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-list-vendor',
   templateUrl: './list-vendor.component.html',
@@ -40,7 +43,7 @@ import { DeleteVendorComponent } from './delete/delete.component';
 export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   displayedColumns = [
-    //"select",
+    // "select",
     //  "commodity",
     //  "imdgClass",
     //  "unNo",
@@ -57,16 +60,19 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
    selection = new SelectionModel<Commodity>(true, []);
    index: number;
    id: number;
+   permissionList: any;
    customerMaster: Commodity | null;
-  spinner: any;
    constructor(
      public httpClient: HttpClient,
      public dialog: MatDialog,
      public vendorService: VendorService,
      private snackBar: MatSnackBar,
      private router: Router,
-     private serverUrl:serverLocations,
-     private httpService:HttpServiceService,
+     private serverUrl: serverLocations,
+     private httpService: HttpServiceService,
+     private tokenStorage: TokenStorageService,
+     private spinner: NgxSpinnerService,
+     public commonService: CommonService,
    ) {
      super();
    }
@@ -79,7 +85,23 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
    contextMenuPosition = { x: "0px", y: "0px" };
 
    ngOnInit(): void {
-     this.loadData();
+    const permissionObj = {
+      formCode: 'F1045',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
+    this.loadData();
    }
 
    refresh(){
@@ -105,9 +127,9 @@ export class ListVendorComponent extends UnsubscribeOnDestroyAdapter implements 
 
 
    editCall(row) {
-
+    if (this.permissionList?.modify){
      this.router.navigate(['/master/vendor/addVendor/' + row.empid]);
-
+    }
    }
 
    deleteItem(i: number, row) {
