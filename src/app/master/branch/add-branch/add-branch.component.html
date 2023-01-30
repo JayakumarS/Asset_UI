@@ -59,18 +59,35 @@
                   </mat-form-field>
                 </div>
                
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                       <label >LOCATION<span class="errorColor">*</span></label>
                   </div> 
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -101px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       
-                      <input matInput formControlName="location" >
+                      <input matInput formControlName="location" > -->
                       <!-- <mat-error *ngIf="docForm.get('location').hasError('required')">
                         Description is required
                       </mat-error> -->
-                    </mat-form-field>
+                    <!-- </mat-form-field>
+                  </div> -->
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label >LOCATION</label>
                   </div>
+          
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -101px;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  
+                    <mat-select class="inputTxt" formControlName="location">
+                        <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="docForm.get('location').hasError('required')">
+                      Location Name is required
+                    </mat-error>
+                    </mat-form-field>
+                    </div> 
                 </div>
 
                 <!-- <div class="row">
@@ -121,7 +138,7 @@
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
                   <mat-select class="inputTxt" formControlName="companyId">
-                      <mat-option *ngFor="let title of companyList" [value]="title.text">
+                      <mat-option *ngFor="let title of companyList" [value]="title.id">
                           {{title.text}}
                       </mat-option>
                   </mat-select>
