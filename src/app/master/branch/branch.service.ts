@@ -16,7 +16,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   isTblLoading = true;
   dialogData: Branch;
   Success:boolean;
-  companyId: string;
+  UserId: string;
   dataChange: BehaviorSubject<Branch[]> = new BehaviorSubject<Branch[]>(
     []
   );
@@ -38,8 +38,8 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
 
   getAllList(){
     console.log();
-    this.companyId=this.tokenStorage.getCompanyId();
-    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList+"?companyId="+this.companyId).subscribe(
+    this.UserId=this.tokenStorage.getUserId();
+    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList+"?UserId="+this.UserId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.branchList);
