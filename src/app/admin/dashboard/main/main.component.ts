@@ -106,6 +106,11 @@ export class MainComponent implements OnInit {
   companyAuditorCount: string;
   companyPurchaseAssetsCount: any;
   companyUsersAssetsCount: any;
+  companyEarningsAssetsCount: any;
+  roleId: any;
+  roleIdFlag:boolean=false;
+  companyAuditorsAssetsCount: any;
+  companyAssetsCount: any;
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
@@ -125,6 +130,13 @@ export class MainComponent implements OnInit {
     this.projectChart();
 
     this.companyAuditorCount=this.tokenStorage.getCompanyId();
+    this.roleId=this.tokenStorage.getRoleId();
+
+    if(this.roleId==3){
+      this.roleIdFlag=true;
+    }else{
+      this.roleIdFlag=false;
+    }
 
     this.httpService.get<MainResultBean>(this.mainService.earningsListCountUrl).subscribe(
       (data) => {
@@ -228,6 +240,9 @@ export class MainComponent implements OnInit {
       console.log(this.companyAuditorCount);
       this.companyPurchaseAssetsCount = res.companyPurchaseAssetsCount;
       this.companyUsersAssetsCount = res.companyUsersAssetsCount;
+      this.companyEarningsAssetsCount = res.companyEarningsAssetsCount;
+      this.companyAuditorsAssetsCount = res.companyAuditorsAssetsCount;
+      this.companyAssetsCount = res.companyAssetsCount;
       },
       (err: HttpErrorResponse) => {
          // error code here
