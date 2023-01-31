@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { Branch } from '../branch-model';
 import { BranchService } from '../branch.service';
@@ -28,13 +29,14 @@ export class AddBranchComponent implements OnInit {
     private commonService: CommonService,
     private snackBar:MatSnackBar,
     private router:Router,
-    public route: ActivatedRoute,) {
+    public route: ActivatedRoute,private tokenStorage: TokenStorageService) {
       this.docForm = this.fb.group({
         branchCode: [""],
         branchname: [""],
         companyId:[""],
         location:[""],
         isactive:[false],
+        userid:[""]
       });
 
 
@@ -77,6 +79,7 @@ export class AddBranchComponent implements OnInit {
   }
 
   onSubmit(){
+    this.docForm.value.userid = this.tokenStorage.getUserId();
     this.branchMaster = this.docForm.value;
     console.log(this.branchMaster);
     if(this.docForm.valid){

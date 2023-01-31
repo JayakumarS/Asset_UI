@@ -10,6 +10,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { DepartmentMasterService } from '../../department-master/department-master.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { UserMasterService } from '../../user-master/user-master.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-company',
@@ -22,7 +23,6 @@ export class AddCompanyComponent implements OnInit {
   countryDdList=[];
   userDdList=[];
   requestId:any;
-  tokenStorage: any;
   edit:boolean=false;
 
   constructor(private fb: FormBuilder,
@@ -34,7 +34,8 @@ export class AddCompanyComponent implements OnInit {
     private spinner: NgxSpinnerService,
     public route: ActivatedRoute,
     private userMasterService: UserMasterService,
-    private router:Router) {
+    private router:Router,
+    private tokenStorage: TokenStorageService) {
 
       this.docForm = this.fb.group({
         // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -54,7 +55,8 @@ export class AddCompanyComponent implements OnInit {
         telephoneNo:["",[Validators.required]],
         personIncharge:["",[Validators.required]],
         isactive:[""],
-        companyId:[""]
+        companyId:[""],
+        userId:[""]
 
        
 
@@ -99,7 +101,8 @@ export class AddCompanyComponent implements OnInit {
 
   onSubmit(){
     if(this.docForm.valid){
-    this.company = this.docForm.value;
+      this.docForm.value.userId = this.tokenStorage.getUserId();
+    this.company = this.docForm.value;   
     console.log(this.company);
     this.companyService.addCompany(this.company);
     
