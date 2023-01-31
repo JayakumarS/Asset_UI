@@ -245,9 +245,9 @@ export class AddAssetMasterComponent
       error: (error) => {
       }
     });
+
     // vendor dropdown
-    //UOM Dropdown List
-    this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
       next: (data) => {
         this.uomList = data;
       },
@@ -279,7 +279,8 @@ export class AddAssetMasterComponent
     );
 
   //Assetuser dropdown
-  this.httpService.get<any>(this.commonService.getEmployeeDropdown).subscribe(
+  this.companyId=this.tokenStorage.getCompanyId();
+  this.httpService.get<any>(this.commonService.getEmployeeDropdownByCompany+"?companyId="+parseInt(this.companyId)).subscribe(
     (data) => {
       console.log(data);
       this.assetUserList = data;
