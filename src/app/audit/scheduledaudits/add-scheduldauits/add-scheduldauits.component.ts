@@ -49,6 +49,7 @@ export class AddScheduldauitsComponent implements OnInit {
   auditorList:any;
   edit:boolean=false;
   flag:boolean;
+  companyId: string;
 
 
   requestId: any;
@@ -151,8 +152,9 @@ export class AddScheduldauitsComponent implements OnInit {
     }
   });
 
-  this.httpService.get<any>(this.commonService.getassetname).subscribe({
-    next: (data) => {
+  this.companyId=this.tokenStorage.getCompanyId();
+  this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
+      next: (data) => {
       this.assetDropdownList = data;
     },
     error: (error) => {

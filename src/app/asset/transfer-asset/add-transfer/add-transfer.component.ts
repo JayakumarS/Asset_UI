@@ -148,7 +148,8 @@ export class AddTransferComponent implements OnInit {
   );
 
   // Asset Name Dropdown
-  this.httpService.get<any>(this.commonService.getassetname).subscribe(
+  this.companyId=this.tokenStorage.getCompanyId();
+  this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe(
     (data2) => {
       this.assetList = data2;
     },

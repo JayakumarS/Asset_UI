@@ -123,7 +123,8 @@ export class AddItSupportComponent implements OnInit {
 
   
    // assetname dropdown
-   this.httpService.get<any>(this.commonService.getassetname).subscribe({
+   this.companyId=this.tokenStorage.getCompanyId();
+   this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
     next: (data) => {
       this.assetnamelist = data;
     },
@@ -145,8 +146,9 @@ export class AddItSupportComponent implements OnInit {
   );
   }
   onsubmit(){// assetname dropdown
-    this.httpService.get<any>(this.commonService.getassetname).subscribe({
-     next: (data) => {
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
+      next: (data) => {
        this.assetnamelist = data;
      },
 

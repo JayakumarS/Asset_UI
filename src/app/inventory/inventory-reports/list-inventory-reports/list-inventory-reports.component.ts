@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
@@ -83,6 +84,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   isTblLoading: boolean;
   locationList =[];
   mainList =[];
+  companyId: string;
 
   columnsToDisplay = ["assetName", "categoryName", "location", "quantity"];
   innerDisplayedColumns = ["transferDate","transferQuantity","sourceLocation","destinationLocation"];
@@ -108,6 +110,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
     private stockVerificationService: StockVerificationService,
     private cd: ChangeDetectorRef,
     private commonService: CommonService,
+    private tokenStorage:TokenStorageService
 
 
     
@@ -125,7 +128,8 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
       availableQty: [""],
       orderQty: [""],
       workInQty: [""],
-      location: [""]
+      location: [""],
+   
     });
   }
 
@@ -165,7 +169,8 @@ this.viewReport();
 
 
  // Location dropdown
- this.httpService.get<any>(this.commonService.getassetname).subscribe({
+ this.companyId=this.tokenStorage.getCompanyId();
+ this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
   next: (data) => {
     this.itemNameDdList = data;
   },

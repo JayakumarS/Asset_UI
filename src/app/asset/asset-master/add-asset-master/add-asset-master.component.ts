@@ -77,6 +77,8 @@ export class AddAssetMasterComponent
   private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   assetUserList: any;
+  companyId: string;
+  branchId: string;
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -264,7 +266,9 @@ export class AddAssetMasterComponent
     });
 
     // assetname dropdown
-    this.httpService.get<any>(this.commonService.getassetname).subscribe({
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
+    
       next: (data) => {
         this.assetnamelist = data;
       },

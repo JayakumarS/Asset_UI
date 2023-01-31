@@ -62,7 +62,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   getAllCustomers(): void {
     console.log();
     this.companyId=this.tokenStorage.getCompanyId();
-    // this.branchId= this.tokenStorage.getBranchId(),
+    this.branchId= this.tokenStorage.getBranchId(),
 
     this.subs.sink = this.httpService.get<AssetMasterResultBean>(this.getAllAssets+"?companyId="+this.companyId).subscribe(
       (data) => {
