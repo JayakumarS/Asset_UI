@@ -37,7 +37,7 @@ export class AddCategoryComponent implements OnInit {
      {  this.docForm = this.fb.group({
   
       categoryName: ["",[Validators.required]],
-      parentCategory: ["",[Validators.required]],
+      parentCategory: [""],
       Description:[""],
       isactive:[false],
       id:[""],

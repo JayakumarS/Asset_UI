@@ -44,7 +44,7 @@
                 </div>  
               </div> -->
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label >PARENT CATEGORY<span class="errorColor">*</span></label>
+                <label >PARENT CATEGORY</label>
             </div>
       
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
@@ -55,9 +55,7 @@
                         {{title.text}}
                     </mat-option>
                 </mat-select>
-                <mat-error *ngIf="docForm.get('parentCategory').hasError('required')">
-                  Parent Category is required
-                </mat-error>
+              
             </mat-form-field>
             </div> 
                 </div>
