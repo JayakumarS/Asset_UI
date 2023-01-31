@@ -27,9 +27,12 @@ export class AddUserMasterComponent implements OnInit {
   branchList = [];
   roleList = [];
   roleAuditList = [];
+  getUserBasedCompanyList = [];
+  getUserBasedBranchList = [];
   language: any;
   role: any;
   roleId:any;
+  userId:any;
   auditorFlag:boolean=false;
 
   constructor( private spinner: NgxSpinnerService,
@@ -78,7 +81,9 @@ export class AddUserMasterComponent implements OnInit {
       }
     });
 
-    this.roleId=this.tokenStorage.getRoleId();
+    this.userId = this.tokenStorage.getUserId();
+
+    this.roleId = this.tokenStorage.getRoleId();
     if(this.roleId==1){
       this.roleIdFlag=true;
     }else{
@@ -146,6 +151,34 @@ export class AddUserMasterComponent implements OnInit {
       console.log(error.name + " " + error.message);
     }
   );  
+
+   //User Based Company List
+   this.httpService.get<any>(this.userMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
+    (data) => {
+      this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  ); 
+
+  }
+
+  fetchBranchDetails(customer: any) {
+
+    this.userId = this.tokenStorage.getUserId();
+
+    this.httpService.get(this.userMasterService.fetchBranch + "?userId=" + this.userId).subscribe((res: any) => {
+      console.log(customer);
+
+      this.getUserBasedBranchList = res.getUserBasedBranchList;
+
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+
 
   }
 

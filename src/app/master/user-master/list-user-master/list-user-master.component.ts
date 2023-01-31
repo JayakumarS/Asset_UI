@@ -41,6 +41,7 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   id: number;
   permissionList: any;
   UserMaster: UserMaster | null;
+  userId: string;
 
   constructor(
     public httpClient: HttpClient,
@@ -81,8 +82,14 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
         this.spinner.hide();
       }
     });
-    this.loadData();
+    this.onSubmit();
   }
+
+  onSubmit(){
+    this.userId = this.tokenStorage.getUserId();
+    console.log(this.userId);
+    this.loadData();
+}
 
   refresh(){
     this.loadData();
@@ -93,7 +100,8 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort
+      this.sort,
+      this.userId
     );
     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
@@ -193,7 +201,8 @@ export class ExampleDataSource extends DataSource<UserMaster> {
   constructor(
     public exampleDatabase: UserMasterService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    public userId
   ) {
     super();
     // Reset to the first page when the user changes the filter.
@@ -208,7 +217,7 @@ export class ExampleDataSource extends DataSource<UserMaster> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList();
+    this.exampleDatabase.getAllList(this.userId);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
