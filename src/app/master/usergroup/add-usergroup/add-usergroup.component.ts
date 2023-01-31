@@ -56,8 +56,9 @@ export class AddUsergroupComponent implements OnInit {
       person:[""],
       branch:[""],
       user_mapping_id:[""],
+      person_in_charge:[""],
       loginedUser: this.tokenStorage.getUserId(),
-      
+    
       userDetailbean: this.fb.array([
         this.fb.group({
           users: '',
@@ -78,17 +79,12 @@ export class AddUsergroupComponent implements OnInit {
        this.requestId = params.id;
        this.edit=true;
        this.fetchDetails(this.requestId);
+      }
+    });
 
-      }
-    });
-    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
-      next: (data) => {
-        this.companyList = data;
-      },
-      error: (error) => {
-  
-      }
-    });
+    this.person_in_chargeList(this.docForm.value.loginedUser);
+    this.UserList(this.docForm.value.loginedUser);
+  this.RoleList(this.docForm.value.loginedUser);
 
     this.httpService.get<any>(this.commonService.getCompanyDetailDropdown).subscribe({
       next: (data) => {
@@ -135,6 +131,25 @@ export class AddUsergroupComponent implements OnInit {
 
 
   }
+
+
+  person_in_chargeList(companyName: any): void {
+    this.httpService.get(this.usergroupService.getCompanyDropdown+ "?person_in_charge=" + companyName).subscribe((res: any) => {
+      this.companyList = res;
+ });
+}
+ UserList(user:any):void {
+ this.httpService.get(this.usergroupService.getUserDropdown+ "?userId=" + user).subscribe((res: any) => {
+   this.userList = res; });
+
+}
+
+RoleList(user:any):void {
+  this.httpService.get(this.usergroupService.getRoleDropdown+ "?roleId=" + user).subscribe((res: any) => {
+    this.roleList = res; });
+ 
+ }
+
   fetchDetails(mapping_id: any): void {
     const obj = {
       editId: mapping_id

@@ -22,13 +22,16 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
      }
 
 
- public save = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/save`;
+ public save = `${this.serverUrl.apiServerAddress}app/userGroupMaster/save`;
   public editCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
-  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/getList`;
-  public editUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/edit`;
-  public updateUserGroup = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/update`;
-  public deleteUserGroup = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/delete`;
-  public branchDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/getDropdown`;
+  public getAllMasters = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getList`;
+  public editUserMaster = `${this.serverUrl.apiServerAddress}app/userGroupMaster/edit`;
+  public updateUserGroup = `${this.serverUrl.apiServerAddress}app/userGroupMaster/update`;
+  public deleteUserGroup = `${this.serverUrl.apiServerAddress}app/userGroupMaster/delete`;
+  public branchDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getDropdown`;
+  public getCompanyDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getCompanyDropdown`;
+  public getUserDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getUserDropdown`;
+  public getRoleDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getRoleDropdown`;
 
 
   get data(): UserGroupMaster[] {
