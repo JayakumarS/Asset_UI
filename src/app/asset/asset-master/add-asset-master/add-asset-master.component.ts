@@ -138,7 +138,7 @@ export class AddAssetMasterComponent
       allottedUpto: [""],
       transferredTo: [""],
       remarks: [""],
-      assetUser: [""],
+      assetUser: ["",[Validators.required]],
       invoiceDateobj: [""],
       captitalizationDateobj: [""],
       allottedUptoobj: [""],
