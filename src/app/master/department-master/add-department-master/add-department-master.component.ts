@@ -8,6 +8,7 @@ import { DepartmentMaster } from '../department-master.model';
 import { DepartmentMasterResultBean } from '../department-master-result-bean';
 import { DepartmentMasterService } from '../department-master.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-department-master',
@@ -19,13 +20,15 @@ export class AddDepartmentMasterComponent implements OnInit {
   departmentMaster: DepartmentMaster;
   requestId: number;
   edit:boolean=false;
-  tokenStorage: any;
   contactPersonList: [];
   locationDdList=[];
   companyList=[];
   branchList=[];
+  companyId: any;
+  branchId: any;
+  userId: any;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: FormBuilder,private tokenStorage: TokenStorageService,
     private departmentMasterService : DepartmentMasterService,
     private httpService: HttpServiceService,
     private commonService: CommonService,
@@ -51,6 +54,14 @@ export class AddDepartmentMasterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+     this.companyId=this.tokenStorage.getCompanyId();
+     console.log(this.companyId);
+    this.branchId=this.tokenStorage.getBranchId();
+    console.log(this.branchId);
+    this.userId=this.tokenStorage.getUserId();
+    console.log(this.userId);
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -63,7 +74,7 @@ export class AddDepartmentMasterComponent implements OnInit {
 
      
        // Contact Person dropdown
-       this.httpService.get<any>(this.departmentMasterService.getAdminDropdown).subscribe({
+       this.httpService.get<any>(this.departmentMasterService.getAdminDropdown+"?companyId="+this.companyId).subscribe({
         next: (data) => {
           this.locationDdList = data;
         },
@@ -73,8 +84,10 @@ export class AddDepartmentMasterComponent implements OnInit {
       }
       );
 
+ 
+
      // Company  Dropdown List
-    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getCompanyDropdown+"?userId="+this.userId).subscribe({
       next: (data) => {
         this.companyList = data;
       },
@@ -83,7 +96,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     });
 
       // Branch Dropdown List
-      this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
+      this.httpService.get<any>(this.commonService.getBranchDropdown+"?companyId="+this.companyId).subscribe({
         next: (data) => {
           this.branchList = data;
         },
