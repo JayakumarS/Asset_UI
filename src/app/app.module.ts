@@ -40,6 +40,7 @@ import {
   HttpClient,
 } from "@angular/common/http";
 import { MatDialogModule } from "@angular/material/dialog";
+import { httpInterceptorProviders } from "./auth/auth-interceptor";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -89,14 +90,15 @@ export function createTranslateLoader(http: HttpClient): any {
         MatSnackBarModule
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
-        {
-            provide: PERFECT_SCROLLBAR_CONFIG,
-            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
-        },
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        fakeBackendProvider,
+        // { provide: LocationStrategy, useClass: HashLocationStrategy },
+        // {
+        //     provide: PERFECT_SCROLLBAR_CONFIG,
+        //     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+        // },
+        // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        // fakeBackendProvider,
+        httpInterceptorProviders
     ],
     bootstrap: [AppComponent]
 })
