@@ -78,7 +78,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       country: [""],
       state: [""],
       postalcode: ["", [Validators.required]],
-      panno: [""],
+      panno: ["",[Validators.required]],
       vatno: [""],
       gstno: [""],
       cstno: [""],
@@ -399,7 +399,6 @@ keyPressNumeric(event: any) {
 
 keyPressAlphaNumeric(event: any) {
   const pattern = /[A-Z,a-z 0-9]/;
-
   const inputChar = String.fromCharCode(event.charCode);
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();

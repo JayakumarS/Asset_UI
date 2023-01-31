@@ -142,6 +142,8 @@ export class AddUsergroupComponent implements OnInit {
     this.spinner.show();
     this.usergroupService.editCompany(obj).subscribe({
       next: (res: any) => {
+        this.validationUserGroup(res.userBean.companyName);
+
         this.spinner.hide();
         this.docForm.patchValue({
           // 'companyId': res.companyBean.companyId,
@@ -150,9 +152,11 @@ export class AddUsergroupComponent implements OnInit {
           // 'person': res.companyBean.personIncharge,
           // 'telephone': res.companyBean.telephoneNo,
           'user_mapping_id':res.userBean.user_mapping_id,
+          
           'companyName':res.userBean.companyName,
           'branch':res.userBean.branch,
-          'users':res.userBean.users
+          'users':res.userBean.users,
+          'role':res.userBean.role
         })
 
           let manageAuditDtlArray = this.docForm.controls.userDetailbean as FormArray;
@@ -165,6 +169,7 @@ export class AddUsergroupComponent implements OnInit {
                  let arraylen = manageAuditDtlArray.length;
                  let newUsergroup: FormGroup = this.fb.group({
                   users:[element.users],
+                  role:[element.role]
                   
                 })
           manageAuditDtlArray.insert(arraylen,newUsergroup);
@@ -178,6 +183,22 @@ export class AddUsergroupComponent implements OnInit {
    
 
   })
+}
+
+validationUserGroup(branch: any) {
+
+  this.httpService.get(this.usergroupService.branchDropdown + "?Id=" + branch).subscribe((res: any) => {
+    console.log(branch);
+
+    this.branchDropDownList = res.branchDropDownList;
+
+  },
+    (err: HttpErrorResponse) => {
+      // error code here
+    }
+  );
+
+
 }
   onSubmit(){
       this.httpService.post<any>(this.usergroupService.save, this.docForm.value).subscribe(data => {
@@ -293,21 +314,7 @@ update(){
 
 }
 
-validationUserGroup(branch: any) {
 
-  this.httpService.get(this.usergroupService.branchDropdown + "?Id=" + branch).subscribe((res: any) => {
-    console.log(branch);
-
-    this.branchDropDownList = res.branchDropDownList;
-
-  },
-    (err: HttpErrorResponse) => {
-      // error code here
-    }
-  );
-
-
-}
 
 
 
