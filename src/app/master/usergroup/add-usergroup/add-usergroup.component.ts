@@ -151,6 +151,8 @@ RoleList(user:any):void {
  }
 
   fetchDetails(mapping_id: any): void {
+    this.person_in_chargeList(this.docForm.value.loginedUser);
+
     const obj = {
       editId: mapping_id
     }
@@ -168,7 +170,7 @@ RoleList(user:any):void {
           // 'telephone': res.companyBean.telephoneNo,
           'user_mapping_id':res.userBean.user_mapping_id,
           
-          'companyName':res.userBean.companyName,
+          'companyName':res.userBean.companyName.toString(),
           'branch':res.userBean.branch,
           'users':res.userBean.users,
           'role':res.userBean.role
@@ -330,9 +332,10 @@ update(){
 }
 
 
-
-
-
+removeRow(index){
+  let scheduledListDetailArray = this.docForm.controls.userDetailbean as FormArray;
+  scheduledListDetailArray.removeAt(index);
+}
 onCancel(){
 this.router.navigate(['master/usergroup/listusergroup'])
 }
