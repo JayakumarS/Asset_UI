@@ -26,7 +26,7 @@ export class AddLocationComponent implements OnInit {
   docForm: FormGroup;
   requestId: number;
   edit:boolean=false;
-
+  company=[];
   hide3 = true;
   agree3 = false;
   dataarray = [];
@@ -87,7 +87,8 @@ export class AddLocationComponent implements OnInit {
       primaryLocation: [""],
       alternateLocation: [""],
       company:this.tokenStorage.getCompanyId(),
-      branchId:this.tokenStorage.getBranchId()
+      branchId:this.tokenStorage.getBranchId(),
+      userId:this.tokenStorage.getUserId()
     });
     this.route.params.subscribe(params => {
       if (params.id!=undefined && params.id!=0){
@@ -111,7 +112,7 @@ export class AddLocationComponent implements OnInit {
       }
     });
 
-    // Location dropdown
+    // CompanygetCompanyDropdown dropdown
     this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
       next: (data) => {
         this.companyList = data;
@@ -120,15 +121,29 @@ export class AddLocationComponent implements OnInit {
 
       }
     });
-
+    this.getUserbasedcompanyDropdown(this.docForm.value.userId);
   }
+
+
+
 // location list
 getCompanybasedlocationDropdown(companyId: any): void {
   this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId=" + companyId).subscribe((res: any) => {
   this.locationList = res.addressBean;
 });
 }
-
+// company list
+getUserbasedcompanyDropdown(userId: any): void {
+  this.httpService.get(this.commonService.getcompanyDropdown + "?companyId=" + userId).subscribe((res: any) => {
+  this.company = res.addressBean;
+});
+}
+// // location head list
+// getcompanybasedLocationHeadDropdown(userId: any): void {
+//   this.httpService.get(this.commonService.getcompanybasedLocationHeadDropdown + "?companyId=" + userId).subscribe((res: any) => {
+//   this.locationDdList = res.addressBean;
+// });
+// }
 
 
   onSubmit() {
