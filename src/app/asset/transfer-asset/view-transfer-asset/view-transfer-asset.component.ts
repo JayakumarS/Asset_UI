@@ -22,6 +22,7 @@ export class ViewTransferAssetComponent implements OnInit {
   transferDetails:any=[];
   transferDetails2:any=[];
   detailValue=[];
+  companyId: any;
   constructor(private fb: FormBuilder,
     public router: Router,
     private notificationService: NotificationService,
@@ -70,7 +71,8 @@ export class ViewTransferAssetComponent implements OnInit {
   }
 
   getRequestDetails(data:any){
-    this.httpService.get<any>(this.transferAssetService.getRequestDetails + "?requestId=" + data).subscribe(
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.transferAssetService.getRequestDetails + "?requestId=" + data+"&companyId="+this.companyId).subscribe(
       (data5) => {
         console.log(data5);
         this.transferDetails=data5.transferBean;
