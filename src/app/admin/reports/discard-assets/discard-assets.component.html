@@ -106,21 +106,31 @@
                                   <td mat-cell *matCellDef="let row"> {{row.docRef}}
                                   </td>
                               </ng-container> -->
-                              <!-- <ng-container matColumnDef="transferQuantity">
-                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer Quantity</th>
-                                  <td mat-cell *matCellDef="let row"> {{row.transferQuantity}}
+                               <ng-container matColumnDef="srcLocation">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer From</th>
+                                  <td mat-cell *matCellDef="let row"> {{row.srcLocation}}
                                   </td>
-                              </ng-container> -->
-                              <ng-container matColumnDef="locationName">
-                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Transferred Locations</th>
-                                  <td mat-cell *matCellDef="let row"> {{row.locationName}}
+                              </ng-container> 
+                              <ng-container matColumnDef="dtnLocation">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Transferred To</th>
+                                  <td mat-cell *matCellDef="let row"> {{row.dtnLocation}}
                                   </td>
                               </ng-container>
-                              <!-- <ng-container matColumnDef="locationName">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Location2</th>
-                                <td mat-cell *matCellDef="let row"> {{row.locationName}}
+                              <ng-container matColumnDef="assetUser">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>User</th>
+                                <td mat-cell *matCellDef="let row"> {{row.assetUser}}
                                 </td>
-                            </ng-container> -->
+                            </ng-container> 
+                            <ng-container matColumnDef="transferDate">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer Date</th>
+                              <td mat-cell *matCellDef="let row"> {{row.transferDate}}
+                              </td>
+                          </ng-container> 
+                          <ng-container matColumnDef="assetIdDiscard">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset Id</th>
+                            <td mat-cell *matCellDef="let row"> {{row.assetIdDiscard}}
+                            </td>
+                        </ng-container> 
                               <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
                               <tr mat-row *matRowDef="let element; columns: innerDisplayedColumns;"></tr>
                            
