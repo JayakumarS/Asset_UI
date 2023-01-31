@@ -80,7 +80,7 @@ export class AddLocationComponent implements OnInit {
       locationCode: ["", [Validators.required]],
       locationName: ["", [Validators.required]],
       // cslLocationCode: ["", [Validators.required]],
-      parentLocation: ["", [Validators.required]],
+      parentLocation: [""],
       description: [""],
       active: [""],
       cascade: [""],
