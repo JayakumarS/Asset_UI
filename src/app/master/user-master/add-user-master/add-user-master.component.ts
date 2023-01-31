@@ -61,6 +61,8 @@ export class AddUserMasterComponent implements OnInit {
       active: [""],
       branch: [""],
       auditor: [""],
+      companyid:[""],
+      branchid:[""]
 
     //  loginedUser: this.tokenStorage.getUserId(),
     });
