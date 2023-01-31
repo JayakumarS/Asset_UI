@@ -135,17 +135,8 @@ export class AddAssetRequisitionComponent implements OnInit {
   //   }
   // );
 
-  // Location list dropdown
-  // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe(
-  //   (data) => {
-  //     this.locationList = data;
-  //   },
-  //   (error: HttpErrorResponse) => {
-  //     console.log(error.name + " " + error.message);
-  //   }
-  // );
-
-  this.httpService.get<any>(this.commonService.getLocationDropdownByCompany+"?companyId="+parseInt(this.companyId)).subscribe(
+  //Location list dropdown
+  this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe(
     (data) => {
       this.locationList = data;
     },
@@ -153,6 +144,15 @@ export class AddAssetRequisitionComponent implements OnInit {
       console.log(error.name + " " + error.message);
     }
   );
+
+  // this.httpService.get<any>(this.commonService.getLocationDropdownByCompany+"?companyId="+parseInt(this.companyId)).subscribe(
+  //   (data) => {
+  //     this.locationList = data;
+  //   },
+  //   (error: HttpErrorResponse) => {
+  //     console.log(error.name + " " + error.message);
+  //   }
+  // );
 
   //Employee dropdown
   // this.httpService.get<any>(this.commonService.getEmployeeDropdown).subscribe(
