@@ -57,7 +57,7 @@
 
                 <div class="row">
                 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label >COUNTRY<span class="errorColor">*</span></label>
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
@@ -71,14 +71,27 @@
                         Country is required
                       </mat-error>
                   </mat-form-field>
-              </div>
+              </div> -->
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label >FAX NO</label>
+            </div> 
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                
+                <input matInput formControlName="faxNo">
+                 <!-- <mat-error *ngIf="docForm.get('faxNo').hasError('required')">
+                  Fax No is required
+                </mat-error>  -->
+              </mat-form-field>
+            </div>
                
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <label >TELEPHONE NUMBER<span class="errorColor">*</span></label>
             </div> 
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="telephoneNo" maxlength="10" required>
+                <input matInput formControlName="telephoneNo" maxlength="20" required>
                 <mat-error *ngIf="docForm.get('telephoneNo').hasError('required')">
                   Phone No is required
                 </mat-error> 
@@ -107,30 +120,52 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <!-- <textarea matInput formControlName="emailId"></textarea> -->
-                      <input matInput formControlName="emailId" required *ngIf="edit == false">
+                      <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required *ngIf="edit == false">
                       <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
                       <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                         Email is required
-                      </mat-error> 
+                      </mat-error>
+                      <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
+                        EmailId Already Exists !!!
+                      </mat-error>
+                      <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
+                        Valid Email Id Required
+                      </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
 
                 <div class="row">
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label >COUNTRY<span class="errorColor">*</span></label>
+                </div> 
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="country">
+                          <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                              {{title.text}}
+                          </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="docForm.get('country').hasError('required')">
+                        Country is required
+                      </mat-error>
+                  </mat-form-field>
+              </div>
                 
                   
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                   <label >FAX NO</label>
               </div> 
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   
-                  <input matInput formControlName="faxNo">
+                  <input matInput formControlName="faxNo"> -->
                    <!-- <mat-error *ngIf="docForm.get('faxNo').hasError('required')">
                     Fax No is required
                   </mat-error>  -->
-                </mat-form-field>
-              </div>
+                <!-- </mat-form-field>
+              </div> -->
                
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                       <label >PERSON IN-CHARGE<span class="errorColor">*</span></label>

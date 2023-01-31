@@ -9,6 +9,7 @@ import { CompanyService } from '../company.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { DepartmentMasterService } from '../../department-master/department-master.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { UserMasterService } from '../../user-master/user-master.service';
 
 @Component({
   selector: 'app-add-company',
@@ -32,6 +33,7 @@ export class AddCompanyComponent implements OnInit {
     private snackBar:MatSnackBar,
     private spinner: NgxSpinnerService,
     public route: ActivatedRoute,
+    private userMasterService: UserMasterService,
     private router:Router) {
 
       this.docForm = this.fb.group({
@@ -48,7 +50,7 @@ export class AddCompanyComponent implements OnInit {
         country:["",[Validators.required]],
         faxNo:[""],
         address:["",[Validators.required]],
-        emailId:["",[Validators.required]],
+        emailId:["",[Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
         telephoneNo:["",[Validators.required]],
         personIncharge:["",[Validators.required]],
         isactive:[""],
@@ -171,6 +173,18 @@ export class AddCompanyComponent implements OnInit {
       this.fetchDetails(this.requestId);
     }
   }
+
+  validateEmail(event){
+    this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.docForm.controls['emailId'].setErrors({ employee: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
+
+
 
   update(){
 
