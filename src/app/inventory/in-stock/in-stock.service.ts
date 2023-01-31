@@ -26,8 +26,8 @@ export class InStockService extends UnsubscribeOnDestroyAdapter{
 
   private getInventoryList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getInventoryList`;
   private saveInventory= `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/saveInventory`;
-  public locationserviceUrl= `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/getlocationList`;
-  public activityserviceurl= `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/getactivityList`;
+  public locationserviceUrl= `${this.serverUrl.apiServerAddress}app/locationMaster/getlocationList`;
+  public activityserviceurl= `${this.serverUrl.apiServerAddress}app/activitymaster/getactivityList`;
   public editScheduleMaster= `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/edit`;
   public updateSchedule =  `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/update`;
   public deleteschedule = `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/delete`;

@@ -27,12 +27,12 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,public tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/getList`;
-  private saveLocation = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/save`;
-  public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/getCurrencyList`;
-  public deleteLocation = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/delete`;
-   public editLocation = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/edit`;
-  public updateLocation = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/update`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/locationMaster/getList`;
+  private saveLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/save`;
+  public currencyListUrl = `${this.serverUrl.apiServerAddress}app/locationMaster/getCurrencyList`;
+  public deleteLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/delete`;
+   public editLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/edit`;
+  public updateLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/update`;
   get data(): LocationMaster[] {
     return this.dataChange.value;
   }

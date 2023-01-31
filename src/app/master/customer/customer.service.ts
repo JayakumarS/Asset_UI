@@ -30,11 +30,11 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
     super();
   }
 
-  private saveCoustomer = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/save`;
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/getCustomerList`;
-  public editcustomer = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/edit`;
-  public updatecustomer = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/update`;
-  public deletecustomer = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/delete`;
+  private saveCoustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/save`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/customerMaster/getCustomerList`;
+  public editcustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/edit`;
+  public updatecustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/update`;
+  public deletecustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/delete`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
 

@@ -47,7 +47,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   public categoryDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getCategoryDropdown`;
   public locationDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getLocationDropdown`;
   public departmentDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getDepartmentDropdown`;
-  public commoditylist = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
+  public commoditylist = `${this.serverUrl.apiServerAddress}app/countryMaster/getCategoryList`;
   public saveGRNBasedMutipleAsset = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/saveGRNBasedMutipleAsset`;
   public exportPdfBulkAssetQRcode = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/exportPdf_BulkAssetQRcode`;
 

@@ -30,11 +30,11 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter {
     super();
   }
 
-  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getList`;
-  public saveCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/save`;
-  public editCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/edit`;
-  public updateCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/update`;
-  public deleteCountryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/delete`;
+  public getAllMasters = `${this.serverUrl.apiServerAddress}app/countryMaster/getList`;
+  public saveCountryMaster = `${this.serverUrl.apiServerAddress}app/countryMaster/save`;
+  public editCountryMaster = `${this.serverUrl.apiServerAddress}app/countryMaster/edit`;
+  public updateCountryMaster = `${this.serverUrl.apiServerAddress}app/countryMaster/update`;
+  public deleteCountryMaster = `${this.serverUrl.apiServerAddress}app/countryMaster/delete`;
   
   get data(): CountryMaster[] {
     return this.dataChange.value;

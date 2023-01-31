@@ -22,16 +22,16 @@ export class TransferService extends UnsubscribeOnDestroyAdapter {
   super();
 
   }
-  private save = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/save`;
-  public addCreditFiles = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/uploadFile`;
-  public transferListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/gettrasferList`;
-  public locationserviceUrl= `${this.serverUrl.apiServerAddress}api/auth/app/transfer/getlocationList`;
-  private getAlltransfer=`${this.serverUrl.apiServerAddress}api/auth/app/transfer/getList`;
-  public editTransfer =`${this.serverUrl.apiServerAddress}api/auth/app/transfer/edit`;
-  public updateTransfer =`${this.serverUrl.apiServerAddress}api/auth/app/transfer/update`;
-  public deleteTransfer =`${this.serverUrl.apiServerAddress}api/auth/app/transfer/delete`;
-  public codeserviceUrl=`${this.serverUrl.apiServerAddress}api/auth/app/transfer/getcodeList`;
-  public transferCodeAll = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/gettransferCodelist`;
+  private save = `${this.serverUrl.apiServerAddress}app/transfer/save`;
+  public addCreditFiles = `${this.serverUrl.apiServerAddress}app/transfer/uploadFile`;
+  public transferListUrl = `${this.serverUrl.apiServerAddress}app/transfer/gettrasferList`;
+  public locationserviceUrl= `${this.serverUrl.apiServerAddress}app/transfer/getlocationList`;
+  private getAlltransfer=`${this.serverUrl.apiServerAddress}app/transfer/getList`;
+  public editTransfer =`${this.serverUrl.apiServerAddress}app/transfer/edit`;
+  public updateTransfer =`${this.serverUrl.apiServerAddress}app/transfer/update`;
+  public deleteTransfer =`${this.serverUrl.apiServerAddress}app/transfer/delete`;
+  public codeserviceUrl=`${this.serverUrl.apiServerAddress}app/transfer/getcodeList`;
+  public transferCodeAll = `${this.serverUrl.apiServerAddress}app/transfer/gettransferCodelist`;
 
   get data(): TraansferService[] {
     return this.dataChange.value;

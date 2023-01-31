@@ -22,11 +22,11 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/getList`;
-  private saveDesignation = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/save`;
-  public editDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/edit`;
-  public updateDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/update`;
-  private deleteDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/delete`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/activitymaster/getList`;
+  private saveDesignation = `${this.serverUrl.apiServerAddress}app/activitymaster/save`;
+  public editDesignationMaster = `${this.serverUrl.apiServerAddress}app/activitymaster/edit`;
+  public updateDesignationMaster = `${this.serverUrl.apiServerAddress}app/activitymaster/update`;
+  private deleteDesignationMaster = `${this.serverUrl.apiServerAddress}app/activitymaster/delete`;
 
   
   

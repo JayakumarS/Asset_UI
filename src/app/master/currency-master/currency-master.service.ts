@@ -30,11 +30,11 @@ export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,public tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/getList`;
-  private saveCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/save`;
-  public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/edit`;
-  public updateCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/update`;
-  public deleteCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currencyMaster/delete`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/currencyMaster/getList`;
+  private saveCurrency = `${this.serverUrl.apiServerAddress}app/currencyMaster/save`;
+  public editDepartment = `${this.serverUrl.apiServerAddress}app/currencyMaster/edit`;
+  public updateCurrency = `${this.serverUrl.apiServerAddress}app/currencyMaster/update`;
+  public deleteCurrency = `${this.serverUrl.apiServerAddress}app/currencyMaster/delete`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
   get data(): CurrencyMaster[] {
