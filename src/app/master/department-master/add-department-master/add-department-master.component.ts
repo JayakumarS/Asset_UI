@@ -27,6 +27,8 @@ export class AddDepartmentMasterComponent implements OnInit {
   companyId: any;
   branchId: any;
   userId: any;
+  getUserBasedCompanyList = [];
+  getUserBasedBranchList = [];
 
   constructor(private fb: FormBuilder,private tokenStorage: TokenStorageService,
     private departmentMasterService : DepartmentMasterService,
@@ -103,7 +105,40 @@ export class AddDepartmentMasterComponent implements OnInit {
         error: (error) => {
         }
       });
+
+
+
+      //User Based Company List
+   this.httpService.get<any>(this.departmentMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
+    (data) => {
+      this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  ); 
+
+
   }
+
+  fetchBranchDetails(customer: any) {
+
+    this.userId = this.tokenStorage.getUserId();
+
+    this.httpService.get(this.departmentMasterService.fetchBranch + "?userId=" + this.userId).subscribe((res: any) => {
+      console.log(customer);
+
+      this.getUserBasedBranchList = res.getUserBasedBranchList;
+
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+
+
+  }
+  
 
   onSubmit(){
     // if(this.docForm.controls.isactive.value==""){

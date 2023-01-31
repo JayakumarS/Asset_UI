@@ -29,7 +29,7 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
     super();
   }
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/department/getList`;
-  private saveDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/save`;
+  private saveDepartment = `${this.serverUrl.apiServerAddress}/app/department/save`;
   public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/edit`;
   public updateDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/update`;
   public deleteDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/delete`;
@@ -41,6 +41,8 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
 
   public getCompanyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/department/getCompanyDropdown`;
 
+  public companyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/department/userBasedCompanyList`;
+  public fetchBranch = `${this.serverUrl.apiServerAddress}api/auth/app/department/userBasedBranchList`;
 
 
   get data(): DepartmentMaster[] {
