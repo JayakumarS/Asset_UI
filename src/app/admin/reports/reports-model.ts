@@ -10,7 +10,7 @@ export class Reportscategory{
     
     startdate:string;
     enddate:string;
-    company:string;
+    company_id:string;
     username:string;
     startdateObj:string;
     enddateObj:string;
@@ -29,7 +29,7 @@ export class Reportscategory{
           this.discard_date = reportscategory.discard_date || "";
           this.startdate = reportscategory.startdate || "";
           this.enddate = reportscategory.enddate || "";
-          this.company = reportscategory.company || "";
+          this.company_id = reportscategory.company_id || "";
           this.username = reportscategory.username || "";
           this.startdateObj = reportscategory.startdateObj || "";
           this.enddateObj = reportscategory.enddateObj || "";

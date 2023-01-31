@@ -35,6 +35,8 @@ public currentUser: Observable<User>;
   getUserName = `${this.serverURL.apiServerAddress}api/auth/getUserName`;
   getFormPropertyMenuUrl = `${this.serverURL.apiServerAddress}api/auth/formProperty/getFormProperty`;
   insertCusMaster = `${this.serverURL.apiServerAddress}api/customerMaster/save`;
+  getSuccessUserLogData = `${this.serverURL.apiServerAddress}api/auth/app/userLog/login_data_success_user_log`;
+
   // insertSalesEntry = `${this.serverURL.apiServerAddress}api/salesCallEntry/save`;
 
   attemptAuth(credentials: AuthLoginInfo): Observable<any> {
@@ -81,9 +83,15 @@ public currentUser: Observable<User>;
     return this.httpService.get<NavItem>(this.getFormPropertyMenuUrl + '?userId=' + userId);
   }
 
+  //user_log
+  getSuccessuserLog(obj: any) {
+    return this.http.post(this.getSuccessUserLogData, obj);
+  }
   cusMaster(cusMasterData : any){
     return this.http.post(this.insertCusMaster,cusMasterData, httpOptions);
   }
+
+ 
 
   // salesCallEntry(salesEntryData : any){
   //   return this.http.post(this.insertSalesEntry,salesEntryData, httpOptions);

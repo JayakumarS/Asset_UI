@@ -24,6 +24,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { CommonService } from 'src/app/common-service/common.service';
 import { reportsresultbean } from '../reports-result-bean';
 import { ReportsService } from '../reports.service';
+import { Reportscategory } from '../reports-model';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -55,26 +56,25 @@ export const MY_DATE_FORMATS = {
 export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     "startdate",
-    "enddate",
-    "company",
+    "status",
     "username",
    
   ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: AuditableAssetService | null;
-  selection = new SelectionModel<AuditableAsset>(true, []);
+  exampleDatabase: ReportsService | null;
+  selection = new SelectionModel<Reportscategory>(true, []);
   index: number;
   id: number;
   docForm: FormGroup;
-  locationMaster: AuditableAsset | null;
+  locationMaster: Reportscategory | null;
   companyList:[""];
   usernamelist:[];
   constructor(
     private cmnService:CommonService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public locationMasterService: AuditableAssetService,
+    public locationMasterService: ReportsService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private router: Router,
@@ -90,7 +90,7 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
       enddate: [""],
       startdate: [""],
       enddateObj: [""],
-      company:[""],
+      company_id:[""],
       username:[""]
 
     });
@@ -134,13 +134,13 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
 
   getDateString(event,inputFlag,index){
     let cdate = this.cmnService.getDate(event.target.value);
-    if(inputFlag=='reportdate'){
-      this.docForm.patchValue({reportdate:cdate});
+    if(inputFlag=='startdate'){
+      this.docForm.patchValue({startdate:cdate});
     }
   }
 
   public loadData() {
-    this.exampleDatabase = new AuditableAssetService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new ReportsService(this.httpClient,this.serverUrl,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -158,7 +158,6 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
   }
   editCall(row) {
 
-    this.router.navigate(['/audit/auditableAsset/addAuditableAsset/'+row.assetid]);
   
   }
 
@@ -170,71 +169,22 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
     }
   }
 
-  financialYearPatch(event:any){
-    this.docForm.patchValue({
-      'financial_year': event.value,
-   })
-  }
+ 
 
   onSubmit(){
    
     this.locationMaster = this.docForm.value;
     console.log(this.locationMaster);
     this.loadData();
+
 }
 
   viewCall(row) {
-    // this.index = i;
-    this.id = row.scheduleId;
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(AuditableAssetPopUpComponent, {
-      // height: "480px",
-      // width: "800px",
-      data: row,
-      direction: tempDirection,
-    });
+   
   }
 
  deleteItem(i, row) {
-    this.index = i;
-    this.id = row.scheduleId;
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(DeleteScheduleActivityComponent, {
-      height: "270px",
-      width: "400px",
-      data: row,
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      this.loadData();
-      if(data==1)[
-        this.showNotification(
-          "snackbar-success",
-          " Successfully deleted",
-          "bottom",
-          "center"
-        )
-        ]
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
+   
   }
   // showNotification(arg0: string, arg1: string, arg2: string, arg3: string) {
   //   throw new Error('Method not implemented.');
@@ -253,7 +203,7 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
   }
 // context menu
 
-  onContextMenu(event: MouseEvent, item: AuditableAsset) {
+  onContextMenu(event: MouseEvent, item: Reportscategory) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -264,7 +214,7 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
 }
 
 
-export class ExampleDataSource extends DataSource<AuditableAsset> {
+export class ExampleDataSource extends DataSource<Reportscategory> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -272,10 +222,10 @@ export class ExampleDataSource extends DataSource<AuditableAsset> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: AuditableAsset[] = [];
-  renderedData: AuditableAsset[] = [];
+  filteredData: Reportscategory[] = [];
+  renderedData: Reportscategory[] = [];
   constructor(
-    public exampleDatabase: AuditableAssetService,
+    public exampleDatabase: ReportsService,
     public paginator: MatPaginator,
     public _sort: MatSort,
     public docForm: FormGroup
@@ -285,7 +235,7 @@ export class ExampleDataSource extends DataSource<AuditableAsset> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<AuditableAsset[]> {
+  connect(): Observable<Reportscategory[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -293,18 +243,18 @@ export class ExampleDataSource extends DataSource<AuditableAsset> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList(this.docForm.value);
+    this.exampleDatabase.userloglist;
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((locationMaster: AuditableAsset) => {
+          .filter((locationMaster: Reportscategory) => {
             const searchStr = (
-              locationMaster.slno +
-              locationMaster.assetid +
-              locationMaster.assetname +
-              locationMaster.acquisitiondt 
+              locationMaster.startdate +
+              locationMaster.enddate +
+              locationMaster.username 
+             
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -323,7 +273,7 @@ export class ExampleDataSource extends DataSource<AuditableAsset> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: AuditableAsset[]): AuditableAsset[] {
+  sortData(data: Reportscategory[]): Reportscategory[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -331,18 +281,16 @@ export class ExampleDataSource extends DataSource<AuditableAsset> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        case "startdate":
+          [propertyA, propertyB] = [a.startdate, b.startdate];
           break;
-        case "slno":
-          [propertyA, propertyB] = [a.slno, b.slno];
+        case "enddate":
+          [propertyA, propertyB] = [a.enddate, b.enddate];
           break;
-        case "assetid":
-          [propertyA, propertyB] = [a.assetid, b.assetid];
+        case "username":
+          [propertyA, propertyB] = [a.username, b.username];
           break;
-        case "assetname":
-          [propertyA, propertyB] = [a.assetname, b.assetname];
-          break;
+        
        
        
         

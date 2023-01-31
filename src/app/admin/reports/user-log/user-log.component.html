@@ -58,12 +58,12 @@
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                    
-                <mat-select class="inputTxt" formControlName="company">
+                <mat-select class="inputTxt" formControlName="company_id">
                   <mat-option *ngFor="let title of companyList" [value]="title.text">
                       {{title.text}}
                   </mat-option>
               </mat-select>
-              <mat-error *ngIf="docForm.get('company').hasError('required')">
+              <mat-error *ngIf="docForm.get('company_id').hasError('required')">
                   Contact Person is required
               </mat-error>
                   </mat-form-field>
@@ -94,7 +94,7 @@
 
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-top: -34px; margin-left: 570px;">
                   <button class="btn-space" mat-raised-button (click) = "onSubmit()"
-                    color="primary" >Refresh</button>
+                    color="primary" >Reset</button>
                 </div>
               </div>
             </form>
@@ -128,16 +128,13 @@
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
                 
+               
                 <ng-container matColumnDef="startdate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>START DATE</mat-header-cell>
-                  <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startdate}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="enddate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>END DATE</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>DATE</mat-header-cell>
                   <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.enddate}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="company">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>COMPANY</mat-header-cell>
+                <ng-container matColumnDef="status">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</mat-header-cell>
                   <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.company}}
                   </mat-cell>
                 </ng-container>
