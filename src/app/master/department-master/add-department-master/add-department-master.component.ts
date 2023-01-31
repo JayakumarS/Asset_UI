@@ -87,7 +87,7 @@ export class AddDepartmentMasterComponent implements OnInit {
  
 
      // Company  Dropdown List
-    this.httpService.get<any>(this.commonService.getCompanyDropdown+"?userId="+this.userId).subscribe({
+    this.httpService.get<any>(this.departmentMasterService.getCompanyDropdown+"?userId="+this.userId).subscribe({
       next: (data) => {
         this.companyList = data;
       },
@@ -96,7 +96,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     });
 
       // Branch Dropdown List
-      this.httpService.get<any>(this.commonService.getBranchDropdown+"?companyId="+this.companyId).subscribe({
+      this.httpService.get<any>(this.departmentMasterService.getBranchDropdown+"?companyId="+this.companyId).subscribe({
         next: (data) => {
           this.branchList = data;
         },
