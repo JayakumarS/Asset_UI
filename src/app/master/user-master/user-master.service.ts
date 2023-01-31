@@ -41,9 +41,11 @@ export class UserMasterService extends UnsubscribeOnDestroyAdapter {
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
   public roleListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getRoleListDropdown`;
   public roleListAuditUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getRoleListDropdownForAudit`;
+  public companyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/userBasedCompanyList`;
+  public fetchBranch = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/userBasedBranchList`;
 
-  getAllList(): void {
-    this.subs.sink = this.httpService.get<UserMasterResultBean>(this.getUserList).subscribe(
+  getAllList(userId:any): void {
+    this.subs.sink = this.httpService.get<UserMasterResultBean>(this.getUserList + "?userId=" + userId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.userMasterDetails);

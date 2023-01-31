@@ -188,8 +188,8 @@
                               </div>
                               <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-select class="inputTxt" formControlName="company">
-                                    <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                  <mat-select class="inputTxt" formControlName="company" (selectionChange)="fetchBranchDetails($event.value)">
+                                    <mat-option *ngFor="let title of getUserBasedCompanyList" [value]="title.id">
                                         {{title.text}}
                                     </mat-option>
                                 </mat-select>
@@ -201,7 +201,7 @@
                                 <div class=" col-md-3">
                                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                     <mat-select class="inputTxt" formControlName="branch">
-                                      <mat-option *ngFor="let title of branchList" [value]="title.id">
+                                      <mat-option *ngFor="let title of getUserBasedBranchList" [value]="title.id">
                                           {{title.text}}
                                       </mat-option>
                                   </mat-select>
