@@ -14,6 +14,7 @@ export class Company {
         active:any;
         companyId:number;
         isactive: boolean;
+        userId:string;
 
 
         
@@ -30,6 +31,7 @@ export class Company {
       this.telephoneNo = company.telephoneNo || "";
       this.personIncharge = company.personIncharge || "";
       this.isactive = company.isactive || "";
+      this.userId = company.userId || "";
     }
   }
   public getRandomID(): string {

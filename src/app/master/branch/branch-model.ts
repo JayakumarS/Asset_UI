@@ -8,6 +8,7 @@ export class Branch {
     Success:boolean;
     companyId: any;
     companyName:any;
+    userid:string;
   
     constructor(branch) {
       {
@@ -17,6 +18,7 @@ export class Branch {
         this.branchname = branch.branchname || "";
         this.locationName = branch.locationName || "";
         this.companyName = branch.companyName || "";
+        this.userid = branch.userId || "";
       }
     }
     public getRandomID(): string {
