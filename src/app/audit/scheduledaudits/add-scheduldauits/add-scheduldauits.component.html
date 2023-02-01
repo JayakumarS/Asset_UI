@@ -41,6 +41,9 @@
                                                           {{title.text}}
                                                         </mat-option>
                                                       </mat-select>
+                                                      <mat-error *ngIf="docForm.get('companyName').hasError('required')">
+                                                        Company Name is required
+                                                    </mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left: -28%;">
@@ -51,7 +54,7 @@
                                                     (dateChange)="getDateString($event, 'startDate',0)" required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker1></mat-datepicker>
-                                                    <mat-error *ngIf="docForm.get('startDate').hasError('required')">
+                                                    <mat-error *ngIf="docForm.get('startDateObj').hasError('required')">
                                                         Audit Date is required
                                                       </mat-error>
     
