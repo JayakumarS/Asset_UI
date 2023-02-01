@@ -15,7 +15,7 @@
                   <div class=" col-md-2">
                     <mat-label >IS AUDITOR</mat-label></div>
                   <div class=" col-md-3">
-                     <mat-checkbox  ngInit="checked=true"  formControlName="auditor" (change)="fieldsChange($event)" STYLE="margin-left: 10px;"></mat-checkbox>
+                     <mat-checkbox  ngInit="checked=true"  formControlName="auditor" (change)="fieldsChange($event)"   STYLE="margin-left: 10px;"></mat-checkbox>
                   </div>
                   </div>
                   <br *ngIf="roleIdFlag">
@@ -95,24 +95,33 @@
                   </div>
                   <div class="row">
                     <div class=" col-md-2">
-                      <mat-label >Department</mat-label>
+                      <mat-label >DEPARTMENT</mat-label>
                       </div>
-                      <div class=" col-md-3">
+                      <div class=" col-md-3" *ngIf="auditorFlag">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select class="inputTxt" formControlName="department">
-                          <mat-option *ngFor="let title of departmentDdList" [value]="title.id">
+                          <mat-option *ngFor="let title of departmentAuditList" [value]="title.id">
                               {{title.text}}
                           </mat-option>
                       </mat-select>
                   </mat-form-field>
                   </div>
+                  <div class=" col-md-3" *ngIf="!auditorFlag">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-select class="inputTxt" formControlName="department">
+                      <mat-option *ngFor="let title of departmentList" [value]="title.id">
+                          {{title.text}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              </div>
                   <div class=" col-md-2">
                     <mat-label >REPORTING MANAGER</mat-label>
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select class="inputTxt" formControlName="repmanager">
-                        <mat-option *ngFor="let title of userLocationDdList" [value]="title.id">
+                        <mat-option *ngFor="let title of getReportingManList" [value]="title.id">
                             {{title.text}}
                         </mat-option>
                     </mat-select>
@@ -175,7 +184,7 @@
                             <div class=" col-md-3">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="location">
-                                <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                <mat-option *ngFor="let title of getPrimaryLocList" [value]="title.id">
                                     {{title.text}}
                                 </mat-option>
                             </mat-select>
@@ -218,12 +227,41 @@
                          <mat-checkbox  ngInit="checked=true" formControlName="userLocation" STYLE="margin-left: 10px;"></mat-checkbox>
                       </div>
                     </div> -->
+
+                    <div class="row">
+                      <div class=" col-md-2">
+                        <mat-label >ADDRESS </mat-label>
+                        </div>
+                        <div class=" col-md-3">
+                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <input matInput formControlName="address">
+                           
+                          </mat-form-field>
+                        </div>
+
+                        
+                    <div class=" col-md-2">
+                      <mat-label>COUNTRY</mat-label>
+                      </div>
+                      <div class=" col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select class="inputTxt" formControlName="country">
+                          <mat-option *ngFor="let title of getCountryDDList" [value]="title.id">
+                              {{title.text}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  </div>
+
+                        </div>
                     <div class="row">
                     <div class=" col-md-2">
                       <mat-label  >ACTIVE</mat-label></div>
                     <div class=" col-md-3">
                        <mat-checkbox  ngInit="checked=true"  formControlName="active" STYLE="margin-left: 10px;"></mat-checkbox>
                     </div>
+
+
                     <!-- <div class=" col-md-2">
                       <mat-label >IS AUDITOR</mat-label></div>
                     <div class=" col-md-3">
