@@ -33,6 +33,7 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
   public getUserDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getUserDropdown`;
   public getRoleDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getRoleDropdown`;
   public userIdDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/userIdDropdown`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
 
   get data(): UserGroupMaster[] {

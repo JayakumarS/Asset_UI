@@ -23,6 +23,7 @@ export class AddUsergroupComponent implements OnInit {
   docForm: FormGroup;
   roleList:any;
   userList:[];
+  string:any;
   branchList:any;
   companyList:any;
   companydetailList:any;
@@ -84,7 +85,6 @@ export class AddUsergroupComponent implements OnInit {
 
     this.person_in_chargeList(this.docForm.value.loginedUser);
     //this.UserList(this.docForm.value.loginedUser);
-  this.RoleList(this.docForm.value.loginedUser);
 
     this.httpService.get<any>(this.commonService.getCompanyDetailDropdown).subscribe({
       next: (data) => {
@@ -94,13 +94,13 @@ export class AddUsergroupComponent implements OnInit {
   
       }    
      });
-    this.httpService.get<any>(this.commonService.getRoleDropdown).subscribe({
+     this.httpService.get<any>(this.usergroupService.getRoleDropdown).subscribe({
       next: (data) => {
        this.roleList = data;
        },
       error: (error) => {
   
-       }    
+      }    
      });
 
      this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
@@ -144,11 +144,11 @@ export class AddUsergroupComponent implements OnInit {
 
 }
 
-RoleList(user:any):void {
-  this.httpService.get(this.usergroupService.getRoleDropdown+ "?roleId=" + user).subscribe((res: any) => {
-    this.roleList = res; });
+// RoleList(user:any):void {
+//   this.httpService.get(this.usergroupService.getRoleDropdown+ "?roleId=" + user).subscribe((res: any) => {
+//     this.roleList = res; });
  
- }
+//  }
 
   fetchDetails(mapping_id: any): void {
     this.person_in_chargeList(this.docForm.value.loginedUser);
@@ -222,7 +222,13 @@ validationUserGroup(branch: any) {
       // error code here
     }
   );
-
+  this.httpService.get<any>(this.usergroupService.uniqueValidateUrl+ "?tableName=" +"user_mapping_hdr"+"&columnName="+"company_id"+"&columnValue="+branch).subscribe((res: any) => {
+    if(res){
+      this.docForm.controls['companyName'].setErrors({ company: true });
+    }else{
+      this.docForm.controls['companyName'].setErrors(null);
+    }
+  });
 
 }
   onSubmit(){
@@ -287,6 +293,8 @@ validationUserGroup(branch: any) {
        }
   
     }
+
+   
   
 reset(){
 if (!this.edit) {
@@ -358,4 +366,7 @@ showNotification(colorName, text, placementFrom, placementAlign) {
   });
 
 }
+
+
 }
+
