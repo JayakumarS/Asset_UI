@@ -117,11 +117,7 @@ export class AddAssetRequisitionComponent implements OnInit {
       this.userName=this.token.getUsername();
       this.branchId= this.token.getBranchId();
       this.companyId= this.token.getCompanyId();
-      this.docForm.patchValue({
-       'requestedBy':this.userId,
-       'branchId':parseInt(this.branchId),
-       'companyId':parseInt(this.companyId),
-    })
+      
 
     
   // this.httpService.get<any>(this.commonService.getCompanyByUser + "?user=" + this.userId).subscribe(
@@ -180,6 +176,11 @@ export class AddAssetRequisitionComponent implements OnInit {
     (data) => {
       console.log(data);
       this.companyList = data;
+      this.docForm.patchValue({
+        'requestedBy':this.userId,
+        'branchId':parseInt(this.branchId),
+        'companyId':parseInt(this.companyId),
+     })
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);

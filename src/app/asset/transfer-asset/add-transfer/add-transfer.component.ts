@@ -162,9 +162,13 @@ export class AddTransferComponent implements OnInit {
     (data5) => {
       this.requisitionListNew = data5.assetRequisitionDetails;
      for(let k=0;k<this.requisitionListNew.length;k++){
+      if(this.edit==false) {
      if(this.requisitionListNew[k].expiryStatus!='Expired'){
       this.requisitionAll.push(this.requisitionListNew[k]);
       }
+    } else {
+      this.requisitionAll = this.requisitionListNew;
+    }
      }
     },
     (error: HttpErrorResponse) => {
