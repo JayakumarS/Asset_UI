@@ -22,7 +22,7 @@ export class AddUsergroupComponent implements OnInit {
    userGroupMaster:UserGroupMaster
   docForm: FormGroup;
   roleList:any;
-  userList:any;
+  userList:[];
   branchList:any;
   companyList:any;
   companydetailList:any;
@@ -83,7 +83,7 @@ export class AddUsergroupComponent implements OnInit {
     });
 
     this.person_in_chargeList(this.docForm.value.loginedUser);
-    this.UserList(this.docForm.value.loginedUser);
+    //this.UserList(this.docForm.value.loginedUser);
   this.RoleList(this.docForm.value.loginedUser);
 
     this.httpService.get<any>(this.commonService.getCompanyDetailDropdown).subscribe({
@@ -120,14 +120,14 @@ export class AddUsergroupComponent implements OnInit {
        }    
      });
 
-     this.httpService.get<any>(this.commonService.getUserDropdown).subscribe({
-      next: (data) => {
-       this.userList = data;
-       },
-      error: (error) => {
+    //  this.httpService.get<any>(this.commonService.getUserDropdown).subscribe({
+    //   next: (data) => {
+    //    this.userList = data;
+    //    },
+    //   error: (error) => {
   
-       }    
-     });
+    //    }    
+    //  });
 
 
   }
@@ -203,12 +203,20 @@ RoleList(user:any):void {
 }
 
 validationUserGroup(branch: any) {
-
-  this.httpService.get(this.usergroupService.branchDropdown + "?Id=" + branch).subscribe((res: any) => {
+  this.httpService.get(this.usergroupService.branchDropdown + "?Id=" + branch ).subscribe((res: any) => {
     console.log(branch);
-
     this.branchDropDownList = res.branchDropDownList;
+  //this.userList=res.userList;
+  },
+    (err: HttpErrorResponse) => {
+      // error code here
+    }
+  );
 
+  this.httpService.get(this.usergroupService.userIdDropdown + "?usrId=" +parseInt(branch) ).subscribe((res: any) => {
+    console.log(branch);
+    //this.branchDropDownList = res.branchDropDownList;
+  this.userList=res.userList;
   },
     (err: HttpErrorResponse) => {
       // error code here
@@ -261,6 +269,7 @@ validationUserGroup(branch: any) {
 
   }
     checkUser(user:any,index:any){
+      this.userList;
       let scheduledListDetailArray = this.docForm.controls.userDetailbean as FormArray;
       let arraylen = scheduledListDetailArray.length;
       for(var k=0;k<arraylen;k++){
@@ -286,6 +295,7 @@ if (!this.edit) {
     'companyName': '',
     'branch': '',
     'users': '',
+    'role':'',
     'loginedUser': this.tokenStorage.getUserId()
   })
 } else {

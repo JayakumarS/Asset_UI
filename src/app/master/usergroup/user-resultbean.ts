@@ -5,6 +5,7 @@ export class UserGroupResultBean {
     UserGroupMaster:UserGroupMaster
     userGroupList: [];
     branchDropdownList:[];
+    userList:[];
 
 
 
