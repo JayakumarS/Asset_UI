@@ -80,6 +80,11 @@ const routes: Routes = [
   loadChildren: () => 
   import("./branch/branch.module").then((m) => m.BranchModule),
   },
+  {
+    path: "Company-Employees",
+  loadChildren: () => 
+  import("./company-employees/company-employees.module").then((m) => m.CompanyEmployeesModule )
+  },
 
   // import("./category/category.module").then((m) => m.CategoryModule),
   // },
