@@ -80,7 +80,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAdminDropdown`;
 
-  public getpersoninchargeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getpersoninchargeDropdown`;
+  // public getpersoninchargeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getpersoninchargeDropdown`;
 
 
   public getPurchaseTaxDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseTaxDropdown`;

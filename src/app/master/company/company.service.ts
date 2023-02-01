@@ -35,6 +35,8 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/company/getList`;
   public updateCompany = `${this.serverUrl.apiServerAddress}api/auth/app/company/update`;
   //public editCompany = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
+
+  public userBasedCompanyDDList = `${this.serverUrl.apiServerAddress}api/auth/app/company/userBasedCompanyDDList`;
   
 
   // public editCompany = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;

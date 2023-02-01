@@ -24,6 +24,7 @@ export class AddCompanyComponent implements OnInit {
   userDdList=[];
   requestId:any;
   edit:boolean=false;
+  userId:any;
 
   constructor(private fb: FormBuilder,
     private companyService : CompanyService,
@@ -66,6 +67,9 @@ export class AddCompanyComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.userId = this.tokenStorage.getUserId();
+
+
     // Location dropdown
     this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
       next: (data) => {
@@ -78,14 +82,23 @@ export class AddCompanyComponent implements OnInit {
     );
 
        // Contact Person dropdown
-       this.httpService.get<any>(this.commonService.getpersoninchargeDropdown).subscribe({
-        next: (data) => {
-          this.userDdList = data;
-        },
-        error: (error) => {
+      //  this.httpService.get<any>(this.commonService.getpersoninchargeDropdown).subscribe({
+      //   next: (data) => {
+      //     this.userDdList = data;
+      //   },
+      //   error: (error) => {
   
+      //   }
+      // }
+      // );
+
+      this.httpService.get<any>(this.companyService.userBasedCompanyDDList + "?userId=" + this.userId).subscribe(
+        (data) => {
+          this.userDdList = data.getuserBasedCompanyDDList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
         }
-      }
       );
 
       this.route.params.subscribe(params => {
