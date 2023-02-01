@@ -253,7 +253,8 @@ export class MainComponent implements OnInit {
 
     this.getInvList();
     this.getAssetList();
-    this.fetchAssetName(16);
+    // bar chart default call
+    // this.fetchAssetName(16);
     // this.popUp();
     
   }

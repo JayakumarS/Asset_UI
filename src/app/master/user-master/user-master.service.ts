@@ -33,16 +33,16 @@ export class UserMasterService extends UnsubscribeOnDestroyAdapter {
   {
     super();
   }
-  private getUserList = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getList`;
-  private saveUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/save`;
-  public editUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/edit`;
-  public updateUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/update`;
-  public deleteUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/delete`;
-  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
-  public roleListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getRoleListDropdown`;
-  public roleListAuditUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getRoleListDropdownForAudit`;
-  public companyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/userBasedCompanyList`;
-  public fetchBranch = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/userBasedBranchList`;
+  private getUserList = `${this.serverUrl.apiServerAddress}app/userMaster/getList`;
+  private saveUserMaster = `${this.serverUrl.apiServerAddress}app/userMaster/save`;
+  public editUserMaster = `${this.serverUrl.apiServerAddress}app/userMaster/edit`;
+  public updateUserMaster = `${this.serverUrl.apiServerAddress}app/userMaster/update`;
+  public deleteUserMaster = `${this.serverUrl.apiServerAddress}app/userMaster/delete`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}app/commonServices/validateUnique`;
+  public roleListUrl = `${this.serverUrl.apiServerAddress}app/userMaster/getRoleListDropdown`;
+  public roleListAuditUrl = `${this.serverUrl.apiServerAddress}app/userMaster/getRoleListDropdownForAudit`;
+  public companyListUrl = `${this.serverUrl.apiServerAddress}app/userMaster/userBasedCompanyList`;
+  public fetchBranch = `${this.serverUrl.apiServerAddress}app/userMaster/userBasedBranchList`;
 
   getAllList(userId:any): void {
     this.subs.sink = this.httpService.get<UserMasterResultBean>(this.getUserList + "?userId=" + userId).subscribe(
