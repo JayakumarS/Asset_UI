@@ -28,21 +28,21 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/department/getList`;
-  private saveDepartment = `${this.serverUrl.apiServerAddress}/app/department/save`;
-  public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/edit`;
-  public updateDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/update`;
-  public deleteDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/delete`;
-  public validateDepartmentCodeUrl = `${this.serverUrl.apiServerAddress}api/auth/app/department/validateUniqueDepartmentCode`;
-   public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/department/getAdminDropdown`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/department/getList`;
+  private saveDepartment = `${this.serverUrl.apiServerAddress}app/department/save`;
+  public editDepartment = `${this.serverUrl.apiServerAddress}app/department/edit`;
+  public updateDepartment = `${this.serverUrl.apiServerAddress}app/department/update`;
+  public deleteDepartment = `${this.serverUrl.apiServerAddress}app/department/delete`;
+  public validateDepartmentCodeUrl = `${this.serverUrl.apiServerAddress}app/department/validateUniqueDepartmentCode`;
+   public getAdminDropdown = `${this.serverUrl.apiServerAddress}app/department/getAdminDropdown`;
  // public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAdminDropdown`;
-  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
-  public getBranchDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/department/getBranchDropdown`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}app/commonServices/validateUnique`;
+  public getBranchDropdown = `${this.serverUrl.apiServerAddress}app/department/getBranchDropdown`;
 
-  public getCompanyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/department/getCompanyDropdown`;
+  public getCompanyDropdown = `${this.serverUrl.apiServerAddress}app/department/getCompanyDropdown`;
 
-  public companyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/department/userBasedCompanyList`;
-  public fetchBranch = `${this.serverUrl.apiServerAddress}api/auth/app/department/userBasedBranchList`;
+  public companyListUrl = `${this.serverUrl.apiServerAddress}app/department/userBasedCompanyList`;
+  public fetchBranch = `${this.serverUrl.apiServerAddress}app/department/userBasedBranchList`;
 
 
   get data(): DepartmentMaster[] {
