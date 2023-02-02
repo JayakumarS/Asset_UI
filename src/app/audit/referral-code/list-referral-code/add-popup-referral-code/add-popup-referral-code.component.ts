@@ -188,8 +188,9 @@ update(){
         "bottom",
         "center"
       );
-      this.reset();
+      this.cancel();
       this.router.navigate(['audit/referralcode/listReferralCode']);
+      location.reload();
     }
     else{
       this.showNotification(
