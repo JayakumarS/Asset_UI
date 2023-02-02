@@ -33,49 +33,54 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
     "status",
 
   ];
-  
 
-    docForm:FormGroup;
-    statusList:[];
-    categoryList:[];
-    assetList:[];
+
+    docForm: FormGroup;
+    statusList: [];
+    categoryList: [];
+    assetList: [];
     requestId: any;
-    loadData:any;
-    edit: boolean=false;
+    loadData: any;
+    edit: boolean = false;
     reList: any = [];
-     loList:any=[];
+     loList: any = [];
     false;
 
 
 
-  reportscategory:Reportscategory;
+  reportscategory: Reportscategory;
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: ReportsService | null;
     constructor(private fb: FormBuilder,
-      public reportsService:ReportsService,
-      private httpService: HttpServiceService,
-      private snackBar:MatSnackBar,
-      private serverUrl:serverLocations,
-      private router:Router,
-      public httpClient: HttpClient,
-      public route: ActivatedRoute,) { 
-        super(); 
+                public reportsService: ReportsService,
+                private httpService: HttpServiceService,
+                private snackBar: MatSnackBar,
+                private serverUrl: serverLocations,
+                private router: Router,
+                public httpClient: HttpClient,
+                public route: ActivatedRoute, ) {
+        super();
         this.docForm = this.fb.group({
-          category:[""],
+          category: [""],
            status: [""],
-           asset:[""],
-           asset_code:[""],
-           asset_name:[""],
-           asset_location:[""],
-           asset_category:[""]
+           asset: [""],
+           asset_code: [""],
+           asset_name: [""],
+           asset_location: [""],
+           asset_category: [""],
+           in_use: [""],
+           in_stock: [""],
+           out_repair: [""],
+           lost: [""],
+           stolen: [""],
+           write_off: [""]
          });
-  
+
       }
 
-      
   ngOnInit(): void {
-   
+
         this.httpService.get<reportsresultbean>(this.reportsService.categoryListUrl).subscribe(
       (data) => {
         this.categoryList = data.categoryList;
@@ -85,16 +90,16 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
       }
     );
 
-    this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
+        this.route.params.subscribe(params => {
+      if (params.id!=undefined && params.id!=0){
        this.requestId = params.id;
-       this.edit=true;
-       //For User login Editable mode
+       this.edit = true;
+       // For User login Editable mode
        this.fetchDetails(this.requestId) ;
       }
     });
 
-    this.httpService.get<reportsresultbean>(this.reportsService.statusListUrl).subscribe(
+        this.httpService.get<reportsresultbean>(this.reportsService.statusListUrl).subscribe(
       (data) => {
         this.statusList = data.statusList;
       },
@@ -103,13 +108,13 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
       }
     );
 
-    this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
+        this.route.params.subscribe(params => {
+      if (params.id!=undefined && params.id!=0){
        this.requestId = params.id;
       }
     });
 
-    this.httpService.get<reportsresultbean>(this.reportsService.assetListUrl).subscribe(
+        this.httpService.get<reportsresultbean>(this.reportsService.assetListUrl).subscribe(
       (data) => {
         this.assetList = data.assetList;
       },
@@ -118,8 +123,8 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
       }
     );
 
-    this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
+        this.route.params.subscribe(params => {
+      if (params.id!=undefined && params.id!=0){
        this.requestId = params.id;
       }
     });
@@ -137,29 +142,30 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
   //       'asset_name' : res.reportsBean.asset_name,
   //       'asset_location' : res.reportsBean.asset_location,
   //       'asset_category' : res.reportsBean.asset_category,
-        
+
   //    })
   //     },
   //     (err: HttpErrorResponse) => {
   //     }
   //   );
    }
-  
+
   onSearch(){
-    this.reportscategory=this.docForm.value;
-    this.httpService.get(this.reportsService.reportserach+ "?reports=" + this.docForm.controls.category.value + "&status=" + this.docForm.controls.status.value) .subscribe((res: any) => {
+    this.reportscategory = this.docForm.value;
+    // tslint:disable-next-line:max-line-length
+    this.httpService.get(this.reportsService.reportserach + "?reports=" + this.docForm.controls.category.value + "&status=" + this.docForm.controls.status.value) .subscribe((res: any) => {
       console.log(res);
-      this.reList=res.categoryList;
+      this.reList = res.categoryList;
     },
     (err: HttpErrorResponse) => {
     }
   );
-} 
+}
 Search(){
-  this.reportscategory=this.docForm.value;
-  this.httpService.get(this.reportsService.locationsearch+"?location=" +this.docForm.controls.asset.value ).subscribe((res: any) => {
+  this.reportscategory = this.docForm.value;
+  this.httpService.get(this.reportsService.locationsearch + "?location=" + this.docForm.controls.asset.value ).subscribe((res: any) => {
     console.log(res);
-    this.loList=res.assetList;
+    this.loList = res.assetList;
   },
   (err: HttpErrorResponse) => {
   }
@@ -200,34 +206,34 @@ export class ExampleDataSource extends DataSource<ReportsService> {
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<ReportsService[]> {
-   
+
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
       this._sort.sortChange,
       this.filterChange,
-      this.paginator.page,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+      this.paginator.page,
     ];
     this.exampleDatabase.getAllList();
     return merge(...displayDataChanges).pipe(
       map(() => {
- 
+
         this.filteredData = this.exampleDatabase.data
           .slice()
           .filter((reportscategory: Reportscategory) => {
             const searchStr = (
-              reportscategory.category+
-              reportscategory.asset+
-              reportscategory.status+
-              reportscategory.asset_code+
-              reportscategory.asset_name+
-              reportscategory.asset_location+
-              reportscategory.asset_category                                                                                                       
+              reportscategory.category +
+              reportscategory.asset +
+              reportscategory.status +
+              reportscategory.asset_code +
+              reportscategory.asset_name +
+              reportscategory.asset_location +
+              reportscategory.asset_category
            ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
-      
+
         const sortedData = this.sortData(this.filteredData.slice());
-        
+
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         // this.renderedData = sortedData.splice(
         //   startIndex,
@@ -240,7 +246,7 @@ export class ExampleDataSource extends DataSource<ReportsService> {
   sortData(ar: ReportsService[]) {
   }
   disconnect() {}
- 
+
 }
 
 

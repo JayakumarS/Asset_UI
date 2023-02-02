@@ -5,45 +5,67 @@
         <app-breadcrumb [title]="'Depreciation Report'" [items]="['Reports']" [active_item]="'Depreciation Report List'">
         </app-breadcrumb>
       </div>
-      
+
       <div class="row">
       <div class="col-md-12">
           <div class="card">
               <div class="body">
                   <form [formGroup]="docForm">
                       <div class="row">
+                        <div class="col-md-1"></div>
                         <div class="col-md-2">
                           <mat-label class="lable">Depreciation Method</mat-label>
-                          <select  tabindex="1" placeholder="Depreciation Method"  class="form-control" formControlName="depreciationMethod">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                          <!-- <select  tabindex="1" placeholder="Depreciation Method"  class="form-control" formControlName="depreciationMethod">
                               <option value="" selected disabled>---Select---</option>
-                          </select>
+                          </select> -->
+                          <mat-select class="inputTxt" formControlName="role"tabindex="1" placeholder="Depreciation Method" >
+                            <mat-option *ngFor="let title of depreciationList" [value]="title.id">
+                                {{title.text}}
+                            </mat-option>
+                          </mat-select></mat-form-field>
                         </div>
-                          <div class="col-md-2" style="width:14%">
+                          <div class="col-md-2" >
                               <mat-label class="lable">Date</mat-label>
-                              <input tabindex="2"  placeholder="Date"  type="date" class="form-control" formControlName="date">
+                              <!-- <input tabindex="2"  placeholder="Date"  type="date" class="form-control" formControlName="date"> -->
                               <mat-datepicker #picker></mat-datepicker>
+                              <mat-form-field appearance="fill">
+                                <input matInput [matDatepicker]="picker1" formControlName="date"tabindex="2"  placeholder="Date"  type="date" class="form-control" >
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
                           </div>
 
                           <div class="col-md-2">
                             <mat-label class="lable">Category</mat-label>
-                            <input tabindex="3" placeholder="Category"  type="text" class="form-control" formControlName="category">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-select class="inputTxt" formControlName="category" tabindex="3" placeholder="Category">
+                                <mat-option *ngFor="let title of assetcategoryList" [value]="title.id">
+                                    {{title.text}}
+                                </mat-option>
+                              </mat-select></mat-form-field>
                            </div>
 
                            <div class="col-md-2">
                             <mat-label class="lable">Asset Location</mat-label>
-                            <input tabindex="4" placeholder="Asset Location" type="text" class="form-control" formControlName="assetLocation">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-select class="inputTxt" formControlName="category" tabindex="4" placeholder="assetLocation">
+                                <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                    {{title.text}}
+                                </mat-option>
+                              </mat-select></mat-form-field>
                            </div>
 
                            <div class="col-md-2">
                             <mat-label class="lable">Department</mat-label>
-                            <select  tabindex="5" placeholder="Department" class="form-control" formControlName="department">
-                                <option value="" selected disabled>---Select---</option>
-                            </select>
-                          </div>
 
-                          <div class="col-md-2">
-                              <mat-label class="lable">Search</mat-label>
-                              <input tabindex="6" placeholder="Search" type="text" class="form-control" formControlName="search">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-select class="inputTxt" formControlName="department" tabindex="5" placeholder="Department" >
+                                <mat-option *ngFor="let title of departmentDdList" [value]="title.id">
+                                    {{title.text}}
+                                </mat-option>
+                              </mat-select></mat-form-field>
                           </div>
                       </div>
                       <br>
@@ -80,7 +102,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            
+
                           </tbody>
                         </table>
                         <!-- <div class="d-flex justify-content-center">
@@ -92,7 +114,7 @@
                         </div> -->
                   </div>
               </div>
-            </div> 
-    
+            </div>
+
   </div>
 </section>

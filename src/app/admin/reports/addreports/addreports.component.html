@@ -33,7 +33,7 @@
             <button  color="primary" type="button" class="btn-space" (click)="onSearch()"
               mat-raised-button>Search</button>
           </div>
-       
+
         </div>
         <div class="row">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
@@ -64,8 +64,14 @@
       <tr >
         <th style="background-color:#c1ddf5;">Asset Code</th>
         <th style="background-color:#c1ddf5;">Asset Name</th>
+        <th style="background-color:#c1ddf5;">In Use</th>
+        <th style="background-color:#c1ddf5;">In Stock</th>
+        <th style="background-color:#c1ddf5;">Out For Repair</th>
         <th style="background-color:#c1ddf5;">Asset Location</th>
         <th style="background-color:#c1ddf5;">Asset Category</th>
+        <th style="background-color:#c1ddf5;">Lost</th>
+        <th style="background-color:#c1ddf5;">Stolen</th>
+        <th style="background-color:#c1ddf5;">Write-off</th>
         <th style="background-color:#c1ddf5;">Status</th>
       </tr>
   </thead>
@@ -74,17 +80,23 @@
         <tr *ngFor="let item of reList">
           <td>{{item.asset_code}}</td>
           <td>{{item.asset_name}}</td>
+          <td>{{item.in_use}}</td>
+          <td>{{item.in_stock}}</td>
+          <td>{{item.out_repair}}</td>
           <td>{{item.asset_location}}</td>
           <td>{{item.category}}</td>
+          <td>{{item.lost}}</td>
+          <td>{{item.stolen}}</td>
+          <td>{{item.write_off}}</td>
           <td>{{item.status}}</td>
 
-        </tr>      
+        </tr>
   </tbody>
   </table>
   </div>
 </mat-tab>
 
- 
+
       <mat-tab label="Asset Location ">
         <form class="m-4" [formGroup]="docForm">
         <div class="rowtab" >
@@ -102,7 +114,7 @@
 </mat-select>
  <mat-error *ngIf="docForm.get('asset').hasError('required')">
 Category is required
-</mat-error>  
+</mat-error>
 
 </mat-form-field>
 </div>
@@ -116,29 +128,41 @@ Category is required
 
 
 <div class="container" *ngIf="loList.length>0">
-  
+
 <table id="excel-table" class="table table-striped">
   <thead>
       <tr >
         <th style="background-color:#c1ddf5;">Asset Code</th>
         <th style="background-color:#c1ddf5;">Asset Name</th>
+        <th style="background-color:#c1ddf5;">In Use</th>
+        <th style="background-color:#c1ddf5;">In Stock</th>
+        <th style="background-color:#c1ddf5;">Out For Repair</th>
         <th style="background-color:#c1ddf5;">Asset Location</th>
         <th style="background-color:#c1ddf5;">Asset Category</th>
+        <th style="background-color:#c1ddf5;">Lost</th>
+        <th style="background-color:#c1ddf5;">Stolen</th>
+        <th style="background-color:#c1ddf5;">Write-off</th>
         <th style="background-color:#c1ddf5;">Status</th>
       </tr>
   </thead>
   <tbody>
-    
+
         <tr *ngFor="let item of loList">
 
           <td>{{item.asset_code}}</td>
           <td>{{item.asset_name}}</td>
+          <td>{{item.in_use}}</td>
+          <td>{{item.in_stock}}</td>
+          <td>{{item.out_repair}}</td>
           <td>{{item.asset_location}}</td>
           <td>{{item.category}}</td>
+          <td>{{item.lost}}</td>
+          <td>{{item.stolen}}</td>
+          <td>{{item.write_off}}</td>
           <td>{{item.status}}</td>
 
 
-        </tr>      
+        </tr>
   </tbody>
   </table>
   </div>
@@ -151,18 +175,18 @@ Category is required
 
 
 
- 
- 
- 
- 
-
-
- 
 
 
 
 
- 
 
- 
+
+
+
+
+
+
+
+
+
 
