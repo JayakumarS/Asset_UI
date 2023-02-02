@@ -22,6 +22,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   branchList:[];
   RoleDdList:[];
   getUserBasedCompanyList:[];
+  getUserBasedBranchList:[];
   docForm: FormGroup;
   edit:boolean= false;
   roleId: any;
@@ -121,6 +122,25 @@ export class AddCompanyEmployeesComponent implements OnInit {
       console.log(error.name + " " + error.message);
     }
   ); 
+
+  
+
+  }
+
+  fetchBranchDetails(customer: any) {
+
+    this.userId = this.tokenStorage.getUserId();
+
+    this.httpService.get(this.companyEmployeeService.fetchBranch + "?userId=" + this.userId).subscribe((res: any) => {
+      console.log(customer);
+
+      this.getUserBasedBranchList = res.getUserBasedBranchList;
+
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
 
 
   }
