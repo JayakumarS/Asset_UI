@@ -20,6 +20,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   departmentDdList:[];
   CompanyList:[];
   branchList:[];
+  RoleDdList:[];
   getUserBasedCompanyList:[];
   docForm: FormGroup;
   edit:boolean= false;
@@ -44,12 +45,17 @@ export class AddCompanyEmployeesComponent implements OnInit {
     this.docForm = this.fb.group({
       company:[""],
       branch:[""],
+      role:[""],
       emailId:[""],
       fullName: [""],
       phoneno:[""],
       department:[""],
       active:[false],
-      id:[""]
+      id:[""],
+
+      // userId: this.tokenStorage.getUserId(),
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId(),
 
     });
    }
@@ -64,6 +70,14 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
       }
      });
+     this.userId = this.tokenStorage.getUserId();
+
+     this.roleId = this.tokenStorage.getRoleId();
+     if(this.roleId==1){
+       this.roleIdFlag=true;
+     }else{
+       this.roleIdFlag=false;
+     }
 
     // branch dropdown
     this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
@@ -75,12 +89,12 @@ export class AddCompanyEmployeesComponent implements OnInit {
       }
     }
     );
-     //User Based Company List
-  
+   
 
-  this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+   // Role dropdown
+   this.httpService.get<any>(this.commonService.getRoleDropdown).subscribe({
     next: (data) => {
-      this.CompanyList = data;
+      this.RoleDdList = data;
     },
     error: (error) => {
 
@@ -97,6 +111,18 @@ export class AddCompanyEmployeesComponent implements OnInit {
       }
     }
     );
+
+     //User Based Company List
+   this.httpService.get<any>(this.companyEmployeeService.companyListUrl + "?userId=" + this.userId).subscribe(
+    (data) => {
+      this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  ); 
+
+
   }
   onSubmit(){
     if(this.docForm.valid){
@@ -138,6 +164,8 @@ export class AddCompanyEmployeesComponent implements OnInit {
       'fullName' : res.companyEmployeeBean.fullName, 
       'phoneno' : res.companyEmployeeBean.phoneno, 
       'department' : res.companyEmployeeBean.department, 
+      'role' : res.companyEmployeeBean.role, 
+
       'id' : res.companyEmployeeBean.id
 
       

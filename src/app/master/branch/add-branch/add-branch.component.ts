@@ -22,6 +22,7 @@ export class AddBranchComponent implements OnInit {
   docForm: FormGroup;
   edit:boolean=false;
   branch : Branch;
+  userId:any;
 
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
@@ -44,6 +45,8 @@ export class AddBranchComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.userId = this.tokenStorage.getUserId();
+
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
         this.locationDdList = data;
@@ -53,14 +56,23 @@ export class AddBranchComponent implements OnInit {
       }
     });
 
-    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
-      next: (data) => {
-        this.companyList = data;
-      },
-      error: (error) => {
+    // this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+    //   next: (data) => {
+    //     this.companyList = data;
+    //   },
+    //   error: (error) => {
   
+    //   }
+    // });
+
+    this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
+      (data) => {
+        this.companyList = data.getuserBasedBranchDDList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
       }
-    });
+    );
 
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
