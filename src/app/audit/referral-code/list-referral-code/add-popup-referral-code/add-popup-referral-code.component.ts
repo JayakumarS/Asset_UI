@@ -86,7 +86,7 @@ export class AddPopupReferralCodeComponent implements OnInit {
     }
     );
 
-
+if(this.edit)
        this.fetchDetails(this.data.refcode) ;
      
   }
