@@ -1,4 +1,4 @@
-export class ScheduleAudit {
+export class ScheduledAudit {
     auditCode:string;
     auditType:string;
     startDate:string;
@@ -6,18 +6,15 @@ export class ScheduleAudit {
     auditName:string;
     extDate:string;
     status:string;
-    companyName:string
-    assetName:string
-    location:string
-    Quantity:string
-    remarks:string
-    schedule_audits_id:number
-    scheduleId:number
-    AvailableQty:string
+    companyName:string;
+    assetName:string;
+    location:string;
+    Quantity:string;
+    remarks:string;
+    schedule_audits_id:number;
+    scheduleId:number;
+    AvailableQty:string;
     newQty:number;
-    diffqty:number
-    stack:string
-
-   
-
+    diffqty:number;
+    stack:string;
 }

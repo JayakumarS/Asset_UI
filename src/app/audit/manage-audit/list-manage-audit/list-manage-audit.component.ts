@@ -29,8 +29,8 @@ export class ListManageAuditComponent implements OnInit {
   [x: string]: any;
 
   displayedColumns = [
-    "auditCode", "auditName","startDate",
-    "status", "auditType","cName","actions"
+    "auditCode", "auditName","startDate","endDate",
+    "status", "auditType","actions"
   ];
 
   dataSource: ExampleDataSource | null;
@@ -87,7 +87,7 @@ export class ListManageAuditComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new ManageAuditServiceService(this.httpClient, this.serverUrl, this.httpService, this.tokenStorage);
+    this.exampleDatabase = new ManageAuditServiceService(this.httpClient, this.serverUrl, this.tokenStorage, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -106,12 +106,12 @@ export class ListManageAuditComponent implements OnInit {
 
   editCall(row) {
     if (this.permissionList?.modify){
-    this.router.navigate(['/audit/manageaudit/addManageAudit/' + row.auditCode]);
+    this.router.navigate(['/audit/manageaudit/addManageAudit/' + row.auditId]);
   }
   }
-  deleteItem(i, row) {
-    this.index = i;
-    this.id = row.auditCode;
+  
+
+  deleteItem(row) {
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -123,20 +123,39 @@ export class ListManageAuditComponent implements OnInit {
       width: "400px",
       data: row,
       direction: tempDirection,
+      disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      this.loadData();
-      if(data==1)[
-        this.showNotification(
-          "snackbar-success",
-          " Successfully deleted",
-          "bottom",
-          "center"
-        )
-        ]
+
+      if (data.data == true) {
+        const obj = {
+          deletingId: row.auditId
+        }
+        this.spinner.show();
+        this.manageAuditServiceService.deleteManageAudit(obj).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+          }
+        });
+
+      }
     });
+
   }
 
+  
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {

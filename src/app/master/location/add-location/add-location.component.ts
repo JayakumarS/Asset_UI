@@ -134,7 +134,7 @@ getCompanybasedlocationDropdown(companyId: any): void {
 }
 // company list
 getUserbasedcompanyDropdown(userId: any): void {
-  this.httpService.get(this.commonService.getcompanyDropdown + "?companyId=" + userId).subscribe((res: any) => {
+  this.httpService.get(this.commonService.getUserBasedCompanyDropdown + "?companyId=" + userId).subscribe((res: any) => {
   this.company = res.addressBean;
 });
 }

@@ -14,7 +14,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { ScheduledauditsService } from '../scheduledaudits.service';
-import { ScheduleAudit } from '../scheduledaudits-model';
+import { ScheduledAudit } from '../scheduledaudits-model';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -28,18 +28,18 @@ import { NgxSpinnerService } from "ngx-spinner";
   [x: string]: any;
 
   displayedColumns = [
-    "auditCode", "auditName","startDate",
-    "status", "auditType","cName","actions"
+    "auditCode", "auditName","startDate","endDate",
+    "status", "auditType","actions"
   ];
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: ScheduledauditsService | null;
-  selection = new SelectionModel<ScheduleAudit>(true, []);
+  selection = new SelectionModel<ScheduledAudit>(true, []);
   index: number;
   id: number;
   edit:boolean=false;
   permissionList: any;
-  scheduleAudit: ScheduleAudit | null;
+  scheduledAudit: ScheduledAudit | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -128,7 +128,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   }
 
 // context menu
-  onContextMenu(event: MouseEvent, item: ScheduleAudit) {
+  onContextMenu(event: MouseEvent, item: ScheduledAudit) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -139,7 +139,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 }
 
 
-export class ExampleDataSource extends DataSource<ScheduleAudit> {
+export class ExampleDataSource extends DataSource<ScheduledAudit> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -147,8 +147,8 @@ export class ExampleDataSource extends DataSource<ScheduleAudit> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: ScheduleAudit[] = [];
-  renderedData: ScheduleAudit[] = [];
+  filteredData: ScheduledAudit[] = [];
+  renderedData: ScheduledAudit[] = [];
   constructor(
     public exampleDatabase: ScheduledauditsService,
     public paginator: MatPaginator,
@@ -159,7 +159,7 @@ export class ExampleDataSource extends DataSource<ScheduleAudit> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<ScheduleAudit[]> {
+  connect(): Observable<ScheduledAudit[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -173,15 +173,15 @@ export class ExampleDataSource extends DataSource<ScheduleAudit> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((scheduleAudit: ScheduleAudit) => {
+          .filter((scheduledAudit: ScheduledAudit) => {
             const searchStr = (
-              scheduleAudit.auditName +
-              scheduleAudit.auditCode +
-              scheduleAudit.startDate +
-              scheduleAudit.endDate +
-              scheduleAudit.extDate +
-              scheduleAudit.status +
-              scheduleAudit.auditType
+              scheduledAudit.auditName +
+              scheduledAudit.auditCode +
+              scheduledAudit.startDate +
+              scheduledAudit.endDate +
+              scheduledAudit.extDate +
+              scheduledAudit.status +
+              scheduledAudit.auditType
 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -200,7 +200,7 @@ export class ExampleDataSource extends DataSource<ScheduleAudit> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: ScheduleAudit[]): ScheduleAudit[] {
+  sortData(data: ScheduledAudit[]): ScheduledAudit[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }

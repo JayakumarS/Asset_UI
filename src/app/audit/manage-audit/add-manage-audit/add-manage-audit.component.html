@@ -12,9 +12,9 @@
                     <mat-tab-group #tabs >
                         <mat-tab label="SELF" [tabIndex]="0">
                             <form class="m-4" [formGroup]="docForm">
-                                <div class="rowtab">
+                                <div class="rowtab" style="margin-left: 20%;">
                                     <div class="row">
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left: 25%;">
+                                        <div class="col-md-3">
                                             <mat-form-field class="example-width form-control-sm" appearance="outline">
                                                 <mat-label>Start Date</mat-label>
                                                 <input matInput [matDatepicker]="picker1" formControlName="startDateObj" 
@@ -25,11 +25,10 @@
                                                 <mat-error *ngIf="docForm.get('startDate').hasError('required')">
                                                     Start Date is required
                                                   </mat-error>
-
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left: -28%;">
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                        <div class="col-md-3">
+                                    <mat-form-field class="example-width form-control-sm" appearance="outline">
                                                 <mat-label>End Date</mat-label>
                                                 <input matInput [matDatepicker]="picker2" formControlName="endDateObj" 
                                                 (dateInput)="$event.value.format('DD/MM/YYYY')" id="endDate" 
@@ -41,10 +40,9 @@
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left:25%;">
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                                    
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
                                                 <mat-label>Audit Name</mat-label>
                                                 <input matInput placeholder="audit Name" formControlName="auditName" required>
                                                 <mat-error *ngIf="docForm.get('auditName').hasError('required')">
@@ -52,98 +50,52 @@
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3"  style="margin-left: -28%;">
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
-                                                <mat-label>Audit for fields</mat-label>
-                                                <mat-select formControlName="auditField" multiple  required>
-                                                    <mat-option *ngFor="let auditArray of auditList" [value]="auditArray.code" >
-                                                        {{auditArray.text}}
-                                                    </mat-option>
-                                                </mat-select>
-                                                <mat-error *ngIf="docForm.get('auditField').hasError('required')">
-                                                    Audit for fields is required
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
-  
-                               
 
                                     </div>
-
-                                  
-                                </div>
-
-                                
-                                <div >
-                                    <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-                                        <thead class="">
-                                            <tr>
-                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">Category</th>
-                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">Location</th>
-                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%;border-radius: 0.07rem;">Department</th>
-                                                <th class="table-heading text-center" style="margin-left: 10px; width: 11%; border-radius: 0.05rem;">
-                                                    <label class="i-checks m-b-none">
-                                                         <i></i>
-                                                    </label></th>
-                                                <th class="table-heading text-center" style="margin-left: 10px;width: 11%; border-radius: 0.05rem;">
-                                                    <label class="i-checks m-b-none">
-                                                        <i></i>
-                                                    </label></th>
-                                            </tr>
-                                        </thead>
-                                        <ng-container *ngFor="let manageAuditDtlObjBean of docForm.get('manageAuditDtlObjBean')['controls']; let i = index">
-                                            <tbody [formGroup]="manageAuditDtlObjBean">
-                                                <tr>
-                                                    <td class="padding-both-side-2">
-                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                            <mat-label>Category</mat-label>
-                                                            <mat-select formControlName="category" multiple>
-                                                                <mat-option *ngFor="let category of categoryList" [value]="category.code" >
-                                                                    {{category.text}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </td>
-                                                    <td class="padding-both-side-2">
-                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                            <mat-label>Location</mat-label>
-                                                            <mat-select formControlName="location" multiple>
-                                                                <mat-option *ngFor="let location of loacationList"  [value]="location.code" >
-                                                                    {{location.text}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </td>
-
-                                                    <td class="padding-both-side-2">
-                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                            <mat-label>Department</mat-label>
-                                                            <mat-select formControlName="department" multiple>
-                                                                <mat-option *ngFor="let department of departmentList" [value]="department.code" >
-                                                                    {{department.text}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </td>
-
-                                                    <td>
-                                                        <button mat-mini-fab color="warn" (click)="removeRowSelf(i)" style="margin-left: -10%;">
-                                                            <mat-icon class="col-white">delete</mat-icon>
-                                                        </button>
-                                                    </td>
-
-                                                    <td>
-                                                        <button mat-mini-fab color="primary" (click)="addRowSelf()" style="margin-left: -90%;">
-                                                            <mat-icon class="col-white">add</mat-icon>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </ng-container>
-                                    </table>
-
                                     
+                                    <div class="row">
+                                        <div class="col-md-3">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                <mat-label>Location</mat-label>
+                                                <mat-select formControlName="locationId">
+                                                  <mat-option *ngFor="let title of loacationList" [value]="title.id">
+                                                    {{title.text}}
+                                                  </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="docForm.get('locationId').hasError('required')">
+                                                    Location is required
+                                                </mat-error>
+                                              </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                <mat-label>Company Name</mat-label>
+                                                <mat-select formControlName="auditCompanyId">
+                                                  <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                                    {{title.text}}
+                                                  </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="docForm.get('auditCompanyId').hasError('required')">
+                                                    Company Name is required
+                                                </mat-error>
+                                              </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                <mat-label>Branch</mat-label>
+                                                <mat-select formControlName="auditbranchId">
+                                                  <mat-option *ngFor="let title of branchList" [value]="title.id">
+                                                    {{title.text}}
+                                                  </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="docForm.get('auditbranchId').hasError('required')">
+                                                    Branch is required
+                                                </mat-error>
+                                              </mat-form-field>
+                                        </div>
+                                        </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                                         <div class="row">
@@ -158,185 +110,114 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </form>
                         </mat-tab>
 
                         <mat-tab label="AIDED" style=" background-color: #ed6707; margin-left: 390px;" [tabIndex]="1">
                             <form class="m-4" [formGroup]="Formdoc">
-                                <div class="rowtab">
-                                    <div class="row">
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left: 25%;">
+                                <div class="rowtab" style="margin-left: 20%;">
+                                    
+                                        <div class="row">
+                                            <div class="col-md-3">                                           
+                                                <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                    <mat-label>Start Date</mat-label>
+                                                    <input matInput [matDatepicker]="picker3" formControlName="startDateObj" 
+                                                    (dateInput)="$event.value.format('DD/MM/YYYY')" id="startDate" 
+                                                    (dateChange)="getDateStrAided($event, 'startDate',0)" required>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker3></mat-datepicker>
+                                                    <mat-error *ngIf="Formdoc.get('startDate').hasError('required')">
+                                                        Start Date is required
+                                                      </mat-error>
+    
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">                                           
+                                                <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                    <mat-label>End Date</mat-label>
+                                                    <input matInput [matDatepicker]="picker4" formControlName="endDateObj" 
+                                                    (dateInput)="$event.value.format('DD/MM/YYYY')" id="endDate" 
+                                                    (dateChange)="getDateStrAided($event, 'endDate',0)" required>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker4></mat-datepicker>
+                                                    <mat-error *ngIf="Formdoc.get('endDate').hasError('required')">
+                                                        End Date is required
+                                                    </mat-error>
+                                                </mat-form-field>
+                                                </div>
+                                    
+                                        <div class="col-md-3">
                                             <mat-form-field class="example-width form-control-sm" appearance="outline">
-                                                <mat-label>Start Date</mat-label>
-                                                <input matInput [matDatepicker]="picker3" formControlName="startDateObj" 
-                                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="startDate" 
-                                                (dateChange)="getDateStrAided($event, 'startDate',0)" required>
-                                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker3></mat-datepicker>
-                                                <mat-error *ngIf="Formdoc.get('startDate').hasError('required')">
-                                                    Start Date is required
-                                                  </mat-error>
-
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left: -28%;">
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
-                                                <mat-label>End Date</mat-label>
-                                                <input matInput [matDatepicker]="picker4" formControlName="endDateObj" 
-                                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="endDate" 
-                                                (dateChange)="getDateStrAided($event, 'endDate',0)" required>
-                                                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker4></mat-datepicker>
-                                                <mat-error *ngIf="Formdoc.get('endDate').hasError('required')">
-                                                    End Date is required
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left:25%;">
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
                                                 <mat-label>Audit Name</mat-label>
                                                 <input matInput placeholder="audit Name" formControlName="auditName" required>
-                                                <mat-error *ngIf="Formdoc.get('auditName').hasError('required')">
+                                                <mat-error *ngIf="docForm.get('auditName').hasError('required')">
                                                     Audit Name is required
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3"  style="margin-left: -28%;">
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
-                                                <mat-label>Audit for fields</mat-label>
-                                                <mat-select formControlName="auditField" multiple  required>
-                                                    <mat-option *ngFor="let auditArray of auditList" [value]="auditArray.code" >
-                                                        {{auditArray.text}}
-                                                    </mat-option>
-                                                </mat-select>
-                                                <mat-error *ngIf="docForm.get('auditField').hasError('required')">
-                                                    Audit for fields is required
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
+
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3" style="margin-left:25%;">
-                                            <!-- <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
-                                                <mat-label>Company Name</mat-label>
-                                                <mat-select formControlName="companyName" multiple  required>
-                                                    <mat-option *ngFor="let title of companyList" [value]="title.id">
-                                                        {{title.text}}
-                                                    </mat-option>
                                     
+                                    <div class="row">
+                                        <div class="col-md-3">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                <mat-label>Auditor Name</mat-label>
+                                                <mat-select formControlName="auditorId">
+                                                  <mat-option *ngFor="let title of auditorList" [value]="title.id">
+                                                    {{title.text}}
+                                                  </mat-option>
                                                 </mat-select>
-                                            </mat-form-field> -->
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:44%;">
+                                                <mat-error *ngIf="docForm.get('auditorId').hasError('required')">
+                                                    Auditor Name is required
+                                                </mat-error>
+                                              </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-3">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                <mat-label>Location</mat-label>
+                                                <mat-select formControlName="locationId">
+                                                  <mat-option *ngFor="let title of loacationList" [value]="title.id">
+                                                    {{title.text}}
+                                                  </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="docForm.get('locationId').hasError('required')">
+                                                    Location is required
+                                                </mat-error>
+                                              </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
                                                 <mat-label>Company Name</mat-label>
-                                                <mat-select formControlName="companyName">
+                                                <mat-select formControlName="auditCompanyId">
                                                   <mat-option *ngFor="let title of companyList" [value]="title.id">
                                                     {{title.text}}
                                                   </mat-option>
                                                 </mat-select>
+                                                <mat-error *ngIf="docForm.get('auditCompanyId').hasError('required')">
+                                                    Company Name is required
+                                                </mat-error>
                                               </mat-form-field>
                                         </div>
-
-                                        </div>
-
-                                    <div class="row" style="margin-left:50px">
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" style="margin-left: 22%;">
-                                            <mat-label><b>Upload A File For Audit</b></mat-label>
-                                            <app-file-upload class="example-width form-control-sm" formControlName="auditImg" (change)="getCreditFile($event)" style="width: 20%;"></app-file-upload>
-                                        </div>
                                     </div>
-                                    <div class="row" style="margin-left:50px" *ngIf="edit">
-                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" style="margin-left: 22%;">
-                                            <a href="{{filePath}}{{filePathUrl}}"  target="_blank">{{filePathUrl?.split('/').pop()}}</a><br>
+
+                                    <div class="row">
+                                        <div class="col-md-3">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                <mat-label>Branch</mat-label>
+                                                <mat-select formControlName="auditbranchId">
+                                                  <mat-option *ngFor="let title of branchList" [value]="title.id">
+                                                    {{title.text}}
+                                                  </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="docForm.get('auditbranchId').hasError('required')">
+                                                    Branch is required
+                                                </mat-error>
+                                              </mat-form-field>
                                         </div>
-                                    </div>
-                                  
+                                        </div>
                                 </div>
 
-                                
-                                <div >
-                                    <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-                                        <thead class="">
-                                            <tr>
-                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">Category</th>
-                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">Location</th>
-                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%;border-radius: 0.07rem;">Department</th>
-                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%;border-radius: 0.07rem;">Audit Name</th>
-                                                <th class="table-heading text-center" style="margin-left: 10px; width: 11%; border-radius: 0.05rem;">
-                                                    <label class="i-checks m-b-none">
-                                                         <i></i>
-                                                    </label></th>
-                                                <th class="table-heading text-center" style="margin-left: 10px;width: 11%; border-radius: 0.05rem;">
-                                                    <label class="i-checks m-b-none">
-                                                        <i></i>
-                                                    </label></th>
-                                            </tr>
-                                        </thead>
-                                        <ng-container *ngFor="let manageAuditDtlObjBean of Formdoc.get('manageAuditDtlObjBean')['controls']; let i = index">
-                                            <tbody [formGroup]="manageAuditDtlObjBean">
-                                                <tr>
-                                                    <td class="padding-both-side-2">
-                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                            <mat-label>Category</mat-label>
-                                                            <mat-select formControlName="category" multiple>
-                                                                <mat-option *ngFor="let category of categoryList" [value]="category.code" >
-                                                                    {{category.text}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </td>
-                                                    <td class="padding-both-side-2">
-                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                            <mat-label>Location</mat-label>
-                                                            <mat-select formControlName="location" multiple>
-                                                                <mat-option *ngFor="let location of loacationList"  [value]="location.code" >
-                                                                    {{location.text}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </td>
-
-                                                    <td class="padding-both-side-2">
-                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                            <mat-label>Department</mat-label>
-                                                            <mat-select formControlName="department" multiple>
-                                                                <mat-option *ngFor="let department of departmentList" [value]="department.code" >
-                                                                    {{department.text}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </td>
-                                                    <td class="padding-both-side-2">
-                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                            <mat-label>Audit Name</mat-label>
-                                                            <mat-select formControlName="auditUser" >
-                                                                <mat-option *ngFor="let auditor of auditorList" [value]="auditor.id" >
-                                                                    {{auditor.text}}
-                                                                </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </td>
-
-                                                    <td>
-                                                        <button mat-mini-fab color="warn" (click)="removeRowAided(i)" style="margin-left: -10%;">
-                                                            <mat-icon class="col-white">delete</mat-icon>
-                                                        </button>
-                                                    </td>
-
-                                                    <td>
-                                                        <button mat-mini-fab color="primary" (click)="addRowAided()" style="margin-left: -90%;">
-                                                            <mat-icon class="col-white">add</mat-icon>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </ng-container>
-                                    </table>
-
-                                    
-                                </div>
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                                         <div class="row">
@@ -354,6 +235,7 @@
 
                             </form>
                         </mat-tab>
+
                     </mat-tab-group>
                 </div>
             </div>
