@@ -53,11 +53,32 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
 
   }
 
-  addBranch(branchMaster: Branch): void {
+  addBranch(branchMaster,router,notificationService) {
     this.dialogData = branchMaster;
-    this.httpService.post<Branch>(this.saveBranch, branchMaster).subscribe(data => {
+    this.httpService.post<any>(this.saveBranch, branchMaster).subscribe(data => {
       console.log(data);
-      //this.dialogData = employees;
+      if(data.success){
+        console.log("Branch value is "+this.tokenStorage.getBranchId());
+        if(this.tokenStorage.getBranchId()==null){
+          this.tokenStorage.saveBranchId(data.branchId);
+          alert(this.tokenStorage.getBranchId());
+        }
+        notificationService.showNotification(
+          "snackbar-success",
+          "Add Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/Branch/listBranch']);
+      }else {
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated!!!",
+          "bottom",
+          "center"
+        );
+      }
+
       },
       (err: HttpErrorResponse) => {
         

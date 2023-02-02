@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { NotificationService } from 'src/app/core/service/notification.service';
 import { Branch } from '../branch-model';
 import { BranchService } from '../branch.service';
 
@@ -30,7 +31,8 @@ export class AddBranchComponent implements OnInit {
     private commonService: CommonService,
     private snackBar:MatSnackBar,
     private router:Router,
-    public route: ActivatedRoute,private tokenStorage: TokenStorageService) {
+    public route: ActivatedRoute,private tokenStorage: TokenStorageService,
+    private notificationService: NotificationService) {
       this.docForm = this.fb.group({
         branchCode: [""],
         branchname: [""],
@@ -95,15 +97,7 @@ export class AddBranchComponent implements OnInit {
     this.branchMaster = this.docForm.value;
     console.log(this.branchMaster);
     if(this.docForm.valid){
-    this.branchService.addBranch(this.branchMaster);
-  
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/Branch/listBranch']);
+    this.branchService.addBranch(this.branchMaster,this.router,this.notificationService);
   }
   }
 

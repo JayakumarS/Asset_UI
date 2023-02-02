@@ -53,8 +53,14 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   }
   addCompany(company: Company): void {
     this.dialogData = company;
-    this.httpService.post<Company>(this.saveCompany, company).subscribe(data => {
+    this.httpService.post<any>(this.saveCompany, company).subscribe(data => {
       console.log(data);
+      if(data.success){
+        if(this.tokenStorage.getCompanyId()==null){
+          this.tokenStorage.saveCompanyId(data.companyId);
+        }
+        
+      }
       //this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
