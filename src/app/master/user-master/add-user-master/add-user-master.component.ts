@@ -54,7 +54,7 @@ export class AddUserMasterComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       contNumber: ["", [Validators.required]],
-      role: [""],
+      role: ["", [Validators.required]],
       department: [""],
       repmanager: [""],
       language: ["", [Validators.required]],
@@ -162,11 +162,21 @@ export class AddUserMasterComponent implements OnInit {
   this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
     (data) => {
       this.roleList = data.roleList;
+      if(!this.edit){
+        if(!this.auditorFlag){
+          this.roleList=[{id:'6',text:'Guest'}];
+          this.docForm.patchValue({role:'6'});
+        }
+        
+      }
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
   );  
+
+
+  
 
   //Department Dropdown List
   this.httpService.get<any>(this.userMasterService.departmentListUrl).subscribe(

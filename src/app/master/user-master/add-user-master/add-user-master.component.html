@@ -85,7 +85,7 @@
                     </div>
                     <div class=" col-md-3" *ngIf="!auditorFlag">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select class="inputTxt" formControlName="role">
+                      <mat-select class="inputTxt" formControlName="role" >
                         <mat-option *ngFor="let title of roleList" [value]="title.id">
                             {{title.text}}
                         </mat-option>
