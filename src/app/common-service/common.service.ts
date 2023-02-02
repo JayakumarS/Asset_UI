@@ -84,6 +84,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getauditList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getauditList`;
 
+  public getPercentageList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPercentageList`;
+
   public getPurchaseTaxDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseTaxDropdown`;
 
   public getSalesTaxDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getSalesTaxDropdown`;
@@ -145,7 +147,9 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getAssetUserList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetUserDropdownByCompany`;
 
-  public getcompanyDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUserBasedCompanyDropdown`;
+  public getUserBasedCompanyDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUserBasedCompanyDropdown`;
+
+  public getcompanyDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyDropdown`;
 
   public getLocationDropdownByCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLocationDropdownByCompany`;
 

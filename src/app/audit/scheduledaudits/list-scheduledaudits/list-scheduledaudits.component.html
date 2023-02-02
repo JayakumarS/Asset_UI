@@ -22,14 +22,6 @@
                           <input placeholder="Search" type="text" #filter class="browser-default search-field"
                             aria-label="Search box">
                         </li>
-                        <li *ngIf="permissionList?.add">
-                          <div class="m-l-10" matTooltip="ADD">
-                            <button color="primary" type="button" class="btn-space" [routerLink]="'/audit/scheduledaudits/add-scheduledaudits/0'" mat-raised-button>
-                              <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
-                            </button>
-                          </div>
-                        </li>
-
                       </ul>
                     </div>
                     <div class="col-4"*ngIf="permissionList?.exportXL">
@@ -63,11 +55,8 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
                   </ng-container>
-                  <!-- <ng-container matColumnDef="extDate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.extDate}}</mat-cell>
-                  </ng-container>  -->
-
+        
+                  
                   <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.status}}</mat-cell>
@@ -77,17 +66,6 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Audit Type</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditType}}</mat-cell>
                   </ng-container>
-
-                  <ng-container matColumnDef="cName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cName}}</mat-cell>
-                  </ng-container>
-
-                  <!-- <ng-container matColumnDef="auditorName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Auditor Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cName}}</mat-cell>
-                  </ng-container> -->
-
 
                   <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
@@ -126,15 +104,12 @@
                 </div>
                 <mat-menu #contextMenu="matMenu">
                   <ng-template matMenuContent let-item="item">
-                    <button *ngIf="permissionList?.add"mat-menu-item (click)="addNew()">
-                      <mat-icon>add_box</mat-icon>
-                      <span>Add Record</span>
-                    </button>
-                    <button *ngIf="permissionList?.modify"mat-menu-item (click)="editCall(item)">
+      
+                    <button *ngIf="permissionList?.modify" mat-menu-item (click)="editCall(item)">
                       <mat-icon>create</mat-icon>
                       <span>Edit Record</span>
                     </button>
-                    <button *ngIf="permissionList?.delete"mat-menu-item (click)="deleteItem(item.id,item)">
+                    <button *ngIf="permissionList?.delete" mat-menu-item (click)="deleteItem(item.id,item)">
                       <mat-icon>delete</mat-icon>
                       <span>Delete Record</span>
                     </button>

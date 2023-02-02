@@ -38,6 +38,26 @@
                   </div>
                 </div>
 
+                <div class="row" *ngIf="!edit">
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="
+                    margin-top: 14px;
+                " >
+                      <label class="lable">Offer<span class="errorColor">*</span></label>
+                  </div> 
+
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12"  style="width:66%">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Offer</mat-label>
+                      <mat-select  #select formControlName="discount">
+                        <mat-option *ngFor="let title of percentageList" [value]="title" >
+                          {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
                 <div class="row">
                 
                   

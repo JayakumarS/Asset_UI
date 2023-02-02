@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { CommonService } from 'src/app/common-service/common.service';
-import { ScheduleAudit } from '../scheduledaudits-model';
+import { ScheduledAudit } from '../scheduledaudits-model';
 import { ScheduledauditsService } from '../scheduledaudits.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class ScheduledViewComponent implements OnInit {
   docForm: FormGroup;
   requestId:any;
   auditCode: any;
-  scheduleAudit: ScheduleAudit | null;
+  scheduledAudit: ScheduledAudit | null;
   financialChangeDetails:[];
 
 

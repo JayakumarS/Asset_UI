@@ -5,30 +5,26 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
-import { ScheduleAudit } from './scheduledaudits-model';
+import { ScheduledAudit } from './scheduledaudits-model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter{
+export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter {
   isTblLoading = true;
-  dataChange: BehaviorSubject<ScheduleAudit[]> = new BehaviorSubject<ScheduleAudit[]>([]);
-  
-  dialogData:any;
-  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,private tokenStorage: TokenStorageService) { 
-  super();
+  dataChange: BehaviorSubject<ScheduledAudit[]> = new BehaviorSubject<ScheduledAudit[]>([]);
 
+  dialogData: any;
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService, private tokenStorage: TokenStorageService) {
+    super();
   }
-  public getList = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/list`;
-  public edit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/edit`;
-  public scheduleedit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/edit`;
-  public save = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/save`;
-  public editAudit = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/editAudit`;
-  public draftsave = `${this.serverUrl.apiServerAddress}api/auth/app/audit/scheduled/draftsave`;
+
+  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/scheduledAudit/getList`;
+  public saveScheduledAudit = `${this.serverUrl.apiServerAddress}api/auth/app/scheduledAudit/save`;
+  public editScheduledAudit = `${this.serverUrl.apiServerAddress}api/auth/app/scheduledAudit/edit`;
 
 
-
-  get data(): ScheduleAudit[] {
+  get data(): ScheduledAudit[] {
     return this.dataChange.value;
   }
   getDialogData() {
@@ -40,10 +36,10 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter{
       companyId: this.tokenStorage.getCompanyId(),
       branchId: this.tokenStorage.getBranchId(),
     }
-    this.subs.sink = this.httpService.post<any>(this.getList,obj).subscribe(
+    this.subs.sink = this.httpService.post<any>(this.getAllMasters, obj).subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.auditDetails);
+        this.dataChange.next(data.scheduleAuditList);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -51,10 +47,13 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter{
       }
     );
   }
-  editAsset(obj: any): Observable<any> {
 
-    return this.httpClient.post<any>(this.editAudit, obj);
+  addAudit(scheduledAudit: ScheduledAudit): Observable<any> {
+    return this.httpClient.post<ScheduledAudit>(this.saveScheduledAudit, scheduledAudit);
+  }
 
+  editAudit(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editScheduledAudit, obj);
   }
 
 }
