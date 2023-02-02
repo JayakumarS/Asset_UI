@@ -117,7 +117,12 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     this.httpService.get<ItSupportresultbean>(this.itsupportservice.closedListCountUrl+"?companyid="+parseInt(companystrid)).subscribe(
       (data) => {
         console.log(data);
-        this.closeCountValue = data.closedListCount;
+        if(data.closedListCount==undefined){
+          this.closeCountValue=0;
+        } else {
+          this.closeCountValue = data.closedListCount;
+        }
+        
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -128,7 +133,12 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     this.httpService.get<ItSupportresultbean>(this.itsupportservice.openListCountUrl+"?companyid="+parseInt(companyid) ).subscribe(
       (data) => {
         console.log(data);
-        this.OpenedCountValue = data.openedListCount;
+        if(data.openedListCount==undefined){
+          this.OpenedCountValue=0;
+        } else {
+          this.OpenedCountValue = data.openedListCount;
+        }
+        
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -139,7 +149,12 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     this.httpService.get<ItSupportresultbean>(this.itsupportservice.holdListCountUrl+"?companyid="+parseInt(companystid) ).subscribe(
       (data) => {
         console.log(data);
-        this.HoldCountValue = data.holdListCount;
+        if(data.holdListCount==undefined){
+          this.HoldCountValue=0;
+        } else {
+          this.HoldCountValue = data.holdListCount;
+        }
+        
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -149,7 +164,12 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     this.httpService.get<ItSupportresultbean>(this.itsupportservice.AssignedListCountUrl+"?companyid="+parseInt(companysid) ).subscribe(
       (data) => {
         console.log(data);
-        this.AssignedCountValue = data.assignedListCount;
+        if(data.assignedListCount==undefined){
+          this.AssignedCountValue=0;
+        } else {
+          this.AssignedCountValue = data.assignedListCount;
+        }
+        
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
