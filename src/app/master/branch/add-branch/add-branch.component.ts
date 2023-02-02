@@ -37,7 +37,7 @@ export class AddBranchComponent implements OnInit {
         companyId:[""],
         location:[""],
         isactive:[false],
-        userid:[""]
+        userId:[""]
       });
 
 
@@ -91,7 +91,7 @@ export class AddBranchComponent implements OnInit {
   }
 
   onSubmit(){
-    this.docForm.value.userid = this.tokenStorage.getUserId();
+    this.docForm.value.userId = this.tokenStorage.getUserId();
     this.branchMaster = this.docForm.value;
     console.log(this.branchMaster);
     if(this.docForm.valid){
