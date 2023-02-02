@@ -20,8 +20,8 @@
                         </div>
                         <div class=" col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-select class="inputTxt" formControlName="company" >
-                              <mat-option *ngFor="let title of CompanyList" [value]="title.id">
+                            <mat-select class="inputTxt" formControlName="company"  (selectionChange)="fetchBranchDetails($event.value)" >
+                              <mat-option *ngFor="let title of getUserBasedCompanyList" [value]="title.text">
                                   {{title.text}}
                               </mat-option>
                           </mat-select>
@@ -34,7 +34,7 @@
                           <div class=" col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="branch">
-                                <mat-option *ngFor="let title of branchList" [value]="title.text">
+                                <mat-option *ngFor="let title of getUserBasedBranchList" [value]="title.text">
                                     {{title.text}}
                                 </mat-option>
                             </mat-select>
@@ -55,10 +55,11 @@
                                   </mat-error>
                                 </mat-form-field>
                               </div>
+                             
+                              
                               <div class=" col-md-2">
                                 <mat-label >EMAIL ID<span class="errorColor">*</span></mat-label>
                                 </div>
-                               
                               <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required >
@@ -103,11 +104,14 @@
                                           </div>
 
                                           <div class="row">
+                                            
+
                                             <div class=" col-md-2">
                                               <mat-label  >ACTIVE</mat-label></div>
                                             <div class=" col-md-3">
                                                <mat-checkbox  formControlName="active" STYLE="margin-left: 10px;"></mat-checkbox>
                                             </div>
+                                            
                                             </div>
 <!--  -->
                     

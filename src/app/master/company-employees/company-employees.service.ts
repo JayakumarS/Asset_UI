@@ -35,7 +35,9 @@ const httpOptions = {
     public editcategory = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/edit`;
     public deletecategory = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/delete`;
     public updatecompanyEmp = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/update`;
-
+    public companyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/userBasedCompanyList`;
+    public fetchBranch = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/userBasedBranchList`;
+    
     
     
     

@@ -17,8 +17,8 @@ export class InventoryReports{
   assetName: string;
   assetId: number;
   quantity:string;
-  item: string;
-  location: string;
+  item: any;
+  location: any;
   
     constructor(inventoryReport) {
       {

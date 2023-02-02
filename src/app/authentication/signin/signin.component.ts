@@ -116,7 +116,7 @@ export class SigninComponent
               }else{
                  this.submitted = false;
                   this.loading = false;
-                  this.error = "Invalid Login";
+                  this.error = data.message;
                 console.log(data.message);
               }
 

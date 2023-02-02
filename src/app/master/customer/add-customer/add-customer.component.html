@@ -108,32 +108,33 @@
           </div>
           &nbsp; &nbsp; &nbsp;
           <div class=" col-md-2">
-            <mat-label>STATE<span class="errorColor">*</span></mat-label>
-            </div>
-             <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-label >State</mat-label>
+              </div>
+
+              <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="state" (selectionChange)="getCityDropdown($event.value)"maxlength="30" required>
-                  <mat-option *ngFor="let title of stateDdList" [value]="title.id">
-                      {{title.text}}
-                  </mat-option>
-              </mat-select>
+                <input matInput formControlName="state"  >
+                <mat-error *ngIf="docForm.get('state').hasError('required')">
+                  State  is required
+                </mat-error>
               </mat-form-field>
 
           </div>
           &nbsp; &nbsp; &nbsp;
           <div class=" col-md-2">
-            <mat-label>CITY<span class="errorColor">*</span></mat-label>
+            <mat-label >City</mat-label>
             </div>
-             <div class=" col-md-2" style="margin-left: -45px;">
-             <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <mat-select class="inputTxt" formControlName="city" maxlength="30" required>
-                <mat-option *ngFor="let title of cityDdList;" [value]="title.id">
-                    {{title.text}}
-                </mat-option>
-            </mat-select>
+            <div class=" col-md-2" style="margin-left: -45px;">
+
+            <mat-form-field class="example-width form-control-sm" appearance="outline">
+              <input matInput formControlName="city"  >
+              <mat-error *ngIf="docForm.get('city').hasError('required')">
+                City  is required
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
+        
 
         <div class="row">
        

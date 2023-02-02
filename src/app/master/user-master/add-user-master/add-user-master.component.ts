@@ -23,12 +23,15 @@ export class AddUserMasterComponent implements OnInit {
   edit:boolean= false;
   submitted: boolean = false;
   locationDdList = [];
+  getCountryDDList= [];
   companyList = [];
   branchList = [];
   roleList = [];
   roleAuditList = [];
   getUserBasedCompanyList = [];
   getUserBasedBranchList = [];
+  departmentAuditList= [];
+
   language: any;
   role: any;
   roleId:any;
@@ -51,7 +54,7 @@ export class AddUserMasterComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       contNumber: ["", [Validators.required]],
-      role: [""],
+      role: ["", [Validators.required]],
       department: [""],
       repmanager: [""],
       language: ["", [Validators.required]],
@@ -65,7 +68,9 @@ export class AddUserMasterComponent implements OnInit {
       branch: [""],
       auditor: [""],
       companyid:[""],
-      branchid:[""]
+      branchid:[""],
+      address:[""],
+      country:[""],
 
     //  loginedUser: this.tokenStorage.getUserId(),
     });
@@ -110,16 +115,27 @@ export class AddUserMasterComponent implements OnInit {
         }
       }
       );
-     // department dropdown
-    this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
+
+         // Country dropdown
+    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
       next: (data) => {
-        this.departmentDdList = data;
+        this.getCountryDDList = data;
       },
       error: (error) => {
 
       }
     }
     );
+     // department dropdown
+    // this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
+    //   next: (data) => {
+    //     this.departmentDdList = data;
+    //   },
+    //   error: (error) => {
+
+    //   }
+    // }
+    // );
 
     // company dropdown
     this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
@@ -146,11 +162,32 @@ export class AddUserMasterComponent implements OnInit {
   this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
     (data) => {
       this.roleList = data.roleList;
+      if(!this.edit){
+        if(!this.auditorFlag){
+          this.roleList=[{id:'6',text:'Guest'}];
+          this.docForm.patchValue({role:'6'});
+        }
+        
+      }
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
   );  
+
+
+  
+
+  //Department Dropdown List
+  this.httpService.get<any>(this.userMasterService.departmentListUrl+"?company="+this.tokenStorage.getCompanyId()+"").subscribe(
+    (data) => {
+      this.departmentList = data.departmentList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );  
+
 
    //User Based Company List
    this.httpService.get<any>(this.userMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
@@ -161,6 +198,31 @@ export class AddUserMasterComponent implements OnInit {
       console.log(error.name + " " + error.message);
     }
   ); 
+
+  //User Reporting Manager
+  this.httpService.get<any>(this.userMasterService.reportingManUrl + "?userId=" + this.userId).subscribe(
+    (data) => {
+      this.getReportingManList = data.reportingManList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  ); 
+
+  
+  //User Primary Location
+  this.httpService.get<any>(this.userMasterService.primaryLocUrl + "?userId=" + this.userId).subscribe(
+    (data) => {
+      this.getPrimaryLocList = data.primaryLocList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  ); 
+
+
+  
+   
 
   }
 
@@ -196,6 +258,20 @@ export class AddUserMasterComponent implements OnInit {
     ); 
   }
 
+  departmentChange(){
+    this.httpService.get<any>(this.userMasterService.departmentListAuditUrl).subscribe(
+      (data) => {
+        this.departmentAuditList = data.departmentAuditList;
+        this.docForm.patchValue({
+          department:'60',
+       })
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    ); 
+  }
+
   fieldsChange(values:any):void {
     if(values.checked){
       this.auditorFlag=true;
@@ -210,10 +286,22 @@ export class AddUserMasterComponent implements OnInit {
           console.log(error.name + " " + error.message);
         }
       ); 
+      this.httpService.get<any>(this.userMasterService.departmentListAuditUrl).subscribe(
+        (data) => {
+          this.departmentAuditList = data.departmentAuditList;
+          this.docForm.patchValue({
+            department:'60',
+         })
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      ); 
     }else{
       this.auditorFlag=false;
     }
   }
+
 
   fetchDetails(empid: any) {
     this.requestId = empid;
@@ -250,6 +338,8 @@ export class AddUserMasterComponent implements OnInit {
         'active': res.userMasterBean.active,
         'branch': res.userMasterBean.branch,
         'auditor': res.userMasterBean.auditor,
+        'address':res.userMasterBean.address,
+        'country':res.userMasterBean.country,
 
 
      })
@@ -488,6 +578,8 @@ update() {
         empid: [""],
         active: [""],
         branch: ["", [Validators.required]],
+        address: [""],
+        country: [""],
       });
     } else {
     this.fetchDetails(this.requestId);

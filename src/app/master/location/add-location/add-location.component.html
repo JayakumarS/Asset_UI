@@ -83,8 +83,8 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
                       <mat-select class="inputTxt" formControlName="primaryLocation"maxlength="30">
-                        <mat-option *ngFor="let title of locationDdList" [value]="title.id">
-                            {{title.text}}
+                        <mat-option *ngFor="let title of locationDdList" [value]="title.userId">
+                            {{title.userId}}
                         </mat-option>
                     </mat-select>
                   </mat-form-field>
