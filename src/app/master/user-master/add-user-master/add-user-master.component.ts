@@ -179,7 +179,7 @@ export class AddUserMasterComponent implements OnInit {
   
 
   //Department Dropdown List
-  this.httpService.get<any>(this.userMasterService.departmentListUrl).subscribe(
+  this.httpService.get<any>(this.userMasterService.departmentListUrl+"?company="+this.tokenStorage.getCompanyId()+"").subscribe(
     (data) => {
       this.departmentList = data.departmentList;
     },
