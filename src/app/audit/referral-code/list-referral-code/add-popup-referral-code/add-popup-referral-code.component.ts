@@ -22,6 +22,7 @@ export class AddPopupReferralCodeComponent implements OnInit {
   totalValue1: number;
  referralcode : ReferralCode;
  auditList  = [];
+ percentageList  = [];
  referralCodeEdit = [];
  refCodeAddArray : string[] = [""];
  refCodeUpd : boolean[] = [true];
@@ -50,6 +51,7 @@ export class AddPopupReferralCodeComponent implements OnInit {
       auditor : ["", [Validators.required]],
       loginedUser : [this.tokenStorage.getUserId()],
       referralCodeEdit : [],
+      discount : [],
       referralCodeEditNew : this.fb.array([
         this.fb.group({
           isActive:true,
@@ -67,6 +69,16 @@ export class AddPopupReferralCodeComponent implements OnInit {
     this.httpService.get<any>(this.commonService.getauditList).subscribe({
       next: (data) => {
         this.auditList = data;
+      },
+      error: (error) => {
+  
+      }
+    }
+    );
+
+    this.httpService.get<any>(this.commonService.getPercentageList).subscribe({
+      next: (data) => {
+        this.percentageList = data;
       },
       error: (error) => {
   
