@@ -24,11 +24,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { InventoryPrintComponent } from './inventory-print/inventory-print.component';
 
 
 @NgModule({
   declarations: [
-    ListInventoryReportsComponent
+    ListInventoryReportsComponent,
+    InventoryPrintComponent
   ],
   imports: [
     CommonModule,

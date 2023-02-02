@@ -220,7 +220,14 @@ this.viewReport();
    
     }
  
+    print(){
+      this.customerMaster=this.docForm.value;
 
+      sessionStorage.setItem("item",this.customerMaster.item);
+      sessionStorage.setItem("location",this.customerMaster.location);
+      sessionStorage.setItem("dateValue",this.customerMaster.fromDate);
+      this.router.navigate(['/inventory/inventory-reports/print-inventory-report']);
+    }
 
 
   reset(){

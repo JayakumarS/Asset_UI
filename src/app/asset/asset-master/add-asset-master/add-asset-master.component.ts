@@ -128,11 +128,11 @@ export class AddAssetMasterComponent
       invoiceNo: [""],
       purchasePrice: [""],
       //tab3
-      captitalizationPrice: [""],
-      captitalizationDate: [""],
-      endLife: [""],
-      scrapValue: [""],
-      depreciation: [""],
+      captitalizationPrice: ["",[Validators.required]],
+      captitalizationDate: ["",[Validators.required]],
+      endLife: ["", [Validators.required]],
+      scrapValue: ["", [Validators.required]],
+      depreciation: ["", [Validators.required]],
       //tab4
       department: [""],
       allottedUpto: [""],
