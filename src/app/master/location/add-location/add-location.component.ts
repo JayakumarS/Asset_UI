@@ -102,15 +102,15 @@ export class AddLocationComponent implements OnInit {
 
       }
      });
-    // Location dropdown
-    this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
-      next: (data) => {
-        this.locationDdList = data;
-      },
-      error: (error) => {
+    // // Location dropdown
+    // this.httpService.get<any>(this.commonService.getcompanybaseduser).subscribe({
+    //   next: (data) => {
+    //     this.locationDdList = data;
+    //   },
+    //   error: (error) => {
 
-      }
-    });
+    //   }
+    // });
 
     // CompanygetCompanyDropdown dropdown
     this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
@@ -130,14 +130,27 @@ export class AddLocationComponent implements OnInit {
 getCompanybasedlocationDropdown(companyId: any): void {
   this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId=" + companyId).subscribe((res: any) => {
   this.locationList = res.addressBean;
+  // tslint:disable-next-line:no-shadowed-variable
+ // this.getcompanybaseduser(this.docForm.value.company);
+});
+  this.httpService.get(this.commonService.getcompanybaseduser + "?company=" + companyId).subscribe((res: any) => {
+  this.locationDdList = res.addressBean;
 });
 }
 // company list
 getUserbasedcompanyDropdown(userId: any): void {
-  this.httpService.get(this.commonService.getcompanyDropdown + "?companyId=" + userId).subscribe((res: any) => {
-  this.company = res.addressBean;
+  this.httpService.get(this.commonService.getcompanyDropdown + "?companyId=" + userId).subscribe((res1: any) => {
+  this.company = res1.addressBean;
+
 });
 }
+
+// primaryhead list
+// getcompanybaseduser(company: any): void {
+//   this.httpService.get(this.commonService.getcompanybaseduser + "?companyId=" + company).subscribe((res: any) => {
+//   this.locationDdList = res.addressBean;
+// });
+// }
 // // location head list
 // getcompanybasedLocationHeadDropdown(userId: any): void {
 //   this.httpService.get(this.commonService.getcompanybasedLocationHeadDropdown + "?companyId=" + userId).subscribe((res: any) => {
