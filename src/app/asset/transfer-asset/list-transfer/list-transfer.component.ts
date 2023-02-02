@@ -59,6 +59,7 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    var id=this.token.getUserId();
     this.loadData();
   }
  

@@ -432,7 +432,12 @@ fetchAssetName(asset:any){
 
   back()
   {
+    if(sessionStorage.getItem("Inventory")=="true"){
+       sessionStorage.setItem("Inventory","false");
+       this.router.navigate(['/inventory/inventory-reports/list-inventory-reports']);
+    } else {
     this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+    }
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

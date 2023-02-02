@@ -88,6 +88,15 @@
               <td mat-cell *matCellDef="let row"> {{row.balanceQty}}
               </td>
           </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="profileView(row.assetId)" class="tbl-action-btn">
+                <app-feather-icons style="color:red" matTooltip="Profile View" [icon]="'log-in'" [class]="'tbl-fav-delete'">
+                </app-feather-icons>
+              </button>
+            </td>
+        </ng-container>
           
           <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
           <ng-container matColumnDef="expandedDetail">
