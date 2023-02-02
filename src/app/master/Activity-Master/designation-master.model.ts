@@ -7,7 +7,8 @@ export class DesignationMaster {
   active: any;
   Success:boolean;
   isactiveForList: string;
-
+  companyId:any;
+  branchId:any;
   
   constructor(designationMaster) {
     {

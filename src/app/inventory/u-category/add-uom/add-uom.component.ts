@@ -21,6 +21,9 @@ export class AddUomComponent implements OnInit {
   requestId:number;
   dialogData: any;
   edit: boolean = false;
+  companyId: any;
+  branchId: any;
+
 
   constructor(private fb: FormBuilder, public router: Router, private snackBar: MatSnackBar,
     public uomService: UomService,
@@ -34,6 +37,9 @@ export class AddUomComponent implements OnInit {
         uomcategoryCode: ["",[Validators.required]],
         uomcategoryId:[""],
         loginedUser: this.tokenStorage.getUserId(),
+        company:this.tokenStorage.getCompanyId(),
+        branchname:this.tokenStorage.getBranchId(),
+  
       });
 
 
@@ -41,6 +47,14 @@ export class AddUomComponent implements OnInit {
     
 
   ngOnInit(): void {
+    this.companyId = this.tokenStorage.getCompanyId();
+    console.log(this.companyId)
+    this.branchId = this.tokenStorage.getBranchId();
+    console.log(this.branchId)
+    
+
+
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;

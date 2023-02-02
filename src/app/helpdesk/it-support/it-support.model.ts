@@ -23,6 +23,7 @@ export class Itsupport {
     report: Boolean;
   Success: boolean;
   support_id: number;
+  companyid:number
   
   constructor(itsupport) {
     {

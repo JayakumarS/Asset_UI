@@ -16,6 +16,9 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { DeleteUserMasterComponent } from './delete-user-master/delete-user-master.component';
 import { UserMaster } from '../user-master.model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 // import { DeleteCurrencyComponent } from './delete-currency/delete-currency.component';
 
 @Component({
@@ -36,7 +39,9 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   selection = new SelectionModel<UserMaster>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   UserMaster: UserMaster | null;
+  userId: string;
 
   constructor(
     public httpClient: HttpClient,
@@ -46,6 +51,9 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
     public router: Router,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
   ) {
     super();
   }
@@ -58,8 +66,30 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    this.loadData();
+    const permissionObj = {
+      formCode: 'F1025',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
+    this.onSubmit();
   }
+
+  onSubmit(){
+    this.userId = this.tokenStorage.getUserId();
+    console.log(this.userId);
+    this.loadData();
+}
 
   refresh(){
     this.loadData();
@@ -70,7 +100,8 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort
+      this.sort,
+      this.userId
     );
     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
@@ -85,13 +116,13 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
  // edit
  editCall(row) {
-
+  if (this.permissionList?.modify){
   this.router.navigate(['/master/userMaster/add-user-master/' + row.empid]);
-
+  }
 }
 
 
-deleteItem(row) {
+deleteItem(i: number, row) {
   let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {
     tempDirection = "rtl";
@@ -170,7 +201,8 @@ export class ExampleDataSource extends DataSource<UserMaster> {
   constructor(
     public exampleDatabase: UserMasterService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    public userId
   ) {
     super();
     // Reset to the first page when the user changes the filter.
@@ -185,7 +217,7 @@ export class ExampleDataSource extends DataSource<UserMaster> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList();
+    this.exampleDatabase.getAllList(this.userId);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

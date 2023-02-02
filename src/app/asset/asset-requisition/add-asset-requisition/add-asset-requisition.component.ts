@@ -61,6 +61,8 @@ export class AddAssetRequisitionComponent implements OnInit {
   chkAll = false;
   userName: any;
   userId: string;
+  branchId: string;
+  companyId: string;
   constructor(private fb: FormBuilder,
     public assetRequisitionService:AssetRequisitionService,
     private httpService: HttpServiceService,
@@ -83,6 +85,7 @@ export class AddAssetRequisitionComponent implements OnInit {
         itemId:[""],
         quantity:[""],
         companyId:[""],
+        branchId:[""],
         eddDateObj:[""],
         eddDate:[""],
         assetRequisitionId:[""],
@@ -100,7 +103,8 @@ export class AddAssetRequisitionComponent implements OnInit {
                     user:[""],
                     userId:[""],
                     ledgerId:[""],
-                    assetCategory:[""]
+                    assetCategory:[""],
+                    assetId:[""]
           }) 
         ])
           
@@ -111,25 +115,33 @@ export class AddAssetRequisitionComponent implements OnInit {
 
       this.userId = this.token.getUserId();
       this.userName=this.token.getUsername();
-
-     this.docForm.patchValue({
-       'requestedBy':this.userId
-    })
+      this.branchId= this.token.getBranchId();
+      this.companyId= this.token.getCompanyId();
+      
 
     
-  this.httpService.get<any>(this.commonService.getCompanyByUser + "?user=" + this.userId).subscribe(
-    (data) => {
-      this.docForm.patchValue({
-        'companyId':data
-     })
-    },
-    (error: HttpErrorResponse) => {
-      console.log(error.name + " " + error.message);
-    }
-  );
+  // this.httpService.get<any>(this.commonService.getCompanyByUser + "?user=" + this.userId).subscribe(
+  //   (data) => {
+  //     this.docForm.patchValue({
+  //       'companyId':data
+  //    })
+  //   },
+  //   (error: HttpErrorResponse) => {
+  //     console.log(error.name + " " + error.message);
+  //   }
+  // );
 
-  // Location list dropdown
-  this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe(
+  //Location list dropdown
+  // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe(
+  //   (data) => {
+  //     this.locationList = data;
+  //   },
+  //   (error: HttpErrorResponse) => {
+  //     console.log(error.name + " " + error.message);
+  //   }
+  // );
+
+  this.httpService.get<any>(this.commonService.getLocationDropdownByCompany+"?companyId="+parseInt(this.companyId)).subscribe(
     (data) => {
       this.locationList = data;
     },
@@ -139,7 +151,17 @@ export class AddAssetRequisitionComponent implements OnInit {
   );
 
   //Employee dropdown
-  this.httpService.get<any>(this.commonService.getEmployeeDropdown).subscribe(
+  // this.httpService.get<any>(this.commonService.getEmployeeDropdown).subscribe(
+  //   (data) => {
+  //     console.log(data);
+  //     this.employeeList = data;
+  //   },
+  //   (error: HttpErrorResponse) => {
+  //     console.log(error.name + " " + error.message);
+  //   }
+  // );
+
+  this.httpService.get<any>(this.commonService.getEmployeeDropdownByCompany+"?companyId="+parseInt(this.companyId)).subscribe(
     (data) => {
       console.log(data);
       this.employeeList = data;
@@ -154,6 +176,11 @@ export class AddAssetRequisitionComponent implements OnInit {
     (data) => {
       console.log(data);
       this.companyList = data;
+      this.docForm.patchValue({
+        'requestedBy':this.userId,
+        'branchId':parseInt(this.branchId),
+        'companyId':parseInt(this.companyId),
+     })
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
@@ -249,9 +276,14 @@ fetchAssetDtlsNew(id){
                 userId:[element.userId],
                 ledgerId:[element.ledgerId],
                 assetCategory:[element.assetCategory],
+                assetId:[element.assetId],
               });
             DtlArray.insert(arraylen,newUsergroup);
           });
+        } else {
+          let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
+          DtlArray.removeAt(0);
+          DtlArray.clear();
         }
     },
     (error: HttpErrorResponse) => {
@@ -271,7 +303,7 @@ fetchAssetDtls(itemId){
       "right"
     );
   }else{
-    this.httpService.get<any>(this.assetRequisitionService.assetTrackListUrl+"?itemId="+itemId+"&sourceLocation="+this.docForm.get('sourceLocation').value).subscribe(
+    this.httpService.get<any>(this.assetRequisitionService.assetTrackListUrl+"?itemId="+itemId+"&sourceLocation="+this.docForm.get('sourceLocation').value+"&companyId="+parseInt(this.companyId)).subscribe(
       (data) => {
         console.log(data);
         if(data.success){
@@ -300,12 +332,21 @@ fetchAssetDtls(itemId){
                     userId:[element.userId],
                     ledgerId:[element.ledgerId],
                     assetCategory:[element.assetCategory],
+                    assetId:[element.assetId],
                   });
                 DtlArray.insert(arraylen,newUsergroup);
               });
+            } else {
+            let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
+            DtlArray.removeAt(0);
+            DtlArray.clear();
             }
 
           this.showassetDtl  = true;
+        } else {
+          let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
+            DtlArray.removeAt(0);
+            DtlArray.clear();
         }
         // else{
         //   this.showNotification(
@@ -539,6 +580,7 @@ validationLocations(id){
     itemId:[""],
     quantity:[""],
     companyId:[""],
+    branchId:[""],
     eddDateObj:[""],
     eddDate:[""],
     assetRequisitionDtl: this.fb.array([
@@ -556,6 +598,12 @@ validationLocations(id){
     ])
       
   });
+
+  this.docForm.patchValue({
+    'requestedBy':this.userId,
+    'branchId':parseInt(this.branchId),
+    'companyId':parseInt(this.companyId),
+ })
 
 }
 

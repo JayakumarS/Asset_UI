@@ -16,6 +16,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { ManageAuditServiceService } from '../manage-audit-service.service';
 import { ManageAudit } from '../manage-audit.model';
 import { MatTabGroup } from '@angular/material/tabs';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -61,6 +63,7 @@ id: number;
   departmentList: any;
   filePath:string;
   filePathUrl:string;
+  branchList: any;
 constructor(private fb: FormBuilder,
   private commonService: CommonService,
   private httpService: HttpServiceService,
@@ -71,7 +74,8 @@ constructor(private fb: FormBuilder,
   public manageAuditServiceService: ManageAuditServiceService,
   public dialog: MatDialog,
   private snackBar: MatSnackBar,
-  private serverUrl: serverLocations,){
+  private serverUrl: serverLocations,
+  private tokenStorage: TokenStorageService){
 }
 
 
@@ -94,11 +98,17 @@ ngOnInit(): void {
     endDate:["",[Validators.required]],
     endDateObj:[""],
     auditName:["", [Validators.required]],
-    auditField: ["", [Validators.required]],
+    // auditField: ["", [Validators.required]],
     auditType: ["Self"],
+    loginedUser: this.tokenStorage.getUserId(),
+    companyId: this.tokenStorage.getCompanyId(),
+    branchId: this.tokenStorage.getBranchId(),
+
     manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
-        category:["", [Validators.required]],
+        // category:["", [Validators.required]],
+        companyName:[""],
+        branchName:[""],
         location:[""],
         department:[""],
         
@@ -118,6 +128,9 @@ ngOnInit(): void {
     auditImg : [""],
     auditFile : [""],
     companyName:[""],
+    loginedUser: this.tokenStorage.getUserId(),
+    companyId: this.tokenStorage.getCompanyId(),
+    branchId: this.tokenStorage.getBranchId(),
    manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],
@@ -176,6 +189,9 @@ ngOnInit(): void {
 
     }
   });
+
+    //Company List
+
   this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
     next: (data) => {
       this.companyList = data;
@@ -185,7 +201,17 @@ ngOnInit(): void {
     }
   });
 
+    //branch List
 
+  this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
+    next: (data) => {
+      this.branchList = data;
+    },
+    error: (error) => {
+    }
+  });
+
+ 
   
   this.route.params.subscribe(params => {
     if(params.id!=undefined && params.id!=0){
@@ -265,7 +291,9 @@ addRowSelf(){
   let dtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
   let arraylen = dtlArray.length;
   let newUsergroup: FormGroup = this.fb.group({
-        category:["", [Validators.required]],
+        // category:["", [Validators.required]],
+        companyName:[""],
+        branchName:[""],
         location:[""],
         department:[""]
   })
@@ -309,7 +337,7 @@ fetchDetails(id){
         'endDateObj': this.commonService.getDateObj(res.manageAuditBean.endDate),
         'endDate': res.manageAuditBean.endDate,
         'auditName': res.manageAuditBean.auditName,
-        'auditField': res.manageAuditBean.auditField,
+        // 'auditField': res.manageAuditBean.auditField,
         'auditCode':res.manageAuditBean.auditCode,
         'companyName':res.manageAuditBean.companyName
 
@@ -326,7 +354,9 @@ fetchDetails(id){
             let manageAuditDtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
             let arraylen = manageAuditDtlArray.length;
             let newUsergroup: FormGroup = this.fb.group({
-              category:[element.category],
+              // category:[element.category],
+              company:[element.company],
+              branch:[element.branch],
               location:[element.location],
               department:[element.department]
           })
@@ -443,8 +473,11 @@ resetSelf(){
     endDate:[""],
     endDateObj:[""],
     auditName:["", [Validators.required]],
-    auditField: [""],
+    // auditField: [""],
     auditType: ["Self"],
+    loginedUser: this.tokenStorage.getUserId(),
+    companyId: this.tokenStorage.getCompanyId(),
+    branchId: this.tokenStorage.getBranchId(),
     manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],
@@ -465,6 +498,9 @@ resetAided(){
     auditName:["", [Validators.required]],
     auditField: [""],
     auditType: ["Self"],
+    loginedUser: this.tokenStorage.getUserId(),
+    companyId: this.tokenStorage.getCompanyId(),
+    branchId: this.tokenStorage.getBranchId(),
     manageAuditDtlObjBean: this.fb.array([
       this.fb.group({
         category:["", [Validators.required]],

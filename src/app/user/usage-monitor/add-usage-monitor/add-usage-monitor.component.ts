@@ -3,6 +3,9 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsageMonitor } from '../usageMonitor-model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UsageMonitorService } from '../usage-monitor.service';
 
 @Component({
   selector: 'app-add-usage-monitor',
@@ -11,17 +14,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddUsageMonitorComponent implements OnInit {
 
+  usageMonitor : UsageMonitor;
   itemTypeList = [];
   docForm: FormGroup;
   locationDdList = [];
   userDdList=[];
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   filePathUrl: string;
+  edit: any;
+  requestId: any;
 
   constructor(private fb: FormBuilder,private snackBar: MatSnackBar,
-    private httpService: HttpServiceService,
+    private httpService: HttpServiceService,private usageMonitorService: UsageMonitorService,
     private commonService: CommonService,
     private cmnService:CommonService,
+    private router:Router,public route: ActivatedRoute,
   ) { 
     this.docForm = this.fb.group({
       asset:[""],
@@ -67,6 +74,15 @@ export class AddUsageMonitorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+       this.edit=true;
+      //For User login Editable mode
+       this.fetchDetails(this.requestId) ;
+
+      }
+     });
 
 
 
@@ -103,6 +119,9 @@ export class AddUsageMonitorComponent implements OnInit {
   });
   }
 
+  fetchDetails(id:any){
+    
+  }
 
   removeRowSelf(index){
     let dtlArray = this.docForm.controls.usageMonitorDtlObjBean as FormArray;
@@ -126,6 +145,34 @@ export class AddUsageMonitorComponent implements OnInit {
     dtlArray.insert(arraylen,newUsergroup);
   
   }
+
+  onSubmit(){
+
+    if(this.docForm.valid){
+    this.usageMonitor = this.docForm.value;
+    console.log(this.usageMonitor);
+    this.usageMonitorService.save(this.usageMonitor);
+    this.showNotification(
+      "snackbar-success",
+      "Add Record Successfully...!!!",
+      "bottom",
+      "center"
+    );
+    this.router.navigate(['/usage/usageMonitor/listUsageMonitor']);
+    
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please fill the required details",
+      "top",
+      "right"
+    );
+  }
+  
+}
+
+  
 
   
 

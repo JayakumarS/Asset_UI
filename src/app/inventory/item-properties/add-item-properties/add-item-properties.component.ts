@@ -22,6 +22,8 @@ export class AddItemPropertiesComponent implements OnInit {
   dataTypeList: [];
   requestId: number;
   edit: boolean = false;
+  companyId: any;
+  branchId: any;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -44,12 +46,22 @@ export class AddItemPropertiesComponent implements OnInit {
       attributeDefualtValue: [""],
       isMandatory: [""],
       loginedUser: this.tokenStorage.getUserId(),
+      company:this.tokenStorage.getCompanyId(),
+      branchname:this.tokenStorage.getBranchId(),
 
     });
 
   }
 
   ngOnInit(): void {
+
+
+    this.companyId = this.tokenStorage.getCompanyId();
+    console.log(this.companyId)
+    this.branchId = this.tokenStorage.getBranchId();
+    console.log(this.branchId)
+    
+
     //propertyType list dropdown
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 38).subscribe({
       next: (data) => {
@@ -141,6 +153,7 @@ export class AddItemPropertiesComponent implements OnInit {
           'attributeValue': res.itemProperties.attributeValue,
           'attributeDefualtValue': res.itemProperties.attributeDefualtValue,
           'isMandatory': res.itemProperties.isMandatory,
+          
         })
       },
       error: (error) => {

@@ -50,6 +50,8 @@ export class AddAuditableAssetComponent implements OnInit {
   currencyList: [];
   assetTypeList:[];
   depreciationMethodList:[];
+  companyId: string;
+  branchId: string;
 
   constructor(private fb: FormBuilder,
     public auditableAssetService:AuditableAssetService,
@@ -69,12 +71,18 @@ export class AddAuditableAssetComponent implements OnInit {
       value:[""],
       salvageValue:[""],
       assetType:[""],
-      depreciationMethod:[""]
+      depreciationMethod:[""],
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
     });
   }
 
   ngOnInit(): void {
 
+    const obj = {
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+    }
 
   this.docForm = this.fb.group({
     assetid:["",[Validators.required]],
@@ -84,7 +92,9 @@ export class AddAuditableAssetComponent implements OnInit {
     value:["",[Validators.required]],
     salvageValue:["",[Validators.required]],
     assetType:["",[Validators.required]],
-    depreciationMethod:["",[Validators.required]]
+    depreciationMethod:["",[Validators.required]],
+    companyId: this.tokenStorage.getCompanyId(),
+    branchId: this.tokenStorage.getBranchId(),
   });
 
   // console.log(this.dfdfd.getUserId());
@@ -246,6 +256,8 @@ fetchAssetName(asset:any){
         'salvageValue' : res.auditableAssetBean.salvageValue,
         'assetType' : res.auditableAssetBean.assetType,
         'depreciationMethod' : res.auditableAssetBean.depreciationMethod,
+        'companyId': this.tokenStorage.getCompanyId(),
+        'branchId': this.tokenStorage.getBranchId(),
      })
       },
       (err: HttpErrorResponse) => {
@@ -276,7 +288,9 @@ fetchAssetName(asset:any){
     value:[""],
     salvageValue:[""],
     assetType:[""],
-    depreciationMethod:[""]
+    depreciationMethod:[""],
+    'companyId': this.tokenStorage.getCompanyId(),
+    'branchId': this.tokenStorage.getBranchId(),
   });}
   
 

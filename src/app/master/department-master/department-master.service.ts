@@ -6,6 +6,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { DepartmentMasterResultBean } from './department-master-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,17 +24,26 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) {
+  companyId: string;
+  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/department/getList`;
-  private saveDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/save`;
-  public editDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/edit`;
-  public updateDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/update`;
-  public deleteDepartment = `${this.serverUrl.apiServerAddress}api/auth/app/department/delete`;
-  public validateDepartmentCodeUrl = `${this.serverUrl.apiServerAddress}api/auth/app/department/validateUniqueDepartmentCode`;
-  public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/department/getAdminDropdown`;
-  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/department/getList`;
+  private saveDepartment = `${this.serverUrl.apiServerAddress}app/department/save`;
+  public editDepartment = `${this.serverUrl.apiServerAddress}app/department/edit`;
+  public updateDepartment = `${this.serverUrl.apiServerAddress}app/department/update`;
+  public deleteDepartment = `${this.serverUrl.apiServerAddress}app/department/delete`;
+  public validateDepartmentCodeUrl = `${this.serverUrl.apiServerAddress}app/department/validateUniqueDepartmentCode`;
+   public getAdminDropdown = `${this.serverUrl.apiServerAddress}app/department/getAdminDropdown`;
+ // public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAdminDropdown`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}app/commonServices/validateUnique`;
+  public getBranchDropdown = `${this.serverUrl.apiServerAddress}app/department/getBranchDropdown`;
+
+  public getCompanyDropdown = `${this.serverUrl.apiServerAddress}app/department/getCompanyDropdown`;
+
+  public companyListUrl = `${this.serverUrl.apiServerAddress}app/department/userBasedCompanyList`;
+  public fetchBranch = `${this.serverUrl.apiServerAddress}app/department/userBasedBranchList`;
+
 
   get data(): DepartmentMaster[] {
     return this.dataChange.value;
@@ -43,7 +53,8 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllList(): void {
-        this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters).subscribe(
+    this.companyId=this.tokenStorage.getCompanyId();   
+        this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?companyId="+this.companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.departmentMasterDetails);

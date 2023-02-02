@@ -12,6 +12,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { TransferService } from 'src/app/admin/transferasset/transfer.service';
 import { transferResultBean } from 'src/app/admin/transferasset/transfer-result-bean';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-location',
@@ -25,13 +26,14 @@ export class AddLocationComponent implements OnInit {
   docForm: FormGroup;
   requestId: number;
   edit:boolean=false;
-
+  company=[];
   hide3 = true;
   agree3 = false;
   dataarray = [];
   cusMasterData = [];
   salesEntryData = [];
   locationDdList = [];
+  locationList = [];
   companyList = [];
   transferList: [];
   // tslint:disable-next-line:new-parens
@@ -41,6 +43,7 @@ export class AddLocationComponent implements OnInit {
               public route: ActivatedRoute,
               private snackBar: MatSnackBar,
               private locationMasterService: LocationMasterService,
+              public tokenStorage: TokenStorageService,
               private authService: AuthService, public commonService: CommonService,
               public transferservice: TransferService,
               private spinner: NgxSpinnerService,
@@ -77,13 +80,15 @@ export class AddLocationComponent implements OnInit {
       locationCode: ["", [Validators.required]],
       locationName: ["", [Validators.required]],
       // cslLocationCode: ["", [Validators.required]],
-      parentLocation: ["", [Validators.required]],
+      parentLocation: [""],
       description: [""],
       active: [""],
       cascade: [""],
       primaryLocation: [""],
       alternateLocation: [""],
-      company:["", [Validators.required]],
+      company:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId(),
+      userId:this.tokenStorage.getUserId()
     });
     this.route.params.subscribe(params => {
       if (params.id!=undefined && params.id!=0){
@@ -97,17 +102,17 @@ export class AddLocationComponent implements OnInit {
 
       }
      });
-    // Location dropdown
-    this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
-      next: (data) => {
-        this.locationDdList = data;
-      },
-      error: (error) => {
+    // // Location dropdown
+    // this.httpService.get<any>(this.commonService.getcompanybaseduser).subscribe({
+    //   next: (data) => {
+    //     this.locationDdList = data;
+    //   },
+    //   error: (error) => {
 
-      }
-    });
+    //   }
+    // });
 
-    // Location dropdown
+    // CompanygetCompanyDropdown dropdown
     this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
       next: (data) => {
         this.companyList = data;
@@ -116,9 +121,42 @@ export class AddLocationComponent implements OnInit {
 
       }
     });
-
+    this.getUserbasedcompanyDropdown(this.docForm.value.userId);
   }
 
+
+
+// location list
+getCompanybasedlocationDropdown(companyId: any): void {
+  this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId=" + companyId).subscribe((res: any) => {
+  this.locationList = res.addressBean;
+  // tslint:disable-next-line:no-shadowed-variable
+ // this.getcompanybaseduser(this.docForm.value.company);
+});
+  this.httpService.get(this.commonService.getcompanybaseduser + "?company=" + companyId).subscribe((res: any) => {
+  this.locationDdList = res.addressBean;
+});
+}
+// company list
+getUserbasedcompanyDropdown(userId: any): void {
+  this.httpService.get(this.commonService.getcompanyDropdown + "?companyId=" + userId).subscribe((res1: any) => {
+  this.company = res1.addressBean;
+
+});
+}
+
+// primaryhead list
+// getcompanybaseduser(company: any): void {
+//   this.httpService.get(this.commonService.getcompanybaseduser + "?companyId=" + company).subscribe((res: any) => {
+//   this.locationDdList = res.addressBean;
+// });
+// }
+// // location head list
+// getcompanybasedLocationHeadDropdown(userId: any): void {
+//   this.httpService.get(this.commonService.getcompanybasedLocationHeadDropdown + "?companyId=" + userId).subscribe((res: any) => {
+//   this.locationDdList = res.addressBean;
+// });
+// }
 
 
   onSubmit() {
@@ -241,7 +279,8 @@ fetchDetails(locationId: any): void {
         cascade: [""],
         primaryLocation: [""],
         alternateLocation: [""],
-        company:["",[Validators.required]],
+        company:this.tokenStorage.getCompanyId(),
+        branchId:this.tokenStorage.getBranchId()
       });
   } else {
     this.fetchDetails(this.requestId);

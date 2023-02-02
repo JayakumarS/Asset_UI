@@ -16,6 +16,8 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BranchService } from '../branch.service';
 import { Branch } from '../branch-model';
+import { DeleteBranchComponent } from './delete-branch/delete-branch.component';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-list-branch',
@@ -24,38 +26,35 @@ import { Branch } from '../branch-model';
 })
 export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-    "branchcode",
+    
+    "branchCode",
     "branchname",
-    "location",
-    "companyname",
+    "companyName",
+    "locationName",
+    "actions",
   ];
 
+  exampleDatabase:BranchService | null;
   dataSource: ExampleDataSource | null;
-  exampleDatabase: BranchService | null;
-  docForm: FormGroup;
-
+  selection = new SelectionModel<Branch>(true, []);
+  exporter: any;
+  id: number;
+  tid:number;
+  index: number;
   
 
-  constructor( 
+  constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public branchService: BranchService,
+    public transferservice:BranchService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
-    private router: Router,
     private httpService:HttpServiceService,
-    private fb: FormBuilder
-    ) {
+    public router:Router,
+    private tokenStorage: TokenStorageService
+  ) {
     super();
-
-    this.docForm = this.fb.group({
-      branchcode: [""],
-      branchname: [""],
-      location:[""],
-      companyname:[""]
-    });
   }
-
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
@@ -64,17 +63,16 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-
- 
+    this.loadData();
   }
+ 
 
   public loadData() {
-    this.exampleDatabase = new BranchService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new BranchService (this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort,
-      this.docForm
+      this.sort
     );
     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
@@ -85,20 +83,77 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
       }
     );
   }
-
   editCall(row) {
 
-    this.router.navigate(['/audit/auditableAsset/addAuditableAsset/'+row.assetid]);
-  
+    this.router.navigate(['/master/Branch/addBranch/'+row.branchId]);
+  }
+
+  viewCall(row){
+    this.router.navigate(['/master/Branch/addBranch/'+row.branchId]);
   }
 
  
+  deleteItem(i,row){
+    this.index = i;
+    this.id = row.branchId;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteBranchComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+      // this.loadData();
+      // if(data==1)[
+      //   this.showNotification(
+      //     "snackbar-success",
+      //     " Successfully deleted",
+      //     "bottom",
+      //     "center"
+      //   )
+      //   ]
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
+    });
 
+  }
+
+  
+
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
+
+// context menu
+  onContextMenu(event: MouseEvent, item: Branch) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + "px";
+    this.contextMenuPosition.y = event.clientY + "px";
+    this.contextMenu.menuData = { item: item };
+    this.contextMenu.menu.focusFirstItem("mouse");
+    this.contextMenu.openMenu();
+  }
 }
 
 export class ExampleDataSource extends DataSource<Branch> {
-
-
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -111,49 +166,48 @@ export class ExampleDataSource extends DataSource<Branch> {
   constructor(
     public exampleDatabase: BranchService,
     public paginator: MatPaginator,
-    public _sort: MatSort,
-    public docForm: FormGroup
+    public _sort: MatSort
   ) {
     super();
     // Reset to the first page when the user changes the filter.
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
-  
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Branch[]> {
-    // Listen for any changes in the base data, sorting, filtering, or pagination
+   
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
       this._sort.sortChange,
       this.filterChange,
-      this.paginator.page,
+      this.paginator.page,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     ];
-    this.exampleDatabase.getAllList(this.docForm.value);
+    this.exampleDatabase.getAllList();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
+       
           .slice()
-          .filter((branchMaster: Branch) => {
+          .filter((traansferService: Branch) => {
             const searchStr = (
-              branchMaster.branchid +
-              branchMaster.branchcode +
-              branchMaster.branchname +
-              branchMaster.location +
-              branchMaster.companyname
-             
+             traansferService.branchCode+
+             traansferService.branchname+
+             traansferService.companyName+
+             traansferService.locationName
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
-        // Sort filtered data
+      
         const sortedData = this.sortData(this.filteredData.slice());
-        // Grab the page's slice of the filtered sorted data.
+        console.log(this.exampleDatabase.data);
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         this.renderedData = sortedData.splice(
           startIndex,
           this.paginator.pageSize
         );
         return this.renderedData;
+
+       
       })
     );
   }
@@ -164,28 +218,21 @@ export class ExampleDataSource extends DataSource<Branch> {
       return data;
     }
     return data.sort((a, b) => {
-      let propertyA: number | string = "";
-      let propertyB: number | string = "";
+      let propertyA: number | string | boolean = "";
+      let propertyB: number | string | boolean = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        case "branchCode":
+          [propertyA, propertyB] = [a.branchCode, b.branchCode];
           break;
-        case "branchid":
-          [propertyA, propertyB] = [a.branchid, b.branchid];
-          break;
-        case "branchcode":
-          [propertyA, propertyB] = [a.branchcode, b.branchcode];
-          break;
-        case "branchname":
-          [propertyA, propertyB] = [a.branchname, b.branchname];
-          break;
-          case "location":
-          [propertyA, propertyB] = [a.location, b.location];
-          break;
-        case "companyname":
-          [propertyA, propertyB] = [a.companyname, b.companyname];
-          break;
-        
+          case "branchname":
+            [propertyA, propertyB] = [a.branchname, b.branchname];
+            break; 
+            case "companyName":
+            [propertyA, propertyB] = [a.companyName, b.companyName];
+            break;
+            case "locationName":
+            [propertyA, propertyB] = [a.locationName, b.locationName];
+            break; 
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

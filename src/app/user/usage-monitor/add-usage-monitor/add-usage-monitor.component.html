@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Usage Monitoring'" [items]="['User']" [active_item]="'Add Usage Monitoring'">
+        <app-breadcrumb [title]="'Usage Monitoring'" [items]="['Usage']" [active_item]="'Add Usage Monitoring'">
         </app-breadcrumb>
       </div>
       <div class="row clearfix ">
@@ -317,7 +317,7 @@
             <tr [formGroup]="usageMonitorDtlObjBean" *ngFor="let usageMonitorDtlObjBean of docForm.get('usageMonitorDtlObjBean')['controls']; let i = index">
           
               <td class="padding-both-side-2">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"  (keypress)="keyPressNumberDouble($event)" style="margin-left: 8%;
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"   style="margin-left: 8%;
                     width: 150px; ">
                       <input matInput formControlName="meter" required>
                     </mat-form-field>
@@ -332,7 +332,7 @@
                   </td>
 
                   <td class="padding-both-side-2">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"  (keypress)="keyPressNumberDouble($event)" style="width: 150px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"   style="width: 150px;">
                       <input matInput formControlName="multiplicationFactor" required>
                     </mat-form-field>
                     
@@ -345,7 +345,7 @@
                     </mat-form-field>
                   </td>
                   <td class="padding-both-side-2">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"  (keypress)="keyPressNumberDouble($event)" style="margin-left: 8%;
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 8%;
                     width: 150px; ">
                       <input matInput formControlName="recordingTime" required>
                     </mat-form-field>
@@ -376,7 +376,16 @@
 </div>
 
  <!-- detail table -->
-
+ <div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+      color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+    <!-- <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button -->
+      <!-- color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button> -->
+    <!-- <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button> -->
+    <!-- <button color="warn" type="button" class="btn-space"  (click)="cancel()"mat-raised-button>Cancel</button> -->
+  </div>
+</div>
 
 
 

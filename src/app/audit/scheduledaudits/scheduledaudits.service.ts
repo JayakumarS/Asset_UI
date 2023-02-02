@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { ScheduleAudit } from './scheduledaudits-model';
 
@@ -14,7 +15,7 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter{
   dataChange: BehaviorSubject<ScheduleAudit[]> = new BehaviorSubject<ScheduleAudit[]>([]);
   
   dialogData:any;
-  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) { 
+  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,private tokenStorage: TokenStorageService) { 
   super();
 
   }
@@ -35,8 +36,11 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter{
   }
 
   getAllLists(): void {
-
-    this.subs.sink = this.httpService.get<any>(this.getList).subscribe(
+    const obj = {
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+    }
+    this.subs.sink = this.httpService.post<any>(this.getList,obj).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.auditDetails);

@@ -7,6 +7,8 @@ export class LocationMaster {
   locationName: string;
   country: string;
   active:boolean;
+  branchId:any;
+  company:any;
   // company:string;
   // companyName:string;
   constructor(locationMaster) {

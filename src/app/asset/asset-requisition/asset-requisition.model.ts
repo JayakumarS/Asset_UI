@@ -6,4 +6,6 @@ export class AssetRequisition {
     sourceLocationText: any;
     destinationLocationText:any;
     requisitionType:any;
+    companyId:any;
+    branchId:any;
 }

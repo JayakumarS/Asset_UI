@@ -7,6 +7,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { DesignationMaster } from '../designation-master.model';
 import { DesignationMasterResultBean } from '../designation-master-result-bean';
 import { DesignationMasterService } from '../designation-master.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class AddDesingnationMasterComponent implements OnInit {
     private httpService: HttpServiceService,
     private snackBar:MatSnackBar,
     public route: ActivatedRoute,
+    private tokenStorage: TokenStorageService,
     private router:Router) {
 
     this.docForm = this.fb.group({
@@ -34,7 +36,9 @@ export class AddDesingnationMasterComponent implements OnInit {
       activtyid: [""],
       Description:["", [Validators.required]],
       active:[""],
-      id:[""]
+      id:[""],
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId()
     });
 
   }
@@ -57,15 +61,36 @@ export class AddDesingnationMasterComponent implements OnInit {
     this.designationMaster = this.docForm.value;
     console.log(this.designationMaster);
     if(this.docForm.valid){
-    this.designationMasterService.addDesignation(this.designationMaster);
+    //this.designationMasterService.addDesignation(this.designationMaster);
+
+    this.designationMasterService.addDesignation(this.designationMaster).subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.showNotification(
+            "snackbar-success",
+            "Record Added successfully...",
+            "bottom",
+            "center"
+          );
+          this.router.navigate(['/master/Activity-master/list-activity']);
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Not Added...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      }
+    });
   
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/Activity-master/list-activity']);
+    // this.showNotification(
+    //   "snackbar-success",
+    //   "Add Record Successfully...!!!",
+    //   "bottom",
+    //   "center"
+    // );
+    // this.router.navigate(['/master/Activity-master/list-activity']);
   }
   }
 
@@ -73,6 +98,7 @@ export class AddDesingnationMasterComponent implements OnInit {
   fetchDetails(id: any): void {
     this.httpService.get(this.designationMasterService.editDesignationMaster+"?id="+id).subscribe((res: any)=> {
       console.log(id);
+      
 
       this.docForm.patchValue({
 
@@ -121,6 +147,8 @@ export class AddDesingnationMasterComponent implements OnInit {
       activtyid: [""],
       Description: [""],
       active: [""],
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId()
 
     });
   } else {

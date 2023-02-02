@@ -15,7 +15,8 @@ export class CustomerMaster {
     cstno:string;
     remarks:string;
     active:string;
-
+    companyId:any;
+    branchId:any;
     constructor(CustomerMaster) {
         {
           this.cus_id = CustomerMaster.cus_id || this.getRandomID();

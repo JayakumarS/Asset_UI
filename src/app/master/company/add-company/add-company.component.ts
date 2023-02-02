@@ -9,6 +9,8 @@ import { CompanyService } from '../company.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { DepartmentMasterService } from '../../department-master/department-master.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { UserMasterService } from '../../user-master/user-master.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-company',
@@ -21,8 +23,8 @@ export class AddCompanyComponent implements OnInit {
   countryDdList=[];
   userDdList=[];
   requestId:any;
-  tokenStorage: any;
   edit:boolean=false;
+  userId:any;
 
   constructor(private fb: FormBuilder,
     private companyService : CompanyService,
@@ -32,7 +34,9 @@ export class AddCompanyComponent implements OnInit {
     private snackBar:MatSnackBar,
     private spinner: NgxSpinnerService,
     public route: ActivatedRoute,
-    private router:Router) {
+    private userMasterService: UserMasterService,
+    private router:Router,
+    private tokenStorage: TokenStorageService) {
 
       this.docForm = this.fb.group({
         // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -48,11 +52,12 @@ export class AddCompanyComponent implements OnInit {
         country:["",[Validators.required]],
         faxNo:[""],
         address:["",[Validators.required]],
-        emailId:["",[Validators.required]],
+        emailId:["",[Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
         telephoneNo:["",[Validators.required]],
         personIncharge:["",[Validators.required]],
         isactive:[""],
-        companyId:[""]
+        companyId:[""],
+        userId:[""]
 
        
 
@@ -61,6 +66,9 @@ export class AddCompanyComponent implements OnInit {
      }
 
   ngOnInit(): void {
+
+    this.userId = this.tokenStorage.getUserId();
+
 
     // Location dropdown
     this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
@@ -74,14 +82,23 @@ export class AddCompanyComponent implements OnInit {
     );
 
        // Contact Person dropdown
-       this.httpService.get<any>(this.commonService.getpersoninchargeDropdown).subscribe({
-        next: (data) => {
-          this.userDdList = data;
-        },
-        error: (error) => {
+      //  this.httpService.get<any>(this.commonService.getpersoninchargeDropdown).subscribe({
+      //   next: (data) => {
+      //     this.userDdList = data;
+      //   },
+      //   error: (error) => {
   
+      //   }
+      // }
+      // );
+
+      this.httpService.get<any>(this.companyService.userBasedCompanyDDList + "?userId=" + this.userId).subscribe(
+        (data) => {
+          this.userDdList = data.getuserBasedCompanyDDList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
         }
-      }
       );
 
       this.route.params.subscribe(params => {
@@ -97,7 +114,8 @@ export class AddCompanyComponent implements OnInit {
 
   onSubmit(){
     if(this.docForm.valid){
-    this.company = this.docForm.value;
+      this.docForm.value.userId = this.tokenStorage.getUserId();
+    this.company = this.docForm.value;   
     console.log(this.company);
     this.companyService.addCompany(this.company);
     
@@ -171,6 +189,18 @@ export class AddCompanyComponent implements OnInit {
       this.fetchDetails(this.requestId);
     }
   }
+
+  validateEmail(event){
+    this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.docForm.controls['emailId'].setErrors({ employee: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
+
+
 
   update(){
 

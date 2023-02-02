@@ -1,0 +1,157 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Discarded Assets Report'" [items]="['Reports']" [active_item]="'Discared Assets Report'">
+        </app-breadcrumb>
+      </div>
+      
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div class="table-responsive">
+                <form class="m-4" [formGroup]="docForm">
+                  <div class="row" style="display:flex; align-items: center; justify-content:center;"> 
+                    
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>From Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="discardDateFromObj"
+                        (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate" 
+                        (dateChange)="getDateString($event,'discardFromDate')" >
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker> 
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>To Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="discardDateToObj"
+                        (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardToDate" 
+                        (dateChange)="getDateString($event,'discardToDate')" >
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker> 
+                      </mat-form-field>
+                    </div>
+                  </div>
+             
+                
+                 <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="display:flex; align-items: center; justify-content:center;" >
+                      <button  class="btn-space" mat-raised-button (click)=" viewReport()"
+                          style=" color: aliceblue; background-color: green;" ><i class="fa fa-search"></i> View Report</button>
+                     <button color="warn"  type="button"  (click)=" reset()"
+                          mat-raised-button color="primary" style="background-color: rgb(14, 42, 126);">Reset</button>
+                  </div>
+              </div> 
+            </form>
+            <table mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows
+          class="mat-elevation-z8" matSort>
+          
+          <ng-container matColumnDef="assetName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;Asset Name</th>
+              <td mat-cell *matCellDef="let row"> <a href="javascript:void(0);" style="text-decoration:none;">{{row.assetName}}</a>
+              </td>
+          </ng-container>
+          <ng-container matColumnDef="discardReason">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Discard Reason</th>
+              <td mat-cell *matCellDef="let row"> {{row.discardReason}}
+              </td>
+          </ng-container>
+          <ng-container matColumnDef="discardedDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;Discard Date</th>
+            <td mat-cell *matCellDef="let row"> {{row.discardedDate}}
+            </td>
+        </ng-container>
+          <ng-container matColumnDef="location">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+              <td mat-cell *matCellDef="let row"> {{row.location}}
+              </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+              <td mat-cell *matCellDef="let row"> {{row.balanceQty}}
+              </td>
+          </ng-container> -->
+          
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                  <div class="example-element-detail" *ngIf="element.subList"
+                      [@detailExpand]="isExpanded(element)">
+                      <div class="inner-table mat-elevation-z8" *ngIf="isExpanded(element)">
+          
+                          <table #innerTables mat-table #innerSort="matSort"
+                              [dataSource]="element.subList" multiTemplateDataRows matSort>
+                              <!-- <ng-container matColumnDef="{{innerColumn}}"
+                                  *ngFor="let innerColumn of innerDisplayedColumns">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                      {{innerColumn}} </th>
+                                  <td mat-cell *matCellDef="let element"> {{element[innerColumn]}}
+                                  </td>
+                              </ng-container> -->
+                              <!-- <ng-container matColumnDef="transferDate">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer Date</th>
+                                  <td mat-cell *matCellDef="let row"> {{row.transferDate}}
+                                  </td>
+                              </ng-container> -->
+                              <!-- <ng-container matColumnDef="docType">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Doc.Type</th>
+                                  <td mat-cell *matCellDef="let row"> {{row.docType}}
+                                  </td>
+                              </ng-container> -->
+                              <!-- <ng-container matColumnDef="docRef">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Doc.Ref</th>
+                                  <td mat-cell *matCellDef="let row"> {{row.docRef}}
+                                  </td>
+                              </ng-container> -->
+                               <ng-container matColumnDef="srcLocation">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer From</th>
+                                  <td mat-cell *matCellDef="let row"> {{row.srcLocation}}
+                                  </td>
+                              </ng-container> 
+                              <ng-container matColumnDef="dtnLocation">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Transferred To</th>
+                                  <td mat-cell *matCellDef="let row"> {{row.dtnLocation}}
+                                  </td>
+                              </ng-container>
+                              <ng-container matColumnDef="assetUser">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>User</th>
+                                <td mat-cell *matCellDef="let row"> {{row.assetUser}}
+                                </td>
+                            </ng-container> 
+                            <ng-container matColumnDef="transferDate">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer Date</th>
+                              <td mat-cell *matCellDef="let row"> {{row.transferDate}}
+                              </td>
+                          </ng-container> 
+                          <ng-container matColumnDef="assetIdDiscard">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset Id</th>
+                            <td mat-cell *matCellDef="let row"> {{row.assetIdDiscard}}
+                            </td>
+                        </ng-container> 
+                              <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
+                              <tr mat-row *matRowDef="let element; columns: innerDisplayedColumns;"></tr>
+                           
+                          </table>
+                      </div>
+                  </div>
+              </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+            [class.example-element-row]="element.subList" [class.example-expanded-row]="isExpanded(element)"
+            (click)="toggleRow(element)">
+          </tr>
+          <tr mat-row *matRowDef="let row1; columns: ['expandedDetail']" class="example-detail-row"></tr>
+          </table>
+    
+ 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

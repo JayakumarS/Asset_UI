@@ -16,6 +16,8 @@ import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { UomCategoryService } from '../../uom-category/uom-category.service';
 import { DeleteUomComponent } from './delete-uom/delete-uom.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-list-uom',
@@ -37,15 +39,18 @@ export class ListUomComponent extends UnsubscribeOnDestroyAdapter implements OnI
   exporter: any;
   isTblLoading: boolean;
   exampleDatabase: UomService| null;
+  permissionList: any;
 
     constructor( public httpClient: HttpClient,
-      private spinner: NgxSpinnerService,
-      public dialog: MatDialog,
-      public uomService: UomService,
-      private snackBar: MatSnackBar,
-      private router: Router,
-      private serverUrl:serverLocations,
-      private httpService:HttpServiceService,
+                 private spinner: NgxSpinnerService,
+                 public dialog: MatDialog,
+                 public uomService: UomService,
+                 private snackBar: MatSnackBar,
+                 private router: Router,
+                 private serverUrl: serverLocations,
+                 private httpService: HttpServiceService,
+                 private tokenStorage: TokenStorageService,
+                 public commonService: CommonService,
     ) {
       super();
     }
@@ -55,17 +60,33 @@ export class ListUomComponent extends UnsubscribeOnDestroyAdapter implements OnI
     @ViewChild(MatMenuTrigger)
     contextMenu: MatMenuTrigger;
     contextMenuPosition = { x: "0px", y: "0px" };
-  
+
     ngOnInit(): void {
+      const permissionObj = {
+        formCode: 'F1041',
+        roleId: this.tokenStorage.getRoleId()
+      }
+      this.spinner.show();
+      this.commonService.getAllPagePermission(permissionObj).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.permissionList = data;
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+        }
+      });
       this.loadData();
     }
-  
+
     refresh() {
       this.loadData();
     }
-  
+
     public loadData() {
-      this.exampleDatabase = new UomService(this.httpClient, this.serverUrl, this.httpService);
+      this.exampleDatabase = new UomService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
       this.dataSource = new ExampleDataSource(
         this.exampleDatabase,
         this.paginator,
@@ -80,12 +101,10 @@ export class ListUomComponent extends UnsubscribeOnDestroyAdapter implements OnI
         }
       );
     }
-  
-  
   editCall(row) {
- 
+    if (this.permissionList?.modify){
     this.router.navigate(['/inventory/UOM-catagory/add-UOM-Category/'+row.uomcategoryId]);
-
+    }
   }
   deleteItem(row) {
     let tempDirection;
@@ -102,7 +121,7 @@ export class ListUomComponent extends UnsubscribeOnDestroyAdapter implements OnI
       disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
       if (data.data == true) {
         const obj = {
           deletingId: row.uomcategoryId
@@ -193,7 +212,7 @@ export class ExampleDataSource extends DataSource<UCategory> {
               uCategory.uomcategoryName+
               uCategory.uomcategoryCode+
               uCategory.description
-              // countryMaster.clientType 
+              // countryMaster.clientType
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -231,7 +250,7 @@ export class ExampleDataSource extends DataSource<UCategory> {
         case "uomcategoryCode":
           [propertyA, propertyB] = [a.uomcategoryCode, b.uomcategoryCode];
           break;
-       
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

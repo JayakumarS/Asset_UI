@@ -14,6 +14,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-list-currency',
@@ -41,7 +42,8 @@ export class ListCurrencyComponent extends UnsubscribeOnDestroyAdapter implement
     public accountHeadMasterService: CurrencyService,
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
-    private httpService: HttpServiceService
+    private httpService: HttpServiceService,
+    private tokenStorage: TokenStorageService
   ) {
     super();
   }
@@ -62,7 +64,7 @@ export class ListCurrencyComponent extends UnsubscribeOnDestroyAdapter implement
   }
 
   public loadData() {
-    this.exampleDatabase = new CurrencyService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new CurrencyService(this.httpClient, this.serverUrl,this.tokenStorage, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

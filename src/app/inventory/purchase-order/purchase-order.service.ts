@@ -6,6 +6,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { PurchaseOrderResultBean } from './purchase-order-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 const httpOptions = {
@@ -25,7 +26,7 @@ export class PurchaseOrderService extends UnsubscribeOnDestroyAdapter {
   // Temporarily stores data from dialogs
   dialogData: any;
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
-    private httpService: HttpServiceService) {
+    private httpService: HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
   }
 
@@ -46,7 +47,11 @@ export class PurchaseOrderService extends UnsubscribeOnDestroyAdapter {
 
 
   getAllPurchaseOrders(): void {
-    this.subs.sink = this.httpService.get<PurchaseOrderResultBean>(this.getAllMasters).subscribe(
+    const obj = {
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+    }
+    this.subs.sink = this.httpService.post<any>(this.getAllMasters,obj).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.purchaseOrderList);

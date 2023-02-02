@@ -88,6 +88,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       currencyId: ["", [Validators.required]],
       exchangerate: [""],
       loginedUser: this.tokenStorage.getUserId(),
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
 
 
       purchaseInvoiceDetailList: this.fb.array([
@@ -102,8 +104,12 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   ngOnInit() {
-    //PurchaseOrderNumber Dropdown List
-    this.httpService.get<any>(this.commonService.getGRNNumberDropdown).subscribe({
+    //GRN Dropdown List
+    const obj = {
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+    }
+    this.httpService.post<any>(this.commonService.getGRNNumberDropdown,obj).subscribe({
       next: (data) => {
         this.grnNumberList = data;
       },
@@ -317,6 +323,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       this.docForm.reset();
       this.docForm.patchValue({
         'loginedUser': this.tokenStorage.getUserId(),
+        'companyId': this.tokenStorage.getCompanyId(),
+        'branchId': this.tokenStorage.getBranchId(),
         'purchaseInvoiceDate': moment().format('DD/MM/YYYY'),
         'purchaseInvoiceDateObj': moment().format('YYYY-MM-DD'),
         'dueDate': moment().format('DD/MM/YYYY'),

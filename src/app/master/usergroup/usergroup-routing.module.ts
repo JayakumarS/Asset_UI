@@ -5,7 +5,7 @@ import { ListUsergroupComponent } from './list-usergroup/list-usergroup.componen
 
 const routes: Routes = [
   {
-    path: "addusergroup",
+    path: "addusergroup/:id",
     component: AddUsergroupComponent,
   },
   {

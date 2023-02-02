@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { serverLocations } from "src/app/auth/serverLocations";
+import { TokenStorageService } from "src/app/auth/token-storage.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { AssetRequisition } from "./asset-requisition.model";
 
@@ -16,20 +17,21 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
   dataChange: BehaviorSubject<AssetRequisition[]> = new BehaviorSubject<AssetRequisition[]>(
     []
   );
+  companyId: string;
  
 
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private token: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
   
-  public listUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/list`;
-  public saveUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/save`;
-  public editUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/edit`;
-  public updateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/update`;
-  public assetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetItemList`;
-  public assetQuantityUrl =  `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetItemList`;
-  public assetTrackListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetTrackDetails`;
-  public assetTrackListUrlNew = `${this.serverUrl.apiServerAddress}api/auth/app/asset/assetRequisition/assetTrackDetailsNew`;
+  public listUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/list`;
+  public saveUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/save`;
+  public editUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/edit`;
+  public updateUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/update`;
+  public assetListUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/assetItemList`;
+  public assetQuantityUrl =  `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/assetItemList`;
+  public assetTrackListUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/assetTrackDetails`;
+  public assetTrackListUrlNew = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/assetTrackDetailsNew`;
   get data(): AssetRequisition[] {
     return this.dataChange.value;
   }
@@ -40,7 +42,8 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
 
   getAllList(){
     console.log();
-    this.subs.sink = this.httpService.get<any>(this.listUrl).subscribe(
+    this.companyId=this.token.getCompanyId();
+    this.subs.sink = this.httpService.get<any>(this.listUrl+"?companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.assetRequisitionDetails);

@@ -4,5 +4,7 @@ export class reportsresultbean{
     statusList:[];
     assetList:[];
     reportsDetails:[];
+    usernamelist:[];
+    userlogDetails:[];
 
 }

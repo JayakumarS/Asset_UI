@@ -6,6 +6,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { CurrencyResultBean } from './currency-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +24,7 @@ export class CurrencyService extends UnsubscribeOnDestroyAdapter{
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
   private getCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currency/getList`;
@@ -35,7 +36,8 @@ export class CurrencyService extends UnsubscribeOnDestroyAdapter{
     return this.dialogData;
   }
   getAllCurrency(): void {
-        this.subs.sink = this.httpService.get<CurrencyResultBean>(this.getCurrency).subscribe(
+        let companyId=this.tokenStorage.getCompanyId();
+        this.subs.sink = this.httpService.get<CurrencyResultBean>(this.getCurrency+"?companyId="+parseInt(companyId)).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.lCurrencyBean);

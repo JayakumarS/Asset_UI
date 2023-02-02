@@ -57,9 +57,9 @@ export class AddDepreciationComponent implements OnInit {
 
   removeRowSelf(index){
     let dtlArray = this.docForm.controls.manageLineDtlObjBean as FormArray;
-    if(index != 0){
+    // if(index != 0){
     dtlArray.removeAt(index);
-    }
+    // }
   
   }
 

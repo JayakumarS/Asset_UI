@@ -13,9 +13,12 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
-import { AssetRequisitionService } from '../asset-requisition.service'; 
+import { AssetRequisitionService } from '../asset-requisition.service';
 import { AssetRequisition } from '../asset-requisition.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 @Component({
@@ -35,10 +38,11 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
   selection = new SelectionModel<AssetRequisition>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   assetType: AssetRequisition | null;
   docForm: FormGroup;
-  
-  assetCategoryList:[{code:'Tangible',text:'Tangible'},{code:'Intangible',text:'Intangible'}];
+
+  assetCategoryList: [{code: 'Tangible', text: 'Tangible'}, {code: 'Intangible', text: 'Intangible'}];
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -46,7 +50,11 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
-    private router:Router,
+    private token: TokenStorageService,
+    private router: Router,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
     private fb: FormBuilder
   ) {
      super();
@@ -65,6 +73,22 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1006',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.onSubmit();
   }
 
@@ -73,7 +97,7 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
   }
 
   onSubmit(){
-   
+
     this.assetType = this.docForm.value;
     console.log(this.assetType);
     this.loadData();
@@ -81,7 +105,7 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
 
 
   public loadData() {
-    this.exampleDatabase = new AssetRequisitionService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new AssetRequisitionService(this.httpClient, this.serverUrl,this.token, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -99,9 +123,11 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
   }
 
 
-  editCall(row) { 
-    this.router.navigate(['/asset/assetRequisition/addAssetRequisition/'+row.assetRequisitionId+'/'+row.requisitionType]);
+  editCall(row) {
+    if (this.permissionList?.modify){
+    this.router.navigate(['/asset/assetRequisition/addAssetRequisition/' + row.assetRequisitionId + '/' + row.requisitionType]);
   }
+}
 
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -166,8 +192,8 @@ export class ExampleDataSource extends DataSource<AssetRequisition> {
               assetType.requestedBy +
               assetType.requisitionDate +
               assetType.sourceLocationText +
-              assetType.destinationLocationText 
-             
+              assetType.destinationLocationText
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -202,7 +228,7 @@ export class ExampleDataSource extends DataSource<AssetRequisition> {
         case "requisitionDate":
           [propertyA, propertyB] = [a.requisitionDate, b.requisitionDate];
           break;
-        
+
         case "sourceLocationText":
           [propertyA, propertyB] = [a.sourceLocationText, b.sourceLocationText];
           break;
@@ -210,7 +236,7 @@ export class ExampleDataSource extends DataSource<AssetRequisition> {
           case "destinationLocationText":
           [propertyA, propertyB] = [a.destinationLocationText, b.destinationLocationText];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

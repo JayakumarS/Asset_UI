@@ -80,7 +80,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getAdminDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAdminDropdown`;
 
-  public getpersoninchargeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getpersoninchargeDropdown`;
+  // public getpersoninchargeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getpersoninchargeDropdown`;
 
 
   public getPurchaseTaxDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseTaxDropdown`;
@@ -101,11 +101,15 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getuserCategoryName = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUomCategoryName`;
 
-  public getEmployeeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeeDropdown`;
+  public getEmployeeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeeDropdownByCompany`;
 
   public getAssetUserDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetUserDropdown`;
 
   public getCompanyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyDropdown`;
+
+  public getCompanybasedlocationDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLocationBasedCompanyDropdown`;
+
+  public getBranchDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getBranchDropdown`;
 
   public getStateDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getStateDropdown`;
 
@@ -130,9 +134,24 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getCompanyDetailDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyDetailDropdown`;
 
   public getRoleDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getRoleDropdown`;
+;
 
-  
-  
+  public getAllPagePermissionList = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/getAllPagePermissionList`;
+
+  public getUserDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUserDropdown`;
+
+  public getEmployeeDropdownByCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeeDropdownByCompany`;
+
+  public getAssetUserList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetUserDropdownByCompany`;
+
+  public getcompanyDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUserBasedCompanyDropdown`;
+
+  public getLocationDropdownByCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLocationDropdownByCompany`;
+
+  public getcompanybaseduser = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getcompanybaseduser`;
+
+  //public getcompanybasedLocationHeadDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLocationDropdownByCompany`;
+
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
@@ -146,6 +165,11 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
       headers: headers, responseType:
         'blob' as 'json'
     });
+  }
+
+  // based on role and form code page permission list - Added by Gokul
+  getAllPagePermission(obj: any): Observable<any> {
+    return  this.httpClient.post<any>(this.getAllPagePermissionList, obj);
   }
 
 }

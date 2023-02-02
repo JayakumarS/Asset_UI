@@ -17,8 +17,8 @@
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                      <mat-select class="inputTxt" formControlName="company">
-                        <mat-option *ngFor="let title of companyList" [value]="title.id">
+                      <mat-select class="inputTxt" formControlName="company"(selectionChange)="getCompanybasedlocationDropdown($event.value)">
+                        <mat-option *ngFor="let title of company" [value]="title.id">
                             {{title.text}}
                         </mat-option>
 
@@ -35,7 +35,7 @@
                     </div>
                       <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="locationName" maxlength="15"[ngModel]="inputvalue1"
+                        <input matInput formControlName="locationName" maxlength="30"[ngModel]="inputvalue1"
                         (ngModelChange)="inputvalue1 = $event.toUpperCase()"  required>
                         <mat-error *ngIf="docForm.get('locationName').hasError('required')">
                           Location is required
@@ -59,36 +59,37 @@
                   </div>
 
                   <div class=" col-md-2">
-                    <label > PARENT LOCATION NAME<span class="errorColor">*</span></label>
-                  </div>
-                    <div class=" col-md-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="parentLocation"maxlength="15"[ngModel]="inputvalue"
-                      (ngModelChange)="inputvalue = $event.toUpperCase()"  required>
-                      <mat-error *ngIf="docForm.get('parentLocation').hasError('required')">
-                        Parent Location Name is required
-                      </mat-error><mat-error *ngIf="docForm.get('parentLocation').hasError('parentLocation')">
-                        Parent Location Name Exists !!!
-                      </mat-error>
-                    </mat-form-field>
+                    <label > PARENT LOCATION NAME</label>
                   </div>
 
-                  
+                  <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                    <mat-select class="inputTxt" formControlName="parentLocation">
+                      <mat-option *ngFor="let title of locationList" [value]="title.id">
+                          {{title.text}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              </div>
+
+
                 </div>
                  <div class="row">
                   <div class=" col-md-2">
-                    <mat-label >ALTERNATE LOCATION HEAD</mat-label>
+                    <mat-label>PRIMARY LOCATION HEAD</mat-label>
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                      <mat-select class="inputTxt" formControlName="alternateLocation">
-                        <mat-option *ngFor="let title of locationDdList" [value]="title.id">
-                            {{title.text}}
+                      <mat-select class="inputTxt" formControlName="primaryLocation"maxlength="30">
+                        <mat-option *ngFor="let title of locationDdList" [value]="title.userId">
+                            {{title.userId}}
                         </mat-option>
                     </mat-select>
-                </mat-form-field>
-                </div>
+                  </mat-form-field>
+                  </div>
+
                 <div class=" col-md-2">
                   <mat-label >DESCRIPTION</mat-label>
                   </div>
@@ -102,21 +103,9 @@
                 </div>
                 </div>
                 <div class="row" style="margin-top: -20px;">
-                
 
-                  <div class=" col-md-2">
-                    <mat-label>PRIMARY LOCATION HEAD</mat-label>
-                    </div>
-                    <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                      <mat-select class="inputTxt" formControlName="primaryLocation"maxlength="15">
-                        <mat-option *ngFor="let title of locationDdList" [value]="title.id">
-                            {{title.text}}
-                        </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  </div>
+
           </div>
 
 

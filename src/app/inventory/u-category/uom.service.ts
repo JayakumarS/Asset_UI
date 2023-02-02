@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { UCategory } from './uom-model';
 import { CategoryResultBean } from './uom-resultbean';
@@ -16,9 +17,10 @@ export class UomService extends UnsubscribeOnDestroyAdapter{
     []
   );
   dialogData:any;
+  companyId: string;
   
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
-    private httpService: HttpServiceService) {
+    private httpService: HttpServiceService, private tokenStorage: TokenStorageService,) {
       super();
   }
 
@@ -42,7 +44,8 @@ export class UomService extends UnsubscribeOnDestroyAdapter{
 
 
   getAllCategory():void {
-    this.subs.sink = this.httpService.get<CategoryResultBean>(this.getAllMasters).subscribe(
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.subs.sink = this.httpService.get<CategoryResultBean>(this.getAllMasters+"?companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.categoryMasterList);

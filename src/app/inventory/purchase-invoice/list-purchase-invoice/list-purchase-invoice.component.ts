@@ -39,6 +39,7 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
   index: number;
   id: number;
   purchaseInvoice: PurchaseInvoice | null;
+  permissionList: any;
   
   constructor(
     private spinner: NgxSpinnerService,
@@ -63,6 +64,22 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1014',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList=data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -75,7 +92,7 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
   }
 
   public loadData() {
-    this.exampleDatabase = new PurchaseInvoiceService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new PurchaseInvoiceService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -92,7 +109,9 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/purchaseInvoice/addPurchaseInvoice/'+row.purchaseInvoiceId]);
+    if(this.permissionList?.modify){
+      this.router.navigate(['/inventory/purchaseInvoice/addPurchaseInvoice/'+row.purchaseInvoiceId]);
+    }
   }
 
   deleteItem(row) {

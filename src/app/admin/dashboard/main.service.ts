@@ -30,19 +30,21 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
     super();
   }
 
-  private getAllAssets = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getAssetList`;
-  public earningsListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getEarningsListCount`;
-  public auditorsListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getAuditorsListCount`;
-  public assetsListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getAssetsListCount`;
-  public usersListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getUsersListCount`;
-  public purchaseAssetsCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/purchaseAssetsCount`;
-  public depreciatedCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/depreciatedCount`;
-  public getAuditableAssetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAuditableAssetList`;
-  public getAssetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetList`;
-  public getAssetSurveyURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getAssetSurvey`;
-  public getClientSurveyURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getClientSurvey`;
-  public getItSupportTicketURL = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getItSupportTicket`;
-  public getActivityPopUpUrl = `${this.serverUrl.apiServerAddress}api/auth/app/dashboard/getActivityPopUpDetails`;
+  private getAllAssets = `${this.serverUrl.apiServerAddress}app/addAsset/getAssetList`;
+  public earningsListCountUrl = `${this.serverUrl.apiServerAddress}app/dashboard/getEarningsListCount`;
+  public auditorsListCountUrl = `${this.serverUrl.apiServerAddress}app/dashboard/getAuditorsListCount`;
+  public assetsListCountUrl = `${this.serverUrl.apiServerAddress}app/dashboard/getAssetsListCount`;
+  public usersListCountUrl = `${this.serverUrl.apiServerAddress}app/dashboard/getUsersListCount`;
+  public purchaseAssetsCountUrl = `${this.serverUrl.apiServerAddress}app/dashboard/purchaseAssetsCount`;
+  public depreciatedCountUrl = `${this.serverUrl.apiServerAddress}app/dashboard/depreciatedCount`;
+  public getAuditableAssetListUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getAuditableAssetList`;
+  public getAssetListUrl = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetListForDashboard`;
+  public getAssetSurveyURL = `${this.serverUrl.apiServerAddress}app/dashboard/getAssetSurvey`;
+  public getClientSurveyURL = `${this.serverUrl.apiServerAddress}app/dashboard/getClientSurvey`;
+  public getItSupportTicketURL = `${this.serverUrl.apiServerAddress}app/dashboard/getItSupportTicket`;
+  public getActivityPopUpUrl = `${this.serverUrl.apiServerAddress}app/dashboard/getActivityPopUpDetails`;
+  public companyAuditorsCountUrl = `${this.serverUrl.apiServerAddress}app/dashboard/getCompanyAuditorsCount`;
+  public getCompanyAssetListUrl = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetList`;
 
   get data(): main[] {
     return this.dataChange.value;

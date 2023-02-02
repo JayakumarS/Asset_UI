@@ -24,11 +24,13 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { AddUtilityReportComponent } from './add-utility-report/add-utility-report.component';
+import { ListUtilityReportComponent } from './list-utility-report/list-utility-report.component';
 
 
 @NgModule({
   declarations: [
-    AddUtilityReportComponent
+    AddUtilityReportComponent,
+    ListUtilityReportComponent
   ],
   imports: [
     CommonModule,

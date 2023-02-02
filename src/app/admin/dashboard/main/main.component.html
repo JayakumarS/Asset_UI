@@ -55,7 +55,10 @@
                     <h5 class="float-end">Earning</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3>
+                    <!-- For Decimal purpose code -->
+                    <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
+                    <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3>
+                    <h3 *ngIf="roleIdFlag" class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -74,7 +77,8 @@
                     <h5 class="float-end">Auditors</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{auditorsCountValue!=null?auditorsCountValue.toFixed(2):auditorsCountValue}}</h3>
+                    <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3>
+                    <h3 *ngIf="roleIdFlag" class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -93,7 +97,8 @@
                     <h5 class="float-end">Assets</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{assetsCountValue!=null?assetsCountValue.toFixed(2):assetsCountValue}}</h3>
+                    <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3>
+                    <h3 *ngIf="roleIdFlag" class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -112,7 +117,11 @@
                     <h5 class="float-end">Users</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3>
+                    <!-- Total Users -->
+                    <!-- <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3> -->
+                    <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{usersCountValue}}</h3>
+                    <!-- Company based Users -->
+                    <h3 *ngIf="roleIdFlag" class="font-weight-bold float-end mb-0">{{companyUsersAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -219,7 +228,10 @@
                               </mat-progress-bar>
                             </td>
                             <td>
-                              <h5 class="font-weight-bold mb-0">{{purchaseAssetsCountValue}}</h5>
+                              <!-- Total Purchase Asset Count -->
+                              <!-- <h5 class="font-weight-bold mb-0">{{purchaseAssetsCountValue}}</h5> -->
+                              <!-- Company based Purchase Asset Count -->
+                              <h5 class="font-weight-bold mb-0">{{companyPurchaseAssetsCount}}</h5>
                             </td>
                           </tr>
                           <tr class="tr-height-m">
@@ -535,9 +547,17 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
+                <tbody *ngIf="!roleIdFlag">
                   <tr *ngFor="let data of assetList">
+                    <td>{{data.assetName}}</td>
+                    <td>{{data.assetCode}}</td>
+                    <td>{{data.locationName}}</td>
+                    <td>{{data.categoryName}}</td>
+                    <td>{{data.status}}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="roleIdFlag">
+                  <tr *ngFor="let data of companyAssetList">
                     <td>{{data.assetName}}</td>
                     <td>{{data.assetCode}}</td>
                     <td>{{data.locationName}}</td>

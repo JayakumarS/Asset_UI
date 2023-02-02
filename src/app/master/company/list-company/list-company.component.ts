@@ -18,6 +18,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { DeleteCompanyComponent } from './delete-company/delete-company.component';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-list-company',
@@ -49,7 +50,8 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
-    public router:Router
+    public router:Router,
+    private tokenStorage: TokenStorageService
   ) { 
     super();
   }
@@ -73,7 +75,7 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
   }
 
   public loadData() {
-    this.exampleDatabase = new CompanyService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new CompanyService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService,);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

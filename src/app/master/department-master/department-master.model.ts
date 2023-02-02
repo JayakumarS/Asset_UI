@@ -3,6 +3,8 @@ export class DepartmentMaster {
   id: number;
   deptCode: string;
   departmentHead: string;
+  company:string;
+  branchname:string;
   remarks: string;
   isactive: boolean;
   isactiveForList:boolean;
@@ -13,7 +15,8 @@ export class DepartmentMaster {
     {
       this.id = departmentMaster.id || this.getRandomID();
       this.deptCode = departmentMaster.deptCode || "";
-      //this.departmentName = departmentMaster.departmentName || "";
+      this.company = departmentMaster.company || "";
+      this.branchname = departmentMaster.branchname || "";
       this.departmentHead = departmentMaster.departmentHead || "";
       this.remarks=departmentMaster.remarks||"";
       this.isactive=departmentMaster.isactive||"";

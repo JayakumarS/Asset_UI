@@ -26,20 +26,20 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
     super();
   }
   
-  private getScheduleActivity = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getList`;
-  public assetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAssetList`;
-  public fetchAssetNameUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getfetchAssetName`;
-  public assetTypeListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getassetTypeList`;
-  public depreciationMethodUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getdepreciationMethodList`;
-  public saveAuditableAsset = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/save`;
-  public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getCurrencyList`;
-  public assetPopUpUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAssetDetailsForPopUp`;
-  public financialChangeUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getfinancialChangeDetails`;
-  public editAuditableAsset = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/edit`;
-  public updateauditable = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/update`;
-  public validateAssetIdUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/validateAssetId`;
-  public deleteschedule = `${this.serverUrl.apiServerAddress}api/auth/app/scheduleMaster/delete`;
-  public assetListDashboardUrl = `${this.serverUrl.apiServerAddress}api/auth/app/auditableAsset/getAssetListDashboard`;
+  private getScheduleActivity = `${this.serverUrl.apiServerAddress}app/auditableAsset/getList`;
+  public assetListUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getAssetList`;
+  public fetchAssetNameUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getfetchAssetName`;
+  public assetTypeListUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getassetTypeList`;
+  public depreciationMethodUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getdepreciationMethodList`;
+  public saveAuditableAsset = `${this.serverUrl.apiServerAddress}app/auditableAsset/save`;
+  public currencyListUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getCurrencyList`;
+  public assetPopUpUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getAssetDetailsForPopUp`;
+  public financialChangeUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getfinancialChangeDetails`;
+  public editAuditableAsset = `${this.serverUrl.apiServerAddress}app/auditableAsset/edit`;
+  public updateauditable = `${this.serverUrl.apiServerAddress}app/auditableAsset/update`;
+  public validateAssetIdUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/validateAssetId`;
+  public deleteschedule = `${this.serverUrl.apiServerAddress}app/scheduleMaster/delete`;
+  public assetListDashboardUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getAssetListDashboard`;
 
   get data(): AuditableAsset[] {
     return this.dataChange.value;

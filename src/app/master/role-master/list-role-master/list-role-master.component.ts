@@ -20,6 +20,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 
+
 @Component({
   selector: 'app-list-role-master',
   templateUrl: './list-role-master.component.html',
@@ -37,8 +38,9 @@ export class ListRoleMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   selection = new SelectionModel<RoleMaster>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   roleMaster: RoleMaster | null;
-  
+
   constructor(
     private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
@@ -62,6 +64,22 @@ export class ListRoleMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1033',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -91,8 +109,10 @@ export class ListRoleMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   editCall(row) {
+    if (this.permissionList?.modify){
     this.router.navigate(['/master/roleMaster/addRoleMaster/'+row.roleId]);
   }
+}
 
   deleteItem(row) {
     let tempDirection;
@@ -109,7 +129,7 @@ export class ListRoleMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       disableClose: true
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
       if (data.data == true) {
         const obj = {
           deletingId: row.countryId
@@ -195,7 +215,7 @@ export class ExampleDataSource extends DataSource<RoleMaster> {
           .filter((roleMaster: RoleMaster) => {
             const searchStr = (
               roleMaster.roleName +
-              roleMaster.remarks 
+              roleMaster.remarks
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });

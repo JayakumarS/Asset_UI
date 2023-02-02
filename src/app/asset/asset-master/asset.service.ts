@@ -26,27 +26,30 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService, private tokenStorage: TokenStorageService) {
+  companyId: string;
+  branchId: string;
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService, private tokenStorage: TokenStorageService,
+   ) {
     super();
   }
 
-  private getAllAssets = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetList`;
-  private saveAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/saveAsset`;
-  private updateAsset = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/update`;
-  public editAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/edit`;
-  public deleteAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/delete`;
-  public getAssetDetails = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetDetails`;
-  public getAssetList = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getAssetListFor`;
+  private getAllAssets = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetList`;
+  private saveAssetMaster = `${this.serverUrl.apiServerAddress}app/assetMaster/saveAsset`;
+  private updateAsset = `${this.serverUrl.apiServerAddress}app/assetMaster/update`;
+  public editAssetMaster = `${this.serverUrl.apiServerAddress}app/assetMaster/edit`;
+  public deleteAssetMaster = `${this.serverUrl.apiServerAddress}app/assetMaster/delete`;
+  public getAssetDetails = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetDetails`;
+  public getAssetList = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetListFor`;
   //new
-  public addAssetImageUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/addAssetImageUpload`;
-  public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/addAssetUpload`;
-  public multipleAssetUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/multipleAssetuploadExefile`;
-  public categoryDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/getCategoryDropdown`;
-  public locationDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getLocationDropdown`;
-  public departmentDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/addAsset/getDepartmentDropdown`;
-  public commoditylist = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/getCategoryList`;
-  public saveGRNBasedMutipleAsset = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/saveGRNBasedMutipleAsset`;
-  public exportPdfBulkAssetQRcode = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/exportPdf_BulkAssetQRcode`;
+  public addAssetImageUploadFiles = `${this.serverUrl.apiServerAddress}app/assetMaster/addAssetImageUpload`;
+  public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}app/assetMaster/addAssetUpload`;
+  public multipleAssetUploadFiles = `${this.serverUrl.apiServerAddress}app/assetMaster/multipleAssetuploadExefile`;
+  public categoryDropdownList = `${this.serverUrl.apiServerAddress}app/assetMaster/getCategoryDropdown`;
+  public locationDropdownList = `${this.serverUrl.apiServerAddress}app/addAsset/getLocationDropdown`;
+  public departmentDropdownList = `${this.serverUrl.apiServerAddress}app/addAsset/getDepartmentDropdown`;
+  public commoditylist = `${this.serverUrl.apiServerAddress}app/countryMaster/getCategoryList`;
+  public saveGRNBasedMutipleAsset = `${this.serverUrl.apiServerAddress}app/assetMaster/saveGRNBasedMutipleAsset`;
+  public exportPdfBulkAssetQRcode = `${this.serverUrl.apiServerAddress}app/assetMaster/exportPdf_BulkAssetQRcode`;
 
 
   get data(): AssetMaster[] {
@@ -57,7 +60,11 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllCustomers(): void {
-    this.subs.sink = this.httpService.get<AssetMasterResultBean>(this.getAllAssets).subscribe(
+    console.log();
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.branchId= this.tokenStorage.getBranchId(),
+
+    this.subs.sink = this.httpService.get<AssetMasterResultBean>(this.getAllAssets+"?companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.assetList);

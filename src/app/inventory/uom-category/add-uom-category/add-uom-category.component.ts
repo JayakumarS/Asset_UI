@@ -23,6 +23,10 @@ export class AddUOMCategoryComponent implements OnInit {
   requestId: number;
   dialogData: any;
   edit: boolean = false;
+  companyList=[];
+  branchList=[];
+  companyId: any;
+  branchId: any;
   
   constructor(private fb: FormBuilder, public router: Router, private snackBar: MatSnackBar,
               public uomCategoryService: UomCategoryService,
@@ -39,11 +43,19 @@ export class AddUOMCategoryComponent implements OnInit {
       uomCode: [""],
       uomcategoryName:[""],
       loginedUser: this.tokenStorage.getUserId(),
+      company:["",[Validators.required]],
+      branchname:["",[Validators.required]],
+      
     });
 
   }
 
   ngOnInit(): void {
+
+    this.companyId = this.tokenStorage.getCompanyId();
+    console.log(this.companyId)
+    this.branchId = this.tokenStorage.getBranchId();
+    console.log(this.branchId)
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -51,7 +63,9 @@ export class AddUOMCategoryComponent implements OnInit {
       description: [""],
       active: [""],
       uomID: [""],
-      uomcategoryName:[""]
+      uomcategoryName:[""],
+      company:this.companyId,
+      branchname:this.branchId,
     });
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
@@ -70,6 +84,25 @@ export class AddUOMCategoryComponent implements OnInit {
 
       }
     });
+
+
+       // Company  Dropdown List
+       this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+        next: (data) => {
+          this.companyList = data;
+        },
+        error: (error) => {
+        }
+      });
+  
+        // Branch Dropdown List
+        this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
+          next: (data) => {
+            this.branchList = data;
+          },
+          error: (error) => {
+          }
+        });
 
 
   }
@@ -130,6 +163,7 @@ export class AddUOMCategoryComponent implements OnInit {
           'description': res.uomBean.description,
           'uomcategoryName':res.uomBean.uomcategoryName,
           'active': res.uomBean.active,
+         
 
         });
       },

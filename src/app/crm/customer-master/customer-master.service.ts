@@ -29,11 +29,11 @@ export class CustomerMasterService extends UnsubscribeOnDestroyAdapter{
   constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/getList`;
-  private saveCustomermaster = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/save`;
-  public editCustomermaster = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/edit`;
-  public updateCustomermaster = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/update`;
-  private deleteCustomermaster = `${this.serverUrl.apiServerAddress}api/auth/app/customerMaster/delete`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/customerMaster/getList`;
+  private saveCustomermaster = `${this.serverUrl.apiServerAddress}app/customerMaster/save`;
+  public editCustomermaster = `${this.serverUrl.apiServerAddress}app/customerMaster/edit`;
+  public updateCustomermaster = `${this.serverUrl.apiServerAddress}app/customerMaster/update`;
+  private deleteCustomermaster = `${this.serverUrl.apiServerAddress}app/customerMaster/delete`;
 
 
   get data(): CustomerMaster[] {

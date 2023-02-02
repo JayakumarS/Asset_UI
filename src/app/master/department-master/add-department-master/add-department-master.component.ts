@@ -8,6 +8,7 @@ import { DepartmentMaster } from '../department-master.model';
 import { DepartmentMasterResultBean } from '../department-master-result-bean';
 import { DepartmentMasterService } from '../department-master.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-department-master',
@@ -19,11 +20,17 @@ export class AddDepartmentMasterComponent implements OnInit {
   departmentMaster: DepartmentMaster;
   requestId: number;
   edit:boolean=false;
-  tokenStorage: any;
   contactPersonList: [];
   locationDdList=[];
+  companyList=[];
+  branchList=[];
+  companyId: any;
+  branchId: any;
+  userId: any;
+  getUserBasedCompanyList = [];
+  getUserBasedBranchList = [];
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: FormBuilder,private tokenStorage: TokenStorageService,
     private departmentMasterService : DepartmentMasterService,
     private httpService: HttpServiceService,
     private commonService: CommonService,
@@ -41,12 +48,22 @@ export class AddDepartmentMasterComponent implements OnInit {
       isactive:[false],
       deptId:[""],
       contactPerson:[""],
+      company:["",[Validators.required]],
+      branchname:["",[Validators.required]],
       
     });
 
   }
 
   ngOnInit(): void {
+
+     this.companyId=this.tokenStorage.getCompanyId();
+     console.log(this.companyId);
+    this.branchId=this.tokenStorage.getBranchId();
+    console.log(this.branchId);
+    this.userId=this.tokenStorage.getUserId();
+    console.log(this.userId);
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -59,7 +76,7 @@ export class AddDepartmentMasterComponent implements OnInit {
 
      
        // Contact Person dropdown
-       this.httpService.get<any>(this.departmentMasterService.getAdminDropdown).subscribe({
+       this.httpService.get<any>(this.departmentMasterService.getAdminDropdown+"?companyId="+this.companyId).subscribe({
         next: (data) => {
           this.locationDdList = data;
         },
@@ -69,15 +86,59 @@ export class AddDepartmentMasterComponent implements OnInit {
       }
       );
 
-      //ContactPerson  Dropdown List
-    // this.httpService.get<any>(this.commonService.getUserDropdown).subscribe({
-    //   next: (data) => {
-    //     this.contactPersonList = data;
-    //   },
-    //   error: (error) => {
-    //   }
-    // });
+ 
+
+     // Company  Dropdown List
+    this.httpService.get<any>(this.departmentMasterService.getCompanyDropdown+"?userId="+this.userId).subscribe({
+      next: (data) => {
+        this.companyList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+      // Branch Dropdown List
+      this.httpService.get<any>(this.departmentMasterService.getBranchDropdown+"?companyId="+this.companyId).subscribe({
+        next: (data) => {
+          this.branchList = data;
+        },
+        error: (error) => {
+        }
+      });
+
+
+
+      //User Based Company List
+   this.httpService.get<any>(this.departmentMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
+    (data) => {
+      this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  ); 
+
+
   }
+
+  fetchBranchDetails(customer: any) {
+
+    this.userId = this.tokenStorage.getUserId();
+
+    this.httpService.get(this.departmentMasterService.fetchBranch + "?userId=" + this.userId).subscribe((res: any) => {
+      console.log(customer);
+
+      this.getUserBasedBranchList = res.getUserBasedBranchList;
+
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+
+
+  }
+  
 
   onSubmit(){
     // if(this.docForm.controls.isactive.value==""){
@@ -151,7 +212,9 @@ export class AddDepartmentMasterComponent implements OnInit {
         'remarks' : res.departmentBean.remarks,
         'isactive' : res.departmentBean.isactive,
         'deptId' : res.departmentBean.deptId,
-        'contactPerson' : res.departmentBean.contactPerson
+        'contactPerson' : res.departmentBean.contactPerson,
+        'company' : res.departmentBean.company,
+        'branchname' : res.departmentBean.branchname, 
   
      })
       },
@@ -259,6 +322,8 @@ export class AddDepartmentMasterComponent implements OnInit {
       this.docForm.patchValue({
         deptCode: ["",[Validators.required]],
         departmentHead: [""],
+        branchname: [""],
+        company:[""],
         remarks: [""],
         isactive: [""],
         contactPersonId:[""],
@@ -287,5 +352,8 @@ export class AddDepartmentMasterComponent implements OnInit {
       }
     });
   }
+
+  
+
 
 }

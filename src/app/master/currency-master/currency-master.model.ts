@@ -3,6 +3,8 @@ export class CurrencyMaster {
   id: number;
   currencyCode: string;
   currencyName: string;
+  companyId:any;
+  branchId:any;
   
   constructor(currencyMaster) {
     {

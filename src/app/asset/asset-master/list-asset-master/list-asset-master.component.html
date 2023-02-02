@@ -17,11 +17,11 @@
                                             <li class="dropdown m-l-20 ">
                                                 <h2>Asset List</h2>
                                               </li>
-                                            <li class="dropdown m-l-20">
+                                            <li [hidden]="!permissionList?.search" class="dropdown m-l-20">
                                                 <label for="search-input"><i class="material-icons search-icon">search</i></label>
                                                 <input placeholder="Search" type="text" #filter class="browser-default search-field" aria-label="Search box">
                                             </li>
-                                            <li>
+                                            <li *ngIf="permissionList?.add">
                                                 <div class="m-l-10" matTooltip="ADD">
                                                   <button color="primary" type="button" class="btn-space" [routerLink]="'/asset/assetMaster/addAssetMaster/0'" mat-raised-button>
                                                     <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
@@ -30,7 +30,7 @@
                                               </li>
                                         </ul>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-4"*ngIf="permissionList?.exportXL">
                                         <ul class="header-buttons">
                                             <li>
                                                 <div class="m-l-10" matTooltip="Print Asset QRCode">
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
-                                
+
                                 <ng-container matColumnDef="select">
                                     <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">
                                       <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -62,7 +62,7 @@
                                       </mat-checkbox>
                                     </mat-cell>
                                   </ng-container>
-                                  
+
                                 <ng-container matColumnDef="assetId">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Asset No </mat-header-cell>
                                     <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
@@ -104,10 +104,10 @@
                                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)" class="tbl-action-btn">
+                                        <button *ngIf="permissionList?.modify"mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)" class="tbl-action-btn">
                         <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                       </button>
-                                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="deleteItem(row)" class="tbl-action-btn">
+                                        <button *ngIf="permissionList?.delete"mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="deleteItem(row)" class="tbl-action-btn">
                         <app-feather-icons matTooltip="Delete" [icon]="'trash-2'" [class]="'tbl-fav-delete'">
                         </app-feather-icons>
                       </button>
@@ -116,6 +116,18 @@
                         <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                         </app-feather-icons>
                       </button>
+<!--
+                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="discardCall(row)" class="tbl-action-btn">
+                        <app-feather-icons matTooltip="Delete" [icon]="'trash-2'" [class]="'tbl-fav-delete'" style="color: black!important;">
+                        </app-feather-icons>
+                      </button> -->
+
+                      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="demo-google-material-icon" (click)="$event.stopPropagation()" (click)="discardCall(row)">
+                          <i class="material-icons">delete_forever</i>
+
+                        </div>
+                      </div>
                                     </mat-cell>
                                 </ng-container>
 
@@ -135,15 +147,15 @@
                             </div>
                             <mat-menu #contextMenu="matMenu">
                                 <ng-template matMenuContent let-item="item">
-                                    <button mat-menu-item [routerLink]="'/asset/assetMaster/addAssetMaster'">
+                                    <button *ngIf="permissionList?.add"mat-menu-item [routerLink]="'/asset/assetMaster/addAssetMaster'">
                       <mat-icon>add_box</mat-icon>
                       <span>Add Record</span>
                     </button>
-                                    <button mat-menu-item (click)="editCall(item)">
+                                    <button *ngIf="permissionList?.modify" mat-menu-item (click)="editCall(item)">
                       <mat-icon>create</mat-icon>
                       <span>Edit Record</span>
                     </button>
-                                    <button mat-menu-item (click)="deleteItem(item)">
+                                    <button *ngIf="permissionList?.delete" mat-menu-item (click)="deleteItem(item)">
                       <mat-icon>delete</mat-icon>
                       <span>Delete Record</span>
                     </button>

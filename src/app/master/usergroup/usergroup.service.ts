@@ -22,10 +22,18 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
      }
 
 
- public save = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/save`;
+ public save = `${this.serverUrl.apiServerAddress}app/userGroupMaster/save`;
   public editCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
-  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/getList`;
-
+  public getAllMasters = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getList`;
+  public editUserMaster = `${this.serverUrl.apiServerAddress}app/userGroupMaster/edit`;
+  public updateUserGroup = `${this.serverUrl.apiServerAddress}app/userGroupMaster/update`;
+  public deleteUserGroup = `${this.serverUrl.apiServerAddress}app/userGroupMaster/delete`;
+  public branchDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getDropdown`;
+  public getCompanyDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getCompanyDropdown`;
+  public getUserDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getUserDropdown`;
+  public getRoleDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getRoleDropdown`;
+  public userIdDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/userIdDropdown`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
 
   get data(): UserGroupMaster[] {
@@ -36,8 +44,10 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
   }
 
   editCompany(obj: any): Observable<any> {
-    return this.httpClient.post<any>(this.editCompanyMaster, obj);
+    return this.httpClient.post<any>(this.editUserMaster, obj);
   }
+
+  
 
   getAllCountrys(){
     this.subs.sink = this.httpService.get<UserGroupResultBean>(this.getAllMasters).subscribe(
@@ -50,6 +60,18 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
         console.log(error.name + " " + error.message);
       }
     );
+  }
+
+  update(userGroupMaster: UserGroupMaster): Observable<any> {
+    return this.httpClient.post<UserGroupMaster>(this.updateUserGroup, userGroupMaster);
+  }
+
+  deleteusergroup(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.deleteUserGroup, obj);
+  }
+
+  company(){
+
   }
   
 }

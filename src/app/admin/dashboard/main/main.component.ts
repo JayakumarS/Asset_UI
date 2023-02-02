@@ -56,6 +56,7 @@ export class MainComponent implements OnInit {
   assetsCount = [];
   auditableAssetList = [];
   assetList = [];
+  companyAssetList = [];
   assetListDashboard = [];
   public cardChart1: any;
   public cardChart1Data: any;
@@ -103,6 +104,14 @@ export class MainComponent implements OnInit {
   config1: { itemsPerPage: number; currentPage: number; totalItems: number; };
   popUpFlag:string;
   activityflag: string;
+  companyAuditorCount: string;
+  companyPurchaseAssetsCount: any;
+  companyUsersAssetsCount: any;
+  companyEarningsAssetsCount: any;
+  roleId: any;
+  roleIdFlag:boolean=false;
+  companyAuditorsAssetsCount: any;
+  companyAssetsCount: any;
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
@@ -120,6 +129,16 @@ export class MainComponent implements OnInit {
     this.chart2();
     this.chart4();
     this.projectChart();
+
+    this.companyAuditorCount=this.tokenStorage.getCompanyId();
+    this.roleId=this.tokenStorage.getRoleId();
+    
+
+    if(this.roleId==3){
+      this.roleIdFlag=true;
+    }else{
+      this.roleIdFlag=false;
+    }
 
     this.httpService.get<MainResultBean>(this.mainService.earningsListCountUrl).subscribe(
       (data) => {
@@ -217,9 +236,25 @@ export class MainComponent implements OnInit {
     //     console.log(this.projectOptions);
     // }); 
 
+    // Company based Auditor count service
+
+    this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + this.companyAuditorCount).subscribe((res: any) => {
+      console.log(this.companyAuditorCount);
+      this.companyPurchaseAssetsCount = res.companyPurchaseAssetsCount;
+      this.companyUsersAssetsCount = res.companyUsersAssetsCount;
+      this.companyEarningsAssetsCount = res.companyEarningsAssetsCount;
+      this.companyAuditorsAssetsCount = res.companyAuditorsAssetsCount;
+      this.companyAssetsCount = res.companyAssetsCount;
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+
     this.getInvList();
     this.getAssetList();
-    this.fetchAssetName(16);
+    // bar chart default call
+    // this.fetchAssetName(16);
     // this.popUp();
     
   }
@@ -278,17 +313,31 @@ export class MainComponent implements OnInit {
   }
 
   getAssetList(){
-    this.httpService.get<MainResultBean>(this.mainService.getAssetListUrl).subscribe(
-      (data) => {
-        
-        this.assetList = data.assetList;
-        this.config1 = {
-          itemsPerPage: 5,
-          currentPage: 1,
-          totalItems: this.auditableAssetList.length
-        }; 
-      }
-    );
+
+    if(this.roleIdFlag==false){
+      this.httpService.get<MainResultBean>(this.mainService.getAssetListUrl).subscribe(
+        (data) => {
+          
+          this.assetList = data.getAssetListDashboard;
+          this.config1 = {
+            itemsPerPage: 5,
+            currentPage: 1,
+            totalItems: this.auditableAssetList.length
+          }; 
+        }
+      );
+    }
+    else{
+      this.httpService.get<MainResultBean>(this.mainService.getCompanyAssetListUrl + "?companyId=" + this.companyAuditorCount).subscribe((res: any) => {
+        console.log(this.companyAuditorCount);
+        this.companyAssetList = res.assetList;
+        },
+        (err: HttpErrorResponse) => {
+           // error code here
+        }
+      );
+    }
+
   }
 
   private smallChart1() {
@@ -583,7 +632,7 @@ export class MainComponent implements OnInit {
           data: [11, 32, 45, 32, 34, 52, 41],
         },
         {
-          name: "Accured Depreciation",
+          name: "Accrued Depreciation",
           data: [11, 32, 25, 32, 77, 52, 15],
         },
       ],
@@ -729,7 +778,7 @@ export class MainComponent implements OnInit {
           data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
         },
         {
-          name: "Accured Depreciation",
+          name: "Accrued Depreciation",
           type: "line",
           data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
         },

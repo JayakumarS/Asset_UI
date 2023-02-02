@@ -35,7 +35,7 @@ export class CommodityService extends UnsubscribeOnDestroyAdapter {
   // public editcommodity = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/edit`;
   public editcommodity = `${this.serverUrl.apiServerAddress}api/auth/app/vendorMaster/editVendor`;
   // public updatecommodity = `${this.serverUrl.apiServerAddress}api/auth/app/commodity/update`;
-  public updatecommodity = `${this.serverUrl.apiServerAddress}api/auth/app/countryMaster/updateVendor`;
+  public updatecommodity = `${this.serverUrl.apiServerAddress}app/countryMaster/updateVendor`;
   
   
   

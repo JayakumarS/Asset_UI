@@ -39,7 +39,9 @@ export class SigninComponent
     private authService: AuthService,
     private app:AppService,
     private tokenStorage: TokenStorageService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+
+    
   ) {
     super();
   }
@@ -96,22 +98,25 @@ export class SigninComponent
                 this.tokenStorage.saveBranchId(data.userDetails.branchId);
                 this.tokenStorage.saveCompanies(data.userDetails.companies);
                 this.tokenStorage.saveRoles(data.userDetails.roles);
-
+               
                 // if(data.userDetails.companies.length>0){
                 //   this.showPopUp();
                 // }
                 this.loading = false;
-                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2){
+                this.loginSuccessUserLog();
+                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 || data.userDetails.roleId == 3){
                   this.router.navigate(["/admin/dashboard/main"]);
                 }
-                else if(data.userDetails.roleId == 3){
+                else if(data.userDetails.roleId == 4){
                   this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
+                }else{
+                  this.router.navigate(["/admin/dashboard/main"]);
                 }
               }, 1000);
               }else{
                  this.submitted = false;
                   this.loading = false;
-                  this.error = "Invalid Login";
+                  this.error = data.message;
                 console.log(data.message);
               }
 
@@ -159,6 +164,16 @@ export class SigninComponent
       //   );
     }
   }
+  loginSuccessUserLog() {
+    const obj = {
+      username: this.authForm.value.username   }
+    console.log(obj);
+    this.authService.getSuccessuserLog(obj).subscribe((result: any) => {
+      
+    });
+  }
+
+
 
 
 }

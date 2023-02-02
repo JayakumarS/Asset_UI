@@ -6,6 +6,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { LocationMaster } from './location-master.model';
 import { LocationMasterResultBean } from './location-master-result-bean';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,15 +24,15 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,public tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/getList`;
-  private saveLocation = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/save`;
-  public currencyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/getCurrencyList`;
-  public deleteLocation = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/delete`;
-   public editLocation = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/edit`;
-  public updateLocation = `${this.serverUrl.apiServerAddress}api/auth/app/locationMaster/update`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/locationMaster/getList`;
+  private saveLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/save`;
+  public currencyListUrl = `${this.serverUrl.apiServerAddress}app/locationMaster/getCurrencyList`;
+  public deleteLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/delete`;
+   public editLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/edit`;
+  public updateLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/update`;
   get data(): LocationMaster[] {
     return this.dataChange.value;
   }
@@ -40,7 +41,8 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
   }
   // CRUD METHODS
   getAllList(): void {
-        this.subs.sink = this.httpService.get<LocationMasterResultBean>(this.getAllMasters).subscribe(
+        let companyId=this.tokenStorage.getCompanyId();
+        this.subs.sink = this.httpService.get<LocationMasterResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.locationMasterDetails);

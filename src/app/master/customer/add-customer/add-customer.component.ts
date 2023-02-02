@@ -31,7 +31,6 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   agree3 = false;
   customerMaster: CustomerMaster;
   requestId: number;
-  tokenStorage: any;
   locationList: [];
   countryList = [];
   locationDdList = [];
@@ -61,11 +60,17 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
               public dialog: MatDialog,
               private spinner: NgxSpinnerService,
               public route: ActivatedRoute,
+              private tokenStorageService:TokenStorageService
               )
     {
       super();
 
-      this.docForm = this.fb.group({
+      
+  }
+  ngOnInit(): void {
+    this.docForm = this.fb.group({
+      'companyId':this.tokenStorageService.getCompanyId(),
+      'branchId':this.tokenStorageService.getBranchId(),
       cus_id: [""],
       auditorname: [""],
       registercode: [""],
@@ -74,11 +79,11 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       phone: [""],
       address: [""],
       addresstwo: [""],
-      city: [""],
+      city: ["", [Validators.required]],
       country: [""],
-      state: [""],
+      state: ["", [Validators.required]],
       postalcode: ["", [Validators.required]],
-      panno: [""],
+      panno: ["",[Validators.required]],
       vatno: [""],
       gstno: [""],
       cstno: [""],
@@ -108,6 +113,9 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       acctReceivable: [""],
       supplier: [""],
       totalReceivable: [""],
+      // companyId: [""],
+      // branchId: [""],
+       
 
       contactDetail: this.fb.array([
         this.fb.group({
@@ -133,8 +141,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
            })
       ]),
         });
-  }
-  ngOnInit(): void {
+ 
+
     this.route.params.subscribe(params => {
       if ( params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -145,6 +153,9 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       }
 
      });
+
+   
+    
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
         this.locationList = data;
@@ -183,6 +194,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
   }
 });
+
+
   }
   // city list
     getCityDropdown(state: any): void {
@@ -526,7 +539,9 @@ reset(){
       cstno: [""],
       remarks: [""],
       active: [""],
-      'loginedUser': this.tokenStorage.getUserId()
+      'loginedUser': this.tokenStorageService.getUserId(),
+      companyId: this.tokenStorageService.getCompanyId(),
+      branchId: this.tokenStorageService.getBranchId()
     })
   } else {
     this.fetchDetails(this.requestId);

@@ -1,0 +1,138 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add companies employee'" [items]="['Master']" [active_item]="'Add companies employee'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-md-12">
+          <div class="box-shadow">
+            <div class="card pageproperty">
+              <div class="body " style="padding-left: 135px;">
+                <form class="m-4" [formGroup]="docForm">
+                  
+                  
+                  <div class="row">
+
+                    <div class=" col-md-2">
+                        <mat-label >COMPANY<span class="errorColor">*</span></mat-label>
+                        </div>
+                        <div class=" col-md-3">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select class="inputTxt" formControlName="company"  (selectionChange)="fetchBranchDetails($event.value)" >
+                              <mat-option *ngFor="let title of getUserBasedCompanyList" [value]="title.text">
+                                  {{title.text}}
+                              </mat-option>
+                          </mat-select>
+                         
+                      </mat-form-field>
+                        </div>
+                        <div class=" col-md-2">
+                          <mat-label >BRANCH</mat-label>
+                          </div>
+                          <div class=" col-md-3">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-select class="inputTxt" formControlName="branch">
+                                <mat-option *ngFor="let title of getUserBasedBranchList" [value]="title.text">
+                                    {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                          </div>
+                          </div>
+
+                          <div class="row">
+
+                            <div class=" col-md-2">
+                                <mat-label >FULL NAME<span class="errorColor">*</span></mat-label>
+                                </div>
+                                <div class=" col-md-3">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <input matInput formControlName="fullName"  maxlength="50" required>
+                                  <mat-error *ngIf="docForm.get('fullName').hasError('required')">
+                                    Full Name is required
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                             
+                              
+                              <div class=" col-md-2">
+                                <mat-label >EMAIL ID<span class="errorColor">*</span></mat-label>
+                                </div>
+                              <div class=" col-md-3">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required >
+                                  <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                                    Email is required
+                                  </mat-error>
+                                  <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
+                                    EmailId Already Exists !!!
+                                  </mat-error>
+                                  <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
+                                    Valid Email Id Required
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                                  </div>
+
+                                  <div class="row">
+
+                                    <div class=" col-md-2">
+                                        <mat-label >PHONE NUMBER<span class="errorColor">*</span></mat-label>
+                                        </div>
+                                        <div class=" col-md-3">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                          <input matInput formControlName="phoneno"  maxlength="50" required>
+                                          <mat-error *ngIf="docForm.get('phoneno').hasError('required')">
+                                            phone no is required
+                                          </mat-error>
+                                        </mat-form-field>
+                                      </div>
+                                      <div class=" col-md-2">
+                                        <mat-label >DEPARTMENT</mat-label>
+                                        </div>
+                                        <div class=" col-md-3">
+                                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                          <mat-select class="inputTxt" formControlName="department">
+                                            <mat-option *ngFor="let title of departmentDdList" [value]="title.text">
+                                                {{title.text}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    </div>
+                                          </div>
+
+                                          <div class="row">
+                                            
+
+                                            <div class=" col-md-2">
+                                              <mat-label  >ACTIVE</mat-label></div>
+                                            <div class=" col-md-3">
+                                               <mat-checkbox  formControlName="active" STYLE="margin-left: 10px;"></mat-checkbox>
+                                            </div>
+                                            
+                                            </div>
+<!--  -->
+                    
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                        style="margin-left: 30%;background-color: #34d034;">Submit</button>
+                      <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                        style="margin-left: 30%;background-color: #34d034;">Update</button>
+                      <button color="primary" type="button" class="btn-space" (click)="reset()"
+                        mat-raised-button>Reset</button>
+                      <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                        mat-raised-button>Cancel</button>
+                    </div>
+                  </div>
+                  </form>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </section>

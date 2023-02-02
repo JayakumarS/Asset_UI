@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { TransferBean } from './transfer-model';
 import { transferResultBean } from './transfer-result-bean';
@@ -18,24 +19,26 @@ export class TransferAssetService extends UnsubscribeOnDestroyAdapter {
   );
   dialogData:any;
   getAllcodeList: any;
-  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) { 
+  companyId: string;
+  constructor(private httpClient: HttpClient, private serverUrl:serverLocations,private token: TokenStorageService, private httpService:HttpServiceService) { 
   super();
 
   }
-  private save = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/save`;
-  public saveNew = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/saveNew`;
-  public addCreditFiles = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/uploadFile`;
-  public transferListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/gettrasferList`;
-  public locationserviceUrl= `${this.serverUrl.apiServerAddress}api/auth/app/transfer/getlocationList`;
-  private getAlltransfer=`${this.serverUrl.apiServerAddress}api/auth/app/transfer/getList`;
-  public editTransfer =`${this.serverUrl.apiServerAddress}api/auth/app/transfer/edit`;
-  public updateTransfer =`${this.serverUrl.apiServerAddress}api/auth/app/transfer/update`;
-  public deleteTransfer =`${this.serverUrl.apiServerAddress}api/auth/app/transfer/delete`;
-  public updateStatus =`${this.serverUrl.apiServerAddress}api/auth/app/transfer/updateStatus`;
-  public codeserviceUrl=`${this.serverUrl.apiServerAddress}api/auth/app/transfer/getcodeList`;
-  public transferCodeAll = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/gettransferCodelist`;
-  public getRequestDetails = `${this.serverUrl.apiServerAddress}api/auth/app/transfer/getRequestDetails`;
-  public getAlltransferNew=`${this.serverUrl.apiServerAddress}api/auth/app/transfer/getListNew`;
+  private save = `${this.serverUrl.apiServerAddress}app/transfer/save`;
+  public saveNew = `${this.serverUrl.apiServerAddress}app/transfer/saveNew`;
+  public addCreditFiles = `${this.serverUrl.apiServerAddress}app/transfer/uploadFile`;
+  public transferListUrl = `${this.serverUrl.apiServerAddress}app/transfer/gettrasferList`;
+  public locationserviceUrl= `${this.serverUrl.apiServerAddress}app/transfer/getlocationList`;
+  private getAlltransfer=`${this.serverUrl.apiServerAddress}app/transfer/getList`;
+  public editTransfer =`${this.serverUrl.apiServerAddress}app/transfer/edit`;
+  public updateTransfer =`${this.serverUrl.apiServerAddress}app/transfer/update`;
+  public deleteTransfer =`${this.serverUrl.apiServerAddress}app/transfer/delete`;
+  public updateStatus =`${this.serverUrl.apiServerAddress}app/transfer/updateStatus`;
+  public codeserviceUrl=`${this.serverUrl.apiServerAddress}app/transfer/getcodeList`;
+  public transferCodeAll = `${this.serverUrl.apiServerAddress}app/transfer/gettransferCodelist`;
+  public getRequestDetails = `${this.serverUrl.apiServerAddress}app/transfer/getRequestDetails`;
+  public checkRequestValidity = `${this.serverUrl.apiServerAddress}app/transfer/checkRequestValidity`;
+  public getAlltransferNew=`${this.serverUrl.apiServerAddress}app/transfer/getListNew`;
   get data(): TransferBean[] {
     return this.dataChange.value;
   }
@@ -57,7 +60,8 @@ export class TransferAssetService extends UnsubscribeOnDestroyAdapter {
 }
 
 getAllListNew(): void {
-  this.subs.sink = this.httpService.get<transferResultBean>(this.getAlltransferNew).subscribe(
+  this.companyId=this.token.getCompanyId();
+  this.subs.sink = this.httpService.get<transferResultBean>(this.getAlltransferNew+"?companyId="+this.companyId).subscribe(
     (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.transferDetails);
@@ -78,14 +82,18 @@ getAllListNew(): void {
     });
   }
 
-  addtransferNew(traansferService:TransferBean): void {
-    this.dialogData = traansferService;  
-    this.httpService.post<TransferBean>(this.saveNew,traansferService ).subscribe(data => {
-      console.log(data);
-      },
-      (err: HttpErrorResponse) => {
+  // addtransferNew(traansferService:TransferBean): Observable<any> {
+  //   this.dialogData = traansferService;  
+  //   this.httpService.post<TransferBean>(this.saveNew,traansferService ).subscribe(data => {
+  //     console.log(data);
+  //     },
+  //     (err: HttpErrorResponse) => {
         
-    });
+  //   });
+  // }
+
+  addtransferNew(traansferService: TransferBean): Observable<any> {
+    return this.httpClient.post<TransferBean>(this.saveNew, traansferService);
   }
 
   transferUpdate(traansferService: TransferBean): void {

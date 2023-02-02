@@ -7,6 +7,7 @@ export class MainResultBean {
     auditorsCount:[];
     assetsCount:[];
     usersCount:[];
+    getAssetListDashboard:[];
     // pie chart array
     countvalue:[];
     purchaseAssetsCount:[];

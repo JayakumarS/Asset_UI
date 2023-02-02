@@ -77,8 +77,10 @@ export class AddItSupportComponent implements OnInit {
       description:[""],
       report:[""],
       status:[""],
-      support_id:[""]
-   
+      support_id:[""],
+      companyid:[""],
+      branchid:[""],
+    
     });
     }
   ngOnInit(): void {
@@ -87,13 +89,15 @@ export class AddItSupportComponent implements OnInit {
     console.log(this.loginedUser);
 
     this.docForm = this.fb.group({
-    
+
       reportdate:[""],
       reportdateObj:[""],
       uploadImg:[""],
       asset:[""],
       assetlocation:[""],
       reportedby:this.loginedUser,
+      companyid: this.tokenStorageService.getCompanyId(),
+      branchid: this.tokenStorageService.getBranchId(),
       tickettype:[""],
       ticketgroup:[""],
       assignee:["support@assetchek.com"],
@@ -103,11 +107,8 @@ export class AddItSupportComponent implements OnInit {
       report:[""],
       status:[""],
       support_id:[""],
-      assetid:[""]
-     
-
-     
-   
+      assetid:[""],
+ 
     });
 
     
@@ -122,7 +123,8 @@ export class AddItSupportComponent implements OnInit {
 
   
    // assetname dropdown
-   this.httpService.get<any>(this.commonService.getassetname).subscribe({
+   this.companyId=this.tokenStorage.getCompanyId();
+   this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
     next: (data) => {
       this.assetnamelist = data;
     },
@@ -144,8 +146,9 @@ export class AddItSupportComponent implements OnInit {
   );
   }
   onsubmit(){// assetname dropdown
-    this.httpService.get<any>(this.commonService.getassetname).subscribe({
-     next: (data) => {
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
+      next: (data) => {
        this.assetnamelist = data;
      },
 

@@ -3,6 +3,8 @@ export class UomCategory {
   id: number;
   uomID: number;
   uomCode: string;
+  company:string;
+  branchname:string;
   categoryName: string;
   description: string;
   name:number;
@@ -12,6 +14,8 @@ export class UomCategory {
     {
       this.id = uomCategory.id || this.getRandomID();
       this.uomID = uomCategory.uomID || "";
+      this.company = uomCategory.company || "";
+      this.branchname = uomCategory.branchname || "";
       this.categoryName = uomCategory.categoryName || "";
       this.description = uomCategory.description || "";
       this.name=uomCategory.name||""

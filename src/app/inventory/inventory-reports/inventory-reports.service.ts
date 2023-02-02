@@ -28,7 +28,7 @@ export class InventoryReportsService extends UnsubscribeOnDestroyAdapter {
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/inventoryReport/getList`;
   public excelExportUrl = `${this.serverUrl.apiServerAddress}api/auth/app/inventoryReport/excelExport`;
   public editAssetMaster = `${this.serverUrl.apiServerAddress}api/auth/app/inventoryReport/editAssetMaster`;
-  public getInvemtoryReports = `${this.serverUrl.apiServerAddress}api/auth/app/inventoryReports/getInventoryReports`;
+  public getInvemtoryReports = `${this.serverUrl.apiServerAddress}app/inventoryReports/getInventoryReports`;
 
 
   get data(): InventoryReports[] {

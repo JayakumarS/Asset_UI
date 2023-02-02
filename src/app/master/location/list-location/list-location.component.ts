@@ -16,6 +16,9 @@ import { LocationMasterService } from '../location-master.service';
 import { Router } from '@angular/router';
 import { DeleteLocationComponent } from './delete-location/delete-location.component';
 import { LocationMaster } from '../location-master.model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 @Component({
@@ -37,6 +40,7 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
   selection = new SelectionModel<LocationMaster>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   locationMaster: LocationMaster | null;
   constructor(
     public httpClient: HttpClient,
@@ -45,6 +49,9 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private router: Router,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
     private httpService: HttpServiceService
   ) {
     super();
@@ -58,6 +65,22 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1031',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -66,7 +89,7 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
   }
 
   public loadData() {
-    this.exampleDatabase = new LocationMasterService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new LocationMasterService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -82,9 +105,9 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
     );
   }
   editCall(row) {
-
+    if (this.permissionList?.modify){
     this.router.navigate(['/master/location/addLocation/' + row.locationId]);
-
+    }
   }
 
 
@@ -105,7 +128,7 @@ deleteItem(row) {
   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
     if (data.data == true) {
       const obj = {
-        deletingId:row.locationId
+        deletingId: row.locationId
       }
       this.locationMasterService.delete(obj).subscribe({
         next: (data) => {

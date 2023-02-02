@@ -39,6 +39,7 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
   index: number;
   id: number;
   itemProperties: ItemProperties | null;
+  permissionList: any;
   
   constructor(
     private spinner: NgxSpinnerService,
@@ -63,6 +64,22 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1042',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList=data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -75,7 +92,7 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
   }
 
   public loadData() {
-    this.exampleDatabase = new ItemPropertiesService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ItemPropertiesService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -92,7 +109,9 @@ export class ListItemPropertiesComponent extends UnsubscribeOnDestroyAdapter imp
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/item-properties/add-itemproperties/'+row.dynamicAttributeId]);
+    if(this.permissionList?.modify){
+       this.router.navigate(['/inventory/item-properties/add-itemproperties/'+row.dynamicAttributeId]);
+    }
   }
 
   deleteItem(row) {

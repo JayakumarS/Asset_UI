@@ -13,9 +13,12 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
-import { ManageAuditServiceService } from '../manage-audit-service.service'; 
+import { ManageAuditServiceService } from '../manage-audit-service.service';
 import { ManageAudit } from '../manage-audit.model';
 import { DeleteManageAuditComponent } from './delete-manage-audit/delete-manage-audit.component';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-list-manage-audit',
@@ -26,7 +29,7 @@ export class ListManageAuditComponent implements OnInit {
   [x: string]: any;
 
   displayedColumns = [
-    "auditCode", "auditName","startDate", 
+    "auditCode", "auditName","startDate",
     "status", "auditType","cName","actions"
   ];
 
@@ -35,6 +38,7 @@ export class ListManageAuditComponent implements OnInit {
   selection = new SelectionModel<ManageAudit>(true, []);
   index: number;
   id: number;
+  permissionList: any;
   customerMaster: ManageAudit | null;
   constructor(
     public httpClient: HttpClient,
@@ -43,7 +47,10 @@ export class ListManageAuditComponent implements OnInit {
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
-    private router:Router
+    private router: Router,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    public commonService: CommonService,
   ) {
     // super();
   }
@@ -56,6 +63,22 @@ export class ListManageAuditComponent implements OnInit {
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1001',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -64,7 +87,7 @@ export class ListManageAuditComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new ManageAuditServiceService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ManageAuditServiceService(this.httpClient, this.serverUrl, this.httpService, this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -81,10 +104,11 @@ export class ListManageAuditComponent implements OnInit {
   }
 
 
-  editCall(row) { 
-    this.router.navigate(['/audit/manageaudit/addManageAudit/'+row.auditCode]);
+  editCall(row) {
+    if (this.permissionList?.modify){
+    this.router.navigate(['/audit/manageaudit/addManageAudit/' + row.auditCode]);
   }
-
+  }
   deleteItem(i, row) {
     this.index = i;
     this.id = row.auditCode;
@@ -177,8 +201,8 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
               manageAudit.endDate +
               manageAudit.extDate +
               manageAudit.status +
-              manageAudit.auditType 
-             
+              manageAudit.auditType
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -213,7 +237,7 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
         case "startDate":
           [propertyA, propertyB] = [a.startDate, b.startDate];
           break;
-        
+
         case "endDate":
           [propertyA, propertyB] = [a.endDate, b.endDate];
           break;
@@ -227,7 +251,7 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
           case "auditType":
           [propertyA, propertyB] = [a.auditType, b.auditType];
           break;
-        
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

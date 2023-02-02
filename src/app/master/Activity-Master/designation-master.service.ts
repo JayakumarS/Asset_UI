@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { DesignationMaster } from './designation-master.model';
 import { DesignationMasterResultBean } from './designation-master-result-bean';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,14 +19,14 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/getList`;
-  private saveDesignation = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/save`;
-  public editDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/edit`;
-  public updateDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/update`;
-  private deleteDesignationMaster = `${this.serverUrl.apiServerAddress}api/auth/app/activitymaster/delete`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/activitymaster/getList`;
+  private saveDesignation = `${this.serverUrl.apiServerAddress}app/activitymaster/save`;
+  public editDesignationMaster = `${this.serverUrl.apiServerAddress}app/activitymaster/edit`;
+  public updateDesignationMaster = `${this.serverUrl.apiServerAddress}app/activitymaster/update`;
+  private deleteDesignationMaster = `${this.serverUrl.apiServerAddress}app/activitymaster/delete`;
 
   
   
@@ -37,7 +38,8 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllList(): void {
-        this.subs.sink = this.httpService.get<DesignationMasterResultBean>(this.getAllMasters).subscribe(
+        let companyId=this.tokenStorage.getCompanyId();
+        this.subs.sink = this.httpService.get<DesignationMasterResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.activityMasterDetails);
@@ -48,16 +50,21 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
           }
         );
   }
-  addDesignation(designationMaster: DesignationMaster): void {
-    this.dialogData = designationMaster;
-    this.httpService.post<DesignationMaster>(this.saveDesignation, designationMaster).subscribe(data => {
-      console.log(data);
-      //this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
+  // addDesignation(designationMaster: DesignationMaster): void {
+  //   this.dialogData = designationMaster;
+  //   this.httpService.post<DesignationMaster>(this.saveDesignation, designationMaster).subscribe(data => {
+  //     console.log(data);
+  //     //this.dialogData = employees;
+  //     },
+  //     (err: HttpErrorResponse) => {
         
-    });
+  //   });
+  // }
+
+  addDesignation(designationMaster: DesignationMaster): Observable<any> {
+    return this.httpClient.post<DesignationMaster>(this.saveDesignation, designationMaster);
   }
+
   designationMasterUpdate(designationMaster: DesignationMaster): void {
     this.dialogData = designationMaster;
     this.httpService.post<DesignationMaster>(this.updateDesignationMaster, designationMaster).subscribe(data => {

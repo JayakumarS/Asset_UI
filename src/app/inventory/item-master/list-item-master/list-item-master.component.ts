@@ -41,6 +41,7 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   index: number;
   id: number;
   itemMaster: ItemMaster | null;
+  permissionList: any;
   
   constructor(
     private spinner: NgxSpinnerService,
@@ -65,6 +66,22 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1044',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList=data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -77,7 +94,7 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   public loadData() {
-    this.exampleDatabase = new ItemMasterService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ItemMasterService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -94,7 +111,9 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   editCall(row) {
-    this.router.navigate(['/inventory/item-master/add-item-master/'+row.itemId]);
+    if(this.permissionList?.modify){
+      this.router.navigate(['/inventory/item-master/add-item-master/'+row.itemId]);
+    }
   }
 
   deleteItem(row) {

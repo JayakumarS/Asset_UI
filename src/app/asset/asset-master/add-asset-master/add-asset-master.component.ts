@@ -77,6 +77,8 @@ export class AddAssetMasterComponent
   private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   assetUserList: any;
+  companyId: string;
+  branchId: string;
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -136,12 +138,15 @@ export class AddAssetMasterComponent
       allottedUpto: [""],
       transferredTo: [""],
       remarks: [""],
-      assetUser: [""],
+      assetUser: ["",[Validators.required]],
       invoiceDateobj: [""],
       captitalizationDateobj: [""],
       allottedUptoobj: [""],
       fileUploadUrl: [""],
       imgUploadUrl: [""],
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+
       //tab5
       assetMasterBean: this.fb.array([
         this.fb.group({
@@ -154,6 +159,8 @@ export class AddAssetMasterComponent
 
         })
       ]),
+
+    
 
       grnBasedAssetList: this.fb.array([
         this.fb.group({
@@ -227,16 +234,20 @@ export class AddAssetMasterComponent
     );
 
     //purchaseOrderNumber Dropdown List
-    this.httpService.get<any>(this.commonService.getPurchaseOrderNumberDropdown).subscribe({
+    const obj = {
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+    }
+    this.httpService.post<any>(this.commonService.getPurchaseOrderNumberDropdown,obj).subscribe({
       next: (data) => {
         this.purchaseOrderNumber = data;
       },
       error: (error) => {
       }
     });
+
     // vendor dropdown
-    //UOM Dropdown List
-    this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
       next: (data) => {
         this.uomList = data;
       },
@@ -245,8 +256,8 @@ export class AddAssetMasterComponent
     });
 
 
-    //PurchaseOrderNumber Dropdown List
-    this.httpService.get<any>(this.commonService.getGRNNumberDropdown).subscribe({
+     //GRN Dropdown List
+    this.httpService.post<any>(this.commonService.getGRNNumberDropdown,obj).subscribe({
       next: (data) => {
         this.grnNumberList = data;
       },
@@ -255,7 +266,9 @@ export class AddAssetMasterComponent
     });
 
     // assetname dropdown
-    this.httpService.get<any>(this.commonService.getassetname).subscribe({
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
+    
       next: (data) => {
         this.assetnamelist = data;
       },
@@ -266,7 +279,8 @@ export class AddAssetMasterComponent
     );
 
   //Assetuser dropdown
-  this.httpService.get<any>(this.commonService.getEmployeeDropdown).subscribe(
+  this.companyId=this.tokenStorage.getCompanyId();
+  this.httpService.get<any>(this.commonService.getAssetUserList).subscribe(
     (data) => {
       console.log(data);
       this.assetUserList = data;
@@ -959,6 +973,9 @@ export class AddAssetMasterComponent
       allottedUptoobj: [""],
       fileUploadUrl: [""],
       imgUploadUrl: [""],
+      'companyId': this.tokenStorage.getCompanyId(),
+      'branchId': this.tokenStorage.getBranchId(),
+
       //tab5
       assetMasterBean: this.fb.array([
         this.fb.group({
@@ -971,7 +988,7 @@ export class AddAssetMasterComponent
 
         })
       ]),
-
+      
       grnBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],

@@ -15,14 +15,30 @@
                                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3" style="margin-left:5%;">
                                             <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:280px">
                                                 <mat-label>Company Name</mat-label>
-                                                <mat-select formControlName="companyName">
+                                                <mat-select formControlName="companyName" (selectionChange)="validationUserGroup($event.value)"  (keypress)="string($event)"required>
+
                                                     <mat-option *ngFor="let title of companyList" [value]="title.id">
                                                       {{title.text}}
                                                     </mat-option>
                                                   </mat-select>
+                                                  <mat-error *ngIf="docForm.get('companyName').hasError('company')">
+                                                    Company Name Already Exists !!!
+                                                  </mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
+                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3" style="margin-left:5%;">
+                                          <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:280px">
+                                            <mat-label>Branch</mat-label>
+                                                <mat-select formControlName="branch">
+                                                    <mat-option *ngFor="let title of branchDropDownList" [value]="title.id">
+                                                      {{title.text}}
+                                                    </mat-option>
+                                                  </mat-select>
+                                          </mat-form-field>
+    
+                                      </div> 
+                                      </div>
+                                        <!-- <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
                                             <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:280px">
                                                 <mat-label>Company Details</mat-label>
                                                 <mat-select formControlName="cmpdetails" (selectionChange)="fetchDetails($event.value)">
@@ -46,12 +62,16 @@
                                       </div> 
                                       </div>
                                        <div class="row">
-                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
-                                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-label>Address</mat-label>
-                                            <input matInput name="" formControlName="address" >
+                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3" style="margin-left:5%;">
+                                          <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:280px">
+                                            <mat-label>Branch</mat-label>
+                                                <mat-select formControlName="branch">
+                                                    <mat-option *ngFor="let title of branchList" [value]="title.id">
+                                                      {{title.text}}
+                                                    </mat-option>
+                                                  </mat-select>
                                           </mat-form-field>
-
+    
                                       </div> 
                                       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -62,14 +82,13 @@
                                     </div>
                                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3"  style="margin-left: 5%;">
                                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                        <mat-label>Person-in-charge</mat-label>
-                                        <input matInput name="" formControlName="person" >
+                                        <mat-label>Address</mat-label>
+                                        <input matInput name="" formControlName="address" >
                                       </mat-form-field>
 
                                   </div> 
-                                       
-                                     
-                                      </div> 
+                                      
+                                      </div>  -->
              <div style="overflow-x: auto;">
                <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
               <thead class="">
@@ -77,7 +96,7 @@
           <th style="width: 0%;"></th>
           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
    width: 2%; border-radius: 0.05rem;">Users</th>
-          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 15px;padding-right: 440px;
+          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 15px;padding-right: 557px;
    width: 12%;border-radius: 0.07rem;">Roles</th>
         
                                             </thead>
@@ -93,16 +112,11 @@
                                                   <td class="padding-both-side-2">
                                                       <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width:300px ;">
                                                        <mat-label>Users</mat-label>
-                        
-                                                       <mat-select
-                                                       formControlName="users">
-                                                       <mat-option [value]="'END USER'">
-                                                           End User
-                                                       </mat-option>
-                                                       <mat-option [value]="'ADMIN'">
-                                                        ADMIN
-                                                       </mat-option>
-                                                   </mat-select>
+                                                       <mat-select name="users{{i}}" formControlName="users" (selectionChange)="checkUser($event.value,i)">
+                                                        <mat-option *ngFor="let title of userList" [value]="title.strId">
+                                                          {{title.text}}
+                                                        </mat-option>
+                                                        </mat-select>
                                                      </mat-form-field>
                                                    </td>
                                                    <td class="padding-both-side-2">
@@ -127,7 +141,7 @@
                                               </div> 
                                               <div class="row">
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                                                  <button (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                                                  <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
                                                     style="margin-left: 36%;background-color: #34d034;">Submit</button>
                                                     <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
                                                   <button  color="primary" type="button" class="btn-space" (click)="reset()"

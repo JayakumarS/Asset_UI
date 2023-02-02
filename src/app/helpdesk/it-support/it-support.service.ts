@@ -27,9 +27,8 @@ const httpOptions = {
     );
     // Temporarily stores data from dialogs
     dialogData: any;
-  
     itsupport: Itsupport;
-    constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+    constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
       super();
     }
     
@@ -69,7 +68,8 @@ const httpOptions = {
     
     
     getItList(): void {
-      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getAlllist).subscribe(
+      let companyid=this.tokenStorage.getCompanyId();
+      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getAlllist+"?companyid="+parseInt(companyid)).subscribe(
         (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.getticketlist);
@@ -88,7 +88,7 @@ const httpOptions = {
     //     (data) => {
     //     this.isTblLoading = false;
     //     this.dataChange.next(data.getlocationList);
-    //   }),
+    //   }),ng 
     //   (error: HttpErrorResponse) => {
     //     this.isTblLoading = false;
     //     console.log(error.name + " " + error.message);
@@ -97,7 +97,8 @@ const httpOptions = {
 
 
       getstatusList(ticketStatus: any): void {
-        this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getStatusList + "?ticketStatus=" + ticketStatus).subscribe(
+        let companyId=this.tokenStorage.getCompanyId();
+        this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getStatusList + "?ticketStatus=" + ticketStatus + "&company_id=" + parseInt(companyId)).subscribe(
           (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.getstatusticketlist);

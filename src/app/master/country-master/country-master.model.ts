@@ -7,4 +7,6 @@ export class CountryMaster {
   clientType: string;
   countryIsActive: Boolean;
   loginedUser: string;
+  companyId: any;
+  branchId: any;
 }

@@ -41,9 +41,9 @@ export class AddCategoryComponent implements OnInit {
       Description:[""],
       isactive:[false],
       id:[""],
-      depreciation:[""],
+      depreciation:["",[Validators.required]],
       assettype:[""],
-      currency:[""]
+      currency:["",[Validators.required]]
 
       
       
@@ -132,7 +132,8 @@ export class AddCategoryComponent implements OnInit {
  
 }
   onSubmit(){
-
+this.assetcategory = this.docForm.value;
+console.log(this.assetcategory);
     if(this.docForm.valid){
       if(this.docForm.value.isactive==true)
       {

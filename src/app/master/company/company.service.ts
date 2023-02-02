@@ -6,6 +6,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Company } from './company-model';
 import { CompanyResultBean } from './company-result-bean';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +24,8 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, 
+  UserId: string;
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private tokenStorage: TokenStorageService,
     private httpService: HttpServiceService) {
       super();
      }
@@ -33,6 +35,9 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/company/getList`;
   public updateCompany = `${this.serverUrl.apiServerAddress}api/auth/app/company/update`;
   //public editCompany = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
+
+  public userBasedCompanyDDList = `${this.serverUrl.apiServerAddress}api/auth/app/company/userBasedCompanyDDList`;
+  
 
   // public editCompany = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
   public editCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
@@ -58,7 +63,8 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   }
 
   getAllList(): void {
-    this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters).subscribe(
+    this.UserId=this.tokenStorage.getUserId();
+    this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters+"?UserId="+this.UserId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.companyMasterDetails);

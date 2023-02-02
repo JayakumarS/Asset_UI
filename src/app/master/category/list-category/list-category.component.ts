@@ -12,7 +12,10 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { Assetcategory } from '../category.model';
 import { CategoryMasterService } from '../category.service';
+import { NgxSpinnerService } from "ngx-spinner";
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { DeleteCategoryComponent } from './delete-category/delete-category.component';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-list-category',
@@ -22,15 +25,11 @@ import { DeleteCategoryComponent } from './delete-category/delete-category.compo
 export class ListCategoryComponent implements OnInit {
 
   displayedColumns = [
-   
     "categoryName",
-  
     "Description",
     "isactiveForList",
     "actions"
 
-    
- 
 
   ];
 
@@ -42,14 +41,18 @@ export class ListCategoryComponent implements OnInit {
   category_id: number;
   assetcategory: Assetcategory | null;
   subs: any;
+  permissionList: any;
   constructor(    public httpClient: HttpClient,
-    public dialog: MatDialog,
-    public categoryMasterService: CategoryMasterService,
-    private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
-    private httpService:HttpServiceService,
-    public router:Router) {
-      
+                  private spinner: NgxSpinnerService,
+                  public dialog: MatDialog,
+                  public categoryMasterService: CategoryMasterService,
+                  private snackBar: MatSnackBar,
+                  private serverUrl: serverLocations,
+                  private httpService: HttpServiceService,
+                  private tokenStorage: TokenStorageService,
+                  public commonService: CommonService,
+                  public router: Router) {
+
      }
      @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
      @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -57,8 +60,24 @@ export class ListCategoryComponent implements OnInit {
      @ViewChild(MatMenuTrigger)
      contextMenu: MatMenuTrigger;
      contextMenuPosition = { x: "0px", y: "0px" };
-     
+
   ngOnInit(): void {
+    const permissionObj = {
+      formCode: 'F1023',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
   refresh(){
@@ -83,8 +102,9 @@ export class ListCategoryComponent implements OnInit {
   }
 
   editCall(row) {
-
-    this.router.navigate(['/master/category/add-category/'+row.id]);
+    if (this.permissionList?.modify){
+      this.router.navigate(['/master/category/add-category/' + row.id]);
+    }
 
   }
 
@@ -104,7 +124,7 @@ export class ListCategoryComponent implements OnInit {
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
 
       if (data.data == true) {
 
@@ -122,22 +142,11 @@ export class ListCategoryComponent implements OnInit {
           }
         );
 
-      
+
       } else{
         this.loadData();
       }
 
-
-        
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
     });
 
   }
@@ -160,7 +169,7 @@ export class ListCategoryComponent implements OnInit {
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
   }
-  
+
 }
 
 
@@ -204,7 +213,7 @@ export class ExampleDataSource extends DataSource<Assetcategory> {
               assetcategory.Description +
              assetcategory.parentCategory +
              assetcategory.isactive
-             
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -233,7 +242,7 @@ export class ExampleDataSource extends DataSource<Assetcategory> {
         case "categoryName":
           [propertyA, propertyB] = [a.categoryName, b.categoryName];
           break;
-     
+
           case "Description":
           [propertyA, propertyB] = [a.Description, b.Description];
           break;
