@@ -97,7 +97,17 @@
                         <app-feather-icons [icon]="'settings'" [class]="'user-menu-icons'"></app-feather-icons>Settings
                       </a>
                     </li> -->
-                    <li *ngIf="roleBasedImgUrl == 'Guest'">
+                    <li>
+                      <a href="javascript:void(0);" >
+                        <app-feather-icons  [icon]="'user'" [class]="'user-menu-icons'"></app-feather-icons>Role : <span>&nbsp; {{roleBasedImgUrl}}</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0);" >
+                        <app-feather-icons [icon]="'users'" [class]="'user-menu-icons'"></app-feather-icons>Company :  <span>&nbsp; {{companyNameText}}</span>
+                      </a>
+                    </li>
+                    <li>
                       <a href="javascript:void(0);" (click)="showPaymentPage()">
                         <app-feather-icons [icon]="'mail'" [class]="'user-menu-icons'"></app-feather-icons>Subscription
                       </a>

@@ -41,6 +41,7 @@ export class HeaderComponent
   userName:string; 
   companyName:string;
   roleBasedImgUrl: string;
+  companyNameText: any;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -131,7 +132,9 @@ export class HeaderComponent
     // } else {
     //   this.homePage = "admin/dashboard/main";
     // }
-
+    this.companyNameText = this.token.getCompanyText();
+    console.log(this.companyNameText);
+    
     this.roleBasedImgUrl = this.token.getRoleText();
     if (this.roleBasedImgUrl === "superadmin") {
       this.homePage = "admin/dashboard/main";
