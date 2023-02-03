@@ -97,7 +97,7 @@
                         <app-feather-icons [icon]="'settings'" [class]="'user-menu-icons'"></app-feather-icons>Settings
                       </a>
                     </li> -->
-                    <li>
+                    <li *ngIf="roleBasedImgUrl == 'Guest'">
                       <a href="javascript:void(0);" (click)="showPaymentPage()">
                         <app-feather-icons [icon]="'mail'" [class]="'user-menu-icons'"></app-feather-icons>Subscription
                       </a>
