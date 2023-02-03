@@ -43,6 +43,7 @@ export class ListUsergroupComponent extends UnsubscribeOnDestroyAdapter implemen
 
   constructor(private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
+
     public dialog: MatDialog,
     public UsergroupService: UsergroupService,
     private snackBar: MatSnackBar,
@@ -66,7 +67,7 @@ export class ListUsergroupComponent extends UnsubscribeOnDestroyAdapter implemen
     this.loadData();
   }
   public loadData() {
-    this.exampleDatabase = new UsergroupService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new UsergroupService(this.httpClient, this.serverUrl,this.tokenStorage, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

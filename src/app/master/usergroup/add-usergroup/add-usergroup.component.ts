@@ -22,8 +22,10 @@ export class AddUsergroupComponent implements OnInit {
    userGroupMaster:UserGroupMaster
   docForm: FormGroup;
   roleList:any;
+  companyId:any;
   userList:[];
   string:any;
+  List:[""];
   branchList:any;
   companyList:any;
   companydetailList:any;
@@ -58,8 +60,10 @@ export class AddUsergroupComponent implements OnInit {
       branch:[""],
       user_mapping_id:[""],
       person_in_charge:[""],
+      companyid:[""],
+      branchid:[""],
       loginedUser: this.tokenStorage.getUserId(),
-    
+  
       userDetailbean: this.fb.array([
         this.fb.group({
           users: '',
@@ -75,14 +79,25 @@ export class AddUsergroupComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    // this.docForm = this.fb.group({
+
+    //   companyid: this.tokenStorage.getCompanyId(),
+    //   branchid: this.tokenStorage.getBranchId(),
+
+
+    // });
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
        this.edit=true;
        this.fetchDetails(this.requestId);
+
+
       }
     });
 
+   
     this.person_in_chargeList(this.docForm.value.loginedUser);
     //this.UserList(this.docForm.value.loginedUser);
 
@@ -149,6 +164,8 @@ export class AddUsergroupComponent implements OnInit {
 //     this.roleList = res; });
  
 //  }
+
+
 
   fetchDetails(mapping_id: any): void {
     this.person_in_chargeList(this.docForm.value.loginedUser);

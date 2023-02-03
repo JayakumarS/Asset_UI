@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { UserGroupResultBean } from './user-resultbean';
 import { UserGroupMaster } from './usergroup-model';
@@ -16,11 +17,11 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
     []
   );
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, 
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private token: TokenStorageService, 
     private httpService: HttpServiceService) {
       super();
      }
-
+     userId:string;
 
  public save = `${this.serverUrl.apiServerAddress}app/userGroupMaster/save`;
   public editCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
@@ -50,7 +51,9 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
   
 
   getAllCountrys(){
-    this.subs.sink = this.httpService.get<UserGroupResultBean>(this.getAllMasters).subscribe(
+    console.log();
+   this.userId=this.token.getUserId(),
+    this.subs.sink = this.httpService.get<UserGroupResultBean>(this.getAllMasters+"?userId="+this.userId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.userGroupList);
