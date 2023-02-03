@@ -27,6 +27,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   edit:boolean= false;
   roleId: any;
   userId: any;
+  companyId: any;
   role: any;
   roleIdFlag: boolean;
   company: Company
@@ -72,6 +73,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       }
      });
      this.userId = this.tokenStorage.getUserId();
+     this.companyId = this.tokenStorage.getCompanyId();
 
      this.roleId = this.tokenStorage.getRoleId();
      if(this.roleId==1){
@@ -131,7 +133,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
     this.userId = this.tokenStorage.getUserId();
 
-    this.httpService.get(this.companyEmployeeService.fetchBranch + "?userId=" + this.userId).subscribe((res: any) => {
+    this.httpService.get(this.companyEmployeeService.fetchBranch + "?companyId=" + this.companyId).subscribe((res: any) => {
       console.log(customer);
 
       this.getUserBasedBranchList = res.getUserBasedBranchList;
@@ -179,11 +181,11 @@ export class AddCompanyEmployeesComponent implements OnInit {
     this.docForm.patchValue({
      
       'company': parseInt(res.companyEmployeeBean.company),
-      'branch':  res.companyEmployeeBean.branch,
+      'branch':  parseInt(res.companyEmployeeBean.branch),
       'emailId' : res.companyEmployeeBean.emailId, 
       'fullName' : res.companyEmployeeBean.fullName, 
       'phoneno' : res.companyEmployeeBean.phoneno, 
-      'department' : res.companyEmployeeBean.department, 
+      'department' : parseInt(res.companyEmployeeBean.department), 
       'role' : res.companyEmployeeBean.role, 
 
       'id' : res.companyEmployeeBean.id
