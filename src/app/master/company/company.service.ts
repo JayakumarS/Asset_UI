@@ -51,7 +51,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   getDialogData() {
     return this.dialogData;
   }
-  addCompany(company: Company): void {
+  addCompany(company,router,notificationService): void {
     this.dialogData = company;
     this.httpService.post<any>(this.saveCompany, company).subscribe(data => {
       console.log(data);
@@ -61,7 +61,20 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
         }else if(this.tokenStorage.getCompanyId()=="null"){
           this.tokenStorage.saveCompanyId(data.companyId);
         }
-        
+        notificationService.showNotification(
+          "snackbar-success",
+          "Add Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/company/listCompany']);
+      }else{
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Added!!!",
+          "bottom",
+          "center"
+        );
       }
       //this.dialogData = employees;
       },

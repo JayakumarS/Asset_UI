@@ -11,6 +11,7 @@ import { DepartmentMasterService } from '../../department-master/department-mast
 import { NgxSpinnerService } from "ngx-spinner";
 import { UserMasterService } from '../../user-master/user-master.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 @Component({
   selector: 'app-add-company',
@@ -36,7 +37,8 @@ export class AddCompanyComponent implements OnInit {
     public route: ActivatedRoute,
     private userMasterService: UserMasterService,
     private router:Router,
-    private tokenStorage: TokenStorageService) {
+    private tokenStorage: TokenStorageService,
+    private notificationService: NotificationService) {
 
       this.docForm = this.fb.group({
         // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -117,15 +119,8 @@ export class AddCompanyComponent implements OnInit {
       this.docForm.value.userId = this.tokenStorage.getUserId();
     this.company = this.docForm.value;   
     console.log(this.company);
-    this.companyService.addCompany(this.company);
+    this.companyService.addCompany(this.company,this.router,this.notificationService);
     
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/master/company/listCompany']);
     }
     else{
       this.showNotification(
