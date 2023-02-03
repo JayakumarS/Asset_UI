@@ -69,11 +69,11 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
            asset_name: [""],
            asset_location: [""],
            asset_category: [""],
-           in_use: [""],
-           in_stock: [""],
-           out_repair: [""],
-           lost: [""],
-           stolen: [""],
+           inUse: [""],
+           inStock: [""],
+           damaged: [""],
+           repair: [""],
+           total: [""],
            write_off: [""]
          });
 

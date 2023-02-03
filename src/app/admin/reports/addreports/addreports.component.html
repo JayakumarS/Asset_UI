@@ -6,7 +6,7 @@
                   <h2 _ngcontent-nrk-c304="" style="padding-bottom: 5px; padding-top: 5px; color: #532ff6;">Reports</h2>
 
                     <div class="tabgrp">
-                    <mat-tab-group  >
+                    <mat-tab-group >
 
 
                     <mat-tab label="Category">
@@ -17,8 +17,8 @@
                       <div class="col-xl-3 col-lg- col-md-12 col-sm-12" style="margin-left: 5px;">
                    <label>Category</label>
                 </div>
-        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-          <mat-form-field appearance="fill">
+        <div class=" col-md-2" style="margin-left: 5px;">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <mat-select formControlName="category" required>
               <mat-option *ngFor="let title of categoryList" [value]="title.id">
                 {{title.text}}
@@ -39,8 +39,8 @@
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
           <label>Status</label>
 </div>
-<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
- <mat-form-field appearance="fill">
+<div class=" col-md-2 " style="margin-left: 5px;">
+  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
     <mat-select formControlName="status" required>
         <mat-option value="Good">Good</mat-option>
         <mat-option value="Damaged">Damaged</mat-option>
@@ -62,33 +62,23 @@
 <table id="excel-table" class="table table-striped">
   <thead>
       <tr >
-        <th style="background-color:#c1ddf5;">Asset Code</th>
-        <th style="background-color:#c1ddf5;">Asset Name</th>
+        <th style="background-color:#c1ddf5;">Asset Category</th>
         <th style="background-color:#c1ddf5;">In Use</th>
         <th style="background-color:#c1ddf5;">In Stock</th>
         <th style="background-color:#c1ddf5;">Out For Repair</th>
-        <th style="background-color:#c1ddf5;">Asset Location</th>
-        <th style="background-color:#c1ddf5;">Asset Category</th>
-        <th style="background-color:#c1ddf5;">Lost</th>
-        <th style="background-color:#c1ddf5;">Stolen</th>
-        <th style="background-color:#c1ddf5;">Write-off</th>
-        <th style="background-color:#c1ddf5;">Status</th>
+        <th style="background-color:#c1ddf5;">Damage</th>
+        <th style="background-color:#c1ddf5;">Total</th>
       </tr>
   </thead>
   <tbody>
 
         <tr *ngFor="let item of reList">
-          <td>{{item.asset_code}}</td>
-          <td>{{item.asset_name}}</td>
-          <td>{{item.in_use}}</td>
-          <td>{{item.in_stock}}</td>
-          <td>{{item.out_repair}}</td>
-          <td>{{item.asset_location}}</td>
-          <td>{{item.category}}</td>
-          <td>{{item.lost}}</td>
-          <td>{{item.stolen}}</td>
-          <td>{{item.write_off}}</td>
-          <td>{{item.status}}</td>
+          <td>{{item.categoryName}}</td>
+          <td>{{item.inUse}}</td>
+          <td>{{item.inStock}}</td>
+          <td>{{item.repair}}</td>
+          <td>{{item.damaged}}</td>
+          <td>{{item.total}}</td>
 
         </tr>
   </tbody>
@@ -105,15 +95,15 @@
 <div class="col-xl-3 col-lg- col-md-12 col-sm-12" style="margin-left: 5px;">
 <label>Asset Location</label>
 </div>
-<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-<mat-form-field appearance="fill">
-<mat-select formControlName="asset" required>
+<div class="col-md-2 " style="margin-left: 5px;">
+  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+    <mat-select formControlName="asset" required>
   <mat-option *ngFor="let title of assetList" [value]="title.id">
     {{title.text}}
   </mat-option>
 </mat-select>
  <mat-error *ngIf="docForm.get('asset').hasError('required')">
-Category is required
+location is required
 </mat-error>
 
 </mat-form-field>
@@ -132,34 +122,23 @@ Category is required
 <table id="excel-table" class="table table-striped">
   <thead>
       <tr >
-        <th style="background-color:#c1ddf5;">Asset Code</th>
-        <th style="background-color:#c1ddf5;">Asset Name</th>
+        <th style="background-color:#c1ddf5;">Location</th>
         <th style="background-color:#c1ddf5;">In Use</th>
         <th style="background-color:#c1ddf5;">In Stock</th>
         <th style="background-color:#c1ddf5;">Out For Repair</th>
-        <th style="background-color:#c1ddf5;">Asset Location</th>
-        <th style="background-color:#c1ddf5;">Asset Category</th>
-        <th style="background-color:#c1ddf5;">Lost</th>
-        <th style="background-color:#c1ddf5;">Stolen</th>
-        <th style="background-color:#c1ddf5;">Write-off</th>
-        <th style="background-color:#c1ddf5;">Status</th>
+        <th style="background-color:#c1ddf5;">Damage</th>
+        <th style="background-color:#c1ddf5;">Total</th>
       </tr>
   </thead>
   <tbody>
 
         <tr *ngFor="let item of loList">
-
-          <td>{{item.asset_code}}</td>
-          <td>{{item.asset_name}}</td>
-          <td>{{item.in_use}}</td>
-          <td>{{item.in_stock}}</td>
-          <td>{{item.out_repair}}</td>
-          <td>{{item.asset_location}}</td>
-          <td>{{item.category}}</td>
-          <td>{{item.lost}}</td>
-          <td>{{item.stolen}}</td>
-          <td>{{item.write_off}}</td>
-          <td>{{item.status}}</td>
+          <td>{{item.location}}</td>
+          <td>{{item.inUse}}</td>
+          <td>{{item.inStock}}</td>
+          <td>{{item.repair}}</td>
+          <td>{{item.damaged}}</td>
+          <td>{{item.total}}</td>
 
 
         </tr>
