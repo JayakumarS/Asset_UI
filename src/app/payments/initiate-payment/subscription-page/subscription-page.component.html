@@ -20,18 +20,19 @@
                     <div class="col-md-4 col-sm-6">
                         <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
                             <mat-label>Currency</mat-label>
-                            <mat-select  (selectionChange)="changeCurrency($event.value)" formControlName="currency">
+                            <!-- <mat-select  (selectionChange)="changeCurrency($event.value)" formControlName="currency">
                                 <mat-option *ngFor="let currency of currencyList" [value]="currency.id">
                                     {{currency.text}}
                                   </mat-option>
-                            </mat-select>
+                            </mat-select> -->
+                            <input matInput formControlName="currency"  required readonly="true">
                         </mat-form-field>
                         
                     </div>
                     <div class="col-md-4 col-sm-6">
                       <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
                           <mat-label>No.of Users</mat-label>
-                          <input matInput formControlName="noOfUsers" (keypress)="keyPressNumber($event)" required>
+                          <input matInput formControlName="noOfUsers" required readonly="true">
                         <mat-error *ngIf="docForm.get('noOfUsers').hasError('required')">
                            No.of Users is required
                         </mat-error>
@@ -43,7 +44,7 @@
                   </div>
                 </div>
 
-                  <div class="row">
+                  <div class="row" [class.auth-spinner]="loading">
                   
                     
                     <div class="col-md-12 col-sm-6">
@@ -57,12 +58,13 @@
                         <h3 class="heading">PREMIUM</h3>
                         <div class="pricing-content">
                           <ul>
+                            
                             <li>
-                              <b>70GB</b> Disk Space</li>
-                            <li>
-                              <b>70</b> Email Accounts</li>
-                            <li>
-                              <b>70GB</b> Monthly Bandwidth</li>
+                              <b>1</b> Year Subscription</li>
+                              <li>
+                                For <b>{{users}}</b> Users</li>
+                            <!-- <li>
+                              <b>70GB</b> Monthly Bandwidth</li> -->
                           </ul>
                         </div>
                         <div >

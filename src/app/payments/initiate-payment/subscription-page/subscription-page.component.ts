@@ -36,7 +36,10 @@ export class SubscriptionPageComponent implements OnInit {
   busAmt:string;
   preAmt:string;
   extAmt:string;
+  refPercent : number;
   docForm:FormGroup;
+  users : any;
+  loading: boolean = false;
   
   pay ={
     amount:0,
@@ -45,6 +48,8 @@ export class SubscriptionPageComponent implements OnInit {
     exAmount:0,
   };
   subType: any;
+  userId : String;
+  audcurrency : any;
 
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
@@ -63,13 +68,47 @@ export class SubscriptionPageComponent implements OnInit {
       noOfUsers:["", [Validators.required]],
       promotionCode:[""]
     });
-    this.stdAmt = "₹50,000";
-      this.busAmt = "₹1000";
-      this.preAmt = "₹5000";
-      this.extAmt = "₹10000";
+  
   }
 
   ngOnInit(): void {
+    this.getNoOfUsers();
+    this.loading = true;
+    
+  }
+
+  //no of users
+  getNoOfUsers(){
+    this.userId = this.tokenStorage.getUserId();
+    this.httpService.get<any>(this.subscriptionPageService.getNoOfUsers+"?userId="+this.userId).subscribe(res => {
+      if(res.success){
+        this.loading = false;
+        this.docForm.patchValue({noOfUsers: res.noOfUsers})
+        this.docForm.patchValue({currency: res.audCurrency})
+        this.users = res.noOfUsers;
+        this.audcurrency = res.audCurrency;
+
+        if (this.users >0){
+          this.changeCurrency(this.audcurrency);
+        }else {
+          this.users = 1;
+          this.docForm.patchValue({noOfUsers: 1});
+          this.changeCurrency(this.audcurrency);
+        }
+        //res.audCurrency;
+
+    //     //multiply the no of users with amount
+    // let num = 50000 * this.users;
+    // this.stdAmt = "₹"+num.toString();
+    // let num1 = 1000 * this.users;
+    // this.busAmt = "₹"+ num1.toString();
+    // let num2 = 5000 * this.users;
+    // this.preAmt = "₹"+ num2;
+    // let num3 = 10000 * this.users;
+    // this.extAmt = "₹"+ num3.toString();
+      }
+      
+    });
 
   }
 
@@ -77,27 +116,62 @@ export class SubscriptionPageComponent implements OnInit {
 
 
     if(currency=="INR"){
-      this.stdAmt = "₹50,000";
+      if (this.refPercent != 0 && this.refPercent != undefined){
+        let innum = 50000 * this.users;
+        let num = innum - (innum * this.refPercent);
+        this.stdAmt = "₹"+num.toString();
+      }else {
+        let innum = 50000 * this.users;
+        this.stdAmt = "₹" + innum.toString();
+    }
       this.busAmt = "₹1000";
       this.preAmt = "₹5000";
       this.extAmt = "₹10000";
     }else if(currency=="USD"){
-      this.stdAmt = "$10";
+      if (this.refPercent != 0 && this.refPercent != undefined){
+        let innum = 10 * this.users;
+        let num = innum - (innum * this.refPercent);
+        this.stdAmt = "$"+num.toString();
+        } else {
+          let innum = 10 * this.users;
+          this.stdAmt = "$" + innum.toString();
+      }
       this.busAmt = "$100";
       this.preAmt = "$200";
       this.extAmt = "$1000";
     }else if(currency=="AED"){
-      this.stdAmt = "AED 10";
+      if (this.refPercent != 0 && this.refPercent != undefined){
+        let innum = 10 * this.users;
+        let num = innum - (innum * this.refPercent);
+        this.stdAmt = "AED "+num.toString();
+        }else {
+          let innum = 10 * this.users;
+          this.stdAmt = "AED" + innum.toString();
+        }      
       this.busAmt = "AED 400";
       this.preAmt = "AED 800";
       this.extAmt = "AED 3800";
     }else if(currency=="MYR"){
-      this.stdAmt = "RM10";
+      if (this.refPercent != 0 && this.refPercent != undefined){
+        let innum = 10 * this.users;
+        let num = innum - (innum * this.refPercent);
+        this.stdAmt = "RM"+num.toString();
+        }else {
+          let innum = 10 * this.users;
+          this.stdAmt = "RM" + innum.toString();
+        }
       this.busAmt = "RM400";
       this.preAmt = "RM800";
       this.extAmt = "RM3800";
     }else if(currency=="SGD"){
-      this.stdAmt = "S$10";
+      if (this.refPercent != 0 && this.refPercent != undefined){
+        let innum = 10 * this.users;
+        let num = innum - (innum * this.refPercent);
+        this.stdAmt = "S$"+num.toString();
+        }else {
+          let innum = 10 * this.users;
+          this.stdAmt = "S$"+innum.toString();
+        }
       this.busAmt = "S$120";
       this.preAmt = "S$240";
       this.extAmt = "S$1200";
@@ -110,16 +184,16 @@ export class SubscriptionPageComponent implements OnInit {
           this.subType = type;
         
           if(type =='standard'){
-            this.pay.amount = 50000;
+            this.pay.amount = 50000 * this.users;
           }
           else if(type=='Professional'){
-            this.pay.amount = 499900;
+            this.pay.amount = 499900 * this.users;
           }
           else if(type=='Enterprice'){
-            this.pay.amount = 999900;
+            this.pay.amount = 999900 * this.users;
           }
           else if(type=='Ultimate'){
-            this.pay.amount = 7499900;
+            this.pay.amount = 7499900 * this.users;
           }
     
     
@@ -132,16 +206,16 @@ export class SubscriptionPageComponent implements OnInit {
 
         
           if(type =='standard'){
-            this.pay.amount = 50000;
+            this.pay.amount = 50000 * this.users;
           }
           else if(type=='Professional'){
-            this.pay.amount = 10000;
+            this.pay.amount = 10000 * this.users;
           }
           else if(type=='Enterprice'){
-            this.pay.amount = 20000;
+            this.pay.amount = 20000 * this.users;
           }
           else if(type=='Ultimate'){
-            this.pay.amount = 100000;
+            this.pay.amount = 100000 * this.users;
           }
     
           this.pay ={
@@ -153,16 +227,16 @@ export class SubscriptionPageComponent implements OnInit {
 
         
           if(type =='standard'){
-            this.pay.amount = 50000;
+            this.pay.amount = 50000 * this.users;
           }
           else if(type=='Professional'){
-            this.pay.amount = 40000;
+            this.pay.amount = 40000 * this.users;
           }
           else if(type=='Enterprice'){
-            this.pay.amount = 80000;
+            this.pay.amount = 80000 * this.users;
           }
           else if(type=='Ultimate'){
-            this.pay.amount = 380000;
+            this.pay.amount = 380000 * this.users;
           }
     
     
@@ -175,16 +249,16 @@ export class SubscriptionPageComponent implements OnInit {
 
         
           if(type =='standard'){
-            this.pay.amount = 50000;
+            this.pay.amount = 50000 * this.users;
           }
           else if(type=='Professional'){
-            this.pay.amount = 40000;
+            this.pay.amount = 40000 * this.users;
           }
           else if(type=='Enterprice'){
-            this.pay.amount = 80000;
+            this.pay.amount = 80000 * this.users;
           }
           else if(type=='Ultimate'){
-            this.pay.amount = 380000;
+            this.pay.amount = 380000 * this.users;
           }
     
     
@@ -198,16 +272,16 @@ export class SubscriptionPageComponent implements OnInit {
 
         
           if(type =='standard'){
-            this.pay.amount = 50000;
+            this.pay.amount = 50000 * this.users;
           }
           else if(type=='Professional'){
-            this.pay.amount = 12000;
+            this.pay.amount = 12000 * this.users;
           }
           else if(type=='Enterprice'){
-            this.pay.amount = 24000;
+            this.pay.amount = 24000 * this.users;
           }
           else if(type=='Ultimate'){
-            this.pay.amount = 120000;
+            this.pay.amount = 120000 * this.users;
           }
           
     
@@ -216,79 +290,84 @@ export class SubscriptionPageComponent implements OnInit {
     
     if(type =='standard'){
       if(this.docForm.get("currency").value =='INR'){
-        this.pay.amount = 50000 *100;
-        this.pay.exAmount = 50000;
+        this.pay.amount = 50000 * this.users *100;
+        this.pay.exAmount = 50000 * this.users;
         }else if (this.docForm.get("currency").value =='USD'){
-          this.pay.amount = 1000;
-          this.pay.exAmount =1000;
+          this.pay.amount = 1000 * this.users;
+          this.pay.exAmount =1000 * this.users;
         }else if (this.docForm.get("currency").value == 'AED'){
-          this.pay.amount = 1000;
-          this.pay.exAmount = 1000;
+          this.pay.amount = 1000 * this.users;
+          this.pay.exAmount = 1000 * this.users;
         }else if (this.docForm.get("currency").value == 'MYR'){
-          this.pay.amount = 1000;
-          this.pay.exAmount = 1000;
+          this.pay.amount = 1000 * this.users;
+          this.pay.exAmount = 1000 * this.users;
         }else if (this.docForm.get("currency").value == 'SGD'){
-          this.pay.amount = 1000;
-          this.pay.exAmount = 1000;
+          this.pay.amount = 1000 * this.users;
+          this.pay.exAmount = 1000 * this.users;
         }
     }
       else if(type=='Professional'){
         if(this.docForm.get("currency").value =='INR'){
-          this.pay.amount = 1000*100;
-          this.pay.exAmount=  1000;
+          this.pay.amount = 1000*100 * this.users;
+          this.pay.exAmount=  1000 * this.users;
         }else if (this.docForm.get("currency").value =='USD'){
-          this.pay.amount = 100*100;
-          this.pay.exAmount=  100;
+          this.pay.amount = 100*100 * this.users;
+          this.pay.exAmount=  100 * this.users;
         }else if (this.docForm.get("currency").value == 'AED'){
-          this.pay.amount = 40000;
-          this.pay.exAmount=  40000;
+          this.pay.amount = 40000 * this.users;
+          this.pay.exAmount=  40000 * this.users;
         }else if (this.docForm.get("currency").value == 'MYR'){
-          this.pay.amount = 40000;
-          this.pay.exAmount=  40000;
+          this.pay.amount = 40000 * this.users;
+          this.pay.exAmount=  40000 * this.users;
         }else if (this.docForm.get("currency").value == 'SGD'){
-          this.pay.amount = 12000;
-          this.pay.exAmount=  12000;
+          this.pay.amount = 12000 * this.users;
+          this.pay.exAmount=  12000 * this.users;
         }
       }
       else if(type=='Enterprice'){
         if(this.docForm.get("currency").value =='INR'){
-          this.pay.amount = 50000*100;
-          this.pay.exAmount=50000;
+          this.pay.amount = 50000*100 * this.users;
+          this.pay.exAmount=50000 * this.users;
         }else if (this.docForm.get("currency").value =='USD'){
-          this.pay.amount = 20000;
-          this.pay.exAmount= 20000;
+          this.pay.amount = 20000 * this.users;
+          this.pay.exAmount= 20000 * this.users;
         }else if (this.docForm.get("currency").value == 'AED'){
-          this.pay.amount = 80000;
-          this.pay.exAmount=  80000;
+          this.pay.amount = 80000 * this.users;
+          this.pay.exAmount=  80000 * this.users;
         }else if (this.docForm.get("currency").value == 'MYR'){
-          this.pay.amount = 80000;
-          this.pay.exAmount= 80000;
+          this.pay.amount = 80000 * this.users;
+          this.pay.exAmount= 80000 * this.users;
         }else if (this.docForm.get("currency").value == 'SGD'){
-          this.pay.amount =  24000;
-          this.pay.exAmount= 24000;
+          this.pay.amount =  24000 * this.users;
+          this.pay.exAmount= 24000 * this.users;
         }
       }
       else if(type=='Ultimate'){
         if(this.docForm.get("currency").value =='INR'){
-          this.pay.amount = 10000*100;
-          this.pay.exAmount= 10000;
+          this.pay.amount = 10000*100 * this.users;
+          this.pay.exAmount= 10000 * this.users;
         }else if (this.docForm.get("currency").value =='USD'){
-          this.pay.amount =  100000;
-          this.pay.exAmount= 100000;
+          this.pay.amount =  100000 * this.users;
+          this.pay.exAmount= 100000 * this.users;
         }else if (this.docForm.get("currency").value == 'AED'){
-          this.pay.amount = 380000;
-          this.pay.exAmount= 380000;
+          this.pay.amount = 380000 * this.users;
+          this.pay.exAmount= 380000 * this.users;
         }else if (this.docForm.get("currency").value == 'MYR'){
-          this.pay.amount = 380000;
-          this.pay.exAmount=380000;
+          this.pay.amount = 380000 * this.users;
+          this.pay.exAmount=380000 * this.users;
         }else if (this.docForm.get("currency").value == 'SGD'){
-          this.pay.amount = 120000;
-          this.pay.exAmount= 120000;
+          this.pay.amount = 120000 * this.users;
+          this.pay.exAmount= 120000 * this.users;
         }
       }
-    
+      
+      if (this.refPercent != 0 && this.refPercent != undefined){
+        let num = this.pay.amount - (this.pay.amount * this.refPercent);
+        this.pay.amount = num;
 
-
+        let exnum = this.pay.exAmount - (this.pay.exAmount * this.refPercent);
+        this.pay.exAmount = exnum;
+        }
 
       this.httpService.post<any>(this.subscriptionPageService.initiatePaymentUrl, this.pay).subscribe(data => {
         
@@ -325,7 +404,7 @@ export class SubscriptionPageComponent implements OnInit {
       currency: 'INR',
       name: 'Asset Chek', // company name or product name
       description: 'Asset Chek Payment Transaction',  // product description
-      image: './assets/images/AssetChekLogo.png', // company logo or product image
+      image: '/assets/images/AssetChekLogo.png', // company logo or product image
       order_id: data.orderid, // order_id created by you in backend
       modal: {
         // We should prevent closing of the form when esc key is pressed.
@@ -360,7 +439,8 @@ export class SubscriptionPageComponent implements OnInit {
         userId:this.tokenStorage.getUserId(),
         firstName:this.tokenStorage.getUsername(),
         noOfUsers:this.docForm.get("noOfUsers").value,
-        promoCode:this.docForm.get("promotionCode").value
+        promoCode:this.docForm.get("promotionCode").value,
+        currency:this.docForm.get("currency").value,    
     }
     
     this.savePaymentHistory(payhistory);
@@ -378,8 +458,16 @@ export class SubscriptionPageComponent implements OnInit {
     
     if(promoCode!=""){
       
-      this.httpService.get<any>(this.subscriptionPageService.verifyPromoCodeUrl+"?promoCode="+promoCode).subscribe(data => {
+      this.httpService.get<any>(this.subscriptionPageService.verifyPromoCodeUrl+"?promoCode="+promoCode+"&userId="+this.userId).subscribe(data => {
           if(data.success){
+            
+            //get promocode percentage  
+            this.httpService.get<any>(this.subscriptionPageService.getPromoCodePercent+"?promoCode="+promoCode).subscribe(res => {
+              if(res.success){
+                this.refPercent = res.percentage/100;
+                this.changeCurrency(this.audcurrency);
+              }
+            });
             this.showNotification(
               "snackbar-success",
               "Promocode is valid",
@@ -387,6 +475,10 @@ export class SubscriptionPageComponent implements OnInit {
               "right"
             );
           }else{
+            this.docForm.patchValue({
+              promotionCode: [""],
+             
+            })
             this.showNotification(
               "snackbar-danger",
               data.message,

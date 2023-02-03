@@ -1,0 +1,137 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Payment History'" [items]="['Home','Payments']" [active_item]="'PaymentsHistory'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix" id="paymnetView">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="card">
+            <div class="body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="white-box">
+                    <div>
+                      <div class="img" style="text-align: center;">
+                          <img src="assets/images/AssetChekLogo.png" alt="" style="width: 19%; padding-left: 32px; padding-top: 25px;"/>
+                      </div>
+                      <!-- <div class="img" style="text-align: center;">
+                          <img *ngIf="logoImg != null" src={{logoImg}} alt="" style="width: 15%; padding-left: 32px; padding-top: 45px;"/>
+                      </div> -->
+                      
+                      <!-- <div class= "text-center" style="margin-top: -95px;">
+                          <h4>BITUTECH LIMITED</h4>
+                             <h6>P.O. Box: 64338-00620,Nairobi,Kenya.<br>
+                              Tel: +254 709519000 Email: bitutech2@gmail.com<br>
+                              PIN: P051706137I
+                              </h6>
+                      </div> -->
+              
+                      <!-- <div class= "text-center">
+                          <h4>Sales Quote</h4>
+                      </div> -->
+                  </div>
+              <br>
+                    <h3>
+                      <b>BILL PAYMENT</b>
+                      <span class="float-end">#{{docForm.value.paymentCode}}</span>
+                    </h3>
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="float-start">
+                          <address>
+                            <p class="font-bold">BILL FROM :</p>
+                            <p class="text-muted">
+                              ASSET CHEK,
+                              <br> Paragon Dynamics,
+                              <br> RR Towers-Phase 3, 7 th Floor, Thiru Vi Ka Industrial Estate,Guindy,
+                              <br> Chennai, Tamil Nadu 600032
+                            </p>
+                          </address>
+                        </div>
+                        <div class="float-end text-end">
+                          <address>
+                            <p class="addr-font-h3 font-bold">BILL TO :</p>
+                            <p class="font-bold addr-font-h4">Jayesh Patel</p>
+                            <p class="text-muted m-l-30">
+                              207, Prem Sagar Appt.,
+                              <br> Near Income Tax Office,
+                              <br> Ashram Road,
+                              <br> Ahmedabad - 380057
+                            </p>
+                            <p class="m-t-30">
+                              <b>Bill Date :</b>
+                              <i class="fa fa-calendar"></i> {{docForm.value.billDate}}
+                            </p>
+                            <!-- <p>
+                              <b>Status :</b>
+                              <span class="label label-success">Success</span>
+                            </p> -->
+                          </address>
+                        </div>
+                      </div>
+                     <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                    <thead>
+                     <tr>
+                      <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;" >Company</th>
+                      <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Subscription Amount (INR) </th>                        
+                      <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Auditor Payment (INR) </th>                       
+                      
+                   </tr>
+                    </thead>
+                  <ng-container *ngFor="let poDetailData2 of docForm.get('pendingPaymentList')['controls']; let i = index">
+                  <tbody [formGroup]="poDetailData2"> 
+                      <tr>
+                        
+                     
+                     <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                      {{poDetailData2.get('companyName').value}}
+                     </td>
+                  
+                    <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">                           
+                    {{poDetailData2.get('amountPaidByUser').value}}
+                    </td>
+                  
+                    <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">            
+                    {{poDetailData2.get('auditorCommission').value}}
+                    </td>
+                  
+                   
+                  </tr>
+                  </tbody>
+                  </ng-container>
+                  </table>
+                       
+
+                      <div class="col-md-12">
+                        <div class="float-end m-t-30 text-end">
+                          <p>Sub - Total amount: ₹ {{docForm.value.totalAmount}}</p>
+                          <!-- <p>Discount : $10 </p>
+                          <p>Tax (10%) : $14 </p> -->
+                          <hr>
+                          <h3>
+                            <b>Total :</b> ₹ {{docForm.value.totalAmount}}</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+          <button mat-raised-button color="primary" id="printBtn" (click)="printComponent()"><i class="fas fa-print msr-2"></i>Print</button>
+          <button mat-raised-button color="warn" type="button" (click)="onCancel()" style="margin-left: 1%;">Cancel</button>
+      </div>
+      </div>
+      <br/>
+    </div>
+  </section>

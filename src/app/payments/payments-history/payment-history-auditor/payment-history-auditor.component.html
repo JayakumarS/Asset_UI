@@ -1,0 +1,106 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Payment History'" [items]="['Master']" [active_item]="'Bill History'">
+        </app-breadcrumb>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div class="table-responsive">
+                <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                  <div class="row">
+                    <div class="col-8">
+                        <ul class="header-buttons-left ms-0">
+                            <li class="dropdown m-l-20 ">
+                              <h2>Payment History</h2>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                      <ul class="header-buttons">
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="XLSX">
+                            <img src="assets/images/icons/xlsx.png" alt=""
+                              (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell" id="test"
+                  #exporter="matTableExporter">
+  
+                  <ng-container matColumnDef="receiptNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Receipt No</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> {{row.receiptNo}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="companyName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> {{row.companyName}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="noOfUsers">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>No. Of Users </mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> {{row.noOfUsers}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="subAmount">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>User Subscription ({{exampleDatabase.currency}})</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> {{row.subAmount }}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="auditorCommission">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Commission ({{exampleDatabase.currency}}) (30%)</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> {{row.auditorCommission }}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="actualPayment">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Commission Received ({{exampleDatabase.currency}})</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> <div *ngIf="row.actualPayment > 0">{{row.actualPayment }}</div> <div *ngIf="row.actualPayment == 0">-</div>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="paymentDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Commission Received On ( {{exampleDatabase.currency}}) </mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> {{row.paymentDate }}
+                    </mat-cell>
+                  </ng-container>
+  
+  
+  
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [style.cursor]="'pointer'" matRipple>
+                  </mat-row>
+                </mat-table>
+                <!-- Loading spinner -->
+                <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                  <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                  </mat-progress-spinner>
+                </div>
+           
+                <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                  [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                  No results
+                </div>
+                <!-- <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator> -->
+              </div>
+              <div class="col-md-12">
+                <div class="text-end">                 
+                  <hr>
+                  <h5>
+                    <b>Total Pending as of </b> {{exampleDatabase.currDate |  date: 'yyyy-MM-dd'}} </h5>
+                    <p>(Total Commission - Total Commission Received)</p> <h5><b>{{exampleDatabase.currency}} {{exampleDatabase.amountPending}}</b></h5>
+                  </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>

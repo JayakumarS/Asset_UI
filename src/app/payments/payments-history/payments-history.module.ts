@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaymentsHistoryComponent } from './payments-history/payments-history.component';
+import { PaymentsHistoryComponent } from './payments-history-view/payments-history-view.component';
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from "@angular/material/table";
@@ -24,11 +24,17 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { PaymentsHistoryRoutingModule } from './payments-history-routing.module';
+import { PaymentHistoryAddComponent } from './payment-history-add/payment-history-add.component';
+import { PaymentHistoryListComponent } from './payment-history-list/payment-history-list.component';
+import { PaymentHistoryAuditorComponent } from './payment-history-auditor/payment-history-auditor.component';
 
 
 @NgModule({
   declarations: [
-    PaymentsHistoryComponent
+    PaymentsHistoryComponent,
+    PaymentHistoryAddComponent,
+    PaymentHistoryListComponent,
+    PaymentHistoryAuditorComponent
   ],
   imports: [
     CommonModule,

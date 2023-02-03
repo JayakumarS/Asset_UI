@@ -1,0 +1,123 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" style="padding: 0.5% !important;">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Pay Bills'" [items]="['Payments']" [active_item]="'Payments'">
+            </app-breadcrumb>
+        </div>
+        <div class="row">
+          <form class="m-4" [formGroup]="docForm" >
+          <div class="col-md-4 col-sm-6">
+            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                <mat-label>Choose Auditor</mat-label>
+                <mat-select  (selectionChange)="changeAuditor($event.value)" formControlName="auditor">
+                    <mat-option *ngFor="let aud of auditorList" [value]="aud.id">
+                        {{aud.text}}
+                      </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+        </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <ul class="header-buttons-left ms-0">
+                                            <li class="dropdown m-l-20 ">
+                                                <h2>Pending Bills</h2>
+                                              </li>
+                                            <li class="dropdown m-l-20">
+                                                <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                                <input placeholder="Search" type="text" #filter class="browser-default search-field" aria-label="Search box">
+                                            </li>
+                                          
+                                        </ul>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                            <div style="overflow-x: auto;">
+                              <table id="dt_basic"
+                            class="table table-striped font-weight-bold "
+                               role="grid">
+                          <thead class="">
+                           <tr>
+                            <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"><input type="checkbox" [value]="docForm.get('pendingPaymentList')['controls']" (change)="checkAll($event,docForm.get('pendingPaymentList')['controls'])"></th>
+                                    
+                            <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Receipt No</th>
+                            <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Payment ID</th>
+                            <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;" >Company</th>
+                            <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;" >Auditor</th>
+                            <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">User Subscription ({{docForm.value.currency}}) </th>                        
+                            <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Auditor Commission ({{docForm.value.currency}}) </th>                       
+                            
+                         </tr>
+                          </thead>
+                        <ng-container *ngFor="let poDetailData2 of docForm.get('pendingPaymentList')['controls']; let i = index" >
+                        <tbody [formGroup]="poDetailData2"> 
+                            <tr *ngIf="rowsPresent == true">
+                              <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                                <input type="checkbox" formControlName="selectAll" [value]="selectAll" 
+                                 (change)="onCount($event.target.checked,docForm.get('pendingPaymentList')['controls'])">
+                              </td>                               
+                        
+                            <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                              {{poDetailData2.get('receiptNo').value}}
+                            </td>
+                          
+                            <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                              {{poDetailData2.get('paymentId').value}}
+                            </td> 
+                                
+                           <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                            {{poDetailData2.get('companyName').value}}
+                           </td>
+
+                           <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                            {{poDetailData2.get('auditorName').value}}
+                           </td>
+                        
+                          <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">                           
+                          {{poDetailData2.get('amountPaidByUser').value}}
+                          </td>
+                        
+                          <td class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">            
+                          {{poDetailData2.get('auditorCommission').value}}
+                          </td>
+                        
+                         
+                        </tr>                        
+                        </tbody>
+                        </ng-container>
+                        <ng-container *ngIf="rowsPresent == false">
+                          No Results Found
+                        </ng-container>
+                        </table>
+                        </div>
+                            <div class="col-md-12">
+                              <div class="float-end m-t-30 text-end">
+                                <p>Total amount to be Paid: {{docForm.value.currency}} {{docForm.value.totalAmount}}</p>
+                                <!-- <p>Discount : $10 </p>
+                                <p>Tax (10%) : $14 </p> -->
+                                <hr>
+                                <h3>
+                                  <b>Total :</b>{{docForm.value.currency}} {{actualPayment}}</h3>
+                              </div>
+                              <div class="clearfix"></div>
+                              <hr>
+                              <div style="text-align: center">
+                                <button mat-raised-button color="primary" style="background-color: #34d034;" (click)="savePayment(docForm)"><i class="fas fa-save msr-2"></i>Save</button>
+                                <button mat-raised-button color="warn" (click)="onCancel()" style="margin-left: 1%;">Back</button>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</section>

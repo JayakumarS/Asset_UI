@@ -8,6 +8,7 @@ import { Payments } from "../payments.model";
 import { isPlatformBrowser } from '@angular/common';
 import { PaymentsHistoryResultBean } from "../payments-history-result-bean";
 import { TokenStorageService } from "src/app/auth/token-storage.service";
+import { PaymentHistoryList } from "./payment-history-list/payment-history-list.model";
 function _window(): any {
   // return the global native browser window object
   return window;
@@ -30,13 +31,13 @@ export class PaymentsHistoryService extends UnsubscribeOnDestroyAdapter{
   // super();
   // }
 
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService, private tokenStorage: TokenStorageService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
     super();
   }
 
 
   private getPaymentHistory = `${this.serverUrl.apiServerAddress}api/auth/app/paymentHistory/getPaymentHistory`;
-
+  public getPaidBillPrint = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/billPayment/getPaidBillPrint`;
 
   get data(): Payments[] {
     return this.dataChange.value;
@@ -45,14 +46,9 @@ export class PaymentsHistoryService extends UnsubscribeOnDestroyAdapter{
     return this.dialogData;
   }
 
-  // get nativeWindow(): any {
-  //   if (isPlatformBrowser(this.platformId)) {
-  //     return _window();
-  //   }
-  // }
+ 
 
-
-   getPaymentsHistory(): void {
+getPaymentsHistory(): void {
     this.subs.sink = this.httpService.get<PaymentsHistoryResultBean>(this.getPaymentHistory).subscribe(
       (data) => {
         this.isTblLoading = false;
