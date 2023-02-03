@@ -44,7 +44,7 @@
                   </ng-container>
                   <ng-container matColumnDef="noOfUsers">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>No. Of Users </mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> {{row.noOfUsers}}
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> <div style="justify-content: center !important;">{{row.noOfUsers}}</div>
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="subAmount">
@@ -63,11 +63,10 @@
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="paymentDate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Commission Received On ( {{exampleDatabase.currency}}) </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Commission Received On </mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> {{row.paymentDate }}
                     </mat-cell>
                   </ng-container>
-  
   
   
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

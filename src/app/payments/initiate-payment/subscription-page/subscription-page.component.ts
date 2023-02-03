@@ -498,7 +498,7 @@ export class SubscriptionPageComponent implements OnInit {
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
-      duration: 2000,
+      duration: 750,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
@@ -507,6 +507,11 @@ export class SubscriptionPageComponent implements OnInit {
 
   savePaymentHistory(payemntObj){
     this.httpService.post<any>(this.subscriptionPageService.paymentHistoryUrl, payemntObj).subscribe(data => {
+      if (data.isSuccess == true){
+  
+          this.logout();
+        
+      }
     },
       (err: HttpErrorResponse) => {
         
@@ -514,6 +519,14 @@ export class SubscriptionPageComponent implements OnInit {
   }
 
 
+  logout() {   
+
+      this.tokenStorage.signOut();
+      localStorage.removeItem("currentUser");
+     // this.router.navigate(['/authentication/signin']);
+      window.location.href="/authentication/signin"
+ 
+   }
 
   keyPressNumber(event: any) {
     const pattern = /[0-9.]/;
