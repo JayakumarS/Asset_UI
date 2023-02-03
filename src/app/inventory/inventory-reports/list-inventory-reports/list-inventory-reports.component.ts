@@ -86,7 +86,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   mainList =[];
   companyId: string;
 
-  columnsToDisplay = ["assetName", "categoryName", "location", "quantity"];
+  columnsToDisplay = ["assetName", "categoryName", "location", "quantity","actions"];
   innerDisplayedColumns = ["transferDate","transferQuantity","sourceLocation","destinationLocation"];
 
   expandedElement: MainList | null;
@@ -218,6 +218,11 @@ this.viewReport();
         this.dataSource.sort = this.sort;
       });
    
+    }
+
+    profileView(id){
+      sessionStorage.setItem("Inventory","true");
+      this.router.navigate(['/asset/assetMaster/viewAssetMaster/' + id]);
     }
  
     print(){

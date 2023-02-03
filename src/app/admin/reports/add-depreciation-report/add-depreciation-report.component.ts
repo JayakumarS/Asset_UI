@@ -12,15 +12,21 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 })
 export class AddDepreciationReportComponent implements OnInit {
 
-   
+
   docForm: FormGroup;
   page: number = 1;
+  depreciationList = [];
+  assetcategoryList = [];
+  locationDdList: [];
+  departmentDdList: [];
+
+
 
   constructor(
     private fb: FormBuilder,
     public commonService: CommonService,
     private httpService: HttpServiceService,
-    public reportsService:ReportsService,
+    public reportsService: ReportsService,
 
 ) { }
 
@@ -34,6 +40,44 @@ export class AddDepreciationReportComponent implements OnInit {
       department: [""],
       search: [""],
   });
+
+    // depreciation dropdown
+    this.httpService.get<any>(this.commonService.getdepreciationdropdown).subscribe({
+      next: (data) => {
+        this.depreciationList = data;
+      },
+      error: (error) => {
+
+      }
+    });
+
+       // assetcategory dropdown
+    this.httpService.get<any>(this.commonService.getassetcategorydropdown).subscribe({
+        next: (data) => {
+          this.assetcategoryList = data;
+        },
+        error: (error) => {
+
+        }
+      });
+          // Location dropdown
+    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+      next: (data) => {
+        this.locationDdList = data;
+      },
+      error: (error) => {
+
+      }
+    });
+      // department dropdown
+    this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
+        next: (data) => {
+          this.departmentDdList = data;
+        },
+        error: (error) => {
+
+        }
+      });
   }
 
   onTableDataChange(event: any) {
@@ -61,8 +105,8 @@ export class AddDepreciationReportComponent implements OnInit {
       'assetLocation' : '',
       'department' : '',
       'search' : '',
-     
-   })
-   this.searchData();
+
+   });
+    this.searchData();
   }
 }
