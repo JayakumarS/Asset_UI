@@ -158,6 +158,7 @@ export class AddBranchComponent implements OnInit {
  }
  reset(){
   if (!this.edit) {
+    location.reload()
   this.docForm = this.fb.group({
     branchCode: [""],
     location: [""],
