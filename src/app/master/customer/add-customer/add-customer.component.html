@@ -101,13 +101,13 @@
              <div class=" col-md-2" style="margin-left: -45px;">
             <mat-form-field class="example-width form-control-sm" appearance="outline">
               <input matInput formControlName="addresstwo"maxlength="50" >
-              <mat-error *ngIf="docForm.get('addresstwo').hasError('required')">
+               <mat-error *ngIf="docForm.get('addresstwo').hasError('required')">
                 Address2 is required
-              </mat-error>
+              </mat-error> 
             </mat-form-field>
           </div>
           &nbsp; &nbsp; &nbsp;
-          <div class=" col-md-2">
+          <!-- <div class=" col-md-2">
               <mat-label >State</mat-label>
               </div>
 
@@ -134,19 +134,51 @@
             </mat-form-field>
           </div>
         </div>
-        
+         -->
+
+  <div class=" col-md-2">
+              <mat-label >PIN CODE</mat-label>
+              </div>
+
+              <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="postalcode"  maxlength="6" (keypress)="keyPressNumeric($event)"required>
+                <mat-error *ngIf="docForm.get('postalcode').hasError('required')">
+                  PIN CODE  is required
+                </mat-error>
+              </mat-form-field>
+
+          </div>
+          &nbsp; &nbsp; &nbsp;
+          <div class=" col-md-2">
+            <mat-label >City</mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+
+            <mat-form-field class="example-width form-control-sm" appearance="outline">
+              <input matInput formControlName="city" required >
+              <mat-error *ngIf="docForm.get('city').hasError('required')">
+                City  is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+         
+
+
+
 
         <div class="row">
        
           <div class=" col-md-2">
-            <mat-label>PIN CODE<span class="errorColor">*</span></mat-label>
+            <mat-label>State<span class="errorColor">*</span></mat-label>
             </div>
 
           <div class=" col-md-2" style="margin-left: -45px;">
             <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="postalcode" maxlength="6" (keypress)="keyPressNumeric($event)"required>
-              <mat-error *ngIf="docForm.get('postalcode').hasError('required')">
-                PostalCode is required
+              <input matInput formControlName="state" required>
+              <mat-error *ngIf="docForm.get('state').hasError('required')">
+                State is required
               </mat-error>
             </mat-form-field>
           </div>
@@ -185,7 +217,7 @@
              <div class=" col-md-2" style="margin-left: -45px;">
             <mat-form-field class="example-width form-control-sm" appearance="outline">
               <input matInput formControlName="panno"maxlength="10" [ngModel]="value1"
-              (ngModelChange)="value1=$event.toUpperCase()"(keypress)="keyPressAlphaNumeric($event)" >            </mat-form-field>
+              (ngModelChange)="value1=$event.toUpperCase()"(keypress)="keyPressAlphaNumeric($event)" >   </mat-form-field>
           </div>
           &nbsp; &nbsp; &nbsp;
           <div class=" col-md-2">
@@ -234,8 +266,8 @@
  <mat-tab-group>
   <mat-tab label="ADDRESS">
     <div class="row">
-      <div class=" col-md-2">
-        <mat-label>VENDOR LOCATION</mat-label>
+      <div class=" col-md-2" >
+        <mat-label style="margin-left: 30px;">VENDOR LOCATION</mat-label>
         </div>
          <div class=" col-md-4">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -258,7 +290,7 @@
      </div>
      <div class="row">
       <div class=" col-md-2">
-        <mat-label>BILLING ADDRESS</mat-label>
+        <mat-label style="margin-left: 30px;">BILLING ADDRESS</mat-label>
         </div>
          <div class=" col-md-4">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -267,21 +299,17 @@
       </div>
       <div class=" col-md-2"></div>
       <div class=" col-md-2">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="shipperState" (selectionChange)="getCityShipperDropdown($event.value)"maxlength="30"placeholder="State" required>
-            <mat-option *ngFor="let title of stateDdList" [value]="title.id">
-                {{title.text}}
-            </mat-option>
-        </mat-select>
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: -12px;">
+          <mat-label>State</mat-label>
+          <input matInput formControlName="shipperState"  >
+          
         </mat-form-field>
       </div>
       <div class=" col-md-1">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="shipperCity"maxlength="30"placeholder="City" required>
-            <mat-option *ngFor="let title of cityShipperList" [value]="title.id">
-                {{title.text}}
-            </mat-option>
-        </mat-select>
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 164px;margin-left: -42px;">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="shipperCity" >
+          
         </mat-form-field>
       </div>
       <div class=" col-md-1">
@@ -294,22 +322,19 @@
 
        <div class=" col-md-2">
 
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <mat-select class="inputTxt" formControlName="billingState" (selectionChange)="getCityBillingDropdown($event.value)"maxlength="30"placeholder="State" required>
-              <mat-option *ngFor="let title of stateDdList" [value]="title.id">
-                  {{title.text}}
-              </mat-option>
-          </mat-select>
-          </mat-form-field></div>
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: -12px;">
+          <mat-label>State</mat-label>
+          <input matInput formControlName="billingState"  >
+        </mat-form-field>
+        </div>
           <div class=" col-md-1">
 
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-select class="inputTxt" formControlName="billingCity"maxlength="30"placeholder="City" required>
-                <mat-option *ngFor="let title of cityBillingList" [value]="title.id">
-                    {{title.text}}
-                </mat-option>
-            </mat-select>
-            </mat-form-field></div>
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 164px;margin-left: -42px;">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="billingState" >
+              
+            </mat-form-field>
+          </div>
           <div class=" col-md-1">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="billingZip"maxlength="10"placeholder="Zip" (keypress)="keyPressNumeric($event)" >
@@ -352,21 +377,19 @@
 <div class=" col-md-8"></div>
 
        <div class=" col-md-2">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="deliveryState" (selectionChange)="getCityDeliveryDropdown($event.value)"maxlength="30"placeholder="State" required>
-            <mat-option *ngFor="let title of stateDdList" [value]="title.id">
-                {{title.text}}
-            </mat-option>
-        </mat-select>
-        </mat-form-field></div>
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: -12px;">
+          <mat-label>State</mat-label>
+          <input matInput formControlName="deliveryState"  >
+          
+        </mat-form-field>
+      </div>
         <div class=" col-md-1">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <mat-select class="inputTxt" formControlName="deliveryCity"maxlength="30"placeholder="City" required>
-              <mat-option *ngFor="let title of cityDeliveryList" [value]="title.id">
-                  {{title.text}}
-              </mat-option>
-          </mat-select>
-          </mat-form-field></div>
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 164px;margin-left: -42px;">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="deliveryCity"  >
+            
+          </mat-form-field>
+        </div>
           <div class=" col-md-1">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="deliveryZip"maxlength="50"placeholder="Zip"  (keypress)="keyPressNumeric($event)">
@@ -473,7 +496,7 @@
     <mat-tab label="PURCHASE">
       <div class="row">
         <div class=" col-md-2">
-          <mat-label >RESPONSIBLE PERSON</mat-label>
+          <mat-label style="margin-left: 30px;">RESPONSIBLE PERSON</mat-label>
           </div>
           <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -508,7 +531,7 @@
 <h4>Supplier</h4>
   <div class="row">
     <div class=" col-md-2">
-      <mat-label >ACCOUNT RECEIVABLE<span class="errorColor">*</span></mat-label>
+      <mat-label style="margin-left: 30px;">ACCOUNT RECEIVABLE<span class="errorColor">*</span></mat-label>
       </div>
        <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -530,7 +553,7 @@
 
   <div class="row">
     <div class=" col-md-2">
-      <mat-label>TOTAL RECEIVABLE<span class="errorColor">*</span></mat-label>
+      <mat-label style="margin-left: 30px;">TOTAL RECEIVABLE<span class="errorColor">*</span></mat-label>
       </div>
        <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">

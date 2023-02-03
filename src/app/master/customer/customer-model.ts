@@ -15,6 +15,10 @@ export class CustomerMaster {
     cstno:string;
     remarks:string;
     active:string;
+    acctReceivable:string;
+    supplier:number;
+    totalReceivable:number;
+    creditLimit:number;
     companyId:any;
     branchId:any;
     constructor(CustomerMaster) {

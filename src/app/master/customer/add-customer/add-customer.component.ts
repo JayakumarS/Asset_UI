@@ -83,7 +83,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       country: [""],
       state: ["", [Validators.required]],
       postalcode: ["", [Validators.required]],
-      panno: ["",[Validators.required]],
+      panno: [""],
       vatno: [""],
       gstno: [""],
       cstno: [""],
@@ -229,6 +229,16 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
     if (this.docForm.valid){
       this.customerMaster = this.docForm.value;
       this.spinner.show();
+      if(this.customerMaster.cstno.length==0){
+        this.customerMaster.cstno='';
+      }
+      if(this.customerMaster.gstno.length==0){
+        this.customerMaster.gstno='';
+      }
+      if(this.customerMaster.panno.length==0){
+        this.customerMaster.panno='';
+      }
+
       this.customerService.item(this.customerMaster).subscribe({
         next: (data) => {
           this.spinner.hide();
