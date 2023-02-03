@@ -15,6 +15,9 @@ export class serverLocations {
     } else if (window.location.hostname === '213.42.28.68') {
       //For Server Added 
       this.apiServerAddress = 'http://65.108.201.61:8090/assetchek/';
+    } else if (window.location.hostname === '216.48.181.97') {
+      //For Server Added 
+      this.apiServerAddress = 'http://216.48.181.97:8080/assetchek/';
     } 
     
   }
