@@ -18,14 +18,14 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
   );
 
 
-  
+
 
   data: any;
-  
 
-  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) { 
+
+  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) {
     super();
-  
+
     }
 
     public categoryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getcategoryList`;
@@ -39,15 +39,12 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     public getUserNameDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getusernamelist`;
     public getUserLogList = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getUserLoglist`;
 
-    
-
-   
     getDialogData() {
       return this.dialogData;
     }
     userloglist(object){
       console.log(object);
-      this.subs.sink = this.httpService.post<reportsresultbean>(this.getUserLogList,object).subscribe(
+      this.subs.sink = this.httpService.post<reportsresultbean>(this.getUserLogList, object).subscribe(
         (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.userlogDetails);
@@ -57,9 +54,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
           console.log(error.name + " " + error.message);
         }
       );
-  
     }
-  
     getAllList(){
   this.subs.sink = this.httpService.get<reportsresultbean>(this.reportserach).subscribe(
     (data) => {
@@ -73,7 +68,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
   );
 }
 
-  
+
 }
 
 

@@ -4,6 +4,8 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { ReportsService } from '../reports.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Reportscategory } from '../reports-model';
+
 
 @Component({
   selector: 'app-add-depreciation-report',
@@ -15,11 +17,12 @@ export class AddDepreciationReportComponent implements OnInit {
 
   docForm: FormGroup;
   page: number = 1;
-  depreciationList = [];
+  depreciationList: any = [];
   assetcategoryList = [];
   locationDdList: [];
   departmentDdList: [];
 
+  reportscategory: Reportscategory;
 
 
   constructor(
@@ -28,7 +31,29 @@ export class AddDepreciationReportComponent implements OnInit {
     private httpService: HttpServiceService,
     public reportsService: ReportsService,
 
-) { }
+) {
+
+  this.docForm = this.fb.group({
+    depreciationMethod: [""],
+    date: [""],
+    category: [""],
+    assetLocation: [""],
+    department: [""],
+    search: [""],
+    categoryId: [""],
+    categoryName: [""],
+    assetName: [""],
+    assetCode: [""],
+    departmentName: [""],
+    invoiceDate: [""],
+    name: [""],
+    captitalizationPrice: [""],
+    captitalizationDate: [""],
+    scrapValue: [""],
+    endLife: [""],
+
+});
+ }
 
   ngOnInit(): void {
 
@@ -39,6 +64,18 @@ export class AddDepreciationReportComponent implements OnInit {
       assetLocation: [""],
       department: [""],
       search: [""],
+      categoryId: [""],
+      categoryName: [""],
+      assetName: [""],
+      assetCode: [""],
+      departmentName: [""],
+      invoiceDate: [""],
+      name: [""],
+      captitalizationPrice: [""],
+      captitalizationDate: [""],
+      scrapValue: [""],
+      endLife: [""],
+
   });
 
     // depreciation dropdown
@@ -84,17 +121,30 @@ export class AddDepreciationReportComponent implements OnInit {
     this.page = event;
   }
 
-  searchData()
-  {
-    // this.reportscategory=this.docForm.value;
-    this.httpService.get(this.reportsService.depreciationSerach+"?depreciation=" +this.docForm.controls.asset.value ).subscribe((res: any) => {
+  // searchData()
+  // {
+  //   // this.reportscategory=this.docForm.value;
+  //   // tslint:disable-next-line:max-line-length
+  //   this.httpService.get(this.reportsService.depreciationSerach + "?depreciation=" + this.docForm.controls.asset.value ).subscribe((res: any) => {
+  //     console.log(res);
+  //     this.depreciationList = res.depreciationList;
+  //   },
+  //   (err: HttpErrorResponse) => {
+  //   }
+  // );
+  // }
+
+  searchData(){
+    this.reportscategory = this.docForm.value.depreciationMethod;
+    // tslint:disable-next-line:max-line-length
+    this.httpService.get(this.reportsService.depreciationSerach  + "?depreciation=" + this.reportscategory ).subscribe((res: any) => {
       console.log(res);
-      // this.loList=res.assetList;
+      this.depreciationList = res.depreciationList;
     },
     (err: HttpErrorResponse) => {
     }
   );
-  }
+}
 
   reset()
   {
