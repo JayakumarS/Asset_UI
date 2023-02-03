@@ -44,7 +44,7 @@
                   </ng-container>
                   <ng-container matColumnDef="noOfUsers">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>No. Of Users </mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> <div style="justify-content: center !important;">{{row.noOfUsers}}</div>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class="row-color" style="padding-left: 50px" [ngClass]="{'high': row.receiptNo == 'TOTAL' }"> {{row.noOfUsers}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="subAmount">
