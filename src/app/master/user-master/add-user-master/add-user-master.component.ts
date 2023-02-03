@@ -158,71 +158,69 @@ export class AddUserMasterComponent implements OnInit {
       }
       );
 
-  //Role  Dropdown List
-  this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
+  // Role  Dropdown List
+    this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
     (data) => {
       this.roleList = data.roleList;
-      if(!this.edit){
-        if(!this.auditorFlag){
-          this.roleList=[{id:'6',text:'Guest'}];
+      if (!this.edit){
+        if (!this.auditorFlag){
+          this.roleList = [{id:'6',text:'Guest'}];
           this.docForm.patchValue({role:'6'});
         }
-        
+
       }
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
-  );  
+  );
 
 
-  
 
-  //Department Dropdown List
-  this.httpService.get<any>(this.userMasterService.departmentListUrl+"?company="+this.tokenStorage.getCompanyId()+"").subscribe(
+
+  // Department Dropdown List
+    this.httpService.get<any>(this.userMasterService.departmentListUrl+"?company="+this.tokenStorage.getCompanyId()+"").subscribe(
     (data) => {
       this.departmentList = data.departmentList;
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
-  );  
+  );
 
 
-   //User Based Company List
-   this.httpService.get<any>(this.userMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
+   // User Based Company List
+    this.httpService.get<any>(this.userMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
     (data) => {
       this.getUserBasedCompanyList = data.getUserBasedCompanyList;
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
-  ); 
+  );
 
-  //User Reporting Manager
-  this.httpService.get<any>(this.userMasterService.reportingManUrl + "?userId=" + this.userId).subscribe(
+  // User Reporting Manager
+    this.httpService.get<any>(this.userMasterService.reportingManUrl + "?userId=" + this.userId).subscribe(
     (data) => {
       this.getReportingManList = data.reportingManList;
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
-  ); 
+  );
 
-  
-  //User Primary Location
-  this.httpService.get<any>(this.userMasterService.primaryLocUrl + "?userId=" + this.userId).subscribe(
+
+  // User Primary Location
+    this.httpService.get<any>(this.userMasterService.primaryLocUrl + "?userId=" + this.userId).subscribe(
     (data) => {
       this.getPrimaryLocList = data.primaryLocList;
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
-  ); 
+  );
 
 
-  
-   
 
   }
 
@@ -255,7 +253,7 @@ export class AddUserMasterComponent implements OnInit {
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
-    ); 
+    );
   }
 
   departmentChange(){
@@ -269,7 +267,7 @@ export class AddUserMasterComponent implements OnInit {
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
-    ); 
+    );
   }
 
   fieldsChange(values:any):void {
@@ -285,7 +283,7 @@ export class AddUserMasterComponent implements OnInit {
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
         }
-      ); 
+      );
       this.httpService.get<any>(this.userMasterService.departmentListAuditUrl).subscribe(
         (data) => {
           this.departmentAuditList = data.departmentAuditList;
@@ -296,7 +294,7 @@ export class AddUserMasterComponent implements OnInit {
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
         }
-      ); 
+      );
     }else{
       this.auditorFlag=false;
     }
@@ -440,7 +438,7 @@ export class AddUserMasterComponent implements OnInit {
   onCancel() {
   this.router.navigate(['/master/userMaster/list-user-master/']);
   }
-  
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,

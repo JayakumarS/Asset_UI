@@ -27,8 +27,8 @@ export class CurrencyService extends UnsubscribeOnDestroyAdapter{
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
     super();
   }
-  private getCurrency = `${this.serverUrl.apiServerAddress}api/auth/app/currency/getList`;
-  private saveCurrency = `${this.serverUrl.apiServerAddress}api/app/currency/save`;
+  private getCurrency = `${this.serverUrl.apiServerAddress}app/currency/getList`;
+  private saveCurrency = `${this.serverUrl.apiServerAddress}app/currency/save`;
   get data(): CurrencyMaster[] {
     return this.dataChange.value;
   }
