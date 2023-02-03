@@ -58,6 +58,8 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
       if(data.success){
         if(this.tokenStorage.getCompanyId()==null){
           this.tokenStorage.saveCompanyId(data.companyId);
+        }else if(this.tokenStorage.getCompanyId()=="null"){
+          this.tokenStorage.saveCompanyId(data.companyId);
         }
         
       }

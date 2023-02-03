@@ -61,7 +61,8 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
         console.log("Branch value is "+this.tokenStorage.getBranchId());
         if(this.tokenStorage.getBranchId()==null){
           this.tokenStorage.saveBranchId(data.branchId);
-          alert(this.tokenStorage.getBranchId());
+        }else if (this.tokenStorage.getBranchId()=="null"){
+          this.tokenStorage.saveBranchId(data.branchId);
         }
         notificationService.showNotification(
           "snackbar-success",
