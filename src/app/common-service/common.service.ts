@@ -161,6 +161,10 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   //public getcompanybasedLocationHeadDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLocationDropdownByCompany`;
 
+  public getBranchByCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyBasedBranchDropdown`;
+
+  public getUserBasedCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUserBasedCompany`;
+
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");

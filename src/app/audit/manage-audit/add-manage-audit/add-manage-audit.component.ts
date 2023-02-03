@@ -61,6 +61,10 @@ export class AddManageAuditComponent implements OnInit {
   companyList: any;
   branchList: any;
   auditorList: any;
+  isSelf: boolean = true;
+  isAided: boolean = true;
+  companyListNew = [];
+  auditorListNew = [];
 
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
@@ -120,6 +124,30 @@ export class AddManageAuditComponent implements OnInit {
 
 
   ngOnInit(): void {
+      if(this.tokenStorage.getRoleId()=='2'){
+       this.isSelf=true;
+       this.isAided=true;
+      } else if(this.tokenStorage.getRoleId()=='3'){
+        this.isSelf=false;
+        this.isAided=true;
+      }
+
+      this.httpService.get<any>(this.commonService.getEmployeeDropdownByCompany+"?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+        next: (data) => {
+          this.auditorListNew = data;
+        },
+        error: (error) => {
+        }
+      });
+
+      this.httpService.get<any>(this.commonService.getUserBasedCompany+"?userId="+this.tokenStorage.getUserId()).subscribe({
+        next: (data) => {
+          this.companyListNew = data.addressBean;
+        },
+        error: (error) => {
+        }
+      });
+
      this.httpService.get<any>(this.commonService.getAuditorDropdown).subscribe({
       next: (data) => {
         this.auditorList = data;
@@ -137,17 +165,22 @@ export class AddManageAuditComponent implements OnInit {
     this.httpService.get<any>(this.commonService.getcompanyDropdown).subscribe({
       next: (data) => {
         this.companyList = data;
+        this.docForm.patchValue({
+          'auditCompanyId':parseInt(this.tokenStorage.getCompanyId())
+        })
+        this.companySelection(this.tokenStorage.getCompanyId());
       },
       error: (error) => {
       }
     });
-    this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
-      next: (data) => {
-        this.branchList = data;
-      },
-      error: (error) => {
-      }
-    });
+    // this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
+    //   next: (data) => {
+    //     this.branchList = data;
+    //   },
+    //   error: (error) => {
+    //   }
+    // });
+    
     
 
 
@@ -204,6 +237,16 @@ export class AddManageAuditComponent implements OnInit {
         "right"
       );
     }
+  }
+
+  companySelection(companyId:any){
+      this.httpService.get<any>(this.commonService.getBranchByCompany+"?companyId="+companyId).subscribe({
+      next: (data) => {
+        this.branchList = data.addressBean;
+      },
+      error: (error) => {
+      }
+    });
   }
 
   onSubmitAided() {
