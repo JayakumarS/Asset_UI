@@ -58,7 +58,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
     this.httpService.post<any>(this.saveBranch, branchMaster).subscribe(data => {
       console.log(data);
       if(data.success){
-        console.log("Branch value is "+this.tokenStorage.getBranchId());
+       
         if(this.tokenStorage.getBranchId()==null){
           this.tokenStorage.saveBranchId(data.branchId);
         }else if (this.tokenStorage.getBranchId()=="null"){

@@ -67,14 +67,36 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   }
 
   // For Save
-  addDepartment(DepartmentMaster: DepartmentMaster): void {
+  addDepartment(DepartmentMaster,router,notificationService){
     this.dialogData = DepartmentMaster;  
-    this.httpService.post<DepartmentMaster>(this.saveDepartment, DepartmentMaster).subscribe(data => {
+    this.httpService.post<any>(this.saveDepartment, DepartmentMaster).subscribe(data => {
       console.log(data);
       //this.dialogData = employees;
+      if(data.success){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Add Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/department-Master/list-department']);
+      }else{
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Added!!!",
+          "bottom",
+          "center"
+        );
+      }
+
       },
       (err: HttpErrorResponse) => {
-        
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Error!!!",
+          "bottom",
+          "center"
+        );
     });
   }
 

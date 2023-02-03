@@ -9,6 +9,7 @@ import { DepartmentMasterResultBean } from '../department-master-result-bean';
 import { DepartmentMasterService } from '../department-master.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 @Component({
   selector: 'app-add-department-master',
@@ -36,7 +37,8 @@ export class AddDepartmentMasterComponent implements OnInit {
     private commonService: CommonService,
     private snackBar:MatSnackBar,
     private router:Router,
-    public route: ActivatedRoute,) { 
+    public route: ActivatedRoute,
+    private notificationService:NotificationService) { 
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -159,15 +161,8 @@ export class AddDepartmentMasterComponent implements OnInit {
      }
       this.departmentMaster = this.docForm.value;
     console.log(this.departmentMaster);
-    this.departmentMasterService.addDepartment(this.departmentMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Successfully Added...!!!",
-      "bottom",
-      "center"
-    );
+    this.departmentMasterService.addDepartment(this.departmentMaster,this.router,this.notificationService);
     
-    this.router.navigate(['/master/department-Master/list-department']);
   }
   else{
     this.showNotification(

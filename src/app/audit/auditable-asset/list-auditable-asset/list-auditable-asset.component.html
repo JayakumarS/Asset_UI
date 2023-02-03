@@ -46,18 +46,18 @@
                       <input matInput formControlName="financial_year" maxlength="4" (keypress)="keyPressPCB($event)">
                     </mat-form-field>
                   </div>
-                  <!-- <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-top: -6px;"> -->
-                    <mat-radio-group formControlName="financial_year" (change)="financialYearPatch($event)" style="margin-left: 248px; margin-top: -50px;">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="padding-top: 15px;">
+                    <mat-radio-group formControlName="financial_year" (change)="financialYearPatch($event)" >
                       <mat-radio-button value="2023">Current Financial Year</mat-radio-button>
                       <mat-radio-button value="2022">Previous Financial Year</mat-radio-button>
                     </mat-radio-group>
                     <!-- <mat-checkbox formControlName="currentFinancialYear" ngInit="checked=true">Current Financial Year</mat-checkbox> -->
-                  <!-- </div> -->
+                  </div>
                   <!-- <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="padding-top: 10px;">
                     <mat-checkbox formControlName="previousFinancialYear" ngInit="checked=true">Previous Financial Year</mat-checkbox>
                   </div> -->
 
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 624px; margin-top: -56px;">
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="padding-top: 15px;" >
                     <button class="btn-space" mat-raised-button (click) = "onSubmit()"
                       color="accent" style="background-color: #34d034;">Search</button>
                   </div>
