@@ -91,6 +91,8 @@ export class AddUserMasterComponent implements OnInit {
     this.roleId = this.tokenStorage.getRoleId();
     if(this.roleId==1){
       this.roleIdFlag=true;
+      this.docForm.get("auditor").setValue(true);
+      this.docForm.get("auditor").disabled;
     }else{
       this.roleIdFlag=false;
     }
@@ -163,9 +165,13 @@ export class AddUserMasterComponent implements OnInit {
     (data) => {
       this.roleList = data.roleList;
       if (!this.edit){
-        if (!this.auditorFlag){
-          this.roleList = [{id:'6',text:'Guest'}];
+        if(this.auditorFlag){
+          this.roleList=[{id:'6',text:'Guest'}];
           this.docForm.patchValue({role:'6'});
+        }
+        if(this.roleId==1){
+          this.roleList=[{id:'3',text:'CHECKER'}];
+          this.docForm.patchValue({role:'3'});
         }
 
       }
