@@ -150,7 +150,7 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
         }
       });
     }
-      this.dataSource = new MatTableDataSource(this.gllist);
+      this.dataSource = new MatTableDataSource(this.mainList);
      this.dataSource.sort = this.sort;
     });
  
@@ -165,7 +165,7 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 
   toggleRow(element: MainList) {
-    element.subList &&(element.subList as MatTableDataSource<SubList>).data.length? this.toggleElement(element): null;
+    element.subList &&(element.subList as MatTableDataSource<SubList>)? this.toggleElement(element): null;
     this.cd.detectChanges();
     this.innerTables.forEach(
       (table, index) =>

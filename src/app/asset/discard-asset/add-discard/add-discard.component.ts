@@ -10,6 +10,7 @@ import { DiscardAsset } from '../discard-asset-model';
 import { DiscardAssetService } from '../discard-asset.service';
 import { AssetService } from '../../asset-master/asset.service';
 import { threadId } from 'worker_threads';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -32,18 +33,21 @@ export class AddDiscardComponent implements OnInit {
   filePathUrl: string;
   discardAsset : DiscardAsset;
   locationDdList = [];
+  moveToDdList = [];
   requestId: any;
   assetId:any;
   edit: boolean = false;
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   moveToLocation: string;
   moveToLocationId: number;
+  branchId: any;
+  companyId: any;
 
 
   constructor(private fb: FormBuilder,private cmnService: CommonService, 
     
     public route: ActivatedRoute,
-    private assetService: AssetService,
+    private assetService: AssetService,private token:TokenStorageService,
     private snackBar: MatSnackBar,  private discardService: DiscardAssetService,
      private httpService: HttpServiceService,private commonService: CommonService,
      private router:Router) { 
@@ -72,6 +76,9 @@ export class AddDiscardComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.branchId= this.token.getBranchId();
+    this.companyId= this.token.getCompanyId();
+
     // Location dropdown
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
@@ -82,6 +89,18 @@ export class AddDiscardComponent implements OnInit {
       }
     }
     );
+
+
+   //move to dropdown
+   this.httpService.get<any>(this.commonService.getMoveToDropdown+"?companyId="+parseInt(this.companyId)).subscribe({
+    next: (data) => {
+      this.moveToDdList = data;
+    },
+    error: (error) => {
+
+    }
+  }
+  );
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
         this.requestId = params.id;
@@ -91,8 +110,8 @@ export class AddDiscardComponent implements OnInit {
 
       }
     });
-    this.moveToLocation="DISCARDLOCATION";
-    this.moveToLocationId=98;
+    // this.moveToLocation="DISCARDLOCATION";
+    // this.moveToLocationId=98;
   }
 
 

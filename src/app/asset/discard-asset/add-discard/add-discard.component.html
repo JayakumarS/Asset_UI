@@ -95,11 +95,14 @@
                 </div> 
          
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                   
-                      <input matInput formControlName="moveTo"   readonly>{{moveToLocation}}
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="moveTo">
+                          <mat-option *ngFor="let title of moveToDdList" [value]="title.id">
+                              {{title.text}}
+                          </mat-option>
+                      </mat-select>
                       
-                     
-                    
+                  </mat-form-field>
                   </div>
                 </div>
  <br>
