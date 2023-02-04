@@ -61,14 +61,14 @@ export class AddBranchComponent implements OnInit {
       }
     });
 
-    // this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
-    //   next: (data) => {
-    //     this.companyList = data;
-    //   },
-    //   error: (error) => {
+    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+      next: (data) => {
+        this.companyList = data;
+      },
+      error: (error) => {
   
-    //   }
-    // });
+      }
+    });
     
 
     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
