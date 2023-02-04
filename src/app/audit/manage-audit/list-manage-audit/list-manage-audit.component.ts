@@ -13,7 +13,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
-import { ManageAuditServiceService } from '../manage-audit-service.service';
+import { ManageAuditService } from '../manage-audit.service';
 import { ManageAudit } from '../manage-audit.model';
 import { DeleteManageAuditComponent } from './delete-manage-audit/delete-manage-audit.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
@@ -34,7 +34,7 @@ export class ListManageAuditComponent implements OnInit {
   ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: ManageAuditServiceService | null;
+  exampleDatabase: ManageAuditService | null;
   selection = new SelectionModel<ManageAudit>(true, []);
   index: number;
   id: number;
@@ -43,7 +43,7 @@ export class ListManageAuditComponent implements OnInit {
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public manageAuditServiceService: ManageAuditServiceService,
+    public manageAuditService: ManageAuditService,
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
@@ -87,7 +87,7 @@ export class ListManageAuditComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new ManageAuditServiceService(this.httpClient, this.serverUrl, this.tokenStorage, this.httpService);
+    this.exampleDatabase = new ManageAuditService(this.httpClient, this.serverUrl, this.tokenStorage, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -132,7 +132,7 @@ export class ListManageAuditComponent implements OnInit {
           deletingId: row.auditId
         }
         this.spinner.show();
-        this.manageAuditServiceService.deleteManageAudit(obj).subscribe({
+        this.manageAuditService.deleteManageAudit(obj).subscribe({
           next: (data) => {
             this.spinner.hide();
             if (data.success) {
@@ -189,7 +189,7 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
   filteredData: ManageAudit[] = [];
   renderedData: ManageAudit[] = [];
   constructor(
-    public exampleDatabase: ManageAuditServiceService,
+    public exampleDatabase: ManageAuditService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {

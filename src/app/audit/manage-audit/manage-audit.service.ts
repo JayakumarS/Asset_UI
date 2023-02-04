@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class ManageAuditServiceService extends UnsubscribeOnDestroyAdapter {
+export class ManageAuditService extends UnsubscribeOnDestroyAdapter {
 
   isTblLoading = true;
   dataChange: BehaviorSubject<ManageAudit[]> = new BehaviorSubject<ManageAudit[]>(

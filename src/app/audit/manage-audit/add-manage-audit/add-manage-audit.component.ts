@@ -13,7 +13,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { CommonService } from 'src/app/common-service/common.service';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { ManageAuditServiceService } from '../manage-audit-service.service';
+import { ManageAuditService } from '../manage-audit.service';
 import { ManageAudit } from '../manage-audit.model';
 import { MatTabGroup } from '@angular/material/tabs';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
@@ -72,7 +72,7 @@ export class AddManageAuditComponent implements OnInit {
     public route: ActivatedRoute,
     private router: Router,
     public httpClient: HttpClient,
-    public manageAuditServiceService: ManageAuditServiceService,
+    public manageAuditService: ManageAuditService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
@@ -199,7 +199,7 @@ export class AddManageAuditComponent implements OnInit {
     if (this.docForm.valid) {
       this.manageAudit = this.docForm.value;
       this.spinner.show();
-      this.manageAuditServiceService.addManageAudit(this.manageAudit).subscribe({
+      this.manageAuditService.addManageAudit(this.manageAudit).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -253,7 +253,7 @@ export class AddManageAuditComponent implements OnInit {
     if (this.Formdoc.valid) {
       this.manageAudit = this.Formdoc.value;
       this.spinner.show();
-      this.manageAuditServiceService.addManageAudit(this.manageAudit).subscribe({
+      this.manageAuditService.addManageAudit(this.manageAudit).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -299,7 +299,7 @@ export class AddManageAuditComponent implements OnInit {
       editId: id
     }
     this.spinner.show();
-    this.manageAuditServiceService.editManageAudit(obj).subscribe({
+    this.manageAuditService.editManageAudit(obj).subscribe({
       next: (res: any) => {
         this.spinner.hide();
       if (res.manageAudit.auditType == "Self") {
@@ -342,7 +342,7 @@ export class AddManageAuditComponent implements OnInit {
     if (this.docForm.valid) {
       this.manageAudit = this.docForm.value;
       this.spinner.show();
-      this.manageAuditServiceService.updateManageAudit(this.manageAudit).subscribe({
+      this.manageAuditService.updateManageAudit(this.manageAudit).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -386,7 +386,7 @@ export class AddManageAuditComponent implements OnInit {
   if (this.Formdoc.valid) {
       this.manageAudit = this.Formdoc.value;
       this.spinner.show();
-      this.manageAuditServiceService.updateManageAudit(this.manageAudit).subscribe({
+      this.manageAuditService.updateManageAudit(this.manageAudit).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
