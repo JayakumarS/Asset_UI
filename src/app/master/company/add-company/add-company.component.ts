@@ -186,7 +186,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   validateEmail(event){
-    this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+    this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
       if (res){
         this.docForm.controls['emailId'].setErrors({ employee: true });
       }else{
