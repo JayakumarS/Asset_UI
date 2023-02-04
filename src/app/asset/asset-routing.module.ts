@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./discard-asset/discard-asset.module").then((m)=>m.DiscardAssetModule)
   },
+  {
+    path: "auditReport",
+    loadChildren: () =>
+      import("./audit-report/audit-report.module").then((m)=>m.AuditReportModule)
+  },
 
 ];
 
