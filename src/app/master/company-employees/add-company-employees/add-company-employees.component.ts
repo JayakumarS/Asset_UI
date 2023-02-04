@@ -221,23 +221,9 @@ export class AddCompanyEmployeesComponent implements OnInit {
   }
 
   reset(){
-    // if (!this.edit) {
-    //   this.docForm.reset();
-    //   this.docForm.patchValue({
-    //     company:[""],
-    //     branch:[""],
-    //     emailId:[""],
-    //     fullName: [""],
-    //     phoneno:[""],
-    //     department:[""],
-    //     id:[""],
-    //     active:[""],
+   
 
-    //   })
-    // }  else {
-    //   this.fetchDetails(this.requestId);
-    // }
-
+    location.reload()
     this.docForm.patchValue({
           company:[""],
           branch:[""],

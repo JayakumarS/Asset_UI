@@ -182,9 +182,9 @@ console.log(this.assetcategory);
   }
   reset() {
     if (!this.edit) {
-
+     location.reload()
     this.docForm = this.fb.group({
-  
+ 
       categoryName: [""],
       parentCategory: [""],
       Description:[""],
