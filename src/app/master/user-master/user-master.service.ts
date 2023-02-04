@@ -47,6 +47,10 @@ export class UserMasterService extends UnsubscribeOnDestroyAdapter {
   public departmentListAuditUrl = `${this.serverUrl.apiServerAddress}app/userMaster/getdepartmentListDropdownForAudit`;
   public reportingManUrl = `${this.serverUrl.apiServerAddress}app/userMaster/getReportingManList`;
   public primaryLocUrl = `${this.serverUrl.apiServerAddress}app/userMaster/getPrimaryLocList`;
+  public locationDropdown = `${this.serverUrl.apiServerAddress}app/userMaster/locationDropdown`;
+
+
+
 
   getAllList(userId:any): void {
     this.subs.sink = this.httpService.get<UserMasterResultBean>(this.getUserList + "?userId=" + userId).subscribe(

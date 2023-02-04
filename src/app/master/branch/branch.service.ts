@@ -30,6 +30,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   public updateBranchMaster = `${this.serverUrl.apiServerAddress}api/auth/app/branch/update`;
   private deleteBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/delete`;
   public userBasedBranchDDList = `${this.serverUrl.apiServerAddress}api/auth/app/branch/userBasedBranchDDList`;
+  public locationDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/branch/locationDropdown`;
 
 
 

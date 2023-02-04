@@ -184,7 +184,7 @@
                             <div class=" col-md-3">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="location">
-                                <mat-option *ngFor="let title of getPrimaryLocList" [value]="title.id">
+                                <mat-option *ngFor="let title of locationDropdownList" [value]="title.id">
                                     {{title.text}}
                                 </mat-option>
                             </mat-select>

@@ -31,7 +31,7 @@ export class AddUserMasterComponent implements OnInit {
   getUserBasedCompanyList = [];
   getUserBasedBranchList = [];
   departmentAuditList= [];
-
+  location:any;
   language: any;
   role: any;
   roleId:any;
@@ -83,6 +83,7 @@ export class AddUserMasterComponent implements OnInit {
         this.edit = true;
         // For User login Editable mode
         this.fetchDetails(this.requestId);
+        
       }
     });
 
@@ -245,6 +246,15 @@ export class AddUserMasterComponent implements OnInit {
       }
     );
 
+    this.httpService.get(this.userMasterService.locationDropdown+"?locationId=" + customer ).subscribe((res: any) => {
+      console.log(customer);
+      this.locationDropdownList = res.locationDropdownList;
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+     
 
   }
 

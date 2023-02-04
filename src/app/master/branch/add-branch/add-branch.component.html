@@ -53,7 +53,8 @@
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select formControlName="companyId">
+                      <mat-select formControlName="companyId" (selectionChange)="validationUserGroup($event.value)"
+                      (keypress)="string($event)" required>
                           <mat-option *ngFor="let title of companyList" [value]="title.id">
                               {{title.text}}
                           </mat-option>
@@ -73,7 +74,7 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select formControlName="location">
-                            <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                            <mat-option *ngFor="let title of locationDropdownList" [value]="title.id">
                                 {{title.text}}
                             </mat-option>
                         </mat-select>

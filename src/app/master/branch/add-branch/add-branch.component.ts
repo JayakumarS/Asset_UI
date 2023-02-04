@@ -23,7 +23,10 @@ export class AddBranchComponent implements OnInit {
   docForm: FormGroup;
   edit:boolean=false;
   branch : Branch;
+  locationDropdownList:[];
   userId:any;
+  string:any;
+  
 
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
@@ -66,6 +69,7 @@ export class AddBranchComponent implements OnInit {
   
     //   }
     // });
+    
 
     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
       (data) => {
@@ -92,6 +96,18 @@ export class AddBranchComponent implements OnInit {
     
   }
 
+  validationUserGroup(location:any){
+    this.httpService.get(this.branchService.locationDropdown+"?locationId=" + location ).subscribe((res: any) => {
+      console.log(location);
+      this.locationDropdownList = res.locationDropdownList;
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+     
+  }
+  
   onSubmit(){
     this.docForm.value.userId = this.tokenStorage.getUserId();
     this.branchMaster = this.docForm.value;
@@ -156,6 +172,7 @@ export class AddBranchComponent implements OnInit {
   onCancel(){
     this.router.navigate(['/master/Branch/listBranch']);
  }
+ 
  reset(){
   if (!this.edit) {
     location.reload()
