@@ -60,7 +60,6 @@ export class AddManageAuditComponent implements OnInit {
   loacationList: any;
   companyList: any;
   branchList: any;
-  auditorList: any;
   isSelf: boolean = true;
   isAided: boolean = true;
   companyListNew = [];
@@ -148,13 +147,6 @@ export class AddManageAuditComponent implements OnInit {
         }
       });
 
-     this.httpService.get<any>(this.commonService.getAuditorDropdown).subscribe({
-      next: (data) => {
-        this.auditorList = data;
-      },
-      error: (error) => {
-      }
-    });
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
         this.loacationList = data;

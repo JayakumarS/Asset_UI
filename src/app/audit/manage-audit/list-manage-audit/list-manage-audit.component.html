@@ -64,12 +64,18 @@
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
                 </ng-container>
                 
-
-                <ng-container matColumnDef="status">
+                <ng-container matColumnDef="makerStatus">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.status}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerStatus}}</mat-cell>
                 </ng-container>
-
+                <ng-container matColumnDef="checkerStatus">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.checkerStatus}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="companyStatus">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyStatus}}</mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="auditType">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Audit Type</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditType}}</mat-cell>

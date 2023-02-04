@@ -27,10 +27,6 @@ import { NgxSpinnerService } from "ngx-spinner";
  export class ListScheduledauditsComponent implements OnInit {
   [x: string]: any;
 
-  displayedColumns = [
-    "auditCode", "auditName","startDate","endDate",
-    "status", "auditType","actions"
-  ];
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: ScheduledauditsService | null;
@@ -39,6 +35,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   id: number;
   edit:boolean=false;
   permissionList: any;
+  displayedColumns: any;
   scheduledAudit: ScheduledAudit | null;
   constructor(
     public httpClient: HttpClient,
@@ -63,6 +60,25 @@ import { NgxSpinnerService } from "ngx-spinner";
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    this.roleId=this.tokenStorage.getRoleId();
+    
+    if (this.roleId=='2') {
+      this.displayedColumns = [
+        "manageAuditNo", "auditName","startDate","endDate",
+        "companyStatus","auditType","companyActions"
+      ];
+    } else if (this.roleId=='3') {
+      this.displayedColumns = [
+        "manageAuditNo", "auditName","startDate","endDate",
+        "checkerStatus","auditType","checkerActions"
+      ];
+    } else if (this.roleId=='4') {
+      this.displayedColumns = [
+        "manageAuditNo", "auditName","startDate","endDate",
+        "makerStatus","auditType","makerActions"
+      ];
+    }
+    
     const permissionObj = {
       formCode: 'F1003',
       roleId: this.tokenStorage.getRoleId()
@@ -105,17 +121,25 @@ import { NgxSpinnerService } from "ngx-spinner";
 
   editCall(row) {
     if (this.permissionList?.modify){
-    this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/' + row.auditCode]);
+      if (this.roleId=='2') {
+        if (row.companyStatus=='Pending') {
+          this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/' + row.manageAuditId]);
+        }
+      } else if (this.roleId=='3') {
+        if (row.checkerStatus=='Pending') {
+          this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/' + row.manageAuditId]);
+        }
+      } else if (this.roleId=='4') {
+        if (row.makerStatus=='Pending') {
+          this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/' + row.manageAuditId]);
+        }
+      }
   }
 }
   viewCall(row) {
-    this.router.navigate(['/audit/scheduledaudits/scheduled-view/' + row.auditCode]);
+    this.router.navigate(['/audit/scheduledaudits/scheduled-view/' + row.manageAuditId]);
   }
 
-  reviewCall(row){
-    this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/' + row.scheduleId]);
-
-  }
 
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -176,11 +200,12 @@ export class ExampleDataSource extends DataSource<ScheduledAudit> {
           .filter((scheduledAudit: ScheduledAudit) => {
             const searchStr = (
               scheduledAudit.auditName +
-              scheduledAudit.auditCode +
+              scheduledAudit.manageAuditNo +
               scheduledAudit.startDate +
               scheduledAudit.endDate +
-              scheduledAudit.extDate +
-              scheduledAudit.status +
+              scheduledAudit.makerStatus +
+              scheduledAudit.checkerStatus +
+              scheduledAudit.companyStatus +
               scheduledAudit.auditType
 
             ).toLowerCase();
@@ -211,8 +236,8 @@ export class ExampleDataSource extends DataSource<ScheduledAudit> {
         case "auditName":
           [propertyA, propertyB] = [a.auditName, b.auditName];
           break;
-        case "auditCode":
-          [propertyA, propertyB] = [a.auditCode, b.auditCode];
+        case "manageAuditNo":
+          [propertyA, propertyB] = [a.manageAuditNo, b.manageAuditNo];
           break;
         case "startDate":
           [propertyA, propertyB] = [a.startDate, b.startDate];
@@ -221,13 +246,15 @@ export class ExampleDataSource extends DataSource<ScheduledAudit> {
         case "endDate":
           [propertyA, propertyB] = [a.endDate, b.endDate];
           break;
-
-          case "extDate":
-          [propertyA, propertyB] = [a.extDate, b.extDate];
-          break;
-          case "status":
-          [propertyA, propertyB] = [a.status, b.status];
-          break;
+          case "makerStatus":
+            [propertyA, propertyB] = [a.makerStatus, b.makerStatus];
+            break;
+            case "checkerStatus":
+            [propertyA, propertyB] = [a.makerStatus, b.makerStatus];
+            break;
+            case "companyStatus":
+            [propertyA, propertyB] = [a.makerStatus, b.makerStatus];
+            break;
           case "auditType":
           [propertyA, propertyB] = [a.auditType, b.auditType];
           break;

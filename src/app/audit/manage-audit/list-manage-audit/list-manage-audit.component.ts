@@ -27,12 +27,9 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class ListManageAuditComponent implements OnInit {
   [x: string]: any;
+  roleId: any;
 
-  displayedColumns = [
-    "auditCode", "auditName","startDate","endDate",
-    "status", "auditType","actions"
-  ];
-
+  displayedColumns: any;
   dataSource: ExampleDataSource | null;
   exampleDatabase: ManageAuditService | null;
   selection = new SelectionModel<ManageAudit>(true, []);
@@ -63,6 +60,25 @@ export class ListManageAuditComponent implements OnInit {
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    this.roleId=this.tokenStorage.getRoleId();
+
+    if (this.roleId=='2') {
+      this.displayedColumns = [
+        "auditCode", "auditName","startDate","endDate",
+        "companyStatus","auditType","actions"
+      ];
+    } else if (this.roleId=='3') {
+      this.displayedColumns = [
+        "auditCode", "auditName","startDate","endDate",
+        "checkerStatus","auditType","actions"
+      ];
+    } else if (this.roleId=='4') {
+      this.displayedColumns = [
+        "auditCode", "auditName","startDate","endDate",
+        "makerStatus","auditType","actions"
+      ];
+    }
+    
     const permissionObj = {
       formCode: 'F1001',
       roleId: this.tokenStorage.getRoleId()
@@ -219,7 +235,9 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
               manageAudit.startDate +
               manageAudit.endDate +
               manageAudit.extDate +
-              manageAudit.status +
+              manageAudit.makerStatus +
+              manageAudit.checkerStatus +
+              manageAudit.companyStatus +
               manageAudit.auditType
 
             ).toLowerCase();
@@ -264,8 +282,14 @@ export class ExampleDataSource extends DataSource<ManageAudit> {
           case "extDate":
           [propertyA, propertyB] = [a.extDate, b.extDate];
           break;
-          case "status":
-          [propertyA, propertyB] = [a.status, b.status];
+          case "makerStatus":
+          [propertyA, propertyB] = [a.makerStatus, b.makerStatus];
+          break;
+          case "checkerStatus":
+          [propertyA, propertyB] = [a.makerStatus, b.makerStatus];
+          break;
+          case "companyStatus":
+          [propertyA, propertyB] = [a.makerStatus, b.makerStatus];
           break;
           case "auditType":
           [propertyA, propertyB] = [a.auditType, b.auditType];

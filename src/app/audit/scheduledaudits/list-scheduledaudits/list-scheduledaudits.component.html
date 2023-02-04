@@ -38,9 +38,9 @@
                 </div>
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
-                  <ng-container matColumnDef="auditCode">
+                  <ng-container matColumnDef="manageAuditNo">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Audit Code</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditCode}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.manageAuditNo}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="auditName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Audit Name</mat-header-cell>
@@ -55,11 +55,17 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
                   </ng-container>
-        
-                  
-                  <ng-container matColumnDef="status">
+                  <ng-container matColumnDef="makerStatus">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.status}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerStatus}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="checkerStatus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.checkerStatus}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="companyStatus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyStatus}}</mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="auditType">
@@ -67,29 +73,50 @@
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditType}}</mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
+                  <ng-container matColumnDef="companyActions" class="col-lg-12 col-md-2">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-
-                        <button mat-icon-button color="accent" *ngIf="row.statusNew!='Submit'"   (click)="$event.stopPropagation()" (click)="editCall(row)"
+                    <button mat-icon-button color="accent" *ngIf="row.companyStatus=='Pending'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
                         class="tbl-action-btn">
-                        <button mat-raised-button color="primary" >Start Audit</button>
+                        <button mat-raised-button color="primary">Start Audit</button>
                     </button>
-                    <span *ngIf="row.statusNew=='Submit'">Submitted</span>
-
-                    <button   mat-icon-button color="accent"  *ngIf="row.statusNew=='Submit'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                    <span *ngIf="row.companyStatus=='Submitted'">Submitted</span>
+                    <button   mat-icon-button color="accent"  *ngIf="row.companyStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                       </app-feather-icons>
                     </button>
-
-                    <button mat-icon-button color="accent" *ngIf="row.statusNew=='Submit'" (click)="$event.stopPropagation()" (click)="reviewCall(row)"
-                    class="tbl-action-btn">
-                    <button mat-raised-button color="primary" >Review</button>
-                </button>
                     </mat-cell>
                   </ng-container>
 
+                  <ng-container matColumnDef="checkerActions" class="col-lg-12 col-md-2">
+                    <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                    <button mat-icon-button color="accent" *ngIf="row.checkerStatus=='Pending'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
+                        class="tbl-action-btn">
+                        <button mat-raised-button color="primary">Start Audit</button>
+                    </button>
+                    <span *ngIf="row.checkerStatus=='Submitted'">Submitted</span>
+                    <button   mat-icon-button color="accent"  *ngIf="row.checkerStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                      <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                      </app-feather-icons>
+                    </button>
+                    </mat-cell>
+                  </ng-container>
 
+                  <ng-container matColumnDef="makerActions" class="col-lg-12 col-md-2">
+                    <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                    <button mat-icon-button color="accent" *ngIf="row.makerStatus=='Pending'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
+                        class="tbl-action-btn">
+                        <button mat-raised-button color="primary">Start Audit</button>
+                    </button>
+                    <span *ngIf="row.makerStatus=='Submitted'">Submitted</span>
+                    <button   mat-icon-button color="accent"  *ngIf="row.makerStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                      <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                      </app-feather-icons>
+                    </button>
+                    </mat-cell>
+                  </ng-container>
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
                     [style.cursor]="'pointer'" matRipple>
@@ -108,10 +135,6 @@
                     <button *ngIf="permissionList?.modify" mat-menu-item (click)="editCall(item)">
                       <mat-icon>create</mat-icon>
                       <span>Edit Record</span>
-                    </button>
-                    <button *ngIf="permissionList?.delete" mat-menu-item (click)="deleteItem(item.id,item)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete Record</span>
                     </button>
 
                   </ng-template>

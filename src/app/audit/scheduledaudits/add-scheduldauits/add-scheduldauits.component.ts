@@ -54,7 +54,10 @@ export class AddScheduldauitsComponent implements OnInit {
   locationDropdownList:any
   assetDropdownList:any
   companyList:any;
-
+  auditDetails:any;
+  statusList: any = ['Available', 'Not Available'];
+  roleId: any;
+  
     constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private httpService: HttpServiceService,
@@ -70,30 +73,25 @@ export class AddScheduldauitsComponent implements OnInit {
    { 
 
     this.docForm = this.fb.group({
-      auditName:[""],
-      auditCode:["",[Validators.required]],
-      startDateObj:[""],
-      companyName:["",[Validators.required]],
-      auditorName:[""],
-      startDate:[""],
-      assetName:[""],
-      location:[""],
-      Quantity:[""],
-      remarks:[""],
-      type:[""],
+      roleId : this.tokenStorage.getRoleId(),
+      status : ["pending",[Validators.required]],
+      manageAuditId : ["",[Validators.required]],
+      manageAuditNo : ["",[Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
-      companyId: this.tokenStorage.getCompanyId(),
-      branchId: this.tokenStorage.getBranchId(),
-
+     
       scheduleAuditDetail: this.fb.array([
         this.fb.group({
-          assetName: '',
-          location: '',
-          sampleQty: '',
-          remarks: '',
-          newQty:'',
-          diffqty:'',
-          stack:''
+          assetId: ["",[Validators.required]],
+          assetCode: ["",[Validators.required]],
+          physicalQty: ["",[Validators.required]],
+          makerstatus: [""],
+          checkerstatus: [""],
+          availableQty:[""],
+          differenceQty:[""],
+          stockAdjustment:[""],
+          makerRemarks:[""],
+          checkerRemarks:[""],
+          companyAdminRemarks:[""],
         })
       ]),
   });
@@ -107,24 +105,7 @@ export class AddScheduldauitsComponent implements OnInit {
      this.fetchDetails(this.requestId);
     }
   });
-
-  
-  this.httpService.get<any>(this.commonService.getAuditorDropdown).subscribe({
-    next: (data) => {
-      this.auditorList = data;
-    },
-    error: (error) => {
-    }
-  });
-
-  this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-    next: (data) => {
-      this.locationDropdownList = data;
-    },
-    error: (error) => {
-    }
-  });
-
+  this.roleId=this.tokenStorage.getRoleId();
   this.companyId=this.tokenStorage.getCompanyId();
   this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
       next: (data) => {
@@ -133,18 +114,12 @@ export class AddScheduldauitsComponent implements OnInit {
     error: (error) => {
     }
   });
-
-  this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
-    next: (data) => {
-      this.companyList = data;
-    },
-    error: (error) => {
-    }
-  });
-  }
-
+}
 
   onSubmit(status: String) {
+    this.docForm.patchValue({
+      'status': status,
+    })
     if (this.docForm.valid) {
       this.scheduledAudit = this.docForm.value;
       this.spinner.show();
@@ -191,45 +166,40 @@ export class AddScheduldauitsComponent implements OnInit {
   
   fetchDetails(id: any): void {
     const obj = {
-      editId: id
+      editId: id,
+      companyId: this.tokenStorage.getCompanyId()
     }
     this.spinner.show();
     this.scheduledauditsService.editAudit(obj).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-
-        this.docForm.patchValue({
-          'startDateObj': this.commonService.getDateObj(res.manageAuditBean.startDate),
-          'startDate': this.commonService.getDateObj(res.manageAuditBean.startDate),
-          'auditName': res.manageAuditBean.auditName,
-          'auditCode':res.manageAuditBean.auditCode,
-          'companyName':res.manageAuditBean.companyName,
-          'auditorName':res.manageAuditBean.auditorName,
-          'assetName':res.manageAuditBean.assetName,
-          'location':res.manageAuditBean.location,
-          'Quantity':res.manageAuditBean.quantity,
-          'remarks':res.manageAuditBean.remarks,
-        })
-
-    
-
-        if (res.scheduledListDetailList != null && res.scheduledListDetailList.length >= 1) {
-          let scheduledListDetailArray = this.docForm.controls.scheduledListDetail as FormArray;
-          scheduledListDetailArray.removeAt(0);
-          res.scheduledListDetailList.forEach(element => {
-            let scheduledListDetailArray = this.docForm.controls.scheduledListDetail as FormArray;
-            let cdate = this.commonService.getDateObj(element.edd);
-            let arraylen = scheduledListDetailArray.length;
+        if(res != null){
+          this.auditDetails=res?.scheduleAudit;
+          this.docForm.patchValue({
+            'manageAuditId': res?.scheduleAudit?.manageAuditId,
+            'manageAuditNo': res?.scheduleAudit?.manageAuditNo,
+          })
+        }
+        if (res?.scheduleAuditDetailList != null && res?.scheduleAuditDetailList.length >= 1) {
+          let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
+          scheduleAuditDetailArray.removeAt(0);
+          res?.scheduleAuditDetailList.forEach(element => {
+            let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
+            let arraylen = scheduleAuditDetailArray.length;
             let newUsergroup: FormGroup = this.fb.group({
-              assetName:[element.assetName],
-              location:[element.location],
-              sampleQty:[element.quantity],
-              remarks:[element.remarks],
-              newQty:[element.newQty],
-              diffqty:[element.diffqty],
-              stack:[element.stack]
+              assetId : [element?.assetId],
+              assetCode : [element?.assetCode],
+              physicalQty : [element?.physicalQty],
+              makerstatus : [element?.makerstatus],
+              checkerstatus: [element?.checkerstatus],
+              availableQty : [element?.availableQty],
+              differenceQty : [element?.differenceQty],
+              stockAdjustment : [element?.stockAdjustment],
+              makerRemarks : [element?.makerRemarks],
+              checkerRemarks : [element?.checkerRemarks],
+              companyAdminRemarks : [element?.companyAdminRemarks],
             })
-            scheduledListDetailArray.insert(arraylen, newUsergroup);
+            scheduleAuditDetailArray.insert(arraylen, newUsergroup);
           });
         }
       },
@@ -244,12 +214,10 @@ export class AddScheduldauitsComponent implements OnInit {
   reset() {
     if (!this.edit) {
       this.docForm.reset();
-      let scheduledListDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
-      scheduledListDetailArray.clear();
+      let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
+      scheduleAuditDetailArray.clear();
       this.docForm.patchValue({
         'loginedUser': this.tokenStorage.getUserId(),
-        'companyId': this.tokenStorage.getCompanyId(),
-        'branchId': this.tokenStorage.getBranchId()
       })
     } else {
       this.fetchDetails(this.requestId);
@@ -286,38 +254,38 @@ export class AddScheduldauitsComponent implements OnInit {
     }
   }
 
-  getDateString(event,inputFlag,index){
-    let cdate = this.commonService.getDate(event.target.value);
-    if(inputFlag=='startDate'){
-      this.docForm.patchValue({startDate:cdate});
-    }
-    else if(inputFlag=='enddate'){
-      this.docForm.patchValue({enddate:cdate});
+  keyPressRemarks(event: any) {
+    const pattern = /[ a-zA-Z0-9 !@()#$%&*_+"'\-=\;:\\|,.\/? ]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
     }
   }
  
 
   addRow(){
-    let scheduledListDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
-    let arraylen = scheduledListDetailArray.length;
+    let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
+    let arraylen = scheduleAuditDetailArray.length;
     let newUsergroup: FormGroup = this.fb.group({
-      auditorName:[""],
-      startDate:[""],
-      assetName:[""],
-      location:[""],
-      sampleQty:[""],
-      remarks:[""],
-      newQty:'',
-      diffqty:'',
-      stack:''
+      assetId: ["",[Validators.required]],
+      assetCode: ["",[Validators.required]],
+      physicalQty: ["",[Validators.required]],
+      makerstatus: [""],
+      checkerstatus: [""],
+      availableQty:[""],
+      differenceQty:[""],
+      stockAdjustment:[""],
+      makerRemarks:[""],
+      checkerRemarks:[""],
+      companyAdminRemarks:[""],
     })
-    scheduledListDetailArray.insert(arraylen, newUsergroup);
+    scheduleAuditDetailArray.insert(arraylen, newUsergroup);
   }
   
 
   removeRow(index){
-    let scheduledListDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
-    scheduledListDetailArray.removeAt(index);
+    let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
+    scheduleAuditDetailArray.removeAt(index);
   }
   
 }

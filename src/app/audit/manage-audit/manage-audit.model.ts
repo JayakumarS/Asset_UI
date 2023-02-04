@@ -5,6 +5,8 @@ export class ManageAudit {
     endDate:string;
     auditName:string;
     extDate:string;
-    status:string;
-    companyName:string
+    makerStatus:string;
+    checkerStatus:string;
+    companyStatus:string;
+    companyName:string;
 }

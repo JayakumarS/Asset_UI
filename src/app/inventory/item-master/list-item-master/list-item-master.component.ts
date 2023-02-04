@@ -23,7 +23,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 @Component({
   selector: 'app-list-item-master',
   templateUrl: './list-item-master.component.html',
-  styleUrls: ['./list-item-master.component.css']
+  styleUrls: ['./list-item-master.component.sass']
 })
 export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [

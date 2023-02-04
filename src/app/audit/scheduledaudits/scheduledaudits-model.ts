@@ -1,20 +1,19 @@
 export class ScheduledAudit {
-    auditCode:string;
-    auditType:string;
-    startDate:string;
-    endDate:string;
-    auditName:string;
-    extDate:string;
-    status:string;
-    companyName:string;
-    assetName:string;
-    location:string;
-    Quantity:string;
-    remarks:string;
-    schedule_audits_id:number;
-    scheduleId:number;
-    AvailableQty:string;
-    newQty:number;
-    diffqty:number;
-    stack:string;
+	roleId:number;
+	status:string;
+    manageAuditId:number;
+	manageAuditNo:string;
+	startDate:string;
+	endDate:string;
+	auditName:string;
+	makerStatus:string;
+	checkerStatus:string;
+	companyStatus:string;
+	auditType:string;
+	auditorName:string;
+	locationName:string;
+	auditCompanyName:string;
+	auditbranchName:string;
+	loginedUser:string;
+	scheduleAuditDetail:any;
 }
