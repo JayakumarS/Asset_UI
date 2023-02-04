@@ -312,10 +312,11 @@ export class AddDepartmentMasterComponent implements OnInit {
   
  
   reset() {
+    location.reload()
     if (!this.edit) {
       this.docForm.reset();
       this.docForm.patchValue({
-        deptCode: ["",[Validators.required]],
+        deptCode: [""],
         departmentHead: [""],
         branchname: [""],
         company:[""],
