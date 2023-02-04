@@ -210,14 +210,14 @@ export class MainComponent implements OnInit {
       }
     );
 
-    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl).subscribe(
-      (data) => {
-        this.assetListDashboard = data.assetListDashboard;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-    );
+    // this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl).subscribe(
+    //   (data) => {
+    //     this.assetListDashboard = data.assetListDashboard;
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     console.log(error.name + " " + error.message);
+    //   }
+    // );
 
     // ticket survey
     this.httpService.get<any>(this.mainService.getItSupportTicketURL).subscribe(
@@ -299,17 +299,17 @@ export class MainComponent implements OnInit {
   }
 
   getInvList(){
-    this.httpService.get<MainResultBean>(this.mainService.getAuditableAssetListUrl).subscribe(
-      (data) => {
+    // this.httpService.get<MainResultBean>(this.mainService.getAuditableAssetListUrl).subscribe(
+    //   (data) => {
         
-        this.auditableAssetList = data.auditableAssetList;
-        this.config1 = {
-          itemsPerPage: 5,
-          currentPage: 1,
-          totalItems: this.auditableAssetList.length
-        }; 
-      }
-    );
+    //     this.auditableAssetList = data.auditableAssetList;
+    //     this.config1 = {
+    //       itemsPerPage: 5,
+    //       currentPage: 1,
+    //       totalItems: this.auditableAssetList.length
+    //     }; 
+    //   }
+    // );
   }
 
   getAssetList(){
