@@ -148,6 +148,8 @@ export class AddDepreciationReportComponent implements OnInit {
 
   reset()
   {
+    location.reload()
+
     this.docForm.patchValue({
       'depreciationMethod' : '',
       'date' : '',
