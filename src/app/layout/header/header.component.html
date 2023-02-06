@@ -99,12 +99,12 @@
                     </li> -->
                     <li>
                       <a href="javascript:void(0);" >
-                        <app-feather-icons  [icon]="'user'" [class]="'user-menu-icons'"></app-feather-icons><span>{{roleBasedImgUrl}}</span>
+                        <app-feather-icons  [icon]="'user'" [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getRoleText()}}</span>
                       </a>
                     </li>
-                    <li>
+                    <li *ngIf="this.token.getCompanyText()!='null'">
                       <a href="javascript:void(0);" >
-                        <app-feather-icons [icon]="'users'" [class]="'user-menu-icons'"></app-feather-icons><span>{{companyNameText}}</span>
+                        <app-feather-icons [icon]="'users'" [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getCompanyText()!="null"?this.token.getCompanyText():""}}</span>
                       </a>
                     </li>
                     <li  *ngIf="roleBasedImgUrl == 'Guest'">
