@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddAuditReportComponent } from './add-audit-report/add-audit-report.component';
+import { ListAuditReportComponent } from './list-audit-report/list-audit-report.component';
 
 const routes: Routes = [
+ 
+
   {
-    path: "addAuditReport",
-    component: AddAuditReportComponent,
+    path: "listAuditReport",
+    component: ListAuditReportComponent,
   },
 ];
 
