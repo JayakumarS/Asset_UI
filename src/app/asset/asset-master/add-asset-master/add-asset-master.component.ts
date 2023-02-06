@@ -259,7 +259,7 @@ export class AddAssetMasterComponent
     });
 
     // vendor dropdown
-    this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getVendorDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.uomList = data;
       },
