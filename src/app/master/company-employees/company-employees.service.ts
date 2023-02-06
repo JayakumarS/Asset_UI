@@ -37,6 +37,8 @@ const httpOptions = {
     public updatecompanyEmp = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/update`;
     public companyListUrl = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedCompanyList`;
     public fetchBranch = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedBranchList`;
+    public fetchdepartment = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedDepartmentList`;
+
     
     
     

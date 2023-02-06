@@ -30,6 +30,7 @@ export class AddDepartmentMasterComponent implements OnInit {
   userId: any;
   getUserBasedCompanyList = [];
   getUserBasedBranchList = [];
+  branch: any;
 
   constructor(private fb: FormBuilder,private tokenStorage: TokenStorageService,
     private departmentMasterService : DepartmentMasterService,
@@ -38,7 +39,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     private snackBar:MatSnackBar,
     private router:Router,
     public route: ActivatedRoute,
-    private notificationService:NotificationService) { 
+    private notificationService:NotificationService) {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -52,7 +53,7 @@ export class AddDepartmentMasterComponent implements OnInit {
       contactPerson:[""],
       company:["",[Validators.required]],
       branchname:["",[Validators.required]],
-      
+
     });
 
   }
@@ -76,19 +77,19 @@ export class AddDepartmentMasterComponent implements OnInit {
       }
      });
 
-     
+
        // Contact Person dropdown
        this.httpService.get<any>(this.departmentMasterService.getAdminDropdown+"?companyId="+this.companyId).subscribe({
         next: (data) => {
           this.locationDdList = data;
         },
         error: (error) => {
-  
+
         }
       }
       );
 
- 
+
 
      // Company  Dropdown List
     this.httpService.get<any>(this.departmentMasterService.getCompanyDropdown+"?userId="+this.userId).subscribe({
@@ -100,13 +101,13 @@ export class AddDepartmentMasterComponent implements OnInit {
     });
 
       // Branch Dropdown List
-      this.httpService.get<any>(this.departmentMasterService.getBranchDropdown+"?companyId="+this.companyId).subscribe({
-        next: (data) => {
-          this.branchList = data;
-        },
-        error: (error) => {
-        }
-      });
+      // this.httpService.get<any>(this.departmentMasterService.getBranchDropdown+"?companyId="+this.companyId).subscribe({
+      //   next: (data) => {
+      //     this.branchList = data;
+      //   },
+      //   error: (error) => {
+      //   }
+      // });
 
 
 
@@ -118,7 +119,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
-  ); 
+  );
 
 
   }
@@ -140,7 +141,7 @@ export class AddDepartmentMasterComponent implements OnInit {
 
 
   }
-  
+
 
   onSubmit(){
     // if(this.docForm.controls.isactive.value==""){
@@ -162,7 +163,7 @@ export class AddDepartmentMasterComponent implements OnInit {
       this.departmentMaster = this.docForm.value;
     console.log(this.departmentMaster);
     this.departmentMasterService.addDepartment(this.departmentMaster,this.router,this.notificationService);
-    
+
   }
   else{
     this.showNotification(
@@ -180,7 +181,7 @@ export class AddDepartmentMasterComponent implements OnInit {
         "right"
       );
     }
-    
+
   }
 
   validateDepartmentCode(event){
@@ -195,13 +196,12 @@ export class AddDepartmentMasterComponent implements OnInit {
 
   fetchDetails(department: any): void {
     this.httpService.get(this.departmentMasterService.editDepartment + "?department=" + department).subscribe((res: any) => {
-
+      this.fetchBranchDetails(res.departmentBean.company);
     // this.httpService.get(this.departmentMasterService.editDepartment+"?departmentMaster="+deptCode).subscribe((res: any)=> {
       console.log(department);
 
       this.docForm.patchValue({
-        // 'departmentCode': res.departmentMasterBean.departmentCode,
-         //'departmentName': res.departmentMasterBean.departmentName,
+
          'deptCode': res.departmentBean.deptCode,
         'departmentHead': res.departmentBean.departmentHead,
         'remarks' : res.departmentBean.remarks,
@@ -209,8 +209,8 @@ export class AddDepartmentMasterComponent implements OnInit {
         'deptId' : res.departmentBean.deptId,
         'contactPerson' : res.departmentBean.contactPerson,
         'company' : res.departmentBean.company,
-        'branchname' : res.departmentBean.branchname, 
-  
+        'branchname' : res.departmentBean.branchname,
+
      })
       },
       (err: HttpErrorResponse) => {
@@ -231,7 +231,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     if (this.docForm.valid){
     this.departmentMaster = this.docForm.value;
     this.httpService.post(this.departmentMasterService.updateDepartment, this.departmentMaster).subscribe((res: any) =>{
-     
+
      if(res.success){
       this.showNotification(
         "snackbar-success",
@@ -248,7 +248,7 @@ export class AddDepartmentMasterComponent implements OnInit {
         "center"
       );
      }
-     
+
     });
   }
   else{
@@ -268,7 +268,7 @@ export class AddDepartmentMasterComponent implements OnInit {
       "right"
     );
   }
-    
+
 
   }
 
@@ -307,10 +307,10 @@ export class AddDepartmentMasterComponent implements OnInit {
 
   onCancel(){
     this.router.navigate(['/master/department-Master/list-department']);
-  
+
   }
-  
- 
+
+
   reset() {
     location.reload()
     if (!this.edit) {
@@ -349,7 +349,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     });
   }
 
-  
+
 
 
 }

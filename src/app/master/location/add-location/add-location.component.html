@@ -18,7 +18,7 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline" required>
 
                       <mat-select class="inputTxt" formControlName="company"(selectionChange)="getCompanybasedlocationDropdown($event.value)">
-                        <mat-option *ngFor="let title of company" [value]="title.id">
+                        <mat-option *ngFor="let title of companyList" [value]="title.id">
                             {{title.text}}
                         </mat-option>
 

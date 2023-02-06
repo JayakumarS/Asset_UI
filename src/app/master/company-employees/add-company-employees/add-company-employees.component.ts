@@ -23,6 +23,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   RoleDdList:[];
   getUserBasedCompanyList:[];
   getUserBasedBranchList:[];
+  getUserBasedDepartmentList:[];
   docForm: FormGroup;
   edit:boolean= false;
   roleId: any;
@@ -47,12 +48,12 @@ export class AddCompanyEmployeesComponent implements OnInit {
     public router: Router,) {
     this.docForm = this.fb.group({
       company:this.companyName,
-      branch:[""],
+      branch:["",[Validators.required]],
       role:[""],
       emailId:[""],
-      fullName: [""],
+      fullName: ["",[Validators.required]],
       phoneno:[""],
-      department:[""],
+      department:["",[Validators.required]],
       active:[false],
       id:[""],
 
@@ -74,12 +75,12 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
     this.docForm = this.fb.group({
       company:this.companyName,
-      branch:[""],
+      branch:["",[Validators.required]],
       role:[""],
       emailId:[""],
-      fullName: [""],
+      fullName: ["",[Validators.required]],
       phoneno:[""],
-      department:[""],
+      department:["",[Validators.required]],
       active:[false],
       id:[""],
 
@@ -90,7 +91,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       branchId:this.tokenStorage.getBranchId(),
 
     });
-   
+   //branch 
     this.userId = this.tokenStorage.getUserId();
 
     this.companyId = this.tokenStorage.getCompanyId(),
@@ -100,6 +101,24 @@ export class AddCompanyEmployeesComponent implements OnInit {
       console.log();
 
       this.getUserBasedBranchList = res.getUserBasedBranchList;
+
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+
+    //department
+
+    this.userId = this.tokenStorage.getUserId();
+
+    this.companyId = this.tokenStorage.getCompanyId(),
+
+
+    this.httpService.get(this.companyEmployeeService.fetchdepartment + "?companyId=" + this.companyId).subscribe((res: any) => {
+      console.log();
+
+      this.getUserBasedDepartmentList = res.getUserBasedDepartmentList;
 
     },
       (err: HttpErrorResponse) => {

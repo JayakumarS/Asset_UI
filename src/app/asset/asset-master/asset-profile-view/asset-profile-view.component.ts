@@ -313,7 +313,7 @@ fetchAssetName(asset:any){
       editId: id
     }
 
-    this.assetService.editAsset(obj).subscribe({
+    this.assetService.viewAsset(obj).subscribe({
       next: (res: any) => {
         
    this.profileViewDetails=res.addAssetBean;
