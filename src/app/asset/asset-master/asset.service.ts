@@ -37,6 +37,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   private saveAssetMaster = `${this.serverUrl.apiServerAddress}app/assetMaster/saveAsset`;
   private updateAsset = `${this.serverUrl.apiServerAddress}app/assetMaster/update`;
   public editAssetMaster = `${this.serverUrl.apiServerAddress}app/assetMaster/edit`;
+  public viewAssetMaster = `${this.serverUrl.apiServerAddress}app/assetMaster/view`;
   public deleteAssetMaster = `${this.serverUrl.apiServerAddress}app/assetMaster/delete`;
   public getAssetDetails = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetDetails`;
   public getAssetList = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetListFor`;
@@ -92,6 +93,10 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   editAsset(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.editAssetMaster, obj);
+  }
+
+ viewAsset(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.viewAssetMaster, obj);
   }
 
   deleteAsset(obj: any): Observable<any> {

@@ -640,24 +640,31 @@
                                                 <div>
                                                     <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                                                         <thead class="">
-                                                            <!-- <tr>
-                                                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">Asset Name</th>
-                                                               
-                                                                <th class="table-heading text-center" style="margin-left: 10px; width: 11%; border-radius: 0.05rem;">
-                                                                    <label class="i-checks m-b-none">
-                                                                         <i></i>
-                                                                    </label></th>
-                                                                <th class="table-heading text-center" style="margin-left: 10px;width: 11%; border-radius: 0.05rem;">
-                                                                    <label class="i-checks m-b-none">
-                                                                        <i></i>
-                                                                    </label></th>
-                                                            </tr> -->
-                                                        </thead>
+                                                            <tr>
+                                                             <th style="width: 1%;"></th>
+                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                                         width: 12%; border-radius: 0.05rem;">Asset Name</th>
+                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                                         width: 12%;border-radius: 0.07rem;">Asset Code</th>
+                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                                         width: 12%;border-radius: 0.07rem;">Location</th>
+                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                                         width: 12%;border-radius: 0.07rem;">Category</th>
+                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                                         width: 12%; border-radius: 0.05rem;">Status</th>
+                                                            </tr>
+                                                          </thead>
                                                         <ng-container *ngFor="let assetMasterBean of docForm.get('assetMasterBean')['controls']; let i = index">
                                                             <tbody [formGroup]="assetMasterBean">
                                                                 <tr>
+                                                                    <td>
+                                                                        <button mat-mini-fab color="warn" (click)="removeRowSelf(i)">
+                                                                            <mat-icon class="col-white">delete</mat-icon>
+                                                                        </button>
+                                                                    </td>
+                
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">
-                                                                        <mat-label>Asset Name</mat-label>
+                                                                        <!-- <mat-label>Asset Name</mat-label> -->
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                                             <mat-select tabindex="30" formControlName="assName" (selectionChange)="assetDetails($event,i)">
                                                                                 <mat-option *ngFor="let title of assetnamelist" [value]="title.id" >
@@ -667,44 +674,42 @@
                                                                         </mat-form-field>
                                                                     </td>
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">  
-                                                                        <mat-label>Asset Code</mat-label>
+                                                                        <!-- <mat-label>Asset Code</mat-label> -->
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                                             <input matInput  tabindex="31" formControlName="assCode" [readonly]="true">
                                                                            </mat-form-field>
                                                                     </td>
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">
-                                                                        <mat-label>Location</mat-label>
+                                                                        <!-- <mat-label>Location</mat-label> -->
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                                                                             <input matInput  tabindex="32" formControlName="assLocation" [readonly]="true">
                                                                            </mat-form-field>
                                                                     </td>
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">
-                                                                        <mat-label>Category</mat-label>
+                                                                        <!-- <mat-label>Category</mat-label> -->
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                                             <input matInput tabindex="33" formControlName="assCategory" [readonly]="true">
                                                                            </mat-form-field>
                                                                     </td>
                                                                     <td class="padding-both-side-2" *ngIf="isLineIn">
-                                                                        <mat-label>Status</mat-label>
+                                                                        <!-- <mat-label>Status</mat-label> -->
                                                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                                             <input matInput tabindex="34"  selected formControlName="assStatus" [readonly]="true">
                                                                            </mat-form-field>
                                                                     </td>
-                                                                    <td>
-                                                                        <button mat-mini-fab color="warn" (click)="removeRowSelf(i)" style="margin-left: -35%;">
-                                                                            <mat-icon class="col-white">delete</mat-icon>
-                                                                        </button>
-                                                                    </td>
-                
-                                                                    <td>
-                                                                        <button mat-mini-fab color="primary" (click)="addRowSelf()" style="margin-left: -90%;">
-                                                                            <mat-icon class="col-white">add</mat-icon>
-                                                                        </button>
-                                                                    </td>
+                                                                
+                                                                   
                                                                 </tr>
                                                             </tbody>
                                                         </ng-container>
                                                     </table>
+                                                </div>
+                                                <div style="margin-left: 0.5%;">
+                                                    <td>
+                                                        <button mat-mini-fab color="primary" (click)="addRowSelf()">
+                                                            <mat-icon class="col-white">add</mat-icon>
+                                                        </button>
+                                                    </td>
                                                 </div>
                                         </mat-tab>
                                     </mat-tab-group>

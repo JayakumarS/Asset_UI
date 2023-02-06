@@ -18,6 +18,7 @@ export class AssetMaster {
 	category: number;
 	condition: string;
 	department: number;
+	departmentName: string;
 	depreciation: string;
 	description: string;
 	endLife: string;
