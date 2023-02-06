@@ -44,8 +44,8 @@
 
                             <!-- GRN Based Save Mutiple Asset Start-->
                             <div *ngIf="grnFlag">
-                                <h6 class="headingValue"> GRN Item Based Asset </h6>
-                                <div style="overflow-x: auto;zoom: 90%;">
+                                <h6  style="padding-left: 56px;"class="headingValue"> GRN Item Based Asset </h6>
+                                <div style="overflow-x: auto;zoom: 90%;margin-left: 61px;">
                                   <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                                     <thead class="">
                                       <tr>
@@ -70,7 +70,7 @@
                                       <tbody [formGroup]="grnBasedAssetList">
                                         <tr>
                                           <td class="padding-both-side-2">
-                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                                               <mat-label>Item Code-Item Name</mat-label>
                                               <mat-select name="itemId{{i}}" formControlName="itemId" [disabled]="true" >
                                                 <mat-option *ngFor="let title of itemCodeNameList" [value]="title.id">

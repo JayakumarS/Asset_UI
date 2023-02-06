@@ -38,7 +38,7 @@ export class UserMasterService extends UnsubscribeOnDestroyAdapter {
   public editUserMaster = `${this.serverUrl.apiServerAddress}app/userMaster/edit`;
   public updateUserMaster = `${this.serverUrl.apiServerAddress}app/userMaster/update`;
   public deleteUserMaster = `${this.serverUrl.apiServerAddress}app/userMaster/delete`;
-  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}app/commonServices/validateUnique`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
   public roleListUrl = `${this.serverUrl.apiServerAddress}app/userMaster/getRoleListDropdown`;
   public roleListAuditUrl = `${this.serverUrl.apiServerAddress}app/userMaster/getRoleListDropdownForAudit`;
   public companyListUrl = `${this.serverUrl.apiServerAddress}app/userMaster/userBasedCompanyList`;
