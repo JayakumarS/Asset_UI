@@ -333,6 +333,7 @@ export class AddUserMasterComponent implements OnInit {
       }else{
         this.auditorFlag=false;
       }
+      this.fetchBranchDetails(res.userMasterBean.company) ;
 
       this.docForm.patchValue({
         'userId': res.userMasterBean.userId,
@@ -340,22 +341,23 @@ export class AddUserMasterComponent implements OnInit {
         'emailId': res.userMasterBean.emailId,
         'contNumber': res.userMasterBean.contNumber,
         'role': res.userMasterBean.role+"",
-        'department': res.userMasterBean.department,
+        'department': res.userMasterBean.department.toString(),
         'repmanager': res.userMasterBean.repmanager,
         'language': res.userMasterBean.language,
-        'location': res.userMasterBean.location,
+        'location': res.userMasterBean.location.toString(),
         'otp': res.userMasterBean.otp,
         'company': res.userMasterBean.company,
         'userLocation': res.userMasterBean.userLocation,
         'empid': res.userMasterBean.empid,
         'active': res.userMasterBean.active,
-        'branch': res.userMasterBean.branch,
+        'branch': res.userMasterBean.branch.toString(),
         'auditor': res.userMasterBean.auditor,
         'address':res.userMasterBean.address,
         'country':res.userMasterBean.country,
 
 
      })
+     
     },
     (err: HttpErrorResponse) => {
 
