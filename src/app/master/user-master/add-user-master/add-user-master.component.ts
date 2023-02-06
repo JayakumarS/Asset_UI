@@ -71,7 +71,7 @@ export class AddUserMasterComponent implements OnInit {
       branchid:[""],
       address:[""],
       country:[""],
-
+      loggedInRoleId:[this.tokenStorage.getRoleId()]
     //  loginedUser: this.tokenStorage.getUserId(),
     });
   }
@@ -169,16 +169,9 @@ export class AddUserMasterComponent implements OnInit {
       this.roleList = data.roleList;
       if (!this.edit){
         
-        if(this.auditorFlag){
-          this.roleList=[{id:'6',text:'Guest'}];
-          this.docForm.patchValue({role:'6'});
-        }
         if(this.roleId==1){
           this.roleList=[{id:'3',text:'CHECKER'}];
           this.docForm.patchValue({role:'3'});
-        }else if(this.roleId==3){
-          this.roleList=[{id:'6',text:'Guest'}];
-          this.docForm.patchValue({role:'6'});
         }
 
       }
@@ -374,7 +367,7 @@ export class AddUserMasterComponent implements OnInit {
     if (this.docForm.valid){
       this.userMaster = this.docForm.value;
       this.spinner.show();
-      if(this.auditorFlag==false){
+      if(this.roleId!=1){
         if(this.docForm.value.company !="" && this.docForm.value.branch !=""){
           this.userMasterService.addUser(this.userMaster).subscribe({
             next: (data) => {
