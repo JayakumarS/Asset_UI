@@ -69,7 +69,7 @@
               
                
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label >LOCATION<span class="errorColor">*</span></label>
+                      <label >LOCATION</label>
                   </div> 
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -78,9 +78,7 @@
                                 {{title.text}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="docForm.get('location').hasError('required')">
-                          LOCATION is required
-                        </mat-error> 
+                        
                     </mat-form-field>
                 </div>
                 </div>
