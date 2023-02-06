@@ -79,6 +79,7 @@ export class AddLocationComponent implements OnInit {
       locationId: [""],
       locationCode: ["", [Validators.required]],
       locationName: ["", [Validators.required]],
+      company: ["", [Validators.required]],
       // cslLocationCode: ["", [Validators.required]],
       parentLocation: [""],
       description: [""],
@@ -86,7 +87,7 @@ export class AddLocationComponent implements OnInit {
       cascade: [""],
       primaryLocation: [""],
       alternateLocation: [""],
-      company:this.tokenStorage.getCompanyId(),
+      companyId:this.tokenStorage.getCompanyId(),
       branchId:this.tokenStorage.getBranchId(),
       userId:this.tokenStorage.getUserId()
     });
