@@ -213,7 +213,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
     this.docForm.patchValue({
      
-      'company': parseInt(res.companyEmployeeBean.company),
+      'company': res.companyEmployeeBean.company,
       'branch':  parseInt(res.companyEmployeeBean.branch),
       'emailId' : res.companyEmployeeBean.emailId, 
       'fullName' : res.companyEmployeeBean.fullName, 
