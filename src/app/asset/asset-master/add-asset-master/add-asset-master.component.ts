@@ -203,7 +203,18 @@ export class AddAssetMasterComponent
     );
 
     // Location dropdown
-    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+    // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+    //   next: (data) => {
+    //     this.locationDdList = data;
+    //   },
+    //   error: (error) => {
+
+    //   }
+    // }
+    // );
+
+     // Location dropdown
+     this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.locationDdList = data;
       },
@@ -212,6 +223,7 @@ export class AddAssetMasterComponent
       }
     }
     );
+    
 
     //Item Master Dropdown List
     this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
@@ -433,6 +445,16 @@ export class AddAssetMasterComponent
     const obj = {
       editId: id
     }
+
+    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.locationDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
 
     this.assetService.editAsset(obj).subscribe({
       next: (res: any) => {

@@ -27,6 +27,7 @@ export class AddDepreciationReportComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private cmnService: CommonService,
     public commonService: CommonService,
     private httpService: HttpServiceService,
     public reportsService: ReportsService,
@@ -51,6 +52,8 @@ export class AddDepreciationReportComponent implements OnInit {
     captitalizationDate: [""],
     scrapValue: [""],
     endLife: [""],
+    asset_location: [""],
+    discardFromDate: [""],
 
 });
  }
@@ -75,6 +78,8 @@ export class AddDepreciationReportComponent implements OnInit {
       captitalizationDate: [""],
       scrapValue: [""],
       endLife: [""],
+      asset_location: [""],
+      discardFromDate: [""],
 
   });
 
@@ -116,39 +121,49 @@ export class AddDepreciationReportComponent implements OnInit {
         }
       });
   }
+  getDateString(event, inputFlag){
+    let cdate = this.cmnService.getDate(event.target.value);
+    if (inputFlag=='date'){
+      this.docForm.patchValue({date: cdate});
+    }
+    else {
+    }
+
+  };
 
   onTableDataChange(event: any) {
     this.page = event;
   }
 
-  // searchData()
-  // {
-  //   // this.reportscategory=this.docForm.value;
-  //   // tslint:disable-next-line:max-line-length
-  //   this.httpService.get(this.reportsService.depreciationSerach + "?depreciation=" + this.docForm.controls.asset.value ).subscribe((res: any) => {
-  //     console.log(res);
-  //     this.depreciationList = res.depreciationList;
-  //   },
-  //   (err: HttpErrorResponse) => {
-  //   }
-  // );
-  // }
 
-  searchData(){
-    this.reportscategory = this.docForm.value.depreciationMethod;
-    // tslint:disable-next-line:max-line-length
-    this.httpService.get(this.reportsService.depreciationSerach  + "?depreciation=" + this.reportscategory ).subscribe((res: any) => {
-      console.log(res);
-      this.depreciationList = res.depreciationList;
-    },
-    (err: HttpErrorResponse) => {
-    }
-  );
+
+//   searchData(){
+//     this.reportscategory = this.docForm.value.depreciationMethod;
+//     // tslint:disable-next-line:max-line-length
+//     this.httpService.get(this.reportsService.depreciationSerach  + "?depreciation=" + this.reportscategory ).subscribe((res: any) => {
+//       console.log(res);
+//       this.depreciationList = res.depreciationList;
+//     },
+//     (err: HttpErrorResponse) => {
+//     }
+//   );
+// }
+
+searchData(){
+  this.reportscategory = this.docForm.value;
+  // tslint:disable-next-line:max-line-length
+  this.httpService.post(this.reportsService.depreciationSerach, this.reportscategory).subscribe((res: any) => {
+    console.log(res);
+    this.depreciationList = res.depreciationList;
+  },
+  (err: HttpErrorResponse) => {
+  }
+);
 }
 
   reset()
   {
-    location.reload()
+    location.reload();
 
     this.docForm.patchValue({
       'depreciationMethod' : '',

@@ -71,7 +71,7 @@ export class AddUserMasterComponent implements OnInit {
       branchid:[""],
       address:[""],
       country:[""],
-
+      loggedInRoleId:[this.tokenStorage.getRoleId()]
     //  loginedUser: this.tokenStorage.getUserId(),
     });
   }
@@ -169,16 +169,9 @@ export class AddUserMasterComponent implements OnInit {
       this.roleList = data.roleList;
       if (!this.edit){
         
-        if(this.auditorFlag){
-          this.roleList=[{id:'6',text:'Guest'}];
-          this.docForm.patchValue({role:'6'});
-        }
         if(this.roleId==1){
           this.roleList=[{id:'3',text:'CHECKER'}];
           this.docForm.patchValue({role:'3'});
-        }else if(this.roleId==3){
-          this.roleList=[{id:'6',text:'Guest'}];
-          this.docForm.patchValue({role:'6'});
         }
 
       }
@@ -340,6 +333,7 @@ export class AddUserMasterComponent implements OnInit {
       }else{
         this.auditorFlag=false;
       }
+      this.fetchBranchDetails(res.userMasterBean.company) ;
 
       this.docForm.patchValue({
         'userId': res.userMasterBean.userId,
@@ -347,22 +341,23 @@ export class AddUserMasterComponent implements OnInit {
         'emailId': res.userMasterBean.emailId,
         'contNumber': res.userMasterBean.contNumber,
         'role': res.userMasterBean.role+"",
-        'department': res.userMasterBean.department,
+        'department': res.userMasterBean.department.toString(),
         'repmanager': res.userMasterBean.repmanager,
         'language': res.userMasterBean.language,
-        'location': res.userMasterBean.location,
+        'location': res.userMasterBean.location.toString(),
         'otp': res.userMasterBean.otp,
         'company': res.userMasterBean.company,
         'userLocation': res.userMasterBean.userLocation,
         'empid': res.userMasterBean.empid,
         'active': res.userMasterBean.active,
-        'branch': res.userMasterBean.branch,
+        'branch': res.userMasterBean.branch.toString(),
         'auditor': res.userMasterBean.auditor,
         'address':res.userMasterBean.address,
         'country':res.userMasterBean.country,
 
 
      })
+     
     },
     (err: HttpErrorResponse) => {
 
@@ -374,7 +369,7 @@ export class AddUserMasterComponent implements OnInit {
     if (this.docForm.valid){
       this.userMaster = this.docForm.value;
       this.spinner.show();
-      if(this.auditorFlag==false){
+      if(this.roleId!=1){
         if(this.docForm.value.company !="" && this.docForm.value.branch !=""){
           this.userMasterService.addUser(this.userMaster).subscribe({
             next: (data) => {

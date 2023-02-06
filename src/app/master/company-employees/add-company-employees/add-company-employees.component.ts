@@ -239,7 +239,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       'phoneno' : res.companyEmployeeBean.phoneno, 
       'department' : parseInt(res.companyEmployeeBean.department), 
       'role' : res.companyEmployeeBean.role, 
-
+      'active': res.companyEmployeeBean.active,
       'id' : res.companyEmployeeBean.id
 
       
