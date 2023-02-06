@@ -61,7 +61,9 @@ const httpOptions = {
     }
     
     getAllList(): void {
-      this.subs.sink = this.httpService.get<CompanyEmployeeResultBean>(this.getlist).subscribe(
+      let companyId=this.tokenStorage.getCompanyText();
+
+      this.subs.sink = this.httpService.get<CompanyEmployeeResultBean>(this.getlist+"?companyId="+companyId).subscribe(
         (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.companyEmoloyeeDetails);
@@ -72,6 +74,8 @@ const httpOptions = {
         }
       );
   }
+
+
   
   CompanyEmpUpdate(company: Company,router,): void {
     this.dialogData = company;

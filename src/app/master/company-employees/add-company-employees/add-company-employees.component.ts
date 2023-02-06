@@ -46,7 +46,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
     private snackBar: MatSnackBar,
     public router: Router,) {
     this.docForm = this.fb.group({
-      company:this.companyId,
+      company:this.companyName,
       branch:[""],
       role:[""],
       emailId:[""],
@@ -57,8 +57,8 @@ export class AddCompanyEmployeesComponent implements OnInit {
       id:[""],
 
       // userId: this.tokenStorage.getUserId(),
-      // companyId:this.tokenStorage.getCompanyId(),
-      companyName:this.tokenStorage.getCompanyText(),
+      companyId:this.tokenStorage.getCompanyId(),
+      // companyName:this.tokenStorage.getCompanyText(),
 
       branchId:this.tokenStorage.getBranchId(),
 
@@ -69,11 +69,11 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
     
 
-    this.companyId=this.tokenStorage.getCompanyText();
-    console.log(this.companyId);
+    this.companyName=this.tokenStorage.getCompanyText();
+    console.log(this.companyName);
 
     this.docForm = this.fb.group({
-      company:this.companyId,
+      company:this.companyName,
       branch:[""],
       role:[""],
       emailId:[""],
@@ -92,6 +92,9 @@ export class AddCompanyEmployeesComponent implements OnInit {
     });
    
     this.userId = this.tokenStorage.getUserId();
+
+    this.companyId = this.tokenStorage.getCompanyId(),
+
 
     this.httpService.get(this.companyEmployeeService.fetchBranch + "?companyId=" + this.companyId).subscribe((res: any) => {
       console.log();
@@ -210,7 +213,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
     this.docForm.patchValue({
      
-      'company': parseInt(res.companyEmployeeBean.company),
+      'company': res.companyEmployeeBean.company,
       'branch':  parseInt(res.companyEmployeeBean.branch),
       'emailId' : res.companyEmployeeBean.emailId, 
       'fullName' : res.companyEmployeeBean.fullName, 
