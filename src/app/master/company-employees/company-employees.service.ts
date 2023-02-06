@@ -30,13 +30,13 @@ const httpOptions = {
       super();
     }
     public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
-    public saveCompany = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/saveCompanyEmp`;
-    public getlist = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/getlist`;
-    public editcategory = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/edit`;
-    public deletecategory = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/delete`;
-    public updatecompanyEmp = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/update`;
-    public companyListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/userBasedCompanyList`;
-    public fetchBranch = `${this.serverUrl.apiServerAddress}api/auth/app/CompanyEmployee/userBasedBranchList`;
+    public saveCompany = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/saveCompanyEmp`;
+    public getlist = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/getlist`;
+    public editcategory = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/edit`;
+    public deletecategory = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/delete`;
+    public updatecompanyEmp = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/update`;
+    public companyListUrl = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedCompanyList`;
+    public fetchBranch = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedBranchList`;
     
     
     
