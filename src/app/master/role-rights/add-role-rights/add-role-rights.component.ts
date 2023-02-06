@@ -179,15 +179,15 @@ export class AddRoleRightsComponent extends UnsubscribeOnDestroyAdapter implemen
       return value.isCheckFormProperty
     });
     setTimeout(() => {
-      if (this.selectedFormPropertyList.length == 0 || this.selectedFormPropertyList == null || this.selectedFormPropertyList == undefined) {
-        this.showNotification(
-          "snackbar-danger",
-          "You must check at least one Forms",
-          "top",
-          "right"
-        );
-        return;
-      }
+      // if (this.selectedFormPropertyList.length == 0 || this.selectedFormPropertyList == null || this.selectedFormPropertyList == undefined) {
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "You must check at least one Forms",
+      //     "top",
+      //     "right"
+      //   );
+      //   return;
+      // }
       if (this.docForm.valid) {
         const addRoleRightObj = {
           roleId: this.docForm.value.roleId,
