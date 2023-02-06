@@ -222,14 +222,14 @@ console.log(this.assetcategory);
     });
   }
 
-  validateCatergory(event){
-    this.httpService.get<any>(this.categoryMasterService.uniqueValidateUrl+ "?tableName=" +"assetcategory"+"&columnName="+"category_name"+"&columnValue="+event).subscribe((res: any) => {
-      if(res){
-        this.docForm.controls['categoryName'].setErrors({ assetcategory: true });
-      }else{
-        this.docForm.controls['categoryName'].setErrors(null);
-      }
-    });
-  }
+  // validateCatergory(event){
+  //   this.httpService.get<any>(this.categoryMasterService.uniqueValidateUrl+ "?tableName=" +"assetcategory"+"&columnName="+"category_name"+"&columnValue="+event).subscribe((res: any) => {
+  //     if(res){
+  //       this.docForm.controls['categoryName'].setErrors({ assetcategory: true });
+  //     }else{
+  //       this.docForm.controls['categoryName'].setErrors(null);
+  //     }
+  //   });
+  // }
 
 }
