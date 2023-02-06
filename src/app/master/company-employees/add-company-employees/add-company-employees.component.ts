@@ -32,6 +32,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   roleIdFlag: boolean;
   company: Company
   requestId: any;
+  companyName: any;
   constructor( private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -45,7 +46,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
     private snackBar: MatSnackBar,
     public router: Router,) {
     this.docForm = this.fb.group({
-      company:[""],
+      company:this.companyId,
       branch:[""],
       role:[""],
       emailId:[""],
@@ -56,13 +57,53 @@ export class AddCompanyEmployeesComponent implements OnInit {
       id:[""],
 
       // userId: this.tokenStorage.getUserId(),
-      companyId:this.tokenStorage.getCompanyId(),
+      // companyId:this.tokenStorage.getCompanyId(),
+      companyName:this.tokenStorage.getCompanyText(),
+
       branchId:this.tokenStorage.getBranchId(),
 
     });
    }
 
   ngOnInit(): void {
+
+    
+
+    this.companyId=this.tokenStorage.getCompanyText();
+    console.log(this.companyId);
+
+    this.docForm = this.fb.group({
+      company:this.companyId,
+      branch:[""],
+      role:[""],
+      emailId:[""],
+      fullName: [""],
+      phoneno:[""],
+      department:[""],
+      active:[false],
+      id:[""],
+
+      // userId: this.tokenStorage.getUserId(),
+      // companyId:this.tokenStorage.getCompanyId(),
+      companyName:this.tokenStorage.getCompanyText(),
+
+      branchId:this.tokenStorage.getBranchId(),
+
+    });
+   
+    this.userId = this.tokenStorage.getUserId();
+
+    this.httpService.get(this.companyEmployeeService.fetchBranch + "?companyId=" + this.companyId).subscribe((res: any) => {
+      console.log();
+
+      this.getUserBasedBranchList = res.getUserBasedBranchList;
+
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -131,18 +172,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
   fetchBranchDetails(customer: any) {
 
-    this.userId = this.tokenStorage.getUserId();
-
-    this.httpService.get(this.companyEmployeeService.fetchBranch + "?companyId=" + this.companyId).subscribe((res: any) => {
-      console.log(customer);
-
-      this.getUserBasedBranchList = res.getUserBasedBranchList;
-
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
+    
 
 
   }
