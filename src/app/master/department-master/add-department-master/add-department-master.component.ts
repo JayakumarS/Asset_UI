@@ -101,13 +101,13 @@ export class AddDepartmentMasterComponent implements OnInit {
     });
 
       // Branch Dropdown List
-      this.httpService.get<any>(this.departmentMasterService.getBranchDropdown+"?companyId="+this.companyId).subscribe({
-        next: (data) => {
-          this.branchList = data;
-        },
-        error: (error) => {
-        }
-      });
+      // this.httpService.get<any>(this.departmentMasterService.getBranchDropdown+"?companyId="+this.companyId).subscribe({
+      //   next: (data) => {
+      //     this.branchList = data;
+      //   },
+      //   error: (error) => {
+      //   }
+      // });
 
 
 
@@ -197,6 +197,7 @@ export class AddDepartmentMasterComponent implements OnInit {
   fetchDetails(department: any): void {
     this.httpService.get(this.departmentMasterService.editDepartment + "?department=" + department).subscribe((res: any) => {
       this.fetchBranchDetails(res.departmentBean.company);
+    // this.httpService.get(this.departmentMasterService.editDepartment+"?departmentMaster="+deptCode).subscribe((res: any)=> {
       console.log(department);
 
       this.docForm.patchValue({
@@ -209,6 +210,7 @@ export class AddDepartmentMasterComponent implements OnInit {
         'contactPerson' : res.departmentBean.contactPerson,
         'company' : res.departmentBean.company,
         'branchname' : res.departmentBean.branchname,
+
      })
       },
       (err: HttpErrorResponse) => {
