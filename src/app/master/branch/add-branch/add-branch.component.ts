@@ -123,14 +123,15 @@ export class AddBranchComponent implements OnInit {
       console.log(id);
       console.log(res);
      this.edit = true;
-      this.docForm.patchValue({
+     this.validationUserGroup(res.branchbean.companyId);
+     this.docForm.patchValue({
 
-        'branchname': res.branchbean.branchname,
-        'companyId': res.branchbean.companyId,
-        'isactive': res.branchbean.isactive,
-        'location': res.branchbean.location,
-        'branchCode' : res.branchbean.branchCode
-     })
+      'branchname': res.branchbean.branchname,
+      'companyId': res.branchbean.companyId,
+      'isactive': res.branchbean.isactive,
+      'location': res.branchbean.location,
+      'branchCode' : res.branchbean.branchCode
+   })
       },
       (err: HttpErrorResponse) => {
          // error code here
