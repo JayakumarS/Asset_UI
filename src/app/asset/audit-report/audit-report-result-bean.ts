@@ -1,3 +1,3 @@
 export class AuditReportResultBean{
-    auditableAssetDetails: [];
+    auditReportList: [];
 }

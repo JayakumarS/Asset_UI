@@ -51,7 +51,7 @@ export class HeaderComponent
     private router: Router,
     public languageService: LanguageService,
     private app:AppService,
-    private token: TokenStorageService,
+    public token: TokenStorageService,
     public dialog: MatDialog,
 
     

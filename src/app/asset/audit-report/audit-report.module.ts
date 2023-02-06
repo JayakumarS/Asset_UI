@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuditReportRoutingModule } from './audit-report-routing.module';
-import { AddAuditReportComponent } from './add-audit-report/add-audit-report.component';
 import { ListAuditReportComponent } from './list-audit-report/list-audit-report.component';
-import { DeleteAuditReportComponent } from './list-audit-report/delete-audit-report/delete-audit-report.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -30,9 +28,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
-    AddAuditReportComponent,
+    
     ListAuditReportComponent,
-    DeleteAuditReportComponent
+    
   ],
   imports: [
     CommonModule,

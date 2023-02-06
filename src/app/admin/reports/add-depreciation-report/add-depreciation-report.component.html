@@ -28,13 +28,14 @@
                           </mat-select></mat-form-field>
                         </div>
                           <div class="col-md-2" >
-                              <mat-label class="lable">Date</mat-label>
-                              <!-- <input tabindex="2"  placeholder="Date"  type="date" class="form-control" formControlName="date"> -->
-                              <mat-datepicker #picker></mat-datepicker>
-                              <mat-form-field appearance="fill">
-                                <input matInput [matDatepicker]="picker1" formControlName="date"tabindex="2"  placeholder="Date"  type="date" class="form-control" >
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                <mat-datepicker #picker1></mat-datepicker>
+                            <mat-label class="lable">Date</mat-label>
+
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                               <input matInput [matDatepicker]="picker" formControlName="discardFromDate"
+                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="date"tabindex="2"  placeholder="Date"
+                                (dateChange)="getDateString($event,'date')" >
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
                                 </mat-form-field>
                           </div>
 
@@ -51,7 +52,7 @@
                            <div class="col-md-2">
                             <mat-label class="lable">Asset Location</mat-label>
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-select class="inputTxt" formControlName="category" tabindex="4" placeholder="assetLocation">
+                              <mat-select class="inputTxt" formControlName="assetLocation" tabindex="4" placeholder="assetLocation">
                                 <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                                     {{title.text}}
                                 </mat-option>
@@ -85,7 +86,7 @@
         </div>
           <div class="row">
               <div class="col-md-12">
-                  <div class="table-responsive-sm"*ngIf="depreciationList.length>0" >
+                  <div class="table-responsive-sm"*ngIf="depreciationList" >
                     <table id="excel-table" class="table table-striped">
                       <thead >
                             <tr>
