@@ -27,6 +27,7 @@ export class AddBranchComponent implements OnInit {
   userId:any;
   string:any;
   
+  public modeselect = '1';
 
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
@@ -42,7 +43,8 @@ export class AddBranchComponent implements OnInit {
         companyId:[""],
         location:[""],
         isactive:[false],
-        userId:[""]
+        userId:[""],
+        shift:[""]
       });
 
 
@@ -130,7 +132,8 @@ export class AddBranchComponent implements OnInit {
       'companyId': res.branchbean.companyId,
       'isactive': res.branchbean.isactive,
       'location': res.branchbean.location,
-      'branchCode' : res.branchbean.branchCode
+      'branchCode' : res.branchbean.branchCode,
+      'shift' :  res.branchbean.shift+""
    })
       },
       (err: HttpErrorResponse) => {
@@ -182,6 +185,7 @@ export class AddBranchComponent implements OnInit {
     location: [""],
     branchname: [""],
     companyId: [""],
+    shift: [""]
 
   });
 } else {

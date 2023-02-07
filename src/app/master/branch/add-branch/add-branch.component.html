@@ -13,7 +13,6 @@
 
 
 
-
                 <div class="row">
                 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
@@ -94,15 +93,34 @@
                 </div> -->
 
                 <div class="row">
+
+   
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label>NO OF SHIFTS<span class="errorColor">*</span></label>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12" style="    margin-left: -2%;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-select formControlName="shift" [(ngModel)]="modeselect" required>
+                      <mat-option  [value]="'1'">1</mat-option>
+                      <mat-option  [value]="'2'">2</mat-option>
+                      <mat-option  [value]="'3'">3</mat-option>
+                      
+                    </mat-select>
+                    <mat-error *ngIf="docForm.get('shift').hasError('required')">
+                      no of shift is required
+                    </mat-error>
+                  </mat-form-field>
+                </div> 
+
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;" >
                     <label >IS ACTIVE</label>
                 </div> 
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -117px;">
-                  <mat-checkbox formControlName="isactive"  ngInit="checked=true" ></mat-checkbox>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -101px;">
+                  <mat-checkbox formControlName="isactive"  ngInit="checked=true"  ></mat-checkbox>
                 </div>
               </div>
                 
-                <br>
+                
 
             
               <div class="row"> 
