@@ -203,6 +203,7 @@ export class AddAssetMasterComponent
     );
 
     // Location dropdown
+ 
     // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
     //   next: (data) => {
     //     this.locationDdList = data;
@@ -223,6 +224,31 @@ export class AddAssetMasterComponent
       }
     }
     );
+
+// <<<<<<< Updated upstream
+//     // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+//     //   next: (data) => {
+//     //     this.locationDdList = data;
+//     //   },
+//     //   error: (error) => {
+
+//     //   }
+//     // }
+//     // );
+
+//      // Location dropdown
+//      this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+// =======
+//     this.httpService.get<any>(this.commonService.getMoveToDropdown+"?companyId="+parseInt(this.companyId)).subscribe({
+// >>>>>>> Stashed changes
+//       next: (data) => {
+//         this.locationDdList = data;
+//       },
+//       error: (error) => {
+
+//       }
+//     }
+//     );
     
 
     //Item Master Dropdown List

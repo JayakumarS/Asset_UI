@@ -5,6 +5,10 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { ReportsService } from '../reports.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Reportscategory } from '../reports-model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { UserMasterService } from 'src/app/master/user-master/user-master.service';
+
+
 
 
 @Component({
@@ -17,13 +21,18 @@ export class AddDepreciationReportComponent implements OnInit {
 
   docForm: FormGroup;
   page: number = 1;
+  [x: string]: any;
+
   depreciationList: any = [];
   assetcategoryList = [];
-  locationDdList = [];
-  departmentDdList = [];
+
 
   reportscategory: Reportscategory;
   searchList = [];
+  locationList = [];
+  requestId: any;
+  route: any;
+  departmentList = [];
 
 
   constructor(
@@ -32,6 +41,10 @@ export class AddDepreciationReportComponent implements OnInit {
     public commonService: CommonService,
     private httpService: HttpServiceService,
     public reportsService: ReportsService,
+    private tokenStorage: TokenStorageService,
+    private userMasterService: UserMasterService,
+
+
 
 ) {
 
@@ -82,6 +95,8 @@ export class AddDepreciationReportComponent implements OnInit {
       asset_location: [""],
       discardFromDate: [""],
 
+
+
   });
 
     // depreciation dropdown
@@ -103,24 +118,27 @@ export class AddDepreciationReportComponent implements OnInit {
 
         }
       });
-          // Location dropdown
-    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-      next: (data) => {
-        this.locationDdList = data;
+
+    // tslint:disable-next-line:max-line-length
+    this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId="  + this.tokenStorage.getCompanyId() + "").subscribe((res: any) => {
+        this.locationList = res.addressBean;
+
       },
-      error: (error) => {
-
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
       }
-    });
-      // department dropdown
-    this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
-        next: (data) => {
-          this.departmentDdList = data;
-        },
-        error: (error) => {
+      );
 
-        }
-      });
+        // Department Dropdown List
+    this.httpService.get<any>(this.userMasterService.departmentListUrl + "?company=" + this.tokenStorage.getCompanyId() + "").subscribe(
+      (data) => {
+        this.departmentList = data.departmentList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
   }
   getDateString(event, inputFlag){
     let cdate = this.cmnService.getDate(event.target.value);
@@ -137,18 +155,6 @@ export class AddDepreciationReportComponent implements OnInit {
   }
 
 
-
-//   searchData(){
-//     this.reportscategory = this.docForm.value.depreciationMethod;
-//     // tslint:disable-next-line:max-line-length
-//     this.httpService.get(this.reportsService.depreciationSerach  + "?depreciation=" + this.reportscategory ).subscribe((res: any) => {
-//       console.log(res);
-//       this.depreciationList = res.depreciationList;
-//     },
-//     (err: HttpErrorResponse) => {
-//     }
-//   );
-// }
 
 searchData(){
   this.reportscategory = this.docForm.value;
