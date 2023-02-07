@@ -37,6 +37,7 @@ export class AddUserMasterComponent implements OnInit {
   roleId:any;
   userId:any;
   auditorFlag:boolean=false;
+  auditorFFlag:boolean=false;
 
   constructor( private spinner: NgxSpinnerService,
                private fb: FormBuilder,
@@ -66,7 +67,7 @@ export class AddUserMasterComponent implements OnInit {
       empid: [""],
       active: [""],
       branch: [""],
-      auditor: [""],
+      auditor: ["true"],
       companyid:[""],
       branchid:[""],
       address:[""],
@@ -77,6 +78,7 @@ export class AddUserMasterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fieldsChange(this.docForm.value.auditor);
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
         this.requestId = params.id;
@@ -286,8 +288,9 @@ export class AddUserMasterComponent implements OnInit {
   }
 
   fieldsChange(values:any):void {
-    if(values.checked){
-      this.auditorFlag=true;
+    if(values.checked==true){
+      this.auditorFlag=false;
+    this.auditorFFlag=false;
       this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
         (data) => {
           this.roleAuditList = data.roleAuditList;
@@ -310,8 +313,9 @@ export class AddUserMasterComponent implements OnInit {
           console.log(error.name + " " + error.message);
         }
       );
-    }else{
-      this.auditorFlag=false;
+    }else if(values.checked==false){
+      this.auditorFlag=true;
+      this.auditorFFlag=true;
     }
   }
 
