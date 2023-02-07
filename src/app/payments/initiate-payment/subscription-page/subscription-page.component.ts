@@ -498,7 +498,7 @@ export class SubscriptionPageComponent implements OnInit {
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
-      duration: 750,
+      duration: 300,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
