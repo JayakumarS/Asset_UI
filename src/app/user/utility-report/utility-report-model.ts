@@ -1,9 +1,31 @@
 export class UtilityReport {
-  
+    startdate: string;
+    startdateObj: string;
+    enddate: string;
+    enddateObj: string;
+    warningSearch: string;
+    locationSearch: string;
+    search: string;
+
     date: string;
     meter: string;
     assignee: string;
-    
+    warningName: string;
+    meterType: string;
+    location: string;
+    assetName: string;
+    startDate: string;
+    endDate: string; 
+    totalReading: string;
+    extraUnit: string;
+    unitRate: string;
+    mf: string;
+    warning: string;
+    occurence: string;
+    totalConsumption: string;
+    variance: string;
+    companyId: any;
+
 
   
   constructor(UtilityChangeLogReport) {

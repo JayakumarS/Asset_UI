@@ -6,6 +6,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { utilityReportResultBean } from './utility-report-resultBean'; 
 import { UtilityReport } from './utility-report-model'; 
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class UtilityReportService  extends UnsubscribeOnDestroyAdapter{
 
   dialogData: any;
 
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private tokenStorageService :TokenStorageService,
     private httpService: HttpServiceService) {
     super();
   }
@@ -27,6 +28,7 @@ export class UtilityReportService  extends UnsubscribeOnDestroyAdapter{
   private saveUtilityChangeLogReport = `${this.serverUrl.apiServerAddress}api/auth/app/utilityChangeLogReport/save`; 
   public deleteUtilityChangeLogReport = `${this.serverUrl.apiServerAddress}api/auth/app/utilityChangeLogReport/delete`; 
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/utilityChangeLogReport/getList`;
+  private getUtility = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getReportList`;
 
   get data(): UtilityReport[] {
     return this.dataChange.value;
@@ -47,6 +49,18 @@ export class UtilityReportService  extends UnsubscribeOnDestroyAdapter{
     );
 }
 
+getUtilityList(object): void {
+  this.subs.sink = this.httpService.post<utilityReportResultBean>(this.getUtility,object).subscribe(
+    (data:any) => {
+      this.isTblLoading = false;
+      this.dataChange.next(data.utilityDetail);
+    },
+    (error: HttpErrorResponse) => {
+      this.isTblLoading = false;
+      console.log(error.name + " " + error.message);
+    }
+  );
+}
 
   save(utilityChangeLogReport : UtilityReport): void {
     this.dialogData = utilityChangeLogReport;

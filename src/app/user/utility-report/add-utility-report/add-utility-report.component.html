@@ -56,7 +56,7 @@
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       
-                      <input matInput formControlName="warning" >
+                      <input matInput formControlName="warningSearch" >
                       <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
                         Description is required
                       </mat-error> -->
@@ -69,12 +69,12 @@
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Location</mat-label>
-                      <mat-select formControlName="location" required>
+                      <mat-select formControlName="locationSearch" required>
                         <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                             {{title.text}}
                         </mat-option>
                     </mat-select>
-                    <mat-error  *ngIf="docForm.get('location').hasError('required')">
+                    <mat-error  *ngIf="docForm.get('locationSearch').hasError('required')">
                         Location is required
                         </mat-error> 
                  </mat-form-field>
@@ -96,11 +96,146 @@
                       </mat-error> -->
                     </mat-form-field>
                   </div>
+
+                  <button color="primary" type="button" class="btn-space" (click)="getReportList()"
+                               mat-raised-button> Create New</button>
                   </div>
+            <br>
+                  <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                  #exporter="matTableExporter">
+                  <ng-container matColumnDef="warningName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header >WARNING NAME</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.warningName}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="meterType">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>METER TYPE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.meterType}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="location">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>LOCATION</mat-header-cell>
+                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.location}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="assetName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ASSET NAME</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.assetName}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="startDate" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="display: flex;justify-content: center; text-align: center;">START DATE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startDate}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="endDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">END DATE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="totalReading">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>TOTAL READING</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.totalReading}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="extraUnit">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>EXTRA UNIT</mat-header-cell>
+                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.extraUnit}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="unitRate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>UNIT RATE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.unitRate}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="mf" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="display: flex;justify-content: center; text-align: center;">MF</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.mf}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="warning">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">WARNING</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.warning}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="occurence">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>OCCURENCE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.occurence}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="totalConsumption">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>TOTAL CONSUMPTION(UNIT)</mat-header-cell>
+                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.totalConsumption}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="variance">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>VARIANCE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.variance}}</mat-cell>
+                  </ng-container>
+              
 
 
+                  <!-- actions -->
+
+                  <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
+                    <mat-header-cell class="pr-0" *matHeaderCellDef>ACTIONS</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                        class="tbl-action-btn">
+                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                      </button>
+                    </mat-cell>
+
+                  </ng-container>
 
 
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [style.cursor]="'pointer'" matRipple>
+                  </mat-row>
+                </mat-table>
+
+ <!-- Loading spinner -->
+ <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+  <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+  </mat-progress-spinner>
+</div>
+<!-- context menu start -->
+<!-- <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+</div> -->
+<mat-menu #contextMenu="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button *ngIf="permissionList?.add" mat-menu-item (click)="addNew()">
+      <mat-icon>add_box</mat-icon>
+      <span>Add Record</span>
+    </button>
+    <button *ngIf="permissionList?.modify"mat-menu-item (click)="editCall(item)">
+      <mat-icon>create</mat-icon>
+      <span>Edit Record</span>
+    </button>
+    <button *ngIf="permissionList?.delete"mat-menu-item (click)="deleteItem()">
+      <mat-icon>delete</mat-icon>
+      <span>Delete Record</span>
+    </button>
+
+  </ng-template>
+</mat-menu>
+<mat-menu #nestedmenu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>mail_outline</mat-icon>
+    <span>Item 1</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>call</mat-icon>
+    <span>Item 2</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>chat</mat-icon>
+    <span>Item 3</span>
+  </button>
+</mat-menu>
+<!-- context menu end -->
+<div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+  [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+  No results
+</div>
+<mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
 
             </div>
         </div>
