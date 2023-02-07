@@ -187,4 +187,6 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
     return  this.httpClient.post<any>(this.getAllPagePermissionList, obj);
   }
 
+  public validateOldPasswordUrl = `${this.serverUrl.apiServerAddress}app/userMaster/oldPasswordValidation`;
+  public updateChangePasswordUrl = `${this.serverUrl.apiServerAddress}app/userMaster/updatePassword`;
 }

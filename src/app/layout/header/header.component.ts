@@ -6,6 +6,7 @@ import {
   OnInit,
   Renderer2,
   AfterViewInit,
+  ViewChild,
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { ConfigService } from "src/app/config/config.service";
@@ -18,6 +19,7 @@ import { NotificationpopComponent } from "src/app/helpdesk/it-support/list-it-su
 import { MatDialog } from "@angular/material/dialog";
 import { CompanyMapPopupComponent } from "src/app/admin/dashboard/main/company-map-popup/company-map-popup.component";
 import { ActivityPopUpComponent } from "src/app/admin/schedule-activity/activity-pop-up/activity-pop-up.component";
+import { ChangePasswordPopUpComponent } from "src/app/user/change-password-pop-up/change-password-pop-up.component";
 const document: any = window.document;
 
 @Component({
@@ -43,6 +45,7 @@ export class HeaderComponent
   roleBasedImgUrl: string;
   companyNameText: any;
   isMultipleCompany: boolean;
+  @ViewChild('openModal') openBtn: ElementRef<HTMLElement>;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -346,5 +349,19 @@ showPopUp(){
 
       ]
   });
+}
+
+passwordChange(){
+  const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+    disableClose: true ,
+    height: "500px",
+    width: "465px",
+
+  });
+}
+updatePassword() {
+    
+  this.openBtn.nativeElement.click();
+
 }
 }
