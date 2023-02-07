@@ -19,10 +19,11 @@ export class AddDepreciationReportComponent implements OnInit {
   page: number = 1;
   depreciationList: any = [];
   assetcategoryList = [];
-  locationDdList: [];
-  departmentDdList: [];
+  locationDdList = [];
+  departmentDdList = [];
 
   reportscategory: Reportscategory;
+  searchList = [];
 
 
   constructor(
@@ -154,7 +155,7 @@ searchData(){
   // tslint:disable-next-line:max-line-length
   this.httpService.post(this.reportsService.depreciationSerach, this.reportscategory).subscribe((res: any) => {
     console.log(res);
-    this.depreciationList = res.depreciationList;
+    this.searchList = res.depreciationList;
   },
   (err: HttpErrorResponse) => {
   }

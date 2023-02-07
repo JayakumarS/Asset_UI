@@ -83,11 +83,11 @@
         </div>
           <div class="row">
               <div class="col-md-12">
-                  <div class="table-responsive-sm"*ngIf="depreciationList" >
+                  <div class="table-responsive-sm">
                     <table id="excel-table" class="table table-striped">
                       <thead >
                             <tr>
-                              <th style="text-align: left;">Category Code</th>
+                              <th style="text-align: left;">Category Id</th>
                               <th style="text-align: left;">Category Name</th>
                               <th style="text-align: left;">Asset Code</th>
                               <th style="text-align: left;">Asset Name</th>
@@ -102,13 +102,13 @@
                           </thead>
                           <tbody>
 
-                            <tr *ngFor="let item of depreciationList">
+                            <tr *ngFor="let item of searchList">
                               <td>{{item.categoryId}}</td>
                               <td>{{item.categoryName}}</td>
                               <td>{{item.asset_code}}</td>
                               <td>{{item.asset_name}}</td>
-                              <td>{{item.departmentName}}</td>
-                              <td>{{item.invoiceDate}}</td>
+                              <td>{{item.department}}</td>
+                              <td>{{item.date}}</td>
                               <td>{{item.name}}</td>
                               <td>{{item.captitalizationPrice}}</td>
                               <td>{{item.captitalizationDate}}</td>
