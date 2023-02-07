@@ -16,16 +16,13 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-2">
                           <mat-label class="lable">Depreciation Method</mat-label>
-                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                          <!-- <select  tabindex="1" placeholder="Depreciation Method"  class="form-control" formControlName="depreciationMethod">
-                              <option value="" selected disabled>---Select---</option>
-                          </select> -->
-                          <mat-select class="inputTxt" formControlName="depreciationMethod"tabindex="1" placeholder="Depreciation Method" >
-                            <mat-option *ngFor="let title of depreciationList" [value]="title.id">
-                                {{title.text}}
-                            </mat-option>
-                          </mat-select></mat-form-field>
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select class="inputTxt" formControlName="depreciationMethod" tabindex="1" placeholder="Depreciation Method">
+                              <mat-option *ngFor="let title of depreciationList" [value]="title.id">
+                                  {{title.text}}
+                              </mat-option>
+                            </mat-select></mat-form-field>
                         </div>
                           <div class="col-md-2" >
                             <mat-label class="lable">Date</mat-label>
