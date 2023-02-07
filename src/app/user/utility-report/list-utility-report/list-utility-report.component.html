@@ -1,1 +1,288 @@
-<p>list-utility-report works!</p>
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+         <app-breadcrumb [title]="'Asset Requisition'" [items]="['Asset']" [active_item]="'Asset Requisition List'">
+        </app-breadcrumb>
+      </div>
+     <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+                <form class="m-4" [formGroup]="docForm">
+
+              <div class="table-responsive">
+                <!-- <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                  <div class="row">
+                    <div class="col-8">
+                      <ul class="header-buttons-left ms-0">
+                        <li class="dropdown m-l-20 ">
+                          <h2>Asset Requisition</h2>
+                        </li>
+                        <li [hidden]="!permissionList?.search"class="dropdown m-l-20">
+                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                          <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                            aria-label="Search box">
+                        </li>
+                        <li *ngIf="permissionList?.add">
+                          <div class="m-l-10" matTooltip="ADD">
+                            <button color="primary" type="button" class="btn-space" [routerLink]="'/asset/assetRequisition/addAssetRequisition/0/0'" mat-raised-button>
+                              <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
+                            </button>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-4" *ngIf="permissionList?.exportXL">
+                      <ul class="header-buttons">
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="XLSX">
+                            <img src="assets/images/icons/xlsx.png" alt=""
+                              (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div> -->
+
+                <div class="row">
+                    <div class="col-md-2" >
+                      <label class="lable">Start Date</label>
+                    </div>
+              
+                    <div class="col-md-3" >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput [matDatepicker]="picker1" formControlName="startdateObj"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" id="startdate" 
+                                                 (dateChange)="getDateString($event, 'startdate',0)"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="docForm.get('startdateObj').hasError('required')">
+                          Expected Date Of Delivery is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div> 
+  
+                    <div class="col-md-2" >
+                      <label class="lable">End Date</label>
+                    </div>
+  
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  
+                        <input matInput [matDatepicker]="picker" formControlName="enddateObj"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" id="enddate" 
+                                                 (dateChange)="getDateString($event, 'enddate',0)"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="docForm.get('enddateObj').hasError('required')">
+                          Expected Date Of Delivery is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div> 
+                  </div> 
+                  <div class="row">
+                
+                    <div class="col-md-2">
+                      <label class="lable">Warning Name</label>
+                  </div> 
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      
+                      <input matInput formControlName="warningSearch" >
+                      <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+                        Description is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label class="lable">Location<span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Location</mat-label>
+                      <mat-select formControlName="locationSearch" required>
+                        <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error  *ngIf="docForm.get('locationSearch').hasError('required')">
+                        Location is required
+                        </mat-error> 
+                 </mat-form-field>
+                  </div>
+                  </div>
+
+
+                  <div class="row">
+                
+                    <div class="col-md-2">
+                      <label class="lable">Search</label>
+                  </div> 
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      
+                      <input matInput formControlName="search" >
+                      <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
+                        Description is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <button style="background-color: green; width: 106px; height: 38px; margin-top:5px;"  type="button" class="btn-space" (click)="onSubmit()"
+                    mat-raised-button> Submit</button>
+                    <!-- </div>
+                    <div class="col-md-3"> -->
+                        <button style="background-color: red; width: 106px; height: 38px; margin-top:5px;"  type="button" class="btn-space" (click)="reset()"
+                        mat-raised-button> Reset</button>
+                        </div>
+                 
+                  </div>
+            <br>
+
+
+                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                  #exporter="matTableExporter" >
+                  <ng-container matColumnDef="warningName" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">WARNING NAME</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.warningName}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="meterType">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">METER TYPE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.meterType}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="location">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">LOCATION</mat-header-cell>
+                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.location}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="assetName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">ASSET NAME</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.assetName}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="startDate" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">START DATE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startDate}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="endDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">END DATE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="totalReading">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">TOTAL READING</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.totalReading}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="extraUnit">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">EXTRA UNIT</mat-header-cell>
+                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.extraUnit}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="unitRate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">UNIT RATE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.unitRate}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="mf" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">MF</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.mf}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="warning">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">WARNING</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.warning}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="occurence">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">OCCURENCE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.occurence}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="totalConsumption">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">TOTAL CONSUMPTION (UNIT)</mat-header-cell>
+                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.totalConsumption}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="variance">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">VARIANCE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.variance}}</mat-cell>
+                  </ng-container>
+
+
+                  <!-- actions -->
+
+                  <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
+                    <mat-header-cell class="pr-0" *matHeaderCellDef style="height: 67px;">Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                      <!-- <button   mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                        class="tbl-action-btn">
+                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                      </button> -->
+                    
+               
+                    </mat-cell>
+
+                  </ng-container>
+
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [style.cursor]="'pointer'" matRipple>
+                  </mat-row>
+                </mat-table>
+                <!-- Loading spinner -->
+                <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                  <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                  </mat-progress-spinner>
+                </div>
+                <!-- context menu start -->
+                <!-- <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+                  [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+                </div> -->
+                <mat-menu #contextMenu="matMenu">
+                  <ng-template matMenuContent let-item="item">
+                    <button *ngIf="permissionList?.add" mat-menu-item (click)="addNew()">
+                      <mat-icon>add_box</mat-icon>
+                      <span>Add Record</span>
+                    </button>
+                    <button *ngIf="permissionList?.modify"mat-menu-item (click)="editCall(item)">
+                      <mat-icon>create</mat-icon>
+                      <span>Edit Record</span>
+                    </button>
+                    <button *ngIf="permissionList?.delete"mat-menu-item (click)="deleteItem(item.id,item)">
+                      <mat-icon>delete</mat-icon>
+                      <span>Delete Record</span>
+                    </button>
+
+                  </ng-template>
+                </mat-menu>
+                <mat-menu #nestedmenu="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>mail_outline</mat-icon>
+                    <span>Item 1</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>call</mat-icon>
+                    <span>Item 2</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>chat</mat-icon>
+                    <span>Item 3</span>
+                  </button>
+                </mat-menu>
+                <!-- context menu end -->
+                <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                  [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                  No results
+                </div>
+                <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>

@@ -20,6 +20,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { GrnService } from 'src/app/inventory/grn/grn.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import * as moment from 'moment';
+import { UserMasterService } from 'src/app/master/user-master/user-master.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -94,6 +95,8 @@ export class AddAssetMasterComponent
     private spinner: NgxSpinnerService,
     public grnService: GrnService,
     private tokenStorage: TokenStorageService,
+    private userMasterService: UserMasterService,
+
   ) {
     super();
 
@@ -160,7 +163,7 @@ export class AddAssetMasterComponent
         })
       ]),
 
-    
+
 
       grnBasedAssetList: this.fb.array([
         this.fb.group({
@@ -203,7 +206,7 @@ export class AddAssetMasterComponent
     );
 
     // Location dropdown
- 
+
     // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
     //   next: (data) => {
     //     this.locationDdList = data;
@@ -249,7 +252,7 @@ export class AddAssetMasterComponent
 //       }
 //     }
 //     );
-    
+
 
     //Item Master Dropdown List
     this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
@@ -260,16 +263,16 @@ export class AddAssetMasterComponent
       }
     });
 
-    // department dropdown
-    this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
-      next: (data) => {
-        this.departmentDdList = data;
-      },
-      error: (error) => {
+    // // department dropdown
+    // this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
+    //   next: (data) => {
+    //     this.departmentDdList = data;
+    //   },
+    //   error: (error) => {
 
-      }
-    }
-    );
+    //   }
+    // }
+    // );
 
     //purchaseOrderNumber Dropdown List
     const obj = {
@@ -306,7 +309,7 @@ export class AddAssetMasterComponent
     // assetname dropdown
     this.companyId=this.tokenStorage.getCompanyId();
     this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
-    
+
       next: (data) => {
         this.assetnamelist = data;
       },
@@ -327,6 +330,18 @@ export class AddAssetMasterComponent
       console.log(error.name + " " + error.message);
     }
   );
+
+
+        // Department Dropdown List
+    this.httpService.get<any>(this.userMasterService.departmentListUrl + "?company=" + this.tokenStorage.getCompanyId() + "").subscribe(
+          (data) => {
+            this.departmentDdList = data.departmentList;
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + " " + error.message);
+          }
+        );
+
 
   }
 
@@ -627,7 +642,7 @@ export class AddAssetMasterComponent
       grnBasedAssetArray.at(index).patchValue({
         putUseDate: cdate
       });
-    } 
+    }
   }
 
   keyPressNumberInt(event: any) {
@@ -975,7 +990,7 @@ export class AddAssetMasterComponent
 
   resetSelf(){
     this.docForm = this.fb.group({
-      
+
       assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       assetCode: ["", [Validators.required]],
       location: ["", [Validators.required]],
@@ -1036,7 +1051,7 @@ export class AddAssetMasterComponent
 
         })
       ]),
-      
+
       grnBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],

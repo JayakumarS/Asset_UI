@@ -1,9 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { DataSource, SelectionModel } from '@angular/cdk/collections';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+import { UtilityReport } from '../utility-report-model';
+import { UtilityReportService } from '../utility-report.service';
 
 @Component({
   selector: 'app-add-utility-report',
@@ -20,8 +35,19 @@ import { CommonService } from 'src/app/common-service/common.service';
   } },CommonService
   ]
 })
-export class AddUtilityReportComponent implements OnInit {
+export class AddUtilityReportComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
+  displayedColumns = [
+    "warningName", "meterType","location", "assetName", "startDate","endDate",
+    "totalReading", "extraUnit","unitRate", "mf", "warning","occurence",
+    "totalConsumption", "variance","actions"
+  ];
+
+  dataSource: ExampleDataSource | null;
+  exampleDatabase: UtilityReportService | null;
+  selection = new SelectionModel<UtilityReport>(true, []);
+  index: number;
+  id: number;
   docForm: FormGroup;
   locationDdList = [];
 
@@ -30,32 +56,42 @@ export class AddUtilityReportComponent implements OnInit {
     private cmnService:CommonService,
     private httpService: HttpServiceService,
     private commonService: CommonService,
+    public httpClient: HttpClient,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private serverUrl: serverLocations,
+    private token: TokenStorageService,
+    private router: Router,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService
+   
   )  
-
   {
+    super();
+
     this.docForm = this.fb.group({
       startdate:[""],
       startdateObj:[""],
       enddate:[""],
+      endingDate:[""],
+      startingDate:[""],
       enddateObj:[""],
-      warning:[""],
-      location:[""],
+      warningSearch:[""],
+      locationSearch:[""],
       search:[""],
+      companyId:parseInt(this.tokenStorage.getCompanyId())
 
     })
-   }
-   getDateString(event,inputFlag,index){
-    let cdate = this.cmnService.getDate(event.target.value);
-    if(inputFlag=='startdate'){
-      this.docForm.patchValue({startdate:cdate});
-    }
-    else if(inputFlag=='enddate'){
-      this.docForm.patchValue({enddate:cdate});
-    }
-    // else if(inputFlag=='expectedDate'){
-    //   this.docForm.patchValue({expectedDate:cdate});
-    // }
-  }
+ }
+ 
+ 
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
 
@@ -70,4 +106,202 @@ export class AddUtilityReportComponent implements OnInit {
     });
   }
 
+  getDateString(event,inputFlag,index){
+    let cdate = this.cmnService.getDate(event.target.value);
+    if(inputFlag=='startdate'){
+      this.docForm.patchValue({startdate:cdate});
+    }
+    else if(inputFlag=='enddate'){
+      this.docForm.patchValue({enddate:cdate});
+    }
+    // else if(inputFlag=='expectedDate'){
+    //   this.docForm.patchValue({expectedDate:cdate});
+    // }
+  }
+
+  public loadData() {
+    this.exampleDatabase = new UtilityReportService(this.httpClient, this.serverUrl,this.token, this.httpService);
+    this.dataSource = new ExampleDataSource(
+      this.exampleDatabase,
+      this.paginator,
+      this.sort,
+      this.docForm
+    );
+    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
+      () => {
+        if (!this.dataSource) {
+          return;
+        }
+        this.dataSource.filter = this.filter.nativeElement.value;
+      }
+    );
+  }
+
+  getReportList(){
+    this.loadData();
+  }
+
+editCall(row) {
+   
+}
+
+addNew(){
+
+}
+
+deleteItem(){
+
+}
+
+// context menu
+onContextMenu(event: MouseEvent, item: UtilityReport) {
+  event.preventDefault();
+  this.contextMenuPosition.x = event.clientX + "px";
+  this.contextMenuPosition.y = event.clientY + "px";
+  this.contextMenu.menuData = { item: item };
+  this.contextMenu.menu.focusFirstItem("mouse");
+  this.contextMenu.openMenu();
+}
+
+}
+
+
+export class ExampleDataSource extends DataSource<UtilityReport> {
+  filterChange = new BehaviorSubject("");
+  get filter(): string {
+    return this.filterChange.value;
+  }
+  set filter(filter: string) {
+    this.filterChange.next(filter);
+  }
+  filteredData: UtilityReport[] = [];
+  renderedData: UtilityReport[] = [];
+  constructor(
+    public exampleDatabase: UtilityReportService,
+    public paginator: MatPaginator,
+    public _sort: MatSort,
+    public docForm: FormGroup
+  ) {
+    super();
+    // Reset to the first page when the user changes the filter.
+    this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
+  }
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<UtilityReport[]> {
+    // Listen for any changes in the base data, sorting, filtering, or pagination
+    const displayDataChanges = [
+      this.exampleDatabase.dataChange,
+      this._sort.sortChange,
+      this.filterChange
+    ];
+    this.exampleDatabase.getUtilityList(this.docForm.value);
+    return merge(...displayDataChanges).pipe(
+      map(() => {
+        // Filter data
+        this.filteredData = this.exampleDatabase.data
+          .slice()
+          .filter((utility: UtilityReport) => {
+            const searchStr = (
+              utility.warningName +
+              utility.meterType +
+              utility.location +
+              utility.assetName +
+              utility.startDate  + 
+              utility.endDate +
+              utility.totalReading +
+              utility.extraUnit +
+              utility.unitRate +
+              utility.mf  + 
+              utility.warning +
+              utility.occurence +
+              utility.totalConsumption +
+              utility.variance 
+
+            ).toLowerCase();
+            return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+          });
+        // Sort filtered data
+        const sortedData = this.sortData(this.filteredData.slice());
+        // Grab the page's slice of the filtered sorted data.
+        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        this.renderedData = sortedData.splice(
+          startIndex,
+          this.paginator.pageSize
+        );
+        return this.renderedData;
+      })
+    );
+  }
+  disconnect() {}
+  /** Returns a sorted copy of the database data. */
+  sortData(data: UtilityReport[]): UtilityReport[] {
+    if (!this._sort.active || this._sort.direction === "") {
+      return data;
+    }
+    return data.sort((a, b) => {
+      let propertyA: number | string = "";
+      let propertyB: number | string = "";
+      switch (this._sort.active) {
+        case "warningName":
+          [propertyA, propertyB] = [a.warningName, b.warningName];
+          break;
+        case "meterType":
+          [propertyA, propertyB] = [a.meterType, b.meterType];
+          break;
+        case "location":
+          [propertyA, propertyB] = [a.location, b.location];
+          break;
+
+        case "assetName":
+          [propertyA, propertyB] = [a.assetName, b.assetName];
+          break;
+
+          case "startDate":
+          [propertyA, propertyB] = [a.startDate, b.startDate];
+          break;
+
+          case "endDate":
+          [propertyA, propertyB] = [a.endDate, b.endDate];
+          break;
+
+         case "totalReading":
+          [propertyA, propertyB] = [a.totalReading, b.totalReading];
+          break;
+
+         case "extraUnit":
+          [propertyA, propertyB] = [a.extraUnit, b.extraUnit];
+          break;
+
+          case "unitRate":
+          [propertyA, propertyB] = [a.unitRate, b.unitRate];
+          break;
+
+          case "mf":
+          [propertyA, propertyB] = [a.mf, b.mf];
+          break;
+
+          case "warning":
+          [propertyA, propertyB] = [a.warning, b.warning];
+          break;
+
+          case "occurence":
+          [propertyA, propertyB] = [a.occurence, b.occurence];
+          break;
+
+         case "totalConsumption":
+          [propertyA, propertyB] = [a.totalConsumption, b.totalConsumption];
+          break;
+
+          case "variance":
+          [propertyA, propertyB] = [a.variance, b.variance];
+          break;
+
+      }
+      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+      return (
+        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+      );
+    });
+  }
 }

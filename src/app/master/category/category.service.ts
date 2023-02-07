@@ -62,11 +62,13 @@ get data(): Assetcategory[] {
   }
 
   // For Save
-  addcategory(assetcategory: Assetcategory): void {
+  addcategory(assetcategory: Assetcategory,router): void {
     this.dialogData = assetcategory;  
     this.httpService.post<Assetcategory>(this.savecategory, assetcategory).subscribe(data => {
       console.log(data);
       //this.dialogData = employees;
+    router.navigate(['/master/category/list-category']);
+
       },
       (err: HttpErrorResponse) => {
         
