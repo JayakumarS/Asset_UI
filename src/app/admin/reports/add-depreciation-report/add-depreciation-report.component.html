@@ -50,7 +50,7 @@
                             <mat-label class="lable">Asset Location</mat-label>
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="assetLocation" tabindex="4" placeholder="assetLocation">
-                                <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                <mat-option *ngFor="let title of locationList" [value]="title.id">
                                     {{title.text}}
                                 </mat-option>
                               </mat-select></mat-form-field>
@@ -61,7 +61,7 @@
 
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="department" tabindex="5" placeholder="Department" >
-                                <mat-option *ngFor="let title of departmentDdList" [value]="title.id">
+                                <mat-option *ngFor="let title of departmentList" [value]="title.id">
                                     {{title.text}}
                                 </mat-option>
                               </mat-select></mat-form-field>
