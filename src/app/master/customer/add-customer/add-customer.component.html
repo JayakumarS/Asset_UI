@@ -137,7 +137,7 @@
          -->
 
   <div class=" col-md-2">
-              <mat-label >PIN CODE</mat-label>
+              <mat-label >PIN CODE<span class="errorColor">*</span></mat-label>
               </div>
 
               <div class=" col-md-2" style="margin-left: -45px;">
@@ -151,7 +151,7 @@
           </div>
           &nbsp; &nbsp; &nbsp;
           <div class=" col-md-2">
-            <mat-label >City</mat-label>
+            <mat-label >City<span class="errorColor">*</span></mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
 
@@ -313,8 +313,8 @@
         </mat-form-field>
       </div>
       <div class=" col-md-1">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="shipperZip"maxlength="10"placeholder="Zip" (keypress)="keyPressNumeric($event)" >
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 18px;">
+          <input matInput formControlName="shipperZip"maxlength="6"placeholder="Zip" (keypress)="keyPressNumeric($event)" >
 
         </mat-form-field></div>
 
@@ -336,8 +336,8 @@
             </mat-form-field>
           </div>
           <div class=" col-md-1">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="billingZip"maxlength="10"placeholder="Zip" (keypress)="keyPressNumeric($event)" >
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 18px;">
+              <input matInput formControlName="billingZip"maxlength="6"placeholder="Zip" (keypress)="keyPressNumeric($event)" >
 
             </mat-form-field></div>
 
@@ -391,8 +391,8 @@
           </mat-form-field>
         </div>
           <div class=" col-md-1">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="deliveryZip"maxlength="50"placeholder="Zip"  (keypress)="keyPressNumeric($event)">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 18px;">
+              <input matInput formControlName="deliveryZip"maxlength="6"placeholder="Zip"  (keypress)="keyPressNumeric($event)">
 
             </mat-form-field></div>
             <div class=" col-md-8"></div>
