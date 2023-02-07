@@ -145,14 +145,13 @@ console.log(this.assetcategory);
       } 
        this.assetcategory = this.docForm.value;
      console.log(this.assetcategory);
-     this.categoryMasterService.addcategory(this.assetcategory);
+     this.categoryMasterService.addcategory(this.assetcategory,this.router);
      this.showNotification(
        "snackbar-success",
        "Successfully Added...!!!",
        "bottom",
        "center"
      );
-     this.router.navigate(['/master/category/list-category']);
      }else{
       this.showNotification(
         "snackbar-danger",

@@ -76,7 +76,9 @@
                                 </div>
                               <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required >
+                                  <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required  *ngIf="edit == false">
+                                  <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
+
                                   <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                                     Email is required
                                   </mat-error>
@@ -88,6 +90,8 @@
                                   </mat-error>
                                 </mat-form-field>
                               </div>
+
+                            
                                   </div>
 
                                   <div class="row">
