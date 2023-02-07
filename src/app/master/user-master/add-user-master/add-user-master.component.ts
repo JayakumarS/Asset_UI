@@ -348,7 +348,7 @@ export class AddUserMasterComponent implements OnInit {
         'department': res.userMasterBean.department.toString(),
         'repmanager': res.userMasterBean.repmanager,
         'language': res.userMasterBean.language,
-        'location': res.userMasterBean.location.toString(),
+        'location': res.userMasterBean.location!=null?res.userMasterBean.location.toString():"",
         'otp': res.userMasterBean.otp,
         'company': res.userMasterBean.company,
         'userLocation': res.userMasterBean.userLocation,
