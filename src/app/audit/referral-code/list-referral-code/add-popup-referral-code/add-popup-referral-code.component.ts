@@ -66,7 +66,7 @@ export class AddPopupReferralCodeComponent implements OnInit {
 
     this.edit = this.data.edit;
 
-    this.httpService.get<any>(this.commonService.getauditList).subscribe({
+    this.httpService.get<any>(this.commonService.getUserBasedAuditList+"?userid="+this.docForm.value.loginedUser).subscribe({
       next: (data) => {
         this.auditList = data;
       },

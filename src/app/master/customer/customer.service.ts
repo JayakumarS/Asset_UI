@@ -36,6 +36,8 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
   public updatecustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/update`;
   public deletecustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/delete`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
+  public getLocationDropdown = `${this.serverUrl.apiServerAddress}app/customerMaster/getLocationDropdown`;
+  public locationemailDdList = `${this.serverUrl.apiServerAddress}app/customerMaster/locationemailDdList`;
 
 
   get data(): CustomerMaster[] {

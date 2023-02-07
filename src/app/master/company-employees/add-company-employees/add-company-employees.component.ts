@@ -50,9 +50,9 @@ export class AddCompanyEmployeesComponent implements OnInit {
       company:this.companyName,
       branch:["",[Validators.required]],
       role:[""],
-      emailId:[""],
+      emailId:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       fullName: ["",[Validators.required]],
-      phoneno:[""],
+      phoneno:["",[Validators.required]],
       department:["",[Validators.required]],
       active:[false],
       id:[""],
@@ -77,9 +77,9 @@ export class AddCompanyEmployeesComponent implements OnInit {
       company:this.companyName,
       branch:["",[Validators.required]],
       role:[""],
-      emailId:[""],
+      emailId:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       fullName: ["",[Validators.required]],
-      phoneno:[""],
+      phoneno:["",[Validators.required]],
       department:["",[Validators.required]],
       active:[false],
       id:[""],
@@ -203,15 +203,15 @@ export class AddCompanyEmployeesComponent implements OnInit {
       this.docForm.value.userId = this.tokenStorage.getUserId();
     this.company = this.docForm.value;   
     console.log(this.company);
-    this.companyEmployeeService.addCompany(this.company);
-    
+    this.companyEmployeeService.addCompany(this.company,this.router);
+
     this.showNotification(
       "snackbar-success",
       "Add Record Successfully...!!!",
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
+    // this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
     }
     else{
       this.showNotification(
@@ -257,7 +257,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
     if(this.docForm.valid){
       this.company = this.docForm.value;
       this.companyEmployeeService.CompanyEmpUpdate(this.company,this.router);
-      this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
+      // this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
     }
     else{
       this.showNotification(

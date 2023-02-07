@@ -16,16 +16,13 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-2">
                           <mat-label class="lable">Depreciation Method</mat-label>
-                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
-                          <!-- <select  tabindex="1" placeholder="Depreciation Method"  class="form-control" formControlName="depreciationMethod">
-                              <option value="" selected disabled>---Select---</option>
-                          </select> -->
-                          <mat-select class="inputTxt" formControlName="depreciationMethod"tabindex="1" placeholder="Depreciation Method" >
-                            <mat-option *ngFor="let title of depreciationList" [value]="title.id">
-                                {{title.text}}
-                            </mat-option>
-                          </mat-select></mat-form-field>
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select class="inputTxt" formControlName="depreciationMethod" tabindex="1" placeholder="Depreciation Method">
+                              <mat-option *ngFor="let title of depreciationList" [value]="title.id">
+                                  {{title.text}}
+                              </mat-option>
+                            </mat-select></mat-form-field>
                         </div>
                           <div class="col-md-2" >
                             <mat-label class="lable">Date</mat-label>
@@ -53,7 +50,7 @@
                             <mat-label class="lable">Asset Location</mat-label>
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="assetLocation" tabindex="4" placeholder="assetLocation">
-                                <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                <mat-option *ngFor="let title of locationList" [value]="title.id">
                                     {{title.text}}
                                 </mat-option>
                               </mat-select></mat-form-field>
@@ -64,7 +61,7 @@
 
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="department" tabindex="5" placeholder="Department" >
-                                <mat-option *ngFor="let title of departmentDdList" [value]="title.id">
+                                <mat-option *ngFor="let title of departmentList" [value]="title.id">
                                     {{title.text}}
                                 </mat-option>
                               </mat-select></mat-form-field>
@@ -86,11 +83,11 @@
         </div>
           <div class="row">
               <div class="col-md-12">
-                  <div class="table-responsive-sm"*ngIf="depreciationList" >
+                  <div class="table-responsive-sm">
                     <table id="excel-table" class="table table-striped">
                       <thead >
                             <tr>
-                              <th style="text-align: left;">Category Code</th>
+                              <th style="text-align: left;">Category Id</th>
                               <th style="text-align: left;">Category Name</th>
                               <th style="text-align: left;">Asset Code</th>
                               <th style="text-align: left;">Asset Name</th>
@@ -105,13 +102,13 @@
                           </thead>
                           <tbody>
 
-                            <tr *ngFor="let item of depreciationList">
+                            <tr *ngFor="let item of searchList">
                               <td>{{item.categoryId}}</td>
                               <td>{{item.categoryName}}</td>
                               <td>{{item.asset_code}}</td>
                               <td>{{item.asset_name}}</td>
-                              <td>{{item.departmentName}}</td>
-                              <td>{{item.invoiceDate}}</td>
+                              <td>{{item.department}}</td>
+                              <td>{{item.date}}</td>
                               <td>{{item.name}}</td>
                               <td>{{item.captitalizationPrice}}</td>
                               <td>{{item.captitalizationDate}}</td>

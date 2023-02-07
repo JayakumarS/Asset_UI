@@ -107,6 +107,11 @@
                         <app-feather-icons [icon]="'users'" [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getCompanyText()!="null"?this.token.getCompanyText():""}}</span>
                       </a>
                     </li>
+                    <li *ngIf="isMultipleCompany">
+                      <a href="javascript:void(0);" (click)="showPopUp()">
+                        <app-feather-icons [icon]="'repeat'" [class]="'user-menu-icons'"></app-feather-icons>Change Company
+                      </a>
+                    </li>
                     <li  *ngIf="roleBasedImgUrl == 'Guest'">
                       <a href="javascript:void(0);" (click)="showPaymentPage()">
                         <app-feather-icons [icon]="'mail'" [class]="'user-menu-icons'"></app-feather-icons>Subscription

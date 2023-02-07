@@ -9,6 +9,7 @@ export class Branch {
     companyId: any;
     companyName:any;
     userid:string;
+    shift:Number;
   
     constructor(branch) {
       {
@@ -18,6 +19,7 @@ export class Branch {
         this.branchname = branch.branchname || "";
         this.locationName = branch.locationName || "";
         this.companyName = branch.companyName || "";
+        this.shift = branch.shift || "";
         this.userid = branch.userId || "";
       }
     }

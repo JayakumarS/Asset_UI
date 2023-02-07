@@ -17,6 +17,7 @@ import { ReferralCodeService } from '../referral-code.service';
 import { ReferralCode } from '../referral-code.model';
 import { AddPopupReferralCodeComponent } from './add-popup-referral-code/add-popup-referral-code.component';
 import { DeleteReferralCodeComponent } from './delete-referral-code/delete-referral-code.component';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-list-referral-code',
@@ -45,7 +46,8 @@ export class ListReferralCodeComponent implements OnInit {
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
-    private router:Router
+    private router:Router,
+    private tokenStorageService : TokenStorageService
   ) {
     // super();
   }
@@ -58,6 +60,8 @@ export class ListReferralCodeComponent implements OnInit {
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+   
+    this.loginedUser = this.tokenStorageService.getUserId();
     this.loadData();
   }
 
@@ -70,7 +74,8 @@ export class ListReferralCodeComponent implements OnInit {
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort
+      this.sort,
+      this.loginedUser
     );
     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
@@ -212,7 +217,8 @@ export class ExampleDataSource extends DataSource<ReferralCode> {
   constructor(
     public exampleDatabase: ReferralCodeService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    public loginedUser
   ) {
     super();
     // Reset to the first page when the user changes the filter.
@@ -227,7 +233,7 @@ export class ExampleDataSource extends DataSource<ReferralCode> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList();
+    this.exampleDatabase.getAllList(this.loginedUser);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

@@ -192,8 +192,8 @@
                         </div>
                       </div>
                         <div class="row">
-                          <div class=" col-md-2">
-                              <mat-label >COMPANY<span class="errorColor">*</span></mat-label>
+                          <div class=" col-md-2" >
+                              <mat-label >COMPANY<span  class="errorColor" *ngIf="auditorFFlag">*</span></mat-label>
                               </div>
                               <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -204,8 +204,8 @@
                                 </mat-select>
                             </mat-form-field>
                               </div>
-                              <div class=" col-md-2">
-                                <mat-label >BRANCH<span class="errorColor">*</span></mat-label>
+                              <div class=" col-md-2" >
+                                <mat-label >BRANCH<span class="errorColor" *ngIf="auditorFFlag">*</span></mat-label>
                                 </div>
                                 <div class=" col-md-3">
                                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">

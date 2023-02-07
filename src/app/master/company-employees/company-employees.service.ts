@@ -51,11 +51,13 @@ const httpOptions = {
     getDialogData() {
       return this.dialogData;
     }
-    addCompany(company: Company): void {
+    addCompany(company: Company,router): void {
       this.dialogData = company;
       this.httpService.post<Company>(this.saveCompany, company).subscribe(data => {
         console.log(data);
         //this.dialogData = employees;
+        router.navigate(['/master/Company-Employees/listCompanyEmp']);
+
         },
         (err: HttpErrorResponse) => {
           
@@ -83,9 +85,11 @@ const httpOptions = {
     this.dialogData = company;
     this.httpService.post<Company>(this.updatecompanyEmp, company).subscribe(data => {
       console.log(data);
+
+      router.navigate(['/master/Company-Employees/listCompanyEmp']);
+
       if(data.Success == true){
         
-        router.navigate(['/master/category/list-category']);
       }
       else if(data.Success == false){
       

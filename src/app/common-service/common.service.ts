@@ -84,7 +84,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   // public getpersoninchargeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getpersoninchargeDropdown`;
 
-  public getauditList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getauditList`;
+  public getUserBasedAuditList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUserBasedAuditList`;
 
   public getPercentageList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPercentageList`;
 

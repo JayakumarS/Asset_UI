@@ -16,6 +16,10 @@ import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroy
 import { Reportscategory } from '../reports-model';
 import { reportsresultbean } from '../reports-result-bean';
 import { ReportsService } from '../reports.service';
+import { CommonService } from 'src/app/common-service/common.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+
+
 
 
 @Component({
@@ -52,6 +56,7 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: ReportsService | null;
+  locationList = [];
     constructor(private fb: FormBuilder,
                 public reportsService: ReportsService,
                 private httpService: HttpServiceService,
@@ -59,7 +64,9 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
                 private serverUrl: serverLocations,
                 private router: Router,
                 public httpClient: HttpClient,
-                public route: ActivatedRoute, ) {
+                public commonService: CommonService,
+                public route: ActivatedRoute,
+                private tokenStorage: TokenStorageService, ) {
         super();
         this.docForm = this.fb.group({
           category: [""],
@@ -128,9 +135,27 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
        this.requestId = params.id;
       }
     });
+      // location list
+  // tslint:disable-next-line:max-line-length
+        this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId="  + this.tokenStorage.getCompanyId() + "").subscribe((res: any) => {
+  this.locationList = res.addressBean;
+
+},
+(error: HttpErrorResponse) => {
+  console.log(error.name + " " + error.message);
+}
+);
+
+        this.route.params.subscribe(params => {
+if (params.id!=undefined && params.id!=0){
+ this.requestId = params.id;
+}
+});
 
 
   }
+
+
  fetchDetails(reports: any): void {
   //   this.httpService.get(this.reportsService.editreports + "?reports=" + reports).subscribe((res: any) => {
   //     console.log(reports);

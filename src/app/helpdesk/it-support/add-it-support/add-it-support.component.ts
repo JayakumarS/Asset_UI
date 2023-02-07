@@ -69,7 +69,7 @@ export class AddItSupportComponent implements OnInit {
       asset:[""],
       assetlocation:[""],
       reportedby:this.loginedUser,
-      tickettype:[""],
+      tickettype:["",[Validators.required]],
       ticketgroup:[""],
       assignee:["support@assetchek.com"],
       priority:[""],
@@ -146,6 +146,7 @@ export class AddItSupportComponent implements OnInit {
   );
   }
   onsubmit(){// assetname dropdown
+    if (this.docForm.valid){
     this.companyId=this.tokenStorage.getCompanyId();
     this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
       next: (data) => {
@@ -176,6 +177,7 @@ export class AddItSupportComponent implements OnInit {
 
       this.router.navigate(['/helpdesk/itsupport/listitsupport']);
   }
+}
 }
 
 fetchlocationDetails(assetid: any) {

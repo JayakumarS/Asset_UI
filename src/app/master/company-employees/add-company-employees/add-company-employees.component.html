@@ -49,6 +49,9 @@
                                     {{title.text}}
                                 </mat-option>
                             </mat-select>
+                            <mat-error *ngIf="docForm.get('branch').hasError('required')">
+                              branch is required
+                            </mat-error>
                             </mat-form-field>
                           </div>
                           </div>
@@ -73,7 +76,9 @@
                                 </div>
                               <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required >
+                                  <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required  *ngIf="edit == false">
+                                  <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
+
                                   <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                                     Email is required
                                   </mat-error>
@@ -85,17 +90,22 @@
                                   </mat-error>
                                 </mat-form-field>
                               </div>
+
+                            
                                   </div>
 
                                   <div class="row">
 
                                     <div class=" col-md-2">
-                                        <mat-label >PHONE NUMBER</mat-label>
+                                        <mat-label >PHONE NUMBER<span class="errorColor">*</span></mat-label>
                                         </div>
                                         <div class=" col-md-3">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                           <input matInput formControlName="phoneno"  maxlength="50" >
-                                         
+
+                                          <mat-error *ngIf="docForm.get('phoneno').hasError('required')">
+                                            Phone number is required
+                                          </mat-error>
                                         </mat-form-field>
                                       </div>
                                       <div class=" col-md-2">
@@ -108,6 +118,9 @@
                                                 {{title.text}}
                                             </mat-option>
                                         </mat-select>
+                                        <mat-error *ngIf="docForm.get('department').hasError('required')">
+                                          department is required
+                                        </mat-error>
                                     </mat-form-field>
                                     </div>
                                           </div>

@@ -34,8 +34,8 @@ export class ReferralCodeService  extends UnsubscribeOnDestroyAdapter{
     getDialogData() {
       return this.dialogData;
     }
-    getAllList() {
-      this.subs.sink = this.httpService.get<any>(this.getList).subscribe(
+    getAllList(userid: String) {
+      this.subs.sink = this.httpService.get<any>(this.getList + "?userid=" + userid).subscribe(
         (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.referralDetails);

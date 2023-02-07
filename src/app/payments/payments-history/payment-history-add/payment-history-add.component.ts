@@ -167,7 +167,7 @@ fetchDetails (auditorid : any) {
       companyId : [element.companyId],
       amountPaidByUser : [element.amountPaidByUser],
       auditorCommission : [element.auditorCommission],
-      auditorId : [element.auditorId],
+      auditorId : [auditorid],
       auditorName : [element.auditorName],
    })
    pendingPaymentList.insert(arraylen,newUsergroup);

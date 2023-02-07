@@ -15,6 +15,7 @@ import { LocationMaster } from '../../location/location-master.model';
 import { NgxSpinnerService } from "ngx-spinner";
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -46,6 +47,9 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   cityShipperList = [];
   cityDeliveryList = [];
   cityBillingList = [];
+  getLocationDropdown=[];
+  company:any;
+  locationemailDdList:[];
 
 
   constructor(private fb: FormBuilder,
@@ -80,8 +84,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       address: [""],
       addresstwo: [""],
       city: ["", [Validators.required]],
-      country: [""],
-      state: ["", [Validators.required]],
+      country: ["",[Validators.required]],
+      state: [""],
       postalcode: ["", [Validators.required]],
       panno: [""],
       vatno: [""],
@@ -89,11 +93,11 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       cstno: [""],
       remarks: [""],
       active: [""],
-      location: [""],
+      location: ["",[Validators.required]],
       vendorLocation: [""],
       shipperAddress: [""],
       billingAddress: [""],
-      shipperState: [""],
+      shipperState: ["",[Validators.required]],
       shipperZip: [""],
       shipperCity: [""],
       shipperCountry: [""],
@@ -113,15 +117,15 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       acctReceivable: [""],
       supplier: [""],
       totalReceivable: [""],
-      // companyId: [""],
-      // branchId: [""],
+      companyid: [""],
+      branchid: [""],
        
 
       contactDetail: this.fb.array([
         this.fb.group({
           name: [""],
           position: [""],
-          conEmail: [""],
+          conEmail: ["",Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')],
           conPhone: [""],
           mobile: [""]
         })
@@ -154,15 +158,47 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
      });
 
-   
-    
-    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-      next: (data) => {
-        this.locationList = data;
-      },
-      error: (error) => {
-      }
-    });
+     this.company=this.tokenStorageService.getCompanyId();
+     this.httpService.get<any>(this.customerService.locationemailDdList+"?companyId="+parseInt(this.company)).subscribe(
+       (data) => {
+         console.log(data);
+         this.locationemailDdList = data.customerDetails;
+       },
+       (error: HttpErrorResponse) => {
+         console.log(error.name + " " + error.message);
+       }
+     );
+     this.httpService.get(this.customerService.getLocationDropdown+ "?locationid=" + this.tokenStorageService.getCompanyId()).subscribe((res: any) => {
+      this.getLocationDropdown = res.getLocationDropdown;
+     });
+
+     
+     this.company=this.tokenStorageService.getCompanyId();
+     this.httpService.get<any>(this.customerService.getLocationDropdown+"?companyId="+parseInt(this.company)).subscribe(
+       (data) => {
+         console.log(data);
+         this.locationList = data.customerDetails;
+       },
+       (error: HttpErrorResponse) => {
+         console.log(error.name + " " + error.message);
+       }
+     );
+
+
+     this.httpService.get(this.customerService.getLocationDropdown+ "?locationid=" + this.tokenStorageService.getCompanyId()).subscribe((res: any) => {
+      this.getLocationDropdown = res.getLocationDropdown;
+     });
+
+
+
+     
+    // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+    //   next: (data) => {
+    //     this.locationList = data;
+    //   },
+    //   error: (error) => {
+    //   }
+    // });
 
     // Location dropdown
     this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
@@ -221,7 +257,17 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
     this.httpService.get(this.commonService.getCityBillingDropdown+ "?state=" + state).subscribe((res: any) => {
       this.cityBillingList = res.addressBean;
   });
+  }
+locationdropdown(company:any){
+  this.httpService.get(this.customerService.getLocationDropdown+ "?companyId=" + company).subscribe((res: any) => {
+    this.getLocationDropdown = res.customerBean;
+});
+
+
+
 }
+
+
 
 
 
@@ -292,6 +338,7 @@ fetchDetails(cus_id: any): void {
       this.getCityShipperDropdown(res.customerBean.shipperState);
       this.getCityBillingDropdown(res.customerBean.billingState);
       this.getCityDeliveryDropdown(res.customerBean.deliveryState);
+      //this.locationdropdown(res.customerBean.getLocationDropdown);
 
       this.docForm.patchValue({
       'cus_id': res.customerBean.cus_id,
@@ -413,6 +460,20 @@ keyPressNumeric(event: any) {
 
 keyPressAlphaNumeric(event: any) {
   const pattern = /[A-Z,a-z 0-9]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
+keyPressAlphaNumericA(event: any){
+  const pattern = /[A-Z,a-z 0-9]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
+keyPressString(event: any){
+  const pattern = /[A-Z,a-z ]/;
   const inputChar = String.fromCharCode(event.charCode);
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();
@@ -607,5 +668,6 @@ validateCustomer(event){
     }
   });
 }
+
 
 }
