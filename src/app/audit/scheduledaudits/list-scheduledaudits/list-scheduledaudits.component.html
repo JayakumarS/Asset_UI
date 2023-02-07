@@ -80,7 +80,7 @@
                         class="tbl-action-btn">
                         <button mat-raised-button color="primary">Start Audit</button>
                     </button>
-                    <span *ngIf="row.companyStatus=='Submitted'">Submitted</span>
+                    <span *ngIf="row.companyStatus=='Submitted'">Audit Completed</span>
                     <button   mat-icon-button color="accent"  *ngIf="row.companyStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                       </app-feather-icons>
@@ -95,7 +95,7 @@
                         class="tbl-action-btn">
                         <button mat-raised-button color="primary">Start Audit</button>
                     </button>
-                    <span *ngIf="row.checkerStatus=='Submitted'">Submitted</span>
+                    <span *ngIf="row.checkerStatus=='Submitted'">Audit Completed</span>
                     <button   mat-icon-button color="accent"  *ngIf="row.checkerStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                       </app-feather-icons>
@@ -110,7 +110,7 @@
                         class="tbl-action-btn">
                         <button mat-raised-button color="primary">Start Audit</button>
                     </button>
-                    <span *ngIf="row.makerStatus=='Submitted'">Submitted</span>
+                    <span *ngIf="row.makerStatus=='Submitted'">Audit Completed</span>
                     <button   mat-icon-button color="accent"  *ngIf="row.makerStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                       </app-feather-icons>

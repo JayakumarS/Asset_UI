@@ -62,7 +62,11 @@ export class ScheduledViewComponent implements OnInit {
 
 
     back(){
-      this.router.navigate(['/audit/scheduledaudits/list-scheduledaudits/']);
+      if (this.router.url.includes('/audit/scheduledaudits/scheduled-view')) {
+        this.router.navigate(['/audit/scheduledaudits/list-scheduledaudits/']);
+      } else if (this.router.url.includes('/audit/manageaudit/manageAudit-view')) {
+        this.router.navigate(['audit/manageaudit/listManageAudit']);
+      }
     }
  
 

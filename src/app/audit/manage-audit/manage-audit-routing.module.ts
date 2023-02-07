@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ScheduledViewComponent } from '../scheduledaudits/scheduled-view/scheduled-view.component';
 import { AddManageAuditComponent } from './add-manage-audit/add-manage-audit.component';
 import { DeleteManageAuditComponent } from './list-manage-audit/delete-manage-audit/delete-manage-audit.component';
 import { ListManageAuditComponent } from './list-manage-audit/list-manage-audit.component';
@@ -14,9 +15,9 @@ const routes: Routes = [
     component:ListManageAuditComponent
   },
   {
-    path:"deleteManageAudit",
-    component:DeleteManageAuditComponent
-  }
+    path: "manageAudit-view/:id",
+    component: ScheduledViewComponent,
+  },
 ];
 
 @NgModule({

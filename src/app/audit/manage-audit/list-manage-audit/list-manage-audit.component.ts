@@ -65,17 +65,17 @@ export class ListManageAuditComponent implements OnInit {
     if (this.roleId=='2') {
       this.displayedColumns = [
         "auditCode", "auditName","startDate","endDate",
-        "companyStatus","auditType","actions"
+        "companyStatus","auditType","companyActions"
       ];
     } else if (this.roleId=='3') {
       this.displayedColumns = [
         "auditCode", "auditName","startDate","endDate",
-        "checkerStatus","auditType","actions"
+        "checkerStatus","auditType","checkerActions"
       ];
     } else if (this.roleId=='4') {
       this.displayedColumns = [
         "auditCode", "auditName","startDate","endDate",
-        "makerStatus","auditType","actions"
+        "makerStatus","auditType","makerActions"
       ];
     }
     
@@ -121,11 +121,14 @@ export class ListManageAuditComponent implements OnInit {
 
 
   editCall(row) {
-    if (this.permissionList?.modify){
+    if (this.permissionList?.modify && this.roleId=='2' && row.companyStatus=='Pending'){
     this.router.navigate(['/audit/manageaudit/addManageAudit/' + row.auditId]);
   }
   }
   
+  viewCall(row) {
+    this.router.navigate(['/audit/manageaudit/manageAudit-view/' + row.auditId]);
+  }
 
   deleteItem(row) {
     let tempDirection;
