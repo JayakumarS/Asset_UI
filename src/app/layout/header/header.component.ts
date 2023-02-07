@@ -42,6 +42,7 @@ export class HeaderComponent
   companyName:string;
   roleBasedImgUrl: string;
   companyNameText: any;
+  isMultipleCompany: boolean;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -159,10 +160,13 @@ export class HeaderComponent
 
     if(this.token.getActiveCompanyFlag()==null){
       if( JSON.parse(this.token.getCompanies()).length>1){
+        this.isMultipleCompany = true;
         this.showPopUp();
       }
     }
-    
+    if( JSON.parse(this.token.getCompanies()).length>1){
+      this.isMultipleCompany = true;
+    }
   }
 
 
