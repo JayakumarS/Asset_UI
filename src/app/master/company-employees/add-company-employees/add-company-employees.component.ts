@@ -52,7 +52,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       role:[""],
       emailId:[""],
       fullName: ["",[Validators.required]],
-      phoneno:[""],
+      phoneno:["",[Validators.required]],
       department:["",[Validators.required]],
       active:[false],
       id:[""],
@@ -79,7 +79,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       role:[""],
       emailId:[""],
       fullName: ["",[Validators.required]],
-      phoneno:[""],
+      phoneno:["",[Validators.required]],
       department:["",[Validators.required]],
       active:[false],
       id:[""],
@@ -203,15 +203,15 @@ export class AddCompanyEmployeesComponent implements OnInit {
       this.docForm.value.userId = this.tokenStorage.getUserId();
     this.company = this.docForm.value;   
     console.log(this.company);
-    this.companyEmployeeService.addCompany(this.company);
-    
+    this.companyEmployeeService.addCompany(this.company,this.router);
+
     this.showNotification(
       "snackbar-success",
       "Add Record Successfully...!!!",
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
+    // this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
     }
     else{
       this.showNotification(
@@ -257,7 +257,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
     if(this.docForm.valid){
       this.company = this.docForm.value;
       this.companyEmployeeService.CompanyEmpUpdate(this.company,this.router);
-      this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
+      // this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
     }
     else{
       this.showNotification(
