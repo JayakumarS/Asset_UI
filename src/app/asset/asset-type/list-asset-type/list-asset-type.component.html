@@ -91,7 +91,7 @@
                   </ng-container>
                   <ng-container matColumnDef="assetTypeDesc">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Type Description</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.assetTypeDesc}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="padding: 10px;"> {{row.assetTypeDesc}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="depreciationRate" >
                     <mat-header-cell *matHeaderCellDef mat-sort-header style="display: flex;justify-content: center; text-align: center;">Depreciation Rate</mat-header-cell>
