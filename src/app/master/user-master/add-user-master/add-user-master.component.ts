@@ -325,11 +325,7 @@ export class AddUserMasterComponent implements OnInit {
     this.httpService.get(this.userMasterService.editUserMaster + "?empid=" + empid).subscribe((res: any) => {
       console.log(empid);
 
-      // if(res.userMasterBean.role == 'Checker'){
-      //   this.roleFlag=true;
-      // }else{
-      //   this.roleFlag=false;
-      // }
+      
 
       if(res.userMasterBean.auditor == true){
         this.auditorFlag=true;
@@ -341,11 +337,11 @@ export class AddUserMasterComponent implements OnInit {
 
       this.docForm.patchValue({
         'userId': res.userMasterBean.userId,
-         'fullName': res.userMasterBean.fullName,
+        'fullName': res.userMasterBean.fullName,
         'emailId': res.userMasterBean.emailId,
         'contNumber': res.userMasterBean.contNumber,
         'role': res.userMasterBean.role+"",
-        'department': res.userMasterBean.department.toString(),
+        'department': parseInt(res.userMasterBean.department),
         'repmanager': res.userMasterBean.repmanager,
         'language': res.userMasterBean.language,
         'location': res.userMasterBean.location!=null?res.userMasterBean.location.toString():"",
@@ -354,7 +350,7 @@ export class AddUserMasterComponent implements OnInit {
         'userLocation': res.userMasterBean.userLocation,
         'empid': res.userMasterBean.empid,
         'active': res.userMasterBean.active,
-        'branch': res.userMasterBean.branch.toString(),
+        'branch': parseInt(res.userMasterBean.branch),
         'auditor': res.userMasterBean.auditor,
         'address':res.userMasterBean.address,
         'country':res.userMasterBean.country,
