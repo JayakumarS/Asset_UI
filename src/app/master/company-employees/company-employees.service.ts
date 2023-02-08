@@ -65,7 +65,7 @@ const httpOptions = {
     }
     
     getAllList(): void {
-      let companyId=this.tokenStorage.getCompanyText();
+      let companyId=this.tokenStorage.getCompanyId();
 
       this.subs.sink = this.httpService.get<CompanyEmployeeResultBean>(this.getlist+"?companyId="+companyId).subscribe(
         (data) => {
