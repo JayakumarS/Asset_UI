@@ -157,7 +157,9 @@ th, td {
 img {
   -webkit-print-color-adjust: exact;
 }
-    }
+th{
+  background:rgb(33, 72, 201);border: 1px solid black;}
+    
 </style>
         </head>
 

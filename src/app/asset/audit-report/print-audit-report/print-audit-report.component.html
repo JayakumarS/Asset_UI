@@ -40,77 +40,98 @@
                 <img *ngIf="logoImg != null" src={{logoImg}} alt="" style="width: 15%; padding-left: 32px; padding-top: 45px;"/>
             </div>
           </div>
-    <div class="modal-header">
+    <div class>
         <h5 class="modal-title headingValueNew">View Scheduled Audit</h5>
-        <div class="col-md-6 text-right">
-        </div>
+        <!-- <div class="col-md-6 text-right">
+        </div> -->
      </div>
-     <br>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="heading" style="font-weight:bold">
-              Start Date
-            </div>
-            <div class="subheadingValue">
-              {{(auditDetails?.startDate !== null && auditDetails?.startDate !== '') ? (auditDetails?.startDate | date:'dd-MM-yyyy') : '-'}} 
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="heading" style="font-weight:bold">
-              End Date
-            </div>
-            <div class="subheadingValue">
-              {{(auditDetails?.endDate !== null && auditDetails?.endDate !== '') ? (auditDetails?.endDate | date:'dd-MM-yyyy') : '-'}} 
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="heading" style="font-weight:bold">
-              Audit Name
-            </div>
-            <div class="subheadingValue">
-              <p>{{auditDetails?.auditName !== null ? auditDetails?.auditName: '-'}}</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-          <div class="heading" style="font-weight:bold">
-            Company
-          </div>
-          <div class="subheadingValue">
-            <p>{{auditDetails?.auditCompanyName !== null ? auditDetails?.auditCompanyName: '-'}}</p>
-          </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3">
-          <div class="heading" style="font-weight:bold">
-            Branch
-          </div>
-          <div class="subheadingValue">
-            {{auditDetails?.auditbranchName !== null ? auditDetails?.auditbranchName: '-'}}
-          </div>
-      </div>
-      <div class="col-md-3">
-          <div class="heading" style="font-weight:bold">
-            Auditor
-          </div>
-          <div class="subheadingValue">
-            {{auditDetails?.auditorName !== null ? auditDetails?.auditorName: '-'}}
-          </div>
-      </div> 
-      <div class="col-md-3" >
-          <div class="heading" style="font-weight:bold">
-            Location
-          </div>
-          <div class="subheadingValue">
-            {{auditDetails?.locationName !== null ? auditDetails?.locationName: '-'}}
-          </div>
-      </div>
-   </div>
+     <div style="margin-top: 45px;background-color: #ffffff;"> 
+        <table style="width: 100% !important;">
+            <tr>
+                <table   style="width: 100% !important;">
+                    <tr class="bold" style="background:rgb(105, 132, 223);border: 1px solid black;">
+
+                        <td style="border: 0px;color: rgb(255, 255, 255);padding: 8px;">
+                            Start Date
+                        </td>
+                         <td style="border: 0px;color: rgb(255, 255, 255);padding: 8px;">
+                            End Date
+                        </td>
+                         <td style="border: 0px;color: rgb(255, 255, 255);padding: 8px;">
+                            Audit Name
+                        </td>
+                        <td style="border: 0px;color: rgb(255, 255, 255);padding: 8px;">
+                            Company
+                        </td>
+                      </tr>
+                    <tr style="border: 1px solid black;">
+                    <td style="border: 0px;color: rgb(17, 17, 17);padding: 8px;">
+                        {{(auditDetails?.startDate !== null && auditDetails?.startDate !== '') ? (auditDetails?.startDate | date:'dd-MM-yyyy') : '-'}} 
+                    </td>
+                    <td style="border: 0px;color: rgb(19, 18, 18);padding: 8px;">
+                        {{(auditDetails?.endDate !== null && auditDetails?.endDate !== '') ? (auditDetails?.endDate | date:'dd-MM-yyyy') : '-'}} 
+                    </td>
+                    <td style="border: 0px;color: rgb(10, 10, 10);padding: 8px;">
+                        {{auditDetails?.auditName !== null ? auditDetails?.auditName: '-'}}
+                    </td>
+                    <td style="border: 0px;color: rgb(14, 13, 13);padding: 8px;">
+                        {{auditDetails?.auditCompanyName !== null ? auditDetails?.auditCompanyName: '-'}}
+                    </td>
+                </tr>
+                    
+
+                    <tr class="bold" style="background:rgb(105, 132, 223);border: 1px solid black;">
+                        <td style="border: 0px;color: rgb(255, 255, 255);padding: 8px;">
+                            Branch
+                        </td>
+                       
+                        
+                        <td style="border: 0px;color: rgb(255, 255, 255);padding: 8px;">
+                            Auditor
+                        </td>
+                       
+                        <td style="border: 0px;color: rgb(255, 255, 255);padding: 8px;">
+                            Location 
+                        </td>
+                       
+                    
+                        <td style="border: 0px;color: black;padding: 8px;">
+                            
+                        </td>
+                       
+                       
+                    </tr>
+
+                    <tr style="border: 1px solid black;">
+                        <td style="border: 0px;color: black;padding: 8px;">
+                            {{auditDetails?.auditbranchName !== null ? auditDetails?.auditbranchName: '-'}}
+                        </td>
+                        <td style="border: 0px;color: black;padding: 8px;">
+                            {{auditDetails?.auditorName !== null ? auditDetails?.auditorName: '-'}}
+                        </td>
+                        <td style="border: 0px;color: black;padding: 8px;">
+                            {{auditDetails?.locationName !== null ? auditDetails?.locationName: '-'}}
+                        </td>
+                       
+                    
+                        
+                    </tr>
+
+                </table>
+            </tr>
+            <tr>
+                <table>
+
+                </table>
+            </tr>
+        </table>
+    </div> 
+    <br>
         <div>
-            <table class="border1" style=" border: 1px solid rgb(252, 250, 250); width:100%;;
+            <table class="border1" style=" border: 1px solid rgb(255, 255, 255); width:100%;;
             border-collapse: collapse; margin-top: 20px; text-align: right;" >
 
-<tr align="center" >
+<tr align="center" style="background-color: #dfa34b;" >
     <th style="padding:2.5px; width: 10%;" rowspan="2">SNO</th>
     <th style="padding:2.5px; width: 10%;" rowspan="2">Asset Name</th>
     <th style="padding:2.5px; width: 10%;" rowspan="2">Asset Id</th>
@@ -144,7 +165,7 @@
     </tr>
  </table>
         </div><br>
-     <br><br><br>
+     
      </div>
     <br>
     <div class="row">
