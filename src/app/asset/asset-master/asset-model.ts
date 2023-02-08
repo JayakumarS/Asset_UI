@@ -14,14 +14,14 @@ export class AssetMaster {
 	brand: string;
 	captitalizationDate: string;
 	captitalizationDateobj: string;
-	captitalizationPrice: string;
+	captitalizationPrice: number;
 	category: number;
 	condition: string;
 	department: number;
 	departmentName: string;
 	depreciation: string;
 	description: string;
-	endLife: string;
+	endLife: number;
 	imgUploadUrl: string;
 	invoiceDate: string;
 	invoiceDateobj: string;
@@ -32,7 +32,7 @@ export class AssetMaster {
 	poNumber: string;
 	purchasePrice: string;
 	remarks: string;
-	scrapValue: string;
+	scrapValue: number;
 	selfOrPartner: string;
 	serialNo: string;
 	transferredTo: string;
