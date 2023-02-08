@@ -81,6 +81,9 @@
                             {{title.text}}
                         </mat-option>
                       </mat-select>
+                      <mat-error *ngIf="docForm.get('role').hasError('required')">
+                        role is required
+                      </mat-error>
                       </mat-form-field>
                     </div>
                     <div class=" col-md-3" *ngIf="!auditorFlag">
@@ -90,6 +93,9 @@
                             {{title.text}}
                         </mat-option>
                       </mat-select>
+                      <mat-error *ngIf="docForm.get('role').hasError('required')">
+                        role is required
+                      </mat-error>
                       </mat-form-field>
                     </div>
                   </div>
@@ -165,7 +171,11 @@
                                   <mat-option [value]="'Korean'">
                                     Korean
                                   </mat-option>
+                                 
                                 </mat-select>
+                                <mat-error *ngIf="docForm.get('language').hasError('required')">
+                                  language is required
+                                </mat-error>
                               </mat-form-field>
                             </div>
 
