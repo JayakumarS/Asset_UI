@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { ScheduledauditsService } from 'src/app/audit/scheduledaudits/scheduledaudits.service'; 
-import { SalesQuote } from 'src/app/marketing/sales-quote/sales-quote.model';
+import { ScheduledAudit } from 'src/app/audit/scheduledaudits/scheduledaudits-model';
 
 
 @Component({
@@ -16,9 +16,9 @@ import { SalesQuote } from 'src/app/marketing/sales-quote/sales-quote.model';
 export class PrintAuditReportComponent implements  OnInit {
   roleId: any;
   requestId:any;
-  auditDetails:any;
+//  auditDetails:any;
   scheduledAuditDetailsList:any;
-  bomModel:SalesQuote;
+  auditDetails:ScheduledAudit;
   
   // For Encrypt and Decrypt
   decryptRequestId: any;
@@ -77,7 +77,7 @@ export class PrintAuditReportComponent implements  OnInit {
   }
 
   printComponent() {
-   if(this.bomModel) {
+   if(this.auditDetails) {
     let newWin;
     var content1 = document.getElementById('salesOrderdview').innerHTML;
     var combined = document.createElement('div');
