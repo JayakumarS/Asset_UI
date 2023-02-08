@@ -31,20 +31,24 @@
     }
        
     </style>
-    
     <div class="container border" id="salesOrderdview">
         <div>
             <div class="img" style="text-align: center;">
-                <img *ngIf="logoImg == null" src="/assets/images/logo.png" alt="" style="width: 19%; padding-left: 32px; padding-top: 45px;"/>
+                <img *ngIf="logoImg == null" src="/assets/images/AssetChekLogo.png" alt="" style="width: 19%; padding-left: 32px; padding-top: 45px;"/>
             </div>
             <div class="img" style="text-align: center;">
                 <img *ngIf="logoImg != null" src={{logoImg}} alt="" style="width: 15%; padding-left: 32px; padding-top: 45px;"/>
             </div>
           </div>
-    <br>
+    <div class="modal-header">
+        <h5 class="modal-title headingValueNew">View Scheduled Audit</h5>
+        <div class="col-md-6 text-right">
+        </div>
+     </div>
+     <br>
     <div class="row">
         <div class="col-md-3">
-            <div class="heading">
+            <div class="heading" style="font-weight:bold">
               Start Date
             </div>
             <div class="subheadingValue">
@@ -52,7 +56,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="heading">
+            <div class="heading" style="font-weight:bold">
               End Date
             </div>
             <div class="subheadingValue">
@@ -60,7 +64,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="heading">
+            <div class="heading" style="font-weight:bold">
               Audit Name
             </div>
             <div class="subheadingValue">
@@ -68,7 +72,7 @@
             </div>
         </div>
         <div class="col-md-3">
-          <div class="heading">
+          <div class="heading" style="font-weight:bold">
             Company
           </div>
           <div class="subheadingValue">
@@ -78,7 +82,7 @@
     </div>
     <div class="row">
       <div class="col-md-3">
-          <div class="heading">
+          <div class="heading" style="font-weight:bold">
             Branch
           </div>
           <div class="subheadingValue">
@@ -86,15 +90,15 @@
           </div>
       </div>
       <div class="col-md-3">
-          <div class="heading">
+          <div class="heading" style="font-weight:bold">
             Auditor
           </div>
           <div class="subheadingValue">
             {{auditDetails?.auditorName !== null ? auditDetails?.auditorName: '-'}}
           </div>
-      </div>
-      <div class="col-md-3">
-          <div class="heading">
+      </div> 
+      <div class="col-md-3" >
+          <div class="heading" style="font-weight:bold">
             Location
           </div>
           <div class="subheadingValue">
@@ -145,7 +149,7 @@
     <br>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
-            <button  mat-raised-button class="btn btn-primary" id="printBtn" (click)="printComponent()">Print <i
+            <button  mat-raised-button class="btn btn-primary"  type="button" (click)="printComponent()">Print <i
                 class="fa fa-print "></i></button> &nbsp;
                 <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
         </div>
