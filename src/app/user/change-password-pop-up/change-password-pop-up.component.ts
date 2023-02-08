@@ -40,7 +40,7 @@ export class ChangePasswordPopUpComponent implements OnInit {
     if(this.docForm.valid){
       const obj = {
         newChangePassword: this.docForm.value.newChangePassword,
-        newUserName: this.tokenStorage.getUsername(),
+        emailId: this.tokenStorage.getUsername(),
       };
       this.httpService.post<any>(this.commonService.updateChangePasswordUrl,obj).subscribe(data => {
         console.log(data);
