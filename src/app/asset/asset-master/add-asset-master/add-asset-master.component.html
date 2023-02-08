@@ -297,8 +297,8 @@
                                            <div style="margin-left: 33%;" class="row" *ngIf="(imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
                                            
                                             <div class="iconCard" style="margin-left: 16%;">
-                                               <span><i class="far fa-file-alt docIcons"></i>{{imgPathUrl?.split('##').pop()}}</span>
-                                               <a class="downloadView" (click)="viewDocuments(imgPathUrl, imgPathUrl?.split('##').pop())">
+                                               <span><i class="far fa-file-alt docIcons"></i>{{imgPathUrl?.split('/').pop()}}</span>
+                                               <a class="downloadView" (click)="viewDocuments(imgPathUrl, imgPathUrl?.split('/').pop())">
                                                  <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
                                                </a>
                                              </div>
@@ -410,8 +410,8 @@
                   
                   <div class="row" *ngIf="(filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
                     <div class="iconCard"  style="margin-left: 16%;">
-                      <span><i class="far fa-file-alt docIcons"></i>{{filePathUrl?.split('##').pop()}}</span>
-                      <a class="downloadView" (click)="viewDocuments(filePathUrl, filePathUrl?.split('##').pop())">
+                      <span><i class="far fa-file-alt docIcons"></i>{{filePathUrl?.split('/').pop()}}</span>
+                      <a class="downloadView" (click)="viewDocuments(filePathUrl, filePathUrl?.split('/').pop())">
                         <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
                       </a>
                     </div>

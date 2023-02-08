@@ -75,8 +75,8 @@
                             <h2>Files </h2>
                         </div>
                             <div *ngIf="(profileViewDetails?.uploadFiles != undefined && profileViewDetails?.uploadFiles != null && profileViewDetails?.uploadFiles != '')" class="iconCard" style="margin-left: 3%;">
-                                <span><i class="far fa-file-alt docIcons"></i>{{profileViewDetails?.uploadFiles?.split('##').pop()}}</span>
-                                <a class="downloadView" (click)="viewDocuments(profileViewDetails?.uploadFiles, profileViewDetails?.uploadFiles?.split('##').pop())">
+                                <span><i class="far fa-file-alt docIcons"></i>{{profileViewDetails?.uploadFiles?.split('/').pop()}}</span>
+                                <a class="downloadView" (click)="viewDocuments(profileViewDetails?.uploadFiles, profileViewDetails?.uploadFiles?.split('/').pop())">
                                   <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
                                 </a>
                               </div>

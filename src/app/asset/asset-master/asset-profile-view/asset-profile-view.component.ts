@@ -42,6 +42,7 @@ import {
 } from "ng-apexcharts";
 import { MainService } from 'src/app/admin/dashboard/main.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -112,7 +113,7 @@ export class AssetProfileViewComponent implements OnInit {
   constructor( public router:Router,private fb: FormBuilder,private  assetService: AssetService,
     public route: ActivatedRoute,public dialog: MatDialog,private httpService: HttpServiceService, private sanitizer: DomSanitizer,private snackBar: MatSnackBar,private spinner: NgxSpinnerService,
     public auditableAssetService:AuditableAssetService,private commonService: CommonService,private cd: ChangeDetectorRef,
-    private cmnService:CommonService,private inventoryReportService: InventoryReportsService,private mainService:MainService) {
+    private cmnService:CommonService,private inventoryReportService: InventoryReportsService,private mainService:MainService,private serverUrl:serverLocations) {
 
     this.docForm = this.fb.group({
 
@@ -320,14 +321,14 @@ fetchAssetName(asset:any){
    this.auditableAsset=res.getAuditableAssetDetails;
    this.assetNameForList=this.profileViewDetails.assetName;
 
-   //For Img added by gokul
-   if (res.addAssetBean.profileFile != undefined && res.addAssetBean.profileFile != null && res.addAssetBean.profileFile != '') {
-    let objectProfileURL = 'data:image/png;base64,' + res.addAssetBean.profileFile;
-    this.profileImg = this.sanitizer.bypassSecurityTrustUrl(objectProfileURL);
+   //For Img added by gokul // chuma iruda added by kathir
+   if (res.addAssetBean.uploadImg != undefined && res.addAssetBean.uploadImg != null && res.addAssetBean.uploadImg != '') {
+    let objectProfileURL = 'data:image/png;base64,' + res.addAssetBean.uploadImg;
+    this.profileImg = this.serverUrl.apiServerAddress+"asset_upload/"+res.addAssetBean.uploadImg;
    }
-   if (res.addAssetBean.qrCodeFile != undefined && res.addAssetBean.qrCodeFile != null && res.addAssetBean.qrCodeFile != '') {
-    let objectQRCodeURL = 'data:image/png;base64,' + res.addAssetBean.qrCodeFile;
-    this.qrCodeImg = this.sanitizer.bypassSecurityTrustUrl(objectQRCodeURL);
+   if (res.addAssetBean.assetQRCodePath != undefined && res.addAssetBean.assetQRCodePath != null && res.addAssetBean.assetQRCodePath != '') {
+    let objectQRCodeURL = 'data:image/png;base64,' + res.addAssetBean.assetQRCodePath;
+    this.qrCodeImg = this.serverUrl.apiServerAddress+"asset_upload/asset_qrcode/"+res.addAssetBean.assetQRCodePath;
    }
    this.viewReport(this.assetNameForList);
     },
@@ -396,38 +397,12 @@ fetchAssetName(asset:any){
 
   // }
 
-
-  
-  //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocuments(filePath: any, fileName: any) {
-
-
-    this.spinner.show();
-    this.commonService.viewDocument(filePath).pipe().subscribe({
-      next: (result: any) => {
-        this.spinner.hide();
-        var blob = result;
-        var fileURL = URL.createObjectURL(blob);
-        if (fileName.split('.').pop().toLowerCase() === 'pdf') {
-          window.open(fileURL);
-        } else {
-          var a = document.createElement("a");
-          a.href = fileURL;
+    var a = document.createElement("a");
+          a.href = this.serverUrl.apiServerAddress+"asset_upload/"+filePath;
           a.target = '_blank';
           a.download = fileName;
           a.click();
-        }
-      },
-      error: (error) => {
-        this.spinner.hide();
-        this.showNotification(
-          "snackbar-danger",
-          "Failed to View File",
-          "bottom",
-          "center"
-        );
-      }
-    });
   }
 
   back()

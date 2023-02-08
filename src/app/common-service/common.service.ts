@@ -189,4 +189,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public validateOldPasswordUrl = `${this.serverUrl.apiServerAddress}app/userMaster/oldPasswordValidation`;
   public updateChangePasswordUrl = `${this.serverUrl.apiServerAddress}app/userMaster/updatePassword`;
+
+  public uploadFileUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/uploadFile`;
+
+
 }

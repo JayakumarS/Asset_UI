@@ -788,7 +788,7 @@ export class AddAssetMasterComponent
     frmData.append("fileName", fileExtension);
     frmData.append("folderName", "AssetProfileImg");
 
-    this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
+    this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
       next: (data) => {
         if (data.success) {
           if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
@@ -845,7 +845,7 @@ export class AddAssetMasterComponent
     frmData.append("fileName", fileExtension);
     frmData.append("folderName", "AssetProfileFile");
 
-    this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
+    this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
       next: (data) => {
         if (data.success) {
           if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
@@ -874,34 +874,13 @@ export class AddAssetMasterComponent
     });
   }
 
-  //FOR DOCUMENT VIEW ADDED BY GOKUL
+
   viewDocuments(filePath: any, fileName: any) {
-    this.spinner.show();
-    this.commonService.viewDocument(filePath).pipe().subscribe({
-      next: (result: any) => {
-        this.spinner.hide();
-        var blob = result;
-        var fileURL = URL.createObjectURL(blob);
-        if (fileName.split('.').pop().toLowerCase() === 'pdf') {
-          window.open(fileURL);
-        } else {
-          var a = document.createElement("a");
-          a.href = fileURL;
+    var a = document.createElement("a");
+          a.href = this.serverUrl.apiServerAddress+"asset_upload/"+filePath;
           a.target = '_blank';
           a.download = fileName;
           a.click();
-        }
-      },
-      error: (error) => {
-        this.spinner.hide();
-        this.showNotification(
-          "snackbar-danger",
-          "Failed to View File",
-          "bottom",
-          "center"
-        );
-      }
-    });
   }
 
 
