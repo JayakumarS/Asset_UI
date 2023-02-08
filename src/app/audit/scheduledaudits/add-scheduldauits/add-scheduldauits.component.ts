@@ -83,7 +83,7 @@ export class AddScheduldauitsComponent implements OnInit {
         this.fb.group({
           assetId: ["",[Validators.required]],
           assetCode: ["",[Validators.required]],
-          physicalQty: ["",[Validators.required]],
+          physicalQty: [""],
           makerstatus: [""],
           checkerstatus: [""],
           availableQty:[""],
