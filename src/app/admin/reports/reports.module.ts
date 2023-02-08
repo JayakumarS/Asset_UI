@@ -29,6 +29,7 @@ import { AddAuditReportComponent } from './add-audit-report/add-audit-report.com
 import { AssetsReturnComponent } from './assets-return/assets-return.component';
 import { DiscardAssetsComponent } from './discard-assets/discard-assets.component';
 import { UserLogComponent } from './user-log/user-log.component';
+import { AddreportLocationComponent } from './addreports/addreport-location/addreport-location.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { UserLogComponent } from './user-log/user-log.component';
     AddAuditReportComponent,
     AssetsReturnComponent,
     DiscardAssetsComponent,
-    UserLogComponent
+    UserLogComponent,
+    AddreportLocationComponent
 
   ],
   imports: [

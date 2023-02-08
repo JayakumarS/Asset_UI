@@ -56,96 +56,91 @@
 </div>
 </div>
 </form>
-
-
-<div class="container" *ngIf="reList.length>0" >
-<table id="excel-table" class="table table-striped">
-  <thead>
-      <tr >
-        <th style="background-color:#c1ddf5;">Asset Category</th>
-        <th style="background-color:#c1ddf5;">In Use</th>
-        <th style="background-color:#c1ddf5;">In Stock</th>
-        <th style="background-color:#c1ddf5;">Out For Repair</th>
-        <th style="background-color:#c1ddf5;">Damage</th>
-        <th style="background-color:#c1ddf5;">Total</th>
-      </tr>
-  </thead>
-  <tbody>
-
-        <tr *ngFor="let item of reList">
-          <td>{{item.categoryName}}</td>
-          <td>{{item.inUse}}</td>
-          <td>{{item.inStock}}</td>
-          <td>{{item.repair}}</td>
-          <td>{{item.damaged}}</td>
-          <td>{{item.total}}</td>
-
-        </tr>
-  </tbody>
-  </table>
+<div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+  <div class="row">
+    <div class="col-8">
+      <ul class="header-buttons-left ms-0">
+        <li class="dropdown m-l-20 ">
+          <h2>Report</h2>
+        </li>
+        <li  class="dropdown m-l-20">
+          <label for="search-input"><i class="material-icons search-icon">search</i></label>
+          <input placeholder="Search" type="text" #filter class="browser-default search-field"
+            aria-label="Search box">
+        </li>
+      </ul>
+    </div>
   </div>
+</div>
+
+<mat-table #table matTableExporter    [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
+
+
+  <ng-container matColumnDef="categoryName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Category </mat-header-cell>
+    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+        {{row.categoryName}}</mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="inUse">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>In Use </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+      {{row.inUse}}</mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="inStock">
+<mat-header-cell *matHeaderCellDef mat-sort-header>In Stock</mat-header-cell>
+<mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.inStock}}</mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="repair">
+<mat-header-cell *matHeaderCellDef mat-sort-header>Out For Repair </mat-header-cell>
+<mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.repair}}</mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="damaged">
+<mat-header-cell *matHeaderCellDef mat-sort-header>Damage </mat-header-cell>
+<mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.damaged}}</mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="total">
+<mat-header-cell *matHeaderCellDef mat-sort-header>Total</mat-header-cell>
+<mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+    {{row.total}}</mat-cell>
+</ng-container>
+
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+ <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                    [style.cursor]="'pointer'" matRipple>
+                  </mat-row>
+</mat-table>
+   <!-- Loading spinner -->
+   <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+    <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+  [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+  No results
+</div>
+<mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
 </mat-tab>
 
 
-      <mat-tab label="Asset Location ">
-        <form class="m-4" [formGroup]="docForm">
-        <div class="rowtab" >
-       <div class="row">
-
-<div class="col-xl-3 col-lg- col-md-12 col-sm-12" style="margin-left: 5px;">
-<label>Asset Location</label>
-</div>
-<div class="col-md-2 " style="margin-left: 5px;">
-  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-    <mat-select formControlName="asset" required>
-  <mat-option *ngFor="let title of locationList" [value]="title.id">
-    {{title.text}}
-  </mat-option>
-</mat-select>
- <mat-error *ngIf="docForm.get('asset').hasError('required')">
-location is required
-</mat-error>
-
-</mat-form-field>
-</div>
-<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;margin-top: 32px;">
-  <button  color="primary" type="button" class="btn-space" (click)="Search()"
-    mat-raised-button>Search</button>
-</div>
-</div>
-</div>
-</form>
-
-
-<div class="container" *ngIf="loList.length>0">
-
-<table id="excel-table" class="table table-striped">
-  <thead>
-      <tr >
-        <th style="background-color:#c1ddf5;">Location</th>
-        <th style="background-color:#c1ddf5;">In Use</th>
-        <th style="background-color:#c1ddf5;">In Stock</th>
-        <th style="background-color:#c1ddf5;">Out For Repair</th>
-        <th style="background-color:#c1ddf5;">Damage</th>
-        <th style="background-color:#c1ddf5;">Total</th>
-      </tr>
-  </thead>
-  <tbody>
-
-        <tr *ngFor="let item of loList">
-          <td>{{item.location}}</td>
-          <td>{{item.inUse}}</td>
-          <td>{{item.inStock}}</td>
-          <td>{{item.repair}}</td>
-          <td>{{item.damaged}}</td>
-          <td>{{item.total}}</td>
-
-
-        </tr>
-  </tbody>
-  </table>
-  </div>
-</mat-tab>
+<mat-tab *ngFor="let tab of tabEdu; let index = index">
+  <ng-template mat-tab-label>
+   Location Report
+ </ng-template>
+ <ng-container *ngComponentOutlet="tab.content"></ng-container>
+ </mat-tab>
 </mat-tab-group>
 </div>
 

@@ -7,19 +7,27 @@ export class Reportscategory{
     asset_location:number;
     asset_category:string;
     discard_date:string;
-    
+    categoryName:any;
     startdate:string;
     enddate:string;
     company_id:string;
     username:string;
     startdateObj:string;
     enddateObj:string;
-    
+  inUse: string;
+  location: string;
+  inStock: string ;
+  repair: string ;
+  damaged: string ;
+  total: string ;
+
 
     constructor(reportscategory) {
         {
           this.getRandomID();
           this.category = reportscategory.category || "";
+
+          this.categoryName = reportscategory.categoryName || "";
           this.status = reportscategory.status || "";
           this.asset = reportscategory.asset || "";
           this.asset_code = reportscategory.asset_code || "";

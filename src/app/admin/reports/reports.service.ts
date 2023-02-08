@@ -12,16 +12,10 @@ import { reportsresultbean } from './reports-result-bean';
 })
 export class ReportsService extends UnsubscribeOnDestroyAdapter {
   isTblLoading = true;
-  dialogData: Reportscategory;
+  dialogData: any;
   dataChange: BehaviorSubject<Reportscategory[]> = new BehaviorSubject<Reportscategory[]>(
     []
   );
-
-
-
-
-  data: any;
-
 
   constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) {
     super();
@@ -29,7 +23,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     }
 
     public categoryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getcategoryList`;
-    public statusListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getstatusList`;
+    // public statusListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getstatusList`;
     public assetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getassetList`;
     public reportserach = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getreportserach`;
     public locationsearch = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getlocationserach`;
@@ -39,33 +33,37 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     public getUserNameDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getusernamelist`;
     public getUserLogList = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getUserLoglist`;
 
+    get data(): Reportscategory[] {
+      return this.dataChange.value;
+    }
     getDialogData() {
       return this.dialogData;
     }
     userloglist(object){
+      // console.log(object);
+      // this.subs.sink = this.httpService.post<reportsresultbean>(this.getUserLogList, object).subscribe(
+      //   (data) => {
+      //     this.isTblLoading = false;
+      //     this.dataChange.next(data.userlogDetails);
+      //   },
+      //   (error: HttpErrorResponse) => {
+      //     this.isTblLoading = false;
+      //     console.log(error.name + " " + error.message);
+      //   }
+      // );
+    }
+    getAllList(object): void {
       console.log(object);
-      this.subs.sink = this.httpService.post<reportsresultbean>(this.getUserLogList, object).subscribe(
+      this.subs.sink = this.httpService.post<any>(this.assetListUrl,object).subscribe(
         (data) => {
           this.isTblLoading = false;
-          this.dataChange.next(data.userlogDetails);
+          this.dataChange.next(data.assetList);
         },
         (error: HttpErrorResponse) => {
           this.isTblLoading = false;
           console.log(error.name + " " + error.message);
         }
       );
-    }
-    getAllList(){
-  this.subs.sink = this.httpService.get<reportsresultbean>(this.reportserach).subscribe(
-    (data) => {
-      this.isTblLoading = false;
-      this.dataChange.next(data.reportsDetails);
-    },
-    (error: HttpErrorResponse) => {
-      this.isTblLoading = false;
-      console.log(error.name + " " + error.message);
-    }
-  );
 }
 
 
