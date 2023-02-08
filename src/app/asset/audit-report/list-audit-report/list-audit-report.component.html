@@ -104,47 +104,19 @@
                  <ng-container matColumnDef="companyActions" class="col-lg-12 col-md-2">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" *ngIf="row.companyStatus=='Pending'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
-                        class="tbl-action-btn">
-                        <button mat-raised-button color="primary">Start Audit</button>
-                    </button>
-                    <span *ngIf="row.companyStatus=='Submitted'">Submitted</span>
-                    <!-- <button   mat-icon-button color="accent"  *ngIf="row.companyStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                    <span *ngIf="row.companyStatus=='Submitted'">Audit Completed</span>
+                    <button   mat-icon-button color="accent"  *ngIf="row.companyStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                       </app-feather-icons>
-                    </button> -->
+                    </button>
+                    <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                    (click)="printCall(row)" class="tbl-action-btn">
+                    <app-feather-icons [icon]="'printer'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                  </button>
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="checkerActions" class="col-lg-12 col-md-2">
-                    <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
-                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" *ngIf="row.checkerStatus=='Pending'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
-                        class="tbl-action-btn">
-                        <button mat-raised-button color="primary">Start Audit</button>
-                    </button>
-                    <span *ngIf="row.checkerStatus=='Submitted'">Submitted</span>
-                    <!-- <button   mat-icon-button color="accent"  *ngIf="row.checkerStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
-                      <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
-                      </app-feather-icons>
-                    </button> -->
-                    </mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="makerActions" class="col-lg-12 col-md-2">
-                    <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
-                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" *ngIf="row.makerStatus=='Pending'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
-                        class="tbl-action-btn">
-                        <button mat-raised-button color="primary">Start Audit</button>
-                    </button>
-                    <span *ngIf="row.makerStatus=='Submitted'">Submitted</span>
-                    <!-- <button   mat-icon-button color="accent"  *ngIf="row.makerStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
-                      <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
-                      </app-feather-icons>
-                    </button> -->
-                    </mat-cell>
-                  </ng-container>
+                  
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
                     [style.cursor]="'pointer'" matRipple>

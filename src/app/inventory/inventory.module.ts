@@ -7,6 +7,7 @@ import { UOMCategoryModule } from './uom-category/uom-category.module';
 import { ItemMasterModule } from './item-master/item-master.module';
 import { ItemPropertiesModule } from './item-properties/item-properties.module';
 import { WarehousePositioningModule } from './warehouse-positioning/warehouse-positioning.module';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { WarehousePositioningModule } from './warehouse-positioning/warehouse-po
     UOMCategoryModule,
     ItemMasterModule,
     ItemPropertiesModule,
-    WarehousePositioningModule
+    WarehousePositioningModule,
+    MatTabsModule
   ]
 })
 export class InventoryModule { }

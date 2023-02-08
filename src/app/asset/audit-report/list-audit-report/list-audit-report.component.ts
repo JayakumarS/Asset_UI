@@ -55,17 +55,24 @@ export class ListAuditReportComponent implements OnInit {
     private spinner: NgxSpinnerService,
     public commonService: CommonService,
     private router: Router) 
+
+    
   
   {  
-     this.docForm = this.fb.group({
-     
+   this.docForm = this.fb.group({
+    companyIdToken: this.tokenStorage.getCompanyId(),
+    branchIdToken: this.tokenStorage.getBranchId(),
     discardDateFromObj:[""],
     discardFromDate:[""],
     discardDateToObj:[""],
     discardToDate:[""],
+    companyId:this.companyIdToken,
+    branchId:this.branchIdToken,
+    
     
    
   });
+  
 }
 @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -140,8 +147,12 @@ export class ListAuditReportComponent implements OnInit {
     this.loadData();
 }
 
-  
-
+viewCall(row) {
+  this.router.navigate(['/audit/scheduledaudits/scheduled-view/' + row.manageAuditId]);
+}
+printCall(row) {
+  this.router.navigate(['/asset/auditReport/printAuditReport/' + row.manageAuditId]);
+}
 
 showNotification(colorName, text, placementFrom, placementAlign) {
   this.snackBar.open(text, "", {

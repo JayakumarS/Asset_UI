@@ -24,12 +24,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PrintAuditReportComponent } from './print-audit-report/print-audit-report.component';
 
 
 @NgModule({
   declarations: [
     
     ListAuditReportComponent,
+         PrintAuditReportComponent,
     
   ],
   imports: [

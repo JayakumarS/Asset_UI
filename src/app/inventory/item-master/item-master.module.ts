@@ -16,7 +16,6 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -29,6 +28,7 @@ import { ItemMasterRoutingModule } from './item-master-routing.module';
 import { AddItemMasterComponent } from './add-item-master/add-item-master.component';
 import { ListItemMasterComponent } from './list-item-master/list-item-master.component';
 import { DeleteItemMasterComponent } from './list-item-master/delete-item-master/delete-item-master.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 

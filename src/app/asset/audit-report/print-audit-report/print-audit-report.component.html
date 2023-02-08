@@ -1,0 +1,153 @@
+
+<style>
+
+    .border1{
+        border: 1px solid black;
+      border-collapse: collapse;}
+      
+    
+    th{
+     border: 1px solid black;  
+    }
+    td{
+     border: 1px solid black ;
+    }
+     @media print  {
+      @page {
+        size: 180mm 310mm; /* portrait */
+        /* you can also specify margins here: */
+        margin: 0;
+         margin-right: 0 ;/*for compatibility with both A4 and Letter */
+    } 
+    table {
+        border: 1px solid black;
+    }
+    th, td {
+        border: 1px solid black;
+    }
+     } 
+    .bold{
+      font-weight: 700;
+    }
+       
+    </style>
+    
+    <div class="container border" id="salesOrderdview">
+        <div>
+            <div class="img" style="text-align: center;">
+                <img *ngIf="logoImg == null" src="/assets/images/logo.png" alt="" style="width: 19%; padding-left: 32px; padding-top: 45px;"/>
+            </div>
+            <div class="img" style="text-align: center;">
+                <img *ngIf="logoImg != null" src={{logoImg}} alt="" style="width: 15%; padding-left: 32px; padding-top: 45px;"/>
+            </div>
+          </div>
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="heading">
+              Start Date
+            </div>
+            <div class="subheadingValue">
+              {{(auditDetails?.startDate !== null && auditDetails?.startDate !== '') ? (auditDetails?.startDate | date:'dd-MM-yyyy') : '-'}} 
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="heading">
+              End Date
+            </div>
+            <div class="subheadingValue">
+              {{(auditDetails?.endDate !== null && auditDetails?.endDate !== '') ? (auditDetails?.endDate | date:'dd-MM-yyyy') : '-'}} 
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="heading">
+              Audit Name
+            </div>
+            <div class="subheadingValue">
+              <p>{{auditDetails?.auditName !== null ? auditDetails?.auditName: '-'}}</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+          <div class="heading">
+            Company
+          </div>
+          <div class="subheadingValue">
+            <p>{{auditDetails?.auditCompanyName !== null ? auditDetails?.auditCompanyName: '-'}}</p>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+          <div class="heading">
+            Branch
+          </div>
+          <div class="subheadingValue">
+            {{auditDetails?.auditbranchName !== null ? auditDetails?.auditbranchName: '-'}}
+          </div>
+      </div>
+      <div class="col-md-3">
+          <div class="heading">
+            Auditor
+          </div>
+          <div class="subheadingValue">
+            {{auditDetails?.auditorName !== null ? auditDetails?.auditorName: '-'}}
+          </div>
+      </div>
+      <div class="col-md-3">
+          <div class="heading">
+            Location
+          </div>
+          <div class="subheadingValue">
+            {{auditDetails?.locationName !== null ? auditDetails?.locationName: '-'}}
+          </div>
+      </div>
+   </div>
+        <div>
+            <table class="border1" style=" border: 1px solid rgb(252, 250, 250); width:100%;;
+            border-collapse: collapse; margin-top: 20px; text-align: right;" >
+
+<tr align="center" >
+    <th style="padding:2.5px; width: 10%;" rowspan="2">SNO</th>
+    <th style="padding:2.5px; width: 10%;" rowspan="2">Asset Name</th>
+    <th style="padding:2.5px; width: 10%;" rowspan="2">Asset Id</th>
+    <th style="padding:2.5px; width: 10%;" rowspan="2">Physical Quantity</th>
+    <th style="padding:2.5px; width: 10%;" rowspan="2">Maker Status</th>
+    <th style="padding:2.5px; width: 10%;" rowspan="2">Available Quantity</th>
+    <th style="padding:2.5px; width: 10%;" rowspan="2">Checker Status</th>
+    <th style="padding:2.5px; width: 10%;" rowspan="2">Difference Quantity</th>
+    <th style="padding:2.5px; width: 10%;" rowspan="2">Stock Adjustment</th>
+    <th *ngIf="roleId==='4'" style="padding:2.5px; width: 10%;" rowspan="2">Remarks</th>
+    <th *ngIf="roleId==='3'" style="padding:2.5px; width: 10%;" rowspan="2">Remarks</th>
+    <th *ngIf="roleId==='2'" style="padding:2.5px; width: 10%;" rowspan="2">Remarks</th>
+</tr>
+<tr>
+    <!-- <th style="text-align: center;">KSHS</th>
+    <th style="text-align: center;">CTS</th> -->
+</tr>
+<tr *ngFor="let audit of scheduledAuditDetailsList; let i = index">
+    <td style="text-align: center;padding: 5px;">{{i+1}}</td>
+    <td style="text-align: center;padding: 5px;">{{audit?.assetName}}</td>
+    <td style="text-align: center;padding: 5px;">{{audit?.assetCode}}</td>
+    <td style="text-align: center;padding: 5px;">{{audit?.physicalQty}}</td>
+    <td style="text-align: center;padding: 5px;">{{audit?.makerstatus}}</td>
+    <td style="text-align: center;padding: 5px;"> {{audit?.availableQty}}</td>
+    <td style="text-align: center;padding: 5px;">{{audit?.checkerstatus}}</td>
+    <td style="text-align: center;padding: 5px;">{{audit?.differenceQty}}</td>
+    <td style="text-align: center;padding: 5px;">{{audit?.stockAdjustment}}</td>
+    <td *ngIf="roleId==='4'" style="text-align: center;padding: 5px;">{{audit?.makerRemarks}}</td>
+    <td *ngIf="roleId==='3'" style="text-align: center;padding: 5px;">{{audit?.checkerRemarks}}</td>
+    <td *ngIf="roleId==='2'" style="text-align: center;padding: 5px;">{{audit?.companyAdminRemarks}}</td>
+    </tr>
+ </table>
+        </div><br>
+     <br><br><br>
+     </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+            <button  mat-raised-button class="btn btn-primary" id="printBtn" (click)="printComponent()">Print <i
+                class="fa fa-print "></i></button> &nbsp;
+                <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+        </div>
+    </div>
+    <Br>
