@@ -132,7 +132,7 @@ export class ListRoleMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
       if (data.data == true) {
         const obj = {
-          deletingId: row.countryId
+          deletingId: row.roleId
         }
         this.spinner.show();
         this.roleMasterService.deleteRole(obj).subscribe({

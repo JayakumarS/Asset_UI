@@ -189,8 +189,10 @@
                    width: 12%;border-radius: 0.07rem;">PRICING TYPE</th>
                         </tr>
                       </thead>
-                      <ng-container *ngFor="let vendorList of docForm.get('vendorList')['controls']; let i = index">
-                        <tbody [formGroup]="vendorList">
+                  
+                          <ng-container
+                          *ngFor="let vendorList of docForm.get('vendorList')['controls']; let i = index">
+                          <tbody [formGroup]="vendorList">
                           <tr>
                             <td>
                               <button mat-mini-fab color="warn" (click)="removeRow(i)">

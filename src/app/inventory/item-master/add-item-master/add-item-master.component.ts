@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemMasterService } from '../item-master.service';
 import { ItemMaster } from '../item-master.model';
@@ -10,6 +9,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { ItemMasterResultBean } from '../item-master-result-bean';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-item',
@@ -17,7 +17,7 @@ import { ItemMasterResultBean } from '../item-master-result-bean';
   styleUrls: ['./add-item-master.component.sass']
 })
 export class AddItemMasterComponent implements OnInit {
-
+  vendorList=[];
   docForm: FormGroup;
   itemMaster: ItemMaster;
   edit: boolean = false;
@@ -43,6 +43,11 @@ export class AddItemMasterComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar) {
 
+
+  }
+
+  ngOnInit() {
+    
     this.docForm = this.fb.group({
       itemId: [""],
       itemType: ["", [Validators.required]],
@@ -90,12 +95,6 @@ export class AddItemMasterComponent implements OnInit {
       ]),
 
     });
-
-
-  }
-
-  ngOnInit() {
-
     this.companyId = this.tokenStorage.getCompanyId();
     console.log(this.companyId)
     this.branchId = this.tokenStorage.getBranchId();

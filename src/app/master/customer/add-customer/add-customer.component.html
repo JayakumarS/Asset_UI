@@ -633,14 +633,15 @@
                 </mat-form-field>
               </td>
               <td class="padding-both-side-2">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>IFSC CODE</mat-label>
-                  <input matInput name="ifscCode{{i}}"  formControlName="ifscCode"  [ngModel]="value4" (ngModelChange)="value4=$event.toUpperCase()"(keypress)="keyPressAlphaNumericA($event)" maxlength="11">
-                </mat-form-field>
+                  <input matInput  formControlName="ifscCode" maxlength="11" >
+                  <mat-error *ngIf="accountDetail.controls['ifscCode'].hasError('pattern')">
+                  EX:(SBIN0000400)
+                  </mat-error>
+                 </mat-form-field>
               </td>
-
-
-              </tr>
+        </tr>
               </tbody>
               </ng-container>
               </table>

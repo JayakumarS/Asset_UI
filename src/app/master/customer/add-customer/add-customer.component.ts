@@ -50,6 +50,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   getLocationDropdown=[];
   company:any;
   locationemailDdList:[];
+  ifscForm: FormGroup;
 
 
   constructor(private fb: FormBuilder,
@@ -97,7 +98,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       vendorLocation: [""],
       shipperAddress: [""],
       billingAddress: [""],
-      shipperState: ["",[Validators.required]],
+      shipperState: [""],
       shipperZip: [""],
       shipperCity: [""],
       shipperCountry: [""],
@@ -121,6 +122,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       branchid: [""],
        
 
+   
+
       contactDetail: this.fb.array([
         this.fb.group({
           name: [""],
@@ -135,7 +138,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
           bankName: [""],
           accType: [""],
           accNo: [""],
-          ifscCode: [""],
+          ifscCode: ["",Validators.pattern('[A-Za-z]{4}[0-9]{7}')],
           address: [""],
           state: [""],
           accName: [""],
@@ -264,10 +267,7 @@ locationdropdown(company:any){
 });
 
 
-
 }
-
-
 
 
 
@@ -591,6 +591,7 @@ removeRowAccount(index) {
 
 reset(){
   if (!this.edit) {
+    location.reload()
     this.docForm.reset();
     this.docForm.patchValue({
       cus_id: [""],

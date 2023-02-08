@@ -583,22 +583,23 @@ update() {
   reset() {
     if (!this.edit) {
       this.docForm = this.fb.group({
-        fullName: ["", [Validators.required]],
-        contNumber: ["", [Validators.required]],
-        role: ["", [Validators.required]],
+        fullName: [""],
+        contNumber: [""],
+        role: [""],
         department: [""],
         repmanager: [""],
-        language: ["", [Validators.required]],
+        language: [""],
         location: [""],
         otp: [""],
         userLocation: [""],
-        company: ["", [Validators.required]],
+        company: [""],
         loginedUser: this.tokenStorage.getUserId(),
         empid: [""],
         active: [""],
-        branch: ["", [Validators.required]],
+        branch: [""],
         address: [""],
         country: [""],
+        emailId:[""]
       });
     } else {
     this.fetchDetails(this.requestId);

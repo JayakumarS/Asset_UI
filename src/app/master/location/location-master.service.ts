@@ -33,6 +33,8 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
   public deleteLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/delete`;
    public editLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/edit`;
   public updateLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/update`;
+  public companyadList = `${this.serverUrl.apiServerAddress}app/locationMaster/companyadList`;
+
   get data(): LocationMaster[] {
     return this.dataChange.value;
   }

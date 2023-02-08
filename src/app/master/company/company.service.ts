@@ -51,37 +51,20 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   getDialogData() {
     return this.dialogData;
   }
-  addCompany(company,router,notificationService): void {
+  addCompany(company,router): void {
     this.dialogData = company;
     this.httpService.post<any>(this.saveCompany, company).subscribe(data => {
       console.log(data);
-      if(data.success){
-        if(this.tokenStorage.getCompanyId()==null){
-          this.tokenStorage.saveCompanyId(data.companyId);
-        }else if(this.tokenStorage.getCompanyId()=="null"){
-          this.tokenStorage.saveCompanyId(data.companyId);
-        }
-        notificationService.showNotification(
-          "snackbar-success",
-          "Add Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
+    
         router.navigate(['/master/company/listCompany']);
-      }else{
-        notificationService.showNotification(
-          "snackbar-danger",
-          "Not Added!!!",
-          "bottom",
-          "center"
-        );
-      }
+     
       //this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
         
     });
   }
+
 
   getAllList(): void {
     this.UserId=this.tokenStorage.getUserId();

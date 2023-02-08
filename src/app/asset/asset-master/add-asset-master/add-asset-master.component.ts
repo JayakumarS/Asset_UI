@@ -499,6 +499,16 @@ export class AddAssetMasterComponent
 
     this.assetService.editAsset(obj).subscribe({
       next: (res: any) => {
+
+        this.httpService.get<any>(this.userMasterService.departmentListUrl + "?company=" + this.tokenStorage.getCompanyId() + "").subscribe(
+          (data) => {
+            this.departmentDdList = data.departmentList;
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + " " + error.message);
+          }
+        );
+
         this.docForm.patchValue({
           'assetName': res.addAssetBean.assetName,
           'assetCode': res.addAssetBean.assetCode,
@@ -517,7 +527,7 @@ export class AddAssetMasterComponent
           'captitalizationDate': res.addAssetBean.captitalizationDate,
           'captitalizationPrice': res.addAssetBean.captitalizationPrice,
           'condition': res.addAssetBean.condition,
-          'department': res.addAssetBean.department,
+          'department': res.addAssetBean.department.toString(),
           'depreciation': res.addAssetBean.depreciation,
           'description': res.addAssetBean.description,
           'endLife': res.addAssetBean.endLife,
@@ -530,7 +540,7 @@ export class AddAssetMasterComponent
           'purchasePrice': res.addAssetBean.purchasePrice,
           'remarks': res.addAssetBean.remarks,
           'assetUser':res.addAssetBean.assetUser,
-          'scrapValue': res.addAssetBean.scrapValue,
+          'scrapValue': res.addAssetBean.scrapValue.toFixed(2),
           'selfOrPartner': res.addAssetBean.selfOrPartner,
           'serialNo': res.addAssetBean.serialNo,
           'transferredTo': parseInt(res.addAssetBean.transferredTo),

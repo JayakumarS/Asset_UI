@@ -21,11 +21,9 @@
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="branchCode" oninput="this.value = this.value.toUpperCase()"  required>
-                    <!-- <mat-error *ngIf="docForm.get('branchCode').hasError('required')">
-                      Company Name is required
-                    </mat-error><mat-error *ngIf="docForm.get('branchCode').hasError('company')">
-                      Company Name Already Exists !!!
-                    </mat-error> -->
+                    <mat-error *ngIf="docForm.get('branchCode').hasError('required')">
+                      branch code is required
+                    </mat-error>
                   </mat-form-field>
                 </div>
                
