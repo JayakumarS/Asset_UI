@@ -26,7 +26,7 @@ export class CustomerAccountingPopupComponent implements OnInit {
     this.docForm = this.fb.group({
     name: [""],
     position: [""],
-    conEmail: [""],
+    conEmail: ["", [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
     conPhone: [""],
     mobile: [""]
   });
@@ -35,7 +35,7 @@ export class CustomerAccountingPopupComponent implements OnInit {
     this.docForm = this.fb.group({
       name: [""],
       position: [""],
-      conEmail: [""],
+      conEmail: ["", [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       conPhone: [""],
       mobile: [""]
     });

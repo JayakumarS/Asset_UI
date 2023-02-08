@@ -31,6 +31,7 @@ export class AddDepartmentMasterComponent implements OnInit {
   getUserBasedCompanyList = [];
   getUserBasedBranchList = [];
   branch: any;
+  customer:any;
 
   constructor(private fb: FormBuilder,private tokenStorage: TokenStorageService,
     private departmentMasterService : DepartmentMasterService,
@@ -89,7 +90,16 @@ export class AddDepartmentMasterComponent implements OnInit {
       }
       );
 
-
+      this.customer=this.tokenStorage.getUserId()
+      this.httpService.get<any>(this.departmentMasterService.fetchBranch+"?userId="+(this.customer)).subscribe(
+        (data) => {
+          console.log(data);
+          this.getUserBasedBranchList = data.getUserBasedBranchList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
 
      // Company  Dropdown List
     this.httpService.get<any>(this.departmentMasterService.getCompanyDropdown+"?userId="+this.userId).subscribe({
@@ -126,18 +136,18 @@ export class AddDepartmentMasterComponent implements OnInit {
 
   fetchBranchDetails(customer: any) {
 
-    this.userId = this.tokenStorage.getUserId();
+    // this.userId = this.tokenStorage.getUserId();
 
-    this.httpService.get(this.departmentMasterService.fetchBranch + "?userId=" + this.userId).subscribe((res: any) => {
-      console.log(customer);
+    // this.httpService.get(this.departmentMasterService.fetchBranch + "?userId=" + this.userId).subscribe((res: any) => {
+    //   console.log(customer);
 
-      this.getUserBasedBranchList = res.getUserBasedBranchList;
+    //   this.getUserBasedBranchList = res.getUserBasedBranchList;
 
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
+    // },
+    //   (err: HttpErrorResponse) => {
+    //     // error code here
+    //   }
+    // );
 
 
   }
