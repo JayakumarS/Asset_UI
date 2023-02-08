@@ -136,7 +136,7 @@ export class AddItemMasterComponent implements OnInit {
       }
     });
     //vendor List
-    this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getVendorDropdown+"?companyId="+this.tokenStorage.getCompanyId()).subscribe({
       next: (data) => {
         this.vendorDropdownList = data;
       },
