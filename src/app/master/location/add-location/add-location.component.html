@@ -18,7 +18,7 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline" required>
 
                       <mat-select class="inputTxt" formControlName="company"(selectionChange)="getCompanybasedlocationDropdown($event.value)">
-                        <mat-option *ngFor="let title of companyList" [value]="title.id">
+                        <mat-option *ngFor="let title of companyadList" [value]="title.id">
                             {{title.text}}
                         </mat-option>
 
@@ -116,7 +116,7 @@
                      <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
                   </div>
 
-                  <div class=" col-md-1"><mat-label >CASCADE</mat-label></div>
+                  <div class=" col-md-1"><mat-label >ASSET</mat-label></div>
                   <div class=" col-md-3">
                      <mat-checkbox  ngInit="checked=true" formControlName="cascade"></mat-checkbox>
                   </div>

@@ -36,6 +36,9 @@ export class AddLocationComponent implements OnInit {
   locationList = [];
   companyList = [];
   transferList: [];
+  companyadList:[];
+  user:any;
+
   // tslint:disable-next-line:new-parens
   salesDetailRowData = new SalesEntryDetailRowComponent;
   constructor(private fb: FormBuilder,
@@ -103,6 +106,18 @@ export class AddLocationComponent implements OnInit {
 
       }
      });
+
+     //this.companys=this.tokenStorage.getCompanyId();
+     this.user=this.tokenStorage.getUserId()
+     this.httpService.get<any>(this.locationMasterService.companyadList+"?userId="+(this.user)).subscribe(
+       (data) => {
+         console.log(data);
+         this.companyadList = data.locationMasterDetails;
+       },
+       (error: HttpErrorResponse) => {
+         console.log(error.name + " " + error.message);
+       }
+     );
     // // Location dropdown
     // this.httpService.get<any>(this.commonService.getcompanybaseduser).subscribe({
     //   next: (data) => {
