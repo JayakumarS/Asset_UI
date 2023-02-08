@@ -119,17 +119,25 @@ export class AddCompanyComponent implements OnInit {
       this.docForm.value.userId = this.tokenStorage.getUserId();
     this.company = this.docForm.value;   
     console.log(this.company);
-    this.companyService.addCompany(this.company,this.router,this.notificationService);
     
-    }
-    else{
+    this.companyService.addCompany(this.company,this.router);
+    
+      this.showNotification(
+        "snackbar-success",
+        "Add Record Successfully...!!!",
+        "bottom",
+        "center"
+      );
+    }else{
       this.showNotification(
         "snackbar-danger",
-        "Invalid Data...!!!",
+        "Not Added!!!",
         "bottom",
         "center"
       );
     }
+    
+   
   }
 
   fetchDetails(company: any): void {
