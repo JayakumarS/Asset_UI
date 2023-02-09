@@ -112,9 +112,9 @@ export class AddItemMasterComponent implements OnInit {
       }
     });
     //Category Dropdown List
-    this.httpService.get<any>(this.commonService.getItemCategoryDropdown).subscribe({
+    this.httpService.get<any>(this.itemMasterService.getItemCategoryDropdown+"?companyId="+this.tokenStorage.getCompanyId()).subscribe({
       next: (data) => {
-        this.categoryList = data;
+        this.categoryList = data.itemCategory;
       },
       error: (error) => {
       }

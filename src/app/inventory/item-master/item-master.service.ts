@@ -26,6 +26,7 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
   // Temporarily stores data from dialogs
   dialogData: any;
   companyId: string;
+  
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
     private httpService: HttpServiceService, private tokenStorage: TokenStorageService,) {
     super();
@@ -38,7 +39,8 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
   public deleteItemMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/delete`;
   public attributeDetails = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/attributeDetails`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
-
+  public getItemCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/getItemCategoryDropdown`;
+  
   get data(): ItemMaster[] {
     return this.dataChange.value;
   }
