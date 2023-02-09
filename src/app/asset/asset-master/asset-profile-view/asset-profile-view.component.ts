@@ -319,7 +319,7 @@ fetchAssetName(asset:any){
         
    this.profileViewDetails=res.addAssetBean;
    this.auditableAsset=res.getAuditableAssetDetails;
-   this.assetNameForList=this.profileViewDetails.assetName;
+   this.assetNameForList=this.profileViewDetails?.assetName;
 
    //For Img added by gokul // chuma iruda added by kathir
    if (res.addAssetBean.uploadImg != undefined && res.addAssetBean.uploadImg != null && res.addAssetBean.uploadImg != '') {

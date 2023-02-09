@@ -67,25 +67,36 @@
 
           <table mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows
           class="mat-elevation-z8" matSort>
+
+          <ng-container matColumnDef="icon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;</th>
+            <td mat-cell *matCellDef="let row" style="width: 88px;">
+              <button mat-icon-button color="accent"  
+            class="tbl-action-btn">
+          <mat-icon *ngIf="isExpand == true" style="color: black;cursor: pointer;margin-top: 7px;">arrow_drop_down</mat-icon>
+          <mat-icon *ngIf="isExpand == false" style="color: black;cursor: pointer;margin-top: 7px;">arrow_drop_up</mat-icon>
+           </button> 
+            </td>
+        </ng-container>
           
           <ng-container matColumnDef="assetName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;Asset Name</th>
-              <td mat-cell *matCellDef="let row"> <a href="javascript:void(0);" style="text-decoration:none;">{{row.assetName}}</a>
+              <td mat-cell *matCellDef="let row" style="pointer-events: none;"> <a href="javascript:void(0);" style="text-decoration:none;">{{row.assetName}}</a>
               </td>
           </ng-container>
           <ng-container matColumnDef="categoryName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset Category</th>
-              <td mat-cell *matCellDef="let row"> {{row.categoryName}}
+              <td mat-cell *matCellDef="let row" style="pointer-events: none;"> {{row.categoryName}}
               </td>
           </ng-container>
           <ng-container matColumnDef="location">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
-              <td mat-cell *matCellDef="let row"> {{row.location}}
+              <td mat-cell *matCellDef="let row" style="pointer-events: none;"> {{row.location}}
               </td>
           </ng-container>
           <ng-container matColumnDef="quantity">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
-              <td mat-cell *matCellDef="let row"> {{row.balanceQty}}
+              <td mat-cell *matCellDef="let row" style="pointer-events: none;"> {{row.balanceQty}}
               </td>
           </ng-container>
           <ng-container matColumnDef="actions">
