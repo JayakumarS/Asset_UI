@@ -120,7 +120,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       totalReceivable: [""],
       companyid: [""],
       branchid: [""],
-       
+      loginedUser: this.tokenStorageService.getUserId(),
+
 
    
 

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { CategoryResultBean } from '../category-result-bean';
@@ -33,7 +34,9 @@ export class AddCategoryComponent implements OnInit {
     private commonService: CommonService,
     private snackBar:MatSnackBar,
     private router:Router,private notificationservice:NotificationService,
-    public route: ActivatedRoute,)
+    public route: ActivatedRoute,
+    private tokenStorage: TokenStorageService,
+    )
      {  this.docForm = this.fb.group({
   
       categoryName: ["",[Validators.required]],
@@ -43,7 +46,8 @@ export class AddCategoryComponent implements OnInit {
       id:[""],
       depreciation:["",[Validators.required]],
       assettype:[""],
-      currency:["",[Validators.required]]
+      currency:["",[Validators.required]],
+      loginedUser: this.tokenStorage.getUserId(),
 
       
       
