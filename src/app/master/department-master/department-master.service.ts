@@ -25,6 +25,7 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   // Temporarily stores data from dialogs
   dialogData: any;
   companyId: string;
+  RoleId: string;
   constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
   }
@@ -53,8 +54,10 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllList(): void {
-    this.companyId=this.tokenStorage.getCompanyId();   
-        this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?companyId="+this.companyId).subscribe(
+    this.companyId=this.tokenStorage.getCompanyId();  
+    this.RoleId=this.tokenStorage.getRoleId();
+ 
+        this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?companyId="+this.companyId+"&RoleId="+this.RoleId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.departmentMasterDetails);

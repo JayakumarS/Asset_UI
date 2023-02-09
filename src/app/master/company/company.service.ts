@@ -25,6 +25,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   // Temporarily stores data from dialogs
   dialogData: any;
   UserId: string;
+  RoleId: string;
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private tokenStorage: TokenStorageService,
     private httpService: HttpServiceService) {
       super();
@@ -68,7 +69,15 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
 
   getAllList(): void {
     this.UserId=this.tokenStorage.getUserId();
-    this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters+"?UserId="+this.UserId).subscribe(
+    this.RoleId=this.tokenStorage.getRoleId();
+
+
+    // this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters+
+    //   "&UserId="+this.UserId+"&RoleId="+this.RoleId).subscribe(
+    //     (res:any) => {
+
+   this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters+
+    "?UserId="+this.UserId+"&RoleId="+this.RoleId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.companyMasterDetails);
