@@ -91,7 +91,7 @@
             </div> 
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="telephoneNo" maxlength="20" required>
+                <input matInput formControlName="telephoneNo" maxlength="10" (keypress)="keyPressNumeric1($event)" required>
                 <mat-error *ngIf="docForm.get('telephoneNo').hasError('required')">
                   Phone No is required
                 </mat-error> 

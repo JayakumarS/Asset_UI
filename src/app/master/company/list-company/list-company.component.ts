@@ -117,14 +117,25 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
 
       if (data.data == true) {
 
-        this.httpService.get(this.companyService.deleteCompany+ "?companyId=" + this.id).subscribe((res: any) => {
-          this.showNotification(
-            "snackbar-success",
-            "Delete Record Successfully...!!!",
-            "bottom",
-            "center"
-          );
-          this.loadData();
+        this.httpService.get(this.companyService.deleteCompany+ "?companyId=" + this.id).subscribe((res:any) => {
+            if(res.success == true){
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+            else if(res.success == false){
+              this.showNotification(
+                "snackbar-danger",
+                "You Can't Delete Related Data Exist...!!!",
+                "bottom",
+                "center");
+              // this.loadData();
+            }
+          
+          
         },
           (err: HttpErrorResponse) => {
             // error code here
@@ -132,9 +143,7 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
         );
 
       
-      } else{
-        this.loadData();
-      }
+      } 
 
     });
 
