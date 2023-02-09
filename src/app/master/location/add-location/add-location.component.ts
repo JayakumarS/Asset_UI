@@ -285,16 +285,16 @@ fetchDetails(locationId: any): void {
     if (!this.edit) {
       this.docForm = this.fb.group({
         locationId: [""],
-        locationCode: ["", [Validators.required], ],
-        locationName: ["", [Validators.required]],
+        locationCode: [""],
+        locationName: [""],
         // cslLocationCode: ["", [Validators.required]],
-        parentLocation: ["", [Validators.required]],
+        parentLocation: [""],
         description: [""],
         active: [""],
         cascade: [""],
         primaryLocation: [""],
         alternateLocation: [""],
-        company:this.tokenStorage.getCompanyId(),
+        company:[""],
         branchId:this.tokenStorage.getBranchId()
       });
   } else {
