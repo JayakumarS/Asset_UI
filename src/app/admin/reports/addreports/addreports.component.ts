@@ -86,7 +86,7 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
       }
     );
 
-this.onSearch();
+        this.onSearch();
 
   }
 

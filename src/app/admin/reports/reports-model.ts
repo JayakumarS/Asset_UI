@@ -1,25 +1,28 @@
 export class Reportscategory{
-    category:string;
-    status:string;
-    asset:string;
-    asset_code:string;
-    asset_name:string;
-    asset_location:number;
-    asset_category:string;
-    discard_date:string;
-    categoryName:any;
-    startdate:string;
-    enddate:string;
-    company_id:string;
-    username:string;
-    startdateObj:string;
-    enddateObj:string;
-  inUse: string;
+    category: string;
+    status: string;
+    asset: string;
+    asset_code: string;
+    asset_name: string;
+    asset_location: number;
+    asset_category: string;
+    discard_date: string;
+    categoryName: any;
+    startdate: string;
+    enddate: string;
+    company_id: string;
+    username: string;
+    startdateObj: string;
+    enddateObj: string;
+  inUse: number;
   location: string;
   inStock: string ;
   repair: string ;
   damaged: string ;
   total: string ;
+  depreciationMethod: number;
+  assetLocation: number;
+  categoryId:  number;
 
 
     constructor(reportscategory) {
@@ -41,6 +44,10 @@ export class Reportscategory{
           this.username = reportscategory.username || "";
           this.startdateObj = reportscategory.startdateObj || "";
           this.enddateObj = reportscategory.enddateObj || "";
+          this.location = reportscategory.location || "";
+          this.repair = reportscategory.repair || "";
+
+
 
 
 

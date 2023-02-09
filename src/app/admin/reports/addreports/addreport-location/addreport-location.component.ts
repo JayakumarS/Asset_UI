@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,9 @@ import { ReportsService } from '../../reports.service';
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map, merge, Observable } from 'rxjs';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+import { fromEvent, map, merge, Observable } from 'rxjs';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 
 @Component({
@@ -22,7 +24,7 @@ import { map, merge, Observable } from 'rxjs';
   templateUrl: './addreport-location.component.html',
   styleUrls: ['./addreport-location.component.sass']
 })
-export class AddreportLocationComponent implements OnInit {
+export class AddreportLocationComponent extends  UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     'location',
   'inUse',
@@ -37,11 +39,10 @@ export class AddreportLocationComponent implements OnInit {
     statusList: [];
     categoryList: [];
     assetList: [];
+    locationsList: [];
     requestId: any;
-    loadData: any;
     edit: boolean = false;
-    reList: any = [];
-     loList: any = [];
+
      dataSource: ExampleDataSource | null;
      exampleDatabase: ReportsService | null;
      selection = new SelectionModel<Reportscategory>(true, []);
@@ -60,43 +61,23 @@ export class AddreportLocationComponent implements OnInit {
     public commonService: CommonService,
     public route: ActivatedRoute,
     private tokenStorage: TokenStorageService,
-  ) { }
+  ) {
+    super();
+    this.docForm = this.fb.group({
+      location: [""]
+     });
+
+  }
+
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-
-    this.httpService.get<reportsresultbean>(this.reportsService.categoryListUrl).subscribe(
-  (data) => {
-    this.categoryList = data.categoryList;
-  },
-  (error: HttpErrorResponse) => {
-    console.log(error.name + " " + error.message);
-  }
-);
-
-    this.route.params.subscribe(params => {
-  if (params.id!=undefined && params.id!=0){
-   this.requestId = params.id;
-   this.edit = true;
-   // For User login Editable mode
-  }
-});
-
-
-
-    this.httpService.get<reportsresultbean>(this.reportsService.assetListUrl).subscribe(
-  (data) => {
-    this.assetList = data.assetList;
-  },
-  (error: HttpErrorResponse) => {
-    console.log(error.name + " " + error.message);
-  }
-);
-
-    this.route.params.subscribe(params => {
-  if (params.id!=undefined && params.id!=0){
-   this.requestId = params.id;
-  }
-});
   // location list
 // tslint:disable-next-line:max-line-length
     this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId="  + this.tokenStorage.getCompanyId() + "").subscribe((res: any) => {
@@ -114,33 +95,47 @@ this.requestId = params.id;
 }
 });
 
+    this.Search();
 
 }
-Search(){
+loadData() {
+  this.exampleDatabase = new ReportsService(this.httpClient,this.serverUrl,this.httpService);
+  this.dataSource = new ExampleDataSource(
+    this.exampleDatabase,
+    this.paginator,
+    this.sort,
+    this.docForm
+  );
+  this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
+    () => {
+      if (!this.dataSource) {
+        return;
+      }
+      this.dataSource.filter = this.filter.nativeElement.value;
+    }
+  );
+}
+ // context menu
+ onContextMenu(event: MouseEvent, item: Reportscategory) {
+  event.preventDefault();
+  this.contextMenuPosition.x = event.clientX + "px";
+  this.contextMenuPosition.y = event.clientY + "px";
+  this.contextMenu.menuData = { item: item };
+  this.contextMenu.menu.focusFirstItem("mouse");
+  this.contextMenu.openMenu();
+}
+
+Search() {
   this.reportscategory = this.docForm.value;
-  this.httpService.get(this.reportsService.locationsearch + "?location=" + this.docForm.controls.asset.value ).subscribe((res: any) => {
-    console.log(res);
-    this.loList = res.assetList;
-  },
-  (err: HttpErrorResponse) => {
-  }
-);
-
-
+  this.loadData();
 }
-showNotification(colorName, text, placementFrom, placementAlign) {
-  this.snackBar.open(text, "", {
-    duration: 2000,
-    verticalPosition: placementFrom,
-    horizontalPosition: placementAlign,
-    panelClass: colorName,
-  });
-}
+
 
 }
 
 export class ExampleDataSource extends DataSource<Reportscategory> {
   filterChange = new BehaviorSubject("");
+
   get filter(): string {
     return this.filterChange.value;
   }
@@ -149,61 +144,83 @@ export class ExampleDataSource extends DataSource<Reportscategory> {
   }
   filteredData: Reportscategory[] = [];
   renderedData: Reportscategory[] = [];
-  constructor(
+   constructor(
     public exampleDatabase: ReportsService,
     public paginator: MatPaginator,
     public _sort: MatSort,
     public docForm: FormGroup
-
   ) {
     super();
     // Reset to the first page when the user changes the filter.
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
+
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Reportscategory[]> {
-
+    // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
       this._sort.sortChange,
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList(this.docForm.value);
+    this.exampleDatabase.getLocationList(this.docForm.value);
     return merge(...displayDataChanges).pipe(
       map(() => {
-
+        // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
           .filter((reportscategory: Reportscategory) => {
             const searchStr = (
-              reportscategory.category +
-              reportscategory.asset +
-              reportscategory.status +
-              reportscategory.asset_code +
-              reportscategory.asset_name +
-              reportscategory.asset_location +
-              reportscategory.asset_category
+              reportscategory.location +
+              reportscategory.repair
+
            ).toLowerCase();
+
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+
           });
 
+        // Sort filtered data
         const sortedData = this.sortData(this.filteredData.slice());
-
+        // Grab the page's slice of the filtered sorted data.
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-        // this.renderedData = sortedData.splice(
-        //   startIndex,
-        //   this.paginator.pageSize
-        // );
+        this.renderedData = sortedData.splice(
+          startIndex,
+          this.paginator.pageSize
+        );
         return this.renderedData;
       })
     );
   }
-  sortData(ar: Reportscategory[]) {
-  }
   disconnect() {}
+  /** Returns a sorted copy of the database data. */
+  sortData(data: Reportscategory[]): Reportscategory[] {
+    if (!this._sort.active || this._sort.direction === "") {
+      return data;
+    }
+    return data.sort((a, b) => {
+      let propertyA: number | string = "";
+      let propertyB: number | string = "";
 
+      switch (this._sort.active) {
+        case "location":
+          [propertyA, propertyB] = [a.location, b.location];
+          break;
+        case "repair":
+            [propertyA, propertyB] = [a.repair, b.repair];
+            break;
+
+
+      }
+
+      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+      return (
+        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+      );
+    });
+  }
 }
-
 
 
