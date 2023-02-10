@@ -26,6 +26,7 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   dialogData: any;
   companyId: string;
   RoleId: string;
+  UserId: string;
   constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
   }
@@ -54,14 +55,9 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllList(): void {
-    this.companyId=this.tokenStorage.getCompanyId();  
+    this.UserId=this.tokenStorage.getUserId();  
     this.RoleId=this.tokenStorage.getRoleId();
-    if(this.RoleId=="1")
-    {
-      this.companyId = "1";
-    }
- 
-        this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?companyId="+this.companyId+"&RoleId="+this.RoleId).subscribe(
+    this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?UserId="+this.UserId+"&RoleId="+this.RoleId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.departmentMasterDetails);
