@@ -263,10 +263,11 @@ export class AddCompanyEmployeesComponent implements OnInit {
   this.httpService.get(this.companyEmployeeService.editcategory + "?id=" + id).subscribe((res: any) => {
 
     console.log(id);
-
+    this.userId = this.tokenStorage.getUserId();
+     this.companyId = this.tokenStorage.getCompanyId();
     this.docForm.patchValue({
      
-      'company': res.companyEmployeeBean.company,
+      'company': parseInt(res.companyEmployeeBean.company),
       'branch':  parseInt(res.companyEmployeeBean.branch),
       'emailId' : res.companyEmployeeBean.emailId, 
       'fullName' : res.companyEmployeeBean.fullName, 
@@ -288,6 +289,8 @@ export class AddCompanyEmployeesComponent implements OnInit {
 }
 
   update(){
+    this.docForm.value.userId = this.tokenStorage.getUserId();
+
     if(this.docForm.valid){
       this.company = this.docForm.value;
       this.companyEmployeeService.CompanyEmpUpdate(this.company,this.router);
