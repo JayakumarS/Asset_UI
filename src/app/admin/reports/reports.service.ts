@@ -31,8 +31,10 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     public auditSerach = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getAuditSerach`;
     public getdiscardedReports = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getDiscardedReports`;
     public getUserNameDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getusernamelist`;
-    public getUserLogList = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getUserLoglist`;
+    public getUserLogList = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/getList`;
+    public UserSerach = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/getUserSerach`;
 
+    
     get data(): Reportscategory[] {
       return this.dataChange.value;
     }
@@ -40,17 +42,19 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
       return this.dialogData;
     }
     userloglist(object){
-      // console.log(object);
-      // this.subs.sink = this.httpService.post<reportsresultbean>(this.getUserLogList, object).subscribe(
-      //   (data) => {
-      //     this.isTblLoading = false;
-      //     this.dataChange.next(data.userlogDetails);
-      //   },
-      //   (error: HttpErrorResponse) => {
-      //     this.isTblLoading = false;
-      //     console.log(error.name + " " + error.message);
-      //   }
-      // );
+    
+        console.log(object);
+        this.subs.sink = this.httpService.post<any>(this.getUserLogList,object).subscribe(
+          (data) => {
+            this.isTblLoading = false;
+            this.dataChange.next(data.usernamelist);
+          },
+          (error: HttpErrorResponse) => {
+            this.isTblLoading = false;
+            console.log(error.name + " " + error.message);
+          }
+        );
+  
     }
     getAllList(object): void {
       console.log(object);

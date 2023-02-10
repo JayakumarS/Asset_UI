@@ -308,7 +308,20 @@ export class HeaderComponent
     this.app.SetName('');
       localStorage.removeItem("currentUser");
     this.router.navigate(['/authentication/signin']);
+    this.logoutSuccessUserLog();
 
+  }
+
+  logoutSuccessUserLog() {
+  
+    const obj = {
+      userName: this.token.getUserId,
+      companyid: this.token.getCompanyId,
+    }
+    console.log(obj);
+    this.authService.getSuccessuserLogout(obj).subscribe((result: any) => {
+      
+    });
   }
 
 showPaymentPage(){

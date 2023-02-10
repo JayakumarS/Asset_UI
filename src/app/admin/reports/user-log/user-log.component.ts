@@ -70,6 +70,7 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
   locationMaster: Reportscategory | null;
   companyList:[""];
   usernamelist:[];
+  searchList:[];
   constructor(
     private cmnService:CommonService,
     public httpClient: HttpClient,
@@ -105,7 +106,17 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    this.onSubmit();
+    this.docForm = this.fb.group({
+      startdateObj: [""],
+      enddate: [""],
+      startdate: [""],
+      enddateObj: [""],
+      company_id:[""],
+      username:[""]
+
+    });
+    this.loadData();
+
 
 
        // Company  Dropdown List
@@ -128,8 +139,20 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
 );
   }
 
-  refresh(){
-    this.loadData();
+  Reset(){
+    location.reload();
+
+    this.docForm.patchValue({
+      'startdateObj' : '',
+      'enddate' : '',
+      'startdate' : '',
+      'enddateObj' : '',
+      'company_id' : '',
+      'username' : '',
+
+      
+
+   }); 
   }
 
   getDateString(event,inputFlag,index){
@@ -173,11 +196,23 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
 
   onSubmit(){
    
+    // this.locationMaster = this.docForm.value;
+    // console.log(this.locationMaster);
+    // this.loadData();
     this.locationMaster = this.docForm.value;
-    console.log(this.locationMaster);
-    this.loadData();
+    // tslint:disable-next-line:max-line-length
+    this.httpService.post(this.locationMasterService.UserSerach, this.locationMaster).subscribe((res: any) => {
+      console.log(res);
+      this.searchList = res.UserLogList;
+    },
+    (err: HttpErrorResponse) => {
+    }
+  );
+  }
 
-}
+
+
+
 
   viewCall(row) {
    
@@ -243,7 +278,7 @@ export class ExampleDataSource extends DataSource<Reportscategory> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.userloglist;
+    this.exampleDatabase.userloglist(this.docForm.value);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

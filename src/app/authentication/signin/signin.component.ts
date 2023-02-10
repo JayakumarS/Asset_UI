@@ -49,7 +49,10 @@ export class SigninComponent
       username: ["", Validators.required],
       password: ["", Validators.required],
     });
+
   }
+ 
+
   get f() {
     return this.authForm.controls;
   }
@@ -96,7 +99,7 @@ export class SigninComponent
                 this.tokenStorage.saveBranchId(data.userDetails.branchId);
                 this.tokenStorage.saveCompanies(data.userDetails.companies);
                 this.tokenStorage.saveRoles(data.userDetails.roles);
-
+                this.loginSuccessUserLog();
                 // if(data.userDetails.companies.length>0){
                 //   this.showPopUp();
                 // }
@@ -133,6 +136,8 @@ export class SigninComponent
         }
       );
 
+      
+
       // this.subs.sink = this.authService
       //   .login(this.f.username.value, this.f.password.value)
       //   .subscribe(
@@ -164,5 +169,16 @@ export class SigninComponent
     }
   }
 
+  loginSuccessUserLog() {
+  
+    const obj = {
+      userName: this.tokenStorage.getUserId,
+      companyid: this.tokenStorage.getCompanyId,
 
+    }
+    console.log(obj);
+    this.authService.getSuccessuserLog(obj).subscribe((result: any) => {
+      
+    });
+  }
 }

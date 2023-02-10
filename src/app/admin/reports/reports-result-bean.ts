@@ -6,5 +6,6 @@ export class reportsresultbean{
     reportsDetails:[];
     usernamelist:[];
     userlogDetails:[];
+    UserList:[];
 
 }
