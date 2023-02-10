@@ -15,8 +15,12 @@
                     <mat-label >COMPANY<span class="errorColor">*</span></mat-label>
                     </div>
                     <div class=" col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline" required>
-                        <input matInput formControlName="company" required readonly>
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                        <mat-select formControlName="company"  required disabled >
+                          <mat-option *ngFor="let title of company" [value]="title.id">
+                              {{title.text}}
+                          </mat-option>
+                      </mat-select>
                     <mat-error *ngIf="docForm.get('company').hasError('required')">
                       Company is required
                     </mat-error>

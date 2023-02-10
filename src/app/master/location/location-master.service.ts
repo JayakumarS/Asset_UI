@@ -59,6 +59,7 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
 addLocation(locationMaster: LocationMaster): Observable<any> {
   return this.httpClient.post<LocationMaster>(this.saveLocation, locationMaster);
 }
+
   getCurrencyList() {
 
     this.httpService.get<LocationMasterResultBean>(this.currencyListUrl).subscribe(
