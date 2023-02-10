@@ -17,6 +17,7 @@ export class CustomerAccountingPopupComponent implements OnInit {
   docForm: FormGroup;
   customerMaster: any;
 
+  edit:boolean=false;
 
   constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any,
               private snackBar: MatSnackBar, public dialogRef: MatDialogRef<CustomerAccountingPopupComponent>,
