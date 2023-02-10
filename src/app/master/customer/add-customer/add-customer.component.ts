@@ -122,9 +122,6 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       branchid: [""],
       loginedUser: this.tokenStorageService.getUserId(),
 
-
-   
-
       contactDetail: this.fb.array([
         this.fb.group({
           name: [""],
@@ -239,24 +236,27 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
   }
 
-  zipcodevalidation(event:any){
+  zipcodevalidation2(event:any){
     if(event.length != 6){ 
-      this.docForm.controls['billingZip'].setErrors({ customer_master: true });
+      this.docForm.controls['billingZip'].setErrors({ billing: true });
     }else{
       this.docForm.controls['billingZip'].setErrors(null);
     } 
+  }
+  zipcodevalidation1(event:any){
     if(event.length != 6){ 
-      this.docForm.controls['shipperZip'].setErrors({ customer_master: true });
+      this.docForm.controls['shipperZip'].setErrors({ shipper: true });
     }else{
       this.docForm.controls['shipperZip'].setErrors(null);
     } 
+  }
+  zipcodevalidation3(event:any){
     if(event.length != 6){ 
-      this.docForm.controls['deliveryZip'].setErrors({ customer_master: true });
+      this.docForm.controls['deliveryZip'].setErrors({ delivery: true });
     }else{
       this.docForm.controls['deliveryZip'].setErrors(null);
     } 
   }
-
   // pincode validation 
 
   pincodevalidation(event:any){
@@ -693,7 +693,7 @@ addRow(){
 
 
 string(event: any) {
-  const pattern = /[A-Za-z]/;
+  const pattern = /[A-Z a-z]/;
   const inputChar = String.fromCharCode(event.charCode);
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();
