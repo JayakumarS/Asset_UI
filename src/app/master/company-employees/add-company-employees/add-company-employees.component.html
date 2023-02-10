@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Add companies employee'" [items]="['Master']" [active_item]="'Add companies employee'">
+        <app-breadcrumb [title]="'Add company employee'" [items]="['Master']" [active_item]="'Add companies employee'">
         </app-breadcrumb>
       </div>
       <div class="row clearfix ">
@@ -33,9 +33,14 @@
                           <mat-label >COMPANY</mat-label>
                           </div>
                           <div class=" col-md-3">
-                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <input matInput formControlName="company"  maxlength="50" readonly>
-                          
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                           
+                              <mat-select formControlName="company"  required disabled>
+                                  <mat-option *ngFor="let data of companyList" [value]="data.id">
+                                      {{data.text}}
+                                  </mat-option>
+                              </mat-select>
+                            
                           </mat-form-field>
                         </div>
 
@@ -101,7 +106,7 @@
                                         </div>
                                         <div class=" col-md-3">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                          <input matInput formControlName="phoneno"  maxlength="50" >
+                                          <input matInput formControlName="phoneno"  maxlength="10" (keypress)="keyPressNumeric1($event)" >
 
                                           <mat-error *ngIf="docForm.get('phoneno').hasError('required')">
                                             Phone number is required
@@ -109,7 +114,7 @@
                                         </mat-form-field>
                                       </div>
                                       <div class=" col-md-2">
-                                        <mat-label >DEPARTMENT<span class="errorColor">*</span></mat-label>
+                                        <mat-label >DEPARTMENT</mat-label>
                                         </div>
                                         <div class=" col-md-3">
                                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -118,9 +123,7 @@
                                                 {{title.text}}
                                             </mat-option>
                                         </mat-select>
-                                        <mat-error *ngIf="docForm.get('department').hasError('required')">
-                                          department is required
-                                        </mat-error>
+                                       
                                     </mat-form-field>
                                     </div>
                                           </div>

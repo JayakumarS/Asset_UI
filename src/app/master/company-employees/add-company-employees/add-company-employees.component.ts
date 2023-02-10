@@ -18,7 +18,7 @@ import { CompanyEmployeeService } from '../company-employees.service';
 })
 export class AddCompanyEmployeesComponent implements OnInit {
   departmentDdList:[];
-  CompanyList:[];
+
   branchList:[];
   RoleDdList:[];
   getUserBasedCompanyList:[];
@@ -27,13 +27,15 @@ export class AddCompanyEmployeesComponent implements OnInit {
   docForm: FormGroup;
   edit:boolean= false;
   roleId: any;
-  userId: any;
-  companyId: any;
+  userId: String;
+  companyId: string;
+  branchId: string;
   role: any;
   roleIdFlag: boolean;
   company: Company
   requestId: any;
   companyName: any;
+  companyList:[];
   constructor( private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -47,13 +49,13 @@ export class AddCompanyEmployeesComponent implements OnInit {
     private snackBar: MatSnackBar,
     public router: Router,) {
     this.docForm = this.fb.group({
-      company:this.companyName,
+      company:[""],
       branch:["",[Validators.required]],
       role:[""],
       emailId:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       fullName: ["",[Validators.required]],
       phoneno:["",[Validators.required]],
-      department:["",[Validators.required]],
+      department:[""],
       active:[false],
       id:[""],
 
@@ -74,13 +76,13 @@ export class AddCompanyEmployeesComponent implements OnInit {
     console.log(this.companyName);
 
     this.docForm = this.fb.group({
-      company:this.companyName,
+      company:[""],
       branch:["",[Validators.required]],
       role:[""],
       emailId:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       fullName: ["",[Validators.required]],
       phoneno:["",[Validators.required]],
-      department:["",[Validators.required]],
+      department:[""],
       active:[false],
       id:[""],
 
@@ -107,6 +109,32 @@ export class AddCompanyEmployeesComponent implements OnInit {
         // error code here
       }
     );
+
+//company
+  //Company List
+
+  this.companyId =this.tokenStorage.getCompanyId(),
+  // companyName:this.tokenStorage.getCompanyText(),
+
+  this.branchId =this.tokenStorage.getBranchId(),
+
+  
+  this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe(
+    (data) => {
+      console.log(data);
+      this.companyList = data;
+      this.docForm.patchValue({
+        'requestedBy':this.userId,
+        'branchId':parseInt(this.branchId),
+        'company':parseInt(this.companyId),
+     })
+   
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
+
 
     //department
 
@@ -211,7 +239,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       "bottom",
       "center"
     );
-    // this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
+  
     }
     else{
       this.showNotification(
@@ -223,7 +251,13 @@ export class AddCompanyEmployeesComponent implements OnInit {
     }
 
   }
-
+  keyPressNumeric1(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   fetchDetails(id: any) {
     this.requestId = id;
   this.httpService.get(this.companyEmployeeService.editcategory + "?id=" + id).subscribe((res: any) => {

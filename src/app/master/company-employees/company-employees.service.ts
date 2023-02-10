@@ -56,7 +56,9 @@ const httpOptions = {
       this.httpService.post<Company>(this.saveCompany, company).subscribe(data => {
         console.log(data);
         //this.dialogData = employees;
+      
         router.navigate(['/master/Company-Employees/listCompanyEmp']);
+        
 
         },
         (err: HttpErrorResponse) => {
