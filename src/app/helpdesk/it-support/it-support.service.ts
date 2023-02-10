@@ -44,7 +44,7 @@ const httpOptions = {
     public openListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getopenListCount`;
     public holdListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getholdListCount`;
     public fetchlocationlist = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/locationList`;
-
+    public imageList = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/nonImageList`;
     
     
     
@@ -73,6 +73,21 @@ const httpOptions = {
         (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.getticketlist);
+        },
+        (error: HttpErrorResponse) => {
+          this.isTblLoading = false;
+          console.log(error.name + " " + error.message);
+        }
+      );
+  
+    }
+
+    getImageList(): void {
+      let companyid=this.tokenStorage.getCompanyId();
+      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.imageList+"?companyid="+parseInt(companyid)).subscribe(
+        (data:any) => {
+          this.isTblLoading = false;
+          this.dataChange.next(data.getlocationList);
         },
         (error: HttpErrorResponse) => {
           this.isTblLoading = false;

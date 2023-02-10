@@ -20,6 +20,12 @@ import { MatDialog } from "@angular/material/dialog";
 import { CompanyMapPopupComponent } from "src/app/admin/dashboard/main/company-map-popup/company-map-popup.component";
 import { ActivityPopUpComponent } from "src/app/admin/schedule-activity/activity-pop-up/activity-pop-up.component";
 import { ChangePasswordPopUpComponent } from "src/app/user/change-password-pop-up/change-password-pop-up.component";
+import { ImagePopupComponent } from "src/app/helpdesk/it-support/list-it-support/image-popup/image-popup.component";
+import { HttpServiceService } from "src/app/auth/http-service.service";
+import { ItSupportresultbean } from "src/app/helpdesk/it-support/it-support-result-bean";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ManageAuditService } from "src/app/audit/manage-audit/manage-audit.service";
+import { CommonService } from "src/app/common-service/common.service";
 const document: any = window.document;
 
 @Component({
@@ -46,6 +52,8 @@ export class HeaderComponent
   companyNameText: any;
   isMultipleCompany: boolean;
   @ViewChild('openModal') openBtn: ElementRef<HTMLElement>;
+  imageListCount: any;
+  nonImageCount: any;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -57,6 +65,9 @@ export class HeaderComponent
     private app:AppService,
     public token: TokenStorageService,
     public dialog: MatDialog,
+    private httpService: HttpServiceService,
+    public manageAuditService: ManageAuditService,
+    private commonService: CommonService,
 
     
   ) {
@@ -170,6 +181,18 @@ export class HeaderComponent
     if( JSON.parse(this.token.getCompanies()).length>1){
       this.isMultipleCompany = true;
     }
+
+    this.httpService.get<any>(this.commonService.imageList+"?companyid="+parseInt(this.token.getCompanyId())).subscribe({
+
+      next: (data) => {
+        this.nonImageCount = data.getlocationList.length;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
   }
 
 
@@ -309,6 +332,23 @@ showPaymentPage(){
     });
     
   
+  }
+
+  nonImagePopup(){
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(ImagePopupComponent, {
+      height: "1000px",
+      width: "2000px",
+    
+      
+      
+      direction: tempDirection,
+    });
   }
 
   activityPopUp(){

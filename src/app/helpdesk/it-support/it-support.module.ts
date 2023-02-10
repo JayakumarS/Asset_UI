@@ -32,13 +32,15 @@ import {MatCardModule} from '@angular/material/card';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { DeleteitsupportComponent } from './list-it-support/deleteitsupport/deleteitsupport.component';
 import { NotificationpopComponent } from './list-it-support/notificationpop/notificationpop.component';
+import { ImagePopupComponent } from './list-it-support/image-popup/image-popup.component';
 
 @NgModule({
   declarations: [
     AddItSupportComponent,
     ListItSupportComponent,
     DeleteitsupportComponent,
-    NotificationpopComponent
+    NotificationpopComponent,
+    ImagePopupComponent
   ],
   providers:[
     NotificationService
