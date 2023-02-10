@@ -107,7 +107,7 @@ export class AddScheduldauitsComponent implements OnInit {
   });
   this.roleId=this.tokenStorage.getRoleId();
   this.companyId=this.tokenStorage.getCompanyId();
-  this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
+  this.httpService.get<any>(this.commonService.getassetnameAudit+"?companyId="+this.companyId).subscribe({
       next: (data) => {
       this.assetDropdownList = data;
     },
