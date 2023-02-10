@@ -142,9 +142,12 @@
 
               <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="postalcode"  maxlength="6" (keypress)="keyPressNumeric($event)"required>
+                <input matInput formControlName="postalcode"  maxlength="6" (change)="pincodevalidation($event.target.value)" (keypress)="keyPressNumeric($event)"required>
                 <mat-error *ngIf="docForm.get('postalcode').hasError('required')">
                   PIN CODE  is required
+                </mat-error>
+                <mat-error *ngIf="docForm.get('postalcode').hasError('customer_master')">
+                  (Example : 600097)
                 </mat-error>
               </mat-form-field>
 
@@ -265,7 +268,7 @@
     
           <div class=" col-md-2"><mat-label>ACTIVE</mat-label></div>
           <div class=" col-md-2"  style="margin-left: -45px;">
-             <mat-checkbox  ngInit="checked=true" formControlName="active" style="margin-left: 10px;"></mat-checkbox>
+             <mat-checkbox   ngInit="checked=true" formControlName="active" style="margin-left: 10px;"></mat-checkbox>
           </div>
         </div>
       </div>
@@ -320,9 +323,11 @@
         </mat-form-field>
       </div>
       <div class=" col-md-1">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 18px;">
-          <input matInput formControlName="shipperZip"maxlength="6"placeholder="Zip" (keypress)="keyPressNumeric($event)" >
-
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 3px;">
+          <input matInput formControlName="shipperZip"maxlength="6"placeholder="ZipCode" (change)="zipcodevalidation($event.target.value)" (keypress)="keyPressNumeric($event)" >
+          <mat-error *ngIf="docForm.get('shipperZip').hasError('customer_master')">
+            please enter:600097
+          </mat-error>
         </mat-form-field></div>
 
 <div class=" col-md-2"></div>
@@ -343,9 +348,11 @@
             </mat-form-field>
           </div>
           <div class=" col-md-1">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 18px;">
-              <input matInput formControlName="billingZip"maxlength="6"placeholder="Zip" (keypress)="keyPressNumeric($event)" >
-
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 3px;">
+              <input matInput formControlName="billingZip"maxlength="6"placeholder="ZipCode" (change)="zipcodevalidation($event.target.value)" (keypress)="keyPressNumeric($event)" >
+              <mat-error *ngIf="docForm.get('billingZip').hasError('customer_master')">
+                please enter:600097
+              </mat-error>
             </mat-form-field></div>
 
             <div class=" col-md-2"></div>
@@ -398,8 +405,11 @@
           </mat-form-field>
         </div>
           <div class=" col-md-1">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 18px;">
-              <input matInput formControlName="deliveryZip"maxlength="6"placeholder="Zip"  (keypress)="keyPressNumeric($event)">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 3px;">
+              <input matInput formControlName="deliveryZip"maxlength="6"placeholder="ZipCode" (change)="zipcodevalidation($event.target.value)"  (keypress)="keyPressNumeric($event)">
+              <mat-error *ngIf="docForm.get('deliveryZip').hasError('customer_master')">
+                please enter:600097
+              </mat-error>
 
             </mat-form-field></div>
             <div class=" col-md-8"></div>
@@ -511,7 +521,7 @@
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
             <mat-select class="inputTxt" formControlName="resPerson">
-              <mat-option *ngFor="let title of locationemailDdList" [value]="title.id">
+              <mat-option *ngFor="let title of locationemailDdList" [value]="title.strId">
                   {{title.text}}
               </mat-option>
           </mat-select>
@@ -623,7 +633,7 @@
               <td class="padding-both-side-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>ACCOUNT NO</mat-label>
-                  <input matInput name="accName{{i}}"  formControlName="accNo" maxlength="12" >
+                  <input matInput name="accName{{i}}"  formControlName="accNo" maxlength="20" >
                 </mat-form-field>
               </td>
               <td class="padding-both-side-2">

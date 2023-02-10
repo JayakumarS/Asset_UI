@@ -87,13 +87,13 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       city: ["", [Validators.required]],
       country: ["",[Validators.required]],
       state: [""],
-      postalcode: ["", [Validators.required]],
+      postalcode: ["",[Validators.required]],
       panno: [""],
       vatno: [""],
       gstno: [""],
       cstno: [""],
       remarks: [""],
-      active: [""],
+      active: [false],
       location: ["",[Validators.required]],
       vendorLocation: [""],
       shipperAddress: [""],
@@ -160,7 +160,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
       }
 
-     });
+     }); 
+
 
      this.company=this.tokenStorageService.getCompanyId();
      this.httpService.get<any>(this.customerService.locationemailDdList+"?companyId="+parseInt(this.company)).subscribe(
@@ -237,6 +238,34 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
 
   }
+
+  zipcodevalidation(event:any){
+    if(event.length != 6){ 
+      this.docForm.controls['billingZip'].setErrors({ customer_master: true });
+    }else{
+      this.docForm.controls['billingZip'].setErrors(null);
+    } 
+    if(event.length != 6){ 
+      this.docForm.controls['shipperZip'].setErrors({ customer_master: true });
+    }else{
+      this.docForm.controls['shipperZip'].setErrors(null);
+    } 
+    if(event.length != 6){ 
+      this.docForm.controls['deliveryZip'].setErrors({ customer_master: true });
+    }else{
+      this.docForm.controls['deliveryZip'].setErrors(null);
+    } 
+  }
+
+  // pincode validation 
+
+  pincodevalidation(event:any){
+    if(event.length != 6){ 
+        this.docForm.controls['postalcode'].setErrors({ customer_master: true });
+      }else{
+        this.docForm.controls['postalcode'].setErrors(null);
+      } 
+  }
   // city list
     getCityDropdown(state: any): void {
         this.httpService.get(this.commonService.getCityDropdown + "?state=" + state).subscribe((res: any) => {
@@ -274,6 +303,14 @@ locationdropdown(company:any){
 
   onSubmit() {
     if (this.docForm.valid){
+      if(this.docForm.value.active==true)
+      {
+       this.docForm.value.active="True"
+      }
+      else if(this.docForm.value.active==false)
+      {
+       this.docForm.value.active="False"
+      }
       this.customerMaster = this.docForm.value;
       this.spinner.show();
       if(this.customerMaster.cstno.length==0){
@@ -285,6 +322,7 @@ locationdropdown(company:any){
       if(this.customerMaster.panno.length==0){
         this.customerMaster.panno='';
       }
+    
 
       this.customerService.item(this.customerMaster).subscribe({
         next: (data) => {

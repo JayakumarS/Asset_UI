@@ -78,6 +78,7 @@ export class AddItSupportComponent implements OnInit {
       report:[""],
       status:[""],
       support_id:[""],
+      loginedUser: this.tokenStorageService.getUserId(),
       companyid:[""],
       branchid:[""],
     

@@ -72,6 +72,7 @@ export class AddAuditableAssetComponent implements OnInit {
       salvageValue:[""],
       assetType:[""],
       depreciationMethod:[""],
+
       companyId: this.tokenStorage.getCompanyId(),
       branchId: this.tokenStorage.getBranchId(),
     });
@@ -93,6 +94,7 @@ export class AddAuditableAssetComponent implements OnInit {
     salvageValue:["",[Validators.required]],
     assetType:["",[Validators.required]],
     depreciationMethod:["",[Validators.required]],
+    loginedUser: this.tokenStorage.getUserId(),
     companyId: this.tokenStorage.getCompanyId(),
     branchId: this.tokenStorage.getBranchId(),
   });
