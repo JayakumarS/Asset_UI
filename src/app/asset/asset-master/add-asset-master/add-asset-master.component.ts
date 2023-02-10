@@ -321,8 +321,9 @@ export class AddAssetMasterComponent
 
   //Assetuser dropdown
   this.companyId=this.tokenStorage.getCompanyId();
-  this.httpService.get<any>(this.commonService.getAssetUserList+"?companyId="+parseInt(this.companyId)).subscribe(
-    (data) => {
+    this.httpService.get<any>(this.commonService.getAssetUserList + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe(
+      
+      (data) => {
       console.log(data);
       this.assetUserList = data;
     },
