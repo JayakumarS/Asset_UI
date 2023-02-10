@@ -67,6 +67,7 @@ export class AddMultipleAssetMasterComponent implements OnInit {
       this.httpService.post<any>(this.assetService.multipleAssetUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
         console.log(data);
         if(data.success){
+          if(data.message !='Incorrect Email'){
           this.showNotification(
             "snackbar-success",
             "Records Added Successfully...!!!",
@@ -74,6 +75,16 @@ export class AddMultipleAssetMasterComponent implements OnInit {
             "center"
           );
           this.router.navigate(['/asset/assetMaster/listAssetMaster'])
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "There is no such user with the given email...!!!",
+              "bottom",
+              "center"
+            );
+            this.dialogRef.close();
+          }
+         
         }
         else{
           this.showNotification(

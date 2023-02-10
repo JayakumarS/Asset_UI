@@ -108,7 +108,7 @@
                       color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
                      <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
                       color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button> 
-                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <button *ngIf="!edit" color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
                     <button color="warn" type="button" class="btn-space"  (click)="cancel()"mat-raised-button>Cancel</button>
                   </div>
                 </div>

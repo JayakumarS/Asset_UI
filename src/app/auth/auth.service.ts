@@ -36,7 +36,7 @@ public currentUser: Observable<User>;
   getFormPropertyMenuUrl = `${this.serverURL.apiServerAddress}api/auth/formProperty/getFormProperty`;
   insertCusMaster = `${this.serverURL.apiServerAddress}api/customerMaster/save`;
   getSuccessUserLogData = `${this.serverURL.apiServerAddress}api/auth/app/userLog/login_data_success_user_log`;
-
+  getSuccessUserLogoutData = `${this.serverURL.apiServerAddress}api/auth/app/userLog/logout_data_success_user_log`;
   // insertSalesEntry = `${this.serverURL.apiServerAddress}api/salesCallEntry/save`;
 
   attemptAuth(credentials: AuthLoginInfo): Observable<any> {
@@ -87,6 +87,9 @@ public currentUser: Observable<User>;
   //user_log
   getSuccessuserLog(obj: any) {
     return this.http.post(this.getSuccessUserLogData, obj);
+  }
+  getSuccessuserLogout(obj: any) {
+    return this.http.post(this.getSuccessUserLogoutData, obj);
   }
   cusMaster(cusMasterData : any){
     return this.http.post(this.insertCusMaster,cusMasterData, httpOptions);

@@ -59,7 +59,7 @@
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                    
                 <mat-select class="inputTxt" formControlName="company_id">
-                  <mat-option *ngFor="let title of companyList" [value]="title.text">
+                  <mat-option *ngFor="let title of companyList" [value]="title.id">
                       {{title.text}}
                   </mat-option>
               </mat-select>
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-top: -34px; margin-left: 570px;">
-                  <button class="btn-space" mat-raised-button (click) = "onSubmit()"
+                  <button class="btn-space" mat-raised-button (click) = "Reset()"
                     color="primary" >Reset</button>
                 </div>
               </div>
@@ -125,17 +125,21 @@
                   </div>
                 </div>
               </div>
+
+
+
+              
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
                 
                
                 <ng-container matColumnDef="startdate">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>DATE</mat-header-cell>
-                  <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.enddate}}</mat-cell>
+                  <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startdate}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="status">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</mat-header-cell>
-                  <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.company}}
+                  <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.status}}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="username">
@@ -155,10 +159,7 @@
                 <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
                 </mat-progress-spinner>
               </div>
-              <!-- context menu start -->
-              <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
-                [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
-              </div>
+              
             
              
               <!-- context menu end -->

@@ -16,6 +16,8 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class Itsupportservice extends UnsubscribeOnDestroyAdapter {
+    companyid: string;
+    RoleId: string;
     deleteAsset(obj: { deletingId: any; }) {
       throw new Error('Method not implemented.');
     }
@@ -44,7 +46,7 @@ const httpOptions = {
     public openListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getopenListCount`;
     public holdListCountUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/getholdListCount`;
     public fetchlocationlist = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/locationList`;
-
+    public imageList = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/nonImageList`;
     
     
     
@@ -68,11 +70,31 @@ const httpOptions = {
     
     
     getItList(): void {
-      let companyid=this.tokenStorage.getCompanyId();
-      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getAlllist+"?companyid="+parseInt(companyid)).subscribe(
+      this.companyid=this.tokenStorage.getCompanyId();
+      this.RoleId=this.tokenStorage.getRoleId();
+    if(this.RoleId=="1")
+    {
+      this.companyid = "1";
+    }
+      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getAlllist+"?companyid="+parseInt(this.companyid+"&RoleId="+this.RoleId)).subscribe(
         (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.getticketlist);
+        },
+        (error: HttpErrorResponse) => {
+          this.isTblLoading = false;
+          console.log(error.name + " " + error.message);
+        }
+      );
+  
+    }
+
+    getImageList(): void {
+      let companyid=this.tokenStorage.getCompanyId();
+      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.imageList+"?companyid="+parseInt(companyid)).subscribe(
+        (data:any) => {
+          this.isTblLoading = false;
+          this.dataChange.next(data.getlocationList);
         },
         (error: HttpErrorResponse) => {
           this.isTblLoading = false;

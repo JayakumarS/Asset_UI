@@ -23,7 +23,14 @@ export class Itsupport {
     report: Boolean;
   Success: boolean;
   support_id: number;
-  companyid:number
+  companyid:number;
+
+  assetName : string;
+  assetCode : string;
+  assetLocation : string;
+  assetCategory : string;
+  
+
   
   constructor(itsupport) {
     {

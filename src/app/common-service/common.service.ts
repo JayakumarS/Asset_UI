@@ -179,6 +179,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getUserBasedCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getUserBasedCompany`;
 
+  public imageList = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/nonImageList`;
+
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
