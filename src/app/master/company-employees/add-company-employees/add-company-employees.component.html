@@ -68,7 +68,7 @@
                                 </div>
                                 <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <input matInput formControlName="fullName"  maxlength="50" required>
+                                  <input matInput formControlName="fullName"  maxlength="50"  (keypress)="keyPressName($event)" required>
                                   <mat-error *ngIf="docForm.get('fullName').hasError('required')">
                                     Full Name is required
                                   </mat-error>
