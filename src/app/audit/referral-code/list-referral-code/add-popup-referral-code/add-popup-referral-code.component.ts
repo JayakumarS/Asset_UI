@@ -51,7 +51,7 @@ export class AddPopupReferralCodeComponent implements OnInit {
       auditor : ["", [Validators.required]],
       loginedUser : [this.tokenStorage.getUserId()],
       referralCodeEdit : [],
-      discount : [],
+      discount : ["",[Validators.required]],
       referralCodeEditNew : this.fb.array([
         this.fb.group({
           isActive:true,
