@@ -528,7 +528,7 @@ export class AddAssetMasterComponent
           'captitalizationDate': res.addAssetBean.captitalizationDate,
           'captitalizationPrice': res.addAssetBean.captitalizationPrice,
           'condition': res.addAssetBean.condition,
-          'department': res.addAssetBean.department.toString(),
+          'department': res.addAssetBean.department !=null ? res.addAssetBean.department.toString():"",
           'depreciation': res.addAssetBean.depreciation,
           'description': res.addAssetBean.description,
           'endLife': res.addAssetBean.endLife,
