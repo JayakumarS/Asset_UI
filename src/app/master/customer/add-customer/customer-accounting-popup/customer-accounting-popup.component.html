@@ -36,7 +36,8 @@
 
 <div class=" col-md-4">
 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-  <input matInput formControlName="conEmail" maxlength="50" >
+  <input matInput formControlName="conEmail" maxlength="50" required *ngIf="edit == false">
+    <input matInput formControlName="conEmail" maxlength="50" required *ngIf="edit == true" readonly>
   <mat-error *ngIf="docForm.get('conEmail').hasError('required')">
     Email is required
   </mat-error>

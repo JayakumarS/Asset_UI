@@ -29,7 +29,7 @@
       </div>
        <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="accNo"  maxlength="15"(keypress)="keyPressNumeric($event)" required>
+        <input matInput formControlName="accNo"  maxlength="20"(keypress)="keyPressNumeric($event)" required>
 
       </mat-form-field>
     </div>
@@ -39,8 +39,10 @@
 
     <div class=" col-md-4">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="ifscCode" maxlength="15"(keypress)="keyPressNumeric($event)" >
-
+        <input matInput formControlName="ifscCode" maxlength="11" >
+        <mat-error *ngIf="docForm.controls['ifscCode'].hasError('pattern')">
+          please enter valid ifsc 
+          </mat-error>
       </mat-form-field>
     </div>
   </div>
@@ -68,8 +70,10 @@
   </mat-form-field></div>
     <div class=" col-md-2">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="zip"maxlength="10"placeholder="Zip"(keypress)="keyPressNumeric($event)" >
-
+        <input matInput formControlName="zip"maxlength="6"placeholder="Zip" (change)="zipcodevalidation1($event.target.value)"(keypress)="keyPressNumeric($event)" >
+        <mat-error *ngIf="docForm.get('zip').hasError('shipper')">
+          please enter valid zip code
+        </mat-error>
       </mat-form-field></div>
       <div class="row">
         <div class=" col-md-2">

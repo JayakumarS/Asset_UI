@@ -19,6 +19,8 @@ export class AccountPopupComponent implements OnInit {
   customerMaster: any;
   countryList = [];
   stateDdList = [];
+  ifscForm: FormGroup;
+
 
   constructor(private fb: FormBuilder,
               private snackBar: MatSnackBar,
@@ -32,7 +34,7 @@ export class AccountPopupComponent implements OnInit {
       bankName: [""],
       accType: [""],
       accNo: [""],
-      ifscCode: [""],
+      ifscCode: ["",Validators.pattern('[A-Za-z]{4}[0-9]{7}')],
       address: [""],
       state: [""],
       zip: [""],
@@ -48,7 +50,7 @@ export class AccountPopupComponent implements OnInit {
       bankName: [""],
       accType: [""],
       accNo: [""],
-      ifscCode: [""],
+      ifscCode: ["",Validators.pattern('[A-Za-z]{4}[0-9]{7}')],
       address: [""],
       state: [""],
       zip: [""],
@@ -60,7 +62,7 @@ export class AccountPopupComponent implements OnInit {
 
 
     });
-
+  
     // country dropdown
     this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
       next: (data) => {
@@ -80,7 +82,17 @@ export class AccountPopupComponent implements OnInit {
 
   }
 });
+
+
   }
+  zipcodevalidation1(event:any){
+    if(event.length != 6){ 
+      this.docForm.controls['zip'].setErrors({ shipper: true });
+    }else{
+      this.docForm.controls['zip'].setErrors(null);
+    } 
+  }
+
   public onSubmit(): void {
     this.dialogRef.close({ account: this.docForm.value });
 

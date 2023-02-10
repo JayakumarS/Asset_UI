@@ -85,7 +85,7 @@ export class AddUserMasterComponent implements OnInit {
         this.edit = true;
         // For User login Editable mode
         this.fetchDetails(this.requestId);
-        
+
       }
     });
 
@@ -170,7 +170,7 @@ export class AddUserMasterComponent implements OnInit {
     (data) => {
       this.roleList = data.roleList;
       if (!this.edit){
-        
+
         if(this.roleId==1){
           this.roleList=[{id:'3',text:'CHECKER'}];
           this.docForm.patchValue({role:'3'});
@@ -255,7 +255,7 @@ export class AddUserMasterComponent implements OnInit {
         // error code here
       }
     );
-     
+
 
   }
 
@@ -263,9 +263,9 @@ export class AddUserMasterComponent implements OnInit {
     this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
       (data) => {
         this.roleAuditList = data.roleAuditList;
-        this.docForm.patchValue({
-          role:'3',
-       })
+      //   this.docForm.patchValue({
+      //     role:'3',
+      //  })
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -316,6 +316,16 @@ export class AddUserMasterComponent implements OnInit {
     }else if(values.checked==false){
       this.auditorFlag=true;
       this.auditorFFlag=true;
+
+      this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
+        (data) => {
+          this.roleAuditList = data.roleAuditList;
+
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
     }
   }
 
@@ -323,41 +333,56 @@ export class AddUserMasterComponent implements OnInit {
   fetchDetails(empid: any) {
     this.requestId = empid;
     this.httpService.get(this.userMasterService.editUserMaster + "?empid=" + empid).subscribe((res: any) => {
+      this.fetchBranchDetails(res.userMasterBean.company) ;
       console.log(empid);
-
-      
-
       if(res.userMasterBean.auditor == true){
+               this.auditorFlag=false;
+               this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
+                (data) => {
+                  this.roleList = data.roleList;
+
+
+                  if(this.roleId==1){
+                      this.roleList=[{id:'3',text:'CHECKER'}];
+                      this.docForm.patchValue({role:'3'});
+                    }
+
+
+                },
+                (error: HttpErrorResponse) => {
+                  console.log(error.name + " " + error.message);
+                }
+              );
+
+      }else{
         this.auditorFlag=true;
         this.roleChange();
-      }else{
-        this.auditorFlag=false;
       }
-      this.fetchBranchDetails(res.userMasterBean.company) ;
+
 
       this.docForm.patchValue({
         'userId': res.userMasterBean.userId,
         'fullName': res.userMasterBean.fullName,
         'emailId': res.userMasterBean.emailId,
         'contNumber': res.userMasterBean.contNumber,
-        'role': res.userMasterBean.role+"",
-        'department': parseInt(res.userMasterBean.department),
+        'role': res.userMasterBean.role + "",
+        'department': res.userMasterBean.department + "",
         'repmanager': res.userMasterBean.repmanager,
         'language': res.userMasterBean.language,
-        'location': res.userMasterBean.location!=null?res.userMasterBean.location.toString():"",
+        'location': res.userMasterBean.location!=null? res.userMasterBean.location.toString():"",
         'otp': res.userMasterBean.otp,
         'company': res.userMasterBean.company,
         'userLocation': res.userMasterBean.userLocation,
         'empid': res.userMasterBean.empid,
         'active': res.userMasterBean.active,
-        'branch': parseInt(res.userMasterBean.branch),
+        'branch': res.userMasterBean.branch + "",
         'auditor': res.userMasterBean.auditor,
-        'address':res.userMasterBean.address,
-        'country':res.userMasterBean.country,
+        'address': res.userMasterBean.address,
+        'country': res.userMasterBean.country,
 
 
      })
-     
+
     },
     (err: HttpErrorResponse) => {
 

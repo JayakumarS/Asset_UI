@@ -23,6 +23,8 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
     []
   );
   dialogData: any;
+  companyId: any;
+  RoleId: string;
 
 
 
@@ -51,9 +53,15 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
 item(customerMaster: CustomerMaster): Observable<any> {
   return this.httpClient.post<CustomerMaster>(this.saveCoustomer, customerMaster);
 }
+
 getAllList(): void {
-  let companyId=this.tokenStorage.getCompanyId();
-  this.subs.sink = this.httpService.get<CustomerResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
+  this.companyId=this.tokenStorage.getCompanyId();
+  this.RoleId=this.tokenStorage.getRoleId();
+    if(this.RoleId=="1")
+    {
+      this.companyId = "1";
+    }
+  this.subs.sink = this.httpService.get<CustomerResultBean>(this.getAllMasters+"?companyId="+this.companyId+"&RoleId="+this.RoleId).subscribe(
     (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.customerDetails);
