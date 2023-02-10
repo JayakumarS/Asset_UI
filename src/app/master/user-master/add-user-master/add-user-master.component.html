@@ -42,13 +42,13 @@
                         <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required *ngIf="edit == false">
                         <input matInput formControlName="emailId"required *ngIf="edit == true" readonly>
                         <mat-error *ngIf="docForm.get('emailId').hasError('required')">
-                          Email is required
+                          Email ID is required
                         </mat-error>
                         <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
-                          EmailId Already Exists !!!
+                          Email ID Already Exists !!!
                         </mat-error>
                         <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
-                          Valid Email Id Required
+                          Valid Email ID Required
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -171,7 +171,7 @@
                                   <mat-option [value]="'Korean'">
                                     Korean
                                   </mat-option>
-                                 
+
                                 </mat-select>
                                 <mat-error *ngIf="docForm.get('language').hasError('required')">
                                   language is required
