@@ -64,7 +64,7 @@ export class AddMultipleAssetMasterComponent implements OnInit {
 
     upload(){
       this.companyId=this.tokenStorage.getCompanyId();
-      this.httpService.post<any>(this.assetService.multipleAssetUploadFiles+"?companyId="+this.tokenStorage.getCompanyId(),this.excelFile).subscribe(data => {
+      this.httpService.post<any>(this.assetService.multipleAssetUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
         console.log(data);
         if(data.success){
           this.showNotification(
