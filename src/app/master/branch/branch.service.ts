@@ -20,6 +20,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   dataChange: BehaviorSubject<Branch[]> = new BehaviorSubject<Branch[]>(
     []
   );
+  RoleId: string;
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
    }
@@ -28,7 +29,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   private saveBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/save`;
   public editBranchMaster = `${this.serverUrl.apiServerAddress}api/auth/app/branch/edit`;
   public updateBranchMaster = `${this.serverUrl.apiServerAddress}api/auth/app/branch/update`;
-  private deleteBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/delete`;
+  public deleteBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/delete`;
   public userBasedBranchDDList = `${this.serverUrl.apiServerAddress}api/auth/app/branch/userBasedBranchDDList`;
   public locationDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/branch/locationDropdown`;
 
@@ -41,7 +42,8 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   getAllList(){
     console.log();
     this.UserId=this.tokenStorage.getUserId();
-    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList+"?UserId="+this.UserId).subscribe(
+    this.RoleId=this.tokenStorage.getRoleId();
+    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList+"?UserId="+this.UserId+"&RoleId="+this.RoleId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.branchList);

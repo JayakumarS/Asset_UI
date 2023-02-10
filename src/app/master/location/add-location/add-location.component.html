@@ -16,13 +16,7 @@
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline" required>
-
-                      <mat-select class="inputTxt" formControlName="company"(selectionChange)="getCompanybasedlocationDropdown($event.value)">
-                        <mat-option *ngFor="let title of companyadList" [value]="title.id">
-                            {{title.text}}
-                        </mat-option>
-
-                    </mat-select>
+                        <input matInput formControlName="company" required readonly>
                     <mat-error *ngIf="docForm.get('company').hasError('required')">
                       Company is required
                     </mat-error>

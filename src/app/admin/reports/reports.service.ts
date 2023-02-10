@@ -54,7 +54,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     }
     getAllList(object): void {
       console.log(object);
-      this.subs.sink = this.httpService.post<any>(this.assetListUrl,object).subscribe(
+      this.subs.sink = this.httpService.post<any>(this.assetListUrl, object).subscribe(
         (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.assetList);
@@ -66,6 +66,33 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
       );
 }
 
+getLocationList(object): void {
+  console.log(object);
+  this.subs.sink = this.httpService.post<any>(this.locationsearch, object).subscribe(
+    (data) => {
+      this.isTblLoading = false;
+      this.dataChange.next(data.categoryList);
+    },
+    (error: HttpErrorResponse) => {
+      this.isTblLoading = false;
+      console.log(error.name + " " + error.message);
+    }
+  );
+}
+
+getDepreciationList(object): void {
+  console.log(object);
+  this.subs.sink = this.httpService.post<any>(this.depreciationSerach, object).subscribe(
+    (data) => {
+      this.isTblLoading = false;
+      this.dataChange.next(data.depreciationList);
+    },
+    (error: HttpErrorResponse) => {
+      this.isTblLoading = false;
+      console.log(error.name + " " + error.message);
+    }
+  );
+}
 
 }
 

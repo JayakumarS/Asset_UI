@@ -11,7 +11,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./add-audit-report.component.sass']
 })
 export class AddAuditReportComponent implements OnInit {
-  
+
   docForm: FormGroup;
   page: number = 1;
 
@@ -19,7 +19,7 @@ export class AddAuditReportComponent implements OnInit {
     private fb: FormBuilder,
     public commonService: CommonService,
     private httpService: HttpServiceService,
-    public reportsService:ReportsService,
+    public reportsService: ReportsService,
 ) { }
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class AddAuditReportComponent implements OnInit {
       'assetLocation' : '',
       'department' : '',
       'search' : '',
-     
+
    })
    this.searchData();
   }

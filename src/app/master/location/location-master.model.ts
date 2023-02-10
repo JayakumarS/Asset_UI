@@ -17,7 +17,7 @@ export class LocationMaster {
       this.locationCode = locationMaster.locationCode || "";
       this.locationName = locationMaster.locationName || "";
       this.country = locationMaster.country || "";
-      // this.company = locationMaster.company || "";
+      this.company = locationMaster.company || "";
       // this.companyName = locationMaster.companyName || "";
     }
   }

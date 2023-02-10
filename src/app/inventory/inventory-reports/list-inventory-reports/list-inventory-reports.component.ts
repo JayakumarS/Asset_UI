@@ -85,8 +85,9 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   locationList =[];
   mainList =[];
   companyId: string;
+  isExpand : boolean=true;
 
-  columnsToDisplay = ["assetName", "categoryName", "location", "quantity","actions"];
+  columnsToDisplay = ["icon","assetName", "categoryName", "location", "quantity","actions"];
   innerDisplayedColumns = ["transferDate","transferQuantity","sourceLocation","destinationLocation"];
 
   expandedElement: MainList | null;
@@ -256,7 +257,7 @@ this.viewReport();
   }
   
   toggleRow(element: MainList) {
-    element.subList &&(element.subList as MatTableDataSource<SubList>).data.length? this.toggleElement(element): null;
+    element.subList &&(element.subList as MatTableDataSource<SubList>).data?.length? this.toggleElement(element): null;
     this.cd.detectChanges();
     this.innerTables.forEach(
       (table, index) =>
@@ -268,8 +269,10 @@ this.viewReport();
     const index = this.expandedElements.findIndex(x => x.assetName == row1.assetName);
     if (index === -1) {
       this.expandedElements.push(row1);
+      this.isExpand = false;
     } else {
       this.expandedElements.splice(index, 1);
+      this.isExpand = true;
     }
   }
   

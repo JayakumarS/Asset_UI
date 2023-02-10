@@ -44,7 +44,9 @@ export class AddBranchComponent implements OnInit {
         location:[""],
         isactive:[false],
         userId:[""],
-        shift:[""]
+        shift:[""],
+        loginedUser: this.tokenStorage.getUserId(),
+
       });
 
 

@@ -5,6 +5,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 const httpOptions = {
@@ -18,7 +19,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService,private snackBar: MatSnackBar) {
     super();
   }
 
@@ -32,6 +33,15 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   getMonthYear(date): any {
     return moment(date).format('MM/YYYY');
+  }
+
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;

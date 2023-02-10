@@ -89,6 +89,7 @@ export class AddAssetRequisitionComponent implements OnInit {
         eddDateObj:[""],
         eddDate:[""],
         assetRequisitionId:[""],
+        loginedUser: this.token.getUserId(),
         assetRequisitionDtl: this.fb.array([
           this.fb.group({
             assetTrackConfirm:[""],

@@ -1,11 +1,13 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { MustMatch } from '../mustMatch';
 import { PasswordStrengthValidator } from '../passwordPolicy';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-change-password-pop-up',
@@ -19,7 +21,7 @@ export class ChangePasswordPopUpComponent implements OnInit {
   hideconfirmNewPassword = true;
   oldPwd:boolean = false;
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<ChangePasswordPopUpComponent>,private httpService: HttpServiceService,
-    private commonService:CommonService,private tokenStorage: TokenStorageService) { 
+    private commonService:CommonService,private tokenStorage: TokenStorageService,private router:Router,private app:AppService) { 
       dialogRef.disableClose = true;
     this.docForm = this.fb.group({
         oldChangepassword: ["",[Validators.required]],
@@ -46,6 +48,18 @@ export class ChangePasswordPopUpComponent implements OnInit {
         console.log(data);
         if(data.success){
           this.dialogRef.close();
+          this.commonService.showNotification(
+            "snackbar-success",
+            "Password Updated...!!!",
+            "bottom",
+            "center"
+          );
+          this.tokenStorage.signOut();
+          this.app.SetName('');
+          localStorage.removeItem("currentUser");
+          this.router.navigate(['/authentication/signin']);
+      
+
         }
         },
         );

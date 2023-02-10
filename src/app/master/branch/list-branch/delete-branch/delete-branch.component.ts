@@ -20,7 +20,7 @@ export class DeleteBranchComponent  {
       this.dialogRef.close();
     }
     confirmDelete(): void {
-      this.branchService.DeleteBranch(this.data.branchId,this.router,this.notificationService);
+      this.dialogRef.close({ data: true });
     }
 
 }

@@ -38,7 +38,9 @@ export class AddDesingnationMasterComponent implements OnInit {
       active:[""],
       id:[""],
       companyId:this.tokenStorage.getCompanyId(),
-      branchId:this.tokenStorage.getBranchId()
+      branchId:this.tokenStorage.getBranchId(),
+      loginedUser: this.tokenStorage.getUserId(),
+
     });
 
   }

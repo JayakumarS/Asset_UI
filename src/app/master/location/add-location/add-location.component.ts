@@ -37,7 +37,9 @@ export class AddLocationComponent implements OnInit {
   companyList = [];
   transferList: [];
   companyadList:[];
+  companyText:any;
   user:any;
+  companyId:any
 
   // tslint:disable-next-line:new-parens
   salesDetailRowData = new SalesEntryDetailRowComponent;
@@ -78,11 +80,16 @@ export class AddLocationComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+
+    
+    this.companyText=this.tokenStorage.getCompanyText();
+    console.log(this.companyText);
+
     this.docForm = this.fb.group({
       locationId: [""],
       locationCode: ["", [Validators.required]],
       locationName: ["", [Validators.required]],
-      company: ["", [Validators.required]],
+      company:  this.companyText,
       // cslLocationCode: ["", [Validators.required]],
       parentLocation: [""],
       description: [""],
@@ -94,6 +101,19 @@ export class AddLocationComponent implements OnInit {
       branchId:this.tokenStorage.getBranchId(),
       userId:this.tokenStorage.getUserId()
     });
+
+
+   this.companyId = this.tokenStorage.getCompanyId(),
+
+    this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId=" + this.companyId).subscribe((res: any) => {
+      this.locationList = res.addressBean;
+      // tslint:disable-next-line:no-shadowed-variable
+     // this.getcompanybaseduser(this.docForm.value.company);
+    });
+      this.httpService.get(this.commonService.getcompanybaseduser + "?company=" + this.companyId).subscribe((res: any) => {
+      this.locationDdList = res.addressBean;
+    });
+
     this.route.params.subscribe(params => {
       if (params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -144,14 +164,7 @@ export class AddLocationComponent implements OnInit {
 
 // location list
 getCompanybasedlocationDropdown(companyId: any): void {
-  this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId=" + companyId).subscribe((res: any) => {
-  this.locationList = res.addressBean;
-  // tslint:disable-next-line:no-shadowed-variable
- // this.getcompanybaseduser(this.docForm.value.company);
-});
-  this.httpService.get(this.commonService.getcompanybaseduser + "?company=" + companyId).subscribe((res: any) => {
-  this.locationDdList = res.addressBean;
-});
+
 }
 // company list
 getUserbasedcompanyDropdown(userId: any): void {
@@ -233,13 +246,13 @@ fetchDetails(locationId: any): void {
       'locationId': res.locationMasterBean.locationId,
         'locationCode': res.locationMasterBean.locationCode,
         'locationName': res.locationMasterBean.locationName,
-        'parentLocation' : res.locationMasterBean.parentLocation,
+        'parentLocation' :parseInt(res.locationMasterBean.parentLocation),
         'description' : res.locationMasterBean.description,
         'active': res.locationMasterBean.active,
         'cascade':  res.locationMasterBean.cascade,
         'primaryLocation': res.locationMasterBean.primaryLocation,
         'alternateLocation': res.locationMasterBean.alternateLocation,
-        'company':res.locationMasterBean.company,
+        'company': res.locationMasterBean.company,
     });
   },
   error: (error) => {

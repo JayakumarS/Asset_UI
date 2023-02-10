@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -110,23 +110,37 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       
-      // this.loadData();
-      // if(data==1)[
-      //   this.showNotification(
-      //     "snackbar-success",
-      //     " Successfully deleted",
-      //     "bottom",
-      //     "center"
-      //   )
-      //   ]
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
+
+      if (data.data == true) {
+
+        this.httpService.get(this.transferservice.deleteBranch+ "?branchId=" + this.id).subscribe((res:any) => {
+            if(res.success == true){
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+            else if(res.success == false){
+              this.showNotification(
+                "snackbar-danger",
+                "You Can't Delete Related Data Exist...!!!",
+                "bottom",
+                "center");
+              // this.loadData();
+            }
+          
+          
+        },
+          (err: HttpErrorResponse) => {
+            // error code here
+          }
+        );
+
+      
+      } 
+
     });
 
   }

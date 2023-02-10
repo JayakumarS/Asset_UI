@@ -10,7 +10,7 @@
 </div>
 <div class="col-md-2 " style="margin-left: 5px;">
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-    <mat-select formControlName="total" required>
+    <mat-select formControlName="location" required>
   <mat-option *ngFor="let title of locationList" [value]="title.id">
     {{title.text}}
   </mat-option>
@@ -86,15 +86,25 @@ location is required
 
 
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple>
-  </mat-row>
+
+<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+<mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                   [style.cursor]="'pointer'" matRipple>
+                 </mat-row>
 </mat-table>
   <!-- Loading spinner -->
-   <div *ngIf="exampleDatabase?.isTblLoading" class="tbl-spinner">
-    <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
-    </mat-progress-spinner>
+  <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+   <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+   </mat-progress-spinner>
+ </div>
+
+ <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+ [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+ No results
 </div>
+<mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+ [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
 
 </mat-tab>
 </mat-tab-group>
