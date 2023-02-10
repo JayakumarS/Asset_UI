@@ -23,6 +23,7 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
   // Temporarily stores data from dialogs
   dialogData: any;
   companyId: string;
+  RoleId: string;
   constructor(private httpClient: HttpClient,
     private serverUrl: serverLocations, private httpService: HttpServiceService, private tokenStorage: TokenStorageService,) {
     super();
@@ -43,7 +44,12 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
   /** CRUD METHODS */
   getAllList(): void {
     this.companyId=this.tokenStorage.getCompanyId();
-        this.subs.sink = this.httpService.get<UomCategoryResultBean>(this.getAllMasters+"?companyId="+this.companyId).subscribe(
+    this.RoleId=this.tokenStorage.getRoleId();
+    if(this.RoleId=="1")
+    {
+      this.companyId = "1";
+    }
+        this.subs.sink = this.httpService.get<UomCategoryResultBean>(this.getAllMasters+"?companyId="+this.companyId+"&RoleId="+this.RoleId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.uomCategoryDetails);

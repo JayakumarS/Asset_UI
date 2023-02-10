@@ -56,6 +56,10 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   getAllList(): void {
     this.companyId=this.tokenStorage.getCompanyId();  
     this.RoleId=this.tokenStorage.getRoleId();
+    if(this.RoleId=="1")
+    {
+      this.companyId = "1";
+    }
  
         this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?companyId="+this.companyId+"&RoleId="+this.RoleId).subscribe(
           (data) => {
@@ -65,8 +69,7 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
           (error: HttpErrorResponse) => {
             this.isTblLoading = false;
             console.log(error.name + " " + error.message);
-          }
-        );
+          });
   }
 
   // For Save
