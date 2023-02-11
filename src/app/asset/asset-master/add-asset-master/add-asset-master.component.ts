@@ -541,7 +541,7 @@ export class AddAssetMasterComponent
           'purchasePrice': res.addAssetBean.purchasePrice,
           'remarks': res.addAssetBean.remarks,
           'assetUser':res.addAssetBean.assetUser,
-          'scrapValue': res.addAssetBean.scrapValue.toFixed(2),
+          'scrapValue': res.addAssetBean.scrapValue,
           'selfOrPartner': res.addAssetBean.selfOrPartner,
           'serialNo': res.addAssetBean.serialNo,
           'transferredTo': parseInt(res.addAssetBean.transferredTo),
