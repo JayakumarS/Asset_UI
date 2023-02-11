@@ -69,7 +69,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   }
 
   get data1(): AssetReplacement[] {
-    return this.dataChange.value;
+    return this.dataChange1.value;
   }
   getDialogData() {
     return this.dialogData;
