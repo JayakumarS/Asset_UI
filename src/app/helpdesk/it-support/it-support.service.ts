@@ -16,8 +16,6 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class Itsupportservice extends UnsubscribeOnDestroyAdapter {
-    companyid: string;
-    RoleId: string;
     deleteAsset(obj: { deletingId: any; }) {
       throw new Error('Method not implemented.');
     }
@@ -70,13 +68,8 @@ const httpOptions = {
     
     
     getItList(): void {
-      this.companyid=this.tokenStorage.getCompanyId();
-      this.RoleId=this.tokenStorage.getRoleId();
-    if(this.RoleId=="1")
-    {
-      this.companyid = "1";
-    }
-      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getAlllist+"?companyid="+parseInt(this.companyid+"&RoleId="+this.RoleId)).subscribe(
+      let companyid=this.tokenStorage.getCompanyId();
+      this.subs.sink = this.httpService.get<ItSupportresultbean>(this.getAlllist+"?companyid="+parseInt(companyid)).subscribe(
         (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.getticketlist);
