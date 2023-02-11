@@ -54,6 +54,7 @@ export class HeaderComponent
   @ViewChild('openModal') openBtn: ElementRef<HTMLElement>;
   imageListCount: any;
   nonImageCount: any;
+  companyId: any;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -181,8 +182,14 @@ export class HeaderComponent
     if( JSON.parse(this.token.getCompanies()).length>1){
       this.isMultipleCompany = true;
     }
-
-    this.httpService.get<any>(this.commonService.imageList+"?companyid="+parseInt(this.token.getCompanyId())).subscribe({
+    
+    this.companyId=this.token.getCompanyId();
+    if(this.companyId==undefined || this.companyId==null || this.companyId=="null" || this.companyId==""){
+      this.companyId=0;
+    } else {
+      this.companyId=parseInt(this.token.getCompanyId());
+    }
+    this.httpService.get<any>(this.commonService.imageList+"?companyid="+this.companyId).subscribe({
 
       next: (data) => {
         this.nonImageCount = data.getlocationList.length;

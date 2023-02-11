@@ -15,6 +15,7 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter {
   dataChange: BehaviorSubject<ScheduledAudit[]> = new BehaviorSubject<ScheduledAudit[]>([]);
 
   dialogData: any;
+  roleId: string;
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService, private tokenStorage: TokenStorageService) {
     super();
   }
@@ -36,9 +37,13 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter {
       companyId: this.tokenStorage.getCompanyId(),
       branchId: this.tokenStorage.getBranchId(),
     }
+    this.roleId=this.tokenStorage.getRoleId();
     this.subs.sink = this.httpService.post<any>(this.getAllMasters, obj).subscribe(
       (data) => {
         this.isTblLoading = false;
+        if(this.roleId=='2') {
+          data.scheduleAuditList=[];
+        }
         this.dataChange.next(data.scheduleAuditList);
       },
       (error: HttpErrorResponse) => {

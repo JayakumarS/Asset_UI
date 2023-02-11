@@ -30,7 +30,7 @@ import { AuditReport } from '../audit-report-model';
 })
 export class ListAuditReportComponent implements OnInit {
   displayedColumns = [
-    "manageAuditNo", "auditName","startDate","endDate",
+    "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
     "companyStatus","auditType","companyActions"
   ];
  
@@ -87,17 +87,17 @@ export class ListAuditReportComponent implements OnInit {
     
     if (this.roleId=='2') {
       this.displayedColumns = [
-        "manageAuditNo", "auditName","startDate","endDate",
+        "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
         "companyStatus","auditType","companyActions"
       ];
     } else if (this.roleId=='3') {
       this.displayedColumns = [
-        "manageAuditNo", "auditName","startDate","endDate",
+        "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
         "checkerStatus","auditType","checkerActions"
       ];
     } else if (this.roleId=='4') {
       this.displayedColumns = [
-        "manageAuditNo", "auditName","startDate","endDate",
+        "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
         "makerStatus","auditType","makerActions"
       ];
     }
