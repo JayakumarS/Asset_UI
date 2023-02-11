@@ -26,10 +26,10 @@
                   </div>
                 </div> -->
                 <div class="row">
-                
+
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label>COMPANY NAME<span class="errorColor">*</span></label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="companyName"  (blur)="validateCompanyName($event.target.value)"required>
@@ -40,13 +40,13 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-               
+
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                       <label >SHORT NAME</label>
-                  </div> 
+                  </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      
+
                       <input matInput formControlName="shortName" >
                       <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
                         Description is required
@@ -56,10 +56,10 @@
                 </div>
 
                 <div class="row">
-                
+
                   <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label >COUNTRY<span class="errorColor">*</span></label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="country">
@@ -75,61 +75,61 @@
 
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <label >FAX NO</label>
-            </div> 
+            </div>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                
+
                 <input matInput formControlName="faxNo" (keypress)="keyPressNumeric1($event)">
                  <!-- <mat-error *ngIf="docForm.get('faxNo').hasError('required')">
                   Fax No is required
                 </mat-error>  -->
               </mat-form-field>
             </div>
-               
+
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <label >TELEPHONE NUMBER<span class="errorColor">*</span></label>
-            </div> 
+            </div>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="telephoneNo" maxlength="10" (keypress)="keyPressNumeric1($event)" required>
+                <input matInput formControlName="telephoneNo" maxlength="14" (keypress)="keyPressNumeric1($event)" required>
                 <mat-error *ngIf="docForm.get('telephoneNo').hasError('required')">
                   Phone No is required
-                </mat-error> 
+                </mat-error>
               </mat-form-field>
             </div>
                 </div>
 
                 <div class="row">
-                
+
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label >ADDRESS<span class="errorColor">*</span></label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <!-- <input matInput formControlName="address" required> -->
                     <textarea matInput formControlName="address"></textarea>
                     <mat-error *ngIf="docForm.get('address').hasError('required')">
                       Address is required
-                    </mat-error> 
+                    </mat-error>
                   </mat-form-field>
                 </div>
-               
+
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label >EMAIL ID<span class="errorColor">*</span></label>
-                  </div> 
+                      <label >WEBSITE<span class="errorColor">*</span></label>
+                  </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <!-- <textarea matInput formControlName="emailId"></textarea> -->
                       <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required *ngIf="edit == false">
                       <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
                       <mat-error *ngIf="docForm.get('emailId').hasError('required')">
-                        Email is required
+                        WEBSITE is required
                       </mat-error>
                       <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
-                        EmailId Already Exists !!!
+                        WEBSITE Already Exists !!!
                       </mat-error>
                       <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
-                        Valid Email Id Required
+                        Valid WEBSITE  Required
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -139,7 +139,7 @@
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label >COUNTRY<span class="errorColor">*</span></label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="country">
@@ -152,24 +152,24 @@
                       </mat-error>
                   </mat-form-field>
               </div>
-                
-                  
+
+
                 <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                   <label >FAX NO</label>
-              </div> 
+              </div>
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  
+
                   <input matInput formControlName="faxNo"> -->
                    <!-- <mat-error *ngIf="docForm.get('faxNo').hasError('required')">
                     Fax No is required
                   </mat-error>  -->
                 <!-- </mat-form-field>
               </div> -->
-               
+
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                       <label >PERSON IN-CHARGE<span class="errorColor">*</span></label>
-                  </div> 
+                  </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select formControlName="personIncharge">
@@ -179,7 +179,7 @@
                         </mat-select>
                         <mat-error *ngIf="docForm.get('personIncharge').hasError('required')">
                           Incharge is required
-                        </mat-error> 
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 </div>
@@ -191,9 +191,9 @@
                 <div class="row">
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12"  >
                     <label >IS ACTIVE</label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -136px;">
-                  <mat-checkbox formControlName="isactive"  ngInit="checked=true" style="margin-left: 15px;"></mat-checkbox>
+                  <mat-checkbox formControlName="isactive"  ngInit="checked=true" style="margin-left: 5px;"></mat-checkbox>
                 </div>
               </div>
                 <!-- <div class="row">
@@ -210,11 +210,11 @@
                     <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
                       color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
                     <button  *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
-                      color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button> 
+                      color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
                     <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
                     <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
                   </div>
-                </div> 
+                </div>
               </form>
             </div>
           </div>
