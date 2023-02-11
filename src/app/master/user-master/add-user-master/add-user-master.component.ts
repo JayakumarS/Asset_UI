@@ -38,6 +38,10 @@ export class AddUserMasterComponent implements OnInit {
   userId:any;
   auditorFlag:boolean=false;
   auditorFFlag:boolean=false;
+  auditorFFlagO:boolean=false;
+
+
+
 
   constructor( private spinner: NgxSpinnerService,
                private fb: FormBuilder,
@@ -92,6 +96,12 @@ export class AddUserMasterComponent implements OnInit {
     this.userId = this.tokenStorage.getUserId();
 
     this.roleId = this.tokenStorage.getRoleId();
+
+    if(this.roleId==2){
+      this.roleIdFlag=true;
+      this.fieldsChange(true);
+
+    }
     if(this.roleId==1){
       this.roleIdFlag=true;
       this.fieldsChange(true);
@@ -99,6 +109,8 @@ export class AddUserMasterComponent implements OnInit {
       this.docForm.get("auditor").disabled;
     }else{
       this.roleIdFlag=false;
+      this.roleIdFlag=false;
+
       this.fieldsChange(false);
     }
 
@@ -290,7 +302,10 @@ export class AddUserMasterComponent implements OnInit {
   fieldsChange(values:any):void {
     if(values.checked==true){
       this.auditorFlag=false;
-    this.auditorFFlag=false;
+      this.auditorFFlag=false;
+      this.auditorFFlagO=false;
+
+
       this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
         (data) => {
           this.roleAuditList = data.roleAuditList;
@@ -314,8 +329,11 @@ export class AddUserMasterComponent implements OnInit {
         }
       );
     }else if(values.checked==false){
-      this.auditorFlag=true;
-      this.auditorFFlag=true;
+      this.auditorFlag = true;
+      this.auditorFFlag = true;
+      this.auditorFFlagO = true;
+
+
 
       this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
         (data) => {
@@ -327,6 +345,7 @@ export class AddUserMasterComponent implements OnInit {
         }
       );
     }
+
   }
 
 

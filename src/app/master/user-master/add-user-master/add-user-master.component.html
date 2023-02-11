@@ -11,6 +11,7 @@
             <div class="card pageproperty">
               <div class="body " style="padding-left: 135px;">
                 <form class="m-4" [formGroup]="docForm">
+                  <div *ngIf="this.roleId==2">
                   <div class="row" *ngIf="roleIdFlag">
                   <div class=" col-md-2">
                     <mat-label >IS AUDITOR</mat-label></div>
@@ -124,7 +125,7 @@
                   <div class=" col-md-2">
                     <mat-label >REPORTING MANAGER</mat-label>
                     </div>
-                    <div class=" col-md-3">
+                    <div class=" col-md-3"  >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select class="inputTxt" formControlName="repmanager">
                         <mat-option *ngFor="let title of getReportingManList" [value]="title.id">
@@ -133,6 +134,7 @@
                     </mat-select>
                 </mat-form-field>
                 </div>
+
               </div>
                       <div class="row">
                         <div class=" col-md-2">
@@ -292,6 +294,278 @@
                         mat-raised-button>Cancel</button>
                     </div>
                   </div>
+                </div>
+                <div *ngIf="this.roleId==1">
+                  <div class="row" *ngIf="roleIdFlag">
+                  <div class=" col-md-2">
+                    <mat-label >IS AUDITOR</mat-label></div>
+                  <div class=" col-md-3">
+                     <mat-checkbox  ngInit="checked=true"  formControlName="auditor" (change)="fieldsChange($event)"   STYLE="margin-left: 10px;"></mat-checkbox>
+                  </div>
+                  </div>
+                  <br *ngIf="roleIdFlag">
+                  <div class="row">
+                    <div class=" col-md-2">
+                      <mat-label >FULL NAME<span class="errorColor">*</span></mat-label>
+                      </div>
+                      <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="fullName"  maxlength="50"[ngModel]="inputvalue"
+                        (ngModelChange)="inputvalue = $event.toUpperCase()"(keypress)="string($event)"
+                        [ngModel]="inputvalue" required>
+                        <mat-error *ngIf="docForm.get('fullName').hasError('required')">
+                          Full Name is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class=" col-md-2">
+                      <mat-label >EMAIL ID<span class="errorColor">*</span></mat-label>
+                      </div>
+
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required *ngIf="edit == false">
+                        <input matInput formControlName="emailId"required *ngIf="edit == true" readonly>
+                        <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                          Email ID is required
+                        </mat-error>
+                        <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
+                          Email ID Already Exists !!!
+                        </mat-error>
+                        <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
+                          Valid Email ID Required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class=" col-md-2">
+                      <mat-label >CONTACT NUMBER<span class="errorColor">*</span></mat-label>
+                      </div>
+                      <div class=" col-md-3">
+                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="contNumber" maxlength="10" (keypress)="keyPressNumeric1($event)"  required>
+                          <mat-error *ngIf="docForm.get('contNumber').hasError('required')">
+                            Contact Number is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                  <div class=" col-md-2">
+                    <mat-label >ROLE<span class="errorColor">*</span></mat-label>
+                    </div>
+                    <!-- <div class=" col-md-3" *ngIf="auditorFlag">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="role" readonly>
+                      </mat-form-field>
+                    </div> -->
+                    <div class=" col-md-3" *ngIf="auditorFlag">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="role">
+                        <mat-option *ngFor="let title of roleAuditList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="docForm.get('role').hasError('required')">
+                        role is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class=" col-md-3" *ngIf="!auditorFlag">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="role" >
+                        <mat-option *ngFor="let title of roleList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="docForm.get('role').hasError('required')">
+                        role is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+
+                        <div class="row">
+                          <div class=" col-md-2" >
+                              <mat-label >COMPANY<span  class="errorColor" *ngIf="auditorFFlag">*</span></mat-label>
+                              </div>
+                              <div class=" col-md-3">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-select class="inputTxt" formControlName="company" (selectionChange)="fetchBranchDetails($event.value)">
+                                    <mat-option *ngFor="let title of getUserBasedCompanyList" [value]="title.id1">
+                                        {{title.text}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                              </div>
+                              <div class=" col-md-2" >
+                                <mat-label >BRANCH<span class="errorColor" *ngIf="auditorFFlag">*</span></mat-label>
+                                </div>
+                                <div class=" col-md-3">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-select class="inputTxt" formControlName="branch">
+                                      <mat-option *ngFor="let title of getUserBasedBranchList" [value]="title.id">
+                                          {{title.text}}
+                                      </mat-option>
+                                  </mat-select>
+                                  </mat-form-field>
+                                </div>
+                            </div>
+                     <!-- <div class="row">
+                        <div class=" col-md-2"><mat-label >OTP REQUIRED</mat-label></div>
+                      <div class=" col-md-3">
+                         <mat-checkbox  ngInit="checked=true" formControlName="otp" STYLE="margin-left: 10px;"></mat-checkbox>
+                      </div>
+                      <div class=" col-md-2"><mat-label >TRACK USER LOCATION</mat-label></div>
+                      <div class=" col-md-1">
+                         <mat-checkbox  ngInit="checked=true" formControlName="userLocation" STYLE="margin-left: 10px;"></mat-checkbox>
+                      </div>
+                    </div> -->
+
+                    <div class="row">
+                      <div class=" col-md-2" *ngIf="auditorFlag">
+                        <mat-label >DEPARTMENT</mat-label>
+                        </div>
+                        <div class=" col-md-3" *ngIf="auditorFlag">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select class="inputTxt" formControlName="department">
+                            <mat-option *ngFor="let title of departmentAuditList" [value]="title.id">
+                                {{title.text}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    </div>
+
+                    <div class=" col-md-2" *ngIf="auditorFlag">
+                      <mat-label >REPORTING MANAGER</mat-label>
+                      </div>
+                      <div class=" col-md-3"   *ngIf="auditorFlag">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select class="inputTxt" formControlName="repmanager">
+                          <mat-option *ngFor="let title of getReportingManList" [value]="title.id">
+                              {{title.text}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  </div>
+
+                </div>
+                    <div class="row">
+                      <div class=" col-md-2">
+                        <mat-label >ADDRESS </mat-label>
+                        </div>
+                        <div class=" col-md-3">
+                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <input matInput formControlName="address">
+
+                          </mat-form-field>
+                        </div>
+
+
+                    <div class=" col-md-2">
+                      <mat-label>COUNTRY</mat-label>
+                      </div>
+                      <div class=" col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select class="inputTxt" formControlName="country">
+                          <mat-option *ngFor="let title of getCountryDDList" [value]="title.id">
+                              {{title.text}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  </div>
+
+                        </div>
+                        <div class="row">
+                          <div class=" col-md-2">
+                              <mat-label >DEFAULT LANGUAGE<span class="errorColor">*</span></mat-label>
+                              </div>
+                              <div class="col-md-3">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-select formControlName="language" required>
+                                    <mat-option [value]="'English'">
+                                      English
+                                    </mat-option>
+                                    <mat-option [value]="'Spanish'">
+                                      Spanish
+                                    </mat-option>
+                                    <mat-option [value]="'French'">
+                                      French
+                                    </mat-option>
+                                    <mat-option [value]="'Russian'">
+                                      Russian
+                                    </mat-option>
+                                    <mat-option [value]="'Portuguese'">
+                                      Portuguese
+                                    </mat-option>
+                                    <mat-option [value]="'Japanese'">
+                                      Japanese
+                                    </mat-option>
+                                    <mat-option [value]="'Italian'">
+                                      Italian
+                                    </mat-option>
+                                    <mat-option [value]="'Polish'">
+                                      Polish
+                                    </mat-option>
+                                    <mat-option [value]="'Burmese'">
+                                      Burmese
+                                    </mat-option>
+                                    <mat-option [value]="'Korean'">
+                                      Korean
+                                    </mat-option>
+
+                                  </mat-select>
+                                  <mat-error *ngIf="docForm.get('language').hasError('required')">
+                                    language is required
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+
+
+                          <div class=" col-md-2" *ngIf="auditorFlag">
+                              <mat-label>PRIMARY LOCATION</mat-label>
+                              </div>
+                              <div class=" col-md-3" *ngIf="auditorFlag">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-select class="inputTxt" formControlName="location">
+                                  <mat-option *ngFor="let title of locationDropdownList" [value]="title.id">
+                                      {{title.text}}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          </div>
+
+                        </div>
+                    <div class="row">
+                    <div class=" col-md-2">
+                      <mat-label  >ACTIVE</mat-label></div>
+                    <div class=" col-md-3">
+                       <mat-checkbox  ngInit="checked=true"  formControlName="active" STYLE="margin-left: 10px;"></mat-checkbox>
+                    </div>
+
+
+                    <!-- <div class=" col-md-2">
+                      <mat-label >IS AUDITOR</mat-label></div>
+                    <div class=" col-md-3">
+                      <mat-checkbox  ngInit="checked=true"  formControlName="auditor" STYLE="margin-left: 10px;"></mat-checkbox>
+                    </div> -->
+                    </div>
+                    <br>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                        style="margin-left: 30%;background-color: #34d034;">Submit</button>
+                      <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                        style="margin-left: 30%;background-color: #34d034;">Update</button>
+                      <button color="primary" type="button" class="btn-space" (click)="reset()"
+                        mat-raised-button>Reset</button>
+                      <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                        mat-raised-button>Cancel</button>
+                    </div>
+                  </div>
+                </div>
                   </form>
                   </div>
                   </div>
