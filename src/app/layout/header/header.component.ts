@@ -309,13 +309,13 @@ export class HeaderComponent
     //     this.router.navigate(["/authentication/signin"]);
     //   }
     // });
+    this.logoutSuccessUserLog();
 
    this.token.signOut();
     // this.toastr.info("Please Sign in to Continue", "Logout Successful")
     this.app.SetName('');
       localStorage.removeItem("currentUser");
     this.router.navigate(['/authentication/signin']);
-    this.logoutSuccessUserLog();
 
   }
 

@@ -17,7 +17,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
   dataChange: BehaviorSubject<Reportscategory[]> = new BehaviorSubject<Reportscategory[]>(
     []
   );
-  CompanyId: String;
+  UserId: String;
   
   constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,  public tokenStorage: TokenStorageService
     ) {
@@ -45,12 +45,12 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     }
 
    
-    userloglist(): void{
+    userloglist(object){
 
-      this.CompanyId=this.tokenStorage.getUserId();
+      this.UserId=this.tokenStorage.getCompanyId();
       
-        console.log();
-        this.subs.sink = this.httpService.get<reportsresultbean>(this.getUserLogList+"?companyId="+this.CompanyId).subscribe(
+        console.log(object);
+        this.subs.sink = this.httpService.get<reportsresultbean>(this.getUserLogList+"?UserId="+this.UserId,object).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.usernamelist);

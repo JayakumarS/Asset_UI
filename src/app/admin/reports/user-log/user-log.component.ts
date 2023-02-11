@@ -72,6 +72,9 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
   companyList:[""];
   usernamelist:[];
   searchList:[];
+  UserLogList:[];
+
+  companyId: string;
   constructor(
     private cmnService:CommonService,
     public httpClient: HttpClient,
@@ -94,7 +97,8 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
       startdate: [""],
       enddateObj: [""],
       company_id:[""],
-      username:[""]
+      username:[""],
+      status:[""]
 
     });
 
@@ -114,12 +118,13 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
       startdate: [""],
       enddateObj: [""],
       company_id:[""],
-      username:[""]
+      username:[""],
+      status:[""]
 
     });
     this.loadData();
 
-
+    this.companyId = this.TokenStorage.getCompanyId();
 
        // Company  Dropdown List
    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
@@ -131,7 +136,7 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
   });
 
 // user name Dd
-this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown).subscribe(
+this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown  + "?companyId=" + this.companyId).subscribe(
   (data) => {
     this.usernamelist = data.usernamelist;
   },
@@ -149,7 +154,7 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
       'enddate' : '',
       'startdate' : '',
       'enddateObj' : '',
-      'company_id' : '',
+      'status' : '',
       'username' : '',
 
       
@@ -201,15 +206,18 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
     // this.locationMaster = this.docForm.value;
     // console.log(this.locationMaster);
     // this.loadData();
+   
     this.locationMaster = this.docForm.value;
-    // tslint:disable-next-line:max-line-length
-    this.httpService.post(this.locationMasterService.UserSerach, this.locationMaster).subscribe((res: any) => {
-      console.log(res);
-      this.searchList = res.UserLogList;
-    },
-    (err: HttpErrorResponse) => {
-    }
-  );
+    this.loadData();
+
+
+  //   this.httpService.post(this.locationMasterService.UserSerach, this.locationMaster).subscribe((res: any) => {
+  //     console.log(res);
+  //     this.UserLogList = res.UserLogList;
+  //   },
+  //   (err: HttpErrorResponse) => {
+  //   }
+  // );
   }
 
 
@@ -280,7 +288,7 @@ export class ExampleDataSource extends DataSource<Reportscategory> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.userloglist();
+    this.exampleDatabase.userloglist(this.docForm.value);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

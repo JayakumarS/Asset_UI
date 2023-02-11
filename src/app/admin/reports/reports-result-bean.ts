@@ -7,5 +7,6 @@ export class reportsresultbean{
     usernamelist:[];
     userlogDetails:[];
     UserList:[];
+    UserLogList:[];
 
 }
