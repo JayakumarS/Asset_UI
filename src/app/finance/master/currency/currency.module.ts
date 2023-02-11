@@ -25,12 +25,10 @@ import { SharedModule } from "src/app/shared/shared.module";
 
 import { CurrencyRoutingModule } from './currency-routing.module';
 import { AddCurrencyComponent } from './add-currency/add-currency.component';
-import { ListCurrencyComponent } from './list-currency/list-currency.component';
 
 @NgModule({
   declarations: [
-    AddCurrencyComponent,
-    ListCurrencyComponent
+    AddCurrencyComponent
   ],
   imports: [
     CommonModule,
