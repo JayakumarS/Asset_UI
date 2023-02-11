@@ -466,6 +466,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
  
 
   resetSelf(){
+    this.getInLineReplace(false);
     this.docForm = this.fb.group({
 
       assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -492,6 +493,8 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
         })
       ]),
     });
+
+    
   }
 
 
