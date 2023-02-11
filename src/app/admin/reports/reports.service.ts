@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Reportscategory } from './reports-model';
 import { reportsresultbean } from './reports-result-bean';
@@ -16,12 +17,13 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
   dataChange: BehaviorSubject<Reportscategory[]> = new BehaviorSubject<Reportscategory[]>(
     []
   );
-
-  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) {
+  CompanyId: String;
+  
+  constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,  public tokenStorage: TokenStorageService
+    ) {
     super();
 
     }
-
     public categoryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getcategoryList`;
     // public statusListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getstatusList`;
     public assetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getassetList`;
@@ -41,10 +43,14 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     getDialogData() {
       return this.dialogData;
     }
-    userloglist(object){
-    
-        console.log(object);
-        this.subs.sink = this.httpService.post<any>(this.getUserLogList,object).subscribe(
+
+   
+    userloglist(): void{
+
+      this.CompanyId=this.tokenStorage.getUserId();
+      
+        console.log();
+        this.subs.sink = this.httpService.get<reportsresultbean>(this.getUserLogList+"?companyId="+this.CompanyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.usernamelist);
