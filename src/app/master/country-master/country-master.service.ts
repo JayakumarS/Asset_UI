@@ -45,7 +45,7 @@ export class CountryMasterService extends UnsubscribeOnDestroyAdapter {
 
   getAllCountrys(): void {
     let companyId=this.tokenStorage.getCompanyId();
-    this.subs.sink = this.httpService.get<CountryMasterResultBean>(this.getAllMasters+"?companyId="+parseInt(companyId)).subscribe(
+    this.subs.sink = this.httpService.get<CountryMasterResultBean>(this.getAllMasters).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.countryMasterList);

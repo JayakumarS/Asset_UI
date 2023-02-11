@@ -47,7 +47,8 @@ export class CurrencyMasterService extends UnsubscribeOnDestroyAdapter {
 
   getAllList(): void {
         let companyId=this.tokenStorage.getCompanyId();
-        this.subs.sink = this.httpService.get<CurrencyMasterResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
+       
+        this.subs.sink = this.httpService.get<CurrencyMasterResultBean>(this.getAllMasters).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.currencyMasterDetails);
