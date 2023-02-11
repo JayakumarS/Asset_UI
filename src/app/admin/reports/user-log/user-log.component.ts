@@ -25,6 +25,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { reportsresultbean } from '../reports-result-bean';
 import { ReportsService } from '../reports.service';
 import { Reportscategory } from '../reports-model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -83,6 +84,7 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
     private fb: FormBuilder,
     private  reportsserivce: ReportsService,
      private commonService: CommonService,
+    public TokenStorage:TokenStorageService
   ) {
     super();
 
@@ -163,7 +165,7 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown)
   }
 
   public loadData() {
-    this.exampleDatabase = new ReportsService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new ReportsService(this.httpClient,this.serverUrl,this.httpService,this.TokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -278,7 +280,7 @@ export class ExampleDataSource extends DataSource<Reportscategory> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.userloglist(this.docForm.value);
+    this.exampleDatabase.userloglist();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

@@ -142,7 +142,7 @@ this.searchData();
   }
 
   loadData() {
-    this.exampleDatabase = new ReportsService(this.httpClient, this.serverUrl, this.httpService);
+    this.exampleDatabase = new ReportsService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

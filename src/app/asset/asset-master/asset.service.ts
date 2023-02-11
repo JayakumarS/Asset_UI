@@ -9,6 +9,8 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { AssetReplacement } from '../asset-replacement/asset-replacement.model';
+import { AssetReplacementResultBean } from '../asset-replacement/asset-replacement-result-bean';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,6 +24,10 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   isTblLoading = true;
   dataChange: BehaviorSubject<AssetMaster[]> = new BehaviorSubject<AssetMaster[]>(
+    []
+  );
+
+  dataChange1: BehaviorSubject<AssetReplacement[]> = new BehaviorSubject<AssetReplacement[]>(
     []
   );
   // Temporarily stores data from dialogs
@@ -53,7 +59,16 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   public exportPdfBulkAssetQRcode = `${this.serverUrl.apiServerAddress}app/assetMaster/exportPdf_BulkAssetQRcode`;
 
 
+  //asset replacement
+  private SaveAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetMaster/saveAssetReplacement`;
+  private UpdateAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetMaster/updateAssetReplacement`;
+  private getAllAssetsReplacement = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetReplacementList`;
+
   get data(): AssetMaster[] {
+    return this.dataChange.value;
+  }
+
+  get data1(): AssetReplacement[] {
     return this.dataChange.value;
   }
   getDialogData() {
@@ -78,7 +93,24 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   }
 
-  
+   /** CRUD METHODS */
+   getAllReplacementCustomers(): void {
+    console.log();
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.branchId= this.tokenStorage.getBranchId(),
+
+    this.subs.sink = this.httpService.get<AssetReplacementResultBean>(this.getAllAssetsReplacement+"?companyId="+this.companyId).subscribe(
+      (data) => {
+        this.isTblLoading = false;
+        this.dataChange.next(data.assetList);
+      },
+      (error: HttpErrorResponse) => {
+        this.isTblLoading = false;
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+  }
 
   multipleAssetUpload(assetMaster: AssetMaster): void {
     this.dialogData = assetMaster;
@@ -107,8 +139,16 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<AssetMaster>(this.saveAssetMaster, assetMaster);
   }
 
+  addAssetReplacement(assetReplacement: AssetReplacement): Observable<any> {
+    return this.httpClient.post<AssetReplacement>(this.SaveAssetReplacement, assetReplacement);
+  }
+
   updateAssetMaster(assetMaster: AssetMaster): Observable<any> {
     return this.httpClient.post<AssetMaster>(this.updateAsset, assetMaster);
+  }
+
+  updateAssetReplacement(assetReplacement: AssetReplacement): Observable<any> {
+    return this.httpClient.post<AssetReplacement>(this.UpdateAssetReplacement, assetReplacement);
   }
  
   addGRNBasedMutipleAsset(assetMaster: AssetMaster): Observable<any> {

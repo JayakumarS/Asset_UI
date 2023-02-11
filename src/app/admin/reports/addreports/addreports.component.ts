@@ -18,6 +18,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { MatPaginator } from '@angular/material/paginator';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 @Component({
@@ -59,6 +60,7 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
                 public route: ActivatedRoute,
                 private httpService: HttpServiceService,
                 private serverUrl: serverLocations,
+                public tokenStroage: TokenStorageService
                 ){
         super();
         this.docForm = this.fb.group({
@@ -91,7 +93,7 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
   }
 
    loadData() {
-    this.exampleDatabase = new ReportsService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new ReportsService(this.httpClient,this.serverUrl,this.httpService,this.tokenStroage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

@@ -26,7 +26,7 @@ export class AddLocationComponent implements OnInit {
   docForm: FormGroup;
   requestId: number;
   edit:boolean=false;
-  company=[];
+  company = [];
   hide3 = true;
   agree3 = false;
   dataarray = [];

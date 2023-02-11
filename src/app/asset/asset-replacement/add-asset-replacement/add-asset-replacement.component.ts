@@ -10,10 +10,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
-import { AddMultipleAssetMasterComponent } from '../add-multiple-asset-master/add-multiple-asset-master.component';
-import { AssetMaster } from '../asset-model';
-import { AssetMasterResultBean } from '../asset-result-bean';
-import { AssetService } from '../asset.service';
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -21,6 +17,9 @@ import { GrnService } from 'src/app/inventory/grn/grn.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import * as moment from 'moment';
 import { UserMasterService } from 'src/app/master/user-master/user-master.service';
+import { AssetService } from '../../asset-master/asset.service';
+import { AssetReplacement } from '../asset-replacement.model';
+import { AssetReplacementResultBean } from '../asset-replacement-result-bean';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -34,9 +33,9 @@ export const MY_DATE_FORMATS = {
   },
 };
 @Component({
-  selector: 'app-add-asset-master',
-  templateUrl: './add-asset-master.component.html',
-  styleUrls: ['./add-asset-master.component.sass'],
+  selector: 'app-add-asset-replacement',
+  templateUrl: './add-asset-replacement.component.html',
+  styleUrls: ['./add-asset-replacement.component.sass'],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     {
@@ -48,17 +47,15 @@ export const MY_DATE_FORMATS = {
       }
     }, CommonService
   ]
-
 })
-export class AddAssetMasterComponent
-  extends UnsubscribeOnDestroyAdapter
-  implements OnInit {
+export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter implements OnInit {
+
   docForm: FormGroup;
   hide3 = true;
   agree3 = false;
   dropdownList = [];
   submitted: boolean = false;
-  assetMaster: AssetMaster;
+  AssetReplacement: AssetReplacement;
   categoryList = [];
   locationDdList = [];
   departmentDdList = [];
@@ -151,7 +148,7 @@ export class AddAssetMasterComponent
       branchId: this.tokenStorage.getBranchId(),
 
       //tab5
-      assetMasterBean: this.fb.array([
+      AssetReplacementBean: this.fb.array([
         this.fb.group({
           assName: [""],
           assCode: [""],
@@ -354,10 +351,10 @@ export class AddAssetMasterComponent
       next: (res: any) => {
         if (res.success) {
           if (res.assetList != null && res.assetList.length >= 1) {
-            let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+            let dtlArray = this.docForm.controls.AssetReplacementBean as FormArray;
             dtlArray.removeAt(i);
             res.assetList.forEach(element => {
-              let assetListDtlArray = this.docForm.controls.assetMasterBean as FormArray;
+              let assetListDtlArray = this.docForm.controls.AssetReplacementBean as FormArray;
               let arraylen = assetListDtlArray.length;
               let newUsergroup: FormGroup = this.fb.group({
                 assName: [value.value],
@@ -385,10 +382,10 @@ export class AddAssetMasterComponent
 
     if (this.docForm.valid) {
 
-      this.assetMaster = this.docForm.value;
-      console.log(this.assetMaster);
+      this.AssetReplacement = this.docForm.value;
+      console.log(this.AssetReplacement);
       this.spinner.show();
-      this.assetService.addAssetMaster(this.assetMaster).subscribe({
+      this.assetService.addAssetReplacement(this.AssetReplacement).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -429,7 +426,7 @@ export class AddAssetMasterComponent
   }
 
   onCancel() {
-    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+    this.router.navigate(['/asset/assetReplacement/listAssetReplacement']);
   }
 
   refresh() {
@@ -441,9 +438,9 @@ export class AddAssetMasterComponent
 
   update() {
     if (this.docForm.valid) {
-      this.assetMaster = this.docForm.value;
+      this.AssetReplacement = this.docForm.value;
       this.spinner.show();
-      this.assetService.updateAssetMaster(this.assetMaster).subscribe({
+      this.assetService.updateAssetReplacement(this.AssetReplacement).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -564,10 +561,10 @@ export class AddAssetMasterComponent
 
 
         if (res.detailList != null && res.detailList.length >= 1) {
-          let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+          let detailListArray = this.docForm.controls.AssetReplacementBean as FormArray;
           detailListArray.clear();
           res.detailList.forEach(element => {
-            let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+            let detailListArray = this.docForm.controls.AssetReplacementBean as FormArray;
             let arraylen = detailListArray.length;
             let newUsergroup: FormGroup = this.fb.group({
               assName: [element.assName],
@@ -587,7 +584,7 @@ export class AddAssetMasterComponent
   }
 
   commodityList() {
-    this.httpService.get<AssetMasterResultBean>(this.assetService.commoditylist).subscribe(
+    this.httpService.get<AssetReplacementResultBean>(this.assetService.commoditylist).subscribe(
       (data) => {
         this.dropdownList = data.countryMasterDetails;
       },
@@ -609,32 +606,32 @@ export class AddAssetMasterComponent
     this.paginator._changePageSize(this.paginator.pageSize);
   }
 
-  multipleuploadpopupCall() {
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(AddMultipleAssetMasterComponent, {
-      data: {
-        action: "edit",
-      },
-      width: "640px",
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
-        this.refreshTable();
-        this.showNotification(
-          "black",
-          "Edit Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      }
-    });
-  }
+  // multipleuploadpopupCall() {
+  //   let tempDirection;
+  //   if (localStorage.getItem("isRtl") === "true") {
+  //     tempDirection = "rtl";
+  //   } else {
+  //     tempDirection = "ltr";
+  //   }
+  //   const dialogRef = this.dialog.open(AddMultipleAssetReplacementComponent, {
+  //     data: {
+  //       action: "edit",
+  //     },
+  //     width: "640px",
+  //     direction: tempDirection,
+  //   });
+  //   this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+  //     if (result === 1) {
+  //       this.refreshTable();
+  //       this.showNotification(
+  //         "black",
+  //         "Edit Record Successfully...!!!",
+  //         "bottom",
+  //         "center"
+  //       );
+  //     }
+  //   });
+  // }
 
   getDateString(event, inputFlag, index) {
     let cdate = this.cmnService.getDate(event.target.value);
@@ -691,12 +688,12 @@ export class AddAssetMasterComponent
 
 
   cancel() {
-    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+    this.router.navigate(['/asset/AssetReplacement/listAssetReplacement']);
   }
 
 
   addRowSelf() {
-    let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+    let dtlArray = this.docForm.controls.AssetReplacementBean as FormArray;
     let arraylen = dtlArray.length;
     let newUsergroup: FormGroup = this.fb.group({
       assName: [""],
@@ -711,7 +708,7 @@ export class AddAssetMasterComponent
   }
 
   removeRowSelf(index) {
-    let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+    let dtlArray = this.docForm.controls.AssetReplacementBean as FormArray;
     dtlArray.removeAt(index);
 
   }
@@ -936,9 +933,9 @@ export class AddAssetMasterComponent
 
   saveGRNBasedMutipleAsset() {
     if (this.docForm.valid) {
-      this.assetMaster = this.docForm.value;
+      this.AssetReplacement = this.docForm.value;
       this.spinner.show();
-      this.assetService.addGRNBasedMutipleAsset(this.assetMaster).subscribe({
+      this.assetService.addGRNBasedMutipleAsset(this.AssetReplacement).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -1030,7 +1027,7 @@ export class AddAssetMasterComponent
       'branchId': this.tokenStorage.getBranchId(),
 
       //tab5
-      assetMasterBean: this.fb.array([
+      AssetReplacementBean: this.fb.array([
         this.fb.group({
           assName: [""],
           assCode: [""],
@@ -1079,3 +1076,4 @@ export class AddAssetMasterComponent
   }
 
 }
+
