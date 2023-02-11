@@ -1,5 +1,6 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
@@ -21,20 +22,29 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
+import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
+import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { NotificationService } from 'src/app/core/service/notification.service';
+import { ChartsModule as chartjsModule } from "ng2-charts";
+import { NgApexchartsModule } from "ng-apexcharts";
+import { AddAssetReplacementComponent } from './add-asset-replacement/add-asset-replacement.component';
+import { ListAssetReplacementComponent } from './list-asset-replacement/list-asset-replacement.component';
+import { AssetReplacementRoutingModule } from './asset-replacement-routing.module';
 
 
-import { CurrencyRoutingModule } from './currency-routing.module';
-import { AddCurrencyComponent } from './add-currency/add-currency.component';
 
 @NgModule({
   declarations: [
-    AddCurrencyComponent
+    AddAssetReplacementComponent,
+    ListAssetReplacementComponent,
   ],
+  providers:[NotificationService],
   imports: [
     CommonModule,
-    CurrencyRoutingModule,
+    AssetReplacementRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    PerfectScrollbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
@@ -55,6 +65,9 @@ import { AddCurrencyComponent } from './add-currency/add-currency.component';
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
+    MatRadioModule,
+    NgApexchartsModule,
+    PerfectScrollbarModule,
   ]
 })
-export class CurrencyModule { }
+export class AssetReplacementModule { }
