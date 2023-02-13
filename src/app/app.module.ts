@@ -42,6 +42,10 @@ import {
 import { MatDialogModule } from "@angular/material/dialog";
 import { httpInterceptorProviders } from "./auth/auth-interceptor";
 
+// Highcharts
+import { HighchartsChartModule } from 'highcharts-angular';
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -87,7 +91,8 @@ export function createTranslateLoader(http: HttpClient): any {
         MatToolbarModule,
         MatMenuModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        NgxPaginationModule
     ],
     providers: [
         // { provide: LocationStrategy, useClass: HashLocationStrategy },

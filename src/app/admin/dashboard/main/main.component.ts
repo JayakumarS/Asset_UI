@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import {
   ChartComponent,
@@ -48,6 +48,10 @@ export type ChartOptions = {
   title: ApexTitleSubtitle;
 };
 
+// Highcharts
+import * as Highcharts from 'highcharts';
+import { Options } from 'highcharts';
+
 @Component({
   selector: "app-main",
   templateUrl: "./main.component.html",
@@ -60,6 +64,8 @@ export class MainComponent implements OnInit {
   assetList = [];
   companyAssetList = [];
   assetListDashboard = [];
+  bookValueArray = [];
+  bookValueArrayData = [];
   public cardChart1: any;
   public cardChart1Data: any;
   public cardChart1Label: any;
@@ -80,6 +86,8 @@ export class MainComponent implements OnInit {
   public barChartOptions: Partial<ChartOptions>;
   public projectOptions: Partial<ChartOptions>;
   public performanceRateChartOptions: Partial<ChartOptions>;
+  // Basic Bar Chart
+  public chartOptionsBarChart: Partial<ChartOptions>;
 
   // Doughnut chart start
   // public doughnutChartLabels: string[] = ["India", "USA", "Itely", "Shrilanka"];
@@ -116,8 +124,38 @@ export class MainComponent implements OnInit {
   companyAssetsCount: any;
   pwdStatus: any;
 
+  data:any =[
+    { name: 'Apples', y: 56.33 },
+    { name: 'Pears', y: 24.03 },
+    { name: 'Oranges', y: 10.38 },
+    { name: 'Grapes', y: 7.3 },
+    { name: 'Bananas', y: 5.2 },
+    { name: 'Pineapple', y: 3.3 },
+    { name: 'Papaya', y: 2.1 },
+    { name: 'Kiwi', y: 0.99 },
+    { name: 'Avacoda', y: 0.56 },
+    { name: 'Peaches', y: 0.11 }
+  ]
+
+// For HighChart
+
+Highcharts: typeof Highcharts = Highcharts;
+@ViewChild("chart") chart: ChartComponent;
+@ViewChild('chart') componentRef;
+chartRef;
+updateFlag;
+
+// Pagination
+config: {
+  id : string,
+  itemsPerPage: number,
+  currentPage: number,
+  totalItems: number
+};
+
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
+    
   ngOnInit() {
 
     this.docForm = this.fb.group({
@@ -133,13 +171,17 @@ export class MainComponent implements OnInit {
     this.chart4();
     this.projectChart();
 
+    // Basic Bar Chart
+   this.basicBarChart();
+
     this.companyAuditorCount=this.tokenStorage.getCompanyId();
     this.roleId=this.tokenStorage.getRoleId();
     
 
     if(this.roleId==3){
       this.roleIdFlag=true;
-    }else{
+    }
+    else if(this.roleId==2){
       this.roleIdFlag=false;
     }
 
@@ -213,14 +255,14 @@ export class MainComponent implements OnInit {
       }
     );
 
-    // this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl).subscribe(
-    //   (data) => {
-    //     this.assetListDashboard = data.assetListDashboard;
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     console.log(error.name + " " + error.message);
-    //   }
-    // );
+    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.companyAuditorCount).subscribe(
+      (data) => {
+        this.assetListDashboard = data.assetListDashboard;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
 
     // ticket survey
     this.httpService.get<any>(this.mainService.getItSupportTicketURL).subscribe(
@@ -240,8 +282,20 @@ export class MainComponent implements OnInit {
     // }); 
 
     // Company based Auditor count service
+    this.companyBasedCount(this.companyAuditorCount);
 
-    this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + this.companyAuditorCount).subscribe((res: any) => {
+   
+
+    this.getInvList();
+    this.getAssetList();
+    // bar chart default call
+    // this.fetchAssetName(16);
+    // this.popUp();
+    
+  }
+
+  companyBasedCount(companyAuditorCount:any){
+    this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + companyAuditorCount).subscribe((res: any) => {
       console.log(this.companyAuditorCount);
       this.companyPurchaseAssetsCount = res.companyPurchaseAssetsCount;
       this.companyUsersAssetsCount = res.companyUsersAssetsCount;
@@ -301,7 +355,9 @@ export class MainComponent implements OnInit {
         console.log(error.name + " " + error.message);
       }
     );
-    this.clientSurvayGraph(asset);  
+    this.clientSurvayGraph(asset);
+    this.barChartGraph(asset);
+    this.bookValueEndGraph(asset);  
   }
 
   clientSurvayGraph(asset:any){
@@ -317,6 +373,198 @@ export class MainComponent implements OnInit {
     
   }
 
+  barChartGraph(asset:any){
+    this.httpService.get<any>(this.mainService.getBarChartURL + "?assetId=" +asset+"&asset="+'').subscribe(
+      (data) => {
+        this.chartOptionsBarChart.series=data.getBarChartListGraph
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+  }
+
+  bookValueEndGraph(asset:any){
+    this.httpService.get<any>(this.mainService.getbookValueEndGraphURL + "?assetId=" +asset+"&asset="+'').subscribe(
+      (data) => {
+        // this.bookValueArray=data.getBookEndValue;
+        // this.bookValueArray=data.getAreaGraph;
+        this.chartOptionsLollipop.series= [{
+          // name: 'first last',
+          type:'area',
+          data: [{name: '2023', y: 901},
+          {name: '2024', y: 11}]
+      }];
+        // this.bookValueArray=[{name: '2023', y: 901},
+        // {name: '2024', y: 802}]
+      //   for(var i=0;i<this.bookValueArray.length;i++){
+      //     var bean={name:'',y:''};
+      //     bean.name=this.bookValueArray[i].name;
+      //     bean.y=this.bookValueArray[i].y;
+      //     this.bookValueArrayData.push(bean);
+      //   }
+        console.log(this.bookValueArray);
+      //  this.chartOptionsLollipop.series = this.bookValueArrayData;
+      // this.chartOptionsLollipop.series.push({
+      //   type: 'line',
+      //   name: "new series",
+      //   data: [{name: '2023', y: 901},
+      //   {name: '2024', y: 11}],
+      //   visible: true
+      // })
+      console.log(this.chartOptionsLollipop.series);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+  }
+
+  // Area HighChart
+
+    chartOptionsLollipop: Options = {
+        accessibility: {
+          point: {
+              valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
+          }
+      },
+    
+      legend: {
+          enabled: false
+      },
+    
+      subtitle: {
+          text: ''
+      },
+    
+      title: {
+          text: 'Asset Book Value End Survey'
+      },
+    
+      tooltip: {
+          shared: true
+      },
+    
+      xAxis: {
+          type: 'category'
+      },
+    
+      yAxis: {
+          title: {
+              text: 'Book Value'
+          }
+      },
+        series: [
+          {
+            type: 'area',
+            name: 'Book Value End',
+        //     // data: this.data
+        //     // data:[
+        //     //   {name: '2023', y: 901},
+        //     //   {name: '2024', y: 802},
+        //     //   {name: '2025', y: 703},
+        //     //   {name: '2026', y: 604},
+        //     //   {name: '2027', y: 505},
+        //     //   {name: '2028', y: 406},
+        //     //   {name: '2029', y: 307},
+        //     //   {name: '2030', y: 208},
+        //     //   {name: '2031', y: 109},
+        //     //   {name: '2032', y: 10}
+        //     // ]
+             data:[{name: '2023', y: 901},
+             {name: '2024', y: 802}]
+          }
+        ]
+      };
+
+  chartCallback: Highcharts.ChartCallbackFunction = chart => {
+    this.chartRef = chart;
+  };
+
+  basicBarChart(){
+    this.chartOptionsBarChart = {
+      series: [
+        {
+          name: "Book Value",
+          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+        },
+        {
+          name: "Depreciation",
+          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+        },
+        {
+          name: "Accured Depreciation",
+          data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+        }
+      ],
+      chart: {
+        type: "bar",
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "55%",
+          // endingShape: "rounded"
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ["transparent"]
+      },
+      xaxis: {
+        categories: [
+        "2023",
+        "2024",
+        "2025",
+        "2026",
+        "2027",
+        "2028",
+        "2029",
+        "2030",
+        "2031",
+          // "Feb",
+          // "Mar",
+          // "Apr",
+          // "May",
+          // "Jun",
+          // "Jul",
+          // "Aug",
+          // "Sep",
+          // "Oct"
+        ]
+      },
+      yaxis: {
+        title: {
+          text: "Revenue",
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function (y) {
+            if (typeof y !== "undefined") {
+              // return y.toFixed(0) + "k" + " dollars";
+              return y.toFixed(2);
+            }
+            return y;
+          },
+        },
+      }
+    };
+  }
+
+  pageChanged(event){
+    this.config.currentPage = event;
+  }
+
+  
   getInvList(){
     // this.httpService.get<MainResultBean>(this.mainService.getAuditableAssetListUrl).subscribe(
     //   (data) => {
@@ -333,29 +581,36 @@ export class MainComponent implements OnInit {
 
   getAssetList(){
 
-    if(this.roleIdFlag==false){
-      this.httpService.get<MainResultBean>(this.mainService.getAssetListUrl).subscribe(
-        (data) => {
+    // if(this.roleIdFlag==false){
+    //   this.httpService.get<MainResultBean>(this.mainService.getAssetListUrl).subscribe(
+    //     (data) => {
           
-          this.assetList = data.getAssetListDashboard;
-          this.config1 = {
-            itemsPerPage: 5,
-            currentPage: 1,
-            totalItems: this.auditableAssetList.length
-          }; 
-        }
-      );
-    }
-    else{
+    //       this.assetList = data.getAssetListDashboard;
+    //       this.config = {
+    //         id: 'pagination',    
+    //         itemsPerPage: 5,
+    //         currentPage: 1,
+    //         totalItems: this.assetList.length
+    //       }; 
+    //     }
+    //   );
+    // }
+    // else{
       this.httpService.get<MainResultBean>(this.mainService.getCompanyAssetListUrl + "?companyId=" + this.companyAuditorCount).subscribe((res: any) => {
         console.log(this.companyAuditorCount);
         this.companyAssetList = res.assetList;
+        this.config = {
+          id: 'pagination',    
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.companyAssetList.length
+        }; 
         },
         (err: HttpErrorResponse) => {
            // error code here
         }
       );
-    }
+    // }
 
   }
 

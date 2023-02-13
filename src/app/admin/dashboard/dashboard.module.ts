@@ -35,6 +35,10 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { NotificationService } from "src/app/core/service/notification.service";
 import { CompanyMapPopupComponent } from './main/company-map-popup/company-map-popup.component';
 
+// highcharts
+import { HighchartsChartModule } from 'highcharts-angular';
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent],
@@ -79,8 +83,9 @@ import { CompanyMapPopupComponent } from './main/company-map-popup/company-map-p
     ComponentsModule,
     SharedModule,
     MatAutocompleteModule,
-    MatMenuModule
-    
+    MatMenuModule,
+    HighchartsChartModule,
+    NgxPaginationModule
     
   ],
   providers: [NotificationService],
