@@ -139,7 +139,7 @@ export class AddManageAuditComponent implements OnInit {
         }
       });
 
-      this.httpService.get<any>(this.commonService.getUserBasedCompany+"?userId="+this.tokenStorage.getUserId()).subscribe({
+      this.httpService.get<any>(this.commonService.getUserBasedCompanyDropdown + "?userId=" + this.tokenStorage.getUsername()).subscribe({
         next: (data) => {
           this.companyListNew = data.addressBean;
         },
@@ -147,20 +147,15 @@ export class AddManageAuditComponent implements OnInit {
         }
       });
 
-    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+    
+    this.httpService.get<any>(this.commonService.getUserBasedCompanyDropdown + "?userId=" + this.tokenStorage.getUsername()).subscribe({
       next: (data) => {
-        this.loacationList = data;
-      },
-      error: (error) => {
-      }
-    });
-    this.httpService.get<any>(this.commonService.getcompanyDropdown).subscribe({
-      next: (data) => {
-        this.companyList = data;
+        this.companyList = data.addressBean;
         this.docForm.patchValue({
           'auditCompanyId':parseInt(this.tokenStorage.getCompanyId())
         })
         this.companySelection(this.tokenStorage.getCompanyId());
+       
       },
       error: (error) => {
       }
@@ -235,6 +230,14 @@ export class AddManageAuditComponent implements OnInit {
       this.httpService.get<any>(this.commonService.getBranchByCompany+"?companyId="+companyId).subscribe({
       next: (data) => {
         this.branchList = data.addressBean;
+      },
+      error: (error) => {
+      }
+    });
+
+    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(companyId)).subscribe({
+      next: (data) => {
+        this.loacationList = data;
       },
       error: (error) => {
       }

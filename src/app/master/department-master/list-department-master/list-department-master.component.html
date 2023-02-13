@@ -76,11 +76,11 @@
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.remarks}}
                   </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="contactPerson">
+                <!-- <ng-container matColumnDef="contactPerson">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Contact Person</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.contactPerson }}
                   </mat-cell>
-                </ng-container>
+                </ng-container> -->
                 <ng-container matColumnDef="isactiveForList">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.isactiveForList}}

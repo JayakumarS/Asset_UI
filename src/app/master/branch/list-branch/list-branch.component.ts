@@ -30,7 +30,7 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
     "branchCode",
     "branchname",
     "companyName",
-    "locationName",
+    //"locationName",
     "actions",
   ];
 

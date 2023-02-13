@@ -19,6 +19,7 @@ import { UserMasterService } from 'src/app/master/user-master/user-master.servic
 import { AssetService } from '../../asset-master/asset.service';
 import { AddMultipleAssetMasterComponent } from '../../asset-master/add-multiple-asset-master/add-multiple-asset-master.component';
 import { AssetReplacement } from '../asset-replacement.model';
+import { AssetReplacementService } from '../asset-replacement.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -60,12 +61,14 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
   grnFlag: boolean = false;
   isLineIn: boolean = false;
   assetnamelist: any;
+  assetnamelistReplace: any;
   companyId: string;
   branchId: string;
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
     private assetService: AssetService,
+    private assetReplacementService: AssetReplacementService,
     private commonService: CommonService,
     public router: Router,
     private snackBar: MatSnackBar,
@@ -84,18 +87,10 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
 
     this.docForm = this.fb.group({
       //info
-      assetName: ["", [Validators.required]],
-      assetCode: ["", [Validators.required]],
-      location: ["", [Validators.required]],
-      category: ["", [Validators.required]],
-      status: ["", [Validators.required]],
-      partialOrReplace: [""],
-      isLine: [false],
+      id: [""],
+      fullOrPartial: [""],
 
-      companyId: this.tokenStorage.getCompanyId(),
-      branchId: this.tokenStorage.getBranchId(),
-
-      //tab5
+      
       assetMasterBean: this.fb.array([
         this.fb.group({
           assName: [""],
@@ -108,7 +103,21 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
         })
       ]),
 
+      assetMasterBeanReplacement: this.fb.array([
+        this.fb.group({
+          assName: [""],
+          assCode: [""],
+          assLocation: [""],
+          assCategory: [""],
+          assStatus: [""],
+          assetId: [""]
+
+        })
+      ]),
     });
+
+
+    
   }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -118,7 +127,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       if (params.id != undefined && params.id != 0) {
         this.requestId = params.id;
         this.edit = true;
-        this.fetchDetails(this.requestId);
+        // this.fetchDetails(this.requestId);
 
       }
     });
@@ -196,6 +205,41 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     );
   }
 
+
+  assetDetailsReplacement(value: any, i) {
+    let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
+
+    this.httpService.get<any>(this.assetService.getAssetDetailsReplacement + "?assetId=" + value.value).subscribe({
+      next: (res: any) => {
+        if (res.success) {
+          if (res.assetList != null && res.assetList.length >= 1) {
+            let dtlArray = this.docForm.controls.assetMasterBeanReplacement as FormArray;
+            dtlArray.removeAt(i);
+            res.assetList.forEach(element => {
+              let assetListDtlArray = this.docForm.controls.assetMasterBeanReplacement as FormArray;
+              let arraylen = assetListDtlArray.length;
+              let newUsergroup: FormGroup = this.fb.group({
+                assName: [value.value],
+                assCode: [element.assetCode],
+                assLocation: [element.locationName],
+                assCategory: [element.categoryName],
+                assStatus: [element.status],
+                assetId: [element.assetId],
+
+              })
+              assetListDtlArray.insert(i, newUsergroup);
+            });
+          }
+        }
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+  }
+
+
   onSubmit() {
     this.submitted = true;
 
@@ -204,7 +248,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       this.assetReplacement = this.docForm.value;
       console.log(this.assetReplacement);
       this.spinner.show();
-      this.assetService.addAssetReplacement(this.assetReplacement).subscribe({
+      this.assetReplacementService.addAssetReplacement(this.assetReplacement).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -259,7 +303,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     if (this.docForm.valid) {
       this.assetReplacement = this.docForm.value;
       this.spinner.show();
-      this.assetService.updateAssetReplacement(this.assetReplacement).subscribe({
+      this.assetReplacementService.updateAssetReplacement(this.assetReplacement).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -298,62 +342,75 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       );
     }
   }
-  // Edit
-  fetchDetails(id: any): void {
-    const obj = {
-      editId: id
-    }
+  // // Edit
+  // fetchDetails(id: any): void {
+  //   const obj = {
+  //     editId: id
+  //   }
 
-    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
-      next: (data) => {
-        this.locationDdList = data;
-      },
-      error: (error) => {
+  //   this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+  //     next: (data) => {
+  //       this.locationDdList = data;
+  //     },
+  //     error: (error) => {
 
-      }
-    }
-    );
+  //     }
+  //   }
+  //   );
 
-    this.assetService.editAsset(obj).subscribe({
-      next: (res: any) => {
+  //   this.assetService.editAsset(obj).subscribe({
+  //     next: (res: any) => {
 
        
 
-        this.docForm.patchValue({
-          'assetName': res.addAssetBean.assetName,
-          'assetCode': res.addAssetBean.assetCode,
-          'location': res.addAssetBean.location,
-          'category': res.addAssetBean.category,
-          'status': res.addAssetBean.status,
-          'isLine': res.addAssetBean.isLine,
-          'partialOrReplace': res.addAssetBean.partialOrReplace,
+  //       this.docForm.patchValue({
+      
+  //         'partialOrReplace': res.addAssetBean.partialOrReplace,
 
-        })
+  //       })
 
-        this.getInLineReplace(res.addAssetBean.isLine);
+  //       this.getInLineFull(res.addAssetBean.isLine);
 
-        if (res.detailList != null && res.detailList.length >= 1) {
-          let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
-          detailListArray.clear();
-          res.detailList.forEach(element => {
-            let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
-            let arraylen = detailListArray.length;
-            let newUsergroup: FormGroup = this.fb.group({
-              assName: [element.assName],
-              assCode: [element.assCode],
-              assLocation: [element.assLocation],
-              assCategory: [element.assCategory],
-              assStatus: [element.assStatus],
-            })
-            detailListArray.insert(arraylen, newUsergroup);
-          });
-        }
-      },
-      error: (error) => {
+  //       if (res.detailList != null && res.detailList.length >= 1) {
+  //         let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+  //         detailListArray.clear();
+  //         res.detailList.forEach(element => {
+  //           let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+  //           let arraylen = detailListArray.length;
+  //           let newUsergroup: FormGroup = this.fb.group({
+  //             assName: [element.assName],
+  //             assCode: [element.assCode],
+  //             assLocation: [element.assLocation],
+  //             assCategory: [element.assCategory],
+  //             assStatus: [element.assStatus],
+  //           })
+  //           detailListArray.insert(arraylen, newUsergroup);
+  //         });
+  //       }
 
-      }
-    });
-  }
+
+  //       if (res.detailList != null && res.detailList.length >= 1) {
+  //         let detailListArrayReplacement = this.docForm.controls.assetMasterBeanReplacement as FormArray;
+  //         detailListArrayReplacement.clear();
+  //         res.detailList.forEach(element => {
+  //           let detailListArrayReplacement = this.docForm.controls.assetMasterBeanReplacement as FormArray;
+  //           let arraylen = detailListArrayReplacement.length;
+  //           let newUsergroupReplacement: FormGroup = this.fb.group({
+  //             assName: [element.assName],
+  //             assCode: [element.assCode],
+  //             assLocation: [element.assLocation],
+  //             assCategory: [element.assCategory],
+  //             assStatus: [element.assStatus],
+  //           })
+  //           detailListArrayReplacement.insert(arraylen, newUsergroupReplacement);
+  //         });
+  //       }
+  //     },
+  //     error: (error) => {
+
+  //     }
+  //   });
+  // }
 
  
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -440,7 +497,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
 
   
 
-  getInLineReplace(event: any) {
+  getInLineFull(event: any) {
     if (event) {
       this.isLineIn = true;
     }
@@ -466,22 +523,25 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
  
 
   resetSelf(){
-    this.getInLineReplace(false);
+    this.getInLineFull(false);
     this.docForm = this.fb.group({
 
-      assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      assetCode: ["", [Validators.required]],
-      location: ["", [Validators.required]],
-      category: ["", [Validators.required]],
-      status: ["", [Validators.required]],
-      isLine: [false],
+    
       partialOrReplace: [""],
 
-      'companyId': this.tokenStorage.getCompanyId(),
-      'branchId': this.tokenStorage.getBranchId(),
-
-      //tab5
       assetMasterBean: this.fb.array([
+        this.fb.group({
+          assName: [""],
+          assCode: [""],
+          assLocation: [""],
+          assCategory: [""],
+          assStatus: [""],
+          assetId: [""]
+
+        })
+      ]),
+
+      assetMasterBeanReplacement: this.fb.array([
         this.fb.group({
           assName: [""],
           assCode: [""],

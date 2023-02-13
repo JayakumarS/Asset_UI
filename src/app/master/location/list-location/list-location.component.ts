@@ -29,7 +29,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
    // "select",
-    "parentLocation",
+    "locationCode",
     "locationName",
     "company",
     "actions"

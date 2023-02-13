@@ -8,7 +8,7 @@ export class AssetMasterResultBean {
     manufacturerList: [];
     assetList: [];
     addAssetBean: [];
-   
+    assetReplacementList: [];
     categoryList:[];
     categoryDropdown:[];
     locationDropdown:[];

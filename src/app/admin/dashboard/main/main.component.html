@@ -14,7 +14,6 @@
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-label>Asset Id</mat-label>
                 <mat-select formControlName="assetid" (selectionChange)="fetchAssetName($event.value)">
-                  <!-- <mat-select formControlName="assetid" > -->
                     <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
                       {{title.text}}
                     </mat-option>
@@ -43,7 +42,6 @@
               [tooltip]="projectOptions.tooltip" [colors]="projectOptions.colors"></apx-chart>
           </div>
         </div>
-
       </div>
       <div class="col-xl-4 ">
         <div class="row">
@@ -57,8 +55,8 @@
                   <div class="m-r-10 m-l-10">
                     <!-- For Decimal purpose code -->
                     <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
-                    <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3>
-                    <h3 *ngIf="roleIdFlag" class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount}}</h3>
+                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
+                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -77,8 +75,8 @@
                     <h5 class="float-end">Auditors</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3>
-                    <h3 *ngIf="roleIdFlag" class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3>
+                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3> -->
+                    <h3 class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -97,8 +95,8 @@
                     <h5 class="float-end">Assets</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3>
-                    <h3 *ngIf="roleIdFlag" class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
+                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
+                    <h3 class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -119,9 +117,9 @@
                   <div class="m-r-10 m-l-10">
                     <!-- Total Users -->
                     <!-- <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3> -->
-                    <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{usersCountValue}}</h3>
+                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{usersCountValue}}</h3> -->
                     <!-- Company based Users -->
-                    <h3 *ngIf="roleIdFlag" class="font-weight-bold float-end mb-0">{{companyUsersAssetsCount}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{companyUsersAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -181,6 +179,80 @@
         </div>
       </div>
     </div>
+        <div class="row">
+          <div class="col-md-7">
+        <div class="card">
+          <!-- <div class="header">
+          <h2>Assets Survey</h2>
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <mat-label>Asset Id</mat-label>
+                <mat-select formControlName="assetid" (selectionChange)="fetchAssetName($event.value)">
+                    <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
+                      {{title.text}}
+                    </mat-option>
+                  </mat-select>
+                <mat-error *ngIf="docForm.get('assetid').hasError('required')">
+                    Asset Id is required
+                </mat-error>
+                <mat-error *ngIf="docForm.get('assetid').hasError('country')">
+                  Asset Id is already exists
+              </mat-error>
+              </mat-form-field>
+            </div>
+          </div> -->
+          <div class="body p-5">
+          <div id="chart">
+            <apx-chart
+              [series]="chartOptionsBarChart.series"
+              [chart]="chartOptionsBarChart.chart"
+              [dataLabels]="chartOptionsBarChart.dataLabels"
+              [plotOptions]="chartOptionsBarChart.plotOptions"
+              [yaxis]="chartOptionsBarChart.yaxis"
+              [legend]="chartOptionsBarChart.legend"
+              [fill]="chartOptionsBarChart.fill"
+              [stroke]="chartOptionsBarChart.stroke"
+              [tooltip]="chartOptionsBarChart.tooltip"
+              [xaxis]="chartOptionsBarChart.xaxis"
+            ></apx-chart>
+          </div>
+        </div>
+          <!--  -->
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="card" style="padding-top: 3%;padding-bottom: 5%;padding-left: 2%;padding-right: 2%;">
+          <!-- <div class="header">
+            <h2>Assets Survey</h2>
+              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>Asset Id</mat-label>
+                  <mat-select formControlName="assetid" (selectionChange)="fetchAssetName($event.value)">
+                      <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
+                        {{title.text}}
+                      </mat-option>
+                    </mat-select>
+                  <mat-error *ngIf="docForm.get('assetid').hasError('required')">
+                      Asset Id is required
+                  </mat-error>
+                  <mat-error *ngIf="docForm.get('assetid').hasError('country')">
+                    Asset Id is already exists
+                </mat-error>
+                </mat-form-field>
+              </div>
+            </div> -->
+          <highcharts-chart #chart [Highcharts]="Highcharts" [callbackFunction]="chartCallback" [options]="chartOptionsLollipop"
+          [(update)]="updateFlag"></highcharts-chart>
+          <!--  -->
+        </div>
+      </div>
+
+      </div>
+
+     
+     
+   
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="card">
@@ -199,7 +271,7 @@
             <div class="row">
               <div class="col-md-12 col-xl-4 d-flex flex-column justify-content-center">
                 <div class="m-l-10 m-b-20">
-                  <h1>{{earningsCountValue}}</h1>
+                  <h1>{{companyEarningsAssetsCount}}</h1>
                   <h4 class="font-weight-light col-green">Total Income</h4>
                   <p class="mb-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                     Aenean commodo ligula eget dolor.
@@ -547,17 +619,17 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tbody *ngIf="!roleIdFlag">
-                  <tr *ngFor="let data of assetList">
+                <!-- <tbody *ngIf="!roleIdFlag">
+                  <tr *ngFor="let data of assetList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
                     <td>{{data.assetName}}</td>
                     <td>{{data.assetCode}}</td>
                     <td>{{data.locationName}}</td>
                     <td>{{data.categoryName}}</td>
                     <td>{{data.status}}</td>
                   </tr>
-                </tbody>
-                <tbody *ngIf="roleIdFlag">
-                  <tr *ngFor="let data of companyAssetList">
+                </tbody> -->
+                <tbody>
+                  <tr *ngFor="let data of companyAssetList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
                     <td>{{data.assetName}}</td>
                     <td>{{data.assetCode}}</td>
                     <td>{{data.locationName}}</td>
@@ -566,6 +638,9 @@
                   </tr>
                 </tbody>
               </table>  
+              <div style="margin-left: 66%;">
+                <pagination-controls (pageChange)="pageChanged=($event)"></pagination-controls>
+              </div>
               <!-- <table class="table text-center">
                 <thead>
                   <tr>

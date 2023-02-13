@@ -55,6 +55,7 @@ export class HeaderComponent
   imageListCount: any;
   nonImageCount: any;
   companyId: any;
+  roleId: any;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -150,13 +151,14 @@ export class HeaderComponent
     // }
     this.companyNameText = this.token.getCompanyText();
     console.log(this.companyNameText);
+    this.roleId=this.token.getRoleId();
     
     this.roleBasedImgUrl = this.token.getRoleText();
-    if (this.roleBasedImgUrl === "superadmin") {
+    if (this.roleId === "3") {
       this.homePage = "admin/dashboard/main";
-    } else if (this.roleBasedImgUrl === "companyadmin") {
+    } else if (this.roleId === "2") {
       this.homePage = "admin/dashboard/main";
-    } else if (this.roleBasedImgUrl === "checker") {
+    } else if (this.roleId === "4") {
       this.homePage = "asset/assetMaster/listAssetMaster";
     } else {
       this.homePage = "admin/dashboard/main";
@@ -388,6 +390,19 @@ showPaymentPage(){
   
   
 showPopUp(){
+  this.httpService.get<any>(this.commonService.getCompaniesUrl+"?userId="+this.token.getUsername()).subscribe({
+    next: (data) => {
+      if(data.success){
+        this.token.saveCompanies(data.companyMasterDetails);
+      }
+      
+    },
+    error: (error) => {
+
+    }
+  }
+  );
+
   
   let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {

@@ -1,3 +1,4 @@
+
 <section class="content">
     <div class="content-block">
         <div class="block-header">
@@ -12,10 +13,34 @@
                     <mat-tab-group #tabs >
                         <mat-tab label="SELF" [tabIndex]="0" *ngIf="isSelf">
                             <form class="m-4" [formGroup]="docForm">
-                                <div class="rowtab" style="margin-left: 20%;">
+                                <div class="rowtab" >
+
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline">
+
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 90%;">
+                                                <mat-label>Audit Name</mat-label>
+                                                <input matInput placeholder="audit Name" formControlName="auditName" required>
+                                                <mat-error *ngIf="docForm.get('auditName').hasError('required')">
+                                                    Audit Name is required
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
                                                 <mat-label>Start Date</mat-label>
                                                 <input matInput [matDatepicker]="picker1" formControlName="startDateObj" 
                                                 (dateInput)="$event.value.format('DD/MM/YYYY')" id="startDate" 
@@ -27,47 +52,29 @@
                                                   </mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">
-                                    <mat-form-field class="example-width form-control-sm" appearance="outline">
-                                                <mat-label>End Date</mat-label>
-                                                <input matInput [matDatepicker]="picker2" formControlName="endDateObj" 
-                                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="endDate" 
-                                                (dateChange)="getDateString($event, 'endDate',0)" required>
-                                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker2></mat-datepicker>
-                                                <mat-error *ngIf="docForm.get('endDate').hasError('required')">
-                                                    End Date is required
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
-                                    
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" style="margin-left: -22px;">
                                             <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
-                                                <mat-label>Audit Name</mat-label>
-                                                <input matInput placeholder="audit Name" formControlName="auditName" required>
-                                                <mat-error *ngIf="docForm.get('auditName').hasError('required')">
-                                                    Audit Name is required
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
+                                                        <mat-label>End Date</mat-label>
+                                                        <input matInput [matDatepicker]="picker2" formControlName="endDateObj" 
+                                                        (dateInput)="$event.value.format('DD/MM/YYYY')" id="endDate" 
+                                                        (dateChange)="getDateString($event, 'endDate',0)" required>
+                                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker2></mat-datepicker>
+                                                        <mat-error *ngIf="docForm.get('endDate').hasError('required')">
+                                                            End Date is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
 
-                                        <div class="col-md-3">                                           
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
-                                                <mat-label>Location</mat-label>
-                                                <mat-select formControlName="locationId">
-                                                  <mat-option *ngFor="let title of loacationList" [value]="title.id">
-                                                    {{title.text}}
-                                                  </mat-option>
-                                                </mat-select>
-                                                <mat-error *ngIf="docForm.get('locationId').hasError('required')">
-                                                    Location is required
-                                                </mat-error>
-                                              </mat-form-field>
-                                        </div>
-
+                                            </div>
                                     </div>
-                                    
                                     <div class="row">
+                                        <div class="col-md-3">
+                                           
+                                        </div>
+                                        
+                                    
                                         
                                         <div class="col-md-3" >                                           
                                             <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
@@ -82,8 +89,8 @@
                                                 </mat-error>
                                               </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">                                           
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
+                                        <div class="col-md-3" style="margin-left: -22px;">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;" >
                                                 <mat-label>Branch</mat-label>
                                                 <mat-select formControlName="auditbranchId">
                                                   <mat-option *ngFor="let title of branchList" [value]="title.id">
@@ -95,7 +102,33 @@
                                                 </mat-error>
                                               </mat-form-field>
                                         </div>
+                                        <div class="col-md-3">
+
                                         </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-3">  
+                                        </div>
+                                        <div class="col-md-3">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
+                                                <mat-label>Location</mat-label>
+                                                <mat-select formControlName="locationId">
+                                                  <mat-option *ngFor="let title of loacationList" [value]="title.id">
+                                                    {{title.text}}
+                                                  </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="docForm.get('locationId').hasError('required')">
+                                                    Location is required
+                                                </mat-error>
+                                              </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">  
+                                        </div>
+                                        <div class="col-md-3">  
+                                        </div>
+                                        
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -117,11 +150,30 @@
 
                         <mat-tab label="AIDED" *ngIf="isAided" style=" background-color: #ed6707; margin-left: 390px;" [tabIndex]="1">
                             <form class="m-4" [formGroup]="Formdoc">
-                                <div class="rowtab" style="margin-left: 20%;">
+                                <div class="rowtab" >
                                     
+                                    <div class="row">
+                                        <div class="col-md-3"> 
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 90%;">
+                                                <mat-label>Audit Name</mat-label>
+                                                <input matInput placeholder="audit Name" formControlName="auditName" required>
+                                                <mat-error *ngIf="docForm.get('auditName').hasError('required')">
+                                                    Audit Name is required
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3"> 
+                                        </div>
+                                    </div>
+
                                         <div class="row">
+                                            <div class="col-md-3">
+
+                                            </div>
                                             <div class="col-md-3">                                           
-                                                <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                                <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
                                                     <mat-label>Start Date</mat-label>
                                                     <input matInput [matDatepicker]="picker3" formControlName="startDateObj" 
                                                     (dateInput)="$event.value.format('DD/MM/YYYY')" id="startDate" 
@@ -134,8 +186,8 @@
     
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">                                           
-                                                <mat-form-field class="example-width form-control-sm" appearance="outline">
+                                            <div class="col-md-3" style="margin-left: -22px;">                                           
+                                                <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
                                                     <mat-label>End Date</mat-label>
                                                     <input matInput [matDatepicker]="picker4" formControlName="endDateObj" 
                                                     (dateInput)="$event.value.format('DD/MM/YYYY')" id="endDate" 
@@ -146,20 +198,16 @@
                                                         End Date is required
                                                     </mat-error>
                                                 </mat-form-field>
-                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
                                     
-                                        <div class="col-md-3">
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
-                                                <mat-label>Audit Name</mat-label>
-                                                <input matInput placeholder="audit Name" formControlName="auditName" required>
-                                                <mat-error *ngIf="docForm.get('auditName').hasError('required')">
-                                                    Audit Name is required
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
+                                        
                                     </div>
                                     
                                     <div class="row">
+                                        <div class="col-md-3">  </div>
                                         <div class="col-md-3">                                           
                                             <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
                                                 <mat-label>Company Name</mat-label>
@@ -173,7 +221,7 @@
                                                 </mat-error>
                                               </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">                                           
+                                        <div class="col-md-3" style="margin-left: -22px;">                                           
                                             <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
                                                 <mat-label>Branch</mat-label>
                                                 <mat-select formControlName="auditbranchId">
@@ -186,26 +234,11 @@
                                                 </mat-error>
                                               </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">                                           
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
-                                                <mat-label>Auditor Name</mat-label>
-                                                <mat-select formControlName="auditorId">
-                                                  <mat-option *ngFor="let title of auditorListNew" [value]="title.id">
-                                                    {{title.text}}
-                                                  </mat-option>
-                                                </mat-select>
-                                                <mat-error *ngIf="docForm.get('auditorId').hasError('required')">
-                                                    Auditor Name is required
-                                                </mat-error>
-                                              </mat-form-field>
-                                        </div>
-
-                                        
-                                       
+                                        <div class="col-md-3">  </div>
                                     </div>
 
                                     <div class="row">
-                                        
+                                        <div class="col-md-3"> </div>
                                         <div class="col-md-3">                                           
                                             <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
                                                 <mat-label>Location</mat-label>
@@ -219,7 +252,21 @@
                                                 </mat-error>
                                               </mat-form-field>
                                         </div>
+                                        <div class="col-md-3"  style="margin-left: -22px;">                                           
+                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
+                                                <mat-label>Auditor Name</mat-label>
+                                                <mat-select formControlName="auditorId">
+                                                  <mat-option *ngFor="let title of auditorListNew" [value]="title.id">
+                                                    {{title.text}}
+                                                  </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="docForm.get('auditorId').hasError('required')">
+                                                    Auditor Name is required
+                                                </mat-error>
+                                              </mat-form-field>
                                         </div>
+                                        <div class="col-md-3"> </div>
+                                    </div>
                                 </div>
 
                                 <div class="row">

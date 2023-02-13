@@ -53,7 +53,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       branch:["",[Validators.required]],
       role:[""],
       emailId:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-      fullName: ["",[Validators.required]],
+      fullName: ["",[Validators.required, Validators.pattern("[A-Z]+")]],
       phoneno:["",[Validators.required]],
       department:[""],
       active:[false],
@@ -313,6 +313,20 @@ export class AddCompanyEmployeesComponent implements OnInit {
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
+    }
+  }
+
+  keyPressAlpha(event: any) {
+    const pattern = /[A-Z]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+      this.showNotification(
+        "snackbar-danger",
+        "Please use Alphabets only!",
+        "top",
+        "right"
+      );
     }
   }
 

@@ -1,10 +1,12 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject,Observable } from "rxjs";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { serverLocations } from "src/app/auth/serverLocations";
 import { TokenStorageService } from "src/app/auth/token-storage.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+import { AssetMasterResultBean } from "../asset-master/asset-result-bean";
+import { AssetReplacementResultBean } from "./asset-replacement-result-bean";
 import { AssetReplacement } from "./asset-replacement.model";
 
 @Injectable({
@@ -20,18 +22,17 @@ export class AssetReplacementService extends UnsubscribeOnDestroyAdapter{
   companyId: string;
  
 
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private token: TokenStorageService, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,  private httpService: HttpServiceService,    private token: TokenStorageService) {
     super();
   }
   
-  public listUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/list`;
-  public saveUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/save`;
-  public editUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/edit`;
-  public updateUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/update`;
-  public assetListUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/assetItemList`;
-  public assetQuantityUrl =  `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/assetItemList`;
-  public assetTrackListUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/assetTrackDetails`;
-  public assetTrackListUrlNew = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/assetTrackDetailsNew`;
+
+  //asset replacement
+  private SaveAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/saveAssetReplacement`;
+  private UpdateAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/updateAssetReplacement`;
+
+ 
+  
   get data(): AssetReplacement[] {
     return this.dataChange.value;
   }
@@ -40,75 +41,15 @@ export class AssetReplacementService extends UnsubscribeOnDestroyAdapter{
 
   }
 
-  getAllList(){
-    console.log();
-    this.companyId=this.token.getCompanyId();
-    this.subs.sink = this.httpService.get<any>(this.listUrl+"?companyId="+this.companyId).subscribe(
-      (data) => {
-        this.isTblLoading = false;
-        this.dataChange.next(data.assetRequisitionDetails);
-      },
-      (error: HttpErrorResponse) => {
-        this.isTblLoading = false;
-        console.log(error.name + " " + error.message);
-      }
-    );
+ 
+  
 
-  }
-
-  save(assetRequisition:AssetReplacement,router,notificationService): void {
-    this.dialogData = assetRequisition;  
-    this.httpService.post<any>(this.saveUrl,assetRequisition ).subscribe(data => {
-      console.log(data);
-      if(data.success){
-        notificationService.showNotification(
-          "snackbar-success",
-          "Record Added successfully...",
-          "bottom",
-          "center"
-        );
-        router.navigate(['/asset/assetRequisition/listAssetRequisition']);
-      }
-      else {
-        notificationService.showNotification(
-          "snackbar-danger",
-          "Not Updated...!!!",
-          "bottom",
-          "center"
-        );
-      }
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
-  }
-
-  update(assetRequisition:AssetReplacement,router,notificationService): void {
-    this.dialogData = assetRequisition;  
-    this.httpService.post<any>(this.updateUrl,assetRequisition ).subscribe(data => {
-      console.log(data);
-      if(data.success){
-        notificationService.showNotification(
-          "snackbar-success",
-          "Record Added successfully...",
-          "bottom",
-          "center"
-        );
-        router.navigate(['/asset/assetRequisition/listAssetRequisition']);
-      }
-      else {
-        notificationService.showNotification(
-          "snackbar-danger",
-          "Not Updated...!!!",
-          "bottom",
-          "center"
-        );
-      }
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
+  addAssetReplacement(assetReplacement: AssetReplacement): Observable<any> {
+    return this.httpClient.post<AssetReplacement>(this.SaveAssetReplacement, assetReplacement);
   }
 
   
+  updateAssetReplacement(assetReplacement: AssetReplacement): Observable<any> {
+    return this.httpClient.post<AssetReplacement>(this.UpdateAssetReplacement, assetReplacement);
+  }
 }
