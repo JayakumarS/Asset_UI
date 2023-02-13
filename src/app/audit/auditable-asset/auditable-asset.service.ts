@@ -22,6 +22,7 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
     []
   );
   companyId: string;
+  userId: string;
  
 
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService,
@@ -55,9 +56,10 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
   getAllList(object){
 
 this.companyId = this.tokenStorage.getCompanyId();
+this.userId = this.tokenStorage.getUserId();
 
     console.log(object);
-    this.subs.sink = this.httpService.post<AuditableAssetResultBean>(this.getScheduleActivity+"?companyId="+this.companyId,object).subscribe(
+    this.subs.sink = this.httpService.post<AuditableAssetResultBean>(this.getScheduleActivity+"?companyId="+this.companyId+"&userId="+this.userId,object).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.auditableAssetDetails);
