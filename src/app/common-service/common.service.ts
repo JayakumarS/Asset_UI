@@ -207,6 +207,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public updateChangePasswordUrl = `${this.serverUrl.apiServerAddress}app/userMaster/updatePassword`;
 
   public uploadFileUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/uploadFile`;
+  public getCompaniesUrl = `${this.serverUrl.apiServerAddress}api/auth/app/company/getCompanies`;
 
 
 }

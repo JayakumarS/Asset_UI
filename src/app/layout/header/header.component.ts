@@ -388,6 +388,19 @@ showPaymentPage(){
   
   
 showPopUp(){
+  this.httpService.get<any>(this.commonService.getCompaniesUrl+"?userId="+this.token.getUsername()).subscribe({
+    next: (data) => {
+      if(data.success){
+        this.token.saveCompanies(data.companyMasterDetails);
+      }
+      
+    },
+    error: (error) => {
+
+    }
+  }
+  );
+
   
   let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {
