@@ -360,7 +360,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           if (data.success) {
             this.showNotification(
               "snackbar-success",
-              "Edit Record Successfully",
+              "Record Added successfully...",
               "bottom",
               "center"
             );
@@ -368,7 +368,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           } else {
             this.showNotification(
               "snackbar-danger",
-              "Not Updated Successfully...!!!",
+              "Not Added...!!!",
               "bottom",
               "center"
             );
