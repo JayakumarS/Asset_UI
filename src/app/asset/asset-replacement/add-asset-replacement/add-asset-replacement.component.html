@@ -69,109 +69,75 @@
                             <br>
                               <div class="row">
                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12" style="margin-left: 7%;">
-                                    <mat-radio-group tabindex="17" formControlName="partialOrReplace">
-                                        <mat-radio-button value="Partial" (change)="getInLinePartial($event.value)">Partial</mat-radio-button>
-                                        <mat-radio-button value="Replace" (change)="getInLineReplace($event.value)">Replace</mat-radio-button>
+                                    <mat-radio-group tabindex="17" formControlName="fullOrPartial">
+                                        <mat-radio-button value="F">Full</mat-radio-button>
+                                        <mat-radio-button value="P">Partial</mat-radio-button>
                                     </mat-radio-group>
                                 </div>
                               </div>
                               <br>
                              
-                              <!-- Normal Asset Save Start-->
+                              <tbody *ngFor="let assetMasterBeanReplacement of docForm.get('assetMasterBeanReplacement')['controls'];" [formGroup]="assetMasterBeanReplacement">                 
                                 <div class="row">
     
-    
-                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isLineIn">
-                                        <mat-label style="margin-left: 50%;">CATEGORY <span class="errorColor">*</span></mat-label>
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                        <mat-label style="margin-left: 50%;">Asset Name </mat-label>
                                     </div>
-                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isLineIn">
-                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                <mat-select tabindex="6" formControlName="category" required>
-                                                    <mat-option *ngFor="let title of categoryList" [value]="title.id">
-                                                        {{title.text}}
-                                                    </mat-option>
-                                                </mat-select>
-                                                <mat-error
-                                                    *ngIf="docForm.get('category').hasError('required')">Category is required
-                                                </mat-error>
-                                            </mat-form-field>
-                                      </div>
-    
-                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isLineIn">
-                                        <mat-label style="margin-left: 45%;">ASSET NAME <span class="errorColor">*</span></mat-label>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12" *ngIf="isLineIn">
-                                        <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
-                                            <input matInput tabindex="3" formControlName="assetName"  (keypress)="keyPressName($event)" required>
-                                            <mat-error *ngIf="docForm.get('assetName').hasError('required')">Asset Name is required </mat-error>
-                                        </mat-form-field>
-                                    </div>
-    
-                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isLineIn">
-                                        <mat-label  style="margin-left: 45%;">ASSET CODE <span class="errorColor">*</span></mat-label>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12" *ngIf="isLineIn">
-                                        <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
-                                            <input matInput tabindex="4" formControlName="assetCode" (keypress)="keyPressNameNumber($event)" required>
-                                            <mat-error *ngIf="docForm.get('assetCode').hasError('required')">Asset Code is required </mat-error>
-                                        </mat-form-field>
-                                    </div>
-                    
-                                </div>
-                                <br>
-    
-                                <div class="row">
                                     
-                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isLineIn">
-                                        <mat-label style="margin-left: 50%;">LOCATION <span class="errorColor">*</span></mat-label>
-                                      </div>
-                                      <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12" *ngIf="isLineIn">
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-select tabindex="5" formControlName="location" required>
-                                                <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                            <mat-select tabindex="30" formControlName="assName" (selectionChange)="assetDetailsReplacement($event)">
+                                                <mat-option *ngFor="let title of assetnamelist" [value]="title.id" >
                                                     {{title.text}}
                                                 </mat-option>
                                             </mat-select>
-                                            <mat-error
-                                                *ngIf="docForm.get('location').hasError('required')">Location is required
-                                            </mat-error>
                                         </mat-form-field>
                                     </div>
     
-                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isLineIn">
-                                        <mat-label style="margin-left: 50%;">STATUS <span class="errorColor">*</span></mat-label>
-                                        </div>
-                                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isLineIn"> 
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                        <mat-label style="margin-left: 50%;">Asset Code </mat-label>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-select tabindex="7" formControlName="status" required>
-                                            <mat-option [value]="'Good'">
-                                                Good
-                                            </mat-option>
-                                            <mat-option [value]="'Damaged'">
-                                                Damaged
-                                            </mat-option>
-                                            <mat-option [value]="'In repair'">
-                                                In repair
-                                            </mat-option>
-                                            <mat-option [value]="'In stock'">
-                                                In stock
-                                            </mat-option>
-                                          </mat-select>
-                                          <mat-error *ngIf="docForm.get('status').hasError('required')">
-                                            Status is required
-                                          </mat-error>
-                                        </mat-form-field>
-                                      </div>
-                                    
+                                            <input matInput  tabindex="31" formControlName="assCode" [readonly]="true">
+                                           </mat-form-field>
+                                    </div>
+    
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                        <mat-label style="margin-left: 50%;">Location</mat-label>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                                            <input matInput  tabindex="32" formControlName="assLocation" [readonly]="true">
+                                           </mat-form-field>
+                                    </div>
+    
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                        <mat-label style="margin-left: 50%;">Category</mat-label>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+    
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput tabindex="33" formControlName="assCategory" [readonly]="true">
+                                           </mat-form-field>
+                                    </div>
+    
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                        <mat-label style="margin-left: 50%;">Status</mat-label>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput tabindex="34"  selected formControlName="assStatus" [readonly]="true">
+                                           </mat-form-field>
+                                    </div>
+    
                                 </div>
-                                <br>
-                                
-                                <!-- Normal Asset Save End-->
+                                  </tbody>                                
                         </form>
                     </div>
                     <div class="row" style="padding-bottom:50px;padding-left: 50px;">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
-                            <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()" style="margin-left: 38%;background-color: green;" mat-raised-button color="primary">Submit</button>
+                            <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()" style="margin-left: 38%;background-color: green;" mat-raised-button color="primary">Replace</button>
                             <button *ngIf="!edit && grnFlag" class="btn-space" (click)="saveGRNBasedMutipleAsset()" style="margin-left: 38%;background-color: green;" mat-raised-button color="primary">Submit</button>
                             <button *ngIf="edit" mat-raised-button color="primary" style="margin-left: 38%;background-color: green;" (click)="update()">Update</button>&nbsp;
                             <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>

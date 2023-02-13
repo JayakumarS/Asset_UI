@@ -47,6 +47,8 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   public deleteAssetMaster = `${this.serverUrl.apiServerAddress}app/assetMaster/delete`;
   public getAssetDetails = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetDetails`;
   public getAssetList = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetListFor`;
+  public getAssetDetailsReplacement = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetDetailsReplacement`;
+
   //new
   public addAssetImageUploadFiles = `${this.serverUrl.apiServerAddress}app/assetMaster/addAssetImageUpload`;
   public addAssetUploadFiles = `${this.serverUrl.apiServerAddress}app/assetMaster/addAssetUpload`;
@@ -61,8 +63,8 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   //asset replacement
   private SaveAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/saveAssetReplacement`;
-  private UpdateAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetMaster/updateAssetReplacement`;
-  private getAllAssetsReplacement = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetReplacementList`;
+  private UpdateAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/updateAssetReplacement`;
+  private getAllAssetsReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/getAssetReplacementList`;
 
   get data(): AssetMaster[] {
     return this.dataChange.value;
