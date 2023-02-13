@@ -60,7 +60,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
 
   //asset replacement
-  private SaveAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetMaster/saveAssetReplacement`;
+  private SaveAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/saveAssetReplacement`;
   private UpdateAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetMaster/updateAssetReplacement`;
   private getAllAssetsReplacement = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetReplacementList`;
 
