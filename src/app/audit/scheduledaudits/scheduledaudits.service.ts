@@ -41,9 +41,9 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter {
     this.subs.sink = this.httpService.post<any>(this.getAllMasters, obj).subscribe(
       (data) => {
         this.isTblLoading = false;
-        if(this.roleId=='2') {
-          data.scheduleAuditList=[];
-        }
+        // if(this.roleId=='2') {
+        //   data.scheduleAuditList=[];
+        // }
         this.dataChange.next(data.scheduleAuditList);
       },
       (error: HttpErrorResponse) => {

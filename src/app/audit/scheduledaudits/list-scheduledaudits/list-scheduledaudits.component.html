@@ -76,10 +76,10 @@
                   <ng-container matColumnDef="companyActions" class="col-lg-12 col-md-2">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button color="accent" *ngIf="row.companyStatus=='Pending'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
+                    <!-- <button mat-icon-button color="accent" *ngIf="row.companyStatus=='Pending'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
                         class="tbl-action-btn">
                         <button mat-raised-button color="primary">Start Audit</button>
-                    </button>
+                    </button> -->
                     <span *ngIf="row.companyStatus=='Submitted'">Audit Completed</span>
                     <button   mat-icon-button color="accent"  *ngIf="row.companyStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
