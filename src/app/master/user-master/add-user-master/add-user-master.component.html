@@ -96,31 +96,67 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class=" col-md-2">
-                      <mat-label >DEPARTMENT</mat-label>
+                    <div class=" col-md-2" >
+                        <mat-label >COMPANY<span  class="errorColor" *ngIf="auditorFFlag">*</span></mat-label>
+                        </div>
+                        <div class=" col-md-3">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select class="inputTxt" formControlName="company" (selectionChange)="fetchBranchDetails($event.value)">
+                              <mat-option *ngFor="let title of getUserBasedCompanyList" [value]="title.id1">
+                                  {{title.text}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                        </div>
+                        <div class=" col-md-2" >
+                          <mat-label >BRANCH<span class="errorColor" *ngIf="auditorFFlag">*</span></mat-label>
+                          </div>
+                          <div class=" col-md-3">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-select class="inputTxt" formControlName="branch">
+                                <mat-option *ngFor="let title of getUserBasedBranchList" [value]="title.id">
+                                    {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                          </div>
                       </div>
-                      <div class=" col-md-3" *ngIf="auditorFlag">
+
+                      <div class="row">
+                        <div class=" col-md-2" *ngIf="auditorFlag">
+                          <mat-label >DEPARTMENT</mat-label>
+                          </div>
+                          <div class=" col-md-3" *ngIf="auditorFlag">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select class="inputTxt" formControlName="department">
+                              <mat-option *ngFor="let title of departmentAuditList" [value]="title.id">
+                                  {{title.text}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      </div>
+                      <!-- <div class=" col-md-3" *ngIf="!auditorFlag">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select class="inputTxt" formControlName="department">
-                          <mat-option *ngFor="let title of departmentAuditList" [value]="title.id">
+                          <mat-option *ngFor="let title of departmentList" [value]="title.id">
                               {{title.text}}
                           </mat-option>
                       </mat-select>
                   </mat-form-field>
-                  </div>
-                  <div class=" col-md-3" *ngIf="!auditorFlag">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select class="inputTxt" formControlName="department">
-                      <mat-option *ngFor="let title of departmentList" [value]="title.id">
-                          {{title.text}}
-                      </mat-option>
-                  </mat-select>
-              </mat-form-field>
-              </div>
-                  <div class=" col-md-2">
-                    <mat-label >REPORTING MANAGER</mat-label>
+                  </div> -->
+                      <div class=" col-md-2" *ngIf="auditorFlag">
+                        <mat-label >REPORTING MANAGER</mat-label>
+                        </div>
+                        <div class=" col-md-3"  *ngIf="auditorFlag">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select class="inputTxt" formControlName="repmanager">
+                            <mat-option *ngFor="let title of getReportingManList" [value]="title.id">
+                                {{title.text}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                     </div>
-                    <div class=" col-md-3"  >
+                    <!-- <div class=" col-md-3"   *ngIf="!auditorFlag">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select class="inputTxt" formControlName="repmanager">
                         <mat-option *ngFor="let title of getReportingManList" [value]="title.id">
@@ -128,94 +164,10 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                </div>
+                </div> -->
 
-              </div>
-                      <div class="row">
-                        <div class=" col-md-2">
-                            <mat-label >DEFAULT LANGUAGE<span class="errorColor">*</span></mat-label>
-                            </div>
-                            <div class="col-md-3">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-select formControlName="language" required>
-                                  <mat-option [value]="'English'">
-                                    English
-                                  </mat-option>
-                                  <mat-option [value]="'Spanish'">
-                                    Spanish
-                                  </mat-option>
-                                  <mat-option [value]="'French'">
-                                    French
-                                  </mat-option>
-                                  <mat-option [value]="'Russian'">
-                                    Russian
-                                  </mat-option>
-                                  <mat-option [value]="'Portuguese'">
-                                    Portuguese
-                                  </mat-option>
-                                  <mat-option [value]="'Japanese'">
-                                    Japanese
-                                  </mat-option>
-                                  <mat-option [value]="'Italian'">
-                                    Italian
-                                  </mat-option>
-                                  <mat-option [value]="'Polish'">
-                                    Polish
-                                  </mat-option>
-                                  <mat-option [value]="'Burmese'">
-                                    Burmese
-                                  </mat-option>
-                                  <mat-option [value]="'Korean'">
-                                    Korean
-                                  </mat-option>
+                  </div>
 
-                                </mat-select>
-                                <mat-error *ngIf="docForm.get('language').hasError('required')">
-                                  language is required
-                                </mat-error>
-                              </mat-form-field>
-                            </div>
-
-
-                        <div class=" col-md-2">
-                            <mat-label>PRIMARY LOCATION</mat-label>
-                            </div>
-                            <div class=" col-md-3">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-select class="inputTxt" formControlName="location">
-                                <mat-option *ngFor="let title of locationDropdownList" [value]="title.id">
-                                    {{title.text}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        </div>
-                      </div>
-                        <div class="row">
-                          <div class=" col-md-2" >
-                              <mat-label >COMPANY<span  class="errorColor" *ngIf="auditorFFlag">*</span></mat-label>
-                              </div>
-                              <div class=" col-md-3">
-                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-select class="inputTxt" formControlName="company" (selectionChange)="fetchBranchDetails($event.value)">
-                                    <mat-option *ngFor="let title of getUserBasedCompanyList" [value]="title.id1">
-                                        {{title.text}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                              </div>
-                              <div class=" col-md-2" >
-                                <mat-label >BRANCH<span class="errorColor" *ngIf="auditorFFlag">*</span></mat-label>
-                                </div>
-                                <div class=" col-md-3">
-                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                    <mat-select class="inputTxt" formControlName="branch">
-                                      <mat-option *ngFor="let title of getUserBasedBranchList" [value]="title.id">
-                                          {{title.text}}
-                                      </mat-option>
-                                  </mat-select>
-                                  </mat-form-field>
-                                </div>
-                            </div>
 
 
                     <div class="row">
@@ -243,6 +195,65 @@
                   </mat-form-field>
                   </div>
 
+                        </div>
+                        <div class="row">
+                          <div class=" col-md-2">
+                              <mat-label >DEFAULT LANGUAGE<span class="errorColor">*</span></mat-label>
+                              </div>
+                              <div class="col-md-3">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-select formControlName="language" required>
+                                    <mat-option [value]="'English'">
+                                      English
+                                    </mat-option>
+                                    <mat-option [value]="'Spanish'">
+                                      Spanish
+                                    </mat-option>
+                                    <mat-option [value]="'French'">
+                                      French
+                                    </mat-option>
+                                    <mat-option [value]="'Russian'">
+                                      Russian
+                                    </mat-option>
+                                    <mat-option [value]="'Portuguese'">
+                                      Portuguese
+                                    </mat-option>
+                                    <mat-option [value]="'Japanese'">
+                                      Japanese
+                                    </mat-option>
+                                    <mat-option [value]="'Italian'">
+                                      Italian
+                                    </mat-option>
+                                    <mat-option [value]="'Polish'">
+                                      Polish
+                                    </mat-option>
+                                    <mat-option [value]="'Burmese'">
+                                      Burmese
+                                    </mat-option>
+                                    <mat-option [value]="'Korean'">
+                                      Korean
+                                    </mat-option>
+
+                                  </mat-select>
+                                  <mat-error *ngIf="docForm.get('language').hasError('required')">
+                                    language is required
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+
+
+                          <div class=" col-md-2" *ngIf="auditorFlag">
+                              <mat-label>PRIMARY LOCATION</mat-label>
+                              </div>
+                              <div class=" col-md-3" *ngIf="auditorFlag">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-select class="inputTxt" formControlName="location">
+                                  <mat-option *ngFor="let title of locationDropdownList" [value]="title.id">
+                                      {{title.text}}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          </div>
                         </div>
                     <div class="row">
                     <div class=" col-md-2">

@@ -96,6 +96,17 @@ export class AddUserMasterComponent implements OnInit {
 
     this.roleId = this.tokenStorage.getRoleId();
 
+
+    if(this.roleId==2 ||this.roleId==4){
+      this.auditorFlag=true;
+    }else{
+      this.auditorFlag=false;
+    }
+
+
+
+
+
     if(this.roleId==1){
       this.roleIdFlag=true;
       this.fieldsChange(true);
@@ -351,8 +362,6 @@ export class AddUserMasterComponent implements OnInit {
                this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
                 (data) => {
                   this.roleList = data.roleList;
-
-
                   if(this.roleId==1){
                       this.roleList=[{id:'3',text:'CHECKER'}];
                       this.docForm.patchValue({role:'3'});
