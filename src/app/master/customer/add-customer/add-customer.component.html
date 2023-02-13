@@ -224,10 +224,21 @@
           <div class=" col-md-2">
             <mat-label>PAN NO</mat-label>
             </div>
+
+            <!-- <mat-form-field class="example-width form-control-sm" appearance="outline">
+              <input matInput formControlName="cstno" maxlength="20" [ngModel]="value2"
+              (ngModelChange)="value2=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">        
+                </mat-form-field> -->
+
              <div class=" col-md-2" style="margin-left: -45px;">
             <mat-form-field class="example-width form-control-sm" appearance="outline">
               <input matInput formControlName="panno"maxlength="10" [ngModel]="value1"
-              (ngModelChange)="value1=$event.toUpperCase()"(keypress)="keyPressAlphaNumeric($event)" >   </mat-form-field>
+              (ngModelChange)="value1=$event.toUpperCase()"(keypress)="keyPressAlphaNumeric($event)">  
+
+              <mat-error *ngIf="docForm.controls['panno'].hasError('pattern')">
+                please enter valid pan no 
+                   </mat-error>
+            </mat-form-field>
           </div>
           &nbsp; &nbsp; &nbsp;
           <div class=" col-md-2">
@@ -245,8 +256,12 @@
             </div>
              <div class=" col-md-2" style="margin-left: -45px;">
             <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="gstno"maxlength="20"[ngModel]="value3"
-              (ngModelChange)="value3=$event.toUpperCase()"  (keypress)="keyPressAlphaNumeric($event)">            </mat-form-field>
+              <input matInput formControlName="gstno"maxlength="15"[ngModel]="value4"
+              (ngModelChange)="value3=$event.toUpperCase()"  (keypress)="keyPressAlphaNumeric($event)">  
+              <mat-error *ngIf="docForm.controls['gstno'].hasError('pattern')">
+                please enter valid GST no 
+                   </mat-error> 
+                     </mat-form-field>
           </div>
          
          
@@ -647,7 +662,7 @@
                   <mat-label>IFSC CODE</mat-label>
                   <input matInput  formControlName="ifscCode" maxlength="11" >
                   <mat-error *ngIf="accountDetail.controls['ifscCode'].hasError('pattern')">
-           please enter valid ifsc code
+           please enter valid IFSC code
                   </mat-error>
                  </mat-form-field>
               </td>

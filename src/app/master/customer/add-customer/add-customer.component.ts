@@ -42,6 +42,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   value1= [];
   value2 = [];
   value3 = [];
+  value4=[];
   submitted: boolean=false;
   state: string;
   cityShipperList = [];
@@ -88,9 +89,9 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       country: ["",[Validators.required]],
       state: [""],
       postalcode: ["",[Validators.required]],
-      panno: [""],
+      panno: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
       vatno: [""],
-      gstno: [""],
+      gstno: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
       cstno: [""],
       remarks: [""],
       active: [false],
