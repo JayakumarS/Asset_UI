@@ -12,12 +12,13 @@
             <div class="body">
               <form class="m-4" [formGroup]="docForm" >
                 <div class="row">
-                    
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-label>Requisition Date</mat-label>
-                            <input matInput [matDatepicker]="picker1" formControlName="requisitionDateObj" 
-                            (dateInput)="$event.value.format('DD/MM/YYYY')" id="requisitionDate" 
+                    <div class=" col-md-2">
+                        <mat-label >Requisition Date<span class="errorColor">*</span></mat-label>
+                        </div>
+                        <div class=" col-md-3">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <input matInput [matDatepicker]="picker1" formControlName="requisitionDateObj"
+                            (dateInput)="$event.value.format('DD/MM/YYYY')" id="requisitionDate"
                             (dateChange)="getDateString($event, 'requisitionDate',0)" required>
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
@@ -27,9 +28,12 @@
 
                         </mat-form-field>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                            <mat-label>Requested By</mat-label>
+                    <div class="col-md-2 " >
+                            <mat-label >Requested By</mat-label>
+                            </div>
+                            <div class=" col-md-3">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+
                             <mat-select formControlName="requestedBy"   required>
                                 <mat-option *ngFor="let data of employeeList" [value]="data.id" >
                                     {{data.text}}
@@ -40,10 +44,14 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                    </div>
+                    <div class="row">
+                    <div class="col-md-2 " >
+                        <mat-label>Company</mat-label>
+                        </div>
+                    <div class="col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                            <mat-label>Company</mat-label>
+
                             <mat-select formControlName="companyId"  required disabled>
                                 <mat-option *ngFor="let data of companyList" [value]="data.id">
                                     {{data.text}}
@@ -54,9 +62,12 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                    <div class="col-md-2" >
+                        <mat-label>Source Location<span class="errorColor">*</span></mat-label>
+                        </div>
+                        <div class="col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-label>Source Location</mat-label>
+
                             <mat-select formControlName="sourceLocation"  (selectionChange)="getAssetItemList($event.value,'true')" required>
                                 <mat-option *ngFor="let data of locationList" [value]="data.id" >
                                     {{data.text}}
@@ -70,13 +81,16 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    
+
                     </div>
                     <div class="row">
 
-                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                                <mat-label>Destination Location</mat-label>
+                        <div class=" col-md-2" >
+                                <mat-label>Destination Location<span class="errorColor">*</span></mat-label>
+                                </div>
+                                <div class=" col-md-3" >
+                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+
                                 <mat-select formControlName="destinationLocation"  (selectionChange)="validationLocations($event.value)" required>
                                     <mat-option *ngFor="let data of locationList" [value]="data.id" >
                                         {{data.text}}
@@ -87,7 +101,7 @@
                                 </mat-error>
                             </mat-form-field>
                         </div>
-                        
+
                        <!-- <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <mat-label>Asset Item</mat-label>
@@ -101,43 +115,54 @@
                             </mat-error>
                         </mat-form-field>
                         </div> -->
-                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>Quantity</mat-label>
+                        <div class="col-md-2" >
+                                <mat-label>Quantity<span class="errorColor">*</span></mat-label>
+                                </div>
+                                <div class="col-md-3" >
+
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
                                 <input matInput formControlName="quantity" readonly required >
-                                
+                                <mat-error *ngIf="docForm.get('quantity').hasError('required')">
+                                    Quantity  is required
+                                </mat-error>
                               </mat-form-field>
                         </div>
-                        
-                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <mat-label>EDD</mat-label>
-                                <input matInput [matDatepicker]="picker2" formControlName="eddDateObj" 
-                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="eddDate" 
+                       </div>
+                       <div class="row">
+
+                        <div class="col-md-2" >
+                                <mat-label>EDD<span class="errorColor">*</span></mat-label>
+                                </div>
+                                <div class="col-md-3" >
+
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                                <input matInput [matDatepicker]="picker2" formControlName="eddDateObj"
+                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="eddDate"
                                 (dateChange)="getDateString($event, 'eddDate',0)" required>
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
                                 <mat-error *ngIf="docForm.get('eddDate').hasError('required')">
                                     EDD is required
                                 </mat-error>
-    
+
                             </mat-form-field>
                         </div>
-
-                    </div>
+</div>
                     <div class="row" *ngIf="showassetDtl">
                         <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                             <thead class="">
                                 <tr>
                                     <th ><input type="checkbox" [value]="docForm.get('assetRequisitionDtl')['controls']" (change)="checkAll($event,docForm.get('assetRequisitionDtl')['controls'])"></th>
-                                    
+
                                     <th >Asset Code</th>
                                     <th >Asset Name</th>
                                     <th >Serial No</th>
                                     <th >Asset Location</th>
                                     <th >Category</th>
                                     <th >Asset User</th>
-                                   
+
                                 </tr>
                             </thead>
                             <ng-container *ngFor="let assetRequisitionDtl of docForm.get('assetRequisitionDtl')['controls']; let i = index">
@@ -172,10 +197,10 @@
                             </ng-container>
                         </table>
 
-                        
+
                     </div>
                   <br>
-                <div class="row"> 
+                <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
                     color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
