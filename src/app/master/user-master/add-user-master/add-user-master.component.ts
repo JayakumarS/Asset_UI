@@ -38,7 +38,6 @@ export class AddUserMasterComponent implements OnInit {
   userId:any;
   auditorFlag:boolean=false;
   auditorFFlag:boolean=false;
-  auditorFFlagO:boolean=false;
 
 
 
@@ -97,11 +96,6 @@ export class AddUserMasterComponent implements OnInit {
 
     this.roleId = this.tokenStorage.getRoleId();
 
-    if(this.roleId==2){
-      this.roleIdFlag=true;
-      this.fieldsChange(true);
-
-    }
     if(this.roleId==1){
       this.roleIdFlag=true;
       this.fieldsChange(true);
@@ -303,7 +297,6 @@ export class AddUserMasterComponent implements OnInit {
     if(values.checked==true){
       this.auditorFlag=false;
       this.auditorFFlag=false;
-      this.auditorFFlagO=false;
 
 
       this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
@@ -331,7 +324,6 @@ export class AddUserMasterComponent implements OnInit {
     }else if(values.checked==false){
       this.auditorFlag = true;
       this.auditorFFlag = true;
-      this.auditorFFlagO = true;
 
 
 
