@@ -63,6 +63,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   purchaseForList: [];
   discountTypeList: [];
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
+  companyId: any;
   constructor(private fb: FormBuilder,
     public router: Router,
     private notificationService: NotificationService,
@@ -154,7 +155,14 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
 
     //Vendor  Dropdown List
-    this.httpService.get<any>(this.commonService.getVendorDropdown).subscribe({
+    this.companyId=this.tokenStorage.getCompanyId();
+    if(this.companyId==null || this.companyId=='' || this.companyId==undefined || this.companyId=="null"){
+      this.companyId=0;
+    } else {
+      this.companyId=parseInt(this.tokenStorage.getCompanyId());
+    }
+    
+    this.httpService.get<any>(this.commonService.getVendorDropdown +"companyId="+this.companyId).subscribe({
       next: (data) => {
         this.vendorList = data;
       },

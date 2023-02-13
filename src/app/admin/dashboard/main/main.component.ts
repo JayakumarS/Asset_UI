@@ -27,6 +27,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { ActivityPopUpComponent } from "../../schedule-activity/activity-pop-up/activity-pop-up.component";
 import * as moment from 'moment';
 import { TokenStorageService } from "src/app/auth/token-storage.service";
+import { CommonService } from "src/app/common-service/common.service";
+import { ChangePasswordPopUpComponent } from "src/app/user/change-password-pop-up/change-password-pop-up.component";
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -112,8 +114,9 @@ export class MainComponent implements OnInit {
   roleIdFlag:boolean=false;
   companyAuditorsAssetsCount: any;
   companyAssetsCount: any;
+  pwdStatus: any;
 
-  constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,
+  constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
   ngOnInit() {
 
@@ -253,6 +256,22 @@ export class MainComponent implements OnInit {
 
     this.getInvList();
     this.getAssetList();
+
+    this.httpService.get<any>(this.commonService.getPwdStatus + "?userId=" + this.tokenStorage.getUserId()).subscribe((result: any) => {
+      this.pwdStatus=result.addressBean[0].pwdStatus;
+      if(!this.pwdStatus){
+        const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+          disableClose: true ,
+          height: "500px",
+          width: "465px",
+      
+        });
+      }
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
     // bar chart default call
     // this.fetchAssetName(16);
     // this.popUp();
