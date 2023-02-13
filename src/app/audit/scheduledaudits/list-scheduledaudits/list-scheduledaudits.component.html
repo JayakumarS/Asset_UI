@@ -81,7 +81,7 @@
                         <button mat-raised-button color="primary">Start Audit</button>
                     </button> -->
                     <span *ngIf="row.companyStatus=='Submitted'">Audit Completed</span>
-                    <button   mat-icon-button color="accent"  *ngIf="row.companyStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                    <button   mat-icon-button color="accent"  *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                       <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                       </app-feather-icons>
                     </button>
