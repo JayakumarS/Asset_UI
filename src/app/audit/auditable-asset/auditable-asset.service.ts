@@ -6,6 +6,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service'
 import { AuditableAsset } from './auditable-asset-model'; 
 import { AuditableAssetResultBean } from './auditable-asset-result-bean'; 
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -20,9 +21,11 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
   dataChange: BehaviorSubject<AuditableAsset[]> = new BehaviorSubject<AuditableAsset[]>(
     []
   );
+  companyId: string;
  
 
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService,
+    private tokenStorage: TokenStorageService,) {
     super();
   }
   
@@ -50,8 +53,11 @@ export class AuditableAssetService extends UnsubscribeOnDestroyAdapter{
   }
 
   getAllList(object){
+
+this.companyId = this.tokenStorage.getCompanyId();
+
     console.log(object);
-    this.subs.sink = this.httpService.post<AuditableAssetResultBean>(this.getScheduleActivity,object).subscribe(
+    this.subs.sink = this.httpService.post<AuditableAssetResultBean>(this.getScheduleActivity+"?companyId="+this.companyId,object).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.auditableAssetDetails);
