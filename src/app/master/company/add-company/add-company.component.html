@@ -120,17 +120,15 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <!-- <textarea matInput formControlName="emailId"></textarea> -->
-                      <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required *ngIf="edit == false">
+                      <input matInput formControlName="emailId"required *ngIf="edit == false">
                       <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
                       <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                         WEBSITE is required
                       </mat-error>
-                      <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
-                        WEBSITE Already Exists !!!
-                      </mat-error>
+<!--
                       <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
                         Valid WEBSITE  Required
-                      </mat-error>
+                      </mat-error> -->
                     </mat-form-field>
                   </div>
                 </div>

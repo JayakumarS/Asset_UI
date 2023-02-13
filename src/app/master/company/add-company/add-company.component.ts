@@ -42,7 +42,7 @@ export class AddCompanyComponent implements OnInit {
 
       this.docForm = this.fb.group({
         // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-  
+
         // activtyname: ["", [Validators.required]],
         // activtyid: [""],
         // Description:[""],
@@ -54,14 +54,13 @@ export class AddCompanyComponent implements OnInit {
         country:["",[Validators.required]],
         faxNo:[""],
         address:["",[Validators.required]],
-        emailId:["",[Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+        emailId:["",],
         telephoneNo:["",[Validators.required]],
         personIncharge:["",[Validators.required]],
         isactive:[""],
         companyId:[""],
         userId:[""]
 
-       
 
 
       });
@@ -89,12 +88,12 @@ export class AddCompanyComponent implements OnInit {
       //     this.userDdList = data;
       //   },
       //   error: (error) => {
-  
+
       //   }
       // }
       // );
 
-      this.httpService.get<any>(this.companyService.userBasedCompanyDDList + "?userId=" + this.userId).subscribe(
+    this.httpService.get<any>(this.companyService.userBasedCompanyDDList + "?userId=" + this.userId).subscribe(
         (data) => {
           this.userDdList = data.getuserBasedCompanyDDList;
         },
@@ -103,11 +102,11 @@ export class AddCompanyComponent implements OnInit {
         }
       );
 
-      this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
         if (params.id != undefined && params.id != 0) {
           this.requestId = params.id;
           this.edit = true;
-          //For Editable mode
+          // For Editable mode
           this.fetchDetails(this.requestId);
         }
       });
@@ -117,11 +116,11 @@ export class AddCompanyComponent implements OnInit {
   onSubmit(){
     if(this.docForm.valid){
       this.docForm.value.userId = this.tokenStorage.getUserId();
-    this.company = this.docForm.value;   
+    this.company = this.docForm.value;
     console.log(this.company);
-    
+
     this.companyService.addCompany(this.company,this.router);
-    
+
       this.showNotification(
         "snackbar-success",
         "Add Record Successfully...!!!",
@@ -136,8 +135,8 @@ export class AddCompanyComponent implements OnInit {
         "center"
       );
     }
-    
-   
+
+
   }
 
   fetchDetails(company: any): void {
@@ -195,15 +194,15 @@ export class AddCompanyComponent implements OnInit {
     }
   }
 
-  validateEmail(event){
-    this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
-      if (res){
-        this.docForm.controls['emailId'].setErrors({ employee: true });
-      }else{
-       // this.docForm.controls['emailId'].setErrors(null);
-      }
-    });
-  }
+  // validateEmail(event){
+  //   this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+  //     if (res){
+  //       this.docForm.controls['emailId'].setErrors({ employee: true });
+  //     }else{
+  //      // this.docForm.controls['emailId'].setErrors(null);
+  //     }
+  //   });
+  // }
 
 
 
@@ -211,7 +210,7 @@ export class AddCompanyComponent implements OnInit {
 
     this.company = this.docForm.value;
     this.httpService.post(this.companyService.updateCompany, this.company).subscribe((res: any) =>{
-     
+
      if(res.success){
       this.showNotification(
         "snackbar-success",
@@ -228,16 +227,16 @@ export class AddCompanyComponent implements OnInit {
         "center"
       );
      }
-     
+
     });
-    
-    
+
+
 
   }
 
   onCancel(){
     this.router.navigate(['/master/company/listCompany']);
-  
+
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
