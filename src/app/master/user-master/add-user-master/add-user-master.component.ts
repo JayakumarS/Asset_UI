@@ -214,7 +214,7 @@ export class AddUserMasterComponent implements OnInit {
   );
 
   // User Reporting Manager
-    this.httpService.get<any>(this.userMasterService.reportingManUrl + "?userId=" + this.userId).subscribe(
+    this.httpService.get<any>(this.userMasterService.reportingManUrl + "?company=" + this.tokenStorage.getCompanyId() + "").subscribe(
     (data) => {
       this.getReportingManList = data.reportingManList;
     },
