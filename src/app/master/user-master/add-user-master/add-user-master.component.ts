@@ -58,7 +58,7 @@ export class AddUserMasterComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       contNumber: ["", [Validators.required]],
-      role: ["", [Validators.required]],
+      role: [""],
       department: [""],
       repmanager: [""],
       language: ["", [Validators.required]],
