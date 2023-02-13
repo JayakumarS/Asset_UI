@@ -19,6 +19,7 @@ import { UserMasterService } from 'src/app/master/user-master/user-master.servic
 import { AssetService } from '../../asset-master/asset.service';
 import { AddMultipleAssetMasterComponent } from '../../asset-master/add-multiple-asset-master/add-multiple-asset-master.component';
 import { AssetReplacement } from '../asset-replacement.model';
+import { AssetReplacementService } from '../asset-replacement.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -67,6 +68,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
     private assetService: AssetService,
+    private assetReplacementService: AssetReplacementService,
     private commonService: CommonService,
     public router: Router,
     private snackBar: MatSnackBar,
@@ -205,6 +207,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
 
 
   assetDetailsReplacement(value: any, i) {
+    let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
 
     this.httpService.get<any>(this.assetService.getAssetDetailsReplacement + "?assetId=" + value.value).subscribe({
       next: (res: any) => {
@@ -245,7 +248,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       this.assetReplacement = this.docForm.value;
       console.log(this.assetReplacement);
       this.spinner.show();
-      this.assetService.addAssetReplacement(this.assetReplacement).subscribe({
+      this.assetReplacementService.addAssetReplacement(this.assetReplacement).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -300,7 +303,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     if (this.docForm.valid) {
       this.assetReplacement = this.docForm.value;
       this.spinner.show();
-      this.assetService.updateAssetReplacement(this.assetReplacement).subscribe({
+      this.assetReplacementService.updateAssetReplacement(this.assetReplacement).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
