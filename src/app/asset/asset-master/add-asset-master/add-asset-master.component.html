@@ -7,14 +7,22 @@
         <div class="row clearfix">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="card ">
-                    <div class="body" style="padding-left: 1px;">
+                    
+                    <div class="body">
                         <form class="m-4" [formGroup]="docForm">
-                            <div class="row">
+                            <mat-tab-group (selectedTabChange)="singleAssetPopup($event);">
+                                <mat-tab label="Add Single Asset">
+                            <!-- <div class="row">
                                 <h2 style="padding-bottom: 5px;
                                     padding-top: 5px;color:#F6682F">Add single asset/<a style="padding-bottom: 5px;
                                     padding-top: 5px;color:#F6682F;font-size: 25px!important;" (click)="$event.stopPropagation()"
                                     (click)="multipleuploadpopupCall()"><u>Add Multiple Assets</u> </a></h2><br>
-                            </div><br>
+                            </div><br> -->
+                            <!-- <ng-template mat-tab-label>
+                                <mat-icon class="example-tab-icon msr-2">face</mat-icon>
+                                Add single asset
+                            </ng-template> -->
+                            <br>
                             <div class="row-def"  style="margin-left: -5%;">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
@@ -44,8 +52,8 @@
 
                             <!-- GRN Based Save Mutiple Asset Start-->
                             <div *ngIf="grnFlag">
-                                <h6  style="padding-left: 56px;"class="headingValue"> GRN Item Based Asset </h6>
-                                <div style="overflow-x: auto;zoom: 90%;margin-left: 61px;">
+                                <h6  style="padding-left: 80px;"class="headingValue"> GRN Item Based Asset </h6>
+                                <div style="overflow-x: auto;zoom: 90%;margin-left: 70px;">
                                   <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                                     <thead class="">
                                       <tr>
@@ -311,7 +319,7 @@
 
 
 
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left: -1%;">
                                 <div class="header">
                                     <h2 style="color:#F6682F">Additional Information</h2>
 
@@ -715,8 +723,7 @@
                                     </mat-tab-group>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        
                     <div class="row" style="padding-bottom:50px;padding-left: 50px;">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
                             <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()" style="margin-left: 38%;background-color: green;" mat-raised-button color="primary">Submit</button>
@@ -727,6 +734,12 @@
                             <button *ngIf="!edit" color="primary" type="button" class="btn-space" (click)="resetSelf()"  mat-raised-button>Reset</button>
                         </div>
                     </div>
+                </mat-tab>
+                <mat-tab label="Add Multiple Assets">
+                    </mat-tab>
+            </mat-tab-group>
+        </form>
+    </div>
                 </div>
             </div>
         </div>

@@ -761,6 +761,13 @@ export class AddAssetMasterComponent
     }
   }
 
+  singleAssetPopup(row){
+    console.log(row.tab.textLabel);
+    if(row.tab.textLabel=='Add Multiple Assets'){
+      this.multipleuploadpopupCall();
+    }  
+  }
+
   //FOR IMAGE UPLOAD ADDED BY GOKUL
   onSelectImage(event) {
     var imgfile = event.target.files[0];

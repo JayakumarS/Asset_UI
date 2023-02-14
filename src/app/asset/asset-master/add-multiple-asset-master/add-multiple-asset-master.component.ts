@@ -40,6 +40,7 @@ export class AddMultipleAssetMasterComponent implements OnInit {
   }
   onNoClick(): void {
     this.dialogRef.close();
+    location.reload();
   }
 
   getCreditFile(event) {
@@ -62,7 +63,7 @@ export class AddMultipleAssetMasterComponent implements OnInit {
       });
     }
 
-    upload(){
+    upload(){ 
       this.companyId=this.tokenStorage.getCompanyId();
       this.httpService.post<any>(this.assetService.multipleAssetUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
         console.log(data);
@@ -83,6 +84,7 @@ export class AddMultipleAssetMasterComponent implements OnInit {
               "center"
             );
             this.dialogRef.close();
+            location.reload();
           }
          
         }
