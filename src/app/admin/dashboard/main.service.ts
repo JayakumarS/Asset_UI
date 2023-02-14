@@ -47,6 +47,7 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
   public getCompanyAssetListUrl = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetList`;
   public getbookValueEndGraphURL = `${this.serverUrl.apiServerAddress}app/dashboard/getbookValueEndGraph`;
   public getBarChartURL = `${this.serverUrl.apiServerAddress}app/dashboard/getbarGraphDetails`;
+  public AuditableAssetListDashboardUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getAuditableAssetListForDashboard`;
 
   get data(): main[] {
     return this.dataChange.value;

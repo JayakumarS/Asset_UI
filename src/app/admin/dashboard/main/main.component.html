@@ -7,9 +7,9 @@
     </div>
     <div class="row ">
       <div class="col-xl-8 ">
-        <div class="card">
+        <div class="card" style="padding-bottom: 35px;">
           <div class="header">
-            <h2>Assets Survey</h2>
+            <h2>Assets </h2>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-label>Asset Id</mat-label>
@@ -50,13 +50,13 @@
               <div class="clearfix">
                 <div class="card-right">
                   <div>
-                    <h5 class="float-end">Earning</h5>
+                    <h5 class="float-end">Assets</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
                     <!-- For Decimal purpose code -->
                     <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -92,11 +92,11 @@
               <div class="clearfix">
                 <div class="card-right">
                   <div>
-                    <h5 class="float-end">Assets</h5>
+                    <h5 class="float-end">Amount</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount}}</h3>
                   </div>
                 </div>
               </div>
@@ -131,7 +131,97 @@
             </div>
           </div>
         </div>
-        <div class="card-bnner" style="padding: 0px 0px 30px 0px!important;" >
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card card-statistic-2">
+              <div class="clearfix">
+                <div class="card-right">
+                  <div>
+                    <h5 class="float-end">Assets</h5>
+                  </div>
+                  <div class="m-r-10 m-l-10">
+                    <!-- For Decimal purpose code -->
+                    <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
+                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
+                    <h3 class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="card-chart">
+                <canvas baseChart [chartType]="'line'" [datasets]="cardChart4Data" [labels]="cardChart4Label"
+                  [options]="cardChart4" [legend]="true">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-statistic-2">
+              <div class="clearfix">
+                <div class="card-right">
+                  <div>
+                    <h5 class="float-end">Auditors</h5>
+                  </div>
+                  <div class="m-r-10 m-l-10">
+                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3> -->
+                    <h3 class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="card-chart">
+                <canvas baseChart [chartType]="'line'" [datasets]="cardChart3Data" [labels]="cardChart3Label"
+                  [options]="cardChart3" [legend]="true">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-statistic-2">
+              <div class="clearfix">
+                <div class="card-right">
+                  <div>
+                    <h5 class="float-end">Amount</h5>
+                  </div>
+                  <div class="m-r-10 m-l-10">
+                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
+                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount}}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="card-chart">
+                <canvas baseChart [chartType]="'line'" [datasets]="cardChart2Data" [labels]="cardChart2Label"
+                  [options]="cardChart2" [legend]="true">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-statistic-2">
+              <div class="clearfix">
+                <div class="card-right">
+                  <div>
+                    <h5 class="float-end">Users</h5>
+                  </div>
+                  <div class="m-r-10 m-l-10">
+                    <!-- Total Users -->
+                    <!-- <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3> -->
+                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{usersCountValue}}</h3> -->
+                    <!-- Company based Users -->
+                    <h3 class="font-weight-bold float-end mb-0">{{companyUsersAssetsCount}}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="card-chart">
+                <canvas baseChart [chartType]="'line'" [datasets]="cardChart1Data" [labels]="cardChart1Label"
+                  [options]="cardChart1" [legend]="true">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- <div class="card-bnner" style="padding: 0px 0px 30px 0px!important;" >
           <div class="card">
             <div class="header">
               <h2>Depreciated Report/Calculation</h2>
@@ -155,17 +245,20 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- <tr>
-                    <tr *ngFor="let data of auditableAssetList">
-                      <td>{{data.assetname!=null?data.assetname.toFixed(2):data.assetname}}</td>
+                    <tr *ngFor="let data of auditableAssetList | paginate: { itemsPerPage: 2, currentPage: pageChangedDepreciation }">
+                      <td>{{data.assetname!=null?data.assetname:data.assetname}}</td>
                       <td>{{data.acquisitionvalue!=null?data.acquisitionvalue.toFixed(2):data.acquisitionvalue}}</td>
                       <td>{{data.accudepreciation!=null?data.accudepreciation.toFixed(2):data.accudepreciation}}</td>
-                    </tr> -->
-          </tbody>
-                </table>
+                    </tr>
+                  </tbody> -->
+                    <!-- <div>
+                      <pagination-controls (pageChange)="pageChangedDepreciation=($event)"></pagination-controls>
+                    </div> -->
+                <!-- </table>
               </div>
             </div>
-          </div> 
+          </div>  -->
+
           <!-- <div class="row">
             <div class="col-lg-6">
               <img src="assets/images/pages/home-1.png" alt="">
@@ -176,14 +269,15 @@
               <a [routerLink]="['/asset/assetMaster/listAssetMaster']">Download <i class="fas fa-arrow-down"></i> </a>
             </div>
           </div> -->
-        </div>
+
+        <!-- </div> -->
       </div>
     </div>
         <div class="row">
           <div class="col-md-7">
         <div class="card">
           <!-- <div class="header">
-          <h2>Assets Survey</h2>
+          <h2>Assets </h2>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-label>Asset Id</mat-label>
@@ -224,7 +318,7 @@
       <div class="col-md-5">
         <div class="card" style="padding-top: 3%;padding-bottom: 5%;padding-left: 2%;padding-right: 2%;">
           <!-- <div class="header">
-            <h2>Assets Survey</h2>
+            <h2>Assets </h2>
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>Asset Id</mat-label>
@@ -257,7 +351,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="card">
-          <div class="header">
+          <!-- <div class="header">
             <h2>Product Report</h2>
             <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
@@ -267,7 +361,7 @@
               <button mat-menu-item>Another action</button>
               <button mat-menu-item>Something else here</button>
             </mat-menu>
-          </div>
+          </div> -->
           <div class="body">
             <div class="row">
               <div class="col-md-12 col-xl-4 d-flex flex-column justify-content-center">
@@ -294,7 +388,7 @@
                       <table class="table table-borderless">
                         <tbody>
                           <tr class="tr-height-m">
-                            <td class="text-muted">Total Purchase Asset</td>
+                            <td class="text-muted">Total Purchased</td>
                             <td class="w-100 px-0">
                               <mat-progress-bar mode="determinate" class="progress-m progress-round progress-shadow"
                                 value="40">
@@ -330,7 +424,7 @@
                             </td>
                           </tr>
                           <tr class="tr-height-m">
-                            <td class="text-muted">Total Scrap</td>
+                            <td class="text-muted">Total Scraped</td>
                             <td class="w-100 px-0">
                               <mat-progress-bar mode="determinate"
                                 class="progress-m progress-round orange-progress progress-shadow" value="40">
@@ -374,8 +468,6 @@
                         [colors]="doughnutChartColors"></canvas>
                     </div>
                     <div class="country-chart" *ngFor="let data of auditableAssetList">
-
-                      <!-- commented -->
                       <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-green"></span>
@@ -383,7 +475,6 @@
                         </div>
                         <p class="mb-0">{{data.acquisitionvalue}}</p>
                       </div> -->
-
 
 
                       <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
@@ -557,7 +648,7 @@
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="card">
           <div class="header">
-            <h2>Three Years Survey</h2>
+            <h2>Three Years </h2>
             <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -578,7 +669,7 @@
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="card">
           <div class="header">
-            <h2>Support Tickets Survey</h2>
+            <h2>Support Tickets </h2>
             <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
             </button>
