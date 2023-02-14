@@ -47,6 +47,12 @@ export class HeaderComponent
   defaultFlag: string;
   isOpenSidebar: boolean;
   userName:string; 
+  upload:boolean=false;
+  others:boolean=false;
+  notify:boolean=false;
+  angle:boolean=false;
+  //upload:any
+
   companyName:string;
   roleBasedImgUrl: string;
   companyNameText: any;
@@ -195,6 +201,7 @@ export class HeaderComponent
 
       next: (data) => {
         this.nonImageCount = data.getlocationList.length;
+        console.log(this.nonImageCount)
       },
       error: (error) => {
 
@@ -338,6 +345,13 @@ showPaymentPage(){
   this.router.navigate(['/payments/initiatePayment/subscription']);
 }
   notificationpopup(){
+
+    if(this.notificationpopup){
+      this.notify===true
+    }
+     this.notify===false
+    
+ 
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -356,7 +370,27 @@ showPaymentPage(){
   
   }
 
+  // notify(value:any){
+  //   // if(this.nonImageCount===0){
+  //   // this.others=true;
+  //   // }
+  //   // else
+  //   // {
+  //   //   this.others=false; 
+  //   // }
+    
+  // }
+
   nonImagePopup(){
+
+    if(this.nonImageCount===0){
+      this.others=true;
+      }
+      else
+      {
+        this.others=false; 
+      }
+    
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -374,6 +408,12 @@ showPaymentPage(){
   }
 
   activityPopUp(){
+    if(this.activityPopUp){
+      this.angle===true   
+}else{
+  this.angle===false
+}
+    
 
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {

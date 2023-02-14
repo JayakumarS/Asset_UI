@@ -16,21 +16,21 @@
       <ul class="nav navbar-nav navbar-right">
         
         <li>
-          <button mat-icon-button (click)="activityPopUp()" class=" nav-notification-icons">
+          <button mat-icon-button *ngIf="angle" (click)="activityPopUp()" class=" nav-notification-icons">
             <app-feather-icons [icon]="'triangle'" style="margin-left: 24px; color: white;" [class]="'header-icon'"></app-feather-icons>
           </button>
         </li> 
 
         <li>
           <div class="example-button-container" style="margin-left:30%; margin-top: 20%;">
-            <button (click)="notificationpopup()" aria-label="Example icon button with a bell icon" style="background-color: #004aad;border: none;color: aliceblue;">
+            <button *ngIf="notify" (click)="notificationpopup()" aria-label="Example icon button with a bell icon" style="background-color: #004aad;border: none;color: aliceblue;">
              <mat-icon>notifications</mat-icon>
             </button>
           </div>
         </li> 
         <li>
-          <div class="example-button-container" style="margin-left:30%; margin-top: 20%;">
-            <button (click)="nonImagePopup()" aria-label="Example icon button with a bell icon" style="background-color: #004aad;border: none;color: aliceblue;">
+          <div class="example-button-container" style="margin-left:30%; margin-top: 20%;"  >
+            <button *ngIf="others" (click)="nonImagePopup()" aria-label="Example icon button with a bell icon" style="background-color: #004aad;border: none;color: aliceblue;">
              <mat-icon>file_upload</mat-icon>
              <span class="icon-button__badge">{{nonImageCount}}</span>
             </button>
