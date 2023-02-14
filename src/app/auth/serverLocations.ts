@@ -21,6 +21,9 @@ export class serverLocations {
     } else if (window.location.hostname === 'assetchek.com') {
       //For Server Added 
       this.apiServerAddress = 'https://assetchek.com:8443/assetchek/';
+    } else if (window.location.hostname === 'www.assetchek.com') {
+      //For Server Added 
+      this.apiServerAddress = 'https://assetchek.com:8443/assetchek/';
     } 
     
   }
