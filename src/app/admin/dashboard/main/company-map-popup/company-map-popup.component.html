@@ -8,7 +8,7 @@
         
             <div class="tableBody">
                 <div class="table-responsive">
-                  <table class="table table-hover ">
+                  <table class="table table-hover " id="tablehover">
                     <thead>
                       <tr>
                         <th>Choose</th>
@@ -19,11 +19,11 @@
                     <tbody>
                       <tr>
                       <tr *ngFor="let map of data">
-                        <td>
+                        <td >
                             <input type="radio" name="optradio" (change)="saveCompanyId(map)">
                         </td>
-                        <td>{{map.companyName}}</td>
-                        <td>{{map.branchName}}</td>
+                        <td  (click)="saveCompanyId(map)">{{map.companyName}} </td>
+                        <td (click)="saveCompanyId(map)">{{map.branchName}}</td>
                       </tr>
                     </tbody>
                   </table> 
