@@ -20,7 +20,7 @@ export class serverLocations {
       this.apiServerAddress = 'http://216.48.181.97:8080/assetchek/';
     } else if (window.location.hostname === 'assetchek.com') {
       //For Server Added 
-      this.apiServerAddress = 'http://assetchek.com:8080/assetchek/';
+      this.apiServerAddress = 'https://assetchek.com:8443/assetchek/';
     } 
     
   }
