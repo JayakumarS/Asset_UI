@@ -57,7 +57,8 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   getAllList(): void {
     this.UserId=this.tokenStorage.getUserId();  
     this.RoleId=this.tokenStorage.getRoleId();
-    this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?UserId="+this.UserId+"&RoleId="+this.RoleId).subscribe(
+    this.companyId= this.tokenStorage.getCompanyId();
+    this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?UserId="+this.UserId+"&RoleId="+this.RoleId+"&companyId="+this.companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.departmentMasterDetails);

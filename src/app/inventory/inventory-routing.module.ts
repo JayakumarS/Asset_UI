@@ -77,7 +77,12 @@ const routes: Routes = [
     path: "UOM-catagory",
     loadChildren: () =>
     import("./u-category/u-category.module").then((p) => p.UCategoryModule),
-  }
+  },
+  {
+    path: "sales-order",
+    loadChildren: () =>
+    import("./sales-order/sales-order.module").then((p) => p.SalesOrderModule),
+  },
 
 
 ];

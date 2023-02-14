@@ -16,7 +16,7 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                      <label class="lable">Asset<span class="errorColor">*</span></label>
+                      <label >ASSET<span class="errorColor">*</span></label>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -32,11 +32,11 @@
                     </div>
 
                     <div class="col-md-2">
-                      <label class="lable">Location<span class="errorColor">*</span></label>
+                      <label >LOCATION<span class="errorColor">*</span></label>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Location</mat-label>
+                        
                         <mat-select formControlName="location" required>
                           <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                               {{title.text}}
@@ -52,7 +52,7 @@
                   <div class="row">
                 
                     <div class="col-md-2">
-                      <label class="lable">Occurence</label>
+                      <label >OCCURENCE</label>
                   </div> 
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -65,7 +65,7 @@
                   </div>
                
                   <div class="col-md-2">
-                      <label class="lable">Send Reminder</label>
+                      <label >SEND REMINDER</label>
                   </div> 
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -83,7 +83,7 @@
                 <div class="row">
 
                   <div class="col-md-2" >
-                    <label class="lable">Assignee</label>
+                    <label >ASSIGNEE</label>
                   </div>
             
                   <div class="col-md-3" >
@@ -100,7 +100,7 @@
                   </div>  
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <mat-label class="lable">Upload File <span class="errorColor">*</span></mat-label>                                            
+                  <mat-label >UPLOAD FILE <span class="errorColor">*</span></mat-label>                                            
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                          <app-file-upload class="example-width form-control-sm" formControlName="uploadFile"
@@ -118,7 +118,7 @@
 
                   <div class="row">
                     <div class="col-md-2" >
-                      <label class="lable">Start Date</label>
+                      <label >START DATE</label>
                     </div>
               
                     <div class="col-md-3" >
@@ -136,7 +136,7 @@
                     </div> 
 
                     <div class="col-md-2" >
-                      <label class="lable">End Date</label>
+                      <label >END DATE</label>
                     </div>
   
                     <div class="col-md-3">
@@ -157,7 +157,7 @@
                
 <div class="row">
   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-    <label class="lable">Description<span class="errorColor">*</span></label>
+    <label >DESCRIPTION<span class="errorColor">*</span></label>
 </div> 
 <div class="col-xl-3 " >
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -169,7 +169,7 @@
   </mat-form-field>
 </div>
 <div class="col-md-2">
-  <label class="lable">CC</label>
+  <label >CC</label>
 </div> 
 <div class="col-md-3">
 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
