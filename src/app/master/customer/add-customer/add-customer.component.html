@@ -56,41 +56,35 @@
           <div class="row">
 
             <div class=" col-md-2">
-              <mat-label>EMAIL<span class="errorColor">*</span></mat-label>
+              <mat-label>EMAIL</mat-label>
             </div>
 
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="email" maxlength="50" required *ngIf="edit == false">
-                <input matInput formControlName="email" maxlength="50" required *ngIf="edit == true" readonly>
-                <mat-error *ngIf="docForm.get('email').hasError('required')">
-                  Email is required
-                </mat-error>
+                <input matInput formControlName="email" maxlength="50" *ngIf="edit == false">
+                <input matInput formControlName="email" maxlength="50"  *ngIf="edit == true" readonly>
+               
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
             <div class=" col-md-2">
-              <mat-label>CONTACT NUMBER<span class="errorColor">*</span></mat-label>
+              <mat-label>CONTACT NUMBER</mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="phone" maxlength="10" (keypress)="keyPressNumeric($event)" required>
-                <mat-error *ngIf="docForm.get('phone').hasError('required')">
-                  Contact Number is required
-                </mat-error>
+                <input matInput formControlName="phone" maxlength="10" (keypress)="keyPressNumeric($event)" >
+                
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
             <div class=" col-md-2">
-              <mat-label>ADDRESS 1<span class="errorColor">*</span></mat-label>
+              <mat-label>ADDRESS 1</mat-label>
             </div>
 
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="address" maxlength="50" required>
-                <mat-error *ngIf="docForm.get('address').hasError('required')">
-                  Address1 is required
-                </mat-error>
+                <input matInput formControlName="address" maxlength="50" >
+              
               </mat-form-field>
             </div>
           </div>
@@ -102,9 +96,6 @@
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="addresstwo" maxlength="50">
-                <mat-error *ngIf="docForm.get('addresstwo').hasError('required')">
-                  Address2 is required
-                </mat-error>
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -138,33 +129,26 @@
          -->
 
             <div class=" col-md-2">
-              <mat-label>PIN CODE<span class="errorColor">*</span></mat-label>
+              <mat-label>PIN CODE</mat-label>
             </div>
 
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="postalcode" maxlength="6"
-                  (change)="pincodevalidation($event.target.value)" (keypress)="keyPressNumeric($event)" required>
-                <mat-error *ngIf="docForm.get('postalcode').hasError('required')">
-                  pin code is required
-                </mat-error>
-                <mat-error *ngIf="docForm.get('postalcode').hasError('customer_master')">
-                  please enter valid pin code
-                </mat-error>
+                  (change)="pincodevalidation($event.target.value)" (keypress)="keyPressNumeric($event)">
+              
               </mat-form-field>
 
             </div>
             &nbsp; &nbsp; &nbsp;
             <div class=" col-md-2">
-              <mat-label>City<span class="errorColor">*</span></mat-label>
+              <mat-label>City</mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
 
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" required>
-                <mat-error *ngIf="docForm.get('city').hasError('required')">
-                  city is required
-                </mat-error>
+                <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" >
+               
               </mat-form-field>
             </div>
           </div>
@@ -176,24 +160,22 @@
           <div class="row">
 
             <div class=" col-md-2">
-              <mat-label>State<span class="errorColor">*</span></mat-label>
+              <mat-label>State</mat-label>
             </div>
 
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="state" (keypress)="keyPressString($event)" maxlength="15" required>
-                <mat-error *ngIf="docForm.get('state').hasError('required')">
-                  State is required
-                </mat-error>
+                <input matInput formControlName="state" (keypress)="keyPressString($event)" maxlength="15">
+              
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
             <div class=" col-md-2">
-              <mat-label>COUNTRY<span class="errorColor">*</span></mat-label>
+              <mat-label>COUNTRY</mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="country" required>
+                <mat-select class="inputTxt" formControlName="country" >
                   <mat-option *ngFor="let title of countryList" [value]="title.id">
                     {{title.text}}
                   </mat-option>
@@ -205,19 +187,18 @@
             </div>
             &nbsp; &nbsp; &nbsp;
             <div class=" col-md-2">
-              <mat-label>LOCATION<span class="errorColor">*</span></mat-label>
+              <mat-label>LOCATION</mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="location" required>
+                <!-- <mat-select class="inputTxt" formControlName="location" >
                   <mat-option *ngFor="let title of locationList" [value]="title.id">
                     {{title.text}}
                   </mat-option>
 
-                </mat-select>
-                <mat-error *ngIf="docForm.get('location').hasError('required')">
-                  location is required
-                </mat-error>
+                </mat-select> -->
+                <input matInput formControlName="location" (keypress)="keyPressString($event)" maxlength="15">
+
               </mat-form-field>
             </div>
           </div>
