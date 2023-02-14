@@ -155,12 +155,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <!-- <tr>
                     <tr *ngFor="let data of auditableAssetList">
                       <td>{{data.assetname!=null?data.assetname.toFixed(2):data.assetname}}</td>
                       <td>{{data.acquisitionvalue!=null?data.acquisitionvalue.toFixed(2):data.acquisitionvalue}}</td>
                       <td>{{data.accudepreciation!=null?data.accudepreciation.toFixed(2):data.accudepreciation}}</td>
-                    </tr>
+                    </tr> -->
           </tbody>
                 </table>
               </div>
@@ -374,13 +374,18 @@
                         [colors]="doughnutChartColors"></canvas>
                     </div>
                     <div class="country-chart" *ngFor="let data of auditableAssetList">
-                      <div class="d-flex justify-content-between mx-xl-5 mt-3">
+
+                      <!-- commented -->
+                      <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-green"></span>
                           <span>{{data.assetname}}</span>
                         </div>
                         <p class="mb-0">{{data.acquisitionvalue}}</p>
-                      </div>
+                      </div> -->
+
+
+
                       <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-orange"></span>
