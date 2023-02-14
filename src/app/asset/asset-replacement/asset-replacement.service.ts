@@ -30,26 +30,22 @@ export class AssetReplacementService extends UnsubscribeOnDestroyAdapter{
   //asset replacement
   private SaveAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/saveAssetReplacement`;
   private UpdateAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/updateAssetReplacement`;
+  private editAssetReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/editAssetReplacement`;
 
- 
   
   get data(): AssetReplacement[] {
     return this.dataChange.value;
   }
 
-  addScheduleActivity(scheduleActivityMaster: AssetReplacement): void{
 
-  }
-
- 
-  
 
   addAssetReplacement(assetReplacement: AssetReplacement): Observable<any> {
     return this.httpClient.post<AssetReplacement>(this.SaveAssetReplacement, assetReplacement);
   }
-
-  
   updateAssetReplacement(assetReplacement: AssetReplacement): Observable<any> {
     return this.httpClient.post<AssetReplacement>(this.UpdateAssetReplacement, assetReplacement);
+  }
+  editAsset(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editAssetReplacement, obj);
   }
 }

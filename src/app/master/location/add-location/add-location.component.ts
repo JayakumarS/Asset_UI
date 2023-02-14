@@ -80,8 +80,11 @@ export class AddLocationComponent implements OnInit {
       alternateLocation: [""],
       companyId:this.tokenStorage.getCompanyId(),
       branchId:this.tokenStorage.getBranchId(),
-      userId:this.tokenStorage.getUserId()
+      userId:this.tokenStorage.getUserId() 
+
+
     });
+
 
 
     this.companyId = this.tokenStorage.getCompanyId(),

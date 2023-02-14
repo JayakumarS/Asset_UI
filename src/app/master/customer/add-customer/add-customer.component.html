@@ -6,108 +6,109 @@
   <div class="card ">
     <div class="body" style="margin-left: -9%; padding: 2%;padding-left: 104px;">
       <form class="m-4" [formGroup]="docForm">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="margin-left:65px">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="margin-left:65px">
 
-        <div class="row">
-          <div class=" col-md-2">
-            <mat-label>CUSTOMER NAME<span class="errorColor">*</span></mat-label>
+          <div class="row">
+            <div class=" col-md-2">
+              <mat-label>CUSTOMER NAME<span class="errorColor">*</span></mat-label>
             </div>
-             <div class=" col-md-2" style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="auditorname" [ngModel]="value"
-              (ngModelChange)="value=$event.toUpperCase()" maxlength="50"(keypress)="string($event)"
-               (blur)="validateCustomer($event.target.value)" required>
-              <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
-                Auditor Name is required
-              </mat-error><mat-error *ngIf="docForm.get('auditorname').hasError('customer_master')">
-                Auditor Name Already Exists !!!
-              </mat-error>
-            </mat-form-field>
-          </div>
-          &nbsp; &nbsp; &nbsp;
-          <div class=" col-md-2">
-            <mat-label >REGISTRATION CODE</mat-label>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="auditorname" [ngModel]="value"
+                  (ngModelChange)="value=$event.toUpperCase()" maxlength="50" (keypress)="string($event)"
+                  (blur)="validateCustomer($event.target.value)" required>
+                <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
+                  Auditor Name is required
+                </mat-error><mat-error *ngIf="docForm.get('auditorname').hasError('customer_master')">
+                  Auditor Name Already Exists !!!
+                </mat-error>
+              </mat-form-field>
             </div>
-
-          <div class=" col-md-2"  style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="registercode" (keypress)="keyPressNumeric($event)" maxlength="15" >
-              <mat-error *ngIf="docForm.get('registercode').hasError('required')">
-                Registration Code is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-          &nbsp; &nbsp; &nbsp;
-          <div class=" col-md-2">
-            <mat-label>CONTACT PERSON<span class="errorColor">*</span></mat-label>
-            </div>
-             <div class=" col-md-2"  style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="person"  (keypress)="string($event)" maxlength="30" required>
-              <mat-error *ngIf="docForm.get('person').hasError('required')">
-                Contact Person is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-        </div>
-
-        <div class="row">
-       
-          <div class=" col-md-2">
-            <mat-label>EMAIL<span class="errorColor">*</span></mat-label>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
+              <mat-label>REGISTRATION CODE</mat-label>
             </div>
 
-          <div class=" col-md-2" style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="email" maxlength="50" required *ngIf="edit == false">
-              <input matInput formControlName="email" maxlength="50" required *ngIf="edit == true" readonly>
-              <mat-error *ngIf="docForm.get('email').hasError('required')">
-                Email is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-          &nbsp; &nbsp; &nbsp;
-          <div class=" col-md-2">
-            <mat-label>CONTACT NUMBER<span class="errorColor">*</span></mat-label>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="registercode" (keypress)="keyPressNumeric($event)" maxlength="15">
+                <mat-error *ngIf="docForm.get('registercode').hasError('required')">
+                  Registration Code is required
+                </mat-error>
+              </mat-form-field>
             </div>
-             <div class=" col-md-2" style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="phone"maxlength="10" (keypress)="keyPressNumeric($event)"required>
-              <mat-error *ngIf="docForm.get('phone').hasError('required')">
-                Contact Number is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-          &nbsp; &nbsp; &nbsp;
-          <div class=" col-md-2">
-            <mat-label >ADDRESS 1<span class="errorColor">*</span></mat-label>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
+              <mat-label>CONTACT PERSON<span class="errorColor">*</span></mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="person" [ngModel]="value5"
+                  (ngModelChange)="value5=$event.toUpperCase()" (keypress)="string($event)" maxlength="30" required>
+                <mat-error *ngIf="docForm.get('person').hasError('required')">
+                  Contact Person is required
+                </mat-error>
+              </mat-form-field>
             </div>
 
-          <div class=" col-md-2" style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="address" maxlength="50" required>
-              <mat-error *ngIf="docForm.get('address').hasError('required')">
-                Address1 is required
-              </mat-error>
-            </mat-form-field>
           </div>
-        </div>
 
-        <div class="row">
-          <div class=" col-md-2">
-            <mat-label>ADDRESS 2</mat-label>
+          <div class="row">
+
+            <div class=" col-md-2">
+              <mat-label>EMAIL<span class="errorColor">*</span></mat-label>
             </div>
-             <div class=" col-md-2" style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="addresstwo"maxlength="50" >
-               <mat-error *ngIf="docForm.get('addresstwo').hasError('required')">
-                Address2 is required
-              </mat-error> 
-            </mat-form-field>
+
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="email" maxlength="50" required *ngIf="edit == false">
+                <input matInput formControlName="email" maxlength="50" required *ngIf="edit == true" readonly>
+                <mat-error *ngIf="docForm.get('email').hasError('required')">
+                  Email is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
+              <mat-label>CONTACT NUMBER<span class="errorColor">*</span></mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="phone" maxlength="10" (keypress)="keyPressNumeric($event)" required>
+                <mat-error *ngIf="docForm.get('phone').hasError('required')">
+                  Contact Number is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
+              <mat-label>ADDRESS 1<span class="errorColor">*</span></mat-label>
+            </div>
+
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="address" maxlength="50" required>
+                <mat-error *ngIf="docForm.get('address').hasError('required')">
+                  Address1 is required
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
-          &nbsp; &nbsp; &nbsp;
-          <!-- <div class=" col-md-2">
+
+          <div class="row">
+            <div class=" col-md-2">
+              <mat-label>ADDRESS 2</mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="addresstwo" maxlength="50">
+                <mat-error *ngIf="docForm.get('addresstwo').hasError('required')">
+                  Address2 is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            &nbsp; &nbsp; &nbsp;
+            <!-- <div class=" col-md-2">
               <mat-label >State</mat-label>
               </div>
 
@@ -136,93 +137,94 @@
         </div>
          -->
 
-  <div class=" col-md-2">
-              <mat-label >PIN CODE<span class="errorColor">*</span></mat-label>
-              </div>
+            <div class=" col-md-2">
+              <mat-label>PIN CODE<span class="errorColor">*</span></mat-label>
+            </div>
 
-              <div class=" col-md-2" style="margin-left: -45px;">
+            <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="postalcode"  maxlength="6" (change)="pincodevalidation($event.target.value)" (keypress)="keyPressNumeric($event)"required>
+                <input matInput formControlName="postalcode" maxlength="6"
+                  (change)="pincodevalidation($event.target.value)" (keypress)="keyPressNumeric($event)" required>
                 <mat-error *ngIf="docForm.get('postalcode').hasError('required')">
-                  pin code  is required
+                  pin code is required
                 </mat-error>
                 <mat-error *ngIf="docForm.get('postalcode').hasError('customer_master')">
-                 please enter valid pin code
+                  please enter valid pin code
                 </mat-error>
               </mat-form-field>
 
-          </div>
-          &nbsp; &nbsp; &nbsp;
-          <div class=" col-md-2">
-            <mat-label >City<span class="errorColor">*</span></mat-label>
+            </div>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
+              <mat-label>City<span class="errorColor">*</span></mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
 
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" required >
-              <mat-error *ngIf="docForm.get('city').hasError('required')">
-                city  is required
-              </mat-error>
-            </mat-form-field>
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" required>
+                <mat-error *ngIf="docForm.get('city').hasError('required')">
+                  city is required
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
-        </div>
-         
 
 
 
 
-        <div class="row">
-       
-          <div class=" col-md-2">
-            <mat-label>State<span class="errorColor">*</span></mat-label>
+
+          <div class="row">
+
+            <div class=" col-md-2">
+              <mat-label>State<span class="errorColor">*</span></mat-label>
             </div>
 
-          <div class=" col-md-2" style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="state" (keypress)="keyPressString($event)" maxlength="15" required >
-              <mat-error *ngIf="docForm.get('state').hasError('required')">
-                State is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-          &nbsp; &nbsp; &nbsp;
-          <div class=" col-md-2">
-            <mat-label>COUNTRY<span class="errorColor">*</span></mat-label>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="state" (keypress)="keyPressString($event)" maxlength="15" required>
+                <mat-error *ngIf="docForm.get('state').hasError('required')">
+                  State is required
+                </mat-error>
+              </mat-form-field>
             </div>
-        <div class=" col-md-2" style="margin-left: -45px;">
-          <mat-form-field class="example-width form-control-sm" appearance="outline" >
-          <mat-select class="inputTxt" formControlName="country" required>
-            <mat-option *ngFor="let title of countryList" [value]="title.id">
-                {{title.text}}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="docForm.get('country').hasError('required')">
-          country  is required
-        </mat-error>
-        </mat-form-field>
-      </div>
-      &nbsp; &nbsp; &nbsp;
-      <div class=" col-md-2">
-        <mat-label>LOCATION<span class="errorColor">*</span></mat-label>
-        </div>
-         <div class=" col-md-2" style="margin-left: -45px;">
-          <mat-form-field class="example-width form-control-sm" appearance="outline" >
-          <mat-select class="inputTxt" formControlName="location" required>
-            <mat-option *ngFor="let title of locationList" [value]="title.id">
-                {{title.text}}
-            </mat-option>
-           
-        </mat-select>
-        <mat-error *ngIf="docForm.get('location').hasError('required')">
-          location  is required
-        </mat-error>
-        </mat-form-field>
-      </div>
-        </div>
-      
-        <div class="row">
-          <div class=" col-md-2">
-            <mat-label>PAN NO</mat-label>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
+              <mat-label>COUNTRY<span class="errorColor">*</span></mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <mat-select class="inputTxt" formControlName="country" required>
+                  <mat-option *ngFor="let title of countryList" [value]="title.id">
+                    {{title.text}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="docForm.get('country').hasError('required')">
+                  country is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
+              <mat-label>LOCATION<span class="errorColor">*</span></mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <mat-select class="inputTxt" formControlName="location" required>
+                  <mat-option *ngFor="let title of locationList" [value]="title.id">
+                    {{title.text}}
+                  </mat-option>
+
+                </mat-select>
+                <mat-error *ngIf="docForm.get('location').hasError('required')">
+                  location is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class=" col-md-2">
+              <mat-label>PAN NO</mat-label>
             </div>
 
             <!-- <mat-form-field class="example-width form-control-sm" appearance="outline">
@@ -230,487 +232,523 @@
               (ngModelChange)="value2=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">        
                 </mat-form-field> -->
 
-             <div class=" col-md-2" style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="panno"maxlength="10" [ngModel]="value1"
-              (ngModelChange)="value1=$event.toUpperCase()"(keypress)="keyPressAlphaNumeric($event)">  
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="panno" maxlength="10" [ngModel]="value1"
+                  (ngModelChange)="value1=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">
 
-              <mat-error *ngIf="docForm.controls['panno'].hasError('pattern')">
-                please enter valid pan no 
-                   </mat-error>
-            </mat-form-field>
-          </div>
-          &nbsp; &nbsp; &nbsp;
-          <div class=" col-md-2">
-            <mat-label>CST NO</mat-label>
+                <mat-error *ngIf="docForm.controls['panno'].hasError('pattern')">
+                  please enter valid pan no
+                </mat-error>
+              </mat-form-field>
             </div>
-           
-          <div class=" col-md-2" style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="cstno" maxlength="20" [ngModel]="value2"
-              (ngModelChange)="value2=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">            </mat-form-field>
-          </div>
-          &nbsp; &nbsp; &nbsp;
-          <div class=" col-md-2">
-            <mat-label>GST NO</mat-label>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
+              <mat-label>CST NO</mat-label>
             </div>
-             <div class=" col-md-2" style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="gstno"maxlength="15"[ngModel]="value4"
-              (ngModelChange)="value3=$event.toUpperCase()"  (keypress)="keyPressAlphaNumeric($event)">  
-              <mat-error *ngIf="docForm.controls['gstno'].hasError('pattern')">
-                please enter valid GST no 
-                   </mat-error> 
-                     </mat-form-field>
-          </div>
-         
-         
 
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="cstno" maxlength="20" [ngModel]="value2"
+                  (ngModelChange)="value2=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">
+              </mat-form-field>
+            </div>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
+              <mat-label>GST NO</mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="gstno" maxlength="15" [ngModel]="value4"
+                  (ngModelChange)="value3=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">
+                <mat-error *ngIf="docForm.controls['gstno'].hasError('pattern')">
+                  please enter valid GST no
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+
+
+          </div>
+
+
+          <div class="row">
+            <div class=" col-md-2">
+              <mat-label>REMARKS</mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="remarks" maxlength="100">
+              </mat-form-field>
+            </div>
+            &nbsp; &nbsp; &nbsp;
+
+
+            <div class=" col-md-2"><mat-label>ACTIVE</mat-label></div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-checkbox ngInit="checked=true" formControlName="active" style="margin-left: 10px;"></mat-checkbox>
+            </div>
+          </div>
         </div>
 
+        <mat-tab-group>
+          <!-- ///////////////////////////// -->
+          <mat-tab label="ADDRESS">
+            <div class="row">
+              <div class=" col-md-1"></div>
+              <div class=" col-md-5">
+                <div class="row">
+                  <div class=" col-md-4">
+                    <mat-label>VENDOR LOCATION</mat-label>
+                  </div>
+                  <div class=" col-md-8">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="vendorLocation">
+                        <mat-option *ngFor="let title of locationList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-md-4">
+                    <mat-label>BILLING ADDRESS</mat-label>
+                  </div>
+                  <div class=" col-md-8">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="billingAddress" maxlength="50">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class=" col-md-4"></div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>State</mat-label>
+                      <input matInput formControlName="billingState" (keypress)="keyPressString($event)">
+                    </mat-form-field>
+                  </div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>City</mat-label>
+                      <input matInput formControlName="billingCity" (keypress)="keyPressString($event)">
+
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-md-4"></div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="billingZip" maxlength="6" placeholder="ZipCode"
+                        (change)="zipcodevalidation2($event.target.value)" (keypress)="keyPressNumeric($event)">
+                      <mat-error *ngIf="docForm.get('billingZip').hasError('billing')">
+                        please enter valid zip code
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="billingCountry">
+                        <mat-option *ngFor="let title of countryList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+             
+              </div>
+              <div class=" col-md-1">
+ 
+                <div class=" col-md-1" alignn="right">
+
+                  <mat-checkbox (click)="active()" ngInit="checked=true" formControlName="isactive"></mat-checkbox>
+                </div>
+
+              </div>
+
+              
+
+              <div class=" col-md-5">
+                <div class="row">
+                
+                  <div class=" col-md-4">
+                    <mat-label>Same As Billing Address</mat-label>
+                  </div>
+                </div>
+                <br><br>
+                <div class="row">
+                  <div class=" col-md-4">
+                    <mat-label>SHIPPING ADDRESS</mat-label>
+                  </div>
+                  <div class=" col-md-8">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="shipperAddress" maxlength="50">
+
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-md-4"></div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>State</mat-label>
+                      <input matInput formControlName="shipperState" (keypress)="keyPressString($event)">
+
+                    </mat-form-field>
+                  </div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>City</mat-label>
+                      <input matInput formControlName="shipperCity" (keypress)="keyPressString($event)">
+
+                    </mat-form-field>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class=" col-md-4"></div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="shipperZip" maxlength="6" placeholder="ZipCode"
+                        (change)="zipcodevalidation1($event.target.value)" (keypress)="keyPressNumeric($event)">
+                      <mat-error *ngIf="docForm.get('shipperZip').hasError('shipper')">
+                        please enter valid zip code
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="shipperCountry">
+                        <mat-option *ngFor="let title of countryList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-md-4">
+                    <mat-label>DELIVERY ADDRESS</mat-label>
+                  </div>
+                  <div class=" col-md-8">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="deliveryAddress" maxlength="50">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-md-4"></div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>State</mat-label>
+                      <input matInput formControlName="deliveryState" (keypress)="keyPressString($event)">
+
+                    </mat-form-field>
+                  </div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>City</mat-label>
+                      <input matInput formControlName="deliveryCity" (keypress)="keyPressString($event)">
+
+                    </mat-form-field>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class=" col-md-4"></div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="deliveryZip" maxlength="6" placeholder="ZipCode"
+                        (change)="zipcodevalidation3($event.target.value)" (keypress)="keyPressNumeric($event)">
+                      <mat-error *ngIf="docForm.get('deliveryZip').hasError('delivery')">
+                        please enter valid zip code
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class=" col-md-4">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="deliveryCountry">
+                        <mat-option *ngFor="let title of countryList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- ///////// -->
+
+          </mat-tab>
+          <!-- //////////////////////////////// -->
+          <mat-tab label="CONTACT">
+            <div style="overflow-x: auto;">
+              <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                <thead class="">
+                  <tr>
+                    <th style="width: 1%;"></th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+              width: 12%; border-radius: 0.05rem;">NAME</th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                width: 12%;border-radius: 0.07rem;">JOB POSITION</th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+            width: 12%;border-radius: 0.07rem;">EMAIL</th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+            width: 12%;border-radius: 0.07rem;">PHONE</th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+      width: 12%;border-radius: 0.07rem;">MOBILE</th>
+                  </tr>
+                </thead>
+                <ng-container *ngFor="let contactDetail of docForm.get('contactDetail')['controls']; let i = index">
+                  <tbody [formGroup]="contactDetail">
+                    <tr>
+                      <td>
+                        <button mat-mini-fab color="warn" (click)="removeRow(i)">
+                          <mat-icon class="col-white">delete</mat-icon>
+                        </button>
+                      </td>
+
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>NAME</mat-label>
+                          <input matInput name="name{{i}}" formControlName="name" (keypress)="keyPressString($event)"
+                            maxlength="15">
+                        </mat-form-field>
+                      </td>
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>POSITION</mat-label>
+                          <input matInput name="position{{i}}" formControlName="position"
+                            (keypress)="keyPressString($event)">
+                        </mat-form-field>
+                      </td>
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>EMAIL</mat-label>
+                          <!-- <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == false">
+              <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == true" readonly>   -->
+                          <input matInput name="conEmail{{i}}" formControlName="conEmail">
+                        </mat-form-field>
+                      </td>
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>PHONE</mat-label>
+                          <input matInput name="conPhone{{i}}" formControlName="conPhone" maxlength="10"
+                            (keypress)="keyPressNumeric($event)">
+                        </mat-form-field>
+                      </td>
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>MOBILE</mat-label>
+                          <input matInput name="mobile{{i}}" formControlName="mobile" maxlength="10"
+                            (keypress)="keyPressNumeric($event)">
+                        </mat-form-field>
+                      </td>
+
+
+                    </tr>
+                  </tbody>
+                </ng-container>
+              </table>
+            </div>
+            <div>
+              <button mat-mini-fab color="primary" (click)="openPopupContactDetails()">
+                <mat-icon class="col-white">add</mat-icon>
+              </button>
+            </div>
+            <br>
+          </mat-tab>
+
+
+          <mat-tab label="INTERNAL NOTES">
+            <div class="row">
+
+              <div class=" col-md-12">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <textarea matInput formControlName="internalNotes" maxlength="200"
+                    placeholder="Put On Internal Notes.."></textarea>
+
+                </mat-form-field>
+              </div>
+            </div>
+
+          </mat-tab>
+          <mat-tab label="PURCHASE">
+            <div class="row">
+              <div class=" col-md-2">
+                <mat-label style="margin-left: 30px;">RESPONSIBLE PERSON</mat-label>
+              </div>
+              <div class=" col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                  <mat-select class="inputTxt" formControlName="resPerson">
+                    <mat-option *ngFor="let title of locationemailDdList" [value]="title.strId">
+                      {{title.text}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class=" col-md-2">
+                <mat-label>DELIVERY METHOD</mat-label>
+              </div>
+              <div class=" col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>PAYMENT METHOD</mat-label>
+                  <mat-select formControlName="method">
+                    <mat-option [value]="'1'">
+                      In Person
+                    </mat-option>
+                    <mat-option [value]="'2'">
+                      Courier
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="ACCOUNTING">
+            <h4 style="margin-left: 30px;">Supplier</h4>
+            <div class="row">
+              <div class=" col-md-2">
+                <mat-label style="margin-left: 30px;">ACCOUNT RECEIVABLE<span class="errorColor">*</span></mat-label>
+              </div>
+              <div class=" col-md-4">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="acctReceivable" maxlength="20" required>
+
+                </mat-form-field>
+              </div>
+              <div class=" col-md-2">
+                <mat-label>SUPPLIER PAYMENT TERM<span class="errorColor">*</span></mat-label>
+              </div>
+
+              <div class=" col-md-4">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="supplier" maxlength="20" (keypress)="keyPressNumeric($event)"
+                    required>
+
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class=" col-md-2">
+                <mat-label style="margin-left: 30px;">TOTAL RECEIVABLE<span class="errorColor">*</span></mat-label>
+              </div>
+              <div class=" col-md-4">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="totalReceivable" maxlength="20" (keypress)="keyPressNumeric($event)"
+                    required>
+
+                </mat-form-field>
+              </div>
+              <div class=" col-md-2">
+                <mat-label>CREDIT LIMIT<span class="errorColor">*</span></mat-label>
+              </div>
+
+              <div class=" col-md-4">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="creditLimit" maxlength="20" (keypress)="keyPressNumeric($event)"
+                    required>
+
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                <thead class="">
+                  <tr>
+                    <th style="width: 1%;"></th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+            width: 12%; border-radius: 0.05rem;">BANK NAME</th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+              width: 12%;border-radius: 0.07rem;">ACCOUNT TYPE</th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+          width: 12%;border-radius: 0.07rem;">ACCOUNT NO</th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+          width: 12%;border-radius: 0.07rem;">ADDRESS</th>
+                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+    width: 12%;border-radius: 0.07rem;">IFSC CODE</th>
+                  </tr>
+                </thead>
+                <ng-container *ngFor="let accountDetail of docForm.get('accountDetail')['controls']; let i = index">
+                  <tbody [formGroup]="accountDetail">
+                    <tr>
+                      <td>
+                        <button mat-mini-fab color="warn" (click)="removeRowAccount(i)">
+                          <mat-icon class="col-white">delete</mat-icon>
+                        </button>
+                      </td>
+
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>BANK NAME</mat-label>
+                          <input matInput name="bankName{{i}}" formControlName="bankName">
+                        </mat-form-field>
+                      </td>
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>ACCOUNT TYPE</mat-label>
+                          <input matInput name="accType{{i}}" formControlName="accType">
+                        </mat-form-field>
+                      </td>
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>ACCOUNT NO</mat-label>
+                          <input matInput name="accName{{i}}" formControlName="accNo"
+                            (keypress)="keyPressNumeric($event)" maxlength="20">
+                        </mat-form-field>
+                      </td>
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>ADDRESS</mat-label>
+                          <input matInput name="address{{i}}" formControlName="address">
+                        </mat-form-field>
+                      </td>
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>IFSC CODE</mat-label>
+                          <input matInput formControlName="ifscCode" maxlength="11">
+                          <mat-error *ngIf="accountDetail.controls['ifscCode'].hasError('pattern')">
+                            please enter valid IFSC code
+                          </mat-error>
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                  </tbody>
+                </ng-container>
+              </table>
+            </div>
+            <div>
+              <button mat-mini-fab color="primary" (click)="openPopupAccountDetails()">
+                <mat-icon class="col-white">add</mat-icon>
+              </button>
+            </div>
+            <br>
+
+
+          </mat-tab>
+        </mat-tab-group>
+        <br><br>
 
         <div class="row">
-          <div class=" col-md-2">
-            <mat-label>REMARKS</mat-label>
-            </div>
-          <div class=" col-md-2"  style="margin-left: -45px;">
-            <mat-form-field class="example-width form-control-sm" appearance="outline">
-              <input matInput formControlName="remarks" maxlength="100" >
-            </mat-form-field>
-          </div>
-          &nbsp; &nbsp; &nbsp;
-
-    
-          <div class=" col-md-2"><mat-label>ACTIVE</mat-label></div>
-          <div class=" col-md-2"  style="margin-left: -45px;">
-             <mat-checkbox   ngInit="checked=true" formControlName="active" style="margin-left: 10px;"></mat-checkbox>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+            <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+              style="margin-left: 40%;background-color: #34d034;">Submit</button>
+            <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+              style="margin-left: 36%;background-color: #34d034;">Update</button>
+            <button (click)="reset()" class="btn-space" mat-raised-button color="primary">Reset</button>
+            <button (click)="onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
           </div>
         </div>
-      </div>
-
- <mat-tab-group>
-  <mat-tab label="ADDRESS">
-    <div class="row">
-      <div class=" col-md-2" >
-        <mat-label style="margin-left: 30px;">VENDOR LOCATION</mat-label>
-        </div>
-         <div class=" col-md-4">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="vendorLocation">
-            <mat-option *ngFor="let title of locationList" [value]="title.id">
-                {{title.text}}
-            </mat-option>
-        </mat-select>
-        </mat-form-field>
-      </div>
-      <div class=" col-md-2">
-        <mat-label >SHIPPING ADDRESS</mat-label>
-        </div>
-         <div class=" col-md-4">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="shipperAddress"maxlength="50" >
-
-        </mat-form-field>
-      </div>
-     </div>
-     <div class="row">
-      <div class=" col-md-2">
-        <mat-label style="margin-left: 30px;">BILLING ADDRESS</mat-label>
-        </div>
-         <div class=" col-md-4">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="billingAddress"maxlength="50" >
-      </mat-form-field>
-      </div>
-      <div class=" col-md-2"></div>
-      <div class=" col-md-2">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: -12px;">
-          <mat-label>State</mat-label>
-          <input matInput formControlName="shipperState" (keypress)="keyPressString($event)"   >
-          
-        </mat-form-field>
-      </div>
-      <div class=" col-md-1">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 164px;margin-left: -42px;">
-          <mat-label>City</mat-label>
-          <input matInput formControlName="shipperCity" (keypress)="keyPressString($event)">
-          
-        </mat-form-field>
-      </div>
-      <div class=" col-md-1">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: 3px;">
-          <input matInput formControlName="shipperZip"maxlength="6"placeholder="ZipCode" (change)="zipcodevalidation1($event.target.value)" (keypress)="keyPressNumeric($event)" >
-          <mat-error *ngIf="docForm.get('shipperZip').hasError('shipper')">
-            please enter valid zip code
-          </mat-error>
-        </mat-form-field></div>
-
-<div class=" col-md-2"></div>
-
-       <div class=" col-md-2">
-
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: -12px;">
-          <mat-label>State</mat-label>
-          <input matInput formControlName="billingState"  (keypress)="keyPressString($event)">
-        </mat-form-field>
-        </div>
-          <div class=" col-md-1">
-
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 164px;margin-left: -42px;">
-              <mat-label>City</mat-label>
-              <input matInput formControlName="billingState" (keypress)="keyPressString($event)">
-              
-            </mat-form-field>
-          </div>
-          <div class=" col-md-1">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 3px;">
-              <input matInput formControlName="billingZip"maxlength="6"placeholder="ZipCode" (change)="zipcodevalidation2($event.target.value)" (keypress)="keyPressNumeric($event)" >
-              <mat-error *ngIf="docForm.get('billingZip').hasError('billing')">
-                please enter valid zip code
-              </mat-error>
-            </mat-form-field></div>
-
-            <div class=" col-md-2"></div>
-            <div class=" col-md-4">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-select class="inputTxt" formControlName="shipperCountry">
-                <mat-option *ngFor="let title of countryList" [value]="title.id">
-                    {{title.text}}
-                </mat-option>
-            </mat-select>
-            </mat-form-field>
-          </div>
-      </div>
-
-      <div class="row">
-        <div class=" col-md-2"></div>
-        <div class=" col-md-4">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <mat-select class="inputTxt" formControlName="billingCountry">
-            <mat-option *ngFor="let title of countryList" [value]="title.id">
-                {{title.text}}
-            </mat-option>
-        </mat-select>
-        </mat-form-field>
-      </div>
-      <div class=" col-md-2">
-        <mat-label>DELIVERY ADDRESS</mat-label>
-        </div>
-         <div class=" col-md-4">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="deliveryAddress"maxlength="50" >
-      </mat-form-field>
-      </div>
-
-
-<div class=" col-md-8"></div>
-
-       <div class=" col-md-2">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: -12px;">
-          <mat-label>State</mat-label>
-          <input matInput formControlName="deliveryState"  (keypress)="keyPressString($event)">
-          
-        </mat-form-field>
-      </div>
-        <div class=" col-md-1">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 164px;margin-left: -42px;">
-            <mat-label>City</mat-label>
-            <input matInput formControlName="deliveryCity"  (keypress)="keyPressString($event)">
-            
-          </mat-form-field>
-        </div>
-          <div class=" col-md-1">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 3px;">
-              <input matInput formControlName="deliveryZip"maxlength="6"placeholder="ZipCode" (change)="zipcodevalidation3($event.target.value)"  (keypress)="keyPressNumeric($event)">
-              <mat-error *ngIf="docForm.get('deliveryZip').hasError('delivery')">
-                please enter valid zip code
-              </mat-error>
-
-            </mat-form-field></div>
-            <div class=" col-md-8"></div>
-            <div class=" col-md-4">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-select class="inputTxt" formControlName="deliveryCountry">
-                <mat-option *ngFor="let title of countryList" [value]="title.id">
-                    {{title.text}}
-                </mat-option>
-            </mat-select>
-            </mat-form-field>
-          </div>
-          </div>
-    </mat-tab>
-
-    <mat-tab label="CONTACT">
-      <div style="overflow-x: auto;">
-        <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-          <thead class="">
-            <tr>
-              <th style="width: 1%;"></th>
-              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-              width: 12%; border-radius: 0.05rem;">NAME</th>
-                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                width: 12%;border-radius: 0.07rem;">JOB POSITION</th>
-             <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-            width: 12%;border-radius: 0.07rem;">EMAIL</th>
-             <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-            width: 12%;border-radius: 0.07rem;">PHONE</th>
-      <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-      width: 12%;border-radius: 0.07rem;">MOBILE</th>
-            </tr>
-          </thead>
-          <ng-container *ngFor="let contactDetail of docForm.get('contactDetail')['controls']; let i = index">
-            <tbody [formGroup]="contactDetail">
-              <tr>
-                <td>
-                  <button mat-mini-fab color="warn" (click)="removeRow(i)">
-                    <mat-icon class="col-white">delete</mat-icon>
-                  </button>
-                  </td>
-
-                <td class="padding-both-side-2">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>NAME</mat-label>
-                    <input matInput name="name{{i}}"  formControlName="name" (keypress)="keyPressString($event)" maxlength="15" >
-                  </mat-form-field>
-                </td>
-                <td class="padding-both-side-2">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>POSITION</mat-label>
-                    <input matInput name="position{{i}}"  formControlName="position" (keypress)="keyPressString($event)">
-                  </mat-form-field>
-                </td>
-                <td class="padding-both-side-2">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>EMAIL</mat-label>
-                    <!-- <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == false">
-              <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == true" readonly>   -->
-                     <input matInput name="conEmail{{i}}"  formControlName="conEmail"> 
-                  </mat-form-field>
-                </td>
-                <td class="padding-both-side-2">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>PHONE</mat-label>
-                    <input matInput name="conPhone{{i}}"  formControlName="conPhone"maxlength="10" (keypress)="keyPressNumeric($event)">
-                  </mat-form-field>
-                </td>
-                <td class="padding-both-side-2">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>MOBILE</mat-label>
-                    <input matInput name="mobile{{i}}"  formControlName="mobile"maxlength="10" (keypress)="keyPressNumeric($event)">
-                  </mat-form-field>
-                </td>
-
-
-                </tr>
-                </tbody>
-                </ng-container>
-                </table>
-                </div>
-                <div>
-                  <button mat-mini-fab color="primary" (click)="openPopupContactDetails()">
-                    <mat-icon class="col-white">add</mat-icon>
-                  </button>
-                </div>
-                <br>
-    </mat-tab>
-
-
-    <mat-tab label="INTERNAL NOTES">
-      <div class="row">
-
-          <div class=" col-md-12">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <textarea matInput formControlName="internalNotes"maxlength="200" placeholder="Put On Internal Notes.."></textarea>
-
-          </mat-form-field>
-        </div>
-      </div>
-
-    </mat-tab>
-    <mat-tab label="PURCHASE">
-      <div class="row">
-        <div class=" col-md-2">
-          <mat-label style="margin-left: 30px;">RESPONSIBLE PERSON</mat-label>
-          </div>
-          <div class=" col-md-3">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-
-            <mat-select class="inputTxt" formControlName="resPerson">
-              <mat-option *ngFor="let title of locationemailDdList" [value]="title.strId">
-                  {{title.text}}
-              </mat-option>
-          </mat-select>
-      </mat-form-field>
-      </div>
-      <div class=" col-md-2">
-        <mat-label >DELIVERY METHOD</mat-label>
-        </div>
-        <div class=" col-md-3">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <mat-label>PAYMENT METHOD</mat-label>
-            <mat-select  formControlName="method">
-              <mat-option [value]="'1'">
-                In Person
-              </mat-option>
-              <mat-option [value]="'2'">
-                Courier
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-    </div>
-    </mat-tab>
-
-<mat-tab label="ACCOUNTING">
-<h4 style="margin-left: 30px;">Supplier</h4>
-  <div class="row">
-    <div class=" col-md-2">
-      <mat-label style="margin-left: 30px;">ACCOUNT RECEIVABLE<span class="errorColor">*</span></mat-label>
-      </div>
-       <div class=" col-md-4">
-      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="acctReceivable"maxlength="20" required>
-
-      </mat-form-field>
-    </div>
-    <div class=" col-md-2">
-      <mat-label >SUPPLIER PAYMENT TERM<span class="errorColor">*</span></mat-label>
-      </div>
-
-    <div class=" col-md-4">
-      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="supplier" maxlength="20"(keypress)="keyPressNumeric($event)"required>
-
-      </mat-form-field>
+      </form>
     </div>
   </div>
-
-  <div class="row">
-    <div class=" col-md-2">
-      <mat-label style="margin-left: 30px;">TOTAL RECEIVABLE<span class="errorColor">*</span></mat-label>
-      </div>
-       <div class=" col-md-4">
-      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="totalReceivable"maxlength="20"(keypress)="keyPressNumeric($event)" required>
-
-      </mat-form-field>
-    </div>
-    <div class=" col-md-2">
-      <mat-label>CREDIT LIMIT<span class="errorColor">*</span></mat-label>
-      </div>
-
-    <div class=" col-md-4">
-      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="creditLimit" maxlength="20" (keypress)="keyPressNumeric($event)"required>
-
-      </mat-form-field>
-    </div>
-  </div>
-
-    <div style="overflow-x: auto;">
-      <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-        <thead class="">
-          <tr>
-            <th style="width: 1%;"></th>
-            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-            width: 12%; border-radius: 0.05rem;">BANK NAME</th>
-              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-              width: 12%;border-radius: 0.07rem;">ACCOUNT TYPE</th>
-           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-          width: 12%;border-radius: 0.07rem;">ACCOUNT NO</th>
-           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-          width: 12%;border-radius: 0.07rem;">ADDRESS</th>
-    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-    width: 12%;border-radius: 0.07rem;">IFSC CODE</th>
-          </tr>
-        </thead>
-        <ng-container *ngFor="let accountDetail of docForm.get('accountDetail')['controls']; let i = index">
-          <tbody [formGroup]="accountDetail">
-            <tr>
-              <td>
-                <button mat-mini-fab color="warn" (click)="removeRowAccount(i)">
-                  <mat-icon class="col-white">delete</mat-icon>
-                </button>
-                </td>
-
-              <td class="padding-both-side-2">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>BANK NAME</mat-label>
-                  <input matInput name="bankName{{i}}"  formControlName="bankName">
-                </mat-form-field>
-              </td>
-              <td class="padding-both-side-2">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>ACCOUNT TYPE</mat-label>
-                  <input matInput name="accType{{i}}"  formControlName="accType">
-                </mat-form-field>
-              </td>
-              <td class="padding-both-side-2">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>ACCOUNT NO</mat-label>
-                  <input matInput name="accName{{i}}"  formControlName="accNo" (keypress)="keyPressNumeric($event)" maxlength="20" >
-                </mat-form-field>
-              </td>
-              <td class="padding-both-side-2">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>ADDRESS</mat-label>
-                  <input matInput name="address{{i}}"  formControlName="address">
-                </mat-form-field>
-              </td>
-              <td class="padding-both-side-2">
-                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>IFSC CODE</mat-label>
-                  <input matInput  formControlName="ifscCode" maxlength="11" >
-                  <mat-error *ngIf="accountDetail.controls['ifscCode'].hasError('pattern')">
-           please enter valid IFSC code
-                  </mat-error>
-                 </mat-form-field>
-              </td>
-        </tr>
-              </tbody>
-              </ng-container>
-              </table>
-              </div>
-              <div>
-                <button mat-mini-fab color="primary" (click)="openPopupAccountDetails()">
-                  <mat-icon class="col-white">add</mat-icon>
-                </button>
-              </div>
-              <br>
-
-
-     </mat-tab>
-</mat-tab-group>
-<br><br>
-
-<div class="row">
-  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-    color="accent" style="margin-left: 40%;background-color: #34d034;">Submit</button>
-    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
-    <button (click) = "reset()" class="btn-space" mat-raised-button
-      color="primary" >Reset</button>
-    <button (click) = "onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
-  </div>
-</div>
-</form>
-</div>
-</div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

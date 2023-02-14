@@ -92,6 +92,7 @@ export class MainComponent implements OnInit {
   // Doughnut chart start
   // public doughnutChartLabels: string[] = ["India", "USA", "Itely", "Shrilanka"];
   public doughnutChartLabels: string[] = ["Assets"];
+  // public doughnutChartData: number[] = [22, 31, 28, 19];
   public doughnutChartData = this.assetsCount;
   public doughnutChartLegend = false;
   public doughnutChartColors: any[] = [
@@ -357,7 +358,25 @@ config: {
     );
     this.clientSurvayGraph(asset);
     this.barChartGraph(asset);
-    this.bookValueEndGraph(asset);  
+    this.handleUpdate(asset);
+  }
+
+  handleUpdate(asset:any) {
+    this.httpService.get<any>(this.mainService.getbookValueEndGraphURL + "?assetId=" +asset+"&asset="+'').subscribe(
+      (data) => {
+        this.bookValueArray=data.getBookEndValue;
+        this.chartOptionsLollipop.series[0] = {
+          type: 'area',
+          data: this.bookValueArray
+        }
+        this.updateFlag = true;
+      console.log(this.chartOptionsLollipop.series);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+   
   }
 
   clientSurvayGraph(asset:any){
@@ -377,42 +396,6 @@ config: {
     this.httpService.get<any>(this.mainService.getBarChartURL + "?assetId=" +asset+"&asset="+'').subscribe(
       (data) => {
         this.chartOptionsBarChart.series=data.getBarChartListGraph
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-    );
-  }
-
-  bookValueEndGraph(asset:any){
-    this.httpService.get<any>(this.mainService.getbookValueEndGraphURL + "?assetId=" +asset+"&asset="+'').subscribe(
-      (data) => {
-        // this.bookValueArray=data.getBookEndValue;
-        // this.bookValueArray=data.getAreaGraph;
-        this.chartOptionsLollipop.series= [{
-          // name: 'first last',
-          type:'area',
-          data: [{name: '2023', y: 901},
-          {name: '2024', y: 11}]
-      }];
-        // this.bookValueArray=[{name: '2023', y: 901},
-        // {name: '2024', y: 802}]
-      //   for(var i=0;i<this.bookValueArray.length;i++){
-      //     var bean={name:'',y:''};
-      //     bean.name=this.bookValueArray[i].name;
-      //     bean.y=this.bookValueArray[i].y;
-      //     this.bookValueArrayData.push(bean);
-      //   }
-        console.log(this.bookValueArray);
-      //  this.chartOptionsLollipop.series = this.bookValueArrayData;
-      // this.chartOptionsLollipop.series.push({
-      //   type: 'line',
-      //   name: "new series",
-      //   data: [{name: '2023', y: 901},
-      //   {name: '2024', y: 11}],
-      //   visible: true
-      // })
-      console.log(this.chartOptionsLollipop.series);
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -458,19 +441,6 @@ config: {
           {
             type: 'area',
             name: 'Book Value End',
-        //     // data: this.data
-        //     // data:[
-        //     //   {name: '2023', y: 901},
-        //     //   {name: '2024', y: 802},
-        //     //   {name: '2025', y: 703},
-        //     //   {name: '2026', y: 604},
-        //     //   {name: '2027', y: 505},
-        //     //   {name: '2028', y: 406},
-        //     //   {name: '2029', y: 307},
-        //     //   {name: '2030', y: 208},
-        //     //   {name: '2031', y: 109},
-        //     //   {name: '2032', y: 10}
-        //     // ]
              data:[{name: '2023', y: 901},
              {name: '2024', y: 802}]
           }
@@ -566,17 +536,17 @@ config: {
 
   
   getInvList(){
-    // this.httpService.get<MainResultBean>(this.mainService.getAuditableAssetListUrl).subscribe(
-    //   (data) => {
+    this.httpService.get<MainResultBean>(this.mainService.getAuditableAssetListUrl).subscribe(
+      (data) => {
         
-    //     this.auditableAssetList = data.auditableAssetList;
-    //     this.config1 = {
-    //       itemsPerPage: 5,
-    //       currentPage: 1,
-    //       totalItems: this.auditableAssetList.length
-    //     }; 
-    //   }
-    // );
+        this.auditableAssetList = data.auditableAssetList;
+        this.config1 = {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.auditableAssetList.length
+        }; 
+      }
+    );
   }
 
   getAssetList(){

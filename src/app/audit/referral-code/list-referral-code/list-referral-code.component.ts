@@ -62,6 +62,7 @@ export class ListReferralCodeComponent implements OnInit {
   ngOnInit(): void {
    
     this.loginedUser = this.tokenStorageService.getUserId();
+    this.companyId = this.tokenStorageService.getCompanyId();
     this.loadData();
   }
 
@@ -75,7 +76,8 @@ export class ListReferralCodeComponent implements OnInit {
       this.exampleDatabase,
       this.paginator,
       this.sort,
-      this.loginedUser
+      this.loginedUser,
+      this.companyId
     );
     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
@@ -218,7 +220,8 @@ export class ExampleDataSource extends DataSource<ReferralCode> {
     public exampleDatabase: ReferralCodeService,
     public paginator: MatPaginator,
     public _sort: MatSort,
-    public loginedUser
+    public loginedUser,
+    public companyId
   ) {
     super();
     // Reset to the first page when the user changes the filter.
@@ -233,7 +236,7 @@ export class ExampleDataSource extends DataSource<ReferralCode> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList(this.loginedUser);
+    this.exampleDatabase.getAllList(this.loginedUser,this.companyId);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

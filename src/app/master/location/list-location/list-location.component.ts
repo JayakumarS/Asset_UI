@@ -32,6 +32,7 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
     "locationCode",
     "locationName",
     "company",
+    "description",
     "actions"
   ];
 
@@ -215,7 +216,8 @@ export class ExampleDataSource extends DataSource<LocationMaster> {
           .filter((locationMaster: LocationMaster) => {
             const searchStr = (
               locationMaster.locationCode +
-              locationMaster.locationName
+              locationMaster.locationName+
+              locationMaster.company
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });

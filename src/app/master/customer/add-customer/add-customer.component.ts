@@ -43,6 +43,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   value2 = [];
   value3 = [];
   value4=[];
+  value5=[];
   submitted: boolean=false;
   state: string;
   cityShipperList = [];
@@ -77,6 +78,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
     this.docForm = this.fb.group({
       'companyId':this.tokenStorageService.getCompanyId(),
       'branchId':this.tokenStorageService.getBranchId(),
+      isactive:[""],
       cus_id: [""],
       auditorname: [""],
       registercode: [""],
@@ -471,9 +473,41 @@ fetchDetails(cus_id: any): void {
     }
   });
 }
+active(){
+  
+  if(this.docForm.value.isactive==false){
+    this.docForm.patchValue({
+     
+      'shipperAddress': this.docForm.value.billingAddress,
+    'shipperState': this.docForm.value.billingState,
+     'shipperCity': this.docForm.value.billingCity,
+    'shipperZip':this.docForm.value.billingZip,
+    'shipperCountry':this.docForm.value.billingCountry,
+    'deliveryAddress': this.docForm.value.billingAddress,
+    'deliveryState': this.docForm.value.billingState,
+   'deliveryCity': this.docForm.value.billingCity,
+    'deliveryZip':this.docForm.value.billingZip,
+    'deliveryCountry':this.docForm.value.billingCountry,
+    
+ })
+  }
+  else  if(this.docForm.value.isactive==true){
+    this.docForm.patchValue({
+     'shipperAddress':"",
+   'shipperState':"",
+   'shipperCity':"",
+   'shipperZip':"",
+   'shipperCountry':"",
+   'deliveryAddress':"",
+   'deliveryState':"",
+   'deliveryCity':"",
+   'deliveryZip':"",
+   'deliveryCountry':"",
+ })
 
+}
 
-
+}
 keyPressPCB(event: any) {
   const pattern = /[0-9.]/;
   const inputChar = String.fromCharCode(event.charCode);

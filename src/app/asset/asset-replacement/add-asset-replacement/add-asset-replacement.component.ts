@@ -127,10 +127,11 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       if (params.id != undefined && params.id != 0) {
         this.requestId = params.id;
         this.edit = true;
-        // this.fetchDetails(this.requestId);
+        this.fetchDetails(this.requestId);
 
       }
     });
+
 
 
 
@@ -288,6 +289,56 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     }
   }
 
+
+   // Edit
+   fetchDetails(id: any): void {
+    const obj = {
+      editId: id
+    }
+
+    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.locationDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
+    this.assetReplacementService.editAsset(obj).subscribe({
+      next: (res: any) => {
+
+        this.docForm.patchValue({
+         
+          'id': res.addAssetReplacementBean.id,
+          'fullOrPartial':res.addAssetReplacementBean.fullOrPartial,
+    
+        })
+
+        if (res.detailList != null && res.detailList.length >= 1) {
+          let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+          detailListArray.clear();
+          res.detailList.forEach(element => {
+            let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+            let arraylen = detailListArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              assName: [element.assName],
+              assCode: [element.assCode],
+              assLocation: [element.assLocation],
+              assCategory: [element.assCategory],
+              assStatus: [element.assStatus],
+            })
+            detailListArray.insert(arraylen, newUsergroup);
+          });
+        }
+
+        },
+          error: (error) => {
+        }
+    });
+  }
+
   onCancel() {
     this.router.navigate(['/asset/assetReplacement/listAssetReplacement']);
   }
@@ -309,7 +360,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           if (data.success) {
             this.showNotification(
               "snackbar-success",
-              "Edit Record Successfully",
+              "Record Added successfully...",
               "bottom",
               "center"
             );
@@ -317,7 +368,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           } else {
             this.showNotification(
               "snackbar-danger",
-              "Not Updated Successfully...!!!",
+              "Not Added...!!!",
               "bottom",
               "center"
             );
@@ -342,75 +393,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       );
     }
   }
-  // // Edit
-  // fetchDetails(id: any): void {
-  //   const obj = {
-  //     editId: id
-  //   }
-
-  //   this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
-  //     next: (data) => {
-  //       this.locationDdList = data;
-  //     },
-  //     error: (error) => {
-
-  //     }
-  //   }
-  //   );
-
-  //   this.assetService.editAsset(obj).subscribe({
-  //     next: (res: any) => {
-
-       
-
-  //       this.docForm.patchValue({
-      
-  //         'partialOrReplace': res.addAssetBean.partialOrReplace,
-
-  //       })
-
-  //       this.getInLineFull(res.addAssetBean.isLine);
-
-  //       if (res.detailList != null && res.detailList.length >= 1) {
-  //         let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
-  //         detailListArray.clear();
-  //         res.detailList.forEach(element => {
-  //           let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
-  //           let arraylen = detailListArray.length;
-  //           let newUsergroup: FormGroup = this.fb.group({
-  //             assName: [element.assName],
-  //             assCode: [element.assCode],
-  //             assLocation: [element.assLocation],
-  //             assCategory: [element.assCategory],
-  //             assStatus: [element.assStatus],
-  //           })
-  //           detailListArray.insert(arraylen, newUsergroup);
-  //         });
-  //       }
-
-
-  //       if (res.detailList != null && res.detailList.length >= 1) {
-  //         let detailListArrayReplacement = this.docForm.controls.assetMasterBeanReplacement as FormArray;
-  //         detailListArrayReplacement.clear();
-  //         res.detailList.forEach(element => {
-  //           let detailListArrayReplacement = this.docForm.controls.assetMasterBeanReplacement as FormArray;
-  //           let arraylen = detailListArrayReplacement.length;
-  //           let newUsergroupReplacement: FormGroup = this.fb.group({
-  //             assName: [element.assName],
-  //             assCode: [element.assCode],
-  //             assLocation: [element.assLocation],
-  //             assCategory: [element.assCategory],
-  //             assStatus: [element.assStatus],
-  //           })
-  //           detailListArrayReplacement.insert(arraylen, newUsergroupReplacement);
-  //         });
-  //       }
-  //     },
-  //     error: (error) => {
-
-  //     }
-  //   });
-  // }
+  
 
  
   showNotification(colorName, text, placementFrom, placementAlign) {
