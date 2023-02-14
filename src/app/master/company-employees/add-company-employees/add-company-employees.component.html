@@ -35,7 +35,7 @@
                           <div class=" col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                            
-                              <mat-select formControlName="company"  required disabled>
+                              <mat-select formControlName="company"  required >
                                   <mat-option *ngFor="let data of companyList" [value]="data.id">
                                       {{data.text}}
                                   </mat-option>
@@ -132,9 +132,9 @@
                                             
 
                                             <div class=" col-md-2">
-                                              <mat-label  >ACTIVE</mat-label></div>
+                                              <mat-label  >IS ACTIVE</mat-label></div>
                                             <div class=" col-md-3">
-                                               <mat-checkbox  formControlName="active" STYLE="margin-left: 10px;"></mat-checkbox>
+                                               <mat-checkbox  formControlName="active" STYLE="margin-left: 16px;"></mat-checkbox>
                                             </div>
                                             
                                             </div>

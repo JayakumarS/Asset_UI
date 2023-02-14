@@ -16,7 +16,7 @@
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                        <mat-select formControlName="company"  required disabled >
+                        <mat-select formControlName="company"  required >
                           <mat-option *ngFor="let title of company" [value]="title.id">
                               {{title.text}}
                           </mat-option>
@@ -100,29 +100,24 @@
                   </mat-form-field>
                 </div>
                 </div>
-                <div class="row" style="margin-top: -20px;">
-
-
-
-          </div>
+         
 
 
 
                 <div class="row">
                   <div class=" col-md-2"><mat-label >INVENTORY LOCATION</mat-label></div>
-                  <div class=" col-md-1">
-                     <mat-checkbox  ngInit="checked=true" formControlName="active"></mat-checkbox>
+                  <div class=" col-md-3">
+                     <mat-checkbox  ngInit="checked=true" formControlName="active" style="margin-left: 16px;" ></mat-checkbox>
                   </div>
 
-                  <div class=" col-md-1"><mat-label >ASSET</mat-label></div>
+                  <div class=" col-md-2"><mat-label >ASSET</mat-label></div>
                   <div class=" col-md-3">
-                     <mat-checkbox  ngInit="checked=true" formControlName="cascade"></mat-checkbox>
+                     <mat-checkbox  ngInit="checked=true" formControlName="cascade" style="margin-left: 16px;"></mat-checkbox>
                   </div>
                 </div>
 
                 <br><br>
-                <div class="row" style="
-                margin-left: 10%;">
+                <div class="row" >
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
                     color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
