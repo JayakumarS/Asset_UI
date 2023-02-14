@@ -7,22 +7,14 @@
         <div class="row clearfix">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="card ">
-                    
-                    <div class="body">
+                    <div class="body" style="padding-left: 1px;">
                         <form class="m-4" [formGroup]="docForm">
-                            <mat-tab-group (selectedTabChange)="singleAssetPopup($event);">
-                                <mat-tab label="Add Single Asset">
-                            <!-- <div class="row">
+                            <div class="row">
                                 <h2 style="padding-bottom: 5px;
                                     padding-top: 5px;color:#F6682F">Add Single Asset/<a style="padding-bottom: 5px;
                                     padding-top: 5px;color:#F6682F;font-size: 25px!important;" (click)="$event.stopPropagation()"
                                     (click)="multipleuploadpopupCall()"><u>Add Multiple Assets</u> </a></h2><br>
-                            </div><br> -->
-                            <!-- <ng-template mat-tab-label>
-                                <mat-icon class="example-tab-icon msr-2">face</mat-icon>
-                                Add single asset
-                            </ng-template> -->
-                            <br>
+                            </div><br>
                             <div class="row-def"  style="margin-left: -5%;">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
@@ -52,8 +44,8 @@
 
                             <!-- GRN Based Save Mutiple Asset Start-->
                             <div *ngIf="grnFlag">
-                                <h6  style="padding-left: 80px;"class="headingValue"> GRN Item Based Asset </h6>
-                                <div style="overflow-x: auto;zoom: 90%;margin-left: 70px;">
+                                <h6  style="padding-left: 56px;"class="headingValue"> GRN Item Based Asset </h6>
+                                <div style="overflow-x: auto;zoom: 90%;margin-left: 61px;">
                                   <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                                     <thead class="">
                                       <tr>
@@ -85,9 +77,9 @@
                                                   {{title.text}}
                                                 </mat-option>
                                               </mat-select>
-                                              <mat-error  *ngIf="grnBasedAssetList.controls['itemId'].hasError('required')">
+                                              <!-- <mat-error  *ngIf="grnBasedAssetList.controls['itemId'].hasError('required')">
                                                 Item Code-Item Name is required
-                                                </mat-error>
+                                                </mat-error> -->
 
                                             </mat-form-field>
                                           </td>
@@ -97,9 +89,9 @@
                                               <mat-label>Asset Name</mat-label>
                                               <input matInput name="assetName{{i}}" formControlName="assetName"
                                                  maxlength="150">
-                                                <mat-error  *ngIf="grnBasedAssetList.controls['assetName'].hasError('required')">
+                                                <!-- <mat-error  *ngIf="grnBasedAssetList.controls['assetName'].hasError('required')">
                                                     Asset Name is required
-                                                    </mat-error>
+                                                    </mat-error> -->
                                             </mat-form-field>
                                           </td>
 
@@ -108,46 +100,46 @@
                                               <mat-label>Asset Code</mat-label>
                                               <input matInput name="assetCode{{i}}" formControlName="assetCode"
                                                 (keypress)="keyPressNameNumber($event)" maxlength="9">
-                                                <mat-error  *ngIf="grnBasedAssetList.controls['assetCode'].hasError('required')">
+                                                <!-- <mat-error  *ngIf="grnBasedAssetList.controls['assetCode'].hasError('required')">
                                                     Asset Code is required
-                                                    </mat-error>
+                                                    </mat-error> -->
                                             </mat-form-field>
                                           </td>
 
                                           <td class="padding-both-side-2">
                                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-label>Location</mat-label>
-                                              <mat-select name="location{{i}}" formControlName="location" required>
+                                              <mat-select name="location{{i}}" formControlName="location">
                                                 <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                                                     {{title.text}}
                                                 </mat-option>
                                             </mat-select>
-                                            <mat-error  *ngIf="grnBasedAssetList.controls['location'].hasError('required')">
+                                            <!-- <mat-error  *ngIf="grnBasedAssetList.controls['location'].hasError('required')">
                                                 Location is required
-                                                </mat-error>
+                                                </mat-error> -->
                                          </mat-form-field>
                                           </td>
 
                                           <td class="padding-both-side-2">
                                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-label>Category</mat-label>
-                                              <mat-select name="category{{i}}" formControlName="category" required>
+                                              <mat-select name="category{{i}}" formControlName="category">
                                                 <mat-option *ngFor="let title of categoryList" [value]="title.id">
                                                     {{title.text}}
                                                 </mat-option>
                                             </mat-select>
-                                                <mat-error *ngIf="grnBasedAssetList.controls['category'].hasError('required')">
+                                                <!-- <mat-error *ngIf="grnBasedAssetList.controls['category'].hasError('required')">
                                                     Category is required
-                                                    </mat-error>
+                                                    </mat-error> -->
                                           </mat-form-field>
                                           </td>
 
                                           <td class="padding-both-side-2">
                                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-label>Status</mat-label>
-                                              <mat-select name="status{{i}}" formControlName="status" required>
+                                              <mat-select name="status{{i}}" formControlName="status">
                                                 <mat-option [value]="'Good'">
-                                                    Good
+                                                    New
                                                 </mat-option>
                                                 <mat-option [value]="'Damaged'">
                                                     Damaged
@@ -158,10 +150,13 @@
                                                 <mat-option [value]="'In stock'">
                                                     In stock
                                                 </mat-option>
+                                                <mat-option [value]="'Refurbished'">
+                                                    Refurbished                                        
+                                                </mat-option>
                                               </mat-select>
-                                              <mat-error *ngIf="grnBasedAssetList.controls['status'].hasError('required')">
+                                              <!-- <mat-error *ngIf="grnBasedAssetList.controls['status'].hasError('required')">
                                                 Status is required
-                                                </mat-error>
+                                                </mat-error> -->
                                             </mat-form-field>
                                           </td>
 
@@ -321,7 +316,7 @@
 
 
 
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left: -1%;">
+                            <div class="col-lg-12">
                                 <div class="header">
                                     <h2 style="color:#F6682F">Additional Information</h2>
 
@@ -731,7 +726,8 @@
                                     </mat-tab-group>
                                 </div>
                             </div>
-                        
+                        </form>
+                    </div>
                     <div class="row" style="padding-bottom:50px;padding-left: 50px;">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
                             <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()" style="margin-left: 38%;background-color: green;" mat-raised-button color="primary">Submit</button>
@@ -742,12 +738,6 @@
                             <button *ngIf="!edit" color="primary" type="button" class="btn-space" (click)="resetSelf()"  mat-raised-button>Reset</button>
                         </div>
                     </div>
-                </mat-tab>
-                <mat-tab label="Add Multiple Assets">
-                    </mat-tab>
-            </mat-tab-group>
-        </form>
-    </div>
                 </div>
             </div>
         </div>

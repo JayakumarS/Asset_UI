@@ -132,7 +132,7 @@ export class AddAssetMasterComponent
       purchasePrice: [""],
       //tab3
       captitalizationPrice: [""],
-      captitalizationDate: [""],
+      captitalizationDate: [moment().format('DD/MM/YYYY')],
       endLife: [""],
       scrapValue: [""],
       depreciation: [""],
@@ -143,7 +143,7 @@ export class AddAssetMasterComponent
       remarks: [""],
       assetUser: ["",[Validators.required]],
       invoiceDateobj: [""],
-      captitalizationDateobj: [""],
+      captitalizationDateobj: [moment().format('YYYY-MM-DD')],
       allottedUptoobj: [""],
       fileUploadUrl: [""],
       imgUploadUrl: [""],
@@ -761,13 +761,6 @@ export class AddAssetMasterComponent
     }
   }
 
-  singleAssetPopup(row){
-    console.log(row.tab.textLabel);
-    if(row.tab.textLabel=='Add Multiple Assets'){
-      this.multipleuploadpopupCall();
-    }  
-  }
-
   //FOR IMAGE UPLOAD ADDED BY GOKUL
   onSelectImage(event) {
     var imgfile = event.target.files[0];
@@ -1018,7 +1011,7 @@ export class AddAssetMasterComponent
       purchasePrice: [""],
       //tab3
       captitalizationPrice: [""],
-      captitalizationDate: [""],
+      captitalizationDate: [moment().format('DD/MM/YYYY')],
       endLife: [""],
       scrapValue: [""],
       depreciation: [""],
@@ -1029,7 +1022,7 @@ export class AddAssetMasterComponent
       remarks: [""],
       assetUser: [""],
       invoiceDateobj: [""],
-      captitalizationDateobj: [""],
+      captitalizationDateobj: [moment().format('YYYY-MM-DD')],
       allottedUptoobj: [""],
       fileUploadUrl: [""],
       imgUploadUrl: [""],
