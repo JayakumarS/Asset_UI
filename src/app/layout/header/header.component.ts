@@ -412,7 +412,7 @@ showPopUp(){
   }
   console.log(JSON.parse(this.token.getCompanies()));
   const dialogRef = this.dialog.open(CompanyMapPopupComponent, {
-    height: "270px",
+    height: "500px",
     width: "800px",
     data: JSON.parse(this.token.getCompanies()),
     direction: tempDirection,

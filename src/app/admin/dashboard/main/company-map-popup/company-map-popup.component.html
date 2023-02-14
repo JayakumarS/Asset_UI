@@ -11,20 +11,20 @@
                   <table class="table table-hover " id="tablehover">
                     <thead>
                       <tr>
-                        <th>Choose</th>
+                        <!-- <th>Choose</th> -->
                         <th>Company</th>
                         <th>Branch</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                      <tr *ngFor="let map of data">
-                        <td >
-                            <input type="radio" name="optradio" (change)="saveCompanyId(map)">
-                        </td>
-                        <td  (click)="saveCompanyId(map)">{{map.companyName}} </td>
-                        <td (click)="saveCompanyId(map)">{{map.branchName}}</td>
-                      </tr>
+                      
+                        <tr *ngFor="let map of data">
+                          
+                          <td (click)="saveCompanyId(map)" style="cursor: pointer;"><a href="javascript:void(0);" (click)="saveCompanyId(map)" style="text-decoration:none;">{{map.companyName}}</a></td>
+                          <td (click)="saveCompanyId(map)" style="cursor: pointer;"><a href="javascript:void(0);" (click)="saveCompanyId(map)" style="text-decoration:none;">{{map.branchName}}</a></td>
+                        </tr>
+                     
+                      
                     </tbody>
                   </table> 
                 </div>
