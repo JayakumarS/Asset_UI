@@ -78,7 +78,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
     this.docForm = this.fb.group({
       'companyId':this.tokenStorageService.getCompanyId(),
       'branchId':this.tokenStorageService.getBranchId(),
-      isactive:[""],
+      isactive:[true],
       cus_id: [""],
       auditorname: [""],
       registercode: [""],
@@ -96,7 +96,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       gstno: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
       cstno: [""],
       remarks: [""],
-      active: [false],
+      active: [true],
       location: ["",[Validators.required]],
       vendorLocation: [""],
       shipperAddress: [""],
@@ -475,7 +475,7 @@ fetchDetails(cus_id: any): void {
 }
 active(){
   
-  if(this.docForm.value.isactive==false){
+  if(this.docForm.value.isactive==true){
     this.docForm.patchValue({
      
       'shipperAddress': this.docForm.value.billingAddress,
@@ -684,7 +684,7 @@ reset(){
       gstno: [""],
       cstno: [""],
       remarks: [""],
-      active: [""],
+      active: [true],
       'loginedUser': this.tokenStorageService.getUserId(),
       companyId: this.tokenStorageService.getCompanyId(),
       branchId: this.tokenStorageService.getBranchId()

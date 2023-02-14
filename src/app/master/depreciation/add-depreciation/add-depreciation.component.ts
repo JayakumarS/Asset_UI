@@ -28,7 +28,7 @@ export class AddDepreciationComponent implements OnInit {
     this.docForm = this.fb.group({
       name: ["", [Validators.required]],
       code: [""],
-      active:[false],
+      active:[true],
       id:[""],
 
       manageLineDtlObjBean: this.fb.array([
@@ -142,7 +142,7 @@ reset() {
     this.docForm.patchValue({
       name: [""],
       code: [""],
-      active: [""],
+      active: [true],
      
     })
   } else {

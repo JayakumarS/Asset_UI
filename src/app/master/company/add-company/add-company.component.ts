@@ -57,7 +57,7 @@ export class AddCompanyComponent implements OnInit {
         emailId:["",],
         telephoneNo:["",[Validators.required]],
         personIncharge:["",[Validators.required]],
-        isactive:[""],
+        isactive:[true],
         companyId:[""],
         userId:[""]
 
@@ -185,7 +185,7 @@ export class AddCompanyComponent implements OnInit {
         emailId:[""],
         telephoneNo:[""],
         personIncharge:[""],
-        isactive:[""],
+        isactive:[true],
         companyId:[""],
         'loginedUser': this.tokenStorage.getUserId()
       })

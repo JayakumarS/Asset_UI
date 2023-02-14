@@ -44,7 +44,7 @@ export class AddItemPropertiesComponent implements OnInit {
       atttributeLength: [""],
       attributeValue: [""],
       attributeDefualtValue: [""],
-      isMandatory: [""],
+      isMandatory: [true],
       loginedUser: this.tokenStorage.getUserId(),
       company:this.tokenStorage.getCompanyId(),
       branchname:this.tokenStorage.getBranchId(),

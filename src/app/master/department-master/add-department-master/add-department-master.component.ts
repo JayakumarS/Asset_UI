@@ -49,7 +49,7 @@ export class AddDepartmentMasterComponent implements OnInit {
       deptCode: ["",[Validators.required]],
       departmentHead: [""],
       remarks:[""],
-      isactive:[false],
+      isactive:[true],
       deptId:[""],
       contactPerson:[""],
       company:["",[Validators.required]],
@@ -331,7 +331,7 @@ export class AddDepartmentMasterComponent implements OnInit {
         branchname: [""],
         company:[""],
         remarks: [""],
-        isactive: [""],
+        isactive: [true],
         contactPersonId:[""],
         'loginedUser': this.tokenStorage.getUserId()
       })
