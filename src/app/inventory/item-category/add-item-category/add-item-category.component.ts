@@ -49,7 +49,7 @@ export class AddItemCategoryComponent implements OnInit {
       categoryName: ["", [Validators.required]],
       parentCategoryId: [""],
       categoryTypeId: ["", [Validators.required]],
-      qualityCheck: false,
+      qualityCheck: true,
       // salesTaxesId: ["", [Validators.required]],
       // purchaseTaxesId: ["", [Validators.required]],
       // incomeAccountId: ["", [Validators.required]],
@@ -308,7 +308,7 @@ export class AddItemCategoryComponent implements OnInit {
     if (!this.edit) {
       this.docForm.reset();
       this.docForm.patchValue({
-        'qualityCheck': false,
+        'qualityCheck': true,
         'batchNo': false,
         'mrp': false,
         'expiryDate': false,

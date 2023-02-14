@@ -56,7 +56,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       fullName: ["",[Validators.required, Validators.pattern("[A-Z]+")]],
       phoneno:["",[Validators.required]],
       department:[""],
-      active:[false],
+      active:[true],
       id:[""],
 
       // userId: this.tokenStorage.getUserId(),
@@ -83,7 +83,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       fullName: ["",[Validators.required]],
       phoneno:["",[Validators.required]],
       department:[""],
-      active:[false],
+      active:[true],
       id:[""],
 
       // userId: this.tokenStorage.getUserId(),

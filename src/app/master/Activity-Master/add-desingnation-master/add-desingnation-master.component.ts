@@ -35,7 +35,7 @@ export class AddDesingnationMasterComponent implements OnInit {
       activtyname: ["", [Validators.required]],
       activtyid: [""],
       Description:["", [Validators.required]],
-      active:[""],
+      active:[true],
       id:[""],
       companyId:this.tokenStorage.getCompanyId(),
       branchId:this.tokenStorage.getBranchId(),
@@ -148,7 +148,7 @@ export class AddDesingnationMasterComponent implements OnInit {
       activtyname: [""],
       activtyid: [""],
       Description: [""],
-      active: [""],
+      active: [true],
       companyId:this.tokenStorage.getCompanyId(),
       branchId:this.tokenStorage.getBranchId()
 

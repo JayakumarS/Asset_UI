@@ -37,13 +37,26 @@ export class AddCurrencyComponent implements OnInit {
       toc: ["", [Validators.required]],
       currencyDefault : ["", [Validators.required]],
       currencyFraction : ["", [Validators.required]],
-      isActive : [""],
-      bookCurrency : [""],
+      isActive : [true],
+      bookCurrency : [true],
       companyId:this.tokenStorage.getCompanyId(),
       branchId:this.tokenStorage.getBranchId()
     });
   }
   ngOnInit(): void {
+    this.docForm = this.fb.group({
+      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+      currencyCode: ["", [Validators.required]],
+      currencyName: ["", [Validators.required]],
+      fromc: ["", [Validators.required]],
+      toc: ["", [Validators.required]],
+      currencyDefault : ["", [Validators.required]],
+      currencyFraction : ["", [Validators.required]],
+      isActive : [true],
+      bookCurrency : [true],
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId()
+    });
   }
   onSubmit() {
     this.currencyMaster = this.docForm.value;
