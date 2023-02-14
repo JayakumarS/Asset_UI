@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { UserMasterResultBean } from './user-master-resultbean';
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,11 +26,13 @@ export class UserMasterService extends UnsubscribeOnDestroyAdapter {
   dialogData: any;
   edit: string;
   update: string;
+  userId:any;
+  companyId:any
   get data(): UserMaster[] {
     return this.dataChange.value;
   }
 
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService)
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService,private tokenStorage: TokenStorageService)
   {
     super();
   }
@@ -53,7 +56,10 @@ export class UserMasterService extends UnsubscribeOnDestroyAdapter {
 
 
   getAllList(userId:any): void {
-    this.subs.sink = this.httpService.get<UserMasterResultBean>(this.getUserList + "?userId=" + userId).subscribe(
+    console.log();
+    this.userId=this.tokenStorage.getUserId();
+    this.companyId= this.tokenStorage.getCompanyId(),
+    this.subs.sink = this.httpService.get<UserMasterResultBean>(this.getUserList + "?userId=" + userId+"&companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.userMasterDetails);

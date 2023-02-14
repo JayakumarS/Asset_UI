@@ -36,6 +36,7 @@ export class PurchaseOrderService extends UnsubscribeOnDestroyAdapter {
   public updatePurchaseOrderMaster = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseOrder/update`;
   public deletePurchaseOrderMaster = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseOrder/delete`;
   public getPurchaseOrderDetails = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseOrder/getPurchaseOrderDetails`;
+  public getVendorDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseOrder/getVendorDropdown`;
 
 
   get data(): PurchaseOrder[] {

@@ -59,6 +59,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   edit: boolean = false;
   purchaseRequestDtlBean = [];
   filePathUrl: string;
+  string:any;
   purchaseTypeList: [];
   purchaseForList: [];
   discountTypeList: [];
@@ -155,14 +156,14 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
 
     //Vendor  Dropdown List
-    this.companyId=this.tokenStorage.getCompanyId();
-    if(this.companyId==null || this.companyId=='' || this.companyId==undefined || this.companyId=="null"){
+     this.companyId=this.tokenStorage.getCompanyId();
+     if(this.companyId==null || this.companyId=='' || this.companyId==undefined || this.companyId=="null"){
       this.companyId=0;
-    } else {
+     } else {
       this.companyId=parseInt(this.tokenStorage.getCompanyId());
-    }
+     }
     
-    this.httpService.get<any>(this.commonService.getVendorDropdown +"companyId="+this.companyId).subscribe({
+    this.httpService.get<any>(this.commonService.getVendorDropdown +"?companyId="+this.companyId).subscribe({
       next: (data) => {
         this.vendorList = data;
       },

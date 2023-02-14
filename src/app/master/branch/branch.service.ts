@@ -21,6 +21,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
     []
   );
   RoleId: string;
+  companyId:String;
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
    }
@@ -43,7 +44,8 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
     console.log();
     this.UserId=this.tokenStorage.getUserId();
     this.RoleId=this.tokenStorage.getRoleId();
-    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList+"?UserId="+this.UserId+"&RoleId="+this.RoleId).subscribe(
+    this.companyId= this.tokenStorage.getCompanyId(),
+    this.subs.sink = this.httpService.get<BranchResultBean>(this.getBranchtList+"?UserId="+this.UserId+"&RoleId="+this.RoleId+"&companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.branchList);
