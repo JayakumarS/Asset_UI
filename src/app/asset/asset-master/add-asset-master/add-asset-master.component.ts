@@ -131,11 +131,11 @@ export class AddAssetMasterComponent
       invoiceNo: [""],
       purchasePrice: [""],
       //tab3
-      captitalizationPrice: ["",[Validators.required]],
-      captitalizationDate: ["",[Validators.required]],
-      endLife: ["", [Validators.required]],
-      scrapValue: ["", [Validators.required]],
-      depreciation: ["", [Validators.required]],
+      captitalizationPrice: [""],
+      captitalizationDate: [""],
+      endLife: [""],
+      scrapValue: [""],
+      depreciation: [""],
       //tab4
       department: [""],
       allottedUpto: [""],
@@ -759,6 +759,13 @@ export class AddAssetMasterComponent
       this.docForm.controls['status'].updateValueAndValidity();
 
     }
+  }
+
+  singleAssetPopup(row){
+    console.log(row.tab.textLabel);
+    if(row.tab.textLabel=='Add Multiple Assets'){
+      this.multipleuploadpopupCall();
+    }  
   }
 
   //FOR IMAGE UPLOAD ADDED BY GOKUL
