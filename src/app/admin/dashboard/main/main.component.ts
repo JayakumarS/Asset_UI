@@ -66,6 +66,9 @@ export class MainComponent implements OnInit {
   assetListDashboard = [];
   bookValueArray = [];
   bookValueArrayData = [];
+  //Donut Array
+  donutName = [];
+  donutValue = [];
   public cardChart1: any;
   public cardChart1Data: any;
   public cardChart1Label: any;
@@ -91,14 +94,14 @@ export class MainComponent implements OnInit {
 
   // Doughnut chart start
   // public doughnutChartLabels: string[] = ["India", "USA", "Itely", "Shrilanka"];
-  public doughnutChartLabels: string[] = ["Assets"];
+  public doughnutChartLabels: string[];
   // public doughnutChartData: number[] = [22, 31, 28, 19];
-  public doughnutChartData = this.assetsCount;
+  public doughnutChartData:number[];
   public doughnutChartLegend = false;
   public doughnutChartColors: any[] = [
     {
-      // backgroundColor: ["#735A84", "#E76412", "#9BC311", "#DC3545"],
-      backgroundColor: ["#e86f66"],
+      backgroundColor: ["#735A84", "#E76412", "#9BC311", "#DC3545"],
+      // backgroundColor: ["#e86f66"],
     },
   ];
   public doughnutChartType = "doughnut";
@@ -154,6 +157,13 @@ config: {
   totalItems: number
 };
 
+configDepreciation: {
+  id : string,
+  itemsPerPage: number,
+  currentPage: number,
+  totalItems: number
+};
+
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
     
@@ -178,7 +188,9 @@ config: {
     this.companyAuditorCount=this.tokenStorage.getCompanyId();
     this.roleId=this.tokenStorage.getRoleId();
     
-
+    // this.doughnutChartLabels = this.donutName;
+    this.doughnutChartData = [22, 31, 28, 19];
+    
     if(this.roleId==3){
       this.roleIdFlag=true;
     }
@@ -282,8 +294,19 @@ config: {
     //     console.log(this.projectOptions);
     // }); 
 
+    // Donut Chart
+
+    // this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + this.companyAuditorCount +"&roleId="+this.roleId).subscribe((doughnutChartData: any) => {
+    //   console.log(this.companyAuditorCount);
+    //   this.donutName.push(doughnutChartData.getDonutName);
+    //   this.donutValue.push([22, 31, 28, 19]);
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //   }
+    // );
+
     // Company based Auditor count service
-    this.companyBasedCount(this.companyAuditorCount);
+    this.companyBasedCount(this.companyAuditorCount,this.roleId);
 
    
 
@@ -295,14 +318,23 @@ config: {
     
   }
 
-  companyBasedCount(companyAuditorCount:any){
-    this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + companyAuditorCount).subscribe((res: any) => {
+  companyBasedCount(companyAuditorCount,roleId:any){
+    this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + companyAuditorCount +"&roleId="+roleId).subscribe((doughnutChartData: any) => {
       console.log(this.companyAuditorCount);
-      this.companyPurchaseAssetsCount = res.companyPurchaseAssetsCount;
-      this.companyUsersAssetsCount = res.companyUsersAssetsCount;
-      this.companyEarningsAssetsCount = res.companyEarningsAssetsCount;
-      this.companyAuditorsAssetsCount = res.companyAuditorsAssetsCount;
-      this.companyAssetsCount = res.companyAssetsCount;
+      this.companyPurchaseAssetsCount = doughnutChartData.companyPurchaseAssetsCount;
+      this.companyUsersAssetsCount = doughnutChartData.companyUsersAssetsCount;
+      this.companyEarningsAssetsCount = doughnutChartData.companyEarningsAssetsCount;
+      this.companyAuditorsAssetsCount = doughnutChartData.companyAuditorsAssetsCount;
+      this.companyAssetsCount = doughnutChartData.companyAssetsCount;
+
+      //For Donut Data
+      // this.doughnutChartLabels = ["India", "USA", "Itely", "Shrilanka"];
+      this.doughnutChartData = [22, 31, 28, 19];
+      this.donutName.push(["India", "USA", "Itely", "Shrilanka"]);
+      this.donutValue.push([22, 31, 28, 19]);
+      this.doughnutChartLabels = this.donutName;
+      console.log(this.donutValue);
+      console.log(this.donutName);
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -421,7 +453,7 @@ config: {
       },
     
       title: {
-          text: 'Asset Book Value End Survey'
+          text: 'Asset Book Value End'
       },
     
       tooltip: {
@@ -463,7 +495,7 @@ config: {
           data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
         },
         {
-          name: "Accured Depreciation",
+          name: "Accrued Depreciation",
           data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
         }
       ],
@@ -534,19 +566,40 @@ config: {
     this.config.currentPage = event;
   }
 
+  pageChangedDepreciation(event){
+    this.configDepreciation.currentPage = event;
+  }
+
   
   getInvList(){
-    this.httpService.get<MainResultBean>(this.mainService.getAuditableAssetListUrl).subscribe(
-      (data) => {
+    // All Asset List
+    // this.httpService.get<MainResultBean>(this.mainService.getAuditableAssetListUrl).subscribe(
+    //   (data) => {
         
-        this.auditableAssetList = data.auditableAssetList;
-        this.config1 = {
-          itemsPerPage: 5,
-          currentPage: 1,
-          totalItems: this.auditableAssetList.length
-        }; 
+    //     this.auditableAssetList = data.auditableAssetList;
+    //     this.config1 = {
+    //       itemsPerPage: 5,
+    //       currentPage: 1,
+    //       totalItems: this.auditableAssetList.length
+    //     }; 
+    //   }
+    // );
+
+    this.httpService.get<MainResultBean>(this.mainService.AuditableAssetListDashboardUrl + "?companyId=" + this.companyAuditorCount).subscribe((res: any) => {
+      console.log(this.companyAuditorCount);
+      this.auditableAssetList = res.auditableAssetListDashboard;
+      this.configDepreciation = {
+        id: 'pagination',    
+        itemsPerPage: 2,
+        currentPage: 1,
+        totalItems: this.auditableAssetList.length
+      }; 
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
       }
     );
+
   }
 
   getAssetList(){
