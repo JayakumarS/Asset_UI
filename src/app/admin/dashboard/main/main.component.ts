@@ -474,10 +474,60 @@ configDepreciation: {
             type: 'area',
             name: 'Book Value End',
              data:[{name: '2023', y: 901},
-             {name: '2024', y: 802}]
+             {name: '2024', y: 700},
+             {name: '2025', y: 620},
+             {name: '2026', y: 300},
+             {name: '2027', y: 150},
+             {name: '2028', y: 50},]
           }
         ]
       };
+
+      chartOptionsPieChart: Options = {
+        accessibility: {
+          point: {
+              valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
+          }
+      },
+    
+      legend: {
+          enabled: false
+      },
+    
+      subtitle: {
+          text: ''
+      },
+    
+      title: {
+          text: 'Summary'
+      },
+    
+      tooltip: {
+          shared: true
+      },
+    
+      xAxis: {
+          type: 'category'
+      },
+    
+      yAxis: {
+          title: {
+              text: 'Book Value'
+          }
+      },
+        series: [
+          {
+            type: 'pie',
+            name: 'Value',
+             data:[{name: 'Total Purchased', y: 8},
+             {name: 'Total Depreciated', y: 23},
+             {name: 'Total Sold', y: 8},
+             {name: 'Total Scraped', y: 7}]
+          }
+        ]
+      };
+
+
 
   chartCallback: Highcharts.ChartCallbackFunction = chart => {
     this.chartRef = chart;
@@ -1142,7 +1192,7 @@ configDepreciation: {
       },
       yaxis: {
         title: {
-          text: "Revenue",
+          text: "Amount",
         },
         min: 0,
       },

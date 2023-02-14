@@ -138,13 +138,13 @@
               <div class="clearfix">
                 <div class="card-right">
                   <div>
-                    <h5 class="float-end">Assets</h5>
+                    <h5 class="float-end">Last Audit Date</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
                     <!-- For Decimal purpose code -->
                     <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">-</h3>
                   </div>
                 </div>
               </div>
@@ -160,11 +160,11 @@
               <div class="clearfix">
                 <div class="card-right">
                   <div>
-                    <h5 class="float-end">Auditors</h5>
+                    <h5 class="float-end">Last Audit Done By</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">-</h3>
                   </div>
                 </div>
               </div>
@@ -180,11 +180,11 @@
               <div class="clearfix">
                 <div class="card-right">
                   <div>
-                    <h5 class="float-end">Amount</h5>
+                    <h5 class="float-end">Reconciliation</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">-</h3>
                   </div>
                 </div>
               </div>
@@ -200,14 +200,14 @@
               <div class="clearfix">
                 <div class="card-right">
                   <div>
-                    <h5 class="float-end">Users</h5>
+                    <h5 class="float-end">Missing Asset Value</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
                     <!-- Total Users -->
                     <!-- <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3> -->
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{usersCountValue}}</h3> -->
                     <!-- Company based Users -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyUsersAssetsCount}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">0</h3>
                   </div>
                 </div>
               </div>
@@ -350,7 +350,10 @@
    
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="card">
+        <div class="card" style="padding: 12px;">
+          
+          
+          
           <!-- <div class="header">
             <h2>Product Report</h2>
             <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
@@ -362,9 +365,9 @@
               <button mat-menu-item>Something else here</button>
             </mat-menu>
           </div> -->
-          <div class="body">
-            <div class="row">
-              <div class="col-md-12 col-xl-4 d-flex flex-column justify-content-center">
+          <!-- <div class="body"> -->
+            <!-- <div class="row"> -->
+              <!-- <div class="col-md-12 col-xl-4 d-flex flex-column justify-content-center">
                 <div class="m-l-10 m-b-20">
                   <h1>{{companyEarningsAssetsCount}}</h1>
                   <h4 class="font-weight-light col-green">Total Income</h4>
@@ -379,10 +382,15 @@
                     vulputate eleifend tellus.
                   </p>
                 </div>
+              </div> -->
+              <div class="row">
+              <div class="col-md-6">
+              <highcharts-chart #chart [Highcharts]="Highcharts" [callbackFunction]="chartCallback" [options]="chartOptionsPieChart"
+              [(update)]="updateFlag"></highcharts-chart>
               </div>
-              <div class="col-md-12 col-xl-8">
-                <div class="row">
-                  <div class="col-md-6">
+              <div class="col-md-6">
+                <!-- <div class="row"> -->
+                  <!-- <div class="col-md-6">
                     <h5 class="tx-primary m-b-30">Summary</h5>
                     <div class="mb-3 mt-3">
                       <table class="table table-borderless">
@@ -394,11 +402,11 @@
                                 value="40">
                               </mat-progress-bar>
                             </td>
-                            <td>
+                            <td> -->
                               <!-- Total Purchase Asset Count -->
                               <!-- <h5 class="font-weight-bold mb-0">{{purchaseAssetsCountValue}}</h5> -->
                               <!-- Company based Purchase Asset Count -->
-                              <h5 class="font-weight-bold mb-0">{{companyPurchaseAssetsCount}}</h5>
+                              <!-- <h5 class="font-weight-bold mb-0">{{companyPurchaseAssetsCount}}</h5>
                             </td>
                           </tr>
                           <tr class="tr-height-m">
@@ -433,7 +441,8 @@
                             <td>
                               <h5 class="font-weight-bold mb-0">7</h5>
                             </td>
-                          </tr>
+                          </tr> -->
+
                           <!-- <tr class="tr-height-m">
                             <td class="text-muted">Japan</td>
                             <td class="w-100 px-0">
@@ -456,18 +465,25 @@
                               <h5 class="font-weight-bold mb-0">153</h5>
                             </td>
                           </tr> -->
-                        </tbody>
+
+                        <!-- </tbody>
                       </table>
                     </div>
-                  </div>
-                  <div class="col-md-6 mt-3">
+                  </div> -->
+                  <!-- <div class="col-md-6 mt-3"> -->
                     <!-- chart -->
-                    <div class="recent-report__chart">
-                      <canvas baseChart class="chart" [data]="doughnutChartData" [labels]="doughnutChartLabels"
-                        [options]="doughnutChartOptions" [legend]="doughnutChartLegend" [chartType]="doughnutChartType"
-                        [colors]="doughnutChartColors"></canvas>
-                    </div>
-                    <div class="country-chart" *ngFor="let data of auditableAssetList">
+                    <!-- <div class="row"> -->
+                      <div class="recent-report__chart">
+                        <canvas baseChart class="" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                          [options]="doughnutChartOptions" [legend]="doughnutChartLegend" [chartType]="doughnutChartType"
+                          [colors]="doughnutChartColors" style="margin-top: 28px;display: block;"></canvas>
+                      </div>
+                    <!-- </div> -->
+                    <!-- list -->
+                    <!-- <div class="row">
+                      <div class="country-chart" *ngFor="let data of auditableAssetList"></div>
+                    </div> -->
+                    
                       <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-green"></span>
@@ -498,12 +514,13 @@
                         </div>
                         <p class="mb-0">$21,376</p>
                       </div> -->
-                    </div>
-                  </div>
-                </div>
+                    
+                  <!-- </div> -->
+                <!-- </div> -->
               </div>
             </div>
-          </div>
+            <!-- </div> -->
+          <!-- </div> -->
         </div>
       </div>
     </div>
