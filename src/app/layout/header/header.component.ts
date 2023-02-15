@@ -165,6 +165,7 @@ export class HeaderComponent
     } else if (this.roleId === "2") {
       this.homePage = "admin/dashboard/main";
     } else if (this.roleId === "4") {
+      window.sessionStorage.setItem("makerLogin","true");
       this.homePage = "asset/assetMaster/listAssetMaster";
     } else {
       this.homePage = "admin/dashboard/main";
