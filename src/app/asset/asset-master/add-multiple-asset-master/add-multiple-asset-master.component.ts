@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {  MatDialogRef } from "@angular/material/dialog";
+import {  MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { AssetService } from '../asset.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { UploadErrorComponent } from '../upload-error/upload-error.component';
 @Component({
   selector: 'app-add-multiple-asset-master',
   templateUrl: './add-multiple-asset-master.component.html',
@@ -19,7 +20,7 @@ export class AddMultipleAssetMasterComponent implements OnInit {
   excelFile : any;
   companyId: string;
 
-  constructor(private fb: FormBuilder,public router:Router,private snackBar: MatSnackBar,private  assetService: AssetService,private httpService: HttpServiceService,
+  constructor(private fb: FormBuilder,public dialog: MatDialog,public router:Router,private snackBar: MatSnackBar,private  assetService: AssetService,private httpService: HttpServiceService,
     private tokenStorage: TokenStorageService,public dialogRef: MatDialogRef<AddMultipleAssetMasterComponent>) {
 
     this.assetmultipleuploadForm = this.fb.group({
@@ -68,30 +69,34 @@ export class AddMultipleAssetMasterComponent implements OnInit {
       this.httpService.post<any>(this.assetService.multipleAssetUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
         console.log(data);
         if(data.success){
-          if(data.message !='Incorrect Email'){
+          if(data.message =='Success'){
           this.showNotification(
             "snackbar-success",
             "Records Added Successfully...!!!",
             "bottom",
             "center"
           );
+          window.sessionStorage.setItem("makerLogin","");
           this.router.navigate(['/asset/assetMaster/listAssetMaster'])
-          } else {
-            this.showNotification(
-              "snackbar-danger",
-              "There is no such user with the given email...!!!",
-              "bottom",
-              "center"
-            );
-            this.dialogRef.close();
-            location.reload();
-          }
-         
+          } else  if(data.message =='Incorrect Email' || data.message =='Format'){
+            let tempDirection;
+            if (localStorage.getItem("isRtl") === "true") {
+            tempDirection = "rtl";
+            } else {
+           tempDirection = "ltr";
+           }
+            const dialogRef = this.dialog.open(UploadErrorComponent, {
+              data: data,
+              height:"40%",
+              width: "640px",
+              direction: tempDirection,
+            });
+          }   
         }
         else{
           this.showNotification(
             "snackbar-danger",
-            "Records Added Successfully...!!!",
+            "Records Not Added...!!!",
             "bottom",
             "center"
           );

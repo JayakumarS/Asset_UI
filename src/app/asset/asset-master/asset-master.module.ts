@@ -34,6 +34,7 @@ import { AssetProfileViewComponent } from './asset-profile-view/asset-profile-vi
 
 import { ChartsModule as chartjsModule } from "ng2-charts";
 import { NgApexchartsModule } from "ng-apexcharts";
+import { UploadErrorComponent } from './upload-error/upload-error.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { NgApexchartsModule } from "ng-apexcharts";
     DeleteAssetMasterComponent,
     AddAssetMasterComponent,
     AddMultipleAssetMasterComponent,
-    AssetProfileViewComponent
+    AssetProfileViewComponent,
+    UploadErrorComponent
   ],
   providers:[
     NotificationService

@@ -2,7 +2,7 @@ import { DeleteAssetMasterComponent } from './delete-asset-master/delete-asset-m
 import { AssetMaster } from '../asset-model';
 import { AssetService } from '../asset.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { CommonService } from 'src/app/common-service/common.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { ChangePasswordPopUpComponent } from 'src/app/user/change-password-pop-up/change-password-pop-up.component';
 
 @Component({
   selector: 'app-list-asset-master',
@@ -45,6 +46,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
   permissionList: any;
   assetMaster: AssetMaster | null;
   checkedIDs: any = [];
+  pwdStatus: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -85,7 +87,24 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
         this.spinner.hide();
       }
     });
-
+     if(window.sessionStorage.getItem("makerLogin")=="true"){
+    this.httpService.get<any>(this.commonService.getPwdStatus + "?userId=" + this.tokenStorage.getUserId()).subscribe((result: any) => {
+      this.pwdStatus=result.addressBean[0].pwdStatus;
+      if(!this.pwdStatus){
+        window.sessionStorage.setItem("makerLogin","");
+        const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+          disableClose: true ,
+          height: "500px",
+          width: "465px",
+      
+        });
+      }
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+    }
     this.loadData();
 
   }
