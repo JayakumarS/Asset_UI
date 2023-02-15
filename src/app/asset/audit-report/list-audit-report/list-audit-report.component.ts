@@ -19,21 +19,44 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
-import { AuditReportService } from '../audit-report.service'; 
+import { AuditReportService } from '../audit-report.service';
 import { AuditReport } from '../audit-report-model';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 @Component({
   selector: 'app-list-audit-report',
   templateUrl: './list-audit-report.component.html',
-  styleUrls: ['./list-audit-report.component.sass']
+  styleUrls: ['./list-audit-report.component.sass'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: MAT_DATE_FORMATS, useValue: {
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY'
+        },
+      }
+    }, CommonService
+  ]
 })
 export class ListAuditReportComponent implements OnInit {
   displayedColumns = [
     "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
     "companyStatus","auditType","companyActions"
   ];
- 
+
   docForm: FormGroup;
  [x: string]: any;
  dataSource: ExampleDataSource | null;
@@ -45,20 +68,20 @@ export class ListAuditReportComponent implements OnInit {
   permissionList: any;
   auditReport: AuditReport | null;
 
-  constructor(private fb: FormBuilder,private cmnService:CommonService, public httpClient: HttpClient,
-    public dialog: MatDialog,
-    public auditReportService: AuditReportService,
-    private snackBar: MatSnackBar,
-    private serverUrl: serverLocations,
-    private httpService: HttpServiceService,
-    private tokenStorage: TokenStorageService,
-    private spinner: NgxSpinnerService,
-    public commonService: CommonService,
-    private router: Router) 
+  constructor(private fb: FormBuilder,private cmnService: CommonService, public httpClient: HttpClient,
+              public dialog: MatDialog,
+              public auditReportService: AuditReportService,
+              private snackBar: MatSnackBar,
+              private serverUrl: serverLocations,
+              private httpService: HttpServiceService,
+              private tokenStorage: TokenStorageService,
+              private spinner: NgxSpinnerService,
+              public commonService: CommonService,
+              private router: Router)
 
-    
-  
-  {  
+
+
+  {
    this.docForm = this.fb.group({
     companyIdToken: this.tokenStorage.getCompanyId(),
     branchIdToken: this.tokenStorage.getBranchId(),
@@ -68,11 +91,11 @@ export class ListAuditReportComponent implements OnInit {
     discardToDate:[""],
     companyId:this.companyIdToken,
     branchId:this.branchIdToken,
-    
-    
-   
+
+
+
   });
-  
+
 }
 @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -84,7 +107,7 @@ export class ListAuditReportComponent implements OnInit {
   ngOnInit(): void {
     this.onSubmit()
           this.roleId=this.tokenStorage.getRoleId();
-    
+
     if (this.roleId=='2') {
       this.displayedColumns = [
         "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
@@ -101,7 +124,7 @@ export class ListAuditReportComponent implements OnInit {
         "makerStatus","auditType","makerActions"
       ];
     }
-    
+
     const permissionObj = {
       formCode: 'F1003',
       roleId: this.tokenStorage.getRoleId()
@@ -118,7 +141,7 @@ export class ListAuditReportComponent implements OnInit {
         this.spinner.hide();
       }
     });
-   
+
   }
   refresh(){
     this.loadData();
@@ -164,7 +187,7 @@ showNotification(colorName, text, placementFrom, placementAlign) {
 }
 
 
-  getDateString(event,inputFlag){
+  getDateString(event,inputFlag,item){
     let cdate = this.cmnService.getDate(event.target.value);
     if(inputFlag=='discardFromDate'){
       this.docForm.patchValue({discardFromDate:cdate});
@@ -174,10 +197,8 @@ showNotification(colorName, text, placementFrom, placementAlign) {
     }
 
   };
-  
 
 
-  
 // context menu
 onContextMenu(event: MouseEvent, item: AuditReport) {
   event.preventDefault();

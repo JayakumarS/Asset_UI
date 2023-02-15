@@ -88,7 +88,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./bank-reciepts/bank-reciepts.module").then((p) => p.BankRecieptsModule)
   },
-
+  {
+    path: "salesInvoice",
+    loadChildren: () =>
+    import("./sales-invoice/sales-invoice.module").then((p) => p.SalesInvoiceModule),
+  },
 
 ];
 
