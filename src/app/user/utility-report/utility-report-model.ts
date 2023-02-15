@@ -25,6 +25,16 @@ export class UtilityReport {
     totalConsumption: string;
     variance: string;
     companyId: any;
+    categoryName:any;
+    assetId:any;
+    status:any;
+    brand:any;
+    model:any;
+    purchasePrice:any;
+    capitalizationPrice:any;
+    endLife:any;
+    putuseDate:any;
+    assetUser:any;
 
 
   

@@ -39,9 +39,9 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
   [x: string]: any;
 
   displayedColumns = [
-    "warningName", "meterType","location", "assetName", "startDate","endDate",
-    "totalReading", "extraUnit","unitRate", "mf", "warning","occurence",
-    "totalConsumption", "variance","actions"
+    "categoryName", "assetId","location", "assetName", "startDate","endDate",
+    "status", "brand","model", "purchasePrice","capitalizationPrice", "endLife",
+    "putuseDate", "assetUser","actions"
   ];
 
   dataSource: ExampleDataSource | null;

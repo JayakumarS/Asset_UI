@@ -161,13 +161,13 @@
 
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter" >
-                  <ng-container matColumnDef="warningName" >
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">WARNING NAME</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.warningName}}</mat-cell>
+                  <ng-container matColumnDef="categoryName" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">CATEGORY NAME</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.categoryName}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="meterType">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">METER TYPE</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.meterType}}</mat-cell>
+                  <ng-container matColumnDef="assetId">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">ASSET ID</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetId}}</mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="location">
@@ -187,40 +187,46 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">END DATE</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="totalReading">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">TOTAL READING</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.totalReading}}</mat-cell>
+                  <!-- <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">STATUS/mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.status}}</mat-cell>
+                  </ng-container> -->
+
+
+                  <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">STATUS</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.status}}</mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="extraUnit">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">EXTRA UNIT</mat-header-cell>
-                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.extraUnit}}</mat-cell>
+                  <ng-container matColumnDef="brand">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">BRAND</mat-header-cell>
+                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.brand}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="unitRate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">UNIT RATE</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.unitRate}}</mat-cell>
+                  <ng-container matColumnDef="model">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">MODEL</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.model}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="mf" >
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">MF</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.mf}}</mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="warning">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">WARNING</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.warning}}</mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="occurence">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">OCCURENCE</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.occurence}}</mat-cell>
+                  <ng-container matColumnDef="purchasePrice" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">PURCHASE PRICE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.purchasePrice}}</mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="totalConsumption">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">TOTAL CONSUMPTION (UNIT)</mat-header-cell>
-                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.totalConsumption}}</mat-cell>
+                  <ng-container matColumnDef="capitalizationPrice">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">CAPITALIZATION PRICE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.capitalizationPrice}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="variance">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">VARIANCE</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.variance}}</mat-cell>
+                  <ng-container matColumnDef="endLife">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">END LIFE</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endLife}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="putuseDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">PUT USE DATE</mat-header-cell>
+                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.putuseDate}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="assetUser">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">ASSET USER</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.assetUser}}</mat-cell>
                   </ng-container>
 
 
