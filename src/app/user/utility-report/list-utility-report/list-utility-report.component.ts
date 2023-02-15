@@ -49,7 +49,7 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
   selection = new SelectionModel<UtilityReport>(true, []);
   index: number;
   id: number;
-  categoryTypeList: [];
+  categoryList: [];
   permissionList: any;
   utility: UtilityReport | null;
   docForm: FormGroup;
@@ -76,7 +76,7 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
       startdateObj:[""],
       enddate:[""],
       endingDate:[""],
-      categoryTypeId: ["", [Validators.required]],
+      categoryList: [""],
       startingDate:[""],
       enddateObj:[""],
       warningSearch:[""],
@@ -109,13 +109,15 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
     });
 
       //category Type list
-      this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 6).subscribe({
-        next: (data) => {
-          this.categoryTypeList = data;
-        },
-        error: (error) => {
-        }
-      });
+      this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
+      next: (data) => {
+        this.categoryList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
 
     const permissionObj = {
       formCode: 'F1006',
