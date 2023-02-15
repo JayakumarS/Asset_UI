@@ -183,6 +183,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getPwdStatus = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPwdStatus`;
 
+  public getCustomerDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCustomerDropdown`;
+
   //FOR DOCUMENT VIEW ADDED BY GOKUL
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");

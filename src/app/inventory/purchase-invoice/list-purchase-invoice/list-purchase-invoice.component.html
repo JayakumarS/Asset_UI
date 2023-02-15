@@ -43,14 +43,14 @@
                           <img src="assets/images/icons/xlsx.png" alt=""
                             (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                         </div>
-                      </li>                     
+                      </li>
                     </ul>
                   </div>
                 </div>
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell"
                 #exporter="matTableExporter" [hiddenColumns]="[5]">
-                
+
                 <ng-container matColumnDef="purchaseInvoiceNo">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Purchase Invoice No </mat-header-cell>
                   <mat-cell *matCellDef="let row" (click)="editCall(row)"   (contextmenu)="onContextMenu($event, row)"> {{row.purchaseInvoiceNo}}</mat-cell>
@@ -62,7 +62,7 @@
                 <ng-container matColumnDef="vendorName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> vendor  </mat-header-cell>
                   <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
-                </ng-container> 
+                </ng-container>
                 <ng-container matColumnDef="currency">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Currency </mat-header-cell>
                   <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.currency}}</mat-cell>
@@ -85,7 +85,7 @@
 
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                <mat-row *matRowDef="let row; columns: displayedColumns;"
                   [style.cursor]="'pointer'" matRipple>
                 </mat-row>
               </mat-table>
