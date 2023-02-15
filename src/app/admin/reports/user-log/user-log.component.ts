@@ -93,9 +93,9 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
 
     this.docForm = this.fb.group({
       startdateObj: [""],
-      enddate: [""],
       startdate: [""],
       enddateObj: [""],
+      enddate: [""],
       company_id:[""],
       username:[""],
       status:[""]
@@ -166,6 +166,10 @@ this.httpService.get<reportsresultbean>(this.reportsserivce.getUserNameDropdown 
     let cdate = this.cmnService.getDate(event.target.value);
     if(inputFlag=='startdate'){
       this.docForm.patchValue({startdate:cdate});
+    }
+    let edate = this.cmnService.getDate(event.target.value);
+    if(inputFlag=='enddate'){
+      this.docForm.patchValue({enddate:edate});
     }
   }
 

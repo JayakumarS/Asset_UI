@@ -88,7 +88,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     this.docForm = this.fb.group({
       //info
       id: [""],
-      fullOrPartial: [""],
+      fullOrPartial: ["F"],
 
       
       assetMasterBean: this.fb.array([
@@ -311,16 +311,21 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
 
         this.docForm.patchValue({
          
-          'id': res.addAssetReplacementBean.id,
-          'fullOrPartial':res.addAssetReplacementBean.fullOrPartial,
+          'id': res.addAssetBean.id,
+          'assName': res.addAssetBean.assetName,
+          'assCode': res.addAssetBean.assetCode,
+          'assLocation': res.addAssetBean.assetLocation,
+          'assCategory': res.addAssetBean.assetCategory,
+          'assStatus': res.addAssetBean.assetStatus,
+          'fullOrPartial':res.addAssetBean.fullOrPartial,
     
         })
 
-        if (res.detailList != null && res.detailList.length >= 1) {
-          let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+        if (res.addAssetBean != null && res.addAssetBean) {
+          let detailListArray = this.docForm.controls.addAssetBean as FormArray;
           detailListArray.clear();
-          res.detailList.forEach(element => {
-            let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
+          res.addAssetBean.forEach(element => {
+            let detailListArray = this.docForm.controls.addAssetBean as FormArray;
             let arraylen = detailListArray.length;
             let newUsergroup: FormGroup = this.fb.group({
               assName: [element.assName],

@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-         <app-breadcrumb [title]="'Asset Requisition'" [items]="['Asset']" [active_item]="'Asset Requisition List'">
+         <app-breadcrumb [title]="'Utility Report'" [items]="['Asset']" [active_item]="'List Utility Report'">
         </app-breadcrumb>
       </div>
      <div class="row">
@@ -84,20 +84,37 @@
                   </div> 
                   <div class="row">
                 
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                       <label >WARNING NAME</label>
                   </div> 
                   <div class="col-md-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"> -->
                       
-                      <input matInput formControlName="warningSearch" >
+                      <!-- <input matInput formControlName="warningSearch" > -->
                       <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
                         Description is required
                       </mat-error> -->
+                    <!-- </mat-form-field>
+                  </div> -->
+
+                  <div class="col-md-2 ">
+                    <label> CATEGORY TYPE <span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="categoryTypeId">
+                        <mat-option *ngFor="let title of categoryTypeList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+
+                      <mat-error *ngIf="docForm.get('categoryTypeId').hasError('required')">
+                        Type is required
+                      </mat-error>
                     </mat-form-field>
                   </div>
 
-                  <div class="col-md-2">
+                  <!-- <div class="col-md-2">
                     <label >LOCATION<span class="errorColor">*</span></label>
                   </div>
                   <div class="col-md-3">
@@ -111,24 +128,24 @@
                         Location is required
                         </mat-error> 
                  </mat-form-field>
-                  </div>
+                  </div> -->
                   </div>
 
 
                   <div class="row">
                 
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                       <label>SEARCH</label>
                   </div> 
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       
-                      <input matInput formControlName="search" >
+                      <input matInput formControlName="search" > -->
                       <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
                         Description is required
                       </mat-error> -->
-                    </mat-form-field>
-                  </div>
+                    <!-- </mat-form-field>
+                  </div> -->
                   <div class="col-md-3">
                     <button style="background-color: green; width: 106px; height: 38px; margin-top:5px;"  type="button" class="btn-space" (click)="onSubmit()"
                     mat-raised-button> Submit</button>

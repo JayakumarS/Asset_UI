@@ -5,6 +5,8 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { Authentication } from "../authentication-model";
 import { AuthenticationService } from "../authentication.service";
+import { CompanyService } from "src/app/master/company/company.service";
+import { UserMasterService } from "src/app/master/user-master/user-master.service";
 
 @Component({
   selector: "app-signup",
@@ -27,11 +29,13 @@ export class SignupComponent implements OnInit {
     private httpService: HttpServiceService,
     private commonService: CommonService,
     private authenticationService : AuthenticationService,
+    private companyService : CompanyService,
+    private userMasterService: UserMasterService,
   ) {
 
     this.authForm = this.formBuilder.group({
       companyName: ["", Validators.required],
-      emailId: ["", [Validators.required, Validators.email, Validators.minLength(5)], ],
+      emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       telephoneNo:[ "",[Validators.required,  Validators.minLength(5)],],
       website: ["", Validators.required],
       country: ["", Validators.required],
@@ -74,6 +78,36 @@ export class SignupComponent implements OnInit {
     this.authenticationService.addCompanySignUp(this.authentication,this.router);
 
       // this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
+    }
+  }
+
+  validateCompanyName(event) {
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "company" + "&columnName=" + "company_name" + "&columnValue=" + event).subscribe((res: any) => {
+        if (res) {
+          this.authForm.controls['companyName'].setErrors({ company: true });
+        } else {
+          this.authForm.controls['companyName'].setErrors(null);
+        }
+      });
+    }
+  }
+
+  validateEmail(event){
+    this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.authForm.controls['emailId'].setErrors({ employee: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
+
+  keyPressNumeric1(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
     }
   }
 }
