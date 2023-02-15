@@ -1,7 +1,7 @@
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -49,6 +49,7 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
   selection = new SelectionModel<UtilityReport>(true, []);
   index: number;
   id: number;
+  categoryTypeList: [];
   permissionList: any;
   utility: UtilityReport | null;
   docForm: FormGroup;
@@ -75,6 +76,7 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
       startdateObj:[""],
       enddate:[""],
       endingDate:[""],
+      categoryTypeId: ["", [Validators.required]],
       startingDate:[""],
       enddateObj:[""],
       warningSearch:[""],
@@ -105,6 +107,15 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
 
       }
     });
+
+      //category Type list
+      this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 6).subscribe({
+        next: (data) => {
+          this.categoryTypeList = data;
+        },
+        error: (error) => {
+        }
+      });
 
     const permissionObj = {
       formCode: 'F1006',
