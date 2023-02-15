@@ -69,7 +69,7 @@ export class AddAssetMasterComponent
   grnNumberList = [];
   purchaseOrderNumber = [];
   itemCodeNameList = [];
-  isLineIn: boolean = true;
+  isLineIn: boolean = false;
   assetnamelist: any;
   assetDetailsList: any;
   uomList: any;
@@ -109,7 +109,7 @@ export class AddAssetMasterComponent
       status: ["", [Validators.required]],
       putUseDate: [moment().format('DD/MM/YYYY')],
       putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
-      isLine: [true],
+      isLine: [false],
       id: [""],
       uploadImg: [""],
       isGrnBasedAsset: [false],
@@ -995,7 +995,7 @@ export class AddAssetMasterComponent
       status: ["", [Validators.required]],
       putUseDate: [moment().format('DD/MM/YYYY')],
       putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
-      isLine: [true],
+      isLine: [false],
       id: [""],
       uploadImg: [""],
       isGrnBasedAsset: [false],
