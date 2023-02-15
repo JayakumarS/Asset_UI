@@ -31,7 +31,7 @@
                   <mat-label>Email</mat-label>
                   <input matInput formControlName="emailId" (blur)="validateEmail($event.target.value)" required>
                   <mat-icon matSuffix>mail</mat-icon>
-                  <mat-error *ngIf="authForm.get('emailId').hasError('employee')">
+                  <mat-error *ngIf="authForm.get('emailId').hasError('emailId')">
                     Email ID Already Exists !!!
                   </mat-error>
                   <mat-error *ngIf="authForm.get('emailId').hasError('required') || authForm.get('emailId').touched">

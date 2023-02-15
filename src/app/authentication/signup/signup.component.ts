@@ -81,10 +81,22 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  // validateCompanyName(event) {
+  //   if (event != undefined && event != null && event != "") {
+  //     this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "company" + "&columnName=" + "company_name" + "&columnValue=" + event).subscribe((res: any) => {
+  //       if (res) {
+  //         this.authForm.controls['companyName'].setErrors({ company: true });
+  //       } else {
+  //         this.authForm.controls['companyName'].setErrors(null);
+  //       }
+  //     });
+  //   }
+  // }
+
   validateCompanyName(event) {
     if (event != undefined && event != null && event != "") {
-      this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "company" + "&columnName=" + "company_name" + "&columnValue=" + event).subscribe((res: any) => {
-        if (res) {
+      this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?companyName=" + event).subscribe((res: any) => {
+        if (res.validateCompany) {
           this.authForm.controls['companyName'].setErrors({ company: true });
         } else {
           this.authForm.controls['companyName'].setErrors(null);
@@ -93,15 +105,27 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  validateEmail(event){
-    this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
-      if (res){
-        this.authForm.controls['emailId'].setErrors({ employee: true });
-      }else{
-       // this.docForm.controls['emailId'].setErrors(null);
-      }
-    });
+  validateEmail(event) {
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
+        if (res.validateEmail) {
+          this.authForm.controls['emailId'].setErrors({ emailId: true });
+        } else {
+          this.authForm.controls['emailId'].setErrors(null);
+        }
+      });
+    }
   }
+
+  // validateEmail(event){
+  //   this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+  //     if (res){
+  //       this.authForm.controls['emailId'].setErrors({ employee: true });
+  //     }else{
+  //      // this.docForm.controls['emailId'].setErrors(null);
+  //     }
+  //   });
+  // }
 
   keyPressNumeric1(event: any) {
     const pattern = /[0-9]/;
