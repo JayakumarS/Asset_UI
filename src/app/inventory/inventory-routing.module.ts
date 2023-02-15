@@ -83,6 +83,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./sales-order/sales-order.module").then((p) => p.SalesOrderModule),
   },
+  {
+    path: "Bank-Reciepts",
+    loadChildren: () =>
+    import("./bank-reciepts/bank-reciepts.module").then((p) => p.BankRecieptsModule)
+  },
 
 
 ];
