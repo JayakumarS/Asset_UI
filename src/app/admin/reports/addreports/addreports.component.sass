@@ -1,0 +1,26 @@
+.mat-tab-label
+  background:aqua
+  color: blue
+  width: 60px
+  height: 50px
+  font-size: 20px
+  
+.mat-tab-group.mat-primary .mat-ink-bar
+  background: brown
+  height: 5px
+  overflow-x:hidden
+
+
+:host::ng-deep.mat-tab-body-content 
+    height: 100%
+    overflow: hidden !important
+
+
+
+
+::ng-deep.mat-tab-label.mat-tab-label-active:not(.mat-tab-disabled),
+::ng-deep.mat-tab-label.mat-tab-label-active.cdk-keyboard-focused:not(.mat-tab-disabled)
+  background-color: #3964f3
+
+  color: white
+  opacity: 1
