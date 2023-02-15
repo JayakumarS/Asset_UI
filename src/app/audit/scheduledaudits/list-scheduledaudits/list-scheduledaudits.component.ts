@@ -123,7 +123,7 @@ import { NgxSpinnerService } from "ngx-spinner";
     if (this.permissionList?.modify){
       if (this.roleId=='2') {
         if (row.companyStatus=='Pending') {
-         // this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/' + row.manageAuditId]);
+          this.router.navigate(['/audit/scheduledaudits/add-scheduledaudits/' + row.manageAuditId]);
         }
       } else if (this.roleId=='3') {
         if (row.checkerStatus=='Pending') {
