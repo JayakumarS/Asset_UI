@@ -64,6 +64,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
   assetnamelistReplace: any;
   companyId: string;
   branchId: string;
+  assetUserList = [];
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -98,8 +99,8 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assLocation: [""],
           assCategory: [""],
           assStatus: [""],
-          assetId: [""]
-
+          assetId: [""],
+          assUser: [""]
         })
       ]),
 
@@ -110,7 +111,9 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assLocation: [""],
           assCategory: [""],
           assStatus: [""],
-          assetId: [""]
+          assetId: [""],
+          assUser: [""],
+          movedTo: [""]
 
         })
       ]),
@@ -145,7 +148,18 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     }
     );
 
-
+    //Assetuser dropdown
+  this.companyId=this.tokenStorage.getCompanyId();
+  this.httpService.get<any>(this.commonService.getAssetUserList + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe(
+    
+    (data) => {
+    console.log(data);
+    this.assetUserList = data;
+  },
+  (error: HttpErrorResponse) => {
+    console.log(error.name + " " + error.message);
+  }
+);
      // Location dropdown
      this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
@@ -192,6 +206,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
                 assCategory: [element.categoryName],
                 assStatus: [element.status],
                 assetId: [element.assetId],
+                assUser: [parseInt(element.assetUser)]
 
               })
               assetListDtlArray.insert(i, newUsergroup);
@@ -209,7 +224,29 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
 
   assetDetailsReplacement(value: any, i) {
     let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
-
+    if(dtlArray.at(0).value.assName == value.value) {
+      let dtlArray2 = this.docForm.controls.assetMasterBeanReplacement as FormArray;
+      dtlArray2.at(0).patchValue(
+        {
+          'assName':[""],
+          'assCode':[""],
+          'assLocation':[""],
+          'assCategory':[""],
+          'assStatus':[""],
+          'assetId':[""],
+          'assUser':[""],
+          'movedTo':[""],
+        }
+      )
+      this.showNotification(
+        "snackbar-danger",
+        "Same item can not be selected...!!!",
+        "bottom",
+        "center"
+      );
+      
+    }
+ else {
     this.httpService.get<any>(this.assetService.getAssetDetailsReplacement + "?assetId=" + value.value).subscribe({
       next: (res: any) => {
         if (res.success) {
@@ -226,7 +263,8 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
                 assCategory: [element.categoryName],
                 assStatus: [element.status],
                 assetId: [element.assetId],
-
+                assUser: [parseInt(element.assetUser)],
+                movedTo: [element.movedTo],
               })
               assetListDtlArray.insert(i, newUsergroup);
             });
@@ -238,6 +276,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       }
     }
     );
+  }
   }
 
 
@@ -310,29 +349,42 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       next: (res: any) => {
 
         this.docForm.patchValue({
-         
-          'id': res.addAssetBean.id,
-          'assName': res.addAssetBean.assetName,
-          'assCode': res.addAssetBean.assetCode,
-          'assLocation': res.addAssetBean.assetLocation,
-          'assCategory': res.addAssetBean.assetCategory,
-          'assStatus': res.addAssetBean.assetStatus,
-          'fullOrPartial':res.addAssetBean.fullOrPartial,
+          'fullOrPartial':res.assetList[0].fullOrPartial,
     
         })
 
-        if (res.addAssetBean != null && res.addAssetBean) {
-          let detailListArray = this.docForm.controls.addAssetBean as FormArray;
+        if (res.assetList != null && res.assetList.length>0) {
+          let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
           detailListArray.clear();
-          res.addAssetBean.forEach(element => {
-            let detailListArray = this.docForm.controls.addAssetBean as FormArray;
+          res.assetList.forEach(element => {
+            let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
             let arraylen = detailListArray.length;
             let newUsergroup: FormGroup = this.fb.group({
-              assName: [element.assName],
-              assCode: [element.assCode],
-              assLocation: [element.assLocation],
-              assCategory: [element.assCategory],
-              assStatus: [element.assStatus],
+              assName: [element.id],
+              assCode: [element.assetCode],
+              assLocation: [element.locationName],
+              assCategory: [element.categoryName],
+              assStatus: [element.status],
+              assUser: [parseInt(element.assetUser)]
+            })
+            detailListArray.insert(arraylen, newUsergroup);
+          });
+        }
+
+        if (res.dashboardList != null && res.dashboardList.length>0) {
+          let detailListArray = this.docForm.controls.assetMasterBeanReplacement as FormArray;
+          detailListArray.clear();
+          res.dashboardList.forEach(element => {
+            let detailListArray = this.docForm.controls.assetMasterBeanReplacement as FormArray;
+            let arraylen = detailListArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              assName: [element.id],
+              assCode: [element.assetCode],
+              assLocation: [element.locationName],
+              assCategory: [element.categoryName],
+              assStatus: [element.status],
+              assUser: [parseInt(element.assetUser)],
+              movedTo: [parseInt(element.movedTo)]
             })
             detailListArray.insert(arraylen, newUsergroup);
           });
@@ -358,6 +410,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
   update() {
     if (this.docForm.valid) {
       this.assetReplacement = this.docForm.value;
+      this.assetReplacement.id=this.requestId;
       this.spinner.show();
       this.assetReplacementService.updateAssetReplacement(this.assetReplacement).subscribe({
         next: (data) => {
@@ -524,7 +577,8 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assLocation: [""],
           assCategory: [""],
           assStatus: [""],
-          assetId: [""]
+          assetId: [""],
+          assUser: [""]
 
         })
       ]),
@@ -536,7 +590,9 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assLocation: [""],
           assCategory: [""],
           assStatus: [""],
-          assetId: [""]
+          assetId: [""],
+          assUser: [""],
+          movedTo: [""]
 
         })
       ]),
