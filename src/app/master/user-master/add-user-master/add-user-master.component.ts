@@ -223,13 +223,15 @@ export class AddUserMasterComponent implements OnInit {
       } else {
          let companyText=this.tokenStorage.getCompanyText();
          let companyId=this.tokenStorage.getCompanyId();
-
-         let obj ={
-          id1:parseInt(companyId),
-          text:companyText
-         }
-
-         this.getUserBasedCompanyList.push(obj);
+        if(companyText!="null"){
+          let obj ={
+            id1:parseInt(companyId),
+            text:companyText
+           }
+  
+           this.getUserBasedCompanyList.push(obj);
+        }
+         
       }
     },
     (error: HttpErrorResponse) => {
