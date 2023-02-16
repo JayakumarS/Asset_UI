@@ -26,20 +26,23 @@
               </mat-error>
               </mat-form-field>
             </div>
-            <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+            <!-- <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item>Action</button>
               <button mat-menu-item>Another action</button>
               <button mat-menu-item>Something else here</button>
-            </mat-menu>
+            </mat-menu> -->
           </div>
-          <div class="body p-5">
-            <apx-chart [series]="projectOptions.series" [chart]="projectOptions.chart" [yaxis]="projectOptions.yaxis"
+          <div class="body" >
+            <highcharts-chart #chart [Highcharts]="Highcharts" [callbackFunction]="chartCallback" [options]="chartOptionsColumnChart"
+          [(update)]="updateFlag"></highcharts-chart>
+            <!-- Apex Chart -->
+            <!-- <apx-chart [series]="projectOptions.series" [chart]="projectOptions.chart" [yaxis]="projectOptions.yaxis"
               [xaxis]="projectOptions.xaxis" [labels]="projectOptions.labels" [stroke]="projectOptions.stroke"
               [plotOptions]="projectOptions.plotOptions" [markers]="projectOptions.markers" [fill]="projectOptions.fill"
-              [tooltip]="projectOptions.tooltip" [colors]="projectOptions.colors"></apx-chart>
+              [tooltip]="projectOptions.tooltip" [colors]="projectOptions.colors"></apx-chart> -->
           </div>
         </div>
       </div>
@@ -75,8 +78,8 @@
                     <h5 class="float-end">Auditors</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3>
+                    <!-- <h3 class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3> -->
+                    <h3 class="font-weight-bold float-end mb-0">1</h3>
                   </div>
                 </div>
               </div>
@@ -144,7 +147,7 @@
                     <!-- For Decimal purpose code -->
                     <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">-</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{companyLastAuditDate}}</h3>
                   </div>
                 </div>
               </div>
@@ -164,7 +167,7 @@
                   </div>
                   <div class="m-r-10 m-l-10">
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">-</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{companyLastAuditDoneBy}}</h3>
                   </div>
                 </div>
               </div>
@@ -295,6 +298,7 @@
               </mat-form-field>
             </div>
           </div> -->
+          <h4 style="padding-top: 14px; text-align: center;">Auditable Assets</h4>
           <div class="body p-5">
           <div id="chart">
             <apx-chart
@@ -473,10 +477,11 @@
                   <!-- <div class="col-md-6 mt-3"> -->
                     <!-- chart -->
                     <!-- <div class="row"> -->
+                      <h4 style="margin-left: 154px">Status Wise Asset Count</h4>
                       <div class="recent-report__chart">
-                        <canvas baseChart class="" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                        <canvas id="myChart" baseChart class="" [data]="doughnutChartData" [labels]="doughnutChartLabels"
                           [options]="doughnutChartOptions" [legend]="doughnutChartLegend" [chartType]="doughnutChartType"
-                          [colors]="doughnutChartColors" style="margin-top: 28px;display: block;"></canvas>
+                          [colors]="doughnutChartColors"></canvas>
                       </div>
                     <!-- </div> -->
                     <!-- list -->
