@@ -35,8 +35,8 @@ export class ListSalesInvoiceComponent extends UnsubscribeOnDestroyAdapter imple
   displayedColumns = [
     // "select",
      "companyName",
-     "customer",
-     "salesOrderNo",
+     "customerName",
+     "currencyName",
      "narration",
      "actions"
    ];
@@ -224,7 +224,7 @@ export class ExampleDataSource extends DataSource<SalesInvoice> {
           .filter((salesInvoice: SalesInvoice) => {
             const searchStr = (
               salesInvoice.companyName +
-              salesInvoice.customer
+              salesInvoice.customerName
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -253,8 +253,8 @@ export class ExampleDataSource extends DataSource<SalesInvoice> {
         case "companyName":
           [propertyA, propertyB] = [a.companyName, b.companyName];
           break;
-        case "customer":
-          [propertyA, propertyB] = [a.customer, b.customer];
+        case "customerName":
+          [propertyA, propertyB] = [a.customerName, b.customerName];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

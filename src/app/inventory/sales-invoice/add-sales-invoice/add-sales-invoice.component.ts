@@ -63,6 +63,8 @@ export class AddSalesInvoiceComponent implements OnInit {
   user: string;
   // tslint:disable-next-line:new-parens
   salesDetailRowData = new SalesEntryDetailRowComponent;
+  itemDropDown: [];
+  uomDropDown: [];
 
   constructor(
     private salesInvoiceService: SalesInvoiceService,
@@ -94,12 +96,16 @@ export class AddSalesInvoiceComponent implements OnInit {
       exKshRate: [""],
       narration: [""],
       delivaryNo: [""],
+      loginedUser: this.tokenStorage.getUserId(),
+      company: this.tokenStorage.getCompanyId(),
+
       salesInvoiceDetail: this.fb.array([
         this.fb.group({
           item: [""],
           qty: [""],
           uom: [""],
           price: [""]
+
 
         })
       ])
@@ -136,18 +142,23 @@ export class AddSalesInvoiceComponent implements OnInit {
     error: (error) => {
     }
   });
+    this.httpService.get<any>(this.salesInvoiceService.itemDropdown + "?companyId=" + (this.user)).subscribe({
+    next: (data) => {
+      this.itemDropDown = data.addressBean;
+    },
+    error: (error) => {
+    }
+  });
+
+    this.httpService.get<any>(this.salesInvoiceService.getUomListDropdown + "?companyId=" + (this.user)).subscribe({
+    next: (data) => {
+      this.uomDropDown = data.addressBean;
+    },
+    error: (error) => {
+    }
+  });
 
 }
-
-
-
-  getUserbasedcompanyDropdown(userId: any): void {
-    // tslint:disable-next-line:max-line-length
-    this.httpService.get(this.commonService.getUserBasedCompanyDropdown + "?userId=" + this.tokenStorage.getUsername()).subscribe((res: any) => {
-    this.company = res.addressBean;
-  });
-  }
-
 
   onSubmit() {
     this.submitted = true;
@@ -199,10 +210,10 @@ export class AddSalesInvoiceComponent implements OnInit {
 }
 
 fetchDetails(salesInvoiceNo: any): void {
-  const obj = {
+   const obj = {
     editid: salesInvoiceNo
   };
-  this.salesInvoiceService.editSalesInvoice(obj).subscribe({
+   this.salesInvoiceService.editSalesInvoice(obj).subscribe({
     next: (res) => {
     this.docForm.patchValue({
       'salesInvoiceNo': res.salesInvoiceBean.salesInvoiceNo,
@@ -327,6 +338,15 @@ update() {
     });
     CustInvoiceDetailBeanArray.insert(arraylen, newUsergroup);
   }
+
+  // For Date related code
+  getDateString(event, inputFlag, index) {
+    let cdate = this.commonService.getDate(event.target.value);
+    if (inputFlag == 'transferDate') {
+      this.docForm.patchValue({ transferDate: cdate });
+    }
+  }
+
   removeRow(index) {
     const CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
     CustInvoiceDetailBeanArray.removeAt(index);
