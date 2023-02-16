@@ -3,5 +3,6 @@ customer:string;
 currency:string;
 dateofdelivery:string;
 termsandcondition:string;
+companyId:string;
 
 }

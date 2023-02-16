@@ -25,12 +25,14 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
+import { DeleteSalesOrderComponent } from './list-sales-order/delete-sales-order/delete-sales-order.component';
 
 
 @NgModule({
   declarations: [
     AddSalesOrderComponent,
-    ListSalesOrderComponent
+    ListSalesOrderComponent,
+    DeleteSalesOrderComponent
   ],
   imports: [
     CommonModule,

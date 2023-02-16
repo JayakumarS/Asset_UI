@@ -21,6 +21,7 @@ import { DeleteCompanyComponent } from 'src/app/master/company/list-company/dele
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { SalesOrderService } from '../sales-order.service';
 import { SalesOrder } from '../sales-order-model';
+import { DeleteSalesOrderComponent } from './delete-sales-order/delete-sales-order.component';
 
 @Component({
   selector: 'app-list-sales-order',
@@ -35,6 +36,7 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
     "currency",
     "dateofdelivery",
     "termsandcondition",
+    "actions"
     
   ];
 
@@ -76,7 +78,7 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   public loadData() {
-    this.exampleDatabase = new SalesOrderService(this.httpClient,this.serverUrl,this.httpService,);
+    this.exampleDatabase = new SalesOrderService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService,);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -94,59 +96,56 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
 
   editCall(row) {
 
-    this.router.navigate(['/inventory/sales-order/add-sales-order/'+row.companyId]);
+    this.router.navigate(['/inventory/sales-order/add-sales-order/'+row.salesOrderNo]);
 
   }
 
   deleteItem(row){
 
-    // this.id = row.companyId;
-    // let tempDirection;
-    // if (localStorage.getItem("isRtl") === "true") {
-    //   tempDirection = "rtl";
-    // } else {
-    //   tempDirection = "ltr";
-    // }
-    // const dialogRef = this.dialog.open(DeleteCompanyComponent, {
-    //   height: "270px",
-    //   width: "400px",
-    //   data: row,
-    //   direction: tempDirection,
-    // });
-    // this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-
-    //   if (data.data == true) {
-
-    //     this.httpService.get(this.companyService.deleteCompany+ "?companyId=" + this.id).subscribe((res:any) => {
-    //         if(res.success == true){
-    //           this.showNotification(
-    //             "snackbar-success",
-    //             "Delete Record Successfully...!!!",
-    //             "bottom",
-    //             "center"
-    //           );
-    //         }
-    //         else if(res.success == false){
-    //           this.showNotification(
-    //             "snackbar-danger",
-    //             "You Can't Delete Related Data Exist...!!!",
-    //             "bottom",
-    //             "center");
-    //           // this.loadData();
-    //         }
-          
-          
-    //     },
-    //       (err: HttpErrorResponse) => {
-    //         // error code here
-    //       }
-    //     );
-
-      
-    //   } 
-
-    // });
+     let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteSalesOrderComponent, {
+      height: "270px",
+      width: "400px",
+      data: row.salesOrderNo,
+      direction: tempDirection,
+      disableClose: true
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      if (data.data === true) {
+        const obj = {
+          deletingId: row.salesOrderNo
+        };
+        this.salesOrderService.delete(obj).subscribe({
+          // tslint:disable-next-line:no-shadowed-variable
+          next: (data) => {
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }else {
+              this.showNotification(
+                "snackbar-danger",
+                data.message,
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+          }
+        });
+  
+      }
+    });
 
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
