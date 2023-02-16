@@ -17,21 +17,21 @@
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
                         <li class="dropdown m-l-20 ">
-                          <h2>Asset Requisition</h2>
-                        </li>
-                        <li [hidden]="!permissionList?.search"class="dropdown m-l-20">
+                          <h2>Utility Report</h2>
+                        </li> -->
+                        <!-- <li [hidden]="!permissionList?.search"class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
                           <input placeholder="Search" type="text" #filter class="browser-default search-field"
                             aria-label="Search box">
-                        </li>
-                        <li *ngIf="permissionList?.add">
+                        </li> -->
+                        <!-- <li *ngIf="permissionList?.add">
                           <div class="m-l-10" matTooltip="ADD">
                             <button color="primary" type="button" class="btn-space" [routerLink]="'/asset/assetRequisition/addAssetRequisition/0/0'" mat-raised-button>
                               <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
                             </button>
                           </div>
-                        </li>
-                      </ul>
+                        </li> -->
+                      <!-- </ul>
                     </div>
                     <div class="col-4" *ngIf="permissionList?.exportXL">
                       <ul class="header-buttons">
@@ -45,6 +45,13 @@
                     </div>
                   </div>
                 </div> -->
+
+                <div class="export-button m-l-10" matTooltip="XLSX">
+                  <img src="assets/images/icons/xlsx.png"style="
+                  margin-left: 1250px;
+              " alt=""
+                    (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                </div>
 
                 <div class="row">
                     <div class="col-md-2" >
@@ -132,7 +139,7 @@
                   </div>
 
 
-                  <div class="row">
+                  <div class="row"  align="center">
                 
                     <!-- <div class="col-md-2">
                       <label>SEARCH</label>
@@ -146,12 +153,12 @@
                       </mat-error> -->
                     <!-- </mat-form-field>
                   </div> -->
-                  <div class="col-md-3">
-                    <button style="background-color: green; width: 106px; height: 38px; margin-top:5px;"  type="button" class="btn-space" (click)="onSubmit()"
+                  <div class="col-md-12">
+                    <button style="background-color: green; "  type="button" class="btn-space" (click)="onSubmit()"
                     mat-raised-button> Submit</button>
                     <!-- </div>
                     <div class="col-md-3"> -->
-                        <button style="background-color: red; width: 106px; height: 38px; margin-top:5px;"  type="button" class="btn-space" (click)="reset()"
+                        <button style="background-color: red; "  type="button" class="btn-space" (click)="reset()"
                         mat-raised-button> Reset</button>
                         </div>
                  
