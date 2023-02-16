@@ -33,6 +33,9 @@ export class SalesInvoiceService extends UnsubscribeOnDestroyAdapter{
   public deleteSalesInvoice = `${this.serverUrl.apiServerAddress}app/salesInvoice/delete`;
   public editSaleInvoice = `${this.serverUrl.apiServerAddress}app/salesInvoice/edit`;
   public updateSalesInvoice = `${this.serverUrl.apiServerAddress}app/salesInvoice/update`;
+  public itemDropdown = `${this.serverUrl.apiServerAddress}app/salesInvoice/getItemDropdown`;
+  public getUomListDropdown = `${this.serverUrl.apiServerAddress}app/salesInvoice/getUomDropdown`;
+
 
 
   get data(): SalesInvoice[] {
@@ -44,6 +47,7 @@ export class SalesInvoiceService extends UnsubscribeOnDestroyAdapter{
 
 
   AddSalesInvoiceComponent(salesInvoice: SalesInvoice): Observable<any> {
+    salesInvoice.companyId = this.tokenStorage.getCompanyId();
     return this.httpClient.post<SalesInvoice>(this.salesInvoice, salesInvoice);
   }
   getAllList(): void {

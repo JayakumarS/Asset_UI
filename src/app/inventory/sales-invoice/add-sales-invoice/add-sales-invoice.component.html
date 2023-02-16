@@ -29,13 +29,12 @@
                         </div>
                         <div class=" col-md-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <input matInput [matDatepicker]="picker" formControlName="cusInvoiceDate"
-                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="custInvoiceDate">
-                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                              <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field>
-                          </div>
-
+                              <input matInput [matDatepicker]="picker" formControlName="cusInvoiceDate" (dateInput)="$event.value.format('DD/MM/YYYY')" id="transferDate"
+                              (dateChange)="getDateString($event, 'transferDate',0)" readonly>
+                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                             <mat-datepicker #picker></mat-datepicker>
+                           </mat-form-field>
+                         </div>
                         <div class=" col-md-1">
                               <mat-label>Customer</mat-label>
                               </div>
@@ -92,7 +91,7 @@
                           </div>
                           <div class="col-md-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="amount" (keypress)="keyPressPCB($event)" required>
+                          <input matInput formControlName="amount" (keypress)="keyPressPCB($event)"  maxlength="20"required>
                           <mat-error *ngIf="docForm.get('amount').hasError('required')">
                             Amount is required
                           </mat-error>
@@ -139,11 +138,8 @@
                         </mat-form-field>
                       </div>
                       </div>
-
-
-                      <mat-tab-group>
-
-                        <mat-tab >
+                             <br>
+                             <br>
                             <div style="overflow-x: auto;">
                               <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                                 <thead class="">
@@ -173,7 +169,7 @@
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                           <mat-label>Item</mat-label>
                                           <mat-select formControlName="item">
-                                            <mat-option *ngFor="let title of currencyList" [value]="title.id">
+                                            <mat-option *ngFor="let title of itemDropDown" [value]="title.id">
                                               {{title.text}}
                                             </mat-option>
                                           </mat-select>
@@ -183,7 +179,7 @@
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                           <mat-label>UOM</mat-label>
                                           <mat-select formControlName="uom">
-                                            <mat-option *ngFor="let title of currencyList" [value]="title.id">
+                                            <mat-option *ngFor="let title of uomDropDown" [value]="title.id">
                                               {{title.text}}
                                             </mat-option>
                                           </mat-select>
@@ -193,13 +189,13 @@
                                       <td class="padding-both-side-2">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                           <mat-label>Qty</mat-label>
-                                          <input matInput name="qty{{i}}" formControlName="qty" maxlength="10">
+                                          <input matInput name="qty{{i}}" formControlName="qty" maxlength="20">
                                         </mat-form-field>
                                       </td>
                                       <td class="padding-both-side-2">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                           <mat-label>Price</mat-label>
-                                          <input matInput name="price{{i}}" formControlName="price" maxlength="10">
+                                          <input matInput name="price{{i}}" formControlName="price" maxlength="20">
                                         </mat-form-field>
                                       </td>
 
@@ -216,8 +212,7 @@
                               </button>
                             </div>
                             <br>
-                          </mat-tab>
-          </mat-tab-group>
+
           <br><br>
 
           <div class="row">

@@ -57,7 +57,7 @@ export class AddScheduldauitsComponent implements OnInit {
   auditDetails:any;
   statusList: any = ['Available', 'Not Available'];
   roleId: any;
-  
+  isValid: boolean = true;
     constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private httpService: HttpServiceService,
@@ -120,6 +120,19 @@ export class AddScheduldauitsComponent implements OnInit {
     this.docForm.patchValue({
       'status': status,
     })
+
+    if(this.tokenStorage.getRoleId()=='3'){
+      let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
+      this.isValid=true;
+     for(let x=0;x<scheduleAuditDetailArray.length;x++){
+        //scheduleAuditDetailArray.at(x).setValidators[('checkerRemarks')]
+        let val=scheduleAuditDetailArray.at(x).get('checkerRemarks').value;
+        if(val==null || val==""){
+          this.isValid=false;
+        }
+      }
+    }
+    if(this.isValid) {
     if (this.docForm.valid) {
       this.scheduledAudit = this.docForm.value;
       this.spinner.show();
@@ -161,6 +174,14 @@ export class AddScheduldauitsComponent implements OnInit {
         "right"
       );
     }
+  } else {
+    this.showNotification(
+      "snackbar-danger",
+      "Please fill the remarks!",
+      "top",
+      "right"
+    );
+  }
   }
 
   
@@ -183,6 +204,7 @@ export class AddScheduldauitsComponent implements OnInit {
         if (res?.scheduleAuditDetailList != null && res?.scheduleAuditDetailList.length >= 1) {
           let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
           scheduleAuditDetailArray.removeAt(0);
+          scheduleAuditDetailArray.clear();
           res?.scheduleAuditDetailList.forEach(element => {
             let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
             let arraylen = scheduleAuditDetailArray.length;
@@ -193,7 +215,8 @@ export class AddScheduldauitsComponent implements OnInit {
               makerstatus : [element?.makerstatus],
               checkerstatus: [element?.checkerstatus],
               availableQty : [element?.availableQty],
-              differenceQty : [element?.differenceQty],
+              differenceQty : [Math.abs(element?.physicalQty - element?.availableQty)],
+              // differenceQty : [element?.differenceQty],
               stockAdjustment : [element?.stockAdjustment],
               makerRemarks : [element?.makerRemarks],
               checkerRemarks : [element?.checkerRemarks],

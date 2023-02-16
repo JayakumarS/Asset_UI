@@ -76,7 +76,7 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
       startdateObj:[""],
       enddate:[""],
       endingDate:[""],
-      categoryList: [""],
+      categoryName: [""],
       startingDate:[""],
       enddateObj:[""],
       warningSearch:[""],
@@ -149,6 +149,7 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
       warningSearch:[""],
       locationSearch:[""],
       search:[""],
+      categoryName:[""],
       companyId:parseInt(this.tokenStorage.getCompanyId())
 
     })

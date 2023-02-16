@@ -52,13 +52,13 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyName}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="customer">
+                <ng-container matColumnDef="customerName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Customer </mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.customer}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.customerName}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="salesOrderNo">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Sales Order No </mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.salesOrderNo}}</mat-cell>
+                <ng-container matColumnDef="currencyName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Currency </mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currencyName}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="narration">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Narration</mat-header-cell>

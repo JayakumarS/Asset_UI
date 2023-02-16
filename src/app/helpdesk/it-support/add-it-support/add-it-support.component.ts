@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -49,11 +49,14 @@ export const MY_DATE_FORMATS = {
 
 export class AddItSupportComponent implements OnInit {
   [x: string]: any;
+  edit:boolean=false;
+
   docForm: FormGroup;
   itsupport: Itsupport;
   assetnamelist:[""]
   assetlocationlist:[""]
   id: any;
+  CCFlag: boolean = false;
   public modeselect = 'OPENED';
   constructor(private cmnService:CommonService,private fb: FormBuilder,private httpService: HttpServiceService,
     private  itsupportservice: Itsupportservice, private commonService: CommonService,
@@ -73,9 +76,9 @@ export class AddItSupportComponent implements OnInit {
       ticketgroup:[""],
       assignee:["support@assetchek.com"],
       priority:[""],
-      cc:[""],
+      cc:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       description:[""],
-      report:[""],
+      report:[false],
       status:[""],
       support_id:[""],
       loginedUser: this.tokenStorageService.getUserId(),
@@ -91,21 +94,21 @@ export class AddItSupportComponent implements OnInit {
 
     this.docForm = this.fb.group({
 
-      reportdate:[""],
-      reportdateObj:[""],
+      reportdate:["",[Validators.required]],
+      reportdateObj:["",[Validators.required]],
       uploadImg:[""],
-      asset:[""],
-      assetlocation:[""],
+      asset:["",[Validators.required]],
+      assetlocation:["",[Validators.required]],
       reportedby:this.loginedUser,
       companyid: this.tokenStorageService.getCompanyId(),
       branchid: this.tokenStorageService.getBranchId(),
-      tickettype:[""],
-      ticketgroup:[""],
+      tickettype:["",[Validators.required]],
+      ticketgroup:["",[Validators.required]],
       assignee:["support@assetchek.com"],
-      priority:[""],
-      cc:[""],
+      priority:["",[Validators.required]],
+      cc:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       description:[""],
-      report:[""],
+      report:[false],
       status:[""],
       support_id:[""],
       assetid:[""],
@@ -121,7 +124,7 @@ export class AddItSupportComponent implements OnInit {
    
       }
      });
-
+  
   
    // assetname dropdown
    this.companyId=this.tokenStorageService.getCompanyId();
@@ -147,7 +150,7 @@ export class AddItSupportComponent implements OnInit {
   );
   }
   onsubmit(){// assetname dropdown
-    if (this.docForm.valid){
+    if (this.docForm){
     this.companyId=this.tokenStorageService.getCompanyId();
     this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
       next: (data) => {
@@ -196,9 +199,9 @@ fetchlocationDetails(assetid: any) {
 
 
 }
-onSelectImage(event) {
-  var imgfile = event.target.files[0];
-  if (!this.acceptImageTypes.includes(imgfile.type)) {
+onSelectFile(event) {
+  var docfile = event.target.files[0];
+  if (!this.acceptFileTypes.includes(docfile.type)) {
     this.showNotification(
       "snackbar-danger",
       "Invalid Image type",
@@ -207,35 +210,34 @@ onSelectImage(event) {
     );
     return;
   }
-  if (imgfile.size > 2000000) {
+  if (docfile.size > 5242880) {
     this.showNotification(
       "snackbar-danger",
-      "Please upload valid image with less than 2mb",
+      "Please upload valid image with less than 5mb",
       "bottom",
       "center"
     );
     return;
   }
-
-  var fileExtension = imgfile.name;
+  var fileExtension = docfile.name;
   var frmData: FormData = new FormData();
-  frmData.append("file", imgfile);
+  frmData.append("file", docfile);
   frmData.append("fileName", fileExtension);
-  frmData.append("folderName", "AssetProfileImg");
+  frmData.append("folderName", "AssetProfileFile");
 
-  this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
+  this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
     next: (data) => {
       if (data.success) {
         if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
           this.docForm.patchValue({
-            'uploadImg': data.filePath
+            'uploadFiles': data.filePath
           })
-          this.imgPathUrl = data.filePath;
+          this.filePathUrl = data.filePath;
         }
       } else {
         this.showNotification(
           "snackbar-danger",
-          "Failed to upload Image",
+          "Failed to upload File",
           "bottom",
           "center"
         );
@@ -244,7 +246,7 @@ onSelectImage(event) {
     error: (error) => {
       this.showNotification(
         "snackbar-danger",
-        "Failed to upload Image",
+        "Failed to upload File",
         "bottom",
         "center"
       );
@@ -252,35 +254,23 @@ onSelectImage(event) {
   });
 }
 
+getCC(event: any){
+  
+  if (event) {
+    this.CCFlag = true;
+  }
+  else {
+    this.CCFlag = false;
+
+  }
+}
 viewDocuments(filePath: any, fileName: any) {
-  this.spinner.show();
-  this.commonService.viewDocument(filePath).pipe().subscribe({
-    next: (result: any) => {
-      this.spinner.hide();
-      var blob = result;
-      var fileURL = URL.createObjectURL(blob);
-      if (fileName.split('.').pop().toLowerCase() === 'pdf') {
-        window.open(fileURL);
-      } else {
-        var a = document.createElement("a");
-        a.href = fileURL;
+  var a = document.createElement("a");
+        a.href = this.serverUrl.apiServerAddress+"asset_upload/"+filePath;
         a.target = '_blank';
         a.download = fileName;
         a.click();
-      }
-    },
-    error: (error) => {
-      this.spinner.hide();
-      this.showNotification(
-        "snackbar-danger",
-        "Failed to View File",
-        "bottom",
-        "center"
-      );
-    }
-  });
 }
-
 
 refresh(){
 
@@ -289,6 +279,12 @@ refresh(){
 }
 
 reset(){
+  if (!this.edit) {
+    location.reload()
+    this.docForm.reset();
+  
+  }
+
   this.docForm = this.fb.group({
   
     reportdate:[""],
@@ -303,7 +299,7 @@ reset(){
     priority:[""],
     cc:[""],
     description:[""],
-    report:[""],
+    report:[false],
     status:[""],
     support_id:[""]
 
@@ -324,9 +320,15 @@ getDateString(event,inputFlag,index){
     this.httpService.get(this.itsupportservice.editItSupport+"?id="+id).subscribe((res: any)=> {
       console.log(id);
       let cdate = this.cmnService.getDateObj(res.itSupportBean.reportdate);
-
+      if(this.docForm.value.report = true){
+        this.CCFlag = true;
+      }
+      else{
+        this.CCFlag = false;
+      }
      // let loacationtext = this.locationList.some(({locationList:id }) => id === res.scheduleMasterBean.location);
-      
+   
+
       this.docForm.patchValue({
         
        'reportdate': res.itSupportBean.reportdate,
@@ -376,7 +378,15 @@ getDateString(event,inputFlag,index){
     this.router.navigate(['/helpdesk/itsupport/listitsupport']);
   }
 
- 
+  validateEmail(event){
+    this.httpService.get<any>(this.companyEmployeeService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.docForm.controls['cc'].setErrors({ employee: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
 
   
     
