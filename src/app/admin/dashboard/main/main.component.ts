@@ -69,6 +69,9 @@ export class MainComponent implements OnInit {
   bookValueArray = [];
   bookValueArrayData = [];
   pieValueArray = [];
+  columnOuterValueArray = [];
+  width:any;
+  height:any;
   //Donut Array
   donutName = [];
   donutValue = [];
@@ -160,7 +163,7 @@ configDepreciation: {
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
     
   ngOnInit() {
-
+     
     this.docForm = this.fb.group({
       assetid:[""]
     });
@@ -295,8 +298,7 @@ configDepreciation: {
     // bar chart default call
     // this.fetchAssetName(16);
     // this.popUp();
-    
-  }
+   }
 
   companyBasedCount(companyAuditorCount,roleId:any){
     this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + companyAuditorCount +"&roleId="+roleId).subscribe((doughnutChartData: any) => {
@@ -318,8 +320,15 @@ configDepreciation: {
         this.chartOptionsPieChart.series[0] = {
           type: 'pie',
           data: this.pieValueArray
-        }
-        this.updateFlag = true;
+      }
+      // Column with Drilldown Chart
+      this.columnOuterValueArray=doughnutChartData.getOuterColumnChart;
+      this.chartOptionsColumnChart.series[0] = {
+        type: 'column',
+        data: this.columnOuterValueArray
+      }  
+      this.updateFlag = true; 
+      console.log(doughnutChartData.getOuterColumnChart);
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -349,7 +358,7 @@ configDepreciation: {
     // this.popUp();
     
   }
-
+ 
   popUp(){
   if(this.activityflag==null){
     const dialogRef = this.dialog.open(ActivityPopUpComponent, {
@@ -386,7 +395,7 @@ configDepreciation: {
           type: 'area',
           data: this.bookValueArray
         }
-        
+        this.updateFlag = true;
       console.log(this.chartOptionsLollipop.series);
       },
       (error: HttpErrorResponse) => {
@@ -538,7 +547,7 @@ configDepreciation: {
           borderWidth: 0,
           dataLabels: {
               enabled: true,
-              format: '{point.y:.1f}%'
+              format: '{point.y:.1f}'
           }
       }
   },
@@ -553,7 +562,7 @@ configDepreciation: {
   
     tooltip: {
       headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> Amount<br/>'
         // shared: true
     },
   
@@ -563,7 +572,7 @@ configDepreciation: {
   
     yAxis: {
         title: {
-            text: 'Value'
+            text: 'Amount'
         }
     },
       series: [
