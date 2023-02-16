@@ -35,6 +35,7 @@ export class UtilityReport {
     endLife:any;
     putuseDate:any;
     assetUser:any;
+    totalHours:any;
 
 
   

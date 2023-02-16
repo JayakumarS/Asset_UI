@@ -32,3 +32,15 @@
   {
     justify-content: right;
 }
+
+#myChart {
+    width: 544px !important;
+    height: 253px !important;
+    margin-top: 71px !important;
+  }
+
+:host::ng-deep.myHighChart {
+    width: 1544px !important;
+    height: 253px !important;
+    margin-top: 71px !important;
+  }

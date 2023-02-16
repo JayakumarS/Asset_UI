@@ -41,7 +41,7 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
   displayedColumns = [
     "categoryName", "assetId","location", "assetName", "startDate","endDate",
     "status", "brand","model", "purchasePrice","capitalizationPrice", "endLife",
-    "putuseDate", "assetUser","actions"
+    "putuseDate", "assetUser","totalHours"
   ];
 
   dataSource: ExampleDataSource | null;

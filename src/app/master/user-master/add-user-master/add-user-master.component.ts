@@ -26,9 +26,9 @@ export class AddUserMasterComponent implements OnInit {
   getCountryDDList= [];
   companyList = [];
   branchList = [];
-  roleList = [];
   roleAuditList = [];
-  getUserBasedCompanyList = [];
+  roleList = [];
+  getUserBasedCompanyList:any = [];
   getUserBasedBranchList = [];
   departmentAuditList= [];
   location:any;
@@ -217,7 +217,20 @@ export class AddUserMasterComponent implements OnInit {
    // User Based Company List
     this.httpService.get<any>(this.userMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
     (data) => {
-      this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+      
+      if(data.getUserBasedCompanyList>0){
+        this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+      } else {
+         let companyText=this.tokenStorage.getCompanyText();
+         let companyId=this.tokenStorage.getCompanyId();
+
+         let obj ={
+          id1:parseInt(companyId),
+          text:companyText
+         }
+
+         this.getUserBasedCompanyList.push(obj);
+      }
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);

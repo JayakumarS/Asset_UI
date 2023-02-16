@@ -51,6 +51,8 @@ export type ChartOptions = {
 // Highcharts
 import * as Highcharts from 'highcharts';
 import { Options } from 'highcharts';
+import HC_drilldown from "highcharts/modules/drilldown";
+HC_drilldown(Highcharts);
 
 @Component({
   selector: "app-main",
@@ -66,6 +68,7 @@ export class MainComponent implements OnInit {
   assetListDashboard = [];
   bookValueArray = [];
   bookValueArrayData = [];
+  pieValueArray = [];
   //Donut Array
   donutName = [];
   donutValue = [];
@@ -93,14 +96,14 @@ export class MainComponent implements OnInit {
   public chartOptionsBarChart: Partial<ChartOptions>;
 
   // Doughnut chart start
-  // public doughnutChartLabels: string[] = ["India", "USA", "Itely", "Shrilanka"];
-  public doughnutChartLabels: string[];
-  // public doughnutChartData: number[] = [22, 31, 28, 19];
-  public doughnutChartData:number[];
+  public doughnutChartLabels: string[] = ["Refurbished", "In stock", "In repair", "Damaged","New"];
+  // public doughnutChartLabels: string[];
+  public doughnutChartData: number[] = [2, 3, 5, 1, 6];
+  // public doughnutChartData:number[];
   public doughnutChartLegend = false;
   public doughnutChartColors: any[] = [
     {
-      backgroundColor: ["#735A84", "#E76412", "#9BC311", "#DC3545"],
+      backgroundColor: ["#735A84", "#E76412", "#9BC311", "#DC3545" , "#ff9966"],
       // backgroundColor: ["#e86f66"],
     },
   ];
@@ -128,19 +131,6 @@ export class MainComponent implements OnInit {
   companyAssetsCount: any;
   pwdStatus: any;
 
-  data:any =[
-    { name: 'Apples', y: 56.33 },
-    { name: 'Pears', y: 24.03 },
-    { name: 'Oranges', y: 10.38 },
-    { name: 'Grapes', y: 7.3 },
-    { name: 'Bananas', y: 5.2 },
-    { name: 'Pineapple', y: 3.3 },
-    { name: 'Papaya', y: 2.1 },
-    { name: 'Kiwi', y: 0.99 },
-    { name: 'Avacoda', y: 0.56 },
-    { name: 'Peaches', y: 0.11 }
-  ]
-
 // For HighChart
 
 Highcharts: typeof Highcharts = Highcharts;
@@ -163,6 +153,8 @@ configDepreciation: {
   currentPage: number,
   totalItems: number
 };
+  companyLastAuditDate: number[];
+  companyLastAuditDoneBy: number[];
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
@@ -188,8 +180,6 @@ configDepreciation: {
     this.companyAuditorCount=this.tokenStorage.getCompanyId();
     this.roleId=this.tokenStorage.getRoleId();
     
-    // this.doughnutChartLabels = this.donutName;
-    this.doughnutChartData = [22, 31, 28, 19];
     
     if(this.roleId==3){
       this.roleIdFlag=true;
@@ -294,16 +284,6 @@ configDepreciation: {
     //     console.log(this.projectOptions);
     // }); 
 
-    // Donut Chart
-
-    // this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + this.companyAuditorCount +"&roleId="+this.roleId).subscribe((doughnutChartData: any) => {
-    //   console.log(this.companyAuditorCount);
-    //   this.donutName.push(doughnutChartData.getDonutName);
-    //   this.donutValue.push([22, 31, 28, 19]);
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //   }
-    // );
 
     // Company based Auditor count service
     this.companyBasedCount(this.companyAuditorCount,this.roleId);
@@ -326,15 +306,20 @@ configDepreciation: {
       this.companyEarningsAssetsCount = doughnutChartData.companyEarningsAssetsCount;
       this.companyAuditorsAssetsCount = doughnutChartData.companyAuditorsAssetsCount;
       this.companyAssetsCount = doughnutChartData.companyAssetsCount;
-
+      this.companyLastAuditDate = doughnutChartData.companyLastAuditDate;
+      this.companyLastAuditDoneBy = doughnutChartData.companyLastAuditDoneBy;
       //For Donut Data
-      // this.doughnutChartLabels = ["India", "USA", "Itely", "Shrilanka"];
-      this.doughnutChartData = [22, 31, 28, 19];
-      this.donutName.push(["India", "USA", "Itely", "Shrilanka"]);
-      this.donutValue.push([22, 31, 28, 19]);
-      this.doughnutChartLabels = this.donutName;
-      console.log(this.donutValue);
-      console.log(this.donutName);
+      if(doughnutChartData.getDonutValue.length != 0){
+        this.doughnutChartLabels = doughnutChartData.getDonutName;
+        this.doughnutChartData = doughnutChartData.getDonutValue;
+      }
+      //For Pie Chart
+      this.pieValueArray=doughnutChartData.getpieChartValue;
+        this.chartOptionsPieChart.series[0] = {
+          type: 'pie',
+          data: this.pieValueArray
+        }
+        this.updateFlag = true;
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -401,7 +386,7 @@ configDepreciation: {
           type: 'area',
           data: this.bookValueArray
         }
-        this.updateFlag = true;
+        
       console.log(this.chartOptionsLollipop.series);
       },
       (error: HttpErrorResponse) => {
@@ -483,6 +468,7 @@ configDepreciation: {
         ]
       };
 
+      // Pie Chart
       chartOptionsPieChart: Options = {
         accessibility: {
           point: {
@@ -526,6 +512,336 @@ configDepreciation: {
           }
         ]
       };
+
+    // Column Chart
+    
+    chartOptionsColumnChart: Options = {
+      chart: {
+        events: {
+          drilldown: () => {
+            // console.log(this.drilldownData);
+          }
+        }
+    },
+      accessibility: {
+        announceNewData: {
+          enabled: true
+      }
+    },
+  
+    legend: {
+        enabled: false
+    },
+  
+    plotOptions: {
+      series: {
+          borderWidth: 0,
+          dataLabels: {
+              enabled: true,
+              format: '{point.y:.1f}%'
+          }
+      }
+  },
+
+    subtitle: {
+        text: ''
+    },
+  
+    title: {
+        text: 'Assets Valuation'
+    },
+  
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        // shared: true
+    },
+  
+    xAxis: {
+        type: 'category'
+    },
+  
+    yAxis: {
+        title: {
+            text: 'Value'
+        }
+    },
+      series: [
+        {
+          type: 'column',
+          name: 'Assets',
+          colorByPoint: true,
+           data:[
+            {
+                name: 'Computer & Software',
+                y: 63.06,
+                drilldown: 'Chrome'
+            },
+            {
+                name: 'Furniture & Fittings',
+                y: 19.84,
+                drilldown: 'Safari'
+            },
+            {
+                name: 'Office Equipments',
+                y: 4.18,
+                drilldown: 'Firefox'
+            },
+            {
+                name: 'Plant & Machinery',
+                y: 4.12,
+                drilldown: 'Edge'
+            },
+            {
+                name: 'Vehicles',
+                y: 2.33,
+                drilldown: 'Opera'
+            },
+            {
+                name: 'Buildings',
+                y: 0.45,
+                drilldown: 'Internet Explorer'
+            },
+            {
+                name: 'Other',
+                y: 1.582,
+                drilldown: null
+            }
+        ]
+        }
+      ],
+      drilldown: {
+        breadcrumbs: {
+            position: {
+                align: 'right'
+            }
+        },
+        series: [
+          {
+              name: 'Chrome',
+              id: 'Chrome',
+              type:'column',
+              data: [
+                  [
+                      'v65.0',
+                      0.1
+                  ],
+                  [
+                      'v64.0',
+                      1.3
+                  ],
+                  [
+                      'v63.0',
+                      53.02
+                  ],
+                  [
+                      'v62.0',
+                      1.4
+                  ],
+                  [
+                      'v61.0',
+                      0.88
+                  ],
+                  [
+                      'v60.0',
+                      0.56
+                  ],
+                  [
+                      'v59.0',
+                      0.45
+                  ],
+                  [
+                      'v58.0',
+                      0.49
+                  ],
+                  [
+                      'v57.0',
+                      0.32
+                  ],
+                  [
+                      'v56.0',
+                      0.29
+                  ],
+                  [
+                      'v55.0',
+                      0.79
+                  ],
+                  [
+                      'v54.0',
+                      0.18
+                  ],
+                  [
+                      'v51.0',
+                      0.13
+                  ],
+                  [
+                      'v49.0',
+                      2.16
+                  ],
+                  [
+                      'v48.0',
+                      0.13
+                  ],
+                  [
+                      'v47.0',
+                      0.11
+                  ],
+                  [
+                      'v43.0',
+                      0.17
+                  ],
+                  [
+                      'v29.0',
+                      0.26
+                  ]
+              ]
+          },
+          {
+              name: 'Firefox',
+              id: 'Firefox',
+              type:'column',
+              data: [
+                  [
+                      'v58.0',
+                      1.02
+                  ],
+                  [
+                      'v57.0',
+                      7.36
+                  ],
+                  [
+                      'v56.0',
+                      0.35
+                  ],
+                  [
+                      'v55.0',
+                      0.11
+                  ],
+                  [
+                      'v54.0',
+                      0.1
+                  ],
+                  [
+                      'v52.0',
+                      0.95
+                  ],
+                  [
+                      'v51.0',
+                      0.15
+                  ],
+                  [
+                      'v50.0',
+                      0.1
+                  ],
+                  [
+                      'v48.0',
+                      0.31
+                  ],
+                  [
+                      'v47.0',
+                      0.12
+                  ]
+              ]
+          },
+          {
+              name: 'Internet Explorer',
+              id: 'Internet Explorer',
+              type:'column',
+              data: [
+                  [
+                      'v11.0',
+                      6.2
+                  ],
+                  [
+                      'v10.0',
+                      0.29
+                  ],
+                  [
+                      'v9.0',
+                      0.27
+                  ],
+                  [
+                      'v8.0',
+                      0.47
+                  ]
+              ]
+          },
+          {
+              name: 'Safari',
+              id: 'Safari',
+              type:'column',
+              data: [
+                  [
+                      'v11.0',
+                      3.39
+                  ],
+                  [
+                      'v10.1',
+                      0.96
+                  ],
+                  [
+                      'v10.0',
+                      0.36
+                  ],
+                  [
+                      'v9.1',
+                      0.54
+                  ],
+                  [
+                      'v9.0',
+                      0.13
+                  ],
+                  [
+                      'v5.1',
+                      0.2
+                  ]
+              ]
+          },
+          {
+              name: 'Edge',
+              id: 'Edge',
+              type:'column',
+              data: [
+                  [
+                      'v16',
+                      2.6
+                  ],
+                  [
+                      'v15',
+                      0.92
+                  ],
+                  [
+                      'v14',
+                      0.4
+                  ],
+                  [
+                      'v13',
+                      0.1
+                  ]
+              ]
+          },
+          {
+              name: 'Opera',
+              id: 'Opera',
+              type:'column',
+              data: [
+                  [
+                      'v50.0',
+                      0.96
+                  ],
+                  [
+                      'v49.0',
+                      0.82
+                  ],
+                  [
+                      'v12.1',
+                      0.14
+                  ]
+              ]
+          }
+      ]
+    } as Highcharts.DrilldownOptions
+    };
 
 
 
@@ -592,7 +908,7 @@ configDepreciation: {
       },
       yaxis: {
         title: {
-          text: "Revenue",
+          text: "Amount",
         }
       },
       fill: {
