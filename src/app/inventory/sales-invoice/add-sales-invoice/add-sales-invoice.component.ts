@@ -223,6 +223,21 @@ fetchDetails(salesInvoiceNo: any): void {
 
 
     });
+    if (res.salesInvoiceDetail != null && res.salesInvoiceDetail.length >= 1) {
+      let salesInvoiceDetailArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+      salesInvoiceDetailArray.clear();
+      res.salesInvoiceDetail.forEach(element => {
+        let salesInvoiceDetailArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+        let arraylen = salesInvoiceDetailArray.length;
+        let newUsergroup: FormGroup = this.fb.group({
+          item: [ element.item],
+          uom: [ element.uom],
+          qty: [ element.qty],
+          price: [element.price],
+        })
+        salesInvoiceDetailArray.insert(arraylen, newUsergroup);
+      });
+    }
   },
   error: (error) => {
   }
@@ -302,18 +317,18 @@ update() {
 
   addRow() {
 
-    const CustInvoiceDetailBeanArray = this.docForm.controls.deliveryOrderDtlList as FormArray;
+    const CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
     const arraylen = CustInvoiceDetailBeanArray.length;
     const newUsergroup: FormGroup = this.fb.group({
-      itemId: [""],
+      item: [""],
       qty: [""],
-      uomid: [""],
-      quotePrice: [""],
+      uom: [""],
+      price: [""],
     });
     CustInvoiceDetailBeanArray.insert(arraylen, newUsergroup);
   }
   removeRow(index) {
-    const CustInvoiceDetailBeanArray = this.docForm.controls.deliveryOrderDtlList as FormArray;
+    const CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
     CustInvoiceDetailBeanArray.removeAt(index);
   }
 
