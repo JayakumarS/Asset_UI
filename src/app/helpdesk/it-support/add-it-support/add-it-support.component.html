@@ -21,7 +21,9 @@
                       {{title.text}}
                     </mat-option>
                   </mat-select>
-               
+                  <mat-error *ngIf="docForm.get('asset').hasError('required')">
+                    asset is required
+                  </mat-error>
                 </mat-form-field>
               </div>
                
@@ -86,7 +88,7 @@
 
                 <div class="row" >
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>REPORTED BY<span class="errorColor">*</span></label>
+                    <label>REPORTED BY</label>
                 </div>
 
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
@@ -123,11 +125,11 @@
                                              (dateChange)="getDateString($event, 'reportdate',0)"> 
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1>
-                      <mat-error *ngIf="docForm.get('reportdate').hasError('required')">
-                        Expected Date Of Delivery is required
-                      </mat-error>
+                    
                     </mat-datepicker>
-                   
+                    <mat-error *ngIf="docForm.get('reportdate').hasError('required')">
+                      Date is required
+                    </mat-error>
                   </mat-form-field>
                 </div>
 
@@ -170,21 +172,17 @@
           
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <textarea matInput formControlName="description" required></textarea>
-                    <mat-error *ngIf="docForm.get('description').hasError('required')">
-                      description is required
-                    </mat-error>
+                    <textarea matInput formControlName="description" ></textarea>
+                
                   </mat-form-field>
                 </div> 
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style=" margin-top: 12px;">
-                    <label>NOTIFY REPORT BY</label>
+                    <label>NOTIFY CC</label>
                 </div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style=" padding-left: 15px; margin-top: 12px;">
-                    <mat-checkbox class="example-full-width form-control-sm" formControlName="report"  ngInit="checked=true"></mat-checkbox>
-                    <mat-error *ngIf="docForm.get('report').hasError('required')">
-                      report is required
-                    </mat-error>
+                    <input type="checkbox"  tabindex="1"  formControlName="report" (change)="getCC($event.target.checked)" style="margin-left: 10px;">
+
                   </div>
                   </div>
                 
@@ -208,19 +206,28 @@
                           </div>
              
                   
-
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label>CC</label>
+                  
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " *ngIf="CCFlag" >
+                      <label>CC MAIL</label>
                   </div>
             
-                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 "  >
+                  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " *ngIf="CCFlag" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="cc" required>
+                 
+                      <input matInput formControlName="cc" required (blur)="validateEmail($event.target.value)" >
+
                       <mat-error *ngIf="docForm.get('cc').hasError('required')">
-                      cc is required
+                        Email is required
+                      </mat-error>
+                      <mat-error *ngIf="docForm.get('cc').hasError('employee')">
+                        EmailId Already Exists !!!
+                      </mat-error>
+                      <mat-error *ngIf="docForm.get('cc').hasError('pattern')">
+                        Valid Email Id Required
                       </mat-error>
                     </mat-form-field>
-                  </div>    
+                  </div>  
+                 
                 
                 </div>
 
