@@ -51,7 +51,7 @@ export class AddDepartmentMasterComponent implements OnInit {
       remarks:[""],
       isactive:[true],
       deptId:[""],
-      contactPerson:[""],
+      contactPerson:["",[Validators.required]],
       company:["",[Validators.required]],
       branchname:["",[Validators.required]],
 
