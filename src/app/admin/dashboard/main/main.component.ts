@@ -573,32 +573,32 @@ configDepreciation: {
           colorByPoint: true,
            data:[
             {
-                name: 'Chrome',
+                name: 'Computer & Software',
                 y: 63.06,
                 drilldown: 'Chrome'
             },
             {
-                name: 'Safari',
+                name: 'Furniture & Fittings',
                 y: 19.84,
                 drilldown: 'Safari'
             },
             {
-                name: 'Firefox',
+                name: 'Office Equipments',
                 y: 4.18,
                 drilldown: 'Firefox'
             },
             {
-                name: 'Edge',
+                name: 'Plant & Machinery',
                 y: 4.12,
                 drilldown: 'Edge'
             },
             {
-                name: 'Opera',
+                name: 'Vehicles',
                 y: 2.33,
                 drilldown: 'Opera'
             },
             {
-                name: 'Internet Explorer',
+                name: 'Buildings',
                 y: 0.45,
                 drilldown: 'Internet Explorer'
             },
