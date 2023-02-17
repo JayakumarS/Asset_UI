@@ -9,6 +9,7 @@ export class Company{
     active:any;
     id:any;
   Success: boolean;
+  empid:any;
   
 
   constructor(company) {
