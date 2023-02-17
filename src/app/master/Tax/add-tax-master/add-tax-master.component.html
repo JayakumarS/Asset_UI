@@ -19,7 +19,7 @@
                 </div> 
                 <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="taxname" required>
+                    <input matInput formControlName="taxname" >
                     <mat-error *ngIf="docForm.get('taxname').hasError('required')">
                       Tax Name is required
                     </mat-error>
@@ -31,7 +31,7 @@
               </div> 
               <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="taxcode" required>
+                  <input matInput formControlName="taxcode" >
                   <mat-error *ngIf="docForm.get('taxcode').hasError('required')">
                     Tax Code is required
                   </mat-error>
@@ -44,7 +44,7 @@
             </div> 
             <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="taxtype" required>
+                <input matInput formControlName="taxtype" >
                 <mat-error *ngIf="docForm.get('taxtype').hasError('required')">
                   Tax Type is required
                 </mat-error>
@@ -60,7 +60,7 @@
           </div> 
           <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="taxmethod" required>
+              <input matInput formControlName="taxmethod" >
               <mat-error *ngIf="docForm.get('taxmethod').hasError('required')">
                 Tax Method is required
               </mat-error>
@@ -73,7 +73,7 @@
         </div> 
         <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput formControlName="taxpercentage" required>
+            <input matInput formControlName="taxpercentage" >
             <mat-error *ngIf="docForm.get('taxpercentage').hasError('required')">
               Tax Percentage is required
             </mat-error>
@@ -86,7 +86,7 @@
       </div> 
       <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="taxamount" required>
+          <input matInput formControlName="taxamount" >
           <mat-error *ngIf="docForm.get('taxamount').hasError('required')">
             Tax Amount is required
           </mat-error>
@@ -103,14 +103,7 @@
                   <mat-checkbox formControlName="active"  ngInit="checked=true" STYLE="margin-left: 15PX;"></mat-checkbox>
                 </div>
               </div>
-                <!-- <div class="row">
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;">
-                    <mat-label><b></b></mat-label>
-                </div>
-                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="padding-left: 69px;">
-                  <mat-checkbox formControlName="active"  ngInit="checked=true">Is Active</mat-checkbox>
-                </div>
-              </div> -->
+               
                 <br>
                 <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
