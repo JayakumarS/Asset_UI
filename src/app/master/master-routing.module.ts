@@ -57,6 +57,16 @@ const routes: Routes = [
       import("./company/company.module").then((m) => m.CompanyModule)
   },
   {
+    path: "status",
+    loadChildren: () =>
+      import("./status/status.module").then((m) => m.StatusModule)
+  },
+  {
+    path: "tax",
+    loadChildren: () =>
+      import("./tax/tax.module").then((m) => m.TaxModule)
+  },
+  {
     path: "depreciation",
     loadChildren: () =>
       import("./depreciation/depreciation.module").then((m) => m.DepreciationModule),
