@@ -38,6 +38,7 @@ const httpOptions = {
     public companyListUrl = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedCompanyList`;
     public fetchBranch = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedBranchList`;
     public fetchdepartment = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedDepartmentList`;
+    public multipleEmployeeUploadFiles = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/multipleEmployeeuploadExefile`;
 
     
     

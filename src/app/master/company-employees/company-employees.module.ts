@@ -27,6 +27,7 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DeleteCompanyEmpComponent } from './list-company-employees/delete-company-emp/delete-company-emp.component';
+import { AddMultiplecompanyEmployeesComponent } from './add-multiplecompany-employees/add-multiplecompany-employees.component';
 
 
 @NgModule({
@@ -34,7 +35,9 @@ import { DeleteCompanyEmpComponent } from './list-company-employees/delete-compa
  
     AddCompanyEmployeesComponent,
     ListCompanyEmployeesComponent,
-    DeleteCompanyEmpComponent
+    DeleteCompanyEmpComponent,
+    AddMultiplecompanyEmployeesComponent,
+    
   ],
   imports: [
     CommonModule,
