@@ -64,7 +64,7 @@ const routes: Routes = [
   {
     path: "tax",
     loadChildren: () =>
-      import("./tax/tax.module").then((m) => m.TaxModule)
+      import("./Tax/tax.module").then((m) => m.TaxModule)
   },
   {
     path: "depreciation",
