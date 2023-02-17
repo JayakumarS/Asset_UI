@@ -86,8 +86,11 @@ export class ListStatusMasterComponent extends UnsubscribeOnDestroyAdapter imple
       this.loadData();
     }
   
-    refresh(){
-      this.loadData();
+    refresh() {
+      const currentRoute = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentRoute]);
+      });
     }
   
     public loadData() {
@@ -229,5 +232,49 @@ export class ListStatusMasterComponent extends UnsubscribeOnDestroyAdapter imple
         );
       });
     }
+
+
+    // deleteItem(row) {
+    //   let tempDirection;
+    //   if (localStorage.getItem("isRtl") === "true") {
+    //     tempDirection = "rtl";
+    //   } else {
+    //     tempDirection = "ltr";
+    //   }
+    //   const dialogRef = this.dialog.open(DeleteAssetMasterComponent, {
+    //     height: "270px",
+    //     width: "400px",
+    //     data: row,
+    //     direction: tempDirection,
+    //     disableClose: true
+    //   });
+    //   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+    //     if (data.data == true) {
+    //       const obj = {
+    //         deletingId: row.id
+    //       }
+    //       this.spinner.show();
+    //       this.assetService.deleteAsset(obj).subscribe({
+    //         next: (data) => {
+    //           this.spinner.hide();
+    //           if (data.success) {
+    //             this.loadData();
+    //             this.showNotification(
+    //               "snackbar-success",
+    //               "Delete Record Successfully...!!!",
+    //               "bottom",
+    //               "center"
+    //             );
+    //           }
+    //         },
+    //         error: (error) => {
+    //           this.spinner.hide();
+    //         }
+    //       });
+  
+    //     }
+    //   });
+  
+    // }
   }
   

@@ -61,7 +61,6 @@ export class AddStatusMasterComponent implements OnInit {
     this.statusMaster = this.docForm.value;
     console.log(this.statusMaster);
     if(this.docForm.valid){
-    //this.statusMasterService.addDesignation(this.statusMaster);
 
     this.statusMasterService.addStatus(this.statusMaster).subscribe({
       next: (data) => {
@@ -94,28 +93,20 @@ export class AddStatusMasterComponent implements OnInit {
 
       this.docForm.patchValue({
 
-        'statusname': res.activityMasterBean.statusname,
-        'statusid': res.activityMasterBean.statusid,
-        'Description': res.activityMasterBean.Description,
-        'active': res.activityMasterBean.active,
-        'id' : res.activityMasterBean.id
+        'statusname': res.statusMasterBean.statusname,
+        'statusid': res.statusMasterBean.statusid,
+        'Description': res.statusMasterBean.Description,
+        'active': res.statusMasterBean.active,
+        'id' : res.statusMasterBean.id
      })
       },
       (err: HttpErrorResponse) => {
-         // error code here
       }
     );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
+    
   }
 
   update(){
-
     this.statusMaster = this.docForm.value;
     this.statusMasterService.statusMasterUpdate(this.statusMaster);
     this.showNotification(
@@ -125,6 +116,7 @@ export class AddStatusMasterComponent implements OnInit {
       "center"
     );
     this.router.navigate(['/master/status/listStatus']);
+    
 
   }
 

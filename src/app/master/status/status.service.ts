@@ -51,7 +51,7 @@ export class StatusService extends UnsubscribeOnDestroyAdapter {
         this.subs.sink = this.httpService.get<StatusResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
-            this.dataChange.next(data.statusDetails);
+            this.dataChange.next(data.statusMasterDetails);
           },
           (error: HttpErrorResponse) => {
             this.isTblLoading = false;
