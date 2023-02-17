@@ -65,6 +65,7 @@ export class AddSalesInvoiceComponent implements OnInit {
   salesDetailRowData = new SalesEntryDetailRowComponent;
   itemDropDown: [];
   uomDropDown: [];
+  saleOrderDropDown: [];
 
   constructor(
     private salesInvoiceService: SalesInvoiceService,
@@ -153,6 +154,14 @@ export class AddSalesInvoiceComponent implements OnInit {
     this.httpService.get<any>(this.salesInvoiceService.getUomListDropdown + "?companyId=" + (this.user)).subscribe({
     next: (data) => {
       this.uomDropDown = data.addressBean;
+    },
+    error: (error) => {
+    }
+  });
+
+    this.httpService.get<any>(this.salesInvoiceService.getSalesOrderListDropdown + "?companyId=" + (this.user)).subscribe({
+    next: (data) => {
+      this.saleOrderDropDown = data.addressBean;
     },
     error: (error) => {
     }

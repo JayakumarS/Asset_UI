@@ -59,7 +59,7 @@
                           <div class="col-md-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-select formControlName="salesOrderNo">
-                            <mat-option *ngFor="let title of currencyList" [value]="title.id">
+                            <mat-option *ngFor="let title of saleOrderDropDown" [value]="title.id">
                               {{title.text}}
                             </mat-option>
                           </mat-select>
