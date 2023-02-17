@@ -78,8 +78,6 @@
                   </div>
                 </div>
 
-
-
                 <div class="row">
 
                   <div class="col-md-2" >
@@ -380,10 +378,10 @@
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
     <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
       color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
-    <!-- <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button -->
-      <!-- color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button> -->
-    <!-- <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button> -->
-    <!-- <button color="warn" type="button" class="btn-space"  (click)="cancel()"mat-raised-button>Cancel</button> -->
+     <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button 
+       color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button> 
+     <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button> 
+    <button color="warn" type="button" class="btn-space"  (click)="cancel()"mat-raised-button>Cancel</button> 
   </div>
 </div>
 

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
@@ -24,9 +24,11 @@ export class UsageMonitorService extends UnsubscribeOnDestroyAdapter{
     super();
   }
 
-  private saveUsageMonitor = `${this.serverUrl.apiServerAddress}api/auth/app/usageMonitor/save`; 
-  public deleteUsageMonitor = `${this.serverUrl.apiServerAddress}api/auth/app/usageMonitor/delete`; 
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/usageMonitor/getList`;
+  private saveUsageMonitor = `${this.serverUrl.apiServerAddress}app/usageMonitor/save`; 
+  public deleteUsageMonitor = `${this.serverUrl.apiServerAddress}app/usageMonitor/delete`; 
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/usageMonitor/getList`;
+  private editusage = `${this.serverUrl.apiServerAddress}app/usageMonitor/edit`; 
+  private updateUsagemonitor = `${this.serverUrl.apiServerAddress}app/usageMonitor/update`; 
 
   get data(): UsageMonitor[] {
     return this.dataChange.value;
@@ -38,7 +40,7 @@ export class UsageMonitorService extends UnsubscribeOnDestroyAdapter{
     this.subs.sink = this.httpService.get<usageMonitorResultBean>(this.getAllMasters).subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.depreciationList);
+        this.dataChange.next(data.usagemonitorList);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -58,5 +60,20 @@ export class UsageMonitorService extends UnsubscribeOnDestroyAdapter{
         
     });
   }
+
+  editCustomer(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editusage, obj);
+  }
+  updateUsage(usageMonitor: UsageMonitor): void {
+    this.dialogData = usageMonitor;
+    this.httpService.post<UsageMonitor>(this.updateUsagemonitor, usageMonitor).subscribe(data => {
+      console.log(data);
+      //this.dialogData = employees;
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
   
+}
+
 }

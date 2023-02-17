@@ -19,6 +19,7 @@ export class UsageMonitor {
     unitRate: string;
     recordingTime: string;
     additionUnit: string;
+  usage_id: any;
 
   
   constructor(usageMonitor) {

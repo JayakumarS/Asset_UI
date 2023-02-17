@@ -26,10 +26,12 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { ListUsageMonitorComponent } from './list-usage-monitor/list-usage-monitor.component';
+import { DeleteUsageMonitorComponent } from './list-usage-monitor/delete-usage-monitor/delete-usage-monitor.component';
 @NgModule({
   declarations: [
     AddUsageMonitorComponent,
     ListUsageMonitorComponent,
+    DeleteUsageMonitorComponent,
     
   ],
   imports: [

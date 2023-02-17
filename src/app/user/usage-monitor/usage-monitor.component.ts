@@ -10,6 +10,7 @@ export class UsageMonitorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

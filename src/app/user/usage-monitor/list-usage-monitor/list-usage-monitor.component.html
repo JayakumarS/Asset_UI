@@ -25,7 +25,7 @@
                         <li>
                           <div class="m-l-10" matTooltip="ADD">
                             <button color="primary" type="button" class="btn-space"
-                              [routerLink]="'/usage/usageMonitor/addUsageMonitor'" mat-raised-button><i
+                              [routerLink]="'/usage/usageMonitor/addUsageMonitor/0'" mat-raised-button><i
                                 class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                           </div>
                         </li>
@@ -76,12 +76,12 @@
   
                     <ng-container matColumnDef="startdateObj">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
-                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startdateObj}}</mat-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startdate}}</mat-cell>
                     </ng-container>
   
                     <ng-container matColumnDef="enddateObj">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
-                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.enddateObj}}</mat-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.enddate}}</mat-cell>
                     </ng-container>
   
                     <ng-container matColumnDef="description">

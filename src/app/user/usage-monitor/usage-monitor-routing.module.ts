@@ -5,7 +5,7 @@ import { ListUsageMonitorComponent } from './list-usage-monitor/list-usage-monit
 
 const routes: Routes = [
   {
-    path: "addUsageMonitor",
+    path: "addUsageMonitor/:id",
     component: AddUsageMonitorComponent,
   },
   {

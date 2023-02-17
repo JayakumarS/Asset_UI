@@ -17,6 +17,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { DeleteDepreciationComponent } from 'src/app/master/depreciation/list-depreciation/delete-depreciation/delete-depreciation.component';
+import { DeleteUsageMonitorComponent } from './delete-usage-monitor/delete-usage-monitor.component';
 
 @Component({
   selector: 'app-list-usage-monitor',
@@ -94,21 +95,21 @@ export class ListUsageMonitorComponent extends UnsubscribeOnDestroyAdapter imple
 
   editCall(row) {
 
-    this.router.navigate(['/master/depreciation/add-depreciation/'+row.id]);
+    this.router.navigate(['/usage/usageMonitor/addUsageMonitor/'+row.usage_id]);
 
   }
   
 
   deleteItem(row){
 
-    this.id = row.id;
+    this.id = row.usage_id;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteDepreciationComponent, {
+    const dialogRef = this.dialog.open(DeleteUsageMonitorComponent, {
       height: "270px",
       width: "400px",
       data: row,
@@ -119,7 +120,7 @@ export class ListUsageMonitorComponent extends UnsubscribeOnDestroyAdapter imple
 
       if (data.data == true) {
 
-        this.httpService.get(this.usageMonitorService.deleteUsageMonitor+ "?depreciationCode=" + this.id).subscribe((res: any) => {
+        this.httpService.get(this.usageMonitorService.deleteUsageMonitor+ "?usage_id=" + this.id).subscribe((res: any) => {
           this.showNotification(
             "snackbar-success",
             "Delete Record Successfully...!!!",

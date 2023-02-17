@@ -2,7 +2,7 @@
 export class usageMonitorResultBean {
     
     Success: boolean;
-    depreciationList: [];
+    usagemonitorList: [];
     id: [];
     usageMonitorBean: [];
 }

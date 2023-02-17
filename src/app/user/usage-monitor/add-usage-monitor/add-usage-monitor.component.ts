@@ -6,11 +6,24 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsageMonitor } from '../usageMonitor-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsageMonitorService } from '../usage-monitor.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @Component({
   selector: 'app-add-usage-monitor',
   templateUrl: './add-usage-monitor.component.html',
-  styleUrls: ['./add-usage-monitor.component.sass']
+  styleUrls: ['./add-usage-monitor.component.sass'],
+  // Date Related code
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: {
+      display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY',
+      },
+  } },CommonService
+  ]
 })
 export class AddUsageMonitorComponent implements OnInit {
 
@@ -19,12 +32,16 @@ export class AddUsageMonitorComponent implements OnInit {
   docForm: FormGroup;
   locationDdList = [];
   userDdList=[];
-  private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
+  companyId:any
+  private  acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   filePathUrl: string;
   edit: any;
   requestId: any;
+  spinner: any;
+  startFlag: boolean = false;
+  endFlag: boolean = false;
 
-  constructor(private fb: FormBuilder,private snackBar: MatSnackBar,
+  constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private tokenStorage: TokenStorageService,
     private httpService: HttpServiceService,private usageMonitorService: UsageMonitorService,
     private commonService: CommonService,
     private cmnService:CommonService,
@@ -62,11 +79,14 @@ export class AddUsageMonitorComponent implements OnInit {
 
   getDateString(event,inputFlag,index){
     let cdate = this.cmnService.getDate(event.target.value);
+    let hdate = this.cmnService.getDate(event.target.value);
     if(inputFlag=='startdate'){
       this.docForm.patchValue({startdate:cdate});
+      this.startFlag=true;
     }
     else if(inputFlag=='enddate'){
-      this.docForm.patchValue({enddate:cdate});
+      this.docForm.patchValue({enddate:hdate});
+      this.endFlag=true;
     }
     // else if(inputFlag=='expectedDate'){
     //   this.docForm.patchValue({expectedDate:cdate});
@@ -99,7 +119,8 @@ export class AddUsageMonitorComponent implements OnInit {
     });
 
      // Location dropdown
-     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+     this.companyId=this.tokenStorage.getCompanyId();
+     this.httpService.get<any>(this.commonService.getLocationDropdown+"?companyId="+this.companyId).subscribe({
       next: (data) => {
         this.locationDdList = data;
       },
@@ -109,7 +130,8 @@ export class AddUsageMonitorComponent implements OnInit {
     });
     
    // User dropdown
-   this.httpService.get<any>(this.commonService.getAdminDropdown).subscribe({
+   this.companyId=this.tokenStorage.getCompanyId();
+   this.httpService.get<any>(this.commonService.getAdminDropdown+"?companyId="+this.companyId).subscribe({
     next: (data) => {
       this.userDdList = data;
     },
@@ -119,8 +141,52 @@ export class AddUsageMonitorComponent implements OnInit {
   });
   }
 
-  fetchDetails(id:any){
-    
+  fetchDetails(usage_id: any): void {
+    const obj = {
+      editId: usage_id
+    }
+  
+    this.usageMonitorService.editCustomer(obj).subscribe({
+      next: (res) => {
+        this.docForm.patchValue({
+        'asset': res.usageMonitorBean.asset,
+        'location': res.usageMonitorBean.location,
+        'occurence': res.usageMonitorBean.occurence,
+        'remainder': res.usageMonitorBean.remainder,
+        'assignee': res.usageMonitorBean.assignee,
+        'uploadFile' : res.usageMonitorBean.uploadFile,
+        'startdateObj': res.usageMonitorBean.startdate,
+        'startdate': res.usageMonitorBean.startdate,
+        'enddateObj': res.usageMonitorBean.enddate,
+        'enddate': res.usageMonitorBean.enddate,
+        'description': res.usageMonitorBean.description,
+        'cc': res.usageMonitorBean.cc,
+      })
+        if (res.usageMonitorDtlObjBean != null && res.usageMonitorDtlObjBean.length >= 1) {
+        let usageMonitorArray = this.docForm.controls.usageMonitorDtlObjBean as FormArray;
+        usageMonitorArray.clear();
+        res.usageMonitorDtlObjBean.forEach(element => {
+          let usageMonitorArray = this.docForm.controls.usageMonitorDtlObjBean as FormArray;
+          let arraylen = usageMonitorArray.length;
+          let newUsergroup: FormGroup = this.fb.group({
+            meter: [ element.meter],
+            feedValue: [ element.feedValue],
+            multiplicationFactor: [ element.multiplicationFactor],
+            unitRate: [ element.unitRate],
+            recordingTime: [ element.recordingTime],
+            additionUnit: [ element.additionUnit],
+
+          })
+          usageMonitorArray.insert(arraylen, newUsergroup);
+        });
+      }
+  
+      },
+      error: (error) => {
+        this.spinner.hide();
+        // error code here
+      }
+    });
   }
 
   removeRowSelf(index){
@@ -172,9 +238,88 @@ export class AddUsageMonitorComponent implements OnInit {
   
 }
 
-  
+update(){
+  // this.usageMonitor = this.docForm.value;
+  // this.spinner.show();
+  // this.usageMonitorService.updateUsage(this.usageMonitor).subscribe({
+  //     next: (data) => {
+  //       this.spinner.hide();
+  //       if (data.success) {
+  //         this.showNotification(
+  //           "snackbar-success",
+  //           "Edit Record Successfully",
+  //           "bottom",
+  //           "center"
+  //         );
+  //         this.cancel();
+  //       } else {
+  //         this.showNotification(
+  //           "snackbar-danger",
+  //           "Not Updated Successfully...!!!",
+  //           "bottom",
+  //           "center"
+  //         );
+  //       }
+  //     },
+  //     error: (error) => {
+  //       this.spinner.hide();
+  //       this.showNotification(
+  //         "snackbar-danger",
+  //         error.message + "...!!!",
+  //         "bottom",
+  //         "center"
+  //       );
+  //     }
+  //   });
+   
+   this.usageMonitor = this.docForm.value;
+   if(this.startFlag==true){
+    this.getDateString
 
+   }else if(this.endFlag==true){
+    this.getDateString
+   }else{
+    
+   }
+    this.usageMonitor.usage_id = this.requestId;
+    this.usageMonitorService.updateUsage(this.usageMonitor);
+    this.showNotification(
+      "snackbar-success",
+      "Record Updated Successfully...!!!",
+      "bottom",
+      "center"
+    );
+    this.router.navigate(['/usage/usageMonitor/listUsageMonitor']);
+
+  }
+
+cancel(){
+this.router.navigate(['/usage/usageMonitor/listUsageMonitor/'])
+}
   
+reset(){
+  if (!this.edit) {
+    this.docForm.reset();
+    this.docForm.patchValue({
+      asset:[""],
+      location:[""],
+      occurence:[""],
+      remainder:[""],
+      assignee:[""],
+      uploadFile:[""],
+      startdate:[""],
+      startdateObj:[""],
+      enddate:[""],
+      enddateObj:[""],
+      description:[""],
+      cc:[""],
+    })
+  } else {
+    this.fetchDetails(this.requestId);
+  }
+
+
+  }
 
   onSelectFile(event) {
     var docfile = event.target.files[0];
