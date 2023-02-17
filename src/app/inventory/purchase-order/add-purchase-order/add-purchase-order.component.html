@@ -133,14 +133,10 @@
                       </mat-error>
                     </mat-form-field>
                   </div> 
-
                   <div class="col-md-1" >
                     <label >PURCHASE TYPE<span class="errorColor">*</span></label>
-                  <div class="col-md-2" >
-                    <label class="lable">Purchase Type<span class="errorColor">*</span></label>
-
                   </div>
-                  <div class="col-md-2" style="margin-left: -95px;">
+                  <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="purchaseType" required>
                         <mat-option *ngFor="let title of purchaseTypeList" [value]="title.id">
@@ -152,23 +148,6 @@
                         </mat-error> 
                  </mat-form-field>
                   </div>
-             
-                  <div class="col-md-1" >
-                    <label class="lable">Destination Location <span class="errorColor">*</span></label>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-select formControlName="destinationLocation" required>
-                    <mat-option *ngFor="let title of locationList" [value]="title.id">
-                        {{title.text}}
-                    </mat-option>
-                </mat-select>
-                </mat-form-field>
-                </div>
-                </div>
-                </div>
-                <br>
-                <div class="row">
                   <div class="col-md-1" >
                     <label >VENDOR<span class="errorColor">*</span></label>
                   </div>
@@ -183,23 +162,26 @@
                       Vendor is required
                         </mat-error> 
                  </mat-form-field>
-                  </div> 
+                  </div>
+
+                </div>
+                <div class="row">
                   <div class="col-md-1" >
                     <label >VENDOR ADDRESS</label>
                   </div>
                   <div class="col-md-3">
-                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline"> -->
-                      <input style="color: #7b8885;" readonly matInput formControlName="vendorAddress" > 
-                    <!-- </mat-form-field> -->
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="vendorAddress" > 
+                    </mat-form-field>
                   </div>
 
   <div class="col-md-1" >
     <label>CITY</label>
   </div>
   <div class="col-md-3">
-    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline"> -->
-      <input style="color: #7b8885;" matInput readonly formControlName="vendorCity" [readonly]="true"> 
-    <!-- </mat-form-field> -->
+    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+      <input matInput formControlName="vendorCity" [readonly]="true"> 
+    </mat-form-field>
   </div>
 
 
@@ -211,9 +193,8 @@
       <input matInput formControlName="vendorState" [readonly]="true"> 
     </mat-form-field>
   </div>
- 
 </div>
-<br>
+
 <div class="row">
   <div class="col-md-1" >
     <label >COUNTRY</label>
@@ -225,52 +206,31 @@
   </div>
   <div class="col-md-1" >
     <label >ZIP</label>
-  <!-- <div class="col-md-1" >
-    <label class="lable">Terms & Conditions</label>
   </div>
-
   <div class="col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="termsConditions" > 
+      <input matInput formControlName="vendorZip" [readonly]="true"> 
     </mat-form-field>
-    <mat-error *ngIf="docForm.get('termsConditions').hasError('required')"> Terms & Conditions is
-      required </mat-error>
-    </div> -->
+  </div>
+
     <div class="col-md-1" >
       <label >DESTINATION LOCATION <span class="errorColor">*</span></label>
-
-      <label class="lable">Country</label>
     </div>
     <div class="col-md-3">
-      <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline"> -->
-        <input style="color: #7b8885;" matInput readonly formControlName="vendorCountry" [readonly]="true"> 
-      <!-- </mat-form-field> -->
-    </div>
-    <div class="col-md-1" >
-      <label class="lable">State</label>
-    </div>
-    <div class="col-md-3">
-       <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">  -->
-        <input style="color: #7b8885;" matInput readonly formControlName="vendorState" [readonly]="true"> 
-    </div>
-    <div class="col-md-1" >
-      <label class="lable">Zip</label>
-    </div>
-    <div class="col-md-3">
-      <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline"> -->
-        <input style="color: #7b8885;" matInput readonly formControlName="vendorZip" [readonly]="true"> 
-      <!-- </mat-form-field> -->
-    </div>
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+    <mat-select formControlName="destinationLocation" required>
+      <mat-option *ngFor="let title of locationList" [value]="title.id">
+          {{title.text}}
+      </mat-option>
+  </mat-select>
+  </mat-form-field>
+  </div>
  </div>
-</div>
-<br><br>
 
-  <!-- <div class="col-md-1" >
-    <label >TERMS & CONDITIONS</label> -->
  <div class="row">
- 
- <div class="col-md-1" >
-    <label class="lable">Terms & Conditions</label>
+
+  <div class="col-md-1" >
+    <label >TERMS & CONDITIONS</label>
   </div>
 
   <div class="col-md-3">
@@ -280,9 +240,7 @@
     <mat-error *ngIf="docForm.get('termsConditions').hasError('required')"> Terms & Conditions is
       required </mat-error>
     </div>
-    <div class="col-md-1" >
-      <label class="lable">Remarks</label>
-    </div>
+
     
   <div class="col-md-1" >
   <label >REMARKS</label>
@@ -295,12 +253,6 @@
  
 </div>
 
-    <div class="col-md-3">
-      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="remarks" > 
-      </mat-form-field>
-     
-    </div> 
   </div>
 
                 <div class="row">
