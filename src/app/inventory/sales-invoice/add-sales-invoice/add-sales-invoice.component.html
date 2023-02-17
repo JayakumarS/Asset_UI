@@ -58,7 +58,7 @@
                           </div>
                           <div class="col-md-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-select formControlName="salesOrderNo">
+                          <mat-select formControlName="salesOrderNo"(selectionChange)="fetchSalesDetails($event.value)">
                             <mat-option *ngFor="let title of saleOrderDropDown" [value]="title.id">
                               {{title.text}}
                             </mat-option>
@@ -140,10 +140,11 @@
                       </div>
                              <br>
                              <br>
-                            <div style="overflow-x: auto;">
-                              <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-                                <thead class="">
-                                  <tr>
+
+<div style="overflow-x: auto;">
+  <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+    <thead class="" >
+      <tr>
                                     <th style="width: 1%;"></th>
                                     <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                               width: 12%; border-radius: 0.05rem;">Item</th>

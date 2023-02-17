@@ -169,6 +169,43 @@ export class AddSalesInvoiceComponent implements OnInit {
 
 }
 
+fetchSalesDetails(salesOrderNo: any){
+
+  this.user = this.tokenStorage.getCompanyId();
+  this.httpService.get(this.salesInvoiceService.dtlDropdown + "?companyId=" + salesOrderNo).subscribe((res: any) => {
+    let CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+    CustInvoiceDetailBeanArray.removeAt(0);
+    res.salesInvoiceList.forEach(element => {
+      let CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+      let arraylen = CustInvoiceDetailBeanArray.length;
+      let newgroup: FormGroup = this.fb.group({
+        item: [element.item],
+        uom: [element.uom],
+        qty: [element.qty],
+        price: [element.price],
+      })
+      CustInvoiceDetailBeanArray.insert(arraylen, newgroup);
+    });
+//     let dataarray = this.docForm.value.salesInvoiceDetail as FormArray;
+//     dataarray.at(index).patchValue({
+//   'item': res.salesInvoiceList.item,
+//   'uom': res.salesInvoiceList.uom,
+//   'qty': res.salesInvoiceList.qty,
+//   'price': res.salesInvoiceList.price,
+// });
+
+
+
+  },
+    (err: HttpErrorResponse) => {
+      // error code here
+    }
+  );
+
+
+
+}
+
   onSubmit() {
     this.submitted = true;
     if (this.docForm.valid){
