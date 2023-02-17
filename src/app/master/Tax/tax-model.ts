@@ -20,6 +20,7 @@ export class TaxMaster {
       this.taxid = taxMaster.taxid || "";
       this.taxname = taxMaster.taxname || "";
       this.taxtype = taxMaster.taxtype || "";
+      this.taxcode = taxMaster.taxcode || "";
       this.taxmethod = taxMaster.taxmethod || "";
       this.taxpercentage = taxMaster.taxpercentage || "";
       this.taxamount = taxMaster.taxamount || "";
