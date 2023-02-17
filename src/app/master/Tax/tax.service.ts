@@ -17,6 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TaxService extends UnsubscribeOnDestroyAdapter {
+ 
   isTblLoading = true;
   currencyList: [];
   dataChange: BehaviorSubject<TaxMaster[]> = new BehaviorSubject<TaxMaster[]>(
@@ -32,14 +33,11 @@ export class TaxService extends UnsubscribeOnDestroyAdapter {
     super();
   }
 
-  private saveCoustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/save`;
-  private getAllMasters = `${this.serverUrl.apiServerAddress}app/customerMaster/getCustomerList`;
-  public editcustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/edit`;
-  public updatecustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/update`;
-  public deletecustomer = `${this.serverUrl.apiServerAddress}app/customerMaster/delete`;
-  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
-  public getLocationDropdown = `${this.serverUrl.apiServerAddress}app/customerMaster/getLocationDropdown`;
-  public locationemailDdList = `${this.serverUrl.apiServerAddress}app/customerMaster/locationemailDdList`;
+  private saveTax = `${this.serverUrl.apiServerAddress}app/taxMaster/save`;
+  private getAllMasters = `${this.serverUrl.apiServerAddress}app/taxMaster/getList`;
+  public updateTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/update`;
+  private deleteTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/delete`;
+  public editTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/edit`;
 
 
   get data(): TaxMaster[] {
@@ -48,55 +46,69 @@ export class TaxService extends UnsubscribeOnDestroyAdapter {
   getDialogData() {
     return this.dialogData;
   }
+  /** CRUD METHODS */
+  getAllList(): void {
+        let companyId=this.tokenStorage.getCompanyId();
+        this.subs.sink = this.httpService.get<TaxResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
+          (data) => {
+            this.isTblLoading = false;
+            this.dataChange.next(data.taxDetails);
+          },
+          (error: HttpErrorResponse) => {
+            this.isTblLoading = false;
+            console.log(error.name + " " + error.message);
+          }
+        );
+  }
 
+  addTax(statusMaster: TaxMaster): Observable<any> {
+    return this.httpClient.post<TaxMaster>(this.saveTax, statusMaster);
+  }
 
-item(taxMaster: TaxMaster): Observable<any> {
-  return this.httpClient.post<TaxMaster>(this.saveCoustomer, taxMaster);
+  taxMasterUpdate(taxMaster: TaxMaster): void {
+    this.dialogData = taxMaster;
+    this.httpService.post<TaxMaster>(this.updateTaxMaster, taxMaster).subscribe(data => {
+      console.log(data);
+      //this.dialogData = employees;
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
+
+  DeleteStatusMaster(id: any,router,notificationService): void {
+    this.httpService.get<TaxMaster>(this.deleteTaxMaster+"?id="+id).subscribe(data => {
+      console.log(id);
+      if(data.Success == true){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Deleted Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/Activity-master/list-activity']);
+      }
+      else if(data.Success == false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Deleted Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
+      console.log(id);
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );*/
+  }
+
 }
-
-getAllList(): void {
-  this.companyId=this.tokenStorage.getCompanyId();
-  this.RoleId=this.tokenStorage.getRoleId();
-    if(this.RoleId=="1")
-    {
-      this.companyId = "1";
-    }
-  this.subs.sink = this.httpService.get<TaxResultBean>(this.getAllMasters+"?companyId="+this.companyId+"&RoleId="+this.RoleId).subscribe(
-    (data) => {
-      this.isTblLoading = false;
-      this.dataChange.next(data.taxDetails);
-    },
-    (error: HttpErrorResponse) => {
-      this.isTblLoading = false;
-      console.log(error.name + " " + error.message);
-    }
-  );
-
-}
-editCustomer(obj: any): Observable<any> {
-  return this.httpClient.post<any>(this.editcustomer, obj);
-}
-
-// updateCustomer(customerMaster: CustomerMaster): void {
-//   this.dialogData = customerMaster;
-//   this.httpService.post<CustomerMaster>(this.updatecustomer, customerMaster).subscribe(data => {
-//     console.log(data);
-
-//   });
-// }
-
-updateCustomer(taxMaster: TaxMaster): Observable<any> {
-  return this.httpClient.post<TaxMaster>(this.updatecustomer, taxMaster);
-}
-deleteCustomer(obj: any): Observable<any> {
-  return this.httpClient.post<any>(this.deletecustomer, obj);
-}
-
-
-
-
-}
-
-
-
-

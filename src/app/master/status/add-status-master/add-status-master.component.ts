@@ -31,7 +31,7 @@ export class AddStatusMasterComponent implements OnInit {
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
 
       statusname: ["", [Validators.required]],
-      activtyid: [""],
+      statusid: [""],
       Description:["", [Validators.required]],
       active:[true],
       id:[""],
@@ -95,7 +95,7 @@ export class AddStatusMasterComponent implements OnInit {
       this.docForm.patchValue({
 
         'statusname': res.activityMasterBean.statusname,
-        'activtyid': res.activityMasterBean.activtyid,
+        'statusid': res.activityMasterBean.statusid,
         'Description': res.activityMasterBean.Description,
         'active': res.activityMasterBean.active,
         'id' : res.activityMasterBean.id
@@ -136,7 +136,7 @@ export class AddStatusMasterComponent implements OnInit {
     if (!this.edit) {
     this.docForm = this.fb.group({
       statusname: [""],
-      activtyid: [""],
+      statusid: [""],
       Description: [""],
       active: [true],
       companyId:this.tokenStorage.getCompanyId(),
