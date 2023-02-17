@@ -35,7 +35,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     public getUserNameDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getusernamelist`;
     public getUserLogList = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/getList`;
     public UserSerach = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/getUserSerach`;
-
+    public assetHistoryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getassetHistoryList`;
     
     get data(): Reportscategory[] {
       return this.dataChange.value;

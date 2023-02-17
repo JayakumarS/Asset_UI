@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSortModule } from '@angular/material/sort';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -30,7 +31,9 @@ import { AssetsReturnComponent } from './assets-return/assets-return.component';
 import { DiscardAssetsComponent } from './discard-assets/discard-assets.component';
 import { UserLogComponent } from './user-log/user-log.component';
 import { AddreportLocationComponent } from './addreports/addreport-location/addreport-location.component';
-
+import { ListAssetHistoryReportComponent } from './list-asset-history-report/list-asset-history-report.component';
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination'
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { AddreportLocationComponent } from './addreports/addreport-location/addr
     AssetsReturnComponent,
     DiscardAssetsComponent,
     UserLogComponent,
-    AddreportLocationComponent
+    AddreportLocationComponent,
+    ListAssetHistoryReportComponent
 
   ],
   imports: [
@@ -68,7 +72,8 @@ import { AddreportLocationComponent } from './addreports/addreport-location/addr
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    
+    MatRadioModule,
+    NgxPaginationModule
   ]
 })
 export class ReportsModule { }

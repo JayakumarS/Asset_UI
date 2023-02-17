@@ -1,0 +1,201 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Asset History Report'" [items]="['Master']" [active_item]="'Asset History Report'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix" STYLE="margin-left:-10%;">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body" style="padding-left: 150px;">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label style="margin-top: 11px;">Branch</label>
+                    </div> 
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select formControlName="branch">
+                                <mat-option *ngFor="let title of branchList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label style="margin-top: 11px;">Category</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select tabindex="6" formControlName="category" >
+                                <mat-option *ngFor="let title of categoryList" [value]="title.id">
+                                    {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> 
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label style="margin-top: 11px;">Asset Name</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select formControlName="assetName">
+                                <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                              </mat-select>
+                        </mat-form-field>
+                    </div> 
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label style="margin-top: 11px;">Location</label>
+                    </div> 
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select tabindex="5" formControlName="location">
+                                <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                    {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label style="margin-top: 11px;">Department</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select tabindex="26" formControlName="department">
+                                <mat-option *ngFor="let title of departmentDdList"
+                                    [value]="title.id">
+                                    {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> 
+  
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label style="margin-top: 11px;">Put In Use</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <input matInput [matDatepicker]="picker2" tabindex="27"
+                                formControlName="putInUseobj"
+                                (dateInput)="$event.value.format('DD/MM/YYYY')"
+                                id="putInUse"
+                                (dateChange)="getDateString($event, 'putInUse',0)">
+                            <mat-datepicker-toggle matSuffix
+                                [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div> 
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label style="margin-top: 11px;">Vendor</label>
+                    </div> 
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select tabindex="15" formControlName="vendor">
+                            <mat-option *ngFor="let title of uomList"
+                                [value]="title.text">
+                                {{title.text}}
+                            </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label style="margin-top: 11px;">Asset Owner</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select tabindex="26" formControlName="assetOwner">
+                            <mat-option *ngFor="let title of assetUserList"
+                                [value]="title.text">
+                                {{title.text}}
+                            </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                    </div> 
+  
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="padding-top: 15px;">
+                        <mat-radio-group formControlName="financialYear" >
+                          <mat-radio-button value="2023">Current Financial Year</mat-radio-button>
+                          <mat-radio-button style="margin-left: 90px;" value="2022">Previous Financial Year</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <br>
+                <div class="row"> 
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 43%;background-color: #34d034;">Submit</button>
+                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <!-- <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button> -->
+                  </div>
+                </div><br>
+
+                <div class="tableBody">
+                    <div class="table-responsive">
+        
+                      <table class="table table-hover table-striped" style="width: 130%;">
+                        <thead>
+                          <tr>
+                            <th style="background-color:#c1ddf5; width: 10%;">Asset Name</th>
+                            <th style="background-color:#c1ddf5; width: 10%;">Asset Id</th>
+                            <th style="background-color:#c1ddf5; width: 10%;">Location</th>
+                            <th style="background-color:#c1ddf5; width: 10%;">Category Name</th>
+                            <th style="background-color:#c1ddf5; width: 10%;">Status</th>
+                            <th style="background-color:#c1ddf5; width: 10%;">Brand</th>
+                            <th style="background-color:#c1ddf5; width: 5%;">Model</th>
+                            <th style="background-color:#c1ddf5; width: 5%;">Purchase Price</th>
+                            <th style="background-color:#c1ddf5; width: 5%;">Captitalization Price</th>
+                            <th style="background-color:#c1ddf5; width: 5%;">End Life</th>
+                            <th style="background-color:#c1ddf5; width: 10%;">Put Use Date</th>
+                            <th style="background-color:#c1ddf5; width: 10%;">Asset User</th>
+                            <th style="background-color:#c1ddf5; width: 10%;">Total Hours Usage</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of assetHistoryList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
+                            <td>{{data.assetName}}</td>
+                            <td>{{data.assetId}}</td>
+                            <td>{{data.location}}</td>
+                            <td>{{data.categoryName}}</td>
+                            <td>{{data.status}}</td>
+                            <td>{{data.brand}}</td>
+                            <td>{{data.model}}</td>
+                            <td>{{data.purchasePrice}}</td>
+                            <td>{{data.captitalizationPrice}}</td>
+                            <td>{{data.endLife}}</td>
+                            <td>{{data.putUseDate}}</td>
+                            <td>{{data.assetUser}}</td>
+                            <td>{{data.totalHoursUsage}}</td>
+                          </tr>
+                        </tbody>
+                      </table>  
+                      <div style="margin-left: 66%;">
+                        <pagination-controls (pageChange)="pageChanged=($event)"></pagination-controls>
+                      </div>
+                    </div>
+                  </div>
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
