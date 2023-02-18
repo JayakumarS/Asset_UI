@@ -31,7 +31,7 @@
               </div> 
               <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="taxcode" >
+                <input matInput formControlName="taxcode" >
                   <mat-error *ngIf="docForm.get('taxcode').hasError('required')">
                     Tax Code is required
                   </mat-error>
@@ -44,11 +44,19 @@
             </div> 
             <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="taxtype" >
-                <mat-error *ngIf="docForm.get('taxtype').hasError('required')">
-                  Tax Type is required
-                </mat-error>
-              </mat-form-field>
+                <mat-select  formControlName="taxtype">
+                <mat-option [value]="'Income tax'">
+                  Income tax
+                </mat-option>
+                <mat-option [value]="'Corporate tax'">
+                  Corporate tax
+                </mat-option>
+                <mat-option [value]="'Wealth tax'">
+                  Wealth tax 
+                </mat-option>
+               
+                </mat-select>
+            </mat-form-field>
             </div>
 
           </div>
@@ -60,23 +68,24 @@
           </div> 
           <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="taxmethod" >
-              <mat-error *ngIf="docForm.get('taxmethod').hasError('required')">
-                Tax Method is required
-              </mat-error>
+                <mat-select  formControlName="taxmethod">
+                <mat-option [value]="'9'">
+                  Labor Income Method
+                </mat-option>
+                </mat-select>
             </mat-form-field>
           </div>
 
 
           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-            <label>TAX PERCENTAGE </label>
+            <label>TAX PERCENTAGE% <span class="errorColor">*</span></label>
         </div> 
         <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput formControlName="taxpercentage" >
-            <mat-error *ngIf="docForm.get('taxpercentage').hasError('required')">
-              Tax Percentage is required
-            </mat-error>
+            <input matInput formControlName="taxpercentage" (blur)="taxpercentageValidation(docForm)" >
+            <mat-error  *ngIf="docForm.controls['taxpercentage'].hasError('pattern')">
+              Tax percentage should be of minimum 1% and Maximum 100%.
+          </mat-error>
           </mat-form-field>
         </div>
                
