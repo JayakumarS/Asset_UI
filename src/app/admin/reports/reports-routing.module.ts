@@ -5,6 +5,7 @@ import { AddDepreciationReportComponent } from './add-depreciation-report/add-de
 import { AddreportsComponent } from './addreports/addreports.component';
 import { AssetsReturnComponent } from './assets-return/assets-return.component';
 import { DiscardAssetsComponent } from './discard-assets/discard-assets.component';
+import { ListAssetHistoryReportComponent } from './list-asset-history-report/list-asset-history-report.component';
 import { UserLogComponent } from './user-log/user-log.component';
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
     path:"user_log",
     component:UserLogComponent,
 
+  },
+  {
+    path:"listAssetHistoryReport",
+    component:ListAssetHistoryReportComponent
   }
 
 ];

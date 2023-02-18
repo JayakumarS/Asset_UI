@@ -8,4 +8,5 @@ export class AuditableAssetResultBean {
     getAuditableAssetDetails:[];
     financialChangeDetails:[];
     assetListDashboard:[];
+    getUserLogListForDashboard:[];
 }

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ReportsRoutingModule } from './reports-routing.module';
-import { AddreportsComponent } from './addreports/addreports.component';
+import { StateRoutingModule } from './state-routing.module';
+import { AddStateMasterComponent } from './add-state-master/add-state-master.component';
+import { ListMasterComponent } from './list-state-master/list-master.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -11,11 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatSortModule } from '@angular/material/sort';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -25,32 +24,22 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AddDepreciationReportComponent } from './add-depreciation-report/add-depreciation-report.component';
-import { AddAuditReportComponent } from './add-audit-report/add-audit-report.component';
-import { AssetsReturnComponent } from './assets-return/assets-return.component';
-import { DiscardAssetsComponent } from './discard-assets/discard-assets.component';
-import { UserLogComponent } from './user-log/user-log.component';
-import { AddreportLocationComponent } from './addreports/addreport-location/addreport-location.component';
-import { ListAssetHistoryReportComponent } from './list-asset-history-report/list-asset-history-report.component';
-// Pagination
-import { NgxPaginationModule } from 'ngx-pagination'
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteStateComponent } from './list-state-master/delete-state/delete-state.component';
+
 
 @NgModule({
   declarations: [
-    AddreportsComponent,
-    AddDepreciationReportComponent,
-    AddAuditReportComponent,
-    AssetsReturnComponent,
-    DiscardAssetsComponent,
-    UserLogComponent,
-    AddreportLocationComponent,
-    ListAssetHistoryReportComponent
-
+    AddStateMasterComponent,
+    ListMasterComponent,
+    DeleteStateComponent,
+    
   ],
   imports: [
     CommonModule,
-    ReportsRoutingModule,
-    FormsModule,
+    StateRoutingModule,
+     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
@@ -59,7 +48,6 @@ import { NgxPaginationModule } from 'ngx-pagination'
     MatSnackBarModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule,
     MatSortModule,
     MatMenuModule,
     MatToolbarModule,
@@ -72,8 +60,8 @@ import { NgxPaginationModule } from 'ngx-pagination'
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatRadioModule,
-    NgxPaginationModule
+    MatAutocompleteModule,
+    MatDialogModule
   ]
 })
-export class ReportsModule { }
+export class StateModule { }

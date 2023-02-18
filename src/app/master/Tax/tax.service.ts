@@ -52,7 +52,7 @@ export class TaxService extends UnsubscribeOnDestroyAdapter {
         this.subs.sink = this.httpService.get<TaxResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
-            this.dataChange.next(data.taxDetails);
+            this.dataChange.next(data.taxMastersList);
           },
           (error: HttpErrorResponse) => {
             this.isTblLoading = false;
@@ -99,16 +99,8 @@ export class TaxService extends UnsubscribeOnDestroyAdapter {
 
       },
       (err: HttpErrorResponse) => {
-         // error code here
       }
     );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
   }
 
 }

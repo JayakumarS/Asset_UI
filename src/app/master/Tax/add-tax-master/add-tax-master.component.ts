@@ -35,7 +35,7 @@ export class AddTaxMasterComponent implements OnInit {
       taxcode: [""],
       taxtype: [""],
       taxmethod: [""],
-      taxpercentage: [""],
+      taxpercentage: ["",[Validators.required]],
       taxamount: [""],
       taxid: [""],
       active:[true],
@@ -100,8 +100,8 @@ export class AddTaxMasterComponent implements OnInit {
 
         'taxname': res.taxMasterBean.taxname,
         'taxcode': res.taxMasterBean.taxcode,
-        'taxtype': res.taxMasterBean.taxtype,
-        'taxmethod': res.taxMasterBean.taxmethod,
+        'taxtype': res.taxMasterBean.taxtype.toString(),
+        'taxmethod': res.taxMasterBean.taxmethod.toString(),
         'taxpercentage': res.taxMasterBean.taxpercentage,
         'taxamount': res.taxMasterBean.taxamount,
         'taxid': res.taxMasterBean.taxid,
@@ -160,6 +160,25 @@ export class AddTaxMasterComponent implements OnInit {
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
+  }
+
+  taxpercentageValidation(data: any) {
+    if (data.get('taxpercentage').value != undefined && data.get('taxpercentage').value != null && data.get('taxpercentage').value != '') {
+      if (data.get('taxpercentage').value < 1) {
+        data.controls.taxpercentage.setValidators(Validators.compose([Validators.required, Validators.max(100), Validators.min(1), Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]));
+        data.controls.taxpercentage.setValidators(Validators.compose([Validators.required, Validators.max(100), Validators.min(1), Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]));
+        data.controls['taxpercentage'].updateValueAndValidity();
+      } else if (data.get('taxpercentage').value > 100) {
+        data.controls.taxpercentage.setValidators(Validators.compose([Validators.required, Validators.max(100), Validators.min(1), Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]));
+        data.controls['taxpercentage'].updateValueAndValidity();
+      } else {
+        data.controls.taxpercentage.clearValidators();
+        data.controls['taxpercentage'].updateValueAndValidity();
+      }
+    } else {
+      data.controls.taxpercentage.clearValidators();
+      data.controls['taxpercentage'].updateValueAndValidity();
+    }
   }
 
 }

@@ -1016,6 +1016,61 @@
         </div>
       </div>
     </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row clearfix">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+              <div class="header">
+                <h2>User Log Report</h2>
+                <!-- <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>Action</button>
+                  <button mat-menu-item>Another action</button>
+                  <button mat-menu-item>Something else here</button>
+                </mat-menu> -->
+              </div>
+              <div class="tableBody">
+                <div class="table-responsive">
+    
+                  <table class="table table-hover ">
+                    <thead>
+                      <tr>
+                        <th >Start Date</th>
+                        <th>Status</th>
+                        <th>User Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of userLogListDashboard | paginate: { itemsPerPage: 5, currentPage: pageChangedForUserLog }">
+                        <td>{{data.startdate}}</td>
+                        <td>{{data.status}}</td>
+                        <td>{{data.username}}</td>
+                      </tr>
+                    </tbody>
+                  </table>  
+                  <div style="margin-left: 66%;">
+                    <pagination-controls (pageChange)="pageChangedForUserLog=($event)"></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+      </div>
+
+    </div>
+
+
+    
+
+
     </form>
   </div>
 </section>

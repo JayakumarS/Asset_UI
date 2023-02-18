@@ -70,8 +70,8 @@ export class MainComponent implements OnInit {
   bookValueArrayData = [];
   pieValueArray = [];
   columnOuterValueArray = [];
-  width:any;
-  height:any;
+  columnInnerValueArray = [];
+  userLogListDashboard = [];
   //Donut Array
   donutName = [];
   donutValue = [];
@@ -156,6 +156,14 @@ configDepreciation: {
   currentPage: number,
   totalItems: number
 };
+
+configUserLog: {
+  id : string,
+  itemsPerPage: number,
+  currentPage: number,
+  totalItems: number
+};
+
   companyLastAuditDate: number[];
   companyLastAuditDoneBy: number[];
 
@@ -270,6 +278,22 @@ configDepreciation: {
       }
     );
 
+    //User Log Report List
+    this.httpService.get<AuditableAssetResultBean>(this.mainService.userLogListUrl+ "?companyId=" + this.companyAuditorCount).subscribe(
+      (data) => {
+        this.userLogListDashboard = data.getUserLogListForDashboard;
+        this.configUserLog = {
+          id: 'pagination',    
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.userLogListDashboard.length
+        }; 
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
     // ticket survey
     this.httpService.get<any>(this.mainService.getItSupportTicketURL).subscribe(
       (data) => {
@@ -327,8 +351,9 @@ configDepreciation: {
         type: 'column',
         data: this.columnOuterValueArray
       }  
+      this.columnInnerValueArray=doughnutChartData.getInnerColumnChart;
       this.updateFlag = true; 
-      console.log(doughnutChartData.getOuterColumnChart);
+      console.log(doughnutChartData.getInnerColumnChart);
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -943,6 +968,10 @@ configDepreciation: {
 
   pageChangedDepreciation(event){
     this.configDepreciation.currentPage = event;
+  }
+
+  pageChangedForUserLog(event){
+    this.configUserLog.currentPage = event;
   }
 
   
