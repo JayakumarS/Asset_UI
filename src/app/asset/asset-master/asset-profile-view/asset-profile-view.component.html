@@ -389,6 +389,206 @@
                                 </div>
                             </div>
 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="project_widget">
+                                    <div class="header">
+                                        <h2><strong>Category Info</strong></h2>
+                                    </div>
+                                    <!-- Computer Start -->
+                                    <div class="body" *ngIf="computerFlag">
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Operating System</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.os}}</p>
+                                            </div>
+
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Processor</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.processor}}</p>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Memory</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.memory}}</p>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Storage</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.storage}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Monitor</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.monitor}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Computer End -->
+                                    <!-- Furniture Start -->
+                                    <div class="body" *ngIf="furnitureFlag">
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Aesthetics</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.aesthetics}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Quality</strong>
+
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.quality}}</p>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Safety</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.safety}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Sustainability</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.sustainability}}</p>
+                                            </div>
+                                            
+                                            </div>
+                                    </div>
+                                     <!-- Furniture End -->
+                                     <!-- Office Equipment Start -->
+                                     <div class="body" *ngIf="officeFlag">
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Device</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.device}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Model</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.deviceModel}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Status</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.deviceStatus}}</p>
+                                            </div>
+                                            
+                                            </div>
+                                        </div>
+                                     <!-- Office Equipment End -->
+                                      <!-- Plant and Machinery Start -->
+                                      <div class="body" *ngIf="plantFlag">
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Lift Time</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.lifeTime}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Cost Of Land</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.costOfLand}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Substance</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.substance}}</p>
+                                            </div>
+                                            
+                                            </div>
+                                        </div>
+                                         <!-- Plant and Machinery End -->
+                                         <!-- Vehicle Start -->
+                                      <div class="body" *ngIf="vehicleFlag">
+                                        <div class="row">
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Type</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.vehicleType}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Engine</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.vehicleEngine}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-4 b-r">
+                                                <strong>Speed</strong>
+                                            </div>
+
+                                            <div class="col-md-2 col-4 b-r">
+                                                <p class="text-muted">{{profileViewDetails?.vehicleSpeed}}</p>
+                                            </div>
+                                            
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2 col-4 b-r">
+                                                    <strong>Fuel Capacity</strong>
+                                                </div>
+    
+                                                <div class="col-md-2 col-4 b-r">
+                                                    <p class="text-muted">{{profileViewDetails?.fuelCapacity}}</p>
+                                                </div>
+                                                <div class="col-md-2 col-4 b-r">
+                                                    <strong>Weight</strong>
+                                                </div>
+    
+                                                <div class="col-md-2 col-4 b-r">
+                                                    <p class="text-muted">{{profileViewDetails?.vehicleWeight}}</p>
+                                                </div>
+                                                </div>
+                                        </div>
+                                        <!-- Vehicle End -->
+                                </div>
+                            </div>
+
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="project_widget">
                                 <div class="header">

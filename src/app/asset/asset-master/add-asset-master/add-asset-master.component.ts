@@ -80,6 +80,17 @@ export class AddAssetMasterComponent
   assetUserList: any;
   companyId: string;
   branchId: string;
+  // Category
+  computerFlag: boolean = false;
+  furnitureFlag: boolean = false;
+  isCategory: boolean = false;
+  officeFlag: boolean = false;
+  vehicleFlag: boolean = false;
+  plantFlag: boolean = false;
+  //
+  isOwned: boolean =true;
+  isRented: boolean =false;
+  isThirdParty: boolean =false;
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -109,6 +120,10 @@ export class AddAssetMasterComponent
       status: ["", [Validators.required]],
       putUseDate: [moment().format('DD/MM/YYYY')],
       putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+      rentedUptoDate: [""],
+      rentedUptoDateObj: [""],
+      thirdPartyUptoDate: [""],
+      thirdPartyUptoDateObj: [""],
       isLine: [false],
       id: [""],
       uploadImg: [""],
@@ -163,7 +178,31 @@ export class AddAssetMasterComponent
         })
       ]),
 
-
+      //Computer
+      os: [""],
+      processor: [""],
+      memory: [""],
+      storage: [""],
+      monitor: [""],
+      //Furniture
+      aesthetics: [""],
+      quality: [""],
+      safety: [""],
+      sustainability: [""],
+      //Office Equipment
+      device: [""],
+      deviceModel: [""],
+      deviceStatus: [""],
+      //Vehicle
+      vehicleType: [""],
+      vehicleEngine: [""],
+      vehicleSpeed: [""],
+      fuelCapacity: [""],
+      vehicleWeight: [""],
+      //Plant and Machinery
+      lifeTime: [""],
+      costOfLand: [""],
+      substance: [""],
 
       grnBasedAssetList: this.fb.array([
         this.fb.group({
@@ -176,7 +215,10 @@ export class AddAssetMasterComponent
           putUseDate: [moment().format('DD/MM/YYYY')],
           putUseDateObj: [moment().format('YYYY-MM-DD')],
         })
-      ])
+      ]),
+      owned: ["owned"],
+      rented: [""],
+      thirdParty: [""],
     });
   }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -380,10 +422,60 @@ export class AddAssetMasterComponent
     );
   }
 
+  categoryAttributes(category:any){
+    this.isCategory=true;
+     if(category==43 || category=='43'){
+       this.computerFlag=true;
+     } else {
+      this.computerFlag=false;
+     }
+     if(category==40 || category=='40'){
+      this.furnitureFlag=true;
+    } else {
+     this.furnitureFlag=false;
+    }
+    if(category==41 || category=='41'){
+      this.officeFlag=true;
+    } else {
+     this.officeFlag=false;
+    }
+    if(category==42 || category=='42'){
+      this.vehicleFlag=true;
+    } else {
+     this.vehicleFlag=false;
+    }
+    if(category==44 || category=='44'){
+      this.plantFlag=true;
+    } else {
+     this.plantFlag=false;
+    }
+  }
+
   onSubmit() {
     this.submitted = true;
 
     if (this.docForm.valid) {
+
+      if(this.isOwned){
+        this.docForm.patchValue({
+          'thirdPartyUptoDate':"",
+          'thirdPartyUptoDateObj':"",
+          'rentedUptoDate':"",
+          'rentedUptoDateObj':"",
+        })
+      }
+      if(this.isRented){
+        this.docForm.patchValue({
+          'thirdPartyUptoDate':"",
+          'thirdPartyUptoDateObj':"",
+        })
+      }
+      if(this.isThirdParty){
+        this.docForm.patchValue({
+          'rentedUptoDate':"",
+          'rentedUptoDateObj':"",
+        })
+      }
 
       this.assetMaster = this.docForm.value;
       console.log(this.assetMaster);
@@ -441,6 +533,27 @@ export class AddAssetMasterComponent
 
   update() {
     if (this.docForm.valid) {
+
+      if(this.isOwned){
+        this.docForm.patchValue({
+          'thirdPartyUptoDate':"",
+          'thirdPartyUptoDateObj':"",
+          'rentedUptoDate':"",
+          'rentedUptoDateObj':"",
+        })
+      }
+      if(this.isRented){
+        this.docForm.patchValue({
+          'thirdPartyUptoDate':"",
+          'thirdPartyUptoDateObj':"",
+        })
+      }
+      if(this.isThirdParty){
+        this.docForm.patchValue({
+          'rentedUptoDate':"",
+          'rentedUptoDateObj':"",
+        })
+      }
       this.assetMaster = this.docForm.value;
       this.spinner.show();
       this.assetService.updateAssetMaster(this.assetMaster).subscribe({
@@ -548,12 +661,62 @@ export class AddAssetMasterComponent
           'uploadFiles': res.addAssetBean.uploadFiles,
           'uploadImg': res.addAssetBean.uploadImg,
           'vendor': res.addAssetBean.vendor,
+          //CATEGORY
+          'os': res.addAssetBean.os,
+          'processor':res.addAssetBean.processor,
+          'memory': res.addAssetBean.memory,
+          'storage': res.addAssetBean.storage,
+          'monitor': res.addAssetBean.monitor,
+          'aesthetics': res.addAssetBean.aesthetics,
+          'quality':res.addAssetBean.quality,
+          'safety': res.addAssetBean.safety,
+          'sustainability': res.addAssetBean.sustainability,
+          'device': res.addAssetBean.device,
+          'deviceModel': res.addAssetBean.deviceModel,
+          'deviceStatus':res.addAssetBean.deviceStatus,
+          'vehicleType': res.addAssetBean.vehicleType,
+          'vehicleEngine': res.addAssetBean.vehicleEngine,
+          'vehicleSpeed': res.addAssetBean.vehicleSpeed,
+          'fuelCapacity': res.addAssetBean.fuelCapacity,
+          'vehicleWeight':res.addAssetBean.vehicleWeight,
+          'lifeTime': res.addAssetBean.lifeTime,
+          'costOfLand': res.addAssetBean.costOfLand,
+          'substance': res.addAssetBean.substance,
+          //
+          
+          rentedUptoDate: res.addAssetBean.rentedUptoDate,
+          rentedUptoDateObj: res.addAssetBean.rentedUptoDate!=null ? this.commonService.getDateObj(res.addAssetBean.rentedUptoDate) : "",
+          thirdPartyUptoDate: res.addAssetBean.thirdPartyUptoDate,
+          thirdPartyUptoDateObj: res.addAssetBean.thirdPartyUptoDate!=null ? this.commonService.getDateObj(res.addAssetBean.thirdPartyUptoDate) : "",
 
 
 
         })
 
+        if(res.addAssetBean.rentedUptoDate !=null){
+          this.isRented=true;
+          this.docForm.patchValue({
+            'owned':"",
+            'rented':"rented",
+            'thirdParty':""
+          })
+        } else {
+          this.isRented=false;
+        }
+
+        if(res.addAssetBean.thirdPartyUptoDate !=null){
+          this.isThirdParty=true;
+          this.docForm.patchValue({
+            'owned':"",
+            'rented':"",
+            'thirdParty':"thirdParty"
+          })
+        } else {
+          this.isThirdParty=false;
+        }
+
         this.getInLine(res.addAssetBean.isLine);
+        this.categoryAttributes(res.addAssetBean.category);
 
         if (res.addAssetBean.uploadImg != undefined && res.addAssetBean.uploadImg != null && res.addAssetBean.uploadImg != '') {
           this.imgPathUrl = res.addAssetBean.uploadImg;
@@ -653,6 +816,10 @@ export class AddAssetMasterComponent
       grnBasedAssetArray.at(index).patchValue({
         putUseDate: cdate
       });
+    } else if (inputFlag == 'rentedUptoDate') {
+      this.docForm.patchValue({ rentedUptoDate: cdate });
+    } else if (inputFlag == 'thirdPartyUptoDate') {
+      this.docForm.patchValue({ thirdPartyUptoDate: cdate });
     }
   }
 
@@ -985,6 +1152,24 @@ export class AddAssetMasterComponent
     }
   }
 
+  getOwnerShip(check:any){
+     if(check=='owned'){
+       this.isOwned=true;
+     } else {
+      this.isOwned=false;
+     }
+     if(check=='rented'){
+      this.isRented=true;
+    } else {
+     this.isRented=false;
+    }
+    if(check=='thirdParty'){
+      this.isThirdParty=true;
+    } else {
+     this.isThirdParty=false;
+    }
+  }
+
   resetSelf(){
     this.docForm = this.fb.group({
 
@@ -995,6 +1180,10 @@ export class AddAssetMasterComponent
       status: ["", [Validators.required]],
       putUseDate: [moment().format('DD/MM/YYYY')],
       putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+      rentedUptoDate: [""],
+      rentedUptoDateObj: [""],
+      thirdPartyUptoDate: [""],
+      thirdPartyUptoDateObj: [""],
       isLine: [false],
       id: [""],
       uploadImg: [""],
@@ -1049,6 +1238,32 @@ export class AddAssetMasterComponent
         })
       ]),
 
+       //Computer
+       os: [""],
+       processor: [""],
+       memory: [""],
+       storage: [""],
+       monitor: [""],
+       //Furniture
+       aesthetics: [""],
+       quality: [""],
+       safety: [""],
+       sustainability: [""],
+       //Office Equipment
+       device: [""],
+       deviceModel: [""],
+       deviceStatus: [""],
+       //Vehicle
+       vehicleType: [""],
+       vehicleEngine: [""],
+       vehicleSpeed: [""],
+       fuelCapacity: [""],
+       vehicleWeight: [""],
+      //Plant and Machinery
+       lifeTime: [""],
+       costOfLand: [""],
+       substance: [""],
+
       grnBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],
@@ -1060,8 +1275,14 @@ export class AddAssetMasterComponent
           putUseDate: [moment().format('DD/MM/YYYY')],
           putUseDateObj: [moment().format('YYYY-MM-DD')],
         })
-      ])
+      ]),
+      owned: ["owned"],
+      rented: [""],
+      thirdParty: [""],
     });
+    this.isCategory=false;
+    this.isRented=false;
+    this.isThirdParty=false;
   }
 
 

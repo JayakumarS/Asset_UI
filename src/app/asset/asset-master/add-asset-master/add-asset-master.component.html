@@ -199,7 +199,7 @@
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-select tabindex="6" formControlName="category" required>
+                                            <mat-select tabindex="6" formControlName="category" (selectionChange)="categoryAttributes($event.value)" required>
                                                 <mat-option *ngFor="let title of categoryList" [value]="title.id">
                                                     {{title.text}}
                                                 </mat-option>
@@ -317,8 +317,45 @@
                                                </a>
                                              </div>
                                            </div>
-                                     <br>
+                                    
                              </div>
+                             <div class="row">
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                    <mat-label   style="margin-left: 50%;">OWNERSHIP </mat-label>
+                                  </div>
+                                  <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12">
+                                    <input type="radio" name="own"  tabindex="8"  formControlName="owned" value="owned" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;Owned
+                                    <input type="radio" name="own"  tabindex="8"  formControlName="rented" value="rented" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;Rented
+                                    <input type="radio" name="own"  tabindex="8"  formControlName="thirdParty" value="thirdParty" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;Lease/Third Party
+
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isRented">
+                                    <mat-label style="margin-left: 40%;">Upto Date</mat-label>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isRented">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <input matInput [matDatepicker]="picker7" formControlName="rentedUptoDateObj" name="rentedUptoObj{{i}}"
+                                      (dateChange)="getDateString($event,'rentedUptoDate',i)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker7></mat-datepicker>
+                                  </mat-form-field>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isThirdParty">
+                                    <mat-label style="margin-left: 40%;">Upto Date</mat-label>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isThirdParty">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <input matInput [matDatepicker]="picker7" formControlName="thirdPartyUptoDateObj" name="thirdPartyUptoDateObj{{i}}"
+                                      (dateChange)="getDateString($event,'thirdPartyUptoDate',i)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker7></mat-datepicker>
+                                  </mat-form-field>
+                                </div>
+
+                                </div>
+                                <br>
                             </div>
                         </div>
                             <!-- Normal Asset Save End-->
@@ -735,6 +772,209 @@
                                                     </td>
                                                 </div>
                                         </mat-tab>
+
+<!-- Category Specs Start -->
+                                  <mat-tab label="Specifications" *ngIf="isCategory">
+                                            <br>
+
+                                            <!-- Computer Start -->
+                                            <div class="row" *ngIf="computerFlag">
+
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>Operating System</mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="29" formControlName="os">
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>Processor</mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="29" formControlName="processor">
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>Memory</mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="29" formControlName="memory">
+                                                    </mat-form-field>
+                                                </div>
+        
+                                            </div>
+
+                                            <div class="row" *ngIf="computerFlag">
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>Storage</mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="29" formControlName="storage">
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>Monitor/Display</mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="29" formControlName="monitor">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+<!-- Computer End -->
+<!-- Furniture Start -->
+<div class="row" *ngIf="furnitureFlag">
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Aesthetics</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="aesthetics">
+        </mat-form-field>
+    </div>
+
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Quality</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="quality">
+        </mat-form-field>
+    </div>
+
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Safety</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="safety">
+        </mat-form-field>
+    </div>
+</div>
+<div class="row" *ngIf="furnitureFlag">
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Sustainability</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="sustainability">
+        </mat-form-field>
+    </div>
+</div>
+<!-- Furniture End -->
+<!-- Office Equipment Start -->
+<div class="row" *ngIf="officeFlag">
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Device</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="device">
+        </mat-form-field>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Model</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="deviceModel">
+        </mat-form-field>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Status</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="deviceStatus">
+        </mat-form-field>
+    </div>
+</div>
+<!-- Office Equipment End -->
+<!-- Vehicle Start -->
+<div class="row" *ngIf="vehicleFlag">
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Type</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="vehicleType">
+        </mat-form-field>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Engine</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="vehicleEngine">
+        </mat-form-field>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Speed</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="vehicleSpeed">
+        </mat-form-field>
+    </div>
+</div>
+<div class="row" *ngIf="vehicleFlag">
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Fuel Capacity</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="fuelCapacity">
+        </mat-form-field>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Weight</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="vehicleWeight">
+        </mat-form-field>
+    </div>
+</div>
+<!-- Vehicle End -->
+<!-- Plant Start -->
+<div class="row" *ngIf="plantFlag">
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Life Time</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="lifeTime">
+        </mat-form-field>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Cost of Land</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="costOfLand">
+        </mat-form-field>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-label>Substance</mat-label>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput tabindex="29" formControlName="substance">
+        </mat-form-field>
+    </div>
+</div>
+<!-- Plant End -->
+                                        </mat-tab>
+<!-- Category Specs end -->
+
+
                                     </mat-tab-group>
                                 </div>
                             </div>
