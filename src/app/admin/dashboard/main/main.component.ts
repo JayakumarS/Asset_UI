@@ -52,6 +52,7 @@ export type ChartOptions = {
 import * as Highcharts from 'highcharts';
 import { Options } from 'highcharts';
 import HC_drilldown from "highcharts/modules/drilldown";
+import { Router } from "@angular/router";
 HC_drilldown(Highcharts);
 
 @Component({
@@ -168,7 +169,8 @@ configUserLog: {
   companyLastAuditDoneBy: number[];
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
-    public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService) {}
+    public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
+    ) {}
     
   ngOnInit() {
      
@@ -1622,5 +1624,11 @@ configUserLog: {
         },
       },
     };
+  }
+
+  onChange(){
+    var userId=this.tokenStorage.getCompanyId()
+    window.sessionStorage.setItem("findFrom", "Opened");
+    this.router.navigate(['master/company/addCompany/'+userId]);
   }
 }

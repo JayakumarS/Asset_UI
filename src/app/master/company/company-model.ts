@@ -15,23 +15,22 @@ export class Company {
         companyId:number;
         isactive: boolean;
         userId:string;
-
-
-        
   
   constructor(company) {
     {
       this.companyId = company.companyId ||"";
       this.companyName = company.companyName || "";
-      this.shortName = company.shortName || "";
       this.comCountry = company.comCountry || "";
-      this.faxNo = company.faxNo || "";
-      this.address = company.address || "";
       this.emailId = company.emailId || "";
       this.telephoneNo = company.telephoneNo || "";
-      this.personIncharge = company.personIncharge || "";
-      this.isactive = company.isactive || "";
-      this.userId = company.userId || "";
+
+
+      // this.shortName = company.shortName || "";
+      // this.faxNo = company.faxNo || "";
+      // this.address = company.address || "";
+      // this.personIncharge = company.personIncharge || "";
+      // this.isactive = company.isactive || "";
+      // this.userId = company.userId || "";
     }
   }
   public getRandomID(): string {

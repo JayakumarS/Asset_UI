@@ -22,12 +22,12 @@
                           <input placeholder="Search" type="text" #filter class="browser-default search-field"
                             aria-label="Search box">
                         </li>
-                        <li>
+                        <!-- <li>
                           <div class="m-l-10" matTooltip="ADD">
                             <button color="primary" type="button" class="btn-space" [routerLink]="'/master/company/addCompany/0'" mat-raised-button><i
                               class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                           </div>
-                        </li>
+                        </li> -->
                         <!-- <li>
                           <div class="m-l-10" matTooltip="Reset">
                             <button color="warn" type="button" class="btn-space" (click)="refresh()" mat-raised-button>
@@ -62,9 +62,9 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.comCountry}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="personIncharge">
+                  <ng-container matColumnDef="emailId">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Person In-Charge</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style=" text-transform: capitalize;"> {{row.personIncharge}}
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style=" text-transform: capitalize;"> {{row.emailId}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="telephoneNo">
@@ -72,16 +72,6 @@
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.telephoneNo }}
                     </mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="isactive">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style=" text-transform: capitalize;"> {{row.isactive}}
-                    </mat-cell>
-                  </ng-container>
-
-
-
-
-
 
                   <!-- actions -->
                   <ng-container matColumnDef="actions">

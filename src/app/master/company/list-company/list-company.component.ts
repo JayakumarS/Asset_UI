@@ -19,6 +19,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { DeleteCompanyComponent } from './delete-company/delete-company.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 @Component({
   selector: 'app-list-company',
@@ -31,9 +32,8 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
    
     "companyName",
     "comCountry",
-    "personIncharge",
+    "emailId",
     "telephoneNo",
-    "isactive",
     "actions"
   ];
 
@@ -51,7 +51,8 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
     public router:Router,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private notificationService: NotificationService
   ) { 
     super();
   }
@@ -75,7 +76,7 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
   }
 
   public loadData() {
-    this.exampleDatabase = new CompanyService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService,);
+    this.exampleDatabase = new CompanyService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService,this.notificationService,);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -92,9 +93,7 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
   }
 
   editCall(row) {
-
     this.router.navigate(['/master/company/addCompany/'+row.companyId]);
-
   }
 
   deleteItem(row){
@@ -182,20 +181,20 @@ export class ExampleDataSource extends DataSource<Company> {
     public exampleDatabase: CompanyService,
     public paginator: MatPaginator,
     public _sort: MatSort
-  ) {
-    super();
-    // Reset to the first page when the user changes the filter.
-    this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
-  }
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Company[]> {
-    // Listen for any changes in the base data, sorting, filtering, or pagination
-    const displayDataChanges = [
-      this.exampleDatabase.dataChange,
-      this._sort.sortChange,
-      this.filterChange,
-      this.paginator.page,
-    ];
+    ) {
+      super();
+      // Reset to the first page when the user changes the filter.
+      this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
+    }
+    /** Connect function called by the table to retrieve one stream containing the data to render. */
+    connect(): Observable<Company[]> {
+      // Listen for any changes in the base data, sorting, filtering, or pagination
+      const displayDataChanges = [
+        this.exampleDatabase.dataChange,
+        this._sort.sortChange,
+        this.filterChange,
+        this.paginator.page,
+      ];
     this.exampleDatabase.getAllList();
     return merge(...displayDataChanges).pipe(
       map(() => {
@@ -203,14 +202,11 @@ export class ExampleDataSource extends DataSource<Company> {
         this.filteredData = this.exampleDatabase.data
           .slice()
           .filter((company: Company) => {
-
             const searchStr = (
               company.companyName +
               company.comCountry +
-              company.personIncharge +
-              company.telephoneNo +
-              company.isactive 
-
+              company.emailId +
+              company.telephoneNo
              
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -247,16 +243,12 @@ export class ExampleDataSource extends DataSource<Company> {
           [propertyA, propertyB] = [a.comCountry, b.comCountry];
           break;
 
-          case "personIncharge":
-          [propertyA,propertyB]=[a.personIncharge,b.personIncharge];
+          case "emailId":
+          [propertyA,propertyB]=[a.emailId,b.emailId];
           break;
 
           case "telephoneNo":
           [propertyA,propertyB]=[a.telephoneNo,b.telephoneNo];
-          break;
-
-          case "isactive":
-          [propertyA,propertyB]=[a.isactive,b.isactive];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

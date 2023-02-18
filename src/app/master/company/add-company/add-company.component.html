@@ -1,175 +1,134 @@
 <section class="content">
-    <div class="content-block">
-      <div class="block-header">
-        <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Company master'" [items]="['Master']" [active_item]="'Add Company'">
-        </app-breadcrumb>
-      </div>
-      <div class="row clearfix ">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Company Master'" [items]="['Master']" [active_item]="'Add Company'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix ">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="box-shadow">
           <div class="card">
-            <div class="body" style="padding-left: 110px;">
+            <div class="body" style="padding-left: 60px;">
               <form class="m-4" [formGroup]="docForm">
-                <!-- <div class="row">
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 50px;">
-                    <mat-label><b></b></mat-label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Activity ID</mat-label>
-                      <input matInput formControlName="activtyid" required>
-                      <mat-error *ngIf="docForm.get('activtyid').hasError('required')">
-                        Activity ID is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div> -->
                 <div class="row">
-
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
                     <label>COMPANY NAME<span class="errorColor">*</span></label>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="companyName" required>
-                    <mat-error *ngIf="docForm.get('companyName').hasError('required')">
-                      Company Name is required
-                    </mat-error>
-                    <!-- <mat-error *ngIf="docForm.get('companyName').hasError('company')">
-                      Company Name Already Exists !!!
-                    </mat-error> -->
-                  </mat-form-field>
-                </div>
-
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label >SHORT NAME</label>
                   </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="companyName" 
+                        required>
+                      <mat-error *ngIf="docForm.get('companyName').hasError('required')">
+                        Company Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
 
-                      <input matInput formControlName="shortName" >
-                      <!-- <mat-error *ngIf="docForm.get('shortName').hasError('required')">
-                        Description is required
-                      </mat-error> -->
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                    <label>PRIMARY CONTACT PERSON<span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="shortName" required>
                     </mat-form-field>
                   </div>
                 </div>
 
                 <div class="row">
-
-                  <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label >COUNTRY<span class="errorColor">*</span></label>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select formControlName="country">
-                          <mat-option *ngFor="let title of countryDdList" [value]="title.id">
-                              {{title.text}}
-                          </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="docForm.get('country').hasError('required')">
-                        Country is required
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                    <label>EMAIL ID<span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="emailId"required>
+                      <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                        Email Id is required
                       </mat-error>
-                  </mat-form-field>
-              </div> -->
+                    </mat-form-field>
 
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label >FAX NO</label>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  </div>
 
-                <input matInput formControlName="faxNo" (keypress)="keyPressNumeric1($event)">
-                 <!-- <mat-error *ngIf="docForm.get('faxNo').hasError('required')">
-                  Fax No is required
-                </mat-error>  -->
-              </mat-form-field>
-            </div>
-
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label >TELEPHONE NUMBER<span class="errorColor">*</span></label>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="telephoneNo" maxlength="14" (keypress)="keyPressNumeric1($event)" required>
-                <mat-error *ngIf="docForm.get('telephoneNo').hasError('required')">
-                  Phone No is required
-                </mat-error>
-              </mat-form-field>
-            </div>
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                    <label>PHONE NUMBER<span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="phoneCode">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="telephoneNo" maxlength="14" (keypress)="keyPressNumeric1($event)"
+                        required>
+                      <mat-error *ngIf="docForm.get('telephoneNo').hasError('required')">
+                        Phone No is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
                 </div>
 
                 <div class="row">
-
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label >ADDRESS<span class="errorColor">*</span></label>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <!-- <input matInput formControlName="address" required> -->
-                    <textarea matInput formControlName="address"></textarea>
-                    <mat-error *ngIf="docForm.get('address').hasError('required')">
-                      Address is required
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label >WEBSITE<span class="errorColor">*</span></label>
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                    <label>WEBSITE</label>
                   </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <!-- <textarea matInput formControlName="emailId"></textarea> -->
-                      <input matInput formControlName="emailId"required *ngIf="edit == false">
-                      <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
-                      <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                      <input matInput formControlName="webSite" required>
+                      <mat-error *ngIf="docForm.get('webSite').hasError('required')">
                         WEBSITE is required
                       </mat-error>
-<!--
-                      <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
-                        Valid WEBSITE  Required
-                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                    <label>PAN NO</label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="panNo">
                     </mat-form-field>
                   </div>
                 </div>
-
                 <div class="row">
-
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label >COUNTRY<span class="errorColor">*</span></label>
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                    <label>GST NO</label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="gstNo">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                    <label>IFSC CODE</label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="ifscCode">
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                    <label>COUNTRY<span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="country">
-                          <mat-option *ngFor="let title of countryDdList" [value]="title.id">
-                              {{title.text}}
-                          </mat-option>
+                        <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
                       </mat-select>
                       <mat-error *ngIf="docForm.get('country').hasError('required')">
                         Country is required
                       </mat-error>
-                  </mat-form-field>
-              </div>
+                    </mat-form-field>
+                  </div>
 
-
-                <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label >FAX NO</label>
-              </div>
-              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-
-                  <input matInput formControlName="faxNo"> -->
-                   <!-- <mat-error *ngIf="docForm.get('faxNo').hasError('required')">
-                    Fax No is required
-                  </mat-error>  -->
-                <!-- </mat-form-field>
-              </div> -->
-
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                       <label >PERSON IN-CHARGE<span class="errorColor">*</span></label>
                   </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select formControlName="personIncharge">
                             <mat-option *ngFor="let title of userDdList" [value]="title.id">
@@ -180,21 +139,14 @@
                           Incharge is required
                         </mat-error>
                     </mat-form-field>
+                </div> -->
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    <label>IS ACTIVE</label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-checkbox formControlName="isactive" ngInit="checked=true"></mat-checkbox>
+                  </div>
                 </div>
-                </div>
-
-
-
-
-
-                <div class="row">
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12"  >
-                    <label >IS ACTIVE</label>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -136px;">
-                  <mat-checkbox formControlName="isactive"  ngInit="checked=true" style="margin-left: 48px;"></mat-checkbox>
-                </div>
-              </div>
                 <!-- <div class="row">
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;">
                     <mat-label><b></b></mat-label>
@@ -205,22 +157,260 @@
               </div> -->
                 <br>
                 <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    <mat-label> ADDRESS</mat-label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <textarea matInput formControlName="addressOne"></textarea>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    <mat-label> ADDRESS1</mat-label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <textarea matInput formControlName="addressTwo"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>COUNTRY</mat-label>
+                      <mat-select formControlName="addressOneCountry"
+                        (selectionChange)="fetchCountryBasedState($event.value)">
+                        <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> STATE</mat-label>
+                      <mat-select formControlName="addressOneState" (selectionChange)="stateBasedCity($event.value)">
+                        <mat-option *ngFor="let title of countrybasedStateList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>COUNTRY</mat-label>
+                      <mat-select formControlName="addressTwoCountry"
+                        (selectionChange)="fetchCountryBasedState1($event.value)">
+                        <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> STATE</mat-label>
+                      <mat-select formControlName="addressTwoState" (selectionChange)="stateBasedCity1($event.value)">
+                        <mat-option *ngFor="let title of countrybasedStateList1" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>CITY</mat-label>
+                      <!-- <input matInput formControlName="addressOneCity"> -->
+                      <mat-select formControlName="addressOneCity">
+                        <mat-option *ngFor="let title of stateBasedCityList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> ZIPCODE</mat-label>
+                      <input matInput formControlName="addressOneZipCode">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>CITY</mat-label>
+                      <mat-select formControlName="addressTwoCity">
+                        <mat-option *ngFor="let title of stateBasedCityList1" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> ZIPCODE</mat-label>
+                      <input matInput formControlName="addressTwoZipCode">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    <mat-label> HOW MANY BRANCHES ?</mat-label>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="branchCount" (keypress)="keyPressNumeric1($event)">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                    <button (click)="addBranch()" class="btn-space" mat-raised-button color="accent"
+                      style="background-color: #346234;">ADD</button>
+                  </div>
+                </div>
+
+                <br>
+                <!-- branch table Start -->
+                <div style="overflow-x: auto;" *ngIf="flag">
+                  <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                    <thead class="">
+                      <tr>
+                        <th style="width: 1%;"></th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%; border-radius: 0.05rem;">BRANCH</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%;border-radius: 0.07rem;">BRANCH NAME</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%;border-radius: 0.07rem;">BRANCH CODE</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%; border-radius: 0.05rem;">ADDRESS</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%; border-radius: 0.05rem;">COUNTRY</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%;border-radius: 0.07rem;">STATE</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%;border-radius: 0.07rem;">CITY</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+              width: 12%;border-radius: 0.07rem;">ZIPCODE</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+               width: 12%;border-radius: 0.07rem;">PHONE NO</th>
+                      </tr>
+                    </thead>
+
+                    <ng-container *ngFor="let branchList of docForm.get('branchList')['controls']; let i = index">
+                      <tbody [formGroup]="branchList">
+                        <tr>
+                          <td>
+                            <button mat-mini-fab color="warn" (click)="removeRow(i)">
+                              <mat-icon class="col-white">delete</mat-icon>
+                            </button>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>BRANCH</mat-label>
+                              <input matInput name="branch{{i}}" formControlName="branch">
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>BRANCH NAME</mat-label>
+                              <input matInput name="branchName{{i}}" formControlName="branchName" maxlength="50">
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>BRANCH CODE</mat-label>
+                              <input matInput name="branchCode{{i}}" formControlName="branchCode" maxlength="25">
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>ADDRESS</mat-label>
+                              <input matInput name="branchAddress{{i}}" formControlName="branchAddress">
+                            </mat-form-field>
+                          </td>
+
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>COUNTRY</mat-label>
+                              <mat-select formControlName="branchCountry"   name="branchCountry{{i}}" (selectionChange)="fetchCountryBasedState2($event.value)"  required>
+                                <mat-option [value]="33">
+                                  India
+                                </mat-option>
+                              </mat-select>
+                              <!-- <mat-select name="branchCountry{{i}}" formControlName="branchCountry" (selectionChange)="fetchCountryBasedState2($event.value,i)">
+                                <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                              </mat-select> -->
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>STATE</mat-label>
+                                <mat-select name="branchState{{i}}" formControlName="branchState" >
+                                  <mat-option *ngFor="let title of countrybasedStateList2" [value]="title.id">
+                                    {{title.text}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>CITY</mat-label>
+                              <input matInput name="branchCity{{i}}" formControlName="branchCity">
+                              <!-- <mat-select name="branchCity{{i}}" formControlName="branchCity">
+                                <mat-option>
+                                </mat-option>
+                              </mat-select> -->
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>ZIPCODE</mat-label>
+                              <input matInput name="branchZipcode{{i}}" formControlName="branchZipcode" >
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>PHONE NO</mat-label>
+                              <input matInput name="branchPhoneNo{{i}}" formControlName="branchPhoneNo" >
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </ng-container>
+                  </table>
+                </div>
+                <!--  branch table end -->
+                <br>
+                <br>
+
+                <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-                      color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
-                    <button  *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
-                      color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
-                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
-                    <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
+                    <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                      style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                      style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    <button color="primary" type="button" class="btn-space" (click)="reset()"
+                      mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                      mat-raised-button>Cancel</button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
         </div>
-        </div>
       </div>
     </div>
-  </section>
-
-
+  </div>
+</section>
