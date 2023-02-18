@@ -1,0 +1,4 @@
+export class StateResultBean {
+    stateList:[];
+
+}
