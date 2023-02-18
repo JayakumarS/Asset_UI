@@ -35,7 +35,7 @@ export class AddCityComponent implements OnInit {
       this.docForm = this.fb.group({
         cityName:[""],
         stateId:[""],
-        isactive:[""],
+        isactive:[true],
         loginedUser: this.tokenStorage.getUserId(),
 
       });
@@ -159,7 +159,7 @@ export class AddCityComponent implements OnInit {
         this.docForm.patchValue({
           cityName:[""],
           stateId:[""],
-          isactive:[""],
+          isactive:[],
         })
       } else {
         this.fetchDetails(this.requestId);

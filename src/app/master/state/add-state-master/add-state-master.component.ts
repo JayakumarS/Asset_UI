@@ -39,7 +39,7 @@ export class AddStateMasterComponent implements OnInit {
         stateName:[""],
         stateCode:[""],
         country:[""],
-        isactive:[""],
+        isactive:[true],
         loginedUser: this.tokenStorage.getUserId(),
 
       });
