@@ -57,6 +57,16 @@ const routes: Routes = [
       import("./company/company.module").then((m) => m.CompanyModule)
   },
   {
+    path: "status",
+    loadChildren: () =>
+      import("./status/status.module").then((m) => m.StatusModule)
+  },
+  {
+    path: "tax",
+    loadChildren: () =>
+      import("./Tax/tax.module").then((m) => m.TaxModule)
+  },
+  {
     path: "depreciation",
     loadChildren: () =>
       import("./depreciation/depreciation.module").then((m) => m.DepreciationModule),
@@ -77,12 +87,12 @@ const routes: Routes = [
   },
   {
     path: "Branch",
-  loadChildren: () => 
+  loadChildren: () =>
   import("./branch/branch.module").then((m) => m.BranchModule),
   },
   {
     path: "Company-Employees",
-  loadChildren: () => 
+  loadChildren: () =>
   import("./company-employees/company-employees.module").then((m) => m.CompanyEmployeesModule )
   },
 
@@ -94,7 +104,11 @@ const routes: Routes = [
     import("./usergroup/usergroup.module").then((m) => m.UsergroupModule),
   },
 
-
+  {
+    path: "company-logo",
+    loadChildren: () =>
+    import("./company-logo/company-logo.module").then((m) => m.CompanyLogoModule),
+  },
 
 
 ];

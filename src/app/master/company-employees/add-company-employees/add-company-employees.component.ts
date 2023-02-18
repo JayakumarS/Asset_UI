@@ -36,6 +36,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   requestId: any;
   companyName: any;
   companyList:[];
+  
   constructor( private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -58,6 +59,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       department:[""],
       active:[true],
       id:[""],
+      empid:["",[Validators.required]],
 
       // userId: this.tokenStorage.getUserId(),
       companyId:this.tokenStorage.getCompanyId(),
@@ -85,6 +87,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       department:[""],
       active:[true],
       id:[""],
+      empid:["",[Validators.required]],
 
       // userId: this.tokenStorage.getUserId(),
       // companyId:this.tokenStorage.getCompanyId(),
@@ -275,7 +278,8 @@ export class AddCompanyEmployeesComponent implements OnInit {
       'department' : parseInt(res.companyEmployeeBean.department), 
       'role' : res.companyEmployeeBean.role, 
       'active': res.companyEmployeeBean.active,
-      'id' : res.companyEmployeeBean.id
+      'id' : res.companyEmployeeBean.id,
+      'empid':res.companyEmployeeBean.empid
 
       
    })
@@ -343,6 +347,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
           department:[""],
           id:[""],
           active:[""],
+          empid:[""],
   
         })
   }
@@ -354,6 +359,8 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
 
   }
+
+  
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
@@ -367,6 +374,16 @@ export class AddCompanyEmployeesComponent implements OnInit {
     this.httpService.get<any>(this.companyEmployeeService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
       if (res){
         this.docForm.controls['emailId'].setErrors({ employee: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
+
+  validateEmployeeId(event){
+    this.httpService.get<any>(this.companyEmployeeService.uniqueValidateUrl + "?tableName=" + "company_employee" + "&columnName=" + "empid" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.docForm.controls['empid'].setErrors({ employee: true });
       }else{
        // this.docForm.controls['emailId'].setErrors(null);
       }

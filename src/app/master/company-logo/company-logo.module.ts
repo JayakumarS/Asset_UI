@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CompanyEmployeesRoutingModule } from './company-employees-routing.module';
-
-import { AddCompanyEmployeesComponent } from './add-company-employees/add-company-employees.component';
-import { ListCompanyEmployeesComponent } from './list-company-employees/list-company-employees.component';
+import { CompanyLogoRoutingModule } from './company-logo-routing.module';
+import { ListCompanyLogoComponent } from './list-company-logo/list-company-logo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -26,22 +24,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { DeleteCompanyEmpComponent } from './list-company-employees/delete-company-emp/delete-company-emp.component';
-import { AddMultiplecompanyEmployeesComponent } from './add-multiplecompany-employees/add-multiplecompany-employees.component';
-
 
 @NgModule({
   declarations: [
- 
-    AddCompanyEmployeesComponent,
-    ListCompanyEmployeesComponent,
-    DeleteCompanyEmpComponent,
-    AddMultiplecompanyEmployeesComponent,
-    
+    ListCompanyLogoComponent
   ],
   imports: [
     CommonModule,
-    CompanyEmployeesRoutingModule,
+    CompanyLogoRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
@@ -63,7 +53,7 @@ import { AddMultiplecompanyEmployeesComponent } from './add-multiplecompany-empl
     MatTooltipModule,
     MatProgressSpinnerModule,
     ComponentsModule,
-    SharedModule,
+    SharedModule
   ]
 })
-export class CompanyEmployeesModule { }
+export class CompanyLogoModule { }

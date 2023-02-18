@@ -1,0 +1,78 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Status Master'" [items]="['Master']" [active_item]="'Add Status'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body" style="padding-left: 80px;">
+              <form class="m-4" [formGroup]="docForm">
+                
+                <div class="row">
+                
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label>STATUS NAME<span class="errorColor">*</span></label>
+                </div> 
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="statusname" required>
+                    <mat-error *ngIf="docForm.get('statusname').hasError('required')">
+                      Status Name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+               
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label>DESCRIPTION<span class="errorColor">*</span></label>
+                  </div> 
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <textarea matInput formControlName="Description"></textarea>
+                      <mat-error *ngIf="docForm.get('Description').hasError('required')">
+                        Description is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;" >
+                    <label >IS ACTIVE</label>
+                </div> 
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -117px;">
+                  <mat-checkbox formControlName="active"  ngInit="checked=true" STYLE="margin-left: 15PX;"></mat-checkbox>
+                </div>
+              </div>
+                <!-- <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;">
+                    <mat-label><b></b></mat-label>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="padding-left: 69px;">
+                  <mat-checkbox formControlName="active"  ngInit="checked=true">Is Active</mat-checkbox>
+                </div>
+              </div> -->
+                <br>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
