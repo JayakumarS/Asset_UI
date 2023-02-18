@@ -26,6 +26,7 @@ import { ItSupportresultbean } from "src/app/helpdesk/it-support/it-support-resu
 import { HttpErrorResponse } from "@angular/common/http";
 import { ManageAuditService } from "src/app/audit/manage-audit/manage-audit.service";
 import { CommonService } from "src/app/common-service/common.service";
+import { FlowChartPopupComponent } from "src/app/admin/schedule-activity/flow-chart-popup/flow-chart-popup.component";
 const document: any = window.document;
 
 @Component({
@@ -427,6 +428,16 @@ showPaymentPage(){
       width: "30%",
       height: "40%",
     });
+  }
+
+  flowChart(){
+    const dialogRef = this.dialog.open(FlowChartPopupComponent, {
+      // height: "680px",
+      // width: "30%",
+      // height: "40%",
+    });
+
+
   }
   
   

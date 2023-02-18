@@ -27,6 +27,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ListScheduleActivityComponent } from './list-schedule-activity/list-schedule-activity.component';
 import { DeleteScheduleActivityComponent } from './list-schedule-activity/delete-schedule-activity/delete-schedule-activity.component';
 import { ActivityPopUpComponent } from './activity-pop-up/activity-pop-up.component';
+import { FlowChartPopupComponent } from './flow-chart-popup/flow-chart-popup.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ActivityPopUpComponent } from './activity-pop-up/activity-pop-up.compon
     AddScheduleActivityComponent,
     ListScheduleActivityComponent,
     DeleteScheduleActivityComponent,
-    ActivityPopUpComponent
+    ActivityPopUpComponent,
+    FlowChartPopupComponent
   ],
   imports: [
     CommonModule,
