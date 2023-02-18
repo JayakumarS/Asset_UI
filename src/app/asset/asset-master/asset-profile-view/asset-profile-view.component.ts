@@ -114,6 +114,11 @@ export class AssetProfileViewComponent implements OnInit {
   plantFlag: boolean = false;
   //
 
+  isRented: boolean = false;
+  isThirdParty: boolean = false;
+  isOwned: boolean = false;
+  ownerShip: any;
+
   // For Bar Chart Code
 
   public projectOptions: Partial<ChartOptions>;
@@ -353,6 +358,39 @@ fetchAssetName(asset:any){
   this.plantFlag=false;
  }
  //
+
+ if(res.addAssetBean.rentedUptoDate !=null){
+  this.isRented=true;
+  this.ownerShip="Rented";
+  this.docForm.patchValue({
+    'owned':"",
+    'rented':"rented",
+    'thirdParty':""
+  })
+} else {
+  this.isRented=false;
+}
+
+if(res.addAssetBean.thirdPartyUptoDate !=null){
+  this.isThirdParty=true;
+  this.ownerShip="Third Party";
+  this.docForm.patchValue({
+    'owned':"",
+    'rented':"",
+    'thirdParty':"thirdParty"
+  })
+} else {
+  this.isThirdParty=false;
+}
+
+if(res.addAssetBean.rentedUptoDate ==null && res.addAssetBean.thirdPartyUptoDate ==null){
+  this.isRented=false;
+  this.isThirdParty=false;
+  this.isOwned=true;
+  this.ownerShip="Owned";
+}
+
+
    this.auditableAsset=res.getAuditableAssetDetails;
    this.assetNameForList=this.profileViewDetails?.assetName;
 

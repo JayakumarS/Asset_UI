@@ -817,9 +817,44 @@ export class AddAssetMasterComponent
         putUseDate: cdate
       });
     } else if (inputFlag == 'rentedUptoDate') {
-      this.docForm.patchValue({ rentedUptoDate: cdate });
+      let currDate=new Date();
+      if(event.target.value<currDate){
+        let s = this.cmnService.getDate(currDate);
+        this.docForm.patchValue({
+          rentedUptoDate:s,
+          rentedUptoDateObj:s
+        });
+        this.showNotification(
+          "snackbar-danger",
+          "Please select future date!",
+          "top",
+          "right"
+        );
+      }
+      else {
+        this.docForm.patchValue({ rentedUptoDate: cdate });
+      } 
     } else if (inputFlag == 'thirdPartyUptoDate') {
-      this.docForm.patchValue({ thirdPartyUptoDate: cdate });
+      let currDate=new Date();
+
+      if(event.target.value<currDate){
+        let s = this.cmnService.getDate(currDate);
+        this.docForm.patchValue({
+          thirdPartyUptoDate:s,
+          thirdPartyUptoDateObj:s
+        });
+        this.showNotification(
+          "snackbar-danger",
+          "Please select future date!",
+          "top",
+          "right"
+        );
+      }
+      else {
+        this.docForm.patchValue({ thirdPartyUptoDate: cdate });
+      }
+
+      
     }
   }
 

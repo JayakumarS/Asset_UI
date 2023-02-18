@@ -601,6 +601,22 @@
                                             <br>
                                             <p class="text-muted">{{profileViewDetails?.lastAuditedDate}}</p>
                                         </div>
+                                        <div class="col-md-3 col-6 b-r">
+                                            <strong>Ownership</strong>
+                                            <br>
+                                            <p class="text-muted">{{ownerShip}}</p>
+                                        </div>
+                                        <div class="col-md-3 col-6 b-r" *ngIf="isRented">
+                                            <strong>Upto date</strong>
+                                            <br>
+                                            <p class="text-muted">{{profileViewDetails?.rentedUptoDate}}</p>
+                                        </div>
+                                        <div class="col-md-3 col-6 b-r" *ngIf="isThirdParty">
+                                            <strong>Upto date</strong>
+                                            <br>
+                                            <p class="text-muted">{{profileViewDetails?.thirdPartyUptoDate}}</p>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
