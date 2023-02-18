@@ -119,7 +119,7 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
         this.refreshTable();
         this.showNotification(
           "black",
-          "Edit Record Successfully...!!!",
+          "Upload Record Successfully...!!!",
           "bottom",
           "center"
         );
