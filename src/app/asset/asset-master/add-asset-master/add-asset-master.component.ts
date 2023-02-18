@@ -626,6 +626,16 @@ export class AddAssetMasterComponent
     }
     );
 
+      this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+        next: (data) => {
+          this.statusDdList = data;
+        },
+        error: (error) => {
+  
+        }
+      }
+      );
+
     this.assetService.editAsset(obj).subscribe({
       next: (res: any) => {
 
