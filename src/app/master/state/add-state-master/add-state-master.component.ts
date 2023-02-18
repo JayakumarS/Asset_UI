@@ -151,6 +151,7 @@ export class AddStateMasterComponent implements OnInit {
 
   }
   reset(){
+    location.reload
     if (!this.edit) {
       this.docForm.reset();
       this.docForm.patchValue({

@@ -26,7 +26,7 @@ export class ListMasterComponent extends UnsubscribeOnDestroyAdapter implements 
   displayedColumns = [
     "stateCode",
     "statename",
-    // "country",
+    "country",
     "actions",
   ];
   exampleDatabase:StateServiceService | null;

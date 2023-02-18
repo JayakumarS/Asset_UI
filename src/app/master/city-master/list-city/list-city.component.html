@@ -1,7 +1,7 @@
 <section class="content">
     <div class="content-block">
       <div class="block-header">
-        <app-breadcrumb [title]="'State'" [items]="['admin']" [active_item]="'State List'">
+        <app-breadcrumb [title]="'City'" [items]="['admin']" [active_item]="'City List'">
         </app-breadcrumb>
       </div>
       <div class="row">
@@ -14,7 +14,7 @@
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
                         <li class="dropdown m-l-20 ">
-                          <h2>State</h2>
+                          <h2>City</h2>
                         </li>
                         <li class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
@@ -23,7 +23,7 @@
                         </li>
                         <li>
                           <div class="m-l-10" matTooltip="ADD">
-                            <button color="primary" type="button" class="btn-space" [routerLink]="'/master/stateMaster/addStateMaster/0'" mat-raised-button>
+                            <button color="primary" type="button" class="btn-space" [routerLink]="'/master/cityMaster/addCity/0'" mat-raised-button>
                               <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
                             </button>
                           </div>
@@ -44,18 +44,18 @@
                     </div>
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                     #exporter="matTableExporter">
-                    <ng-container matColumnDef="stateCode">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>State Code</mat-header-cell>
-                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.stateCode}}</mat-cell>
+                    <ng-container matColumnDef="cityName">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>City Name</mat-header-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cityName}}</mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="statename">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>State Name</mat-header-cell>
-                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.stateName}}</mat-cell>
+                    <ng-container matColumnDef="stateId">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>State Id</mat-header-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.state_name}}</mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="country">
+                    <!-- <ng-container matColumnDef="country">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
-                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.country_name}}</mat-cell>
-                    </ng-container>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.country}}</mat-cell>
+                    </ng-container> -->
                     <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                                       <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                                       <mat-cell *matCellDef="let row; let i=index;" class="pr-0">

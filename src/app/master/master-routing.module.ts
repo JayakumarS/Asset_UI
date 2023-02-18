@@ -108,16 +108,16 @@ const routes: Routes = [
      loadChildren: () =>
       import("./state/state.module").then((m) => m.StateModule),
     },
-    // {
+    //  {
     //   path: "cityMaster",
     //    loadChildren: () =>
     //     import("./city/city-routing.module").then((m) => m.CityRoutingModule),
     //   },
-    // {
-    //   path: "cityMaster",
-    //    loadChildren: () =>
-    //     import("./city-master/city-master.module").then((m) => m.CityMasterModule),
-    //   },
+    {
+      path: "cityMaster",
+       loadChildren: () =>
+        import("./city-master/city-master.module").then((m) => m.CityMasterModule),
+      },
 
 
   {
