@@ -147,7 +147,8 @@ export class AddPurchaseOrderComponent implements OnInit {
 
 
     //Location Dropdown List
-    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+   this.companyId=this.tokenStorage.getCompanyId(),
+    this.httpService.get<any>(this.commonService.getLocationDropdown+"?companyId="+this.companyId).subscribe({
       next: (data) => {
         this.locationList = data;
       },
