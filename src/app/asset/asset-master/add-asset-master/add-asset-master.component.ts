@@ -91,6 +91,7 @@ export class AddAssetMasterComponent
   isOwned: boolean =true;
   isRented: boolean =false;
   isThirdParty: boolean =false;
+  statusDdList: any;
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -125,6 +126,7 @@ export class AddAssetMasterComponent
       thirdPartyUptoDate: [""],
       thirdPartyUptoDateObj: [""],
       isLine: [false],
+      isAuditable: [false],
       id: [""],
       uploadImg: [""],
       isGrnBasedAsset: [false],
@@ -265,6 +267,17 @@ export class AddAssetMasterComponent
      this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.locationDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
+     // Status dropdown
+     this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.statusDdList = data;
       },
       error: (error) => {
 
@@ -632,6 +645,7 @@ export class AddAssetMasterComponent
           'category': res.addAssetBean.category,
           'status': res.addAssetBean.status,
           'isLine': res.addAssetBean.isLine,
+          'isAuditable': res.addAssetBean.isAuditable,
           'putUseDate': res.addAssetBean.putUseDate,
           'putUseDateObj': res.addAssetBean.putUseDate != null ? this.commonService.getDateObj(res.addAssetBean.putUseDate) : "",
           'id': res.addAssetBean.id,
@@ -1226,6 +1240,7 @@ export class AddAssetMasterComponent
       thirdPartyUptoDate: [""],
       thirdPartyUptoDateObj: [""],
       isLine: [false],
+      isAuditable: [false],
       id: [""],
       uploadImg: [""],
       isGrnBasedAsset: [false],

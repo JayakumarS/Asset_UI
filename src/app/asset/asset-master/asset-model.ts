@@ -7,7 +7,7 @@ export class AssetMaster {
 	categoryName: string;
 	status: string;
 	isLine: boolean;
-
+	isAuditable: boolean;
 
 	allottedUpto: string;
 	allottedUptoobj: string;
