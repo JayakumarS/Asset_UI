@@ -10,6 +10,9 @@ import { User } from "src/app/core/models/user";
 import { BehaviorSubject,Observable } from 'rxjs';
 import { MatDialog } from "@angular/material/dialog";
 import { CompanyMapPopupComponent } from "src/app/admin/dashboard/main/company-map-popup/company-map-popup.component";
+import { CompanyLogoResultBean } from "src/app/master/company-logo/companyLogoResultBean";
+import { HttpServiceService } from "src/app/auth/http-service.service";
+import { HttpErrorResponse } from "@angular/common/http";
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -32,14 +35,21 @@ export class SigninComponent
    userObj = {};
    private currentUserSubject: BehaviorSubject<User>;
   private loginInfo: AuthLoginInfo;
+  logoList: any;
+  path: any;
+  bgList: any;
+  bgImg: any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private app:AppService,
+    private app: AppService,
     private tokenStorage: TokenStorageService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private httpService: HttpServiceService,
+
+
   ) {
     super();
   }
@@ -49,9 +59,22 @@ export class SigninComponent
       username: ["", Validators.required],
       password: ["", Validators.required],
     });
+    this.httpService.get<CompanyLogoResultBean>(this.authService.companyUrl).subscribe(
+      (data: any) => {
+        // console.log(data);
+        this.logoList = data.companyLogo;
+        this.path = this.logoList;
+        this.bgList = data.backGroundImg;
+        this.bgImg = this.bgList;
 
+        // let pathLength = this.logoList.length;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
   }
- 
+
 
   get f() {
     return this.authForm.controls;
@@ -113,7 +136,7 @@ export class SigninComponent
                 else if (data.userDetails.roleId == 6) {
                   this.router.navigate(["/payments/initiatePayment/subscription"]);
               }
-                 
+
               }, 1000);
               }else{
                  this.submitted = false;
@@ -136,7 +159,7 @@ export class SigninComponent
         }
       );
 
-      
+
 
       // this.subs.sink = this.authService
       //   .login(this.f.username.value, this.f.password.value)
@@ -170,7 +193,7 @@ export class SigninComponent
   }
 
   loginSuccessUserLog() {
-  
+
     const obj = {
       userName: this.tokenStorage.getUserId,
       companyid: this.tokenStorage.getCompanyId,
@@ -178,7 +201,7 @@ export class SigninComponent
     }
     console.log(obj);
     this.authService.getSuccessuserLog(obj).subscribe((result: any) => {
-      
+
     });
   }
 }

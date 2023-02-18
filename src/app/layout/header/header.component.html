@@ -1,30 +1,43 @@
 <nav #navbar class="navbar active">
+  <style>
+    .logo{
+      width: 45%;
+      margin-left: 10%;
+      margin-top: -36px;
+    }
+  </style>
     <div class="navbar-header">
       <a href="#" onClick="return false;" class="navbar-toggle collapsed"
         (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-expanded="false"></a>
       <a href="#" onClick="return false;" class="bars" (click)="mobileMenuSidebarOpen($event,'overlay-open')"></a>
       <a class="navbar-brand" routerLink={{homePage}}>
-        <img src="assets/images/AssetChekLogo.png" style="width: 70%; " alt="" >
+        <div class="d-flex justify-content-between lbl-alert mb-3">
+          <img *ngIf="logoList==null" src="assets/images/AssetChekLogo.png" alt="bitu-tech logo"  style="width: 70%;">
+        </div>
+        <div class="d-flex justify-content-between lbl-alert mb-3">
+          <img *ngIf ="logoList!=null" class="logo" src={{path}} alt="bitu-tech logo">
+        </div>
+        <!-- <img src="assets/images/AssetChekLogo.png" style="width: 70%; " alt="" > -->
         <!-- <span class="logo-name">assetchek</span> -->
       </a>
     </div>
 
-    
+
     <app-nested-menu></app-nested-menu>
-    
+
     <div _ngcontent-cud-c186 style="margin-left: auto;">
       <ul class="nav navbar-nav navbar-right">
-        
+
         <li>
           <button mat-icon-button *ngIf="angle" (click)="activityPopUp()" class=" nav-notification-icons">
             <app-feather-icons [icon]="'triangle'" style="margin-left: 24px; color: white;" [class]="'header-icon'"></app-feather-icons>
           </button>
-        </li> 
+        </li>
         <li>
           <button mat-icon-button (click)="flowChart()" class=" nav-notification-icons">
             <app-feather-icons [icon]="'pie-chart'" style="margin-left: 24px; color: white;" [class]="'header-icon'"></app-feather-icons>
           </button>
-        </li> 
+        </li>
 
         <li>
           <div class="example-button-container" style="margin-left:30%; margin-top: 20%;">
@@ -32,7 +45,7 @@
              <mat-icon>notifications</mat-icon>
             </button>
           </div>
-        </li> 
+        </li>
         <li>
           <div class="example-button-container" style="margin-left:30%; margin-top: 20%;"  >
             <button *ngIf="others" (click)="nonImagePopup()" aria-label="Example icon button with a bell icon" style="background-color: #004aad;border: none;color: aliceblue;">
@@ -40,8 +53,8 @@
              <span class="icon-button__badge">{{nonImageCount}}</span>
             </button>
           </div>
-        </li> 
-        
+        </li>
+
 
         <!-- Full Screen Button -->
         <li class="fullscreen">
@@ -49,12 +62,12 @@
             <app-feather-icons [icon]="'maximize'" [class]="'header-icon'"></app-feather-icons>
           </button>
         </li>
-       
+
 
 
 
         <li class="nav-item btnNotification" ngbDropdown>
-        
+
           <div ngbDropdownMenu class="notification-dropdown pullDown">
             <div class="noti-list" style="position: relative; max-width: 600px; max-height: 350px;" [perfectScrollbar]>
               <ul class="menu">
@@ -85,7 +98,7 @@
               All Notifications</a>
           </div>
         </li>
-       
+
         <li class="nav-item user_profile btnUserDropdown" ngbDropdown>
           <div class="chip dropdown-toggle" ngbDropdownToggle class="nav-notification-icons pt-0">
             <img src="{{userImg}}" class="user_img" width="32" height="32" alt="User">
@@ -133,7 +146,7 @@
                     </li>
                     <li>
                       <a href="#" (click)="passwordChange()" #openModal data-target="#passwordModal" data-toggle="modal" onClick="return false;" >
-                        <app-feather-icons [icon]="'edit-2'" [class]="'user-menu-icons'"></app-feather-icons>Change Password 
+                        <app-feather-icons [icon]="'edit-2'" [class]="'user-menu-icons'"></app-feather-icons>Change Password
                       </a>
                     </li>
                     <li>

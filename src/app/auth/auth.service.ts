@@ -38,6 +38,7 @@ public currentUser: Observable<User>;
   getSuccessUserLogData = `${this.serverURL.apiServerAddress}api/auth/app/userLog/login_data_success_user_log`;
   getSuccessUserLogoutData = `${this.serverURL.apiServerAddress}api/auth/app/userLog/logout_data_success_user_log`;
   // insertSalesEntry = `${this.serverURL.apiServerAddress}api/salesCallEntry/save`;
+  companyUrl = `${this.serverURL.apiServerAddress}api/auth/getCompany`;
 
   attemptAuth(credentials: AuthLoginInfo): Observable<any> {
     return  this.http
@@ -60,7 +61,7 @@ public currentUser: Observable<User>;
             this.userObj['companies'] = user.userDetails.companies;
             this.currentUserSubject.next(this.userObj);
           }
-          
+
           return user;
         })
       );
@@ -95,7 +96,7 @@ public currentUser: Observable<User>;
     return this.http.post(this.insertCusMaster,cusMasterData, httpOptions);
   }
 
- 
+
 
   // salesCallEntry(salesEntryData : any){
   //   return this.http.post(this.insertSalesEntry,salesEntryData, httpOptions);

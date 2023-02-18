@@ -45,11 +45,13 @@ export class ListCompanyLogoComponent  extends UnsubscribeOnDestroyAdapter imple
   {
     super(); {}
     this.docForm = this.fb.group({
-      companyName : [""],
+      companyId : [""],
       companyLogo : [""],
       logoUpload : [""],
       backGroundImg : [""],
-      bgUpload : [""]
+      bgUpload : [""],
+      loginedUser: this.tokenStorage.getUserId(),
+
     });
    }
 
@@ -70,7 +72,7 @@ export class ListCompanyLogoComponent  extends UnsubscribeOnDestroyAdapter imple
   }
   reset() {
     this.docForm = this.fb.group({
-      companyName : [""],
+      companyId : [""],
       companyLogo : [""],
       logoUpload : [""],
       backGroundImg : [""],

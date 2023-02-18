@@ -27,6 +27,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { ManageAuditService } from "src/app/audit/manage-audit/manage-audit.service";
 import { CommonService } from "src/app/common-service/common.service";
 import { FlowChartPopupComponent } from "src/app/admin/schedule-activity/flow-chart-popup/flow-chart-popup.component";
+import { CompanyLogoResultBean } from "src/app/master/company-logo/companyLogoResultBean";
 const document: any = window.document;
 
 @Component({
@@ -47,7 +48,7 @@ export class HeaderComponent
   langStoreValue: string;
   defaultFlag: string;
   isOpenSidebar: boolean;
-  userName:string; 
+  userName:string;
   upload:boolean=false;
   others:boolean=false;
   notify:boolean=false;
@@ -63,6 +64,10 @@ export class HeaderComponent
   nonImageCount: any;
   companyId: any;
   roleId: any;
+  logoList: any;
+  path: any;
+  bgList: any;
+  bgImg: any;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -78,7 +83,7 @@ export class HeaderComponent
     public manageAuditService: ManageAuditService,
     private commonService: CommonService,
 
-    
+
   ) {
     super();
   }
@@ -140,8 +145,8 @@ export class HeaderComponent
   ];
   ngOnInit() {
 
-   
-    
+
+
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
     this.userImg = this.authService.currentUserValue.img;
@@ -159,7 +164,7 @@ export class HeaderComponent
     this.companyNameText = this.token.getCompanyText();
     console.log(this.companyNameText);
     this.roleId=this.token.getRoleId();
-    
+
     this.roleBasedImgUrl = this.token.getRoleText();
     if (this.roleId === "3") {
       this.homePage = "admin/dashboard/main";
@@ -192,7 +197,7 @@ export class HeaderComponent
     if( JSON.parse(this.token.getCompanies()).length>1){
       this.isMultipleCompany = true;
     }
-    
+
     this.companyId=this.token.getCompanyId();
     if(this.companyId==undefined || this.companyId==null || this.companyId=="null" || this.companyId==""){
       this.companyId=0;
@@ -209,6 +214,21 @@ export class HeaderComponent
 
       }
     }
+    );
+
+    this.httpService.get<CompanyLogoResultBean>(this.authService.companyUrl).subscribe(
+      (data: any) => {
+        // console.log(data);
+        this.logoList = data.companyLogo;
+        this.path = this.logoList;
+        this.bgList = data.backGroundImg;
+        this.bgImg = this.bgList;
+
+        // let pathLength = this.logoList.length;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
     );
 
   }
@@ -331,14 +351,14 @@ export class HeaderComponent
   }
 
   logoutSuccessUserLog() {
-  
+
     const obj = {
       userName: this.token.getUserId,
       companyid: this.token.getCompanyId,
     }
     console.log(obj);
     this.authService.getSuccessuserLogout(obj).subscribe((result: any) => {
-      
+
     });
   }
 
@@ -352,8 +372,8 @@ showPaymentPage(){
       this.notify===true
     }
      this.notify===false
-    
- 
+
+
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -363,13 +383,13 @@ showPaymentPage(){
     const dialogRef = this.dialog.open(NotificationpopComponent, {
       height: "400px",
       width: "270px",
-    
-      
-      
+
+
+
       direction: tempDirection,
     });
-    
-  
+
+
   }
 
   // notify(value:any){
@@ -378,9 +398,9 @@ showPaymentPage(){
   //   // }
   //   // else
   //   // {
-  //   //   this.others=false; 
+  //   //   this.others=false;
   //   // }
-    
+
   // }
 
   nonImagePopup(){
@@ -390,9 +410,9 @@ showPaymentPage(){
       }
       else
       {
-        this.others=false; 
+        this.others=false;
       }
-    
+
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -402,20 +422,20 @@ showPaymentPage(){
     const dialogRef = this.dialog.open(ImagePopupComponent, {
       height: "1000px",
       width: "2000px",
-    
-      
-      
+
+
+
       direction: tempDirection,
     });
   }
 
   activityPopUp(){
     if(this.activityPopUp){
-      this.angle===true   
+      this.angle===true
 }else{
   this.angle===false
 }
-    
+
 
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
@@ -439,15 +459,15 @@ showPaymentPage(){
 
 
   }
-  
-  
+
+
 showPopUp(){
   this.httpService.get<any>(this.commonService.getCompaniesUrl+"?userId="+this.token.getUsername()).subscribe({
     next: (data) => {
       if(data.success){
         this.token.saveCompanies(data.companyMasterDetails);
       }
-      
+
     },
     error: (error) => {
 
@@ -455,7 +475,7 @@ showPopUp(){
   }
   );
 
-  
+
   let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {
     tempDirection = "rtl";
@@ -487,7 +507,7 @@ passwordChange(){
   });
 }
 updatePassword() {
-    
+
   this.openBtn.nativeElement.click();
 
 }
