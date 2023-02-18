@@ -199,6 +199,8 @@ export class AddAssetMasterComponent
       vehicleSpeed: [""],
       fuelCapacity: [""],
       vehicleWeight: [""],
+      insuranceDate: [""],
+      insuranceDateObj: [""],
       //Plant and Machinery
       lifeTime: [""],
       costOfLand: [""],
@@ -684,12 +686,13 @@ export class AddAssetMasterComponent
           'substance': res.addAssetBean.substance,
           //
           
-          rentedUptoDate: res.addAssetBean.rentedUptoDate,
-          rentedUptoDateObj: res.addAssetBean.rentedUptoDate!=null ? this.commonService.getDateObj(res.addAssetBean.rentedUptoDate) : "",
-          thirdPartyUptoDate: res.addAssetBean.thirdPartyUptoDate,
-          thirdPartyUptoDateObj: res.addAssetBean.thirdPartyUptoDate!=null ? this.commonService.getDateObj(res.addAssetBean.thirdPartyUptoDate) : "",
+          'rentedUptoDate': res.addAssetBean.rentedUptoDate,
+          'rentedUptoDateObj': res.addAssetBean.rentedUptoDate!=null ? this.commonService.getDateObj(res.addAssetBean.rentedUptoDate) : "",
+          'thirdPartyUptoDate': res.addAssetBean.thirdPartyUptoDate,
+          'thirdPartyUptoDateObj': res.addAssetBean.thirdPartyUptoDate!=null ? this.commonService.getDateObj(res.addAssetBean.thirdPartyUptoDate) : "",
 
-
+          'insuranceDate': res.addAssetBean.insuranceDate,
+          'insuranceDateObj': res.addAssetBean.insuranceDate!=null ? this.commonService.getDateObj(res.addAssetBean.insuranceDate) : "",
 
         })
 
@@ -816,7 +819,10 @@ export class AddAssetMasterComponent
       grnBasedAssetArray.at(index).patchValue({
         putUseDate: cdate
       });
-    } else if (inputFlag == 'rentedUptoDate') {
+    } else if (inputFlag == 'insuranceDate') {
+      this.docForm.patchValue({ insuranceDate: cdate });
+    } 
+    else if (inputFlag == 'rentedUptoDate') {
       let currDate=new Date();
       if(event.target.value<currDate){
         let s = this.cmnService.getDate(currDate);
@@ -1294,6 +1300,8 @@ export class AddAssetMasterComponent
        vehicleSpeed: [""],
        fuelCapacity: [""],
        vehicleWeight: [""],
+       insuranceDate: [""],
+       insuranceDateObj: [""],
       //Plant and Machinery
        lifeTime: [""],
        costOfLand: [""],

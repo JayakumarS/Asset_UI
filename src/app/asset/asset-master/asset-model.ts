@@ -75,4 +75,7 @@ export class AssetMaster {
     thirdPartyUptoDate: string;
     thirdPartyUptoDateObj: string;
 
+	insuranceDate: string;
+    insuranceDateObj: string;
+
 } 
