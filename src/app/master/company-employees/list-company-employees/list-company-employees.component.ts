@@ -20,6 +20,7 @@ import { CompanyService } from '../../company/company.service';
 import { Company } from '../company-employees-model';
 import { CompanyEmployeeService } from '../company-employees.service';
 import { DeleteCompanyEmpComponent } from './delete-company-emp/delete-company-emp.component';
+import { AddMultiplecompanyEmployeesComponent } from '../add-multiplecompany-employees/add-multiplecompany-employees.component';
 ;
 @Component({
   selector: 'app-list-company-employees',
@@ -97,6 +98,36 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
 
     this.router.navigate(['/master/Company-Employees/addCompanyEmp/' + row.id]);
 
+  }
+
+  multipleuploadpopupCall() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(AddMultiplecompanyEmployeesComponent, {
+      data: {
+        action: "edit",
+      },
+      width: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+        this.refreshTable();
+        this.showNotification(
+          "black",
+          "Edit Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
   }
 
   deleteItem(row){
@@ -223,6 +254,10 @@ export class ExampleDataSource extends DataSource<Company> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
+
+ 
+
+
   sortData(data: Company[]): Company[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;

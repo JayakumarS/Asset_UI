@@ -9,7 +9,7 @@ export class StatusMaster {
   isactiveForList: string;
   companyId:any;
   branchId:any;
-  
+  loginedUser:any;
   constructor(statusMaster) {
     {
       this.id = statusMaster.id ||"";

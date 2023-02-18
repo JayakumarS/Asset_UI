@@ -214,7 +214,7 @@ export class AddCompanyComponent implements OnInit {
      if(res.success){
       this.showNotification(
         "snackbar-success",
-        "Record Successfully Added...!!!",
+        "Record Successfully Updated...!!!",
         "bottom",
         "center"
       );
@@ -246,17 +246,17 @@ export class AddCompanyComponent implements OnInit {
       panelClass: colorName,
     });
   }
-  validateCompanyName(event) {
-    if (event != undefined && event != null && event != "") {
-      this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "company" + "&columnName=" + "company_name" + "&columnValue=" + event).subscribe((res: any) => {
-        if (res) {
-          this.docForm.controls['companyName'].setErrors({ company: true });
-        } else {
-          this.docForm.controls['companyName'].setErrors(null);
-        }
-      });
-    }
-  }
+  // validateCompanyName(event) {
+  //   if (event != undefined && event != null && event != "") {
+  //     this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "company" + "&columnName=" + "company_name" + "&columnValue=" + event).subscribe((res: any) => {
+  //       if (res) {
+  //         this.docForm.controls['companyName'].setErrors({ company: true });
+  //       } else {
+  //         this.docForm.controls['companyName'].setErrors(null);
+  //       }
+  //     });
+  //   }
+  // }
 
   keyPressNumeric1(event: any) {
     const pattern = /[0-9]/;

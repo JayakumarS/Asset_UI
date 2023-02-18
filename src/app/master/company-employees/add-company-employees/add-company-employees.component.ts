@@ -36,6 +36,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   requestId: any;
   companyName: any;
   companyList:[];
+  
   constructor( private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -358,6 +359,8 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
 
   }
+
+  
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {

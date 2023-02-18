@@ -44,4 +44,35 @@ export class AssetMaster {
 	detailList: any;
 	grnBasedAssetList: any;
 
+	
+	os: string;
+	processor: string;
+	memory: string;
+	storage: string;
+	monitor: string;
+	
+	aesthetics: string;
+	quality: string;
+	safety: string;
+	sustainability: string;
+	
+	device: string;
+	deviceModel: string;
+	deviceStatus: string;
+	
+	vehicleType: string;
+	vehicleEngine: string;
+	vehicleSpeed: string;
+	fuelCapacity: string;
+	vehicleWeight: string;
+	
+	lifeTime: string;
+	costOfLand: string;
+	substance: string;
+
+	rentedUptoDate: string;
+    rentedUptoDateObj: string;
+    thirdPartyUptoDate: string;
+    thirdPartyUptoDateObj: string;
+
 } 
