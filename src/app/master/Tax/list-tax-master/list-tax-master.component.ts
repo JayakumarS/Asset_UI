@@ -179,7 +179,7 @@ export class ExampleDataSource extends DataSource<TaxMaster> {
               taxMaster.taxid +
               taxMaster.taxname +
               taxMaster.taxcode +
-              taxMaster.taxtype +
+              taxMaster.taxtype.toString() +
               taxMaster.active
 
             ).toLowerCase();
