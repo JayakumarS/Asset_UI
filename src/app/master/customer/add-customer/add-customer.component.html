@@ -597,22 +597,22 @@
             <h4 style="margin-left: 30px;">Supplier</h4>
             <div class="row">
               <div class=" col-md-2">
-                <mat-label style="margin-left: 30px;">ACCOUNT RECEIVABLE<span class="errorColor">*</span></mat-label>
+                <mat-label style="margin-left: 30px;">ACCOUNT RECEIVABLE</mat-label>
               </div>
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="acctReceivable" maxlength="20" required>
+                  <input matInput formControlName="acctReceivable" maxlength="20" >
 
                 </mat-form-field>
               </div>
               <div class=" col-md-2">
-                <mat-label>SUPPLIER PAYMENT TERM<span class="errorColor">*</span></mat-label>
+                <mat-label>SUPPLIER PAYMENT TERM</mat-label>
               </div>
 
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput formControlName="supplier" maxlength="20" (keypress)="keyPressNumeric($event)"
-                    required>
+                  >
 
                 </mat-form-field>
               </div>
@@ -620,23 +620,23 @@
 
             <div class="row">
               <div class=" col-md-2">
-                <mat-label style="margin-left: 30px;">TOTAL RECEIVABLE<span class="errorColor">*</span></mat-label>
+                <mat-label style="margin-left: 30px;">TOTAL RECEIVABLE</mat-label>
               </div>
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput formControlName="totalReceivable" maxlength="20" (keypress)="keyPressNumeric($event)"
-                    required>
+                    >
 
                 </mat-form-field>
               </div>
               <div class=" col-md-2">
-                <mat-label>CREDIT LIMIT<span class="errorColor">*</span></mat-label>
+                <mat-label>CREDIT LIMIT</mat-label>
               </div>
 
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput formControlName="creditLimit" maxlength="20" (keypress)="keyPressNumeric($event)"
-                    required>
+                  >
 
                 </mat-form-field>
               </div>
