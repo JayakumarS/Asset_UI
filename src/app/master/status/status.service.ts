@@ -17,6 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class StatusService extends UnsubscribeOnDestroyAdapter {
+  
   isTblLoading = true;
   currencyList: [];
   dataChange: BehaviorSubject<StatusMaster[]> = new BehaviorSubject<StatusMaster[]>(
@@ -35,8 +36,8 @@ export class StatusService extends UnsubscribeOnDestroyAdapter {
   private saveStatus = `${this.serverUrl.apiServerAddress}app/statusMaster/save`;
   private getAllMasters = `${this.serverUrl.apiServerAddress}app/statusMaster/getList`;
   public updateStatusMaster = `${this.serverUrl.apiServerAddress}app/statusMaster/update`;
-  private deleteStatusMaster = `${this.serverUrl.apiServerAddress}app/statusMaster/delete`;
   public editStatusMaster = `${this.serverUrl.apiServerAddress}app/statusMaster/edit`;
+  public deletesStatusMaster = `${this.serverUrl.apiServerAddress}app/statusMaster/delete`;
 
 
   get data(): StatusMaster[] {
@@ -60,6 +61,11 @@ export class StatusService extends UnsubscribeOnDestroyAdapter {
         );
   }
 
+
+  DeleteStatus(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.deletesStatusMaster, obj);
+  }
+
   addStatus(statusMaster: StatusMaster): Observable<any> {
     return this.httpClient.post<StatusMaster>(this.saveStatus, statusMaster);
   }
@@ -75,39 +81,5 @@ export class StatusService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  DeleteStatusMaster(id: any,router,notificationService): void {
-    this.httpService.get<StatusMaster>(this.deleteStatusMaster+"?id="+id).subscribe(data => {
-      console.log(id);
-      if(data.Success == true){
-        notificationService.showNotification(
-          "snackbar-success",
-          "Deleted Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-        router.navigate(['/master/Activity-master/list-activity']);
-      }
-      else if(data.Success == false){
-        notificationService.showNotification(
-          "snackbar-danger",
-          "Not Deleted Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      }
-
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
-  }
 
 }

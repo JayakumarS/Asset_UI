@@ -61,6 +61,7 @@
     "ngx-dropzone-wrapper": "^10.0.1",
     "ngx-echarts": "^8.0.1",
     "ngx-gauge": "^4.0.0",
+    "ngx-json-viewer": "^3.0.2",
     "ngx-mask": "^13.0.1",
     "ngx-pagination": "^6.0.3",
     "ngx-perfect-scrollbar": "^10.1.1",

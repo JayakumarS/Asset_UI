@@ -36,8 +36,9 @@ export class TaxService extends UnsubscribeOnDestroyAdapter {
   private saveTax = `${this.serverUrl.apiServerAddress}app/taxMaster/save`;
   private getAllMasters = `${this.serverUrl.apiServerAddress}app/taxMaster/getList`;
   public updateTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/update`;
-  private deleteTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/delete`;
+  // private deleteTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/delete`;
   public editTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/edit`;
+  public DeleteTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/delete`;
 
 
   get data(): TaxMaster[] {
@@ -76,31 +77,36 @@ export class TaxService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  DeleteStatusMaster(id: any,router,notificationService): void {
-    this.httpService.get<TaxMaster>(this.deleteTaxMaster+"?id="+id).subscribe(data => {
-      console.log(id);
-      if(data.Success == true){
-        notificationService.showNotification(
-          "snackbar-success",
-          "Deleted Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-        router.navigate(['/master/Activity-master/list-activity']);
-      }
-      else if(data.Success == false){
-        notificationService.showNotification(
-          "snackbar-danger",
-          "Not Deleted Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      }
+  // DeleteTaxMaster(id: any,router,notificationService): void {
+  //   this.httpService.get<TaxMaster>(this.deleteTaxMaster+"?id="+id).subscribe(data => {
+  //     console.log(id);
+  //     if(data.Success == true){
+  //       notificationService.showNotification(
+  //         "snackbar-success",
+  //         "Deleted Record Successfully...!!!",
+  //         "bottom",
+  //         "center"
+  //       );
+  //       router.navigate(['/master/Activity-master/list-activity']);
+  //     }
+  //     else if(data.Success == false){
+  //       notificationService.showNotification(
+  //         "snackbar-danger",
+  //         "Not Deleted Successfully...!!!",
+  //         "bottom",
+  //         "center"
+  //       );
+  //     }
 
-      },
-      (err: HttpErrorResponse) => {
-      }
-    );
+  //     },
+  //     (err: HttpErrorResponse) => {
+  //     }
+  //   );
+  // }
+
+
+  DeleteTax(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.DeleteTaxMaster, obj);
   }
 
 }
