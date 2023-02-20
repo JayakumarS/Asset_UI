@@ -36,6 +36,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   requestId: any;
   companyName: any;
   companyList:[];
+  value5:[];
   
   constructor( private spinner: NgxSpinnerService,
     private fb: FormBuilder,
@@ -51,7 +52,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
     public router: Router,) {
     this.docForm = this.fb.group({
       company:[""],
-      branch:["",[Validators.required]],
+      branch:[""],
       role:[""],
       emailId:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       fullName: ["",[Validators.required, Validators.pattern("[A-Z]+")]],
@@ -79,7 +80,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
     this.docForm = this.fb.group({
       company:[""],
-      branch:["",[Validators.required]],
+      branch:[""],
       role:[""],
       emailId:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       fullName: ["",[Validators.required]],
@@ -333,7 +334,13 @@ export class AddCompanyEmployeesComponent implements OnInit {
       );
     }
   }
-
+  string(event: any) {
+    const pattern = /[A-Z a-z]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   reset(){
    
 

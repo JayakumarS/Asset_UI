@@ -29,7 +29,7 @@
                       </mat-form-field>
                         </div> -->
 
-                        <div class=" col-md-2">
+                        <!-- <div class=" col-md-2">
                           <mat-label >COMPANY</mat-label>
                           </div>
                           <div class=" col-md-3">
@@ -42,10 +42,10 @@
                               </mat-select>
                             
                           </mat-form-field>
-                        </div>
+                        </div> -->
 
                         <div class=" col-md-2">
-                          <mat-label >BRANCH<span class="errorColor">*</span></mat-label>
+                          <mat-label >BRANCH</mat-label>
                           </div>
                           <div class=" col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -54,13 +54,25 @@
                                     {{title.text}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="docForm.get('branch').hasError('required')">
+                            <!-- <mat-error *ngIf="docForm.get('branch').hasError('required')">
                               branch is required
-                            </mat-error>
+                            </mat-error> -->
                             </mat-form-field>
                           </div>
-                          </div>
-
+                        
+                          <div class=" col-md-2">
+                            <mat-label >DEPARTMENT</mat-label>
+                            </div>
+                            <div class=" col-md-3">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-select class="inputTxt" formControlName="department">
+                                <mat-option *ngFor="let title of getUserBasedDepartmentList" [value]="title.id">
+                                    {{title.text}}
+                                </mat-option>
+                            </mat-select> 
+                        </mat-form-field>
+                        </div>
+                        </div>
                           <div class="row">
 
                             <div class=" col-md-2">
@@ -83,7 +95,8 @@
                                 </div>
                                 <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <input matInput formControlName="fullName"  maxlength="50"  (keypress)="keyPressAlpha($event)"    required>
+                                  <input matInput formControlName="fullName"  maxlength="50"  [ngModel]="value5"
+                                  (ngModelChange)="value5=$event.toUpperCase()" (keypress)="string($event)"  required>
                                   <mat-error *ngIf="docForm.get('fullName').hasError('required')">
                                     Full Name is required
                                   </mat-error>
@@ -121,7 +134,7 @@
                                       </div>
                                     <div class=" col-md-3">
                                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                        <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required  *ngIf="edit == false">
+                                        <!-- <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required  *ngIf="edit == false">
                                         <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
       
                                         <mat-error *ngIf="docForm.get('emailId').hasError('required')">
@@ -130,6 +143,10 @@
                                         <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
                                           EmailId Already Exists !!!
                                         </mat-error>
+                                        <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
+                                          Valid Email Id Required
+                                        </mat-error> -->
+                                        <input matInput name="emailId" formControlName="emailId">
                                         <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
                                           Valid Email Id Required
                                         </mat-error>
@@ -165,20 +182,7 @@
 
                                           <div class="row">
 
-                                            <div class=" col-md-2">
-                                              <mat-label >DEPARTMENT</mat-label>
-                                              </div>
-                                              <div class=" col-md-3">
-                                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                <mat-select class="inputTxt" formControlName="department">
-                                                  <mat-option *ngFor="let title of getUserBasedDepartmentList" [value]="title.id">
-                                                      {{title.text}}
-                                                  </mat-option>
-                                              </mat-select>
-                                             
-                                          </mat-form-field>
-                                          </div>
-                                            
+                                     
 
                                             <div class=" col-md-2">
                                               <mat-label  >IS ACTIVE</mat-label></div>
