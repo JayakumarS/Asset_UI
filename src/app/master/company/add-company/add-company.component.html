@@ -18,7 +18,7 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="companyName" 
-                        required>
+                        required readonly>
                       <mat-error *ngIf="docForm.get('companyName').hasError('required')">
                         Company Name is required
                       </mat-error>
@@ -30,7 +30,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="shortName" required>
+                      <input matInput formControlName="shortName" required readonly>
                     </mat-form-field>
                   </div>
                 </div>
@@ -41,7 +41,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="emailId"required>
+                      <input matInput formControlName="emailId"required readonly>
                       <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                         Email Id is required
                       </mat-error>
@@ -59,7 +59,7 @@
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="telephoneNo" maxlength="14" (keypress)="keyPressNumeric1($event)"
+                      <input matInput formControlName="telephoneNo" maxlength="10" (keypress)="keyPressNumeric1($event)"
                         required>
                       <mat-error *ngIf="docForm.get('telephoneNo').hasError('required')">
                         Phone No is required
@@ -75,9 +75,6 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="webSite" required>
-                      <mat-error *ngIf="docForm.get('webSite').hasError('required')">
-                        WEBSITE is required
-                      </mat-error>
                     </mat-form-field>
                   </div>
 
@@ -158,7 +155,7 @@
                 <br>
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    <mat-label> ADDRESS</mat-label>
+                    <mat-label>ADDRESS</mat-label>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -167,7 +164,7 @@
                   </div>
 
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    <mat-label> ADDRESS1</mat-label>
+                    <mat-label>REGISTERED ADDRESS</mat-label>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -238,7 +235,8 @@
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="addressOneZipCode">
+                      <input matInput formControlName="addressOneZipCode" maxlength="6" 
+                     (keypress)="keyPressNumeric1($event)" (keypress)="keyPressNumeric1($event)"> 
                     </mat-form-field>
                   </div>
 
@@ -256,7 +254,7 @@
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="addressTwoZipCode">
+                      <input matInput formControlName="addressTwoZipCode" maxlength="6" (keypress)="keyPressNumeric1($event)">
                     </mat-form-field>
                   </div>
                 </div>
@@ -271,7 +269,7 @@
                       <input matInput formControlName="branchCount" (keypress)="keyPressNumeric1($event)">
                     </mat-form-field>
                   </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 " style="padding:7px">
                     <button (click)="addBranch()" class="btn-space" mat-raised-button color="accent"
                       style="background-color: #346234;">ADD</button>
                   </div>
@@ -284,12 +282,10 @@
                     <thead class="">
                       <tr>
                         <th style="width: 1%;"></th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-             width: 12%; border-radius: 0.05rem;">BRANCH</th>
+               <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+               width: 12%;border-radius: 0.07rem;">BRANCH CODE</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%;border-radius: 0.07rem;">BRANCH NAME</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-             width: 12%;border-radius: 0.07rem;">BRANCH CODE</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%; border-radius: 0.05rem;">ADDRESS</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
@@ -300,8 +296,11 @@
              width: 12%;border-radius: 0.07rem;">CITY</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
               width: 12%;border-radius: 0.07rem;">ZIPCODE</th>
+              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+              width: 12%; border-radius: 0.05rem;">BRANCH HEAD</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                width: 12%;border-radius: 0.07rem;">PHONE NO</th>
+                
                       </tr>
                     </thead>
 
@@ -315,20 +314,14 @@
                           </td>
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>BRANCH</mat-label>
-                              <input matInput name="branch{{i}}" formControlName="branch">
+                              <mat-label>BRANCH CODE</mat-label>
+                              <input matInput name="branchCode{{i}}" formControlName="branchCode" maxlength="5">
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>BRANCH NAME</mat-label>
                               <input matInput name="branchName{{i}}" formControlName="branchName" maxlength="50">
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>BRANCH CODE</mat-label>
-                              <input matInput name="branchCode{{i}}" formControlName="branchCode" maxlength="25">
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
@@ -341,23 +334,18 @@
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>COUNTRY</mat-label>
-                              <mat-select formControlName="branchCountry"   name="branchCountry{{i}}" (selectionChange)="fetchCountryBasedState2($event.value)"  required>
-                                <mat-option [value]="33">
-                                  India
-                                </mat-option>
-                              </mat-select>
-                              <!-- <mat-select name="branchCountry{{i}}" formControlName="branchCountry" (selectionChange)="fetchCountryBasedState2($event.value,i)">
+                              <mat-select name="branchCountry{{i}}" formControlName="branchCountry" (selectionChange)="fetchDynamicDropDown1($event.value,i)">
                                 <mat-option *ngFor="let title of countryDdList" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
-                              </mat-select> -->
+                              </mat-select>
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>STATE</mat-label>
-                                <mat-select name="branchState{{i}}" formControlName="branchState" >
-                                  <mat-option *ngFor="let title of countrybasedStateList2" [value]="title.id">
+                                <mat-select name="branchState{{i}}" formControlName="branchState" (selectionChange)="fetchDynamicDropDown2($event.value,i)">
+                                  <mat-option *ngFor="let title of dynamicDropDownList1[i]" [value]="title.id">
                                     {{title.text}}
                                   </mat-option>
                                 </mat-select>
@@ -366,25 +354,38 @@
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>CITY</mat-label>
-                              <input matInput name="branchCity{{i}}" formControlName="branchCity">
-                              <!-- <mat-select name="branchCity{{i}}" formControlName="branchCity">
-                                <mat-option>
+                              <mat-select name="branchCity{{i}}" formControlName="branchCity">
+                                <mat-option *ngFor="let title of dynamicDropDownList2[i]" [value]="title.id">
+                                  {{title.text}}
                                 </mat-option>
-                              </mat-select> -->
+                              </mat-select>
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>ZIPCODE</mat-label>
-                              <input matInput name="branchZipcode{{i}}" formControlName="branchZipcode" >
+                              <input matInput name="branchZipcode{{i}}" formControlName="branchZipcode"
+                              (keypress)="keyPressNumeric1($event)"  maxlength="6">
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>BRANCH HEAD</mat-label>
+                              <!-- <input matInput name="branch{{i}}" formControlName="branch"> -->
+                              <mat-select formControlName="branch"   name="branch{{i}}" >
+                                <mat-option *ngFor="let title of CompanyEnployeeList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                              </mat-select>
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>PHONE NO</mat-label>
-                              <input matInput name="branchPhoneNo{{i}}" formControlName="branchPhoneNo" >
+                              <input matInput name="branchPhoneNo{{i}}" formControlName="branchPhoneNo" maxlength="10" >
                             </mat-form-field>
                           </td>
+                        
                         </tr>
                       </tbody>
                     </ng-container>

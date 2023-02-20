@@ -32,6 +32,11 @@ export class AddCompanyComponent implements OnInit {
   stateBasedCityList = [];
   stateBasedCityList1 = [];
   countrybasedStateList2 = [];
+  stateList=[];
+  companyId: any;
+  CompanyEnployeeList=[];
+  dynamicDropDownList1 = [];
+  dynamicDropDownList2 = [];
 
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
@@ -117,6 +122,19 @@ export class AddCompanyComponent implements OnInit {
     // }
     // );
 
+
+     this.companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.companyService.getCompanyEnployee + "?companyId=" + this.companyId).subscribe({
+      next: (data) => {
+        this.CompanyEnployeeList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
+
     this.httpService.get<any>(this.companyService.userBasedCompanyDDList + "?userId=" + this.userId).subscribe(
       (data) => {
         this.userDdList = data.getuserBasedCompanyDDList;
@@ -144,7 +162,6 @@ export class AddCompanyComponent implements OnInit {
     });
 
   }
-
   fetchCompanyDetails(userId: any): void {
     this.httpService.get(this.companyService.fetchCompanyList + "?userId=" + userId).subscribe((res: any) => {
       console.log(res);
@@ -159,7 +176,7 @@ export class AddCompanyComponent implements OnInit {
     });
   }
 
-  //// country ,state and city dropdowns 
+  //// country ,state and city dropdowns /////////////////////
   fetchCountryBasedState(country: any): void {
     this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
       this.countrybasedStateList = res;
@@ -170,12 +187,18 @@ export class AddCompanyComponent implements OnInit {
       this.countrybasedStateList1 = res;
     })
   }
-  fetchCountryBasedState2(country: any): void {
+  ////////////////////////////////////////////////////////////
+  fetchDynamicDropDown1(country,i){
     this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
-      this.countrybasedStateList2 = res;
+      this.dynamicDropDownList1[i] = res;
+    });
+  }
+  fetchDynamicDropDown2(state,i){
+    this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
+      this.dynamicDropDownList2[i] = res;
     })
   }
-
+  ////////////////////////////////////////////////////////////////
   stateBasedCity(state: any) {
     this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
       this.stateBasedCityList = res;
@@ -186,8 +209,10 @@ export class AddCompanyComponent implements OnInit {
       this.stateBasedCityList1 = res;
     })
   }
-  //// country ,state and city dropdowns end 
+  //// country ,state and city dropdowns end ////////////////////////
 
+  
+  
   // onSubmit(){
   //   if(this.docForm.valid){
   //   this.docForm.value.userId = this.tokenStorage.getUserId();
@@ -259,7 +284,7 @@ export class AddCompanyComponent implements OnInit {
     branchListArray.removeAt(i);
   }
 
-  fetchDetails(company: any): void {
+  fetchDetails(company: any ): void {
     if(this.docForm.value.branchCount ==""){
       this.flag=false;
     }
@@ -311,10 +336,11 @@ export class AddCompanyComponent implements OnInit {
         })
         let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
         BranchListDtlArray.removeAt(0);
-        res.branchListDtlBean.forEach(element => {
+        res.branchListDtlBean.forEach((element, index) => {
           let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
           let arraylen = BranchListDtlArray.length;
-          this.fetchCountryBasedState2(element. branchCountry);
+          this.fetchDynamicDropDown1(element.branchCountry,index);
+          this.fetchDynamicDropDown2(element.branchState,index);
           let newUsergroup: FormGroup = this.fb.group({
             branch: [element.branch],
             branchName: [element.branchName],

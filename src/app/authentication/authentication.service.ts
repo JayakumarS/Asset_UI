@@ -7,6 +7,7 @@ import { serverLocations } from '../auth/serverLocations';
 import { HttpServiceService } from '../auth/http-service.service';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,8 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
   RoleId: string;
 
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private snackBar:MatSnackBar,
-    private httpService: HttpServiceService,private router: Router) { 
+    private httpService: HttpServiceService,private router: Router,private spinner: NgxSpinnerService,
+    ) { 
     super();
   }
 
@@ -39,10 +41,12 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
   }
   addCompanySignUp(authentication,router): void {
     this.dialogData = authentication;
+    this.spinner.show();
     this.httpService.post<any>(this.saveCompany, authentication).subscribe(data => {
       console.log(data);
-
       if(data.success){
+        this.spinner.hide();
+
         this.showNotification(
           "snackbar-success",
           "Company registered Successfully...!!!",
