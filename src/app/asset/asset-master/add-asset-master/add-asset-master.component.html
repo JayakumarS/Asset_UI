@@ -195,7 +195,7 @@
 
 
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label style="margin-left: 50%;">CATEGORY <span class="errorColor">*</span></mat-label>
+                                    <mat-label style="margin-left: 55%;">CATEGORY <span class="errorColor">*</span></mat-label>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -209,14 +209,14 @@
                                             </mat-error>
                                         </mat-form-field>
                                   </div>
-                                  <div class="col-xl-1">
+                                  <!-- <div class="col-xl-1">
                                     <button color="primary" type="button" class="btn-space" [routerLink]="'/master/category/add-category/0'" mat-raised-button>
                                         <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i>
                                       </button>
-                                </div>
+                                </div> -->
 
-                                <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label>ASSET NAME <span class="errorColor">*</span></mat-label>
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                    <mat-label style="margin-left: 55%;">ASSET NAME <span class="errorColor">*</span></mat-label>
                                   </div>
                                   <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                     <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
@@ -225,7 +225,7 @@
                                     </mat-form-field>
                                 </div>
 
-                                  <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
+                                  <!-- <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
                                     <mat-label >ASSET CODE <span class="errorColor">*</span></mat-label>
                                   </div>
                                   <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
@@ -233,21 +233,14 @@
                                         <input matInput tabindex="4" formControlName="assetCode" (keypress)="keyPressNameNumber($event)" required>
                                         <mat-error *ngIf="docForm.get('assetCode').hasError('required')">Asset Code is required </mat-error>
                                     </mat-form-field>
-                                </div>
+                                </div> -->
 
-
-
-                            </div>
-                            <br>
-
-                            <div class="row">
-
-                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label style="margin-left: 50%;">LOCATION <span class="errorColor">*</span></mat-label>
+                                <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
+                                    <mat-label >LOCATION </mat-label>
                                   </div>
                                   <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                        <mat-select tabindex="5" formControlName="location" required>
+                                        <mat-select tabindex="5" formControlName="location" >
                                             <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                                                 {{title.text}}
                                             </mat-option>
@@ -263,8 +256,15 @@
                                       </button>
                                 </div>
 
-                                <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label >STATUS <span class="errorColor">*</span></mat-label>
+                            </div>
+                            <br>
+
+                            <div class="row">
+
+                                
+
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                    <mat-label style="margin-left: 63%;">STATUS <span class="errorColor">*</span></mat-label>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -295,8 +295,8 @@
                                     </mat-form-field>
                                   </div>
 
-                                  <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label >PUT  IN USE DATE <span class="errorColor">*</span></mat-label>
+                                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                                    <mat-label style="margin-left: 45%;">PUT  IN USE DATE <span class="errorColor">*</span></mat-label>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -565,7 +565,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="19" formControlName="invoiceNo" (keypress)="keyPressNumberInt($event)">
+                                                        <input matInput tabindex="19" formControlName="invoiceNo" (keypress)="keyPressNameNumber($event)">
                                                     </mat-form-field>
                                                 </div>
 
@@ -632,14 +632,17 @@
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
                                                         <input matInput tabindex="25" formControlName="depreciation" (keypress)="keyPressNumberInt($event)"
-                                                        maxlength="3" (blur)="depreciationValidation(docForm)" required>
+                                                        maxlength="3" (blur)="depreciationValidation(docForm)" >
                                                         <mat-error  *ngIf="docForm.controls['depreciation'].hasError('pattern')">
                                                             Discount percentage should be of minimum 1% and Maximum 100%.
                                                         </mat-error>
+                                                       
                                                     </mat-form-field>
-
+                                                    <br>
                                                 </div>
+                                                <br>
                                             </div>
+                                            <br>
                                         </mat-tab>
                                         <mat-tab label="Alloted Information">
                                             <br>

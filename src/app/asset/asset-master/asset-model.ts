@@ -5,7 +5,8 @@ export class AssetMaster {
 	assetCode: string;
 	locationName: string;
 	categoryName: string;
-	status: string;
+	status: number;
+	statusName:string;
 	isLine: boolean;
 	isAuditable: boolean;
 

@@ -308,6 +308,7 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
               assetMaster.assetCode +
               assetMaster.locationName +
               assetMaster.categoryName +
+              assetMaster.statusName +
               assetMaster.status +
               assetMaster.id
             ).toLowerCase();
@@ -355,9 +356,12 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
         case "categoryName":
           [propertyA, propertyB] = [a.categoryName, b.categoryName];
           break;
-        case "status":
-          [propertyA, propertyB] = [a.status, b.status];
+        case "statusName":
+          [propertyA, propertyB] = [a.statusName, b.statusName];
           break;
+        case "status":
+            [propertyA, propertyB] = [a.status, b.status];
+            break;
 
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

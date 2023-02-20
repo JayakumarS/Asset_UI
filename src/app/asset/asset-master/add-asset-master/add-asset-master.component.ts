@@ -115,7 +115,7 @@ export class AddAssetMasterComponent
     this.docForm = this.fb.group({
       //info
       assetName: ["", [Validators.required]],
-      assetCode: ["", [Validators.required]],
+      assetCode: [""],
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
@@ -152,7 +152,7 @@ export class AddAssetMasterComponent
       captitalizationDate: [moment().format('DD/MM/YYYY')],
       endLife: [""],
       scrapValue: [""],
-      depreciation: ["", [Validators.required]],
+      depreciation: [""],
       //tab4
       department: [""],
       allottedUpto: [""],
@@ -421,7 +421,7 @@ export class AddAssetMasterComponent
                 assCode: [element.assetCode],
                 assLocation: [element.locationName],
                 assCategory: [element.categoryName],
-                assStatus: [element.status],
+                assStatus: [element.statusName],
                 assetId: [element.assetId],
 
               })
@@ -1152,7 +1152,7 @@ export class AddAssetMasterComponent
                 let newUsergroup: FormGroup = this.fb.group({
                   itemId: [element.itemId],
                   assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-                  assetCode: ["", [Validators.required]],
+                  assetCode: [""],
                   location: ["", [Validators.required]],
                   category: ["", [Validators.required]],
                   status: ["", [Validators.required]],
@@ -1239,7 +1239,7 @@ export class AddAssetMasterComponent
     this.docForm = this.fb.group({
 
       assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      assetCode: ["", [Validators.required]],
+      assetCode: [""],
       location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
