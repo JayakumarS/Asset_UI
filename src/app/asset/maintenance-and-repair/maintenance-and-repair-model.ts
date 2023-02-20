@@ -9,9 +9,10 @@ export class MaintenanceAndReport {
     expDateOfReturn:any;
     remarks:any;
     reason:any;
+    assetLocation:any;
+    maintenanceId:any;
 
     // For Assets labels model
-
     assetCode: any;
     location: any;
     category: any;
@@ -19,8 +20,6 @@ export class MaintenanceAndReport {
     lifeInYears: any;
     department: any;
     assetOwner: any;
-    maintenanceId:any;
-
 
 constructor(maintenanceAndReport) {
 {

@@ -54,6 +54,7 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
     currentPage: number,
     totalItems: number
   };
+  locationId: any;
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -67,15 +68,21 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
     public maintenanceAndRepairService:MaintenanceAndRepairService
     ){  
       this.docForm = this.fb.group({
-        assetId:[""],
+        assetId:["",[Validators.required]],
         expDateOfReturn:[""],
-        expDateOfReturnobj:[""],
-        repairReason:[""],
-        moveLocation:[""],
+        expDateOfReturnObj:["",[Validators.required]],
+        repairReason:["",[Validators.required]],
+        moveLocation:["",[Validators.required]],
         repairDate:[""],
-        repairDateObj:[""],
+        repairDateObj:["",[Validators.required]],
         remarks:[""],
-        maintenanceId:[""]
+        maintenanceId:[""],
+        assetLocation:[""],
+        // Received status
+        receivedDateObj:[""],
+        receivedDate:[""],
+        receivedRemarks:[""],
+        receivedLocation:[""]
       }); 
   }
 
@@ -84,6 +91,7 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
        this.edit=true;
+       this.fetchDetails(this.requestId) ;
       }
      });
 
@@ -117,6 +125,7 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
     this.httpService.get<any>(this.maintenanceAndRepairService.assetListUrl+ "?assetId=" + asset).subscribe(
       (data) => {
         this.maintenanceAndReport = data.getAssetDetails;
+        this.locationId=data.getAssetDetails.assetLocation;
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -126,6 +135,7 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
 
   onSubmit(){
     if(this.docForm.valid){
+      this.docForm.value.assetLocation = this.locationId;
       this.maintenanceAndReport = this.docForm.value;
       console.log(this.maintenanceAndReport);
       this.maintenanceAndRepairService.addMaintenanceAndRepair(this.maintenanceAndReport,this.router,this.notificationservice);
@@ -139,20 +149,86 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
       );
     }
 
-   }
+  }
+
+   fetchDetails(maintenanceId: any): void {
+
+    this.httpService.get(this.maintenanceAndRepairService.editMaintenanceAndRepair+"?maintenanceId="+maintenanceId).subscribe((res: any)=> {
+      console.log(maintenanceId);
+      this.fetchAssetDetails(res.maintenanceAndReportBean.assetId);
+      if(res.maintenanceAndReportBean.repairDate!=null){
+        var cdate = this.commonService.getDateObj(res.maintenanceAndReportBean.repairDate);
+      }
+      if(res.maintenanceAndReportBean.expDateOfReturn!=null){
+        var edate = this.commonService.getDateObj(res.maintenanceAndReportBean.expDateOfReturn);
+      }
+      if(res.maintenanceAndReportBean.receivedDate!=null){
+        var rdate = this.commonService.getDateObj(res.maintenanceAndReportBean.receivedDate);
+      }
+      this.docForm.patchValue({
+        'maintenanceId': res.maintenanceAndReportBean.maintenanceId,
+        'assetId': res.maintenanceAndReportBean.assetId+"",
+        'repairReason' : res.maintenanceAndReportBean.repairReason,
+        'moveLocation': res.maintenanceAndReportBean.moveLocation,
+        'remarks' : res.maintenanceAndReportBean.remarks,
+        'repairDateObj': cdate,
+        'repairDate': res.maintenanceAndReportBean.repairDate,
+        'expDateOfReturnObj': edate,
+        'expDateOfReturn': res.maintenanceAndReportBean.expDateOfReturn,
+        'receivedDateObj': rdate,
+        'receivedDate': res.maintenanceAndReportBean.receivedDate,
+        'receivedRemarks': res.maintenanceAndReportBean.receivedRemarks,
+        'receivedLocation' : res.maintenanceAndReportBean.receivedLocation,
+     })
+      },
+      (err: HttpErrorResponse) => {
+      }
+    );
+
+  } 
+
+  update() {
+    if (this.docForm.valid) {
+      if(this.docForm.value.repairDate!=null && this.docForm.value.receivedRemarks!=null && this.docForm.value.receivedLocation!=null){
+      this.maintenanceAndReport = this.docForm.value;
+      this.maintenanceAndRepairService.updateMaintenanceAndRepair(this.maintenanceAndReport,this.router,this.notificationservice);
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill Received date,Received Remarks and Received location...!!!",
+        "top",
+        "right"
+      );
+    }
+  } else {
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
+  }
 
   reset() {
     this.docForm = this.fb.group({
       assetId:[""],
       expDateOfReturn:[""],
-      expDateOfReturnobj:[""],
-      repairReason:[""],
-      moveLocation:[""],
+      expDateOfReturnObj:["",[Validators.required]],
+      repairReason:["",[Validators.required]],
+      moveLocation:["",[Validators.required]],
       repairDate:[""],
-      repairDateObj:[""],
+      repairDateObj:["",[Validators.required]],
       remarks:[""],
       maintenanceId:[""],
+      assetLocation:[""],
+      // Received status
+      receivedDateObj:[""],
+      receivedDate:[""],
+      receivedRemarks:[""],
+      receivedLocation:[""]
   });
+  this.maintenanceAndReport=null;
 }
 
   pageChanged(event){
@@ -187,6 +263,9 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
     }
     if (inputFlag == 'repairDate') {
       this.docForm.patchValue({ repairDate: cdate });
+    }
+    if (inputFlag == 'receivedDate') {
+      this.docForm.patchValue({ receivedDate: cdate });
     }
   }
 

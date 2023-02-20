@@ -31,10 +31,13 @@ export class MaintenanceAndRepairService extends UnsubscribeOnDestroyAdapter {
    private httpService: HttpServiceService) { 
      super();
   }
-   
+  
    private saveMaintenanceAndRepair = `${this.serverUrl.apiServerAddress}app/maintenanceAndRepair/save`;
    public assetListUrl = `${this.serverUrl.apiServerAddress}app/maintenanceAndRepair/getAssetlist`;
    public getAllMasters = `${this.serverUrl.apiServerAddress}app/maintenanceAndRepair/getlist`;
+   public editMaintenanceAndRepair = `${this.serverUrl.apiServerAddress}app/maintenanceAndRepair/edit`;
+   public updateMaintenanceAndRepairUrl = `${this.serverUrl.apiServerAddress}app/maintenanceAndRepair/update`;
+   public deleteMaintenanceAndRepairUrl = `${this.serverUrl.apiServerAddress}app/maintenanceAndRepair/delete`;
 
    get data(): MaintenanceAndReport[] {
     return this.dataChange.value;
@@ -59,7 +62,7 @@ export class MaintenanceAndRepairService extends UnsubscribeOnDestroyAdapter {
       else if(data.success===false){
         notificationService.showNotification(
           "snackbar-danger",
-          "Not Updated Successfully...!!!",
+          "Not Added Successfully...!!!",
           "bottom",
           "center"
         );
@@ -79,6 +82,60 @@ export class MaintenanceAndRepairService extends UnsubscribeOnDestroyAdapter {
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
         console.log(error.name + " " + error.message);
+      }
+    );
+  }
+
+  updateMaintenanceAndRepair(maintenanceAndReport: MaintenanceAndReport,router,notificationService): void {
+    this.dialogData = maintenanceAndReport;  
+    this.httpService.post<MaintenanceAndReport>(this.updateMaintenanceAndRepairUrl, maintenanceAndReport).subscribe(data => {
+      console.log(data);
+        if(data.success===true){
+          notificationService.showNotification(
+            "snackbar-success",
+            "Record Added successfully...",
+            "bottom",
+            "center"
+          );
+          router.navigate(['/asset/maintenanceAndReport/listMaintenanceAndReport']);
+        }
+        else if(data.success===false){
+          notificationService.showNotification(
+            "snackbar-danger",
+            "Not Updated Successfully...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
+
+  maintenanceAndRepairDelete(maintenanceId: any,router,notificationService): void {
+    this.httpService.get<MaintenanceAndReport>(this.deleteMaintenanceAndRepairUrl + "?maintenanceId=" + maintenanceId).subscribe(data => {
+      console.log(maintenanceId);
+      if(data.success===true){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Record deleted successfully...",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/asset/maintenanceAndReport/listMaintenanceAndReport']);
+      }
+      else if(data.success===false){
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
       }
     );
   }

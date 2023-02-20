@@ -5,7 +5,7 @@ import { ListMaintenanceAndRepairComponent } from './list-maintenance-and-repair
 
 const routes: Routes = [
   {
-    path:"addMaintenanceAndReport",
+    path:"addMaintenanceAndReport/:id",
     component:AddMaintenanceAndRepairComponent
 
   },

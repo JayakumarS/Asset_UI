@@ -11,12 +11,12 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
-import { DeleteUomComponent } from 'src/app/inventory/manage-uom/list-manage-uom/delete-uom/delete-uom.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { MaintenanceAndReport } from '../maintenance-and-repair-model';
 import { MaintenanceAndRepairService } from '../maintenance-and-repair.service';
+import { DeleteMaintenanceAndRepairComponent } from './delete-maintenance-and-repair/delete-maintenance-and-repair.component';
 
 @Component({
   selector: 'app-list-maintenance-and-repair',
@@ -26,7 +26,7 @@ import { MaintenanceAndRepairService } from '../maintenance-and-repair.service';
 export class ListMaintenanceAndRepairComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   displayedColumns=[
-    "assetId",
+    "assetCode",
     "repairDate",
     "expDateOfReturn",
     "remarks",
@@ -86,56 +86,27 @@ export class ListMaintenanceAndRepairComponent extends UnsubscribeOnDestroyAdapt
       );
     }
   editCall(row) {
-    if (this.permissionList?.modify){
-    this.router.navigate(['/inventory/UOM-catagory/add-UOM-Category/'+row.uomcategoryId]);
+    this.router.navigate(['/asset/maintenanceAndReport/addMaintenanceAndReport/'+row.maintenanceId]);
+  }
+  deleteItem(row) {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
     }
-  }
-  deleteItem(row){
+    const dialogRef = this.dialog.open(DeleteMaintenanceAndRepairComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+      disableClose: true
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      this.loadData();
+    });
 
   }
-  // deleteItem(row) {
-  //   let tempDirection;
-  //   if (localStorage.getItem("isRtl") === "true") {
-  //     tempDirection = "rtl";
-  //   } else {
-  //     tempDirection = "ltr";
-  //   }
-  //   const dialogRef = this.dialog.open(DeleteUomComponent, {
-  //     height: "270px",
-  //     width: "400px",
-  //     data: row,
-  //     direction: tempDirection,
-  //     disableClose: true
-  //   });
-  //   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-
-  //     if (data.data == true) {
-  //       const obj = {
-  //         deletingId: row.uomcategoryId
-  //       }
-  //       this.spinner.show();
-  //       this.maintenanceAndRepairService.DeleteUomCategory(obj).subscribe({
-  //         next: (data) => {
-  //           this.spinner.hide();
-  //           if (data.success) {
-  //             this.loadData();
-  //             this.showNotification(
-  //               "snackbar-success",
-  //               "Delete Record Successfully...!!!",
-  //               "bottom",
-  //               "center"
-  //             );
-  //           }
-  //         },
-  //         error: (error) => {
-  //           this.spinner.hide();
-  //         }
-  //       });
-
-  //     }
-  //   });
-
-  // }
 
 
   showNotification(colorName, text, placementFrom, placementAlign) {

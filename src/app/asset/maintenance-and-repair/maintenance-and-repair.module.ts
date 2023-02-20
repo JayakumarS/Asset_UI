@@ -29,12 +29,14 @@ import { NgxPaginationModule } from 'ngx-pagination'
 import { MaintenanceAndRepairRoutingModule } from './maintenance-and-repair-routing.module';
 import { AddMaintenanceAndRepairComponent } from './add-maintenance-and-repair/add-maintenance-and-repair.component';
 import { ListMaintenanceAndRepairComponent } from './list-maintenance-and-repair/list-maintenance-and-repair.component';
+import { DeleteMaintenanceAndRepairComponent } from './list-maintenance-and-repair/delete-maintenance-and-repair/delete-maintenance-and-repair.component';
 
 
 @NgModule({
   declarations: [
     AddMaintenanceAndRepairComponent,
-    ListMaintenanceAndRepairComponent
+    ListMaintenanceAndRepairComponent,
+    DeleteMaintenanceAndRepairComponent
   ],
   imports: [
     CommonModule,

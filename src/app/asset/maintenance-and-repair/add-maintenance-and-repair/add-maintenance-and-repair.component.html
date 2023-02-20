@@ -14,102 +14,124 @@
                 <div class="row">
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Assets</label>
+                        <label style="margin-top: 11px;">ASSETS<span style="color: red;">*</span></label>
                     </div>
-                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " *ngIf="!edit">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <mat-select formControlName="assetId" (selectionChange)="fetchAssetDetails($event.value)">
                                 <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
                               </mat-select>
+                              <mat-error *ngIf="docForm.get('assetId').hasError('required')">
+                                Assets is required
+                              </mat-error>
                         </mat-form-field>
                     </div> 
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " *ngIf="edit">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select formControlName="assetId" (selectionChange)="fetchAssetDetails($event.value)" [disabled]="true">
+                              <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
+                                {{title.text}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="docForm.get('assetId').hasError('required')">
+                              Assets is required
+                            </mat-error>
+                      </mat-form-field>
+                  </div>
                 </div>
 
-                <div class="row">
+                <div class="row" *ngIf="this.maintenanceAndReport!=null">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label style="margin-top: 11px;">Asset Code :</label>
+                      <label style="margin-top: 11px;">ASSET CODE :</label>
                     </div> 
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <label style="margin-top: 11px;">{{maintenanceAndReport?.assetCode}}</label>
                     </div>
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Location :</label>
+                        <label style="margin-top: 11px;">LOCATION :</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <label style="margin-top: 11px;">{{maintenanceAndReport?.location}}</label>
                     </div> 
   
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Category :</label>
+                        <label style="margin-top: 11px;">CATEGORY :</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <label style="margin-top: 11px;">{{maintenanceAndReport?.category}}</label>
                     </div> 
-                </div><br>
+                </div><br *ngIf="this.maintenanceAndReport!=null">
 
-                <div class="row">
+                <div class="row" *ngIf="this.maintenanceAndReport!=null">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label style="margin-top: 11px;">Status :</label>
+                      <label style="margin-top: 11px;">STATUS :</label>
                     </div> 
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <label style="margin-top: 11px;">{{maintenanceAndReport?.status}}</label>
                     </div>
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label style="margin-top: 11px;">Life In Years :</label>
+                    <label style="margin-top: 11px;">LIFE IN YEARS :</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <label style="margin-top: 11px;">{{maintenanceAndReport?.lifeInYears}}</label>
                     </div> 
   
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label style="margin-top: 11px;">Department :</label>
+                    <label style="margin-top: 11px;">DEPARTMENT :</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <label style="margin-top: 11px;">{{maintenanceAndReport?.department}}</label>
                     </div> 
                 </div><br>
 
-                <div class="row">
+                <div class="row" *ngIf="this.maintenanceAndReport!=null">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label style="margin-top: 11px;">Asset Owner :</label>
+                      <label style="margin-top: 11px;">ASSET OWNER :</label>
                     </div> 
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <label style="margin-top: 11px;">{{maintenanceAndReport?.assetOwner}}</label>
                     </div>
-                </div><br>
+                </div><br *ngIf="this.maintenanceAndReport!=null">
 
-                <div class="row">
+                <!-- For Add Screen -->
+                <div class="row" *ngIf="!edit">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label style="margin-top: 11px;">Repair Date</label>
+                      <label style="margin-top: 11px;">REPAIR DATE<span style="color: red;">*</span></label>
                     </div> 
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <input matInput [matDatepicker]="picker2" tabindex="27"
-                                formControlName="repairDateobj"
+                                formControlName="repairDateObj"
                                 (dateInput)="$event.value.format('DD/MM/YYYY')"
                                 id="repairDate"
                                 (dateChange)="getDateString($event, 'repairDate',0)">
                             <mat-datepicker-toggle matSuffix
                                 [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
+                            <mat-error *ngIf="docForm.get('repairDateObj').hasError('required')">
+                              Repair Date is required
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Repair Reason</label>
+                        <label style="margin-top: 11px;">REPAIR REASON<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <textarea matInput formControlName="repairReason"></textarea>
+                            <mat-error *ngIf="docForm.get('repairReason').hasError('required')">
+                              Repair Reason is required
+                            </mat-error>
                           </mat-form-field>
                     </div> 
   
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Move Location</label>
+                        <label style="margin-top: 11px;">MOVE LOCATION<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -118,41 +140,178 @@
                                     {{title.text}}
                                 </mat-option>
                             </mat-select>
+                            <mat-error *ngIf="docForm.get('moveLocation').hasError('required')">
+                              Move Location is required
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
-
-                <div class="row">
+                <div class="row" *ngIf="!edit">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label style="margin-top: 11px;">Exp Date Of Return</label>
+                      <label style="margin-top: 11px;">EXP DATE OF RETURN<span style="color: red;">*</span></label>
                     </div> 
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <input matInput [matDatepicker]="picker" tabindex="27"
-                                formControlName="expDateOfReturnobj"
+                                formControlName="expDateOfReturnObj"
                                 (dateInput)="$event.value.format('DD/MM/YYYY')"
                                 id="expDateOfReturn"
                                 (dateChange)="getDateString($event, 'expDateOfReturn',0)">
                             <mat-datepicker-toggle matSuffix
                                 [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="docForm.get('expDateOfReturnObj').hasError('required')">
+                              Exp Date Of Return is required
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Remarks</label>
+                        <label style="margin-top: 11px;">REMARKS</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <textarea matInput formControlName="remarks"></textarea>
                           </mat-form-field>
                     </div> 
-                </div>
+                </div><br>
+
+                <!-- For Edit Screen -->
+                <div class="row" *ngIf="edit">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label style="margin-top: 11px;">REPAIR DATE</label>
+                  </div> 
+                  <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput [matDatepicker]="picker2" tabindex="27"
+                              formControlName="repairDateObj"
+                              (dateInput)="$event.value.format('DD/MM/YYYY')"
+                              id="repairDate"
+                              (dateChange)="getDateString($event, 'repairDate',0)" disabled>
+                          <mat-datepicker-toggle matSuffix
+                              [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                          <mat-error *ngIf="docForm.get('repairDateObj').hasError('required')">
+                            Repair Date is required
+                          </mat-error>
+                      </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label style="margin-top: 11px;">REPAIR REASON</label>
+                  </div>
+                  <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <textarea matInput formControlName="repairReason" readonly></textarea>
+                          <mat-error *ngIf="docForm.get('repairReason').hasError('required')">
+                            Repair Reason is required
+                          </mat-error>
+                        </mat-form-field>
+                  </div> 
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label style="margin-top: 11px;">MOVE LOCATION</label>
+                  </div>
+                  <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select tabindex="5" formControlName="moveLocation" [disabled]="true">
+                              <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                  {{title.text}}
+                              </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('moveLocation').hasError('required')">
+                            Move Location is required
+                          </mat-error>
+                      </mat-form-field>
+                  </div>
+              </div>
+              <div class="row" *ngIf="edit">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label style="margin-top: 11px;">EXP DATE OF RETURN</label>
+                  </div> 
+                  <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput [matDatepicker]="picker" tabindex="27"
+                              formControlName="expDateOfReturnObj"
+                              (dateInput)="$event.value.format('DD/MM/YYYY')"
+                              id="expDateOfReturn"
+                              (dateChange)="getDateString($event, 'expDateOfReturn',0)" disabled>
+                          <mat-datepicker-toggle matSuffix
+                              [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                          <mat-error *ngIf="docForm.get('expDateOfReturnObj').hasError('required')">
+                            Exp Date Of Return is required
+                          </mat-error>
+                      </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label style="margin-top: 11px;">REMARKS</label>
+                  </div>
+                  <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <textarea matInput formControlName="remarks" readonly></textarea>
+                        </mat-form-field>
+                  </div> 
+              </div><br>
+
+
+                <h4 *ngIf="edit" style="color: blue;">RECEIVED STATUS :</h4><br *ngIf="edit">
+                <div class="row" *ngIf="edit">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label style="margin-top: 11px;">RECEIVED DATE<span style="color: red;">*</span></label>
+                  </div> 
+                  <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput [matDatepicker]="picker2" tabindex="27"
+                              formControlName="receivedDateObj"
+                              (dateInput)="$event.value.format('DD/MM/YYYY')"
+                              id="receivedDate"
+                              (dateChange)="getDateString($event, 'receivedDate',0)">
+                          <mat-datepicker-toggle matSuffix
+                              [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                          <mat-error *ngIf="docForm.get('receivedDateObj').hasError('required')">
+                            RECEIVED DATE is required
+                          </mat-error>
+                      </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label style="margin-top: 11px;">RECEIVED REMARKS<span style="color: red;">*</span></label>
+                  </div>
+                  <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <textarea matInput formControlName="receivedRemarks"></textarea>
+                          <mat-error *ngIf="docForm.get('receivedRemarks').hasError('required')">
+                            RECEIVED REMARKS is required
+                          </mat-error>
+                        </mat-form-field>
+                  </div> 
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label style="margin-top: 11px;">RECEIVED LOCATION<span style="color: red;">*</span></label>
+                  </div>
+                  <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select tabindex="5" formControlName="receivedLocation">
+                              <mat-option *ngFor="let title of locationDdList" [value]="title.id">
+                                  {{title.text}}
+                              </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('receivedLocation').hasError('required')">
+                            RECEIVED LOCATION is required
+                          </mat-error>
+                      </mat-form-field>
+                  </div>
+              </div><br *ngIf="edit">
 
                 <div class="row"> 
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
                       color="accent" style="margin-left: 41%;background-color: #34d034;">Submit</button>
+                      <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 41%;background-color: #34d034;">update</button>
                     <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
                     <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
                   </div>
