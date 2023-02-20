@@ -32,7 +32,7 @@ export class AddStatusMasterComponent implements OnInit {
 
       statusname: ["", [Validators.required]],
       statusid: [""],
-      Description:["", [Validators.required]],
+      Description:[""],
       active:[true],
       id:[""],
       companyId:this.tokenStorage.getCompanyId(),
@@ -55,6 +55,16 @@ export class AddStatusMasterComponent implements OnInit {
 
       }
      });
+  }
+
+  validateStatusname(event){
+    this.httpService.get<any>(this.statusMasterService.validateStatusURL + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.docForm.controls['statusname'].setErrors({ status: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
   }
 
   onSubmit(){
