@@ -1,24 +1,22 @@
+import { DataSource, SelectionModel } from '@angular/cdk/collections';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { DataSource } from "@angular/cdk/collections";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatMenuTrigger } from "@angular/material/menu";
-import { BehaviorSubject, fromEvent, merge, Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { SelectionModel } from "@angular/cdk/collections";
-import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
-import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { serverLocations } from 'src/app/auth/serverLocations';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
-import { NgxSpinnerService } from "ngx-spinner";
-import { TaxService } from '../tax.service';
 import { TaxMaster } from '../tax-model';
+import { TaxService } from '../tax.service';
+import { DeleteTaxMasterComponent } from './delete-tax-master/delete-tax-master.component';
 
 
 
@@ -29,92 +27,132 @@ import { TaxMaster } from '../tax-model';
 })
 export class ListTaxMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
-  displayedColumns = [
-
+  displayedColumns=[
     "taxid",
     "taxname",
     "taxcode",
     "taxtype",
     "active",
     "actions"
+
+
   ];
-
-  dataSource: ExampleDataSource | null;
-  exampleDatabase: TaxService | null;
-  selection = new SelectionModel<TaxMaster>(true, []);
-  index: number;
-  id: number;
+  dataSource:ExampleDataSource|null;
+ selection = new SelectionModel<TaxMaster>(true, []);
+  exporter: any;
+  isTblLoading: boolean;
+  exampleDatabase: TaxService| null;
   permissionList: any;
-  taxMaster: TaxMaster | null;
-  constructor(
-    public httpClient: HttpClient,
-    public dialog: MatDialog,
-    public taxMasterService: TaxService,
-    private snackBar: MatSnackBar,
-    private serverUrl: serverLocations,
-    private httpService: HttpServiceService,
-    public router: Router,
-    private tokenStorage: TokenStorageService,
-    private spinner: NgxSpinnerService,
-    public commonService: CommonService,
-    public route: ActivatedRoute
-  ) {
-    super();
-  }
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild("filter", { static: true }) filter: ElementRef;
-  @ViewChild(MatMenuTrigger)
-  contextMenu: MatMenuTrigger;
-  contextMenuPosition = { x: "0px", y: "0px" };
-
-  ngOnInit(): void {
-    const permissionObj = {
-      formCode: 'F1028',
-      roleId: this.tokenStorage.getRoleId()
+    constructor( public httpClient: HttpClient,
+                 private spinner: NgxSpinnerService,
+                 public dialog: MatDialog,
+                 public taxService: TaxService,
+                 private snackBar: MatSnackBar,
+                 private router: Router,
+                 private serverUrl: serverLocations,
+                 private httpService: HttpServiceService,
+                 private tokenStorage: TokenStorageService,
+                 public commonService: CommonService,
+    ) {
+      super();
     }
-    this.spinner.show();
-    this.commonService.getAllPagePermission(permissionObj).subscribe({
-      next: (data) => {
-        this.spinner.hide();
-        if (data.success) {
-          this.permissionList = data;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild("filter", { static: true }) filter: ElementRef;
+    @ViewChild(MatMenuTrigger)
+    contextMenu: MatMenuTrigger;
+    contextMenuPosition = { x: "0px", y: "0px" };
+
+    ngOnInit(): void {
+      const permissionObj = {
+        formCode: 'F1041',
+        roleId: this.tokenStorage.getRoleId()
+      }
+      this.spinner.show();
+      this.commonService.getAllPagePermission(permissionObj).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.permissionList = data;
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
         }
-      },
-      error: (error) => {
-        this.spinner.hide();
+      });
+      this.loadData();
+    }
+
+    refresh() {
+      this.loadData();
+    }
+
+    public loadData() {
+      this.exampleDatabase = new TaxService(this.httpClient, this.serverUrl, this.tokenStorage, this.httpService,);
+      this.dataSource = new ExampleDataSource(
+        this.exampleDatabase,
+        this.paginator,
+        this.sort
+      );
+      this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
+        () => {
+          if (!this.dataSource) {
+            return;
+          }
+          this.dataSource.filter = this.filter.nativeElement.value;
+        }
+      );
+    }
+
+    editCall(row) {
+      if (this.permissionList?.modify){
+      this.router.navigate(['/master/tax/addTax/' + row.id]);
+      }
+    }
+
+  deleteItem(row) {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteTaxMasterComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+      disableClose: true
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+
+      if (data.data == true) {
+        const obj = {
+          deletingId: row.id
+        }
+        this.spinner.show();
+        this.taxService.DeleteTax(obj).subscribe({
+          next: (data) => {
+            this.spinner.hide();
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+              );
+            }
+          },
+          error: (error) => {
+            this.spinner.hide();
+          }
+        });
+
       }
     });
-    this.loadData();
-  }
 
-  refresh(){
-    this.loadData();
-  }
-
-  public loadData() {
-    this.exampleDatabase = new TaxService(this.httpClient, this.serverUrl,this.tokenStorage, this.httpService);
-    this.dataSource = new ExampleDataSource(
-      this.exampleDatabase,
-      this.paginator,
-      this.sort
-    );
-    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
-      () => {
-        if (!this.dataSource) {
-          return;
-        }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      }
-    );
-  }
-
-
-  editCall(row) {
-    if (this.permissionList?.modify){
-    this.router.navigate(['/master/tax/addTax/' + row.id]);
-    }
   }
 
 
@@ -127,7 +165,7 @@ export class ListTaxMasterComponent extends UnsubscribeOnDestroyAdapter implemen
     });
   }
 
-// context menu
+  // context menu
   onContextMenu(event: MouseEvent, item: TaxMaster) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
@@ -138,17 +176,17 @@ export class ListTaxMasterComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 }
 
-
 export class ExampleDataSource extends DataSource<TaxMaster> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
-    return this.filterChange.value;
+    return this.filterChange.value.trim();
   }
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
   filteredData: TaxMaster[] = [];
   renderedData: TaxMaster[] = [];
+
   constructor(
     public exampleDatabase: TaxService,
     public paginator: MatPaginator,
@@ -181,7 +219,6 @@ export class ExampleDataSource extends DataSource<TaxMaster> {
               taxMaster.taxcode +
               taxMaster.taxtype.toString() +
               taxMaster.active
-
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -197,7 +234,7 @@ export class ExampleDataSource extends DataSource<TaxMaster> {
       })
     );
   }
-  disconnect() {}
+  disconnect() { }
   /** Returns a sorted copy of the database data. */
   sortData(data: TaxMaster[]): TaxMaster[] {
     if (!this._sort.active || this._sort.direction === "") {
@@ -226,13 +263,11 @@ export class ExampleDataSource extends DataSource<TaxMaster> {
           [propertyA, propertyB] = [a.active, b.active];
           break;
 
-
-
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
       return (
-        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
+        (valueA.toString().toLowerCase() < valueB.toString().toLowerCase() ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
       );
     });
   }

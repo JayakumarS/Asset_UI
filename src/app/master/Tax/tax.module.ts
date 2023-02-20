@@ -26,6 +26,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TaxRoutingModule } from './tax-routing.module';
 import { AddTaxMasterComponent } from './add-tax-master/add-tax-master.component';
 import { ListTaxMasterComponent } from './list-tax-master/list-tax-master.component';
+import { DeleteTaxMasterComponent } from './list-tax-master/delete-tax-master/delete-tax-master.component';
 
 
 
@@ -33,6 +34,7 @@ import { ListTaxMasterComponent } from './list-tax-master/list-tax-master.compon
   declarations: [
     AddTaxMasterComponent,
     ListTaxMasterComponent,
+    DeleteTaxMasterComponent,
   ],
   imports: [
     CommonModule,

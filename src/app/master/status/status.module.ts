@@ -26,6 +26,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { StatusRoutingModule } from './status-routing.module';
 import { AddStatusMasterComponent } from './add-status-master/add-status-master.component';
 import { ListStatusMasterComponent } from './list-status-master/list-status-master.component';
+import { DeleteStatusMasterComponent } from './list-status-master/delete-status-master/delete-status-master.component';
 
 
 
@@ -33,6 +34,7 @@ import { ListStatusMasterComponent } from './list-status-master/list-status-mast
   declarations: [
     AddStatusMasterComponent,
     ListStatusMasterComponent,
+    DeleteStatusMasterComponent,
   ],
   imports: [
     CommonModule,
