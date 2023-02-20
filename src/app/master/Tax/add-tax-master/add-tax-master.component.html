@@ -19,9 +19,12 @@
                 </div> 
                 <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="taxname" >
+                    <input matInput formControlName="taxname"  (blur)="validateTaxName($event.target.value)">
                     <mat-error *ngIf="docForm.get('taxname').hasError('required')">
                       Tax Name is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('taxname').hasError('taxName')">
+                      Tax Name Already Exists !!!
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -31,9 +34,12 @@
               </div> 
               <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="taxcode" >
+                <input matInput formControlName="taxcode"  (blur)="validateTaxCode($event.target.value)">
                   <mat-error *ngIf="docForm.get('taxcode').hasError('required')">
                     Tax Code is required
+                  </mat-error>
+                  <mat-error *ngIf="docForm.get('taxcode').hasError('taxCode')">
+                    Tax Code Already Exists !!!
                   </mat-error>
                 </mat-form-field>
               </div>
