@@ -469,5 +469,18 @@ export class AddCompanyComponent implements OnInit {
       event.preventDefault();
     }
   }
-
+  keyPressNumeric2(event: any) {
+    const pattern = /[0-9 +]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  keyPressName(event: any) {
+    const pattern = /[ a-z A-Z ]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 }
