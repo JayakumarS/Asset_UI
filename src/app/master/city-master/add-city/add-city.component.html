@@ -16,27 +16,32 @@
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="cityName" required>
+                        <input matInput formControlName="cityName"  (keypress)="keyPressString($event)"
+                        (blur)="validateCustomer($event.target.value)" required>
                         <mat-error *ngIf="docForm.get('cityName').hasError('required')">
-                          State Code is required
+                          city name is required
+                        </mat-error>
+                        <mat-error *ngIf="docForm.get('cityName').hasError('city')">
+                          city name Already Exists !!!
                         </mat-error>
                       </mat-form-field>
                     </div>
-                  </div>     
-
-                  <div class="row">
-                    <div class=" col-md-2">
-                      <mat-label>STATE ID</mat-label>
-                      </div>
-                      <div class=" col-md-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-select class="inputTxt" formControlName="stateId"maxlength="30">
-                          <mat-option *ngFor="let title of stateList" [value]="title.id">
-                              {{title.text}}
-                          </mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                      
+                  <div class=" col-md-2">
+                    <mat-label>STATE NAME</mat-label>
                     </div>
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="stateId"maxlength="30">
+                        <mat-option *ngFor="let title of stateList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
+                  </div>
+                  <div class="row">
+
 
                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;" >
                         <label >IS ACTIVE</label>

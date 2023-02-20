@@ -28,6 +28,7 @@ export class CityService  extends  UnsubscribeOnDestroyAdapter{
    private updateMaster = `${this.serverUrl.apiServerAddress}app/city/update`;
    public deletecity= `${this.serverUrl.apiServerAddress}app/city/delete`;
    public getCityList = `${this.serverUrl.apiServerAddress}app/city/list`;
+   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
 
 
@@ -39,9 +40,7 @@ export class CityService  extends  UnsubscribeOnDestroyAdapter{
     this.dialogData = cityMaster;
     this.httpService.post<any>(this.saveMaster, cityMaster).subscribe(data => {
       console.log(data);
-    
-        router.navigate(['']);
-     
+         
       //this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {

@@ -23,6 +23,8 @@ export class AddStateMasterComponent implements OnInit {
   requestId: number;
   spinner: any;
   state_id:number;
+  state: string;
+
 
 
 
@@ -150,6 +152,7 @@ export class AddStateMasterComponent implements OnInit {
   
 
   }
+ 
   reset(){
     if (!this.edit) {
       this.docForm.reset();
@@ -164,9 +167,9 @@ export class AddStateMasterComponent implements OnInit {
     }
   }
   onCancel(){
-    this.router.navigate(['/master/stateMaster/listStateMaster/'])
-
+    this.router.navigate(['/master/stateMaster/listStateMaster'])
   }
+  
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -175,4 +178,21 @@ export class AddStateMasterComponent implements OnInit {
       panelClass: colorName,
     });
   }
+  validateCustomer(event){
+    this.httpService.get<any>(this.stateService.uniqueValidateUrl+ "?tableName=" +"state"+"&columnName="+"state_code"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['stateCode'].setErrors({ state: true });
+      }else{
+        this.docForm.controls['stateCode'].setErrors(null);
+      }
+    });
+  }
+  keyPressString(event: any){
+    const pattern = /[A-Z,a-z ]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  
 }

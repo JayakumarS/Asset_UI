@@ -27,6 +27,7 @@ export class StateServiceService  extends UnsubscribeOnDestroyAdapter{
    public editStateMaster = `${this.serverUrl.apiServerAddress}app/state/edit`;
    public updateStateMaster = `${this.serverUrl.apiServerAddress}app/state/update`;
    public deletestate = `${this.serverUrl.apiServerAddress}app/state/delete`;
+   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
 
    get data(): StateMaster[] {
@@ -38,7 +39,6 @@ export class StateServiceService  extends UnsubscribeOnDestroyAdapter{
     this.httpService.post<any>(this.saveState, stateMaster).subscribe(data => {
       console.log(data);
     
-        router.navigate(['']);
      
       //this.dialogData = employees;
       },

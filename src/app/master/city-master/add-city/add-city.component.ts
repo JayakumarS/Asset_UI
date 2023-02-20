@@ -177,7 +177,23 @@ export class AddCityComponent implements OnInit {
         panelClass: colorName,
       });
     }
-}
+    validateCustomer(event){
+      this.httpService.get<any>(this.cityService.uniqueValidateUrl+ "?tableName=" +"city"+"&columnName="+"city_name"+"&columnValue="+event).subscribe((res: any) => {
+        if(res){
+          this.docForm.controls['cityName'].setErrors({ city: true });
+        }else{
+          this.docForm.controls['cityName'].setErrors(null);
+        }
+      });
+    }
+    keyPressString(event: any){
+      const pattern = /[A-Z,a-z ]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
+    }
+  }
 
 
 

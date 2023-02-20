@@ -15,28 +15,32 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="stateCode"  required>
+                      <input matInput formControlName="stateCode" (blur)="validateCustomer($event.target.value)" required>
                       <mat-error *ngIf="docForm.get('stateCode').hasError('required')">
                         State Code is required
+                      </mat-error>
+                      <mat-error *ngIf="docForm.get('stateCode').hasError('state')">
+                        State Code Already Exists !!!
                       </mat-error>
                     </mat-form-field>
                   </div>
   
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >STATE NAME</label>
+                        <label >STATE NAME<span class="errorColor">*</span></label>
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="stateName" required>
+                        <input matInput formControlName="stateName"  (keypress)="keyPressString($event)" required>
                         <mat-error *ngIf="docForm.get('stateCode').hasError('required')">
-                          State Code is required
+                          State Name is required
                         </mat-error>
+                        
                       </mat-form-field>
                     </div>
                   </div>           
                   <div class="row">
                     <div class=" col-md-2">
-                      <mat-label>COUNTRY_ID</mat-label>
+                      <mat-label>COUNTRY NAME</mat-label>
                       </div>
                       <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
