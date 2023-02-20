@@ -62,9 +62,9 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.comCountry}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="emailId">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Person In-Charge</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style=" text-transform: capitalize;"> {{row.emailId}}
+                  <ng-container matColumnDef="shortName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Primary Contact Person</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style=" text-transform: capitalize;"> {{row.shortName}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="telephoneNo">

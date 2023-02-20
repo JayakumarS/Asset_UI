@@ -32,7 +32,7 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
    
     "companyName",
     "comCountry",
-    "emailId",
+    "shortName",
     "telephoneNo",
     "actions"
   ];
@@ -205,7 +205,7 @@ export class ExampleDataSource extends DataSource<Company> {
             const searchStr = (
               company.companyName +
               company.comCountry +
-              company.emailId +
+              company.shortName +
               company.telephoneNo
              
             ).toLowerCase();
@@ -243,8 +243,8 @@ export class ExampleDataSource extends DataSource<Company> {
           [propertyA, propertyB] = [a.comCountry, b.comCountry];
           break;
 
-          case "emailId":
-          [propertyA,propertyB]=[a.emailId,b.emailId];
+          case "shortName":
+          [propertyA,propertyB]=[a.shortName,b.shortName];
           break;
 
           case "telephoneNo":

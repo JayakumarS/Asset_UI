@@ -54,7 +54,7 @@ export class AddDepartmentMasterComponent implements OnInit {
       deptId:[""],
       contactPerson:["",[Validators.required]],
       company:["",[Validators.required]],
-      branchname:["",[Validators.required]],
+      branchname:[""],
 
     });
 
