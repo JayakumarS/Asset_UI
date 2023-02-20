@@ -136,7 +136,7 @@
 
                  
                   <div class="col-md-2" >
-                    <label class="lable">Purchase Type<span class="errorColor">*</span></label>
+                    <label class>PURCHASE TYPE<span class="errorColor">*</span></label>
 
                   </div>
                   <div class="col-md-2" style="margin-left: -95px;">
@@ -153,11 +153,11 @@
                   </div>
              
                   <div class="col-md-1" >
-                    <label class="lable">Destination Location <span class="errorColor">*</span></label>
+                    <label class>DESTINATION LOCATION </label>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-select formControlName="destinationLocation" required>
+                  <mat-select formControlName="destinationLocation" >
                     <mat-option *ngFor="let title of locationList" [value]="title.id">
                         {{title.text}}
                     </mat-option>
@@ -212,14 +212,14 @@
     <!-- </mat-form-field> -->
     </div>
     <div class="col-md-1" >
-      <label class="lable">State</label>
+      <label class>STATE</label>
     </div>
     <div class="col-md-3">
        <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">  -->
         <input style="color: #7b8885;" matInput readonly formControlName="vendorState" [readonly]="true"> 
     </div>
     <div class="col-md-1" >
-      <label class="lable">Zip</label>
+      <label class>ZIP</label>
     </div>
     <div class="col-md-3">
       <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline"> -->
@@ -233,7 +233,7 @@
  <div class="row">
  
  <div class="col-md-1" >
-    <label class="lable">Terms & Conditions</label>
+    <label class>TERMS AND CONDITIONS</label>
   </div>
 
   <div class="col-md-3">

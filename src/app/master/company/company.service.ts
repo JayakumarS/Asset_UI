@@ -48,6 +48,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/company/validateUnique`;
   public uniqueValidateEmail = `${this.serverUrl.apiServerAddress}api/auth/app/company/validateUniqueEmail`;
   
+  public getCompanyEnployee= `${this.serverUrl.apiServerAddress}api/auth/app/company/getcompanyEmployee`;
 
  
 
@@ -155,8 +156,9 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
 // }
 
 getAllList(): void {
-  this.UserId=this.tokenStorage.getUserId();
-  this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters).subscribe(
+  this.UserId=this.tokenStorage.getCompanyId();
+  this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters
+    +"?UserId="+this.UserId).subscribe(
     (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.companyMasterDetails);
