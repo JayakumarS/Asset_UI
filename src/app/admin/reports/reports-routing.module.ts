@@ -37,7 +37,13 @@ const routes: Routes = [
   {
     path:"listAssetHistoryReport",
     component:ListAssetHistoryReportComponent
-  }
+  },
+  {
+    path: "auditLog",
+    loadChildren: () =>
+      import("./audit-log/audit-log.module").then((m) => m.AuditLogModule),
+  },
+  
 
 ];
 

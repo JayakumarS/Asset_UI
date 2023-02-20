@@ -34,6 +34,8 @@ import { AddreportLocationComponent } from './addreports/addreport-location/addr
 import { ListAssetHistoryReportComponent } from './list-asset-history-report/list-asset-history-report.component';
 // Pagination
 import { NgxPaginationModule } from 'ngx-pagination'
+import { ListAuditLogComponent } from './audit-log/list-audit-log/list-audit-log.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { NgxPaginationModule } from 'ngx-pagination'
     DiscardAssetsComponent,
     UserLogComponent,
     AddreportLocationComponent,
-    ListAssetHistoryReportComponent
+    ListAssetHistoryReportComponent,
+    ListAuditLogComponent
 
   ],
   imports: [
@@ -73,7 +76,10 @@ import { NgxPaginationModule } from 'ngx-pagination'
     ComponentsModule,
     SharedModule,
     MatRadioModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatPaginatorModule,
+    MatAutocompleteModule
+    
   ]
 })
 export class ReportsModule { }

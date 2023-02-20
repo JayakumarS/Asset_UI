@@ -1,0 +1,60 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Audit Log'" [items]="['Report']" [active_item]="'Audit Log View'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="box-shadow">
+            <div class="card">
+              <div class="body">
+        <div class="row">
+            <!-- <div class="col-md-10">
+                <h5 class="headingValue">
+                    Audit Log View </h5>    
+            </div> -->
+            
+        </div>
+        <!-- <hr> -->
+    <div class="row">
+        <div *ngIf="actionName != 'INSERT' " class="col-md-6">
+            <h5 class="headingValue" class="tab" >Old Data</h5>
+                <ngx-json-viewer [json]="oldData"></ngx-json-viewer>
+        </div>
+        <div *ngIf="actionName != 'DELETE'" class="col-md-6" >
+            <h5 class="headingValue" class="tab" style="width: 100%;margin-left: 8px;">New Data</h5>
+            <ngx-json-viewer [json]="data"></ngx-json-viewer>
+        </div>
+    </div>
+   
+    <div *ngIf="actionName === 'UPDATE'" class="row" style="padding-top: 10px;">
+        <hr>
+        <div class="col-md-12">
+            <h5 class="headingValue" class="changeTab">
+                Changed Data </h5>
+            <div class="row">
+                <div class="col-md-6" >
+                    <h5 class="headingValue">Old Data</h5>
+                    <ngx-json-viewer [json]="oldDataNew"></ngx-json-viewer>
+                </div>
+
+                <div class="col-md-6" >
+                    <h6 class="headingValue">New Data</h6>
+                    <ngx-json-viewer [json]="dataNew"></ngx-json-viewer>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div align="center">
+        <button type="button" class="btn-space" mat-raised-button color="accent"
+        style="background-color: rgb(14, 42, 126);margin-top: 22px;" (click)="back()">Back</button>
+     </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</section>
