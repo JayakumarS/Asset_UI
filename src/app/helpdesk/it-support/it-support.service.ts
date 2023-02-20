@@ -16,6 +16,9 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class Itsupportservice extends UnsubscribeOnDestroyAdapter {
+    this: any;
+    itSupportBean: string;
+    showNotification: any;
     deleteAsset(obj: { deletingId: any; }) {
       throw new Error('Method not implemented.');
     }
@@ -46,6 +49,9 @@ const httpOptions = {
     public fetchlocationlist = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/locationList`;
     public imageList = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/nonImageList`;
     
+
+    public viewItSupport = `${this.serverUrl.apiServerAddress}api/auth/app/itsupport/view`;
+
     
     
     get data(): Itsupport[] {
@@ -139,30 +145,56 @@ const httpOptions = {
       );
     }
 
+
     scheduleUpdate(itsupport: Itsupport,router,notificationService): void {
       this.dialogData = itsupport;
       this.httpService.post<Itsupport>(this.updateIT, itsupport).subscribe(data => {
         console.log(data);
-        if(data.Success == true){
-          notificationService.showNotification(
-            "snackbar-success",
-            "Add Record Successfully...!!!",
-            "bottom",
-            "center"
-          );
-          router.navigate(['/helpdesk/itsupport/listitsupport']);
-        }
-        else if(data.Success == false){
-          notificationService.showNotification(
-            "snackbar-danger",
-            "Not Updated Successfully...!!!",
-            "bottom",
-            "center"
-          );
-        }
-        },
-        (err: HttpErrorResponse) => {
+              if (data.Success) {
+                this.showNotification(
+                  "snackbar-success",
+                  "Record Updated Successfully",
+                  "bottom",
+                  "center"
+                );
+                router.navigate(['/helpdesk/itsupport/listitsupport']);
+
+              } else {
+                this.showNotification(
+                  "snackbar-danger",
+                  "Not Updated Successfully...!!!",
+                  "bottom",
+                  "center"
+                );
+              }
+            },
+
+
+//     scheduleUpdate(itsupport: Itsupport,router,notificationService): void {
+//       this.dialogData = itsupport;
+//       this.httpService.post<Itsupport>(this.updateIT, itsupport).subscribe(data => {
+//         console.log(data);
+//         if(data.Success == true){
+//           notificationService.showNotification(
+//             "snackbar-success",
+//             "Add Record Successfully...!!!",
+//             "bottom",
+//             "center"
+//           );
+//           router.navigate(['/helpdesk/itsupport/listitsupport']);
+//         }
+//         else if(data.Success == false){
+//           notificationService.showNotification(
+//             "snackbar-danger",
+//             "Not Updated Successfully...!!!",
+//             "bottom",
+//             "center"
+//           );
+//         }
+//         },
+//         (err: HttpErrorResponse) => {
           
-      });
+      );
     }
-}
+
+  }

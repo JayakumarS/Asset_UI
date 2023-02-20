@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <div class="modal-header">
+      <h5 class="modal-title headingValueNew">View Closed Itsupport</h5>
+      <div class="col-md-8 text-right">
+      </div>
+      <div class="col-md-2 text-right">
+          <button  color="primary" type="button" class="btn-space" (click)="back()"
+            mat-raised-button>Back</button>
+      </div>
+  </div>
+
+        <div class="row">
+          <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
+              <label class="lable"> ASSET  :</label>
+          </div> 
+          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-10 " style="margin-left: -135px;">
+            {{branchList?.assetnamelist !== null ? branchList?.assetnamelist: '-'}}
+          </div>
+          <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 96px;">
+              <label class="lable">TICKET TYPE :</label>
+          </div> 
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -62px;  ">
+            {{branchList?.tickettype !== null ? branchList?.tickettype: '-'}}
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
+              <label class="lable">ASSET LOCATION  :</label>
+          </div> 
+          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -135px;">
+            {{branchList?.assetlocationlist !== null ? branchList?.assetlocationlist: '-'}}
+          </div>
+          <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 96px;">
+              <label class="lable">TICKET GROUP :</label>
+          </div> 
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -62px;  ">
+            {{branchList?.ticketgroup !== null ? branchList?.ticketgroup: '-'}}
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
+              <label class="lable">ASSIGNEE :</label>
+          </div> 
+          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -135px;">
+            {{branchList?.assignee !== null ? branchList?.assignee: '-'}}
+          </div>
+          <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 96px;">
+              <label class="lable">REPORTED BY :</label>
+          </div> 
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -62px;  ">
+            {{branchList?.reportedby !== null ? branchList?.reportedby : '-'}}
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
+              <label class="lable">START DATE  :</label>
+          </div> 
+          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -135px;">
+            {{branchList?.reportdate !== null ? branchList?.reportdate : '-'}}
+          </div>
+          <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 96px;">
+              <label class="lable">PROIRITY   :</label>
+          </div> 
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -62px;  ">
+            {{branchList?.priority !== null ? branchList?.priority: '-'}}
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
+              <label class="lable">DESCRIPTION  :</label>
+          </div> 
+          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -135px;">
+            {{branchList?.description !== null ? branchList?.description: '-'}}
+          </div>
+          <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 96px;">
+              <label class="lable">NOTIFY REPORT BY  :</label>
+          </div> 
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -62px;  ">
+            {{branchList?.report !== null ? branchList?.report: '-'}}
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
+              <label class="lable">CC  :</label>
+          </div> 
+          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -135px;">
+            {{branchList?.cc !== null ? branchList?.cc: '-'}}
+          </div>
+   

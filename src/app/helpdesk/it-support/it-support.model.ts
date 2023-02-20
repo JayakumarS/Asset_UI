@@ -5,7 +5,7 @@ export class Itsupport {
     tickettype : string;
     asset : string;
     assetnamelist: any;
-    assetlocationlist: any;
+    assetlocationlist: string;
     assetlocation : string;
     category : string;
     priority : number;
@@ -31,6 +31,7 @@ export class Itsupport {
   assetCategory : string;
   
 
+  
   
   constructor(itsupport) {
     {

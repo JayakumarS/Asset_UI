@@ -144,15 +144,46 @@
                 <ng-container matColumnDef="actions">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button *ngIf="permissionList?.modify" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                      <button  mat-icon-button color="accent" *ngIf="row.tickettype=='ASSIGNED'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
+                        class="tbl-action-btn">
+                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                      </button>
+                      <button  mat-icon-button color="accent" *ngIf="row.tickettype=='OPENED'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
+                        class="tbl-action-btn">
+                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                      </button>
+                      <button  mat-icon-button color="accent" *ngIf="row.tickettype=='HOLD'"  (click)="$event.stopPropagation()" (click)="editCall(row)"
                       class="tbl-action-btn">
                       <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                      </button>
+                    <button  mat-icon-button color="accent" *ngIf="row.tickettype=='ASSIGNED'" (click)="$event.stopPropagation()"
+                    (click)="deleteItem(i, row)" class="tbl-action-btn">
+                    <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                  </button>
+                  <button  mat-icon-button color="accent" *ngIf="row.tickettype=='OPENED'" (click)="$event.stopPropagation()"
+                  (click)="deleteItem(i, row)" class="tbl-action-btn">
+                  <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                </button>
+                <button  mat-icon-button color="accent" *ngIf="row.tickettype=='HOLD'" (click)="$event.stopPropagation()"
+                (click)="deleteItem(i, row)" class="tbl-action-btn">
+                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+              </button>
+
+              <button   mat-icon-button color="accent"  *ngIf="row.tickettype=='CLOSED'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                </app-feather-icons>
+              </button>
+            
+              <button  mat-icon-button color="accent" *ngIf="row.tickettype=='CLOSED'" (click)="$event.stopPropagation()"
+              (click)="deleteItem(i, row)" class="tbl-action-btn">
+              <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+            </button>
+          </mat-cell>
+                    <!-- <button   mat-icon-button color="accent"  *ngIf="row.tickettype=='CLOSED'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                      <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                      </app-feather-icons>
                     </button>
-                    <button *ngIf="permissionList?.delete"mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                      (click)="deleteItem(i, row)" class="tbl-action-btn">
-                      <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                    </button>
-                  </mat-cell>
+                  </mat-cell> -->
                 </ng-container>
 
 
@@ -189,6 +220,11 @@
                     <mat-icon>refresh</mat-icon>
                     <span>Refresh Record</span>
                   </button>
+                  <!-- <span *ngIf="row.companyStatus=='Submitted'"></span> -->
+                <!-- <button   mat-icon-button color="accent"  *ngIf="row.companyStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                  <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                  </app-feather-icons>
+                </button> -->
 
                 </ng-template>
               </mat-menu>

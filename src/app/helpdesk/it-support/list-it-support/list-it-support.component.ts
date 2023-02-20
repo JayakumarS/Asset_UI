@@ -177,7 +177,10 @@ export class ListItSupportComponent extends UnsubscribeOnDestroyAdapter implemen
     );
   }
 
-
+  viewCall(row){
+        this.router.navigate(['/helpdesk/itsupport/viewitsupport/' + row.id]);
+    
+  }
 
   refresh(){
     this.loadData();

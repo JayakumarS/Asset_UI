@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddItSupportComponent } from './add-it-support/add-it-support.component';
 import { ListItSupportComponent } from './list-it-support/list-it-support.component';
+import {ViewItSupportComponent } from './view-it-support/view-it-support.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,12 @@ const routes: Routes = [
     component: AddItSupportComponent
 
   },
+    {
+     path: "viewitsupport/:id",
+     component: ViewItSupportComponent
+    },
+
+  
 ];
 
 @NgModule({

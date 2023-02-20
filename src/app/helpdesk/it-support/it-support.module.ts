@@ -33,6 +33,7 @@ import { NotificationService } from 'src/app/core/service/notification.service';
 import { DeleteitsupportComponent } from './list-it-support/deleteitsupport/deleteitsupport.component';
 import { NotificationpopComponent } from './list-it-support/notificationpop/notificationpop.component';
 import { ImagePopupComponent } from './list-it-support/image-popup/image-popup.component';
+import { ViewItSupportComponent } from './view-it-support/view-it-support.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ImagePopupComponent } from './list-it-support/image-popup/image-popup.c
     ListItSupportComponent,
     DeleteitsupportComponent,
     NotificationpopComponent,
-    ImagePopupComponent
+    ImagePopupComponent,
+    ViewItSupportComponent,
   ],
   providers:[
     NotificationService

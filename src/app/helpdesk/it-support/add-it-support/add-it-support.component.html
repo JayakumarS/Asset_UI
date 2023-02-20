@@ -1,3 +1,5 @@
+
+
 <section class="content">
   <div class="content-block">
     <div class="block-header">
@@ -16,13 +18,13 @@
               </div> 
               <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                  <mat-select formControlName="asset" (selectionChange)="fetchlocationDetails($event.value)" >
-                    <mat-option *ngFor="let title of assetnamelist" [value]="title.id" required >
+                  <mat-select formControlName="asset"  required >
+                    <mat-option *ngFor="let title of assetnamelist" [value]="title.id"  >
                       {{title.text}}
                     </mat-option>
                   </mat-select>
                   <mat-error *ngIf="docForm.get('asset').hasError('required')">
-                    asset is required
+                    Asset is required
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -55,23 +57,22 @@
 
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                      <mat-select formControlName="assetlocation" >
-                        <mat-option *ngFor="let title of assetlocationlist" [value]="title.id" required>
+                      <mat-select formControlName="assetlocation" required>
+                        <mat-option *ngFor="let title of assetlocationlist" [value]="title.id" >
                           {{title.text}}
                         </mat-option>
-                      </mat-select>
+                      </mat-select> 
                       <mat-error *ngIf="docForm.get('assetlocation').hasError('required')">
-                        asset location by is required
+                        Asset Location is required
                       </mat-error>
-
-                     
+                       
                     </mat-form-field>
                   </div> 
 
 
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
-                      <label style="margin-left: -6px;" >TICKET GROUP<span class="errorColor">*</span></label>
+                      <label style="margin-left: -6px;" >TICKET GROUP <span class="errorColor">*</span></label>
                   </div>
 
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 "style="margin-left: -5px;" >
@@ -93,8 +94,10 @@
 
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="reportedby" required readonly>
-                
+                    <input matInput formControlName="reportedby" required >
+                    <mat-error *ngIf="docForm.get('reportedby').hasError('required')">
+                      Reported By is required
+                    </mat-error>
                  
                 </mat-form-field>
                 </div>  
@@ -122,7 +125,8 @@
                     <!-- <mat-label>Expected Date Of Delivery</mat-label> -->
                     <input matInput [matDatepicker]="picker1" formControlName="reportdateObj"
                       (dateInput)="$event.value.format('DD/MM/YYYY')" id="reportdate" 
-                                             (dateChange)="getDateString($event, 'reportdate',0)"> 
+                                             (dateChange)="getDateString($event, 'reportdate',0)" required>
+                                           
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1>
                     
@@ -130,6 +134,10 @@
                     <mat-error *ngIf="docForm.get('reportdate').hasError('required')">
                       Date is required
                     </mat-error>
+                    <mat-error *ngIf="docForm.get('reportdateObj').hasError('required')">
+                      Expected Date Of Delivery is required
+                    </mat-error>
+                   
                   </mat-form-field>
                 </div>
 
@@ -143,7 +151,7 @@
                   appearance="outline">
 
                   <mat-select
-                      formControlName="priority">
+                      formControlName="priority"required>
                       <mat-option [value]="'HIGH'">
                           HIGH
                       </mat-option>
@@ -167,7 +175,7 @@
                 <div class="row">
                   
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>DESCRIPTION</label>
+                    <label>DESCRIPTION<span class="errorColor">*</span></label>
                 </div>
           
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " >
