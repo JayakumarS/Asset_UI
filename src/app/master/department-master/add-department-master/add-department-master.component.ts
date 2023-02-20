@@ -32,6 +32,7 @@ export class AddDepartmentMasterComponent implements OnInit {
   getUserBasedBranchList = [];
   branch: any;
   customer:any;
+  getBranchList=[];
 
   constructor(private fb: FormBuilder,private tokenStorage: TokenStorageService,
     private departmentMasterService : DepartmentMasterService,
@@ -122,7 +123,8 @@ export class AddDepartmentMasterComponent implements OnInit {
 
 
       //User Based Company List
-   this.httpService.get<any>(this.departmentMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
+      this.companyId=this.tokenStorage.getCompanyId();
+   this.httpService.get<any>(this.departmentMasterService.companyListUrl + "?userId=" + this.companyId).subscribe(
     (data) => {
       this.getUserBasedCompanyList = data.getUserBasedCompanyList;
     },
@@ -131,6 +133,14 @@ export class AddDepartmentMasterComponent implements OnInit {
     }
   );
 
+  this.httpService.get<any>(this.departmentMasterService.branchList + "?companyId=" + this.companyId).subscribe(
+    (data) => {
+      this.getBranchList = data.getBranchList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
 
   }
 

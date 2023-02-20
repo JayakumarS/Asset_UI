@@ -45,7 +45,8 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
 
   public companyListUrl = `${this.serverUrl.apiServerAddress}app/department/userBasedCompanyList`;
   public fetchBranch = `${this.serverUrl.apiServerAddress}app/department/userBasedBranchList`;
-
+  
+  public branchList=`${this.serverUrl.apiServerAddress}app/department/branchList`;
 
   get data(): DepartmentMaster[] {
     return this.dataChange.value;
@@ -58,7 +59,7 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
     this.UserId=this.tokenStorage.getUserId();  
     this.RoleId=this.tokenStorage.getRoleId();
     this.companyId= this.tokenStorage.getCompanyId();
-    this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?UserId="+this.UserId+"&RoleId="+this.RoleId+"&companyId="+this.companyId).subscribe(
+    this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?RoleId="+this.RoleId+"&companyId="+this.companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.departmentMasterDetails);

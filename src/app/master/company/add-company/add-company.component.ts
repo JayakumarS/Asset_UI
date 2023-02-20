@@ -37,6 +37,7 @@ export class AddCompanyComponent implements OnInit {
   CompanyEnployeeList=[];
   dynamicDropDownList1 = [];
   dynamicDropDownList2 = [];
+  value1= [];
 
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
@@ -58,9 +59,9 @@ export class AddCompanyComponent implements OnInit {
       phoneCode: [""],
       telephoneNo: ["", [Validators.required]],
       webSite: [""],
-      panNo: [""],
+      panNo: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
       gstNo: [""],
-      ifscCode: [""],
+      ifscCode: ["",Validators.pattern('[A-Za-z]{4}[0-9]{7}')],
       country: ["", [Validators.required]],
       isactive: [true],
       //address:["",[Validators.required]],
