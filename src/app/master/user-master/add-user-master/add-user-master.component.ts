@@ -129,6 +129,15 @@ export class AddUserMasterComponent implements OnInit {
       }
     });
 
+    this.companyId = this.tokenStorage.getCompanyId(),
+    this.httpService.get(this.userMasterService.fetchBranch + "?companyId=" + this.companyId).subscribe((res: any) => {
+      this.getUserBasedBranchList = res.getUserBasedBranchList;
+
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
        // Location dropdown
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
         next: (data) => {
@@ -266,18 +275,7 @@ export class AddUserMasterComponent implements OnInit {
 
   fetchBranchDetails(customer: any) {
 
-    this.userId = this.tokenStorage.getUserId();
-
-    this.httpService.get(this.userMasterService.fetchBranch + "?userId=" + this.userId).subscribe((res: any) => {
-      console.log(customer);
-
-      this.getUserBasedBranchList = res.getUserBasedBranchList;
-
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
+   
 
     this.httpService.get(this.userMasterService.locationDropdown+"?locationId=" + customer ).subscribe((res: any) => {
       console.log(customer);
