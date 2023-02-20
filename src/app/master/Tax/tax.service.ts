@@ -39,7 +39,8 @@ export class TaxService extends UnsubscribeOnDestroyAdapter {
   // private deleteTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/delete`;
   public editTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/edit`;
   public DeleteTaxMaster = `${this.serverUrl.apiServerAddress}app/taxMaster/delete`;
-
+  public validateTaxNameURL = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
+  public validateTaxCodeURL = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
 
   get data(): TaxMaster[] {
     return this.dataChange.value;

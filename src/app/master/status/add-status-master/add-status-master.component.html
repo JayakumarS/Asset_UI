@@ -19,15 +19,18 @@
                 </div> 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="statusname" required>
+                    <input matInput formControlName="statusname" (blur)="validateStatusname($event.target.value)" required>
                     <mat-error *ngIf="docForm.get('statusname').hasError('required')">
                       Status Name is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('statusname').hasError('status')">
+                      Status Name Already Exists !!!
                     </mat-error>
                   </mat-form-field>
                 </div>
                
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label>DESCRIPTION<span class="errorColor">*</span></label>
+                      <label>DESCRIPTION</label>
                   </div> 
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">

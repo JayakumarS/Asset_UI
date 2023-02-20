@@ -181,5 +181,25 @@ export class AddTaxMasterComponent implements OnInit {
     }
   }
 
+  validateTaxName(event){
+    this.httpService.get<any>(this.taxMasterService.validateTaxNameURL + "?tableName=" + "tax" + "&columnName=" + "tax_name" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.docForm.controls['taxname'].setErrors({ taxName: true });
+      }else{
+        // this.docForm.controls['taxcode'].setErrors({ status: true });
+      }
+    });
+  }
+
+  validateTaxCode(event){
+    this.httpService.get<any>(this.taxMasterService.validateTaxCodeURL + "?tableName=" + "tax" + "&columnName=" + "tax_code" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.docForm.controls['statusname'].setErrors({ taxCode: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
+
 }
 
