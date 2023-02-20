@@ -6,6 +6,12 @@ import { DesignationMasterModule } from './Activity-Master/designation-master.mo
 import { DepartmentMasterModule } from './department-master/department-master.module';
 
 const routes: Routes = [
+
+  {
+    path: "flowChart",
+    loadChildren: () =>
+      import("./flow-chart/flow-chart-routing.module").then((m) => m.FlowChartRoutingModule),
+  },
   {
     path: "currencyMaster",
     loadChildren: () =>
