@@ -21,12 +21,14 @@ export class AddBranchComponent implements OnInit {
   branchMaster:Branch;
   requestId: number;
   docForm: FormGroup;
+  countryDdList = [];
+  countrybasedStateList = [];
+  stateBasedCityList = [];
   edit:boolean=false;
   branch : Branch;
   locationDropdownList:[];
   userId:any;
   string:any;
-  
   public modeselect = '1';
 
   constructor(private fb: FormBuilder,
@@ -41,8 +43,15 @@ export class AddBranchComponent implements OnInit {
         branchCode: [""],
         branchname: [""],
         companyId:[""],
+        phoneCode:[""],
+        telephoneNo:[""],
         location:[""],
         isactive:[true],
+        addressOne:[""],
+        addressOneCountry:[""],
+        addressOneState:[""],
+        addressOneCity:[""],
+        addressOneZipCode:[""],
         userId:[""],
         shift:[""],
         loginedUser: this.tokenStorage.getUserId(),
@@ -55,6 +64,18 @@ export class AddBranchComponent implements OnInit {
   ngOnInit(): void {
 
     this.userId = this.tokenStorage.getUserId();
+
+    // Country dropdown
+    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+      next: (data) => {
+        this.countryDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+    
 
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
@@ -94,6 +115,20 @@ export class AddBranchComponent implements OnInit {
      });
 
   }
+
+  stateBasedCity(state: any) {
+    this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
+      this.stateBasedCityList = res;
+    })
+  }
+
+  fetchCountryBasedState(country: any): void {
+    this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
+      this.countrybasedStateList = res;
+    })
+  }
+
+ 
 
   
   validateDepartmentCode(){
@@ -194,4 +229,12 @@ export class AddBranchComponent implements OnInit {
   this.fetchDetails(this.requestId);
 }
 }
+// fetchCountryBasedState(country: any): void {
+//   this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
+//     this.countrybasedStateList = res;
+//   })
+// }
+// stateBasedCityList(){
+
+// }
 }
