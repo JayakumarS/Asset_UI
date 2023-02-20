@@ -38,6 +38,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./audit-report/audit-report.module").then((m)=>m.AuditReportModule)
   },
+  {
+    path: "maintenanceAndReport",
+    loadChildren: () =>
+      import("./maintenance-and-repair/maintenance-and-repair.module").then((m)=>m.MaintenanceAndRepairModule)
+  },
 
 ];
 
