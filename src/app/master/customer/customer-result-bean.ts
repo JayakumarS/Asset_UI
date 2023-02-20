@@ -1,5 +1,5 @@
 export class CustomerResultBean{
-    Success: boolean;
+    success: boolean;
     customerDetails:[];
 
 }
