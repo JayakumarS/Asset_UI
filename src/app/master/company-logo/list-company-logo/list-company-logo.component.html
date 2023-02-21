@@ -45,7 +45,11 @@
                       </div>
                       <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                         <mat-label>Company Logo :</mat-label>
-                        <app-file-upload formControlName="companyLogo" (change)="getLogoDetails($event)" ></app-file-upload>
+                        <input  type="file"formControlName="backGroundImg" class="file-input" accept="image/x-png,image/gif,image/jpeg" (change)="getBgLogoDetails($event)" style="border: 1px solid;
+                        height: 55px;
+                        width: 100%;
+                        border-color: #bdc2c9;
+                        padding: 13px 10px 10px 22px;">    
                       </div>
                     </div>
                     <br>
@@ -55,7 +59,11 @@
                       </div>
                       <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                         <mat-label>Background Image :</mat-label>
-                        <app-file-upload formControlName="backGroundImg" (change)="getBgLogoDetails($event)" ></app-file-upload>
+                        <input  type="file"formControlName="backGroundImg" class="file-input" accept="image/x-png,image/gif,image/jpeg" (change)="getBgLogoDetails($event)" style="border: 1px solid;
+                        height: 55px;
+                        width: 100%;
+                        border-color: #bdc2c9;
+                        padding: 13px 10px 10px 22px;">
                       </div>
                     </div>
                   <br>
