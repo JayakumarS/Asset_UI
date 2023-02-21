@@ -17,7 +17,7 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="fullName" required>
+                      <input matInput formControlName="fullName"  maxlength="30"required>
                       <mat-error *ngIf="docForm.get('fullName').hasError('required')">
                         Activity Name is required
                       </mat-error>
@@ -29,7 +29,7 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="emailId" required>
+                      <input matInput formControlName="emailId"  maxlength="150"required>
                       <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                         Email Id is required
                       </mat-error>
@@ -57,7 +57,11 @@
                         <mat-option *ngFor="let title of getUserBasedCompanyList" [value]="title.id1">
                                 {{title.text}}
                             </mat-option>
+
                       </mat-select>
+                      <mat-error *ngIf="docForm.get('company').hasError('required')">
+                        Company is required
+                       </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
@@ -67,7 +71,7 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="address">
+                      <input matInput formControlName="address" maxlength="250">
                     </mat-form-field>
                   </div>
 

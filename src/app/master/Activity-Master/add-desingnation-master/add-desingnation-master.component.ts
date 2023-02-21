@@ -71,7 +71,7 @@ export class AddDesingnationMasterComponent implements OnInit {
           this.getCountryList = data;
         },
         error: (error) => {
-  
+
         }
       }
       );
@@ -91,7 +91,7 @@ export class AddDesingnationMasterComponent implements OnInit {
              }
              this.getUserBasedCompanyList.push(obj);
           }
-           
+
         }
       },
       (error: HttpErrorResponse) => {
@@ -124,7 +124,7 @@ export class AddDesingnationMasterComponent implements OnInit {
         }
       }
     });
-  
+
     // this.showNotification(
     //   "snackbar-success",
     //   "Add Record Successfully...!!!",
@@ -157,7 +157,7 @@ export class AddDesingnationMasterComponent implements OnInit {
   }
 
   update(){
-
+    if(this.docForm.valid){
     this.designationMaster = this.docForm.value;
     this.designationMasterService.designationMasterUpdate(this.designationMaster);
     this.showNotification(
@@ -168,6 +168,14 @@ export class AddDesingnationMasterComponent implements OnInit {
     );
     this.router.navigate(['/master/Activity-master/list-activity']);
 
+  } else {
+    this.showNotification(
+      "snackbar-danger",
+      "Not Added...!!!",
+      "bottom",
+      "center"
+    );
+  }
   }
 
   onCancel(){

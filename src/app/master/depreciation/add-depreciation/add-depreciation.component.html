@@ -5,7 +5,7 @@
       <div class="block-header">
         <!-- breadcrumb -->
         <app-breadcrumb [title]="'Depreciation'" [items]="['Master']" [active_item]="'Add Depreciation'">
-        </app-breadcrumb> 
+        </app-breadcrumb>
       </div>
       <div class="row clearfix ">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -13,39 +13,33 @@
           <div class="card">
             <div class="body" >
               <form class="m-4" [formGroup]="docForm">
-               
+
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "></div>
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="
-                  margin-top: 7px;
-              ">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style=" margin-top: 7px; ">
                     <label >NAME<span class="errorColor">*</span></label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="
                   margin-left: -15%;
-                  margin-top: -2%;
-              ">
-                    <input matInput formControlName="name" required>
+                  margin-top: -2%;">
+                    <input matInput formControlName="name" maxlength="30" required>
                     <mat-error *ngIf="docForm.get('name').hasError('required')">
                     Name is required
                     </mat-error>
                   </mat-form-field>
-                </div> 
+                </div>
                 <br>
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "></div>
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="
-                    margin-top: 7px;
-                " >
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-top: 7px;" >
                       <label >DESCRIPTION</label>
-                  </div> 
+                  </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="
                     margin-left: -13%;
-                    margin-top: -2%;
-                ">
-                 <textarea matInput formControlName="code"  (blur)="validateDepreciation($event.target.value)"></textarea>
+                    margin-top: -2%; ">
+                 <textarea matInput formControlName="code" maxlength="250"  (blur)="validateDepreciation($event.target.value)"></textarea>
                       <!-- <input matInput formControlName="code"
                       (blur)="validateDepreciation($event.target.value)" required> -->
                       <mat-error *ngIf="docForm.get('code').hasError('required')">
@@ -57,19 +51,19 @@
                     </mat-form-field>
                   </div>
                 </div>
-              
-            
+
+
                <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "></div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;" >
                     <label>IS ACTIVE</label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -189px;">
                   <mat-checkbox formControlName="active"  ngInit="checked=true"></mat-checkbox>
                 </div>
               </div>
             </div>
-               
+
                 <br>
                 <div>
 
@@ -85,24 +79,24 @@
                               </label></th>
                               <th class="" style="width: 10%;border-radius: 0.05rem;text-align: revert;">PERCENTAGE</th>
                               <th class="" style="width: 30%;border-radius: 0.05rem;text-align: center;">REMARKS</th>
-                              
+
                           </tr>
                           </thead>
                           <tbody >
                             <tr [formGroup]="manageLineDtlObjBean" *ngFor="let manageLineDtlObjBean of docForm.get('manageLineDtlObjBean')['controls']; let i = index">
-                           
+
                               <td>
-                                
+
                                 <button mat-mini-fab color="warn" (click)="removeRowSelf(i)" style="margin-left: 15%;">
                                     <mat-icon class="col-white">delete</mat-icon>
                                 </button>
                             </td>
-                           
+
                               <td class="padding-both-side-2">
                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline"  (keypress)="keyPressNumberDouble($event)" style="margin-left: 15%;
                                     width: 220px; ">
                                       <input matInput formControlName="percentage" maxlength="5" required>
-                                     
+
                                     </mat-form-field>
                                     <span class="material-symbols-outlined">
                                       percent
@@ -111,17 +105,17 @@
                                   <td class="padding-both-side-2">
                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                                       <input matInput formControlName="remarks" required>
-                                     
+
                                     </mat-form-field>
                                   </td>
-                     
-                               
-                                 
+
+
+
                                 </tr>
                           </tbody>
-                      
+
                   </table>
-                  
+
                   <button mat-mini-fab color="primary" (click)="addRowSelf()">
                     <mat-icon class="col-white">add</mat-icon>
                 </button>

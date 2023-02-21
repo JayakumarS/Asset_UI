@@ -11,15 +11,15 @@
           <div class="card">
             <div class="body" style="padding-left: 150px;">
               <form class="m-4" [formGroup]="docForm">
-         
+
 
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label >CATEGORY NAME<span class="errorColor">*</span></label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="categoryName"  maxlength="50"  (keypress)="keyPressName($event)" required>
+                    <input matInput formControlName="categoryName"  maxlength="30"  (keypress)="keyPressName($event)" required>
                     <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
                         Category Name is required
                     </mat-error>
@@ -28,11 +28,11 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                 
+
                 <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                   <label class="lable">Parent Category<span class="errorColor">*</span></label>
                 </div>
-        
+
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput   formControlName="parentCategory"  maxlength="30" (keypress)="keyPressName($event)" required>
@@ -40,12 +40,12 @@
                     Parent Category is required
                   </mat-error>
                 </mat-form-field>
-                </div>  
+                </div>
               </div> -->
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <label >PARENT CATEGORY</label>
             </div>
-      
+
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
@@ -54,31 +54,31 @@
                         {{title.text}}
                     </mat-option>
                 </mat-select>
-              
+
             </mat-form-field>
-            </div> 
+            </div>
                 </div>
 
-                 
-               
+
+
 
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label >DESCRIPTION</label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="Description"  maxlength="50" (keypress)="keyPressName($event)"  >
+                        <input matInput formControlName="Description"  maxlength="250" (keypress)="keyPressName($event)"  >
                         <mat-error *ngIf="docForm.get('Description').hasError('required')">
                             description  is required
                         </mat-error>
                       </mat-form-field>
                 </div>
-                 
+
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                   <label >DEPRECIATION METHOD<span class="errorColor">*</span></label>
               </div>
-  
+
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                   <mat-select formControlName="depreciation" >
@@ -89,12 +89,12 @@
                   <mat-error *ngIf="docForm.get('depreciation').hasError('required')">
                     depreciation method by is required
                   </mat-error>
-  
-                 
-                </mat-form-field>
-              </div>   
 
-                
+
+                </mat-form-field>
+              </div>
+
+
 
               <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
@@ -112,10 +112,10 @@
                     asset location by is required
                   </mat-error>
 
-                 
+
                 </mat-form-field>
               </div>
-            
+
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <label style=" margin-left: 11px;">CURRENCY<span class="errorColor">*</span></label>
             </div>
@@ -131,12 +131,12 @@
                   currency by is required
                 </mat-error>
 
-               
+
               </mat-form-field>
             </div>
 
           </div>
-            
+
             </div>
 
             <div class="row">
@@ -148,11 +148,11 @@
                 <mat-checkbox  ngInit="checked=false" formControlName="isactive"  style="margin-left: 20px;"></mat-checkbox>
               </div>
 
-         
+
             </div>
 
                 <br>
-                <div class="row"> 
+                <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <button  *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
                       color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
