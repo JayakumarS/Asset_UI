@@ -129,7 +129,7 @@
                           <div class=" col-md-3" *ngIf="auditorFlag">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <mat-select class="inputTxt" formControlName="department">
-                              <mat-option *ngFor="let title of departmentAuditList" [value]="title.id">
+                              <mat-option *ngFor="let title of departmentList" [value]="title.id">
                                   {{title.text}}
                               </mat-option>
                           </mat-select>
