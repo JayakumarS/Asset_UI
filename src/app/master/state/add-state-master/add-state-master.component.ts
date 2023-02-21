@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -38,8 +38,8 @@ export class AddStateMasterComponent implements OnInit {
     private notificationService: NotificationService) {
 
       this.docForm = this.fb.group({
-        stateName:[""],
-        stateCode:[""],
+        stateName:["", [Validators.required]],
+        stateCode:["", [Validators.required]],
         country:[""],
         isactive:[true],
         loginedUser: this.tokenStorage.getUserId(),
@@ -114,8 +114,10 @@ export class AddStateMasterComponent implements OnInit {
       }
     });
 }
-  
+
   update(){
+    if(this.docForm.valid){
+
       this.stateMaster = this.docForm.value;
       this.stateMaster.state_id = this.requestId;
       this.stateService.updateState(this.stateMaster).subscribe({
@@ -147,16 +149,20 @@ export class AddStateMasterComponent implements OnInit {
           );
         }
       });
-  
-    
-  
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Not Added!!!",
+        "bottom",
+        "center"
+      );
+    }
 
   }
- 
+
   reset(){
     if (!this.edit) {
-      this.docForm.reset();
-      this.docForm.patchValue({
+      this.docForm = this.fb.group({
         stateName:[""],
         stateCode:[""],
         country:[""],
@@ -169,7 +175,7 @@ export class AddStateMasterComponent implements OnInit {
   onCancel(){
     this.router.navigate(['/master/stateMaster/listStateMaster'])
   }
-  
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -194,5 +200,5 @@ export class AddStateMasterComponent implements OnInit {
       event.preventDefault();
     }
   }
-  
+
 }

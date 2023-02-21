@@ -80,7 +80,7 @@ export class AddLocationComponent implements OnInit {
       alternateLocation: [""],
       companyId:this.tokenStorage.getCompanyId(),
       branchId:this.tokenStorage.getBranchId(),
-      userId:this.tokenStorage.getUserId() 
+      userId:this.tokenStorage.getUserId()
 
 
     });
@@ -227,6 +227,7 @@ fetchDetails(locationId: any): void {
 }
 
   update() {
+    if (this.docForm.valid){
     this.locationMaster = this.docForm.value;
     this.spinner.show();
     this.locationMasterService.update(this.locationMaster).subscribe({
@@ -248,6 +249,7 @@ fetchDetails(locationId: any): void {
             "center"
           );
         }
+
       },
       error: (error) => {
         this.spinner.hide();
@@ -259,6 +261,15 @@ fetchDetails(locationId: any): void {
         );
       }
     });
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please Fill The All Required fields",
+      "top",
+      "right"
+    );
+  }
   }
   reset(){
     if (!this.edit) {

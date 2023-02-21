@@ -15,7 +15,7 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="stateCode" (blur)="validateCustomer($event.target.value)" required>
+                      <input matInput formControlName="stateCode" maxlength="2"(blur)="validateCustomer($event.target.value)" required>
                       <mat-error *ngIf="docForm.get('stateCode').hasError('required')">
                         State Code is required
                       </mat-error>
@@ -24,27 +24,27 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-  
+
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                         <label >STATE NAME<span class="errorColor">*</span></label>
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="stateName"  (keypress)="keyPressString($event)" required>
+                        <input matInput formControlName="stateName" maxlength="20" (keypress)="keyPressString($event)" required>
                         <mat-error *ngIf="docForm.get('stateCode').hasError('required')">
                           State Name is required
                         </mat-error>
-                        
+
                       </mat-form-field>
                     </div>
-                  </div>           
+                  </div>
                   <div class="row">
                     <div class=" col-md-2">
                       <mat-label>COUNTRY NAME</mat-label>
                       </div>
                       <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-select class="inputTxt" formControlName="country"maxlength="30">
+                        <mat-select class="inputTxt" formControlName="country">
                           <mat-option *ngFor="let title of countryList" [value]="title.id">
                               {{title.text}}
                           </mat-option>

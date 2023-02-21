@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -33,7 +33,7 @@ export class AddCityComponent implements OnInit {
     private notificationService: NotificationService) {
 
       this.docForm = this.fb.group({
-        cityName:[""],
+        cityName:["", [Validators.required]],
         stateId:[""],
         isactive:[true],
         loginedUser: this.tokenStorage.getUserId(),
@@ -48,7 +48,7 @@ export class AddCityComponent implements OnInit {
           this.stateList = data;
         },
         error: (error) => {
-  
+
         }
       }
       );
@@ -60,17 +60,17 @@ export class AddCityComponent implements OnInit {
          this.fetchDetails(this.requestId) ;
         }
        });
-  
+
     }
-  
+
     onSubmit(){
       if(this.docForm.valid){
         this.docForm.value.userId = this.tokenStorage.getUserId();
       this.cityMaster = this.docForm.value;
       console.log(this.cityMaster);
-  
+
       this.cityService.addCompany(this.cityMaster,this.router);
-  
+
         this.showNotification(
           "snackbar-success",
           "Add Record Successfully...!!!",
@@ -78,7 +78,7 @@ export class AddCityComponent implements OnInit {
           "center"
         );
         this.onCancel();
-  
+
       }else{
         this.showNotification(
           "snackbar-danger",
@@ -87,7 +87,7 @@ export class AddCityComponent implements OnInit {
           "center"
         );
       }
-  
+
     }
     fetchDetails(id:any){
       const obj = {
@@ -108,9 +108,9 @@ export class AddCityComponent implements OnInit {
         }
       });
   }
-    
+
     update(){
-      if (this.docForm.valid) {
+      if(this.docForm.valid){
         this.cityMaster = this.docForm.value;
         this.cityMaster.city_id= this.requestId;
         this.cityService.updateState(this.cityMaster).subscribe({
@@ -150,13 +150,12 @@ export class AddCityComponent implements OnInit {
           "right"
         );
       }
-    
-  
+
+
     }
     reset(){
       if (!this.edit) {
-        this.docForm.reset();
-        this.docForm.patchValue({
+        this.docForm = this.fb.group({
           cityName:[""],
           stateId:[""],
           isactive:[],
@@ -167,7 +166,7 @@ export class AddCityComponent implements OnInit {
     }
     onCancel(){
       this.router.navigate(['/master/cityMaster/listCity/'])
-  
+
     }
     showNotification(colorName, text, placementFrom, placementAlign) {
       this.snackBar.open(text, "", {

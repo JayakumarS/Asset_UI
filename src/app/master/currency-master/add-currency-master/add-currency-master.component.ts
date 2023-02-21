@@ -136,9 +136,10 @@ export class AddCurrencyMasterComponent implements OnInit {
 
   update() {
     this.submitted=true;
+    if(this.docForm.valid){
       this.currencyMaster = this.docForm.value;
       this.spinner.show();
-    this.CurrencyMasterService.updateCountry(this.currencyMaster).subscribe({
+      this.CurrencyMasterService.updateCountry(this.currencyMaster).subscribe({
         next: (data) => {
           this.spinner.hide();
           if (data.success) {
@@ -168,6 +169,15 @@ export class AddCurrencyMasterComponent implements OnInit {
           );
         }
       });
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill The All Required fields",
+        "bottom",
+        "center"
+      );
+    }
     }
 
   onCancel() {

@@ -110,8 +110,8 @@ export class AddCountryMasterComponent implements OnInit {
       );
     }
   }
-  
-  
+
+
   fetchDetails(id: any): void {
     const obj = {
       editId: id
@@ -216,6 +216,14 @@ export class AddCountryMasterComponent implements OnInit {
 
   keyPressName(event: any) {
     const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  string(event: any) {
+    const pattern = /[A-Z,a-z ]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();

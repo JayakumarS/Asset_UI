@@ -10,13 +10,13 @@
             <div class="body">
               <form class="m-4" [formGroup]="docForm" >
                 <div class="row">
-                   
+
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                         <label >CITY NAME<span class="errorColor">*</span></label>
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="cityName"  (keypress)="keyPressString($event)"
+                        <input matInput formControlName="cityName" maxlength="20" (keypress)="keyPressString($event)"
                         (blur)="validateCustomer($event.target.value)" required>
                         <mat-error *ngIf="docForm.get('cityName').hasError('required')">
                           city name is required
@@ -26,7 +26,7 @@
                         </mat-error>
                       </mat-form-field>
                     </div>
-                      
+
                   <div class=" col-md-2">
                     <mat-label>STATE NAME</mat-label>
                     </div>
