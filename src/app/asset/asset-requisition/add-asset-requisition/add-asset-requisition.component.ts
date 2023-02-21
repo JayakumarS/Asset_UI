@@ -71,7 +71,7 @@ export class AddAssetRequisitionComponent implements OnInit {
     private commonService: CommonService,
     private notificationService: NotificationService,
     private token: TokenStorageService,
-    public route: ActivatedRoute,) 
+    public route: ActivatedRoute,)
     {
       this.docForm = this.fb.group({
         requisitionNumber:[""],
@@ -106,9 +106,9 @@ export class AddAssetRequisitionComponent implements OnInit {
                     ledgerId:[""],
                     assetCategory:[""],
                     assetId:[""]
-          }) 
+          })
         ])
-          
+
       });
   }
 
@@ -118,9 +118,9 @@ export class AddAssetRequisitionComponent implements OnInit {
       this.userName=this.token.getUsername();
       this.branchId= this.token.getBranchId();
       this.companyId= this.token.getCompanyId();
-      
 
-    
+
+
   // this.httpService.get<any>(this.commonService.getCompanyByUser + "?user=" + this.userId).subscribe(
   //   (data) => {
   //     this.docForm.patchValue({
@@ -162,10 +162,10 @@ export class AddAssetRequisitionComponent implements OnInit {
   //   }
   // );
 
-  this.httpService.get<any>(this.commonService.getEmployeeDropdownByCompany+"?companyId="+parseInt(this.companyId)).subscribe(
+  this.httpService.get<any>(this.commonService.getEmployeebyCompany+"?userId="+this.userId).subscribe(
     (data) => {
       console.log(data);
-      this.employeeList = data;
+      this.employeeList = data.addressBean;
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
@@ -188,7 +188,7 @@ export class AddAssetRequisitionComponent implements OnInit {
     }
   );
 
-  
+
 
   this.route.params.subscribe(params => {
    if(params.id!=undefined && params.id!=0){
@@ -211,7 +211,7 @@ fetchDetails(id: any,type:any): void {
     console.log(res);
     this.getAssetItemList(res.assetRequisition.sourceLocation,'false');
     this.docForm.patchValue({
-      
+
       'requisitionNumber': res.assetRequisition.requisitionNumber,
       'requisitionDateObj': this.commonService.getDateObj(res.assetRequisition.requisitionDate),
       'requisitionDate': res.assetRequisition.requisitionDate,
@@ -226,8 +226,8 @@ fetchDetails(id: any,type:any): void {
    });
    this.fetchAssetDtlsNew(res.assetRequisition.purchaseRequsitionDetailid);
   //  if(res.manageAuditBean.manageAuditDtlObjBean!=null){
-  
-     
+
+
   //   res.manageAuditBean.manageAuditDtlObjBean.forEach(element => {
   //         let manageAuditDtlArray = this.docForm.controls.manageAuditDtlObjBean as FormArray;
   //         let arraylen = manageAuditDtlArray.length;
@@ -295,7 +295,7 @@ fetchAssetDtlsNew(id){
 
 
 fetchAssetDtls(itemId){
-  
+
   if(this.docForm.get('sourceLocation').value ==""){
     this.showNotification(
       "snackbar-danger",
@@ -309,13 +309,13 @@ fetchAssetDtls(itemId){
         console.log(data);
         if(data.success){
           this.assetTrackList = data.assetTrackList;
-         
+
           this.docForm.controls.assetRequisitionDtl.reset;
           if(data.assetTrackList!=null){
             let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
             DtlArray.removeAt(0);
             DtlArray.clear();
-            
+
             data.assetTrackList.forEach(element => {
                   let DtlArray = this.docForm.controls.assetRequisitionDtl as FormArray;
                   let arraylen = DtlArray.length;
@@ -357,7 +357,7 @@ fetchAssetDtls(itemId){
         //     "right"
         //   );
         // }
-        
+
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -367,7 +367,7 @@ fetchAssetDtls(itemId){
 }
 
 
-       
+
 
 getAssetItemList(id,selected){
   this.change=true;
@@ -390,7 +390,7 @@ getAssetItemList(id,selected){
           if(selected=='true'){
             this.fetchAssetDtls(0);
           }
-       
+
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
@@ -411,8 +411,8 @@ getAssetItemList(id,selected){
       }
     );
   }
-  
-  
+
+
 }
 
 validationLocations(id){
@@ -429,7 +429,7 @@ validationLocations(id){
 
     }
   }
-} 
+}
   onSubmit(){
 
   if(this.docForm.valid){
@@ -444,7 +444,7 @@ validationLocations(id){
           "right"
         );
       }
-      
+
     }else{
       this.showNotification(
         "snackbar-danger",
@@ -453,7 +453,7 @@ validationLocations(id){
         "right"
       );
     }
-    
+
   }
   else{
     this.showNotification(
@@ -491,9 +491,9 @@ validationLocations(id){
         this.docForm.patchValue({eddDate:cdate});
       }
     }
-   
 
-  
+
+
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -544,7 +544,7 @@ validationLocations(id){
             "right"
           );
         }
-        
+
       }else{
         this.showNotification(
           "snackbar-danger",
@@ -553,7 +553,7 @@ validationLocations(id){
           "right"
         );
       }
-      
+
     }
     else{
       this.showNotification(
@@ -595,9 +595,9 @@ validationLocations(id){
         user:[""],
         ledgerId:[""],
         assetCategory:[""]
-      }) 
+      })
     ])
-      
+
   });
 
   this.docForm.patchValue({
@@ -639,8 +639,8 @@ validationLocations(id){
               this.totalCheckedCount = 0;
               this.docForm.patchValue({'quantity':  0  });
             }
-            
+
 
         }
-  
+
 }

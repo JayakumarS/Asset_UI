@@ -53,7 +53,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getMoveToDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLocationDropdownByCompany`;
 
   public getStatusDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getStatusDropdownByCompany`;
-  
+
   public getDepartmentDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getDepartmentDropdown`;
 
   public activityserviceurl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/activityserviceurl`;
@@ -188,10 +188,11 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getPwdStatus = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPwdStatus`;
 
   public getCustomerDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCustomerDropdown`;
-  
+
   public getCountryCodeDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryCodeDropdown`;
 
-  //FOR DOCUMENT VIEW ADDED BY 
+  public getEmployeebyCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeebyCompany`;
+  //FOR DOCUMENT VIEW ADDED BY
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
 
@@ -206,7 +207,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  // based on role and form code page permission list - Added by 
+  // based on role and form code page permission list - Added by
   getAllPagePermission(obj: any): Observable<any> {
     return  this.httpClient.post<any>(this.getAllPagePermissionList, obj);
   }
