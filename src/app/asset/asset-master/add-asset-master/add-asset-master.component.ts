@@ -1242,7 +1242,7 @@ export class AddAssetMasterComponent
 
       assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       assetCode: [""],
-      location: ["", [Validators.required]],
+      location: ["",[Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
       putUseDate: [moment().format('DD/MM/YYYY')],
