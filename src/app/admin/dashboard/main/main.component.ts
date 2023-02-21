@@ -135,7 +135,10 @@ export class MainComponent implements OnInit {
   companyAuditorsAssetsCount: any;
   companyAssetsCount: any;
   pwdStatus: any;
-
+  flowChartFlag:boolean=false;
+  assetsFlagForDashboard:boolean=false;
+  pieChartFlag:boolean=false;
+  ticketFlag:boolean=false;
 // For HighChart
 
 Highcharts: typeof Highcharts = Highcharts;
@@ -275,6 +278,11 @@ configUserLog: {
     this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.companyAuditorCount).subscribe(
       (data) => {
         this.assetListDashboard = data.assetListDashboard;
+        if(data.assetListDashboard.length!=0){
+          this.assetsFlagForDashboard=true;
+        }else{
+          this.assetsFlagForDashboard=false;
+        }
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -301,6 +309,11 @@ configUserLog: {
     this.httpService.get<any>(this.mainService.getItSupportTicketURL).subscribe(
       (data) => {
         this.barChartOptions.series=data.getTicketListGraphForClient;
+        if(data.getTicketListGraphForClient.length!=0){
+          this.ticketFlag=true;
+        }else{
+          this.ticketFlag=false;
+        }
         
         console.log(this.barChartOptions);
     });
@@ -370,6 +383,11 @@ configUserLog: {
           type: 'pie',
           data: this.pieValueArray
       }
+      if(doughnutChartData.getpieChartValue.length!=0){
+        this.pieChartFlag=true;
+      }else{
+        this.pieChartFlag=false;
+      }
       // Column with Drilldown Chart
       if(doughnutChartData.getOuterColumnChart.length!=0){
       this.columnOuterValueArray=doughnutChartData.getOuterColumnChart;
@@ -378,6 +396,9 @@ configUserLog: {
         data: this.columnOuterValueArray
       }  
       this.columnInnerValueArray=doughnutChartData.getInnerColumnChart;
+      this.flowChartFlag=true;
+      }else{
+        this.flowChartFlag=false;
       }
       
       this.updateFlag = true; 
