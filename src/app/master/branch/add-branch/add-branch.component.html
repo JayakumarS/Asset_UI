@@ -67,14 +67,14 @@
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select formControlName="companyId" (selectionChange)="validationUserGroup($event.value)"
+                      <mat-select formControlName="branchHead" 
                       (keypress)="string($event)" required>
-                          <mat-option *ngFor="let title of companyList" [value]="title.id">
+                          <mat-option *ngFor="let title of branchList" [value]="title.bid">
                               {{title.text}}
                           </mat-option>
                       </mat-select>
-                      <mat-error *ngIf="docForm.get('companyId').hasError('required')">
-                        Company Name is required
+                      <mat-error *ngIf="docForm.get('branchHead').hasError('required')">
+                        Branch Head Name is required
                       </mat-error>
                   </mat-form-field>
               </div>

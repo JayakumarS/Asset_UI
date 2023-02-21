@@ -16,12 +16,13 @@ import { BranchService } from '../branch.service';
   styleUrls: ['./add-branch.component.sass']
 })
 export class AddBranchComponent implements OnInit {
-  companyList:any 
+  branchList:any 
   locationDdList:any
   branchMaster:Branch;
   requestId: number;
   docForm: FormGroup;
   countryDdList = [];
+  companyList = [];
   countrybasedStateList = [];
   stateBasedCityList = [];
   edit:boolean=false;
@@ -43,6 +44,7 @@ export class AddBranchComponent implements OnInit {
         branchCode: [""],
         branchname: [""],
         companyId:[""],
+        branchHead:[""],
         phoneCode:[""],
         telephoneNo:[""],
         location:[""],
@@ -98,7 +100,7 @@ export class AddBranchComponent implements OnInit {
 
     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
       (data) => {
-        this.companyList = data.getuserBasedBranchDDList;
+        this.branchList = data.getuserBasedBranchDDList;
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -135,17 +137,17 @@ export class AddBranchComponent implements OnInit {
     
   }
 
-  validationUserGroup(location:any){
-    this.httpService.get(this.branchService.locationDropdown+"?locationId=" + location ).subscribe((res: any) => {
-      console.log(location);
-      this.locationDropdownList = res.locationDropdownList;
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
+  // validationUserGroup(location:any){
+  //   this.httpService.get(this.branchService.locationDropdown+"?locationId=" + location ).subscribe((res: any) => {
+  //     console.log(location);
+  //     this.locationDropdownList = res.locationDropdownList;
+  //   },
+  //     (err: HttpErrorResponse) => {
+  //       // error code here
+  //     }
+  //   );
      
-  }
+  //}
   
   onSubmit(){
     this.docForm.value.userId = this.tokenStorage.getUserId();
@@ -162,7 +164,7 @@ export class AddBranchComponent implements OnInit {
       console.log(id);
       console.log(res);
      this.edit = true;
-     this.validationUserGroup(res.branchbean.companyId);
+    //  this.validationUserGroup(res.branchbean.companyId);
      this.docForm.patchValue({
 
       'branchname': res.branchbean.branchname,
@@ -170,11 +172,19 @@ export class AddBranchComponent implements OnInit {
       'isactive': res.branchbean.isactive,
       'location': res.branchbean.location,
       'branchCode' : res.branchbean.branchCode,
-      'shift' :  res.branchbean.shift+""
+      'shift' :  res.branchbean.shift+"",
+      'addressOneCountry' :  res.branchbean.addressOneCountry,
+      'addressOneState' :  res.branchbean.addressOneState,
+      'addressOneCity' :  res.branchbean.addressOneCity,
+      'addressOneZipCode' :  res.branchbean.addressOneZipCode,
+      'telephoneNo' :  res.branchbean.telephoneNo,
+      'addressOne' :  res.branchbean.addressOne,
+      'branchHead' :  res.branchbean.branchHead+"",
    })
       },
       (err: HttpErrorResponse) => {
          // error code here
+
       }
     );
     /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
@@ -222,7 +232,17 @@ export class AddBranchComponent implements OnInit {
     location: [""],
     branchname: [""],
     companyId: [""],
-    shift: [""]
+    shift: [""],
+    addressOneCountry:[],
+    addressOneState:[],
+    addressOneCity:[],
+    addressOneZipCode:[],
+    telephoneNo:[],
+    addressOne:[],
+
+
+
+
 
   });
 } else {

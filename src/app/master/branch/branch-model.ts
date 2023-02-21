@@ -4,6 +4,7 @@ export class Branch {
     branchId: any;
     branchCode: any;
     branchname: any;
+    branchHead:any;
     locationName: any;
     addressOne:any;
     addressOneCountry:any;
