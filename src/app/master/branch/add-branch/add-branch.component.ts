@@ -31,6 +31,7 @@ export class AddBranchComponent implements OnInit {
   userId:any;
   string:any;
   public modeselect = '1';
+  CountryCodeList=[];
 
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
@@ -115,7 +116,16 @@ export class AddBranchComponent implements OnInit {
        this.fetchDetails(this.requestId) ;
       }
      });
+ // Country Code Dropdown List
+ this.httpService.get<any>(this.commonService.getCountryCodeDropdown).subscribe({
+  next: (data) => {
+    this.CountryCodeList = data;
+  },
+  error: (error) => {
 
+  }
+}
+);
   }
 
   stateBasedCity(state: any) {
@@ -165,7 +175,8 @@ export class AddBranchComponent implements OnInit {
       console.log(id);
       console.log(res);
      this.edit = true;
-
+     this.fetchCountryBasedState( res.branchbean.addressOneCountry);
+     this.stateBasedCity(res.branchbean.addressOneState);
      this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
       (data) => {
         this.branchList = data.getuserBasedBranchDDList;
@@ -190,6 +201,7 @@ export class AddBranchComponent implements OnInit {
       'addressOneZipCode' :  res.branchbean.addressOneZipCode,
       'telephoneNo' :  res.branchbean.telephoneNo,
       'addressOne' :  res.branchbean.addressOne,
+      'phoneCode' :  res.branchbean.phoneCode,
       'branchHead' :  res.branchbean.branchHead+"",
    })
       },
@@ -268,4 +280,12 @@ export class AddBranchComponent implements OnInit {
 // stateBasedCityList(){
 
 // }
+
+keyPressNumeric2(event: any) {
+  const pattern = /[0-9 +]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
 }
