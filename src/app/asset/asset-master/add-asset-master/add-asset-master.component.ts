@@ -211,6 +211,7 @@ export class AddAssetMasterComponent
       grnBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],
+          isAuditable: [""],
           assetName: [""],
           assetCode: [""],
           location: [""],
@@ -1000,7 +1001,7 @@ export class AddAssetMasterComponent
     }  
   }
 
-  //FOR IMAGE UPLOAD ADDED BY GOKUL
+  //FOR IMAGE UPLOAD ADDED BY 
   onSelectImage(event) {
     var imgfile = event.target.files[0];
     if (!this.acceptImageTypes.includes(imgfile.type)) {
@@ -1058,7 +1059,7 @@ export class AddAssetMasterComponent
   }
 
 
-  //FOR DOCUMENT UPLOAD ADDED BY GOKUL
+  //FOR DOCUMENT UPLOAD ADDED BY 
   onSelectFile(event) {
     var docfile = event.target.files[0];
     if (!this.acceptFileTypes.includes(docfile.type)) {
@@ -1151,6 +1152,7 @@ export class AddAssetMasterComponent
                 let arraylen = grnBasedAssetArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
                   itemId: [element.itemId],
+                  isAuditable: [element.isAuditable],
                   assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
                   assetCode: [""],
                   location: ["", [Validators.required]],
@@ -1335,6 +1337,7 @@ export class AddAssetMasterComponent
       grnBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],
+          isAuditable: [""],
           assetName: [""],
           assetCode: [""],
           location: [""],

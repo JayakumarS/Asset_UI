@@ -189,7 +189,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getCustomerDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCustomerDropdown`;
 
-  //FOR DOCUMENT VIEW ADDED BY GOKUL
+  //FOR DOCUMENT VIEW ADDED BY 
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
 
@@ -204,7 +204,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  // based on role and form code page permission list - Added by Gokul
+  // based on role and form code page permission list - Added by 
   getAllPagePermission(obj: any): Observable<any> {
     return  this.httpClient.post<any>(this.getAllPagePermissionList, obj);
   }

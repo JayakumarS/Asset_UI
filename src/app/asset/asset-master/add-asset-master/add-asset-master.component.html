@@ -61,6 +61,8 @@
                                         <th class="text-center table-heading padding-both-side-2 width_7"
                                           style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">Item Code-Item Name</th>
                                         <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Auditable</th>
+                                        <th class="text-center table-heading padding-both-side-2 width_7"
                                           style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Asset Name</th>
                                         <!-- <th class="text-center table-heading padding-both-side-2 width_7"
                                           style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Asset Code</th> -->
@@ -90,6 +92,17 @@
                                                 Item Code-Item Name is required
                                                 </mat-error> -->
 
+                                            </mat-form-field>
+                                          </td>
+
+                                          <td class="padding-both-side-2">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                              <mat-label>Is Auditable ?</mat-label>
+                                              <input matInput name="isAuditable{{i}}" formControlName="isAuditable"
+                                                 maxlength="150">
+                                                <!-- <mat-error  *ngIf="grnBasedAssetList.controls['assetName'].hasError('required')">
+                                                    Asset Name is required
+                                                    </mat-error> -->
                                             </mat-form-field>
                                           </td>
 

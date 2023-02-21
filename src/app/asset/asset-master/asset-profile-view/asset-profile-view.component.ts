@@ -394,7 +394,7 @@ if(res.addAssetBean.rentedUptoDate ==null && res.addAssetBean.thirdPartyUptoDate
    this.auditableAsset=res.getAuditableAssetDetails;
    this.assetNameForList=this.profileViewDetails?.assetName;
 
-   //For Img added by gokul // chuma iruda added by kathir
+   //For Img added by  // chuma iruda added by kathir
    if (res.addAssetBean.uploadImg != undefined && res.addAssetBean.uploadImg != null && res.addAssetBean.uploadImg != '') {
     let objectProfileURL = 'data:image/png;base64,' + res.addAssetBean.uploadImg;
     this.profileImg = this.serverUrl.apiServerAddress+"asset_upload/"+res.addAssetBean.uploadImg;

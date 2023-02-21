@@ -63,7 +63,7 @@ export class AddRoleRightsComponent extends UnsubscribeOnDestroyAdapter implemen
     });
   }
 
-  //Added by GOKUL
+  //Added by 
   roleBasedFormList() {
     if (!this.docForm.valid) {
       if (this.docForm.controls['roleId'].invalid) {
@@ -111,7 +111,7 @@ export class AddRoleRightsComponent extends UnsubscribeOnDestroyAdapter implemen
     }
   }
 
-  //Added by GOKUL
+  //Added by 
   selectCheckAllFormPropertyList(isChecked: any, selectItem: any) {
     if (isChecked === "on") {
       this.formPropertyList.forEach((formProperty) => {
@@ -160,7 +160,7 @@ export class AddRoleRightsComponent extends UnsubscribeOnDestroyAdapter implemen
     }
   }
 
-//Added by GOKUL
+//Added by 
   onSubmit() {
     this.submitted = true;
     if (!this.docForm.valid) {

@@ -226,7 +226,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
         );
   }
 
-  //FOR QR CODE PDF ADDED BY GOKUL
+  //FOR QR CODE PDF ADDED BY 
   assetQRcodeExportPdf() {
     this.selection.selected.forEach((item) => {
       const index: number = this.dataSource.renderedData.findIndex(
@@ -335,7 +335,7 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
     return data.sort((a, b) => {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
-      //For to sort number or string Added by GOKUL
+      //For to sort number or string Added by 
       let isNumber: boolean = false;
       switch (this._sort.active) {
         case "id":

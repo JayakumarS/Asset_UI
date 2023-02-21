@@ -149,7 +149,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<AssetMaster>(this.saveGRNBasedMutipleAsset, assetMaster);
   }
 
-  //FOR QR CODE PDF ADDED BY GOKUL
+  //FOR QR CODE PDF ADDED BY 
   assetQRcodeExportPdf(obj: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
 

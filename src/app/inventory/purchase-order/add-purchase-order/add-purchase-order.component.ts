@@ -499,7 +499,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
   }
 
-  //FOR DOCUMENT UPLOAD ADDED BY GOKUL
+  //FOR DOCUMENT UPLOAD ADDED BY 
   onSelectFile(event) {
     var docfile = event.target.files[0];
     if (!this.acceptFileTypes.includes(docfile.type)) {
@@ -556,7 +556,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
 
-  //FOR DOCUMENT VIEW ADDED BY GOKUL
+  //FOR DOCUMENT VIEW ADDED BY 
   viewDocuments(filePath: any, fileName: any) {
     this.spinner.show();
     this.commonService.viewDocument(filePath).pipe().subscribe({
@@ -586,7 +586,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
   }
 
-  //FOR DISCOUNT PERCENTAGE VALIDATION ADDED BY GOKUL
+  //FOR DISCOUNT PERCENTAGE VALIDATION ADDED BY 
   discountPercentageValidation(data: any, index: number) {
     if (data.get('discountPercent').value != undefined && data.get('discountPercent').value != null && data.get('discountPercent').value != '') {
       if (data.get('discountPercent').value < 1) {
@@ -606,7 +606,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     }
   }
 
-  //FOR CALCULATE PRICE ADDED BY GOKUL
+  //FOR CALCULATE PRICE ADDED BY 
   calculatePrice(data: any, index: number) {
     if (data.get('qty').value != undefined && data.get('qty').value != null && data.get('qty').value != '' && data.get('unitPrice').value != undefined && data.get('unitPrice').value != null && data.get('unitPrice').value != '') {
       let totalPrice = Number(Number(data.get('qty').value) * Number(data.get('unitPrice').value)).toFixed(2);
@@ -619,7 +619,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     }
   }
 
-  //FOR CALCULATE NET PRICE ADDED BY GOKUL
+  //FOR CALCULATE NET PRICE ADDED BY 
   calculateNetPrice(data: any, index: number) {
     if (data.get('discountType').value != undefined && data.get('discountType').value != null && data.get('discountType').value != '' && data.get('price').value != undefined && data.get('price').value != null && data.get('price').value != 0.00 && data.get('price').value != '') {
       if (data.get('discountType').value === 59) {
@@ -660,7 +660,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.calculateFinalsubTotalDiscountAndTotal();
   }
 
-  //FOR CALCULATE SUB TOTAL,DISCOUNT AND TOTAL ADDED BY GOKUL
+  //FOR CALCULATE SUB TOTAL,DISCOUNT AND TOTAL ADDED BY 
   calculateFinalsubTotalDiscountAndTotal() {
     //Start Calculate SubTotal And Total
     let totalAmount = Number(0.00);
