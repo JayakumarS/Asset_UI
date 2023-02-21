@@ -16,6 +16,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { SubscriptionPageService } from '../subscription-page.service';
 import { Payments } from '../../payments.model';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -60,7 +61,8 @@ export class SubscriptionPageComponent implements OnInit {
     public subscriptionPageService: SubscriptionPageService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private serverUrl: serverLocations,
+    private serverUrl: serverLocations,    
+    private spinner: NgxSpinnerService,
     private tokenStorage: TokenStorageService) { 
     
     this.docForm = this.fb.group({
@@ -368,9 +370,11 @@ export class SubscriptionPageComponent implements OnInit {
         let exnum = this.pay.exAmount - (this.pay.exAmount * this.refPercent);
         this.pay.exAmount = exnum;
         }
-
-      this.httpService.post<any>(this.subscriptionPageService.initiatePaymentUrl, this.pay).subscribe(data => {
         
+      this.spinner.show();
+      this.httpService.post<any>(this.subscriptionPageService.initiatePaymentUrl, this.pay).subscribe(data => {
+      this.spinner.hide();
+
         this.payWithRazor(data);
         },
         (err: HttpErrorResponse) => {
@@ -506,7 +510,9 @@ export class SubscriptionPageComponent implements OnInit {
   }
 
   savePaymentHistory(payemntObj){
+    this.spinner.show();
     this.httpService.post<any>(this.subscriptionPageService.paymentHistoryUrl, payemntObj).subscribe(data => {
+      this.spinner.hide();
       if (data.isSuccess == true){
   
           this.logout();

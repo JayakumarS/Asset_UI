@@ -184,8 +184,24 @@ export class AddCompanyComponent implements OnInit {
         'emailId': res.companyBean.emailId,
         'telephoneNo': res.companyBean.telephoneNo,
         'webSite': res.companyBean.webSite,
+        'branchCount': res.companyBean.branchCount,
 
       })
+      let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
+      BranchListDtlArray.removeAt(0);
+      res.branchListDtlBean.forEach((element, index) => {
+        let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
+        let arraylen = BranchListDtlArray.length;
+        this.fetchDynamicDropDown1(element.branchCountry, index);
+        this.fetchDynamicDropDown2(element.branchState, index);
+        let newUsergroup: FormGroup = this.fb.group({
+          branchName: [element.branchName],
+          branchAddress: [element.branchAddress],
+          branchPhoneNo: [element.branchPhoneNo]
+        })
+        BranchListDtlArray.insert(arraylen, newUsergroup);
+
+      });
     });
   }
 
@@ -384,49 +400,51 @@ export class AddCompanyComponent implements OnInit {
   }
 
   reset() {
-    //location.reload()
-    this.docForm = this.fb.group({
-      companyName: ["", [Validators.required]],
-      shortName: ["", [Validators.required]],
-      emailId: ["", [Validators.required]],
-      phoneCode: [""],
-      telephoneNo: ["", [Validators.required]],
-      webSite: [""],
-      panNo: [""],
-      gstNo: [""],
-      ifscCode: [""],
-      country: ["", [Validators.required]],
-      isactive: [true],
-      companyId: [""],
-      userId: [""],
-
-      addressOne: [""],
-      addressOneCountry: [""],
-      addressOneState: [""],
-      addressOneCity: [""],
-      addressOneZipCode: [""],
-
-      addressTwo: [""],
-      addressTwoCountry: [""],
-      addressTwoState: [""],
-      addressTwoCity: [""],
-      addressTwoZipCode: [""],
-      branchCount: [""],
-      branchList: this.fb.array([
-        this.fb.group({
-          branch: '',
-          branchName: '',
-          branchCode: '',
-          branchAddress: '',
-          branchCountry: '',
-          branchState: '',
-          branchCity: '',
-          branchZipcode: '',
-          branchPhoneNo: '',
-        })
-      ]),
-    })
-
+    if (!this.edit) {
+      this.docForm = this.fb.group({
+        companyName: ["", [Validators.required]],
+        shortName: ["", [Validators.required]],
+        emailId: ["", [Validators.required]],
+        phoneCode: [""],
+        telephoneNo: ["", [Validators.required]],
+        webSite: [""],
+        panNo: [""],
+        gstNo: [""],
+        ifscCode: [""],
+        country: ["", [Validators.required]],
+        isactive: [true],
+        companyId: [""],
+        userId: [""],
+  
+        addressOne: [""],
+        addressOneCountry: [""],
+        addressOneState: [""],
+        addressOneCity: [""],
+        addressOneZipCode: [""],
+  
+        addressTwo: [""],
+        addressTwoCountry: [""],
+        addressTwoState: [""],
+        addressTwoCity: [""],
+        addressTwoZipCode: [""],
+        branchCount: [""],
+        branchList: this.fb.array([
+          this.fb.group({
+            branch: '',
+            branchName: '',
+            branchCode: '',
+            branchAddress: '',
+            branchCountry: '',
+            branchState: '',
+            branchCity: '',
+            branchZipcode: '',
+            branchPhoneNo: '',
+          })
+        ]),
+      })
+    } else {
+      this.fetchDetails(this.requestId);
+    }
   }
 
   // validateEmail(event){
