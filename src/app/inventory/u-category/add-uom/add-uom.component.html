@@ -27,7 +27,7 @@
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="uomcategoryCode" maxlength="15" 
+                      <input matInput formControlName="uomcategoryCode" maxlength="15"
                       (blur)="validateCategoryCode($event.target.value)" required (keypress)="keyPressName($event)"  oninput="this.value = this.value.toUpperCase()" required>
                       <mat-error *ngIf="docForm.get('uomcategoryCode').hasError('required')">
                         Category Code is required
@@ -45,7 +45,7 @@
                       </div>
                       <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <textarea matInput formControlName="description"></textarea>
+                          <textarea matInput formControlName="description"maxlength="250" ></textarea>
                           <mat-error *ngIf="docForm.get('description').hasError('required')">
                             Description is required
                           </mat-error>

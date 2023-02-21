@@ -16,7 +16,7 @@ import { BranchService } from '../branch.service';
   styleUrls: ['./add-branch.component.sass']
 })
 export class AddBranchComponent implements OnInit {
-  branchList:any 
+  branchList:any
   locationDdList:any
   branchMaster:Branch;
   requestId: number;
@@ -78,14 +78,14 @@ export class AddBranchComponent implements OnInit {
       }
     }
     );
-    
+
 
     this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
       next: (data) => {
         this.locationDdList = data;
       },
       error: (error) => {
-  
+
       }
     });
 
@@ -94,10 +94,10 @@ export class AddBranchComponent implements OnInit {
         this.companyList = data;
       },
       error: (error) => {
-  
+
       }
     });
-    
+
 
     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
       (data) => {
@@ -140,11 +140,11 @@ export class AddBranchComponent implements OnInit {
     })
   }
 
- 
 
-  
+
+
   validateDepartmentCode(){
-    
+
   }
 
   // validationUserGroup(location:any){
@@ -156,9 +156,9 @@ export class AddBranchComponent implements OnInit {
   //       // error code here
   //     }
   //   );
-     
+
   //}
-  
+
   onSubmit(){
     this.docForm.value.userId = this.tokenStorage.getUserId();
     this.docForm.value.companyId = this.tokenStorage.getCompanyId();
@@ -220,8 +220,8 @@ export class AddBranchComponent implements OnInit {
   }
 
   update(){
+    if (this.docForm.valid) {
 
-    // console.log();
     this.branch = this.docForm.value;
     this.branch.branchId = this.requestId;
     this.branchService.branchUpdate(this.branch);
@@ -233,6 +233,13 @@ export class AddBranchComponent implements OnInit {
     );
     this.router.navigate(['/master/Branch/listBranch']);
 
+  } else {
+    this.notificationService.showNotification(
+      "snackbar-danger",
+      "Please fill all the required details!",
+      "top",
+      "right");
+  }
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -246,11 +253,11 @@ export class AddBranchComponent implements OnInit {
   onCancel(){
     this.router.navigate(['/master/Branch/listBranch']);
  }
- 
+
  reset(){
   if (!this.edit) {
     location.reload()
-  this.docForm = this.fb.group({
+    this.docForm = this.fb.group({
     branchCode: [""],
     location: [""],
     branchname: [""],

@@ -27,7 +27,7 @@ export class AddUOMCategoryComponent implements OnInit {
   branchList=[];
   companyId: any;
   branchId: any;
-  
+
   constructor(private fb: FormBuilder, public router: Router, private snackBar: MatSnackBar,
               public uomCategoryService: UomCategoryService,
               public commonService: CommonService,  private spinner: NgxSpinnerService,
@@ -45,7 +45,7 @@ export class AddUOMCategoryComponent implements OnInit {
       loginedUser: this.tokenStorage.getUserId(),
       company:["",[Validators.required]],
       branchname:["",[Validators.required]],
-      
+
     });
 
   }
@@ -94,7 +94,7 @@ export class AddUOMCategoryComponent implements OnInit {
         error: (error) => {
         }
       });
-  
+
         // Branch Dropdown List
         this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
           next: (data) => {
@@ -163,7 +163,7 @@ export class AddUOMCategoryComponent implements OnInit {
           'description': res.uomBean.description,
           'uomcategoryName':res.uomBean.uomcategoryName,
           'active': res.uomBean.active,
-         
+
 
         });
       },
@@ -194,6 +194,7 @@ export class AddUOMCategoryComponent implements OnInit {
 
   // }
   update() {
+    if(this.docForm.valid){
       this.uomCategory = this.docForm.value;
       this.spinner.show();
       this.uomCategoryService.uomCategoryUpdate(this.uomCategory).subscribe({
@@ -226,7 +227,15 @@ export class AddUOMCategoryComponent implements OnInit {
           );
         }
       });
-
+    }
+    else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill The All Required fields",
+        "bottom",
+        "center"
+      );
+    }
   }
 
   onCancel() {

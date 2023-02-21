@@ -94,7 +94,7 @@ export class AddTaxMasterComponent implements OnInit {
   fetchDetails(id: any): void {
     this.httpService.get(this.taxMasterService.editTaxMaster+"?id="+id).subscribe((res: any)=> {
       console.log(id);
-      
+
 
       this.docForm.patchValue({
 
@@ -115,6 +115,7 @@ export class AddTaxMasterComponent implements OnInit {
   }
 
   update(){
+    if(this.docForm.valid){
 
     this.taxMaster = this.docForm.value;
     this.taxMasterService.taxMasterUpdate(this.taxMaster);
@@ -125,7 +126,15 @@ export class AddTaxMasterComponent implements OnInit {
       "center"
     );
     this.router.navigate(['/master/tax/listTax']);
-
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please fill all the required details!",
+      "top",
+      "right"
+    );
+  }
   }
 
   onCancel(){

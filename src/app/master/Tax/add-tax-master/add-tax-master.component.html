@@ -11,12 +11,12 @@
           <div class="card">
             <div class="body" style="padding-left: 80px;">
               <form class="m-4" [formGroup]="docForm">
-                
+
                 <div class="row">
-                
+
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label>TAX NAME </label>
-                </div> 
+                </div>
                 <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="taxname"  (blur)="validateTaxName($event.target.value)">
@@ -31,7 +31,7 @@
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                   <label>TAX CODE </label>
-              </div> 
+              </div>
               <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="taxcode"  (blur)="validateTaxCode($event.target.value)">
@@ -47,7 +47,7 @@
 
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                 <label>TAX TYPE </label>
-            </div> 
+            </div>
             <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-select  formControlName="taxtype">
@@ -58,9 +58,9 @@
                   Corporate tax
                 </mat-option>
                 <mat-option [value]="'Wealth tax'">
-                  Wealth tax 
+                  Wealth tax
                 </mat-option>
-               
+
                 </mat-select>
             </mat-form-field>
             </div>
@@ -71,7 +71,7 @@
 
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
               <label>TAX METHOD </label>
-          </div> 
+          </div>
           <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-select  formControlName="taxmethod">
@@ -85,20 +85,23 @@
 
           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
             <label>TAX PERCENTAGE% <span class="errorColor">*</span></label>
-        </div> 
+        </div>
         <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput formControlName="taxpercentage" (blur)="taxpercentageValidation(docForm)" >
+            <input matInput formControlName="taxpercentage" (blur)="taxpercentageValidation(docForm)"required >
             <mat-error  *ngIf="docForm.controls['taxpercentage'].hasError('pattern')">
               Tax percentage should be of minimum 1% and Maximum 100%.
           </mat-error>
+          <mat-error *ngIf="docForm.get('taxpercentage').hasError('required')">
+            Tax Percentage is required
+          </mat-error>
           </mat-form-field>
         </div>
-               
-                  
+
+
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
           <label>TAX AMOUNT </label>
-      </div> 
+      </div>
       <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="taxamount" >
@@ -113,12 +116,12 @@
                 <div class="row">
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;" >
                     <label >IS ACTIVE</label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -117px;">
                   <mat-checkbox formControlName="active"  ngInit="checked=true" STYLE="margin-left: 15PX;"></mat-checkbox>
                 </div>
               </div>
-               
+
                 <br>
                 <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
