@@ -98,8 +98,11 @@
                                           <td class="padding-both-side-2">
                                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-label>Is Auditable ?</mat-label>
-                                              <input matInput name="isAuditable{{i}}" formControlName="isAuditable"
+                                              <input type="checkbox" name="isAuditable{{i}}" formControlName="isAuditable"
                                                  maxlength="150">
+                                                 <!-- <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
+                                                    <input type="checkbox"  tabindex="8"  formControlName="isAuditable">
+                                                </div> -->
                                                 <!-- <mat-error  *ngIf="grnBasedAssetList.controls['assetName'].hasError('required')">
                                                     Asset Name is required
                                                     </mat-error> -->
@@ -260,9 +263,9 @@
                                                 {{title.text}}
                                             </mat-option>
                                         </mat-select>
-                                        <mat-error
+                                        <!-- <mat-error
                                             *ngIf="docForm.get('location').hasError('required')">Location is required
-                                        </mat-error>
+                                        </mat-error> -->
                                     </mat-form-field>
                                 </div>
                                 <div class="col-xl-1">
@@ -339,12 +342,16 @@
                                 </div>
 
                                 <div class="col-md-1">
-                                     <mat-label  >ASSET IMAGE </mat-label>
-                                           </div>
+                                     <mat-label  >ASSET IMAGE <span class="errorColor">*</span></mat-label>
+                                </div>
                                            <div class="col-md-4">
-                                            <app-file-upload class="example-width form-control-sm" formControlName="uploadImg"
-                                              (change)="onSelectImage($event)"></app-file-upload>
+                                            <app-file-upload appearance="outline" class="example-width form-control-sm" formControlName="uploadImg"
+                                              (change)="onSelectImage($event)" required></app-file-upload>
                                           </div>
+                                          <mat-error *ngIf="docForm.get('uploadImg').hasError('required')">
+                                            ASSET IMAGE is required
+                                          </mat-error>
+
                                            <div style="margin-left: 1%;" class="row" *ngIf="(imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
 
                                             <div class="iconCard" style="margin-left: 48%;">
