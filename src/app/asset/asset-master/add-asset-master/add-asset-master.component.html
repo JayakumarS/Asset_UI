@@ -62,8 +62,8 @@
                                           style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">Item Code-Item Name</th>
                                         <th class="text-center table-heading padding-both-side-2 width_7"
                                           style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Asset Name</th>
-                                        <th class="text-center table-heading padding-both-side-2 width_7"
-                                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Asset Code</th>
+                                        <!-- <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Asset Code</th> -->
                                           <th class="text-center table-heading padding-both-side-2 width_7"
                                           style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">Location</th>
                                         <th class="text-center table-heading padding-both-side-2 width_7"
@@ -104,16 +104,14 @@
                                             </mat-form-field>
                                           </td>
 
-                                          <td class="padding-both-side-2">
+                                          <!-- <td class="padding-both-side-2">
                                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-label>Asset Code</mat-label>
                                               <input matInput name="assetCode{{i}}" formControlName="assetCode"
                                                 (keypress)="keyPressNameNumber($event)" maxlength="9">
-                                                <!-- <mat-error  *ngIf="grnBasedAssetList.controls['assetCode'].hasError('required')">
-                                                    Asset Code is required
-                                                    </mat-error> -->
+                                               
                                             </mat-form-field>
-                                          </td>
+                                          </td> -->
 
                                           <td class="padding-both-side-2">
                                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -147,7 +145,7 @@
                                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-label>Status</mat-label>
                                               <mat-select name="status{{i}}" formControlName="status" >
-                                                <mat-option [value]="'Good'">
+                                                <!-- <mat-option [value]="'Good'">
                                                     New
                                                 </mat-option>
                                                 <mat-option [value]="'Damaged'">
@@ -162,7 +160,11 @@
                                                 <mat-option [value]="'Refurbished'">
                                                     Refurbished
                                                 </mat-option>
-                                              </mat-select>
+                                              </mat-select> -->
+                                                <mat-option *ngFor="let title of statusDdList" [value]="title.id">
+                                                    {{title.text}}
+                                                </mat-option>
+                                            </mat-select>
                                               <!-- <mat-error *ngIf="grnBasedAssetList.controls['status'].hasError('required')">
                                                 Status is required
                                                 </mat-error> -->
