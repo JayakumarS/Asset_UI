@@ -1,10 +1,10 @@
 import { formatDate } from "@angular/common";
 export class DesignationMaster {
   id: number;
-  activtyid: string;
-  activtyname: string;
-  Description: string;
-  active: any;
+  fullName: string;
+  emailId: string;
+  contactNumber: string;
+  companyName: any;
   Success:boolean;
   isactiveForList: string;
   companyId:any;
@@ -13,10 +13,10 @@ export class DesignationMaster {
   constructor(designationMaster) {
     {
       this.id = designationMaster.id ||"";
-      this.activtyid = designationMaster.activtyid || "";
-      this.activtyname = designationMaster.activtyname || "";
-      this.Description = designationMaster.Description || "";
-      this.active = designationMaster.active || "";
+      this.fullName = designationMaster.fullName || "";
+      this.emailId = designationMaster.emailId || "";
+      this.contactNumber = designationMaster.contactNumber || "";
+      this.companyName = designationMaster.companyName || "";
     }
   }
   public getRandomID(): string {

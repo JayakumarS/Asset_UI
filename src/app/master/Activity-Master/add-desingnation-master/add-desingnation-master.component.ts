@@ -8,6 +8,8 @@ import { DesignationMaster } from '../designation-master.model';
 import { DesignationMasterResultBean } from '../designation-master-result-bean';
 import { DesignationMasterService } from '../designation-master.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { UserMasterService } from '../../user-master/user-master.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 
 @Component({
@@ -21,28 +23,34 @@ export class AddDesingnationMasterComponent implements OnInit {
   requestId: number;
   edit:boolean=false;
   designationMaster : DesignationMaster;
+  getUserBasedCompanyList=[];
+  userId: any;
+  getCountryList=[];
   constructor(private fb: FormBuilder,
     private designationMasterService : DesignationMasterService,
     private httpService: HttpServiceService,
     private snackBar:MatSnackBar,
     public route: ActivatedRoute,
     private tokenStorage: TokenStorageService,
+    public userMasterService:UserMasterService,
+    public commonService:CommonService,
     private router:Router) {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
 
-      activtyname: ["", [Validators.required]],
-      activtyid: [""],
-      Description:["", [Validators.required]],
+      fullName: ["", [Validators.required]],
+      emailId: ["", [Validators.required]],
+      contactNumber:["", [Validators.required]],
+      company:["",[Validators.required]],
+      address:[""],
+      country:[""],
       active:[true],
       id:[""],
       companyId:this.tokenStorage.getCompanyId(),
       branchId:this.tokenStorage.getBranchId(),
       loginedUser: this.tokenStorage.getUserId(),
-
     });
-
   }
 
   ngOnInit(): void {
@@ -57,14 +65,45 @@ export class AddDesingnationMasterComponent implements OnInit {
 
       }
      });
+      // Country dropdown
+      this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+        next: (data) => {
+          this.getCountryList = data;
+        },
+        error: (error) => {
+  
+        }
+      }
+      );
+      // User Based Company List
+    this.userId = this.tokenStorage.getUserId(),
+    this.httpService.get<any>(this.userMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
+      (data) => {
+        if(data.getUserBasedCompanyList>0){
+          this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+        } else {
+           let companyText=this.tokenStorage.getCompanyText();
+           let companyId=this.tokenStorage.getCompanyId();
+          if(companyText!="null"){
+            let obj ={
+              id1:parseInt(companyId),
+              text:companyText
+             }
+             this.getUserBasedCompanyList.push(obj);
+          }
+           
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
   }
 
   onSubmit(){
     this.designationMaster = this.docForm.value;
     console.log(this.designationMaster);
     if(this.docForm.valid){
-    //this.designationMasterService.addDesignation(this.designationMaster);
-
     this.designationMasterService.addDesignation(this.designationMaster).subscribe({
       next: (data) => {
         if (data.success) {
@@ -100,13 +139,13 @@ export class AddDesingnationMasterComponent implements OnInit {
   fetchDetails(id: any): void {
     this.httpService.get(this.designationMasterService.editDesignationMaster+"?id="+id).subscribe((res: any)=> {
       console.log(id);
-      
-
       this.docForm.patchValue({
-
-        'activtyname': res.activityMasterBean.activtyname,
-        'activtyid': res.activityMasterBean.activtyid,
-        'Description': res.activityMasterBean.Description,
+        'fullName': res.activityMasterBean.fullName,
+        'emailId': res.activityMasterBean.emailId,
+        'contactNumber': res.activityMasterBean.contactNumber,
+        'company': res.activityMasterBean.company,
+        'address': res.activityMasterBean.address,
+        'country': res.activityMasterBean.country,
         'active': res.activityMasterBean.active,
         'id' : res.activityMasterBean.id
      })
@@ -115,13 +154,6 @@ export class AddDesingnationMasterComponent implements OnInit {
          // error code here
       }
     );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
   }
 
   update(){
@@ -145,12 +177,14 @@ export class AddDesingnationMasterComponent implements OnInit {
   reset(){
     if (!this.edit) {
     this.docForm = this.fb.group({
-      activtyname: [""],
-      activtyid: [""],
-      Description: [""],
-      active: [true],
-      companyId:this.tokenStorage.getCompanyId(),
-      branchId:this.tokenStorage.getBranchId()
+      fullName: ["", [Validators.required]],
+      emailId: ["", [Validators.required]],
+      contactNumber:["", [Validators.required]],
+      company:["",[Validators.required]],
+      address:[""],
+      country:[""],
+      active:[true],
+      id:[""],
 
     });
   } else {

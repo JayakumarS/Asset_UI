@@ -30,10 +30,10 @@ import { DeleteDesignationMasterComponent } from './delete-designation-master/de
 export class ListDesingnationMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 displayedColumns = [
 
-  "activtyid",
-    "activtyname",
-    "Description",
-    "active",
+    "fullName",
+    "emailId",
+    "contactNumber",
+    "companyName",
     "actions"
   ];
 
@@ -210,10 +210,10 @@ export class ExampleDataSource extends DataSource<DesignationMaster> {
           .filter((designationMaster: DesignationMaster) => {
             const searchStr = (
               designationMaster.id+
-              designationMaster.activtyid +
-              designationMaster.activtyname +
-              designationMaster.Description +
-              designationMaster.active
+              designationMaster.fullName +
+              designationMaster.emailId +
+              designationMaster.contactNumber +
+              designationMaster.companyName
 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -243,17 +243,17 @@ export class ExampleDataSource extends DataSource<DesignationMaster> {
         case "id":
           [propertyA, propertyB] = [a.id, b.id];
           break;
-        case "activtyid":
-          [propertyA, propertyB] = [a.activtyid, b.activtyid];
+        case "fullName":
+          [propertyA, propertyB] = [a.fullName, b.fullName];
           break;
-        case "activtyname":
-          [propertyA, propertyB] = [a.activtyname, b.activtyname];
+        case "emailId":
+          [propertyA, propertyB] = [a.emailId, b.emailId];
           break;
-          case "Description":
-          [propertyA, propertyB] = [a.Description, b.Description];
+          case "contactNumber":
+          [propertyA, propertyB] = [a.contactNumber, b.contactNumber];
           break;
-          case "active":
-          [propertyA, propertyB] = [a.active, b.active];
+          case "companyName":
+          [propertyA, propertyB] = [a.companyName, b.companyName];
           break;
 
 

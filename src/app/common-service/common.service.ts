@@ -188,6 +188,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getPwdStatus = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPwdStatus`;
 
   public getCustomerDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCustomerDropdown`;
+  
+  public getCountryCodeDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryCodeDropdown`;
 
   //FOR DOCUMENT VIEW ADDED BY 
   viewDocument(filePath: any): Observable<Blob> {

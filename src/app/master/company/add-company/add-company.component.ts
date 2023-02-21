@@ -32,12 +32,13 @@ export class AddCompanyComponent implements OnInit {
   stateBasedCityList = [];
   stateBasedCityList1 = [];
   countrybasedStateList2 = [];
-  stateList=[];
+  stateList = [];
   companyId: any;
-  CompanyEnployeeList=[];
+  CompanyEnployeeList = [];
   dynamicDropDownList1 = [];
   dynamicDropDownList2 = [];
-  value1= [];
+  value1 = [];
+  CountryCodeList=[];
 
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
@@ -59,9 +60,9 @@ export class AddCompanyComponent implements OnInit {
       phoneCode: [""],
       telephoneNo: ["", [Validators.required]],
       webSite: [""],
-      panNo: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
+      panNo: ["", Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
       gstNo: [""],
-      ifscCode: ["",Validators.pattern('[A-Za-z]{4}[0-9]{7}')],
+      ifscCode: ["", Validators.pattern('[A-Za-z]{4}[0-9]{7}')],
       country: ["", [Validators.required]],
       isactive: [true],
       //address:["",[Validators.required]],
@@ -112,6 +113,17 @@ export class AddCompanyComponent implements OnInit {
     }
     );
 
+
+    // Country Code Dropdown List
+    this.httpService.get<any>(this.commonService.getCountryCodeDropdown).subscribe({
+      next: (data) => {
+        this.CountryCodeList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
     // Contact Person dropdown
     //  this.httpService.get<any>(this.commonService.getpersoninchargeDropdown).subscribe({
     //   next: (data) => {
@@ -124,7 +136,7 @@ export class AddCompanyComponent implements OnInit {
     // );
 
 
-     this.companyId=this.tokenStorage.getCompanyId();
+    this.companyId = this.tokenStorage.getCompanyId();
     this.httpService.get<any>(this.companyService.getCompanyEnployee + "?companyId=" + this.companyId).subscribe({
       next: (data) => {
         this.CompanyEnployeeList = data;
@@ -154,12 +166,12 @@ export class AddCompanyComponent implements OnInit {
           this.fetchCompanyDetails(this.requestId);
           this.fetchDetails(this.requestId);
           window.sessionStorage.setItem("findFrom", "");
-        }else{
-        // For Editable mode
-        this.fetchDetails(this.requestId);
-        
+        } else {
+          // For Editable mode
+          this.fetchDetails(this.requestId);
+
+        }
       }
-    }
     });
 
   }
@@ -189,12 +201,12 @@ export class AddCompanyComponent implements OnInit {
     })
   }
   ////////////////////////////////////////////////////////////
-  fetchDynamicDropDown1(country,i){
+  fetchDynamicDropDown1(country, i) {
     this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
       this.dynamicDropDownList1[i] = res;
     });
   }
-  fetchDynamicDropDown2(state,i){
+  fetchDynamicDropDown2(state, i) {
     this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
       this.dynamicDropDownList2[i] = res;
     })
@@ -212,8 +224,8 @@ export class AddCompanyComponent implements OnInit {
   }
   //// country ,state and city dropdowns end ////////////////////////
 
-  
-  
+
+
   // onSubmit(){
   //   if(this.docForm.valid){
   //   this.docForm.value.userId = this.tokenStorage.getUserId();
@@ -251,13 +263,13 @@ export class AddCompanyComponent implements OnInit {
   }
 
   addBranch() {
-   
-    if( (parseInt(this.docForm.value.branchCount)) > this.docForm.controls.branchList.value.length){
-      for (let i = 0; i < this.docForm.value.branchCount-this.docForm.controls.branchList.value.length; i++) {
-        if ((parseInt(this.docForm.value.branchCount)-this.docForm.controls.branchList.value.length) <= 10) {
+
+    if ((parseInt(this.docForm.value.branchCount)) > this.docForm.controls.branchList.value.length) {
+      for (let i = 0; i < this.docForm.value.branchCount - this.docForm.controls.branchList.value.length; i++) {
+        if ((parseInt(this.docForm.value.branchCount) - this.docForm.controls.branchList.value.length) <= 10) {
           this.flag = true;
           let branchListDetailArray = this.docForm.controls.branchList as FormArray;
-          let arraylen = this.docForm.value.branchCount-this.docForm.controls.branchList.value.length;
+          let arraylen = this.docForm.value.branchCount - this.docForm.controls.branchList.value.length;
           let newUsergroup: FormGroup = this.fb.group({
             branch: '',
             branchName: '',
@@ -269,8 +281,8 @@ export class AddCompanyComponent implements OnInit {
             branchZipcode: '',
             branchPhoneNo: '',
           })
-         // this.removeRow(i)
-          branchListDetailArray.insert(arraylen+1, newUsergroup);
+          // this.removeRow(i)
+          branchListDetailArray.insert(arraylen + 1, newUsergroup);
         } else {
           this.showNotification(
             "snackbar-danger",
@@ -281,8 +293,8 @@ export class AddCompanyComponent implements OnInit {
         }
       }
     }
-    
-    
+
+
   }
 
   removeRow(i) {
@@ -290,9 +302,9 @@ export class AddCompanyComponent implements OnInit {
     branchListArray.removeAt(i);
   }
 
-  fetchDetails(company: any ): void {
-    if(this.docForm.value.branchCount ==""){
-      this.flag=false;
+  fetchDetails(company: any): void {
+    if (this.docForm.value.branchCount == "") {
+      this.flag = false;
     }
 
     const obj = {
@@ -301,16 +313,16 @@ export class AddCompanyComponent implements OnInit {
     this.spinner.show();
     this.companyService.editCompany(obj).subscribe({
       next: (res: any) => {
-        if( res.companyBean.branchCount ==null|| res.companyBean.branchCount==0){
-          this.flag=false;
-        }else if(res.companyBean.branchCount !=null||res.companyBean.branchCount!=0){
-          this.flag=true;
+        if (res.companyBean.branchCount == null || res.companyBean.branchCount == 0) {
+          this.flag = false;
+        } else if (res.companyBean.branchCount != null || res.companyBean.branchCount != 0) {
+          this.flag = true;
         }
         this.fetchCountryBasedState(res.companyBean.addressOneCountry);
         this.fetchCountryBasedState1(res.companyBean.addressTwoCountry);
         this.stateBasedCity(res.companyBean.addressOneState);
         this.stateBasedCity1(res.companyBean.addressTwoState);
-        
+
         this.spinner.hide();
         this.docForm.patchValue({
           'companyId': res.companyBean.companyId,
@@ -345,8 +357,8 @@ export class AddCompanyComponent implements OnInit {
         res.branchListDtlBean.forEach((element, index) => {
           let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
           let arraylen = BranchListDtlArray.length;
-          this.fetchDynamicDropDown1(element.branchCountry,index);
-          this.fetchDynamicDropDown2(element.branchState,index);
+          this.fetchDynamicDropDown1(element.branchCountry, index);
+          this.fetchDynamicDropDown2(element.branchState, index);
           let newUsergroup: FormGroup = this.fb.group({
             branch: [element.branch],
             branchName: [element.branchName],
@@ -400,21 +412,21 @@ export class AddCompanyComponent implements OnInit {
       addressTwoCity: [""],
       addressTwoZipCode: [""],
       branchCount: [""],
-        branchList: this.fb.array([
-          this.fb.group({
-            branch: '',
-            branchName: '',
-            branchCode: '',
-            branchAddress: '',
-            branchCountry: '',
-            branchState: '',
-            branchCity: '',
-            branchZipcode: '',
-            branchPhoneNo: '',
-          })
-        ]),
-      })
-    
+      branchList: this.fb.array([
+        this.fb.group({
+          branch: '',
+          branchName: '',
+          branchCode: '',
+          branchAddress: '',
+          branchCountry: '',
+          branchState: '',
+          branchCity: '',
+          branchZipcode: '',
+          branchPhoneNo: '',
+        })
+      ]),
+    })
+
   }
 
   // validateEmail(event){
