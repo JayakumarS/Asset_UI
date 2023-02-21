@@ -185,6 +185,7 @@ export class AddCompanyComponent implements OnInit {
         'telephoneNo': res.companyBean.telephoneNo,
         'webSite': res.companyBean.webSite,
         'branchCount': res.companyBean.branchCount,
+        'isactive': res.companyBean.isactive,
 
       })
       let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
