@@ -151,6 +151,7 @@ export class AddBranchComponent implements OnInit {
   
   onSubmit(){
     this.docForm.value.userId = this.tokenStorage.getUserId();
+    this.docForm.value.companyId = this.tokenStorage.getCompanyId();
     this.branchMaster = this.docForm.value;
     console.log(this.branchMaster);
     if(this.docForm.valid){
@@ -164,6 +165,16 @@ export class AddBranchComponent implements OnInit {
       console.log(id);
       console.log(res);
      this.edit = true;
+
+     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
+      (data) => {
+        this.branchList = data.getuserBasedBranchDDList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
     //  this.validationUserGroup(res.branchbean.companyId);
      this.docForm.patchValue({
 
