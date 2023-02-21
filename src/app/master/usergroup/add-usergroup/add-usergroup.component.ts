@@ -18,7 +18,7 @@ import { UsergroupService } from '../usergroup.service';
   styleUrls: ['./add-usergroup.component.sass']
 })
 export class AddUsergroupComponent implements OnInit {
-  
+
    userGroupMaster:UserGroupMaster
   docForm: FormGroup;
   roleList:any;
@@ -44,10 +44,10 @@ export class AddUsergroupComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private spinner: NgxSpinnerService,
-    private serverUrl: serverLocations,    
+    private serverUrl: serverLocations,
     public tokenStorage: TokenStorageService,
-    
-  ) { 
+
+  ) {
 
     this.docForm = this.fb.group({
 
@@ -63,12 +63,12 @@ export class AddUsergroupComponent implements OnInit {
       companyid:[""],
       branchid:[""],
       loginedUser: this.tokenStorage.getUserId(),
-  
+
       userDetailbean: this.fb.array([
         this.fb.group({
           users: '',
           role: '',
-          
+
         })
       ]),
 
@@ -97,7 +97,7 @@ export class AddUsergroupComponent implements OnInit {
       }
     });
 
-   
+
     this.person_in_chargeList(this.docForm.value.loginedUser);
     //this.UserList(this.docForm.value.loginedUser);
 
@@ -106,16 +106,16 @@ export class AddUsergroupComponent implements OnInit {
         this.companydetailList = data;
       },
       error: (error) => {
-  
-      }    
+
+      }
      });
      this.httpService.get<any>(this.usergroupService.getRoleDropdown).subscribe({
       next: (data) => {
        this.roleList = data;
        },
       error: (error) => {
-  
-      }    
+
+      }
      });
 
      this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
@@ -123,16 +123,16 @@ export class AddUsergroupComponent implements OnInit {
        this.countryList = data;
        },
       error: (error) => {
-  
-       }    
+
+       }
      });
      this.httpService.get<any>(this.commonService.getBranchDropdown).subscribe({
       next: (data) => {
        this.branchList = data;
        },
       error: (error) => {
-  
-       }    
+
+       }
      });
 
     //  this.httpService.get<any>(this.commonService.getUserDropdown).subscribe({
@@ -140,8 +140,8 @@ export class AddUsergroupComponent implements OnInit {
     //    this.userList = data;
     //    },
     //   error: (error) => {
-  
-    //    }    
+
+    //    }
     //  });
 
 
@@ -162,7 +162,7 @@ export class AddUsergroupComponent implements OnInit {
 // RoleList(user:any):void {
 //   this.httpService.get(this.usergroupService.getRoleDropdown+ "?roleId=" + user).subscribe((res: any) => {
 //     this.roleList = res; });
- 
+
 //  }
 
 
@@ -186,7 +186,7 @@ export class AddUsergroupComponent implements OnInit {
           // 'person': res.companyBean.personIncharge,
           // 'telephone': res.companyBean.telephoneNo,
           'user_mapping_id':res.userBean.user_mapping_id,
-          
+
           'companyName':res.userBean.companyName.toString(),
           'branch':res.userBean.branch,
           'users':res.userBean.users,
@@ -196,25 +196,25 @@ export class AddUsergroupComponent implements OnInit {
           let manageAuditDtlArray = this.docForm.controls.userDetailbean as FormArray;
           manageAuditDtlArray.removeAt(0);
           if(res.userBean.userDetailbean!=null){
-       
-          
+
+
            res.userBean.userDetailbean.forEach(element => {
                  let manageAuditDtlArray = this.docForm.controls.userDetailbean as FormArray;
                  let arraylen = manageAuditDtlArray.length;
                  let newUsergroup: FormGroup = this.fb.group({
                   users:[element.users],
                   role:[element.role]
-                  
+
                 })
           manageAuditDtlArray.insert(arraylen,newUsergroup);
         });
       }
-      
+
       (err: HttpErrorResponse) => {
          // error code here
       }
   }
-   
+
 
   })
 }
@@ -249,6 +249,8 @@ validationUserGroup(branch: any) {
 
 }
   onSubmit(){
+    if (this.docForm.valid){
+
       this.httpService.post<any>(this.usergroupService.save, this.docForm.value).subscribe(data => {
         if(data.success){
           this.showNotification(
@@ -266,13 +268,20 @@ validationUserGroup(branch: any) {
             "center"
           );
         }
-        
+
         },
         (err: HttpErrorResponse) => {
-          
+
       });
       this.router.navigate(['master/usergroup/listusergroup']);
-
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please Fill The All Required fields",
+        "top",
+        "right"
+      );
+    }
 
   }
 
@@ -284,9 +293,9 @@ validationUserGroup(branch: any) {
     let newUsergroup: FormGroup = this.fb.group({
       users:[""],
       role:[""],
-     
 
-     
+
+
     })
     scheduledListDetailArray.insert(arraylen, newUsergroup);
 
@@ -308,11 +317,11 @@ validationUserGroup(branch: any) {
           })
          }
        }
-  
+
     }
 
-   
-  
+
+
 reset(){
 if (!this.edit) {
   this.docForm.reset();
@@ -329,9 +338,11 @@ if (!this.edit) {
 }
 
 update(){
+  if (this.docForm.valid){
+
   this.userGroupMaster = this.docForm.value;
-    this.spinner.show();
-    this.usergroupService.update(this.userGroupMaster).subscribe({
+  this.spinner.show();
+  this.usergroupService.update(this.userGroupMaster).subscribe({
       next: (data) => {
         this.spinner.hide();
         if (data.success) {
@@ -362,8 +373,16 @@ update(){
       }
     });
 
-    this.router.navigate(['master/usergroup/listusergroup']);
+  this.router.navigate(['master/usergroup/listusergroup']);
 
+  }else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please Fill The All Required fields",
+      "top",
+      "right"
+    );
+  }
 }
 
 

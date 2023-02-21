@@ -37,7 +37,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   companyName: any;
   companyList:[];
   value5:[];
-  
+
   constructor( private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -47,7 +47,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
     private companyEmployeeService: CompanyEmployeeService,
     private notificationservice:NotificationService,
     // tslint:disable-next-line:no-shadowed-variable
-    
+
     private snackBar: MatSnackBar,
     public router: Router,) {
     this.docForm = this.fb.group({
@@ -73,7 +73,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+
 
     this.companyName=this.tokenStorage.getCompanyText();
     console.log(this.companyName);
@@ -97,7 +97,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       branchId:this.tokenStorage.getBranchId(),
 
     });
-   //branch 
+   //branch
     this.userId = this.tokenStorage.getUserId();
 
     this.companyId = this.tokenStorage.getCompanyId(),
@@ -122,7 +122,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
   this.branchId =this.tokenStorage.getBranchId(),
 
-  
+
   this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe(
     (data) => {
       console.log(data);
@@ -132,7 +132,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
         'branchId':parseInt(this.branchId),
         'company':parseInt(this.companyId),
      })
-   
+
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
@@ -187,7 +187,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       }
     }
     );
-   
+
 
    // Role dropdown
    this.httpService.get<any>(this.commonService.getRoleDropdown).subscribe({
@@ -218,22 +218,22 @@ export class AddCompanyEmployeesComponent implements OnInit {
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
-  ); 
+  );
 
-  
+
 
   }
 
   fetchBranchDetails(customer: any) {
 
-    
+
 
 
   }
   onSubmit(){
     if(this.docForm.valid){
       this.docForm.value.userId = this.tokenStorage.getUserId();
-    this.company = this.docForm.value;   
+    this.company = this.docForm.value;
     console.log(this.company);
     this.companyEmployeeService.addCompany(this.company,this.router);
 
@@ -243,7 +243,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       "bottom",
       "center"
     );
-  
+
     }
     else{
       this.showNotification(
@@ -270,19 +270,19 @@ export class AddCompanyEmployeesComponent implements OnInit {
     this.userId = this.tokenStorage.getUserId();
      this.companyId = this.tokenStorage.getCompanyId();
     this.docForm.patchValue({
-     
+
       'company': parseInt(res.companyEmployeeBean.company),
       'branch':  parseInt(res.companyEmployeeBean.branch),
-      'emailId' : res.companyEmployeeBean.emailId, 
-      'fullName' : res.companyEmployeeBean.fullName, 
-      'phoneno' : res.companyEmployeeBean.phoneno, 
-      'department' : parseInt(res.companyEmployeeBean.department), 
-      'role' : res.companyEmployeeBean.role, 
+      'emailId' : res.companyEmployeeBean.emailId,
+      'fullName' : res.companyEmployeeBean.fullName,
+      'phoneno' : res.companyEmployeeBean.phoneno,
+      'department' : parseInt(res.companyEmployeeBean.department),
+      'role' : res.companyEmployeeBean.role,
       'active': res.companyEmployeeBean.active,
       'id' : res.companyEmployeeBean.id,
       'empid':res.companyEmployeeBean.empid
 
-      
+
    })
 
     },
@@ -290,7 +290,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
        // error code here
     }
   );
- 
+
 }
 
   update(){
@@ -309,8 +309,8 @@ export class AddCompanyEmployeesComponent implements OnInit {
         "right"
       );
     }
-  
-    
+
+
 
   }
   keyPressName(event: any) {
@@ -342,7 +342,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
     }
   }
   reset(){
-   
+
 
     location.reload()
     this.docForm.patchValue({
@@ -355,11 +355,11 @@ export class AddCompanyEmployeesComponent implements OnInit {
           id:[""],
           active:[""],
           empid:[""],
-  
+
         })
   }
 
-  
+
   onCancel(){
 
     this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
@@ -367,7 +367,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
   }
 
-  
+
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {

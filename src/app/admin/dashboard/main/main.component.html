@@ -7,7 +7,7 @@
     </div>
     <div class="row ">
       <div class="col-xl-8 ">
-        <div class="card" style="padding-bottom: 95px;padding-top: 70px;">
+        <div class="card" style="padding-bottom: 80px;padding-top: 70px;">
           <div class="header">
             <!-- <h2>Assets </h2>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
@@ -35,7 +35,7 @@
               <button mat-menu-item>Something else here</button>
             </mat-menu> -->
           </div>
-          <div class="body" >
+          <div class="body" *ngIf="flowChartFlag">
             <highcharts-chart #chart [Highcharts]="Highcharts" 	style =" width:100%;height: 100%;display: block;" [callbackFunction]="chartCallback" [options]="chartOptionsColumnChart"
           [(update)]="updateFlag"></highcharts-chart>
             <!-- Apex Chart -->
@@ -43,6 +43,9 @@
               [xaxis]="projectOptions.xaxis" [labels]="projectOptions.labels" [stroke]="projectOptions.stroke"
               [plotOptions]="projectOptions.plotOptions" [markers]="projectOptions.markers" [fill]="projectOptions.fill"
               [tooltip]="projectOptions.tooltip" [colors]="projectOptions.colors"></apx-chart> -->
+          </div>
+          <div class="body" *ngIf="!flowChartFlag">
+          <img src="assets/images/flowchart.png" alt="Trulli" width="100%" height="70%" style="margin-top:-102px">
           </div>
         </div>
       </div>
@@ -113,8 +116,8 @@
                     <h5 class="float-end">Auditors</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <!-- <h3 class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">1</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3>
+                    <!-- <h3 class="font-weight-bold float-end mb-0">1</h3> -->
                   </div>
                 </div>
               </div>
@@ -311,7 +314,7 @@
         <!-- </div> -->
       </div>
     </div>
-        <div class="row">
+        <div class="row" *ngIf="assetsFlagForDashboard">
           <div class="col-md-7">
         <div class="card">
           <div class="header">
@@ -427,7 +430,7 @@
               <highcharts-chart #chart [Highcharts]="Highcharts" [callbackFunction]="chartCallback" [options]="chartOptionsPieChart"
               [(update)]="updateFlag"></highcharts-chart>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" *ngIf="assetsFlagForDashboard">
                 <!-- <div class="row"> -->
                   <!-- <div class="col-md-6">
                     <h5 class="tx-primary m-b-30">Summary</h5>
@@ -702,7 +705,7 @@
       </div> -->
     </div>
     <div class="row">
-      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="assetsFlagForDashboard">
         <div class="card">
           <div class="header">
             <h2>Three Years </h2>
@@ -723,7 +726,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="ticketFlag">
         <div class="card">
           <div class="header">
             <h2>Support Tickets </h2>
@@ -746,7 +749,9 @@
         </div>
       </div>
     </div>
-    <div class="row clearfix">
+
+    <!-- Asset List Full -->
+    <!-- <div class="row clearfix">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="card">
           <div class="header">
@@ -772,7 +777,7 @@
                     <th>Category</th>
                     <th>Status</th>
                   </tr>
-                </thead>
+                </thead> -->
                 <!-- <tbody *ngIf="!roleIdFlag">
                   <tr *ngFor="let data of assetList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
                     <td>{{data.assetName}}</td>
@@ -782,7 +787,7 @@
                     <td>{{data.status}}</td>
                   </tr>
                 </tbody> -->
-                <tbody>
+                <!-- <tbody>
                   <tr *ngFor="let data of companyAssetList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
                     <td>{{data.assetName}}</td>
                     <td>{{data.assetCode}}</td>
@@ -795,262 +800,11 @@
               <div style="margin-left: 66%;">
                 <pagination-controls (pageChange)="pageChanged=($event)"></pagination-controls>
               </div>
-              <!-- <table class="table text-center">
-                <thead>
-                  <tr>
-                    <th>Project Name</th>
-                    <th>Employees Team</th>
-                    <th>Team Leader</th>
-                    <th>Priority</th>
-                    <th>Open Task</th>
-                    <th>Completed Task</th>
-                    <th>Status</th>
-                    <th>Documents</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Project A</td>
-                    <td class="text-truncate">
-                      <ul class="list-unstyled order-list">
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user1.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user2.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user3.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><span class="badge">+4</span>
-                        </li>
-                      </ul>
-                    </td>
-                    <td>John Doe</td>
-                    <td>
-                      <div class="badge col-blue">Medium</div>
-                    </td>
-                    <td>19</td>
-                    <td>10</td>
-                    <td>
-                      <mat-progress-bar mode="determinate"
-                        class="progress-xs progress-round sky-progress progress-shadow" value="37">
-                      </mat-progress-bar>
-                    </td>
-                    <td>
-                      <i class="far fa-file-pdf tbl-pdf"></i>
-                    </td>
-                    <td>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                      </button>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Project B</td>
-                    <td class="text-truncate">
-                      <ul class="list-unstyled order-list">
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user7.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user2.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><span class="badge">+3</span>
-                        </li>
-                      </ul>
-                    </td>
-                    <td>Sarah Smith</td>
-                    <td>
-                      <div class="badge col-green">Low</div>
-                    </td>
-                    <td>25</td>
-                    <td>18</td>
-                    <td>
-                      <mat-progress-bar mode="determinate"
-                        class="progress-xs progress-round green-progress progress-shadow" value="73">
-                      </mat-progress-bar>
-                    </td>
-                    <td>
-                      <i class="far fa-file-pdf tbl-pdf"></i>
-                    </td>
-                    <td>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                      </button>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Project C</td>
-                    <td class="text-truncate">
-                      <ul class="list-unstyled order-list">
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user2.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user1.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user8.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><span class="badge">+2</span>
-                        </li>
-                      </ul>
-                    </td>
-                    <td>Airi Satou</td>
-                    <td>
-                      <div class="badge col-blue">Medium</div>
-                    </td>
-                    <td>33</td>
-                    <td>21</td>
-                    <td>
-                      <mat-progress-bar mode="determinate"
-                        class="progress-xs progress-round sky-progress progress-shadow" value="52">
-                      </mat-progress-bar>
-                    </td>
-                    <td>
-                      <i class="far fa-file-pdf tbl-pdf"></i>
-                    </td>
-                    <td>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                      </button>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Project D</td>
-                    <td class="text-truncate">
-                      <ul class="list-unstyled order-list">
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user5.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user3.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user9.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><span class="badge">+4</span>
-                        </li>
-                      </ul>
-                    </td>
-                    <td>Angelica Ramos</td>
-                    <td>
-                      <div class="badge col-orange">High</div>
-                    </td>
-                    <td>26</td>
-                    <td>15</td>
-                    <td>
-                      <mat-progress-bar mode="determinate"
-                        class="progress-xs progress-round orange-progress progress-shadow" value="40">
-                      </mat-progress-bar>
-                    </td>
-                    <td>
-                      <i class="far fa-file-pdf tbl-pdf"></i>
-                    </td>
-                    <td>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                      </button>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Project E</td>
-                    <td class="text-truncate">
-                      <ul class="list-unstyled order-list">
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user2.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user4.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><span class="badge">+3</span>
-                        </li>
-                      </ul>
-                    </td>
-                    <td>Ashton Cox</td>
-                    <td>
-                      <div class="badge col-green">Low</div>
-                    </td>
-                    <td>12</td>
-                    <td>11</td>
-                    <td>
-                      <mat-progress-bar mode="determinate"
-                        class="progress-xs progress-round green-progress progress-shadow" value="88">
-                      </mat-progress-bar>
-                    </td>
-                    <td>
-                      <i class="far fa-file-pdf tbl-pdf"></i>
-                    </td>
-                    <td>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                      </button>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Project F</td>
-                    <td class="text-truncate">
-                      <ul class="list-unstyled order-list">
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user6.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user9.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><img class="rounded-circle" src="assets/images/user/user4.jpg"
-                            alt="user">
-                        </li>
-                        <li class="avatar avatar-sm"><span class="badge">+2</span>
-                        </li>
-                      </ul>
-                    </td>
-                    <td>Cara Stevens</td>
-                    <td>
-                      <div class="badge col-orange">High</div>
-                    </td>
-                    <td>43</td>
-                    <td>22</td>
-                    <td>
-                      <mat-progress-bar mode="determinate"
-                        class="progress-xs progress-round oragne-progress progress-shadow" value="67">
-                      </mat-progress-bar>
-                    </td>
-                    <td>
-                      <i class="far fa-file-pdf tbl-pdf"></i>
-                    </td>
-                    <td>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                      </button>
-                      <button mat-icon-button class="tbl-action-btn">
-                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 
     <div class="row">
@@ -1098,6 +852,53 @@
         </div>
       </div>
       <div class="col-md-6">
+        <!--  -->
+        <div class="row clearfix">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+              <div class="header">
+                <h2>Asset List</h2>
+                <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>Action</button>
+                  <button mat-menu-item>Another action</button>
+                  <button mat-menu-item>Something else here</button>
+                </mat-menu>
+              </div>
+              <div class="tableBody">
+                <div class="table-responsive">
+    
+                  <table class="table table-hover ">
+                    <thead>
+                      <tr>
+                        <th >Asset Name</th>
+                        <th>Asset Code</th>
+                        <th>Location</th>
+                        <!-- <th>Category</th>
+                        <th>Status</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of companyAssetList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
+                        <td>{{data.assetName}}</td>
+                        <td>{{data.assetCode}}</td>
+                        <td>{{data.locationName}}</td>
+                        <!-- <td>{{data.categoryName}}</td>
+                        <td>{{data.status}}</td> -->
+                      </tr>
+                    </tbody>
+                  </table>  
+                  <div>
+                    <pagination-controls (pageChange)="pageChanged=($event)"></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
       </div>
 
     </div>

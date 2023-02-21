@@ -60,7 +60,7 @@ export class AddItemPropertiesComponent implements OnInit {
     console.log(this.companyId)
     this.branchId = this.tokenStorage.getBranchId();
     console.log(this.branchId)
-    
+
 
     //propertyType list dropdown
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 38).subscribe({
@@ -134,8 +134,8 @@ export class AddItemPropertiesComponent implements OnInit {
       );
     }
   }
-  
-  
+
+
   fetchDetails(id: any): void {
     const obj = {
       editId: id
@@ -153,7 +153,7 @@ export class AddItemPropertiesComponent implements OnInit {
           'attributeValue': res.itemProperties.attributeValue,
           'attributeDefualtValue': res.itemProperties.attributeDefualtValue,
           'isMandatory': res.itemProperties.isMandatory,
-          
+
         })
       },
       error: (error) => {

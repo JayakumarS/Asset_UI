@@ -49,7 +49,7 @@
                         height: 55px;
                         width: 100%;
                         border-color: #bdc2c9;
-                        padding: 13px 10px 10px 22px;">    
+                        padding: 13px 10px 10px 22px;">
                       </div>
                     </div>
                     <br>
@@ -72,7 +72,7 @@
                       <button class="btn-space" mat-raised-button
                         color="accent" (click)="onSubmit()" style="margin-left: 36%;background-color: #34d034;">Submit</button>
                       <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
-                      <button color="warn" type="button" class="btn-space"  mat-raised-button>Cancel</button>
+                      <button color="warn" (click)="onCancel()"type="button" class="btn-space"  mat-raised-button>Cancel</button>
                     </div>
                   </div>
                 </form>

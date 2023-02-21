@@ -226,7 +226,7 @@ export class AddUserMasterComponent implements OnInit {
    // User Based Company List
     this.httpService.get<any>(this.userMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
     (data) => {
-      
+
       if(data.getUserBasedCompanyList>0){
         this.getUserBasedCompanyList = data.getUserBasedCompanyList;
       } else {
@@ -237,10 +237,10 @@ export class AddUserMasterComponent implements OnInit {
             id1:parseInt(companyId),
             text:companyText
            }
-  
+
            this.getUserBasedCompanyList.push(obj);
         }
-         
+
       }
     },
     (error: HttpErrorResponse) => {
@@ -275,7 +275,7 @@ export class AddUserMasterComponent implements OnInit {
 
   fetchBranchDetails(customer: any) {
 
-   
+
 
     this.httpService.get(this.userMasterService.locationDropdown+"?locationId=" + customer ).subscribe((res: any) => {
       console.log(customer);

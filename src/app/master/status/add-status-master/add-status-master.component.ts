@@ -99,7 +99,7 @@ export class AddStatusMasterComponent implements OnInit {
   fetchDetails(id: any): void {
     this.httpService.get(this.statusMasterService.editStatusMaster+"?id="+id).subscribe((res: any)=> {
       console.log(id);
-      
+
 
       this.docForm.patchValue({
 
@@ -113,10 +113,12 @@ export class AddStatusMasterComponent implements OnInit {
       (err: HttpErrorResponse) => {
       }
     );
-    
+
   }
 
   update(){
+    if(this.docForm.valid){
+
     this.statusMaster = this.docForm.value;
     this.statusMasterService.statusMasterUpdate(this.statusMaster);
     this.showNotification(
@@ -126,8 +128,16 @@ export class AddStatusMasterComponent implements OnInit {
       "center"
     );
     this.router.navigate(['/master/status/listStatus']);
-    
 
+  }
+  else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please fill all the required details!",
+      "top",
+      "right"
+    );
+  }
   }
 
   onCancel(){

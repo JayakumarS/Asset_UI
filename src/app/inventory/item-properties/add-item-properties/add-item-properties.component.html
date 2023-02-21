@@ -52,7 +52,7 @@
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="attributeName" maxlength="20" (keypress)="keyPressName($event)"
                         required>
-                      <mat-error *ngIf="docForm.get('attributeName').hasError('required')"> 
+                      <mat-error *ngIf="docForm.get('attributeName').hasError('required')">
                         Property Name is required
                       </mat-error>
                     </mat-form-field>
@@ -83,11 +83,11 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="attributeDefualtValue" maxlength="50"
+                      <input matInput formControlName="attributeDefualtValue" maxlength="20"
                         (keypress)="keyPressName($event)">
                     </mat-form-field>
                   </div>
-                  <div class="col-md-2 spaceBetweenTwoFields">                  
+                  <div class="col-md-2 spaceBetweenTwoFields">
                     <label>IS MANDATORY</label>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">

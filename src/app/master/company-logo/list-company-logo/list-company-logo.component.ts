@@ -85,15 +85,23 @@ export class ListCompanyLogoComponent  extends UnsubscribeOnDestroyAdapter imple
       this.companyLogo = this.docForm.value;
       console.log(this.companyLogo);
       this.companyLogoService.addCompany(this.companyLogo, this.notificationService);
-    }
-    else {
+
+
+    } else {
       this.notificationService.showNotification(
       "snackbar-danger",
       "Please fill all the required details!",
       "top",
-      "right");
-    }
+      "right"
+);
+
+}
+
   }
+
+  onCancel() {
+    this.router.navigate(['/admin/dashboard/main']);
+    }
 
   getLogoDetails(event) {
     var docfile = event.target.files[0];

@@ -11,8 +11,8 @@
             <div class="card pageproperty">
               <div class="body " style="padding-left: 135px;">
                 <form class="m-4" [formGroup]="docForm">
-                  
-                  
+
+
                   <div class="row">
 
                     <!-- <div class=" col-md-2">
@@ -25,7 +25,7 @@
                                   {{title.text}}
                               </mat-option>
                           </mat-select>
-                         
+
                       </mat-form-field>
                         </div> -->
 
@@ -34,13 +34,13 @@
                           </div>
                           <div class=" col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                           
+
                               <mat-select formControlName="company"  required >
                                   <mat-option *ngFor="let data of companyList" [value]="data.id">
                                       {{data.text}}
                                   </mat-option>
                               </mat-select>
-                            
+
                           </mat-form-field>
                         </div> -->
 
@@ -59,7 +59,7 @@
                             </mat-error> -->
                             </mat-form-field>
                           </div>
-                        
+
                           <div class=" col-md-2">
                             <mat-label >DEPARTMENT</mat-label>
                             </div>
@@ -69,7 +69,7 @@
                                 <mat-option *ngFor="let title of getUserBasedDepartmentList" [value]="title.id">
                                     {{title.text}}
                                 </mat-option>
-                            </mat-select> 
+                            </mat-select>
                         </mat-form-field>
                         </div>
                         </div>
@@ -95,15 +95,15 @@
                                 </div>
                                 <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <input matInput formControlName="fullName"  maxlength="50"  [ngModel]="value5"
+                                  <input matInput formControlName="fullName"  maxlength="30"  [ngModel]="value5"
                                   (ngModelChange)="value5=$event.toUpperCase()" (keypress)="string($event)"  required>
                                   <mat-error *ngIf="docForm.get('fullName').hasError('required')">
                                     Full Name is required
                                   </mat-error>
                                 </mat-form-field>
                               </div>
-                             
-                              
+
+
                               <!-- <div class=" col-md-2">
                                 <mat-label >EMAIL ID<span class="errorColor">*</span></mat-label>
                                 </div>
@@ -124,7 +124,7 @@
                                 </mat-form-field>
                               </div> -->
 
-                            
+
                                   </div>
 
                                   <div class="row">
@@ -136,7 +136,7 @@
                                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                         <!-- <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required  *ngIf="edit == false">
                                         <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
-      
+
                                         <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                                           Email is required
                                         </mat-error>
@@ -146,8 +146,11 @@
                                         <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
                                           Valid Email Id Required
                                         </mat-error> -->
-                                        <input matInput name="emailId" formControlName="emailId">
+                                        <input matInput name="emailId" formControlName="emailId"required>
                                         <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
+                                          Valid Email ID Required
+                                        </mat-error>
+                                        <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                                           Valid Email Id Required
                                         </mat-error>
                                       </mat-form-field>
@@ -175,14 +178,14 @@
                                                 {{title.text}}
                                             </mat-option>
                                         </mat-select>
-                                       
+
                                     </mat-form-field>
                                     </div> -->
                                           </div>
 
                                           <div class="row">
 
-                                     
+
 
                                             <div class=" col-md-2">
                                               <mat-label  >IS ACTIVE</mat-label></div>
@@ -190,10 +193,10 @@
                                                <mat-checkbox  formControlName="active" STYLE="margin-left: 16px;"></mat-checkbox>
                                             </div>
 
-                                            
+
                                             </div>
-<!--  -->
-                    
+
+
 
                   <div class="row">
                     <div class="col-md-12">

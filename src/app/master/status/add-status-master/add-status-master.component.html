@@ -11,15 +11,15 @@
           <div class="card">
             <div class="body" style="padding-left: 80px;">
               <form class="m-4" [formGroup]="docForm">
-                
+
                 <div class="row">
-                
+
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label>STATUS NAME<span class="errorColor">*</span></label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="statusname" (blur)="validateStatusname($event.target.value)" required>
+                    <input matInput formControlName="statusname"  maxlength="30"(blur)="validateStatusname($event.target.value)" required>
                     <mat-error *ngIf="docForm.get('statusname').hasError('required')">
                       Status Name is required
                     </mat-error>
@@ -28,13 +28,13 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-               
+
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                       <label>DESCRIPTION</label>
-                  </div> 
+                  </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <textarea matInput formControlName="Description"></textarea>
+                      <textarea matInput formControlName="Description" maxlength="250"></textarea>
                       <mat-error *ngIf="docForm.get('Description').hasError('required')">
                         Description is required
                       </mat-error>
@@ -45,7 +45,7 @@
                 <div class="row">
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;" >
                     <label >IS ACTIVE</label>
-                </div> 
+                </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -117px;">
                   <mat-checkbox formControlName="active"  ngInit="checked=true" STYLE="margin-left: 15PX;"></mat-checkbox>
                 </div>
