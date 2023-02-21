@@ -173,7 +173,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
 
     //Item Master Dropdown List
-    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown+"?companyId="+this.companyId).subscribe({
       next: (data) => {
         this.itemCodeNameList = data;
       },
@@ -289,6 +289,7 @@ export class AddPurchaseOrderComponent implements OnInit {
           'total': Number(res.purchaseOrder.total).toFixed(2), 
           'lopUpload':  res.purchaseOrder.lopUpload
         })
+
 
         if (res.purchaseOrder.lopUpload != undefined && res.purchaseOrder.lopUpload != null && res.purchaseOrder.lopUpload != '') {
           this.filePathUrl = res.purchaseOrder.lopUpload;

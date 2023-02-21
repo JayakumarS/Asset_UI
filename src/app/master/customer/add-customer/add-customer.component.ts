@@ -33,7 +33,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   customerMaster: CustomerMaster;
   requestId: number;
   locationList: [];
-  countryList = [];
+  countryDdList = [];
   locationDdList = [];
   stateDdList = [];
   cityDdList = [];
@@ -45,6 +45,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   value4=[];
   value5=[];
   submitted: boolean=false;
+  isactive: boolean=false;
   state: string;
   cityShipperList = [];
   cityDeliveryList = [];
@@ -53,8 +54,14 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   company:any;
   locationemailDdList:[];
   ifscForm: FormGroup;
-
-
+  countrybasedStateList1:[];
+  stateBasedCityList:[];
+  countrybasedStateList:[];
+  billingState:[];
+  countryList:[];
+  stateBasedCityList1:[];
+  countrybasedStateList2:[];
+  stateBasedCityList2:[];
   constructor(private fb: FormBuilder,
               private httpService: HttpServiceService,
               private snackBar: MatSnackBar,
@@ -78,7 +85,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
     this.docForm = this.fb.group({
       'companyId':this.tokenStorageService.getCompanyId(),
       'branchId':this.tokenStorageService.getBranchId(),
-      isactive:[true],
+      isactive:[],
       cus_id: [""],
       auditorname: [""],
       registercode: [""],
@@ -93,7 +100,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       postalcode: [""],
       panno: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
       vatno: [""],
-      gstno: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
+      gstno: ["",Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')],
       cstno: [""],
       remarks: [""],
       active: [true],
@@ -148,6 +155,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
           addresstwo: [""],
            })
       ]),
+
+      
         });
  
 
@@ -196,14 +205,13 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
 
 
-     
-    // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-    //   next: (data) => {
-    //     this.locationList = data;
-    //   },
-    //   error: (error) => {
-    //   }
-    // });
+    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+      next: (data) => {
+        this.countryDdList = data;
+      },
+      error: (error) => {
+      }
+    });
 
     // Location dropdown
     this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
@@ -214,6 +222,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
   }
 });
+
   // State dropdown
     this.httpService.get<any>(this.commonService.getStateDropdown).subscribe({
     next: (data) => {
@@ -229,7 +238,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 // country dropdown
     this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
   next: (data) => {
-    this.countryList = data;
+    this.countryDdList = data;
   },
   error: (error) => {
 
@@ -238,13 +247,44 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
 
   }
+  fetchCountryBasedState(country: any){
+    this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
+      this.countrybasedStateList = res;
+    })
+  }
+  stateBasedCity(state:any){
+    this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
+      this.stateBasedCityList = res;
+  })
+}
 
-  zipcodevalidation2(event:any){
+zipcodevalidation2(event:any){
     if(event.length != 6){ 
       this.docForm.controls['billingZip'].setErrors({ billing: true });
     }else{
       this.docForm.controls['billingZip'].setErrors(null);
     } 
+  }
+  fetchCountryBasedState1(country:any){
+    this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
+      this.countrybasedStateList1 = res;
+    })
+  }
+ 
+  stateBasedCity1(state:any){
+    this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
+      this.stateBasedCityList1 = res;
+  })
+  }
+  fetchCountryBasedState2(country:any){
+    this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
+      this.countrybasedStateList2 = res;
+    })
+  }
+  stateBasedCity2(state:any){
+    this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
+      this.stateBasedCityList2 = res;
+  })
   }
   zipcodevalidation1(event:any){
     if(event.length != 6){ 
@@ -380,8 +420,19 @@ fetchDetails(cus_id: any): void {
       this.getCityShipperDropdown(res.customerBean.shipperState);
       this.getCityBillingDropdown(res.customerBean.billingState);
       this.getCityDeliveryDropdown(res.customerBean.deliveryState);
+      // this.fetchCountryBasedState(res.customerBean.billingCountry);
+      // this.fetchCountryBasedState1(res.customerBean.shipperCountry);
+      // this.fetchCountryBasedState2(res.customerBean.deliveryCountry);
+      // this.stateBasedCity(parseInt(res.customerBean.billingCity));
+      // this.stateBasedCity1(res.customerBean.shipperCity);
+      // this.stateBasedCity2(res.customerBean.deliveryCity);
       //this.locationdropdown(res.customerBean.getLocationDropdown);
-
+      this.fetchCountryBasedState(res.customerBean.billingCountry)
+      this.stateBasedCity(res.customerBean.billingState)
+      this.fetchCountryBasedState2(res.customerBean.deliveryCountry)
+      this.stateBasedCity2(res.customerBean.deliveryState)
+      this.fetchCountryBasedState1(parseInt(res.customerBean.shipperCountry))
+      this.stateBasedCity1(res.customerBean.shipperState)
       this.docForm.patchValue({
       'cus_id': res.customerBean.cus_id,
       'auditorname': res.customerBean.auditorname,
@@ -406,19 +457,19 @@ fetchDetails(cus_id: any): void {
       'vendorLocation': res.customerBean.vendorLocation,
       'shipperAddress': res.customerBean.shipperAddress,
       'billingAddress': res.customerBean.billingAddress,
-      'shipperState': res.customerBean.shipperState,
+      'shipperState': parseInt(res.customerBean.shipperState),
       'shipperZip': res.customerBean.shipperZip,
-      'shipperCity': res.customerBean.shipperCity,
-      'shipperCountry': res.customerBean.shipperCountry,
-      'billingState': res.customerBean.billingState,
-      'billingCity': res.customerBean.billingCity,
+      'shipperCity': parseInt(res.customerBean.shipperCity),
+      'shipperCountry': parseInt(res.customerBean.shipperCountry),
+      'billingState': parseInt(res.customerBean.billingState),
+      'billingCity': parseInt(res.customerBean.billingCity),
       'billingZip': res.customerBean.billingZip,
       'billingCountry': res.customerBean.billingCountry,
       'deliveryAddress': res.customerBean.deliveryAddress,
-      'deliveryState': res.customerBean.deliveryState,
-      'deliveryCity': res.customerBean.deliveryCity,
+      'deliveryState': parseInt(res.customerBean.deliveryState),
+      'deliveryCity': parseInt(res.customerBean.deliveryCity),
       'deliveryZip': res.customerBean.deliveryZip,
-      'deliveryCountry': res.customerBean.deliveryCountry,
+      'deliveryCountry': parseInt(res.customerBean.deliveryCountry),
       'internalNotes': res.customerBean.internalNotes,
       'method': res.customerBean.method,
       'acctReceivable': res.customerBean.acctReceivable,
@@ -476,22 +527,31 @@ fetchDetails(cus_id: any): void {
 active(){
   
   if(this.docForm.value.isactive==true){
+    this.fetchCountryBasedState(this.docForm.value.billingCountry)
+    this.stateBasedCity(this.docForm.value.billingState)
+    this.fetchCountryBasedState1(this.docForm.value.billingCountry)
+this.stateBasedCity1(this.docForm.value.billingState)
+this.fetchCountryBasedState2(this.docForm.value.billingCountry)
+this.stateBasedCity2(this.docForm.value.billingState)
+    //  this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + this.docForm.value.billingCountry).subscribe((res: any) => {
+    //   this.countrybasedStateList = res;
     this.docForm.patchValue({
      
-      'shipperAddress': this.docForm.value.billingAddress,
+    'shipperAddress': this.docForm.value.billingAddress,
     'shipperState': this.docForm.value.billingState,
-     'shipperCity': this.docForm.value.billingCity,
+    'shipperCity': parseInt(this.docForm.value.billingCity),
     'shipperZip':this.docForm.value.billingZip,
-    'shipperCountry':this.docForm.value.billingCountry,
+    'shipperCountry': parseInt(this.docForm.value.billingCountry),
     'deliveryAddress': this.docForm.value.billingAddress,
-    'deliveryState': this.docForm.value.billingState,
-   'deliveryCity': this.docForm.value.billingCity,
+    'deliveryState': parseInt(this.docForm.value.billingState),
+    'deliveryCity': parseInt(this.docForm.value.billingCity),
     'deliveryZip':this.docForm.value.billingZip,
-    'deliveryCountry':this.docForm.value.billingCountry,
+    'deliveryCountry':parseInt(this.docForm.value.billingCountry),
     
  })
+//})
   }
-  else  if(this.docForm.value.isactive==true){
+  else  if(this.docForm.value.isactive==false){
     this.docForm.patchValue({
      'shipperAddress':"",
    'shipperState':"",
