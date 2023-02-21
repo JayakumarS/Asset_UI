@@ -39,7 +39,7 @@
                           <img src="assets/images/icons/xlsx.png" alt=""
                             (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                         </div>
-                      </li>                  
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -79,7 +79,7 @@
                         <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                         </app-feather-icons>
                       </button> -->
-<!-- 
+<!--
                       <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="discardCall(row)" class="tbl-action-btn">
                         <app-feather-icons matTooltip="Delete" [icon]="'trash-2'" [class]="'tbl-fav-delete'" style="color: black!important;">
                         </app-feather-icons>
@@ -88,26 +88,26 @@
                       <!-- <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <div class="demo-google-material-icon" (click)="$event.stopPropagation()" (click)="discardCall(row)">
                           <i class="material-icons">delete_forever</i>
-                         
+
                         </div>
                       </div> -->
                                     </mat-cell>
                                 </ng-container>
-                  
-                
-  
+
+
+
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                  <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"
                     [style.cursor]="'pointer'" matRipple>
                   </mat-row>
                 </mat-table>
-               
+
                 <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
                   <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
                   </mat-progress-spinner>
                 </div>
-            
+
                 <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
                   [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
                 </div>
@@ -125,18 +125,7 @@
                       <mat-icon>delete</mat-icon>
                       <span>Delete Record</span>
                     </button>
-                    <button mat-menu-item (click)="refresh()">
-                      <mat-icon>refresh</mat-icon>
-                      <span>Refresh Record</span>
-                    </button>
-                    <button mat-menu-item disabled>
-                      <mat-icon>no_encryption</mat-icon>
-                      <span>Disable</span>
-                    </button>
-                    <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
-                      <mat-icon>list_alt</mat-icon>
-                      <span> Nested Menu</span>
-                    </button>
+
                   </ng-template>
                 </mat-menu>
                 <mat-menu #nestedmenu="matMenu">
@@ -153,14 +142,14 @@
                     <span>Item 3</span>
                   </button>
                 </mat-menu>
-        
+
                 <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
                   [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
                   No results
                 </div>
                 <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5"
                   [pageSizeOptions]="[5, 10, 25, 100]">
-                </mat-paginator> 
+                </mat-paginator>
               </div>
           </div>
         </div>

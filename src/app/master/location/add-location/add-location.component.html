@@ -49,7 +49,7 @@
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="locationCode"maxlength="10" (keypress)="keyPressNumeric($event)" required>
+                      <input matInput formControlName="locationCode"maxlength="4" (keypress)="keyPressName($event)" required>
                       <mat-error *ngIf="docForm.get('locationCode').hasError('required')">
                         Location Code is required
                       </mat-error>
