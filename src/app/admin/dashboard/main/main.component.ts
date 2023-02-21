@@ -371,12 +371,15 @@ configUserLog: {
           data: this.pieValueArray
       }
       // Column with Drilldown Chart
+      if(doughnutChartData.getOuterColumnChart.length!=0){
       this.columnOuterValueArray=doughnutChartData.getOuterColumnChart;
       this.chartOptionsColumnChart.series[0] = {
         type: 'column',
         data: this.columnOuterValueArray
       }  
       this.columnInnerValueArray=doughnutChartData.getInnerColumnChart;
+      }
+      
       this.updateFlag = true; 
       console.log(doughnutChartData.getInnerColumnChart);
       },
@@ -472,18 +475,6 @@ configUserLog: {
     this.httpService.get<any>(this.mainService.getBarChartURL + "?assetId=" +asset+"&asset="+'').subscribe(
       (data) => {
         this.chartOptionsBarChart.series=data.getBarChartListGraph
-        // if(data.getBarChartListGraph!=null){
-          // for(var i=0;i<data.getBarChartListGraph.length;i++){
-          //   var j = 2023;
-          //   var k =+ j;
-          //   this.testArray.push(k);
-          // }
-        //   this.testArray=["2023",
-        //   "2024",
-        //   "2025",
-        //   "2026"]
-        //   this.chartOptionsBarChart.xaxis.categories=this.testArray;
-        // }
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -966,7 +957,6 @@ configUserLog: {
         "2029",
         "2030",
         "2031",
-        // "Feb",
         ]
       },
       yaxis: {
