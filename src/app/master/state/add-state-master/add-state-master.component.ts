@@ -185,6 +185,7 @@ export class AddStateMasterComponent implements OnInit {
     });
   }
   validateCustomer(event){
+    // tslint:disable-next-line:max-line-length
     this.httpService.get<any>(this.stateService.uniqueValidateUrl+ "?tableName=" +"state"+"&columnName="+"state_code"+"&columnValue="+event).subscribe((res: any) => {
       if(res){
         this.docForm.controls['stateCode'].setErrors({ state: true });

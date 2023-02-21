@@ -103,7 +103,7 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput   formControlName="departmentHead"  (blur)="validateDepartmentMaster($event.target.value)"
-                  maxlength="30" required >
+                  maxlength="30"  >
                   <mat-error *ngIf="docForm.get('departmentHead').hasError('required')">
                     Department Name is required
                   </mat-error>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="remarks"  maxlength="250" (keypress)="keyPressNameWithNumber($event)"  >
+                        <input matInput formControlName="remarks"  maxlength="50" (keypress)="keyPressNameWithNumber($event)"  >
                         <mat-error *ngIf="docForm.get('remarks').hasError('required')">
                             description  is required
                         </mat-error>

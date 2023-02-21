@@ -15,7 +15,9 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="stateCode" maxlength="2"(blur)="validateCustomer($event.target.value)" required>
+                      <input matInput formControlName="stateCode" *ngIf="edit == false"maxlength="2"(blur)="validateCustomer($event.target.value)" required>
+                      <input matInput formControlName="stateCode"required *ngIf="edit == true" readonly>
+
                       <mat-error *ngIf="docForm.get('stateCode').hasError('required')">
                         State Code is required
                       </mat-error>

@@ -16,8 +16,10 @@
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="cityName" maxlength="20" (keypress)="keyPressString($event)"
+                        <input matInput formControlName="cityName" maxlength="20"*ngIf="edit == false" (keypress)="keyPressString($event)"
                         (blur)="validateCustomer($event.target.value)" required>
+                        <input matInput formControlName="cityName"required *ngIf="edit == true" readonly>
+
                         <mat-error *ngIf="docForm.get('cityName').hasError('required')">
                           city name is required
                         </mat-error>
