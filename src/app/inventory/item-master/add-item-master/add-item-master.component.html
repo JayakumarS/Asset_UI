@@ -276,7 +276,7 @@
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select formControlName="inventoryValuation">
-                          <mat-option *ngFor="let title of inventoryValuvationList" [value]="title.id" required>
+                          <mat-option *ngFor="let title of inventoryValuvationList" [value]="title.id">
                             {{title.text}}
                           </mat-option>
                         </mat-select>
@@ -291,7 +291,7 @@
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select formControlName="issueMethod">
-                          <mat-option *ngFor="let title of issueList" [value]="title.id" required>
+                          <mat-option *ngFor="let title of issueList" [value]="title.id">
                             {{title.text}}
                           </mat-option>
                         </mat-select>

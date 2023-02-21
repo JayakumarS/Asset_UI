@@ -42,6 +42,7 @@ export class AddDiscardComponent implements OnInit {
   moveToLocationId: number;
   branchId: any;
   companyId: any;
+  discardList:any;
 
 
   constructor(private fb: FormBuilder,private cmnService: CommonService, 
@@ -59,8 +60,8 @@ export class AddDiscardComponent implements OnInit {
       soldValue:[""],
       purchasePrice:[""],
       priceDifference:[""],
-      reason:["",[Validators.required]],
-      discardDateobj:["",[Validators.required]],
+      reason:[""],
+      discardDateobj:[""],
       discardDate:[""],
       vendorName:[""],
       others:[""],
@@ -119,7 +120,7 @@ export class AddDiscardComponent implements OnInit {
   getDateString(event,inputFlag){
     let cdate = this.cmnService.getDate(event.target.value);
     if(inputFlag=='discardDate'){
-      this.docForm.patchValue({discardDate:cdate});
+      this.docForm.patchValue({discardDateObj:cdate});
     }
     
 
@@ -225,17 +226,13 @@ export class AddDiscardComponent implements OnInit {
       
       this.docForm.patchValue({
         
-        soldValue:[""],
-        purchasePrice:[""],
-        priceDifference:[""],
+      
         reason:[""],
         discardDateobj:[""],
         discardDate:[""],
-        vendorName:[""],
         others:[""],
-        remarks:[""],
-        taxGroup:[""],
-        uploadFile:[""],
+        moveTo:[""]
+      
         
       })
     
@@ -249,11 +246,15 @@ export class AddDiscardComponent implements OnInit {
 
     this.assetService.editAsset(obj).subscribe({
       next: (res: any) => {
+        this.discardList =  res.addAssetBean;
         this.docForm.patchValue({
           'assetName': res.addAssetBean.assetName,
           'assetCode': res.addAssetBean.assetCode,
-          'location': res.addAssetBean.location,
+          'soldValue' : res.addAssetBean.captitalizationPrice,
+          'location': res.addAssetBean.locationName,
           'purchasePrice': res.addAssetBean.purchasePrice,
+          'priceDifference' : res.addAssetBean.priceDifference,
+          'vendorName' : res.addAssetBean.vendor,
           
           
         })

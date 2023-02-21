@@ -60,8 +60,8 @@ export class AddItemMasterComponent implements OnInit {
       branchname:this.tokenStorage.getBranchId(),
 
       // Inventory
-      inventoryValuation: ["", [Validators.required]],
-      issueMethod: ["", [Validators.required]],
+      inventoryValuation: [""],
+      issueMethod: [""],
 
       // Attribute
       batchNo: false,

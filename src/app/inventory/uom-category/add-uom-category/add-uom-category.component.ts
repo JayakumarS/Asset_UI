@@ -27,6 +27,7 @@ export class AddUOMCategoryComponent implements OnInit {
   branchList=[];
   companyId: any;
   branchId: any;
+  categoryList : any;
 
   constructor(private fb: FormBuilder, public router: Router, private snackBar: MatSnackBar,
               public uomCategoryService: UomCategoryService,
@@ -84,6 +85,25 @@ export class AddUOMCategoryComponent implements OnInit {
 
       }
     });
+
+
+    // this.httpService.get<any>(this.uomCategoryService.getuserCategoryName).subscribe({
+    //   next: (data) => {
+    //     this.categoryDdList = data;
+    //   },
+    //   error: (error) => {
+
+    //   }
+    // });
+
+      this.httpService.get(this.uomCategoryService.fetchUomCategoryName + "?company=" + this.companyId).subscribe((res: any) => {
+       this.categoryList = res.uomCategoryList;
+      },
+        (err: HttpErrorResponse) => {
+          // error code here
+        }
+      );
+    
 
 
        // Company  Dropdown List
