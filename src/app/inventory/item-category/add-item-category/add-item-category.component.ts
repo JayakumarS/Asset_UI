@@ -92,7 +92,7 @@ export class AddItemCategoryComponent implements OnInit {
     });
 
     //ItemCategory list dropdown
-    this.httpService.get<any>(this.commonService.getItemCategoryDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getItemCategoryDropdown + "?companyId=" + this.companyId).subscribe({
       next: (data) => {
         this.itemCategoryList = data;
       },
@@ -138,7 +138,7 @@ export class AddItemCategoryComponent implements OnInit {
 
 
     //type list
-    this.httpService.get<any>(this.commonService.getItempropertiesDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getItempropertiesDropdown + "?companyId=" + this.companyId).subscribe({
       next: (data) => {
         this.itemPropertiesList = data;
       },
