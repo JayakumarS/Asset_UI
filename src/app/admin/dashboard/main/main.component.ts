@@ -73,6 +73,7 @@ export class MainComponent implements OnInit {
   columnOuterValueArray = [];
   columnInnerValueArray = [];
   userLogListDashboard = [];
+  testArray = [];
   //Donut Array
   donutName = [];
   donutValue = [];
@@ -165,8 +166,8 @@ configUserLog: {
   totalItems: number
 };
 
-  companyLastAuditDate: number[];
-  companyLastAuditDoneBy: number[];
+  companyLastAuditDate: any;
+  companyLastAuditDoneBy: any;
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
@@ -331,11 +332,33 @@ configUserLog: {
       console.log(this.companyAuditorCount);
       this.companyPurchaseAssetsCount = doughnutChartData.companyPurchaseAssetsCount;
       this.companyUsersAssetsCount = doughnutChartData.companyUsersAssetsCount;
-      this.companyEarningsAssetsCount = doughnutChartData.companyEarningsAssetsCount;
-      this.companyAuditorsAssetsCount = doughnutChartData.companyAuditorsAssetsCount;
+      //Amount
+      if(doughnutChartData.companyEarningsAssetsCount!=null){
+        this.companyEarningsAssetsCount = doughnutChartData.companyEarningsAssetsCount;
+      }else{
+        this.companyEarningsAssetsCount="-";
+      }
+      //Auditors
+      if(doughnutChartData.companyAuditorsAssetsCount!=null){
+        this.companyAuditorsAssetsCount = doughnutChartData.companyAuditorsAssetsCount;
+      }else{
+        this.companyAuditorsAssetsCount = "-";
+      }
+      
       this.companyAssetsCount = doughnutChartData.companyAssetsCount;
-      this.companyLastAuditDate = doughnutChartData.companyLastAuditDate;
-      this.companyLastAuditDoneBy = doughnutChartData.companyLastAuditDoneBy;
+      //Last Audit Date
+      if(doughnutChartData.companyLastAuditDate!=null){
+        this.companyLastAuditDate = doughnutChartData.companyLastAuditDate;
+      }else{
+        this.companyLastAuditDate = "-";
+      }
+      //Last Audit Done By
+      if(doughnutChartData.companyLastAuditDoneBy!=null){
+        this.companyLastAuditDoneBy = doughnutChartData.companyLastAuditDoneBy;
+      }else{
+        this.companyLastAuditDoneBy = "-";
+      }
+      
       //For Donut Data
       if(doughnutChartData.getDonutValue.length != 0){
         this.doughnutChartLabels = doughnutChartData.getDonutName;
@@ -449,6 +472,18 @@ configUserLog: {
     this.httpService.get<any>(this.mainService.getBarChartURL + "?assetId=" +asset+"&asset="+'').subscribe(
       (data) => {
         this.chartOptionsBarChart.series=data.getBarChartListGraph
+        // if(data.getBarChartListGraph!=null){
+          // for(var i=0;i<data.getBarChartListGraph.length;i++){
+          //   var j = 2023;
+          //   var k =+ j;
+          //   this.testArray.push(k);
+          // }
+        //   this.testArray=["2023",
+        //   "2024",
+        //   "2025",
+        //   "2026"]
+        //   this.chartOptionsBarChart.xaxis.categories=this.testArray;
+        // }
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -931,15 +966,7 @@ configUserLog: {
         "2029",
         "2030",
         "2031",
-          // "Feb",
-          // "Mar",
-          // "Apr",
-          // "May",
-          // "Jun",
-          // "Jul",
-          // "Aug",
-          // "Sep",
-          // "Oct"
+        // "Feb",
         ]
       },
       yaxis: {
