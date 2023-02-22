@@ -48,6 +48,7 @@ export class AddCategoryComponent implements OnInit {
       assettype:[""],
       currency:["",[Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
+      companyId:this.tokenStorage.getCompanyId()
 
       
       
@@ -124,7 +125,8 @@ export class AddCategoryComponent implements OnInit {
       'depreciation' : parseInt(res.assetCategoryBean.depreciation),
       'assettype' : parseInt(res.assetCategoryBean.assettype),
       'currency':  parseInt(res.assetCategoryBean.currency),
-      'id' : res.assetCategoryBean.id
+      'id' : res.assetCategoryBean.id,
+      'companyId' : res.assetCategoryBean.companyId
 
    })
 
