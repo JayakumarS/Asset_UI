@@ -38,6 +38,7 @@ export class SalesInvoiceService extends UnsubscribeOnDestroyAdapter{
   public getSalesOrderListDropdown = `${this.serverUrl.apiServerAddress}app/salesInvoice/getSalesOrderDropdown`;
   public dtlDropdown = `${this.serverUrl.apiServerAddress}app/salesInvoice/getdtlsDropdown`;
 
+  public fetchCustomer=`${this.serverUrl.apiServerAddress}app/salesInvoice/getfetchCustomer`;
 
 
   get data(): SalesInvoice[] {

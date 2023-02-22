@@ -32,7 +32,7 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
 
   displayedColumns = [
    
-    "customer",
+    "customerName",
     "currency",
     "dateofdelivery",
     "termsandcondition",
@@ -205,7 +205,7 @@ export class ExampleDataSource extends DataSource<SalesOrder> {
           .filter((salesOrder: SalesOrder) => {
 
             const searchStr = (
-              salesOrder.customer +
+              salesOrder.customerName +
               salesOrder.currency +
               salesOrder.dateofdelivery +
               salesOrder.termsandcondition 
@@ -237,8 +237,8 @@ export class ExampleDataSource extends DataSource<SalesOrder> {
       let propertyA: number | string | boolean = "";
       let propertyB: number | string | boolean = "";
       switch (this._sort.active) {
-        case "customer":
-          [propertyA, propertyB] = [a.customer, b.customer];
+        case "customerName":
+          [propertyA, propertyB] = [a.customerName, b.customerName];
           break;
         //case "departmentName":
          // [propertyA, propertyB] = [a.departmentName, b.departmentName];
