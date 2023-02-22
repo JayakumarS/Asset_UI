@@ -30,7 +30,7 @@ export class ListBankRecieptsComponent extends UnsubscribeOnDestroyAdapter imple
   displayedColumns = [
   'voucherNo', 
   'chequeDate',
-  'Payment',
+
   'chequeno',
   'companyname',
   'actions'];
