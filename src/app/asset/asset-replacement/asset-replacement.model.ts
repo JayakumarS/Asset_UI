@@ -3,5 +3,5 @@ export class AssetReplacement {
 	fullOrPartial:boolean
 	id: number;
 	assetMasterBeanReplacement: []
-
+    loginUser:string;
 } 

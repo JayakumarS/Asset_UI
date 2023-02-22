@@ -90,6 +90,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       //info
       id: [""],
       fullOrPartial: ["F"],
+      loginUser: this.tokenStorage.getUserId(),
 
       
       assetMasterBean: this.fb.array([

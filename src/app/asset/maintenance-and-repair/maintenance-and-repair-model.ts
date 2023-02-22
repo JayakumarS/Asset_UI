@@ -1,6 +1,7 @@
 export class MaintenanceAndReport {
     id: number;
     success:boolean;
+    loginUser:string;
 
     assetId: any;
     repairDate: any;

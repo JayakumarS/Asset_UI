@@ -82,7 +82,8 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
         receivedDateObj:[""],
         receivedDate:[""],
         receivedRemarks:[""],
-        receivedLocation:[""]
+        receivedLocation:[""],
+        loginUser:this.tokenStorage.getUserId()
       }); 
   }
 
