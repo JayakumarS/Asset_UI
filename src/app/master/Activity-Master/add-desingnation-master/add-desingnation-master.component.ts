@@ -209,4 +209,14 @@ export class AddDesingnationMasterComponent implements OnInit {
     });
   }
 
+  validateEmail(event){
+    this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "auditor_mapping" + "&columnName=" + "emailid" + "&columnValue=" + event).subscribe((res: any) => {
+      if (res){
+        this.docForm.controls['emailId'].setErrors({ employee: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
+
 }

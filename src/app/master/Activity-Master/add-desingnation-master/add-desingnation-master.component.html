@@ -29,9 +29,12 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="emailId"  maxlength="150"required>
+                      <input matInput formControlName="emailId" (blur)="validateEmail($event.target.value)" maxlength="150"required>
                       <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                         Email Id is required
+                      </mat-error>
+                      <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
+                        Email Id Already Exists !!!
                       </mat-error>
                     </mat-form-field>
                   </div>
