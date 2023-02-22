@@ -61,17 +61,17 @@
                     <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.chequeDate}}</mat-cell>
                   </ng-container>
   
-                  <ng-container matColumnDef="bankcash">
+                  <ng-container matColumnDef="Payment">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Bank/Cash</mat-header-cell>
-                    <mat-cell *matCellDef="let row"   (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.bankcash}}</mat-cell>
+                    <mat-cell *matCellDef="let row"   (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.Payment}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="chequeNo">
+                  <ng-container matColumnDef="chequeno">
                       <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Cheque No</mat-header-cell>
-                      <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.chequeNo}}</mat-cell>
+                      <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.chequeno}}</mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="Companyname">
+                    <ng-container matColumnDef="companyname">
                       <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Company name </mat-header-cell>
-                      <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.Companyname}}</mat-cell>
+                      <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.companyname}}</mat-cell>
                     </ng-container>
                   <!-- actions -->
                   <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
