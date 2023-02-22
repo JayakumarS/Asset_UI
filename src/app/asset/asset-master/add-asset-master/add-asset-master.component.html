@@ -108,7 +108,7 @@
                                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-label>Asset Name</mat-label>
                                               <input matInput name="assetName{{i}}" formControlName="assetName"
-                                                 maxlength="150">
+                                                 maxlength="150" (keypress)="keyPressName($event)">
                                                 <!-- <mat-error  *ngIf="grnBasedAssetList.controls['assetName'].hasError('required')">
                                                     Asset Name is required
                                                     </mat-error> -->
@@ -341,7 +341,7 @@
                                 </div>
                                            <div class="col-md-4">
                                             <app-file-upload appearance="outline" class="example-width form-control-sm" formControlName="uploadImg"
-                                              (change)="onSelectImage($event)" required></app-file-upload>
+                                              (change)="onSelectImage($event)" ></app-file-upload>
                                           </div>
                                           <!-- <mat-error *ngIf="docForm.get('uploadImg').hasError('required')">
                                             ASSET IMAGE is required
