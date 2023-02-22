@@ -73,8 +73,8 @@ export class AddAssetMasterComponent
   assetnamelist: any;
   assetDetailsList: any;
   uomList: any;
-  filePathUrl: string;
-  imgPathUrl: string;
+  filePathUrl: any;
+  imgPathUrl: any;
   private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   assetUserList: any;
@@ -963,7 +963,8 @@ export class AddAssetMasterComponent
       this.grnFlag = true;
       this.docForm.controls.grnId.setValidators(Validators.required);
       this.docForm.controls['grnId'].updateValueAndValidity();
-
+      this.docForm.controls.isAuditable.clearValidators();
+      this.docForm.controls['isAuditable'].updateValueAndValidity();
       this.docForm.controls.assetName.clearValidators();
       this.docForm.controls['assetName'].updateValueAndValidity();
       this.docForm.controls.assetCode.clearValidators();
@@ -979,7 +980,8 @@ export class AddAssetMasterComponent
       this.grnFlag = false;
       this.docForm.controls.grnId.clearValidators();
       this.docForm.controls['grnId'].updateValueAndValidity();
-
+      this.docForm.controls.isAuditable.setValidators(Validators.required);
+      this.docForm.controls['isAuditable'].updateValueAndValidity();
       this.docForm.controls.assetName.setValidators(Validators.required);
       this.docForm.controls['assetName'].updateValueAndValidity();
       this.docForm.controls.assetCode.setValidators(Validators.required);
@@ -1354,6 +1356,9 @@ export class AddAssetMasterComponent
     this.isCategory=false;
     this.isRented=false;
     this.isThirdParty=false;
+
+    this.imgPathUrl=[];
+    this.filePathUrl= [] ;
   }
 
 
