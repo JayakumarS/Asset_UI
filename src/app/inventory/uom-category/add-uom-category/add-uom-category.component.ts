@@ -95,7 +95,8 @@ export class AddUOMCategoryComponent implements OnInit {
 
     //   }
     // });
-
+    
+      //Company Based Uom
       this.httpService.get(this.uomCategoryService.fetchUomCategoryName + "?company=" + this.companyId).subscribe((res: any) => {
        this.categoryList = res.uomCategoryList;
       },

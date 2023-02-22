@@ -13,6 +13,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { GrnService } from '../../grn/grn.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PurchaseOrderService } from '../../purchase-order/purchase-order.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -56,6 +58,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   vendorList = [];
   grnNumberList = [];
   locationList = [];
+  itemList:[];
+  companyId:any;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -67,6 +71,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
+    public purchaseOrderService: PurchaseOrderService,
     private grnService: GrnService) {
 
     this.docForm = this.fb.group({
@@ -116,6 +121,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       error: (error) => {
       }
     });
+
+    this.fetchItem(this.tokenStorage.getCompanyId());
 
     //Vendor  Dropdown List
     this.httpService.get<any>(this.commonService.getVendorDropdown+"?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
@@ -413,6 +420,17 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
     purchaseInvoiceDtlArray.removeAt(index);
   }
+
+     //Comapny Based Item
+     fetchItem(CompanyId:any):void {
+      this.httpService.get(this.purchaseOrderService.fetchItem + "?company=" + CompanyId).subscribe((res: any) => {
+        this.itemList = res.itemList;
+       },
+         (err: HttpErrorResponse) => {
+           // error code here
+         }
+       );
+    }
 
   getGRNDetails(GRNID: number) {
     if (GRNID != undefined && GRNID != null) {
