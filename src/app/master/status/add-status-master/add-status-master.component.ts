@@ -58,8 +58,8 @@ export class AddStatusMasterComponent implements OnInit {
   }
 
   validateStatusname(event){
-    this.httpService.get<any>(this.statusMasterService.validateStatusURL + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event).subscribe((res: any) => {
-      if (res){
+    this.httpService.get<any>(this.statusMasterService.validateStatusURL + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event  + "&companyValue=" + this.docForm.value.companyId ).subscribe((res: any) => {
+      if (res>0){
         this.docForm.controls['statusname'].setErrors({ status: true });
       }else{
        // this.docForm.controls['emailId'].setErrors(null);
