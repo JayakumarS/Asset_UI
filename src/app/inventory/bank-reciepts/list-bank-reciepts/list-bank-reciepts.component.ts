@@ -17,6 +17,8 @@ import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroy
 import { DeletePurchaseOrderComponent } from '../../purchase-order/list-purchase-order/delete-purchase-order/delete-purchase-order.component';
 import { PurchaseOrder } from '../../purchase-order/purchase-order-model';
 import { PurchaseOrderService } from '../../purchase-order/purchase-order.service';
+import { BankReceipt } from '../bank-reciepts.model';
+import { BankReceiptservice } from '../bank-reciepts.service';
 
 @Component({
   selector: 'app-list-bank-reciepts',
@@ -28,30 +30,31 @@ export class ListBankRecieptsComponent extends UnsubscribeOnDestroyAdapter imple
   displayedColumns = [
   'voucherNo', 
   'chequeDate',
-  'bankcash',
-  'chequeNo',
-  'Companyname',
+  'Payment',
+  'chequeno',
+  'companyname',
   'actions'];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: PurchaseOrderService | null;
-  selection = new SelectionModel<PurchaseOrder>(true, []);
+  exampleDatabase: BankReceiptservice | null;
+  selection = new SelectionModel<BankReceipt>(true, []);
   index: number;
   id: number;
-  purchaseOrder: PurchaseOrder | null;
+  BankReceipt : BankReceipt | null;
   permissionList: any;
 
   constructor(
     private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public purchaseOrderService: PurchaseOrderService,
+    public purchaseOrderService: BankReceiptservice,
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
     public router: Router,
     private tokenStorage: TokenStorageService,
     public commonService: CommonService,
+  
   ) {
     super();
   }
@@ -92,7 +95,7 @@ export class ListBankRecieptsComponent extends UnsubscribeOnDestroyAdapter imple
   }
 
   public loadData() {
-    this.exampleDatabase = new PurchaseOrderService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
+    this.exampleDatabase = new BankReceiptservice(this.httpClient, this.serverUrl,this.tokenStorage, this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -110,51 +113,51 @@ export class ListBankRecieptsComponent extends UnsubscribeOnDestroyAdapter imple
 
   editCall(row) {
     if(this.permissionList?.modify){
-      this.router.navigate(['/inventory/purchaseOrder/addPurchaseOrder/' + row.purchaseOrderId]);
+      this.router.navigate(['/inventory/Bank-Reciepts/add-BankReciept/' + row.id]);
     }
   }
 
   deleteItem(row) {
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(DeletePurchaseOrderComponent, {
-      height: "270px",
-      width: "400px",
-      data: row,
-      direction: tempDirection,
-      disableClose: true
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+    // let tempDirection;
+    // if (localStorage.getItem("isRtl") === "true") {
+    //   tempDirection = "rtl";
+    // } else {
+    //   tempDirection = "ltr";
+    // }
+    // const dialogRef = this.dialog.open(DeletePurchaseOrderComponent, {
+    //   height: "270px",
+    //   width: "400px",
+    //   data: row,
+    //   direction: tempDirection,
+    //   disableClose: true
+    // });
+    // this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
 
-      if (data.data == true) {
-        const obj = {
-          deletingId: row.purchaseOrderId
-        }
-        this.spinner.show();
-        this.purchaseOrderService.deletePurchaseOrder(obj).subscribe({
-          next: (data) => {
-            this.spinner.hide();
-            if (data.success) {
-              this.loadData();
-              this.showNotification(
-                "snackbar-success",
-                "Delete Record Successfully...!!!",
-                "bottom",
-                "center"
-              );
-            }
-          },
-          error: (error) => {
-            this.spinner.hide();
-          }
-        });
+    //   if (data.data == true) {
+    //     const obj = {
+    //       deletingId: row.purchaseOrderId
+    //     }
+    //     this.spinner.show();
+    //     this.purchaseOrderService.deletePurchaseOrder(obj).subscribe({
+    //       next: (data) => {
+    //         this.spinner.hide();
+    //         if (data.success) {
+    //           this.loadData();
+    //           this.showNotification(
+    //             "snackbar-success",
+    //             "Delete Record Successfully...!!!",
+    //             "bottom",
+    //             "center"
+    //           );
+    //         }
+    //       },
+    //       error: (error) => {
+    //         this.spinner.hide();
+    //       }
+    //     });
 
-      }
-    });
+    //   }
+    // });
 
   }
 
@@ -178,7 +181,7 @@ export class ListBankRecieptsComponent extends UnsubscribeOnDestroyAdapter imple
   }
 }
 
-export class ExampleDataSource extends DataSource<PurchaseOrder> {
+export class ExampleDataSource extends DataSource<BankReceipt> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value.trim();
@@ -186,10 +189,10 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: PurchaseOrder[] = [];
-  renderedData: PurchaseOrder[] = [];
+  filteredData: BankReceipt[] = [];
+  renderedData: BankReceipt[] = [];
   constructor(
-    public exampleDatabase: PurchaseOrderService,
+    public exampleDatabase: BankReceiptservice,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -198,7 +201,7 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<PurchaseOrder[]> {
+  connect(): Observable<BankReceipt[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -212,13 +215,10 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((purchaseOrder: PurchaseOrder) => {
+          .filter((bankReceipt: BankReceipt) => {
             const searchStr = (
-              purchaseOrder.poNo +
-              purchaseOrder.poDate +
-              purchaseOrder.vendorName +
-              purchaseOrder.purchaseTypeName +
-              purchaseOrder.remarks
+              bankReceipt.voucherNo 
+            
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -236,7 +236,7 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
   }
   disconnect() { }
   /** Returns a sorted copy of the database data. */
-  sortData(data: PurchaseOrder[]): PurchaseOrder[] {
+  sortData(data: BankReceipt[]): BankReceipt[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -244,21 +244,6 @@ export class ExampleDataSource extends DataSource<PurchaseOrder> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "poNo":
-          [propertyA, propertyB] = [a.poNo, b.poNo];
-          break;
-        case "poDate":
-          [propertyA, propertyB] = [a.poDate, b.poDate];
-          break;
-        case "vendorName":
-          [propertyA, propertyB] = [a.vendorName, b.vendorName];
-          break;
-        case "purchaseTypeName":
-          [propertyA, propertyB] = [a.purchaseTypeName, b.purchaseTypeName];
-          break;
-        case "remarks":
-          [propertyA, propertyB] = [a.remarks, b.remarks];
-          break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
