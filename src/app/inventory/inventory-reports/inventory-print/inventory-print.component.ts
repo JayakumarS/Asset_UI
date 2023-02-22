@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { InventoryReports } from '../inventory-reports-model';
 import { InventoryReportsService } from '../inventory-reports.service';
 
@@ -15,7 +16,7 @@ export class InventoryPrintComponent implements OnInit {
   customerMaster: InventoryReports | null;
   docForm: FormGroup;
   constructor(private router:Router, private route:ActivatedRoute, private httpService:HttpServiceService,
-    private inventoryReportService: InventoryReportsService,private fb: FormBuilder,) { }
+    private inventoryReportService: InventoryReportsService,private fb: FormBuilder,private tokenStorage:TokenStorageService) { }
 
   ngOnInit(): void {
 
@@ -31,6 +32,7 @@ export class InventoryPrintComponent implements OnInit {
       orderQty: [""],
       workInQty: [""],
       location: [""],
+      companyId:this.tokenStorage.getCompanyId()
    
     });
     this.docForm.patchValue({

@@ -88,7 +88,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   isExpand : boolean=true;
 
   columnsToDisplay = ["icon","assetName", "categoryName", "location", "quantity","actions"];
-  innerDisplayedColumns = ["transferDate","transferQuantity","sourceLocation","destinationLocation"];
+  innerDisplayedColumns = ["transferDate","sourceLocation","destinationLocation","reference","createdBy"];
 
   expandedElement: MainList | null;
   expandedElements: any[] = [];
@@ -130,6 +130,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
       orderQty: [""],
       workInQty: [""],
       location: [""],
+      companyId:this.tokenStorage.getCompanyId()
    
     });
   }
@@ -154,11 +155,9 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
 
     
 this.viewReport();
-
-
-
+this.companyId=this.tokenStorage.getCompanyId();
  // Location dropdown
- this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+ this.httpService.get<any>(this.commonService.getMoveToDropdown+"?companyId="+this.companyId).subscribe({
   next: (data) => {
     this.locationDdList = data;
   },
@@ -167,10 +166,6 @@ this.viewReport();
   }
 }
 );
-
-
- // Location dropdown
- this.companyId=this.tokenStorage.getCompanyId();
  this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
   next: (data) => {
     this.itemNameDdList = data;
@@ -242,10 +237,18 @@ this.viewReport();
       item: [""],
       fromDateObj: [""],
       toDateObj:[""],
-      location: [""]
+      fromDate: [""],
+      toDate: [""],
+      itemWise: [""],
+      availableQty: [""],
+      orderQty: [""],
+      workInQty: [""],
+      location: [""],
+      companyId:this.tokenStorage.getCompanyId()
     });
     this.mainList=[];
     this.gllist=[];
+    this.isExpand=false;
     this.viewReport();
   }
 

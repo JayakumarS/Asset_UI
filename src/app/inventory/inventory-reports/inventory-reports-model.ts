@@ -19,7 +19,7 @@ export class InventoryReports{
   quantity:string;
   item: any;
   location: any;
-  
+  companyId: any;
     constructor(inventoryReport) {
       {
         this.itemWise = inventoryReport.itemWise || "";
