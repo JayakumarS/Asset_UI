@@ -142,7 +142,20 @@
             </div>
             &nbsp; &nbsp; &nbsp;
             <div class=" col-md-2">
-              <mat-label>CITY</mat-label>
+              <mat-label>COUNTRY</mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <mat-select class="inputTxt" formControlName="country" >
+                  <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                    {{title.text}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="docForm.get('country').hasError('required')">
+                  country is required
+                </mat-error>
+              </mat-form-field>
+              <!-- <mat-label>CITY</mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
 
@@ -150,10 +163,10 @@
                 <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" >
                
               </mat-form-field>
-            </div>
+            </div> -->
           </div>
 
-
+</div>
 
 
 
@@ -171,7 +184,7 @@
             </div>
             &nbsp; &nbsp; &nbsp;
             <div class=" col-md-2">
-              <mat-label>COUNTRY</mat-label>
+              <!-- <mat-label>COUNTRY</mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
@@ -183,6 +196,14 @@
                 <mat-error *ngIf="docForm.get('country').hasError('required')">
                   country is required
                 </mat-error>
+              </mat-form-field> -->
+              <mat-label>CITY</mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" >
+               
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -202,6 +223,7 @@
               </mat-form-field>
             </div>
           </div>
+        
 
           <div class="row">
             <div class=" col-md-2">
@@ -344,14 +366,14 @@
                 <div class="row">
                   <div class=" col-md-4"></div>
                   <div class=" col-md-4">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>CITY</mat-label>
                     <mat-select formControlName="billingCity">
                       <mat-option *ngFor="let title of stateBasedCityList" [value]="title.id">
                         {{title.text}}
                       </mat-option>
                     </mat-select>
-                  </mat-form-field>
+                  </mat-form-field> -->
                   </div>
                   <div class=" col-md-4">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -387,7 +409,7 @@
               
 
               <div class=" col-md-5">
-                <div class="row">
+                <!-- <div class="row">
                 
                   <div class=" col-md-4">
                     <mat-label>Same As Billing Address</mat-label>
@@ -400,7 +422,7 @@
                       </div> 
       
                     </div>
-                </div>
+                </div> -->
 
                 <br><br>
                 <div class="row">

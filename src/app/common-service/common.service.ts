@@ -76,7 +76,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getCurrencyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCurrencyDropdown`;
 
-  public getCountryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryDropdown`;
+ public getCountryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryDropdown`;
 
   public getassetname = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getassetname`;
 

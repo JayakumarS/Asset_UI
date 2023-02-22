@@ -205,13 +205,11 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
 
 
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
-      next: (data) => {
-        this.countryDdList = data;
-      },
-      error: (error) => {
-      }
-    });
+    this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+ this.tokenStorageService.getCompanyId()).subscribe((res: any) => {
+        this.countryDdList = res;
+      });
+      
+  
 
     // Location dropdown
     this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
@@ -236,14 +234,14 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
 
 // country dropdown
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
-  next: (data) => {
-    this.countryDdList = data;
-  },
-  error: (error) => {
+//     this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+//   next: (data) => {
+//     this.countryDdList = data;
+//   },
+//   error: (error) => {
 
-  }
-});
+//   }
+// });
 
 
   }
