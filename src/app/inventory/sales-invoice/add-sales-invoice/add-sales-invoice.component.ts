@@ -13,6 +13,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 import { CommonService } from 'src/app/common-service/common.service';
 import { SalesEntryDetailRowComponent } from 'src/app/crm/sales-call-entry/sales-entry-detail-row/sales-entry-detail-row.component';
+import { DepartmentMasterService } from 'src/app/master/department-master/department-master.service';
 import { SalesInvoice } from '../sales-invoice.model';
 import { SalesInvoiceService } from '../sales-invoice.service';
 
@@ -47,7 +48,7 @@ export class AddSalesInvoiceComponent implements OnInit {
   docForm: FormGroup;
 
   array: any;
-  edit:boolean=false;
+  edit: boolean = false;
   options: any;
   filteredOptions: any;
   myControl: any;
@@ -66,6 +67,9 @@ export class AddSalesInvoiceComponent implements OnInit {
   itemDropDown: [];
   uomDropDown: [];
   saleOrderDropDown: [];
+  salesOrderList = [];
+  companyList = [];
+  getUserBasedCompanyList = [];
 
   constructor(
     private salesInvoiceService: SalesInvoiceService,
@@ -78,20 +82,20 @@ export class AddSalesInvoiceComponent implements OnInit {
     public transferservice: TransferService,
     private httpService: HttpServiceService,
     private snackBar: MatSnackBar,
+    private departmentMasterService: DepartmentMasterService,
 
-
-  ) {}
+  ) { }
 
 
 
   ngOnInit(): any {
     this.docForm = this.fb.group({
       salesInvoiceNo: [""],
-      companyName: [""],
-      cusInvoiceDate: [""],
+      companyName: ["",[Validators.required]],
+      cusInvoiceDate: ["",[Validators.required]],
       customer: [""],
-      amount: ["", [Validators.required]],
-      currency: ["", [Validators.required]],
+      amount: ["",[Validators.required]],
+      currency: [""],
       salesOrderNo: [""],
       exRate: [""],
       exKshRate: [""],
@@ -112,103 +116,130 @@ export class AddSalesInvoiceComponent implements OnInit {
       ])
     });
     this.route.params.subscribe(params => {
-      if (params.id!=undefined && params.id!=0){
-       this.requestId = params.id;
-       this.edit = true;
-       this.dataarray.push(this.salesDetailRowData);
-       this.cusMasterData.push(this.docForm);
-       this.cusMasterData.push(this.dataarray);
-       // For User login Editable mode
-       this.fetchDetails(this.requestId) ;
+      if (params.id != undefined && params.id != 0) {
+        this.requestId = params.id;
+        this.edit = true;
+        this.dataarray.push(this.salesDetailRowData);
+        this.cusMasterData.push(this.docForm);
+        this.cusMasterData.push(this.dataarray);
+        // For User login Editable mode
+        this.fetchDetails(this.requestId);
 
       }
-     });
+    });
 
- // Currency  Dropdown List
+
+
+
+
+
+
+
+    // Currency  Dropdown List
     this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe({
-  next: (data) => {
-    this.currencyList = data;
-  },
-  error: (error) => {
-  }
-});
+      next: (data) => {
+        this.currencyList = data;
+      },
+      error: (error) => {
+      }
+    });
 
     this.user = this.tokenStorage.getCompanyId();
 
 
     this.httpService.get<any>(this.commonService.getCustomerDropdown + "?userId=" + (this.user)).subscribe({
-    next: (data) => {
-      this.customerDropDown = data.addressBean;
-    },
-    error: (error) => {
-    }
-  });
+      next: (data) => {
+        this.customerDropDown = data.addressBean;
+      },
+      error: (error) => {
+      }
+    });
+
+
+    //User Based Company List
+    this.httpService.get<any>(this.departmentMasterService.companyListUrl + "?userId=" + this.user).subscribe(
+      (data) => {
+        this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+
+
+
+
+
+
+
     this.httpService.get<any>(this.salesInvoiceService.itemDropdown + "?companyId=" + (this.user)).subscribe({
-    next: (data) => {
-      this.itemDropDown = data.addressBean;
-    },
-    error: (error) => {
-    }
-  });
+      next: (data) => {
+        this.itemDropDown = data.addressBean;
+      },
+      error: (error) => {
+      }
+    });
 
     this.httpService.get<any>(this.salesInvoiceService.getUomListDropdown + "?companyId=" + (this.user)).subscribe({
-    next: (data) => {
-      this.uomDropDown = data.addressBean;
-    },
-    error: (error) => {
-    }
-  });
+      next: (data) => {
+        this.uomDropDown = data.addressBean;
+      },
+      error: (error) => {
+      }
+    });
 
     this.httpService.get<any>(this.salesInvoiceService.getSalesOrderListDropdown + "?companyId=" + (this.user)).subscribe({
-    next: (data) => {
-      this.saleOrderDropDown = data.addressBean;
-    },
-    error: (error) => {
-    }
-  });
-
-}
-
-fetchSalesDetails(salesOrderNo: any){
-
-  this.user = this.tokenStorage.getCompanyId();
-  this.httpService.get(this.salesInvoiceService.dtlDropdown + "?companyId=" + salesOrderNo).subscribe((res: any) => {
-    let CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
-    CustInvoiceDetailBeanArray.removeAt(0);
-    res.salesInvoiceList.forEach(element => {
-      let CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
-      let arraylen = CustInvoiceDetailBeanArray.length;
-      let newgroup: FormGroup = this.fb.group({
-        item: [element.item],
-        uom: [element.uom],
-        qty: [element.qty],
-        price: [element.price],
-      })
-      CustInvoiceDetailBeanArray.insert(arraylen, newgroup);
+      next: (data) => {
+        this.saleOrderDropDown = data.addressBean;
+      },
+      error: (error) => {
+      }
     });
-//     let dataarray = this.docForm.value.salesInvoiceDetail as FormArray;
-//     dataarray.at(index).patchValue({
-//   'item': res.salesInvoiceList.item,
-//   'uom': res.salesInvoiceList.uom,
-//   'qty': res.salesInvoiceList.qty,
-//   'price': res.salesInvoiceList.price,
-// });
+
+  }
+
+  fetchSalesDetails(salesOrderNo: any) {
+    this.user = this.tokenStorage.getCompanyId();
+    this.httpService.get(this.salesInvoiceService.dtlDropdown + "?companyId=" + salesOrderNo).subscribe((res: any) => {
+      this.docForm.patchValue({
+        'currency':res.salesInvoiceBean.currency
+      });
+      let CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+      CustInvoiceDetailBeanArray.removeAt(0);
+      res.salesInvoiceList.forEach(element => {
+        let CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+        let arraylen = CustInvoiceDetailBeanArray.length;
+        let newgroup: FormGroup = this.fb.group({
+          item: [element.item],
+          uom: [element.uom],
+          qty: [element.qty],
+          price: [element.price],
+        })
+        CustInvoiceDetailBeanArray.insert(arraylen, newgroup);
+      });
+      //     let dataarray = this.docForm.value.salesInvoiceDetail as FormArray;
+      //     dataarray.at(index).patchValue({
+      //   'item': res.salesInvoiceList.item,
+      //   'uom': res.salesInvoiceList.uom,
+      //   'qty': res.salesInvoiceList.qty,
+      //   'price': res.salesInvoiceList.price,
+      // });
 
 
 
-  },
-    (err: HttpErrorResponse) => {
-      // error code here
-    }
-  );
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
 
 
 
-}
+  }
 
   onSubmit() {
     this.submitted = true;
-    if (this.docForm.valid){
+    if (this.docForm.valid) {
       this.salesInvoice = this.docForm.value;
       this.spinner.show();
       this.salesInvoiceService.AddSalesInvoiceComponent(this.salesInvoice).subscribe({
@@ -242,7 +273,7 @@ fetchSalesDetails(salesOrderNo: any){
         }
       });
     }
-    else{
+    else {
       this.showNotification(
         "snackbar-danger",
         "Please Fill The All Required fields",
@@ -251,117 +282,118 @@ fetchSalesDetails(salesOrderNo: any){
       );
     }
   }
- onCancel(){
-     this.router.navigate(['/inventory/salesInvoice/list-sales-invoice']);
-}
-
-fetchDetails(salesInvoiceNo: any): void {
-   const obj = {
-    editid: salesInvoiceNo
-  };
-   this.salesInvoiceService.editSalesInvoice(obj).subscribe({
-    next: (res) => {
-    this.docForm.patchValue({
-      'salesInvoiceNo': res.salesInvoiceBean.salesInvoiceNo,
-        'companyName': res.salesInvoiceBean.companyName,
-        'cusInvoiceDate': res.salesInvoiceBean.cusInvoiceDate,
-        'customer' : res.salesInvoiceBean.customer,
-        'amount' : res.salesInvoiceBean.amount,
-        'currency': res.salesInvoiceBean.currency,
-        'salesOrderNo':  res.salesInvoiceBean.salesOrderNo,
-        'exRate': res.salesInvoiceBean.exRate,
-        'exKshRate': res.salesInvoiceBean.exKshRate,
-        'narration': res.salesInvoiceBean.narration,
-        'delivaryNo': res.salesInvoiceBean.delivaryNo,
-        'item': res.salesInvoiceBean.item,
-        'uom': res.salesInvoiceBean.uom,
-        'qty': res.salesInvoiceBean.qty,
-        'price': res.salesInvoiceBean.price,
-
-
-    });
-    if (res.salesInvoiceDetail != null && res.salesInvoiceDetail.length >= 1) {
-      let salesInvoiceDetailArray = this.docForm.controls.salesInvoiceDetail as FormArray;
-      salesInvoiceDetailArray.clear();
-      res.salesInvoiceDetail.forEach(element => {
-        let salesInvoiceDetailArray = this.docForm.controls.salesInvoiceDetail as FormArray;
-        let arraylen = salesInvoiceDetailArray.length;
-        let newUsergroup: FormGroup = this.fb.group({
-          item: [ element.item],
-          uom: [ element.uom],
-          qty: [ element.qty],
-          price: [element.price],
-        })
-        salesInvoiceDetailArray.insert(arraylen, newUsergroup);
-      });
-    }
-  },
-  error: (error) => {
+  onCancel() {
+    this.router.navigate(['/inventory/salesInvoice/list-sales-invoice']);
   }
-});
-}
 
-update() {
-  this.salesInvoice = this.docForm.value;
-  this.spinner.show();
-  this.salesInvoiceService.update(this.salesInvoice).subscribe({
-    next: (data) => {
-      this.spinner.hide();
-      if (data.success) {
-        this.showNotification(
-          "snackbar-success",
-          "Edit Record Successfully",
-          "bottom",
-          "center"
-        );
-        this.onCancel();
-      } else {
+  fetchDetails(salesInvoiceNo: any): void {
+    const obj = {
+      editid: salesInvoiceNo
+    };
+    this.salesInvoiceService.editSalesInvoice(obj).subscribe({
+      next: (res) => {
+        this.fetchCustomerDetails(res.salesInvoiceBean.customer)
+        this.docForm.patchValue({
+          'salesInvoiceNo': res.salesInvoiceBean.salesInvoiceNo,
+          'companyName': res.salesInvoiceBean.companyName,
+          'cusInvoiceDate': res.salesInvoiceBean.cusInvoiceDate,
+          'customer': res.salesInvoiceBean.customer,
+          'amount': res.salesInvoiceBean.amount,
+          'currency': res.salesInvoiceBean.currency,
+          'salesOrderNo': res.salesInvoiceBean.salesOrderNo,
+          'exRate': res.salesInvoiceBean.exRate,
+          'exKshRate': res.salesInvoiceBean.exKshRate,
+          'narration': res.salesInvoiceBean.narration,
+          'delivaryNo': res.salesInvoiceBean.delivaryNo,
+          'item': res.salesInvoiceBean.item,
+          'uom': res.salesInvoiceBean.uom,
+          'qty': res.salesInvoiceBean.qty,
+          'price': res.salesInvoiceBean.price,
+
+
+        });
+        if (res.salesInvoiceDetail != null && res.salesInvoiceDetail.length >= 1) {
+          let salesInvoiceDetailArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+          salesInvoiceDetailArray.clear();
+          res.salesInvoiceDetail.forEach(element => {
+            let salesInvoiceDetailArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+            let arraylen = salesInvoiceDetailArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              item: [element.item],
+              uom: [element.uom],
+              qty: [element.qty],
+              price: [element.price],
+            })
+            salesInvoiceDetailArray.insert(arraylen, newUsergroup);
+          });
+        }
+      },
+      error: (error) => {
+      }
+    });
+  }
+
+  update() {
+    this.salesInvoice = this.docForm.value;
+    this.spinner.show();
+    this.salesInvoiceService.update(this.salesInvoice).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.showNotification(
+            "snackbar-success",
+            "Edit Record Successfully",
+            "bottom",
+            "center"
+          );
+          this.onCancel();
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Not Updated Successfully...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
         this.showNotification(
           "snackbar-danger",
-          "Not Updated Successfully...!!!",
+          error.message + "...!!!",
           "bottom",
           "center"
         );
       }
-    },
-    error: (error) => {
-      this.spinner.hide();
-      this.showNotification(
-        "snackbar-danger",
-        error.message + "...!!!",
-        "bottom",
-        "center"
-      );
-    }
-  });
-}
+    });
+  }
 
   reset() {
     if (!this.edit) {
-    this.docForm = this.fb.group({
-      companyName: [],
-      cusInvoiceDate: [],
-      customer: [],
-      amount: ["", [Validators.required]],
-      currency: ["", [Validators.required]],
-      salesOrderNo: [""],
-      exRate: [""],
-      exKshRate: [""],
-      narration: [""],
-      delivaryNo: [""],
-      salesInvoiceDetail: this.fb.array([
-        this.fb.group({
-          item: [""],
-          qty: [""],
-          uom: [""],
-          price: [""]
+      this.docForm = this.fb.group({
+        companyName: [],
+        cusInvoiceDate: [],
+        customer: [],
+        amount: ["", [Validators.required]],
+        currency: ["", [Validators.required]],
+        salesOrderNo: [""],
+        exRate: [""],
+        exKshRate: [""],
+        narration: [""],
+        delivaryNo: [""],
+        salesInvoiceDetail: this.fb.array([
+          this.fb.group({
+            item: [""],
+            qty: [""],
+            uom: [""],
+            price: [""]
 
-        })
-      ])
-    });
-  } else {
-    this.fetchDetails(this.requestId);
-  }
+          })
+        ])
+      });
+    } else {
+      this.fetchDetails(this.requestId);
+    }
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
@@ -406,7 +438,17 @@ update() {
       event.preventDefault();
     }
   }
+  fetchCustomerDetails(customer: any) {
+    this.httpService.get(this.salesInvoiceService.fetchCustomer + "?customer=" + customer).subscribe((res: any) => {
+      this.salesOrderList = res.salesQuoteNoDetailsList;
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
 
+
+  }
   openPopupdeliveryOrderDtlList() {
 
     let tempDirection;

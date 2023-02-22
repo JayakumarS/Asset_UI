@@ -1,8 +1,8 @@
 export class SalesOrder {
-customer:string;
+customer:number;
 currency:string;
 dateofdelivery:string;
 termsandcondition:string;
 companyId:string;
-
+customerName:any;
 }

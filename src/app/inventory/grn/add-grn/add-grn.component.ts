@@ -98,7 +98,7 @@ export class AddGrnComponent implements OnInit {
         this.fb.group({
           itemId: [""],
           unitPrice: [""],
-          receivingQty: ["", [Validators.required]],
+          receivingQty: ["",[Validators.required]],
         })
       ])
 
@@ -312,8 +312,8 @@ export class AddGrnComponent implements OnInit {
   reset() {
     if (!this.edit) {
       this.docForm.reset();
-      let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
-      grnDetailArray.clear();
+      // // let grnDetailArray = this.docForm.controls.grnDetailList as FormArray;
+      // grnDetailArray.clear();
       this.docForm.patchValue({
         'loginedUser': this.tokenStorage.getUserId(),
         'companyId': this.tokenStorage.getCompanyId(),
@@ -403,7 +403,7 @@ export class AddGrnComponent implements OnInit {
     let newUsergroup: FormGroup = this.fb.group({
       itemId: [""],
       unitPrice: [""],
-      receivingQty: ["", [Validators.required]],
+      receivingQty: ["",[Validators.required]],
     })
     grnDetailArray.insert(arraylen, newUsergroup);
   }
@@ -436,7 +436,7 @@ export class AddGrnComponent implements OnInit {
                 let newUsergroup: FormGroup = this.fb.group({
                   itemId: [element.itemId],
                   unitPrice: [element.unitPrice],
-                  receivingQty: [""],
+                  receivingQty: ["",[Validators.required]],
                 })
                 grnDetailArray.insert(arraylen, newUsergroup);
               });
