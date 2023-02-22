@@ -14,6 +14,8 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { UomCategoryService } from '../../uom-category/uom-category.service';
+import { Company } from 'src/app/master/company/company-model';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -63,12 +65,16 @@ export class AddPurchaseOrderComponent implements OnInit {
   purchaseTypeList: [];
   purchaseForList: [];
   discountTypeList: [];
+  itemList:[];
+  categoryList:[];
+
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   companyId: any;
   constructor(private fb: FormBuilder,
     public router: Router,
     private notificationService: NotificationService,
     public purchaseOrderService: PurchaseOrderService,
+    public uomCategoryService: UomCategoryService,
     private httpService: HttpServiceService,
     public route: ActivatedRoute,
     private tokenStorage: TokenStorageService,
@@ -126,6 +132,8 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   ngOnInit() {
 
+    
+
     //category Type list
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 11).subscribe({
       next: (data) => {
@@ -172,6 +180,8 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
+    this.fetchItem(this.companyId);
+
     //Item Master Dropdown List
     this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown+"?companyId="+this.companyId).subscribe({
       next: (data) => {
@@ -179,7 +189,16 @@ export class AddPurchaseOrderComponent implements OnInit {
       },
       error: (error) => {
       }
-    });
+    }); 
+
+      //Company Based Uom
+      this.httpService.get(this.uomCategoryService.fetchUomCategoryName + "?company=" + this.companyId).subscribe((res: any) => {
+        this.categoryList = res.uomCategoryList;
+       },
+         (err: HttpErrorResponse) => {
+           // error code here
+         }
+       );
 
     //Discount Type List 
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 28).subscribe({
@@ -211,6 +230,17 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
   }
+
+    //Comapny Based Item
+    fetchItem(CompanyId:any):void {
+      this.httpService.get(this.purchaseOrderService.fetchItem + "?company=" + CompanyId).subscribe((res: any) => {
+        this.itemList = res.itemList;
+       },
+         (err: HttpErrorResponse) => {
+           // error code here
+         }
+       );
+    }
 
   onSubmit() {
     if (this.docForm.valid) {
@@ -265,6 +295,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       next: (res: any) => {
         this.spinner.hide();
         let hdate = this.commonService.getDateObj(res.purchaseOrder.poDate);
+        this.fetchItem(this.companyId);
 
 
         this.docForm.patchValue({
@@ -304,10 +335,10 @@ export class AddPurchaseOrderComponent implements OnInit {
             let arraylen = purchaseOrderDetailArray.length;
             let newUsergroup: FormGroup = this.fb.group({
               purchaseOrderId: [element.purchaseOrderId],
-              itemId: [element.itemId],
+              itemId: [element.itemId]+"",
               edd: [element.edd],
               eddObj: cdate,
-              uomId: [element.uomId],
+              uomId: [element.uomId]+"",
               qty: [element.qty],
               unitPrice: [Number(element.unitPrice).toFixed(2)],
               price: [Number(element.price).toFixed(2)],
@@ -449,6 +480,12 @@ export class AddPurchaseOrderComponent implements OnInit {
     let cdate = this.commonService.getDate(event.target.value);
     if (inputFlag == 'poDate') {
       this.docForm.patchValue({ poDate: cdate });
+    }
+    if (inputFlag == 'edd') {
+      let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+      purchaseOrderDetailArray.at(index).patchValue({
+        edd: cdate
+      });
     }
   }
 
