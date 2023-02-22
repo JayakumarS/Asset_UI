@@ -43,6 +43,7 @@ import {
 import { MainService } from 'src/app/admin/dashboard/main.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -103,7 +104,7 @@ export class AssetProfileViewComponent implements OnInit {
   expandedElement: MainList | null;
   expandedElements: any[] = [];
   innerExpandedElements: any[] = [];
- 
+  companyId: string;
   assetNameForList: any;
 
   // Category
@@ -125,7 +126,7 @@ export class AssetProfileViewComponent implements OnInit {
 
   constructor( public router:Router,private fb: FormBuilder,private  assetService: AssetService,
     public route: ActivatedRoute,public dialog: MatDialog,private httpService: HttpServiceService, private sanitizer: DomSanitizer,private snackBar: MatSnackBar,private spinner: NgxSpinnerService,
-    public auditableAssetService:AuditableAssetService,private commonService: CommonService,private cd: ChangeDetectorRef,
+    public auditableAssetService:AuditableAssetService,private commonService: CommonService,private cd: ChangeDetectorRef,    private tokenStorage: TokenStorageService,
     private cmnService:CommonService,private inventoryReportService: InventoryReportsService,private mainService:MainService,private serverUrl:serverLocations) {
 
     this.docForm = this.fb.group({
@@ -208,7 +209,9 @@ export class AssetProfileViewComponent implements OnInit {
 
 
  // Location dropdown
- this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+ this.companyId=this.tokenStorage.getCompanyId();
+
+ this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
   next: (data) => {
     this.locationDdList = data;
   },
