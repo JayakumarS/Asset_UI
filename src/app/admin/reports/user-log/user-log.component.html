@@ -8,14 +8,14 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
-          <div class="body">
+          <div class="body" style="     padding-left: 2%;">
             <div class="table-responsive">
               <form class="m-4" [formGroup]="docForm">
-                <div class="row">
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <div class="row"  style="padding-left: 10%;">
+                  <div class=" col-md-1">
                     <label >START DATE</label>
                 </div>
-                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" >
+                <div class=" col-md-4">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           
                          
@@ -33,10 +33,10 @@
                         </div>
                         
                       
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <div class=" col-md-1">
                           <label >END DATE</label>
                       </div>
-                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class=" col-md-4">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                            
                             <input matInput [matDatepicker]="picker2" formControlName="enddateObj"
@@ -51,11 +51,11 @@
                           </mat-form-field>
                         </div>
               </div>
-              <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+              <div class="row" style="padding-left: 10%;">
+                <div class=" col-md-1">
                   <label>STATUS</label>
               </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+              <div class=" col-md-4">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                    
                 <mat-select class="inputTxt" formControlName="status">
@@ -65,10 +65,10 @@
               
                   </mat-form-field>
                 </div>
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <div class=" col-md-1">
                   <label >USER NAME</label>
               </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+              <div class=" col-md-4">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     
                     <mat-select class="inputTxt" formControlName="username">
@@ -82,14 +82,14 @@
                   </mat-form-field>
                 </div>
               </div>
-    <div class="row">
+    <div class="row" style="    padding-left: 40%;">
 
-                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 470px;">
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" >
                   <button class="btn-space" mat-raised-button (click) = "onSubmit()"
                     color="accent" style="background-color: #34d034;">Search</button>
                 </div>
 
-                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-top: -34px; margin-left: 570px;">
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" >
                   <button class="btn-space" mat-raised-button (click) = "Reset()"
                     color="primary" >Reset</button>
                 </div>

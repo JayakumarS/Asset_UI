@@ -5,15 +5,15 @@
         <app-breadcrumb [title]="'Asset History Report'" [items]="['Master']" [active_item]="'Asset History Report'">
         </app-breadcrumb>
       </div>
-      <div class="row clearfix" STYLE="margin-left:-10%;">
+      <div class="row clearfix" >
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="box-shadow">
           <div class="card">
-            <div class="body" style="padding-left: 150px;">
+            <div class="body" style="padding-left: 1%;">
               <form class="m-4" [formGroup]="docForm">
-                <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Branch</label>
+                <div class="row" style="padding-left: 10%;">
+                  <div class=" col-md-1">
+                        <label style="margin-top: 11px;">BRANCH</label>
                     </div> 
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -25,8 +25,8 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Category</label>
+                    <div class=" col-md-1">
+                        <label style="margin-top: 11px;">CATEGORY</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -38,8 +38,8 @@
                         </mat-form-field>
                     </div> 
 
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Asset Name</label>
+                    <div class=" col-md-1">
+                        <label style="margin-top: 11px;">ASSET NAME</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -52,9 +52,9 @@
                     </div> 
                 </div>
 
-                <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label style="margin-top: 11px;">Location</label>
+                <div class="row" style="padding-left: 10%;">
+                  <div class=" col-md-1">
+                      <label style="margin-top: 11px;">LOCATION</label>
                     </div> 
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -65,9 +65,8 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Department</label>
+                    <div class=" col-md-1">
+                        <label style="margin-top: 11px;">DEPARTMENT</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -80,8 +79,8 @@
                         </mat-form-field>
                     </div> 
   
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label style="margin-top: 11px;">Put In Use</label>
+                    <div class=" col-md-1">
+                        <label style="margin-top: 11px;">PUT IN USE</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -97,9 +96,9 @@
                     </div> 
                 </div>
 
-                <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label style="margin-top: 11px;">Vendor</label>
+                <div class="row" style="padding-left: 10%;">
+                  <div class=" col-md-1">
+                      <label style="margin-top: 11px;">VENDOR</label>
                     </div> 
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -112,8 +111,8 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label style="margin-top: 11px;">Asset Owner</label>
+                    <div class=" col-md-1">
+                    <label style="margin-top: 11px;">ASSET OWNER</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -128,13 +127,13 @@
   
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="padding-top: 15px;">
                         <mat-radio-group formControlName="financialYear" >
-                          <mat-radio-button value="2023">Current Financial Year</mat-radio-button>
-                          <mat-radio-button style="margin-left: 90px;" value="2022">Previous Financial Year</mat-radio-button>
+                          <mat-radio-button value="2023">CURRENT FINANCIAL YEAR</mat-radio-button>
+                          <mat-radio-button style="margin-left: 90px;" value="2022">PREVIOUS FINANCIAL YEAR</mat-radio-button>
                         </mat-radio-group>
                     </div>
                 </div>
                 <br>
-                <div class="row"> 
+                <div class="row" style="padding-left: 10%;"> 
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <button (click) = "onSubmit()" class="btn-space" mat-raised-button
                       color="accent" style="margin-left: 43%;background-color: #34d034;">Submit</button>
