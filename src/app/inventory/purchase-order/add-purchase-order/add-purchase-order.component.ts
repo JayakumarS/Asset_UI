@@ -500,7 +500,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
   }
 
-  //FOR DOCUMENT UPLOAD ADDED BY 
+  //FOR DOCUMENT UPLOAD ADDED BY  Gokul
   onSelectFile(event) {
     var docfile = event.target.files[0];
     if (!this.acceptFileTypes.includes(docfile.type)) {
@@ -557,7 +557,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
 
-  //FOR DOCUMENT VIEW ADDED BY 
+  //FOR DOCUMENT VIEW ADDED BY Gokul
   viewDocuments(filePath: any, fileName: any) {
     this.spinner.show();
     this.commonService.viewDocument(filePath).pipe().subscribe({

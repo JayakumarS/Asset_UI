@@ -1003,7 +1003,7 @@ export class AddAssetMasterComponent
     }  
   }
 
-  //FOR IMAGE UPLOAD ADDED BY 
+  //FOR IMAGE UPLOAD ADDED BY Gokul 
   onSelectImage(event) {
     var imgfile = event.target.files[0];
     if (!this.acceptImageTypes.includes(imgfile.type)) {
@@ -1061,7 +1061,7 @@ export class AddAssetMasterComponent
   }
 
 
-  //FOR DOCUMENT UPLOAD ADDED BY 
+  //FOR DOCUMENT UPLOAD ADDED BY Gokul
   onSelectFile(event) {
     var docfile = event.target.files[0];
     if (!this.acceptFileTypes.includes(docfile.type)) {

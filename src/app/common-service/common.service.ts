@@ -192,7 +192,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getCountryCodeDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryCodeDropdown`;
 
   public getEmployeebyCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeebyCompany`;
-  //FOR DOCUMENT VIEW ADDED BY
+  //FOR DOCUMENT VIEW ADDED BY Gokul
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
 
@@ -207,7 +207,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  // based on role and form code page permission list - Added by
+  // based on role and form code page permission list - Added by Gokul
   getAllPagePermission(obj: any): Observable<any> {
     return  this.httpClient.post<any>(this.getAllPagePermissionList, obj);
   }
