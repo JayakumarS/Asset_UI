@@ -84,7 +84,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   isTblLoading: boolean;
   locationList =[];
   mainList =[];
-  companyId: string;
+  companyId: any;
   isExpand : boolean=true;
 
   columnsToDisplay = ["icon","assetName", "categoryName", "location", "quantity","actions"];
@@ -130,7 +130,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
       orderQty: [""],
       workInQty: [""],
       location: [""],
-      companyId:this.tokenStorage.getCompanyId()
+      companyId:parseInt(this.tokenStorage.getCompanyId())
    
     });
   }
@@ -155,7 +155,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
 
     
 this.viewReport();
-this.companyId=this.tokenStorage.getCompanyId();
+this.companyId=parseInt(this.tokenStorage.getCompanyId());
  // Location dropdown
  this.httpService.get<any>(this.commonService.getMoveToDropdown+"?companyId="+this.companyId).subscribe({
   next: (data) => {
