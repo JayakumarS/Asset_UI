@@ -404,7 +404,7 @@ if(res.addAssetBean.rentedUptoDate ==null && res.addAssetBean.thirdPartyUptoDate
    }
    if (res.addAssetBean.assetQRCodePath != undefined && res.addAssetBean.assetQRCodePath != null && res.addAssetBean.assetQRCodePath != '') {
     let objectQRCodeURL = 'data:image/png;base64,' + res.addAssetBean.assetQRCodePath;
-    this.qrCodeImg = this.serverUrl.apiServerAddress+"asset_upload/asset_qrcode/"+res.addAssetBean.assetQRCodePath;
+    this.qrCodeImg = this.serverUrl.apiServerAddress+"asset_upload/asset_qrcode/"+res.addAssetBean.objectQRCodeURL;
    }
    this.viewReport(this.assetNameForList);
     },
