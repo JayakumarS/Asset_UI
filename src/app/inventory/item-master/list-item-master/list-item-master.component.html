@@ -66,10 +66,10 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Type</mat-header-cell>
                   <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.itemTypeName}}</mat-cell>
                 </ng-container> 
-                <ng-container matColumnDef="itemCode">
+                <!-- <ng-container matColumnDef="itemCode">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Code </mat-header-cell>
                   <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.itemCode}}</mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- actions -->
                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">

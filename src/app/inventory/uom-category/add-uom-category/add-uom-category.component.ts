@@ -44,7 +44,7 @@ export class AddUOMCategoryComponent implements OnInit {
       uomCode: [""],
       uomcategoryName:[""],
       loginedUser: this.tokenStorage.getUserId(),
-      company:["",[Validators.required]],
+      company:this.tokenStorage.getCompanyId(),
       branchname:["",[Validators.required]],
 
     });

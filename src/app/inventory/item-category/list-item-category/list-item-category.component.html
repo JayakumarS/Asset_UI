@@ -52,17 +52,17 @@
                   #exporter="matTableExporter" [hiddenColumns]="[5]">
                 
                   <ng-container matColumnDef="categoryName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Category Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.categoryName}}</mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="parentCategoryName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Parent Category </mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style="  text-transform: capitalize;"> {{row.parentCategoryName}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Item Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.itemName}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="categoryTypeName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Item Category </mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style="  text-transform: capitalize;"> {{row.itemCategory}}</mat-cell>
+                  </ng-container>
+                  <!-- <ng-container matColumnDef="categoryTypeName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> category Type </mat-header-cell>
                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.categoryTypeName}}</mat-cell>
-                  </ng-container>
+                  </ng-container> -->
   
                   <!-- actions -->
                   <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">

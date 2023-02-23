@@ -25,3 +25,5 @@ export class ItemMaster {
 	itemCategoryName : number;
 
 }
+
+
