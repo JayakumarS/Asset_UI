@@ -8,6 +8,7 @@ import { UploadErrorComponent } from 'src/app/asset/asset-master/upload-error/up
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CompanyEmployeeService } from '../company-employees.service';
+import { CompanyemployeeUploadErrorComponent } from '../companyemployee-upload-error/companyemployee-upload-error.component';
 
 @Component({
   selector: 'app-add-multiplecompany-employees',
@@ -75,7 +76,7 @@ export class AddMultiplecompanyEmployeesComponent implements OnInit {
             "center"
           );
           window.sessionStorage.setItem("makerLogin","");
-          this.router.navigate(['/asset/assetMaster/listAssetMaster'])
+          // this.router.navigate(['/master/Company-Employees/listCompanyEmp'])
           } else  if(data.message =='Incorrect Email' || data.message =='Format'){
             let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
@@ -83,7 +84,7 @@ export class AddMultiplecompanyEmployeesComponent implements OnInit {
             } else {
            tempDirection = "ltr";
            }
-            const dialogRef = this.dialog.open(UploadErrorComponent, {
+            const dialogRef = this.dialog.open(CompanyemployeeUploadErrorComponent, {
               data: data,
               height:"40%",
               width: "640px",
