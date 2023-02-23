@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
   hide = true;
   chide = true;
   authentication : Authentication;
+  companyId: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,7 +51,8 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
 
           // Location dropdown
-          this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+          this.companyId=0;
+          this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
             next: (data) => {
               this.countryDdList = data;
             },
