@@ -31,9 +31,9 @@ export class AddTaxMasterComponent implements OnInit {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
 
-      taxname: [""],
-      taxcode: [""],
-      taxtype: [""],
+      taxname: ["",[Validators.required]],
+      taxcode: ["",[Validators.required]],
+      taxtype: ["",[Validators.required]],
       taxmethod: [""],
       taxpercentage: ["",[Validators.required]],
       taxamount: [""],

@@ -15,7 +15,7 @@
                 <div class="row">
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label>TAX NAME </label>
+                    <label>TAX NAME <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label>TAX CODE </label>
+                  <label>TAX CODE <span class="errorColor">*</span></label>
               </div>
               <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -46,7 +46,7 @@
 
 
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label>TAX TYPE </label>
+                <label>TAX TYPE <span class="errorColor">*</span></label>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -62,6 +62,9 @@
                 </mat-option>
 
                 </mat-select>
+                <mat-error *ngIf="docForm.get('taxtype').hasError('required')">
+                  Tax TYPE is required
+                </mat-error>
             </mat-form-field>
             </div>
 
