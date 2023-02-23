@@ -41,6 +41,20 @@
                                             </mat-error>
                                             </mat-form-field>
                                             </div>
+                                            <div class="col-md-1" >
+                                                <label class>LOCATION</label>
+                            
+                                              </div>
+                                              <div class="col-md-3" >
+                                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                    <mat-select formControlName="locationId">
+                                                        <mat-option *ngFor="let title of loacationList" [value]="title.id">
+                                                          {{title.text}}
+                                                        </mat-option>
+                                                      </mat-select>
+                                               </mat-form-field>
+                                              </div>
+    
 
                                         <div class="col-md-1">
 
@@ -191,43 +205,7 @@
 
                                         </div>
                                     </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-md-2">  
-                                        </div>
-                                        <!-- <div class="col-md-3">                                           
-                                            <mat-form-field class="example-width form-control-sm" appearance="outline" style="width: 87%;">
-                                                <mat-label>Location</mat-label>
-                                                <mat-select formControlName="locationId">
-                                                  <mat-option *ngFor="let title of loacationList" [value]="title.id">
-                                                    {{title.text}}
-                                                  </mat-option>
-                                                </mat-select>
-                                                
-                                              </mat-form-field>
-                                        </div> -->
-                                        <div class="col-md-1" >
-                                            <label class>LOCATION</label>
-                        
-                                          </div>
-                                          <div class="col-md-3" >
-                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                <mat-select formControlName="locationId">
-                                                    <mat-option *ngFor="let title of loacationList" [value]="title.id">
-                                                      {{title.text}}
-                                                    </mat-option>
-                                                  </mat-select>
-                                           </mat-form-field>
-                                          </div>
-
-
-                                        
-                                        <div class="col-md-3">  
-                                        </div>
-                                        <div class="col-md-3">  
-                                        </div>
-                                        
-                                    </div>
+                            
                                 </div>
 
                                 <div class="row">
