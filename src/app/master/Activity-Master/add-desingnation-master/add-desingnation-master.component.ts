@@ -26,6 +26,7 @@ export class AddDesingnationMasterComponent implements OnInit {
   getUserBasedCompanyList=[];
   userId: any;
   getCountryList=[];
+  companyId: any;
   constructor(private fb: FormBuilder,
     private designationMasterService : DesignationMasterService,
     private httpService: HttpServiceService,
@@ -66,7 +67,11 @@ export class AddDesingnationMasterComponent implements OnInit {
       }
      });
       // Country dropdown
-      this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+      this.companyId=this.tokenStorage.getCompanyId();
+         if(this.companyId==undefined || this.companyId=="null" || this.companyId==null){
+          this.companyId=0;
+         }
+      this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
         next: (data) => {
           this.getCountryList = data;
         },
