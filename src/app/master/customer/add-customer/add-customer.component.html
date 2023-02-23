@@ -4,7 +4,7 @@
     </app-breadcrumb>
   </div>
   <div class="card ">
-    <div class="body" style="margin-left: -9%; padding: 2%;padding-left: 104px;">
+    <div class="body" style="margin-left: -9%; padding: 2%;padding-left: 140px;">
       <form class="m-4" [formGroup]="docForm">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="margin-left:65px">
 
@@ -16,7 +16,7 @@
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="auditorname" [ngModel]="value"
                   (ngModelChange)="value=$event.toUpperCase()" maxlength="50" (keypress)="string($event)"
-                  (blur)="validateCustomer($event.target.value)" required>
+                 (change)="getAuditor($event.target.value)" required>
                 <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
                   Auditor Name is required
                 </mat-error><mat-error *ngIf="docForm.get('auditorname').hasError('customer_master')">
@@ -295,8 +295,10 @@
         </div>
 
         <mat-tab-group>
+          <br>
           <!-- ///////////////////////////// -->
           <mat-tab label="ADDRESS">
+            <br>
             <div class="row">
               <div class=" col-md-1"></div>
               <div class=" col-md-5">
@@ -683,6 +685,7 @@
 
           </mat-tab>
           <mat-tab label="PURCHASE">
+            <br>
             <div class="row">
               <div class=" col-md-2">
                 <mat-label style="margin-left: 30px;">RESPONSIBLE PERSON</mat-label>
@@ -717,7 +720,9 @@
           </mat-tab>
 
           <mat-tab label="ACCOUNTING">
+            <br>
             <h4 style="margin-left: 30px;">Supplier</h4>
+            <br>
             <div class="row">
               <div class=" col-md-2">
                 <mat-label style="margin-left: 30px;">ACCOUNT RECEIVABLE</mat-label>

@@ -63,7 +63,7 @@
  <div class=" col-md-2">
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
     <mat-select class="inputTxt" formControlName="state"maxlength="30"placeholder="State" required>
-      <mat-option *ngFor="let title of stateDdList" [value]="title.id">
+      <mat-option *ngFor="let title of countrybasedStateList" [value]="title.id">
           {{title.text}}
       </mat-option>
   </mat-select>
@@ -80,7 +80,7 @@
           </div>
           <div class=" col-md-4">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <mat-select class="inputTxt" formControlName="country">
+            <mat-select class="inputTxt" formControlName="country"   (selectionChange)="fetchCountryBasedState($event.value)">
               <mat-option *ngFor="let title of countryList" [value]="title.id">
                   {{title.text}}
               </mat-option>
