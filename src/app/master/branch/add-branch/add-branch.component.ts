@@ -99,8 +99,8 @@ export class AddBranchComponent implements OnInit {
       }
     });
 
-    this.userId = this.tokenStorage.getUserId();
-    this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
+    this.companyId = this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?companyId=" + this.companyId).subscribe(
       (data) => {
         this.branchList = data.getuserBasedBranchDDList;
       },
@@ -182,8 +182,8 @@ export class AddBranchComponent implements OnInit {
      this.edit = true;
      this.fetchCountryBasedState( res.branchbean.addressOneCountry);
      this.stateBasedCity(res.branchbean.addressOneState);
-     this.userId = this.tokenStorage.getUserId();
-     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
+     this.userId = this.tokenStorage.getCompanyId();
+     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?companyId=" + this.companyId).subscribe(
       (data) => {
         this.branchList = data.getuserBasedBranchDDList;
       },

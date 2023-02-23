@@ -14,6 +14,8 @@ export class ItemCategory{
     expiryDate :  boolean;
     manufactureDetails :  boolean;
     itemCategoryDetailList : any;
+    itemName:string;
+    itemCategory:string
 
     //Below Two for list page
 	categoryTypeName: string;

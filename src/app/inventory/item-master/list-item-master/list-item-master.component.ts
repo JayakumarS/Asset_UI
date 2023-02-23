@@ -31,7 +31,7 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     "itemCategoryName",
     "itemDescription",
     "itemTypeName",
-    "itemCode",
+    // "itemCode",
     "actions",
   ];
 
@@ -220,7 +220,7 @@ export class ExampleDataSource extends DataSource<ItemMaster> {
               itemMaster.itemCategoryName +
               itemMaster.itemDescription +
               itemMaster.itemTypeName +
-               itemMaster.itemCode 
+               itemMaster.itemCode
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -262,6 +262,7 @@ export class ExampleDataSource extends DataSource<ItemMaster> {
           [propertyA, propertyB] = [a.itemCode, b.itemCode];
           break;
       }
+ 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
       return (

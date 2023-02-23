@@ -47,7 +47,8 @@ export class StateServiceService  extends UnsubscribeOnDestroyAdapter{
     });
   }
   getAllList(){
-    this.subs.sink = this.httpService.get<StateResultBean>(this.getStateList).subscribe(
+    let companyId=this.tokenStorage.getCompanyId();
+    this.subs.sink = this.httpService.get<StateResultBean>(this.getStateList+"?companyId="+companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.stateList);

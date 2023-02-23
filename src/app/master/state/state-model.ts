@@ -5,5 +5,6 @@ export class StateMaster {
     stateCode:string;
     country:number;
     isactive:string;
-
+    companyId:any;
+    countOfState:any;
 }

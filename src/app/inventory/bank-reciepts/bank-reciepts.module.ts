@@ -28,12 +28,14 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DeleteBankReceiptComponent } from './list-bank-reciepts/delete-bank-receipt/delete-bank-receipt.component';
 
 
 @NgModule({
   declarations: [
     AddBankRecieptsComponent,
-    ListBankRecieptsComponent
+    ListBankRecieptsComponent,
+    DeleteBankReceiptComponent
   ],
   imports: [
     CommonModule,

@@ -58,17 +58,17 @@
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.uomID}}</mat-cell>
               </ng-container>
              <ng-container matColumnDef="categoryName">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Unit</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>UOM Name</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.categoryName}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="description">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.description}}</mat-cell>
               </ng-container>
-              <ng-container matColumnDef="category">
+              <!-- <ng-container matColumnDef="category">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
                 <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"style="  text-transform: capitalize;"> {{row.uomCategory}}</mat-cell>
-              </ng-container>
+              </ng-container> -->
 
 
 
