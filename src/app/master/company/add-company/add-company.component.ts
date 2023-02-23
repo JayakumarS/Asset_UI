@@ -104,7 +104,8 @@ export class AddCompanyComponent implements OnInit {
     this.userId = this.tokenStorage.getUserId();
 
     // Country dropdown
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+    this.companyId=0;
+    this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
       next: (data) => {
         this.countryDdList = data;
       },
