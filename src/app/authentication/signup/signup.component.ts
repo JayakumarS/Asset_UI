@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
       telephoneNo:[ "",[Validators.required,  Validators.minLength(5)],],
       webSite: ['', [
         Validators.required,
-        Validators.pattern( '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+        Validators.pattern (/^https?:\/\/.+$/)
       ]],
       country: ["", Validators.required],
       address:[""],
