@@ -24,7 +24,7 @@
                         <div class=" col-md-2" style="margin-left: -45px;">
                           <mat-form-field class="example-width form-control-sm" appearance="outline">
                         
-                            <mat-select formControlName="companyname"  required >
+                            <mat-select formControlName="companyname"   >
                                 <mat-option *ngFor="let data of companyList" [value]="data.id">
                                     {{data.text}}
                                 </mat-option>
@@ -92,7 +92,7 @@
             
                         <div class=" col-md-2" style="margin-left: -45px;">
                             <mat-form-field class="example-width form-control-sm" appearance="outline">
-                                    <mat-select formControlName="Payment" required>
+                                    <mat-select formControlName="Payment" >
                                       <mat-option [value]="'Bank'">
                                         Bank
                                       </mat-option>
