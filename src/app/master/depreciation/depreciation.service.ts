@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { DepreciationMaster } from './depreciation-model';
 import { DepreciationResultBean } from './depreciation-resultBean';
@@ -18,7 +19,7 @@ export class DepreciationService  extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private tokenStorage: TokenStorageService,
      private httpService: HttpServiceService) {
     super();
   }
@@ -39,7 +40,8 @@ export class DepreciationService  extends UnsubscribeOnDestroyAdapter {
   }
 
   getAllList(): void {
-    this.subs.sink = this.httpService.get<DepreciationResultBean>(this.getAllMasters).subscribe(
+    let companyId=this.tokenStorage.getCompanyId();
+    this.subs.sink = this.httpService.get<DepreciationResultBean>(this.getAllMasters+"?companyId="+companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.depreciationList);
