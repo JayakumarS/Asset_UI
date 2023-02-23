@@ -86,15 +86,15 @@ export class AddCompanyComponent implements OnInit {
       branchCount: [""],
       branchList: this.fb.array([
         this.fb.group({
-          branch: '',
-          branchName: '',
-          branchCode: '',
-          branchAddress: '',
-          branchCountry: '',
-          branchState: '',
-          branchCity: '',
-          branchZipcode: '',
-          branchPhoneNo: '',
+          branch: [""],
+          branchName: [""],
+          branchCode: [""],
+          branchAddress: [""],
+          branchCountry: [""],
+          branchState: [""],
+          branchCity: [""],
+          branchZipcode: [""],
+          branchPhoneNo: [""],
         })
       ]),
     });
@@ -284,21 +284,21 @@ export class AddCompanyComponent implements OnInit {
   addBranch() {
 
     if ((parseInt(this.docForm.value.branchCount)) > this.docForm.controls.branchList.value.length) {
-      for (let i = 0; i < this.docForm.value.branchCount - this.docForm.controls.branchList.value.length; i++) {
+      for (let i = 0; i < this.docForm.value.branchCount - this.docForm.controls.branchList.value.length; ) {
         if ((parseInt(this.docForm.value.branchCount) - this.docForm.controls.branchList.value.length) <= 10) {
           this.flag = true;
           let branchListDetailArray = this.docForm.controls.branchList as FormArray;
           let arraylen = this.docForm.value.branchCount - this.docForm.controls.branchList.value.length;
           let newUsergroup: FormGroup = this.fb.group({
-            branch: '',
-            branchName: '',
-            branchCode: '',
-            branchAddress: '',
-            branchCountry: '',
-            branchState: '',
-            branchCity: '',
-            branchZipcode: '',
-            branchPhoneNo: '',
+            branch: [""],
+            branchName: [""],
+            branchCode: [""],
+            branchAddress: [""],
+            branchCountry: [""],
+            branchState: [""],
+            branchCity: [""],
+            branchZipcode: [""],
+            branchPhoneNo: [""],
           })
           // this.removeRow(i)
           branchListDetailArray.insert(arraylen + 1, newUsergroup);
@@ -433,15 +433,15 @@ export class AddCompanyComponent implements OnInit {
         branchCount: [""],
         branchList: this.fb.array([
           this.fb.group({
-            branch: '',
-            branchName: '',
-            branchCode: '',
-            branchAddress: '',
-            branchCountry: '',
-            branchState: '',
-            branchCity: '',
-            branchZipcode: '',
-            branchPhoneNo: '',
+            branch:[""],
+            branchName:[""],
+            branchCode:[""],
+            branchAddress:[""],
+            branchCountry:[""],
+            branchState:[""],
+            branchCity:[""],
+            branchZipcode:[""],
+            branchPhoneNo:[""],
           })
         ]),
       })
