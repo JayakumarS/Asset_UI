@@ -5,6 +5,7 @@ export class CurrencyMaster {
   currencyName: string;
   companyId:any;
   branchId:any;
+  countOfCurrency:any;
   
   constructor(currencyMaster) {
     {

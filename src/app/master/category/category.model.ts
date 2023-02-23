@@ -9,7 +9,7 @@ export class Assetcategory {
     currency: string;
     id: number;
     Success: boolean;
-
+    countOfCategory:any;
  
     constructor(assetcategory) {
         {
@@ -22,7 +22,7 @@ export class Assetcategory {
             this.currency=assetcategory.currency||"";
             this.depreciation = assetcategory.depreciation || "";
             this.id = assetcategory.id || "";
-
+            this.countOfCategory = assetcategory.countOfCategory || "";
 
         }
     
