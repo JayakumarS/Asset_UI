@@ -11,6 +11,8 @@ import { DiscardAssetService } from '../discard-asset.service';
 import { AssetService } from '../../asset-master/asset.service';
 import { threadId } from 'worker_threads';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -26,7 +28,19 @@ export const MY_DATE_FORMATS = {
 @Component({
   selector: 'app-add-discard',
   templateUrl: './add-discard.component.html',
-  styleUrls: ['./add-discard.component.sass']
+  styleUrls: ['./add-discard.component.sass'],
+    // Date Related code
+    providers: [
+      { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+      {
+        provide: MAT_DATE_FORMATS, useValue: {
+          display: {
+            dateInput: 'DD/MM/YYYY',
+            monthYearLabel: 'MMMM YYYY'
+          },
+        }
+      }, CommonService
+    ]
 })
 export class AddDiscardComponent implements OnInit {
   docForm: FormGroup;
@@ -51,6 +65,7 @@ export class AddDiscardComponent implements OnInit {
     private assetService: AssetService,private token:TokenStorageService,
     private snackBar: MatSnackBar,  private discardService: DiscardAssetService,
      private httpService: HttpServiceService,private commonService: CommonService,
+     private discardAssetService: DiscardAssetService,
      private router:Router) { 
     this.docForm = this.fb.group({
   
@@ -117,7 +132,7 @@ export class AddDiscardComponent implements OnInit {
 
 
 
-  getDateString(event,inputFlag){
+  getDateString(event,inputFlag,index){
     let cdate = this.cmnService.getDate(event.target.value);
     if(inputFlag=='discardDate'){
       this.docForm.patchValue({discardDateObj:cdate});
