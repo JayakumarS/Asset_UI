@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { serverLocations } from "src/app/auth/serverLocations";
 import { TokenStorageService } from "src/app/auth/token-storage.service";
@@ -27,9 +27,15 @@ const httpOptions = {
     constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private tokenStorage: TokenStorageService, private httpService: HttpServiceService) {
       super();
     }
-    public saveUrl = `${this.serverUrl.apiServerAddress}api/auth/app/inventory/BankReceiptService/save`;
-    public getAlllist = `${this.serverUrl.apiServerAddress}api/auth/app/inventory/BankReceiptService/List`;
-    companyListUrl
+
+    public companyListUrl = `${this.serverUrl.apiServerAddress}app/department/userBasedCompanyList`;
+    public saveUrl = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/save`;
+    public getAlllist = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/List`;
+    public editbankReceipt = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/edit`;
+    public updateBankReceipt=`${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/update`
+    public deleteBankReceipt = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/delete`;
+
+
     get data(): BankReceipt[] {
         return this.dataChange.value;
       }
@@ -51,11 +57,14 @@ const httpOptions = {
         );
     
       }
+
+
+    
     save(bankReceipt:BankReceipt,router,notificationService): void {
         this.dialogData = bankReceipt;  
         this.httpService.post<any>(this.saveUrl,bankReceipt ).subscribe(data => {
           console.log(data);
-          if(data.success){
+          if(data.success==true){
             notificationService.showNotification(
               "snackbar-success",
               "Record Added successfully...",
@@ -63,11 +72,10 @@ const httpOptions = {
               "center"
             );
             router.navigate(['/inventory/Bank-Reciepts/list-BankReciept']);
-          }
-          else {
+          }else {
             notificationService.showNotification(
               "snackbar-danger",
-              "Not Added...!!!",
+              "Please Fill The All Required fields",
               "bottom",
               "center"
             );
@@ -77,5 +85,57 @@ const httpOptions = {
             
         });
       }
-     
+
+      UpdateSalesQuote(bankReceipt: BankReceipt,router,notificationService): void {
+        this.dialogData = bankReceipt;
+       this.httpService.post<any>(this.updateBankReceipt,bankReceipt ).subscribe(data => {
+        console.log(data);
+        if(data.success===true){
+          notificationService.showNotification(
+            "snackbar-success",
+            "Updated Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          router.navigate(['/inventory/Bank-Reciepts/list-BankReciept']);
+        }else{
+          notificationService.showNotification(
+            "snackbar-danger",
+            "Not Updated Successfully...!!!",
+            "bottom",
+            "center"
+          );
+        }
+        },
+        (err: HttpErrorResponse) => {
+          
+      });
+      }
+
+      DeleteBankReceipt(bankReceipt:any,router,notificationService): void {
+        this.httpService.get<BankReceipt>(this.deleteBankReceipt+"?bankReceipt="+bankReceipt).subscribe(data => {
+        console.log(data);
+        if(data.success===true){
+          notificationService.showNotification(
+            "snackbar-success",
+            "Deleted Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          router.navigate(['/inventory/Bank-Reciepts/list-BankReciept']);
+        }
+        else if(data.success===false){
+          notificationService.showNotification(
+            "snackbar-danger",
+            "Error in delete...!!!",
+            "bottom",
+            "center"
+          );
+        }
+          },
+          (err: HttpErrorResponse) => {
+             // error code here
+          }
+        );
+      }
 }

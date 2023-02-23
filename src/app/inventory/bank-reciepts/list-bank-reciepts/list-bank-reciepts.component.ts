@@ -16,9 +16,9 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { DeletePurchaseOrderComponent } from '../../purchase-order/list-purchase-order/delete-purchase-order/delete-purchase-order.component';
 import { PurchaseOrder } from '../../purchase-order/purchase-order-model';
-import { PurchaseOrderService } from '../../purchase-order/purchase-order.service';
 import { BankReceipt } from '../bank-reciepts.model';
 import { BankReceiptservice } from '../bank-reciepts.service';
+import { DeleteBankReceiptComponent } from './delete-bank-receipt/delete-bank-receipt.component';
 
 @Component({
   selector: 'app-list-bank-reciepts',
@@ -29,10 +29,10 @@ export class ListBankRecieptsComponent extends UnsubscribeOnDestroyAdapter imple
  
   displayedColumns = [
   'voucherNo', 
+  'userCompanyName',
   'chequeDate',
-
   'chequeno',
-  'companyname',
+  'payment',
   'actions'];
 
   dataSource: ExampleDataSource | null;
@@ -47,7 +47,7 @@ export class ListBankRecieptsComponent extends UnsubscribeOnDestroyAdapter imple
     private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public purchaseOrderService: BankReceiptservice,
+    public bankReceiptservice: BankReceiptservice,
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
@@ -112,55 +112,29 @@ export class ListBankRecieptsComponent extends UnsubscribeOnDestroyAdapter imple
   }
 
   editCall(row) {
-    if(this.permissionList?.modify){
-      this.router.navigate(['/inventory/Bank-Reciepts/add-BankReciept/' + row.id]);
+   
+    this.router.navigate(['/inventory/Bank-Reciepts/add-BankReciept/'+row.voucherNo]);
+
+  }
+
+  deleteItem(row){
+    this.id = row.voucherNo;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
     }
+    const dialogRef = this.dialog.open(DeleteBankReceiptComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      this.loadData();
+    });
   }
-
-  deleteItem(row) {
-    // let tempDirection;
-    // if (localStorage.getItem("isRtl") === "true") {
-    //   tempDirection = "rtl";
-    // } else {
-    //   tempDirection = "ltr";
-    // }
-    // const dialogRef = this.dialog.open(DeletePurchaseOrderComponent, {
-    //   height: "270px",
-    //   width: "400px",
-    //   data: row,
-    //   direction: tempDirection,
-    //   disableClose: true
-    // });
-    // this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-
-    //   if (data.data == true) {
-    //     const obj = {
-    //       deletingId: row.purchaseOrderId
-    //     }
-    //     this.spinner.show();
-    //     this.purchaseOrderService.deletePurchaseOrder(obj).subscribe({
-    //       next: (data) => {
-    //         this.spinner.hide();
-    //         if (data.success) {
-    //           this.loadData();
-    //           this.showNotification(
-    //             "snackbar-success",
-    //             "Delete Record Successfully...!!!",
-    //             "bottom",
-    //             "center"
-    //           );
-    //         }
-    //       },
-    //       error: (error) => {
-    //         this.spinner.hide();
-    //       }
-    //     });
-
-    //   }
-    // });
-
-  }
-
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -217,7 +191,11 @@ export class ExampleDataSource extends DataSource<BankReceipt> {
           .slice()
           .filter((bankReceipt: BankReceipt) => {
             const searchStr = (
-              bankReceipt.voucherNo 
+              bankReceipt.voucherNo +
+              bankReceipt.userCompanyName+
+              bankReceipt.chequeDate+
+              bankReceipt.chequeno+
+              bankReceipt.payment
             
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -244,6 +222,27 @@ export class ExampleDataSource extends DataSource<BankReceipt> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
+        case "voucherNo":
+          [propertyA, propertyB] = [a.voucherNo, b.voucherNo];
+          break;
+         
+          case "userCompanyName":
+            [propertyA, propertyB] = [a.userCompanyName, b.userCompanyName];
+            break;    
+
+        case "chequeDate":
+          [propertyA, propertyB] = [a.chequeDate, b.chequeDate];
+          break;
+        
+        case "payment":
+          [propertyA, propertyB] = [a.payment, b.payment];
+          break;
+          
+        case "chequeno":
+          [propertyA, propertyB] = [a.chequeno, b.chequeno];
+          break;
+
+     
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
