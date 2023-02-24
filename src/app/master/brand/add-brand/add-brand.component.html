@@ -17,16 +17,13 @@
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="brand" maxlength="20"*ngIf="edit == false" (keypress)="keyPressString($event)"
-                        (blur)="validateCustomer($event.target.value)" required>
-                        <input matInput formControlName="brand"required *ngIf="edit == true" readonly>
+                        <input matInput formControlName="brand" maxlength="20"required>
+                       
 
                         <mat-error *ngIf="docForm.get('brand').hasError('required')">
                             brand name is required
                         </mat-error>
-                        <mat-error *ngIf="docForm.get('brand').hasError('city')">
-                            brand name Already Exists !!!
-                        </mat-error>
+                       
                       </mat-form-field>
                     </div>
 
@@ -35,7 +32,7 @@
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="Description" maxlength="20"*ngIf="edit == false" (keypress)="keyPressString($event)">
+                        <input matInput formControlName="Description" maxlength="20">
 
                   </mat-form-field>
                   </div>

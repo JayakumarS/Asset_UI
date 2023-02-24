@@ -15,17 +15,19 @@ import { BrandMasterService } from '../brand.service';
   styleUrls: ['./add-brand.component.sass']
 })
 export class AddBrandComponent implements OnInit {
+  [x: string]: any;
   docForm: FormGroup
 
   edit:boolean=false;
   requestId: any;
   brand: Brand;
-  brandMasterService: BrandMasterService
+ 
 
   constructor(private fb: FormBuilder,
    
     private httpService: HttpServiceService,
     private commonService: CommonService,
+    private   brandMasterService: BrandMasterService,
     private snackBar:MatSnackBar,
     private router:Router,
     public route: ActivatedRoute,private tokenStorage: TokenStorageService,
@@ -33,14 +35,18 @@ export class AddBrandComponent implements OnInit {
   this.docForm = this.fb.group({
     brand: [""],
     Description: [""],
-     isactive:[""]
+     isactive:[""],
+     loginedUser:[this.tokenStorage.getUserId()]
   });
 }
   ngOnInit(): void {
     this.docForm = this.fb.group({
       brand: [""],
       Description: [""],
-       isactive:[""]
+       isactive:[true],
+       loginedUser:[this.tokenStorage.getUserId()],
+       id:[""]
+
     });
 
     this.route.params.subscribe(params => {
@@ -52,30 +58,82 @@ export class AddBrandComponent implements OnInit {
       }
     });
   }
-  fetchDetails(requestId: any) {
-    throw new Error('Method not implemented.');
+  fetchDetails(id: any) {
+    const obj = {
+      brand_id: id
+    }
+    this.brandMasterService.edit(obj).subscribe({
+      next: (res: any) => {
+        this.docForm.patchValue({
+          'brand':res.brandMasterBean.brand,
+          'Description': res.brandMasterBean.Description,
+          'isactive': res.brandMasterBean.isactive,
+          'loginedUser': res.brandMasterBean.loginedUser,
+          'brand_id': res.brandMasterBean.brand_id
+        })
+      },
+      error: (error) => {
+        this.spinner.hide();
+        // error code here
+      }
+    });
+  }
+  update(){
+  if(this.docForm.valid){
+    this.brand = this.docForm.value;
+    this.brand.id= this.requestId;
+    this.brandMasterService.updateMaster(this.brand).subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.showNotification(
+            "snackbar-success",
+            "Record Updated Successfully",
+            "bottom",
+            "center"
+          );
+          this.onCancel();
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Not Updated Successfully...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        this.showNotification(
+          "snackbar-danger",
+          error.message + "...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please fill all the required details!",
+      "top",
+      "right"
+    );
+  }
   }
   onSubmit(){
+    if(this.docForm.valid){
+      this.docForm.value.loginedUser = this.tokenStorage.getUserId();
     this.brand = this.docForm.value;
     console.log(this.brand);
-    if(this.docForm.valid){
-      if(this.docForm.value.isactive==true)
-      {
-       this.docForm.value.isactive="True"
-      }
-      else if(this.docForm.value.isactive==false)
-      {
-       this.docForm.value.isactive="False"
-      } 
-       this.brand = this.docForm.value;
-     console.log(this.brand);
-     this.brandMasterService.addbrand(this.brand,this.router);
+
+    this.brandMasterService.addbrand(this.brand);
      this.showNotification(
        "snackbar-success",
        "Successfully Added...!!!",
        "bottom",
        "center"
      );
+     this.onCancel();
      }else{
       this.showNotification(
         "snackbar-danger",
@@ -84,14 +142,26 @@ export class AddBrandComponent implements OnInit {
         "right"
       );
     }
+
      
   }
 
   reset(){
+    if (!this.edit) {
+      location.reload()
+    this.docForm = this.fb.group({
+      brand: [""],
+      Description: [""],
+      isactive:[true],
+      loginedUser:[this.tokenStorage.getUserId()]
 
+    });
+  }else {
+    this.fetchDetails(this.requestId);
+  }
   }
   onCancel(){
-
+    this.router.navigate(['/master/brand/listBrand']);
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

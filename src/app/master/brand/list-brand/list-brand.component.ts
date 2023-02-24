@@ -8,20 +8,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
+import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Brand } from '../brand.model';
 import { BrandMasterService } from '../brand.service';
+import { DeleteBranchComponent } from './delete-branch/delete-branch.component';
 
 @Component({
   selector: 'app-list-brand',
   templateUrl: './list-brand.component.html',
   styleUrls: ['./list-brand.component.sass']
 })
-export class ListBrandComponent implements OnInit {
+export class ListBrandComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   displayedColumns = [
     "brand",
@@ -38,7 +40,6 @@ export class ListBrandComponent implements OnInit {
   id: number;
   category_id: number;
   brand: Brand | null;
-  subs: any;
   permissionList: any;
   constructor(    public httpClient: HttpClient,
                   private spinner: NgxSpinnerService,
@@ -50,6 +51,7 @@ export class ListBrandComponent implements OnInit {
                   private tokenStorage: TokenStorageService,
                   public commonService: CommonService,
                   public router: Router) {
+                    super()
 
      }
      @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -100,52 +102,51 @@ export class ListBrandComponent implements OnInit {
   }
 
   editCall(row) {
-    if (this.permissionList?.modify){
-      this.router.navigate(['/master/category/add-category/' + row.id]);
-    }
+      this.router.navigate(['/master/brand/addBrand/' + row.id]);
+    
 
   }
 
   deleteItem(row){
 
-    // this.id = row.id;
-    // let tempDirection;
-    // if (localStorage.getItem("isRtl") === "true") {
-    //   tempDirection = "rtl";
-    // } else {
-    //   tempDirection = "ltr";
-    // }
-    // const dialogRef = this.dialog.open(DeleteCategoryComponent, {
-    //   height: "270px",
-    //   width: "400px",
-    //   data: row,
-    //   direction: tempDirection,
-    // });
-    // this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+    this.id = row.id;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteBranchComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
 
 
-    //   if (data.data == true) {
+      if (data.data == true) {
 
-    //     this.httpService.get(this.brandMasterService.deletecategory+ "?category_id=" + this.id).subscribe((res: any) => {
-    //       this.showNotification(
-    //         "snackbar-success",
-    //         "Delete Record Successfully...!!!",
-    //         "bottom",
-    //         "center"
-    //       );
-    //       this.loadData();
-    //     },
-    //       (err: HttpErrorResponse) => {
-    //         // error code here
-    //       }
-    //     );
+        this.httpService.get(this.brandMasterService.deletecategory+ "?id=" + this.id).subscribe((res: any) => {
+          this.showNotification(
+            "snackbar-success",
+            "Delete Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          this.loadData();
+        },
+          (err: HttpErrorResponse) => {
+            // error code here
+          }
+        );
 
 
-    //   } else{
-    //     this.loadData();
-    //   }
+      } else{
+        this.loadData();
+      }
 
-    // });
+    });
 
   }
 
@@ -207,8 +208,7 @@ export class ExampleDataSource extends DataSource<Brand> {
           .slice()
           .filter((brand: Brand) => {
             const searchStr = (
-              brand.brand +
-              brand.Description 
+              brand.brand
               
 
             ).toLowerCase();
@@ -240,15 +240,7 @@ export class ExampleDataSource extends DataSource<Brand> {
           [propertyA, propertyB] = [a.brand, b.brand];
           break;
 
-          case "Description":
-          [propertyA, propertyB] = [a.Description, b.Description];
-          break;
-
-         
-          case "isactive":
-          [propertyA,propertyB]=[a.isactive,b.isactive];
-          break;
-
+          
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
@@ -258,7 +250,5 @@ export class ExampleDataSource extends DataSource<Brand> {
     });
   }
 }
-function map(arg0: () => Brand[]): import("rxjs").OperatorFunction<string | Brand[] | import("@angular/material/sort").Sort | import("@angular/material/paginator").PageEvent, Brand[]> {
-  throw new Error('Function not implemented.');
-}
+
 
