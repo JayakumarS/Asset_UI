@@ -762,192 +762,214 @@
                                                     <mat-label>Department</mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                    <mat-form-field class="example-full-width form-control-sm"
+                                                        appearance="outline">
                                                         <mat-select tabindex="26" formControlName="department">
                                                             <mat-option *ngFor="let title of departmentDdList"
                                                                 [value]="title.id">
                                                                 {{title.text}}
                                                             </mat-option>
                                                         </mat-select>
-                                                        <mat-error *ngIf="docForm.get('status').hasError('required')">
-                                                            Status is required
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-xl-1">
+                                                    <button color="primary" type="button" class="btn-space"
+                                                        [routerLink]="'/master/department-Master/add-department/0'"
+                                                        mat-raised-button>
+                                                        <i class="fas fa-plus-circle"
+                                                            style="font-size: 20px;color: bisque;"></i>
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>Allotted Upto</mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm"
+                                                        appearance="outline">
+                                                        <input matInput [matDatepicker]="picker2" tabindex="27"
+                                                            formControlName="allottedUptoobj"
+                                                            (dateInput)="$event.value.format('DD/MM/YYYY')"
+                                                            id="allottedUpto"
+                                                            (dateChange)="getDateString($event, 'allottedUpto',0)">
+                                                        <mat-datepicker-toggle matSuffix
+                                                            [for]="picker2"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker2></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>Transferred To</mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm"
+                                                        appearance="outline">
+                                                        <mat-select tabindex="28"
+                                                            formControlName="transferredTo">
+                                                            <mat-option *ngFor="let title of locationDdList"
+                                                                [value]="title.id">
+                                                                {{title.text}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>Remarks</mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm"
+                                                        appearance="outline">
+                                                        <input matInput tabindex="29" formControlName="remarks"
+                                                            (keypress)="keyPressNameNumber($event)">
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label style="margin-left: 55%;">Asset User <span
+                                                            class="errorColor">*</span></mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm"
+                                                        appearance="outline">
+                                                        <mat-select tabindex="26" formControlName="assetUser"
+                                                            required>
+                                                            <mat-option *ngFor="let title of assetUserList"
+                                                                [value]="title.text">
+                                                                {{title.text}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error
+                                                            *ngIf="docForm.get('assetUser').hasError('required')">Asset
+                                                            User is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
+                                                <div class="col-xl-1">
+                                                    <button color="primary" type="button" class="btn-space"
+                                                        [routerLink]="'/master/Company-Employees/addCompanyEmp/0'"
+                                                        mat-raised-button>
+                                                        <i class="fas fa-plus-circle"
+                                                            style="font-size: 20px;color: bisque;"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </mat-tab>
 
-                                                <!-- <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                                    <mat-label style="margin-left: 35%;">PUT IN USE DATE <span
-                                                            class="errorColor">*</span></mat-label>
-                                                </div>
-                                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                                    <mat-form-field class="example-full-width form-control-sm"
-                                                        appearance="outline">
-                                                        <input matInput [matDatepicker]="picker7"
-                                                            formControlName="putUseDateObj" name="putUseDateObj{{i}}"
-                                                            (dateChange)="getDateString($event,'putUseDate',i)">
-                                                        <mat-datepicker-toggle matSuffix
-                                                            [for]="picker7"></mat-datepicker-toggle>
-                                                        <mat-datepicker #picker7></mat-datepicker>
-                                                    </mat-form-field>
-                                                </div>
-                                            </div> -->
+                                        <mat-tab label="Line Item Information" *ngIf="isLineIn">
                                             <br>
-                                                <div>
-                                                    <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-                                                        <thead class="">
+                                            <div>
+                                                <table id="dt_basic"
+                                                    class="table table-striped font-weight-bold " role="grid">
+                                                    <thead class="">
+                                                        <tr>
+                                                            <th style="width: 1%;"></th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="margin-left: 25px;
+                                                 width: 12%; border-radius: 0.05rem;">Asset Name</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="margin-left: 25px;
+                                                 width: 12%;border-radius: 0.07rem;">Asset Code</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="margin-left: 25px;
+                                                 width: 12%;border-radius: 0.07rem;">Location</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="margin-left: 25px;
+                                                 width: 12%;border-radius: 0.07rem;">Category</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="margin-left: 25px;
+                                                 width: 12%; border-radius: 0.05rem;">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <ng-container
+                                                        *ngFor="let assetMasterBean of docForm.get('assetMasterBean')['controls']; let i = index">
+                                                        <tbody [formGroup]="assetMasterBean">
                                                             <tr>
-                                                             <th style="width: 1%;"></th>
-                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                                                         width: 12%; border-radius: 0.05rem;">Asset Name </th>
-                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                                                         width: 12%;border-radius: 0.07rem;">Asset Code</th>
-                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                                                         width: 12%;border-radius: 0.07rem;">Location</th>
-                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                                                         width: 12%;border-radius: 0.07rem;">Category</th>
-                                                              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                                                         width: 12%; border-radius: 0.05rem;">Status</th>
+                                                                <td>
+                                                                    <button mat-mini-fab color="warn"
+                                                                        (click)="removeRowSelf(i)">
+                                                                        <mat-icon
+                                                                            class="col-white">delete</mat-icon>
+                                                                    </button>
+                                                                </td>
+
+                                                                <td class="padding-both-side-2"
+                                                                    *ngIf="isLineIn">
+                                                                    <!-- <mat-label>Asset Name</mat-label> -->
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <mat-select tabindex="30"
+                                                                            formControlName="assName"
+                                                                            (selectionChange)="assetDetails($event,i)">
+                                                                            <mat-option
+                                                                                *ngFor="let title of assetnamelist"
+                                                                                [value]="title.id">
+                                                                                {{title.text}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td class="padding-both-side-2"
+                                                                    *ngIf="isLineIn">
+                                                                    <!-- <mat-label>Asset Code</mat-label> -->
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <input matInput tabindex="31"
+                                                                            formControlName="assCode"
+                                                                            [readonly]="true">
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td class="padding-both-side-2"
+                                                                    *ngIf="isLineIn">
+                                                                    <!-- <mat-label>Location</mat-label> -->
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <input matInput tabindex="32"
+                                                                            formControlName="assLocation"
+                                                                            [readonly]="true">
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td class="padding-both-side-2"
+                                                                    *ngIf="isLineIn">
+                                                                    <!-- <mat-label>Category</mat-label> -->
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <input matInput tabindex="33"
+                                                                            formControlName="assCategory"
+                                                                            [readonly]="true">
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td class="padding-both-side-2"
+                                                                    *ngIf="isLineIn">
+                                                                    <!-- <mat-label>Status</mat-label> -->
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <input matInput tabindex="34" selected
+                                                                            formControlName="assStatus"
+                                                                            [readonly]="true">
+                                                                    </mat-form-field>
+                                                                </td>
+
+
                                                             </tr>
-                                                          </thead>
-                                                        <ng-container *ngFor="let assetMasterBean of docForm.get('assetMasterBean')['controls']; let i = index">
-                                                            <tbody [formGroup]="assetMasterBean">
-                                                                <tr>
-                                                                    <td>
-                                                                        <button mat-mini-fab color="warn" (click)="removeRowSelf(i)">
-                                                                            <mat-icon class="col-white">delete</mat-icon>
-                                                                        </button>
-                                                                    </td>
-
-                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">
-                                                                        <!-- <mat-label>Asset Name</mat-label> -->
-                                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <mat-select tabindex="30" formControlName="assName" (selectionChange)="assetDetails($event,i)">
-                                                                                <mat-option *ngFor="let title of assetnamelist" [value]="title.id" >
-                                                                                    {{title.text}}
-                                                                                </mat-option>
-                                                                            </mat-select>
-                                                                            <!-- <mat-error *ngIf="docForm.get('assName') && submitted">
-                                                                                Asset Name is required
-                                                                            </mat-error> -->
-                                                                        </mat-form-field>
-                                                                    </td>
-                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">
-                                                                        <!-- <mat-label>Asset Code</mat-label> -->
-                                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <input matInput  tabindex="31" formControlName="assCode" [readonly]="true">
-                                                                           </mat-form-field>
-                                                                    </td>
-                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">
-                                                                        <!-- <mat-label>Location</mat-label> -->
-                                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                                                                            <input matInput  tabindex="32" formControlName="assLocation" [readonly]="true">
-                                                                           </mat-form-field>
-                                                                    </td>
-                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">
-                                                                        <!-- <mat-label>Category</mat-label> -->
-                                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <input matInput tabindex="33" formControlName="assCategory" [readonly]="true">
-                                                                           </mat-form-field>
-                                                                    </td>
-                                                                    <td class="padding-both-side-2" *ngIf="isLineIn">
-                                                                        <!-- <mat-label>Status</mat-label> -->
-                                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                                            <input matInput tabindex="34"  selected formControlName="assStatus" [readonly]="true">
-                                                                           </mat-form-field>
-                                                                    </td>
-
-
-                                                                </tr>
-                                                            </tbody>
-                                                            </ng-container>
-                                                            <ng-container
-                                                                *ngFor="let assetMasterBean of docForm.get('assetMasterBean')['controls']; let i = index">
-                                                                <tbody [formGroup]="assetMasterBean">
-                                                                    <tr>
-                                                                        <td>
-                                                                            <button mat-mini-fab color="warn"
-                                                                                (click)="removeRowSelf(i)">
-                                                                                <mat-icon
-                                                                                    class="col-white">delete</mat-icon>
-                                                                            </button>
-                                                                        </td>
-
-                                                                        <td class="padding-both-side-2"
-                                                                            *ngIf="isLineIn">
-                                                                            <!-- <mat-label>Asset Name</mat-label> -->
-                                                                            <mat-form-field
-                                                                                class="example-full-width form-control-sm"
-                                                                                appearance="outline">
-                                                                                <mat-select tabindex="30"
-                                                                                    formControlName="assName"
-                                                                                    (selectionChange)="assetDetails($event,i)">
-                                                                                    <mat-option
-                                                                                        *ngFor="let title of assetnamelist"
-                                                                                        [value]="title.id">
-                                                                                        {{title.text}}
-                                                                                    </mat-option>
-                                                                                </mat-select>
-                                                                            </mat-form-field>
-                                                                        </td>
-                                                                        <td class="padding-both-side-2"
-                                                                            *ngIf="isLineIn">
-                                                                            <!-- <mat-label>Asset Code</mat-label> -->
-                                                                            <mat-form-field
-                                                                                class="example-full-width form-control-sm"
-                                                                                appearance="outline">
-                                                                                <input matInput tabindex="31"
-                                                                                    formControlName="assCode"
-                                                                                    [readonly]="true">
-                                                                            </mat-form-field>
-                                                                        </td>
-                                                                        <td class="padding-both-side-2"
-                                                                            *ngIf="isLineIn">
-                                                                            <!-- <mat-label>Location</mat-label> -->
-                                                                            <mat-form-field
-                                                                                class="example-full-width form-control-sm"
-                                                                                appearance="outline">
-                                                                                <input matInput tabindex="32"
-                                                                                    formControlName="assLocation"
-                                                                                    [readonly]="true">
-                                                                            </mat-form-field>
-                                                                        </td>
-                                                                        <td class="padding-both-side-2"
-                                                                            *ngIf="isLineIn">
-                                                                            <!-- <mat-label>Category</mat-label> -->
-                                                                            <mat-form-field
-                                                                                class="example-full-width form-control-sm"
-                                                                                appearance="outline">
-                                                                                <input matInput tabindex="33"
-                                                                                    formControlName="assCategory"
-                                                                                    [readonly]="true">
-                                                                            </mat-form-field>
-                                                                        </td>
-                                                                        <td class="padding-both-side-2"
-                                                                            *ngIf="isLineIn">
-                                                                            <!-- <mat-label>Status</mat-label> -->
-                                                                            <mat-form-field
-                                                                                class="example-full-width form-control-sm"
-                                                                                appearance="outline">
-                                                                                <input matInput tabindex="34" selected
-                                                                                    formControlName="assStatus"
-                                                                                    [readonly]="true">
-                                                                            </mat-form-field>
-                                                                        </td>
-
-
-                                                                    </tr>
-                                                                </tbody>
-                                                            </ng-container>
-                                                        </table>
-                                                    </div>
-                                                    <div style="margin-left: 0.5%;">
-                                                        <td>
-                                                            <button mat-mini-fab color="primary" (click)="addRowSelf()">
-                                                                <mat-icon class="col-white">add</mat-icon>
-                                                            </button>
-                                                        </td>
-                                                    </div>
-                                                </mat-tab>
+                                                        </tbody>
+                                                    </ng-container>
+                                                </table>
+                                            </div>
+                                            <div style="margin-left: 0.5%;">
+                                                <td>
+                                                    <button mat-mini-fab color="primary" (click)="addRowSelf()">
+                                                        <mat-icon class="col-white">add</mat-icon>
+                                                    </button>
+                                                </td>
+                                            </div>
+                                        </mat-tab>
 
                                                 <!-- Category Specs Start -->
                                                 <mat-tab label="Specifications" *ngIf="isCategory">
