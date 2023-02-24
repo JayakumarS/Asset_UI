@@ -547,11 +547,11 @@
                                                 </div>
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>LINKED ASSET <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>LINKED ASSET </mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                    <mat-select tabindex="13" formControlName="linkedAsset" required>
+                                                    <mat-select tabindex="13" formControlName="linkedAsset">
                                                         <mat-option *ngFor="let title of assetnamelist" [value]="title.id" >
                                                             {{title.text}}
                                                         </mat-option>
