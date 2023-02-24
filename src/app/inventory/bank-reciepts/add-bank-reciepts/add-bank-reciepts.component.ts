@@ -314,6 +314,7 @@ export class AddBankRecieptsComponent implements OnInit {
   removeRow(index) {
     let bomDtlArray = this.docForm.controls.bankReceiptDetailBean as FormArray;
     bomDtlArray.removeAt(index);
+    this.totalAmountCalculation();
 
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
