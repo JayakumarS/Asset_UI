@@ -86,6 +86,9 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
         }
       );
     }
+    load(){
+      this.router.navigate(['/master/cityMaster/listCity']);
+     }
     editCall(row){
     this.router.navigate(['/master/cityMaster/addCity/'+row.city_id]);
     }

@@ -260,8 +260,22 @@ export class AddCountryMasterComponent implements OnInit {
   }
 
   validateCountryCode(event) {
+    let companyId=this.tokenStorage.getCompanyId();
     if (event != undefined && event != null && event != "") {
-      this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "country" + "&columnName=" + "country_code" + "&columnValue=" + event).subscribe((res: any) => {
+      this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl + "?tableName=" + "country" + "&columnName=" + "country_code" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+        if (res) {
+          this.docForm.controls['countryCode'].setErrors({ country: true });
+        } else {
+          this.docForm.controls['countryCode'].setErrors(null);
+        }
+      });
+    }
+  }
+
+  validateCountryCodeForEdit(event) {
+    let companyId=this.tokenStorage.getCompanyId();
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedForEditUrl + "?tableName=" + "country" + "&columnName=" + "country_code" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
         if (res) {
           this.docForm.controls['countryCode'].setErrors({ country: true });
         } else {
@@ -272,8 +286,22 @@ export class AddCountryMasterComponent implements OnInit {
   }
 
   validateCountryName(event) {
+    let companyId=this.tokenStorage.getCompanyId();
     if (event != undefined && event != null && event != "") {
-      this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "country" + "&columnName=" + "country_name" + "&columnValue=" + event).subscribe((res: any) => {
+      this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl + "?tableName=" + "country" + "&columnName=" + "country_name" + "&columnValue=" + event+ "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+        if (res) {
+          this.docForm.controls['countryName'].setErrors({ country: true });
+        } else {
+          this.docForm.controls['countryName'].setErrors(null);
+        }
+      });
+    }
+  }
+
+  validateCountryNameForEdit(event) {
+    let companyId=this.tokenStorage.getCompanyId();
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedForEditUrl + "?tableName=" + "country" + "&columnName=" + "country_name" + "&columnValue=" + event+ "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
         if (res) {
           this.docForm.controls['countryName'].setErrors({ country: true });
         } else {

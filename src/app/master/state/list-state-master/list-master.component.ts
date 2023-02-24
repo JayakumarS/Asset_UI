@@ -86,6 +86,9 @@ public loadData() {
     }
   );
 }
+load(){
+  this.router.navigate(['/master/stateMaster/listStateMaster']);
+ }
 editCall(row){
 this.router.navigate(['/master/stateMaster/addStateMaster/'+row.state_id]);
 }

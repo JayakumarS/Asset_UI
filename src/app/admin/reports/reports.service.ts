@@ -18,12 +18,13 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     []
   );
   UserId: String;
-  
+
   constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,  public tokenStorage: TokenStorageService
     ) {
     super();
 
     }
+    public statusListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getstatusList`;
     public categoryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getcategoryList`;
     // public statusListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getstatusList`;
     public assetListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getassetList`;
@@ -36,7 +37,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     public getUserLogList = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/getList`;
     public UserSerach = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/getUserSerach`;
     public assetHistoryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getassetHistoryList`;
-    
+
     get data(): Reportscategory[] {
       return this.dataChange.value;
     }
@@ -44,13 +45,13 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
       return this.dialogData;
     }
 
-   
+
     userloglist(object){
 
       this.UserId=this.tokenStorage.getCompanyId();
-      
+
         console.log(object);
-        this.subs.sink = this.httpService.get<reportsresultbean>(this.getUserLogList+"?UserId="+this.UserId,object).subscribe(
+      this.subs.sink = this.httpService.get<reportsresultbean>(this.getUserLogList+"?UserId="+this.UserId,object).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.usernamelist);
@@ -60,7 +61,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
             console.log(error.name + " " + error.message);
           }
         );
-  
+
     }
     getAllList(object): void {
       console.log(object);
@@ -92,7 +93,9 @@ getLocationList(object): void {
 
 getDepreciationList(object): void {
   console.log(object);
-  this.subs.sink = this.httpService.post<any>(this.depreciationSerach, object).subscribe(
+  let companyId = this.tokenStorage.getCompanyId();
+
+  this.subs.sink = this.httpService.post<any>(this.depreciationSerach + "?companyId=" + parseInt(companyId) , object).subscribe(
     (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.depreciationList);

@@ -10,6 +10,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { CurrencyService } from 'src/app/finance/master/currency/currency.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { CommonService } from 'src/app/common-service/common.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class AddCurrencyMasterComponent implements OnInit {
               public route: ActivatedRoute,
               public tokenStorage: TokenStorageService,
               private spinner: NgxSpinnerService,
+              private commonService: CommonService,
     ) {
 
     this.docForm = this.fb.group({
@@ -255,7 +257,8 @@ export class AddCurrencyMasterComponent implements OnInit {
     }
   }
   validateCurrencyCode(event){
-    this.httpService.get<any>(this.CurrencyMasterService.uniqueValidateUrl+ "?tableName=" +"currency"+"&columnName="+"currency_code"+"&columnValue="+event).subscribe((res: any) => {
+    let companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl+ "?tableName=" +"currency"+"&columnName="+"currency_code"+"&columnValue="+event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
       if(res){
         this.docForm.controls['currencyCode'].setErrors({ currency: true });
       }else{

@@ -78,6 +78,7 @@ import { UploadErrorComponent } from './upload-error/upload-error.component';
     MatRadioModule,
     NgApexchartsModule,
     PerfectScrollbarModule,
+    MatTooltipModule
   ]
 })
 export class AssetMasterModule { }

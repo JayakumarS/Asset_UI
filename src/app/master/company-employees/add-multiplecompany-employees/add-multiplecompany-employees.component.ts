@@ -76,7 +76,7 @@ export class AddMultiplecompanyEmployeesComponent implements OnInit {
             "center"
           );
           window.sessionStorage.setItem("makerLogin","");
-          // this.router.navigate(['/master/Company-Employees/listCompanyEmp'])
+          this.router.navigate(['/master/Company-Employees/listCompanyEmp'])
           } else  if(data.message =='Incorrect Email' || data.message =='Format'){
             let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {

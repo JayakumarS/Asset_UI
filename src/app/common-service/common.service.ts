@@ -194,6 +194,12 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getEmployeebyCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeebyCompany`;
 
   public getCountrycompanyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountrycompanyDropdown`;
+  
+  // Company based validation 
+  public uniqueValidateCompanyBasedUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUniqueCopmanyBased`;
+
+  // Company based validation For Edit
+  public uniqueValidateCompanyBasedForEditUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUniqueCopmanyBasedForEdit`;
 
   //FOR DOCUMENT VIEW ADDED BY Gokul
   viewDocument(filePath: any): Observable<Blob> {
