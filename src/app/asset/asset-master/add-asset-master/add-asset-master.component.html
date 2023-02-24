@@ -771,7 +771,7 @@
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left: 0%">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                         <mat-select tabindex="16" formControlName="currency" required>
-                                                            <mat-option *ngFor="let title of currencyListbasedCompany" [value]="title.id"  >
+                                                            <mat-option *ngFor="let title of currencyListbasedCompany" [value]="title.text"  >
                                                               {{title.text}}
                                                             </mat-option>
                                                           </mat-select>
