@@ -89,10 +89,8 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     this.docForm = this.fb.group({
       //info
       id: [""],
-      fullOrPartial: ["F"],
-      loginUser: this.tokenStorage.getUserId(),
+     loginUser: this.tokenStorage.getUserId(),
 
-      
       assetMasterBean: this.fb.array([
         this.fb.group({
           assName: [""],
@@ -101,12 +99,14 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assCategory: [""],
           assStatus: [""],
           assetId: [""],
-          assUser: [""]
+          assUser: [""],
+          
         })
       ]),
 
       assetMasterBeanReplacement: this.fb.array([
         this.fb.group({
+          fullOrPartial: ["F"],
           assName: [""],
           assCode: [""],
           assLocation: [""],
@@ -114,7 +114,9 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assStatus: [""],
           assetId: [""],
           assUser: [""],
-          movedTo: [""]
+          movedTo: [""],
+         
+    
 
         })
       ]),
@@ -335,7 +337,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           } else {
             this.showNotification(
               "snackbar-danger",
-              "Not Added...!!!",
+              "Please fill the required blanks...!!!",
               "bottom",
               "center"
             );
