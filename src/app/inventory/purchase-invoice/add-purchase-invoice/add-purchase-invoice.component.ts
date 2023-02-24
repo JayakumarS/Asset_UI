@@ -60,6 +60,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   locationList = [];
   itemList:[];
   companyId:any;
+  locationDdList:[];
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -123,6 +124,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
 
     this.fetchItem(this.tokenStorage.getCompanyId());
+    this.fetchLocation();
 
     //Vendor  Dropdown List
     this.httpService.get<any>(this.commonService.getVendorDropdown+"?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
@@ -265,7 +267,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
             let arraylen = purchaseInvoiceDtlArray.length;
             let newUsergroup: FormGroup = this.fb.group({
-              itemId: [element.itemId],
+              itemId: [element.itemId+""],
               unitPrice: [Number(element.unitPrice).toFixed(2)],
               receivingQty: [element.receivingQty]
             })
@@ -432,6 +434,19 @@ export class AddPurchaseInvoiceComponent implements OnInit {
        );
     }
 
+    //Company Based Location
+    fetchLocation(){
+     this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.locationDdList = data;
+      },
+      error: (error) => {
+  
+      }
+    }
+    );
+   }
+
   getGRNDetails(GRNID: number) {
     if (GRNID != undefined && GRNID != null) {
       this.spinner.show();
@@ -439,6 +454,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         next: (res: any) => {
           this.spinner.hide();
           if (res.success) {
+            this.docForm.patchValue({
+              'total': res.grnDetailList[0].unitPrice,
+              'vendorId': res.grn.vendorId,
+            })
             if (res.grnDetailList != null && res.grnDetailList.length >= 1) {
               let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
               purchaseInvoiceDtlArray.clear();
@@ -446,7 +465,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
                 let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
                 let arraylen = purchaseInvoiceDtlArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
-                  itemId: [element.itemId],
+                  itemId: [element.itemId+""],
                   unitPrice: [element.unitPrice],
                   receivingQty: [element.receivingQty]
                 })

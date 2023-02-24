@@ -147,7 +147,7 @@ export class AddItemMasterComponent implements OnInit {
          vendorUom:'',
          deliveryLeadTime:'',
          pricingType:'',
-         vendorId:''
+         vendorId:["", [Validators.required]]
         })
        ]),
        productDetailBean: this.fb.array([
