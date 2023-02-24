@@ -32,6 +32,7 @@ export class SalesOrderService extends UnsubscribeOnDestroyAdapter{
   public updateSalesOrder = `${this.serverUrl.apiServerAddress}app/salesOrder/update`;
   public deleteSalesOrder = `${this.serverUrl.apiServerAddress}app/salesOrder/delete`;
 
+  public getCompanyBasedCurrency = `${this.serverUrl.apiServerAddress}app/salesOrder/getCompanyBasedCurrency`;
 
 
   

@@ -33,7 +33,7 @@
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Currency</mat-label>
                     <mat-select formControlName="currency">
-                      <mat-option *ngFor="let title of currencyList" [value]="title.id">
+                      <mat-option *ngFor="let title of currencyListbasedCompany" [value]="title.id">
                         {{title.text}}
                       </mat-option>
                     </mat-select>
@@ -83,10 +83,10 @@
      width: 12%; border-radius: 0.05rem;">Product</th>
                     <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
      width: 12%;border-radius: 0.07rem;">UOM</th>
+                   <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+      width: 12%;border-radius: 0.07rem;">Qty</th>
                     <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
      width: 12%;border-radius: 0.07rem;">Rate</th>
-                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-     width: 12%;border-radius: 0.07rem;">Qty</th>
                     <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
      width: 12%; border-radius: 0.05rem;">Price</th>
                   </tr>
@@ -120,24 +120,27 @@
                         </mat-form-field>
                       </td>
 
+                      <td class="padding-both-side-2">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>Qty</mat-label>
+                          <input matInput name="qty{{i}}" formControlName="qty"  
+                          (change)="Qtycalculation(i)" (keypress)="keyPressNumeric1($event)" >
+                        </mat-form-field>
+                      </td>
 
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>Rate</mat-label>
-                          <input matInput name="rate{{i}}" formControlName="rate">
+                          <input matInput name="rate{{i}}" formControlName="rate" 
+                          (change)="Amountcalculation(i)"  (keypress)="keyPressNumeric1($event)">
                         </mat-form-field>
                       </td>
 
-                      <td class="padding-both-side-2">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Qty</mat-label>
-                          <input matInput name="qty{{i}}" formControlName="qty">
-                        </mat-form-field>
-                      </td>
+                     
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>Price</mat-label>
-                          <input matInput name="price{{i}}" formControlName="price">
+                          <input matInput name="price{{i}}" formControlName="price" readonly>
                         </mat-form-field>
                       </td>
                     </tr>
