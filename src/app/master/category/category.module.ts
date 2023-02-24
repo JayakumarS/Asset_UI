@@ -27,13 +27,15 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DeleteCategoryComponent } from './list-category/delete-category/delete-category.component';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { ViewCategoryComponent } from './view-category/view-category.component';
 
 
 @NgModule({
   declarations: [
     AddCategoryComponent,
     ListCategoryComponent,
-    DeleteCategoryComponent
+    DeleteCategoryComponent,
+    ViewCategoryComponent
   ],
   providers:[
     NotificationService

@@ -108,6 +108,11 @@ export class ListCategoryComponent implements OnInit {
 
   }
 
+  viewCall(row){
+    this.router.navigate(['/master/category/view-category/' + row.id]);
+
+}
+
   deleteItem(row){
 
     this.id = row.id;
