@@ -14,6 +14,7 @@ import { AddTaxMasterComponent } from './Tax/add-tax-master/add-tax-master.compo
 import { ListTaxMasterComponent } from './Tax/list-tax-master/list-tax-master.component';
 import { ListCompanyLogoComponent } from './company-logo/list-company-logo/list-company-logo.component';
 
+
 @NgModule({
   declarations: [
     ListCurrencyMasterComponent,
@@ -23,6 +24,7 @@ import { ListCompanyLogoComponent } from './company-logo/list-company-logo/list-
     AddTaxMasterComponent,
     ListTaxMasterComponent,
     ListCompanyLogoComponent,
+  
 
   ],
   imports: [

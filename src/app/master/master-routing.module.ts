@@ -131,6 +131,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./company-logo/company-logo.module").then((m) => m.CompanyLogoModule),
   },
+  {
+    path: "brand",
+    loadChildren: () =>
+    import("./brand/brand.module").then((m) => m.BrandModule)
+  },
 
 
 ];
