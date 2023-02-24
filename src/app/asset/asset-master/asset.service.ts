@@ -59,6 +59,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   public commoditylist = `${this.serverUrl.apiServerAddress}app/countryMaster/getCategoryList`;
   public saveGRNBasedMutipleAsset = `${this.serverUrl.apiServerAddress}app/assetMaster/saveGRNBasedMutipleAsset`;
   public exportPdfBulkAssetQRcode = `${this.serverUrl.apiServerAddress}app/assetMaster/exportPdf_BulkAssetQRcode`;
+  public getCompanyBasedCurrency = `${this.serverUrl.apiServerAddress}app/salesOrder/getCompanyBasedCurrency`;
 
 
   private getAllAssetsReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/getAssetReplacementList`;

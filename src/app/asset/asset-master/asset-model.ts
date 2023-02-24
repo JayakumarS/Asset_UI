@@ -21,6 +21,11 @@ export class AssetMaster {
 	department: number;
 	departmentName: string;
 	depreciation: string;
+	gst:string;
+	customDuty:string; 
+	otherTaxes:string;
+	transport: string;
+	instalAndCommission: string;
 	description: string;
 	endLife: number;
 	imgUploadUrl: string;
@@ -32,6 +37,7 @@ export class AssetMaster {
 	model: string;
 	poNumber: string;
 	purchasePrice: string;
+	currency: string;
 	remarks: string;
 	scrapValue: number;
 	selfOrPartner: string;

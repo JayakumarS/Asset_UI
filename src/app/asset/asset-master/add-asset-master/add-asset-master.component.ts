@@ -58,13 +58,16 @@ export class AddAssetMasterComponent
   agree3 = false;
   dropdownList = [];
   submitted: boolean = false;
-  uploadFlag: boolean = false;
+  uploadFile: boolean = false;
+  uploadImage: boolean = false;
   assetMaster: AssetMaster;
   categoryList = [];
+  currencyListbasedCompany:[];
   locationDdList = [];
   departmentDdList = [];
   vendorDdList = [];
   requestId: any;
+  currencyList:[];
   edit: boolean = false;
   grnFlag: boolean = false;
   grnNumberList = [];
@@ -130,7 +133,7 @@ export class AddAssetMasterComponent
       isLine: [false],
       isAuditable: [false],
       id: [""],
-      uploadImg: [""],
+      uploadImg: ["",[Validators.required]],
       isGrnBasedAsset: [false],
       grnId: [""],
       loginedUser: this.tokenStorage.getUserId(),
@@ -141,6 +144,11 @@ export class AddAssetMasterComponent
       condition: [""],
       linkedAsset: [""],
       description: [""],
+      gst:[""],
+      customDuty:[""],
+      otherTaxes:[""], 
+      transport:[""],
+      instalAndCommission: [""],
       uploadFiles: [""],
       //tab2
       vendor: [""],
@@ -149,6 +157,7 @@ export class AddAssetMasterComponent
       invoiceDate: [""],
       invoiceNo: [""],
       purchasePrice: [""],
+      currency:[""],
       //tab3
       captitalizationPrice: [""],
       captitalizationDate: [moment().format('DD/MM/YYYY')],
@@ -172,7 +181,7 @@ export class AddAssetMasterComponent
       //tab5
       assetMasterBean: this.fb.array([
         this.fb.group({
-          assName: ["",[Validators.required]],
+          assName: [""],
           assCode: [""],
           assLocation: [""],
           assCategory: [""],
@@ -276,6 +285,16 @@ export class AddAssetMasterComponent
       }
     }
     );
+    this.companyId = this.tokenStorage.getCompanyId();
+
+    this.httpService.get<any>(this.assetService.getCompanyBasedCurrency + "?userId=" + (this.companyId)).subscribe({
+      next: (data) => {
+        this.currencyListbasedCompany = data.salesOrderBean;
+      },
+      error: (error) => {
+      }
+    });
+
 
      // Status dropdown
      this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
@@ -682,6 +701,11 @@ export class AddAssetMasterComponent
           'department': res.addAssetBean.department !=null ? res.addAssetBean.department.toString():"",
           'depreciation': res.addAssetBean.depreciation,
           'description': res.addAssetBean.description,
+          'gst': res.addAssetBean.gst,
+          'customDuty': res.addAssetBean.customDuty,
+          'otherTaxes' : res.addAssetBean.otherTaxes,
+          'transport' : res.addAssetBean.transport,
+          'instalAndCommission' : res.addAssetBean.instalAndCommission,
           'endLife': res.addAssetBean.endLife,
           'invoiceNo': res.addAssetBean.invoiceNo,
           'imgUploadUrl': res.addAssetBean.imgUploadUrl,
@@ -690,6 +714,7 @@ export class AddAssetMasterComponent
           'linkedAsset': parseInt(res.addAssetBean.linkedAsset),
           'poNumber': res.addAssetBean.poNumber,
           'purchasePrice': res.addAssetBean.purchasePrice,
+          'currency': res.addAssetBean.currency,
           'remarks': res.addAssetBean.remarks,
           'assetUser':res.addAssetBean.assetUser,
           'scrapValue': res.addAssetBean.scrapValue,
@@ -943,7 +968,7 @@ export class AddAssetMasterComponent
     let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
     let arraylen = dtlArray.length;
     let newUsergroup: FormGroup = this.fb.group({
-      assName: ["",[Validators.required]],
+      assName: [""],
       assCode: [""],
       assLocation: [""],
       assCategory: [""],
@@ -1050,7 +1075,7 @@ export class AddAssetMasterComponent
               'uploadImg': data.filePath
             })
             this.imgPathUrl = data.filePath;
-            this.uploadFlag=true;
+            this.uploadImage=true;
 
           }
         } else {
@@ -1110,7 +1135,7 @@ export class AddAssetMasterComponent
               'uploadFiles': data.filePath
             })
             this.filePathUrl = data.filePath;
-            this.uploadFlag=true;
+            this.uploadFile=true;
           }
         } else {
           this.showNotification(
@@ -1271,7 +1296,7 @@ export class AddAssetMasterComponent
       isLine: [false],
       isAuditable: [false],
       id: [""],
-      uploadImg: [""],
+      uploadImg: ["",, [Validators.required]],
       isGrnBasedAsset: [false],
       grnId: [""],
       loginedUser: this.tokenStorage.getUserId(),
@@ -1282,6 +1307,11 @@ export class AddAssetMasterComponent
       condition: [""],
       linkedAsset: [""],
       description: [""],
+      gst:[""],
+      customDuty:[""], 
+      otherTaxes:[""],
+      transport: [""],
+      instalAndCommission: [""],
       uploadFiles: [""],
       //tab2
       vendor: [""],
@@ -1290,6 +1320,7 @@ export class AddAssetMasterComponent
       invoiceDate: [""],
       invoiceNo: [""],
       purchasePrice: [""],
+      currency:[""],
       //tab3
       captitalizationPrice: [""],
       captitalizationDate: [moment().format('DD/MM/YYYY')],
@@ -1313,7 +1344,7 @@ export class AddAssetMasterComponent
       //tab5
       assetMasterBean: this.fb.array([
         this.fb.group({
-          assName: ["",[Validators.required]],
+          assName: [""],
           assCode: [""],
           assLocation: [""],
           assCategory: [""],

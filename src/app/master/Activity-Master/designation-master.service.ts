@@ -28,8 +28,10 @@ export class DesignationMasterService extends UnsubscribeOnDestroyAdapter {
   public updateDesignationMaster = `${this.serverUrl.apiServerAddress}app/activitymaster/update`;
   private deleteDesignationMaster = `${this.serverUrl.apiServerAddress}app/activitymaster/delete`;
 
+  public getEmailDropdown= `${this.serverUrl.apiServerAddress}app/activitymaster/getEmailDropdown`;
   
-  
+  public fetchAuditorDetails=`${this.serverUrl.apiServerAddress}app/activitymaster/fetchAuditorDetails`;
+
   get data(): DesignationMaster[] {
     return this.dataChange.value;
   }

@@ -60,7 +60,7 @@ export class AddCompanyComponent implements OnInit {
       emailId: ["", [Validators.required]],
       phoneCode: [""],
       telephoneNo: ["", [Validators.required]],
-      webSite: ["", Validators.pattern('(www)\\.([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
+      webSite: ["", Validators.pattern('^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$')],
       panNo: ["", Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
       gstNo: ["", Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')],
       ifscCode: ["", Validators.pattern('[A-Za-z]{4}[0-9]{7}')],

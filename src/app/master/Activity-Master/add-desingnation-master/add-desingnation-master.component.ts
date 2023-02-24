@@ -27,6 +27,7 @@ export class AddDesingnationMasterComponent implements OnInit {
   userId: any;
   getCountryList=[];
   companyId: any;
+  getEmailList=[];
   constructor(private fb: FormBuilder,
     private designationMasterService : DesignationMasterService,
     private httpService: HttpServiceService,
@@ -62,10 +63,22 @@ export class AddDesingnationMasterComponent implements OnInit {
        //For User login Editable mode
        this.fetchDetails(this.requestId) ;
 
-
-
       }
      });
+
+/////////////////////email id dropdown
+this.httpService.get<any>(this.designationMasterService.getEmailDropdown).subscribe({
+  next: (data) => {
+    this.getEmailList = data;
+  },
+  error: (error) => {
+
+  }
+}
+);
+
+
+
       // Country dropdown
       this.companyId=this.tokenStorage.getCompanyId();
          if(this.companyId==undefined || this.companyId=="null" || this.companyId==null){
@@ -122,7 +135,7 @@ export class AddDesingnationMasterComponent implements OnInit {
         } else {
           this.showNotification(
             "snackbar-danger",
-            "Not Added...!!!",
+            "Not Added, "+data.message+"!",
             "bottom",
             "center"
           );
@@ -223,5 +236,19 @@ export class AddDesingnationMasterComponent implements OnInit {
       }
     });
   }
+  fetchAuditorDetails(emailId: any) {
+    this.httpService.get(this.designationMasterService.fetchAuditorDetails + "?emailId=" + emailId).subscribe((res: any) => {
+      this.docForm.patchValue({
+        'fullName':res.auditorDetailsList[0].fullName,
+        'contactNumber':res.auditorDetailsList[0].contactNumber,
+        'address':res.auditorDetailsList[0].address,
+        'country':res.auditorDetailsList[0].country,
 
+      });
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+  }
 }
