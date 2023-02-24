@@ -73,7 +73,7 @@ export class AddStateMasterComponent implements OnInit {
        this.fetchDetails(this.requestId) ;
       }
      });
-
+   
   }
   onSubmit(){
     if(this.docForm.valid){
