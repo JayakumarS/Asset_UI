@@ -69,7 +69,9 @@ contextMenuPosition = { x: "0px", y: "0px" };
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
   }
-
+  load(){
+    this.router.navigate(['/master/stateMaster/listStateMaster']);
+   }
 public loadData() {
   this.exampleDatabase = new StateServiceService (this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
   this.dataSource = new ExampleDataSource(
@@ -86,9 +88,7 @@ public loadData() {
     }
   );
 }
-load(){
-  this.router.navigate(['/master/stateMaster/listStateMaster']);
- }
+
 editCall(row){
 this.router.navigate(['/master/stateMaster/addStateMaster/'+row.state_id]);
 }

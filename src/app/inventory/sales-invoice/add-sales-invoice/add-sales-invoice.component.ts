@@ -14,6 +14,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { SalesEntryDetailRowComponent } from 'src/app/crm/sales-call-entry/sales-entry-detail-row/sales-entry-detail-row.component';
 import { DepartmentMasterService } from 'src/app/master/department-master/department-master.service';
+import { SalesOrderService } from '../../sales-order/sales-order.service';
 import { SalesInvoice } from '../sales-invoice.model';
 import { SalesInvoiceService } from '../sales-invoice.service';
 
@@ -70,6 +71,9 @@ export class AddSalesInvoiceComponent implements OnInit {
   salesOrderList = [];
   companyList = [];
   getUserBasedCompanyList = [];
+  value1: any;
+  value: any;
+  currencyListbasedCompany=[];
 
   constructor(
     private salesInvoiceService: SalesInvoiceService,
@@ -82,6 +86,7 @@ export class AddSalesInvoiceComponent implements OnInit {
     public transferservice: TransferService,
     private httpService: HttpServiceService,
     private snackBar: MatSnackBar,
+    private salesOrderService:SalesOrderService,
     private departmentMasterService: DepartmentMasterService,
 
   ) { }
@@ -108,6 +113,7 @@ export class AddSalesInvoiceComponent implements OnInit {
         this.fb.group({
           item: [""],
           qty: [""],
+          rate:[""],
           uom: [""],
           price: [""]
 
@@ -127,8 +133,6 @@ export class AddSalesInvoiceComponent implements OnInit {
 
       }
     });
-
-
 
 
 
@@ -155,6 +159,14 @@ export class AddSalesInvoiceComponent implements OnInit {
       }
     });
 
+
+    this.httpService.get<any>(this.salesOrderService.getCompanyBasedCurrency + "?userId=" + (this.user)).subscribe({
+      next: (data) => {
+        this.currencyListbasedCompany = data.salesOrderBean;
+      },
+      error: (error) => {
+      }
+    });
 
     //User Based Company List
     this.httpService.get<any>(this.departmentMasterService.companyListUrl + "?userId=" + this.user).subscribe(
@@ -213,6 +225,7 @@ export class AddSalesInvoiceComponent implements OnInit {
           item: [element.item],
           uom: [element.uom],
           qty: [element.qty],
+          rate: [element.rate],
           price: [element.price],
         })
         CustInvoiceDetailBeanArray.insert(arraylen, newgroup);
@@ -305,10 +318,11 @@ export class AddSalesInvoiceComponent implements OnInit {
           'exKshRate': res.salesInvoiceBean.exKshRate,
           'narration': res.salesInvoiceBean.narration,
           'delivaryNo': res.salesInvoiceBean.delivaryNo,
-          'item': res.salesInvoiceBean.item,
-          'uom': res.salesInvoiceBean.uom,
-          'qty': res.salesInvoiceBean.qty,
-          'price': res.salesInvoiceBean.price,
+          // 'item': res.salesInvoiceBean.item,
+          // 'uom': res.salesInvoiceBean.uom,
+          // 'qty': res.salesInvoiceBean.qty,
+          // 'rate': res.salesInvoiceBean.rate,
+          // 'price': res.salesInvoiceBean.price,
 
 
         });
@@ -322,6 +336,7 @@ export class AddSalesInvoiceComponent implements OnInit {
               item: [element.item],
               uom: [element.uom],
               qty: [element.qty],
+              rate:[element.rate],
               price: [element.price],
             })
             salesInvoiceDetailArray.insert(arraylen, newUsergroup);
@@ -385,6 +400,7 @@ export class AddSalesInvoiceComponent implements OnInit {
           this.fb.group({
             item: [""],
             qty: [""],
+            rate:[""],
             uom: [""],
             price: [""]
 
@@ -411,6 +427,7 @@ export class AddSalesInvoiceComponent implements OnInit {
     const newUsergroup: FormGroup = this.fb.group({
       item: [""],
       qty: [""],
+      rate:[""],
       uom: [""],
       price: [""],
     });
@@ -460,7 +477,29 @@ export class AddSalesInvoiceComponent implements OnInit {
 
   }
 
-
+  Qtycalculation(index:any){
+    let fetchAccHeadArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+    this.value1=fetchAccHeadArray.value[index].rate * Number(fetchAccHeadArray.value[index].qty);
+    fetchAccHeadArray.value[index].price=this.value1;
+    fetchAccHeadArray.at(index).patchValue({
+      price:this.checkIsNaN(parseFloat(this.value1)),
+    });
+  }
+  Amountcalculation(index:any){
+    let fetchAccHeadArray = this.docForm.controls.salesInvoiceDetail as FormArray;
+    this.value=fetchAccHeadArray.value[index].qty * Number(fetchAccHeadArray.value[index].rate);
+    fetchAccHeadArray.value[index].price=this.value;
+    fetchAccHeadArray.at(index).patchValue({
+      price:this.checkIsNaN(parseFloat(this.value)),
+    });
+  }
+  
+  checkIsNaN = function(value){
+    if(isNaN(value))
+        value = 0
+        
+    return value;
+  }
 }
 
 

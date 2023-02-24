@@ -53,7 +53,9 @@ export class AddSalesOrderComponent implements OnInit {
   customer: any;
   itemDropDown: [];
   uomDropDown: [];
-  
+  value: any;
+  value1: any;
+  currencyListbasedCompany=[];
 
   constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private commonService: CommonService,
     private salesInvoiceService: SalesInvoiceService,
@@ -125,6 +127,16 @@ export class AddSalesOrderComponent implements OnInit {
     error: (error) => {
     }
   });
+
+  ///////////////company based Currency List
+  this.httpService.get<any>(this.salesOrderService.getCompanyBasedCurrency + "?userId=" + (this.user)).subscribe({
+    next: (data) => {
+      this.currencyListbasedCompany = data.salesOrderBean;
+    },
+    error: (error) => {
+    }
+  });
+
 
   this.httpService.get<any>(this.salesInvoiceService.itemDropdown + "?companyId=" + (this.user)).subscribe({
     next: (data) => {
@@ -369,5 +381,37 @@ showNotification(colorName, text, placementFrom, placementAlign) {
     panelClass: colorName,
   });
 }
+Amountcalculation(index:any){
+  let fetchAccHeadArray = this.docForm.controls.salesOrderDtl as FormArray;
+  this.value=fetchAccHeadArray.value[index].qty * Number(fetchAccHeadArray.value[index].rate);
+  fetchAccHeadArray.value[index].price=this.value;
+  fetchAccHeadArray.at(index).patchValue({
+    price:this.checkIsNaN(parseFloat(this.value)),
+  });
+}
 
+Qtycalculation(index:any){
+  let fetchAccHeadArray = this.docForm.controls.salesOrderDtl as FormArray;
+  this.value1=fetchAccHeadArray.value[index].rate * Number(fetchAccHeadArray.value[index].qty);
+  fetchAccHeadArray.value[index].price=this.value1;
+  fetchAccHeadArray.at(index).patchValue({
+    price:this.checkIsNaN(parseFloat(this.value1)),
+  });
+}
+
+checkIsNaN = function(value){
+  if(isNaN(value))
+      value = 0
+      
+  return value;
+}
+
+
+keyPressNumeric1(event: any) {
+  const pattern = /[0-9]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
 }
