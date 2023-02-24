@@ -96,7 +96,7 @@ export class AddManageAuditComponent implements OnInit {
       });
   
       this.Formdoc = this.fb.group({
-        auditId: ["", [Validators.required]],
+        auditId: [""],
         startDate: ["", [Validators.required]],
         startDateObj: [""],
         endDate: ["", [Validators.required]],

@@ -98,6 +98,16 @@ export class AddScheduldauitsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.roleId=this.tokenStorage.getRoleId();
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getassetnameAudit+"?companyId="+this.companyId).subscribe({
+        next: (data) => {
+        this.assetDropdownList = data;
+      },
+      error: (error) => {
+      }
+    });
   this.route.params.subscribe(params => {
     if(params.id!=undefined && params.id!=0){
      this.requestId = params.id;
@@ -105,15 +115,7 @@ export class AddScheduldauitsComponent implements OnInit {
      this.fetchDetails(this.requestId);
     }
   });
-  this.roleId=this.tokenStorage.getRoleId();
-  this.companyId=this.tokenStorage.getCompanyId();
-  this.httpService.get<any>(this.commonService.getassetnameAudit+"?companyId="+this.companyId).subscribe({
-      next: (data) => {
-      this.assetDropdownList = data;
-    },
-    error: (error) => {
-    }
-  });
+ 
 
   // Status dropdown
   this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
@@ -125,6 +127,16 @@ export class AddScheduldauitsComponent implements OnInit {
     }
   }
   );
+}
+
+dropDownList(){
+  this.httpService.get<any>(this.commonService.getassetnameAudit+"?companyId="+this.companyId).subscribe({
+    next: (data) => {
+    this.assetDropdownList = data;
+  },
+  error: (error) => {
+  }
+});
 }
 
   onSubmit(status: String) {
@@ -197,6 +209,7 @@ export class AddScheduldauitsComponent implements OnInit {
 
   
   fetchDetails(id: any): void {
+    this.dropDownList();
     const obj = {
       editId: id,
       companyId: this.tokenStorage.getCompanyId()

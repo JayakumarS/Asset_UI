@@ -36,6 +36,7 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter {
     const obj = {
       companyId: this.tokenStorage.getCompanyId(),
       branchId: this.tokenStorage.getBranchId(),
+      roleId: this.tokenStorage.getRoleId()
     }
     this.roleId=this.tokenStorage.getRoleId();
     this.subs.sink = this.httpService.post<any>(this.getAllMasters, obj).subscribe(
