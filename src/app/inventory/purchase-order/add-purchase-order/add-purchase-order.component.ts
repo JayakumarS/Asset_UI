@@ -67,6 +67,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   discountTypeList: [];
   itemList:[];
   categoryList:[];
+  locationDdList:[];
 
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   companyId: any;
@@ -198,7 +199,9 @@ export class AddPurchaseOrderComponent implements OnInit {
          (err: HttpErrorResponse) => {
            // error code here
          }
-       );
+       );    
+
+       this.fetchLocation();
 
     //Discount Type List 
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 28).subscribe({
@@ -358,6 +361,20 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
   }
+
+   // Location dropdown
+   fetchLocation(){
+    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.locationDdList = data;
+      },
+      error: (error) => {
+  
+      }
+    }
+    );
+   }
+   
 
   update() {
     if (this.docForm.valid) {

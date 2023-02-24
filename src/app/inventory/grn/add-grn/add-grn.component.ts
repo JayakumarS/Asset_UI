@@ -59,6 +59,7 @@ export class AddGrnComponent implements OnInit {
   requestId: any;
   companyId: any;
   purchaseTypeList:[];
+  locationDdList:[];
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -144,6 +145,8 @@ export class AddGrnComponent implements OnInit {
        }
      });
 
+     this.fetchLocation();
+
     //Item Master Dropdown List
     this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
       next: (data) => {
@@ -173,6 +176,19 @@ export class AddGrnComponent implements OnInit {
       }
     });
   }
+
+  //Company Based Location
+  fetchLocation(){
+    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.locationDdList = data;
+      },
+      error: (error) => {
+  
+      }
+    }
+    );
+   }
 
   onSubmit() {
     if (this.docForm.valid) {
