@@ -14,7 +14,7 @@
                 <div class="row" style="padding-left: 10%;">
                   <div class=" col-md-1">
                         <label style="margin-top: 11px;">BRANCH</label>
-                    </div> 
+                    </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <mat-select formControlName="branch">
@@ -36,7 +36,7 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                    </div> 
+                    </div>
 
                     <div class=" col-md-1">
                         <label style="margin-top: 11px;">ASSET NAME</label>
@@ -49,13 +49,13 @@
                                 </mat-option>
                               </mat-select>
                         </mat-form-field>
-                    </div> 
+                    </div>
                 </div>
 
                 <div class="row" style="padding-left: 10%;">
                   <div class=" col-md-1">
                       <label style="margin-top: 11px;">LOCATION</label>
-                    </div> 
+                    </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <mat-select tabindex="5" formControlName="location">
@@ -77,8 +77,8 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                    </div> 
-  
+                    </div>
+
                     <div class=" col-md-1">
                         <label style="margin-top: 11px;">PUT IN USE</label>
                     </div>
@@ -93,13 +93,13 @@
                                 [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
-                    </div> 
+                    </div>
                 </div>
 
                 <div class="row" style="padding-left: 10%;">
                   <div class=" col-md-1">
                       <label style="margin-top: 11px;">VENDOR</label>
-                    </div> 
+                    </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select tabindex="15" formControlName="vendor">
@@ -123,8 +123,8 @@
                             </mat-option>
                         </mat-select>
                         </mat-form-field>
-                    </div> 
-  
+                    </div>
+
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="padding-top: 15px;">
                         <mat-radio-group formControlName="financialYear" >
                           <mat-radio-button value="2023">CURRENT FY</mat-radio-button>
@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="row" > 
+                <div class="row" >
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <button (click) = "onSubmit()" class="btn-space" mat-raised-button
                       color="accent" style="margin-left: 43%;background-color: #34d034;">Submit</button>
@@ -144,7 +144,7 @@
 
                 <div class="tableBody">
                     <div class="table-responsive">
-        
+
                       <table class="table table-hover table-striped" style="width: 130%;">
                         <thead>
                           <tr>
@@ -180,8 +180,8 @@
                             <td>{{data.totalHoursUsage}}</td>
                           </tr>
                         </tbody>
-                      </table>  
-                      <div style="margin-left: 66%;">
+                      </table>
+                      <div style="margin-left: 40%;">
                         <pagination-controls (pageChange)="pageChanged=($event)"></pagination-controls>
                       </div>
                     </div>
