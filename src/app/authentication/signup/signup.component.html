@@ -56,11 +56,11 @@
               <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Website</mat-label>
-                  <input matInput formControlName="webSite" required>
+                  <input matInput formControlName="webSite" >
                   <mat-icon matSuffix>website</mat-icon>
-                  <mat-error *ngIf="authForm.get('webSite').hasError('required')">
+                  <!-- <mat-error *ngIf="authForm.get('webSite').hasError('required')">
                     Please enter a valid Website url
-                  </mat-error>
+                  </mat-error> -->
                 </mat-form-field>
               </div>
             </div>
