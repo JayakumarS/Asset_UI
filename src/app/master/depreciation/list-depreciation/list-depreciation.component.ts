@@ -33,7 +33,7 @@ export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter imple
     "name",
     "code",
     "isactiveForList",
-    "actions",
+     "actions",
 
   ];
 
@@ -85,15 +85,18 @@ export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter imple
       }
     });
     this.loadData();
+    this.load();
   }
 
   refresh(){
     this.loadData();
   }
-
+load(){
+  this.router.navigate(['/master/depreciation/list-depreciation']);
+}
 
   public loadData() {
-    this.exampleDatabase = new DepreciationService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new DepreciationService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,

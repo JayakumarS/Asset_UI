@@ -69,7 +69,7 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
   }
 
   addItem(itemMaster: ItemMaster): Observable<any> {
-    return this.httpClient.post<ItemMaster>(this.saveItemMaster, itemMaster);
+    return this.httpClient.post<any>(this.saveItemMaster, itemMaster);
   }
 
   editItem(obj: any): Observable<any> {

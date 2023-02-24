@@ -29,7 +29,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./list-uom-category.component.sass']
 })
 export class ListUOMCategoryComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-  displayedColumns = [ "categoryName", "description","category", "actions"];
+  displayedColumns = [ "categoryName", "description","actions"];
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: UomCategoryService | null;

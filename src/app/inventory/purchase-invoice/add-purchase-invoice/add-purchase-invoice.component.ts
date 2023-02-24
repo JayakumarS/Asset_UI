@@ -13,6 +13,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { GrnService } from '../../grn/grn.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PurchaseOrderService } from '../../purchase-order/purchase-order.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -56,6 +58,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   vendorList = [];
   grnNumberList = [];
   locationList = [];
+  itemList:[];
+  companyId:any;
+  locationDdList:[];
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -67,6 +72,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
+    public purchaseOrderService: PurchaseOrderService,
     private grnService: GrnService) {
 
     this.docForm = this.fb.group({
@@ -116,6 +122,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       error: (error) => {
       }
     });
+
+    this.fetchItem(this.tokenStorage.getCompanyId());
+    this.fetchLocation();
 
     //Vendor  Dropdown List
     this.httpService.get<any>(this.commonService.getVendorDropdown+"?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
@@ -258,7 +267,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
             let arraylen = purchaseInvoiceDtlArray.length;
             let newUsergroup: FormGroup = this.fb.group({
-              itemId: [element.itemId],
+              itemId: [element.itemId+""],
               unitPrice: [Number(element.unitPrice).toFixed(2)],
               receivingQty: [element.receivingQty]
             })
@@ -414,6 +423,30 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     purchaseInvoiceDtlArray.removeAt(index);
   }
 
+     //Comapny Based Item
+     fetchItem(CompanyId:any):void {
+      this.httpService.get(this.purchaseOrderService.fetchItem + "?company=" + CompanyId).subscribe((res: any) => {
+        this.itemList = res.itemList;
+       },
+         (err: HttpErrorResponse) => {
+           // error code here
+         }
+       );
+    }
+
+    //Company Based Location
+    fetchLocation(){
+     this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.locationDdList = data;
+      },
+      error: (error) => {
+  
+      }
+    }
+    );
+   }
+
   getGRNDetails(GRNID: number) {
     if (GRNID != undefined && GRNID != null) {
       this.spinner.show();
@@ -421,6 +454,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         next: (res: any) => {
           this.spinner.hide();
           if (res.success) {
+            this.docForm.patchValue({
+              'total': res.grnDetailList[0].unitPrice,
+              'vendorId': res.grn.vendorId,
+            })
             if (res.grnDetailList != null && res.grnDetailList.length >= 1) {
               let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
               purchaseInvoiceDtlArray.clear();
@@ -428,7 +465,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
                 let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
                 let arraylen = purchaseInvoiceDtlArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
-                  itemId: [element.itemId],
+                  itemId: [element.itemId+""],
                   unitPrice: [element.unitPrice],
                   receivingQty: [element.receivingQty]
                 })

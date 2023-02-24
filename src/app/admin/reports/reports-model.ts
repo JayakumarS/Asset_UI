@@ -23,7 +23,7 @@ export class Reportscategory{
   depreciationMethod: number;
   assetLocation: number;
   categoryId:  number;
-
+  companyId:any;
 
     constructor(reportscategory) {
         {

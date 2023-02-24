@@ -7,6 +7,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { DepreciationMaster } from '../depreciation-model';
 import { DepreciationService } from '../depreciation.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-depreciation',
@@ -23,13 +24,14 @@ export class AddDepreciationComponent implements OnInit {
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
     private snackBar:MatSnackBar,
     public route: ActivatedRoute,private depreciationService: DepreciationService,
-    private router:Router) { 
+    private router:Router,private tokenStorage: TokenStorageService,) { 
 
     this.docForm = this.fb.group({
       name: ["", [Validators.required]],
       code: [""],
       active:[true],
       id:[""],
+      companyId:this.tokenStorage.getCompanyId(),
 
       manageLineDtlObjBean: this.fb.array([
         this.fb.group({
@@ -167,6 +169,8 @@ fetchDetails(depreciation: any): void {
       'name': res.depreciationBean.name,
       'code': res.depreciationBean.code,
       'active' : res.depreciationBean.active, 
+      'companyId' : res.depreciationBean.companyId
+
       // 'percentage' : res.depreciationList[0].manageLineDtlObjBean[0].percentage,
       // 'remarks' : res.depreciationList[0].manageLineDtlObjBean[0].remarks
 

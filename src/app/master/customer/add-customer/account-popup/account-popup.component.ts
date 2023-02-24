@@ -6,6 +6,7 @@ import { CustomerService } from '../../customer.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonService } from 'src/app/common-service/common.service';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 
@@ -18,6 +19,7 @@ export class AccountPopupComponent implements OnInit {
   docForm: FormGroup;
   customerMaster: any;
   countryList = [];
+  countrybasedStateList=[];
   stateDdList = [];
   ifscForm: FormGroup;
 
@@ -29,7 +31,8 @@ export class AccountPopupComponent implements OnInit {
               private httpService: HttpServiceService,
               private commonService: CommonService,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              public dialogRef: MatDialogRef<AccountPopupComponent>, ) {
+              public dialogRef: MatDialogRef<AccountPopupComponent>, 
+              private tokenStorageService:TokenStorageService) {
                 this.docForm = this.fb.group({
       bankName: [""],
       accType: [""],
@@ -64,27 +67,30 @@ export class AccountPopupComponent implements OnInit {
     });
   
     // country dropdown
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
-      next: (data) => {
-        this.countryList = data;
-      },
-      error: (error) => {
+    
+    this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+ this.tokenStorageService.getCompanyId()).subscribe((res: any) => {
+    //   next: (data) => {
+    //     this.countryList = data;
+    //   },
+    //   error: (error) => {
 
-      }
-    });
+    //   }
+    // });
+    this.countryList = res;
+  });
+  
 
  // State dropdown
-    this.httpService.get<any>(this.commonService.getStateDropdown).subscribe({
-  next: (data) => {
-    this.stateDdList = data;
-  },
-  error: (error) => {
-
-  }
-});
+ 
 
 
   }
+  fetchCountryBasedState(country:any){
+    this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
+      this.countrybasedStateList = res;
+    })
+  }
+  
   zipcodevalidation1(event:any){
     if(event.length != 6){ 
       this.docForm.controls['zip'].setErrors({ shipper: true });

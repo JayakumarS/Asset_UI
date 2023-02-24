@@ -143,7 +143,7 @@
                                 (dateChange)="getDateString($event, 'eddDate',0)" required>
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
-                                <mat-error *ngIf="docForm.get('eddDate').hasError('required')">
+                                <mat-error *ngIf="docForm.get('eddDateObj').hasError('required')">
                                     EDD is required
                                 </mat-error>
 

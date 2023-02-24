@@ -28,7 +28,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 export class ListItemCategoryComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     "categoryName",
-    "parentCategoryName",
+    // "parentCategoryName",
     "categoryTypeName",
     "actions",
   ];
@@ -214,8 +214,8 @@ export class ExampleDataSource extends DataSource<ItemCategory> {
           .slice()
           .filter((itemCategory: ItemCategory) => {
             const searchStr = (
-              itemCategory.categoryName +
-              itemCategory.parentCategoryName +
+              itemCategory.itemName +
+              itemCategory.itemCategory +
               itemCategory.categoryTypeName
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;

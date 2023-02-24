@@ -57,6 +57,9 @@ export class AddGrnComponent implements OnInit {
   itemCodeNameList = [];
   edit: boolean = false;
   requestId: any;
+  companyId: any;
+  purchaseTypeList:[];
+  locationDdList:[];
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -132,19 +135,30 @@ export class AddGrnComponent implements OnInit {
 
 
 
-    //Location Dropdown List
-    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-      next: (data) => {
-        this.locationList = data;
-      },
-      error: (error) => {
-      }
-    });
+     //Location Dropdown List
+     this.companyId=this.tokenStorage.getCompanyId(),
+     this.httpService.get<any>(this.commonService.getLocationDropdown+"?companyId="+this.companyId).subscribe({
+       next: (data) => {
+         this.locationList = data;
+       },
+       error: (error) => {
+       }
+     });
+
+     this.fetchLocation();
 
     //Item Master Dropdown List
     this.httpService.get<any>(this.commonService.getItemMasterDropdown).subscribe({
       next: (data) => {
         this.itemCodeNameList = data;
+      },
+      error: (error) => {
+      }
+    });
+
+    this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 12).subscribe({
+      next: (data) => {
+        this.purchaseTypeList = data;
       },
       error: (error) => {
       }
@@ -162,6 +176,19 @@ export class AddGrnComponent implements OnInit {
       }
     });
   }
+
+  //Company Based Location
+  fetchLocation(){
+    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.locationDdList = data;
+      },
+      error: (error) => {
+  
+      }
+    }
+    );
+   }
 
   onSubmit() {
     if (this.docForm.valid) {
@@ -424,7 +451,7 @@ export class AddGrnComponent implements OnInit {
                 'vendorCity': res.purchaseOrder.vendorCity,
                 'vendorState': res.purchaseOrder.vendorState,
                 'vendorCountry': res.purchaseOrder.vendorCountry,
-                'deliveryLocId': res.purchaseOrder.destinationLocation
+                // 'deliveryLocId': res.purchaseOrder.destinationLocation
               })
             }
             if (res.purchaseOrderDetailList != null && res.purchaseOrderDetailList.length >= 1) {

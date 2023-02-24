@@ -32,7 +32,7 @@ export class DiscardAssetService  extends UnsubscribeOnDestroyAdapter  {
 
 // private saveDiscard = `${this.serverUrl.apiServerAddress}api/auth/app/assetMaster/saveAsset`; 
 
-private saveDiscard = `${this.serverUrl.apiServerAddress}api/auth/app/discardAsset/save`;
+public saveDiscard = `${this.serverUrl.apiServerAddress}api/auth/app/discardAsset/save`;
 
 // addDiscard(discardAsset: DiscardAsset): Observable<any> {
 //   return this.httpClient.post<DiscardAsset>(this.saveDiscard, discardAsset);
@@ -40,7 +40,7 @@ private saveDiscard = `${this.serverUrl.apiServerAddress}api/auth/app/discardAss
 
 addDiscard(discardAsset: DiscardAsset): void {
   this.dialogData = discardAsset;  
-  this.httpService.post<DiscardAsset>(this.saveDiscard, discardAsset).subscribe(data => {
+  this.httpService.post<any>(this.saveDiscard, discardAsset).subscribe(data => {
     console.log(data);
     //this.dialogData = employees;
     },

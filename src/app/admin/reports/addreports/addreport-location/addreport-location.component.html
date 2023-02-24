@@ -1,12 +1,10 @@
-    <mat-tab-group >
-
-     <mat-tab label=" ">
+   
         <form class="m-4" [formGroup]="docForm">
         <div class="rowtab" >
        <div class="row">
 
 <div class="col-xl-3 col-lg- col-md-12 col-sm-12" style="margin-left: 5px;">
-<label>Asset Location</label>
+<label>ASSET LOCATION</label>
 </div>
 <div class="col-md-2 " style="margin-left: 5px;">
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -21,7 +19,7 @@ location is required
 
 </mat-form-field>
 </div>
-<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;margin-top: 32px;">
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-top: 6px;">
   <button  color="primary" type="button" class="btn-space" (click)="Search()"
     mat-raised-button>Search</button>
 </div>
@@ -106,6 +104,4 @@ location is required
  [pageSizeOptions]="[5, 10, 25, 100]">
 </mat-paginator>
 
-</mat-tab>
-</mat-tab-group>
 

@@ -10,6 +10,7 @@ export class StatusMaster {
   companyId:any;
   branchId:any;
   loginedUser:any;
+  countOfCompanyStatus:any;
   constructor(statusMaster) {
     {
       this.id = statusMaster.id ||"";

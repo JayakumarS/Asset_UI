@@ -44,7 +44,7 @@ export class AddUOMCategoryComponent implements OnInit {
       uomCode: [""],
       uomcategoryName:[""],
       loginedUser: this.tokenStorage.getUserId(),
-      company:["",[Validators.required]],
+      company:this.tokenStorage.getCompanyId(),
       branchname:["",[Validators.required]],
 
     });
@@ -95,7 +95,8 @@ export class AddUOMCategoryComponent implements OnInit {
 
     //   }
     // });
-
+    
+      //Company Based Uom
       this.httpService.get(this.uomCategoryService.fetchUomCategoryName + "?company=" + this.companyId).subscribe((res: any) => {
        this.categoryList = res.uomCategoryList;
       },

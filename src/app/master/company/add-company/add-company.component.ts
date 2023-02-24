@@ -60,13 +60,13 @@ export class AddCompanyComponent implements OnInit {
       emailId: ["", [Validators.required]],
       phoneCode: [""],
       telephoneNo: ["", [Validators.required]],
-      webSite: [""],
+      webSite: ["", Validators.pattern('(www)\\.([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
       panNo: ["", Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
       gstNo: ["", Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')],
       ifscCode: ["", Validators.pattern('[A-Za-z]{4}[0-9]{7}')],
       country: ["", [Validators.required]],
       isactive: [true],
-      //address:["",[Validators.required]],
+      // address:["",[Validators.required]],
       // personIncharge:["",[Validators.required]],
       companyId: [""],
       userId: [""],
@@ -86,15 +86,15 @@ export class AddCompanyComponent implements OnInit {
       branchCount: [""],
       branchList: this.fb.array([
         this.fb.group({
-          branch: '',
-          branchName: '',
-          branchCode: '',
-          branchAddress: '',
-          branchCountry: '',
-          branchState: '',
-          branchCity: '',
-          branchZipcode: '',
-          branchPhoneNo: '',
+          branch: [""],
+          branchName: [""],
+          branchCode: [""],
+          branchAddress: [""],
+          branchCountry: [""],
+          branchState: [""],
+          branchCity: [""],
+          branchZipcode: [""],
+          branchPhoneNo: [""],
         })
       ]),
     });
@@ -104,7 +104,8 @@ export class AddCompanyComponent implements OnInit {
     this.userId = this.tokenStorage.getUserId();
 
     // Country dropdown
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+    this.companyId=0;
+    this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
       next: (data) => {
         this.countryDdList = data;
       },
@@ -283,21 +284,21 @@ export class AddCompanyComponent implements OnInit {
   addBranch() {
 
     if ((parseInt(this.docForm.value.branchCount)) > this.docForm.controls.branchList.value.length) {
-      for (let i = 0; i < this.docForm.value.branchCount - this.docForm.controls.branchList.value.length; i++) {
+      for (let i = 0; i < this.docForm.value.branchCount - this.docForm.controls.branchList.value.length; ) {
         if ((parseInt(this.docForm.value.branchCount) - this.docForm.controls.branchList.value.length) <= 10) {
           this.flag = true;
           let branchListDetailArray = this.docForm.controls.branchList as FormArray;
           let arraylen = this.docForm.value.branchCount - this.docForm.controls.branchList.value.length;
           let newUsergroup: FormGroup = this.fb.group({
-            branch: '',
-            branchName: '',
-            branchCode: '',
-            branchAddress: '',
-            branchCountry: '',
-            branchState: '',
-            branchCity: '',
-            branchZipcode: '',
-            branchPhoneNo: '',
+            branch: [""],
+            branchName: [""],
+            branchCode: [""],
+            branchAddress: [""],
+            branchCountry: [""],
+            branchState: [""],
+            branchCity: [""],
+            branchZipcode: [""],
+            branchPhoneNo: [""],
           })
           // this.removeRow(i)
           branchListDetailArray.insert(arraylen + 1, newUsergroup);
@@ -417,13 +418,13 @@ export class AddCompanyComponent implements OnInit {
         isactive: [true],
         companyId: [""],
         userId: [""],
-  
+
         addressOne: [""],
         addressOneCountry: [""],
         addressOneState: [""],
         addressOneCity: [""],
         addressOneZipCode: [""],
-  
+
         addressTwo: [""],
         addressTwoCountry: [""],
         addressTwoState: [""],
@@ -432,15 +433,15 @@ export class AddCompanyComponent implements OnInit {
         branchCount: [""],
         branchList: this.fb.array([
           this.fb.group({
-            branch: '',
-            branchName: '',
-            branchCode: '',
-            branchAddress: '',
-            branchCountry: '',
-            branchState: '',
-            branchCity: '',
-            branchZipcode: '',
-            branchPhoneNo: '',
+            branch:[""],
+            branchName:[""],
+            branchCode:[""],
+            branchAddress:[""],
+            branchCountry:[""],
+            branchState:[""],
+            branchCity:[""],
+            branchZipcode:[""],
+            branchPhoneNo:[""],
           })
         ]),
       })

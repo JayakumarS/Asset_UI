@@ -85,7 +85,7 @@ export class ListCategoryComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new CategoryMasterService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new CategoryMasterService(this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -217,7 +217,8 @@ export class ExampleDataSource extends DataSource<Assetcategory> {
               assetcategory.categoryName +
               assetcategory.Description +
              assetcategory.parentCategory +
-             assetcategory.isactive
+             assetcategory.isactive +
+             assetcategory.countOfCategory
 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -258,6 +259,10 @@ export class ExampleDataSource extends DataSource<Assetcategory> {
 
           case "isactive":
           [propertyA,propertyB]=[a.isactive,b.isactive];
+          break;
+
+          case "countOfCategory":
+          [propertyA,propertyB]=[a.countOfCategory,b.countOfCategory];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

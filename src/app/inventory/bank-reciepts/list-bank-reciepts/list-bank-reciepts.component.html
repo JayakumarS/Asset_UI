@@ -50,29 +50,28 @@
                 </div>
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell"
                   #exporter="matTableExporter" [hiddenColumns]="[5]">
-               
-  
                   <ng-container matColumnDef="voucherNo">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Voucher No </mat-header-cell>
                     <mat-cell *matCellDef="let row"   (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.voucherNo}}</mat-cell>
                   </ng-container>
+                  <ng-container matColumnDef="userCompanyName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Company Name </mat-header-cell>
+                    <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.userCompanyName}}</mat-cell>
+                  </ng-container>
+
                   <ng-container matColumnDef="chequeDate">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Cheque Date </mat-header-cell>
                     <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.chequeDate}}</mat-cell>
                   </ng-container>
   
-                  <ng-container matColumnDef="Payment">
+                  <ng-container matColumnDef="payment">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Bank/Cash</mat-header-cell>
-                    <mat-cell *matCellDef="let row"   (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.Payment}}</mat-cell>
+                    <mat-cell *matCellDef="let row"   (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.payment}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="chequeno">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Cheque No</mat-header-cell>
-                      <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.chequeno}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="companyname">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Company name </mat-header-cell>
-                      <mat-cell *matCellDef="let row"  (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.companyname}}</mat-cell>
-                    </ng-container>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Cheque No</mat-header-cell>
+                    <mat-cell *matCellDef="let row"   (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.chequeno}}</mat-cell>
+                  </ng-container>
                   <!-- actions -->
                   <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>

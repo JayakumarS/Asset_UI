@@ -43,7 +43,7 @@ export class ListAssetHistoryReportComponent implements OnInit {
   assetHistoryReport: AssetHistoryReport;
   categoryDdList=[];
 
-  companyId: string;
+  cmpId: string;
   branchList = [];
   categoryList = [];
   locationDdList = [];
@@ -82,7 +82,8 @@ export class ListAssetHistoryReportComponent implements OnInit {
         financialYear:[""],
         putInUse:[""],
         putInUseobj:[""],
-        assetOwner:[""]
+        assetOwner:[""],
+        companyId:this.tokenStorage.getCompanyId()
       }); 
   }
 
@@ -95,10 +96,10 @@ export class ListAssetHistoryReportComponent implements OnInit {
      });
 
      // Getting company id
-     this.companyId=this.tokenStorage.getCompanyId();
+     this.cmpId=this.tokenStorage.getCompanyId();
 
      //Branch List
-     this.httpService.get<any>(this.commonService.getBranchByCompany+"?companyId="+this.companyId).subscribe({
+     this.httpService.get<any>(this.commonService.getBranchByCompany+"?companyId="+this.cmpId).subscribe({
       next: (data) => {
         this.branchList = data.addressBean;
       },
@@ -147,7 +148,7 @@ export class ListAssetHistoryReportComponent implements OnInit {
     );
 
     //Asset Name List
-    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.companyId).subscribe(
+    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.cmpId).subscribe(
       (data) => {
         this.assetListDashboard = data.assetListDashboard;
       },

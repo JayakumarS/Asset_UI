@@ -18,10 +18,20 @@
                     <label >COUNTRY CODE<span class="errorColor">*</span></label>
                  </div>
                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="!edit">
                     <input matInput formControlName="countryCode" (blur)="validateCountryCode($event.target.value)"
                       maxlength="3" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()" required>
+                    <mat-error *ngIf="docForm.get('countryCode').hasError('required')">
+                      Country code is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('countryCode').hasError('country')">
+                      Country code is Already Exists...!!
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
+                    <input matInput formControlName="countryCode" (blur)="validateCountryCodeForEdit($event.target.value)"
+                      maxlength="3" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()" readonly required>
                     <mat-error *ngIf="docForm.get('countryCode').hasError('required')">
                       Country code is required
                     </mat-error>
@@ -36,7 +46,7 @@
                  </div>
 
                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
-                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                 <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="!edit">
                   <input matInput formControlName="countryName" (blur)="validateCountryName($event.target.value)"
                   maxlength="30" (keypress)="string($event)" oninput="this.value = this.value.toUpperCase()" required>
                   <mat-error *ngIf="docForm.get('countryName').hasError('required')">
@@ -46,6 +56,17 @@
                     Country Name Already Exists !!!
                     </mat-error>
                   </mat-form-field>
+
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
+                    <input matInput formControlName="countryName" (blur)="validateCountryNameForEdit($event.target.value)"
+                    maxlength="30" (keypress)="string($event)" oninput="this.value = this.value.toUpperCase()" readonly required>
+                    <mat-error *ngIf="docForm.get('countryName').hasError('required')">
+                      Country Name is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.controls['countryName'].hasError('country') ">
+                      Country Name Already Exists !!!
+                      </mat-error>
+                    </mat-form-field>
                  </div>
 
 

@@ -66,7 +66,8 @@ import { DeletePurchaseInvoiceComponent } from './list-purchase-invoice/delete-p
     ComponentsModule,
     SharedModule,
     MatAutocompleteModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
   ]
 })
 export class PurchaseInvoiceModule { }

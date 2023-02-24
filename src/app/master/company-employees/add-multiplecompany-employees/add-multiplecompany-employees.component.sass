@@ -1,0 +1,51 @@
+.table thead tr th 
+    padding: 0 0
+    height: 30px
+    vertical-align: middle
+    background-color: rgb(96 125 139 / 82%)
+    color: rgb(252, 248, 248)
+    font-weight: bold
+    font-size:15px
+    font-style:normal
+    text-indent: 4px
+    /* line-height: 1.8; */
+  
+
+
+    /* border-left: 0 solid rgb(136, 139, 136); */
+  
+
+    .table tbody tr td 
+    padding: 7px
+    border-top: 1px solid #eee
+    border-bottom: 1px solid #eee
+    vertical-align: middle
+    font-weight:70
+    border-radius: 0.25rem
+
+.mat-tab-label
+  background:aqua
+  color: blue
+  width: 60px
+  height: 50px
+  font-size: 20px
+  
+.mat-tab-group.mat-primary .mat-ink-bar
+  background: brown
+  height: 5px
+  overflow-x:hidden
+
+
+:host::ng-deep.mat-tab-body-content 
+    height: 100%
+    overflow: hidden !important
+
+
+
+
+::ng-deep.mat-tab-label.mat-tab-label-active:not(.mat-tab-disabled),
+::ng-deep.mat-tab-label.mat-tab-label-active.cdk-keyboard-focused:not(.mat-tab-disabled)
+  background-color: #3964f3
+
+  color: white
+  opacity: 1

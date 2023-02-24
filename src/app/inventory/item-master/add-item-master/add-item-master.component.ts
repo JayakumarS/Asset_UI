@@ -31,6 +31,8 @@ export class AddItemMasterComponent implements OnInit {
   pricingTypeList = [];
   companyId: any;
   branchId: any;
+  product:Boolean=false;
+  locationDdList:[];
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -48,52 +50,114 @@ export class AddItemMasterComponent implements OnInit {
 
   ngOnInit() {
     
+    // this.docForm = this.fb.group({
+    //   itemId: [""],
+    //   itemType: ["", [Validators.required]],
+    //   itemName: ["", [Validators.required]],
+    //   itemCode: ["", [Validators.required]],
+    //   itemDescription: [""],
+    //   itemCategory: ["", [Validators.required]],
+    //   loginedUser: this.tokenStorage.getUserId(),
+    //   company:this.tokenStorage.getCompanyId(),
+    //   branchname:this.tokenStorage.getBranchId(),
+
+    //   // Inventory
+    //   inventoryValuation: [""],
+    //   issueMethod: [""],
+
+    //   // Attribute
+    //   batchNo: false,
+    //   expiryDate: false,
+    //   mrp: false,
+    //   manufactureDetails: false,
+
+    //   //specification 
+    //   specificationList: this.fb.array([
+    //     this.fb.group({
+    //       dynamicAttributeId: '',
+    //       text: '',
+    //       typeinput: '',
+    //       labelName: '',
+    //       defaultvalue: '',
+    //       dynamicAttributeValue: '',
+    //     })
+    //   ]),
+
+    //   //Vendor
+    //   vendorList: this.fb.array([
+    //     this.fb.group({
+    //       vendorId: '',
+    //       vendorItemCode: '',
+    //       vendorItemName: '',
+    //       vendorminimumQty: '',
+    //       vendorUomId: '',
+    //       deliveryLeadTime: '',
+    //       pricingType: '',
+    //     })
+    //   ]),
+
+    // });
     this.docForm = this.fb.group({
-      itemId: [""],
-      itemType: ["", [Validators.required]],
+      size:[""],
+      remarks:[],
+      itemId:[""],
       itemName: ["", [Validators.required]],
-      itemCode: ["", [Validators.required]],
-      itemDescription: [""],
+      itemDescription: ["", [Validators.required]],
+      itemType: ["", [Validators.required]],
       itemCategory: ["", [Validators.required]],
+      location:[""],
+      saleable: [""],
+      purchaseable: [""],
+      purchaseReq:[""],
+      costingMethod:[""],
+      costPrice:[""],
+      warranty:[""],
+      leadTime:[""],
+      purchaseMethod:[""],
+      purchaseUom:[""],
+      reorderLevel:[""],
+      minimumQty:[""],
+      maximumQty:[""],
+      vendorId: [""],
+      empId: this.tokenStorage.getUserId(),
       loginedUser: this.tokenStorage.getUserId(),
       company:this.tokenStorage.getCompanyId(),
       branchname:this.tokenStorage.getBranchId(),
-
-      // Inventory
-      inventoryValuation: [""],
-      issueMethod: [""],
-
-      // Attribute
-      batchNo: false,
-      expiryDate: false,
-      mrp: false,
-      manufactureDetails: false,
-
-      //specification 
-      specificationList: this.fb.array([
+     //GRN
+       batchNo:[""], 
+       mrp:[""],
+       expiryDate:[""],
+       manufactureDetails:[""],
+      //INVENTORY
+       inventoryValuation:[""], 
+       issueMethod:[""],
+       openingBalance:[""],
+       defaultPrice:[""],
+       itemCode: [""],
+     //Vendor 
+     vendorList: this.fb.array([
         this.fb.group({
-          dynamicAttributeId: '',
-          text: '',
-          typeinput: '',
-          labelName: '',
-          defaultvalue: '',
-          dynamicAttributeValue: '',
+          itemId:'',
+         vendorName:'',
+         vendorItemName:'',
+         vendorItemCode:'',
+         itemCode: '',
+         itemName:'',
+         vendorminimumQty:'',
+         vendorUom:'',
+         deliveryLeadTime:'',
+         pricingType:'',
+         vendorId:["", [Validators.required]]
         })
-      ]),
-
-      //Vendor
-      vendorList: this.fb.array([
+       ]),
+       productDetailBean: this.fb.array([
         this.fb.group({
-          vendorId: '',
-          vendorItemCode: '',
-          vendorItemName: '',
-          vendorminimumQty: '',
-          vendorUomId: '',
-          deliveryLeadTime: '',
-          pricingType: '',
+          itemId:'',        
+         itemCode: '',
+         itemName:'',   
+         itemDescription:''     
         })
-      ]),
-
+       ])
     });
     this.companyId = this.tokenStorage.getCompanyId();
     console.log(this.companyId)
@@ -111,14 +175,28 @@ export class AddItemMasterComponent implements OnInit {
       error: (error) => {
       }
     });
+
+    this.fetchItem();
     //Category Dropdown List
-    this.httpService.get<any>(this.itemMasterService.getItemCategoryDropdown+"?companyId="+this.tokenStorage.getCompanyId()).subscribe({
+
+    // this.httpService.get<any>(this.itemMasterService.getItemCategoryDropdown+"?companyId="+this.tokenStorage.getCompanyId()).subscribe({
+    //   next: (data) => {
+    //     this.categoryList = data.itemCategory;
+    //   },
+    //   error: (error) => {
+    //   }
+    // });
+
+    //Company Based Loation
+    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
-        this.categoryList = data.itemCategory;
+        this.locationDdList = data;
       },
       error: (error) => {
+
       }
-    });
+    }
+    );
     //inventoryValuvation Dropdown List
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 9).subscribe({
       next: (data) => {
@@ -173,6 +251,9 @@ export class AddItemMasterComponent implements OnInit {
   onSubmit() {
     if (this.docForm.valid) {
       this.itemMaster = this.docForm.value;
+      // const obj={
+      //   itemType:this.docForm.value.itemType
+      // }
       this.spinner.show();
       this.itemMasterService.addItem(this.itemMaster).subscribe({
         next: (data) => {
@@ -214,26 +295,42 @@ export class AddItemMasterComponent implements OnInit {
     }
   }
 
+  fetchItem():void {
+    this.httpService.get<any>(this.itemMasterService.getItemCategoryDropdown+"?companyId="+this.tokenStorage.getCompanyId()).subscribe({
+      next: (data) => {
+        this.categoryList = data.itemCategory;
+      },
+      error: (error) => {
+      }
+    })
+  }
+
 
   fetchDetails(id: any): void {
     const obj = {
       editId: id
     }
     this.spinner.show();
+    this.fetchItem();
+    
     this.itemMasterService.editItem(obj).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         this.docForm.patchValue({
           'itemId': res.itemMaster.itemId,
-          'itemType': res.itemMaster.itemType,
+          'itemType': res.itemMaster.itemType+"",
           'itemName': res.itemMaster.itemName,
           'itemCode': res.itemMaster.itemCode,
           'itemDescription': res.itemMaster.itemDescription,
           'itemCategory': res.itemMaster.itemCategory,
+          'size' : res.itemMaster.size,
+          'remarks' : res.itemMaster.remarks,
+          'openingBalance' : res.itemMaster.openingBalance,
+          'defaultPrice' : res.itemMaster.defaultPrice,
 
           // Inventory
-          'inventoryValuation': res.itemMaster.inventoryValuation,
-          'issueMethod': res.itemMaster.issueMethod,
+          'inventoryValuation': res.itemMaster.inventoryValuation+"",
+          'issueMethod': res.itemMaster.issueMethod+"",
 
           // Attribute
           'batchNo': res.itemMaster.batchNo,
@@ -273,7 +370,7 @@ export class AddItemMasterComponent implements OnInit {
               vendorminimumQty: [element.vendorminimumQty],
               vendorUomId: [element.vendorUomId],
               deliveryLeadTime: [element.deliveryLeadTime],
-              pricingType: [element.pricingType]
+              pricingType: [element.pricingType+""]
             })
             vendorListDetailArray.insert(arraylen, newUsergroup);
           });

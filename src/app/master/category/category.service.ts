@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { serverLocations } from "src/app/auth/serverLocations";
+import { TokenStorageService } from "src/app/auth/token-storage.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { CategoryResultBean } from "./category-result-bean";
 import { Assetcategory } from "./category.model";
@@ -24,7 +25,7 @@ export class CategoryMasterService extends UnsubscribeOnDestroyAdapter {
     // Temporarily stores data from dialogs
     dialogData: any;
     assetcategory:Assetcategory;
-    constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService) {
+    constructor(private httpClient: HttpClient, private serverUrl:serverLocations, private httpService:HttpServiceService,public tokenStorage: TokenStorageService) {
       super();
     }
    public getcategory = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/getList`;
@@ -50,7 +51,8 @@ get data(): Assetcategory[] {
 
     /** CRUD METHODS */
     getAllList(): void {
-        this.subs.sink = this.httpService.get<CategoryResultBean>(this.getcategory).subscribe(
+      let companyId=this.tokenStorage.getCompanyId();
+        this.subs.sink = this.httpService.get<CategoryResultBean>(this.getcategory+"?companyId="+companyId).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.categoryMasterDetails);

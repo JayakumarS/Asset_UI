@@ -24,6 +24,7 @@ export class AddStateMasterComponent implements OnInit {
   spinner: any;
   state_id:number;
   state: string;
+  companyId: any;
 
 
 
@@ -43,13 +44,19 @@ export class AddStateMasterComponent implements OnInit {
         country:[""],
         isactive:[true],
         loginedUser: this.tokenStorage.getUserId(),
+        companyId:this.tokenStorage.getCompanyId()
 
       });
      }
 
   ngOnInit(): void {
 
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+    this.companyId=this.tokenStorage.getCompanyId();
+    if(this.companyId==undefined || this.companyId=="null" || this.companyId==null){
+    this.companyId=0;
+    }
+
+    this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
       next: (data) => {
         this.countryList = data;
       },
@@ -66,11 +73,11 @@ export class AddStateMasterComponent implements OnInit {
        this.fetchDetails(this.requestId) ;
       }
      });
-
+   
   }
   onSubmit(){
     if(this.docForm.valid){
-      this.docForm.value.userId = this.tokenStorage.getUserId();
+    this.docForm.value.userId = this.tokenStorage.getUserId();
     this.stateMaster = this.docForm.value;
     console.log(this.stateMaster);
 
@@ -106,6 +113,7 @@ export class AddStateMasterComponent implements OnInit {
           'stateCode': res.stateBean.stateCode,
           'country': res.stateBean.country,
           'isactive' : res.stateBean.isactive,
+          'companyId' : res.stateBean.companyId,
         })
       },
       error: (error) => {

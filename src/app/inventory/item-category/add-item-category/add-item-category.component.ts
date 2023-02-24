@@ -46,31 +46,33 @@ export class AddItemCategoryComponent implements OnInit {
 
     this.docForm = this.fb.group({
       itemCategoryId: [""],
-      categoryName: ["", [Validators.required]],
-      parentCategoryId: [""],
-      categoryTypeId: ["", [Validators.required]],
-      qualityCheck: true,
+      itemName : ["", [Validators.required]],
+      itemCategory:[""],
+      active: [true],
+      // parentCategoryId: [""],
+      // categoryTypeId: [""],
+      // qualityCheck : true,
       // salesTaxesId: ["", [Validators.required]],
       // purchaseTaxesId: ["", [Validators.required]],
       // incomeAccountId: ["", [Validators.required]],
       // expenseAccountId: ["", [Validators.required]],
-      batchNo: false,
-      mrp: false,
-      expiryDate: false,
-      manufactureDetails: false,
+      // batchNo: false,
+      // mrp: false,
+      // expiryDate: false,
+      // manufactureDetails: false,
       loginedUser: this.tokenStorage.getUserId(),
       company:this.tokenStorage.getCompanyId(),
       branchname:this.tokenStorage.getBranchId(),
 
 
-      itemCategoryDetailList: this.fb.array([
-        this.fb.group({
-          dynamicAttributeId: ["", [Validators.required]],
-          propertyType: [""],
-          length: [""],
-          isMandatory: [""],
-        })
-      ])
+      // itemCategoryDetailList: this.fb.array([
+      //   this.fb.group({
+      //     dynamicAttributeId: [""],
+      //     propertyType: [""],
+      //     length: [""],
+      //     isMandatory: [""],
+      //   })
+      // ])
 
     });
   }
@@ -221,7 +223,8 @@ export class AddItemCategoryComponent implements OnInit {
         this.spinner.hide();
         this.docForm.patchValue({
           'itemCategoryId': res.itemCategory.itemCategoryId,
-          'categoryName': res.itemCategory.categoryName,
+          'itemName': res.itemCategory.itemName,
+          'itemCategory' : res.itemCategory.itemCategory,
           'parentCategoryId': res.itemCategory.parentCategoryId,
           'categoryTypeId': res.itemCategory.categoryTypeId,
           'qualityCheck': res.itemCategory.qualityCheck,

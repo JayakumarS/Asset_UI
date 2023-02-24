@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { Authentication } from "../authentication-model";
@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
   hide = true;
   chide = true;
   authentication : Authentication;
+  companyId: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +38,10 @@ export class SignupComponent implements OnInit {
       companyName: ["", Validators.required],
       emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       telephoneNo:[ "",[Validators.required,  Validators.minLength(5)],],
-      webSite: ["", Validators.required],
+      webSite: ['', [
+        Validators.required,
+        Validators.pattern (/^https?:\/\/.+$/)
+      ]],
       country: ["", Validators.required],
       address:[""],
       contactPerson:["",Validators.required],
@@ -47,7 +51,8 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
 
           // Location dropdown
-          this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+          this.companyId=0;
+          this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
             next: (data) => {
               this.countryDdList = data;
             },
@@ -134,4 +139,14 @@ export class SignupComponent implements OnInit {
       event.preventDefault();
     }
   }
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z,' ']/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  
 }

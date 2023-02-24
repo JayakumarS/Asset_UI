@@ -76,7 +76,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getCurrencyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCurrencyDropdown`;
 
-  public getCountryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryDropdown`;
+ public getCountryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryDropdown`;
 
   public getassetname = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getassetname`;
 
@@ -192,6 +192,15 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getCountryCodeDropdown= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountryCodeDropdown`;
 
   public getEmployeebyCompany = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getEmployeebyCompany`;
+
+  public getCountrycompanyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCountrycompanyDropdown`;
+  
+  // Company based validation 
+  public uniqueValidateCompanyBasedUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUniqueCopmanyBased`;
+
+  // Company based validation For Edit
+  public uniqueValidateCompanyBasedForEditUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUniqueCopmanyBasedForEdit`;
+
   //FOR DOCUMENT VIEW ADDED BY Gokul
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");

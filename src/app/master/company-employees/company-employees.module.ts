@@ -28,6 +28,7 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DeleteCompanyEmpComponent } from './list-company-employees/delete-company-emp/delete-company-emp.component';
 import { AddMultiplecompanyEmployeesComponent } from './add-multiplecompany-employees/add-multiplecompany-employees.component';
+import { CompanyemployeeUploadErrorComponent } from './companyemployee-upload-error/companyemployee-upload-error.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { AddMultiplecompanyEmployeesComponent } from './add-multiplecompany-empl
     ListCompanyEmployeesComponent,
     DeleteCompanyEmpComponent,
     AddMultiplecompanyEmployeesComponent,
+    CompanyemployeeUploadErrorComponent,
     
   ],
   imports: [

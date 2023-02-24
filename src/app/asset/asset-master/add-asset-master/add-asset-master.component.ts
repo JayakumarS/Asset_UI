@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -58,6 +58,7 @@ export class AddAssetMasterComponent
   agree3 = false;
   dropdownList = [];
   submitted: boolean = false;
+  uploadFlag: boolean = false;
   assetMaster: AssetMaster;
   categoryList = [];
   locationDdList = [];
@@ -108,6 +109,7 @@ export class AddAssetMasterComponent
     public grnService: GrnService,
     private tokenStorage: TokenStorageService,
     private userMasterService: UserMasterService,
+    public el: ElementRef,
 
   ) {
     super();
@@ -116,7 +118,7 @@ export class AddAssetMasterComponent
       //info
       assetName: ["", [Validators.required]],
       assetCode: [""],
-      location: ["", [Validators.required]],
+      location: [""],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
       putUseDate: [moment().format('DD/MM/YYYY')],
@@ -170,7 +172,7 @@ export class AddAssetMasterComponent
       //tab5
       assetMasterBean: this.fb.array([
         this.fb.group({
-          assName: [""],
+          assName: ["",[Validators.required]],
           assCode: [""],
           assLocation: [""],
           assCategory: [""],
@@ -211,7 +213,7 @@ export class AddAssetMasterComponent
       grnBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],
-          isAuditable: [""],
+          // isAuditable: [""],
           assetName: [""],
           assetCode: [""],
           location: [""],
@@ -503,16 +505,16 @@ export class AddAssetMasterComponent
             this.showNotification(
               "snackbar-success",
               "Record Added successfully...",
-              "bottom",
-              "center"
+              "top",
+              "right"
             );
             this.onCancel();
           } else {
             this.showNotification(
               "snackbar-danger",
               "Not Added...!!!",
-              "bottom",
-              "center"
+              "top",
+              "right"
             );
           }
         },
@@ -521,12 +523,21 @@ export class AddAssetMasterComponent
           this.showNotification(
             "snackbar-danger",
             error.message + "...!!!",
-            "bottom",
-            "center"
+            "top",
+            "right"
           );
         }
       });
     } else {
+
+      // if (!this.docForm.valid) {
+      //   if (this.docForm.controls.assetMasterBean['assName'].invalid) {
+      //     const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'assName' + '"]');
+      //     invalidControl.focus();
+      //     return;
+      //   }
+      // }
+
       this.showNotification(
         "snackbar-danger",
         "Please fill all the required details!",
@@ -579,16 +590,16 @@ export class AddAssetMasterComponent
             this.showNotification(
               "snackbar-success",
               "Edit Record Successfully",
-              "bottom",
-              "center"
+              "top",
+              "right"
             );
             this.onCancel();
           } else {
             this.showNotification(
               "snackbar-danger",
               "Not Updated Successfully...!!!",
-              "bottom",
-              "center"
+              "top",
+              "right"
             );
           }
         },
@@ -597,8 +608,8 @@ export class AddAssetMasterComponent
           this.showNotification(
             "snackbar-danger",
             error.message + "...!!!",
-            "bottom",
-            "center"
+            "top",
+            "right"
           );
         }
       });
@@ -820,8 +831,8 @@ export class AddAssetMasterComponent
         this.showNotification(
           "black",
           "Edit Record Successfully...!!!",
-          "bottom",
-          "center"
+          "top",
+          "right"
         );
       }
     });
@@ -932,7 +943,7 @@ export class AddAssetMasterComponent
     let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
     let arraylen = dtlArray.length;
     let newUsergroup: FormGroup = this.fb.group({
-      assName: [""],
+      assName: ["",[Validators.required]],
       assCode: [""],
       assLocation: [""],
       assCategory: [""],
@@ -963,8 +974,8 @@ export class AddAssetMasterComponent
       this.grnFlag = true;
       this.docForm.controls.grnId.setValidators(Validators.required);
       this.docForm.controls['grnId'].updateValueAndValidity();
-      this.docForm.controls.isAuditable.clearValidators();
-      this.docForm.controls['isAuditable'].updateValueAndValidity();
+      // this.docForm.controls.isAuditable.clearValidators();
+      // this.docForm.controls['isAuditable'].updateValueAndValidity();
       this.docForm.controls.assetName.clearValidators();
       this.docForm.controls['assetName'].updateValueAndValidity();
       this.docForm.controls.assetCode.clearValidators();
@@ -980,13 +991,13 @@ export class AddAssetMasterComponent
       this.grnFlag = false;
       this.docForm.controls.grnId.clearValidators();
       this.docForm.controls['grnId'].updateValueAndValidity();
-      this.docForm.controls.isAuditable.setValidators(Validators.required);
-      this.docForm.controls['isAuditable'].updateValueAndValidity();
+      // this.docForm.controls.isAuditable.setValidators(Validators.required);
+      // this.docForm.controls['isAuditable'].updateValueAndValidity();
       this.docForm.controls.assetName.setValidators(Validators.required);
       this.docForm.controls['assetName'].updateValueAndValidity();
       this.docForm.controls.assetCode.setValidators(Validators.required);
       this.docForm.controls['assetCode'].updateValueAndValidity();
-      this.docForm.controls.location.setValidators(Validators.required);
+      this.docForm.controls.location.setValidators;
       this.docForm.controls['location'].updateValueAndValidity();
       this.docForm.controls.category.setValidators(Validators.required);
       this.docForm.controls['category'].updateValueAndValidity();
@@ -1010,8 +1021,8 @@ export class AddAssetMasterComponent
       this.showNotification(
         "snackbar-danger",
         "Invalid Image type",
-        "bottom",
-        "center"
+        "top",
+        "right"
       );
       return;
     }
@@ -1019,8 +1030,8 @@ export class AddAssetMasterComponent
       this.showNotification(
         "snackbar-danger",
         "Please upload valid image with less than 2mb",
-        "bottom",
-        "center"
+        "top",
+        "right"
       );
       return;
     }
@@ -1039,13 +1050,15 @@ export class AddAssetMasterComponent
               'uploadImg': data.filePath
             })
             this.imgPathUrl = data.filePath;
+            this.uploadFlag=true;
+
           }
         } else {
           this.showNotification(
             "snackbar-danger",
             "Failed to upload Image",
-            "bottom",
-            "center"
+            "top",
+            "right"
           );
         }
       },
@@ -1053,8 +1066,8 @@ export class AddAssetMasterComponent
         this.showNotification(
           "snackbar-danger",
           "Failed to upload Image",
-          "bottom",
-          "center"
+          "top",
+          "right"
         );
       }
     });
@@ -1063,13 +1076,14 @@ export class AddAssetMasterComponent
 
   //FOR DOCUMENT UPLOAD ADDED BY Gokul
   onSelectFile(event) {
+    
     var docfile = event.target.files[0];
     if (!this.acceptFileTypes.includes(docfile.type)) {
       this.showNotification(
         "snackbar-danger",
         "Invalid Image type",
-        "bottom",
-        "center"
+        "top",
+        "right"
       );
       return;
     }
@@ -1077,8 +1091,8 @@ export class AddAssetMasterComponent
       this.showNotification(
         "snackbar-danger",
         "Please upload valid image with less than 5mb",
-        "bottom",
-        "center"
+        "top",
+        "right"
       );
       return;
     }
@@ -1096,13 +1110,14 @@ export class AddAssetMasterComponent
               'uploadFiles': data.filePath
             })
             this.filePathUrl = data.filePath;
+            this.uploadFlag=true;
           }
         } else {
           this.showNotification(
             "snackbar-danger",
             "Failed to upload File",
-            "bottom",
-            "center"
+            "top",
+            "right"
           );
         }
       },
@@ -1110,8 +1125,8 @@ export class AddAssetMasterComponent
         this.showNotification(
           "snackbar-danger",
           "Failed to upload File",
-          "bottom",
-          "center"
+          "top",
+          "right"
         );
       }
     });
@@ -1154,8 +1169,8 @@ export class AddAssetMasterComponent
                 let arraylen = grnBasedAssetArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
                   itemId: [element.itemId],
-                  isAuditable: [element.isAuditable],
-                  assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+                  // isAuditable: [element.isAuditable],
+                  assetName: ["", [Validators.required]],
                   assetCode: [""],
                   location: ["", [Validators.required]],
                   category: ["", [Validators.required]],
@@ -1188,16 +1203,16 @@ export class AddAssetMasterComponent
             this.showNotification(
               "snackbar-success",
               "Record Added successfully...",
-              "bottom",
-              "center"
+              "top",
+              "right"
             );
             this.onCancel();
           } else {
             this.showNotification(
               "snackbar-danger",
               "Not Added...!!!",
-              "bottom",
-              "center"
+              "top",
+              "right"
             );
           }
         },
@@ -1206,8 +1221,8 @@ export class AddAssetMasterComponent
           this.showNotification(
             "snackbar-danger",
             error.message + "...!!!",
-            "bottom",
-            "center"
+            "top",
+            "right"
           );
         }
       });
@@ -1242,7 +1257,7 @@ export class AddAssetMasterComponent
   resetSelf(){
     this.docForm = this.fb.group({
 
-      assetName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+      assetName: ["", [Validators.required]],
       assetCode: [""],
       location: ["",[Validators.required]],
       category: ["", [Validators.required]],
@@ -1298,7 +1313,7 @@ export class AddAssetMasterComponent
       //tab5
       assetMasterBean: this.fb.array([
         this.fb.group({
-          assName: [""],
+          assName: ["",[Validators.required]],
           assCode: [""],
           assLocation: [""],
           assCategory: [""],
@@ -1339,7 +1354,7 @@ export class AddAssetMasterComponent
       grnBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],
-          isAuditable: [""],
+          // isAuditable: [""],
           assetName: [""],
           assetCode: [""],
           location: [""],

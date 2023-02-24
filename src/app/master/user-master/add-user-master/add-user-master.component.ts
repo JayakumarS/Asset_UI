@@ -70,7 +70,7 @@ export class AddUserMasterComponent implements OnInit {
       empid: [""],
       active: [true],
       branch: [""],
-      auditor: ["true"],
+      auditor: [""],
       companyid:[""],
       branchid:[""],
       address:[""],
@@ -81,7 +81,7 @@ export class AddUserMasterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fieldsChange(this.docForm.value.auditor);
+    
     this.route.params.subscribe(params => {
       if (params.id != undefined && params.id != 0) {
         this.requestId = params.id;
@@ -150,7 +150,11 @@ export class AddUserMasterComponent implements OnInit {
       );
 
          // Country dropdown
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+         this.companyId=this.tokenStorage.getCompanyId();
+         if(this.companyId==undefined || this.companyId=="null" || this.companyId==null){
+          this.companyId=0;
+         }
+    this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
       next: (data) => {
         this.getCountryDDList = data;
       },
@@ -318,7 +322,7 @@ export class AddUserMasterComponent implements OnInit {
   }
 
   fieldsChange(values:any):void {
-    if(values.checked==true){
+    if(values){
       this.auditorFlag=false;
       this.auditorFFlag=false;
 
@@ -326,9 +330,8 @@ export class AddUserMasterComponent implements OnInit {
       this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
         (data) => {
           this.roleAuditList = data.roleAuditList;
-          this.docForm.patchValue({
-            role:'3',
-         })
+          this.roleList=[{id:'3',text:'CHECKER'}];
+          this.docForm.patchValue({role:'3'});
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
@@ -345,21 +348,28 @@ export class AddUserMasterComponent implements OnInit {
           console.log(error.name + " " + error.message);
         }
       );
-    }else if(values.checked==false){
+    }else{
       this.auditorFlag = true;
       this.auditorFFlag = true;
 
-
-
-      this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
+      this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
         (data) => {
-          this.roleAuditList = data.roleAuditList;
-
+          this.roleList = data.roleList;
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
         }
       );
+
+      // this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
+      //   (data) => {
+      //     this.roleAuditList = data.roleAuditList;
+
+      //   },
+      //   (error: HttpErrorResponse) => {
+      //     console.log(error.name + " " + error.message);
+      //   }
+      // );
     }
 
   }
@@ -372,20 +382,21 @@ export class AddUserMasterComponent implements OnInit {
       console.log(empid);
       if(res.userMasterBean.auditor == true){
                this.auditorFlag=false;
-               this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
-                (data) => {
-                  this.roleList = data.roleList;
-                  if(this.roleId==1){
-                      this.roleList=[{id:'3',text:'CHECKER'}];
-                      this.docForm.patchValue({role:'3'});
-                    }
+               this.fieldsChange(true);
+              //  this.httpService.get<any>(this.userMasterService.roleListUrl).subscribe(
+              //   (data) => {
+              //     this.roleList = data.roleList;
+              //     if(this.roleId==1){
+              //         this.roleList=[{id:'3',text:'CHECKER'}];
+              //         this.docForm.patchValue({role:'3'});
+              //       }
 
 
-                },
-                (error: HttpErrorResponse) => {
-                  console.log(error.name + " " + error.message);
-                }
-              );
+              //   },
+              //   (error: HttpErrorResponse) => {
+              //     console.log(error.name + " " + error.message);
+              //   }
+              // );
 
       }else{
         this.auditorFlag=true;

@@ -115,7 +115,7 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
+      if (result === 0) {
         this.refreshTable();
         this.showNotification(
           "black",

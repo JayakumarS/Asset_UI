@@ -70,6 +70,9 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
       this.contextMenu.menu.focusFirstItem("mouse");
       this.contextMenu.openMenu();
     }
+    load(){
+      this.router.navigate(['/master/cityMaster/listCity']);
+     }
     public loadData() {
       this.exampleDatabase = new CityService (this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
       this.dataSource = new ExampleDataSource(
@@ -85,7 +88,9 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
           this.dataSource.filter = this.filter.nativeElement.value;
         }
       );
+      
     }
+  
     editCall(row){
     this.router.navigate(['/master/cityMaster/addCity/'+row.city_id]);
     }

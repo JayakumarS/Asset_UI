@@ -32,7 +32,7 @@ export class AddBranchComponent implements OnInit {
   string:any;
   public modeselect = '1';
   CountryCodeList=[];
-
+  companyId: string
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
     private httpService: HttpServiceService,
@@ -69,7 +69,8 @@ export class AddBranchComponent implements OnInit {
     this.userId = this.tokenStorage.getUserId();
 
     // Country dropdown
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+    this.companyId = this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getCountryDropdown + "?companyId=" + this.companyId).subscribe({
       next: (data) => {
         this.countryDdList = data;
       },
@@ -79,8 +80,8 @@ export class AddBranchComponent implements OnInit {
     }
     );
 
-
-    this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
+    this.companyId = this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getLocationDropdown + "?companyId=" + this.companyId).subscribe({
       next: (data) => {
         this.locationDdList = data;
       },
@@ -88,8 +89,8 @@ export class AddBranchComponent implements OnInit {
 
       }
     });
-
-    this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe({
+    this.companyId = this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getCompanyDropdown + "?companyId=" + this.companyId).subscribe({
       next: (data) => {
         this.companyList = data;
       },
@@ -98,8 +99,8 @@ export class AddBranchComponent implements OnInit {
       }
     });
 
-
-    this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
+    this.companyId = this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?companyId=" + this.companyId).subscribe(
       (data) => {
         this.branchList = data.getuserBasedBranchDDList;
       },
@@ -117,7 +118,8 @@ export class AddBranchComponent implements OnInit {
       }
      });
  // Country Code Dropdown List
- this.httpService.get<any>(this.commonService.getCountryCodeDropdown).subscribe({
+
+ this.httpService.get<any>(this.commonService.getCountryCodeDropdown ).subscribe({
   next: (data) => {
     this.CountryCodeList = data;
   },
@@ -128,17 +130,20 @@ export class AddBranchComponent implements OnInit {
 );
   }
 
+   fetchCountryBasedState(country: any): void {
+    this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
+      this.countrybasedStateList = res;
+    })
+  }
+
   stateBasedCity(state: any) {
+   
     this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
       this.stateBasedCityList = res;
     })
   }
 
-  fetchCountryBasedState(country: any): void {
-    this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
-      this.countrybasedStateList = res;
-    })
-  }
+ 
 
 
 
@@ -173,11 +178,12 @@ export class AddBranchComponent implements OnInit {
   fetchDetails(id: any): void {
     this.httpService.get(this.branchService.editBranchMaster+"?id="+id).subscribe((res: any)=> {
       console.log(id);
-      console.log(res);
+    
      this.edit = true;
      this.fetchCountryBasedState( res.branchbean.addressOneCountry);
      this.stateBasedCity(res.branchbean.addressOneState);
-     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?userId=" + this.userId).subscribe(
+     this.userId = this.tokenStorage.getCompanyId();
+     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?companyId=" + this.companyId).subscribe(
       (data) => {
         this.branchList = data.getuserBasedBranchDDList;
       },
@@ -202,7 +208,8 @@ export class AddBranchComponent implements OnInit {
       'telephoneNo' :  res.branchbean.telephoneNo,
       'addressOne' :  res.branchbean.addressOne,
       'phoneCode' :  res.branchbean.phoneCode,
-      'branchHead' :  res.branchbean.branchHead+"",
+      'branchHead' :  res.branchbean.branchHead,
+      'branchId':id
    })
       },
       (err: HttpErrorResponse) => {

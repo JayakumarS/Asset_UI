@@ -62,6 +62,8 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   stateBasedCityList1:[];
   countrybasedStateList2:[];
   stateBasedCityList2:[];
+  companyId: any;
+
   constructor(private fb: FormBuilder,
               private httpService: HttpServiceService,
               private snackBar: MatSnackBar,
@@ -205,13 +207,11 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
 
 
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
-      next: (data) => {
-        this.countryDdList = data;
-      },
-      error: (error) => {
-      }
-    });
+    this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+ this.tokenStorageService.getCompanyId()).subscribe((res: any) => {
+        this.countryDdList = res;
+      });
+      
+  
 
     // Location dropdown
     this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
@@ -236,14 +236,14 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
 
 
 // country dropdown
-    this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
-  next: (data) => {
-    this.countryDdList = data;
-  },
-  error: (error) => {
+//     this.httpService.get<any>(this.commonService.getCountryDropdown).subscribe({
+//   next: (data) => {
+//     this.countryDdList = data;
+//   },
+//   error: (error) => {
 
-  }
-});
+//   }
+// });
 
 
   }
@@ -683,6 +683,31 @@ openPopupContactDetails() {
 removeRow(index) {
   let contactDetailArray = this.docForm.controls.contactDetail as FormArray;
   contactDetailArray.removeAt(index);
+}
+getAuditor(data:any){
+  var a=this.tokenStorageService.getCompanyId();
+  this.companyId=parseInt(this.tokenStorageService.getCompanyId());
+  this.httpService.get<any>(this.customerService.getAuditor + "?requestId=" + data+"&companyId="+this.companyId).subscribe(
+    (data6) => {
+      if(data6.customerBean.count==0){
+       
+
+      }else{
+        this.showNotification(
+          "snackbar-danger",
+          "Auditor Name  is already used",
+          "top",
+          "right"
+        );
+        this.docForm.patchValue({
+          'auditorname': "",
+
+        });      }
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+    )
 }
 
 openPopupAccountDetails() {

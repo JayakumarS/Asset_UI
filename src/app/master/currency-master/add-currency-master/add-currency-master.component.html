@@ -17,18 +17,26 @@
                     <mat-label >CURRENCY CODE<span class="errorColor">*</span></mat-label>
                     </div>
                      <div class=" col-md-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="currencyCode" *ngIf="edit == false"  maxlength="3" [ngModel]="value"
-                      (ngModelChange)="value=$event.toUpperCase()" (keypress)="string($event)"(blur)="validateCurrencyCode($event.target.value)"
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="!edit">
+                      <input matInput formControlName="currencyCode"   maxlength="3" [ngModel]="value"
+                      (ngModelChange)="value=$event.toUpperCase()" (keypress)="string($event)" (blur)="validateCurrencyCode($event.target.value)"
                       required>
-                      <input matInput formControlName="currencyCode"required *ngIf="edit == true" readonly>
-
                       <mat-error *ngIf="docForm.get('currencyCode').hasError('required')">
                         Currency Code Name is required
                       </mat-error> <mat-error *ngIf="docForm.get('currencyCode').hasError('currency')">
                         Currency code Already Exists !!!
                       </mat-error>
                     </mat-form-field>
+
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
+                      <input matInput formControlName="currencyCode"required  readonly>
+                      <mat-error *ngIf="docForm.get('currencyCode').hasError('required')">
+                        Currency Code Name is required
+                      </mat-error> <mat-error *ngIf="docForm.get('currencyCode').hasError('currency')">
+                        Currency code Already Exists !!!
+                      </mat-error>
+                    </mat-form-field>
+
                   </div>
                   <div class=" col-md-2">
                     <mat-label >CURRENCY NAME<span class="errorColor">*</span></mat-label>

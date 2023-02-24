@@ -7,7 +7,7 @@
       </div>
       <style>
         b{
-            font-size: 13px;
+            font-size: 12px;
         }
         .detailTab{
           display: flex;
@@ -27,7 +27,7 @@
               <div class="row" style="padding: 3px;">
                   <!-- <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"> -->
                   <div style="display: contents;">
-                    <mat-label style="margin-left: 9px;"><b>Asset Code :</b></mat-label>
+                    <mat-label style="margin-left: 9px;"><b>ASSET CODE :</b></mat-label>
                   <!-- </div> -->
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
                       <input matInput formControlName="assetCode" readonly>                                                       
@@ -35,20 +35,20 @@
                 </div>
     
                 <div style="display: contents;">
-                    <mat-label><b>Asset Name :</b></mat-label>
+                    <mat-label><b>ASSET NAME :</b></mat-label>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
                       <input matInput formControlName="assetName" readonly>                                                       
                   </div>  
                 </div>
 
                   <div style="display: contents;">
-                    <mat-label><b>Sold Value :</b></mat-label>
+                    <mat-label><b>SOLD VALUE :</b></mat-label>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
                       <input matInput formControlName="soldValue" readonly>                                                       
                   </div>  
                 </div>
                 <div style="display: contents;">
-                  <mat-label><b>Purchase Price :</b></mat-label>
+                  <mat-label><b>PURCHASE PRICE :</b></mat-label>
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
                     <input matInput formControlName="purchasePrice" readonly>                                                       
                 </div>  
@@ -74,7 +74,7 @@
             </div>
 
                 <div style="display: contents;">
-                  <mat-label style="margin-left: -16.5px;"><b>Location :</b></mat-label>
+                  <mat-label style="margin-left: -7px;"><b>Location :</b></mat-label>
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
                     <input matInput formControlName="location" readonly>                                                       
                 </div>   
@@ -165,7 +165,7 @@
                       <mat-label><b>Discard Date</b></mat-label>
                       <input matInput [matDatepicker]="picker" formControlName="discardDateobj" required
                         (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardDate" 
-                        (dateChange)="getDateString($event, 'discardDate')"> 
+                        (dateChange)="getDateString($event, 'discardDate',0)"> 
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error *ngIf="docForm.get('discardDateobj').hasError('required')">

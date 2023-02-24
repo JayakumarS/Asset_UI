@@ -51,7 +51,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
     private snackBar: MatSnackBar,
     public router: Router,) {
     this.docForm = this.fb.group({
-      company:[""],
+       company:[""],
       branch:[""],
       role:[""],
       emailId:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
@@ -61,11 +61,9 @@ export class AddCompanyEmployeesComponent implements OnInit {
       active:[true],
       id:[""],
       empid:["",[Validators.required]],
-
       // userId: this.tokenStorage.getUserId(),
       companyId:this.tokenStorage.getCompanyId(),
       // companyName:this.tokenStorage.getCompanyText(),
-
       branchId:this.tokenStorage.getBranchId(),
 
     });
