@@ -11,14 +11,18 @@
             <div class="card pageproperty">
               <div class="body " style="padding-left: 135px;">
                 <form class="m-4" [formGroup]="docForm">
-                  <div class="row" *ngIf="roleIdFlag">
+                  <div class="row" >
                   <div class=" col-md-2">
                     <mat-label >IS AUDITOR</mat-label></div>
                   <div class=" col-md-3">
-                     <mat-checkbox  ngInit="checked=true"  formControlName="auditor" (change)="fieldsChange($event)"   STYLE="margin-left: 10px;"></mat-checkbox>
+                     <mat-checkbox   formControlName="auditor" (change)="fieldsChange($event.checked)"   
+                     STYLE="margin-left: 10px;" *ngIf="edit == false"></mat-checkbox>
+                     <mat-checkbox   formControlName="auditor"   
+                     STYLE="margin-left: 10px;" *ngIf="edit == true" (click)="$event.preventDefault()"></mat-checkbox>
                   </div>
                   </div>
-                  <br *ngIf="roleIdFlag">
+                  <br >
+                  
                   <div class="row">
                     <div class=" col-md-2">
                       <mat-label >FULL NAME<span class="errorColor">*</span></mat-label>
