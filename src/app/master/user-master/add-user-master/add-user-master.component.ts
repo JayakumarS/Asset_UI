@@ -38,6 +38,7 @@ export class AddUserMasterComponent implements OnInit {
   userId:any;
   auditorFlag:boolean=false;
   auditorFFlag:boolean=false;
+  public modeselect = 'English';
 
 
 
