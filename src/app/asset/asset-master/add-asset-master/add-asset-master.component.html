@@ -392,18 +392,18 @@
 
                             </div>
                             
-                                  <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
-                                    <input type="checkbox"  tabindex="8"  formControlName="isLine" (change)="getInLine($event.target.checked)" >
+                                  <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12" style="margin-left: -5%;">
+                                    <input type="checkbox"   tabindex="8"  formControlName="isLine" (change)="getInLine($event.target.checked)" >
                                 </div>
 
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: -5%;">
                                     <mat-label>IS AUDITABLE ?  </mat-label>
                                   </div>
-                                  <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12" style="margin-left: -5%;">
+                                  <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12" style="margin-left: -7%;">
                                     <input type="checkbox"  tabindex="8"  formControlName="isAuditable">
                                 </div>
 
-                                <div class="col-md-2" style="margin-left: -1%;">
+                                <div class="col-md-2" style="margin-left: -3%;">
                                      <mat-label>ASSET IMAGE <span class="errorColor">*</span></mat-label>
                                 </div>
                                            <div class="col-md-4" style="margin-left: -5%;">
@@ -770,7 +770,12 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left: 0%">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="20"  formControlName="currency" (keypress)="keyPressNumberDouble($event)" required>
+                                                        <mat-select tabindex="16" formControlName="currency" required>
+                                                            <mat-option *ngFor="let title of currencyListbasedCompany" [value]="title.id"  >
+                                                              {{title.text}}
+                                                            </mat-option>
+                                                          </mat-select>
+                                                        <!-- <input matInput tabindex="20"  formControlName="currency" (keypress)="keyPressNumberDouble($event)" required> -->
                                                         <mat-error *ngIf="docForm.get('currency').hasError('required')">
                                                             CURRENCY is required
                                                         </mat-error>

@@ -62,10 +62,12 @@ export class AddAssetMasterComponent
   uploadImage: boolean = false;
   assetMaster: AssetMaster;
   categoryList = [];
+  currencyListbasedCompany:[];
   locationDdList = [];
   departmentDdList = [];
   vendorDdList = [];
   requestId: any;
+  currencyList:[];
   edit: boolean = false;
   grnFlag: boolean = false;
   grnNumberList = [];
@@ -283,6 +285,16 @@ export class AddAssetMasterComponent
       }
     }
     );
+    this.companyId = this.tokenStorage.getCompanyId();
+
+    this.httpService.get<any>(this.assetService.getCompanyBasedCurrency + "?userId=" + (this.companyId)).subscribe({
+      next: (data) => {
+        this.currencyListbasedCompany = data.salesOrderBean;
+      },
+      error: (error) => {
+      }
+    });
+
 
      // Status dropdown
      this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
