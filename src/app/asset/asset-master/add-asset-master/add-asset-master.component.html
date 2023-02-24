@@ -365,7 +365,7 @@
                                   </div>
 
                                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label style="margin-left: 45%;">PUT  IN USE DATE <span class="errorColor">*</span></mat-label>
+                                    <mat-label style="margin-left: 30%;">PUT  IN USE DATE <span class="errorColor">*</span></mat-label>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -385,21 +385,21 @@
                                     <input type="checkbox"  tabindex="8"  formControlName="isLine" (change)="getInLine($event.target.checked)" >
                                 </div>
 
-                                <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label>Is Auditable ?  </mat-label>
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: -5%;">
+                                    <mat-label>IS AUDITABLE ?  </mat-label>
                                   </div>
-                                  <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
+                                  <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12" style="margin-left: -5%;">
                                     <input type="checkbox"  tabindex="8"  formControlName="isAuditable">
                                 </div>
 
-                                <div class="col-md-1">
-                                     <mat-label  >ASSET IMAGE <span class="errorColor">*</span></mat-label>
+                                <div class="col-md-2" style="margin-left: -1%;">
+                                     <mat-label>ASSET IMAGE <span class="errorColor">*</span></mat-label>
                                 </div>
-                                           <div class="col-md-4">
+                                           <div class="col-md-4" style="margin-left: -5%;">
                                             <app-file-upload appearance="outline" class="example-width form-control-sm" formControlName="uploadImg"
                                               (change)="onSelectImage($event)" ></app-file-upload>
-                                              <mat-error *ngIf="docForm.get('uploadFiles').hasError('required') && submitted &&  !uploadFlag">
-                                                Upload File is required
+                                              <mat-error *ngIf="docForm.get('uploadImg').hasError('required') && submitted &&  !uploadImage">
+                                                ASSET IMAGE is required
                                               </mat-error>
                                             </div>
                                          
@@ -419,10 +419,10 @@
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                     <mat-label   style="margin-left: 50%;">OWNERSHIP </mat-label>
                                   </div>
-                                  <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12">
-                                    <input type="radio" name="own"  tabindex="8"  formControlName="owned" value="owned" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;Owned
-                                    <input type="radio" name="own"  tabindex="8"  formControlName="rented" value="rented" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;Rented
-                                    <input type="radio" name="own"  tabindex="8"  formControlName="thirdParty" value="thirdParty" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;Lease/Third Party
+                                  <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12">
+                                    <input type="radio" name="own"  tabindex="8"  formControlName="owned" value="owned" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;OWNED
+                                    <input type="radio" name="own"  tabindex="8"  formControlName="rented" value="rented" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;RENTED
+                                    <input type="radio" name="own"  tabindex="8"  formControlName="thirdParty" value="thirdParty" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;LEASE/THIRD PARTY
 
                                 </div>
 
@@ -470,37 +470,37 @@
                                             <div class="row">
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Brand <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>BRAND <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                         <input matInput tabindex="9" formControlName="brand" (keypress)="keyPressName($event)" required>
                                                         <mat-error *ngIf="docForm.get('brand').hasError('required')">
-                                                            Brand is required
+                                                            BRAND is required
                                                           </mat-error>
                                                     </mat-form-field>
                                                 </div>
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Model <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>MODEL <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                         <input matInput tabindex="10" formControlName="model" (keypress)="keyPressNameNumber($event)" required>
                                                         <mat-error *ngIf="docForm.get('model').hasError('required')">
-                                                            Model is required
+                                                            MODEL is required
                                                           </mat-error>
                                                     </mat-form-field>
                                                 </div>
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Serial No <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>SERIAL NO <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                         <input matInput tabindex="11" formControlName="serialNo" (keypress)="keyPressNumberInt($event)" required>
                                                         <mat-error *ngIf="docForm.get('serialNo').hasError('required')">
-                                                            Serial No is required
+                                                            SERIAL NO is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -508,7 +508,7 @@
                                             <div class="row">
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Condition <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>CONDITION <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -536,7 +536,7 @@
                                                 </div>
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Linked Asset <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>LINKED ASSET <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -546,32 +546,96 @@
                                                         </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="docForm.get('linkedAsset').hasError('required')">
-                                                        Linked Asset is required
+                                                        LINKED ASSET is required
                                                     </mat-error>
                                                     </mat-form-field>
                                                 </div>
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Description <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>DESCRIPTION <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                         <input matInput tabindex="14" formControlName="description" required>
                                                         <mat-error *ngIf="docForm.get('description').hasError('required')">
-                                                            Description is required
+                                                            DESCRIPTION is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>GST <span class="errorColor">*</span></mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="14" formControlName="gst" required>
+                                                        <mat-error *ngIf="docForm.get('gst').hasError('required')">
+                                                            GST is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>   
+
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>CUSTOM DUTY <span class="errorColor">*</span></mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="14" formControlName="customDuty" required>
+                                                        <mat-error *ngIf="docForm.get('customDuty').hasError('required')">
+                                                            CUSTOM DUTY is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div> 
+                                                
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>OTHER TAXES <span class="errorColor">*</span></mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="14" formControlName="otherTaxes" required>
+                                                        <mat-error *ngIf="docForm.get('otherTaxes').hasError('required')">
+                                                            OTHER TAXES is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div> 
+                                            </div>
+
+
+                                        <div class="row">
+                                            <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                <mat-label>TRANSPORT <span class="errorColor">*</span></mat-label>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                    <input matInput tabindex="14" formControlName="transport" required>
+                                                    <mat-error *ngIf="docForm.get('transport').hasError('required')">
+                                                        TRANSPORT is required
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div> 
+
+                                            <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                <mat-label>INSTALLATION AND COMMISSION CHARGES <span class="errorColor">*</span></mat-label>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                    <input matInput tabindex="14" formControlName="instalAndCommission" required>
+                                                    <mat-error *ngIf="docForm.get('instalAndCommission').hasError('required')">
+                                                        INSTALLATION AND COMMISSION CHARGES is required
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div> 
+                                        </div>
     <div class="row">
        <div class="col-md-2">
-            <mat-label style="margin-left: 1%;">Upload File <span class="errorColor">*</span></mat-label>
+            <mat-label style="margin-left: 1%;">UPLOAD FILE <span class="errorColor">*</span></mat-label>
         </div>
                     <div class="col-md-5" style="margin-left: 0.5%;">
                       <app-file-upload class="example-width form-control-sm" formControlName="uploadFiles"
                         (change)="onSelectFile($event)" required></app-file-upload>
-                        <mat-error *ngIf="docForm.get('uploadFiles').hasError('required') && submitted &&  !uploadFlag">
-                            Upload File is required
+                        <mat-error *ngIf="docForm.get('uploadFiles').hasError('required') && submitted &&  !uploadFile">
+                            UPLOAD FILE is required
                         </mat-error>
                     </div>
 
@@ -591,7 +655,7 @@
 
                                             <div class="row">
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Vendor Name <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>VENDOR NAME <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -602,7 +666,7 @@
                                                             </mat-option>
                                                         </mat-select>
                                                         <mat-error *ngIf="docForm.get('vendor').hasError('required')">
-                                                            Description is required
+                                                            VENDOR NAME is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -611,10 +675,10 @@
                                                         <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i>
                                                       </button>
                                                 </div>
-                                                <div class="col-xl-1 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>PO Number <span class="errorColor">*</span></mat-label>
-                                                </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>PO NUMBER <span class="errorColor">*</span></mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left:-1;">
                                                     <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
                                                         <mat-select tabindex="16" formControlName="poNumber" required>
                                                             <mat-option *ngFor="let title of purchaseOrderNumber" [value]="title.text"  >
@@ -622,19 +686,19 @@
                                                             </mat-option>
                                                           </mat-select>
                                                           <mat-error *ngIf="docForm.get('poNumber').hasError('required')">
-                                                            PO Number is required
+                                                            PO NUMBER is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
 
                                                 <div class="col-xl-1 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Purchase Price <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>PURCHASE PRICE <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                         <input matInput tabindex="20" formControlName="purchasePrice" (keypress)="keyPressNumberDouble($event)" required>
                                                         <mat-error *ngIf="docForm.get('purchasePrice').hasError('required')">
-                                                            Purchase Price is required
+                                                            PURCHASE PRICE is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -643,7 +707,7 @@
                                             <div class="row">
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Invoice Date <span class="errorColor">*</span></mat-label>
+                                                    <mat-label>INVOICE DATE <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -656,7 +720,7 @@
                                                             [for]="picker"></mat-datepicker-toggle>
                                                         <mat-datepicker #picker></mat-datepicker>
                                                         <mat-error *ngIf="docForm.get('invoiceDateobj').hasError('required')">
-                                                            Invoice Date is required
+                                                            INVOICE DATE is required
                                                         </mat-error>
                                                     </mat-form-field>
 
@@ -664,28 +728,43 @@
                                                 <div class="col-xl-1">
 
                                                 </div>
-                                                <div class="col-xl-1 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Invoice Number <span class="errorColor">*</span></mat-label>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>INVOICE NUMBER <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                         <input matInput tabindex="19" maxlength="20" formControlName="invoiceNo" (keypress)="keyPressNameNumber($event)" required>
                                                         <mat-error *ngIf="docForm.get('invoiceNo').hasError('required')">
-                                                            Invoice Number is required
+                                                            INVOICE NUMBER is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
 
-                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-radio-group tabindex="17" formControlName="selfOrPartner" required>
-                                                        <mat-radio-button value="selfOwned">Self Owned <span class="errorColor">*</span></mat-radio-button>
-                                                        <mat-radio-button value="partner">Partner <span class="errorColor">*</span></mat-radio-button>
-                                                        <mat-error *ngIf="docForm.get('selfOrPartner').hasError('required') && submitted">
-                                                            Self Owned and Partner is required
-                                                        </mat-error>
+                                                        <mat-radio-button value="selfOwned">SELF OWNED <span class="errorColor">*</span></mat-radio-button>
+                                                        <mat-radio-button value="partner">PARTNER <span class="errorColor">*</span></mat-radio-button>
+                                                        
                                                     </mat-radio-group>
+                                                    <mat-error *ngIf="docForm.get('selfOrPartner').hasError('required') && submitted">
+                                                        SELF OWNED and PARTNER is required
+                                                    </mat-error>
                                                 </div>
                                                
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>CURRENCY <span class="errorColor">*</span></mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left: 0%">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="20"  formControlName="currency" (keypress)="keyPressNumberDouble($event)" required>
+                                                        <mat-error *ngIf="docForm.get('currency').hasError('required')">
+                                                            CURRENCY is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
                                             </div>
                                         </mat-tab>
                                         <mat-tab label="Financial Information">
@@ -693,7 +772,7 @@
                                             <div class="row">
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Capitalization Price </mat-label>
+                                                    <mat-label>CAPTITALIZATION PRICE </mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
@@ -702,7 +781,7 @@
                                                 </div>
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Capitalization Date </mat-label>
+                                                    <mat-label>CAPTITALIZATION DATE </mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -718,7 +797,7 @@
                                                 </div>
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Life in years </mat-label>
+                                                    <mat-label>LIFE IN YEARS </mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -728,7 +807,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Salvage Value </mat-label>
+                                                    <mat-label>SALVAGE VALUE </mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -737,7 +816,7 @@
                                                 </div>
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Depreciation% </mat-label>
+                                                    <mat-label>DEPRECIATION% </mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
@@ -759,7 +838,7 @@
                                             <div class="row">
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Department</mat-label>
+                                                    <mat-label>DEPARTMENT</mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"
@@ -782,7 +861,7 @@
                                                 </div>
 
                                                 <div class="col-xl-1 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Allotted Upto</mat-label>
+                                                    <mat-label>ALLOTTED UPTO</mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"
@@ -799,7 +878,7 @@
                                                 </div>
 
                                                 <div class="col-xl-1 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Transferred To</mat-label>
+                                                    <mat-label>TRANSFERREND TO</mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"
@@ -816,7 +895,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>Remarks</mat-label>
+                                                    <mat-label>REMARKS</mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"
@@ -826,11 +905,14 @@
                                                     </mat-form-field>
                                                 </div>
 
-                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label style="margin-left: 55%;">Asset User <span
-                                                            class="errorColor">*</span></mat-label>
+                                                <div class="col-xl-1">
+
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label >ASSET USER <span
+                                                            class="errorColor">*</span></mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left: -8.3%;">
                                                     <mat-form-field class="example-full-width form-control-sm"
                                                         appearance="outline">
                                                         <mat-select tabindex="26" formControlName="assetUser"
@@ -841,8 +923,8 @@
                                                             </mat-option>
                                                         </mat-select>
                                                         <mat-error
-                                                            *ngIf="docForm.get('assetUser').hasError('required')">Asset
-                                                            User is required
+                                                            *ngIf="docForm.get('assetUser').hasError('required')">ASSET
+                                                            USER is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -867,19 +949,19 @@
                                                             <th style="width: 1%;"></th>
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="margin-left: 25px;
-                                                 width: 12%; border-radius: 0.05rem;">Asset Name</th>
+                                                 width: 12%; border-radius: 0.05rem;">ASSET NAME</th>
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="margin-left: 25px;
-                                                 width: 12%;border-radius: 0.07rem;">Asset Code</th>
+                                                 width: 12%;border-radius: 0.07rem;">ASSET CODE</th>
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="margin-left: 25px;
-                                                 width: 12%;border-radius: 0.07rem;">Location</th>
+                                                 width: 12%;border-radius: 0.07rem;">LOCATION</th>
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="margin-left: 25px;
-                                                 width: 12%;border-radius: 0.07rem;">Category</th>
+                                                 width: 12%;border-radius: 0.07rem;">CATEGORY</th>
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="margin-left: 25px;
-                                                 width: 12%; border-radius: 0.05rem;">Status</th>
+                                                 width: 12%; border-radius: 0.05rem;">STATUS</th>
                                                         </tr>
                                                     </thead>
                                                     <ng-container
@@ -890,7 +972,7 @@
                                                                     <button mat-mini-fab color="warn"
                                                                         (click)="removeRowSelf(i)">
                                                                         <mat-icon
-                                                                            class="col-white">delete</mat-icon>
+                                                                            class="col-white">DELETE</mat-icon>
                                                                     </button>
                                                                 </td>
 
@@ -965,7 +1047,7 @@
                                             <div style="margin-left: 0.5%;">
                                                 <td>
                                                     <button mat-mini-fab color="primary" (click)="addRowSelf()">
-                                                        <mat-icon class="col-white">add</mat-icon>
+                                                        <mat-icon class="col-white">ADD</mat-icon>
                                                     </button>
                                                 </td>
                                             </div>
@@ -979,7 +1061,7 @@
                                                     <div class="row" *ngIf="computerFlag">
 
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Operating System</mat-label>
+                                                            <mat-label>OPERATING SYSTEM</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -989,7 +1071,7 @@
                                                         </div>
 
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Processor</mat-label>
+                                                            <mat-label>PROCESSOR</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1000,7 +1082,7 @@
                                                         </div>
 
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Memory</mat-label>
+                                                            <mat-label>MEMORY</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1013,7 +1095,7 @@
 
                                                     <div class="row" *ngIf="computerFlag">
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Storage</mat-label>
+                                                            <mat-label>STORAGE</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1023,7 +1105,7 @@
                                                         </div>
 
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Monitor/Display</mat-label>
+                                                            <mat-label>MONITOR/DISPLAY</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1036,7 +1118,7 @@
                                                     <!-- Furniture Start -->
                                                     <div class="row" *ngIf="furnitureFlag">
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Aesthetics</mat-label>
+                                                            <mat-label>AESTHETICS</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1047,7 +1129,7 @@
                                                         </div>
 
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Quality</mat-label>
+                                                            <mat-label>QUALITY</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1057,7 +1139,7 @@
                                                         </div>
 
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Safety</mat-label>
+                                                            <mat-label>SAFETY</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1068,7 +1150,7 @@
                                                     </div>
                                                     <div class="row" *ngIf="furnitureFlag">
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Sustainability</mat-label>
+                                                            <mat-label>SUSTAINABILITY</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1082,7 +1164,7 @@
                                                     <!-- Office Equipment Start -->
                                                     <div class="row" *ngIf="officeFlag">
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Device</mat-label>
+                                                            <mat-label>DEVICE</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1091,7 +1173,7 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Model</mat-label>
+                                                            <mat-label>MODEL</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1101,7 +1183,7 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Status</mat-label>
+                                                            <mat-label>STATUS</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1115,7 +1197,7 @@
                                                     <!-- Vehicle Start -->
                                                     <div class="row" *ngIf="vehicleFlag">
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Type</mat-label>
+                                                            <mat-label>TYPE</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1125,7 +1207,7 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Engine</mat-label>
+                                                            <mat-label>ENGINE</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1135,7 +1217,7 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Speed</mat-label>
+                                                            <mat-label>SPEED</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1147,7 +1229,7 @@
                                                     </div>
                                                     <div class="row" *ngIf="vehicleFlag">
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Fuel Capacity</mat-label>
+                                                            <mat-label>FUEL CAPACITY</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1157,7 +1239,7 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Weight</mat-label>
+                                                            <mat-label>WEIGHT</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1171,7 +1253,7 @@
                                                     <!-- Plant Start -->
                                                     <div class="row" *ngIf="plantFlag">
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Life Time</mat-label>
+                                                            <mat-label>LIFE TIME</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1181,7 +1263,7 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Cost of Land</mat-label>
+                                                            <mat-label>COST OF LAND</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
@@ -1191,7 +1273,7 @@
                                                             </mat-form-field>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                            <mat-label>Substance</mat-label>
+                                                            <mat-label>SUBSTANCE</mat-label>
                                                         </div>
                                                         <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                             <mat-form-field class="example-full-width form-control-sm"
