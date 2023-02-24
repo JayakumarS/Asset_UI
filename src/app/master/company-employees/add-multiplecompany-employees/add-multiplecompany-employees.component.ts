@@ -67,7 +67,7 @@ export class AddMultiplecompanyEmployeesComponent implements OnInit {
       this.companyId=this.tokenStorage.getCompanyId();
       this.httpService.post<any>(this.companyEmployeeService.multipleEmployeeUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
         console.log(data);
-        if(data.success){
+       
           if(data.message =='Success'){
           this.showNotification(
             "snackbar-success",
@@ -77,7 +77,7 @@ export class AddMultiplecompanyEmployeesComponent implements OnInit {
           );
           window.sessionStorage.setItem("makerLogin","");
           this.router.navigate(['/master/Company-Employees/listCompanyEmp'])
-          } else  if(data.message =='Incorrect Email' || data.message =='Format'){
+          } else  if(data.message =='Email Id or Employee Id Already Present'){
             let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
             tempDirection = "rtl";
@@ -90,7 +90,20 @@ export class AddMultiplecompanyEmployeesComponent implements OnInit {
               width: "640px",
               direction: tempDirection,
             });
-          }   
+            
+        }else if (data.message =='Department Id or Branch Id is not Present in the System'){
+          let tempDirection;
+            if (localStorage.getItem("isRtl") === "true") {
+            tempDirection = "rtl";
+            } else {
+           tempDirection = "ltr";
+           }
+            const dialogRef = this.dialog.open(CompanyemployeeUploadErrorComponent, {
+              data: data,
+              height:"40%",
+              width: "640px",
+              direction: tempDirection,
+            });
         }
         else{
           this.showNotification(
