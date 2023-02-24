@@ -279,13 +279,13 @@
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Size</mat-label>
-                        <input matInput formControlName="size" (keypress)="keyPressNumberInt($event)" required>
+                        <input matInput formControlName="size" (keypress)="keyPressNumberInt($event)">
                       </mat-form-field>
                     </div>
                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Remark</mat-label>
-                        <input matInput formControlName="remarks" required>
+                        <input matInput formControlName="remarks">
                       </mat-form-field>
                     </div>
                   </div>
@@ -324,7 +324,7 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>Vendor Name</mat-label>
                               <mat-select name="vendorName{{i}}" formControlName="vendorId">
-                                <mat-option *ngFor="let title of vendorDropdownList" [value]="title.id"  >
+                                <mat-option *ngFor="let title of vendorDropdownList" [value]="title.id" required  >
                                   {{title.text}}
                                 </mat-option>
                               </mat-select>
@@ -334,7 +334,7 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>Vendor Name</mat-label>
                               <mat-select name="vendorName{{i}}" formControlName="vendorId">
-                                <mat-option *ngFor="let title of vendorDropdownList" [value]="title.id"  >
+                                <mat-option *ngFor="let title of vendorDropdownList" [value]="title.id" required >
                                   {{title.text}}
                                 </mat-option>
                               </mat-select>
@@ -414,14 +414,14 @@
                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Opening Balance</mat-label>
-                        <input matInput formControlName="openingBalance" (keypress)="keyPressNumberInt($event)" maxlength="200">
+                        <input matInput formControlName="openingBalance" required (keypress)="keyPressNumberInt($event)" maxlength="200">
                       </mat-form-field>
                     </div>
 
                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Default Price</mat-label>
-                        <input matInput formControlName="defaultPrice" (keypress)="keyPressNumberInt($event)" maxlength="200">
+                        <input matInput formControlName="defaultPrice" required (keypress)="keyPressNumberInt($event)" maxlength="200">
                       </mat-form-field>
                     </div>
                   </div>
