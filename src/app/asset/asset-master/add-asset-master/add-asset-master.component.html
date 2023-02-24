@@ -379,8 +379,19 @@
                             <br>
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                                    <mat-label   style="margin-left: 55%;">IN LINE </mat-label>
+                                    <mat-label   style="margin-left: 65%;">IN LINE </mat-label>
                                   </div>
+                                  <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                        <div class="demo-google-material-icon">
+                                          <i matTooltip="To include additional gadgets"
+                                          [matTooltipPosition]="'above'" style="margin-top: -4px;"class="material-icons"  [matTooltipClass]="'my-custom-tooltip'">info</i>
+                                          <span class="icon-name"></span>
+                                        </div>
+                                      </div>
+
+                            </div>
+                            
                                   <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
                                     <input type="checkbox"  tabindex="8"  formControlName="isLine" (change)="getInLine($event.target.checked)" >
                                 </div>
