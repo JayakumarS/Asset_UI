@@ -32,8 +32,8 @@ const httpOptions = {
     public saveUrl = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/save`;
     public getAlllist = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/List`;
     public editbankReceipt = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/edit`;
-    public updateBankReceipt=`${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/update`
     public deleteBankReceipt = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/delete`;
+    public updateBankReceipt = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/update`;
 
 
     get data(): BankReceipt[] {
@@ -75,7 +75,7 @@ const httpOptions = {
           }else {
             notificationService.showNotification(
               "snackbar-danger",
-              "Please Fill The All Required fields",
+              "Record Not Added",
               "bottom",
               "center"
             );
@@ -85,31 +85,15 @@ const httpOptions = {
             
         });
       }
-
-      UpdateSalesQuote(bankReceipt: BankReceipt,router,notificationService): void {
+      bankReceiptUpdate(bankReceipt: BankReceipt): void {
         this.dialogData = bankReceipt;
-       this.httpService.post<any>(this.updateBankReceipt,bankReceipt ).subscribe(data => {
-        console.log(data);
-        if(data.success===true){
-          notificationService.showNotification(
-            "snackbar-success",
-            "Updated Record Successfully...!!!",
-            "bottom",
-            "center"
-          );
-          router.navigate(['/inventory/Bank-Reciepts/list-BankReciept']);
-        }else{
-          notificationService.showNotification(
-            "snackbar-danger",
-            "Not Updated Successfully...!!!",
-            "bottom",
-            "center"
-          );
-        }
-        },
-        (err: HttpErrorResponse) => {
-          
-      });
+        this.httpService.post<BankReceipt>(this.updateBankReceipt, bankReceipt).subscribe(data => {
+          console.log(data);
+          //this.dialogData = employees;
+          },
+          (err: HttpErrorResponse) => {
+            
+        });
       }
 
       DeleteBankReceipt(bankReceipt:any,router,notificationService): void {

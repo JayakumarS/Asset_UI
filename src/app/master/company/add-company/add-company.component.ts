@@ -371,8 +371,9 @@ export class AddCompanyComponent implements OnInit {
           'branchCount': res.companyBean.branchCount,
 
         })
-        let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
-        BranchListDtlArray.removeAt(0);
+        if (res.branchListDtlBean != null && res.branchListDtlBean.length >= 1) {
+          let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
+          BranchListDtlArray.clear();
         res.branchListDtlBean.forEach((element, index) => {
           let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
           let arraylen = BranchListDtlArray.length;
@@ -394,6 +395,7 @@ export class AddCompanyComponent implements OnInit {
           BranchListDtlArray.insert(arraylen, newUsergroup);
 
         });
+      }
       },
       error: (error) => {
         this.spinner.hide();
