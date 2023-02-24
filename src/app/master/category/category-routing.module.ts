@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { ListCategoryComponent } from './list-category/list-category.component';
+import { ViewCategoryComponent } from './view-category/view-category.component';
 
 const routes: Routes = [
 
@@ -13,6 +14,12 @@ const routes: Routes = [
     path:"list-category",
     component:ListCategoryComponent,
   },
+
+  {
+    path:"view-category/:id",
+    component:ViewCategoryComponent,
+
+  }
 ];
 
 @NgModule({
