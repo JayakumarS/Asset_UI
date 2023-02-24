@@ -91,6 +91,12 @@ export class AddDiscardComponent extends UnsubscribeOnDestroyAdapter implements 
       location:[""],
       moveTo:[""],
       moveToId:[""],
+      docref:[""],
+      assetFinalLocation:[""],
+      companyId:this.token.getCompanyId(),
+      loginedUser: this.token.getUserId(),
+   
+
      
   });
   }
