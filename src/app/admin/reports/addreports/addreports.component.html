@@ -42,12 +42,10 @@
 <div class=" col-md-2 " style="margin-left: 5px;">
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
     <mat-select formControlName="status" required>
-        <mat-option value="1">New</mat-option>
-        <mat-option value="2">Damaged</mat-option>
-        <mat-option value="3">In Repair</mat-option>
-        <mat-option value="4">In stock </mat-option>
-        <mat-option value="5">Refurbished</mat-option>
-      </mat-select>
+      <mat-option *ngFor="let title of statusList" [value]="title.id">
+        {{title.text}}
+      </mat-option>
+    </mat-select>
    <mat-error *ngIf="docForm.get('status').hasError('required')">
     Status is required
    </mat-error>

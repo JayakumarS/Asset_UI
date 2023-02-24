@@ -90,6 +90,15 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
 
         this.onSearch();
 
+        this.httpService.get<reportsresultbean>(this.reportsService.statusListUrl).subscribe(
+          (data) => {
+            this.statusList = data.statusList;
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + " " + error.message);
+          }
+        );
+
   }
 
    loadData() {
