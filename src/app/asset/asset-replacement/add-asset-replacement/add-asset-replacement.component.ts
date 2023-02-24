@@ -194,11 +194,12 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     this.httpService.get<any>(this.assetService.getAssetDetails + "?assetId=" + value.value).subscribe({
       next: (res: any) => {
         if (res.success) {
+          let assetListDtlArray = this.docForm.controls.assetMasterBean as FormArray;
           if (res.assetList != null && res.assetList.length >= 1) {
             let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
             dtlArray.removeAt(i);
             res.assetList.forEach(element => {
-              let assetListDtlArray = this.docForm.controls.assetMasterBean as FormArray;
+              
               let arraylen = assetListDtlArray.length;
               let newUsergroup: FormGroup = this.fb.group({
                 assName: [value.value],
@@ -212,7 +213,22 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               })
               assetListDtlArray.insert(i, newUsergroup);
             });
+          }else{
+            assetListDtlArray.removeAt(i);
+
+             let newUsergroup: FormGroup = this.fb.group({
+              assName: [value.value],
+                assCode: [""],
+                assLocation: [""],
+                assCategory: [""],
+                assStatus: [""],
+                assetId: [""],
+               assUser: [""]
+             })
+             assetListDtlArray.insert(i, newUsergroup);
           }
+          
+         
         }
       },
       error: (error) => {
@@ -251,11 +267,12 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     this.httpService.get<any>(this.assetService.getAssetDetailsReplacement + "?assetId=" + value.value).subscribe({
       next: (res: any) => {
         if (res.success) {
+          let assetListDtlArray = this.docForm.controls.assetMasterBeanReplacement as FormArray;
           if (res.assetList != null && res.assetList.length >= 1) {
             let dtlArray = this.docForm.controls.assetMasterBeanReplacement as FormArray;
             dtlArray.removeAt(i);
             res.assetList.forEach(element => {
-              let assetListDtlArray = this.docForm.controls.assetMasterBeanReplacement as FormArray;
+              
               let arraylen = assetListDtlArray.length;
               let newUsergroup: FormGroup = this.fb.group({
                 assName: [value.value],
@@ -269,6 +286,21 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               })
               assetListDtlArray.insert(i, newUsergroup);
             });
+          }
+          else{
+            assetListDtlArray.removeAt(i);
+
+             let newUsergroup: FormGroup = this.fb.group({
+              assName: [value.value],
+              assCode: [""],
+              assLocation: [""],
+              assCategory: [""],
+              assStatus: [""],
+              assetId: [""],
+              assUser: [""],
+              movedTo: [""],
+             })
+             assetListDtlArray.insert(i, newUsergroup);
           }
         }
       },
