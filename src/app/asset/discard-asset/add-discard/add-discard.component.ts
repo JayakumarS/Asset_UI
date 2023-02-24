@@ -13,6 +13,8 @@ import { threadId } from 'worker_threads';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -42,7 +44,8 @@ export const MY_DATE_FORMATS = {
       }, CommonService
     ]
 })
-export class AddDiscardComponent implements OnInit {
+export class AddDiscardComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+
   docForm: FormGroup;
   filePathUrl: string;
   discardAsset : DiscardAsset;
@@ -66,7 +69,9 @@ export class AddDiscardComponent implements OnInit {
     private snackBar: MatSnackBar,  private discardService: DiscardAssetService,
      private httpService: HttpServiceService,private commonService: CommonService,
      private discardAssetService: DiscardAssetService,
+     private spinner: NgxSpinnerService,
      private router:Router) { 
+    super();
     this.docForm = this.fb.group({
   
       assetId:[""],
@@ -212,20 +217,50 @@ export class AddDiscardComponent implements OnInit {
     this.docForm.value.moveToId=this.moveToLocationId
     this.discardAsset = this.docForm.value;
     console.log(this.discardAsset);
-    this.discardService.addDiscard(this.discardAsset);
+    // this.discardService.addDiscard(this.discardAsset);
+    this.discardService.addDiscard(this.discardAsset).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.showNotification(
+            "snackbar-success",
+            "Record Added successfully...",
+            "bottom",
+            "center"
+          );
+          this.onCancel();
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Not Added...!!!",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        this.showNotification(
+          "snackbar-danger",
+          error.message + "...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
     
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/asset/assetMaster/listAssetMaster']);
+    // this.showNotification(
+    //   "snackbar-success",
+    //   "Add Record Successfully...!!!",
+    //   "bottom",
+    //   "center"
+    // );
+    // this.router.navigate(['/asset/assetMaster/listAssetMaster']);
     }
     else{
       this.showNotification(
         "snackbar-danger",
-        "Invalid Data...!!!",
+        "Please Fill Required Fields",
         "bottom",
         "center"
       );

@@ -38,15 +38,19 @@ public saveDiscard = `${this.serverUrl.apiServerAddress}api/auth/app/discardAsse
 //   return this.httpClient.post<DiscardAsset>(this.saveDiscard, discardAsset);
 // }
 
-addDiscard(discardAsset: DiscardAsset): void {
-  this.dialogData = discardAsset;  
-  this.httpService.post<any>(this.saveDiscard, discardAsset).subscribe(data => {
-    console.log(data);
-    //this.dialogData = employees;
-    },
-    (err: HttpErrorResponse) => {
+// addDiscard(discardAsset: DiscardAsset): void {
+//   this.dialogData = discardAsset;  
+//   this.httpService.post<any>(this.saveDiscard, discardAsset).subscribe(data => {
+//     console.log(data);
+//     //this.dialogData = employees;
+//     },
+//     (err: HttpErrorResponse) => {
       
-  });
+//   });
+// }
+
+addDiscard(discardAsset: DiscardAsset): Observable<any> {
+  return this.httpClient.post<DiscardAsset>(this.saveDiscard, discardAsset);
 }
 
 

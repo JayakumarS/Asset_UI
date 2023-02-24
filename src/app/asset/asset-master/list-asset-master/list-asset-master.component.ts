@@ -71,6 +71,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    this.loadData();
     const permissionObj = {
       formCode: 'F1005',
       roleId: this.tokenStorage.getRoleId()
@@ -105,7 +106,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
       }
     );
     }
-    this.loadData();
+    // this.loadData();
 
   }
 
