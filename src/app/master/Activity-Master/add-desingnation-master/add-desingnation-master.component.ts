@@ -135,7 +135,7 @@ this.httpService.get<any>(this.designationMasterService.getEmailDropdown).subscr
         } else {
           this.showNotification(
             "snackbar-danger",
-            "Not Added...!!!",
+            "Not Added, "+data.message+"!",
             "bottom",
             "center"
           );
