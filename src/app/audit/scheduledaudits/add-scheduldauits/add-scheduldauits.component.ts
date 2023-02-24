@@ -55,7 +55,7 @@ export class AddScheduldauitsComponent implements OnInit {
   assetDropdownList:any
   companyList:any;
   auditDetails:any;
-  statusList: any = ['Available', 'Not Available'];
+  statusList: any=[];
   roleId: any;
   isValid: boolean = true;
     constructor(private fb: FormBuilder,
@@ -114,6 +114,17 @@ export class AddScheduldauitsComponent implements OnInit {
     error: (error) => {
     }
   });
+
+  // Status dropdown
+  this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    next: (data) => {
+      this.statusList = data;
+    },
+    error: (error) => {
+
+    }
+  }
+  );
 }
 
   onSubmit(status: String) {
@@ -212,8 +223,8 @@ export class AddScheduldauitsComponent implements OnInit {
               assetId : [element?.assetId],
               assetCode : [element?.assetCode],
               physicalQty : [element?.physicalQty],
-              makerstatus : [element?.makerstatus],
-              checkerstatus: [element?.checkerstatus],
+              makerstatus : [parseInt(element?.makerstatus)],
+              checkerstatus: [parseInt(element?.checkerstatus)],
               availableQty : [element?.availableQty],
               differenceQty : [Math.abs(element?.physicalQty - element?.availableQty)],
               // differenceQty : [element?.differenceQty],

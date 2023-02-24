@@ -24,9 +24,10 @@ import { NgxSpinnerService } from "ngx-spinner";
   templateUrl: './list-scheduledaudits.component.html',
   styleUrls: ['./list-scheduledaudits.component.sass']
  })
- export class ListScheduledauditsComponent implements OnInit {
-  [x: string]: any;
-
+ export class ListScheduledauditsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+  isChecker=false;
+  isMaker=false;
+  isCompany=false;
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: ScheduledauditsService | null;
@@ -37,6 +38,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   permissionList: any;
   displayedColumns: any;
   scheduledAudit: ScheduledAudit | null;
+  roleId: any;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -49,7 +51,7 @@ import { NgxSpinnerService } from "ngx-spinner";
     public commonService: CommonService,
     private router: Router
   ) {
-    // super();
+     super();
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -63,16 +65,25 @@ import { NgxSpinnerService } from "ngx-spinner";
     this.roleId=this.tokenStorage.getRoleId();
     
     if (this.roleId=='2') {
+      this.isCompany=true;
+      this.isMaker=false;
+      this.isChecker=false;
       this.displayedColumns = [
         "manageAuditNo", "auditName","startDate","endDate",
         "companyStatus","auditType","companyActions"
       ];
     } else if (this.roleId=='3') {
+      this.isChecker=true;
+      this.isMaker=false;
+      this.isCompany=false;
       this.displayedColumns = [
         "manageAuditNo", "auditName","startDate","endDate",
         "checkerStatus","auditType","checkerActions"
       ];
     } else if (this.roleId=='4') {
+      this.isMaker=true;
+      this.isChecker=false;
+      this.isCompany=false;
       this.displayedColumns = [
         "manageAuditNo", "auditName","startDate","endDate",
         "makerStatus","auditType","makerActions"
