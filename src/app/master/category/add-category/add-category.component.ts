@@ -88,7 +88,7 @@ export class AddCategoryComponent implements OnInit {
       }
     );
 
-    this.httpService.get<CategoryResultBean>(this.categoryMasterService.getAssetDepreciationDropdown).subscribe(
+    this.httpService.get<CategoryResultBean>(this.categoryMasterService.getAssetDepreciationDropdown+ "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe(
       (data) => {
         this.depreciationlist = data.depreciationlist;
       },
@@ -98,7 +98,7 @@ export class AddCategoryComponent implements OnInit {
     );
 
     //currencyList
-    this.httpService.get<CategoryResultBean>(this.categoryMasterService.getCurrencyDropdown).subscribe(
+    this.httpService.get<CategoryResultBean>(this.categoryMasterService.getCurrencyDropdown+ "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe(
       (data) => {
         this.currencylist = data.currencylist;
       },
