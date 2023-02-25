@@ -24,11 +24,11 @@
                           aria-label="Search box">
                       </li>
                       <li>
-                        <div class="m-l-10" matTooltip="ADD">
+                        <!-- <div class="m-l-10" matTooltip="ADD">
                           <button color="primary" type="button" class="btn-space"
                             [routerLink]="'/master/usergroup/addusergroup/0'" mat-raised-button><i
                               class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
-                        </div>
+                        </div> -->
                       </li>
                     </ul>
                   </div>
@@ -40,12 +40,12 @@
                     <ng-container matColumnDef="companyName">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Company Name</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                        {{row.company}}</mat-cell>
+                        {{row.companyName}}</mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="branch">
+                    <ng-container matColumnDef="branchName">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Branch </mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                        {{row.nbranch}}</mat-cell>
+                        {{row.branchName}}</mat-cell>
                     </ng-container>
 
 
@@ -53,14 +53,18 @@
                     <ng-container matColumnDef="actions">
                       <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                       <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                        <!-- <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
                           (click)="editCall(row)" class="tbl-action-btn">
                           <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                        </button> -->
+                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)" class="tbl-action-btn">
+                          <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                          </app-feather-icons>
                         </button>
-                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                        <!-- <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
                           (click)="deleteItem(row)" class="tbl-action-btn">
                           <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                        </button>
+                        </button> -->
                       </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
