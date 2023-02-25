@@ -7,6 +7,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { TaxMaster } from '../tax-model';
 import { TaxService } from '../tax.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class AddTaxMasterComponent implements OnInit {
     private snackBar:MatSnackBar,
     public route: ActivatedRoute,
     private tokenStorage: TokenStorageService,
+    private commonService: CommonService,
     private router:Router) {
 
     this.docForm = this.fb.group({
@@ -190,15 +192,41 @@ export class AddTaxMasterComponent implements OnInit {
     }
   }
 
-  validateTaxName(event){
-    this.httpService.get<any>(this.taxMasterService.validateTaxNameURL + "?tableName=" + "tax" + "&columnName=" + "tax_name" + "&columnValue=" + event).subscribe((res: any) => {
-      if (res){
-        this.docForm.controls['taxname'].setErrors({ taxName: true });
-      }else{
-        // this.docForm.controls['taxcode'].setErrors({ status: true });
-      }
-    });
+  // validateTaxName(event){
+  //   this.httpService.get<any>(this.taxMasterService.validateTaxNameURL + "?tableName=" + "tax" + "&columnName=" + "tax_name" + "&columnValue=" + event).subscribe((res: any) => {
+  //     if (res){
+  //       this.docForm.controls['taxname'].setErrors({ taxName: true });
+  //     }else{
+  //       // this.docForm.controls['taxcode'].setErrors({ status: true });
+  //     }
+  //   });
+  // }
+
+  validateTaxName(event) {
+    let companyId=this.tokenStorage.getCompanyId();
+    if (event != undefined && event != null && event != "") {
+      this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl + "?tableName=" + "tax" + "&columnName=" + "tax_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+        if (res) {
+          this.docForm.controls['countryCode'].setErrors({ country: true });
+        } else {
+          this.docForm.controls['countryCode'].setErrors(null);
+        }
+      });
+    }
   }
+  
+  // validateTaxNameForEdit(event) {
+  //   let companyId=this.tokenStorage.getCompanyId();
+  //   if (event != undefined && event != null && event != "") {
+  //     this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedForEditUrl + "?tableName=" + "tax" + "&columnName=" + "tax_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+  //       if (res) {
+  //         this.docForm.controls['taxname'].setErrors({ country: true });
+  //       } else {
+  //         this.docForm.controls['taxname'].setErrors(null);
+  //       }
+  //     });
+  //   }
+  // }
 
   validateTaxCode(event){
     this.httpService.get<any>(this.taxMasterService.validateTaxCodeURL + "?tableName=" + "tax" + "&columnName=" + "tax_code" + "&columnValue=" + event).subscribe((res: any) => {

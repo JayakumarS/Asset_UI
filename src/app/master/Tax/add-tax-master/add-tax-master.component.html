@@ -18,8 +18,9 @@
                     <label>TAX NAME <span class="errorColor">*</span></label>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="taxname"  (blur)="validateTaxName($event.target.value)">
+                  
+                 <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="!edit">
+                    <input matInput formControlName="taxname" (blur)="validateTaxName($event.target.value)">
                     <mat-error *ngIf="docForm.get('taxname').hasError('required')">
                       Tax Name is required
                     </mat-error>
@@ -27,6 +28,19 @@
                       Tax Name Already Exists !!!
                     </mat-error>
                   </mat-form-field>
+
+                  <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
+                    <input matInput formControlName="taxname" (blur)="validateTaxNameForEdit($event.target.value)"
+                      maxlength="3" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()" readonly required>
+                    <mat-error *ngIf="docForm.get('taxname').hasError('required')">
+                      Tax Name is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('taxname').hasError('taxName')">
+                      Tax Name Already Exists !!!
+                    </mat-error>
+                  </mat-form-field> -->
+
+            
                 </div>
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
