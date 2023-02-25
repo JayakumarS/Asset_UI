@@ -234,8 +234,8 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
         (d) => d === item
       );
     });
+    this.checkedIDs = [];
     if(this.selection.selected.length>=1){
-      this.checkedIDs = [];
       for (let i = 0; i < this.selection.selected.length; i++) {
         this.checkedIDs.push(this.selection.selected[i].id);
       }
@@ -252,6 +252,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
           var file = new Blob([result], { type: 'application/pdf' });
           var fileURL = window.URL.createObjectURL(file);
           window.open(fileURL);
+          this.checkedIDs = [];
           this.selection = new SelectionModel<AssetMaster>(true, []);
         }
       },
