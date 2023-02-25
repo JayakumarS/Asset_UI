@@ -562,9 +562,11 @@ configUserLog: {
           }
         ]
       };
+      
 
       // Pie Chart
       chartOptionsPieChart: Options = {
+        
         accessibility: {
           point: {
               valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
@@ -641,7 +643,12 @@ configUserLog: {
           borderWidth: 0,
           dataLabels: {
               enabled: true,
-              format: '{point.y:.1f}'
+	            inside: false,
+	            formatter: function () {
+	                return Highcharts.numberFormat(this.y, 0, '', ',');
+	            },
+              // enabled: true,
+              // format: '{point.y:,0f}'
           }
       }
   },
@@ -653,11 +660,13 @@ configUserLog: {
     title: {
         text: ''
     },
-  
     tooltip: {
-      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> Amount<br/>'
-        // shared: true
+      // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      // pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,3f}</b> <br/>',
+      pointFormatter: function () {
+        // return this.series.name + ': ' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
     },
   
     xAxis: {
@@ -667,7 +676,7 @@ configUserLog: {
     yAxis: {
         title: {
             text: 'Amount'
-        }
+        },
     },
       series: [
         {

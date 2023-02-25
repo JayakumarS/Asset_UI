@@ -143,7 +143,7 @@
                   </div>
                   <div class="m-r-10 m-l-10">
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount | currency:' ':'symbol':'0.0-1'}}</h3>
                   </div>
                 </div>
               </div>
