@@ -96,6 +96,11 @@ export class AddAssetMasterComponent
   isRented: boolean =false;
   isThirdParty: boolean =false;
   statusDdList: any;
+  brandDdList: any;
+
+  isBrand: boolean =true;
+  isUnBrand: boolean =false;
+
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -139,6 +144,9 @@ export class AddAssetMasterComponent
       loginedUser: this.tokenStorage.getUserId(),
       //tab1
       brand: [""],
+      unBrand: [""],
+      unBrandCheck: [""],
+      brandCheck: ["brandCheck"],
       model: [""],
       serialNo: [""],
       condition: [""],
@@ -307,6 +315,18 @@ export class AddAssetMasterComponent
     }
     );
 
+
+        // Brand dropdown
+        this.httpService.get<any>(this.commonService.getBrandDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+          next: (data) => {
+            this.brandDdList = data;
+          },
+          error: (error) => {
+    
+          }
+        }
+        );
+
 // <<<<<<< Updated upstream
 //     // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
 //     //   next: (data) => {
@@ -459,6 +479,7 @@ export class AddAssetMasterComponent
     );
   }
 
+
   categoryAttributes(category:any){
     this.isCategory=true;
      if(category==43 || category=='43'){
@@ -511,6 +532,18 @@ export class AddAssetMasterComponent
         this.docForm.patchValue({
           'rentedUptoDate':"",
           'rentedUptoDateObj':"",
+        })
+      }
+
+      if(this.isBrand){
+        this.docForm.patchValue({
+          'brand':"",
+        })
+      }
+
+      if(this.isUnBrand){
+        this.docForm.patchValue({
+          'unBrand':"",
         })
       }
 
@@ -600,6 +633,20 @@ export class AddAssetMasterComponent
           'rentedUptoDateObj':"",
         })
       }
+
+
+      if(this.isBrand){
+        this.docForm.patchValue({
+          'brand':"",
+        })
+      }
+
+      if(this.isUnBrand){
+        this.docForm.patchValue({
+          'unBrand':"",
+        })
+      }
+
       this.assetMaster = this.docForm.value;
       this.spinner.show();
       this.assetService.updateAssetMaster(this.assetMaster).subscribe({
@@ -691,6 +738,7 @@ export class AddAssetMasterComponent
           'putUseDateObj': res.addAssetBean.putUseDate != null ? this.commonService.getDateObj(res.addAssetBean.putUseDate) : "",
           'id': res.addAssetBean.id,
           'brand': res.addAssetBean.brand,
+          'unBrand': res.addAssetBean.unBrand,
           'model': res.addAssetBean.model,
           'allottedUptoobj': res.addAssetBean.allottedUpto != null ? this.commonService.getDateObj(res.addAssetBean.allottedUpto) : "",
           'allottedUpto': res.addAssetBean.allottedUpto,
@@ -1279,6 +1327,21 @@ export class AddAssetMasterComponent
     }
   }
 
+  getBrand(check:any)
+  {
+    if(check=='brandCheck'){
+      this.isBrand=true;
+    } else {
+     this.isBrand=false;
+    }
+    if(check=='unBrandCheck'){
+     this.isUnBrand=true;
+   } else {
+    this.isUnBrand=false;
+   }
+  }
+
+
   resetSelf(){
     this.docForm = this.fb.group({
 
@@ -1302,6 +1365,9 @@ export class AddAssetMasterComponent
       loginedUser: this.tokenStorage.getUserId(),
       //tab1
       brand: [""],
+      unBrand: [""],
+      brandCheck: ["brandCheck"],
+      unBrandCheck: [""],
       model: [""],
       serialNo: [""],
       condition: [""],
@@ -1398,6 +1464,8 @@ export class AddAssetMasterComponent
       owned: ["owned"],
       rented: [""],
       thirdParty: [""],
+
+   
     });
     this.isCategory=false;
     this.isRented=false;
