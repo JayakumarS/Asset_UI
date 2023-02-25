@@ -355,6 +355,22 @@ export class AddGrnComponent implements OnInit {
     }
   }
 
+  validationLocations(id){
+    if(this.docForm.get('sourceLocId').value!="" && id ){
+      if(this.docForm.get('sourceLocId').value == id){
+        this.showNotification(
+          "snackbar-danger",
+          "Source Location and Destination Location Should not be Same!",
+          "top",
+          "right"
+        );
+  
+        this.docForm.get('deliveryLocId').setValue('');
+  
+      }
+    }
+  }
+
   getBoolean(value) {
     switch (value) {
       case true:
@@ -372,6 +388,14 @@ export class AddGrnComponent implements OnInit {
 
   keyPressName(event: any) {
     const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressAlp(event: any) {
+    const pattern = /[A-Z,a-z]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
