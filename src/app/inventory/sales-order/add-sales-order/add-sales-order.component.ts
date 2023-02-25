@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
-import { SalesOrderService } from '../sales-order.service'; 
+import { SalesOrderService } from '../sales-order.service';
 import { SalesOrder } from '../sales-order-model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -66,6 +66,7 @@ export class AddSalesOrderComponent implements OnInit {
       customer:[""],
       currency:[""],
       dateofdelivery:[""],
+      dateofdeliveryObj:[""],
       termsandcondition:[""],
       companyId:[""],
       salesOrderNo:[""],
@@ -79,20 +80,17 @@ export class AddSalesOrderComponent implements OnInit {
           price:[""],
           total:[""],
 
-        }) 
-      ]) 
-      
+        })
+      ])
+
 
     })
   }
-  
+
   getDateString(event,inputFlag,index){
     let cdate = this.cmnService.getDate(event.target.value);
-    if(inputFlag=='startdate'){
-      this.docForm.patchValue({startdate:cdate});
-    }
-    else if(inputFlag=='enddate'){
-      this.docForm.patchValue({enddate:cdate});
+    if(inputFlag=='dateofdelivery'){
+      this.docForm.patchValue({dateofdelivery:cdate});
     }
     // else if(inputFlag=='expectedDate'){
     //   this.docForm.patchValue({expectedDate:cdate});
@@ -153,8 +151,8 @@ export class AddSalesOrderComponent implements OnInit {
     error: (error) => {
     }
   });
-  
- 
+
+
   }
 
   fetchDetails(salesOrderNo:any){
@@ -163,14 +161,16 @@ export class AddSalesOrderComponent implements OnInit {
     };
     this.salesOrderService.editSalesOrder(obj).subscribe({
       next: (res) => {
+        let hdate = this.cmnService.getDateObj(res.salesOrderBean.dateofdelivery);
        this.customer= res.salesOrderBean.customer;
       this.docForm.patchValue({
         'salesOrderNo': res.salesOrderBean.salesOrderNo,
           'customer':parseInt( res.salesOrderBean.customer),
           'currency': parseInt( res.salesOrderBean.currency),
           'dateofdelivery' : res.salesOrderBean.dateofdelivery,
+          'dateofdeliveryObj': hdate,
           'termsandcondition' : res.salesOrderBean.termsandcondition,
-            
+
       });
       if (res.salesOrderDetail != null && res.salesOrderDetail.length >= 1) {
         let salesOrderDetailArray = this.docForm.controls.salesOrderDtl as FormArray;
@@ -193,10 +193,10 @@ export class AddSalesOrderComponent implements OnInit {
     error: (error) => {
     }
   });
-    
+
   }
 
-  
+
 update() {
   this.salesOrder = this.docForm.value;
   this.spinner.show();
@@ -248,21 +248,21 @@ update() {
           price:[""],
           total:[""],
 
-        }) 
-      ]) 
+        })
+      ])
     });
   } else {
     this.fetchDetails(this.requestId);
   }
   }
 
-  
+
   removeRowSelf(index){
     let dtlArray = this.docForm.controls.salesOrderDtl as FormArray;
     // if(index != 0){
     dtlArray.removeAt(index);
     // }
-  
+
   }
 
   addRowSelf(){
@@ -277,7 +277,7 @@ update() {
       total:[""],
     })
     dtlArray.insert(arraylen,newUsergroup);
-  
+
   }
 
 //   onSubmit(){
@@ -293,7 +293,7 @@ update() {
 //       "center"
 //     );
 //     // this.router.navigate(['/inventory/sales-order/list-sales-order']);
-    
+
 //   }
 //   else{
 //     this.showNotification(
@@ -303,7 +303,7 @@ update() {
 //       "right"
 //     );
 //   }
-  
+
 // }
 onSubmit() {
   this.submitted = true;
@@ -361,7 +361,7 @@ onSubmit() {
 //       currency:[""],
 //       dateofdelivery:[""],
 //       termsandcondition:[""],
-     
+
 //     })
 //   } else {
 //     this.fetchDetails(this.requestId);
@@ -402,7 +402,7 @@ Qtycalculation(index:any){
 checkIsNaN = function(value){
   if(isNaN(value))
       value = 0
-      
+
   return value;
 }
 
