@@ -36,7 +36,9 @@ export class AddBrandComponent implements OnInit {
     brand: [""],
     Description: [""],
      isactive:[""],
-     loginedUser:[this.tokenStorage.getUserId()]
+     loginedUser:[this.tokenStorage.getUserId()],
+     companyId:[this.tokenStorage.getCompanyId()],
+     brand_id: [""],
   });
 }
   ngOnInit(): void {
@@ -45,7 +47,10 @@ export class AddBrandComponent implements OnInit {
       Description: [""],
        isactive:[true],
        loginedUser:[this.tokenStorage.getUserId()],
-       id:[""]
+       companyId:[this.tokenStorage.getCompanyId()],
+       brand_id: [""],
+
+      
 
     });
 
@@ -53,14 +58,19 @@ export class AddBrandComponent implements OnInit {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
        this.edit=true;
-      //For User login Editable mode
+       //For User login Editable mode
        this.fetchDetails(this.requestId) ;
+
+
+
       }
-    });
+     });
+  
+
   }
-  fetchDetails(id: any) {
+  fetchDetails(brand_id: any) {
     const obj = {
-      brand_id: id
+       brand_id
     }
     this.brandMasterService.edit(obj).subscribe({
       next: (res: any) => {
@@ -162,6 +172,14 @@ export class AddBrandComponent implements OnInit {
   }
   onCancel(){
     this.router.navigate(['/master/brand/listBrand']);
+  }
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z,' ']/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

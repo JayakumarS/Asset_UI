@@ -27,7 +27,7 @@ export class ListBrandComponent extends UnsubscribeOnDestroyAdapter implements O
 
   displayedColumns = [
     "brand",
-    "description",
+    "Description",
     "actions"
 
 
@@ -102,14 +102,14 @@ export class ListBrandComponent extends UnsubscribeOnDestroyAdapter implements O
   }
 
   editCall(row) {
-      this.router.navigate(['/master/brand/addBrand/' + row.id]);
+      this.router.navigate(['/master/brand/addBrand/' + row.brand_id]);
     
 
   }
 
   deleteItem(row){
 
-    this.id = row.id;
+    this.id = row.brand_id;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";

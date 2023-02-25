@@ -17,7 +17,7 @@
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="brand" maxlength="20"required>
+                        <input matInput formControlName="brand" maxlength="20" (keypress)="keyPressName($event)" required>
                        
 
                         <mat-error *ngIf="docForm.get('brand').hasError('required')">
@@ -32,7 +32,8 @@
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="Description" maxlength="20">
+                        <input matInput formControlName="Description" maxlength="20" (keypress)="keyPressName($event)" >
+
 
                   </mat-form-field>
                   </div>
