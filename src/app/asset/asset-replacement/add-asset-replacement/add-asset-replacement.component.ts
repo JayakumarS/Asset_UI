@@ -100,7 +100,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assStatus: [""],
           assetId: [""],
           assUser: [""],
-          
+
         })
       ]),
 
@@ -115,15 +115,15 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assetId: [""],
           assUser: [""],
           movedTo: [""],
-         
-    
+
+
 
         })
       ]),
     });
 
 
-    
+
   }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -154,7 +154,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     //Assetuser dropdown
   this.companyId=this.tokenStorage.getCompanyId();
   this.httpService.get<any>(this.commonService.getAssetUserList + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe(
-    
+
     (data) => {
     console.log(data);
     this.assetUserList = data;
@@ -201,7 +201,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
             let dtlArray = this.docForm.controls.assetMasterBean as FormArray;
             dtlArray.removeAt(i);
             res.assetList.forEach(element => {
-              
+
               let arraylen = assetListDtlArray.length;
               let newUsergroup: FormGroup = this.fb.group({
                 assName: [value.value],
@@ -229,8 +229,8 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
              })
              assetListDtlArray.insert(i, newUsergroup);
           }
-          
-         
+
+
         }
       },
       error: (error) => {
@@ -264,7 +264,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
         "bottom",
         "center"
       );
-      
+
     }
  else {
     this.httpService.get<any>(this.assetService.getAssetDetailsReplacement + "?assetId=" + value.value).subscribe({
@@ -275,7 +275,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
             let dtlArray = this.docForm.controls.assetMasterBeanReplacement as FormArray;
             dtlArray.removeAt(i);
             res.assetList.forEach(element => {
-              
+
               let arraylen = assetListDtlArray.length;
               let newUsergroup: FormGroup = this.fb.group({
                 assName: [value.value],
@@ -388,7 +388,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
 
         this.docForm.patchValue({
           'fullOrPartial':res.assetList[0].fullOrPartial,
-    
+
         })
 
         if (res.assetList != null && res.assetList.length>0) {
@@ -402,7 +402,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               assCode: [element.assetCode],
               assLocation: [element.locationName],
               assCategory: [element.categoryName],
-              assStatus: [element.status],
+              assStatus: [element.statusName],
               assUser: [parseInt(element.assetUser)]
             })
             detailListArray.insert(arraylen, newUsergroup);
@@ -420,11 +420,11 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               assCode: [element.assetCode],
               assLocation: [element.locationName],
               assCategory: [element.categoryName],
-              assStatus: [element.status],
+              assStatus: [element.statusName],
               assUser: [parseInt(element.assetUser)],
               movedTo: [parseInt(element.movedTo)],
               fullOrPartial: [element.fullOrPartial],
-              
+
             })
             detailListArray.insert(arraylen, newUsergroup);
           });
@@ -491,9 +491,9 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       );
     }
   }
-  
 
- 
+
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -576,7 +576,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
   }
 
 
-  
+
 
   getInLineFull(event: any) {
     if (event) {
@@ -596,19 +596,19 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     }
   }
 
-  
 
 
 
 
- 
+
+
 
   resetSelf(){
     this.getInLineFull(false);
     this.docForm = this.fb.group({
 
-    
-      
+
+
 
       assetMasterBean: this.fb.array([
         this.fb.group({
@@ -633,16 +633,16 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assetId: [""],
           assUser: [""],
           movedTo: [""],
-         
+
 
         })
       ]),
     });
 
-    
+
   }
 
 
-  
+
 
 }
