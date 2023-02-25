@@ -255,6 +255,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           'assetId':[""],
           'assUser':[""],
           'movedTo':[""],
+          'fullOrPartial': ["F"],
         }
       )
       this.showNotification(
@@ -285,6 +286,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
                 assetId: [element.assetId],
                 assUser: [parseInt(element.assetUser)],
                 movedTo: [element.movedTo],
+                fullOrPartial: ["F"],
               })
               assetListDtlArray.insert(i, newUsergroup);
             });
@@ -301,6 +303,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               assetId: [""],
               assUser: [""],
               movedTo: [""],
+              fullOrPartial: ["F"],
              })
              assetListDtlArray.insert(i, newUsergroup);
           }
@@ -419,7 +422,9 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               assCategory: [element.categoryName],
               assStatus: [element.status],
               assUser: [parseInt(element.assetUser)],
-              movedTo: [parseInt(element.movedTo)]
+              movedTo: [parseInt(element.movedTo)],
+              fullOrPartial: [element.fullOrPartial],
+              
             })
             detailListArray.insert(arraylen, newUsergroup);
           });
@@ -603,7 +608,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
     this.docForm = this.fb.group({
 
     
-      partialOrReplace: [""],
+      
 
       assetMasterBean: this.fb.array([
         this.fb.group({
@@ -627,7 +632,8 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           assStatus: [""],
           assetId: [""],
           assUser: [""],
-          movedTo: [""]
+          movedTo: [""],
+         
 
         })
       ]),
