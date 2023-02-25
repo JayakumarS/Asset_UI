@@ -16,7 +16,6 @@ import { BranchService } from '../branch.service';
   styleUrls: ['./add-branch.component.sass']
 })
 export class AddBranchComponent implements OnInit {
-  branchList:any
   locationDdList:any
   branchMaster:Branch;
   requestId: number;
@@ -32,6 +31,8 @@ export class AddBranchComponent implements OnInit {
   string:any;
   public modeselect = '1';
   CountryCodeList=[];
+  branchList =[];
+
   companyId: string
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
@@ -102,7 +103,7 @@ export class AddBranchComponent implements OnInit {
     this.companyId = this.tokenStorage.getCompanyId();
     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?companyId=" + this.companyId).subscribe(
       (data) => {
-        this.branchList = data.getuserBasedBranchDDList;
+        this.branchList = data;
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -180,18 +181,14 @@ export class AddBranchComponent implements OnInit {
       console.log(id);
     
      this.edit = true;
-     this.fetchCountryBasedState( res.branchbean.addressOneCountry);
-     this.stateBasedCity(res.branchbean.addressOneState);
+     if(res.branchbean.addressOneCountry!=null){
+      this.fetchCountryBasedState( res.branchbean.addressOneCountry);
+     }
+     if(res.branchbean.addressOneState!=null){
+      this.stateBasedCity(res.branchbean.addressOneState);
+     }
+     
      this.userId = this.tokenStorage.getCompanyId();
-     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?companyId=" + this.companyId).subscribe(
-      (data) => {
-        this.branchList = data.getuserBasedBranchDDList;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-    );
-
     //  this.validationUserGroup(res.branchbean.companyId);
      this.docForm.patchValue({
 
