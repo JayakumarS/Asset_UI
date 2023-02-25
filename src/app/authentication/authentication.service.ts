@@ -49,7 +49,7 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
 
         this.showNotification(
           "snackbar-success",
-          "Company registered Successfully...!!!",
+          "Company Registered Successfully. Your login credentials are sent to the provided email id.",
           "bottom",
           "center"
         );
