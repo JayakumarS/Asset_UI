@@ -69,7 +69,7 @@ export class AddCategoryComponent implements OnInit {
 
 
      // Parent Category dropdown
-     this.httpService.get<any>(this.commonService.getAssetCategoryDropdown).subscribe({
+     this.httpService.get<any>(this.commonService.getAssetCategoryDropdown+"?companyId="+this.tokenStorage.getCompanyId()).subscribe({
       next: (data) => {
         this.categoryDdList = data;
       },

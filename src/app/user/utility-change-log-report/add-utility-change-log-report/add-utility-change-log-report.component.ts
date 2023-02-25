@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class AddUtilityChangeLogReportComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
     private commonService: CommonService,
-
+    private tokenStorage: TokenStorageService
 
     ) 
   
@@ -30,7 +31,7 @@ export class AddUtilityChangeLogReportComponent implements OnInit {
   ngOnInit(): void {
 
      // User dropdown
-   this.httpService.get<any>(this.commonService.getAdminDropdown).subscribe({
+   this.httpService.get<any>(this.commonService.getAdminDropdown+"?companyId="+this.tokenStorage.getCompanyId()).subscribe({
     next: (data) => {
       this.userDdList = data;
     },
