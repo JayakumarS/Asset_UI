@@ -253,7 +253,7 @@ export class AddAssetMasterComponent
 
 
 
-    this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getCategoryDropdown+ "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.categoryList = data;
       },

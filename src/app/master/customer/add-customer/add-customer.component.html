@@ -61,9 +61,8 @@
 
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="email" maxlength="50" *ngIf="edit == false">
-                <input matInput formControlName="email" maxlength="50"  *ngIf="edit == true" readonly>
-               
+                <input matInput formControlName="email" maxlength="50">
+
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -73,7 +72,7 @@
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="phone" maxlength="10" (keypress)="keyPressNumeric($event)" >
-                
+
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -84,7 +83,7 @@
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="address" maxlength="50" >
-              
+
               </mat-form-field>
             </div>
           </div>
@@ -136,7 +135,7 @@
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="postalcode" maxlength="6"
                   (change)="pincodevalidation($event.target.value)" (keypress)="keyPressNumeric($event)">
-              
+
               </mat-form-field>
 
             </div>
@@ -161,7 +160,7 @@
 
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" >
-               
+
               </mat-form-field>
             </div> -->
           </div>
@@ -179,7 +178,7 @@
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="state" (keypress)="keyPressString($event)" maxlength="15">
-              
+
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -203,7 +202,7 @@
 
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" >
-               
+
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -223,7 +222,7 @@
               </mat-form-field>
             </div>
           </div>
-        
+
 
           <div class="row">
             <div class=" col-md-2">
@@ -232,7 +231,7 @@
 
             <!-- <mat-form-field class="example-width form-control-sm" appearance="outline">
               <input matInput formControlName="cstno" maxlength="20" [ngModel]="value2"
-              (ngModelChange)="value2=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">        
+              (ngModelChange)="value2=$event.toUpperCase()" (keypress)="keyPressAlphaNumeric($event)">
                 </mat-form-field> -->
 
             <div class=" col-md-2" style="margin-left: -45px;">
@@ -375,13 +374,13 @@
                         {{title.text}}
                       </mat-option>
                     </mat-select>
-                  </mat-form-field> 
+                  </mat-form-field>
                   </div>
                   <div class=" col-md-4">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label> ZIPCODE</mat-label>
-                    <input matInput formControlName="billingZip" maxlength="6" 
-                   (keypress)="keyPressNumeric($event)"> 
+                    <input matInput formControlName="billingZip" maxlength="6"
+                   (keypress)="keyPressNumeric($event)">
                   </mat-form-field>
                   </div>
                   <!-- <div class=" col-md-4"></div>
@@ -404,25 +403,25 @@
                     </mat-form-field>
                   </div> -->
                 </div>
-             
-              </div>
-           
 
-              
+              </div>
+
+
+
 
               <div class=" col-md-5">
                  <!-- <div class="row">
-                
+
                   <div class=" col-md-4">
                     <mat-label>Same As Billing Address</mat-label>
                   </div>
                   <div class=" col-md-1">
- 
+
                     <div class=" col-md-1" alignn="right">
-      
+
                         <mat-checkbox (change)="active()" ngInit="checked=true" formControlName="isactive"></mat-checkbox>
-                      </div> 
-      
+                      </div>
+
                     </div>
                 </div>  -->
 
@@ -493,8 +492,8 @@
                     <div class=" col-md-4">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="shipperZip" maxlength="6" 
-                     (keypress)="keyPressNumeric($event)" (keypress)="keyPressNumeric($event)"> 
+                      <input matInput formControlName="shipperZip" maxlength="6"
+                     (keypress)="keyPressNumeric($event)" (keypress)="keyPressNumeric($event)">
                     </mat-form-field>
                     <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="shipperZip" maxlength="6" placeholder="ZipCode"
@@ -504,7 +503,7 @@
                       </mat-error>
                     </mat-form-field> -->
                   </div>
-  
+
                 </div>
                 <div class="row">
                   <div class=" col-md-4">
@@ -580,8 +579,8 @@
                     </mat-form-field> -->
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="deliveryZip" maxlength="6" 
-                     (keypress)="keyPressNumeric($event)" (keypress)="keyPressNumeric($event)"> 
+                      <input matInput formControlName="deliveryZip" maxlength="6"
+                     (keypress)="keyPressNumeric($event)" (keypress)="keyPressNumeric($event)">
                     </mat-form-field>
                   </div>
                 </div>
@@ -637,7 +636,7 @@
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>EMAIL</mat-label>
                           <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == false">
-                         <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == true" readonly>  
+                         <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == true" readonly>
                         </mat-form-field>
                       </td>
                       <td class="padding-both-side-2">

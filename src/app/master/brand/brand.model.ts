@@ -1,7 +1,7 @@
 export class Brand{
 
     brand: string;
-    Description: string;
+    description: string;
     isactive: string;
     loginedUser:String;
     companyId:number;

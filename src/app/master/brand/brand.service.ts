@@ -80,7 +80,7 @@ edit(obj: any): Observable<any> {
 updateMaster(obj: any): Observable<any> {
   return this.httpClient.post<any>(this.updatebrand, obj);
 }
-deletecategory(obj: any): Observable<any> {
+deletebrand(obj: any): Observable<any> {
   return this.httpClient.post<any>(this.deletecity, obj);
 }
 }
