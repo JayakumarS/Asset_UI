@@ -29,7 +29,7 @@
                     </mat-error>
                   </mat-form-field>
 
-                  <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
                     <input matInput formControlName="taxname" (blur)="validateTaxNameForEdit($event.target.value)"
                       maxlength="3" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()" readonly required>
                     <mat-error *ngIf="docForm.get('taxname').hasError('required')">
@@ -38,7 +38,7 @@
                     <mat-error *ngIf="docForm.get('taxname').hasError('taxName')">
                       Tax Name Already Exists !!!
                     </mat-error>
-                  </mat-form-field> -->
+                  </mat-form-field>
 
             
                 </div>
