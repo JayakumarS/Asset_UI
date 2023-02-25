@@ -17,16 +17,17 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
     []
   );
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private token: TokenStorageService, 
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private tokenStorage: TokenStorageService, 
     private httpService: HttpServiceService) {
       super();
      }
      userId:string;
+     companyId:String;
 
- public save = `${this.serverUrl.apiServerAddress}app/userGroupMaster/save`;
+ public save = `${this.serverUrl.apiServerAddress}/app/userGroupMaster/save`;
   public editCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/company/edit`;
-  public getAllMasters = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getList`;
-  public editUserMaster = `${this.serverUrl.apiServerAddress}app/userGroupMaster/edit`;
+  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/getList`;
+  public editUserMaster = `${this.serverUrl.apiServerAddress}api/auth/app/userGroupMaster/edit`;
   public updateUserGroup = `${this.serverUrl.apiServerAddress}app/userGroupMaster/update`;
   public deleteUserGroup = `${this.serverUrl.apiServerAddress}app/userGroupMaster/delete`;
   public branchDropdown = `${this.serverUrl.apiServerAddress}app/userGroupMaster/getDropdown`;
@@ -50,10 +51,10 @@ export class UsergroupService extends UnsubscribeOnDestroyAdapter {
 
   
 
-  getAllCountrys(){
-    console.log();
-   this.userId=this.token.getUserId(),
-    this.subs.sink = this.httpService.get<UserGroupResultBean>(this.getAllMasters+"?userId="+this.userId).subscribe(
+getAllList():void{
+   this.companyId=this.tokenStorage.getCompanyId();
+   this.userId=this.tokenStorage.getUserId(),
+    this.subs.sink = this.httpService.get<any>(this.getAllMasters+"?companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.userGroupList);
