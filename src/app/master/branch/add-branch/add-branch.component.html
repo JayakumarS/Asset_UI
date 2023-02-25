@@ -69,7 +69,7 @@
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="branchHead" 
                       (keypress)="string($event)" required>
-                          <mat-option *ngFor="let title of branchList" [value]="title.bid">
+                          <mat-option *ngFor="let title of branchList" [value]="title.strId">
                               {{title.text}}
                           </mat-option>
                       </mat-select>

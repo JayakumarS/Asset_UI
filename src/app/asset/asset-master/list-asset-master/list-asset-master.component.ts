@@ -241,7 +241,8 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
       }
     }
     const obj={
-      checkedAssetListIDs:this.checkedIDs
+      checkedAssetListIDs: this.checkedIDs,
+      companyId: this.tokenStorage.getCompanyId()
     }
     this.spinner.show();
     this.assetService.assetQRcodeExportPdf(obj).pipe().subscribe({

@@ -31,6 +31,7 @@ import { SharedModule } from "src/app/shared/shared.module";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 
+import { CurrencyPipe } from '@angular/common';
 
 import { NotificationService } from "src/app/core/service/notification.service";
 import { CompanyMapPopupComponent } from './main/company-map-popup/company-map-popup.component';
@@ -88,6 +89,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxPaginationModule
     
   ],
-  providers: [NotificationService],
+  providers: [NotificationService,CurrencyPipe],
 })
 export class DashboardModule {}

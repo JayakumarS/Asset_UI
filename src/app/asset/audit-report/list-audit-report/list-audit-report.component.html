@@ -84,8 +84,8 @@
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerSubmittedDate}}</mat-cell>
                   </ng-container> -->
                   <ng-container matColumnDef="makerSubmittedDate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Submitted On (Maker)</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerSubmittedDate}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 10px;">Submitted On (Maker)</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="justify-content: center;"> {{row.makerSubmittedDate}}</mat-cell>
                   </ng-container>
 <!--
                   <ng-container matColumnDef="checkerSubmittedDate">
@@ -94,8 +94,8 @@
                   </ng-container> -->
 
                   <ng-container matColumnDef="checkerSubmittedDate">
-                    <mat-header-cell  *matHeaderCellDef mat-sort-header>Submitted on(Checker)</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.checkerSubmittedDate}}</mat-cell>
+                    <mat-header-cell  *matHeaderCellDef mat-sort-header style="height: 10px;">Submitted on(Checker)</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="justify-content: center;"> {{row.checkerSubmittedDate}}</mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="makerStatus">

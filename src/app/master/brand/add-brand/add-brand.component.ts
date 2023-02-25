@@ -34,18 +34,23 @@ export class AddBrandComponent implements OnInit {
     private notificationService: NotificationService) { 
   this.docForm = this.fb.group({
     brand: [""],
-    Description: [""],
+    description: [""],
      isactive:[""],
-     loginedUser:[this.tokenStorage.getUserId()]
+     loginedUser:[this.tokenStorage.getUserId()],
+     companyId:[this.tokenStorage.getCompanyId()],
+     brand_id: [""],
   });
 }
   ngOnInit(): void {
     this.docForm = this.fb.group({
       brand: [""],
-      Description: [""],
+      description: [""],
        isactive:[true],
        loginedUser:[this.tokenStorage.getUserId()],
-       id:[""]
+       companyId:[this.tokenStorage.getCompanyId()],
+       brand_id: [""],
+
+      
 
     });
 
@@ -53,20 +58,26 @@ export class AddBrandComponent implements OnInit {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
        this.edit=true;
-      //For User login Editable mode
+       //For User login Editable mode
        this.fetchDetails(this.requestId) ;
+
+
+
       }
-    });
+     });
+  
+
   }
   fetchDetails(id: any) {
     const obj = {
-      brand_id: id
+      editId: id
+
     }
     this.brandMasterService.edit(obj).subscribe({
       next: (res: any) => {
         this.docForm.patchValue({
           'brand':res.brandMasterBean.brand,
-          'Description': res.brandMasterBean.Description,
+          'description': res.brandMasterBean.description,
           'isactive': res.brandMasterBean.isactive,
           'loginedUser': res.brandMasterBean.loginedUser,
           'brand_id': res.brandMasterBean.brand_id
@@ -81,7 +92,7 @@ export class AddBrandComponent implements OnInit {
   update(){
   if(this.docForm.valid){
     this.brand = this.docForm.value;
-    this.brand.id= this.requestId;
+    this.brand.brand_id= this.requestId;
     this.brandMasterService.updateMaster(this.brand).subscribe({
       next: (data) => {
         if (data.success) {
@@ -162,6 +173,14 @@ export class AddBrandComponent implements OnInit {
   }
   onCancel(){
     this.router.navigate(['/master/brand/listBrand']);
+  }
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z,' ']/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

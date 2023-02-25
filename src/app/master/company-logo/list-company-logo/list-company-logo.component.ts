@@ -18,14 +18,17 @@ import { CommonService } from 'src/app/common-service/common.service';
   templateUrl: './list-company-logo.component.html',
   styleUrls: ['./list-company-logo.component.sass']
 })
-export class ListCompanyLogoComponent  extends UnsubscribeOnDestroyAdapter implements OnInit {
+export class ListCompanyLogoComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   docForm: FormGroup;
   http: any;
   user: string;
-
+  private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
   companyLogo: CompanyLogo;
   customerDropDown: [];
+  imgLogoUploadPathUrl: any;
+  imgbgUploadPathUrl: any;
+
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -41,19 +44,18 @@ export class ListCompanyLogoComponent  extends UnsubscribeOnDestroyAdapter imple
 
 
 
-  )
-  {
-    super(); {}
+  ) {
+    super(); { }
     this.docForm = this.fb.group({
-      companyId : [""],
-      companyLogo : [""],
-      logoUpload : [""],
-      backGroundImg : [""],
-      bgUpload : [""],
+      companyId: [""],
+      companyLogo: [""],
+      logoUpload: [""],
+      backGroundImg: [""],
+      bgUpload: [""],
       loginedUser: this.tokenStorage.getUserId(),
 
     });
-   }
+  }
 
 
   ngOnInit(): void {
@@ -63,25 +65,25 @@ export class ListCompanyLogoComponent  extends UnsubscribeOnDestroyAdapter imple
 
 
     this.httpService.get<any>(this.commonService.getUserBasedCompanyDropdown + "?userId=" + (this.user)).subscribe({
-    next: (data) => {
-      this.customerDropDown = data.addressBean;
-    },
-    error: (error) => {
-    }
-  });
+      next: (data) => {
+        this.customerDropDown = data.addressBean;
+      },
+      error: (error) => {
+      }
+    });
   }
   reset() {
     this.docForm = this.fb.group({
-      companyId : [""],
-      companyLogo : [""],
-      logoUpload : [""],
-      backGroundImg : [""],
-      bgUpload : [""]
+      companyId: [""],
+      companyLogo: [""],
+      logoUpload: [""],
+      backGroundImg: [""],
+      bgUpload: [""]
     });
   }
 
-  onSubmit(){
-    if (this.docForm.valid){
+  onSubmit() {
+    if (this.docForm.valid) {
       this.companyLogo = this.docForm.value;
       console.log(this.companyLogo);
       this.companyLogoService.addCompany(this.companyLogo, this.notificationService);
@@ -89,101 +91,144 @@ export class ListCompanyLogoComponent  extends UnsubscribeOnDestroyAdapter imple
 
     } else {
       this.notificationService.showNotification(
-      "snackbar-danger",
-      "Please fill all the required details!",
-      "top",
-      "right"
-);
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
 
-}
+    }
 
   }
 
   onCancel() {
     this.router.navigate(['/admin/dashboard/main']);
+  }
+
+
+  //FOR IMAGE UPLOAD
+  onSelectCompanyLogoImage(event) {
+    var imgfile = event.target.files[0];
+    if (!this.acceptImageTypes.includes(imgfile.type)) {
+      this.showNotification(
+        "snackbar-danger",
+        "Invalid Image type",
+        "top",
+        "right"
+      );
+      return;
+    }
+    if (imgfile.size > 2000000) {
+      this.showNotification(
+        "snackbar-danger",
+        "Please upload valid image with less than 2mb",
+        "top",
+        "right"
+      );
+      return;
     }
 
-  getLogoDetails(event) {
-    var docfile = event.target.files[0];
-    var fileSize = docfile.size;
-    console.log(fileSize);
-    if (fileSize > 204800){
-      this.docForm.patchValue({'logoUpload': ""});
-    }else{
-    var fileExtension = docfile.name;
+    var fileExtension = imgfile.name;
     var frmData: FormData = new FormData();
-    frmData.append("file", docfile);
+    frmData.append("file", imgfile);
     frmData.append("fileName", fileExtension);
-    frmData.append("fileType", "profileLogo");
-    console.log(frmData);
+    frmData.append("folderName", "CompanyLogoImg");
 
-    this.httpService.post<any>(this.companyLogoService.addLogoFiles, frmData).subscribe(data => {
-        console.log(data);
-        if (data.success){
-          this.docForm.patchValue({
-            'logoUpload': data.filePath
-         });
-        }
-        else{
-          this.notificationService.showNotification(
+    this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
+      next: (data) => {
+        if (data.success) {
+          if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+            this.docForm.patchValue({
+              'logoUpload': data.filePath
+            })
+            this.imgLogoUploadPathUrl = data.filePath;
+
+          }
+        } else {
+          this.showNotification(
             "snackbar-danger",
-            data.message,
-            "bottom",
-            "center"
+            "Failed to upload Image",
+            "top",
+            "right"
           );
         }
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload Image",
+          "top",
+          "right"
+        );
+      }
+    });
+  }
 
-        },
-        (err: HttpErrorResponse) => {
-
-      });
+  //FOR IMAGE UPLOAD 
+  onSelectCompanyBackgroundImage(event) {
+    var imgfile = event.target.files[0];
+    if (!this.acceptImageTypes.includes(imgfile.type)) {
+      this.showNotification(
+        "snackbar-danger",
+        "Invalid Image type",
+        "top",
+        "right"
+      );
+      return;
     }
+    if (imgfile.size > 2000000) {
+      this.showNotification(
+        "snackbar-danger",
+        "Please upload valid image with less than 2mb",
+        "top",
+        "right"
+      );
+      return;
     }
-    getBgLogoDetails(event) {
-      var docfile = event.target.files[0];
-      var fileSize = docfile.size;
-      console.log(fileSize);
-      if(fileSize > 204800){
-        this.docForm.patchValue({'bgUpload': ""});
-      }else{
-      var fileExtension = docfile.name;
-      var frmData: FormData = new FormData();
-      frmData.append("file", docfile);
-      frmData.append("fileName",fileExtension);
-      frmData.append("fileType","bgLogo");
 
-      console.log(frmData);
+    var fileExtension = imgfile.name;
+    var frmData: FormData = new FormData();
+    frmData.append("file", imgfile);
+    frmData.append("fileName", fileExtension);
+    frmData.append("folderName", "CompanyBackgroundImg");
 
-      this.httpService.post<any>(this.companyLogoService.addBgFiles, frmData).subscribe(data => {
-          console.log(data);
-          if (data.success){
+    this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
+      next: (data) => {
+        if (data.success) {
+          if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
             this.docForm.patchValue({
               'bgUpload': data.filePath
-           });
+            })
+            this.imgbgUploadPathUrl = data.filePath;
           }
-          else{
-            this.notificationService.showNotification(
-              "snackbar-danger",
-              data.message,
-              "bottom",
-              "center"
-            );
-          }
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Failed to upload Image",
+            "top",
+            "right"
+          );
+        }
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload Image",
+          "top",
+          "right"
+        );
+      }
+    });
+  }
 
-          },
-          (err: HttpErrorResponse) => {
-
-        });
-      }
-      }
-      showNotification(colorName, text, placementFrom, placementAlign) {
-        this.snackBar.open(text, " ", {
-          duration: 2000,
-          verticalPosition: placementFrom,
-          horizontalPosition: placementAlign,
-          panelClass: colorName,
-        });
-      }
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, " ", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
 
 
 }

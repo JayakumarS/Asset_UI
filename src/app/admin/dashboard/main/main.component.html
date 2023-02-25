@@ -7,10 +7,10 @@
     </div>
     <div class="row ">
       <div class="col-xl-8 ">
-        <div class="card" style="padding-bottom: 80px;padding-top: 70px;">
+        <div class="card" *ngIf="flowChartFlag" style="padding-bottom: 181px;padding-top: 155px;">
           <div class="header">
-            <!-- <h2>Assets </h2>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+             <h4 style="margin-top: -55px;margin-left: 43px;">Assets Valuation</h4>
+        <!--   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-label>Asset Id</mat-label>
                 <mat-select formControlName="assetid" (selectionChange)="fetchAssetName($event.value)">
@@ -35,7 +35,7 @@
               <button mat-menu-item>Something else here</button>
             </mat-menu> -->
           </div>
-          <div class="body" *ngIf="flowChartFlag">
+          <div class="body" >
             <highcharts-chart #chart [Highcharts]="Highcharts" 	style =" width:100%;height: 100%;display: block;" [callbackFunction]="chartCallback" [options]="chartOptionsColumnChart"
           [(update)]="updateFlag"></highcharts-chart>
             <!-- Apex Chart -->
@@ -44,10 +44,16 @@
               [plotOptions]="projectOptions.plotOptions" [markers]="projectOptions.markers" [fill]="projectOptions.fill"
               [tooltip]="projectOptions.tooltip" [colors]="projectOptions.colors"></apx-chart> -->
           </div>
-          <div class="body" *ngIf="!flowChartFlag">
-          <img src="assets/images/flowchart.png" alt="Trulli" width="100%" height="70%" style="margin-top:-102px">
-          </div>
+          
         </div>
+
+        <!-- Flow Chart -->
+        <div class="card" *ngIf="!flowChartFlag" style="padding-bottom: 80px;padding-top: 70px;">
+          <div class="body" >
+            <img src="assets/images/flowchart.png" alt="Trulli" width="100%" height="70%" style="margin-top:-83px">
+            </div>
+        </div>
+
       </div>
       <div class="col-xl-4 ">
         <div class="row">
@@ -137,7 +143,7 @@
                   </div>
                   <div class="m-r-10 m-l-10">
                     <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount}}</h3>
+                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount | currency:' ':'symbol':'0.0-1'}}</h3>
                   </div>
                 </div>
               </div>
@@ -392,7 +398,7 @@
    
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="card" style="padding: 12px;">
+        <div class="card" style="padding: 12px;" *ngIf="pieChartFlag || assetsFlagForDashboard">
           
           
           
@@ -426,7 +432,7 @@
                 </div>
               </div> -->
               <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-6" *ngIf="pieChartFlag">
               <highcharts-chart #chart [Highcharts]="Highcharts" [callbackFunction]="chartCallback" [options]="chartOptionsPieChart"
               [(update)]="updateFlag"></highcharts-chart>
               </div>
@@ -704,11 +710,11 @@
         </div>
       </div> -->
     </div>
-    <div class="row">
+    <div class="row" *ngIf="assetsFlagForDashboard || ticketFlag">
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="assetsFlagForDashboard">
-        <div class="card">
+        <div class="card" >
           <div class="header">
-            <h2>Three Years </h2>
+            <h2>Three Years Assets</h2>
             <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -718,12 +724,19 @@
               <button mat-menu-item>Something else here</button>
             </mat-menu>
           </div>
-          <div class="body">
+          <div class="body" *ngIf="assetsFlagForDashboard">
             <apx-chart [series]="areaChartOptions.series" [chart]="areaChartOptions.chart"
               [xaxis]="areaChartOptions.xaxis" [yaxis]="areaChartOptions.yaxis" [colors]="areaChartOptions.colors"
               [stroke]="areaChartOptions.stroke" [legend]="areaChartOptions.legend" [tooltip]="areaChartOptions.tooltip"
               [dataLabels]="areaChartOptions.dataLabels"></apx-chart>
           </div>
+        </div>
+      </div>
+      
+      <!-- Flow Chart -->
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="!assetsFlagForDashboard">
+        <div class="card">
+          <img src="assets/images/flowchart.png" alt="Trulli" width="82%" height="70%" style="margin-top: 8px;margin-left: 47px;">
         </div>
       </div>
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="ticketFlag">
@@ -748,6 +761,14 @@
           </div>
         </div>
       </div>
+
+      <!-- Flow Chart -->
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="!ticketFlag">
+        <div class="card">
+          <img src="assets/images/flowchart.png" alt="Trulli" width="82%" height="70%" style="margin-top: 8px;margin-left: 47px;">
+        </div>
+      </div>
+
     </div>
 
     <!-- Asset List Full -->

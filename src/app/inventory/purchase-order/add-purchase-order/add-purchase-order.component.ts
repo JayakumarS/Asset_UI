@@ -424,8 +424,8 @@ export class AddPurchaseOrderComponent implements OnInit {
   reset() {
     if (!this.edit) {
       this.docForm.reset();
-      let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-      purchaseOrderDetailArray.clear();
+      // let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+      // purchaseOrderDetailArray.clear();
       this.docForm.patchValue({
         'loginedUser': this.tokenStorage.getUserId(),
         'companyId': this.tokenStorage.getCompanyId(),

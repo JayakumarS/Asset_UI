@@ -30,12 +30,9 @@ export class ListUsergroupComponent extends UnsubscribeOnDestroyAdapter implemen
     displayedColumns = [
      
       "companyName",
-      "branch",
+      "branchName",
       "actions"
-  
-      
-   
-  
+
     ];
 
     dataSource: ExampleDataSource | null;
@@ -84,7 +81,7 @@ export class ListUsergroupComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 
   editCall(row){
-    this.router.navigate(['/master/usergroup/addusergroup/' + row.user_mapping_id]);
+    this.router.navigate(['/master/usergroup/addusergroup/' + row.companyId]);
 
 
   }
@@ -182,7 +179,7 @@ export class ExampleDataSource extends DataSource<UserGroupMaster> {
       this.filterChange,
       this.paginator.page
     ];
-    this.exampleDatabase.getAllCountrys();
+    this.exampleDatabase.getAllList();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
@@ -190,10 +187,8 @@ export class ExampleDataSource extends DataSource<UserGroupMaster> {
           .slice()
           .filter((UserGroupMaster: UserGroupMaster) => {
             const searchStr = (
-              UserGroupMaster.company +
-              UserGroupMaster.nbranch+
-              UserGroupMaster.users+
-              UserGroupMaster.role
+              UserGroupMaster.companyName +
+              UserGroupMaster.branchName
               // countryMaster.clientType 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -222,33 +217,11 @@ export class ExampleDataSource extends DataSource<UserGroupMaster> {
       switch (this._sort.active) {
         case "companyName":
           [propertyA, propertyB] = [a.companyName, b.companyName];
-          break;
-        case "cmpdetails":
-          [propertyA, propertyB] = [a.cmpdetails, b.cmpdetails];
-          break;
+          break;    
         case "branch":
-          [propertyA, propertyB] = [a.branch, b.branch];
+          [propertyA, propertyB] = [a.branchName, b.branchName];
           break;
-
-          case "address":
-            [propertyA, propertyB] = [a.address, b.address];
-            break;
-
-            case "person":
-              [propertyA, propertyB] = [a.person, b.person];
-              break; 
-          case "telephone":
-              [propertyA, propertyB] = [a.telephone, b.telephone];
-              break;
-              case "users":
-              [propertyA, propertyB] = [a.users, b.users];
-              break;
-              case "role":
-              [propertyA, propertyB] = [a.role, b.role];
-              break;
-
-
-        
+ 
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

@@ -257,7 +257,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           'locationId': res.purchaseInvoice.locationId,
           'currencyId': res.purchaseInvoice.currencyId,
           'amount': res.purchaseInvoice.amount,
-          'total': Number(res.purchaseInvoice.total).toFixed(2),
+          // 'total': Number(res.purchaseInvoice.total).toFixed(2),
+          'total' : res.purchaseInvoice.total,
           'exchangerate': res.purchaseInvoice.exchangerate,
         });
         if (res.purchaseInvoiceDetailList != null && res.purchaseInvoiceDetailList.length >= 1) {

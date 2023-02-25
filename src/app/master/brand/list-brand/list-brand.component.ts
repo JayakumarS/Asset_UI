@@ -27,7 +27,7 @@ export class ListBrandComponent extends UnsubscribeOnDestroyAdapter implements O
 
   displayedColumns = [
     "brand",
-    "description",
+    "Description",
     "actions"
 
 
@@ -102,52 +102,49 @@ export class ListBrandComponent extends UnsubscribeOnDestroyAdapter implements O
   }
 
   editCall(row) {
-      this.router.navigate(['/master/brand/addBrand/' + row.id]);
+      this.router.navigate(['/master/brand/addBrand/' + row.brand_id]);
     
 
   }
 
-  deleteItem(row){
-
-    this.id = row.id;
+  deleteItem(index,row){
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
+     tempDirection = "rtl";
+   } else {
+     tempDirection = "ltr";
+   }
     const dialogRef = this.dialog.open(DeleteBranchComponent, {
-      height: "270px",
-      width: "400px",
-      data: row,
-      direction: tempDirection,
-    });
+     height: "270px",
+     width: "400px",
+     data: row,
+     direction: tempDirection,
+     disableClose: true
+   });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-
-
-      if (data.data == true) {
-
-        this.httpService.get(this.brandMasterService.deletecategory+ "?id=" + this.id).subscribe((res: any) => {
-          this.showNotification(
-            "snackbar-success",
-            "Delete Record Successfully...!!!",
-            "bottom",
-            "center"
-          );
-          this.loadData();
-        },
-          (err: HttpErrorResponse) => {
-            // error code here
-          }
-        );
-
-
-      } else{
-        this.loadData();
-      }
-
-    });
-
+     if (data.data == true) {
+       const obj = {
+         deletingId: row.brand_id
+       }
+       this.brandMasterService.deletebrand(obj).subscribe({
+        next: (data) => {
+          if (data.success) {
+            this.loadData();
+            this.showNotification(
+              "snackbar-success",
+              "Delete Record Successfully...!!!",
+              "bottom",
+              "center"
+             );
+           }
+         },
+         error: (error) => {
+         }
+       });
+  
+     }
+   });
+        
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

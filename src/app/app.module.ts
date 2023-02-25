@@ -25,6 +25,7 @@ import { MatdynamicmenuComponent } from "./layout/matdynamicmenu/matdynamicmenu.
 import { MatdynamicsubmenuComponent } from "./layout/matdynamicmenu/matdynamicsubmenu/matdynamicsubmenu.component";
 import { MatnestedmenuComponent } from "./layout/matnestedmenu/matnestedmenu.component";
 
+import { CurrencyPipe } from '@angular/common';
 
 import {
   PerfectScrollbarModule,
@@ -95,6 +96,7 @@ export function createTranslateLoader(http: HttpClient): any {
         NgxPaginationModule
     ],
     providers: [
+      CurrencyPipe,
         // { provide: LocationStrategy, useClass: HashLocationStrategy },
         // {
         //     provide: PERFECT_SCROLLBAR_CONFIG,
