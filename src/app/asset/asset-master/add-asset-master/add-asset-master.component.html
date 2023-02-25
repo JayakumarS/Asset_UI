@@ -13,7 +13,16 @@
                         <form class="m-4" [formGroup]="docForm">
                             <mat-tab-group (selectedTabChange)="singleAssetPopup($event);">
                                 <mat-tab label="Add Single Asset">
-                                  
+                                    <!-- <div class="row">
+                                <h2 style="padding-bottom: 5px;
+                                    padding-top: 5px;color:#F6682F">Add Single Asset/<a style="padding-bottom: 5px;
+                                    padding-top: 5px;color:#F6682F;font-size: 25px!important;" (click)="$event.stopPropagation()"
+                                    (click)="multipleuploadpopupCall()"><u>Add Multiple Assets</u> </a></h2><br>
+                            </div><br> -->
+                                    <!-- <ng-template mat-tab-label>
+                                <mat-icon class="example-tab-icon msr-2">face</mat-icon>
+                                Add single asset
+                            </ng-template> -->
                                     <br>
                                     <div class="row-def" style="margin-left: -5%;">
                                         <div class="row">
@@ -57,11 +66,13 @@
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">
                                                                 Item Code-Item Name</th>
-                                                           
+                                                            <!-- <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Auditable</th> -->
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
                                                                 Asset Name</th>
-                                                            
+                                                            <!-- <th class="text-center table-heading padding-both-side-2 width_7"
+                                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Asset Code</th> -->
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">
                                                                 Location</th>
@@ -94,11 +105,21 @@
                                                                                 {{title.text}}
                                                                             </mat-option>
                                                                         </mat-select>
-                                                                     
+                                                                        <!-- <mat-error  *ngIf="grnBasedAssetList.controls['itemId'].hasError('required')">
+                                                Item Code-Item Name is required
+                                                </mat-error> -->
 
                                                                     </mat-form-field>
                                                                 </td>
-                                                        
+                                                                <!--
+                                          <td class="padding-both-side-2">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                              <mat-label>Is Auditable ?</mat-label>
+                                              <input type="checkbox" name="isAuditable{{i}}" formControlName="isAuditable"
+                                                 maxlength="150">
+
+                                            </mat-form-field>
+                                          </td> -->
 
                                                                 <td class="padding-both-side-2">
                                                                     <mat-form-field
@@ -108,11 +129,20 @@
                                                                         <input matInput name="assetName{{i}}"
                                                                             formControlName="assetName" maxlength="150"
                                                                             (keypress)="keyPressName($event)">
-                                                                       
+                                                                        <!-- <mat-error  *ngIf="grnBasedAssetList.controls['assetName'].hasError('required')">
+                                                    Asset Name is required
+                                                    </mat-error> -->
                                                                     </mat-form-field>
                                                                 </td>
 
-                                                     
+                                                                <!-- <td class="padding-both-side-2">
+                                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                              <mat-label>Asset Code</mat-label>
+                                              <input matInput name="assetCode{{i}}" formControlName="assetCode"
+                                                (keypress)="keyPressNameNumber($event)" maxlength="9">
+
+                                            </mat-form-field>
+                                          </td> -->
 
                                                                 <td class="padding-both-side-2">
                                                                     <mat-form-field
@@ -127,7 +157,9 @@
                                                                                 {{title.text}}
                                                                             </mat-option>
                                                                         </mat-select>
-                                                                      
+                                                                        <!-- <mat-error  *ngIf="grnBasedAssetList.controls['location'].hasError('required')">
+                                                Location is required
+                                                </mat-error> -->
                                                                     </mat-form-field>
                                                                 </td>
 
@@ -144,7 +176,9 @@
                                                                                 {{title.text}}
                                                                             </mat-option>
                                                                         </mat-select>
-                                                                    
+                                                                        <!-- <mat-error *ngIf="grnBasedAssetList.controls['category'].hasError('required')">
+                                                    Category is required
+                                                    </mat-error> -->
                                                                     </mat-form-field>
                                                                 </td>
 
@@ -155,14 +189,31 @@
                                                                         <mat-label>Status</mat-label>
                                                                         <mat-select name="status{{i}}"
                                                                             formControlName="status">
-                                                                        
+                                                                            <!-- <mat-option [value]="'Good'">
+                                                    New
+                                                </mat-option>
+                                                <mat-option [value]="'Damaged'">
+                                                    Damaged
+                                                </mat-option>
+                                                <mat-option [value]="'In repair'">
+                                                    In repair
+                                                </mat-option>
+                                                <mat-option [value]="'In stock'">
+                                                    In stock
+                                                </mat-option>
+                                                <mat-option [value]="'Refurbished'">
+                                                    Refurbished
+                                                </mat-option>
+                                              </mat-select> -->
                                                                             <mat-option
                                                                                 *ngFor="let title of statusDdList"
                                                                                 [value]="title.id">
                                                                                 {{title.text}}
                                                                             </mat-option>
                                                                         </mat-select>
-                                                                      
+                                                                        <!-- <mat-error *ngIf="grnBasedAssetList.controls['status'].hasError('required')">
+                                                Status is required
+                                                </mat-error> -->
                                                                     </mat-form-field>
                                                                 </td>
 
@@ -217,7 +268,11 @@
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
-                                              
+                                                <!-- <div class="col-xl-1">
+                                    <button color="primary" type="button" class="btn-space" [routerLink]="'/master/category/add-category/0'" mat-raised-button>
+                                        <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i>
+                                      </button>
+                                </div> -->
 
                                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                                     <mat-label style="margin-left: 35%;">ASSET NAME <span
@@ -234,7 +289,15 @@
                                                     </mat-form-field>
                                                 </div>
 
-                                               
+                                                <!-- <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
+                                    <mat-label >ASSET CODE <span class="errorColor">*</span></mat-label>
+                                  </div>
+                                  <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                    <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
+                                        <input matInput tabindex="4" formControlName="assetCode" (keypress)="keyPressNameNumber($event)" required>
+                                        <mat-error *ngIf="docForm.get('assetCode').hasError('required')">Asset Code is required </mat-error>
+                                    </mat-form-field>
+                                </div> -->
 
                                 <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12">
                                     <mat-label >LOCATION </mat-label>
@@ -246,7 +309,9 @@
                                                 {{title.text}}
                                             </mat-option>
                                         </mat-select>
-                                     
+                                        <!-- <mat-error
+                                            *ngIf="docForm.get('location').hasError('required')">Location is required
+                                        </mat-error> -->
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-xl-1">
@@ -272,6 +337,22 @@
                                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                                     <mat-form-field class="example-full-width form-control-sm"
                                                         appearance="outline">
+                                                        <!-- <mat-select tabindex="7" formControlName="status" required>
+                                        <mat-option [value]="'Good'">
+                                            New
+                                        </mat-option>
+                                        <mat-option [value]="'Damaged'">
+                                            Damaged
+                                        </mat-option>
+                                        <mat-option [value]="'In repair'">
+                                            In repair
+                                        </mat-option>
+                                        <mat-option [value]="'In stock'">
+                                            In stock
+                                        </mat-option>
+                                        <mat-option [value]="'Refurbished'">
+                                            Refurbished                                        </mat-option>
+                                      </mat-select> -->
                                       <mat-select tabindex="5" formControlName="status" required>
                                         <mat-option *ngFor="let title of statusDdList" [value]="title.id">
                                             {{title.text}}
@@ -310,7 +391,7 @@
                                       </div>
 
                             </div>
-                            
+
                                   <div class="col-xl-1 col-lg-2 col-md-12 col-sm-12" style="margin-left: -5%;">
                                     <input type="checkbox"   tabindex="8"  formControlName="isLine" (change)="getInLine($event.target.checked)" >
                                 </div>
@@ -325,14 +406,14 @@
                                 <div class="col-md-2" style="margin-left: -3%;">
                                      <mat-label>ASSET IMAGE <span class="errorColor">*</span></mat-label>
                                 </div>
-                                           <div class="col-md-4" style="margin-left: -4.5%;">
+                                           <div class="col-md-4" style="margin-left: -5%;">
                                             <app-file-upload appearance="outline" class="example-width form-control-sm" formControlName="uploadImg"
                                               (change)="onSelectImage($event)" ></app-file-upload>
                                               <mat-error *ngIf="docForm.get('uploadImg').hasError('required') && submitted &&  !uploadImage">
                                                 ASSET IMAGE is required
                                               </mat-error>
                                             </div>
-                                         
+
 
                                            <div style="margin-left: 1%;" class="row" *ngIf="(imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
 
@@ -343,7 +424,7 @@
                                                </a>
                                              </div>
                                            </div>
-                                    
+
                              </div>
                              <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
@@ -399,38 +480,14 @@
                                             <br>
                                             <div class="row">
 
-                                              
-                                                  <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12">
-                                                    <input type="radio" name="brand"  tabindex="8"  formControlName="brandCheck" value="brandCheck" (change)="getBrand($event.target.value)" style="margin-left: 55%;">&nbsp;&nbsp;BRAND
-                                                    <input type="radio" name="brand"  tabindex="8"  formControlName="unBrandCheck" value="unBrandCheck" (change)="getBrand($event.target.value)" style="margin-left: 10px;">&nbsp;&nbsp;UNBRAND
-                                                </div>
-
-                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " *ngIf="isBrand">
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-label>BRAND <span class="errorColor">*</span></mat-label>
                                                 </div>
-                                                
-                                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isBrand">
-                                                    <mat-form-field class="example-full-width form-control-sm"
-                                                        appearance="outline">
-                                      <mat-select tabindex="5" formControlName="brand" required>
-                                        <mat-option *ngFor="let title of brandDdList" [value]="title.id">
-                                            {{title.text}}
-                                        </mat-option>
-                                    </mat-select>
-                                      <mat-error *ngIf="docForm.get('brand').hasError('required')">
-                                        BRAND is required
-                                      </mat-error>
-                                    </mat-form-field>
-                                  </div>
-
-                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " *ngIf="isUnBrand">
-                                                    <mat-label>UN BRAND <span class="errorColor">*</span></mat-label>
-                                                </div>
-                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " *ngIf="isUnBrand">
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="9" formControlName="unBrand" (keypress)="keyPressName($event)" required>
-                                                        <mat-error *ngIf="docForm.get('unBrand').hasError('required')">
-                                                           UN BRAND is required
+                                                        <input matInput tabindex="9" formControlName="brand" (keypress)="keyPressName($event)" required>
+                                                        <mat-error *ngIf="docForm.get('brand').hasError('required')">
+                                                            BRAND is required
                                                           </mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -447,10 +504,6 @@
                                                     </mat-form-field>
                                                 </div>
 
-                                               
-                                            </div>
-                                            <div class="row">
-
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-label>SERIAL NO <span class="errorColor">*</span></mat-label>
                                                 </div>
@@ -462,6 +515,8 @@
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
+                                            </div>
+                                            <div class="row">
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-label>CONDITION <span class="errorColor">*</span></mat-label>
@@ -507,87 +562,81 @@
                                                     </mat-form-field>
                                                 </div>
 
-                                              
-                                            </div>
-                                            <div class="row">
-
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>DESCRIPTION </mat-label>
+                                                    <mat-label>DESCRIPTION <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="14" formControlName="description" >
+                                                        <input matInput tabindex="14" formControlName="description" required>
                                                         <mat-error *ngIf="docForm.get('description').hasError('required')">
                                                             DESCRIPTION is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
-
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>GST </mat-label>
+                                                    <mat-label>GST <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="14" formControlName="gst" >
+                                                        <input matInput tabindex="14" formControlName="gst" maxlength="7" (keypress)="keyPressNumberInt($event)"  required>
                                                         <mat-error *ngIf="docForm.get('gst').hasError('required')">
                                                             GST is required
                                                         </mat-error>
                                                     </mat-form-field>
-                                                </div>   
+                                                </div>
 
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>CUSTOM DUTY </mat-label>
+                                                    <mat-label>CUSTOM DUTY <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <input matInput tabindex="14" formControlName="customDuty" >
+                                                        <input matInput tabindex="14" formControlName="customDuty" required>
                                                         <mat-error *ngIf="docForm.get('customDuty').hasError('required')">
                                                             CUSTOM DUTY is required
                                                         </mat-error>
                                                     </mat-form-field>
-                                                </div> 
-                                                
-                                               
+                                                </div>
+
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>OTHER TAXES <span class="errorColor">*</span></mat-label>
+                                                </div>
+                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput tabindex="14" formControlName="otherTaxes" maxlength="7" (keypress)="keyPressNumberInt($event)"required>
+                                                        <mat-error *ngIf="docForm.get('otherTaxes').hasError('required')">
+                                                            OTHER TAXES is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
                                             </div>
 
 
                                         <div class="row">
-
                                             <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                <mat-label>OTHER TAXES </mat-label>
+                                                <mat-label>TRANSPORT <span class="errorColor">*</span></mat-label>
                                             </div>
                                             <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                    <input matInput tabindex="14" formControlName="otherTaxes" >
-                                                    <mat-error *ngIf="docForm.get('otherTaxes').hasError('required')">
-                                                        OTHER TAXES is required
-                                                    </mat-error>
-                                                </mat-form-field>
-                                            </div> 
-
-                                            <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                <mat-label>TRANSPORT </mat-label>
-                                            </div>
-                                            <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                    <input matInput tabindex="14" formControlName="transport" >
+                                                    <input matInput tabindex="14" formControlName="transport" required>
                                                     <mat-error *ngIf="docForm.get('transport').hasError('required')">
                                                         TRANSPORT is required
                                                     </mat-error>
                                                 </mat-form-field>
-                                            </div> 
+                                            </div>
 
                                             <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                <mat-label>INSTALLATION AND COMMISSION CHARGES </mat-label>
+                                                <mat-label>INSTALLATION AND COMMISSION CHARGES <span class="errorColor">*</span></mat-label>
                                             </div>
                                             <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                    <input matInput tabindex="14" formControlName="instalAndCommission" >
+                                                    <input matInput tabindex="14" formControlName="instalAndCommission" maxlength="7" (keypress)="keyPressNumberInt($event)"required>
                                                     <mat-error *ngIf="docForm.get('instalAndCommission').hasError('required')">
                                                         INSTALLATION AND COMMISSION CHARGES is required
                                                     </mat-error>
                                                 </mat-form-field>
-                                            </div> 
+                                            </div>
                                         </div>
     <div class="row">
        <div class="col-md-2">
@@ -621,7 +670,7 @@
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                                        <mat-select tabindex="15" formControlName="vendor">
+                                                        <mat-select tabindex="15" formControlName="vendor" required>
                                                             <mat-option *ngFor="let title of uomList"
                                                                 [value]="title.text">
                                                                 {{title.text}}
@@ -638,11 +687,11 @@
                                                       </button>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label>PO NUMBER </mat-label>
+                                                    <mat-label>PO NUMBER <span class="errorColor">*</span></mat-label>
                                                 </div>
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left:-1;">
                                                     <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
-                                                        <mat-select tabindex="16" formControlName="poNumber" >
+                                                        <mat-select tabindex="16" formControlName="poNumber" required>
                                                             <mat-option *ngFor="let title of purchaseOrderNumber" [value]="title.text"  >
                                                               {{title.text}}
                                                             </mat-option>
@@ -664,7 +713,7 @@
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
-                                               
+
                                             </div>
                                             <div class="row">
 
@@ -674,7 +723,7 @@
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                                         <input matInput [matDatepicker]="picker" tabindex="18"
-                                                            formControlName="invoiceDateobj" 
+                                                            formControlName="invoiceDateobj" required
                                                             (dateInput)="$event.value.format('DD/MM/YYYY')"
                                                             id="invoiceDate"
                                                             (dateChange)="getDateString($event, 'invoiceDate',0)">
@@ -703,16 +752,16 @@
                                                 </div>
 
                                                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-radio-group tabindex="17" formControlName="selfOrPartner" >
+                                                    <mat-radio-group tabindex="17" formControlName="selfOrPartner" required>
                                                         <mat-radio-button value="selfOwned">SELF OWNED <span class="errorColor">*</span></mat-radio-button>
                                                         <mat-radio-button value="partner">PARTNER <span class="errorColor">*</span></mat-radio-button>
-                                                        
+
                                                     </mat-radio-group>
                                                     <mat-error *ngIf="docForm.get('selfOrPartner').hasError('required') && submitted">
                                                         SELF OWNED and PARTNER is required
                                                     </mat-error>
                                                 </div>
-                                               
+
                                             </div>
 
                                             <div class="row">
@@ -726,6 +775,7 @@
                                                               {{title.text}}
                                                             </mat-option>
                                                           </mat-select>
+                                                        <!-- <input matInput tabindex="20"  formControlName="currency" (keypress)="keyPressNumberDouble($event)" required> -->
                                                         <mat-error *ngIf="docForm.get('currency').hasError('required')">
                                                             CURRENCY is required
                                                         </mat-error>
@@ -791,7 +841,7 @@
                                                         <mat-error  *ngIf="docForm.controls['depreciation'].hasError('pattern')">
                                                             Discount percentage should be of minimum 1% and Maximum 100%.
                                                         </mat-error>
-                                                       
+
                                                     </mat-form-field>
                                                     <br>
                                                 </div>
