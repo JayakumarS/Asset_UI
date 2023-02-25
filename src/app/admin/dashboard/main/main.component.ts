@@ -306,11 +306,17 @@ configUserLog: {
     );
 
     // ticket survey
-    this.httpService.get<any>(this.mainService.getItSupportTicketURL).subscribe(
+    this.httpService.get<any>(this.mainService.getItSupportTicketURL+ "?companyId=" + parseInt(this.companyAuditorCount)).subscribe(
       (data) => {
         this.barChartOptions.series=data.getTicketListGraphForClient;
         if(data.getTicketListGraphForClient.length!=0){
-          this.ticketFlag=true;
+          for(let i=0;i<data.getTicketListGraphForClient.length;i++){
+            if(data.getTicketListGraphForClient[i].data!=0){
+              this.ticketFlag=true;
+            }
+            // else{
+            // }
+          }
         }else{
           this.ticketFlag=false;
         }
@@ -383,7 +389,9 @@ configUserLog: {
           type: 'pie',
           data: this.pieValueArray
       }
-      if(doughnutChartData.getpieChartValue.length!=0){
+      console.log(this.pieValueArray[0].y);
+      //Pie chart hide flag
+      if(this.pieValueArray[0].y!=0 || this.pieValueArray[1].y!=0 || this.pieValueArray[2].y!=0 || this.pieValueArray[3].y!=0){
         this.pieChartFlag=true;
       }else{
         this.pieChartFlag=false;
@@ -511,6 +519,10 @@ configUserLog: {
               valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
           }
       },
+
+      credits: {
+        enabled: false
+      },
     
       legend: {
           enabled: false
@@ -557,6 +569,10 @@ configUserLog: {
           point: {
               valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
           }
+      },
+
+      credits: {
+        enabled: false
       },
     
       legend: {
@@ -611,6 +627,10 @@ configUserLog: {
           enabled: true
       }
     },
+
+    credits: {
+      enabled: false
+    },
   
     legend: {
         enabled: false
@@ -631,7 +651,7 @@ configUserLog: {
     },
   
     title: {
-        text: 'Assets Valuation'
+        text: ''
     },
   
     tooltip: {
