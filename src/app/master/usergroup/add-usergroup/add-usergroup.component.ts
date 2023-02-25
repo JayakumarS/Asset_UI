@@ -62,6 +62,10 @@ export class AddUsergroupComponent implements OnInit {
         );
        
       }
+
+      onCancel(){
+        this.router.navigate(['/master/usergroup/listusergroup']);
+      }
       
 
     

@@ -55,17 +55,17 @@
           align-items: center;
           justify-content: center;
         }
-        .icon:hover {
-            transform: scale(1.4);
-        }
+        .tableHeader{
+            padding: 7px;
+        }      
       </style>
       <div class="tableBody">
           <div class="table-responsive">
-              <table class="table table-hover ">
-                  <thead >
+              <table class="table table-hover" style="margin-top: 5px;">
+                  <thead>
                       <tr>
-                          <th>User Name</th>
-                          <th >User Role</th>                        
+                          <th class="tableHeader">User Name</th>
+                          <th class="tableHeader">User Role</th>                        
                       </tr>
                   </thead>
                   <tbody>
@@ -76,8 +76,11 @@
                           <td>{{data.roleName}}</td>                 
                          
                   </tbody>
-              </table>
+              </table>             
           </div>
       </div>
+  </div>
+  <div class="center">
+      <button style="background-color: rgb(14, 42, 126);color:white;" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Back</button>
   </div>
 </div>
