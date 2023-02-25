@@ -96,7 +96,7 @@ export class AssetProfileViewComponent implements OnInit {
   glList=[];
   gllist: MainList[] = [];
   dataSource: MatTableDataSource<MainList>;
-  columnsToDisplay = ["assetName", "categoryName", "locationName", "quantity"];
+  columnsToDisplay = ["icon","assetName", "categoryName", "locationName", "quantity"];
   imagePath: any;
   innerDisplayedColumns = ["transferDate","transferQuantity","sourceLocation","destinationLocation"];
   profileImg: any;
@@ -113,6 +113,7 @@ export class AssetProfileViewComponent implements OnInit {
   officeFlag: boolean = false;
   vehicleFlag: boolean = false;
   plantFlag: boolean = false;
+  isExpand : boolean = true;
   //
 
   isRented: boolean = false;
@@ -311,8 +312,10 @@ fetchAssetName(asset:any){
     const index = this.expandedElements.findIndex(x => x.aName == row1.aName);
     if (index === -1) {
       this.expandedElements.push(row1);
+      this.isExpand = false;
     } else {
       this.expandedElements.splice(index, 1);
+      this.isExpand = true;
     }
   }
 
