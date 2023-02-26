@@ -1,75 +1,72 @@
+<section class="content">
+  <div class="content-block">
+      <div class="block-header">
+          <!-- breadcrumb -->
+          <app-breadcrumb [title]="'View Category'" [items]="['Master']"
+              [active_item]="'View Category'">
+          </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="box-shadow">
+                  <div class="card" style="padding: 40px;">
+                      <div class="body">
+                          <div class="container border" id="salesOrderdview"
+                              style=" border: 1px solid white!important; border-radius: 10px; background-color: #ecebf7; ">
+                              <form class="m-4" autocomplete="off" [formGroup]="docForm">
+                                  <br>
 
-<div class="container-fluid">
-    <div class="modal-header">
-        <h5 class="modal-title headingValueNew">View Category</h5>
-        <div class="col-md-8 text-right">
-        </div>
-        <div class="col-md-2 text-right">
-            <button  color="primary" type="button" class="btn-space" (click)="back()"
-              mat-raised-button>Back</button>
-        </div>
-    </div> 
-    <div class="row clearfix" STYLE="margin-left:-10%;">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-      <div class="box-shadow">
-        <div class="card">
-          <div class="body" style="padding-left: 150px;">
+                                  <div class="row">
+                                      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                          <label><b>Category Name :</b>&nbsp;{{list?.categoryName !== null ? list?.categoryName: '-'}}</label>
+                                      </div>
+                                      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                          <label><b>Parent Code :</b> &nbsp;{{list?.list !== null ? list?.parentCategory: '-'}}</label>
+                                      </div>
+                                      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                                          <label><b>Description :</b>&nbsp;{{list?.Description!== null ? list?.Description: '-'}}</label>
 
-          <div class="row">
-            <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
-                <label class="lable"> CATEGORY NAME :</label>
-            </div> 
-            <div class="col-xl-2 col-lg-3 col-md-12 col-sm-10 " style="margin-left: -135px;">
-              {{list?.categoryName !== null ? list?.categoryName: '-'}}
-            </div>
-            <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 96px;">
-                <label class="lable">PARENT CATEGORY :</label>
-            </div> 
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -62px;  ">
-              {{list?.list !== null ? list?.parentCategory: '-'}}
-            </div>
-          </div><br>
-          <div class="row">
-            <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
-                <label class="lable">DESCRIPTION :</label>
-            </div> 
-            <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -135px;">
-              {{list?.Description!== null ? list?.Description: '-'}}
-            </div>
-            <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 96px;">
-                <label class="lable">DEPRECIATION METHOD :</label>
-            </div> 
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -62px;  ">
-              {{list?.depreciation !== null ? list?.depreciation: '-'}}
-            </div>
-          </div><br>
-          <div class="row">
-            <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
-                <label class="lable">ASSET TYPE:</label>
-            </div> 
-            <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -135px;">
-              {{list?.assettype !== null ? list?.assettype: '-'}}
-            </div>
-            <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 96px;">
-                <label class="lable">CURRENCY:</label>
-            </div> 
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -62px;  ">
-              {{list?.currency !== null ? list?.currency : '-'}}
-            </div>
-          </div><br>
-          <div class="row">
-            <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 " >
-                <label class="lable">IS ACTIVE:</label>
-            </div> 
-            <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -135px;">
-              {{list?.isactive !== null ? list?.isactive: '-'}}
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
+                                      </div>
 
-            
+                                      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                          <label><b>Depreciation Method :</b>&nbsp;{{list?.depreciation !== null ? list?.depreciation: '-'}}</label>
 
-  
+                                      </div>
+                                  </div>
+                                  <br>
+
+                                  <div class="row">
+
+                                      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                          <label><b>Asset Type:</b>&nbsp;{{list?.assettype !== null ? list?.assettype: '-'}}</label>
+
+                                      </div>
+
+                                      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                          <label><b>Currency :</b>&nbsp;{{list?.currency !== null ? list?.currency : '-'}}</label>
+
+                                      </div>
+                                      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                          <label><b>Is Active :</b>&nbsp;{{list?.isactive !== null ? list?.isactive: '-'}}</label>
+
+                                      </div>
+                                   
+                                  </div>
+                                  <br>
+                                  <br>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                          <button color="warn" (click)="back()" type="button" mat-raised-button
+                                              style="margin-left:500px;">Back</button>
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
