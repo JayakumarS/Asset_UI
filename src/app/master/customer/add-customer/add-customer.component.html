@@ -145,7 +145,7 @@
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="country" >
+                <mat-select class="inputTxt" formControlName="country"  (selectionChange)="fetchCountryBasedState($event.value)">
                   <mat-option *ngFor="let title of countryDdList" [value]="title.id">
                     {{title.text}}
                   </mat-option>
@@ -177,8 +177,11 @@
 
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="state" (keypress)="keyPressString($event)" maxlength="15">
-
+                <mat-select class="inputTxt" formControlName="state" (selectionChange)="stateBasedCity3($event.value)">
+                  <mat-option *ngFor="let title of countrybasedStateList" [value]="title.id">
+                    {{title.text}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -201,8 +204,11 @@
             <div class=" col-md-2" style="margin-left: -45px;">
 
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" >
-
+                <mat-select class="inputTxt" formControlName="city" >
+                  <mat-option *ngFor="let title of stateBasedCityList3" [value]="title.id">
+                    {{title.text}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -403,6 +409,21 @@
                     </mat-form-field>
                   </div> -->
                 </div>
+                <br>
+                <div class="row">
+
+                  <div class=" col-md-4">
+                    <mat-label>Same As Billing Address</mat-label>
+                  </div>
+                  <div class=" col-md-1">
+
+                    <div class=" col-md-1" alignn="right" style="margin-left: 20px;">
+
+                        <mat-checkbox (change)="active()" ngInit="checked=true" formControlName="isactive"></mat-checkbox>
+                      </div>
+
+                    </div>
+                </div>  
 
               </div>
 
@@ -410,20 +431,7 @@
 
 
               <div class=" col-md-5">
-                 <!-- <div class="row">
-
-                  <div class=" col-md-4">
-                    <mat-label>Same As Billing Address</mat-label>
-                  </div>
-                  <div class=" col-md-1">
-
-                    <div class=" col-md-1" alignn="right">
-
-                        <mat-checkbox (change)="active()" ngInit="checked=true" formControlName="isactive"></mat-checkbox>
-                      </div>
-
-                    </div>
-                </div>  -->
+              
 
                 <div class="row">
                   <div class=" col-md-4">
@@ -636,7 +644,7 @@
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>EMAIL</mat-label>
                           <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == false">
-                         <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == true" readonly>
+                         <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == true" >
                         </mat-form-field>
                       </td>
                       <td class="padding-both-side-2">

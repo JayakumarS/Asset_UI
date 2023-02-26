@@ -208,7 +208,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
                 assCode: [element.assetCode],
                 assLocation: [element.locationName],
                 assCategory: [element.categoryName],
-                assStatus: [element.status],
+                assStatus: [element.statusName],
                 assetId: [element.assetId],
                 assUser: [parseInt(element.assetUser)]
 
@@ -282,7 +282,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
                 assCode: [element.assetCode],
                 assLocation: [element.locationName],
                 assCategory: [element.categoryName],
-                assStatus: [element.status],
+                assStatus: [element.statusName],
                 assetId: [element.assetId],
                 assUser: [parseInt(element.assetUser)],
                 movedTo: [element.movedTo],
@@ -595,12 +595,6 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       this.isLineIn = true;
     }
   }
-
-
-
-
-
-
 
 
   resetSelf(){

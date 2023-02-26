@@ -63,7 +63,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   countrybasedStateList2:[];
   stateBasedCityList2:[];
   companyId: any;
-
+  stateBasedCityList3:[];
   constructor(private fb: FormBuilder,
               private httpService: HttpServiceService,
               private snackBar: MatSnackBar,
@@ -286,6 +286,11 @@ zipcodevalidation2(event:any){
       this.stateBasedCityList2 = res;
   })
   }
+  stateBasedCity3(state:any){
+    this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
+      this.stateBasedCityList3 = res;
+    })
+  }
   zipcodevalidation1(event:any){
     if(event.length != 6){ 
       this.docForm.controls['shipperZip'].setErrors({ shipper: true });
@@ -309,26 +314,25 @@ zipcodevalidation2(event:any){
         this.docForm.controls['postalcode'].setErrors(null);
       } 
   }
-  // city list
     getCityDropdown(state: any): void {
         this.httpService.get(this.commonService.getCityDropdown + "?state=" + state).subscribe((res: any) => {
           this.cityDdList = res.addressBean;
       });
     }
-     // city shipper list
+     //  shipper list
      getCityShipperDropdown(state: any): void {
       this.httpService.get(this.commonService.getCityShipperDropdown+ "?state=" + state).subscribe((res: any) => {
         this.cityShipperList = res.addressBean;
     });
   }
-   // city delivery list
+   //  delivery list
    getCityDeliveryDropdown(state: any): void {
     this.httpService.get(this.commonService.getCityDeliveryDropdown+ "?state=" + state).subscribe((res: any) => {
       this.cityDeliveryList = res.addressBean;
   });
 }
 
-  // city Billing list
+  //  Billing list
   getCityBillingDropdown(state: any): void {
     this.httpService.get(this.commonService.getCityBillingDropdown+ "?state=" + state).subscribe((res: any) => {
       this.cityBillingList = res.addressBean;
@@ -433,6 +437,7 @@ fetchDetails(cus_id: any): void {
       this.stateBasedCity2(res.customerBean.deliveryState)
       this.fetchCountryBasedState1(parseInt(res.customerBean.shipperCountry))
       this.stateBasedCity1(res.customerBean.shipperState)
+      this.stateBasedCity3(res.customerBean.state)
       this.docForm.patchValue({
       'cus_id': res.customerBean.cus_id,
       'auditorname': res.customerBean.auditorname,
@@ -442,8 +447,8 @@ fetchDetails(cus_id: any): void {
       'phone' : res.customerBean.phone,
       'address': res.customerBean.address,
       'addresstwo': res.customerBean.addresstwo,
-      'city': res.customerBean.city,
-      'state': res.customerBean.state,
+      'city': parseInt(res.customerBean.city),
+      'state': parseInt(res.customerBean.state),
       'country': res.customerBean.country,
       'postalcode': res.customerBean.postalcode,
       'panno': res.customerBean.panno,
