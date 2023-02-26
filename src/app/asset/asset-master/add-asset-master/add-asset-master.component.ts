@@ -596,18 +596,20 @@ export class AddAssetMasterComponent
         })
       }
 
-      // if(this.isBrand){
-      //   this.docForm.patchValue({
-      //     'brandCheck':"",
-      //   })
-      // }
+      if(this.isBrand == true){
+        this.docForm.patchValue({
+          'brandCheck':"brandCheck",
+          'unBrandCheck':"null",
+        })
+      }
 
 
-      // if(this.isUnBrand){
-      //   this.docForm.patchValue({
-      //     'unBrandCheck':"",
-      //   })
-      // }
+      if(this.isUnBrand == true){
+        this.docForm.patchValue({
+          'brandCheck':"null",
+          'unBrandCheck':"unBrandCheck",
+        })
+      }
 
      
 
@@ -804,22 +806,20 @@ export class AddAssetMasterComponent
         }
 
 
-        if(res.addAssetBean.brand !=null && res.addAssetBean.unBrandCheck !=null){
+        if(res.addAssetBean.brandCheck =="brandCheck"){
           this.isBrand=true;
           this.isUnBrand=false;
           this.docForm.patchValue({
             'brandCheck':"brandCheck",
-            'unBrandCheck':"null",
           })
         } else {
           this.isBrand=false;
         }
 
-        if(res.addAssetBean.unBrand !=null && res.addAssetBean.unBrandCheck !=null){
+        if(res.addAssetBean.unBrandCheck =="unBrandCheck"){
           this.isUnBrand=true;
           this.isBrand=false;
           this.docForm.patchValue({
-            'brandCheck':"null",
             'unBrandCheck':"unBrandCheck",
           })
         } else {
