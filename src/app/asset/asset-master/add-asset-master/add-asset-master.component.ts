@@ -255,13 +255,14 @@ export class AddAssetMasterComponent
         this.edit = true;
         this.fetchDetails(this.requestId);
         this.getInLine(event);
+        this.getBrand(event);
 
       }
     });
 
 
 
-    this.httpService.get<any>(this.commonService.getCategoryDropdown+ "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
       next: (data) => {
         this.categoryList = data;
       },
@@ -327,31 +328,6 @@ export class AddAssetMasterComponent
         }
         );
 
-// <<<<<<< Updated upstream
-//     // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-//     //   next: (data) => {
-//     //     this.locationDdList = data;
-//     //   },
-//     //   error: (error) => {
-
-//     //   }
-//     // }
-//     // );
-
-//      // Location dropdown
-//      this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
-// =======
-//     this.httpService.get<any>(this.commonService.getMoveToDropdown+"?companyId="+parseInt(this.companyId)).subscribe({
-// >>>>>>> Stashed changes
-//       next: (data) => {
-//         this.locationDdList = data;
-//       },
-//       error: (error) => {
-
-//       }
-//     }
-//     );
-
 
     //Item Master Dropdown List
     this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
@@ -362,16 +338,6 @@ export class AddAssetMasterComponent
       }
     });
 
-    // // department dropdown
-    // this.httpService.get<any>(this.commonService.getDepartmentDropdown).subscribe({
-    //   next: (data) => {
-    //     this.departmentDdList = data;
-    //   },
-    //   error: (error) => {
-
-    //   }
-    // }
-    // );
 
     //purchaseOrderNumber Dropdown List
     const obj = {
@@ -535,17 +501,19 @@ export class AddAssetMasterComponent
         })
       }
 
-      if(this.isBrand){
-        this.docForm.patchValue({
-          'brand':"",
-        })
-      }
+    
+      // if(this.isBrand){
+      //   this.docForm.patchValue({
+      //     'brandCheck':"",
+      //   })
+      // }
 
-      if(this.isUnBrand){
-        this.docForm.patchValue({
-          'unBrand':"",
-        })
-      }
+      // if(this.isUnBrand){
+      //   this.docForm.patchValue({
+      //     'unBrandCheck':"",
+          
+      //   })
+      // }
 
       this.assetMaster = this.docForm.value;
       console.log(this.assetMaster);
@@ -582,13 +550,7 @@ export class AddAssetMasterComponent
       });
     } else {
 
-      // if (!this.docForm.valid) {
-      //   if (this.docForm.controls.assetMasterBean['assName'].invalid) {
-      //     const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'assName' + '"]');
-      //     invalidControl.focus();
-      //     return;
-      //   }
-      // }
+
 
       this.showNotification(
         "snackbar-danger",
@@ -634,18 +596,20 @@ export class AddAssetMasterComponent
         })
       }
 
+      // if(this.isBrand){
+      //   this.docForm.patchValue({
+      //     'brandCheck':"",
+      //   })
+      // }
 
-      if(this.isBrand){
-        this.docForm.patchValue({
-          'brand':"",
-        })
-      }
 
-      if(this.isUnBrand){
-        this.docForm.patchValue({
-          'unBrand':"",
-        })
-      }
+      // if(this.isUnBrand){
+      //   this.docForm.patchValue({
+      //     'unBrandCheck':"",
+      //   })
+      // }
+
+     
 
       this.assetMaster = this.docForm.value;
       this.spinner.show();
@@ -704,6 +668,16 @@ export class AddAssetMasterComponent
     }
     );
 
+    this.httpService.get<any>(this.commonService.getBrandDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.brandDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
       this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
         next: (data) => {
           this.statusDdList = data;
@@ -737,8 +711,10 @@ export class AddAssetMasterComponent
           'putUseDate': res.addAssetBean.putUseDate,
           'putUseDateObj': res.addAssetBean.putUseDate != null ? this.commonService.getDateObj(res.addAssetBean.putUseDate) : "",
           'id': res.addAssetBean.id,
-          'brand': res.addAssetBean.brand,
+          'brand': parseInt(res.addAssetBean.brand),
           'unBrand': res.addAssetBean.unBrand,
+          'brandCheck': res.addAssetBean.brandCheck,
+          'unBrandCheck': res.addAssetBean.unBrandCheck,
           'model': res.addAssetBean.model,
           'allottedUptoobj': res.addAssetBean.allottedUpto != null ? this.commonService.getDateObj(res.addAssetBean.allottedUpto) : "",
           'allottedUpto': res.addAssetBean.allottedUpto,
@@ -825,6 +801,29 @@ export class AddAssetMasterComponent
           })
         } else {
           this.isThirdParty=false;
+        }
+
+
+        if(res.addAssetBean.brand !=null && res.addAssetBean.unBrandCheck !=null){
+          this.isBrand=true;
+          this.isUnBrand=false;
+          this.docForm.patchValue({
+            'brandCheck':"brandCheck",
+            'unBrandCheck':"null",
+          })
+        } else {
+          this.isBrand=false;
+        }
+
+        if(res.addAssetBean.unBrand !=null && res.addAssetBean.unBrandCheck !=null){
+          this.isUnBrand=true;
+          this.isBrand=false;
+          this.docForm.patchValue({
+            'brandCheck':"null",
+            'unBrandCheck':"unBrandCheck",
+          })
+        } else {
+          this.isUnBrand=false;
         }
 
         this.getInLine(res.addAssetBean.isLine);
@@ -1047,8 +1046,6 @@ export class AddAssetMasterComponent
       this.grnFlag = true;
       this.docForm.controls.grnId.setValidators(Validators.required);
       this.docForm.controls['grnId'].updateValueAndValidity();
-      // this.docForm.controls.isAuditable.clearValidators();
-      // this.docForm.controls['isAuditable'].updateValueAndValidity();
       this.docForm.controls.assetName.clearValidators();
       this.docForm.controls['assetName'].updateValueAndValidity();
       this.docForm.controls.assetCode.clearValidators();
@@ -1064,8 +1061,6 @@ export class AddAssetMasterComponent
       this.grnFlag = false;
       this.docForm.controls.grnId.clearValidators();
       this.docForm.controls['grnId'].updateValueAndValidity();
-      // this.docForm.controls.isAuditable.setValidators(Validators.required);
-      // this.docForm.controls['isAuditable'].updateValueAndValidity();
       this.docForm.controls.assetName.setValidators(Validators.required);
       this.docForm.controls['assetName'].updateValueAndValidity();
       this.docForm.controls.assetCode.setValidators(Validators.required);
@@ -1242,7 +1237,6 @@ export class AddAssetMasterComponent
                 let arraylen = grnBasedAssetArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
                   itemId: [element.itemId],
-                  // isAuditable: [element.isAuditable],
                   assetName: ["", [Validators.required]],
                   assetCode: [""],
                   location: ["", [Validators.required]],
@@ -1331,13 +1325,26 @@ export class AddAssetMasterComponent
   {
     if(check=='brandCheck'){
       this.isBrand=true;
+      this.docForm.controls.brandCheck.setValidators(Validators.required);
+      this.isUnBrand=false;
+
     } else {
      this.isBrand=false;
+     this.docForm.controls.brandCheck.clearValidators();
+     this.docForm.controls['brandCheck'].updateValueAndValidity();
+
     }
     if(check=='unBrandCheck'){
      this.isUnBrand=true;
+     this.docForm.controls.unBrandCheck.setValidators(Validators.required);
+     this.isBrand=false;
+
+
    } else {
     this.isUnBrand=false;
+    this.docForm.controls.unBrandCheck.clearValidators();
+    this.docForm.controls['unBrandCheck'].updateValueAndValidity();
+
    }
   }
 
@@ -1366,7 +1373,7 @@ export class AddAssetMasterComponent
       //tab1
       brand: [""],
       unBrand: [""],
-      brandCheck: ["brandCheck"],
+      brandCheck: [""],
       unBrandCheck: [""],
       model: [""],
       serialNo: [""],
@@ -1470,6 +1477,9 @@ export class AddAssetMasterComponent
     this.isCategory=false;
     this.isRented=false;
     this.isThirdParty=false;
+
+    this.isBrand=false;
+    this.isUnBrand=false;
 
     this.imgPathUrl=[];
     this.filePathUrl= [] ;

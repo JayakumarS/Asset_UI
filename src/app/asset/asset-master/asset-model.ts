@@ -13,6 +13,7 @@ export class AssetMaster {
 	allottedUpto: string;
 	allottedUptoobj: string;
 	brand: string;
+	unBrand: string;
 	captitalizationDate: string;
 	captitalizationDateobj: string;
 	captitalizationPrice: number;
