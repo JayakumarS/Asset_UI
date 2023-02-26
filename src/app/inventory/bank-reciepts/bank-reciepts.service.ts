@@ -34,7 +34,7 @@ const httpOptions = {
     public editbankReceipt = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/edit`;
     public deleteBankReceipt = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/delete`;
     public updateBankReceipt = `${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/update`;
-
+    public getSalesInvoice=`${this.serverUrl.apiServerAddress}app/inventory/bankReceipt/getSalesInvoice`;
 
     get data(): BankReceipt[] {
         return this.dataChange.value;

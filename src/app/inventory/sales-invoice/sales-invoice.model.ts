@@ -9,8 +9,10 @@ export class SalesInvoice {
   active: boolean;
   branchId: any;
   company: any;
-  customerName: string;
+  customerName: any;
   currencyName: string;
+  salesInvoiceNo: any;
+
   // company:string;
   // companyName:string;
   constructor(salesInvoice) {

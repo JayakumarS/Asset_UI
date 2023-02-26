@@ -5,4 +5,5 @@ dateofdelivery:string;
 termsandcondition:string;
 companyId:string;
 customerName:any;
+salesNo:any;
 }

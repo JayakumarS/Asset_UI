@@ -67,8 +67,8 @@
                   <div class="col-md-2">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="salesOrderNo" (selectionChange)="fetchSalesDetails($event.value)">
-                        <mat-option *ngFor="let title of salesOrderList" [value]="title.salesOrderNo">
-                          {{title.salesOrderNo}}
+                        <mat-option *ngFor="let title of salesOrderList" [value]="title.salesNo">
+                          {{title.salesNo}}
                         </mat-option>
                       </mat-select>
                       <mat-error *ngIf="docForm.get('salesOrderNo').hasError('required')">
