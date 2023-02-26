@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -28,7 +28,15 @@ export class ViewCategoryComponent implements OnInit {
     private httpService: HttpServiceService,
     public categoryMasterService: CategoryMasterService,
     public tokenStorage: TokenStorageService,
-  ) { }
+    private fb: FormBuilder,
+  ) { 
+
+    this.docForm = this.fb.group({
+      categoryName:['']
+    });
+  }
+
+
 
   ngOnInit(): void {
     this.roleId=this.tokenStorage.getRoleId();
