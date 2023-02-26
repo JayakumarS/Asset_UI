@@ -63,6 +63,7 @@ export class AddSalesOrderComponent implements OnInit {
     private router:Router,public route: ActivatedRoute,    private spinner: NgxSpinnerService,public tokenStorage: TokenStorageService,
     )
      {    this.docForm = this.fb.group({
+      salesNo:[""],
       customer:[""],
       currency:[""],
       dateofdelivery:[""],
@@ -157,14 +158,15 @@ export class AddSalesOrderComponent implements OnInit {
 
   fetchDetails(salesOrderNo:any){
     const obj = {
-      editId: salesOrderNo
+      editid: salesOrderNo
     };
     this.salesOrderService.editSalesOrder(obj).subscribe({
       next: (res) => {
         let hdate = this.cmnService.getDateObj(res.salesOrderBean.dateofdelivery);
        this.customer= res.salesOrderBean.customer;
       this.docForm.patchValue({
-        'salesOrderNo': res.salesOrderBean.salesOrderNo,
+         'salesNo': res.salesOrderBean.salesNo,
+          'salesOrderNo': res.salesOrderBean.salesOrderNo,
           'customer':parseInt( res.salesOrderBean.customer),
           'currency': parseInt( res.salesOrderBean.currency),
           'dateofdelivery' : res.salesOrderBean.dateofdelivery,

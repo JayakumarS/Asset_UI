@@ -53,6 +53,7 @@ export class AddBankRecieptsComponent implements OnInit {
   value62: any;
   value7: any;
   currencyListbasedCompany = [];
+  salesInvoiceDropDown=[];
 
   constructor(private fb: FormBuilder, public router: Router,
     private httpService: HttpServiceService, public route: ActivatedRoute,
@@ -83,6 +84,7 @@ export class AddBankRecieptsComponent implements OnInit {
       narration: [""],
       totalBcAmt: [""],
       totalTcAmt: [""],
+      salesInvoiceNo:[""],
       bankReceiptDetailBean: this.fb.array([
         this.fb.group({
           accountname: [""],
@@ -111,6 +113,18 @@ export class AddBankRecieptsComponent implements OnInit {
     this.userId = this.tokenStorage.getUserId();
 
     this.companyId = this.tokenStorage.getCompanyId(),
+    /*************************************************************************/
+
+    this.user = this.tokenStorage.getCompanyId();
+
+
+    this.httpService.get<any>(this.bankReceiptservice.getSalesInvoice + "?companyId=" + (this.user)).subscribe({
+      next: (data) => {
+        this.salesInvoiceDropDown = data;
+      },
+      error: (error) => {
+      }
+    });
 
     /******************currency dropdown *************************************/
     this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe(
@@ -266,6 +280,7 @@ export class AddBankRecieptsComponent implements OnInit {
         'currency': res.bankReceiptBean.currency,
         'exchangerate': res.bankReceiptBean.exchangerate,
         'receivedFrom': res.bankReceiptBean.receivedFrom,
+        'salesInvoiceNo': res.bankReceiptBean.salesInvoiceNo,
         'tcAmountno': parseFloat(res.bankReceiptBean.tcAmountno).toFixed(2),
         'bcAmountno':parseFloat(res.bankReceiptBean.bcAmountno).toFixed(2), 
         'narration': res.bankReceiptBean.narration,

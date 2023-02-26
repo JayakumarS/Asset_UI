@@ -33,7 +33,11 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  
+                  <div class="col-xl-1">
+                    <button color="primary" type="button" class="btn-space" [routerLink]="'/master/userMaster/add-user-master/0'" mat-raised-button>
+                        <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i>
+                      </button>
+                </div>
                   <div class=" col-md-2">
                     <label>FULL NAME<span class="errorColor">*</span></label>
                   </div>
@@ -59,6 +63,8 @@
                         </mat-error>
                     </mat-form-field>
                   </div>
+                  <div class="col-xl-1"></div>
+
                   <div class=" col-md-2">
                     <mat-label>COMPANY<span class="errorColor">*</span></mat-label>
                   </div>
@@ -85,6 +91,7 @@
                       <input matInput formControlName="address" maxlength="250">
                     </mat-form-field>
                   </div>
+                  <div class="col-xl-1"></div>
 
 
                   <div class=" col-md-2">

@@ -33,8 +33,8 @@ import { DeleteSalesInvoiceComponent } from './delete-sales-invoice/delete-sales
 })
 export class ListSalesInvoiceComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-    // "select",
-     "companyName",
+    "salesInvoiceNo"  ,
+       "companyName",
      "customerName",
      "currencyName",
      "narration",
@@ -223,6 +223,7 @@ export class ExampleDataSource extends DataSource<SalesInvoice> {
           .slice()
           .filter((salesInvoice: SalesInvoice) => {
             const searchStr = (
+              salesInvoice.salesInvoiceNo+
               salesInvoice.companyName +
               salesInvoice.customerName
             ).toLowerCase();
@@ -250,6 +251,10 @@ export class ExampleDataSource extends DataSource<SalesInvoice> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
+        
+        case "salesInvoiceNo":
+          [propertyA, propertyB] = [a.salesInvoiceNo, b.salesInvoiceNo];
+          break;
         case "companyName":
           [propertyA, propertyB] = [a.companyName, b.companyName];
           break;

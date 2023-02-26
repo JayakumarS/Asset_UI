@@ -47,7 +47,12 @@
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
-
+                
+                <ng-container matColumnDef="salesInvoiceNo">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Sales Invoic eNo</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                    {{row.salesInvoiceNo}}</mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="companyName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">

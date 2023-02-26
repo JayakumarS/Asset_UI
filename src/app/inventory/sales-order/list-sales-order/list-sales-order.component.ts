@@ -31,7 +31,7 @@ import { DeleteSalesOrderComponent } from './delete-sales-order/delete-sales-ord
 export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   displayedColumns = [
-   
+    "salesNo",
     "customerName",
     "currency",
     "dateofdelivery",
@@ -96,7 +96,7 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
 
   editCall(row) {
 
-    this.router.navigate(['/inventory/sales-order/add-sales-order/'+row.salesOrderNo]);
+    this.router.navigate(['/inventory/sales-order/add-sales-order/'+row.salesNo]);
 
   }
 
@@ -118,7 +118,7 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       if (data.data === true) {
         const obj = {
-          deletingId: row.salesOrderNo
+          deletingid: row.salesNo
         };
         this.salesOrderService.delete(obj).subscribe({
           // tslint:disable-next-line:no-shadowed-variable
@@ -205,6 +205,7 @@ export class ExampleDataSource extends DataSource<SalesOrder> {
           .filter((salesOrder: SalesOrder) => {
 
             const searchStr = (
+              salesOrder .salesNo+
               salesOrder.customerName +
               salesOrder.currency +
               salesOrder.dateofdelivery +
@@ -237,12 +238,12 @@ export class ExampleDataSource extends DataSource<SalesOrder> {
       let propertyA: number | string | boolean = "";
       let propertyB: number | string | boolean = "";
       switch (this._sort.active) {
+        case "":
+          [propertyA, propertyB] = [a.salesNo, b.salesNo];
+          break;
         case "customerName":
           [propertyA, propertyB] = [a.customerName, b.customerName];
           break;
-        //case "departmentName":
-         // [propertyA, propertyB] = [a.departmentName, b.departmentName];
-         // break;
           case "currency":
           [propertyA, propertyB] = [a.currency, b.currency];
           break;

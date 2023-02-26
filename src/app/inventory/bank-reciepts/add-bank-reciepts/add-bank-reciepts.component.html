@@ -98,6 +98,19 @@
                 </div>
                 <div class="row">
                   <div class=" col-md-2">
+                    <mat-label>Sales Invoice No </mat-label>
+                  </div>
+                  <div class=" col-md-2" style="margin-left: -45px;">
+                    <mat-form-field class="example-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="salesInvoiceNo">
+                        <mat-option *ngFor="let title of salesInvoiceDropDown" [value]="title.strId">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  &nbsp; &nbsp; &nbsp;
+                  <div class=" col-md-2">
                     <mat-label>CURRENCY</mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
@@ -111,16 +124,6 @@
                   </div>
                   &nbsp; &nbsp; &nbsp;
                   <div class=" col-md-2">
-                    <mat-label>EXCHANGE RATE</mat-label>
-                  </div>
-                  <div class=" col-md-2" style="margin-left: -45px;">
-                    <mat-form-field class="example-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="exchangerate" (change)="calculation456()"
-                        (keypress)="keyPressNumeric1($event)" maxlength="5">
-                    </mat-form-field>
-                  </div>
-                  &nbsp; &nbsp; &nbsp;
-                  <div class=" col-md-2">
                     <mat-label>RECIEVED FROM</mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
@@ -130,7 +133,16 @@
                   </div>
                 </div>
                 <div class="row">
-
+                  <div class=" col-md-2">
+                    <mat-label>EXCHANGE RATE</mat-label>
+                  </div>
+                  <div class=" col-md-2" style="margin-left: -45px;">
+                    <mat-form-field class="example-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="exchangerate" (change)="calculation456()"
+                        (keypress)="keyPressNumeric1($event)" maxlength="5">
+                    </mat-form-field>
+                  </div>
+                  &nbsp; &nbsp; &nbsp;
                   <div class=" col-md-2">
                     <mat-label>TC AMOUNT</mat-label>
                   </div>
@@ -150,9 +162,8 @@
                         (keypress)="keyPressNumeric1($event)">
                     </mat-form-field>
                   </div>
-
-
-                  &nbsp; &nbsp; &nbsp;
+                </div>
+                <div class="row">
                   <div class=" col-md-2">
                     <mat-label>NARRATION</mat-label>
                   </div>
@@ -161,7 +172,7 @@
                       <textarea matInput formControlName="narration" maxlength="15"></textarea>
                     </mat-form-field>
                   </div>
-                </div>
+                  </div>
                 <!-- <div class="row">
                   <div class="col-md-4">
                     <app-file-upload class="example-width form-control-sm" formControlName="lopUpload"

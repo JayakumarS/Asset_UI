@@ -102,6 +102,7 @@ export class AddSalesInvoiceComponent implements OnInit {
       amount: ["",[Validators.required]],
       currency: [""],
       salesOrderNo: [""],
+      salesNo:[""],
       exRate: [""],
       exKshRate: [""],
       narration: [""],
@@ -210,9 +211,9 @@ export class AddSalesInvoiceComponent implements OnInit {
 
   }
 
-  fetchSalesDetails(salesOrderNo: any) {
+  fetchSalesDetails(salesNo: any) {
     this.user = this.tokenStorage.getCompanyId();
-    this.httpService.get(this.salesInvoiceService.dtlDropdown + "?companyId=" + salesOrderNo).subscribe((res: any) => {
+    this.httpService.get(this.salesInvoiceService.dtlDropdown + "?companyId=" + salesNo).subscribe((res: any) => {
       this.docForm.patchValue({
         'currency':res.salesInvoiceBean.currency
       });
