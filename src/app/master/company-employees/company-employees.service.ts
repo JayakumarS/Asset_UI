@@ -39,7 +39,7 @@ const httpOptions = {
     public fetchBranch = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedBranchList`;
     public fetchdepartment = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedDepartmentList`;
     public multipleEmployeeUploadFiles = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/multipleEmployeeuploadExefile`;
-
+    public compEmpValidation = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/compEmpValidation`;
     
     
     

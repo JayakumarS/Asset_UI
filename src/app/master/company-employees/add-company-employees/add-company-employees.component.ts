@@ -386,8 +386,8 @@ export class AddCompanyEmployeesComponent implements OnInit {
   }
 
   validateEmployeeId(event){
-    this.httpService.get<any>(this.companyEmployeeService.uniqueValidateUrl + "?tableName=" + "company_employee" + "&columnName=" + "empid" + "&columnValue=" + event).subscribe((res: any) => {
-      if (res){
+    this.httpService.get<any>(this.companyEmployeeService.compEmpValidation + "?companyId=" +this.tokenStorage.getCompanyId()+ "&columnValue=" + event).subscribe((res: any) => {
+      if (res>0){
         this.docForm.controls['empid'].setErrors({ employee: true });
       }else{
        // this.docForm.controls['emailId'].setErrors(null);
