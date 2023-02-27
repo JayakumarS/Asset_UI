@@ -92,6 +92,7 @@ export class AddCompanyComponent implements OnInit {
         this.fb.group({
           branch: [""],
           branchName: [""],
+          branchGstNo:["",Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')],
           branchCode: [""],
           branchAddress: [""],
           branchCountry: [""],
@@ -308,6 +309,7 @@ export class AddCompanyComponent implements OnInit {
           let newUsergroup: FormGroup = this.fb.group({
             branch: [""],
             branchName: [""],
+            branchGstNo:[""],
             branchCode: [""],
             branchAddress: [""],
             branchCountry: [""],
@@ -410,6 +412,7 @@ export class AddCompanyComponent implements OnInit {
             branch: [element.branch],
             branchName: [element.branchName],
             branchCode: [element.branchCode],
+            branchGstNo: [element.branchGstNo],
             branchAddress: [element.branchAddress],
             branchCountry: [element.branchCountry],
             branchState: [element.branchState],
