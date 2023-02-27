@@ -8,6 +8,19 @@ export class AssetHistoryReport{
     financialYear: any;
     putInUse: any;
     assetOwner: any;
+    // Checkboxes beans
+    assetNameCheckBox:boolean;
+    assetCodeCheckBox:boolean;
+    assetCategoryCheckBox:boolean;
+    assetLocationCheckBox:boolean;
+    lifeCheckBox:boolean;
+    bookValueCheckBox:boolean;
+    aquisitionValueCheckBox:boolean;
+    putInUseDateCheckBox:boolean;
+    brandCheckBox:boolean;
+    statusCheckBox:boolean;
+    endLifeCheckBox:boolean;
+    purchasePriceCheckBox:boolean;
 
 constructor(assetHistoryReport) {
     {
@@ -21,6 +34,20 @@ constructor(assetHistoryReport) {
         this.financialYear = assetHistoryReport.financialYear || "";
         this.putInUse = assetHistoryReport.putInUse || "";
         this.assetOwner = assetHistoryReport.assetOwner || "";
+        //
+        this.assetNameCheckBox = assetHistoryReport.assetNameCheckBox || "";
+        this.assetCodeCheckBox = assetHistoryReport.assetCodeCheckBox || "";
+        this.assetCategoryCheckBox = assetHistoryReport.assetCategoryCheckBox || "";
+        this.assetLocationCheckBox = assetHistoryReport.assetLocationCheckBox || "";
+        this.lifeCheckBox = assetHistoryReport.lifeCheckBox || "";
+        this.bookValueCheckBox = assetHistoryReport.bookValueCheckBox || "";
+        this.aquisitionValueCheckBox = assetHistoryReport.aquisitionValueCheckBox || "";
+        this.putInUseDateCheckBox = assetHistoryReport.putInUseDateCheckBox || "";
+        this.brandCheckBox = assetHistoryReport.brandCheckBox || "";
+        this.statusCheckBox = assetHistoryReport.statusCheckBox || "";
+        this.endLifeCheckBox = assetHistoryReport.endLifeCheckBox || "";
+        this.purchasePriceCheckBox = assetHistoryReport.purchasePriceCheckBox || "";
+        this.department = assetHistoryReport.department || "";
     }
 }
 

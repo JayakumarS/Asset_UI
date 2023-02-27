@@ -18,6 +18,7 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { AssetHistoryReport } from '../list-asset-history-report-model';
 import { reportsresultbean } from '../reports-result-bean';
 import { ReportsService } from '../reports.service';
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 @Component({
   selector: 'app-list-asset-history-report',
@@ -70,7 +71,8 @@ export class ListAssetHistoryReportComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private userMasterService: UserMasterService,
     public auditableAssetService:AuditableAssetService,
-    public reportsService:ReportsService
+    public reportsService:ReportsService,
+    private serverUrl:serverLocations
     ){  
       this.docForm = this.fb.group({
         branch:[""],
@@ -83,7 +85,20 @@ export class ListAssetHistoryReportComponent implements OnInit {
         putInUse:[""],
         putInUseobj:[""],
         assetOwner:[""],
-        companyId:this.tokenStorage.getCompanyId()
+        companyId:this.tokenStorage.getCompanyId(),
+        // Checkboxes Beans
+        assetNameCheckBox:[false],
+        assetCodeCheckBox:[false],
+        assetCategoryCheckBox:[false],
+        assetLocationCheckBox:[false],
+        lifeCheckBox:[false],
+        bookValueCheckBox:[false],
+        aquisitionValueCheckBox:[false],
+        putInUseDateCheckBox:[false],
+        brandCheckBox:[false],
+        statusCheckBox:[false],
+        endLifeCheckBox:[false],
+        purchasePriceCheckBox:[false]
       }); 
   }
 
@@ -186,6 +201,32 @@ export class ListAssetHistoryReportComponent implements OnInit {
 
    }
 
+   exportExcel(){
+    this.assetHistoryReport = this.docForm.value;
+    console.log(this.assetHistoryReport);
+
+    this.httpService.post<any>(this.reportsService.assetHistoryListExcelUrl,this.assetHistoryReport).subscribe(
+      (data) => {
+        // this.assetHistoryList = data.getAssetHistoryList;
+        if(data.success){
+          window.open(this.serverUrl.apiServerAddress+data.filePath, '_blank');
+          }
+          else{
+            this.notificationservice.showNotification(
+              "snackbar-danger",
+              // data.message,
+              "error",
+              "bottom",
+              "center"
+            );
+          }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+   }
+
   reset() {
     this.docForm = this.fb.group({
         branch:[""],
@@ -197,7 +238,20 @@ export class ListAssetHistoryReportComponent implements OnInit {
         financialYear:[""],
         putInUse:[""],
         putInUseobj:[""],
-        assetOwner:[""]
+        assetOwner:[""],
+        // Checkboxes Beans
+        assetNameCheckBox:[false],
+        assetCodeCheckBox:[false],
+        assetCategoryCheckBox:[false],
+        assetLocationCheckBox:[false],
+        lifeCheckBox:[false],
+        bookValueCheckBox:[false],
+        aquisitionValueCheckBox:[false],
+        putInUseDateCheckBox:[false],
+        brandCheckBox:[false],
+        statusCheckBox:[false],
+        endLifeCheckBox:[false],
+        purchasePriceCheckBox:[false]
   });
 }
 
