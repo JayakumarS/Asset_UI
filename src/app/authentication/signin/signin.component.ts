@@ -127,7 +127,7 @@ export class SigninComponent
                 //   this.showPopUp();
                 // }
                 this.loading = false;
-                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 || data.userDetails.roleId == 3){
+                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 ){
                   this.router.navigate(["/admin/dashboard/main"]);
                 }
                 else if(data.userDetails.roleId == 4){
@@ -135,6 +135,8 @@ export class SigninComponent
                 }
                 else if (data.userDetails.roleId == 6) {
                   this.router.navigate(["/payments/initiatePayment/subscription"]);
+              }else if(data.userDetails.roleId == 3){
+                this.router.navigate(["/audit/scheduledaudits/list-scheduledaudits"]);
               }
 
               }, 1000);
