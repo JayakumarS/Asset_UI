@@ -29,7 +29,7 @@ export class AddBranchComponent implements OnInit {
   locationDropdownList:[];
   userId:any;
   string:any;
-  public modeselect = '1';
+  public modeselect = 1;
   CountryCodeList=[];
   branchList =[];
 
@@ -197,7 +197,7 @@ export class AddBranchComponent implements OnInit {
       'isactive': res.branchbean.isactive,
       'location': res.branchbean.location,
       'branchCode' : res.branchbean.branchCode,
-      'shift' :  res.branchbean.shift+"",
+      'shift' :  res.branchbean.shift,
       'addressOneCountry' :  res.branchbean.addressOneCountry,
       'addressOneState' :  res.branchbean.addressOneState,
       'addressOneCity' :  res.branchbean.addressOneCity,
