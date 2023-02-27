@@ -15,7 +15,8 @@ import { Brand } from "./brand.model";
     providedIn: 'root'
 })
 export class BrandMasterService extends UnsubscribeOnDestroyAdapter {
-
+    companyId: string;
+    branchId: string;
     isTblLoading = true;
     dataChange: BehaviorSubject<Brand[]> = new BehaviorSubject<Brand[]>(
       []
@@ -62,7 +63,9 @@ export class BrandMasterService extends UnsubscribeOnDestroyAdapter {
  
 
   getAllList(): void {
-    this.subs.sink = this.httpService.get<BrandResultbean>(this.getList).subscribe(
+    this.companyId=this.tokenStorage.getCompanyId();
+    this.branchId= this.tokenStorage.getBranchId(),
+    this.subs.sink = this.httpService.get<BrandResultbean>(this.getList+"?companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.brandDetails);
