@@ -39,7 +39,7 @@
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="
                     margin-left: -13%;
                     margin-top: -2%; ">
-                 <textarea matInput formControlName="code" maxlength="250"  (blur)="validateDepreciation($event.target.value)"></textarea>
+                 <textarea matInput formControlName="code" maxlength="250"></textarea>
                       <!-- <input matInput formControlName="code"
                       (blur)="validateDepreciation($event.target.value)" required> -->
                       <mat-error *ngIf="docForm.get('code').hasError('required')">
@@ -58,7 +58,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;" >
                     <label>IS ACTIVE</label>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -189px;">
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -169px;">
                   <mat-checkbox formControlName="active"  ngInit="checked=true"></mat-checkbox>
                 </div>
               </div>

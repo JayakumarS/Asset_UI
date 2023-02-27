@@ -75,6 +75,8 @@ export class AddDepreciationComponent implements OnInit {
     dtlArray.insert(arraylen,newUsergroup);
   
   }
+
+  
   
   onSubmit(){
 
@@ -279,14 +281,14 @@ showNotification(colorName, text, placementFrom, placementAlign) {
   });
 }
 
-validateDepreciation(event){
-  this.httpService.get<any>(this.depreciationService.uniqueValidateUrl+ "?tableName=" +"asset_depreciation_config"+"&columnName="+"depreciation_code"+"&columnValue="+event).subscribe((res: any) => {
-    if(res){
-      this.docForm.controls['code'].setErrors({ asset_depreciation_config: true });
-    }else{
-      this.docForm.controls['code'].setErrors(null);
-    }
-  });
-}
+// validateDepreciation(event){
+//   this.httpService.get<any>(this.depreciationService.uniqueValidateUrl+ "?tableName=" +"asset_depreciation_config"+"&columnName="+"depreciation_code"+"&columnValue="+event).subscribe((res: any) => {
+//     if(res){
+//       this.docForm.controls['code'].setErrors({ asset_depreciation_config: true });
+//     }else{
+//       this.docForm.controls['code'].setErrors(null);
+//     }
+//   });
+// }
 
 }
