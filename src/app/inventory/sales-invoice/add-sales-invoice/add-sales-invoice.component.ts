@@ -219,6 +219,7 @@ export class AddSalesInvoiceComponent implements OnInit {
       });
       let CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
       CustInvoiceDetailBeanArray.removeAt(0);
+      CustInvoiceDetailBeanArray.clear();
       res.salesInvoiceList.forEach(element => {
         let CustInvoiceDetailBeanArray = this.docForm.controls.salesInvoiceDetail as FormArray;
         let arraylen = CustInvoiceDetailBeanArray.length;
