@@ -139,7 +139,7 @@ const routes: Routes = [
   {
     path: "exchange",
     loadChildren: () =>
-    import("./exchange/exchange.module").then((m) => m.ExchangeModule)
+    import("./Exchange/exchange.module").then((m) => m.ExchangeModule)
   },
 ];
 
