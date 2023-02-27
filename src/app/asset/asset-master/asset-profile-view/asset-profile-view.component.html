@@ -6,6 +6,15 @@
             <app-breadcrumb [title]="'Asset Profile'" [items]="['Asset ']" [active_item]="'AssetProfile'">
             </app-breadcrumb>
         </div>
+        <style>
+            .SearchIcon{
+                font-weight: bolder;
+                color: black;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+              }
+        </style>
         <!-- Your content goes here  -->
         <div class="row clearfix">
             <div class="col-lg-4 col-md-12">
@@ -683,108 +692,87 @@
 
                         <mat-tab label="Accrued Depreciation" style="overflow-x: hidden!important;" >
                             <br>
-                            <div class="row" style="overflow-x: hidden!important;">
-                                <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " >
-                                  <label class="lable" style="font-size: 12;margin-left: 35px;">Asset Id :</label>
-                              </div> 
-                              <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 " style="margin-left: -63px;">
-                                {{auditableAsset?.assetid}}
-                              </div>
-            
-                              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -1px;">
-                                <label class="lable">Acquisition Value :</label>
-                              </div>
-                      
-                              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -38px; ">
-                              {{auditableAsset?.value?.toFixed(2)}}
-                              </div>  
-                            </div><br>
-
-                            <div class="row">
-                                <div class="col-xl-4 col-lg-2 col-md-2 col-sm-12 " >
-                                    <label class="lable">Asset Name :</label>
-                                </div> 
-                                <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: -135px;">
-                                  {{auditableAsset?.assetname}}
-                                </div>
-                                <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 96px;">
-                                    <label class="lable">Salvage Value :</label>
-                                </div> 
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -62px;  ">
-                                  {{auditableAsset?.salvageValue?.toFixed(2)}}
-                                </div>
-                              </div><br>
-
-                              <div class="row">
-                                <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " >
-                                    <label class="lable" style=" margin-left: 4px;">Useful Years :</label>
-                                </div> 
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 "  style=" margin-left: -62px;  ">
-                                  {{auditableAsset?.lifeInYears}}
-                                </div>
-                                <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 " style="margin-left: 5px; ">
-                                    <label class="lable"style="margin-left: 5px;">Acquisition Date :</label>
-                                </div> 
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -5%;" >
-                                  {{auditableAsset?.acquisitiondt}}
-                                </div>
-                              </div><br>
-
-                              <div class="row">
-                              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                                  <label class="lable" style="margin-left: 73px;">FY :</label>
-                              </div> 
-          
-                              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: -25px;margin-top: -10px;">
-                                <mat-form-field class="example-full-width form-control-sm" appearance="outline" style=" margin-left: 25px;width: 110px; ">
-                                  <mat-label>Financial Year</mat-label>
-                                  <!-- <input matInput formControlName="depreciationMethod" maxlength="4" (change)="financialChange($event.target.value)" (keypress)="keyPressPCB($event)"> -->
-                                  <input matInput formControlName="depreciationMethod" maxlength="4">
-                                </mat-form-field>
-                              </div>
-          
-                              <div class="col-md-2" style="padding-top: 8px;margin-left: -73px;" >
-                                <i class="fa fa-search" aria-hidden="true" (click)="financialChange()"></i>
-                              </div>
-          
-          
-                              <!-- <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 " *ngIf="fullLifeFlag">
-                                  <label class="lable">FY :</label>
-                              </div> 
-                              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" *ngIf="fullLifeFlag" style="margin-left: -25px;">
-                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Financial Year</mat-label>
-                                  <input matInput formControlName="depreciationMethod" maxlength="4" (change)="financialChange($event.target.value)" (keypress)="keyPressPCB($event)" readonly>
-                                </mat-form-field>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="project_widget">
                                 
-                              </div>
-                            
-                              <div class="col-md-2" style="padding-top: 16px;" *ngIf="fullLifeFlag">
-                                <i class="fa fa-search" aria-hidden="true" (click)="financialChange()"></i>
-                              </div> -->
-                              
-                              <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 " style="margin-left: 1px;" >
-                                <label class="lable">Dep Method :</label>
-                            </div> 
-                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 " style=" margin-left: -72px;">
-                              {{auditableAsset?.depreciationMethod}}
+                                    <div class="body">
+                                        <div class="row">
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Asset Id</strong>
+                                                <br>
+                                                <p class="text-muted">{{auditableAsset?.assetid}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Asset Name</strong>
+                                                <br>
+                                                <p class="text-muted">{{auditableAsset?.assetname}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Acquisition Value</strong>
+                                                <br>
+                                                <p class="text-muted">{{auditableAsset?.value?.toFixed(2)}}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Salvage Value</strong>
+                                                <br>
+                                                <p class="text-muted">{{auditableAsset?.salvageValue?.toFixed(2)}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Useful Years</strong>
+                                                <br>
+                                                <p class="text-muted">{{auditableAsset?.lifeInYears}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Acquisition Date</strong>
+                                                <br>
+                                                <p class="text-muted">{{auditableAsset?.acquisitiondt}}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                        
+                                            <div class="col-md-3 col-6 b-r">
+                                                <strong>Dep Method</strong>
+                                                <br>
+                                                <p class="text-muted">{{auditableAsset?.depreciationMethod}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-7 b-r">
+                                                <strong>FY</strong>
+                                                <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 60%;">
+                                                    <mat-label>Financial Year</mat-label>
+                                                    <input matInput formControlName="depreciationMethod" maxlength="4">
+                                                    <mat-icon matSuffix (click)="financialChange()" class="SearchIcon">search</mat-icon>
+                                                  </mat-form-field>
+                                                  <!-- <div class="SearchIcon">
+                                                    <i class="fas fa-search" aria-hidden="true" (click)="financialChange()"></i>
+                                                  </div> -->
+                                                  
+                                                <br>
+                                            </div>                 
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-          
-                            </div><br>
 
                             <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: 713px;">
                                 <mat-checkbox formControlName="assetType" ngInit="checked=true" (change)="checkFullLife($event)">Show Full Life</mat-checkbox>
                                 <!-- <mat-checkbox formControlName="assetType" ngInit="checked=true">Show Full Life</mat-checkbox> -->
                             </div>
 
-                            <div class="container" style="height: 200px ;overflow-y: scroll">
+                            <div class="container" style="height: 200px ;">
                                 <!-- <img src="assets/images/icons/xlsx.png" alt="" style="margin-left:97%"/> -->
                                 
                               
                                   <table id="excel-table" class="table table-striped">
                                     <thead>
                                         <tr style="position: sticky;top: 0;">
-                                          <th style="background-color:#c1ddf5;">Sl No</th>
+                                          <th style="background-color:#c1ddf5;">S No</th>
                                           <th style="background-color:#c1ddf5;">FY</th>
                                           <th style="background-color:#c1ddf5;text-align: right;">Book Value</th>
                                           <th style="background-color:#c1ddf5;text-align: right;">Depreciation</th>
@@ -965,7 +953,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="display:flex; align-items: right; justify-content:right;" >
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="display:flex; align-items: center; justify-content:center; margin: 7px;" >
             <button color="warn"  type="button"  (click)="back()" 
             mat-raised-button color="primary" style="background-color: rgb(249, 17, 0);">Back</button>
         </div>
