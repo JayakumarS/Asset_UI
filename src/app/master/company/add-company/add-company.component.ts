@@ -335,6 +335,9 @@ export class AddCompanyComponent implements OnInit {
   removeRow(i) {
     let branchListArray = this.docForm.controls.branchList as FormArray;
     branchListArray.removeAt(i);
+    this.docForm.patchValue({
+      'branchCount':i
+    })
   }
 
   fetchDetails(company: any): void {
