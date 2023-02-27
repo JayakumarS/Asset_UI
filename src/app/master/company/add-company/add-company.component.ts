@@ -12,6 +12,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { UserMasterService } from '../../user-master/user-master.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { CategoryMasterService } from '../../category/category.service';
 
 @Component({
   selector: 'app-add-company',
@@ -40,6 +41,7 @@ export class AddCompanyComponent implements OnInit {
   value1 = [];
   value2=[];
   CountryCodeList=[];
+  depreciationlist=[];
 
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
@@ -51,6 +53,7 @@ export class AddCompanyComponent implements OnInit {
     public route: ActivatedRoute,
     private userMasterService: UserMasterService,
     private router: Router,
+    private categoryMasterService:CategoryMasterService,
     private tokenStorage: TokenStorageService,
     private notificationService: NotificationService) {
 
@@ -66,6 +69,7 @@ export class AddCompanyComponent implements OnInit {
       ifscCode: ["", Validators.pattern('[A-Za-z]{4}[0-9]{7}')],
       country: ["", [Validators.required]],
       isactive: [true],
+      depreciation:[""],
       // address:["",[Validators.required]],
       // personIncharge:["",[Validators.required]],
       companyId: [""],
@@ -137,7 +141,19 @@ export class AddCompanyComponent implements OnInit {
     // }
     // );
 
-
+    this.httpService.get<any>(this.categoryMasterService.getAssetDepreciationDropdown+ "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe(
+      (data) => {
+        this.depreciationlist = data.depreciationlist;
+        this.docForm.patchValue({
+          'depreciation':52
+        })
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    
+    );
+      
     this.companyId = this.tokenStorage.getCompanyId();
     this.httpService.get<any>(this.companyService.getCompanyEnployee + "?companyId=" + this.companyId).subscribe({
       next: (data) => {
@@ -325,13 +341,22 @@ export class AddCompanyComponent implements OnInit {
     if (this.docForm.value.branchCount == "") {
       this.flag = false;
     }
-
+   
     const obj = {
       editId: company
     }
     this.spinner.show();
     this.companyService.editCompany(obj).subscribe({
       next: (res: any) => {
+        if(res.companyBean.depreciation ==null){
+          this.docForm.patchValue({
+            'depreciation':52
+          });
+        }else{
+          this.docForm.patchValue({
+            'depreciation':res.companyBean.depreciation
+          });
+        }
         if (res.companyBean.branchCount == null || res.companyBean.branchCount == 0) {
           this.flag = false;
         } else if (res.companyBean.branchCount != null || res.companyBean.branchCount != 0) {
@@ -356,7 +381,6 @@ export class AddCompanyComponent implements OnInit {
           'ifscCode': res.companyBean.ifscCode,
           'country': res.companyBean.country,
           'isactive': res.companyBean.isactive,
-
           'addressOne': res.companyBean.addressOne,
           'addressOneCountry': res.companyBean.addressOneCountry,
           'addressOneState': res.companyBean.addressOneState,
