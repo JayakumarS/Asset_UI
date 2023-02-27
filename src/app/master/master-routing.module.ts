@@ -136,8 +136,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./brand/brand.module").then((m) => m.BrandModule)
   },
-
-
+  {
+    path: "exchange",
+    loadChildren: () =>
+    import("./exchange/exchange.module").then((m) => m.ExchangeModule)
+  },
 ];
 
 @NgModule({
