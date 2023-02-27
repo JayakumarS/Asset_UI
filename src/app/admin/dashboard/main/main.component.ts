@@ -546,7 +546,7 @@ configUserLog: {
     
       yAxis: {
           title: {
-              text: 'Book Value'
+              text: 'Book Value End'
           }
       },
         series: [
@@ -590,7 +590,11 @@ configUserLog: {
       },
     
       tooltip: {
-          shared: true
+          // shared: true
+          pointFormatter: function () {
+            // return this.series.name + ': ' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          }
       },
     
       xAxis: {
