@@ -64,6 +64,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   stateBasedCityList2:[];
   companyId: any;
   stateBasedCityList3:[];
+  countrybasedStateList3:[];
   constructor(private fb: FormBuilder,
               private httpService: HttpServiceService,
               private snackBar: MatSnackBar,
@@ -257,6 +258,11 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       this.stateBasedCityList = res;
   })
 }
+fetchCountryBasedState3(country: any){
+  this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
+    this.countrybasedStateList3 = res;
+  })
+}
 
 zipcodevalidation2(event:any){
     if(event.length != 6){ 
@@ -436,6 +442,7 @@ fetchDetails(cus_id: any): void {
       this.fetchCountryBasedState2(res.customerBean.deliveryCountry)
       this.stateBasedCity2(res.customerBean.deliveryState)
       this.fetchCountryBasedState1(parseInt(res.customerBean.shipperCountry))
+      this.fetchCountryBasedState3(parseInt(res.customerBean.country))
       this.stateBasedCity1(res.customerBean.shipperState)
       this.stateBasedCity3(res.customerBean.state)
       this.docForm.patchValue({

@@ -24,41 +24,40 @@
               <form class="m-4" [formGroup]="docForm" >
          
 
-              <div class="row" style="padding: 3px;">
+              <div class="row" >
                   <!-- <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"> -->
                   <div style="display: contents;">
-                    <mat-label style="margin-left: 9px;"><b>ASSET CODE :</b></mat-label>
+                    <mat-label ><b>ASSET CODE : &nbsp;</b></mat-label>
                   <!-- </div> -->
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
-                      <input matInput formControlName="assetCode" readonly>                                                       
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" >
+                      <input style="color: darkgrey;" matInput formControlName="assetCode" readonly>                                                       
                   </div> 
                 </div>
     
                 <div style="display: contents;">
-                    <mat-label><b>ASSET NAME :</b></mat-label>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
-                      <input matInput formControlName="assetName" readonly>                                                       
+                    <mat-label style="margin-left: 29px;"><b>ASSET NAME : &nbsp;</b></mat-label>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" >
+                      <input style="color: darkgrey;" matInput formControlName="assetName" readonly>                                                       
                   </div>  
                 </div>
 
                   <div style="display: contents;">
-                    <mat-label><b>SOLD VALUE :</b></mat-label>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
-                      <input matInput formControlName="soldValue" readonly>                                                       
+                    <mat-label style="margin-left: 11px;"><b>SOLD VALUE : &nbsp;</b></mat-label>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                      <input style="color: darkgrey;" matInput formControlName="soldValue" readonly>                                                       
                   </div>  
                 </div>
+               
+              </div>
+<br>               
+              <div class="row" >
+                
                 <div style="display: contents;">
-                  <mat-label><b>PURCHASE PRICE :</b></mat-label>
-                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
-                    <input matInput formControlName="purchasePrice" readonly>                                                       
+                  <mat-label><b>PURCHASE PRICE : &nbsp;</b></mat-label>
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" >
+                    <input style="color: darkgrey;" matInput formControlName="purchasePrice" readonly>                                                       
                 </div>  
               </div> 
-              </div>
-
-                 
-              <div class="row" style="padding: 3px;">
-                
-             
                 <!-- <div style="display: contents;">
                   <mat-label><b>Price Difference :</b></mat-label>
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
@@ -67,16 +66,16 @@
               </div> -->
 
               <div style="display: contents;">
-                <mat-label style="margin-left: 9px;"><b>Vendor Name :</b></mat-label>
-              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
-                  <input matInput formControlName="vendorName" readonly>                                                       
+                <mat-label ><b>VENDOR NAME : &nbsp;</b></mat-label>
+              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" >
+                  <input style="color: darkgrey;" matInput formControlName="vendorName" readonly>                                                       
               </div>   
             </div>
 
                 <div style="display: contents;">
-                  <mat-label style="margin-left: -7px;"><b>Location :</b></mat-label>
-                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="margin-left: 7px;">
-                    <input matInput formControlName="location" readonly>                                                       
+                  <mat-label ><b>LOCATION : &nbsp;</b></mat-label>
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" >
+                    <input style="color: darkgrey;" matInput formControlName="location" readonly>                                                       
                 </div>   
               </div>
             </div>  
@@ -108,7 +107,8 @@
                 </mat-form-field>
                   </div> -->
                 </div>  
-          <div class="row" style="padding: 3px;">
+                <br>
+          <div class="row" >
                   <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="padding-top: 20px;" >
                     <mat-label><b>Move To :</b></mat-label>
                   </div> 
@@ -124,7 +124,7 @@
                   </div> -->
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 detailTab">
                     
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="margin-left: -20px;">
                       <mat-label><b>Move To</b></mat-label>
                       <mat-select formControlName="moveTo" required>
                         <mat-option *ngFor="let title of moveToDdList" [value]="title.id">

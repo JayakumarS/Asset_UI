@@ -145,7 +145,7 @@
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="country"  (selectionChange)="fetchCountryBasedState($event.value)">
+                <mat-select class="inputTxt" formControlName="country"  (selectionChange)="fetchCountryBasedState3($event.value)">
                   <mat-option *ngFor="let title of countryDdList" [value]="title.id">
                     {{title.text}}
                   </mat-option>
@@ -178,7 +178,7 @@
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <mat-select class="inputTxt" formControlName="state" (selectionChange)="stateBasedCity3($event.value)">
-                  <mat-option *ngFor="let title of countrybasedStateList" [value]="title.id">
+                  <mat-option *ngFor="let title of countrybasedStateList3" [value]="title.id">
                     {{title.text}}
                   </mat-option>
                 </mat-select>
