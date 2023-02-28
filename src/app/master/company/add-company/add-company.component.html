@@ -348,10 +348,16 @@
                               <mat-icon class="col-white">delete</mat-icon>
                             </button>
                           </td>
-                          <td class="padding-both-side-2">
+                          <td class="padding-both-side-2" *ngIf="branchList.get('gstFlag').value">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>BRANCH CODE</mat-label>
                               <input matInput name="branchCode{{i}}" formControlName="branchCode" maxlength="5">
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2" *ngIf="!branchList.get('gstFlag').value">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>BRANCH CODE</mat-label>
+                              <input matInput name="branchCode{{i}}" formControlName="branchCode" maxlength="5" readonly>
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
@@ -363,7 +369,11 @@
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>BRANCH GST NO</mat-label>
-                              <input matInput name="branchGstNo{{i}}" formControlName="branchGstNo" maxlength="15">
+                              <input matInput name="branchGstNo{{i}}" formControlName="branchGstNo" 
+                              maxlength="15">
+                              <mat-error  *ngIf="branchList.controls['branchGstNo'].hasError('pattern')">
+                                Please Enter Valid Gst No
+                               </mat-error> 
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">

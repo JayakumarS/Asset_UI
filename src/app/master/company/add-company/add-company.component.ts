@@ -42,7 +42,7 @@ export class AddCompanyComponent implements OnInit {
   value2=[];
   CountryCodeList=[];
   depreciationlist=[];
-
+  GstFlag:boolean=true;
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
     private departmentMasterService: DepartmentMasterService,
@@ -92,7 +92,7 @@ export class AddCompanyComponent implements OnInit {
         this.fb.group({
           branch: [""],
           branchName: [""],
-          branchGstNo:["",Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')],
+          branchGstNo: [""],
           branchCode: [""],
           branchAddress: [""],
           branchCountry: [""],
@@ -100,6 +100,7 @@ export class AddCompanyComponent implements OnInit {
           branchCity: [""],
           branchZipcode: [""],
           branchPhoneNo: [""],
+          gstFlag:[true]
         })
       ]),
     });
@@ -107,7 +108,7 @@ export class AddCompanyComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.tokenStorage.getUserId();
-
+    
     // Country dropdown
     this.companyId=0;
     this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
@@ -317,6 +318,7 @@ export class AddCompanyComponent implements OnInit {
             branchCity: [""],
             branchZipcode: [""],
             branchPhoneNo: [""],
+            gstFlag:true
           })
           // this.removeRow(i)
           branchListDetailArray.insert(arraylen + 1, newUsergroup);
@@ -346,7 +348,6 @@ export class AddCompanyComponent implements OnInit {
     if (this.docForm.value.branchCount == "") {
       this.flag = false;
     }
-   
     const obj = {
       editId: company
     }
@@ -408,6 +409,7 @@ export class AddCompanyComponent implements OnInit {
           let arraylen = BranchListDtlArray.length;
           this.fetchDynamicDropDown1(element.branchCountry, index);
           this.fetchDynamicDropDown2(element.branchState, index);
+         
           let newUsergroup: FormGroup = this.fb.group({
             branch: [element.branch],
             branchName: [element.branchName],
@@ -418,8 +420,8 @@ export class AddCompanyComponent implements OnInit {
             branchState: [element.branchState],
             branchCity: [element.branchCity],
             branchZipcode: [element.branchZipcode],
-            branchPhoneNo: [element.branchPhoneNo]
-
+            branchPhoneNo: [element.branchPhoneNo],
+            gstFlag:false
 
           })
           BranchListDtlArray.insert(arraylen, newUsergroup);
@@ -553,5 +555,31 @@ export class AddCompanyComponent implements OnInit {
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
+  }
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  // numberDouble(event: any) {
+  //   const pattern = /[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}/;
+  //   const inputChar = String.fromCharCode(event.charCode);
+  //   if (event.keyCode != 8 && !pattern.test(inputChar)) {
+  //     event.preventDefault();
+  //   }
+  // }
+  GSTValidation(data: any, index: number) {
+    if (data.get('branchGstNo').value != undefined && data.get('branchGstNo').value != null && data.get('branchGstNo').value != '') {
+      data.controls.branchGstNo.setValidators(Validators.compose([Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')]));
+    }
+    
+    // else {
+    //   data.controls.branchGstNo.clearValidators();
+    //   data.controls['branchGstNo'].updateValueAndValidity();
+    // }
+  
   }
 }
