@@ -18,6 +18,7 @@ export class ViewCategoryComponent implements OnInit {
   requestId: any;
   docForm: FormGroup;
   list: any;
+  specificationList: any;
   loginedUser: any;
 
   constructor(
@@ -29,11 +30,18 @@ export class ViewCategoryComponent implements OnInit {
     public categoryMasterService: CategoryMasterService,
     public tokenStorage: TokenStorageService,
     private fb: FormBuilder,
-  ) { 
+  ) {
 
     this.docForm = this.fb.group({
-      categoryName:['']
-    });
+      categoryName:[''],
+
+    specificationList: this.fb.array([
+      this.fb.group({
+        fieldName: [""],
+        fieldType: [""],
+      })
+    ])
+  });
   }
 
 
@@ -54,7 +62,9 @@ view(id:any){
   this.httpService.get<any>(this.categoryMasterService. viewcategory+"?id="+id).subscribe({
   next: (data) => {
     this.list = data.assetCategoryBean;
-    
+    this.specificationList = data.assetCategoryBean.specificationList;
+
+
   },
   error: (error) => {
   }

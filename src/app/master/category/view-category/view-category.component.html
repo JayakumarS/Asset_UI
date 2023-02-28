@@ -50,8 +50,36 @@
                                           <label><b>Is Active :</b>&nbsp;{{list?.isactive !== null ? list?.isactive: '-'}}</label>
 
                                       </div>
-                                   
-                                  </div>
+
+                                  </div><br>
+                                  <h3>Specification Details</h3>
+
+                                <table class="border1"
+                                style=" border: 1px solidrgb(157, 158, 163); width:100%; border-collapse: collapse; margin-top: 20px; text-align: right;">
+                                <tr
+                                    style="font-weight: 600; text-align: center;height: 30px; vertical-align: middle;  background-color: rgb(96 125 139 / 82%);  color: rgb(252, 248, 248); font-weight: bold;font-size:15px; font-style:normal; text-indent: 4px;">
+                                    <th>
+                                        Field Name
+                                    </th>
+                                    <th>
+                                        Field Type
+                                    </th>
+
+                                </tr>
+                                <tr *ngFor="let item of specificationList; let i = index"
+                                    style=" padding: 7px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; vertical-align: middle;
+              font-weight:normal; border-radius: 0.25rem; text-align: center;height: 50px;  background-color: rgb(203 226 235 / 82%);">
+                                    <td>
+                                        {{ item?.fieldName}}
+                                    </td>
+                                    <td>
+                                        {{item?.fieldType}}
+                                    </td>
+
+
+                                </tr>
+
+                            </table>
                                   <br>
                                   <br>
                                   <br>
