@@ -564,13 +564,6 @@ export class AddCompanyComponent implements OnInit {
     }
   }
 
-  // numberDouble(event: any) {
-  //   const pattern = /[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}/;
-  //   const inputChar = String.fromCharCode(event.charCode);
-  //   if (event.keyCode != 8 && !pattern.test(inputChar)) {
-  //     event.preventDefault();
-  //   }
-  // }
   GSTValidation(data: any, index: number) {
     if (data.get('branchGstNo').value != undefined && data.get('branchGstNo').value != null && data.get('branchGstNo').value != '') {
       data.controls.branchGstNo.setValidators(Validators.compose([Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')]));
