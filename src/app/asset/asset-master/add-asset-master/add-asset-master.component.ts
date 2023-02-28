@@ -126,6 +126,7 @@ export class AddAssetMasterComponent
     this.docForm = this.fb.group({
       //info
       assetName: ["", [Validators.required]],
+      itemId: ["", [Validators.required]],
       assetCode: [""],
       location: [""],
       category: ["", [Validators.required]],
@@ -142,6 +143,7 @@ export class AddAssetMasterComponent
       uploadImg: ["", [Validators.required]],
       isGrnBasedAsset: [false],
       grnId: [""],
+      assetUser: ["", [Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
       //tab1
       brand: [""],
@@ -179,7 +181,6 @@ export class AddAssetMasterComponent
       allottedUpto: [""],
       transferredTo: [""],
       remarks: [""],
-      assetUser: ["", [Validators.required]],
       invoiceDateobj: [""],
       captitalizationDateobj: [moment().format('YYYY-MM-DD')],
       allottedUptoobj: [""],
@@ -240,10 +241,12 @@ export class AddAssetMasterComponent
           status: [""],
           putUseDate: [moment().format('DD/MM/YYYY')],
           putUseDateObj: [moment().format('YYYY-MM-DD')],
+          assetUser: [""],
         })
       ]),
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
+          itemId: [""],
           assetName: [""],
           assetCode: [""],
           location: [""],
@@ -251,6 +254,7 @@ export class AddAssetMasterComponent
           status: [""],
           putUseDate: [moment().format('DD/MM/YYYY')],
           putUseDateObj: [moment().format('YYYY-MM-DD')],
+          assetUser: [""],
         })
       ]),
 
@@ -1078,6 +1082,10 @@ export class AddAssetMasterComponent
       this.docForm.controls['status'].updateValueAndValidity();
       this.docForm.controls.uploadImg.clearValidators();
       this.docForm.controls['uploadImg'].updateValueAndValidity();
+      this.docForm.controls.assetUser.clearValidators();
+      this.docForm.controls['assetUser'].updateValueAndValidity();
+      this.docForm.controls.itemId.clearValidators();
+      this.docForm.controls['itemId'].updateValueAndValidity();
     }
     else {
       this.grnBasedMutipleAssetFlag = false;
@@ -1095,6 +1103,10 @@ export class AddAssetMasterComponent
       this.docForm.controls['status'].updateValueAndValidity();
       this.docForm.controls.uploadImg.setValidators(Validators.required);
       this.docForm.controls['uploadImg'].updateValueAndValidity();
+      this.docForm.controls.assetUser.setValidators(Validators.required);
+      this.docForm.controls['assetUser'].updateValueAndValidity();
+      this.docForm.controls.itemId.setValidators(Validators.required);
+      this.docForm.controls['itemId'].updateValueAndValidity();
     }
   }
 
@@ -1267,6 +1279,7 @@ export class AddAssetMasterComponent
                   status: ["", [Validators.required]],
                   putUseDate: [moment().format('DD/MM/YYYY')],
                   putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+                  assetUser: [""]
                 })
                 grnBasedAssetArray.insert(arraylen, newUsergroup);
               });
@@ -1493,6 +1506,7 @@ export class AddAssetMasterComponent
       ]),
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
+          itemId: [""],
           assetName: [""],
           assetCode: [""],
           location: [""],
@@ -1567,6 +1581,19 @@ export class AddAssetMasterComponent
         "right"
       );
       return;
+    } else if (this.docForm.controls['itemId'].invalid) {
+      this.docForm.patchValue({
+        quantity: '1'
+      })
+      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'itemId' + '"]');
+      invalidControl.focus();
+      this.showNotification(
+        "snackbar-danger",
+        "ITEM NAME is Required...!!!",
+        "top",
+        "right"
+      );
+      return;
     } else if (this.docForm.controls['location'].invalid) {
       this.docForm.patchValue({
         quantity: '1'
@@ -1606,6 +1633,19 @@ export class AddAssetMasterComponent
         "right"
       );
       return;
+    } else if (this.docForm.controls['assetUser'].invalid) {
+      this.docForm.patchValue({
+        quantity: '1'
+      })
+      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'assetUser' + '"]');
+      invalidControl.focus();
+      this.showNotification(
+        "snackbar-danger",
+        "ASSET USER is Required...!!!",
+        "top",
+        "right"
+      );
+      return;
     } else if (this.docForm.controls['uploadImg'].invalid) {
       this.docForm.patchValue({
         quantity: '1'
@@ -1629,6 +1669,7 @@ export class AddAssetMasterComponent
         let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
         let arraylen = quantityBasedAssetArray.length;
         let newUsergroup: FormGroup = this.fb.group({
+          itemId: [this.docForm.value.itemId],
           assetName: [this.docForm.value.assetName],
           assetCode: [this.docForm.value.assetCode],
           location: [this.docForm.value.location],
@@ -1636,6 +1677,7 @@ export class AddAssetMasterComponent
           status: [this.docForm.value.status],
           putUseDate: [this.docForm.value.putUseDate],
           putUseDateObj: [this.docForm.value.putUseDateObj],
+          assetUser: [this.docForm.value.assetUser]
         })
         quantityBasedAssetArray.insert(arraylen, newUsergroup);
       }

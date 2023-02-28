@@ -56,7 +56,7 @@
                                                         <tr>
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">
-                                                                Item Code-Item Name</th>
+                                                                Item Name</th>
                                                            
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
@@ -74,6 +74,9 @@
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
                                                                 Put Use Date</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                                                                Asset User</th>
                                                         </tr>
                                                     </thead>
 
@@ -85,7 +88,7 @@
                                                                     <mat-form-field
                                                                         class="example-full-width form-control-sm"
                                                                         appearance="outline">
-                                                                        <mat-label>Item Code-Item Name</mat-label>
+                                                                        <mat-label>Item Name</mat-label>
                                                                         <mat-select name="itemId{{i}}"
                                                                             formControlName="itemId" [disabled]="true">
                                                                             <mat-option
@@ -178,6 +181,21 @@
                                                                         <mat-datepicker-toggle matSuffix
                                                                             [for]="picker7"></mat-datepicker-toggle>
                                                                         <mat-datepicker #picker7></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                
+                                                                <td class="padding-both-side-2">
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <mat-label>Asset User</mat-label>
+                                                                        <mat-select name="assetUser{{i}}" formControlName="assetUser">
+                                                                            <mat-option *ngFor="let title of assetUserList"
+                                                                            [value]="title.text">
+                                                                            {{title.text}}
+                                                                        </mat-option>
+                                                                        </mat-select>
                                                                     </mat-form-field>
                                                                 </td>
 
@@ -291,6 +309,28 @@
                                     <mat-datepicker #picker7></mat-datepicker>
                                   </mat-form-field>
                                 </div>
+                                
+                           
+                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                    <mat-label >ASSET USER <span
+                                            class="errorColor">*</span></mat-label>
+                                </div>
+                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left: -8.3%;">
+                                    <mat-form-field class="example-full-width form-control-sm"
+                                        appearance="outline">
+                                        <mat-select tabindex="26" formControlName="assetUser" [disabled]="quantityBasedMutipleAssetFlag" required>
+                                            <mat-option *ngFor="let title of assetUserList"
+                                                [value]="title.text">
+                                                {{title.text}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="docForm.get('assetUser').hasError('required')">ASSET
+                                            USER is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
                             </div>
                             <br>
                             <div class="row">
@@ -322,7 +362,7 @@
                                 <div class="col-md-2" style="margin-left: -3%;">
                                      <mat-label>ASSET IMAGE <span class="errorColor">*</span></mat-label>
                                 </div>
-                                           <div class="col-md-4" style="margin-left: -4.5%;">
+                                           <div class="col-md-2" style="margin-left: -4.5%;">
                                             <app-file-upload appearance="outline" class="example-width form-control-sm" formControlName="uploadImg"
                                               (change)="onSelectImage($event)" ></app-file-upload>
                                               <mat-error *ngIf="docForm.get('uploadImg').hasError('required') && submitted &&  !uploadImage">
@@ -341,6 +381,27 @@
                                              </div>
                                            </div>
                                     
+                                           
+                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                    <mat-label>ITEM NAME <span
+                                            class="errorColor">*</span></mat-label>
+                                </div>
+                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left: -8.3%;">
+                                    <mat-form-field class="example-full-width form-control-sm"
+                                        appearance="outline">
+                                        <mat-select tabindex="26" formControlName="itemId" required>
+                                            <mat-option *ngFor="let title of itemCodeNameList"
+                                            [value]="title.id">
+                                            {{title.text}}
+                                        </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="docForm.get('assetUser').hasError('required')">ASSET
+                                            ITEM NAME is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
                              </div>
                              <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
@@ -768,6 +829,9 @@
                                                             <th class="text-center table-heading padding-both-side-2 width_7"
                                                                 style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
                                                                 Put Use Date</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                                                                Asset User</th>
                                                         </tr>
                                                     </thead>
 
@@ -851,6 +915,20 @@
                                                                         <mat-datepicker-toggle matSuffix
                                                                             [for]="picker7"></mat-datepicker-toggle>
                                                                         <mat-datepicker #picker7></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                <td class="padding-both-side-2">
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <mat-label>Asset User</mat-label>
+                                                                        <mat-select name="assetUser{{i}}" formControlName="assetUser">
+                                                                            <mat-option *ngFor="let title of assetUserList"
+                                                                            [value]="title.text">
+                                                                            {{title.text}}
+                                                                        </mat-option>
+                                                                        </mat-select>
                                                                     </mat-form-field>
                                                                 </td>
 
@@ -1005,29 +1083,6 @@
                                                     </mat-form-field>
                                                 </div>
 
-                                                <div class="col-xl-1">
-
-                                                </div>
-                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
-                                                    <mat-label >ASSET USER <span
-                                                            class="errorColor">*</span></mat-label>
-                                                </div>
-                                                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left: -8.3%;">
-                                                    <mat-form-field class="example-full-width form-control-sm"
-                                                        appearance="outline">
-                                                        <mat-select tabindex="26" formControlName="assetUser"
-                                                            required>
-                                                            <mat-option *ngFor="let title of assetUserList"
-                                                                [value]="title.text">
-                                                                {{title.text}}
-                                                            </mat-option>
-                                                        </mat-select>
-                                                        <mat-error
-                                                            *ngIf="docForm.get('assetUser').hasError('required')">ASSET
-                                                            USER is required
-                                                        </mat-error>
-                                                    </mat-form-field>
-                                                </div>
                                                 <div class="col-xl-1">
                                                     <button color="primary" type="button" class="btn-space"
                                                         [routerLink]="'/master/Company-Employees/addCompanyEmp/0'"

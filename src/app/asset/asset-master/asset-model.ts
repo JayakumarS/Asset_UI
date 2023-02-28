@@ -20,6 +20,7 @@ export class AssetMaster {
 	category: number;
 	condition: string;
 	department: number;
+	itemId: number;
 	departmentName: string;
 	depreciation: string;
 	gst:string;
