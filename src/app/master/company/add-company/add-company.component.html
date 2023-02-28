@@ -17,8 +17,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="companyName"
-                        required readonly>
+                      <input matInput formControlName="companyName" required readonly>
                       <mat-error *ngIf="docForm.get('companyName').hasError('required')">
                         Company Name is required
                       </mat-error>
@@ -41,7 +40,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="emailId"required readonly>
+                      <input matInput formControlName="emailId" required readonly>
                       <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                         Email Id is required
                       </mat-error>
@@ -52,7 +51,7 @@
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
                     <label>PHONE NUMBER<span class="errorColor">*</span></label>
                   </div>
-                  <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 " >
+                  <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 ">
                     <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="phoneCode" (keypress)="keyPressNumeric2($event)" maxlength="5">
                     </mat-form-field> -->
@@ -93,11 +92,11 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="panNo" maxlength="10"
-                      [ngModel]="value1"  (ngModelChange)="value1=$event.toUpperCase()">
-                <mat-error *ngIf="docForm.controls['panNo'].hasError('pattern')">
-                  please enter valid pan no
-                </mat-error>
+                      <input matInput formControlName="panNo" maxlength="10" oninput="this.value = this.value.toUpperCase()">
+                        
+                      <mat-error *ngIf="docForm.controls['panNo'].hasError('pattern')">
+                        please enter valid pan no
+                      </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
@@ -107,7 +106,8 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="gstNo"maxlength="15" [ngModel]="value2"  (ngModelChange)="value2=$event.toUpperCase()" >
+                      <input matInput formControlName="gstNo" maxlength="15"
+                      oninput="this.value = this.value.toUpperCase()">
                       <mat-error *ngIf="docForm.controls['gstNo'].hasError('pattern')">
                         please enter valid gst no
                       </mat-error>
@@ -172,6 +172,26 @@
                   <mat-checkbox formControlName="active"  ngInit="checked=true">Is Active</mat-checkbox>
                 </div>
               </div> -->
+                <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    <mat-label>NO OF DAYS PER MONTH</mat-label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="noOFdaysMonth" (keypress)="keyPressNumeric2($event)"
+                        maxlength="10">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    <mat-label>NO OF DAYS PER YEAR</mat-label>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="noOFdaysYear" (keypress)="keyPressNumeric2($event)"
+                        maxlength="10">
+                    </mat-form-field>
+                  </div>
+                </div>
                 <br>
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
@@ -179,7 +199,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <textarea matInput formControlName="addressOne"maxlength="250" ></textarea>
+                      <textarea matInput formControlName="addressOne" maxlength="250"></textarea>
                     </mat-form-field>
                   </div>
 
@@ -188,7 +208,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <textarea matInput formControlName="addressTwo"maxlength="250"></textarea>
+                      <textarea matInput formControlName="addressTwo" maxlength="250"></textarea>
                     </mat-form-field>
                   </div>
                 </div>
@@ -256,7 +276,7 @@
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> ZIPCODE</mat-label>
                       <input matInput formControlName="addressOneZipCode" maxlength="6"
-                     (keypress)="keyPressNumeric1($event)" (keypress)="keyPressNumeric1($event)">
+                        (keypress)="keyPressNumeric1($event)" (keypress)="keyPressNumeric1($event)">
                     </mat-form-field>
                   </div>
 
@@ -274,7 +294,8 @@
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="addressTwoZipCode" maxlength="6" (keypress)="keyPressNumeric1($event)">
+                      <input matInput formControlName="addressTwoZipCode" maxlength="6"
+                        (keypress)="keyPressNumeric1($event)">
                     </mat-form-field>
                   </div>
                 </div>
@@ -286,14 +307,14 @@
                   </div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="branchCount" maxlength="5"(keypress)="keyPressNumeric1($event)">
+                      <input matInput formControlName="branchCount" maxlength="5" (keypress)="keyPressNumeric1($event)">
                     </mat-form-field>
                   </div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 " style="padding:7px">
                     <button (click)="addBranch()" class="btn-space" mat-raised-button color="accent"
                       style="background-color: #346234;">ADD</button>
                   </div>
-                  
+
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                     <mat-label> DEPRECIATION METHOD</mat-label>
                   </div>
@@ -316,11 +337,11 @@
                     <thead class="">
                       <tr>
                         <th style="width: 1%;"></th>
-               <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                width: 12%;border-radius: 0.07rem;">BRANCH CODE</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%;border-radius: 0.07rem;">BRANCH NAME</th>
-              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
               width: 12%;border-radius: 0.07rem;">BRANCH GST NO</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%; border-radius: 0.05rem;">ADDRESS</th>
@@ -332,7 +353,7 @@
              width: 12%;border-radius: 0.07rem;">CITY</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
               width: 12%;border-radius: 0.07rem;">ZIPCODE</th>
-              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
               width: 12%; border-radius: 0.05rem;">BRANCH HEAD</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                width: 12%;border-radius: 0.07rem;">PHONE NO</th>
@@ -357,7 +378,8 @@
                           <td class="padding-both-side-2" *ngIf="!branchList.get('gstFlag').value">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>BRANCH CODE</mat-label>
-                              <input matInput name="branchCode{{i}}" formControlName="branchCode" maxlength="5" readonly>
+                              <input matInput name="branchCode{{i}}" formControlName="branchCode" maxlength="5"
+                                readonly>
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
@@ -369,24 +391,25 @@
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>BRANCH GST NO</mat-label>
-                              <input matInput name="branchGstNo{{i}}" formControlName="branchGstNo" 
-                              maxlength="15">
-                              <mat-error  *ngIf="branchList.controls['branchGstNo'].hasError('pattern')">
+                              <input matInput name="branchGstNo{{i}}" formControlName="branchGstNo"
+                              oninput="this.value = this.value.toUpperCase()" (blur)="GSTValidation(branchList)" maxlength="15">
+                              <mat-error *ngIf="branchList.controls['branchGstNo'].hasError('pattern')">
                                 Please Enter Valid Gst No
-                               </mat-error> 
+                              </mat-error>
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>ADDRESS</mat-label>
-                              <input matInput name="branchAddress{{i}}" formControlName="branchAddress"maxlength="250">
+                              <input matInput name="branchAddress{{i}}" formControlName="branchAddress" maxlength="250">
                             </mat-form-field>
                           </td>
 
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>COUNTRY</mat-label>
-                              <mat-select name="branchCountry{{i}}" formControlName="branchCountry" (selectionChange)="fetchDynamicDropDown1($event.value,i)">
+                              <mat-select name="branchCountry{{i}}" formControlName="branchCountry"
+                                (selectionChange)="fetchDynamicDropDown1($event.value,i)">
                                 <mat-option *ngFor="let title of countryDdList" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
@@ -396,11 +419,12 @@
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>STATE</mat-label>
-                                <mat-select name="branchState{{i}}" formControlName="branchState" (selectionChange)="fetchDynamicDropDown2($event.value,i)">
-                                  <mat-option *ngFor="let title of dynamicDropDownList1[i]" [value]="title.id">
-                                    {{title.text}}
-                                  </mat-option>
-                                </mat-select>
+                              <mat-select name="branchState{{i}}" formControlName="branchState"
+                                (selectionChange)="fetchDynamicDropDown2($event.value,i)">
+                                <mat-option *ngFor="let title of dynamicDropDownList1[i]" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                              </mat-select>
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
@@ -417,14 +441,14 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>ZIPCODE</mat-label>
                               <input matInput name="branchZipcode{{i}}" formControlName="branchZipcode"
-                              (keypress)="keyPressNumeric1($event)"  maxlength="6">
+                                (keypress)="keyPressNumeric1($event)" maxlength="6">
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>BRANCH HEAD</mat-label>
                               <!-- <input matInput name="branch{{i}}" formControlName="branch"> -->
-                              <mat-select formControlName="branch"   name="branch{{i}}" >
+                              <mat-select formControlName="branch" name="branch{{i}}">
                                 <mat-option *ngFor="let title of CompanyEnployeeList" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
@@ -435,7 +459,7 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>PHONE NO</mat-label>
                               <input matInput name="branchPhoneNo{{i}}" formControlName="branchPhoneNo"
-                               (keypress)="keyPressNumeric1($event)" maxlength="10" >
+                                (keypress)="keyPressNumeric1($event)" maxlength="10">
                             </mat-form-field>
                           </td>
 

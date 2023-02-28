@@ -38,8 +38,6 @@ export class AddCompanyComponent implements OnInit {
   CompanyEnployeeList = [];
   dynamicDropDownList1 = [];
   dynamicDropDownList2 = [];
-  value1 = [];
-  value2=[];
   CountryCodeList=[];
   depreciationlist=[];
   GstFlag:boolean=true;
@@ -74,7 +72,8 @@ export class AddCompanyComponent implements OnInit {
       // personIncharge:["",[Validators.required]],
       companyId: [""],
       userId: [""],
-
+      noOFdaysMonth:[""],
+      noOFdaysYear:[""],
       addressOne: [""],
       addressOneCountry: [""],
       addressOneState: [""],
@@ -92,7 +91,7 @@ export class AddCompanyComponent implements OnInit {
         this.fb.group({
           branch: [""],
           branchName: [""],
-          branchGstNo: [""],
+          branchGstNo: ["",Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')],
           branchCode: [""],
           branchAddress: [""],
           branchCountry: [""],
@@ -108,7 +107,6 @@ export class AddCompanyComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.tokenStorage.getUserId();
-    
     // Country dropdown
     this.companyId=0;
     this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
@@ -372,7 +370,7 @@ export class AddCompanyComponent implements OnInit {
         this.fetchCountryBasedState1(res.companyBean.addressTwoCountry);
         this.stateBasedCity(res.companyBean.addressOneState);
         this.stateBasedCity1(res.companyBean.addressTwoState);
-
+         
         this.spinner.hide();
         this.docForm.patchValue({
           'companyId': res.companyBean.companyId,
@@ -387,6 +385,10 @@ export class AddCompanyComponent implements OnInit {
           'ifscCode': res.companyBean.ifscCode,
           'country': res.companyBean.country,
           'isactive': res.companyBean.isactive,
+
+          'noOFdaysMonth': res.companyBean.noOFdaysMonth,
+          'noOFdaysYear': res.companyBean.noOFdaysYear,
+
           'addressOne': res.companyBean.addressOne,
           'addressOneCountry': res.companyBean.addressOneCountry,
           'addressOneState': res.companyBean.addressOneState,
@@ -564,15 +566,13 @@ export class AddCompanyComponent implements OnInit {
     }
   }
 
-  GSTValidation(data: any, index: number) {
+  GSTValidation(data: any) {
     if (data.get('branchGstNo').value != undefined && data.get('branchGstNo').value != null && data.get('branchGstNo').value != '') {
       data.controls.branchGstNo.setValidators(Validators.compose([Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')]));
     }
-    
     // else {
     //   data.controls.branchGstNo.clearValidators();
     //   data.controls['branchGstNo'].updateValueAndValidity();
     // }
-  
   }
 }
