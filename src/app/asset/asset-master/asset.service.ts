@@ -58,6 +58,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   public departmentDropdownList = `${this.serverUrl.apiServerAddress}app/addAsset/getDepartmentDropdown`;
   public commoditylist = `${this.serverUrl.apiServerAddress}app/countryMaster/getCategoryList`;
   public saveGRNBasedMutipleAsset = `${this.serverUrl.apiServerAddress}app/assetMaster/saveGRNBasedMutipleAsset`;
+  public saveQuantityBasedMutipleAsset = `${this.serverUrl.apiServerAddress}app/assetMaster/saveQuantityBasedMutipleAsset`;
   public exportPdfBulkAssetQRcode = `${this.serverUrl.apiServerAddress}app/assetMaster/exportPdf_BulkAssetQRcode`;
   public getCompanyBasedCurrency = `${this.serverUrl.apiServerAddress}app/salesOrder/getCompanyBasedCurrency`;
 
@@ -149,6 +150,11 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
   addGRNBasedMutipleAsset(assetMaster: AssetMaster): Observable<any> {
     return this.httpClient.post<AssetMaster>(this.saveGRNBasedMutipleAsset, assetMaster);
   }
+
+  addQuantityBasedMutipleAsset(assetMaster: AssetMaster): Observable<any> {
+    return this.httpClient.post<AssetMaster>(this.saveQuantityBasedMutipleAsset, assetMaster);
+  }
+
 
   //FOR QR CODE PDF ADDED BY Gokul
   assetQRcodeExportPdf(obj: any): Observable<Blob> {

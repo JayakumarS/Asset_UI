@@ -62,14 +62,15 @@ export class AddAssetMasterComponent
   uploadImage: boolean = false;
   assetMaster: AssetMaster;
   categoryList = [];
-  currencyListbasedCompany:[];
+  currencyListbasedCompany: [];
   locationDdList = [];
   departmentDdList = [];
   vendorDdList = [];
   requestId: any;
-  currencyList:[];
+  currencyList: [];
   edit: boolean = false;
-  grnFlag: boolean = false;
+  grnBasedMutipleAssetFlag: boolean = false;
+  quantityBasedMutipleAssetFlag: boolean = false;
   grnNumberList = [];
   purchaseOrderNumber = [];
   itemCodeNameList = [];
@@ -92,14 +93,14 @@ export class AddAssetMasterComponent
   vehicleFlag: boolean = false;
   plantFlag: boolean = false;
   //
-  isOwned: boolean =true;
-  isRented: boolean =false;
-  isThirdParty: boolean =false;
+  isOwned: boolean = true;
+  isRented: boolean = false;
+  isThirdParty: boolean = false;
   statusDdList: any;
   brandDdList: any;
 
-  isBrand: boolean =true;
-  isUnBrand: boolean =false;
+  isBrand: boolean = true;
+  isUnBrand: boolean = false;
 
 
   constructor(private fb: FormBuilder,
@@ -138,7 +139,7 @@ export class AddAssetMasterComponent
       isLine: [false],
       isAuditable: [false],
       id: [""],
-      uploadImg: ["",[Validators.required]],
+      uploadImg: ["", [Validators.required]],
       isGrnBasedAsset: [false],
       grnId: [""],
       loginedUser: this.tokenStorage.getUserId(),
@@ -152,10 +153,10 @@ export class AddAssetMasterComponent
       condition: [""],
       linkedAsset: [""],
       description: [""],
-      gst:[""],
-      customDuty:[""],
-      otherTaxes:[""], 
-      transport:[""],
+      gst: [""],
+      customDuty: [""],
+      otherTaxes: [""],
+      transport: [""],
       instalAndCommission: [""],
       uploadFiles: [""],
       //tab2
@@ -165,7 +166,8 @@ export class AddAssetMasterComponent
       invoiceDate: [""],
       invoiceNo: [""],
       purchasePrice: [""],
-      currency:[""],
+      currency: [""],
+      quantity: ["1", [Validators.required]],
       //tab3
       captitalizationPrice: [""],
       captitalizationDate: [moment().format('DD/MM/YYYY')],
@@ -177,7 +179,7 @@ export class AddAssetMasterComponent
       allottedUpto: [""],
       transferredTo: [""],
       remarks: [""],
-      assetUser: ["",[Validators.required]],
+      assetUser: ["", [Validators.required]],
       invoiceDateobj: [""],
       captitalizationDateobj: [moment().format('YYYY-MM-DD')],
       allottedUptoobj: [""],
@@ -240,9 +242,19 @@ export class AddAssetMasterComponent
           putUseDateObj: [moment().format('YYYY-MM-DD')],
         })
       ]),
-      owned: ["owned"],
-      rented: [""],
-      thirdParty: [""],
+      quantityBasedAssetList: this.fb.array([
+        this.fb.group({
+          assetName: [""],
+          assetCode: [""],
+          location: [""],
+          category: [""],
+          status: [""],
+          putUseDate: [moment().format('DD/MM/YYYY')],
+          putUseDateObj: [moment().format('YYYY-MM-DD')],
+        })
+      ]),
+
+      ownedShip: ["owned"]
     });
   }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -262,7 +274,7 @@ export class AddAssetMasterComponent
 
 
 
-    this.httpService.get<any>(this.commonService.getCategoryDropdown+"?companyId="+this.tokenStorage.getCompanyId()).subscribe({
+    this.httpService.get<any>(this.commonService.getCategoryDropdown + "?companyId=" + this.tokenStorage.getCompanyId()).subscribe({
       next: (data) => {
         this.categoryList = data;
       },
@@ -284,8 +296,8 @@ export class AddAssetMasterComponent
     // }
     // );
 
-     // Location dropdown
-     this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    // Location dropdown
+    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.locationDdList = data;
       },
@@ -305,8 +317,8 @@ export class AddAssetMasterComponent
     });
 
 
-     // Status dropdown
-     this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    // Status dropdown
+    this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.statusDdList = data;
       },
@@ -317,16 +329,16 @@ export class AddAssetMasterComponent
     );
 
 
-        // Brand dropdown
-        this.httpService.get<any>(this.commonService.getBrandDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
-          next: (data) => {
-            this.brandDdList = data;
-          },
-          error: (error) => {
-    
-          }
-        }
-        );
+    // Brand dropdown
+    this.httpService.get<any>(this.commonService.getBrandDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.brandDdList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
 
 
     //Item Master Dropdown List
@@ -344,7 +356,7 @@ export class AddAssetMasterComponent
       companyId: this.tokenStorage.getCompanyId(),
       branchId: this.tokenStorage.getBranchId(),
     }
-    this.httpService.post<any>(this.commonService.getPurchaseOrderNumberDropdown,obj).subscribe({
+    this.httpService.post<any>(this.commonService.getPurchaseOrderNumberDropdown, obj).subscribe({
       next: (data) => {
         this.purchaseOrderNumber = data;
       },
@@ -353,7 +365,7 @@ export class AddAssetMasterComponent
     });
 
     // vendor dropdown
-    this.httpService.get<any>(this.commonService.getVendorDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    this.httpService.get<any>(this.commonService.getVendorDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.uomList = data;
       },
@@ -362,8 +374,8 @@ export class AddAssetMasterComponent
     });
 
 
-     //GRN Dropdown List
-    this.httpService.post<any>(this.commonService.getGRNNumberDropdown,obj).subscribe({
+    //GRN Dropdown List
+    this.httpService.post<any>(this.commonService.getGRNNumberDropdown, obj).subscribe({
       next: (data) => {
         this.grnNumberList = data;
       },
@@ -372,8 +384,8 @@ export class AddAssetMasterComponent
     });
 
     // assetname dropdown
-    this.companyId=this.tokenStorage.getCompanyId();
-    this.httpService.get<any>(this.commonService.getassetname+"?companyId="+this.companyId).subscribe({
+    this.companyId = this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getassetname + "?companyId=" + this.companyId).subscribe({
 
       next: (data) => {
         this.assetnamelist = data;
@@ -384,29 +396,29 @@ export class AddAssetMasterComponent
     }
     );
 
-  //Assetuser dropdown
-  this.companyId=this.tokenStorage.getCompanyId();
-    this.httpService.get<any>(this.commonService.getAssetUserList + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe(
-      
+    //Assetuser dropdown
+    this.companyId = this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getAssetUserList + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe(
+
       (data) => {
-      console.log(data);
-      this.assetUserList = data;
-    },
-    (error: HttpErrorResponse) => {
-      console.log(error.name + " " + error.message);
-    }
-  );
+        console.log(data);
+        this.assetUserList = data;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
 
 
-        // Department Dropdown List
+    // Department Dropdown List
     this.httpService.get<any>(this.userMasterService.departmentListUrl + "?company=" + this.tokenStorage.getCompanyId() + "").subscribe(
-          (data) => {
-            this.departmentDdList = data.departmentList;
-          },
-          (error: HttpErrorResponse) => {
-            console.log(error.name + " " + error.message);
-          }
-        );
+      (data) => {
+        this.departmentDdList = data.departmentList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
 
 
   }
@@ -446,32 +458,32 @@ export class AddAssetMasterComponent
   }
 
 
-  categoryAttributes(category:any){
-    this.isCategory=true;
-     if(category==43 || category=='43'){
-       this.computerFlag=true;
-     } else {
-      this.computerFlag=false;
-     }
-     if(category==40 || category=='40'){
-      this.furnitureFlag=true;
+  categoryAttributes(category: any) {
+    this.isCategory = true;
+    if (category == 43 || category == '43') {
+      this.computerFlag = true;
     } else {
-     this.furnitureFlag=false;
+      this.computerFlag = false;
     }
-    if(category==41 || category=='41'){
-      this.officeFlag=true;
+    if (category == 40 || category == '40') {
+      this.furnitureFlag = true;
     } else {
-     this.officeFlag=false;
+      this.furnitureFlag = false;
     }
-    if(category==42 || category=='42'){
-      this.vehicleFlag=true;
+    if (category == 41 || category == '41') {
+      this.officeFlag = true;
     } else {
-     this.vehicleFlag=false;
+      this.officeFlag = false;
     }
-    if(category==44 || category=='44'){
-      this.plantFlag=true;
+    if (category == 42 || category == '42') {
+      this.vehicleFlag = true;
     } else {
-     this.plantFlag=false;
+      this.vehicleFlag = false;
+    }
+    if (category == 44 || category == '44') {
+      this.plantFlag = true;
+    } else {
+      this.plantFlag = false;
     }
   }
 
@@ -480,28 +492,28 @@ export class AddAssetMasterComponent
 
     if (this.docForm.valid) {
 
-      if(this.isOwned){
+      if (this.isOwned) {
         this.docForm.patchValue({
-          'thirdPartyUptoDate':"",
-          'thirdPartyUptoDateObj':"",
-          'rentedUptoDate':"",
-          'rentedUptoDateObj':"",
+          'thirdPartyUptoDate': "",
+          'thirdPartyUptoDateObj': "",
+          'rentedUptoDate': "",
+          'rentedUptoDateObj': "",
         })
       }
-      if(this.isRented){
+      if (this.isRented) {
         this.docForm.patchValue({
-          'thirdPartyUptoDate':"",
-          'thirdPartyUptoDateObj':"",
+          'thirdPartyUptoDate': "",
+          'thirdPartyUptoDateObj': "",
         })
       }
-      if(this.isThirdParty){
+      if (this.isThirdParty) {
         this.docForm.patchValue({
-          'rentedUptoDate':"",
-          'rentedUptoDateObj':"",
+          'rentedUptoDate': "",
+          'rentedUptoDateObj': "",
         })
       }
 
-    
+
       // if(this.isBrand){
       //   this.docForm.patchValue({
       //     'brandCheck':"",
@@ -511,7 +523,7 @@ export class AddAssetMasterComponent
       // if(this.isUnBrand){
       //   this.docForm.patchValue({
       //     'unBrandCheck':"",
-          
+
       //   })
       // }
 
@@ -575,43 +587,43 @@ export class AddAssetMasterComponent
   update() {
     if (this.docForm.valid) {
 
-      if(this.isOwned){
+      if (this.isOwned) {
         this.docForm.patchValue({
-          'thirdPartyUptoDate':"",
-          'thirdPartyUptoDateObj':"",
-          'rentedUptoDate':"",
-          'rentedUptoDateObj':"",
+          'thirdPartyUptoDate': "",
+          'thirdPartyUptoDateObj': "",
+          'rentedUptoDate': "",
+          'rentedUptoDateObj': "",
         })
       }
-      if(this.isRented){
+      if (this.isRented) {
         this.docForm.patchValue({
-          'thirdPartyUptoDate':"",
-          'thirdPartyUptoDateObj':"",
+          'thirdPartyUptoDate': "",
+          'thirdPartyUptoDateObj': "",
         })
       }
-      if(this.isThirdParty){
+      if (this.isThirdParty) {
         this.docForm.patchValue({
-          'rentedUptoDate':"",
-          'rentedUptoDateObj':"",
-        })
-      }
-
-      if(this.isBrand == true){
-        this.docForm.patchValue({
-          'brandCheck':"brandCheck",
-          'unBrandCheck':"null",
+          'rentedUptoDate': "",
+          'rentedUptoDateObj': "",
         })
       }
 
-
-      if(this.isUnBrand == true){
+      if (this.isBrand == true) {
         this.docForm.patchValue({
-          'brandCheck':"null",
-          'unBrandCheck':"unBrandCheck",
+          'brandCheck': "brandCheck",
+          'unBrandCheck': "null",
         })
       }
 
-     
+
+      if (this.isUnBrand == true) {
+        this.docForm.patchValue({
+          'brandCheck': "null",
+          'unBrandCheck': "unBrandCheck",
+        })
+      }
+
+
 
       this.assetMaster = this.docForm.value;
       this.spinner.show();
@@ -660,7 +672,7 @@ export class AddAssetMasterComponent
       editId: id
     }
 
-    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.locationDdList = data;
       },
@@ -670,7 +682,7 @@ export class AddAssetMasterComponent
     }
     );
 
-    this.httpService.get<any>(this.commonService.getBrandDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    this.httpService.get<any>(this.commonService.getBrandDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.brandDdList = data;
       },
@@ -680,15 +692,15 @@ export class AddAssetMasterComponent
     }
     );
 
-      this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
-        next: (data) => {
-          this.statusDdList = data;
-        },
-        error: (error) => {
-  
-        }
+    this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.statusDdList = data;
+      },
+      error: (error) => {
+
       }
-      );
+    }
+    );
 
     this.assetService.editAsset(obj).subscribe({
       next: (res: any) => {
@@ -724,14 +736,14 @@ export class AddAssetMasterComponent
           'captitalizationDate': res.addAssetBean.captitalizationDate,
           'captitalizationPrice': res.addAssetBean.captitalizationPrice,
           'condition': res.addAssetBean.condition,
-          'department': res.addAssetBean.department !=null ? res.addAssetBean.department.toString():"",
+          'department': res.addAssetBean.department != null ? res.addAssetBean.department.toString() : "",
           'depreciation': res.addAssetBean.depreciation,
           'description': res.addAssetBean.description,
           'gst': res.addAssetBean.gst,
           'customDuty': res.addAssetBean.customDuty,
-          'otherTaxes' : res.addAssetBean.otherTaxes,
-          'transport' : res.addAssetBean.transport,
-          'instalAndCommission' : res.addAssetBean.instalAndCommission,
+          'otherTaxes': res.addAssetBean.otherTaxes,
+          'transport': res.addAssetBean.transport,
+          'instalAndCommission': res.addAssetBean.instalAndCommission,
           'endLife': res.addAssetBean.endLife,
           'invoiceNo': res.addAssetBean.invoiceNo,
           'imgUploadUrl': res.addAssetBean.imgUploadUrl,
@@ -742,7 +754,7 @@ export class AddAssetMasterComponent
           'purchasePrice': res.addAssetBean.purchasePrice,
           'currency': res.addAssetBean.currency,
           'remarks': res.addAssetBean.remarks,
-          'assetUser':res.addAssetBean.assetUser,
+          'assetUser': res.addAssetBean.assetUser,
           'scrapValue': res.addAssetBean.scrapValue,
           'selfOrPartner': res.addAssetBean.selfOrPartner,
           'serialNo': res.addAssetBean.serialNo,
@@ -752,78 +764,74 @@ export class AddAssetMasterComponent
           'vendor': res.addAssetBean.vendor,
           //CATEGORY
           'os': res.addAssetBean.os,
-          'processor':res.addAssetBean.processor,
+          'processor': res.addAssetBean.processor,
           'memory': res.addAssetBean.memory,
           'storage': res.addAssetBean.storage,
           'monitor': res.addAssetBean.monitor,
           'aesthetics': res.addAssetBean.aesthetics,
-          'quality':res.addAssetBean.quality,
+          'quality': res.addAssetBean.quality,
           'safety': res.addAssetBean.safety,
           'sustainability': res.addAssetBean.sustainability,
           'device': res.addAssetBean.device,
           'deviceModel': res.addAssetBean.deviceModel,
-          'deviceStatus':res.addAssetBean.deviceStatus,
+          'deviceStatus': res.addAssetBean.deviceStatus,
           'vehicleType': res.addAssetBean.vehicleType,
           'vehicleEngine': res.addAssetBean.vehicleEngine,
           'vehicleSpeed': res.addAssetBean.vehicleSpeed,
           'fuelCapacity': res.addAssetBean.fuelCapacity,
-          'vehicleWeight':res.addAssetBean.vehicleWeight,
+          'vehicleWeight': res.addAssetBean.vehicleWeight,
           'lifeTime': res.addAssetBean.lifeTime,
           'costOfLand': res.addAssetBean.costOfLand,
           'substance': res.addAssetBean.substance,
           //
-          
+
           'rentedUptoDate': res.addAssetBean.rentedUptoDate,
-          'rentedUptoDateObj': res.addAssetBean.rentedUptoDate!=null ? this.commonService.getDateObj(res.addAssetBean.rentedUptoDate) : "",
+          'rentedUptoDateObj': res.addAssetBean.rentedUptoDate != null ? this.commonService.getDateObj(res.addAssetBean.rentedUptoDate) : "",
           'thirdPartyUptoDate': res.addAssetBean.thirdPartyUptoDate,
-          'thirdPartyUptoDateObj': res.addAssetBean.thirdPartyUptoDate!=null ? this.commonService.getDateObj(res.addAssetBean.thirdPartyUptoDate) : "",
+          'thirdPartyUptoDateObj': res.addAssetBean.thirdPartyUptoDate != null ? this.commonService.getDateObj(res.addAssetBean.thirdPartyUptoDate) : "",
 
           'insuranceDate': res.addAssetBean.insuranceDate,
-          'insuranceDateObj': res.addAssetBean.insuranceDate!=null ? this.commonService.getDateObj(res.addAssetBean.insuranceDate) : "",
+          'insuranceDateObj': res.addAssetBean.insuranceDate != null ? this.commonService.getDateObj(res.addAssetBean.insuranceDate) : "",
 
         })
 
-        if(res.addAssetBean.rentedUptoDate !=null){
-          this.isRented=true;
+        if (res.addAssetBean.rentedUptoDate != null) {
+          this.isRented = true;
           this.docForm.patchValue({
-            'owned':"",
-            'rented':"rented",
-            'thirdParty':""
+            'ownedShip': "rented"
           })
         } else {
-          this.isRented=false;
+          this.isRented = false;
         }
 
-        if(res.addAssetBean.thirdPartyUptoDate !=null){
-          this.isThirdParty=true;
+        if (res.addAssetBean.thirdPartyUptoDate != null) {
+          this.isThirdParty = true;
           this.docForm.patchValue({
-            'owned':"",
-            'rented':"",
-            'thirdParty':"thirdParty"
+            'thirdParty': "thirdParty"
           })
         } else {
-          this.isThirdParty=false;
+          this.isThirdParty = false;
         }
 
 
-        if(res.addAssetBean.brandCheck =="brandCheck"){
-          this.isBrand=true;
-          this.isUnBrand=false;
+        if (res.addAssetBean.brandCheck == "brandCheck") {
+          this.isBrand = true;
+          this.isUnBrand = false;
           this.docForm.patchValue({
-            'brandCheck':"brandCheck",
+            'brandCheck': "brandCheck",
           })
         } else {
-          this.isBrand=false;
+          this.isBrand = false;
         }
 
-        if(res.addAssetBean.unBrandCheck =="unBrandCheck"){
-          this.isUnBrand=true;
-          this.isBrand=false;
+        if (res.addAssetBean.unBrandCheck == "unBrandCheck") {
+          this.isUnBrand = true;
+          this.isBrand = false;
           this.docForm.patchValue({
-            'unBrandCheck':"unBrandCheck",
+            'unBrandCheck': "unBrandCheck",
           })
         } else {
-          this.isUnBrand=false;
+          this.isUnBrand = false;
         }
 
         this.getInLine(res.addAssetBean.isLine);
@@ -873,7 +881,7 @@ export class AddAssetMasterComponent
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
-      duration: 2000,
+      duration: 5000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
@@ -922,21 +930,26 @@ export class AddAssetMasterComponent
       this.docForm.patchValue({ allottedUpto: cdate });
     } else if (inputFlag == 'putUseDate') {
       this.docForm.patchValue({ putUseDate: cdate });
-    } else if (inputFlag == 'putUseDateArray') {
+    } else if (inputFlag == 'putUseDateGRNArray') {
       let grnBasedAssetArray = this.docForm.controls.grnBasedAssetList as FormArray;
       grnBasedAssetArray.at(index).patchValue({
         putUseDate: cdate
       });
+    }  else if (inputFlag == 'putUseDateQtyArray') {
+      let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+      quantityBasedAssetArray.at(index).patchValue({
+        putUseDate: cdate
+      });
     } else if (inputFlag == 'insuranceDate') {
       this.docForm.patchValue({ insuranceDate: cdate });
-    } 
+    }
     else if (inputFlag == 'rentedUptoDate') {
-      let currDate=new Date();
-      if(event.target.value<currDate){
+      let currDate = new Date();
+      if (event.target.value < currDate) {
         let s = this.cmnService.getDate(currDate);
         this.docForm.patchValue({
-          rentedUptoDate:s,
-          rentedUptoDateObj:s
+          rentedUptoDate: s,
+          rentedUptoDateObj: s
         });
         this.showNotification(
           "snackbar-danger",
@@ -947,15 +960,15 @@ export class AddAssetMasterComponent
       }
       else {
         this.docForm.patchValue({ rentedUptoDate: cdate });
-      } 
+      }
     } else if (inputFlag == 'thirdPartyUptoDate') {
-      let currDate=new Date();
+      let currDate = new Date();
 
-      if(event.target.value<currDate){
+      if (event.target.value < currDate) {
         let s = this.cmnService.getDate(currDate);
         this.docForm.patchValue({
-          thirdPartyUptoDate:s,
-          thirdPartyUptoDateObj:s
+          thirdPartyUptoDate: s,
+          thirdPartyUptoDateObj: s
         });
         this.showNotification(
           "snackbar-danger",
@@ -968,7 +981,7 @@ export class AddAssetMasterComponent
         this.docForm.patchValue({ thirdPartyUptoDate: cdate });
       }
 
-      
+
     }
   }
 
@@ -1004,6 +1017,13 @@ export class AddAssetMasterComponent
     }
   }
 
+  keyPressNumber(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
 
   cancel() {
@@ -1043,7 +1063,7 @@ export class AddAssetMasterComponent
 
   getGRN(event: any) {
     if (event) {
-      this.grnFlag = true;
+      this.grnBasedMutipleAssetFlag = true;
       this.docForm.controls.grnId.setValidators(Validators.required);
       this.docForm.controls['grnId'].updateValueAndValidity();
       this.docForm.controls.assetName.clearValidators();
@@ -1056,9 +1076,11 @@ export class AddAssetMasterComponent
       this.docForm.controls['category'].updateValueAndValidity();
       this.docForm.controls.status.clearValidators();
       this.docForm.controls['status'].updateValueAndValidity();
+      this.docForm.controls.uploadImg.clearValidators();
+      this.docForm.controls['uploadImg'].updateValueAndValidity();
     }
     else {
-      this.grnFlag = false;
+      this.grnBasedMutipleAssetFlag = false;
       this.docForm.controls.grnId.clearValidators();
       this.docForm.controls['grnId'].updateValueAndValidity();
       this.docForm.controls.assetName.setValidators(Validators.required);
@@ -1071,15 +1093,16 @@ export class AddAssetMasterComponent
       this.docForm.controls['category'].updateValueAndValidity();
       this.docForm.controls.status.setValidators(Validators.required);
       this.docForm.controls['status'].updateValueAndValidity();
-
+      this.docForm.controls.uploadImg.setValidators(Validators.required);
+      this.docForm.controls['uploadImg'].updateValueAndValidity();
     }
   }
 
-  singleAssetPopup(row){
+  singleAssetPopup(row) {
     console.log(row.tab.textLabel);
-    if(row.tab.textLabel=='Add Multiple Assets'){
+    if (row.tab.textLabel == 'Add Multiple Assets') {
       this.multipleuploadpopupCall();
-    }  
+    }
   }
 
   //FOR IMAGE UPLOAD ADDED BY Gokul 
@@ -1118,7 +1141,7 @@ export class AddAssetMasterComponent
               'uploadImg': data.filePath
             })
             this.imgPathUrl = data.filePath;
-            this.uploadImage=true;
+            this.uploadImage = true;
 
           }
         } else {
@@ -1144,7 +1167,7 @@ export class AddAssetMasterComponent
 
   //FOR DOCUMENT UPLOAD ADDED BY Gokul
   onSelectFile(event) {
-    
+
     var docfile = event.target.files[0];
     if (!this.acceptFileTypes.includes(docfile.type)) {
       this.showNotification(
@@ -1178,7 +1201,7 @@ export class AddAssetMasterComponent
               'uploadFiles': data.filePath
             })
             this.filePathUrl = data.filePath;
-            this.uploadFile=true;
+            this.uploadFile = true;
           }
         } else {
           this.showNotification(
@@ -1203,10 +1226,10 @@ export class AddAssetMasterComponent
 
   viewDocuments(filePath: any, fileName: any) {
     var a = document.createElement("a");
-          a.href = this.serverUrl.apiServerAddress+"asset_upload/"+filePath;
-          a.target = '_blank';
-          a.download = fileName;
-          a.click();
+    a.href = this.serverUrl.apiServerAddress + "asset_upload/" + filePath;
+    a.target = '_blank';
+    a.download = fileName;
+    a.click();
   }
 
 
@@ -1303,58 +1326,57 @@ export class AddAssetMasterComponent
     }
   }
 
-  getOwnerShip(check:any){
-     if(check=='owned'){
-       this.isOwned=true;
-     } else {
-      this.isOwned=false;
-     }
-     if(check=='rented'){
-      this.isRented=true;
+  getOwnerShip(check: any) {
+    if (check == 'owned') {
+      this.isOwned = true;
     } else {
-     this.isRented=false;
+      this.isOwned = false;
     }
-    if(check=='thirdParty'){
-      this.isThirdParty=true;
+    if (check == 'rented') {
+      this.isRented = true;
     } else {
-     this.isThirdParty=false;
+      this.isRented = false;
+    }
+    if (check == 'thirdParty') {
+      this.isThirdParty = true;
+    } else {
+      this.isThirdParty = false;
     }
   }
 
-  getBrand(check:any)
-  {
-    if(check=='brandCheck'){
-      this.isBrand=true;
+  getBrand(check: any) {
+    if (check == 'brandCheck') {
+      this.isBrand = true;
       this.docForm.controls.brandCheck.setValidators(Validators.required);
-      this.isUnBrand=false;
+      this.isUnBrand = false;
 
     } else {
-     this.isBrand=false;
-     this.docForm.controls.brandCheck.clearValidators();
-     this.docForm.controls['brandCheck'].updateValueAndValidity();
+      this.isBrand = false;
+      this.docForm.controls.brandCheck.clearValidators();
+      this.docForm.controls['brandCheck'].updateValueAndValidity();
 
     }
-    if(check=='unBrandCheck'){
-     this.isUnBrand=true;
-     this.docForm.controls.unBrandCheck.setValidators(Validators.required);
-     this.isBrand=false;
+    if (check == 'unBrandCheck') {
+      this.isUnBrand = true;
+      this.docForm.controls.unBrandCheck.setValidators(Validators.required);
+      this.isBrand = false;
 
 
-   } else {
-    this.isUnBrand=false;
-    this.docForm.controls.unBrandCheck.clearValidators();
-    this.docForm.controls['unBrandCheck'].updateValueAndValidity();
+    } else {
+      this.isUnBrand = false;
+      this.docForm.controls.unBrandCheck.clearValidators();
+      this.docForm.controls['unBrandCheck'].updateValueAndValidity();
 
-   }
+    }
   }
 
 
-  resetSelf(){
+  resetSelf() {
     this.docForm = this.fb.group({
 
       assetName: ["", [Validators.required]],
       assetCode: [""],
-      location: ["",[Validators.required]],
+      location: ["", [Validators.required]],
       category: ["", [Validators.required]],
       status: ["", [Validators.required]],
       putUseDate: [moment().format('DD/MM/YYYY')],
@@ -1366,7 +1388,7 @@ export class AddAssetMasterComponent
       isLine: [false],
       isAuditable: [false],
       id: [""],
-      uploadImg: ["",, [Validators.required]],
+      uploadImg: ["", [Validators.required]],
       isGrnBasedAsset: [false],
       grnId: [""],
       loginedUser: this.tokenStorage.getUserId(),
@@ -1380,9 +1402,9 @@ export class AddAssetMasterComponent
       condition: [""],
       linkedAsset: [""],
       description: [""],
-      gst:[""],
-      customDuty:[""], 
-      otherTaxes:[""],
+      gst: [""],
+      customDuty: [""],
+      otherTaxes: [""],
       transport: [""],
       instalAndCommission: [""],
       uploadFiles: [""],
@@ -1393,7 +1415,8 @@ export class AddAssetMasterComponent
       invoiceDate: [""],
       invoiceNo: [""],
       purchasePrice: [""],
-      currency:[""],
+      currency: [""],
+      quantity: ["1", [Validators.required]],
       //tab3
       captitalizationPrice: [""],
       captitalizationDate: [moment().format('DD/MM/YYYY')],
@@ -1427,33 +1450,33 @@ export class AddAssetMasterComponent
         })
       ]),
 
-       //Computer
-       os: [""],
-       processor: [""],
-       memory: [""],
-       storage: [""],
-       monitor: [""],
-       //Furniture
-       aesthetics: [""],
-       quality: [""],
-       safety: [""],
-       sustainability: [""],
-       //Office Equipment
-       device: [""],
-       deviceModel: [""],
-       deviceStatus: [""],
-       //Vehicle
-       vehicleType: [""],
-       vehicleEngine: [""],
-       vehicleSpeed: [""],
-       fuelCapacity: [""],
-       vehicleWeight: [""],
-       insuranceDate: [""],
-       insuranceDateObj: [""],
+      //Computer
+      os: [""],
+      processor: [""],
+      memory: [""],
+      storage: [""],
+      monitor: [""],
+      //Furniture
+      aesthetics: [""],
+      quality: [""],
+      safety: [""],
+      sustainability: [""],
+      //Office Equipment
+      device: [""],
+      deviceModel: [""],
+      deviceStatus: [""],
+      //Vehicle
+      vehicleType: [""],
+      vehicleEngine: [""],
+      vehicleSpeed: [""],
+      fuelCapacity: [""],
+      vehicleWeight: [""],
+      insuranceDate: [""],
+      insuranceDateObj: [""],
       //Plant and Machinery
-       lifeTime: [""],
-       costOfLand: [""],
-       substance: [""],
+      lifeTime: [""],
+      costOfLand: [""],
+      substance: [""],
 
       grnBasedAssetList: this.fb.array([
         this.fb.group({
@@ -1468,21 +1491,32 @@ export class AddAssetMasterComponent
           putUseDateObj: [moment().format('YYYY-MM-DD')],
         })
       ]),
-      owned: ["owned"],
-      rented: [""],
-      thirdParty: [""],
+      quantityBasedAssetList: this.fb.array([
+        this.fb.group({
+          assetName: [""],
+          assetCode: [""],
+          location: [""],
+          category: [""],
+          status: [""],
+          putUseDate: [moment().format('DD/MM/YYYY')],
+          putUseDateObj: [moment().format('YYYY-MM-DD')],
+        })
+      ]),
 
-   
+      ownedShip: ["owned"],
+
     });
-    this.isCategory=false;
-    this.isRented=false;
-    this.isThirdParty=false;
+    this.isCategory = false;
+    this.isRented = false;
+    this.isThirdParty = false;
 
-    this.isBrand=false;
-    this.isUnBrand=false;
+    this.isBrand = false;
+    this.isUnBrand = false;
 
-    this.imgPathUrl=[];
-    this.filePathUrl= [] ;
+    this.imgPathUrl = [];
+    this.filePathUrl = [];
+    this.quantityBasedMutipleAssetFlag=false;
+    this.grnBasedMutipleAssetFlag=false;
   }
 
 
@@ -1505,5 +1539,158 @@ export class AddAssetMasterComponent
       data.controls['depreciation'].updateValueAndValidity();
     }
   }
+
+  checkValidationANDAddMultipleAssetList(value: number) {
+    if (this.docForm.controls['category'].invalid) {
+      this.docForm.patchValue({
+        quantity: '1'
+      })
+      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'category' + '"]');
+      invalidControl.focus();
+      this.showNotification(
+        "snackbar-danger",
+        "CATEGORY is Required...!!!",
+        "top",
+        "right"
+      );
+      return;
+    } else if (this.docForm.controls['assetName'].invalid) {
+      this.docForm.patchValue({
+        quantity: '1'
+      })
+      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'assetName' + '"]');
+      invalidControl.focus();
+      this.showNotification(
+        "snackbar-danger",
+        "ASSET NAME is Required...!!!",
+        "top",
+        "right"
+      );
+      return;
+    } else if (this.docForm.controls['location'].invalid) {
+      this.docForm.patchValue({
+        quantity: '1'
+      })
+      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'location' + '"]');
+      invalidControl.focus();
+      this.showNotification(
+        "snackbar-danger",
+        "LOCATION is Required...!!!",
+        "top",
+        "right"
+      );
+      return;
+    } else if (this.docForm.controls['status'].invalid) {
+      this.docForm.patchValue({
+        quantity: '1'
+      })
+      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'status' + '"]');
+      invalidControl.focus();
+      this.showNotification(
+        "snackbar-danger",
+        "STATUS is Required...!!!",
+        "top",
+        "right"
+      );
+      return;
+    } else if (this.docForm.controls['putUseDate'].invalid) {
+      this.docForm.patchValue({
+        quantity: '1'
+      })
+      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'putUseDate' + '"]');
+      invalidControl.focus();
+      this.showNotification(
+        "snackbar-danger",
+        "PUT IN USE DATE is Required...!!!",
+        "top",
+        "right"
+      );
+      return;
+    } else if (this.docForm.controls['uploadImg'].invalid) {
+      this.docForm.patchValue({
+        quantity: '1'
+      })
+      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'uploadImg' + '"]');
+      invalidControl.focus();
+      this.showNotification(
+        "snackbar-danger",
+        "ASSET IMAGE is Required...!!!",
+        "top",
+        "right"
+      );
+      return;
+    }
+
+    if (value != null && value > 1) {
+      this.quantityBasedMutipleAssetFlag=true;
+      let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+      quantityBasedAssetArray.clear();
+      for(var i = 0; i<value; i++){
+        let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+        let arraylen = quantityBasedAssetArray.length;
+        let newUsergroup: FormGroup = this.fb.group({
+          assetName: [this.docForm.value.assetName],
+          assetCode: [this.docForm.value.assetCode],
+          location: [this.docForm.value.location],
+          category: [this.docForm.value.category],
+          status: [this.docForm.value.status],
+          putUseDate: [this.docForm.value.putUseDate],
+          putUseDateObj: [this.docForm.value.putUseDateObj],
+        })
+        quantityBasedAssetArray.insert(arraylen, newUsergroup);
+      }
+    }else{
+      this.quantityBasedMutipleAssetFlag=false;
+      this.docForm.patchValue({
+        quantity: '1'
+      })
+      
+    }
+  }
+
+  saveQtyBasedMutipleAsset() {
+    if (this.docForm.valid) {
+      this.assetMaster = this.docForm.value;
+      this.spinner.show();
+      this.assetService.addQuantityBasedMutipleAsset(this.assetMaster).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.showNotification(
+              "snackbar-success",
+              "Record Added successfully...",
+              "top",
+              "right"
+            );
+            this.onCancel();
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              "Not Added...!!!",
+              "top",
+              "right"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "top",
+            "right"
+          );
+        }
+      });
+    } else {
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right"
+      );
+    }
+  }
+
 
 }

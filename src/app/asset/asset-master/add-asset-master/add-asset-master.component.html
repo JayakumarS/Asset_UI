@@ -16,7 +16,7 @@
                                   
                                     <br>
                                     <div class="row-def" style="margin-left: -5%;">
-                                        <div class="row">
+                                        <div class="row" *ngIf="!quantityBasedMutipleAssetFlag">
                                             <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                                 <mat-label style="margin-left: 55%;">GRN </mat-label>
                                             </div>
@@ -26,7 +26,7 @@
                                             </div>
 
 
-                                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" *ngIf="grnFlag">
+                                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" *ngIf="grnBasedMutipleAssetFlag">
                                                 <mat-form-field class="example-full-width form-control-sm"
                                                     appearance="outline">
                                                     <mat-label>GRN No</mat-label>
@@ -46,7 +46,7 @@
                                         <br>
 
                                         <!-- GRN Based Save Mutiple Asset Start-->
-                                        <div *ngIf="grnFlag">
+                                        <div *ngIf="grnBasedMutipleAssetFlag && !quantityBasedMutipleAssetFlag">
                                             <h6 style="padding-left: 80px;" class="headingValue"> GRN Item Based Asset
                                             </h6>
                                             <div style="overflow-x: auto;zoom: 90%;margin-left: 70px;">
@@ -174,7 +174,7 @@
                                                                         <input matInput [matDatepicker]="picker7"
                                                                             formControlName="putUseDateObj"
                                                                             name="putUseDateObj{{i}}"
-                                                                            (dateChange)="getDateString($event,'putUseDateArray',i)">
+                                                                            (dateChange)="getDateString($event,'putUseDateGRNArray',i)">
                                                                         <mat-datepicker-toggle matSuffix
                                                                             [for]="picker7"></mat-datepicker-toggle>
                                                                         <mat-datepicker #picker7></mat-datepicker>
@@ -192,10 +192,8 @@
                                         <!-- GRN Based Save Mutiple Asset End-->
 
                                         <!-- Normal Asset Save Start-->
-                                        <div *ngIf="!grnFlag">
+                                        <div *ngIf="!grnBasedMutipleAssetFlag">
                                             <div class="row">
-
-
                                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                                     <mat-label style="margin-left: 55%;">CATEGORY <span
                                                             class="errorColor">*</span></mat-label>
@@ -203,7 +201,7 @@
                                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                                     <mat-form-field class="example-full-width form-control-sm"
                                                         appearance="outline">
-                                                        <mat-select tabindex="6" formControlName="category"
+                                                        <mat-select tabindex="6" formControlName="category" [disabled]="quantityBasedMutipleAssetFlag" 
                                                             (selectionChange)="categoryAttributes($event.value)"
                                                             required>
                                                             <mat-option *ngFor="let title of categoryList"
@@ -211,9 +209,8 @@
                                                                 {{title.text}}
                                                             </mat-option>
                                                         </mat-select>
-                                                        <mat-error
-                                                            *ngIf="docForm.get('category').hasError('required')">Category
-                                                            is required
+                                                        <mat-error *ngIf="docForm.get('category').hasError('required')">
+                                                            Category is required
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
@@ -226,7 +223,7 @@
                                                 <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                                     <mat-form-field class="example-full-width form-control-sm"
                                                         appearance="outline">
-                                                        <input matInput tabindex="3" formControlName="assetName"
+                                                        <input matInput tabindex="3" [readonly]="quantityBasedMutipleAssetFlag"  formControlName="assetName"
                                                             (keypress)="keyPressName($event)" required>
                                                         <mat-error
                                                             *ngIf="docForm.get('assetName').hasError('required')">Asset
@@ -241,7 +238,7 @@
                                   </div>
                                   <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
                                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                        <mat-select tabindex="5" formControlName="location">
+                                        <mat-select tabindex="5" [disabled]="quantityBasedMutipleAssetFlag"  formControlName="location">
                                             <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                                                 {{title.text}}
                                             </mat-option>
@@ -272,7 +269,7 @@
                                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                                     <mat-form-field class="example-full-width form-control-sm"
                                                         appearance="outline">
-                                      <mat-select tabindex="5" formControlName="status" required>
+                                      <mat-select tabindex="5" [disabled]="quantityBasedMutipleAssetFlag"  formControlName="status" required>
                                         <mat-option *ngFor="let title of statusDdList" [value]="title.id">
                                             {{title.text}}
                                         </mat-option>
@@ -288,7 +285,7 @@
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                    <input matInput [matDatepicker]="picker7" formControlName="putUseDateObj" name="putUseDateObj{{i}}"
+                                    <input matInput [matDatepicker]="picker7" [disabled]="quantityBasedMutipleAssetFlag" formControlName="putUseDateObj" name="putUseDateObj{{i}}"
                                       (dateChange)="getDateString($event,'putUseDate',i)">
                                     <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
                                     <mat-datepicker #picker7></mat-datepicker>
@@ -350,10 +347,11 @@
                                     <mat-label   style="margin-left: 50%;">OWNERSHIP </mat-label>
                                   </div>
                                   <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12">
-                                    <input type="radio" name="own"  tabindex="8"  formControlName="owned" value="owned" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;OWNED
-                                    <input type="radio" name="own"  tabindex="8"  formControlName="rented" value="rented" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;RENTED
-                                    <input type="radio" name="own"  tabindex="8"  formControlName="thirdParty" value="thirdParty" (change)="getOwnerShip($event.target.value)" style="margin-left: 10px;">&nbsp;LEASE/THIRD PARTY
-
+                                <mat-radio-group formControlName="ownedShip" >
+                                    <mat-radio-button value="owned" (change)="getOwnerShip($event.value)"> OWNED </mat-radio-button>
+                                    <mat-radio-button value="rented" (change)="getOwnerShip($event.value)"> RENTED </mat-radio-button>
+                                    <mat-radio-button value="thirdParty" (change)="getOwnerShip($event.value)"> LEASE/THIRD PARTY </mat-radio-button>
+                                </mat-radio-group>
                                 </div>
 
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" *ngIf="isRented">
@@ -731,6 +729,142 @@
                                                         </mat-error>
                                                     </mat-form-field>
                                                 </div>
+                                                <div class="col-xl-1">
+
+                                                </div>
+                                                <div *ngIf="!grnBasedMutipleAssetFlag" class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                                                    <mat-label>QUANTITY <span class="errorColor">*</span></mat-label>
+                                                </div>
+                                                <div *ngIf="!grnBasedMutipleAssetFlag" class="col-xl-2 col-lg-6 col-md-12 col-sm-12 " style="margin-left: 0%">
+                                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                        <input matInput  maxlength="3" formControlName="quantity" (keypress)="keyPressNumber($event)" (keyup)="checkValidationANDAddMultipleAssetList($event.target.value)" required>
+                                                        <mat-error *ngIf="docForm.get('quantity').hasError('required')">
+                                                            QUANTITY is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+
+                                    <!-- Quantity Based Save Mutiple Asset Start-->
+                                        <div *ngIf="quantityBasedMutipleAssetFlag">
+                                            <h6 style="padding-left: 11px;" class="headingValue"> Mutiple Asset
+                                            </h6>
+                                            <div style="overflow-x: auto;margin-left: 11px;">
+                                                <table id="dt_basic" class="table table-striped font-weight-bold "
+                                                    role="grid">
+                                                    <thead class="">
+                                                        <tr>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                                                                Asset Name</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">
+                                                                Location</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                                                                Category</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                                                                Status</th>
+                                                            <th class="text-center table-heading padding-both-side-2 width_7"
+                                                                style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">
+                                                                Put Use Date</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <ng-container *ngFor="let qtyBasedAssetList of docForm.get('quantityBasedAssetList')['controls']; let i = index">
+                                                        <tbody [formGroup]="qtyBasedAssetList">
+                                                            <tr>
+                                                                <td class="padding-both-side-2">
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <mat-label>Asset Name</mat-label>
+                                                                        <input matInput name="assetName{{i}}"
+                                                                            formControlName="assetName" maxlength="150"
+                                                                            (keypress)="keyPressName($event)">
+                                                                       
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                     
+                                                                <td class="padding-both-side-2">
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <mat-label>Location</mat-label>
+                                                                        <mat-select name="location{{i}}"
+                                                                            formControlName="location">
+                                                                            <mat-option
+                                                                                *ngFor="let title of locationDdList"
+                                                                                [value]="title.id">
+                                                                                {{title.text}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                      
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                <td class="padding-both-side-2">
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <mat-label>Category</mat-label>
+                                                                        <mat-select name="category{{i}}"
+                                                                            formControlName="category">
+                                                                            <mat-option
+                                                                                *ngFor="let title of categoryList"
+                                                                                [value]="title.id">
+                                                                                {{title.text}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                <td class="padding-both-side-2">
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <mat-label>Status</mat-label>
+                                                                        <mat-select name="status{{i}}"
+                                                                            formControlName="status">
+                                                                        
+                                                                            <mat-option
+                                                                                *ngFor="let title of statusDdList"
+                                                                                [value]="title.id">
+                                                                                {{title.text}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                      
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                <td class="padding-both-side-2">
+                                                                    <mat-form-field
+                                                                        class="example-full-width form-control-sm"
+                                                                        appearance="outline">
+                                                                        <mat-label>Put Use Date</mat-label>
+                                                                        <input matInput [matDatepicker]="picker7"
+                                                                            formControlName="putUseDateObj"
+                                                                            name="putUseDateObj{{i}}"
+                                                                            (dateChange)="getDateString($event,'putUseDateQtyArray',i)">
+                                                                        <mat-datepicker-toggle matSuffix
+                                                                            [for]="picker7"></mat-datepicker-toggle>
+                                                                        <mat-datepicker #picker7></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </ng-container>
+                                                </table>
+                                            </div>
+
+
+                                        </div>
+                                        <!-- Quantity Based Save Mutiple Asset End-->
+
+
                                             </div>
                                         </mat-tab>
                                         <mat-tab label="Financial Information">
@@ -1260,11 +1394,15 @@
 
                                     <div class="row" style="padding-bottom:50px;padding-left: 50px;">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
-                                            <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()"
+                                            <button *ngIf="!edit && !grnBasedMutipleAssetFlag && !quantityBasedMutipleAssetFlag" class="btn-space" (click)="onSubmit()"
                                                 style="margin-left: 38%;background-color: green;" mat-raised-button
                                                 color="primary">Submit</button>
-                                            <button *ngIf="!edit && grnFlag" class="btn-space"
+                                            <button *ngIf="!edit && !quantityBasedMutipleAssetFlag && grnBasedMutipleAssetFlag" class="btn-space"
                                                 (click)="saveGRNBasedMutipleAsset()"
+                                                style="margin-left: 38%;background-color: green;" mat-raised-button
+                                                color="primary">Submit</button>
+                                            <button *ngIf="!edit && !grnBasedMutipleAssetFlag && quantityBasedMutipleAssetFlag" class="btn-space"
+                                                (click)="saveQtyBasedMutipleAsset()"
                                                 style="margin-left: 38%;background-color: green;" mat-raised-button
                                                 color="primary">Submit</button>
                                             <button *ngIf="edit" mat-raised-button color="primary"

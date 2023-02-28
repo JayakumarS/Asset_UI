@@ -51,7 +51,7 @@ export class AssetMaster {
 	assetDetailsList: []
 	detailList: any;
 	grnBasedAssetList: any;
-
+	quantityBasedAssetList: any;
 	
 	os: string;
 	processor: string;

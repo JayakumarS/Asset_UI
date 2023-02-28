@@ -149,3 +149,18 @@ mat-footer-row {
     border-radius: 5px;
     margin: 5px 0;
 }
+
+input:-moz-read-only,
+textarea:-moz-read-only,
+input:read-only,
+textarea:read-only {
+  border: 0;
+  box-shadow: none;
+  background-color: white;
+}
+
+textarea:-moz-read-write,
+textarea:read-write {
+  box-shadow: inset 1px 1px 3px #ccc;
+  border-radius: 5px;
+}
