@@ -136,8 +136,16 @@ const routes: Routes = [
     loadChildren: () =>
     import("./brand/brand.module").then((m) => m.BrandModule)
   },
-
-
+  {
+    path: "brand",
+    loadChildren: () =>
+    import("./brand/brand.module").then((m) => m.BrandModule)
+  },
+  {
+    path: "line",
+    loadChildren: () =>
+    import("./line-master/line-master.module").then((m) => m.LineMasterModule)
+  },
 ];
 
 @NgModule({
