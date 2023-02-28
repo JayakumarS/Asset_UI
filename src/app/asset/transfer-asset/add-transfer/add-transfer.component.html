@@ -9,9 +9,9 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div class="box-shadow">
             <div class="card">
-              <div class="body">
+              <div class="body" >
                 <form class="m-4" [formGroup]="docForm">
-                  <div class="row">
+                  <div class="row" style="margin-left: 10%;" >
 
                     <div class=" col-md-2 ">
                         <mat-label>TRANSFER DATE</mat-label>
@@ -44,7 +44,7 @@
                       </div>
                    </div> 
 
-                   <div class="row">
+                   <div class="row" style="margin-left: 10%;">
 
                       <div class=" col-md-2">
                           <mat-label>REQUISITION DATE</mat-label>
@@ -70,7 +70,7 @@
                       </div>
                          </div>
 
-               <div class="row">
+               <div class="row" style="margin-left: 10%;">
 
                     <div class="col-md-2">
                         <mat-label>DESTINATION LOCATION</mat-label>
@@ -91,7 +91,7 @@
                       </div>
              
                </div>
-               <div class="row">
+               <div class="row" style="margin-left: 10%;">
 
 
                       <div class="col-md-2">
@@ -125,7 +125,7 @@
                       </div>
 
                       </div>
-                      <div class="row">
+                      <div class="row" style="margin-left: 10%;">
 
                       <div class=" col-md-2" style="min-width: fit-content;">
                           <mat-label>TRANSPORTATION TYPE<span class="errorColor">*</span></mat-label>
@@ -157,10 +157,9 @@
                   </div>
                   <br>
                   <br>
-                  <br>
-                  <br>
+                 
 
-                  <div class="row">
+                  <div class="row" style="margin-left:4%;">
 
                     <!-- <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -176,10 +175,10 @@
                         </mat-form-field>
                       </div> -->
 
-                      <div class="col-md-2">
+                      <div class="col-md-1" >
                           <mat-label>EDD DATE</mat-label>
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-2">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="eddDate" readonly>
                         </mat-form-field>
@@ -188,19 +187,18 @@
                       <div class="col-md-2">
                           <mat-label>REQUESTED QUANTITY<span class="errorColor">*</span></mat-label>
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="requestedQuantity" readonly required>
                           <mat-error *ngIf="docForm.get('requestedQuantity').hasError('required')"> Requested Quantity is required </mat-error>
                         </mat-form-field>
                       </div>
-                 </div>
-                  <div class="row">
+                 
 
                       <div class="col-md-2">
                           <mat-label>TRANSFER QUANTITY<span class="errorColor">*</span></mat-label>
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-2">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="transferQuantity" (change)="checkQuantity($event.target.value)" required>
                           <mat-error *ngIf="docForm.get('transferQuantity').hasError('required')"> Transfer Quantity is required </mat-error>
