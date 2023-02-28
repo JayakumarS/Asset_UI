@@ -6,7 +6,7 @@
     th{
         padding: 8px;
         background-color: rgba(69, 132, 248, 0.74);
-        border: 1px solid rgba(10, 10, 10, 0.397) ;
+        border: 3px solid rgba(10, 10, 10, 0.397) ;
     }
     td{
         padding: 8px;
@@ -27,12 +27,13 @@
                     <div class="body" style="padding-left: 1px;">
                      <form class="m-4" [formGroup]="docForm">
                         <table>
-                            <th style="text-align: center;">CURRENT ASSET</th>
-                            <th style="text-align: center;">REPLACE ASSET</th>
+                            <th style="text-align: center; color: rgb(249, 252, 255);">CURRENT ASSET</th>
+                            <th style="text-align: center; color: rgb(249, 252, 255);">REPLACE ASSET</th>
                             <tr>
                                 <td>
                                     <div *ngFor="let assetMasterBean of docForm.get('assetMasterBean')['controls'];" [formGroup]="assetMasterBean">                 
-                                        <div class="row">
+                                        <div class="row" style="margin-left: 10%;">
+                                            <br>
                                              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-top: -5%; ">
                                                 <mat-label >ASSET NAME :</mat-label>
                                             </div>
@@ -104,7 +105,8 @@
                                 </td>
                                 <td>  
                                       <div *ngFor="let assetMasterBeanReplacement of docForm.get('assetMasterBeanReplacement')['controls'];" [formGroup]="assetMasterBeanReplacement">                 
-                                    <div class="row">  
+                                    <div class="row" style="margin-left: 10%; margin-top: 4%;"> 
+                                        
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                                 <mat-radio-group tabindex="17"  formControlName="fullOrPartial">
                                                     <mat-radio-button value="F">FULL</mat-radio-button>
