@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -27,7 +27,7 @@ export class AddCategoryComponent implements OnInit {
   assettypelist=[];
   depreciationlist=[];
   currencylist=[];
-
+  fieldTypeList=[{"id":"Text","text":"Text"},{"id":"Date","text":"Date"}];
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
     private categoryMasterService: CategoryMasterService,
@@ -36,6 +36,7 @@ export class AddCategoryComponent implements OnInit {
     private router:Router,private notificationservice:NotificationService,
     public route: ActivatedRoute,
     private tokenStorage: TokenStorageService,
+    private notificationService: NotificationService
     )
      {  this.docForm = this.fb.group({
   
@@ -48,9 +49,14 @@ export class AddCategoryComponent implements OnInit {
       assettype:[""],
       currency:["",[Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
-      companyId:this.tokenStorage.getCompanyId()
-
-      
+      companyId:this.tokenStorage.getCompanyId(),
+      isSpec:[false],
+      specificationList: this.fb.array([
+        this.fb.group({
+          fieldName: [""],
+          fieldType: [""],
+        })
+      ])
       
    
     
@@ -126,9 +132,25 @@ export class AddCategoryComponent implements OnInit {
       'assettype' : parseInt(res.assetCategoryBean.assettype),
       'currency':  parseInt(res.assetCategoryBean.currency),
       'id' : res.assetCategoryBean.id,
-      'companyId' : res.assetCategoryBean.companyId
+      'companyId' : res.assetCategoryBean.companyId,
+      'isSpec' : res.assetCategoryBean.isSpec
 
    })
+
+
+   if (res.assetCategoryBean.specificationList != null && res.assetCategoryBean.specificationList.length > 0) {
+    let dtlArray = this.docForm.controls.specificationList as FormArray;
+    dtlArray.clear();
+    res.assetCategoryBean.specificationList.forEach(element => {
+      let dtlArray = this.docForm.controls.specificationList as FormArray;
+      let arraylen = dtlArray.length;
+      let newUsergroup: FormGroup = this.fb.group({
+        fieldName: [element.fieldName],
+        fieldType: [element.fieldType],
+      })
+      dtlArray.insert(arraylen, newUsergroup);
+    });
+  }
 
     },
     (err: HttpErrorResponse) => {
@@ -138,34 +160,28 @@ export class AddCategoryComponent implements OnInit {
  
 }
   onSubmit(){
-this.assetcategory = this.docForm.value;
-console.log(this.assetcategory);
-    if(this.docForm.valid){
-      if(this.docForm.value.isactive==true)
-      {
-       this.docForm.value.isactive="True"
-      }
-      else if(this.docForm.value.isactive==false)
-      {
-       this.docForm.value.isactive="False"
-      } 
-       this.assetcategory = this.docForm.value;
-     console.log(this.assetcategory);
-     this.categoryMasterService.addcategory(this.assetcategory,this.router);
-     this.showNotification(
-       "snackbar-success",
-       "Successfully Added...!!!",
-       "bottom",
-       "center"
-     );
-     }else{
-      this.showNotification(
-        "snackbar-danger",
-        "Please fill all the required details!",
-        "top",
-        "right"
-      );
-    }
+    this.assetcategory = this.docForm.value;
+    console.log(this.assetcategory);
+        if(this.docForm.valid){
+          if(this.docForm.value.isactive==true)
+          {
+          this.docForm.value.isactive="True"
+          }
+          else if(this.docForm.value.isactive==false)
+          {
+          this.docForm.value.isactive="False"
+          } 
+          this.assetcategory = this.docForm.value;
+        console.log(this.assetcategory);
+        this.categoryMasterService.addcategory(this.assetcategory,this.router, this.notificationService);
+        }else{
+          this.showNotification(
+            "snackbar-danger",
+            "Please fill all the required details!",
+            "top",
+            "right"
+          );
+        }
      
    }
 
@@ -197,7 +213,13 @@ console.log(this.assetcategory);
       id:[""],
       depreciation:[""],
       assettype:[""],
-      currencye:[""]
+      currencye:[""],
+      specificationList: this.fb.array([
+        this.fb.group({
+          fieldName: [""],
+          fieldType: [""],
+        })
+      ])
    
   });
    
@@ -236,5 +258,18 @@ console.log(this.assetcategory);
   //     }
   //   });
   // }
+  addRow() {
+    let dtlArray = this.docForm.controls.specificationList as FormArray;
+    let arraylen = dtlArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      fieldName: ["",[Validators.required]],
+      fieldType: ["",[Validators.required]],
+    })
+    dtlArray.insert(arraylen, newUsergroup);
+  }
 
+  removeRow(index) {
+    let dtlArray = this.docForm.controls.specificationList as FormArray;
+    dtlArray.removeAt(index);
+  }
 }

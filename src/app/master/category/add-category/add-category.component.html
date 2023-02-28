@@ -146,10 +146,72 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
                 <mat-checkbox  ngInit="checked=false" formControlName="isactive"  style="margin-left: 20px;"></mat-checkbox>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label >SPECIFICATION</label>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
+                <mat-checkbox  ngInit="checked=false" formControlName="isSpec" style="margin-left: 20px;"></mat-checkbox>
               </div>
 
-
             </div>
+
+            <br>
+            <!-- Detail Row -->
+      <div class="row" *ngIf="this.docForm.controls['isSpec'].value">
+      <h6 class="headingValue"> Specification Details </h6>
+      <div style="overflow-x: auto;">
+        <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+          <thead>
+            <tr>
+              <th style="width: 1%;"></th>
+              <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">Field Name</th>
+              <th class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Field Type</th>
+            </tr>
+          </thead>
+          <ng-container *ngFor="let specificationList of docForm.get('specificationList')['controls']; let i = index">
+            <tbody [formGroup]="specificationList"> 
+                <tr>
+                  <td>
+                    <button mat-mini-fab color="warn" (click)="removeRow(i)" *ngIf="i>0">
+                      <mat-icon class="col-white">delete</mat-icon>
+                    </button>
+                  </td>  
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Field Name</mat-label>
+                      <input matInput name ="fieldName{{i}}" formControlName="fieldName"  >
+                      <mat-error *ngIf="specificationList.get('fieldName').hasError('required')">
+                        Field Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Field Type</mat-label>
+                      <mat-select name="fieldType{{i}}" formControlName="fieldType">
+                        <mat-option *ngFor="let title of fieldTypeList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="specificationList.get('fieldType').hasError('required')">
+                        Field Type is required
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+            </tr>
+            </tbody>
+          </ng-container>
+        </table>
+      </div>
+        <div>
+          <button mat-mini-fab color="primary" (click)="addRow()">
+            <mat-icon class="col-white">add</mat-icon>
+          </button>
+        </div> 
+      </div>
 
                 <br>
                 <div class="row">
