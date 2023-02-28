@@ -10,11 +10,37 @@ import { ExchangeMaster } from '../exchange-model';
 import { ExchangeService } from '../exchange.service';
 import { AssetService } from 'src/app/asset/asset-master/asset.service';
 import * as moment from 'moment';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 
 @Component({
   selector: 'app-add-exchange-master',
   templateUrl: './add-exchange-master.component.html',
-  styleUrls: ['./add-exchange-master.component.sass']
+  styleUrls: ['./add-exchange-master.component.sass'],
+
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: MAT_DATE_FORMATS, useValue: {
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY'
+        },
+      }
+    }, CommonService
+  ]
 })
 export class AddExchangeMasterComponent implements OnInit {
 
@@ -44,8 +70,8 @@ export class AddExchangeMasterComponent implements OnInit {
 
     
 
-      exchangeratecode:  [moment().format('DD/MM/YYYY')],
-      exchangeratecodeobj:  [moment().format('DD/MM/YYYY')],
+      exchangeratecode:  [""],
+      exchangeratecodeobj:  [""],
       currency: [""],
       value: [""],
       date: [""],
@@ -116,11 +142,13 @@ export class AddExchangeMasterComponent implements OnInit {
 
 
       this.docForm.patchValue({
-
         'exchangeratecodeobj': res.exchangeMasterBean.exchangeratecode != null ? this.commonService.getDateObj(res.exchangeMasterBean.exchangeratecode) : "",
         'exchangeratecode': res.exchangeMasterBean.exchangeratecode,
         'currency': res.exchangeMasterBean.currency,
         'value': res.exchangeMasterBean.value,
+        'id': id,
+
+
      })
       },
       (err: HttpErrorResponse) => {
