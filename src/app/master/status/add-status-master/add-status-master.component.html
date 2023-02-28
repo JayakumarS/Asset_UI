@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="statusname"  maxlength="30"(blur)="validateStatusname($event.target.value)" required>
+                    <input matInput formControlName="statusname"  maxlength="20"(blur)="validateStatusname($event.target.value)" required>
                     <mat-error *ngIf="docForm.get('statusname').hasError('required')">
                       Status Name is required
                     </mat-error>
@@ -34,7 +34,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <textarea matInput formControlName="Description" maxlength="250"></textarea>
+                      <textarea matInput formControlName="Description" maxlength="75"></textarea>
                       <mat-error *ngIf="docForm.get('Description').hasError('required')">
                         Description is required
                       </mat-error>

@@ -29,7 +29,7 @@
                       </div>
                       <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="fullName"  maxlength="50"[ngModel]="inputvalue"
+                        <input matInput formControlName="fullName"  maxlength="20"[ngModel]="inputvalue"
                         (ngModelChange)="inputvalue = $event.toUpperCase()"(keypress)="string($event)"
                         [ngModel]="inputvalue" required>
                         <mat-error *ngIf="docForm.get('fullName').hasError('required')">
@@ -180,7 +180,7 @@
                         </div>
                         <div class=" col-md-3">
                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <input matInput formControlName="address" maxlength="250">
+                            <input matInput formControlName="address" maxlength="50">
 
                           </mat-form-field>
                         </div>

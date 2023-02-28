@@ -21,6 +21,7 @@ export class AddTaxMasterComponent implements OnInit {
   requestId: number;
   edit:boolean=false;
   taxMaster : TaxMaster;
+  inputvalue1 = "";
   constructor(private fb: FormBuilder,
     private taxMasterService : TaxService,
     private httpService: HttpServiceService,
@@ -171,6 +172,31 @@ export class AddTaxMasterComponent implements OnInit {
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
+  }
+
+  
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
   taxpercentageValidation(data: any) {

@@ -25,6 +25,8 @@ export class AddStateMasterComponent implements OnInit {
   state_id:number;
   state: string;
   companyId: any;
+  inputvalue1 = "";
+  inputvalue2 = "";
 
 
 

@@ -204,7 +204,29 @@ export class AddExchangeMasterComponent implements OnInit {
       panelClass: colorName,
     });
   }
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
   getDateString(event, inputFlag, index) {
     let cdate = this.cmnService.getDate(event.target.value);

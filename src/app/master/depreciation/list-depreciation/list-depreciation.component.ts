@@ -85,7 +85,7 @@ export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter imple
       }
     });
     this.loadData();
-    this.load();
+    
   }
 
   refresh(){

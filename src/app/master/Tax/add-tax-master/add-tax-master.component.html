@@ -20,7 +20,7 @@
                 <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                   
                  <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="!edit">
-                    <input matInput formControlName="taxname" (blur)="validateTaxName($event.target.value)">
+                    <input matInput formControlName="taxname" maxlength="20" (blur)="validateTaxName($event.target.value)">
                     <mat-error *ngIf="docForm.get('taxname').hasError('required')">
                       Tax Name is required
                     </mat-error>
@@ -48,7 +48,9 @@
               </div>
               <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="taxcode"  (blur)="validateTaxCode($event.target.value)">
+                <input matInput formControlName="taxcode" maxlength="5" [ngModel]="inputvalue1"
+                (ngModelChange)="inputvalue1 = $event.toUpperCase()"
+                (blur)="validateTaxCode($event.target.value)">
                   <mat-error *ngIf="docForm.get('taxcode').hasError('required')">
                     Tax Code is required
                   </mat-error>
@@ -101,11 +103,11 @@
 
 
           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-            <label>TAX PERCENTAGE% <span class="errorColor">*</span></label>
+            <label>TAX PERCENTAGE(%) <span class="errorColor">*</span></label>
         </div>
         <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput formControlName="taxpercentage" (blur)="taxpercentageValidation(docForm)"required >
+            <input matInput formControlName="taxpercentage" maxlength="4"  (keypress)="keyPressNumberDouble($event)" (blur)="taxpercentageValidation(docForm)"required >
             <mat-error  *ngIf="docForm.controls['taxpercentage'].hasError('pattern')">
               Tax percentage should be of minimum 1% and Maximum 100%.
           </mat-error>
@@ -121,7 +123,7 @@
       </div>
       <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="taxamount" >
+          <input matInput formControlName="taxamount" maxlength="7" (keypress)="keyPressNumberInt($event)">
           <mat-error *ngIf="docForm.get('taxamount').hasError('required')">
             Tax Amount is required
           </mat-error>

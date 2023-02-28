@@ -103,7 +103,7 @@ export class AddItemMasterComponent implements OnInit {
       itemId:[""],
       itemName: ["", [Validators.required]],
       itemDescription: ["", [Validators.required]],
-      itemType: ["", [Validators.required]],
+      itemType: [""],
       itemCategory: ["", [Validators.required]],
       location:[""],
       saleable: [""],

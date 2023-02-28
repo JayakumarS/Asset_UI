@@ -80,7 +80,7 @@
                               </div>
                               <div class=" col-md-3">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <input matInput formControlName="empid" (blur)="validateEmployeeId($event.target.value)" maxlength="10"     required>
+                                <input matInput formControlName="empid" (blur)="validateEmployeeId($event.target.value)" maxlength="7" required>
                                 <mat-error *ngIf="docForm.get('empid').hasError('required')">
                                   EMPLOYEE ID is required
                                 </mat-error>
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class=" col-md-3">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <input matInput formControlName="fullName"  maxlength="30"  [ngModel]="value5"
+                                  <input matInput formControlName="fullName"  maxlength="20"  [ngModel]="value5"
                                   (ngModelChange)="value5=$event.toUpperCase()" (keypress)="string($event)"  required>
                                   <mat-error *ngIf="docForm.get('fullName').hasError('required')">
                                     Full Name is required

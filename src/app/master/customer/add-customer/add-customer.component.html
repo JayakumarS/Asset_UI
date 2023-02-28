@@ -15,7 +15,7 @@
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="auditorname" [ngModel]="value"
-                  (ngModelChange)="value=$event.toUpperCase()" maxlength="50" (keypress)="string($event)"
+                  (ngModelChange)="value=$event.toUpperCase()" maxlength="20" (keypress)="string($event)"
                  (change)="getAuditor($event.target.value)" required>
                 <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
                   Auditor Name is required
@@ -44,7 +44,7 @@
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="person" [ngModel]="value5"
-                  (ngModelChange)="value5=$event.toUpperCase()" (keypress)="string($event)" maxlength="30" required>
+                  (ngModelChange)="value5=$event.toUpperCase()" (keypress)="string($event)" maxlength="20" required>
                 <mat-error *ngIf="docForm.get('person').hasError('required')">
                   Contact Person is required
                 </mat-error>
@@ -61,7 +61,15 @@
 
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
+              
+
                 <input matInput formControlName="email" maxlength="50">
+                                        <mat-error *ngIf="docForm.get('email').hasError('pattern')">
+                                          Valid Email ID Required
+                                        </mat-error>
+                                        <mat-error *ngIf="docForm.get('email').hasError('required')">
+                                          Valid Email Id Required
+                                        </mat-error>
 
               </mat-form-field>
             </div>
@@ -286,7 +294,7 @@
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="remarks" maxlength="100">
+                <input matInput formControlName="remarks" maxlength="50">
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -637,14 +645,17 @@
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>POSITION</mat-label>
                           <input matInput name="position{{i}}" formControlName="position"
-                            (keypress)="keyPressString($event)">
+                            (keypress)="keyPressString($event)" maxlength="20">
                         </mat-form-field>
                       </td>
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>EMAIL</mat-label>
-                          <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == false">
-                         <input matInput formControlName="conEmail" maxlength="50"  *ngIf="edit == true" >
+                          <input matInput formControlName="conEmail" maxlength="20"  *ngIf="edit == false">
+                         <input matInput formControlName="conEmail" maxlength="20"  *ngIf="edit == true" >
+                         <mat-error *ngIf="contactDetail.controls['conEmail'].hasError('pattern')">
+                          please enter valid Email!!!
+                        </mat-error>
                         </mat-form-field>
                       </td>
                       <td class="padding-both-side-2">
@@ -735,7 +746,7 @@
               </div>
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="acctReceivable" maxlength="20" >
+                  <input matInput formControlName="acctReceivable"  (keypress)="keyPressNumeric($event)" maxlength="15"  >
 
                 </mat-form-field>
               </div>
@@ -745,7 +756,7 @@
 
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="supplier" maxlength="20" (keypress)="keyPressNumeric($event)"
+                  <input matInput formControlName="supplier" maxlength="15" (keypress)="keyPressNumeric($event)"
                   >
 
                 </mat-form-field>
@@ -769,7 +780,7 @@
 
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="creditLimit" maxlength="20" (keypress)="keyPressNumeric($event)"
+                  <input matInput formControlName="creditLimit" maxlength="15" (keypress)="keyPressNumeric($event)"
                   >
 
                 </mat-form-field>
@@ -805,13 +816,13 @@
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>BANK NAME</mat-label>
-                          <input matInput name="bankName{{i}}" formControlName="bankName">
+                          <input matInput name="bankName{{i}}" formControlName="bankName" maxlength="20">
                         </mat-form-field>
                       </td>
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>ACCOUNT TYPE</mat-label>
-                          <input matInput name="accType{{i}}" formControlName="accType">
+                          <input matInput name="accType{{i}}" formControlName="accType" maxlength="20">
                         </mat-form-field>
                       </td>
                       <td class="padding-both-side-2">
@@ -824,7 +835,7 @@
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>ADDRESS</mat-label>
-                          <input matInput name="address{{i}}" formControlName="address">
+                          <input matInput name="address{{i}}" formControlName="address" maxlength="50">
                         </mat-form-field>
                       </td>
                       <td class="padding-both-side-2">

@@ -37,7 +37,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   companyName: any;
   companyList:[];
   value5:[];
-
+  
   constructor( private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private httpService: HttpServiceService,

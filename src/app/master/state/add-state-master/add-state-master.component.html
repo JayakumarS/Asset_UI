@@ -15,7 +15,9 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="stateCode" *ngIf="edit == false"maxlength="2"(blur)="validateCustomer($event.target.value)" required>
+                      <input matInput formControlName="stateCode" [ngModel]="inputvalue1"
+                      (ngModelChange)="inputvalue1 = $event.toUpperCase()"
+                      *ngIf="edit == false"maxlength="2"(blur)="validateCustomer($event.target.value)" required>
                       <input matInput formControlName="stateCode"required *ngIf="edit == true" readonly>
 
                       <mat-error *ngIf="docForm.get('stateCode').hasError('required')">
@@ -32,7 +34,9 @@
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="stateName" maxlength="20" (keypress)="keyPressString($event)" required>
+                        <input matInput formControlName="stateName"
+                        [ngModel]="inputvalue2"
+                      (ngModelChange)="inputvalue2 = $event.toUpperCase()" maxlength="15" (keypress)="keyPressString($event)" required>
                         <mat-error *ngIf="docForm.get('stateCode').hasError('required')">
                           State Name is required
                         </mat-error>
