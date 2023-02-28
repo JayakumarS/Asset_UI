@@ -9,13 +9,14 @@
       <div class="row">
       <div class="col-md-12">
           <div class="card">
-              <div class="body">
+              <div class="body" style="    padding-left: 12%">
 
                   <form [formGroup]="docForm">
                       <div class="row">
-                        <div class="col-md-1"></div>
                         <div class="col-md-2">
                           <mat-label >DEPRECIATION METHOD</mat-label>
+                         </div>
+                         <div class="col-md-3">
 
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                             <mat-select class="inputTxt" formControlName="depreciationMethod" tabindex="1" placeholder="Depreciation Method">
@@ -23,10 +24,11 @@
                                   {{title.text}}
                               </mat-option>
                             </mat-select></mat-form-field>
-                        </div>
+                       </div>
                           <div class="col-md-2" >
                             <mat-label >DATE</mat-label>
-
+                          </div>
+                          <div class="col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                <input matInput [matDatepicker]="picker" formControlName="discardFromDate"
                                 (dateInput)="$event.value.format('DD/MM/YYYY')" id="date"tabindex="2"  placeholder="Date"
@@ -35,9 +37,12 @@
                                 <mat-datepicker #picker></mat-datepicker>
                                 </mat-form-field>
                           </div>
-
+                          </div>
+                          <div class="row">
                           <div class="col-md-2">
                             <mat-label >CATEGORY</mat-label>
+                          </div>
+                          <div class="col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="category" tabindex="3" placeholder="Category">
                                 <mat-option *ngFor="let title of assetcategoryList" [value]="title.id">
@@ -48,6 +53,8 @@
 
                            <div class="col-md-2">
                             <mat-label >ASSET LOCATION</mat-label>
+                          </div>
+                          <div class="col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="assetLocation" tabindex="4" placeholder="assetLocation">
                                 <mat-option *ngFor="let title of locationList" [value]="title.id">
@@ -55,10 +62,13 @@
                                 </mat-option>
                               </mat-select></mat-form-field>
                            </div>
+                          </div>
+                          <div class="row">
 
                            <div class="col-md-2">
                             <mat-label >DEPARTMENT</mat-label>
-
+                          </div>
+                          <div class="col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-select class="inputTxt" formControlName="department" tabindex="5" placeholder="Department" >
                                 <mat-option *ngFor="let title of departmentList" [value]="title.id">
@@ -68,10 +78,11 @@
                           </div>
                       </div>
                       <br>
-                      <div class="row" style="text-align: center;">
+                      <div class="row" style="text-align: center;     margin-left: -10%;">
                       <div class="col-xl-12 example-full-width  form-control-sm">
                         <button (click) = "searchData()" class="btn-space" mat-raised-button
                         color="accent" style="background-color: #307530;">Search</button>
+                        &nbsp;
                         <button (click) = "reset()"  class="btn-space" mat-raised-button
                         color="accent" style="background-color: #eb0202;">Reset</button>
                     </div>
