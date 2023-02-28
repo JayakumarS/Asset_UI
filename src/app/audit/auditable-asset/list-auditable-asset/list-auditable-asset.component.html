@@ -40,16 +40,19 @@
                       </mat-select>
                     </mat-form-field>
                   </div> -->
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+
+                  <div class=" col-md-1" style="min-width: fit-content;margin-top: 13px;">
+                    <label >FINANCIAL YEAR</label>
+                 </div>
+                 <div class="col-md-2" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Financial Year</mat-label>
                       <input matInput formControlName="financial_year" maxlength="4" (keypress)="keyPressPCB($event)">
                     </mat-form-field>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="padding-top: 15px;">
                     <mat-radio-group formControlName="financial_year" (change)="financialYearPatch($event)" >
-                      <mat-radio-button value="2023">Current Financial Year</mat-radio-button>
-                      <mat-radio-button value="2022">Previous Financial Year</mat-radio-button>
+                      <mat-radio-button value="2023">CURRENT FINANCIAL YEAR</mat-radio-button>
+                      <mat-radio-button value="2022">PREVIOUS FINANCIAL YEAR</mat-radio-button>
                     </mat-radio-group>
                     <!-- <mat-checkbox formControlName="currentFinancialYear" ngInit="checked=true">Current Financial Year</mat-checkbox> -->
                   </div>
