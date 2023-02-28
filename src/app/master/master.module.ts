@@ -13,6 +13,11 @@ import { AddStatusMasterComponent } from './status/add-status-master/add-status-
 import { AddTaxMasterComponent } from './Tax/add-tax-master/add-tax-master.component';
 import { ListTaxMasterComponent } from './Tax/list-tax-master/list-tax-master.component';
 import { ListCompanyLogoComponent } from './company-logo/list-company-logo/list-company-logo.component';
+import { AddLineMasterComponent } from './line-master/add-line-master/add-line-master.component';
+import { ListLineMasterComponent } from './line-master/list-line-master/list-line-master.component';
+
+import { AddExchangeMasterComponent } from './Exchange/add-exchange-master/add-exchange-master.component';
+import { ListExchangeMasterComponent } from './Exchange/list-exchange-master/list-exchange-master.component';
 
 
 @NgModule({
@@ -24,6 +29,10 @@ import { ListCompanyLogoComponent } from './company-logo/list-company-logo/list-
     AddTaxMasterComponent,
     ListTaxMasterComponent,
     ListCompanyLogoComponent,
+    AddLineMasterComponent,
+    ListLineMasterComponent,
+    ListExchangeMasterComponent,
+    AddExchangeMasterComponent,
   
 
   ],

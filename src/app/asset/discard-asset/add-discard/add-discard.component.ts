@@ -146,7 +146,7 @@ export class AddDiscardComponent extends UnsubscribeOnDestroyAdapter implements 
   getDateString(event,inputFlag,index){
     let cdate = this.cmnService.getDate(event.target.value);
     if(inputFlag=='discardDate'){
-      this.docForm.patchValue({discardDateObj:cdate});
+      this.docForm.patchValue({discardDate:cdate});
     }
     
 

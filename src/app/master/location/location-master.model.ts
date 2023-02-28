@@ -6,6 +6,7 @@ export class LocationMaster {
   cslLocationCode: number;
   locationName: string;
   country: string;
+  branchname:string;
   active:boolean;
   branchId:any;
   company:any;
@@ -17,6 +18,7 @@ export class LocationMaster {
       this.locationCode = locationMaster.locationCode || "";
       this.locationName = locationMaster.locationName || "";
       this.country = locationMaster.country || "";
+      this.branchname = locationMaster.branchname || "";
       this.company = locationMaster.company || "";
       // this.companyName = locationMaster.companyName || "";
     }

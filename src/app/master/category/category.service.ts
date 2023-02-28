@@ -65,23 +65,36 @@ get data(): Assetcategory[] {
   }
 
   // For Save
-  addcategory(assetcategory: Assetcategory,router): void {
+  addcategory(assetcategory,router,notificationService): void {
     this.dialogData = assetcategory;  
-    this.httpService.post<Assetcategory>(this.savecategory, assetcategory).subscribe(data => {
-      console.log(data);
-      //this.dialogData = employees;
-    router.navigate(['/master/category/list-category']);
-
-      },
+    this.httpService.post<any>(this.savecategory, assetcategory).subscribe(data => {
+    console.log(data);
+      if(data.success){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Record Added successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/category/list-category']);
+      }else {
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated, "+data.message,
+          "bottom",
+          "center"
+        );
+      }
+    },
       (err: HttpErrorResponse) => {
         
     });
   }
-  categoryUpdate(assetcategory: Assetcategory,router,notificationService): void {
+  categoryUpdate(assetcategory,router,notificationService): void {
     this.dialogData = assetcategory;
-    this.httpService.post<Assetcategory>(this.updatecategory, assetcategory).subscribe(data => {
+    this.httpService.post<any>(this.updatecategory, assetcategory).subscribe(data => {
       console.log(data);
-      if(data.Success == true){
+      if(data.success){
         notificationService.showNotification(
           "snackbar-success",
           "Record Updated Successfully...!!!",
@@ -89,11 +102,10 @@ get data(): Assetcategory[] {
           "center"
         );
         router.navigate(['/master/category/list-category']);
-      }
-      else if(data.Success == false){
+      }else{
         notificationService.showNotification(
           "snackbar-danger",
-          "Not Updated Successfully...!!!",
+          "Not Updated",
           "bottom",
           "center"
         );
