@@ -12,10 +12,12 @@
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
 
-              <div class="row">
+              <div class="row"  style="margin-left: 10%;">
+                <div class=" col-md-2">
+                  <mat-label>GRN DATE</mat-label>
+                  </div>
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>GRN Date</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="grnDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')" id="grnDate" required (dateChange)="getDateString($event, 'grnDate')">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -24,9 +26,12 @@
                     </mat-error>
                   </mat-form-field>
                  </div>
+
+                 <div class=" col-md-2">
+                  <mat-label>PURCHASE ORDER NO</mat-label>
+                  </div>
                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Purchase Order No</mat-label>
                          <mat-select  formControlName="purchaseOrderId" (selectionChange)="getPurchaseOrderDetails($event.value)"  required >
                            <mat-option *ngFor="let title of purchaseOrderNumber" [value]="title.id"  >
                              {{title.text}}
@@ -37,7 +42,12 @@
                         </mat-error>
                  </mat-form-field>
                  </div>
-              
+                </div>
+
+                <div class="row" style="margin-left: 10%;">
+                 <div class=" col-md-2">
+                  <mat-label>PURCHASE TYPE</mat-label>
+                  </div>
                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                   <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Purchase Type</mat-label>
@@ -49,7 +59,6 @@
                     </mat-error>
                   </mat-form-field> -->
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Purchase Type</mat-label>
                     <mat-select formControlName="poType" required>
                       <mat-option *ngFor="let title of purchaseTypeList" [value]="title.id">
                           {{title.text}}
@@ -60,9 +69,11 @@
                       </mat-error> 
                </mat-form-field>
                </div>
+               <div class=" col-md-2">
+                <mat-label>VENDOR NAME</mat-label>
+                </div>
                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Vendor Name</mat-label>
                   <mat-select formControlName = "vendorId" required >
                    <mat-option *ngFor="let title of vendorList" [value]="title.id"  >
                      {{title.text}}
@@ -75,38 +86,50 @@
               </div>
                  </div>
 
-                 <div class="row">
-                 
+                 <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>VENDOR ADDRESS</mat-label>
+                    </div>
                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                     <mat-label>Vendor Address</mat-label>
                      <input matInput formControlName="vendorAddress" (keypress)="keyPressName($event)">
                    </mat-form-field>
                  </div>
+                 <div class=" col-md-2">
+                  <mat-label>CITY</mat-label>
+                  </div>
                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label> City</mat-label>
                     <input matInput formControlName="vendorCity" (keypress)="keyPressAlp($event)">
                   </mat-form-field>
                 </div>
+              </div>
+
+              <div class="row" style="margin-left: 10%;">
+                <div class=" col-md-2">
+                  <mat-label>STATE</mat-label>
+                  </div>
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                    <mat-label> State</mat-label>                   
                   <input matInput formControlName="vendorState" (keypress)="keyPressAlp($event)">
                   </mat-form-field>
                 </div>
+                <div class=" col-md-2">
+                  <mat-label>COUNTRY</mat-label>
+                  </div>
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label> Country</mat-label>
                     <input matInput formControlName="vendorCountry" (keypress)="keyPressAlp($event)">
                   </mat-form-field>
                  </div>
               </div>
 
-              <div class="row">
+              <div class="row" style="margin-left: 10%;">
+                <div class=" col-md-2">
+                  <mat-label>MODE OF TRANSPORT</mat-label>
+                  </div>
                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                     <mat-label>Mode of Transport</mat-label>
                      <mat-select formControlName="transMode" required>
                        <mat-error *ngIf="docForm.get('transMode').hasError('required')">
                          Mode of Transport is required
@@ -120,24 +143,32 @@
                      </mat-select>
                    </mat-form-field>
                   </div>
-              
+                  <div class=" col-md-2">
+                    <mat-label>INVOICE NO</mat-label>
+                    </div>
                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                     <mat-label>Invoice No</mat-label>
                      <input matInput formControlName="invoiceNo" (keypress)="keyPressName($event)" maxlength="50">                  
                    </mat-form-field>
                  </div>
+                </div>
+
+                <div class="row" style="margin-left: 10%;">
+                 <div class=" col-md-2">
+                  <mat-label>INVOICE DATE</mat-label>
+                  </div>
                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Invoice Date</mat-label>
                     <input matInput [matDatepicker]="picker3" formControlName="invoiceDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')" id="invoiceDate" required (dateChange)="getDateString($event, 'invoiceDate')">
                     <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                     <mat-datepicker #picker3></mat-datepicker>
                   </mat-form-field>
                 </div>
+                <div class=" col-md-2">
+                  <mat-label>SOURCE LOCATION</mat-label>
+                  </div>
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Source Location</mat-label>
                     <mat-select formControlName="sourceLocId" required>
                       <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                         {{title.text}}
@@ -151,10 +182,12 @@
                   </div>
   
 
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>DESTINATION LOCATION</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Destination Location </mat-label>                 
                       <mat-select formControlName="deliveryLocId" required (selectionChange)="validationLocations($event.value)">
                         <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                           {{title.text}}

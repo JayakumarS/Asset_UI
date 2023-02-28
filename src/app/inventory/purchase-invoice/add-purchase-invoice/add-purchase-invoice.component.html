@@ -11,10 +11,12 @@
           <div class="card">
             <div class="body">
               <form class="m-12" [formGroup]="docForm">
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>PURCHASE INOVICE DATE</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Purchase Invoice Date</mat-label>
                       <input matInput [matDatepicker]="picker" formControlName="purchaseInvoiceDateObj"
                         (dateInput)="$event.value.format('DD/MM/YYYY')" id="purchaseInvoiceDate"
                         (dateChange)="getDateString($event, 'purchaseInvoiceDate',0)">
@@ -22,9 +24,11 @@
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                   </div>
+                  <div class=" col-md-2">
+                    <mat-label>PARTY INVOICE NO</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Party Invoice No</mat-label>
                       <input matInput formControlName="partyInvoiceNo" (keypress)="keyPressName($event)"
                         maxlength="150">
                       <mat-error *ngIf="docForm.get('partyInvoiceNo').hasError('required')">
@@ -32,6 +36,12 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+                </div>
+
+                <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>DUE DATE</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> Due Date</mat-label>
@@ -42,6 +52,9 @@
                       <mat-datepicker #picker2></mat-datepicker>
                     </mat-form-field>
                   </div>
+                  <div class=" col-md-2">
+                    <mat-label>GRN NO</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>GRN No</mat-label>
@@ -58,7 +71,10 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>PARTY INVOICE DATE</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Party Invoice Date</mat-label>
@@ -69,15 +85,21 @@
                       <mat-datepicker #picker1></mat-datepicker>
                     </mat-form-field>
                   </div>
-
+                  <div class=" col-md-2">
+                    <mat-label>DESCRIPTION</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Description</mat-label>
                       <textarea matInput formControlName="description"></textarea>
                     </mat-form-field>
                   </div>
+                </div>
 
-
+                <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>VENDOR</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Vendor</mat-label>
@@ -91,6 +113,10 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+
+                  <div class=" col-md-2">
+                    <mat-label> LOCATION</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Location</mat-label>
@@ -106,7 +132,10 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>CURRENCY</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Currency</mat-label>
@@ -120,13 +149,21 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+                  <div class=" col-md-2">
+                    <mat-label>EXCHANGE RATE</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Exchange Rate</mat-label>
                       <input matInput formControlName="exchangerate">
                     </mat-form-field>
                   </div>
+                </div>
 
+                <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>AMOUNT</mat-label>
+                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Amount</mat-label>
@@ -193,10 +230,12 @@
 
 
                 <div class="row">
-                  <div class="col-md-9"></div>
-                  <div class="col-md-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Total</mat-label>
+                  <div class="col-md-7"></div>
+                  <div class=" col-md-1"  style="margin-top: 15px;">
+                    <mat-label>TOTAL</mat-label>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="total" readonly>
                     </mat-form-field>
                   </div>
