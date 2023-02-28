@@ -209,7 +209,7 @@ export class ListAssetHistoryReportComponent implements OnInit {
       (data) => {
         // this.assetHistoryList = data.getAssetHistoryList;
         if(data.success){
-          window.open(this.serverUrl.apiServerAddress+data.filePath, '_blank');
+          window.open(this.serverUrl.apiServerAddress+"asset_upload/"+data.filePath, '_blank');
           }
           else{
             this.notificationservice.showNotification(

@@ -133,7 +133,7 @@
                     </div>
                 </div><br>
 
-                <h4 style="margin-left: 139px; color: rgb(4, 141, 95);">Required Columns in Excel Report ?</h4><br>
+                <h4 style="margin-left: 139px; color: rgb(4, 141, 95);">Required Columns in Excel Export ?</h4><br>
                 <div class="row" style="padding-left: 10%;">
                   <div class=" col-md-2">
                       <label style="margin-top: 9px;">ASSET NAME</label>
@@ -228,9 +228,8 @@
                   </div>
                 </div><br>
 
-                <div class="export-button m-l-10" matTooltip="XLSX" style="margin-left: 95%;">
-                  <img src="assets/images/icons/xlsx.png" alt=""
-                  (click)="exportExcel()" />
+                <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 88%;">
+                  <button color="primary" type="button" class="btn-space" (click)="exportExcel()" mat-raised-button>Export To Excel</button>
                 </div><br>
 
                 <div class="tableBody">
