@@ -146,6 +146,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./line-master/line-master.module").then((m) => m.LineMasterModule)
   },
+  {
+    path: "exchange",
+    loadChildren: () =>
+    import("./Exchange/exchange.module").then((m) => m.ExchangeModule)
+  },
 ];
 
 @NgModule({

@@ -128,10 +128,96 @@
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style="padding-top: 15px;">
                         <mat-radio-group formControlName="financialYear" >
                           <mat-radio-button value="2023">CURRENT FY</mat-radio-button>
-                          <mat-radio-button style="margin-left: 90px;" value="2022">PREVIOUS FY</mat-radio-button>
+                          <mat-radio-button style="margin-left: 80px;" value="2022">PREVIOUS FY</mat-radio-button>
                         </mat-radio-group>
                     </div>
-                </div>
+                </div><br>
+
+                <h4 style="margin-left: 139px; color: rgb(4, 141, 95);">Required Columns in Excel Export ?</h4><br>
+                <div class="row" style="padding-left: 10%;">
+                  <div class=" col-md-2">
+                      <label style="margin-top: 9px;">ASSET NAME</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px; " formControlName="assetNameCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                    <div class=" col-md-2">
+                        <label style="margin-top: 9px;">ASSET CODE</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="assetCodeCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                    <div class=" col-md-2">
+                        <label style="margin-top: 9px;">ASSET CATEGORY</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="assetCategoryCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                </div><br>
+
+                <div class="row" style="padding-left: 10%;">
+                  <div class=" col-md-2">
+                      <label style="margin-top: 9px;">ASSET LOCATION</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="assetLocationCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                    <div class=" col-md-2">
+                        <label style="margin-top: 9px;">LIFE</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="lifeCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                    <div class=" col-md-2">
+                        <label style="margin-top: 9px;">BOOK VALUE</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="bookValueCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                </div><br>
+
+                <div class="row" style="padding-left: 10%;">
+                  <div class=" col-md-2">
+                      <label style="margin-top: 9px;">AQUISITION VALUE</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="aquisitionValueCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                    <div class=" col-md-2">
+                        <label style="margin-top: 9px;">PUT IN USE DATE</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="putInUseDateCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                    <div class=" col-md-2">
+                        <label style="margin-top: 9px;">BRAND</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="brandCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                </div><br>
+
+                <div class="row" style="padding-left: 10%;">
+                  <div class=" col-md-2">
+                      <label style="margin-top: 9px;">STATUS</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="statusCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                    <div class=" col-md-2">
+                        <label style="margin-top: 9px;">END LIFE</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="endLifeCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                    <div class=" col-md-2">
+                        <label style="margin-top: 9px;">PURCHASE PRICE</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-checkbox style="margin-top: 6px;margin-left: -16px;" formControlName="purchasePriceCheckBox" ngInit="checked=true"></mat-checkbox>
+                    </div>
+                </div><br>
+
                 <br>
                 <div class="row" >
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
@@ -140,6 +226,10 @@
                     <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
                     <!-- <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button> -->
                   </div>
+                </div><br>
+
+                <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 88%;">
+                  <button color="primary" type="button" class="btn-space" (click)="exportExcel()" mat-raised-button>Export To Excel</button>
                 </div><br>
 
                 <div class="tableBody">

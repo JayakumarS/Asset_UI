@@ -16,6 +16,8 @@ import { ListCompanyLogoComponent } from './company-logo/list-company-logo/list-
 import { AddLineMasterComponent } from './line-master/add-line-master/add-line-master.component';
 import { ListLineMasterComponent } from './line-master/list-line-master/list-line-master.component';
 
+import { ListExchangeMasterComponent } from './list-exchange-master/list-exchange-master.component';
+import { AddExchangeMasterComponent } from './Exchange/add-exchange-master/add-exchange-master.component';
 
 
 @NgModule({
@@ -28,8 +30,9 @@ import { ListLineMasterComponent } from './line-master/list-line-master/list-lin
     ListTaxMasterComponent,
     ListCompanyLogoComponent,
     AddLineMasterComponent,
-    ListLineMasterComponent
-
+    ListLineMasterComponent,
+    ListExchangeMasterComponent,
+    AddExchangeMasterComponent,
   
 
   ],

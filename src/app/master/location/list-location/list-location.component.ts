@@ -32,6 +32,7 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
     "locationCode",
     "locationName",
     "company",
+    "branchname",
     "description",
     "actions"
   ];

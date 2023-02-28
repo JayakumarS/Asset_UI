@@ -26,36 +26,53 @@
                     </mat-error>
                   </mat-form-field>
                   </div>
-
-
-                    <div class=" col-md-2">
-                      <label> LOCATION<span class="errorColor">*</span></label>
+                  
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <mat-label >BRANCH<span class="errorColor">*</span></mat-label>
                     </div>
-                      <div class=" col-md-3">
+                    <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="locationName" maxlength="50"[ngModel]="inputvalue1"
-                        (ngModelChange)="inputvalue1 = $event.toUpperCase()"  required>
-                        <mat-error *ngIf="docForm.get('locationName').hasError('required')">
-                          Location is required
-                        </mat-error>
+                        <mat-select class="inputTxt" formControlName="branchname" >
+                           <mat-option *ngFor="let title of getBranchList" [value]="title.id">
+                              {{title.text}}
+                          </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="docForm.get('branchname').hasError('required')">
+                        Branch is required
+                      </mat-error>
                       </mat-form-field>
                     </div>
-
-              </div>
+               </div>
 
                 <div class="row">
-                    <div class=" col-md-2">
+                  
+                 <div class=" col-md-2">
                       <label> LOCATION CODE<span class="errorColor">*</span></label>
                     </div>
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="locationCode"maxlength="4" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="locationCode"maxlength="4" (keypress)="keyPressName($event)" [ngModel]="inputvalue2"
+                      (ngModelChange)="inputvalue2 = $event.toUpperCase()" required>
                       <mat-error *ngIf="docForm.get('locationCode').hasError('required')">
                         Location Code is required
                       </mat-error>
                     </mat-form-field>
                   </div>
+                  <div class=" col-md-2">
+                    <label> LOCATION<span class="errorColor">*</span></label>
+                  </div>
+                    <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="locationName" maxlength="15"[ngModel]="inputvalue1"
+                      (ngModelChange)="inputvalue1 = $event.toUpperCase()"  required>
+                      <mat-error *ngIf="docForm.get('locationName').hasError('required')">
+                        Location is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
 
+                  </div>
+                 <div class="row">
                   <div class=" col-md-2">
                     <label > PARENT LOCATION NAME</label>
                   </div>
@@ -70,10 +87,6 @@
                   </mat-select>
               </mat-form-field>
               </div>
-
-
-                </div>
-                 <div class="row">
                   <div class=" col-md-2">
                     <mat-label>PRIMARY LOCATION HEAD</mat-label>
                     </div>
@@ -87,7 +100,9 @@
                     </mat-select>
                   </mat-form-field>
                   </div>
-
+               </div>
+               
+               <div class="row">
                 <div class=" col-md-2">
                   <mat-label >DESCRIPTION</mat-label>
                   </div>
@@ -101,9 +116,6 @@
                 </div>
                 </div>
 
-
-
-
                 <div class="row">
                   <div class=" col-md-2"><mat-label >INVENTORY LOCATION</mat-label></div>
                   <div class=" col-md-3">
@@ -115,6 +127,11 @@
                      <mat-checkbox  ngInit="checked=true" formControlName="cascade" style="margin-left: 16px;"></mat-checkbox>
                   </div>
                 </div>
+                <br><br>
+
+
+              
+                 
 
                 <br><br>
                 <div class="row" >

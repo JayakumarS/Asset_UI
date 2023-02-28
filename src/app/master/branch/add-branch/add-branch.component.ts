@@ -29,10 +29,12 @@ export class AddBranchComponent implements OnInit {
   locationDropdownList:[];
   userId:any;
   string:any;
-  public modeselect = '1';
+  public modeselect = 1;
   CountryCodeList=[];
   branchList =[];
-
+  value2=[];
+  value3=[];
+  editflag:boolean=false;
   companyId: string
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
@@ -47,6 +49,7 @@ export class AddBranchComponent implements OnInit {
         branchname: [""],
         companyId:[""],
         branchHead:[""],
+        branchGstNo: ["", Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[Z]{1}[0-9]{1}')],
         phoneCode:[""],
         telephoneNo:[""],
         location:[""],
@@ -129,6 +132,12 @@ export class AddBranchComponent implements OnInit {
   }
 }
 );
+
+if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
+  this.editflag=true
+}else{
+  this.editflag=false;
+}
   }
 
    fetchCountryBasedState(country: any): void {
@@ -187,7 +196,11 @@ export class AddBranchComponent implements OnInit {
      if(res.branchbean.addressOneState!=null){
       this.stateBasedCity(res.branchbean.addressOneState);
      }
-     
+     if(res.branchbean.branchCode==''||res.branchbean.branchCode==null){
+      this.editflag=true
+    }else{
+      this.editflag=false;
+    }
      this.userId = this.tokenStorage.getCompanyId();
     //  this.validationUserGroup(res.branchbean.companyId);
      this.docForm.patchValue({
@@ -197,7 +210,8 @@ export class AddBranchComponent implements OnInit {
       'isactive': res.branchbean.isactive,
       'location': res.branchbean.location,
       'branchCode' : res.branchbean.branchCode,
-      'shift' :  res.branchbean.shift+"",
+      'branchGstNo' : res.branchbean.branchGstNo,
+      'shift' :  res.branchbean.shift,
       'addressOneCountry' :  res.branchbean.addressOneCountry,
       'addressOneState' :  res.branchbean.addressOneState,
       'addressOneCity' :  res.branchbean.addressOneCity,

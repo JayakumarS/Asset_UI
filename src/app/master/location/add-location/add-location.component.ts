@@ -13,6 +13,7 @@ import { TransferService } from 'src/app/admin/transferasset/transfer.service';
 import { transferResultBean } from 'src/app/admin/transferasset/transfer-result-bean';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { DepartmentMasterService } from '../../department-master/department-master.service';
 
 @Component({
   selector: 'app-add-location',
@@ -23,6 +24,7 @@ export class AddLocationComponent implements OnInit {
   locationMaster: LocationMaster;
   inputvalue = "";
   inputvalue1 = "";
+  inputvalue2 = "";
   docForm: FormGroup;
   requestId: number;
   edit:boolean=false;
@@ -39,7 +41,8 @@ export class AddLocationComponent implements OnInit {
   companyadList:[];
   companyText:any;
   user:any;
-  companyId:any
+  companyId:any;
+  getBranchList=[];
 
   // tslint:disable-next-line:new-parens
   salesDetailRowData = new SalesEntryDetailRowComponent;
@@ -54,6 +57,7 @@ export class AddLocationComponent implements OnInit {
               private authService: AuthService, public commonService: CommonService,
               public transferservice: TransferService,
               private spinner: NgxSpinnerService,
+              private departmentMasterService : DepartmentMasterService,
               private httpService: HttpServiceService) {
 
 
@@ -78,6 +82,7 @@ export class AddLocationComponent implements OnInit {
       cascade: [true],
       primaryLocation: [""],
       alternateLocation: [""],
+      branchname: ["", [Validators.required]],
       companyId:this.tokenStorage.getCompanyId(),
       branchId:this.tokenStorage.getBranchId(),
       userId:this.tokenStorage.getUserId()
@@ -136,6 +141,15 @@ export class AddLocationComponent implements OnInit {
       }
     });
     this.getUserbasedcompanyDropdown(this.docForm.value.userId);
+
+    this.httpService.get<any>(this.departmentMasterService.branchList + "?companyId=" + this.companyId).subscribe(
+      (data) => {
+        this.getBranchList = data.getBranchList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
   }
 
 
@@ -150,6 +164,8 @@ getUserbasedcompanyDropdown(userId: any): void {
   this.company = res.addressBean;
 });
 }
+
+
 
 
 
@@ -219,6 +235,7 @@ fetchDetails(locationId: any): void {
         'primaryLocation': res.locationMasterBean.primaryLocation,
         'alternateLocation': res.locationMasterBean.alternateLocation,
         'company': res.locationMasterBean.company,
+        'branchname' : res.locationMasterBean.branchid,
     });
   },
   error: (error) => {
@@ -282,6 +299,7 @@ fetchDetails(locationId: any): void {
         description: [""],
         active: [true],
         cascade: [true],
+        branchname: [""],
         primaryLocation: [""],
         alternateLocation: [""],
         company:[""],
