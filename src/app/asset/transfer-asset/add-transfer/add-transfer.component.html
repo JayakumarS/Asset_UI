@@ -13,8 +13,8 @@
                 <form class="m-4" [formGroup]="docForm">
                   <div class="row">
 
-                    <div class=" col-md-1 ">
-                        <mat-label>Transfer Date</mat-label>
+                    <div class=" col-md-2 ">
+                        <mat-label>TRANSFER DATE</mat-label>
                         </div>
                         <div class=" col-md-3 ">
 
@@ -27,8 +27,8 @@
                       </mat-form-field>
                     </div>
 
-                    <div class="col-md-1">
-                          <mat-label>Requisition No</mat-label>
+                    <div class="col-md-2">
+                          <mat-label>REQUISITION NO</mat-label>
                           </div>
                           <div class="col-md-3">
 
@@ -42,11 +42,12 @@
                           </mat-select>
                         </mat-form-field>
                       </div>
+                   </div> 
 
+                   <div class="row">
 
-
-                      <div class=" col-md-1">
-                          <mat-label>Requisition Date</mat-label>
+                      <div class=" col-md-2">
+                          <mat-label>REQUISITION DATE</mat-label>
                           </div>
                           <div class=" col-md-3">
 
@@ -55,11 +56,10 @@
                           <input matInput formControlName="requisitionDate" readonly>
                         </mat-form-field>
                       </div>
-                </div>
-                <div class="row">
+               
 
-                      <div class="col-md-1">
-                          <mat-label>Source Location</mat-label>
+                      <div class="col-md-2">
+                          <mat-label>SOURCE LOCATION</mat-label>
                           </div>
                           <div class="col-md-3">
 
@@ -68,14 +68,12 @@
                           <input matInput formControlName="sourceLocation" readonly>
                         </mat-form-field>
                       </div>
+                         </div>
 
+               <div class="row">
 
-
-
-
-
-                    <div class="col-md-1">
-                        <mat-label>Destination Location</mat-label>
+                    <div class="col-md-2">
+                        <mat-label>DESTINATION LOCATION</mat-label>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -83,19 +81,21 @@
                       </mat-form-field>
                     </div>
 
-                    <div class="col-md-1">
-                          <mat-label>Requested By</mat-label>
+                    <div class="col-md-2">
+                          <mat-label>REQUESTED BY</mat-label>
                           </div>
                           <div class="col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="requestedBy" readonly>
                         </mat-form-field>
                       </div>
-             </div>
+             
+               </div>
                <div class="row">
 
-                      <div class="col-md-1">
-                          <mat-label>Company<span class="errorColor">*</span></mat-label>
+
+                      <div class="col-md-2">
+                          <mat-label>COMPANY<span class="errorColor">*</span></mat-label>
                           </div>
                           <div class="col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -108,8 +108,8 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-1">
-                          <mat-label>Status</mat-label>
+                      <div class="col-md-2">
+                          <mat-label>STATUS</mat-label>
                       </div>
                       <div class="col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -124,10 +124,11 @@
                         </mat-form-field>
                       </div>
 
+                      </div>
+                      <div class="row">
 
-
-                      <div class=" col-md-1">
-                          <mat-label>Transportation Type<span class="errorColor">*</span></mat-label>
+                      <div class=" col-md-2" style="min-width: fit-content;">
+                          <mat-label>TRANSPORTATION TYPE<span class="errorColor">*</span></mat-label>
                           </div>
                           <div class=" col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -138,11 +139,10 @@
                           </mat-select>
                         </mat-form-field>
                       </div>
-                      </div>
-                      <div class="row">
+                      
 
-                      <div class=" col-md-1">
-                          <mat-label>Delivery Method<span class="errorColor">*</span></mat-label>
+                      <div class=" col-md-2">
+                          <mat-label>DELIVERY METHOD<span class="errorColor">*</span></mat-label>
                           </div>
                           <div class=" col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -176,8 +176,8 @@
                         </mat-form-field>
                       </div> -->
 
-                      <div class="col-md-1">
-                          <mat-label>EDD Date</mat-label>
+                      <div class="col-md-2">
+                          <mat-label>EDD DATE</mat-label>
                           </div>
                           <div class="col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -185,8 +185,8 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-1">
-                          <mat-label>Requested Quantity<span class="errorColor">*</span></mat-label>
+                      <div class="col-md-2">
+                          <mat-label>REQUESTED QUANTITY<span class="errorColor">*</span></mat-label>
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -194,9 +194,11 @@
                           <mat-error *ngIf="docForm.get('requestedQuantity').hasError('required')"> Requested Quantity is required </mat-error>
                         </mat-form-field>
                       </div>
+                 </div>
+                  <div class="row">
 
-                      <div class="col-md-1">
-                          <mat-label>Transfer Quantity<span class="errorColor">*</span></mat-label>
+                      <div class="col-md-2">
+                          <mat-label>TRANSFER QUANTITY<span class="errorColor">*</span></mat-label>
                           </div>
                           <div class="col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
