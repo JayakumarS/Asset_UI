@@ -41,6 +41,8 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
   public attributeDetails = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/attributeDetails`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
   public getItemCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/getItemCategoryDropdown`;
+  public multipleItemUpload = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/multipleItemUpload`;
+  public saveMultiple = `${this.serverUrl.apiServerAddress}api/auth/app/itemMaster/multipleSave`;
   
   get data(): ItemMaster[] {
     return this.dataChange.value;
@@ -82,6 +84,10 @@ export class ItemMasterService extends UnsubscribeOnDestroyAdapter {
 
   deleteItem(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.deleteItemMaster, obj);
+  }
+
+  addMultiple(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.saveMultiple, obj);
   }
 
 }

@@ -29,6 +29,9 @@ import { AddItemMasterComponent } from './add-item-master/add-item-master.compon
 import { ListItemMasterComponent } from './list-item-master/list-item-master.component';
 import { DeleteItemMasterComponent } from './list-item-master/delete-item-master/delete-item-master.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { AddMultipleItemComponent } from './add-multiple-item/add-multiple-item.component';
+import { UploadExcelPopupComponent } from './upload-excel-popup/upload-excel-popup.component';
+import { UploadSuccessPopupComponent } from "./upload-success-popup/upload-success-popup.component";
 
 
 
@@ -37,6 +40,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     AddItemMasterComponent,
     ListItemMasterComponent,
     DeleteItemMasterComponent,
+    AddMultipleItemComponent,
+    UploadExcelPopupComponent,
+    UploadSuccessPopupComponent,
   ],
   providers: [
     NotificationService

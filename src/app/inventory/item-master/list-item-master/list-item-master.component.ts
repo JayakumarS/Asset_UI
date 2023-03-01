@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { AddMultipleItemComponent } from '../add-multiple-item/add-multiple-item.component';
 
 @Component({
   selector: 'app-list-item-master',
@@ -178,7 +179,39 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
   }
+
+  multipleUploadPopupCall() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(AddMultipleItemComponent, {
+      data: {
+        action: "edit",
+      },
+      width: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 0) {
+        this.refreshTable();
+        this.showNotification(
+          "black",
+          "Upload Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
 }
+
 
 export class ExampleDataSource extends DataSource<ItemMaster> {
   filterChange = new BehaviorSubject("");
