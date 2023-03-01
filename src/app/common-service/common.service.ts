@@ -203,6 +203,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   // Company based validation For Edit
   public uniqueValidateCompanyBasedForEditUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUniqueCopmanyBasedForEdit`;
 
+  public getMakerNameList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getMakerNameList`;
+
   //FOR DOCUMENT VIEW ADDED BY Gokul
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");

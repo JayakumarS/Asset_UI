@@ -64,6 +64,7 @@ export class AddManageAuditComponent implements OnInit {
   isAided: boolean = true;
   companyListNew = [];
   auditorListNew = [];
+  makersList = [];
 
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
@@ -90,6 +91,7 @@ export class AddManageAuditComponent implements OnInit {
         auditCompanyId: ["", [Validators.required]],
         auditbranchId: [""],
         auditType: ["Self"],
+        makerId: ["", [Validators.required]],
         loginedUser: this.tokenStorage.getUserId(),
         companyId: this.tokenStorage.getCompanyId(),
         branchId: this.tokenStorage.getBranchId()
@@ -107,6 +109,7 @@ export class AddManageAuditComponent implements OnInit {
         auditCompanyId: ["", [Validators.required]],
         auditbranchId: [""],
         auditType: ["Aided"],
+        makerId: ["", [Validators.required]],
         loginedUser: this.tokenStorage.getUserId(),
         companyId: this.tokenStorage.getCompanyId(),
         branchId: this.tokenStorage.getBranchId()
@@ -142,6 +145,15 @@ export class AddManageAuditComponent implements OnInit {
       this.httpService.get<any>(this.commonService.getUserBasedCompanyDropdown + "?userId=" + this.tokenStorage.getUsername()).subscribe({
         next: (data) => {
           this.companyListNew = data.addressBean;
+        },
+        error: (error) => {
+        }
+      });
+
+      //Maker List
+      this.httpService.get<any>(this.commonService.getMakerNameList +"?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+        next: (data) => {
+          this.makersList = data;
         },
         error: (error) => {
         }

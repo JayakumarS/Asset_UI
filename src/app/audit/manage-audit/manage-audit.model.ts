@@ -9,4 +9,5 @@ export class ManageAudit {
     checkerStatus:string;
     companyStatus:string;
     companyName:string;
+    makerId:any;
 }

@@ -66,15 +66,32 @@
                 
                 <ng-container matColumnDef="makerStatus">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerStatus}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                    <span *ngIf="row.makerStatus=='Pending'"> Pending </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Pending' && row.auditType=='Aided'"> Pending With Checker </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.companyStatus=='Pending' && row.auditType=='Self'"> Pending With CompanyAdmin </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Submitted' && row.companyStatus=='Pending'"> Pending With CompanyAdmin </span>
+                    <span *ngIf="row.companyStatus=='Submitted'"> Submitted </span>
+                    </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="checkerStatus">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.checkerStatus}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                    <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Pending'"> Pending </span>
+                    <span *ngIf="row.makerStatus=='Pending'"> Pending With Maker </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Submitted' && row.companyStatus=='Pending'"> Pending With CompanyAdmin </span>
+                    <span *ngIf="row.companyStatus=='Submitted'"> Submitted </span>
+                    </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="companyStatus">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyStatus}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> 
+                    <span *ngIf="row.makerStatus=='Pending'"> Pending With Maker </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Pending' && row.auditType=='Aided'"> Pending With Checker </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.companyStatus=='Pending' && row.auditType=='Self'"> Pending </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Submitted' && row.companyStatus=='Pending'"> Pending </span>
+                    <span *ngIf="row.companyStatus=='Submitted'"> Submitted </span>
+                  </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="auditType">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Audit Type</mat-header-cell>
@@ -88,11 +105,11 @@
                 <ng-container matColumnDef="companyActions" class="col-lg-12 col-md-2">
                 <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                <button *ngIf="permissionList?.modify && row.companyStatus=='Pending'" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                <button *ngIf="permissionList?.modify && row.companyStatus=='Pending' && row.expiryStatus=='Not Expired'" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
                       class="tbl-action-btn">
                       <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
-                <button *ngIf="permissionList?.delete && row.companyStatus=='Pending'"mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                <button *ngIf="permissionList?.delete && row.companyStatus=='Pending' && row.expiryStatus=='Not Expired'"mat-icon-button color="accent" (click)="$event.stopPropagation()"
                       (click)="deleteItem(row)" class="tbl-action-btn">
                       <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                 </button>
@@ -101,14 +118,16 @@
                   <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                   </app-feather-icons>
                 </button>
+                <span *ngIf="row.expiryStatus=='Expired'" style="color: crimson;">Expired</span>
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="checkerActions" class="col-lg-12 col-md-2">
                 <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                <span *ngIf="row.checkerStatus=='Pending'">Pending</span>
+                <span *ngIf="row.checkerStatus=='Pending' && row.expiryStatus=='Not Expired'">Pending</span>
                 <span *ngIf="row.checkerStatus=='Submitted'">Audit Completed</span>
+                <span *ngIf="row.expiryStatus=='Expired'" style="color: crimson;">Expired</span>
                 <button   mat-icon-button color="accent"  *ngIf="row.checkerStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                   <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                   </app-feather-icons>
@@ -119,8 +138,9 @@
               <ng-container matColumnDef="makerActions" class="col-lg-12 col-md-2">
                 <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                 <span *ngIf="row.makerStatus=='Pending'">Pending</span>
+                 <span *ngIf="row.makerStatus=='Pending' && row.expiryStatus=='Not Expired'">Pending</span>
                 <span *ngIf="row.makerStatus=='Submitted'">Audit Completed</span>
+                <span *ngIf="row.expiryStatus=='Expired'" style="color: crimson;">Expired</span>
                 <button   mat-icon-button color="accent"  *ngIf="row.makerStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                   <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                   </app-feather-icons>

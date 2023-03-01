@@ -57,15 +57,32 @@
                   </ng-container>
                   <ng-container matColumnDef="makerStatus">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerStatus}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> 
+                    <span *ngIf="row.makerStatus=='Pending'"> Pending </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Pending' && row.auditType=='Aided'"> Pending With Checker </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.companyStatus=='Pending' && row.auditType=='Self'"> Pending With CompanyAdmin </span>
+                    <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Submitted' && row.companyStatus=='Pending'"> Pending With CompanyAdmin </span>
+                    <span *ngIf="row.companyStatus=='Submitted'"> Submitted </span>
+                    </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="checkerStatus">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.checkerStatus}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                      <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Pending'"> Pending </span>
+                      <span *ngIf="row.makerStatus=='Pending'"> Pending With Maker </span>
+                      <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Submitted' && row.companyStatus=='Pending'"> Pending With CompanyAdmin </span>
+                      <span *ngIf="row.companyStatus=='Submitted'"> Submitted </span>
+                      </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="companyStatus">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyStatus}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                      <span *ngIf="row.makerStatus=='Pending'"> Pending With Maker </span>
+                      <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Pending' && row.auditType=='Aided'"> Pending With Checker </span>
+                      <span *ngIf="row.makerStatus=='Submitted' && row.companyStatus=='Pending' && row.auditType=='Self'"> Pending </span>
+                      <span *ngIf="row.makerStatus=='Submitted' && row.checkerStatus=='Submitted' && row.companyStatus=='Pending'"> Pending </span>
+                      <span *ngIf="row.companyStatus=='Submitted'"> Submitted </span>
+                      </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="auditType">
