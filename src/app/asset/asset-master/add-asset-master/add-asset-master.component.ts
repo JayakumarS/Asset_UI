@@ -140,7 +140,7 @@ export class AddAssetMasterComponent
       isLine: [false],
       isAuditable: [false],
       id: [""],
-      uploadImg: ["", [Validators.required]],
+      uploadImg: [""],
       isGrnBasedAsset: [false],
       grnId: [""],
       assetUser: ["", [Validators.required]],
