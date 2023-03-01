@@ -466,7 +466,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
                 let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
                 let arraylen = purchaseInvoiceDtlArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
-                  itemId: [element.itemId+""],
+                  itemId: [element.id],
                   unitPrice: [element.unitPrice],
                   receivingQty: [element.receivingQty]
                 })
