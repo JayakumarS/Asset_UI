@@ -75,7 +75,8 @@ export class AddDepreciationReportComponent extends  UnsubscribeOnDestroyAdapter
     category: [""],
     assetLocation: [""],
     department: [""],
-    discardFromDate: [""]
+    discardFromDate: [""],
+    companyId:this.tokenStorage.getCompanyId(),
 
 });
  }
@@ -96,7 +97,9 @@ this.docForm = this.fb.group({
       category: [""],
       assetLocation: [""],
       department: [""],
-      discardFromDate: [""]
+      discardFromDate: [""],
+      companyId:this.tokenStorage.getCompanyId(),
+
   });
 
     // depreciation dropdown
