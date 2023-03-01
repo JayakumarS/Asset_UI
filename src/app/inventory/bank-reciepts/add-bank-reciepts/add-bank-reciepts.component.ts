@@ -5,6 +5,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
@@ -54,10 +55,12 @@ export class AddBankRecieptsComponent implements OnInit {
   value7: any;
   currencyListbasedCompany = [];
   salesInvoiceDropDown=[];
-
+  filePathUrl: string;
+  private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   constructor(private fb: FormBuilder, public router: Router,
     private httpService: HttpServiceService, public route: ActivatedRoute,
     private snackBar: MatSnackBar,
+    private spinner: NgxSpinnerService,
     private bankReceiptservice: BankReceiptservice,
     private notificationService: NotificationService,
     public commonService: CommonService,
@@ -85,6 +88,7 @@ export class AddBankRecieptsComponent implements OnInit {
       totalBcAmt: [""],
       totalTcAmt: [""],
       salesInvoiceNo:[""],
+      fileUpload:[""],
       bankReceiptDetailBean: this.fb.array([
         this.fb.group({
           accountname: [""],
@@ -280,6 +284,7 @@ export class AddBankRecieptsComponent implements OnInit {
         'currency': res.bankReceiptBean.currency,
         'exchangerate': res.bankReceiptBean.exchangerate,
         'receivedFrom': res.bankReceiptBean.receivedFrom,
+        'fileUpload': res.bankReceiptBean.fileUpload,
         'salesInvoiceNo': res.bankReceiptBean.salesInvoiceNo,
         'tcAmountno': parseFloat(res.bankReceiptBean.tcAmountno).toFixed(2),
         'bcAmountno':parseFloat(res.bankReceiptBean.bcAmountno).toFixed(2), 
@@ -287,6 +292,12 @@ export class AddBankRecieptsComponent implements OnInit {
         'totalBcAmt': parseFloat(res.bankReceiptBean.totalBcAmt).toFixed(2),
         'totalTcAmt': parseFloat(res.bankReceiptBean.totalTcAmt).toFixed(2),
       })
+
+      if (res.bankReceiptBean.fileUpload != undefined && res.bankReceiptBean.fileUpload != null && res.bankReceiptBean.fileUpload != '') {
+        this.filePathUrl = res.bankReceiptBean.fileUpload;
+      }
+
+
       if (res.bankReceiptDetailBean != null && res.bankReceiptDetailBean.length >= 1) {
         let bankReceiptDetailArray = this.docForm.controls.bankReceiptDetailBean as FormArray;
         bankReceiptDetailArray.clear();
@@ -446,4 +457,87 @@ export class AddBankRecieptsComponent implements OnInit {
   }
 
 
+  onSelectFile(event) {
+    var docfile = event.target.files[0];
+    if (!this.acceptFileTypes.includes(docfile.type)) {
+      this.showNotification(
+        "snackbar-danger",
+        "Invalid Image type",
+        "bottom",
+        "center"
+      );
+      return;
+    }
+    if (docfile.size > 5242880) {
+      this.showNotification(
+        "snackbar-danger",
+        "Please upload valid image with less than 5mb",
+        "bottom",
+        "center"
+      );
+      return;
+    }
+    var fileExtension = docfile.name;
+    var frmData: FormData = new FormData();
+    frmData.append("file", docfile);
+    frmData.append("fileName", fileExtension);
+    frmData.append("folderName", "bankReceipt");
+
+    this.httpService.post<any>(this.commonService.commonUploadFile, frmData).subscribe({
+      next: (data) => {
+        if (data.success) {
+          if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+            this.docForm.patchValue({
+              'fileUpload': data.filePath
+            })
+            this.filePathUrl = data.filePath;
+          }
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Failed to upload File",
+            "bottom",
+            "center"
+          );
+        }
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload File",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+
+  viewDocuments(filePath: any, fileName: any) {
+    this.spinner.show();
+    this.commonService.viewDocument(filePath).pipe().subscribe({
+      next: (result: any) => {
+        this.spinner.hide();
+        var blob = result;
+        var fileURL = URL.createObjectURL(blob);
+        if (fileName.split('.').pop().toLowerCase() === 'pdf') {
+          window.open(fileURL);
+        } else {
+          var a = document.createElement("a");
+          a.href = fileURL;
+          a.target = '_blank';
+          a.download = fileName;
+          a.click();
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to View File",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
 }
