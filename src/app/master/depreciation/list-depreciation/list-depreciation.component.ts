@@ -85,15 +85,18 @@ export class ListDepreciationComponent extends UnsubscribeOnDestroyAdapter imple
       }
     });
     this.loadData();
-    
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
+    }
   }
 
   refresh(){
     this.loadData();
   }
-load(){
-  this.router.navigate(['/master/depreciation/list-depreciation']);
-}
+
 
   public loadData() {
     this.exampleDatabase = new DepreciationService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService);

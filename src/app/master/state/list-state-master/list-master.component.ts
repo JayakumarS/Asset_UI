@@ -56,10 +56,16 @@ contextMenu: MatMenuTrigger;
 contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    
     this.loadData();
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
+    }
 
   }
-
 
   onContextMenu(event: MouseEvent, item: StateMaster) {
     event.preventDefault();

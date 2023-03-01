@@ -82,10 +82,10 @@
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                 <input matInput formControlName="empid" (blur)="validateEmployeeId($event.target.value)" maxlength="7" required>
                                 <mat-error *ngIf="docForm.get('empid').hasError('required')">
-                                  EMPLOYEE ID is required
+                                  Employee Id is required
                                 </mat-error>
                                 <mat-error *ngIf="docForm.get('empid').hasError('employee')">
-                                  EmployeeId Already Exists !!!
+                                  Employee Id Already Exists !!!
                                 </mat-error>
                               </mat-form-field>
                             </div>
@@ -164,7 +164,7 @@
                                           <input matInput formControlName="phoneno"  maxlength="10" (keypress)="keyPressNumeric1($event)" >
 
                                           <mat-error *ngIf="docForm.get('phoneno').hasError('required')">
-                                            Phone number is required
+                                            Phone Number is required
                                           </mat-error>
                                         </mat-form-field>
                                       </div>

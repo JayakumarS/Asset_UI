@@ -15,22 +15,34 @@
     <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card ">
-          <div class="body">
+          <div class="body" style="padding-left: 110px;">
             <form class="m-4" [formGroup]="docForm" >
 
-              <div class="row center">
-                <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+              <div class="row ">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 50px;">
+                  <mat-label><b></b></mat-label>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Item Type</mat-label>
                     <input matInput formControlName="itemName" maxlength="15" required>
+                    <mat-error *ngIf="docForm.get('itemName').hasError('required')">
+                      Item Type is required
+                    </mat-error>
                  </mat-form-field>
                 </div>
                 </div>
-                <div class="row center">
-                <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 ">
+                <div class="row ">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 50px;">
+                    <mat-label><b></b></mat-label>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Item Category</mat-label>
                     <input matInput formControlName="itemCategory" maxlength="15" required>
+                    <mat-error *ngIf="docForm.get('itemCategory').hasError('required')">
+                      Item Category is required
+                    </mat-error>
                  </mat-form-field>
                 </div>
                </div>
@@ -39,10 +51,12 @@
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;">
                   <mat-label><b></b></mat-label>
               </div>
-              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="padding-left: 79px;">
+              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" style="padding-left: 70px;">
                 <mat-checkbox formControlName="active" ngInit="checked=true">Active</mat-checkbox>
               </div>
             </div>
+
+            <br><br>
 
                <!-- <h5>Accounting</h5>
                <div class="row">
@@ -115,7 +129,7 @@
 
               
              
-                <div class="row" style="margin-left: 35px;"> 
+                <div class="row"> 
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
                     color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>

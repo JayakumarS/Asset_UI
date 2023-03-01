@@ -22,9 +22,9 @@
                       (ngModelChange)="value=$event.toUpperCase()" (keypress)="string($event)" (blur)="validateCurrencyCode($event.target.value)"
                       required>
                       <mat-error *ngIf="docForm.get('currencyCode').hasError('required')">
-                        Currency Code Name is required
+                        Currency Code is required
                       </mat-error> <mat-error *ngIf="docForm.get('currencyCode').hasError('currency')">
-                        Currency code Already Exists !!!
+                        Currency Code Already Exists !!!
                       </mat-error>
                     </mat-form-field>
 
@@ -33,7 +33,7 @@
                       <mat-error *ngIf="docForm.get('currencyCode').hasError('required')">
                         Currency Code Name is required
                       </mat-error> <mat-error *ngIf="docForm.get('currencyCode').hasError('currency')">
-                        Currency code Already Exists !!!
+                        Currency Code Already Exists !!!
                       </mat-error>
                     </mat-form-field>
 
@@ -62,7 +62,7 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="fromcurrency" maxlength="10" (keypress)="keyPressNumeric($event)" required>
                         <mat-error *ngIf="submitted && docForm.get('fromcurrency').hasError('required')">
-                          Exchange Rate To Base Currency :From is required
+                         Base Currency From is required
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -74,7 +74,7 @@
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="toCurrency"maxlength="10"(keypress)="keyPressNumeric($event)" required>
                           <mat-error *ngIf="submitted && docForm.get('toCurrency').hasError('required')">
-                            Exchange Rate To Base Currency :To is required
+                            Base Currency To is required
                             </mat-error>
                         </mat-form-field>
                       </div>
