@@ -25,6 +25,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./list-scheduledaudits.component.sass']
  })
  export class ListScheduledauditsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+  [x: string]: any;
   isChecker=false;
   isMaker=false;
   isCompany=false;
@@ -107,6 +108,9 @@ import { NgxSpinnerService } from "ngx-spinner";
       }
     });
     this.loadData();
+
+
+    
   }
 
   refresh(){
@@ -118,7 +122,10 @@ import { NgxSpinnerService } from "ngx-spinner";
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort
+      this.sort,
+      this.snackBar,
+      this.httpService,
+      this.serverUrl
     );
     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
@@ -171,11 +178,40 @@ import { NgxSpinnerService } from "ngx-spinner";
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
   }
-}
 
+  
+
+//Export PDF
+
+exportPDF(row) {
+
+ 
+  const obj = {
+    editId: row.manageAuditId
+  }
+
+        this.scheduledauditsService.exportPDFAudit(obj).subscribe(
+          (data) => {
+           this.filePath = this.serverUrl.apiServerAddress;
+           const path = data.filePath;
+           var a = document.createElement("a");
+           a.href = this.filePath+data.filePath;
+           a.target = '_blank';
+           a.click();
+         }, error => {
+           
+           console.log(error);
+           this.helper.errorMessage(error);
+         })
+       }
+       
+ }
+      
 
 export class ExampleDataSource extends DataSource<ScheduledAudit> {
   filterChange = new BehaviorSubject("");
+  filePath: any;
+  selection = new SelectionModel<ScheduledAudit>(true, []);
   get filter(): string {
     return this.filterChange.value;
   }
@@ -187,11 +223,20 @@ export class ExampleDataSource extends DataSource<ScheduledAudit> {
   constructor(
     public exampleDatabase: ScheduledauditsService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    private snackBar: MatSnackBar,
+    private httpService: HttpServiceService,
+    private serverUrl:serverLocations,
+
+
+    
+
   ) {
     super();
     // Reset to the first page when the user changes the filter.
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
+
+    
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<ScheduledAudit[]> {
@@ -278,6 +323,20 @@ export class ExampleDataSource extends DataSource<ScheduledAudit> {
       );
     });
   }
+
+  
+  
+
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
 }
+
+
 
 

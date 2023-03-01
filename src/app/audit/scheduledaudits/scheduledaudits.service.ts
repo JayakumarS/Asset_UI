@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -6,6 +6,10 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { ScheduledAudit } from './scheduledaudits-model';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +27,7 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter {
   public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/scheduledAudit/getList`;
   public saveScheduledAudit = `${this.serverUrl.apiServerAddress}api/auth/app/scheduledAudit/save`;
   public editScheduledAudit = `${this.serverUrl.apiServerAddress}api/auth/app/scheduledAudit/edit`;
+  public exportAuditPDF = `${this.serverUrl.apiServerAddress}api/auth/app/scheduledAudit/auditExportPdf`;
 
 
   get data(): ScheduledAudit[] {
@@ -54,6 +59,10 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter {
     );
   }
 
+  exportPDFAudit(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.exportAuditPDF, obj);
+  }
+
   addAudit(scheduledAudit: ScheduledAudit): Observable<any> {
     return this.httpClient.post<ScheduledAudit>(this.saveScheduledAudit, scheduledAudit);
   }
@@ -61,5 +70,4 @@ export class ScheduledauditsService extends UnsubscribeOnDestroyAdapter {
   editAudit(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.editScheduledAudit, obj);
   }
-
 }
