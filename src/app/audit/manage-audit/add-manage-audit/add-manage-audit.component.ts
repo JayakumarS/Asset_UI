@@ -320,7 +320,8 @@ export class AddManageAuditComponent implements OnInit {
           'auditName': res.manageAudit.auditName,
           'locationId': res.manageAudit.locationId,
           'auditCompanyId': res.manageAudit.auditCompanyId,
-          'auditbranchId': res.manageAudit.auditbranchId
+          'auditbranchId': res.manageAudit.auditbranchId,
+          'makerId' : res.manageAudit.makerId
         })
       } else if (res.manageAudit.auditType == "Aided") {
         this.tabGroup.selectedIndex = 1;
@@ -334,7 +335,8 @@ export class AddManageAuditComponent implements OnInit {
           'auditorId': res.manageAudit.auditorId,
           'locationId': res.manageAudit.locationId,
           'auditCompanyId': res.manageAudit.auditCompanyId,
-          'auditbranchId': res.manageAudit.auditbranchId
+          'auditbranchId': res.manageAudit.auditbranchId,
+          'makerId' : res.manageAudit.makerId
         })
       }
     },
