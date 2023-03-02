@@ -18,6 +18,8 @@ import { ListLineMasterComponent } from './line-master/list-line-master/list-lin
 
 import { AddExchangeMasterComponent } from './Exchange/add-exchange-master/add-exchange-master.component';
 import { ListExchangeMasterComponent } from './Exchange/list-exchange-master/list-exchange-master.component';
+import { AddConsoleLogComponent } from './console-log/add-console-log/add-console-log.component';
+import { DeleteConsoleLogComponent } from './console-log/list-console-log/delete-console-log/delete-console-log.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { ListExchangeMasterComponent } from './Exchange/list-exchange-master/lis
     ListLineMasterComponent,
     ListExchangeMasterComponent,
     AddExchangeMasterComponent,
+    AddConsoleLogComponent,
+    DeleteConsoleLogComponent,
   
 
   ],

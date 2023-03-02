@@ -151,6 +151,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./Exchange/exchange.module").then((m) => m.ExchangeModule)
   },
+  {
+    path: "console-log",
+    loadChildren: () =>
+    import("./console-log/console-log.module").then((m) => m.ConsoleLogMasterModule)
+  },
 ];
 
 @NgModule({

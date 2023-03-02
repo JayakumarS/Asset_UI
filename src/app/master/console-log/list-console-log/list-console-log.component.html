@@ -1,0 +1,27 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Console Error'"
+                [items]="['Admin']"
+                [active_item]="'Console Error'">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix ">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="box-shadow">
+                    <div class="card">
+                        <div class="body">
+                            <form class="m-12">
+                                <div *ngFor="let data of getTextList">
+                                    {{getTextList}}
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
