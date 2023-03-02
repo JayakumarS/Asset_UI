@@ -148,7 +148,7 @@
                                         <div class="col-md-3" >
                                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-select formControlName="makerId">
-                                                  <mat-option *ngFor="let title of makersList" [value]="title.id">
+                                                  <mat-option *ngFor="let title of makersList" [value]="title.strId">
                                                     {{title.text}}
                                                   </mat-option>
                                                 </mat-select>
@@ -333,7 +333,7 @@
                                         <div class="col-md-3" >
                                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-select formControlName="makerId">
-                                                  <mat-option *ngFor="let title of makersList" [value]="title.id">
+                                                  <mat-option *ngFor="let title of makersList" [value]="title.strId">
                                                     {{title.text}}
                                                   </mat-option>
                                                 </mat-select>
