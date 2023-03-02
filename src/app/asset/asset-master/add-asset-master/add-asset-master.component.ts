@@ -50,9 +50,7 @@ export const MY_DATE_FORMATS = {
   ]
 
 })
-export class AddAssetMasterComponent
-  extends UnsubscribeOnDestroyAdapter
-  implements OnInit {
+export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   docForm: FormGroup;
   hide3 = true;
   agree3 = false;
@@ -98,7 +96,6 @@ export class AddAssetMasterComponent
   isThirdParty: boolean = false;
   statusDdList: any;
   brandDdList: any;
-
   isBrand: boolean = true;
   isUnBrand: boolean = false;
 
@@ -125,14 +122,14 @@ export class AddAssetMasterComponent
 
     this.docForm = this.fb.group({
       //info
-      assetName: ["", [Validators.required]],
-      itemId: ["", [Validators.required]],
+      assetName: [""],
+      itemId: [""],
       assetCode: [""],
       location: [""],
       category: ["", [Validators.required]],
-      status: ["", [Validators.required]],
+      status: [""],
       putUseDate: [moment().format('DD/MM/YYYY')],
-      putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+      putUseDateObj: [moment().format('YYYY-MM-DD')],
       rentedUptoDate: [""],
       rentedUptoDateObj: [""],
       thirdPartyUptoDate: [""],
@@ -143,12 +140,11 @@ export class AddAssetMasterComponent
       uploadImg: [""],
       isGrnBasedAsset: [false],
       grnId: [""],
-      assetUser: ["", [Validators.required]],
+      assetUser: [""],
       loginedUser: this.tokenStorage.getUserId(),
       //tab1
       brand: [""],
       unBrand: [""],
-      unBrandCheck: [""],
       brandCheck: ["brandCheck"],
       model: [""],
       serialNo: [""],
@@ -230,20 +226,6 @@ export class AddAssetMasterComponent
       costOfLand: [""],
       substance: [""],
 
-      grnBasedAssetList: this.fb.array([
-        this.fb.group({
-          itemId: [""],
-          // isAuditable: [""],
-          assetName: [""],
-          assetCode: [""],
-          location: [""],
-          category: [""],
-          status: [""],
-          putUseDate: [moment().format('DD/MM/YYYY')],
-          putUseDateObj: [moment().format('YYYY-MM-DD')],
-          assetUser: [""],
-        })
-      ]),
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],
@@ -257,7 +239,6 @@ export class AddAssetMasterComponent
           assetUser: [""],
         })
       ]),
-
       ownedShip: ["owned"]
     });
   }
@@ -287,18 +268,6 @@ export class AddAssetMasterComponent
       }
     }
     );
-
-    // Location dropdown
-
-    // this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
-    //   next: (data) => {
-    //     this.locationDdList = data;
-    //   },
-    //   error: (error) => {
-
-    //   }
-    // }
-    // );
 
     // Location dropdown
     this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
@@ -428,9 +397,7 @@ export class AddAssetMasterComponent
   }
 
   // assetDetailsList
-
   assetDetails(value: any, i) {
-
     this.httpService.get<any>(this.assetService.getAssetDetails + "?assetId=" + value.value).subscribe({
       next: (res: any) => {
         if (res.success) {
@@ -491,92 +458,6 @@ export class AddAssetMasterComponent
     }
   }
 
-  onSubmit() {
-    this.submitted = true;
-
-    if (this.docForm.valid) {
-
-      if (this.isOwned) {
-        this.docForm.patchValue({
-          'thirdPartyUptoDate': "",
-          'thirdPartyUptoDateObj': "",
-          'rentedUptoDate': "",
-          'rentedUptoDateObj': "",
-        })
-      }
-      if (this.isRented) {
-        this.docForm.patchValue({
-          'thirdPartyUptoDate': "",
-          'thirdPartyUptoDateObj': "",
-        })
-      }
-      if (this.isThirdParty) {
-        this.docForm.patchValue({
-          'rentedUptoDate': "",
-          'rentedUptoDateObj': "",
-        })
-      }
-
-
-      // if(this.isBrand){
-      //   this.docForm.patchValue({
-      //     'brandCheck':"",
-      //   })
-      // }
-
-      // if(this.isUnBrand){
-      //   this.docForm.patchValue({
-      //     'unBrandCheck':"",
-
-      //   })
-      // }
-
-      this.assetMaster = this.docForm.value;
-      console.log(this.assetMaster);
-      this.spinner.show();
-      this.assetService.addAssetMaster(this.assetMaster).subscribe({
-        next: (data) => {
-          this.spinner.hide();
-          if (data.success) {
-            this.showNotification(
-              "snackbar-success",
-              "Record Added successfully...",
-              "top",
-              "right"
-            );
-            this.onCancel();
-          } else {
-            this.showNotification(
-              "snackbar-danger",
-              "Not Added...!!!",
-              "top",
-              "right"
-            );
-          }
-        },
-        error: (error) => {
-          this.spinner.hide();
-          this.showNotification(
-            "snackbar-danger",
-            error.message + "...!!!",
-            "top",
-            "right"
-          );
-        }
-      });
-    } else {
-
-
-
-      this.showNotification(
-        "snackbar-danger",
-        "Please fill all the required details!",
-        "top",
-        "right"
-      );
-    }
-  }
-
   onCancel() {
     this.router.navigate(['/asset/assetMaster/listAssetMaster']);
   }
@@ -614,16 +495,14 @@ export class AddAssetMasterComponent
 
       if (this.isBrand == true) {
         this.docForm.patchValue({
-          'brandCheck': "brandCheck",
-          'unBrandCheck': "null",
+          'brandCheck': "brandCheck"
         })
       }
 
 
       if (this.isUnBrand == true) {
         this.docForm.patchValue({
-          'brandCheck': "null",
-          'unBrandCheck': "unBrandCheck",
+          'brandCheck': "null"
         })
       }
 
@@ -732,7 +611,6 @@ export class AddAssetMasterComponent
           'brand': parseInt(res.addAssetBean.brand),
           'unBrand': res.addAssetBean.unBrand,
           'brandCheck': res.addAssetBean.brandCheck,
-          'unBrandCheck': res.addAssetBean.unBrandCheck,
           'model': res.addAssetBean.model,
           'allottedUptoobj': res.addAssetBean.allottedUpto != null ? this.commonService.getDateObj(res.addAssetBean.allottedUpto) : "",
           'allottedUpto': res.addAssetBean.allottedUpto,
@@ -832,7 +710,7 @@ export class AddAssetMasterComponent
           this.isUnBrand = true;
           this.isBrand = false;
           this.docForm.patchValue({
-            'unBrandCheck': "unBrandCheck",
+            'brandCheck': "unBrandCheck",
           })
         } else {
           this.isUnBrand = false;
@@ -934,12 +812,7 @@ export class AddAssetMasterComponent
       this.docForm.patchValue({ allottedUpto: cdate });
     } else if (inputFlag == 'putUseDate') {
       this.docForm.patchValue({ putUseDate: cdate });
-    } else if (inputFlag == 'putUseDateGRNArray') {
-      let grnBasedAssetArray = this.docForm.controls.grnBasedAssetList as FormArray;
-      grnBasedAssetArray.at(index).patchValue({
-        putUseDate: cdate
-      });
-    }  else if (inputFlag == 'putUseDateQtyArray') {
+    } else if (inputFlag == 'putUseDateQtyArray') {
       let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
       quantityBasedAssetArray.at(index).patchValue({
         putUseDate: cdate
@@ -1068,45 +941,9 @@ export class AddAssetMasterComponent
   getGRN(event: any) {
     if (event) {
       this.grnBasedMutipleAssetFlag = true;
-      this.docForm.controls.grnId.setValidators(Validators.required);
-      this.docForm.controls['grnId'].updateValueAndValidity();
-      this.docForm.controls.assetName.clearValidators();
-      this.docForm.controls['assetName'].updateValueAndValidity();
-      this.docForm.controls.assetCode.clearValidators();
-      this.docForm.controls['assetCode'].updateValueAndValidity();
-      this.docForm.controls.location.clearValidators();
-      this.docForm.controls['location'].updateValueAndValidity();
-      this.docForm.controls.category.clearValidators();
-      this.docForm.controls['category'].updateValueAndValidity();
-      this.docForm.controls.status.clearValidators();
-      this.docForm.controls['status'].updateValueAndValidity();
-      this.docForm.controls.uploadImg.clearValidators();
-      this.docForm.controls['uploadImg'].updateValueAndValidity();
-      this.docForm.controls.assetUser.clearValidators();
-      this.docForm.controls['assetUser'].updateValueAndValidity();
-      this.docForm.controls.itemId.clearValidators();
-      this.docForm.controls['itemId'].updateValueAndValidity();
     }
     else {
       this.grnBasedMutipleAssetFlag = false;
-      this.docForm.controls.grnId.clearValidators();
-      this.docForm.controls['grnId'].updateValueAndValidity();
-      this.docForm.controls.assetName.setValidators(Validators.required);
-      this.docForm.controls['assetName'].updateValueAndValidity();
-      this.docForm.controls.assetCode.setValidators(Validators.required);
-      this.docForm.controls['assetCode'].updateValueAndValidity();
-      this.docForm.controls.location.setValidators;
-      this.docForm.controls['location'].updateValueAndValidity();
-      this.docForm.controls.category.setValidators(Validators.required);
-      this.docForm.controls['category'].updateValueAndValidity();
-      this.docForm.controls.status.setValidators(Validators.required);
-      this.docForm.controls['status'].updateValueAndValidity();
-      this.docForm.controls.uploadImg.setValidators(Validators.required);
-      this.docForm.controls['uploadImg'].updateValueAndValidity();
-      this.docForm.controls.assetUser.setValidators(Validators.required);
-      this.docForm.controls['assetUser'].updateValueAndValidity();
-      this.docForm.controls.itemId.setValidators(Validators.required);
-      this.docForm.controls['itemId'].updateValueAndValidity();
     }
   }
 
@@ -1179,7 +1016,6 @@ export class AddAssetMasterComponent
 
   //FOR DOCUMENT UPLOAD ADDED BY Gokul
   onSelectFile(event) {
-
     var docfile = event.target.files[0];
     if (!this.acceptFileTypes.includes(docfile.type)) {
       this.showNotification(
@@ -1244,101 +1080,6 @@ export class AddAssetMasterComponent
     a.click();
   }
 
-
-  getGRNDetails(GRNID: number) {
-    if (GRNID != undefined && GRNID != null) {
-      this.spinner.show();
-      this.httpService.get<any>(this.grnService.getGRNDetails + "?grnId=" + GRNID).subscribe({
-        next: (res: any) => {
-          this.spinner.hide();
-          if (res.success) {
-            if (res.grn != null) {
-              this.docForm.patchValue({
-
-                'location': res.grn.deliveryLocId,
-                'invoiceNo': res.grn.invoiceNo,
-                'invoiceDateobj': res.grn.invoiceDate != null ? this.commonService.getDateObj(res.grn.invoiceDate) : "",
-                'invoiceDate': res.grn.invoiceDate,
-                'poNumber': res.grn.purchaseOrderId,
-                'vendor': res.grn.vendorName,
-
-              })
-            }
-            if (res.grnDetailList != null && res.grnDetailList.length >= 1) {
-              let grnBasedAssetArray = this.docForm.controls.grnBasedAssetList as FormArray;
-              grnBasedAssetArray.clear();
-              res.grnDetailList.forEach(element => {
-                let grnBasedAssetArray = this.docForm.controls.grnBasedAssetList as FormArray;
-                let arraylen = grnBasedAssetArray.length;
-                let newUsergroup: FormGroup = this.fb.group({
-                  itemId: [element.itemId],
-                  assetName: ["", [Validators.required]],
-                  assetCode: [""],
-                  location: ["", [Validators.required]],
-                  category: ["", [Validators.required]],
-                  status: ["", [Validators.required]],
-                  putUseDate: [moment().format('DD/MM/YYYY')],
-                  putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
-                  assetUser: [""]
-                })
-                grnBasedAssetArray.insert(arraylen, newUsergroup);
-              });
-            }
-
-          }
-        },
-        error: (error) => {
-          this.spinner.hide();
-        }
-      });
-    }
-  }
-
-
-  saveGRNBasedMutipleAsset() {
-    if (this.docForm.valid) {
-      this.assetMaster = this.docForm.value;
-      this.spinner.show();
-      this.assetService.addGRNBasedMutipleAsset(this.assetMaster).subscribe({
-        next: (data) => {
-          this.spinner.hide();
-          if (data.success) {
-            this.showNotification(
-              "snackbar-success",
-              "Record Added successfully...",
-              "top",
-              "right"
-            );
-            this.onCancel();
-          } else {
-            this.showNotification(
-              "snackbar-danger",
-              "Not Added...!!!",
-              "top",
-              "right"
-            );
-          }
-        },
-        error: (error) => {
-          this.spinner.hide();
-          this.showNotification(
-            "snackbar-danger",
-            error.message + "...!!!",
-            "top",
-            "right"
-          );
-        }
-      });
-    } else {
-      this.showNotification(
-        "snackbar-danger",
-        "Please fill all the required details!",
-        "top",
-        "right"
-      );
-    }
-  }
-
   getOwnerShip(check: any) {
     if (check == 'owned') {
       this.isOwned = true;
@@ -1367,26 +1108,21 @@ export class AddAssetMasterComponent
       this.isBrand = false;
       this.docForm.controls.brandCheck.clearValidators();
       this.docForm.controls['brandCheck'].updateValueAndValidity();
-
     }
     if (check == 'unBrandCheck') {
       this.isUnBrand = true;
-      this.docForm.controls.unBrandCheck.setValidators(Validators.required);
+      this.docForm.controls.brandCheck.setValidators(Validators.required);
       this.isBrand = false;
-
-
     } else {
       this.isUnBrand = false;
-      this.docForm.controls.unBrandCheck.clearValidators();
-      this.docForm.controls['unBrandCheck'].updateValueAndValidity();
-
+      this.docForm.controls.brandCheck.clearValidators();
+      this.docForm.controls['brandCheck'].updateValueAndValidity();
     }
   }
 
 
-  resetSelf() {
+  reset() {
     this.docForm = this.fb.group({
-
       assetName: ["", [Validators.required]],
       assetCode: [""],
       location: ["", [Validators.required]],
@@ -1491,19 +1227,7 @@ export class AddAssetMasterComponent
       costOfLand: [""],
       substance: [""],
 
-      grnBasedAssetList: this.fb.array([
-        this.fb.group({
-          itemId: [""],
-          // isAuditable: [""],
-          assetName: [""],
-          assetCode: [""],
-          location: [""],
-          category: [""],
-          status: [""],
-          putUseDate: [moment().format('DD/MM/YYYY')],
-          putUseDateObj: [moment().format('YYYY-MM-DD')],
-        })
-      ]),
+
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: [""],
@@ -1529,8 +1253,8 @@ export class AddAssetMasterComponent
 
     this.imgPathUrl = [];
     this.filePathUrl = [];
-    this.quantityBasedMutipleAssetFlag=false;
-    this.grnBasedMutipleAssetFlag=false;
+    this.quantityBasedMutipleAssetFlag = false;
+    this.grnBasedMutipleAssetFlag = false;
   }
 
 
@@ -1554,144 +1278,107 @@ export class AddAssetMasterComponent
     }
   }
 
-  checkValidationANDAddMultipleAssetList(value: number) {
-    if (this.docForm.controls['category'].invalid) {
-      this.docForm.patchValue({
-        quantity: '1'
-      })
-      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'category' + '"]');
-      invalidControl.focus();
-      this.showNotification(
-        "snackbar-danger",
-        "CATEGORY is Required...!!!",
-        "top",
-        "right"
-      );
-      return;
-    } else if (this.docForm.controls['assetName'].invalid) {
-      this.docForm.patchValue({
-        quantity: '1'
-      })
-      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'assetName' + '"]');
-      invalidControl.focus();
-      this.showNotification(
-        "snackbar-danger",
-        "ASSET NAME is Required...!!!",
-        "top",
-        "right"
-      );
-      return;
-    } else if (this.docForm.controls['itemId'].invalid) {
-      this.docForm.patchValue({
-        quantity: '1'
-      })
-      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'itemId' + '"]');
-      invalidControl.focus();
-      this.showNotification(
-        "snackbar-danger",
-        "ITEM NAME is Required...!!!",
-        "top",
-        "right"
-      );
-      return;
-    } else if (this.docForm.controls['location'].invalid) {
-      this.docForm.patchValue({
-        quantity: '1'
-      })
-      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'location' + '"]');
-      invalidControl.focus();
-      this.showNotification(
-        "snackbar-danger",
-        "LOCATION is Required...!!!",
-        "top",
-        "right"
-      );
-      return;
-    } else if (this.docForm.controls['status'].invalid) {
-      this.docForm.patchValue({
-        quantity: '1'
-      })
-      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'status' + '"]');
-      invalidControl.focus();
-      this.showNotification(
-        "snackbar-danger",
-        "STATUS is Required...!!!",
-        "top",
-        "right"
-      );
-      return;
-    } else if (this.docForm.controls['putUseDate'].invalid) {
-      this.docForm.patchValue({
-        quantity: '1'
-      })
-      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'putUseDate' + '"]');
-      invalidControl.focus();
-      this.showNotification(
-        "snackbar-danger",
-        "PUT IN USE DATE is Required...!!!",
-        "top",
-        "right"
-      );
-      return;
-    } else if (this.docForm.controls['assetUser'].invalid) {
-      this.docForm.patchValue({
-        quantity: '1'
-      })
-      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'assetUser' + '"]');
-      invalidControl.focus();
-      this.showNotification(
-        "snackbar-danger",
-        "ASSET USER is Required...!!!",
-        "top",
-        "right"
-      );
-      return;
-    } else if (this.docForm.controls['uploadImg'].invalid) {
-      this.docForm.patchValue({
-        quantity: '1'
-      })
-      const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'uploadImg' + '"]');
-      invalidControl.focus();
-      this.showNotification(
-        "snackbar-danger",
-        "ASSET IMAGE is Required...!!!",
-        "top",
-        "right"
-      );
-      return;
-    }
+  getGRNDetailsAndAddMultipleAsset(GRNID: number) {
+    if (GRNID != undefined && GRNID != null) {
+      this.spinner.show();
+      this.httpService.get<any>(this.grnService.getGRNDetails + "?grnId=" + GRNID).subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          if (res.success) {
+            if (res.grn != null) {
+              this.docForm.patchValue({
 
+                'location': res.grn.deliveryLocId,
+                'invoiceNo': res.grn.invoiceNo,
+                'invoiceDateobj': res.grn.invoiceDate != null ? this.commonService.getDateObj(res.grn.invoiceDate) : "",
+                'invoiceDate': res.grn.invoiceDate,
+                'poNumber': res.grn.purchaseOrderId,
+                'vendor': res.grn.vendorName,
+
+              })
+            }
+            if (res.grnDetailList != null && res.grnDetailList.length >= 1) {
+              let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+              quantityBasedAssetArray.clear();
+              res.grnDetailList.forEach(element => {
+                let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+                let arraylen = quantityBasedAssetArray.length;
+                let newUsergroup: FormGroup = this.fb.group({
+                  itemId: [element.itemId],
+                  assetName: ["", [Validators.required]],
+                  assetCode: [""],
+                  location: ["", [Validators.required]],
+                  category: ["", [Validators.required]],
+                  status: ["", [Validators.required]],
+                  putUseDate: [moment().format('DD/MM/YYYY')],
+                  putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+                  assetUser: [""]
+                })
+                quantityBasedAssetArray.insert(arraylen, newUsergroup);
+              });
+            }
+
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+        }
+      });
+    }
+  }
+
+  quantityBasedAddMultipleAssetList(value: number) {
     if (value != null && value > 1) {
-      this.quantityBasedMutipleAssetFlag=true;
+      this.quantityBasedMutipleAssetFlag = true;
       let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
       quantityBasedAssetArray.clear();
-      for(var i = 0; i<value; i++){
+      for (var i = 0; i < value; i++) {
         let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
         let arraylen = quantityBasedAssetArray.length;
         let newUsergroup: FormGroup = this.fb.group({
-          itemId: [this.docForm.value.itemId],
-          assetName: [this.docForm.value.assetName],
-          assetCode: [this.docForm.value.assetCode],
-          location: [this.docForm.value.location],
-          category: [this.docForm.value.category],
-          status: [this.docForm.value.status],
-          putUseDate: [this.docForm.value.putUseDate],
-          putUseDateObj: [this.docForm.value.putUseDateObj],
-          assetUser: [this.docForm.value.assetUser]
+          itemId: ["", [Validators.required]],
+          assetName: ["", [Validators.required]],
+          assetCode: [""],
+          location: ["", [Validators.required]],
+          category: ["", [Validators.required]],
+          status: ["", [Validators.required]],
+          putUseDate: [moment().format('DD/MM/YYYY')],
+          putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+          assetUser: [""]
         })
         quantityBasedAssetArray.insert(arraylen, newUsergroup);
       }
-    }else{
-      this.quantityBasedMutipleAssetFlag=false;
+    } else {
+      this.quantityBasedMutipleAssetFlag = false;
       this.docForm.patchValue({
         quantity: '1'
       })
-      
     }
   }
 
   saveQtyBasedMutipleAsset() {
     if (this.docForm.valid) {
+      if (this.isOwned) {
+        this.docForm.patchValue({
+          'thirdPartyUptoDate': "",
+          'thirdPartyUptoDateObj': "",
+          'rentedUptoDate': "",
+          'rentedUptoDateObj': "",
+        })
+      }
+      if (this.isRented) {
+        this.docForm.patchValue({
+          'thirdPartyUptoDate': "",
+          'thirdPartyUptoDateObj': "",
+        })
+      }
+      if (this.isThirdParty) {
+        this.docForm.patchValue({
+          'rentedUptoDate': "",
+          'rentedUptoDateObj': "",
+        })
+      }
+
       this.assetMaster = this.docForm.value;
       this.spinner.show();
       this.assetService.addQuantityBasedMutipleAsset(this.assetMaster).subscribe({
@@ -1733,6 +1420,5 @@ export class AddAssetMasterComponent
       );
     }
   }
-
 
 }
