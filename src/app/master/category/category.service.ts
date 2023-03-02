@@ -69,7 +69,7 @@ get data(): Assetcategory[] {
     this.dialogData = assetcategory;  
     this.httpService.post<any>(this.savecategory, assetcategory).subscribe(data => {
     console.log(data);
-      if(data.success){
+      if(data.success=true){
         notificationService.showNotification(
           "snackbar-success",
           "Record Added successfully...!!!",
@@ -80,7 +80,7 @@ get data(): Assetcategory[] {
       }else {
         notificationService.showNotification(
           "snackbar-danger",
-          "Not Updated, "+data.message,
+          "Not ADDED, "+data.message,
           "bottom",
           "center"
         );
@@ -94,7 +94,7 @@ get data(): Assetcategory[] {
     this.dialogData = assetcategory;
     this.httpService.post<any>(this.updatecategory, assetcategory).subscribe(data => {
       console.log(data);
-      if(data.success){
+      if(data.success=true){
         notificationService.showNotification(
           "snackbar-success",
           "Record Updated Successfully...!!!",
