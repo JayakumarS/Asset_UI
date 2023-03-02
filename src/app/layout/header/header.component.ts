@@ -173,7 +173,10 @@ export class HeaderComponent
     } else if (this.roleId === "4") {
       window.sessionStorage.setItem("makerLogin","true");
       this.homePage = "asset/assetMaster/listAssetMaster";
-    } else {
+    } else if (this.roleId === "6") {
+      window.sessionStorage.setItem("makerLogin","true");
+      this.homePage = "/authentication/signin";
+    }else {
       this.homePage = "admin/dashboard/main";
     }
 

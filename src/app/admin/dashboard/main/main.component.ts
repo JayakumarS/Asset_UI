@@ -171,6 +171,7 @@ configUserLog: {
 
   companyLastAuditDate: any;
   companyLastAuditDoneBy: any;
+  compltedProfile: any;
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
@@ -349,6 +350,8 @@ configUserLog: {
   companyBasedCount(companyAuditorCount,roleId:any){
     this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + companyAuditorCount +"&roleId="+roleId).subscribe((doughnutChartData: any) => {
       console.log(this.companyAuditorCount);
+      this.compltedProfile=doughnutChartData.completedProfile;
+
       this.companyPurchaseAssetsCount = doughnutChartData.companyPurchaseAssetsCount;
       this.companyUsersAssetsCount = doughnutChartData.companyUsersAssetsCount;
       //Amount
