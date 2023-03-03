@@ -1006,6 +1006,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   onSelectImage(event,index,type) {
     var imgfile = event.target.files[0];
     if (!this.acceptImageTypes.includes(imgfile.type)) {
+      this.docForm.get('uploadImg').setValue("");
       this.showNotification(
         "snackbar-danger",
         "Invalid Image type",
@@ -1015,6 +1016,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       return;
     }
     if (imgfile.size > 2000000) {
+      this.docForm.get('uploadImg').setValue("");
       this.showNotification(
         "snackbar-danger",
         "Please upload valid image with less than 2mb",
@@ -1072,15 +1074,17 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   onSelectFile(event) {
     var docfile = event.target.files[0];
     if (!this.acceptFileTypes.includes(docfile.type)) {
+      this.docForm.get('uploadFiles').setValue("");
       this.showNotification(
         "snackbar-danger",
-        "Invalid Image type",
+        ".pdf, .jpg, .png only allowed",
         "top",
         "right"
       );
       return;
     }
     if (docfile.size > 5242880) {
+      this.docForm.get('uploadFiles').setValue("");
       this.showNotification(
         "snackbar-danger",
         "Please upload valid image with less than 5mb",

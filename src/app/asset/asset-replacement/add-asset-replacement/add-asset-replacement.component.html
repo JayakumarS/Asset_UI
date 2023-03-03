@@ -199,10 +199,10 @@
                         </form>
                     <div class="row"align="center">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
-                            <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()" style="background-color: green;" mat-raised-button color="primary">Replace</button>
-                            <button *ngIf="!edit && grnFlag" class="btn-space" (click)="saveGRNBasedMutipleAsset()" style="background-color: green;" mat-raised-button color="primary">Submit</button>
-                            <button *ngIf="edit" mat-raised-button color="primary" style="background-color: green;" (click)="update()">Update</button>&nbsp;
-                            <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                            <button *ngIf="!edit && !grnFlag" class="btn-space" (click)="onSubmit()" style="background-color: #34d034;" mat-raised-button color="primary">Replace</button>
+                            <button *ngIf="!edit && grnFlag" class="btn-space" (click)="saveGRNBasedMutipleAsset()" style="background-color: #34d034;" mat-raised-button color="primary">Submit</button>
+                            <button *ngIf="edit" mat-raised-button color="primary" style="background-color: #34d034;" (click)="update()">Update</button>&nbsp;
+                            <button color="warn" style= "background-color:#f44336;" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
                             <button *ngIf="edit"color="primary" style="margin-left: 1%" type="button" class="btn-space" (click)="fetchDetails(requestId)"  mat-raised-button>Reset</button> &nbsp;
                             <button *ngIf="!edit" color="primary" type="button" class="btn-space" (click)="resetSelf()"  mat-raised-button>Reset</button>
                         </div>
