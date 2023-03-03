@@ -72,6 +72,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   grnNumberList = [];
   purchaseOrderNumber = [];
   itemCodeNameList = [];
+  lineMasterList = [];
   isLineIn: boolean = false;
   assetnamelist: any;
   assetDetailsList: any;
@@ -336,6 +337,16 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       }
     });
 
+      //Line Master Dropdown List
+      this.httpService.get<any>(this.commonService.getLineMasterDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
+        next: (data) => {
+          this.lineMasterList = data;
+        },
+        error: (error) => {
+  
+        }
+      }
+      );
 
     //purchaseOrderNumber Dropdown List
     const obj = {
