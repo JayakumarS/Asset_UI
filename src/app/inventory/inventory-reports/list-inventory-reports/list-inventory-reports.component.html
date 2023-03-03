@@ -14,7 +14,9 @@
         <div class="card">
           <div class="body">
             <div class="table-responsive">
+           
               <form class="m-4" [formGroup]="docForm">
+
                 <div class="row" style="display:flex; align-items: center; justify-content:center;"> 
                   <div class=" col-md-1" style="margin-top: -20px;">
                     <label>ITEM NAME</label>
@@ -66,10 +68,7 @@
                     <button color="warn"  type="button"  (click)="reset()" 
                         mat-raised-button color="primary" style="background-color: rgb(14, 42, 126);">Reset</button>
                 
-                        <!-- <span class="export-button m-l-10"  matTooltip="XLSX"> 
-                          <img src="assets/images/icons/xlsx.png" alt=""
-                            (click)="exporter.exportTable('xlsx', {fileName:'asset-type-list', sheet: 'sheet1'})" />
-                        </span> -->
+                        
                 </div>
             </div>
           </form>
