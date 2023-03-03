@@ -272,4 +272,15 @@ export class AddCategoryComponent implements OnInit {
     let dtlArray = this.docForm.controls.specificationList as FormArray;
     dtlArray.removeAt(index);
   }
+
+  validateCategoryName(event){
+    let companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl+ "?tableName=" +"assetcategory"+"&columnName="+"category_name"+"&columnValue="+event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['categoryName'].setErrors({ currency: true });
+      }else{
+        this.docForm.controls['categoryName'].setErrors(null);
+      }
+    });
+  }
 }

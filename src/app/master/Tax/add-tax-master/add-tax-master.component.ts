@@ -233,9 +233,9 @@ export class AddTaxMasterComponent implements OnInit {
     if (event != undefined && event != null && event != "") {
       this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl + "?tableName=" + "tax" + "&columnName=" + "tax_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
         if (res) {
-          this.docForm.controls['countryCode'].setErrors({ country: true });
+          this.docForm.controls['taxname'].setErrors({ country: true });
         } else {
-          this.docForm.controls['countryCode'].setErrors(null);
+          this.docForm.controls['taxname'].setErrors(null);
         }
       });
     }
