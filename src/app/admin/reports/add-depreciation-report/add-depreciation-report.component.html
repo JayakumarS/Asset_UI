@@ -84,12 +84,10 @@
                       <div class="row" style="text-align: center;     margin-left: -10%;">
                       <div class="col-xl-12 example-full-width  form-control-sm">
                         <button (click) = "searchData()" class="btn-space" mat-raised-button
-                        color="accent" style="background-color: #307530;">Search</button>
+                        color="accent" style="background-color: #34d034;">Search</button>
                         &nbsp;
                         <button (click) = "reset()"  class="btn-space" mat-raised-button
-                        color="accent" style="background-color: #eb0202;">Reset</button>
-
-                     
+                        color="accent" style="background-color: #f44336;">Reset</button>
                     </div>
                     
                     </div>
@@ -132,7 +130,7 @@
       {{row.invoiceDate}}</mat-cell>
 </ng-container>
 <ng-container matColumnDef="name">
-  <mat-header-cell *matHeaderCellDef mat-sort-header>Vender Name </mat-header-cell>
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor Name </mat-header-cell>
   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
       {{row.name}}</mat-cell>
 </ng-container>
