@@ -101,6 +101,7 @@
                             {{title.text}}
                           </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="docForm.get('currency').hasError('required')"> Currency is required </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-2" style="min-width: fit-content;">

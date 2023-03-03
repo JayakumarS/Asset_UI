@@ -164,7 +164,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       invoiceDate: [""],
       invoiceNo: [""],
       purchasePrice: [""],
-      currency: [""],
+      currency: ["", [Validators.required]],
       quantity: ["1", [Validators.required]],
       //tab3
       captitalizationPrice: [""],
