@@ -27,12 +27,16 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { DeleteLocationComponent } from './list-location/delete-location/delete-location.component';
+import { AddLocationMultipleUploadComponent } from './add-location-multiple-upload/add-location-multiple-upload.component';
+import { AddLocationErrorComponent } from './add-location-error/add-location-error.component';
 
 @NgModule({
   declarations: [
     AddLocationComponent,
     ListLocationComponent,
-    DeleteLocationComponent
+    DeleteLocationComponent,
+    AddLocationMultipleUploadComponent,
+    AddLocationErrorComponent
   ],
   imports: [
     CommonModule,
