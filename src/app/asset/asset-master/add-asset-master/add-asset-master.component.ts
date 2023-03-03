@@ -238,7 +238,8 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           allottedUptoobj: [""],
           transferredTo: [""],
           assetUser: ["", [Validators.required]],
-          lineName: [""],
+          individualPurchasePrice: ["", [Validators.required]],
+          lineId: [""],
           endLife: [""],
           scrapValue: [""],
           uploadImg: ["", [Validators.required]],
@@ -594,40 +595,8 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     const obj = {
       editId: id
     }
-
-    this.httpService.get<any>(this.commonService.getMoveToDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
-      next: (data) => {
-        this.locationDdList = data;
-      },
-      error: (error) => {
-
-      }
-    }
-    );
-
-    this.httpService.get<any>(this.commonService.getBrandDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
-      next: (data) => {
-        this.brandDdList = data;
-      },
-      error: (error) => {
-
-      }
-    }
-    );
-
-    this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
-      next: (data) => {
-        this.statusDdList = data;
-      },
-      error: (error) => {
-
-      }
-    }
-    );
-
     this.assetService.editAsset(obj).subscribe({
       next: (res: any) => {
-
         this.httpService.get<any>(this.userMasterService.departmentListUrl + "?company=" + this.tokenStorage.getCompanyId() + "").subscribe(
           (data) => {
             this.departmentDdList = data.departmentList;
@@ -766,23 +735,32 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           this.filePathUrl = res.addAssetBean.uploadFiles;
         }
 
-
-        if (res.detailList != null && res.detailList.length >= 1) {
-          let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
-          detailListArray.clear();
-          res.detailList.forEach(element => {
-            let detailListArray = this.docForm.controls.assetMasterBean as FormArray;
-            let arraylen = detailListArray.length;
-            let newUsergroup: FormGroup = this.fb.group({
-              assName: [element.assName],
-              assCode: [element.assCode],
-              assLocation: [element.assLocation],
-              assCategory: [element.assCategory],
-              assStatus: [element.assStatus],
-            })
-            detailListArray.insert(arraylen, newUsergroup);
-          });
+        let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+        quantityBasedAssetArray.clear();
+        for (var i = 0; i < 1; i++) {
+          let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+          let arraylen = quantityBasedAssetArray.length;
+          let newUsergroup: FormGroup = this.fb.group({
+            'itemId': res.addAssetBean.itemId,
+            'assetName': res.addAssetBean.assetName,
+            'location': res.addAssetBean.location,
+            'status': res.addAssetBean.status,
+            'putUseDate': res.addAssetBean.putUseDate,
+            'putUseDateObj': res.addAssetBean.putUseDate != null ? this.commonService.getDateObj(res.addAssetBean.putUseDate) : "",
+            'department': res.addAssetBean.department != null ? res.addAssetBean.department.toString() : "",
+            'allottedUptoobj': res.addAssetBean.allottedUpto != null ? this.commonService.getDateObj(res.addAssetBean.allottedUpto) : "",
+            'allottedUpto': res.addAssetBean.allottedUpto,
+            'transferredTo': parseInt(res.addAssetBean.transferredTo),
+            'assetUser': res.addAssetBean.assetUser,
+            'individualPurchasePrice': res.addAssetBean.individualPurchasePrice,
+            'lineId': res.addAssetBean.lineId,
+            'endLife': res.addAssetBean.endLife,
+            'scrapValue': res.addAssetBean.scrapValue,
+            'uploadImg': res.addAssetBean.uploadImg,
+          })
+          quantityBasedAssetArray.insert(arraylen, newUsergroup);
         }
+    
       },
       error: (error) => {
 
@@ -1306,7 +1284,8 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           allottedUptoobj: [""],
           transferredTo: [""],
           assetUser: [""],
-          lineName: [""],
+          individualPurchasePrice: [""],
+          lineId: [""],
           endLife: [""],
           scrapValue: [""],
           uploadImg: [""],
@@ -1393,7 +1372,8 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
                   allottedUptoobj: [""],
                   transferredTo: [""],
                   assetUser: ["", [Validators.required]],
-                  lineName: [""],
+                  individualPurchasePrice: ["", [Validators.required]],
+                  lineId: [""],
                   endLife: [""],
                   scrapValue: [""],
                   uploadImg: ["", [Validators.required]],
@@ -1432,7 +1412,8 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           allottedUptoobj: [""],
           transferredTo: [""],
           assetUser: ["", [Validators.required]],
-          lineName: [""],
+          individualPurchasePrice: ["", [Validators.required]],
+          lineId: [""],
           endLife: [""],
           scrapValue: [""],
           uploadImg: ["", [Validators.required]],
@@ -1456,7 +1437,8 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
         allottedUptoobj: [""],
         transferredTo: [""],
         assetUser: ["", [Validators.required]],
-        lineName: [""],
+        individualPurchasePrice: ["", [Validators.required]],
+        lineId: [""],
         endLife: [""],
         scrapValue: [""],
         uploadImg: ["", [Validators.required]],
