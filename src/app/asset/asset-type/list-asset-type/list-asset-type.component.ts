@@ -19,11 +19,23 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @Component({
   selector: 'app-list-asset-type',
   templateUrl: './list-asset-type.component.html',
-  styleUrls: ['./list-asset-type.component.sass']
+  styleUrls: ['./list-asset-type.component.sass'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: {
+      display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY',
+          
+      },
+  } },CommonService
+  ]
 })
 export class ListAssetTypeComponent  extends UnsubscribeOnDestroyAdapter implements OnInit {
   [x: string]: any;

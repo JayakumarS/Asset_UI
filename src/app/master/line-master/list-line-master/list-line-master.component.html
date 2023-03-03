@@ -32,16 +32,16 @@
                         </li>
                       </ul>
                     </div>
-                    <!-- <div class="col-4">
+                    <div class="col-4">
                       <ul class="header-buttons">
                         <li>
                           <div class="export-button m-l-10" matTooltip="XLSX">
                             <img src="assets/images/icons/xlsx.png" alt=""
-                              (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                              (click)="exporter.exportTable('xlsx', {fileName:'line-list', sheet: 'sheet1'})" />
                           </div>
                         </li>
                       </ul>
-                    </div> -->
+                    </div>
                   </div>
                     </div>
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
