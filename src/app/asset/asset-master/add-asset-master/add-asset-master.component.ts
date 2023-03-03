@@ -194,7 +194,6 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           assCategory: [""],
           assStatus: [""],
           assetId: [""]
-
         })
       ]),
 
@@ -228,15 +227,21 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
-          itemId: [""],
-          assetName: [""],
-          assetCode: [""],
-          location: [""],
-          category: [""],
-          status: [""],
+          itemId: ["", [Validators.required]],
+          assetName: ["", [Validators.required]],
+          location: ["", [Validators.required]],
+          status: ["", [Validators.required]],
           putUseDate: [moment().format('DD/MM/YYYY')],
           putUseDateObj: [moment().format('YYYY-MM-DD')],
-          assetUser: [""],
+          department: [""],
+          allottedUpto: [""],
+          allottedUptoobj: [""],
+          transferredTo: [""],
+          assetUser: ["", [Validators.required]],
+          lineName: [""],
+          endLife: [""],
+          scrapValue: [""],
+          uploadImg: ["", [Validators.required]],
         })
       ]),
       ownedShip: ["owned"]
@@ -817,7 +822,12 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       quantityBasedAssetArray.at(index).patchValue({
         putUseDate: cdate
       });
-    } else if (inputFlag == 'insuranceDate') {
+    } else if (inputFlag == 'allottedUptoArray') {
+      let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+      quantityBasedAssetArray.at(index).patchValue({
+        allottedUpto: cdate
+      });
+    }else if (inputFlag == 'insuranceDate') {
       this.docForm.patchValue({ insuranceDate: cdate });
     }
     else if (inputFlag == 'rentedUptoDate') {
@@ -955,7 +965,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   //FOR IMAGE UPLOAD ADDED BY Gokul 
-  onSelectImage(event) {
+  onSelectImage(event,index,type) {
     var imgfile = event.target.files[0];
     if (!this.acceptImageTypes.includes(imgfile.type)) {
       this.showNotification(
@@ -986,12 +996,18 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       next: (data) => {
         if (data.success) {
           if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
-            this.docForm.patchValue({
-              'uploadImg': data.filePath
-            })
-            this.imgPathUrl = data.filePath;
-            this.uploadImage = true;
-
+            if(type=='ArrayAssetImg'){
+              let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+              quantityBasedAssetArray.at(index).patchValue({
+                uploadImg: data.filePath
+              });
+            }else{
+              this.docForm.patchValue({
+                'uploadImg': data.filePath
+              })
+              this.imgPathUrl = data.filePath;
+              this.uploadImage = true;
+            }
           }
         } else {
           this.showNotification(
@@ -1232,12 +1248,19 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
         this.fb.group({
           itemId: [""],
           assetName: [""],
-          assetCode: [""],
           location: [""],
-          category: [""],
           status: [""],
           putUseDate: [moment().format('DD/MM/YYYY')],
           putUseDateObj: [moment().format('YYYY-MM-DD')],
+          department: [""],
+          allottedUpto: [""],
+          allottedUptoobj: [""],
+          transferredTo: [""],
+          assetUser: [""],
+          lineName: [""],
+          endLife: [""],
+          scrapValue: [""],
+          uploadImg: [""],
         })
       ]),
 
@@ -1304,15 +1327,21 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
                 let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
                 let arraylen = quantityBasedAssetArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
-                  itemId: [element.itemId],
+                  itemId: [element.itemId, [Validators.required]],
                   assetName: ["", [Validators.required]],
-                  assetCode: [""],
                   location: ["", [Validators.required]],
-                  category: ["", [Validators.required]],
                   status: ["", [Validators.required]],
                   putUseDate: [moment().format('DD/MM/YYYY')],
-                  putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
-                  assetUser: [""]
+                  putUseDateObj: [moment().format('YYYY-MM-DD')],
+                  department: [""],
+                  allottedUpto: [""],
+                  allottedUptoobj: [""],
+                  transferredTo: [""],
+                  assetUser: ["", [Validators.required]],
+                  lineName: [""],
+                  endLife: [""],
+                  scrapValue: [""],
+                  uploadImg: ["", [Validators.required]],
                 })
                 quantityBasedAssetArray.insert(arraylen, newUsergroup);
               });
@@ -1328,7 +1357,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   quantityBasedAddMultipleAssetList(value: number) {
-    if (value != null && value > 1) {
+    if (value != null && value > 0) {
       this.quantityBasedMutipleAssetFlag = true;
       let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
       quantityBasedAssetArray.clear();
@@ -1338,21 +1367,29 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
         let newUsergroup: FormGroup = this.fb.group({
           itemId: ["", [Validators.required]],
           assetName: ["", [Validators.required]],
-          assetCode: [""],
           location: ["", [Validators.required]],
-          category: ["", [Validators.required]],
           status: ["", [Validators.required]],
           putUseDate: [moment().format('DD/MM/YYYY')],
-          putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
-          assetUser: [""]
+          putUseDateObj: [moment().format('YYYY-MM-DD')],
+          department: [""],
+          allottedUpto: [""],
+          allottedUptoobj: [""],
+          transferredTo: [""],
+          assetUser: ["", [Validators.required]],
+          lineName: [""],
+          endLife: [""],
+          scrapValue: [""],
+          uploadImg: ["", [Validators.required]],
         })
         quantityBasedAssetArray.insert(arraylen, newUsergroup);
       }
     } else {
       this.quantityBasedMutipleAssetFlag = false;
-      this.docForm.patchValue({
-        quantity: '1'
-      })
+      let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+      quantityBasedAssetArray.clear();
+      // this.docForm.patchValue({
+      //   quantity: '1'
+      // })
     }
   }
 
