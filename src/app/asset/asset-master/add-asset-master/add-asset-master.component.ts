@@ -244,6 +244,13 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           uploadImg: ["", [Validators.required]],
         })
       ]),
+      assetSpecList: this.fb.array([
+        this.fb.group({
+          name: [""],
+          value: [""],
+          type: [""]
+        })
+      ]),
       ownedShip: ["owned"]
     });
   }
@@ -435,7 +442,35 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
 
   categoryAttributes(category: any) {
-    this.isCategory = true;
+    
+    this.httpService.get<any>(this.assetService.getCategorySpecificationDtlsUrl + "?category=" + category).subscribe({
+      next: (res: any) => {
+        if (res.success) {
+          if (res.assetSpecificationDtl != null && res.assetSpecificationDtl.length > 0) {
+            this.isCategory = true;
+            let detailListArray = this.docForm.controls.assetSpecList as FormArray;
+            detailListArray.clear();
+            res.assetSpecificationDtl.forEach(element => {
+              let detailListArray = this.docForm.controls.assetSpecList as FormArray;
+              let arraylen = detailListArray.length;
+              let newUsergroup: FormGroup = this.fb.group({
+                name: [element.fieldName],
+                type: [element.fieldType],
+                value: [""]
+                
+              })
+              detailListArray.insert(arraylen, newUsergroup);
+            });
+          }
+        }else{
+          this.isCategory = false;
+        }
+      },
+      error: (error) => {
+
+      }
+    });
+
     if (category == 43 || category == '43') {
       this.computerFlag = true;
     } else {
@@ -863,7 +898,10 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           "top",
           "right"
         );
-      }
+      }else if (inputFlag == 'specDateArray') {
+        let specDtlArray = this.docForm.controls.assetSpecList as FormArray;
+        specDtlArray.at(index).patchValue({value: cdate });
+      } 
       else {
         this.docForm.patchValue({ thirdPartyUptoDate: cdate });
       }
@@ -1274,7 +1312,13 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           uploadImg: [""],
         })
       ]),
-
+      assetSpecList: this.fb.array([
+        this.fb.group({
+          fieldName: [""],
+          fieldValue: [""],
+          fieldType: [""]
+        })
+      ]),
       ownedShip: ["owned"],
 
     });

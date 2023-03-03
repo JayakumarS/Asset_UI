@@ -62,6 +62,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
 
   private getAllAssetsReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/getAssetReplacementList`;
+  public getCategorySpecificationDtlsUrl = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetSpecificationDetails`;
 
   get data(): AssetMaster[] {
     return this.dataChange.value;
@@ -126,8 +127,8 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<AssetMaster>(this.updateAsset, assetMaster);
   }
 
-  addQuantityBasedMutipleAsset(assetMaster: AssetMaster): Observable<any> {
-    return this.httpClient.post<AssetMaster>(this.saveQuantityBasedMutipleAsset, assetMaster);
+  addQuantityBasedMutipleAsset(assetMaster): Observable<any> {
+    return this.httpClient.post<any>(this.saveQuantityBasedMutipleAsset, assetMaster);
   }
 
   //FOR QR CODE PDF ADDED BY Gokul

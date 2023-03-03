@@ -455,6 +455,50 @@
                   </div>
                   <!-- Quantity Based Save Mutiple Asset End-->
                 
+                  <!-- Asset Specification Details Start-->
+                  <br>
+                  <div style="zoom: 95%;" *ngIf="isCategory">
+                    <h6 class="headingValue"> Specification Details </h6>
+                    <div style="overflow-x: auto;width: 100%;">
+                                          
+                        <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                           <tbody >
+                              <tr>
+                            <ng-container *ngFor="let assetSpecList of docForm.get('assetSpecList')['controls']; let i = index">
+                           
+                                <td class="padding-both-side-2" [formGroup]="assetSpecList">
+                                  <div *ngIf="assetSpecList.get('type').value=='Text'">
+                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                          <mat-label>{{assetSpecList.get('name').value}}</mat-label>
+                                          <input matInput formControlName="value" >
+                                       </mat-form-field>
+                                  </div>
+                                  <div *ngIf="assetSpecList.get('type').value=='Number'">
+                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                          <mat-label>{{assetSpecList.get('name').value}}</mat-label>
+                                          <input matInput formControlName="value" (keypress)="keyPressNumberInt($event)">
+                                       </mat-form-field>
+                                  </div>
+                                  <div *ngIf="assetSpecList.get('type').value=='Date'">
+                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                          <mat-label>{{assetSpecList.get('name').value}}</mat-label>
+                                          <input matInput [matDatepicker]="picker7"
+                                              formControlName="value" name="value{{i}}"
+                                              (dateChange)="getDateString($event,'specDateArray',i)">
+                                               <mat-datepicker-toggle matSuffix
+                                                     [for]="picker7"></mat-datepicker-toggle>
+                                               <mat-datepicker #picker7></mat-datepicker>
+                                       </mat-form-field>
+                                  </div>
+                                  
+                                </td>
+                          </ng-container>
+                              </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  <!-- Asset Specification Details End -->
                   <div class="row" style="padding-bottom:50px;padding-top:25px;padding-left: 50px;">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
                       <button *ngIf="!edit" class="btn-space" (click)="saveQtyBasedMutipleAsset()" style="margin-left: 38%;background-color: green;" mat-raised-button color="primary">Submit</button>
