@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuditableAssetResultBean } from 'src/app/audit/auditable-asset/auditable-asset-result-bean';
 import { AuditableAssetService } from 'src/app/audit/auditable-asset/auditable-asset.service';
@@ -9,14 +8,10 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
-import { CategoryResultBean } from 'src/app/inventory/u-category/uom-resultbean';
-import { Assetcategory } from 'src/app/master/category/category.model'; 
-import { CategoryMasterService } from 'src/app/master/category/category.service'; 
 import { UserMasterService } from 'src/app/master/user-master/user-master.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AssetHistoryReport } from '../list-asset-history-report-model';
-import { reportsresultbean } from '../reports-result-bean';
 import { ReportsService } from '../reports.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 
@@ -42,7 +37,6 @@ export class ListAssetHistoryReportComponent implements OnInit {
   requestId: any;
   edit: boolean = false;
   assetHistoryReport: AssetHistoryReport;
-  categoryDdList=[];
 
   cmpId: string;
   branchList = [];
@@ -53,6 +47,11 @@ export class ListAssetHistoryReportComponent implements OnInit {
   assetListDashboard = [];
   assetUserList = [];
   assetHistoryList = [];
+  brandDdList = [];
+  itemCodeNameList = [];
+  statusDdList = [];
+  // Array for Excel Header
+  assetHistoryHeader = [];
   // Pagination
   config: {
     id : string,
@@ -63,9 +62,7 @@ export class ListAssetHistoryReportComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
-    private categoryMasterService: CategoryMasterService,
     private commonService: CommonService,
-    private snackBar:MatSnackBar,
     private router:Router,private notificationservice:NotificationService,
     public route: ActivatedRoute,
     private tokenStorage: TokenStorageService,
@@ -85,20 +82,25 @@ export class ListAssetHistoryReportComponent implements OnInit {
         putInUse:[""],
         putInUseobj:[""],
         assetOwner:[""],
+        brandId:[""],
+        item:[""],
+        statusId:[""],
+        isAuditable:[""],
         companyId:this.tokenStorage.getCompanyId(),
         // Checkboxes Beans
         assetNameCheckBox:[false],
         assetCodeCheckBox:[false],
         assetCategoryCheckBox:[false],
         assetLocationCheckBox:[false],
-        lifeCheckBox:[false],
-        bookValueCheckBox:[false],
-        aquisitionValueCheckBox:[false],
+        assetUserCheckBox:[false],
+        captitalizationPriceCheckBox:[false],
+        modelCheckBox:[false],
         putInUseDateCheckBox:[false],
         brandCheckBox:[false],
         statusCheckBox:[false],
         endLifeCheckBox:[false],
-        purchasePriceCheckBox:[false]
+        purchasePriceCheckBox:[false],
+        totalHoursUsageCheckBox:[false]
       }); 
   }
 
@@ -184,6 +186,37 @@ export class ListAssetHistoryReportComponent implements OnInit {
     }
   );
 
+  // Brand dropdown
+  this.httpService.get<any>(this.commonService.getBrandDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    next: (data) => {
+      this.brandDdList = data;
+    },
+    error: (error) => {
+
+    }
+  }
+  );
+
+  //Item Dropdown List
+  this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
+    next: (data) => {
+      this.itemCodeNameList = data;
+    },
+    error: (error) => {
+    }
+  });
+
+  // Status Dropdown list
+  this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    next: (data) => {
+      this.statusDdList = data;
+    },
+    error: (error) => {
+
+    }
+  }
+  );
+
   }
 
   onSubmit(){
@@ -192,7 +225,27 @@ export class ListAssetHistoryReportComponent implements OnInit {
 
     this.httpService.post<any>(this.reportsService.assetHistoryListUrl,this.assetHistoryReport).subscribe(
       (data) => {
-        this.assetHistoryList = data.getAssetHistoryList;
+        if(data.getAssetHistoryList!=null){
+          if(data.getAssetHistoryList.length!=0){
+            this.assetHistoryList = data.getAssetHistoryList;
+          }else{
+            this.assetHistoryList = data.getAssetHistoryList;
+            this.notificationservice.showNotification(
+              "snackbar-danger",
+              "No Records Found",
+              "bottom",
+              "center"
+            );
+          }
+        }else{
+          this.assetHistoryList=[];
+          this.notificationservice.showNotification(
+            "snackbar-danger",
+            "No Records Found",
+            "bottom",
+            "center"
+          );
+        }
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -202,14 +255,60 @@ export class ListAssetHistoryReportComponent implements OnInit {
    }
 
    exportExcel(){
+      
     this.assetHistoryReport = this.docForm.value;
     console.log(this.assetHistoryReport);
 
+    //For Excel Header Pushing in Array
+    if(this.assetHistoryReport.assetNameCheckBox ==true){
+      this.assetHistoryHeader.push("Asset Name");
+    }
+    if(this.assetHistoryReport.assetCodeCheckBox == true){
+      this.assetHistoryHeader.push("Asset Code");
+    }
+    if(this.assetHistoryReport.assetLocationCheckBox == true){
+      this.assetHistoryHeader.push("Asset Location");
+    }
+    if(this.assetHistoryReport.assetCategoryCheckBox == true){
+      this.assetHistoryHeader.push("Asset Category");
+    }
+    if(this.assetHistoryReport.statusCheckBox == true){
+      this.assetHistoryHeader.push("Status");
+    }
+    if(this.assetHistoryReport.brandCheckBox == true){
+      this.assetHistoryHeader.push("Brand");
+    }
+    if(this.assetHistoryReport.modelCheckBox == true){
+      this.assetHistoryHeader.push("Model");
+    }
+    if(this.assetHistoryReport.purchasePriceCheckBox == true){
+      this.assetHistoryHeader.push("Purchase Price");
+    }
+    if(this.assetHistoryReport.captitalizationPriceCheckBox == true){
+      this.assetHistoryHeader.push("Captitalization Price");
+    }
+    if(this.assetHistoryReport.endLifeCheckBox == true){
+      this.assetHistoryHeader.push("End Life");
+    }
+    if(this.assetHistoryReport.putInUseDateCheckBox == true){
+      this.assetHistoryHeader.push("Put In Use Date");
+    }
+    if(this.assetHistoryReport.assetUserCheckBox == true){
+      this.assetHistoryHeader.push("Asset User");
+    }
+    if(this.assetHistoryReport.totalHoursUsageCheckBox == true){
+      this.assetHistoryHeader.push("Total Hours Usage");
+    }
+
+    console.log(this.assetHistoryHeader);
+
+    this.assetHistoryReport.assetExcelHistoryHeader = this.assetHistoryHeader;
+
     this.httpService.post<any>(this.reportsService.assetHistoryListExcelUrl,this.assetHistoryReport).subscribe(
       (data) => {
-        // this.assetHistoryList = data.getAssetHistoryList;
         if(data.success){
           window.open(this.serverUrl.apiServerAddress+"asset_upload/"+data.filePath, '_blank');
+          this.assetHistoryHeader = [];
           }
           else{
             this.notificationservice.showNotification(
@@ -225,35 +324,41 @@ export class ListAssetHistoryReportComponent implements OnInit {
         console.log(error.name + " " + error.message);
       }
     );
-   }
+  }
 
   reset() {
     this.docForm = this.fb.group({
-        branch:[""],
-        category:[""],
-        location:[""],
-        department:[""],
-        vendor:[""],
-        assetName:[""],
-        financialYear:[""],
-        putInUse:[""],
-        putInUseobj:[""],
-        assetOwner:[""],
-        // Checkboxes Beans
-        assetNameCheckBox:[false],
-        assetCodeCheckBox:[false],
-        assetCategoryCheckBox:[false],
-        assetLocationCheckBox:[false],
-        lifeCheckBox:[false],
-        bookValueCheckBox:[false],
-        aquisitionValueCheckBox:[false],
-        putInUseDateCheckBox:[false],
-        brandCheckBox:[false],
-        statusCheckBox:[false],
-        endLifeCheckBox:[false],
-        purchasePriceCheckBox:[false]
-  });
-}
+      branch:[""],
+      category:[""],
+      location:[""],
+      department:[""],
+      vendor:[""],
+      assetName:[""],
+      financialYear:[""],
+      putInUse:[""],
+      putInUseobj:[""],
+      assetOwner:[""],
+      brandId:[""],
+      item:[""],
+      statusId:[""],
+      isAuditable:[""],
+      companyId:this.tokenStorage.getCompanyId(),
+      // Checkboxes Beans
+      assetNameCheckBox:[false],
+      assetCodeCheckBox:[false],
+      assetCategoryCheckBox:[false],
+      assetLocationCheckBox:[false],
+      assetUserCheckBox:[false],
+      captitalizationPriceCheckBox:[false],
+      modelCheckBox:[false],
+      putInUseDateCheckBox:[false],
+      brandCheckBox:[false],
+      statusCheckBox:[false],
+      endLifeCheckBox:[false],
+      purchasePriceCheckBox:[false],
+      totalHoursUsageCheckBox:[false]
+    });
+  }
 
   pageChanged(event){
     this.config.currentPage = event;
@@ -262,6 +367,7 @@ export class ListAssetHistoryReportComponent implements OnInit {
   onCancel(){
     this.router.navigate(['/master/category/list-category']);
   }
+
   keyPressName(event: any) {
     const pattern = /[A-Z,a-z 0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
@@ -270,31 +376,11 @@ export class ListAssetHistoryReportComponent implements OnInit {
     }
   }
 
-
-  showNotification(colorName, text, placementFrom, placementAlign) {
-    this.snackBar.open(text, "", {
-      duration: 2000,
-      verticalPosition: placementFrom,
-      horizontalPosition: placementAlign,
-      panelClass: colorName,
-    });
-  }
-
   getDateString(event, inputFlag, index) {
-    let cdate = this.commonService.getDate(event.target.value);
+    let cdate = this.commonService.getDateYYMMDDFormat(event.target.value);
     if (inputFlag == 'putInUse') {
       this.docForm.patchValue({ putInUse: cdate });
     }
   }
-
-  // validateCatergory(event){
-  //   this.httpService.get<any>(this.categoryMasterService.uniqueValidateUrl+ "?tableName=" +"assetcategory"+"&columnName="+"category_name"+"&columnValue="+event).subscribe((res: any) => {
-  //     if(res){
-  //       this.docForm.controls['categoryName'].setErrors({ assetcategory: true });
-  //     }else{
-  //       this.docForm.controls['categoryName'].setErrors(null);
-  //     }
-  //   });
-  // }
 
 }

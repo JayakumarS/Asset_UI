@@ -135,10 +135,10 @@ export class MainComponent implements OnInit {
   companyAuditorsAssetsCount: any;
   companyAssetsCount: any;
   pwdStatus: any;
-  flowChartFlag:boolean=false;
-  assetsFlagForDashboard:boolean=false;
-  pieChartFlag:boolean=false;
-  ticketFlag:boolean=false;
+  flowChartFlag:boolean;
+  assetsFlagForDashboard:boolean;
+  pieChartFlag:boolean;
+  ticketFlag:boolean;
 // For HighChart
 
 Highcharts: typeof Highcharts = Highcharts;
@@ -406,6 +406,25 @@ configUserLog: {
         type: 'column',
         data: this.columnOuterValueArray
       }  
+      // this.chartOptionsColumnChart.drilldown.series[0] = {
+      //         name: 'Internet',
+      //         id: 'Vehicles',
+      //         type:'column',
+      //         data: [
+      //             [
+      //                 'v11.0',
+      //                 6.2
+      //             ],
+      //             [
+      //                 'v10.0',
+      //                 0.29
+      //             ],
+      //             [
+      //                 'v9.0',
+      //                 0.27
+      //             ]
+      //         ]
+      // }
       this.columnInnerValueArray=doughnutChartData.getInnerColumnChart;
       this.flowChartFlag=true;
       }else{

@@ -13,14 +13,16 @@ export class AssetHistoryReport{
     assetCodeCheckBox:boolean;
     assetCategoryCheckBox:boolean;
     assetLocationCheckBox:boolean;
-    lifeCheckBox:boolean;
-    bookValueCheckBox:boolean;
-    aquisitionValueCheckBox:boolean;
+    assetUserCheckBox:boolean;
+    captitalizationPriceCheckBox:boolean;
+    modelCheckBox:boolean;
     putInUseDateCheckBox:boolean;
     brandCheckBox:boolean;
     statusCheckBox:boolean;
     endLifeCheckBox:boolean;
     purchasePriceCheckBox:boolean;
+    totalHoursUsageCheckBox:boolean;
+    assetExcelHistoryHeader:any;
 
 constructor(assetHistoryReport) {
     {
@@ -34,14 +36,14 @@ constructor(assetHistoryReport) {
         this.financialYear = assetHistoryReport.financialYear || "";
         this.putInUse = assetHistoryReport.putInUse || "";
         this.assetOwner = assetHistoryReport.assetOwner || "";
-        //
         this.assetNameCheckBox = assetHistoryReport.assetNameCheckBox || "";
         this.assetCodeCheckBox = assetHistoryReport.assetCodeCheckBox || "";
         this.assetCategoryCheckBox = assetHistoryReport.assetCategoryCheckBox || "";
         this.assetLocationCheckBox = assetHistoryReport.assetLocationCheckBox || "";
-        this.lifeCheckBox = assetHistoryReport.lifeCheckBox || "";
-        this.bookValueCheckBox = assetHistoryReport.bookValueCheckBox || "";
-        this.aquisitionValueCheckBox = assetHistoryReport.aquisitionValueCheckBox || "";
+        this.modelCheckBox = assetHistoryReport.modelCheckBox || "";
+        this.captitalizationPriceCheckBox = assetHistoryReport.captitalizationPriceCheckBox || "";
+        this.assetUserCheckBox = assetHistoryReport.assetUserCheckBox || "";
+        this.totalHoursUsageCheckBox = assetHistoryReport.totalHoursUsageCheckBox || "";
         this.putInUseDateCheckBox = assetHistoryReport.putInUseDateCheckBox || "";
         this.brandCheckBox = assetHistoryReport.brandCheckBox || "";
         this.statusCheckBox = assetHistoryReport.statusCheckBox || "";
