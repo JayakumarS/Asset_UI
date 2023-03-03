@@ -42,8 +42,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-6">
-                                    <strong>Put Use Date :   </strong>
+                                <div class="col-7">
+                                    <strong>Put To Use Date :   </strong>
                                     <span>{{profileViewDetails?.putUseDate}}</span>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="col-4">
                                     <h5>{{profileViewDetails?.captitalizationPrice}}</h5>
-                                    <small>Captitalization Price</small>
+                                    <small>Capitalization Price</small>
                                 </div>
                                 <div class="col-4">
                                     <h5>{{profileViewDetails?.depreciation}}</h5>
@@ -70,7 +70,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2> QR Code </h2>
+                            <strong> QR CODE </strong>
                         </div>
                             <div *ngIf="(qrCodeImg != undefined && qrCodeImg != null && qrCodeImg != '')" style="margin-left: 23%;">
                                 <img [attr.src]="qrCodeImg" class="thumb-image" style="max-height: 193px; width: 132px;" />
@@ -81,7 +81,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Files </h2>
+                            <strong>FILES</strong>
                         </div>
                             <div *ngIf="(profileViewDetails?.uploadFiles != undefined && profileViewDetails?.uploadFiles != null && profileViewDetails?.uploadFiles != '')" class="iconCard" style="margin-left: 3%;">
                                 <span><i class="far fa-file-alt docIcons"></i>{{profileViewDetails?.uploadFiles?.split('/').pop()}}</span>
@@ -150,72 +150,83 @@
                                     </div>
                                     <div class="body">
                                         <div class="row">
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Brand</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.brand}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.brand}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Model</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.model}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.model}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Serial No</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.serialNo}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">:{{profileViewDetails?.serialNo}}</p>
                                             </div>
 
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Condition</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.status}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">:{{profileViewDetails?.status}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
-                                                <strong>linked Asset</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.linkedAsset}}</p>
+                                            <div class="col-md-2">
+                                                <strong>Linked Asset</strong>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">:{{profileViewDetails?.linkedAsset}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Description</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.description}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted"> : {{profileViewDetails?.description}}</p>
                                             </div>
 
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>GST</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.gst}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.gst}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Custom Duty</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.customDuty}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.customDuty}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Other Taxes</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.otherTaxes}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.otherTaxes}}</p>
                                             </div>
 
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Transport</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.transport}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.transport}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Installation And Commission Charges</strong>
-                                                <br>
-                                                <p class="text-muted">{{profileViewDetails?.instalAndCommission}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.instalAndCommission}}</p>
                                             </div>
                                            
 
@@ -224,6 +235,7 @@
                                     </div>
                                 </div>
                             </div>
+                             <mat-divider></mat-divider>
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="project_widget">
                                     <div class="header">
@@ -231,23 +243,23 @@
                                     </div>
                                     <div class="body">
                                         <div class="row">
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Vendor Name</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.vendor}}</p>
+                                            <div class="col-md-3">
+                                                <p class="text-muted" >: {{profileViewDetails?.vendor}}</p>
                                             </div>
 
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <strong>PO Number</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.poNumber}}</p>
+                                            <div class="col-md-3">
+                                                <p  class="text-muted">: {{profileViewDetails?.poNumber}}</p>
                                             </div>
 
                                         </div>
@@ -255,35 +267,35 @@
 
 
                                         <div class="row">
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Invoice Date</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.invoiceDate}}</p>
+                                            <div class="col-md-3">
+                                                <p class="text-muted">: {{profileViewDetails?.invoiceDate}}</p>
                                             </div>
 
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Invoice Number</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.invoiceNo}}</p>
+                                            <div class="col-md-3">
+                                                <p class="text-muted">: {{profileViewDetails?.invoiceNo}}</p>
                                             </div>
 
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Purchase Price</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.purchasePrice}}</p>
+                                            <div class="col-md-3">
+                                                <p class="text-muted">: {{profileViewDetails?.purchasePrice}}</p>
                                             </div>
 
 
@@ -292,20 +304,20 @@
 
                                             </div> -->
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <p class="text-muted">{{profileViewDetails?.selfOrPartner}}</p>
                                             </div>
 
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Currency</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.currency}}</p>
+                                            <div class="col-md-3">
+                                                <p class="text-muted">: {{profileViewDetails?.currency}}</p>
                                             </div>
 
 
@@ -315,30 +327,31 @@
                                     </div>
                                 </div>
                             </div>
+                            <mat-divider></mat-divider>
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="project_widget">
                                     <div class="header">
                                         <h2><strong>Financial Info</strong></h2>
                                     </div>
                                     <div class="body">
-                                        <div class="row">
-                                            <div class="col-md-2 col-4 b-r">
-                                                <strong>Captitalization Price</strong>
+                                        <div class="row" >
+                                            <div class="col-md-2 col-4 b-r" >
+                                                <strong>Capitalization Price</strong>
 
                                             </div>
 
                                             <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.captitalizationPrice}}</p>
+                                                <p class="text-muted">: {{profileViewDetails?.captitalizationPrice}}</p>
                                             </div>
 
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <strong>Captitalization Date</strong>
+                                            <div class="col-md-2 col-4 b-r" >
+                                                <strong>Capitalization Date</strong>
 
                                             </div>
 
                                             <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.captitalizationDate}}</p>
+                                                <p class="text-muted">: {{profileViewDetails?.captitalizationDate}}</p>
                                             </div>
 
                                         </div>
@@ -347,12 +360,12 @@
 
                                         <div class="row">
                                             <div class="col-md-2 col-4 b-r">
-                                                <strong>Life in years</strong>
+                                                <strong>Life (years)</strong>
 
                                             </div>
 
                                             <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.endLife}}</p>
+                                                <p class="text-muted">: {{profileViewDetails?.endLife}}</p>
                                             </div>
 
 
@@ -362,7 +375,7 @@
                                             </div>
 
                                             <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.scrapValue}}</p>
+                                                <p class="text-muted">: {{profileViewDetails?.scrapValue}}</p>
                                             </div>
 
                                         </div>
@@ -374,13 +387,14 @@
                                             </div>
 
                                             <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.depreciation}}</p>
+                                                <p class="text-muted">: {{profileViewDetails?.depreciation}}</p>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <mat-divider></mat-divider>
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="project_widget">
                                     <div class="header">
@@ -388,23 +402,23 @@
                                     </div>
                                     <div class="body">
                                         <div class="row">
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Department</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.departmentName}}</p>
+                                            <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.departmentName}}</p>
                                             </div>
 
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Allotted Upto</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.allottedUpto}}</p>
+                                            <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.allottedUpto}}</p>
                                             </div>
 
                                         </div>
@@ -412,33 +426,33 @@
 
 
                                         <div class="row">
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2 ">
                                                 <strong>Transferred To</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.transferredTo}}</p>
+                                            <div class="col-md-2">
+                                                <p class="text-muted">: {{profileViewDetails?.transferredTo}}</p>
                                             </div>
 
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2 ">
                                                 <strong>Remarks</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.remarks}}</p>
+                                            <div class="col-md-2 ">
+                                                <p class="text-muted">: {{profileViewDetails?.remarks}}</p>
                                             </div>
 
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2 ">
                                                 <strong>Asset User</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
-                                                <p class="text-muted">{{profileViewDetails?.assetUser}}</p>
+                                            <div class="col-md-2 ">
+                                                <p class="text-muted">: {{profileViewDetails?.assetUser}}</p>
                                             </div>
 
 
@@ -446,7 +460,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <mat-divider></mat-divider>
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="project_widget">
                                     <div class="header">
@@ -455,31 +469,31 @@
                                     <!-- Computer Start -->
                                     <div class="body" *ngIf="computerFlag">
                                         <div class="row">
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2 ">
                                                 <strong>Operating System</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2 ">
                                                 <p class="text-muted">{{profileViewDetails?.os}}</p>
                                             </div>
 
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Processor</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2 ">
                                                 <p class="text-muted">{{profileViewDetails?.processor}}</p>
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2 ">
                                                 <strong>Memory</strong>
 
                                             </div>
 
-                                            <div class="col-md-2 col-4 b-r">
+                                            <div class="col-md-2 ">
                                                 <p class="text-muted">{{profileViewDetails?.memory}}</p>
                                             </div>
 
@@ -692,57 +706,67 @@
 
                         <mat-tab label="Accrued Depreciation" style="overflow-x: hidden!important;" >
                             <br>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12" >
                                 <div class="project_widget">
                                 
                                     <div class="body">
                                         <div class="row">
-                                            <div class="col-md-3 col-6 b-r">
-                                                <strong>Asset Id</strong>
-                                                <br>
-                                                <p class="text-muted">{{auditableAsset?.assetid}}</p>
+                                           
+                                               <div class="col-md-2"> <strong>Asset Id</strong> </div>
+                                               <div class="col-md-2">
+                                                <p class="text-muted"> : {{auditableAsset?.assetid}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            
+                                            <div class="col-md-2">
+                                               
                                                 <strong>Asset Name</strong>
-                                                <br>
-                                                <p class="text-muted">{{auditableAsset?.assetname}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{auditableAsset?.assetname}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Acquisition Value</strong>
-                                                <br>
-                                                <p class="text-muted">{{auditableAsset?.value?.toFixed(2)}}</p>
+                                                </div>
+                                                <div class="col-md-2"> 
+                                                <p class="text-muted">:{{auditableAsset?.value?.toFixed(2)}}</p>
                                             </div>
 
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Salvage Value</strong>
-                                                <br>
-                                                <p class="text-muted">{{auditableAsset?.salvageValue?.toFixed(2)}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">:{{auditableAsset?.salvageValue?.toFixed(2)}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Useful Years</strong>
-                                                <br>
-                                                <p class="text-muted">{{auditableAsset?.lifeInYears}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">:{{auditableAsset?.lifeInYears}}</p>
                                             </div>
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Acquisition Date</strong>
-                                                <br>
-                                                <p class="text-muted">{{auditableAsset?.acquisitiondt}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{auditableAsset?.acquisitiondt}}</p>
                                             </div>
 
                                         </div>
 
                                         <div class="row">
                                         
-                                            <div class="col-md-3 col-6 b-r">
+                                            <div class="col-md-2">
                                                 <strong>Dep Method</strong>
-                                                <br>
-                                                <p class="text-muted">{{auditableAsset?.depreciationMethod}}</p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                <p class="text-muted">: {{auditableAsset?.depreciationMethod}}</p>
                                             </div>
-                                            <div class="col-md-3 col-7 b-r">
+                                            <div class="col-md-1">
                                                 <strong>FY</strong>
+                                                </div>
+                                                <div class="col-md-6">
                                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 60%;">
                                                     <mat-label>Financial Year</mat-label>
                                                     <input matInput formControlName="depreciationMethod" maxlength="4">
@@ -751,8 +775,7 @@
                                                   <!-- <div class="SearchIcon">
                                                     <i class="fas fa-search" aria-hidden="true" (click)="financialChange()"></i>
                                                   </div> -->
-                                                  
-                                                <br>
+                                                
                                             </div>                 
                                         </div>
 
@@ -760,7 +783,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="margin-left: 713px;">
+                            <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 " style="    margin-left: 80%;">
                                 <mat-checkbox formControlName="assetType" ngInit="checked=true" (change)="checkFullLife($event)">Show Full Life</mat-checkbox>
                                 <!-- <mat-checkbox formControlName="assetType" ngInit="checked=true">Show Full Life</mat-checkbox> -->
                             </div>

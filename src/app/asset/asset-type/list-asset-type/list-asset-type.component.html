@@ -6,9 +6,11 @@
         </app-breadcrumb>
       </div>
      <div class="row">
+      
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
             <div class="body">
+                 
                 <form class="m-4" [formGroup]="docForm">
                     <div class="row">
                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
@@ -36,10 +38,7 @@
                       <button class="btn-space" mat-raised-button (click) = "onSubmit()"
                         color="accent" style="background-color: #34d034; margin-top: 6%;">Search</button>
                         
-                          <span class="export-button m-l-10"  matTooltip="XLSX"> 
-                            <img src="assets/images/icons/xlsx.png" alt=""
-                              (click)="exporter.exportTable('xlsx', {fileName:'asset-type-list', sheet: 'sheet1'})" />
-                          </span>
+                    
                     </div>
                   </div>
                 </form>
