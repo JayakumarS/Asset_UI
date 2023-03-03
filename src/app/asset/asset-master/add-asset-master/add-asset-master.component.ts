@@ -951,9 +951,20 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   getGRN(event: any) {
     if (event) {
       this.grnBasedMutipleAssetFlag = true;
+      this.docForm.controls.grnId.setValidators(Validators.required);
+      this.docForm.controls['grnId'].updateValueAndValidity();
+      this.docForm.controls.quantity.clearValidators();
+      this.docForm.controls['quantity'].updateValueAndValidity();
     }
     else {
       this.grnBasedMutipleAssetFlag = false;
+      this.docForm.controls.grnId.clearValidators();
+      this.docForm.controls['grnId'].updateValueAndValidity();
+      this.docForm.controls.quantity.setValidators(Validators.required);
+      this.docForm.controls['quantity'].updateValueAndValidity();
+      this.docForm.patchValue({
+        'grnId':''
+      })
     }
   }
 
@@ -1357,6 +1368,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   quantityBasedAddMultipleAssetList(value: number) {
+
     if (value != null && value > 0) {
       this.quantityBasedMutipleAssetFlag = true;
       let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
@@ -1387,9 +1399,31 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       this.quantityBasedMutipleAssetFlag = false;
       let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
       quantityBasedAssetArray.clear();
+      let arraylen = quantityBasedAssetArray.length;
+      let newUsergroup: FormGroup = this.fb.group({
+        itemId: ["", [Validators.required]],
+        assetName: ["", [Validators.required]],
+        location: ["", [Validators.required]],
+        status: ["", [Validators.required]],
+        putUseDate: [moment().format('DD/MM/YYYY')],
+        putUseDateObj: [moment().format('YYYY-MM-DD')],
+        department: [""],
+        allottedUpto: [""],
+        allottedUptoobj: [""],
+        transferredTo: [""],
+        assetUser: ["", [Validators.required]],
+        lineName: [""],
+        endLife: [""],
+        scrapValue: [""],
+        uploadImg: ["", [Validators.required]],
+      })
+      quantityBasedAssetArray.insert(arraylen, newUsergroup);
       // this.docForm.patchValue({
       //   quantity: '1'
       // })
+    }
+    if(value==1 || this.docForm.controls.quantity.value ==''){
+      this.quantityBasedMutipleAssetFlag = false;
     }
   }
 

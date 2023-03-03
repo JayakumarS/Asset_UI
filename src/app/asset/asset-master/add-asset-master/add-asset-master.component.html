@@ -20,7 +20,7 @@
                       <input type="checkbox" tabindex="1" formControlName="isGrnBasedAsset" (change)="getGRN($event.target.checked)">
                     </div>
                     <div class="col-md-2" *ngIf="grnBasedMutipleAssetFlag" style="min-width: fit-content;">
-                      <mat-label>GRN NO </mat-label>
+                      <mat-label>GRN NO <span class="errorColor">*</span> </mat-label>
                     </div>
                     <div class="col-md-2" *ngIf="grnBasedMutipleAssetFlag">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -310,27 +310,27 @@
                   </div>
                   <!-- Normal Asset Save End-->
                   <!-- Quantity Based Save Mutiple Asset Start-->
-                  <div>
+                  <div style="zoom: 95%;">
                     <div style="overflow-x: auto;width: 100%;">
                       <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                         <thead class="">
                           <tr>
-                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset Item </th>
-                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset Name </th>
-                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.05rem;"> Location </th>
-                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Status </th>
-                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Put Use Date </th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset Item<span class="errorColor"> *</span> </th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset Name<span class="errorColor"> *</span> </th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.05rem;"> Location<span class="errorColor"> *</span> </th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Status<span class="errorColor"> *</span> </th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Put Use Date<span class="errorColor"> *</span> </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Department </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Allotted Upto </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Transfer to </th>
-                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset User </th>
-                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Line Name </th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset User<span class="errorColor"> *</span> </th>
+                            <th *ngIf="isLineIn" class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Line Name </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Life In Year </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Salvage Value </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
-                            <th nowrap class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset Image </th>
+                            <th nowrap class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset Image <span class="errorColor"> *</span></th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
@@ -420,11 +420,16 @@
                                   </mat-select>
                                 </mat-form-field>
                               </td>
-                              <td class="padding-both-side-2">
+                              <td class="padding-both-side-2" *ngIf="isLineIn">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Line Name</mat-label>
-                                  <input matInput name="lineName{{i}}" formControlName="lineName" maxlength="150" (keypress)="keyPressName($event)">
-                                </mat-form-field>
+                                    <mat-label>Line Name</mat-label> 
+                                    <mat-select name="lineName{{i}}" formControlName="lineName">
+                                      <mat-option *ngFor="let title of assetnamelist"
+                                          [value]="title.id">
+                                          {{title.text}}
+                                      </mat-option>
+                                  </mat-select>
+                              </mat-form-field>
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -439,7 +444,7 @@
                                 </mat-form-field>
                               </td>
                               <td colspan="7" class="padding-both-side-2">
-                                <app-file-upload appearance="outline" class="example-width form-control-sm" name="uploadImg{{i}}" formControlName="uploadImg" (change)="onSelectImage($event,i,'ArrayAssetImg')"></app-file-upload>
+                                <app-file-upload appearance="outline"  name="uploadImg{{i}}" formControlName="uploadImg" (change)="onSelectImage($event,i,'ArrayAssetImg')"></app-file-upload>
                               </td>
                             </tr>
                           </tbody>
