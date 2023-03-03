@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { StateRoutingModule } from './state-routing.module';
 import { AddStateMasterComponent } from './add-state-master/add-state-master.component';
-import { ListMasterComponent } from './list-state-master/list-master.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -27,12 +26,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteStateComponent } from './list-state-master/delete-state/delete-state.component';
+import { ListStateMasterComponent } from './list-state-master/list-state-master.component';
 
 
 @NgModule({
   declarations: [
     AddStateMasterComponent,
-    ListMasterComponent,
+    ListStateMasterComponent,
     DeleteStateComponent,
     
   ],

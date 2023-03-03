@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddLocationComponent } from '../location/add-location/add-location.component';
 import { AddStateMasterComponent } from './add-state-master/add-state-master.component';
-import { ListMasterComponent } from './list-state-master/list-master.component';
+import { ListStateMasterComponent } from './list-state-master/list-state-master.component';
 
 const routes: Routes = [
   {
@@ -11,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: "listStateMaster",
-    component: ListMasterComponent,
+    component: ListStateMasterComponent,
   },
 
 
