@@ -87,7 +87,7 @@
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput tabindex="6" formControlName="purchasePrice" maxlength="15" (keypress)="keyPressNumberDouble($event)" required>
-                        <mat-error *ngIf="docForm.get('purchasePrice').hasError('required')"> PURCHASE PRICE is required </mat-error>
+                        <mat-error *ngIf="docForm.get('purchasePrice').hasError('required')"> Purchase Price is required </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-2" style="min-width: fit-content;">
@@ -333,19 +333,25 @@
                           <tbody [formGroup]="qtyBasedAssetList">
                             <tr>
                               <td class="padding-both-side-2">
-                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                                   <mat-label>Asset Item</mat-label>
-                                  <mat-select tabindex="50" name="itemId{{i}}" formControlName="itemId" [disabled]="grnBasedMutipleAssetFlag">
+                                  <mat-select tabindex="50" name="itemId{{i}}" formControlName="itemId" [disabled]="grnBasedMutipleAssetFlag" >
                                     <mat-option *ngFor="let title of itemCodeNameList" [value]="title.id">
                                       {{title.text}}
                                     </mat-option>
                                   </mat-select>
+                                  <mat-error>
+                                    asset item is required
+                                  </mat-error>
                                 </mat-form-field>
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Asset Name</mat-label>
                                   <input tabindex="51" matInput name="assetName{{i}}" formControlName="assetName" maxlength="150" (keypress)="keyPressName($event)">
+                                  <mat-error>
+                                    asset name is required
+                                  </mat-error>
                                 </mat-form-field>
                               </td>
                               <td class="padding-both-side-2">
@@ -356,6 +362,9 @@
                                       {{title.text}}
                                     </mat-option>
                                   </mat-select>
+                                  <mat-error>
+                                   location is required
+                                  </mat-error>
                                 </mat-form-field>
                               </td>
                               <td class="padding-both-side-2">
@@ -366,6 +375,9 @@
                                       {{title.text}}
                                     </mat-option>
                                   </mat-select>
+                                  <mat-error>
+                                   status is required
+                                  </mat-error>
                                 </mat-form-field>
                               </td>
                               <td class="padding-both-side-2">
@@ -411,12 +423,18 @@
                                       {{title.text}}
                                     </mat-option>
                                   </mat-select>
+                                  <mat-error>
+                                    asset user is required
+                                  </mat-error>
                                 </mat-form-field>
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Purchase Price</mat-label>
                                   <input tabindex="59" matInput name="individualPurchasePrice{{i}}" formControlName="individualPurchasePrice" maxlength="15" (keypress)="keyPressNumberDouble($event)">
+                                  <mat-error>
+                                    purchase price is required
+                                  </mat-error>
                                 </mat-form-field>
                               </td>
                               <td class="padding-both-side-2" *ngIf="isLineIn">
@@ -428,6 +446,7 @@
                                           {{title.text}}
                                       </mat-option>
                                   </mat-select>
+                                  
                               </mat-form-field>
                               </td>
                               <td class="padding-both-side-2">
@@ -443,8 +462,11 @@
                                 </mat-form-field>
                               </td>
                               <td colspan="7" class="padding-both-side-2">
-                                <app-file-upload tabindex="63" appearance="outline"  name="uploadImg{{i}}" formControlName="uploadImg" (change)="onSelectImage($event,i,'ArrayAssetImg')"></app-file-upload>
-                              </td>
+                                <app-file-upload tabindex="63" appearance="outline"  name="uploadImg{{i}}" (change)="onSelectImage($event,i,'ArrayAssetImg')"></app-file-upload>
+                                <span>
+                                  <i class="far fa-file-alt docIcons"></i>{{imgPathUrl?.split('/').pop()}}
+                                </span>
+                               </td>
                             </tr>
                           </tbody>
                         </ng-container>
