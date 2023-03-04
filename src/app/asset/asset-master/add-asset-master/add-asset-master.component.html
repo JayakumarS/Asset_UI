@@ -86,7 +86,7 @@
                     </div>
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput tabindex="6" formControlName="purchasePrice" (keypress)="keyPressNumberDouble($event)" required>
+                        <input matInput tabindex="6" formControlName="purchasePrice" maxlength="15" (keypress)="keyPressNumberDouble($event)" required>
                         <mat-error *ngIf="docForm.get('purchasePrice').hasError('required')"> PURCHASE PRICE is required </mat-error>
                       </mat-form-field>
                     </div>
@@ -131,7 +131,7 @@
                     </div>
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput tabindex="10" formControlName="transport">
+                        <input matInput tabindex="10" formControlName="transport" maxlength="15" (keypress)="keyPressNumberDouble($event)">
                         <mat-error *ngIf="docForm.get('transport').hasError('required')"> TRANSPORT is required </mat-error>
                       </mat-form-field>
                     </div>
@@ -140,7 +140,7 @@
                     </div>
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput tabindex="11" formControlName="description">
+                        <input matInput tabindex="11" formControlName="description"  maxlength="50" (keypress)="keyPressName($event)">
                         <mat-error *ngIf="docForm.get('description').hasError('required')"> DESCRIPTION is required </mat-error>
                       </mat-form-field>
                     </div>
@@ -151,7 +151,7 @@
                     </div>
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput tabindex="12" formControlName="otherTaxes">
+                        <input matInput tabindex="12" formControlName="otherTaxes" maxlength="15" (keypress)="keyPressNumberDouble($event)">
                         <mat-error *ngIf="docForm.get('otherTaxes').hasError('required')"> OTHER TAXES is required </mat-error>
                       </mat-form-field>
                     </div>
@@ -160,7 +160,7 @@
                     </div>
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput tabindex="13" formControlName="customDuty">
+                        <input matInput tabindex="13" formControlName="customDuty" maxlength="15" (keypress)="keyPressNumberDouble($event)">
                         <mat-error *ngIf="docForm.get('customDuty').hasError('required')"> CUSTOM DUTY is required </mat-error>
                       </mat-form-field>
                     </div>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput tabindex="14" formControlName="gst">
+                        <input matInput tabindex="14" formControlName="gst" maxlength="15" (keypress)="keyPressNumberDouble($event)">
                         <mat-error *ngIf="docForm.get('gst').hasError('required')"> GST is required </mat-error>
                       </mat-form-field>
                     </div>
@@ -180,7 +180,7 @@
                     </div>
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput tabindex="15" formControlName="instalAndCommission">
+                        <input matInput tabindex="15" formControlName="instalAndCommission" maxlength="15" (keypress)="keyPressNumberDouble($event)">
                         <mat-error *ngIf="docForm.get('instalAndCommission').hasError('required')"> INSTALLATION AND COMMISSION CHARGES is required </mat-error>
                       </mat-form-field>
                     </div>
@@ -311,7 +311,7 @@
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset Name<span class="errorColor"> *</span> </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.05rem;"> Location<span class="errorColor"> *</span> </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Status<span class="errorColor"> *</span> </th>
-                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Put Use Date<span class="errorColor"> *</span> </th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Put to Use Date<span class="errorColor"> *</span> </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Department </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Allotted Upto </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Transfer to </th>
@@ -370,7 +370,7 @@
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                  <mat-label>Put In Use Date</mat-label>
+                                  <mat-label>Put to Use Date</mat-label>
                                   <input tabindex="54" matInput [matDatepicker]="picker7" formControlName="putUseDateObj" name="putUseDateObj{{i}}" (dateChange)="getDateString($event,'putUseDateQtyArray',i)">
                                   <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
                                   <mat-datepicker #picker7></mat-datepicker>

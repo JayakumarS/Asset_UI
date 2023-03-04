@@ -792,7 +792,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
-      duration: 5000,
+      duration: 6000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
@@ -1469,7 +1469,29 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   saveQtyBasedMutipleAsset() {
+      
     if (this.docForm.valid) {
+      let purchasePriceVal=Number(0);
+      let assetListDtlArray = this.docForm.controls.quantityBasedAssetList as FormArray;
+      assetListDtlArray.controls.forEach(element => {
+        if(element?.value?.individualPurchasePrice!=null && element?.value?.individualPurchasePrice !='' && element?.value?.individualPurchasePrice!=undefined){
+          purchasePriceVal=Number(Number(purchasePriceVal)+Number(element?.value?.individualPurchasePrice));
+        }
+      })
+
+      let totalPurchasePriceVal=this.docForm.controls.purchasePrice.value;
+      if(Number(purchasePriceVal)!=Number(totalPurchasePriceVal)){
+        const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'purchasePrice' + '"]');
+        invalidControl.focus();
+        this.showNotification(
+          "snackbar-danger",
+          "Purchase Price Should be Equal to the Total number of Individual Asset Purchase Price..!!!",
+          "top",
+          "right"
+        );
+        return;
+      }
+
       if (this.isOwned) {
         this.docForm.patchValue({
           'thirdPartyUptoDate': "",
