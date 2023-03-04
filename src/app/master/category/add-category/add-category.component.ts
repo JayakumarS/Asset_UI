@@ -45,8 +45,8 @@ export class AddCategoryComponent implements OnInit {
       Description:[""],
       isactive:[true],
       id:[""],
-      depreciation:["",[Validators.required]],
-      assettype:[""],
+      depreciation:[52,[Validators.required]],
+      assettype:[1],
       currency:["",[Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
       companyId:this.tokenStorage.getCompanyId(),
@@ -211,8 +211,8 @@ export class AddCategoryComponent implements OnInit {
       Description:[""],
       isactive:[true],
       id:[""],
-      depreciation:[""],
-      assettype:[""],
+      depreciation:[52],
+      assettype:[1],
       currencye:[""],
       specificationList: this.fb.array([
         this.fb.group({
