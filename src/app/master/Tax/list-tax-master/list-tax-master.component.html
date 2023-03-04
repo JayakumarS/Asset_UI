@@ -75,23 +75,23 @@
 
 
                   <ng-container matColumnDef="taxid">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tax Id</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Id</mat-header-cell>
                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">{{row.taxid}}</mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="taxname">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tax Name</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.taxname}}</mat-cell>
                   </ng-container>
 
 
                   <ng-container matColumnDef="taxcode">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tax Code</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Code</mat-header-cell>
                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)" >{{row.taxcode}}</mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="taxtype">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tax Type</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Type</mat-header-cell>
                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)" >{{row.taxtype}}</mat-cell>
                   </ng-container>
 
