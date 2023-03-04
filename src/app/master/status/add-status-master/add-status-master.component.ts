@@ -7,6 +7,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { StatusMaster } from '../status-model';
 import { StatusService } from '../status.service';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-add-status-master',
@@ -25,6 +26,7 @@ export class AddStatusMasterComponent implements OnInit {
     private snackBar:MatSnackBar,
     public route: ActivatedRoute,
     private tokenStorage: TokenStorageService,
+    private commonService: CommonService,
     private router:Router) {
 
     this.docForm = this.fb.group({
@@ -57,12 +59,24 @@ export class AddStatusMasterComponent implements OnInit {
      });
   }
 
-  validateStatusname(event){
-    this.httpService.get<any>(this.statusMasterService.validateStatusURL + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event  + "&companyValue=" + this.docForm.value.companyId ).subscribe((res: any) => {
-      if (res>0){
+  // validateStatusname(event){
+  //   this.httpService.get<any>(this.statusMasterService.validateStatusURL + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event  + "&companyValue=" + this.docForm.value.companyId ).subscribe((res: any) => {
+  //     if (res>0){
+  //       this.docForm.controls['statusname'].setErrors({ status: true });
+  //     }else{
+  //      this.docForm.controls['statusname'].setErrors(null);
+  //     }
+  //   });
+  // }
+
+
+  validateStatusName(event){
+    let companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl+ "?tableName=" +"status_master"+"&columnName="+"status_name"+"&columnValue="+event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+      if(res){
         this.docForm.controls['statusname'].setErrors({ status: true });
       }else{
-       // this.docForm.controls['emailId'].setErrors(null);
+        this.docForm.controls['statusname'].setErrors(null);
       }
     });
   }
