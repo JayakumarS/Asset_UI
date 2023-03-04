@@ -3,49 +3,50 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
-import { PurchaseOrderService } from '../../purchase-order.service';
+import { PurchaseInvoiceService } from '../../purchase-invoice.service';
 
 @Component({
-  selector: 'app-purchase-order-print',
-  templateUrl: './purchase-order-print.component.html',
-  styleUrls: ['./purchase-order-print.component.sass']
+  selector: 'app-purchase-invoice-print',
+  templateUrl: './purchase-invoice-print.component.html',
+  styleUrls: ['./purchase-invoice-print.component.sass']
 })
-export class PurchaseOrderPrintComponent implements OnInit {
+export class PurchaseInvoicePrintComponent implements OnInit {
+
 
   beanValue = [];
-  exampleDatabase: PurchaseOrderService | null;
+  exampleDatabase: PurchaseInvoiceService | null;
   docForm: FormGroup;
   constructor(
-     private router:Router, 
-     private route:ActivatedRoute, 
-     private httpService:HttpServiceService,
-     public purchaseOrderService: PurchaseOrderService,
-     private fb: FormBuilder,
-     private tokenStorage:TokenStorageService
+    private router:Router, 
+    private route:ActivatedRoute, 
+    private httpService:HttpServiceService,  
+    public purchaseInvoiceService: PurchaseInvoiceService,
+    private fb: FormBuilder,
+    private tokenStorage:TokenStorageService
     ) { }
 
   ngOnInit(): void {
 
     this.docForm = this.fb.group({
      
-     poNo: [""],
-     poDate: [""],
-     vendor:[""],
-     purchaseTypeName: [""],
-     remarks: [""],
-     actions: [""],
-     companyId:parseInt(this.tokenStorage.getCompanyId())
-   
+      purchaseInvoiceNo: [""],
+      purchaseInvoiceDate: [""],
+      vendorName:[""],
+      currency: [""],
+      actions: [""],
+      companyId:parseInt(this.tokenStorage.getCompanyId()),
+      branchId:parseInt(this.tokenStorage.getBranchId())
+     
     });
     this.docForm.patchValue({
-      'poNo':sessionStorage.getItem("poNo"),
-      'poDate':sessionStorage.getItem("poDate"),
-      'vendor':sessionStorage.getItem("vendor")
+      'purchaseInvoiceNo':sessionStorage.getItem("purchaseInvoiceNo"),
+      'purchaseInvoiceDate':sessionStorage.getItem("purchaseInvoiceDate"),
+      'vendorName':sessionStorage.getItem("vendorName")
     })
 
     this.exampleDatabase=this.docForm.value;
-    this.httpService.post(this.purchaseOrderService.getAllMasters, this.exampleDatabase).subscribe((res: any) => {
-      this.beanValue=res.purchaseOrderList;
+    this.httpService.post(this.purchaseInvoiceService.getAllMasters, this.exampleDatabase).subscribe((res: any) => {
+      this.beanValue=res.purchaseInvoiceList;
     });
   }
 
@@ -159,8 +160,9 @@ export class PurchaseOrderPrintComponent implements OnInit {
     sessionStorage.setItem("item","");
     sessionStorage.setItem("item","");
     sessionStorage.setItem("item","");
-   this.router.navigate(['/inventory/purchaseOrder/listPurchaseOrder']);
+   this.router.navigate(['/inventory/purchaseInvoice/listPurchaseInvoice']);
   }
 
 }
+
 

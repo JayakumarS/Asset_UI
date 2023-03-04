@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list-grn',
@@ -34,7 +35,8 @@ export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnI
   id: number;
   grn: Grn | null;
   permissionList: any;
-  
+  docForm: FormGroup;
+
   constructor(
     private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
@@ -46,8 +48,20 @@ export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnI
     public router: Router,
     private tokenStorage: TokenStorageService,
     public commonService: CommonService,
+    private fb: FormBuilder,
   ) {
     super();
+
+    this.docForm = this.fb.group({
+     
+      grnNumber: [""],
+      grnDate: [""],
+      vendorName:[""],
+      purchaseOrderNumber: [""],
+      actions: [""],
+      companyId:parseInt(this.tokenStorage.getCompanyId())
+   
+    });
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -150,6 +164,15 @@ export class ListGrnComponent extends UnsubscribeOnDestroyAdapter implements OnI
       }
     });
 
+  }
+
+  print(){
+    this.exampleDatabase=this.docForm.value;
+
+    // sessionStorage.setItem("item",this.exampleDatabase.item);
+    // sessionStorage.setItem("location",this.exampleDatabase.location);
+    // sessionStorage.setItem("dateValue",this.exampleDatabase.fromDate);
+    this.router.navigate(['/inventory/grn/printGrn']);
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

@@ -63,8 +63,9 @@ export class ListPurchaseOrderComponent extends UnsubscribeOnDestroyAdapter impl
       purchaseTypeName: [""],
       remarks: [""],
       actions: [""],
-      companyId:parseInt(this.tokenStorage.getCompanyId())
-   
+      companyId:parseInt(this.tokenStorage.getCompanyId()),
+      branchId:parseInt(this.tokenStorage.getBranchId())
+
     });
   }
 

@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list-purchase-invoice',
@@ -40,7 +41,8 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
   id: number;
   purchaseInvoice: PurchaseInvoice | null;
   permissionList: any;
-  
+  docForm: FormGroup;
+
   constructor(
     private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
@@ -52,8 +54,22 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
     public router: Router,
     private tokenStorage: TokenStorageService,
     public commonService: CommonService,
+    private fb: FormBuilder,
+
   ) {
     super();
+
+    this.docForm = this.fb.group({
+     
+      purchaseInvoiceNo: [""],
+      purchaseInvoiceDate: [""],
+      vendorName:[""],
+      currency: [""],
+      actions: [""],
+      companyId:parseInt(this.tokenStorage.getCompanyId()),
+      branchId:parseInt(this.tokenStorage.getBranchId())
+
+    });
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -83,6 +99,14 @@ export class ListPurchaseInvoiceComponent extends UnsubscribeOnDestroyAdapter im
     this.loadData();
   }
 
+  print(){
+    this.exampleDatabase=this.docForm.value;
+
+    // sessionStorage.setItem("item",this.exampleDatabase.item);
+    // sessionStorage.setItem("location",this.exampleDatabase.location);
+    // sessionStorage.setItem("dateValue",this.exampleDatabase.fromDate);
+    this.router.navigate(['/inventory/purchaseInvoice/printPurchaseInvoice']);
+  }
 
   refresh() {
     const currentRoute = this.router.url;

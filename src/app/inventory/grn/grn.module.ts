@@ -28,13 +28,15 @@ import { GrnRoutingModule } from './grn-routing.module';
 import { AddGrnComponent } from './add-grn/add-grn.component';
 import { ListGrnComponent } from './list-grn/list-grn.component';
 import { DeleteGrnComponent } from './list-grn/delete-grn/delete-grn.component';
+import { GrnPrintComponent } from './list-grn/grn-print/grn-print.component';
 
 
 @NgModule({
   declarations: [
     AddGrnComponent,
     ListGrnComponent,
-    DeleteGrnComponent
+    DeleteGrnComponent,
+    GrnPrintComponent
   ],
   providers: [
     NotificationService

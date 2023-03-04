@@ -29,13 +29,15 @@ import { PurchaseInvoiceRoutingModule } from './purchase-invoice-routing.module'
 import { ListPurchaseInvoiceComponent } from './list-purchase-invoice/list-purchase-invoice.component';
 import { AddPurchaseInvoiceComponent } from './add-purchase-invoice/add-purchase-invoice.component';
 import { DeletePurchaseInvoiceComponent } from './list-purchase-invoice/delete-purchase-invoice/delete-purchase-invoice.component';
+import { PurchaseInvoicePrintComponent } from './list-purchase-invoice/purchase-invoice-print/purchase-invoice-print.component';
 
 
 @NgModule({
   declarations: [
     ListPurchaseInvoiceComponent,
     AddPurchaseInvoiceComponent,
-    DeletePurchaseInvoiceComponent
+    DeletePurchaseInvoiceComponent,
+    PurchaseInvoicePrintComponent
   ],
   providers: [
     NotificationService

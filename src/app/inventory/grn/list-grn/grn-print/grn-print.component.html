@@ -45,7 +45,7 @@
           
     
             <div class= "text-center">
-                <h4>Purchase Order</h4>
+                <h4>GRN</h4>
             </div>
         </div>
     
@@ -54,39 +54,33 @@
             border-collapse: collapse; margin-top: 20px; text-align: right;" >
                 <tr style="font-weight: 600; text-align: center;background: #80808036;">
                     <th class="pd">
-                        Purchase Order No
-
+                        GRN No
                     </th>
                     <th>
-                        Purchase Order Date
+                        GRN Date
                     </th>
                     <th>
                         Vendor                    
                     </th>
                     <th>
-                        Purchase Type
-                    </th>
-                    <th>
-                        Remarks
+                        Purchase Order
                     </th>
                  </tr>
                 <tr class="bold1" *ngFor="let item of beanValue; let i = index" >
                  
                     <td style="text-align: center;">
-                        {{item.poNo}}
+                        {{item.grnNumber}}
                     </td>
                     <td style="text-align: center;">
-                        {{item.poDate}}
+                        {{item.grnDate}}
                     </td>
                     <td style="text-align: center;">
                         {{item.vendorName}}
                     </td>
                     <td style="text-align: center;">
-                        {{item.purchaseTypeName}}
+                        {{item.purchaseOrderNumber}}
                     </td>
-                    <td style="text-align: center;">
-                        {{item.remarks}}
-                    </td>
+                  
                  </tr>
                 <!-- <tr style="font-weight: 600;">
                     <td colspan="6" style="padding: 3px;">
