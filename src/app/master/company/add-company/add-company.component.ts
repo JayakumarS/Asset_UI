@@ -72,8 +72,8 @@ export class AddCompanyComponent implements OnInit {
       // personIncharge:["",[Validators.required]],
       companyId: [""],
       userId: [""],
-      noOFdaysMonth:[""],
-      noOFdaysYear:[""],
+      noOFdaysMonth:["", Validators.pattern('[0-9]{2}')],
+      noOFdaysYear:["", Validators.pattern('[0-9]{3}')],
       addressOne: [""],
       addressOneCountry: [""],
       addressOneState: [""],
@@ -551,6 +551,13 @@ export class AddCompanyComponent implements OnInit {
       event.preventDefault();
     }
   }
+  keyPressNumeric3(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   keyPressName(event: any) {
     const pattern = /[ a-z A-Z ]/;
     const inputChar = String.fromCharCode(event.charCode);
@@ -563,6 +570,26 @@ export class AddCompanyComponent implements OnInit {
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
+    }
+  }
+
+  valueValidation(event:any){
+    if(parseInt(event) <=31)
+    {
+      this.docForm.controls['noOFdaysMonth'].setErrors(null);
+    }else{
+      this.docForm.controls['noOFdaysMonth'].setErrors({month: true});
+    }
+   
+  }
+
+  yearValidation(event:any){
+    if(parseInt(event) <=365)
+      {
+        this.docForm.controls['noOFdaysYear'].setErrors(null);
+
+    }else{
+    this.docForm.controls['noOFdaysYear'].setErrors({year: true});
     }
   }
 
