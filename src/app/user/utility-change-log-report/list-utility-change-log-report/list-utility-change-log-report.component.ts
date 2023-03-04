@@ -1,7 +1,7 @@
 // import { Component, OnInit } from '@angular/core';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { UtilityChangeLogReportService } from '../utility-change-log-report.service';
-import { UtilityChangeLogReport } from '../utility-change-log-report-model'; 
+import { UtilityChangeLogReport } from '../utility-change-log-report-model';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -17,39 +17,83 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { DeleteDepreciationComponent } from 'src/app/master/depreciation/list-depreciation/delete-depreciation/delete-depreciation.component';
+import { CommonService } from 'src/app/common-service/common.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 @Component({
   selector: 'app-list-utility-change-log-report',
   templateUrl: './list-utility-change-log-report.component.html',
-  styleUrls: ['./list-utility-change-log-report.component.sass']
+  styleUrls: ['./list-utility-change-log-report.component.sass'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: MAT_DATE_FORMATS, useValue: {
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY'
+        },
+      }
+    }, CommonService
+  ]
 })
 export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   displayedColumns = [
-   
-    "date",
-    "meter",
-    "assignee",
-    "actions"
-    
+
+    "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
+    "companyStatus","auditType","companyActions"
+
   ];
+  docForm: FormGroup;
 
   dataSource: ExampleDataSource | null;
   exampleDatabase: UtilityChangeLogReportService | null;
   selection = new SelectionModel<UtilityChangeLogReport>(true, []);
   index: number;
   id: number;
-  customerMaster: UtilityChangeLogReport | null;
+  utilityChangeLogReport: UtilityChangeLogReport | null;
+  permissionList: any;
   constructor(
+    private fb: FormBuilder,
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public utilityChangeLogReportService: UtilityChangeLogReportService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
+    private commonService: CommonService,
+    private spinner: NgxSpinnerService,
+    private tokenStorage: TokenStorageService,
     public router:Router
   ) {
     super();
+    this.docForm = this.fb.group({
+      companyIdToken: this.tokenStorage.getCompanyId(),
+      branchIdToken: this.tokenStorage.getBranchId(),
+      discardDateFromObj:[""],
+      discardFromDate:[""],
+      discardDateToObj:[""],
+      discardToDate:[""],
+
+
+
+
+    });
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -60,6 +104,24 @@ export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAda
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    this.onSubmit()
+
+    const permissionObj = {
+      formCode: 'F1049',
+      roleId: this.tokenStorage.getRoleId()
+    }
+    this.spinner.show();
+    this.commonService.getAllPagePermission(permissionObj).subscribe({
+      next: (data) => {
+        this.spinner.hide();
+        if (data.success) {
+          this.permissionList = data;
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    });
     this.loadData();
   }
 
@@ -91,7 +153,7 @@ export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAda
     this.router.navigate(['/usage/utilityChangeLogReport/addUtilityChangeLogReport/'+row.id]);
 
   }
-  
+
 
   deleteItem(row){
 
@@ -109,7 +171,7 @@ export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAda
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
+
 
       if (data.data == true) {
 
@@ -127,14 +189,14 @@ export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAda
           }
         );
 
-      
+
       } else{
         this.loadData();
       }
 
 
-        
-      
+
+
       // else{
       //   this.showNotification(
       //     "snackbar-danger",
@@ -146,7 +208,23 @@ export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAda
     });
 
   }
+  onSubmit(){
 
+    this.utilityChangeLogReport = this.docForm.value;
+    console.log(this.utilityChangeLogReport);
+    this.loadData();
+}
+
+getDateString(event,inputFlag,item){
+  let cdate = this.commonService.getDate(event.target.value);
+  if(inputFlag=='discardFromDate'){
+    this.docForm.patchValue({discardFromDate:cdate});
+  }
+  else if (inputFlag == 'discardToDate') {
+    this.docForm.patchValue({ discardToDate: cdate });
+  }
+
+};
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -183,12 +261,12 @@ export class ExampleDataSource extends DataSource<UtilityChangeLogReport> {
     public _sort: MatSort
   ) {
     super();
-    
+
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
-  
+
   connect(): Observable<UtilityChangeLogReport[]> {
-    
+
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
       this._sort.sortChange,
@@ -205,10 +283,10 @@ export class ExampleDataSource extends DataSource<UtilityChangeLogReport> {
             const searchStr = (
               UsageMonitor.date +
               UsageMonitor.meter +
-              UsageMonitor.assignee 
-              
-             
-             
+              UsageMonitor.assignee
+
+
+
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -237,7 +315,7 @@ export class ExampleDataSource extends DataSource<UtilityChangeLogReport> {
         case "date":
           [propertyA, propertyB] = [a.date, b.date];
           break;
-        
+
           case "meter":
           [propertyA, propertyB] = [a.meter, b.meter];
           break;
