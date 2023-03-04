@@ -27,13 +27,15 @@ import { PurchaseOrderRoutingModule } from './purchase-order-routing.module';
 import { ListPurchaseOrderComponent } from './list-purchase-order/list-purchase-order.component';
 import { AddPurchaseOrderComponent } from './add-purchase-order/add-purchase-order.component';
 import { DeletePurchaseOrderComponent } from './list-purchase-order/delete-purchase-order/delete-purchase-order.component';
+import { PurchaseOrderPrintComponent } from './list-purchase-order/purchase-order-print/purchase-order-print.component';
 
 
 @NgModule({
   declarations: [
     ListPurchaseOrderComponent,
     AddPurchaseOrderComponent,
-    DeletePurchaseOrderComponent
+    DeletePurchaseOrderComponent,
+    PurchaseOrderPrintComponent
   ],
   imports: [
     CommonModule,
