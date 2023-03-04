@@ -21,6 +21,7 @@ export class AssetMaster {
 	condition: string;
 	department: number;
 	itemId: number;
+	lineId: number;
 	departmentName: string;
 	depreciation: string;
 	gst:string;

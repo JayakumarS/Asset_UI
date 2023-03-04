@@ -14,6 +14,13 @@
                 <form class="m-4" [formGroup]="docForm">
                   <div class="row" style="  margin-left: 170px;" > 
                     
+                    <!-- <div class="export-button m-l-6" matTooltip="XLSX">
+                      <img src="assets/images/icons/xlsx.png"style="
+                      margin-left: 98%;
+                  " alt=""
+                        (click)="exporter.exportTable('xlsx', {fileName:'discard-assets-list', sheet: 'sheet1'})" />
+                    </div> -->
+
                     <div class=" col-md-1">
                       <label>FROM DATE</label>
                    </div>
@@ -47,9 +54,9 @@
                  <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="display:flex; align-items: center; justify-content:center;" >
                       <button  class="btn-space" mat-raised-button (click)=" viewReport()"
-                          style=" color: aliceblue; background-color: green;" ><i class="fa fa-search"></i> View Report</button>
+                          style=" color: aliceblue; background-color: #34d034;" ><i class="fa fa-search"></i> View Report</button>
                      <button color="warn"  type="button"  (click)=" reset()"
-                          mat-raised-button color="primary" style="background-color: rgb(14, 42, 126);">Reset</button>
+                          mat-raised-button color="primary" style="background-color:#3f51b5;">Reset</button>
                   </div>
               </div> 
             </form>

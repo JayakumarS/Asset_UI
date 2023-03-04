@@ -106,6 +106,12 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
 
   ngOnInit(): void {
 
+    this.docForm = this.fb.group({
+      discardDateFromObj:[""],
+      discardDateToObj:[""],
+     
+    });
+
     this.viewReport();
      // Location dropdown
  this.httpService.get<any>(this.commonService.getLocationDropdown).subscribe({
@@ -200,6 +206,7 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
     this.viewReport();
   }
 }
+
 
 export interface MainList {
   assetName:String;
