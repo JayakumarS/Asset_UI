@@ -166,6 +166,18 @@ getUserbasedcompanyDropdown(userId: any): void {
 }
 
 
+validateLocationCode(event) {
+  let companyId=this.tokenStorage.getCompanyId();
+  if (event != undefined && event != null && event != "") {
+    this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl + "?tableName=" + "location_master" + "&columnName=" + "location_code" + "&columnValue=" + event + "&companycolumnname=" + "company_name" + "&companyvalue="+companyId).subscribe((res: any) => {
+      if (res) {
+        this.docForm.controls['locationCode'].setErrors({ location: true });
+      } else {
+        this.docForm.controls['locationCode'].setErrors(null);
+      }
+    });
+  }
+}
 
 
 
