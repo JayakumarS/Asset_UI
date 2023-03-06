@@ -154,7 +154,7 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
   }
 
  
-  validateCustomer(event){
+  validateBranch(event){
     let companyId=this.tokenStorage.getCompanyId();
 
     // tslint:disable-next-line:max-line-length
