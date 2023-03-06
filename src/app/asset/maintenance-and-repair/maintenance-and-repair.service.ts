@@ -62,7 +62,7 @@ export class MaintenanceAndRepairService extends UnsubscribeOnDestroyAdapter {
       else if(data.success===false){
         notificationService.showNotification(
           "snackbar-danger",
-          "Not Added Successfully...!!!",
+          "Not Added...!!!",
           "bottom",
           "center"
         );
