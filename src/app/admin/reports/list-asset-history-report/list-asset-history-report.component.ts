@@ -198,13 +198,15 @@ export class ListAssetHistoryReportComponent implements OnInit {
   );
 
   //Item Dropdown List
-  this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
+  this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
     next: (data) => {
       this.itemCodeNameList = data;
     },
     error: (error) => {
+
     }
-  });
+  }
+  );
 
   // Status Dropdown list
   this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({

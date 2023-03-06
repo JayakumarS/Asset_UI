@@ -155,13 +155,17 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       }
     });
     //Item Master Dropdown List
-    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.itemCodeNameList = data;
       },
       error: (error) => {
+
       }
-    });
+    }
+    );
+
+  
 
     //UOM Dropdown List
     this.httpService.get<any>(this.commonService.getUOMDropdown).subscribe({
