@@ -154,7 +154,18 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
   }
 
  
+  validateCustomer(event){
+    let companyId=this.tokenStorage.getCompanyId();
 
+    // tslint:disable-next-line:max-line-length
+    this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl + "?tableName=" + "company_branch" + "&columnName=" + "branch_code" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['branchCode'].setErrors({ branch: true });
+      }else{
+        this.docForm.controls['branchCode'].setErrors(null);
+      }
+    });
+  }
 
 
 
