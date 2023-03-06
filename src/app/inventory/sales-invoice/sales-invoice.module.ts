@@ -26,6 +26,7 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ListSalesInvoiceComponent } from './list-sales-invoice/list-sales-invoice.component';
 import { DeleteSalesInvoiceComponent } from './list-sales-invoice/delete-sales-invoice/delete-sales-invoice.component';
+import { SalesInvoicePrintComponent } from './list-sales-invoice/sales-invoice-print/sales-invoice-print.component';
 
 
 
@@ -33,7 +34,8 @@ import { DeleteSalesInvoiceComponent } from './list-sales-invoice/delete-sales-i
   declarations: [
     AddSalesInvoiceComponent,
     ListSalesInvoiceComponent,
-    DeleteSalesInvoiceComponent
+    DeleteSalesInvoiceComponent,
+    SalesInvoicePrintComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,181 @@
+
+<style>
+
+    .border1{
+        border: 1px solid black;
+      border-collapse: collapse;}
+      
+    
+    th{
+     border: 1px solid black;  
+    }
+    td{
+     border: 1px solid black ;
+    }
+     @media print  {
+      @page {
+        size: 180mm 310mm; /* portrait */
+        /* you can also specify margins here: */
+        margin: 0;
+         margin-right: 0 ;/*for compatibility with both A4 and Letter */
+    } 
+     } 
+    .bold{
+      font-weight: 700;
+    }
+    .bold1{
+    font-weight: 600;
+    }
+    .pd {
+     padding: 5px;
+    }
+   .center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+       
+    </style>
+    <div id="salesOrderdview">
+    <div class="container border">
+        <div>
+            <!-- <div class="img text-center">
+                <img  src="/assets/images/AssetChekLogo.png" alt="" style="width: 19%; padding-left: 32px; padding-top: 45px;"/>
+           </div> -->
+          
+    
+            <div class= "text-center">
+                <h4>Sales Order</h4>
+            </div>
+        </div>
+    
+        <div>
+            <table class="border1" style=" border: 1px solid black; width:100%;;
+            border-collapse: collapse; margin-top: 20px; text-align: right;" >
+                <tr style="font-weight: 600; text-align: center;background: #80808036;">
+                    <th class="pd">
+                        Sales Order No
+                    </th>
+                    <th>
+                        Customer                    
+                    </th>
+                    <th>
+                        Currency                    
+                    </th>
+                    <th>
+                        Expected Date Of Delivery
+                    </th>
+                    <th>
+                        Terms and Condition
+                    </th>
+                 </tr>
+                <tr class="bold1" *ngFor="let item of beanValue; let i = index" >
+                 
+                    <td style="text-align: center;">
+                        {{item.salesNo}}
+                    </td>
+                    <td style="text-align: center;">
+                        {{item.customerName}}
+                    </td>
+                    <td style="text-align: center;">
+                        {{item.currency}}
+                    </td>
+                    <td style="text-align: center;">
+                        {{item.dateofdelivery}}
+                    </td>
+                    <td style="text-align: center;">
+                        {{item.termsandcondition}}
+                    </td>
+                  
+                 </tr>
+                <!-- <tr style="font-weight: 600;">
+                    <td colspan="6" style="padding: 3px;">
+                        Sub - Total
+                    </td>
+                    <td style="text-align: center;">
+                        Ksh
+                    </td>
+                    <td>
+                        2,648,275.86
+                    </td>
+                </tr>
+                <tr style="font-weight: 600;">
+                    <td colspan="6" style="padding: 3px;">
+                        VAT
+                    </td>
+                    <td style="text-align: center;">
+                        Ksh
+                    </td>
+                    <td>
+                        423,724.14
+                    </td>
+                </tr>
+                <tr style="font-weight: 600;">
+                    <td colspan="6" style="padding: 3px;">
+                        Total
+                    </td>
+                    <td style="text-align: center;">
+                        Ksh
+                    </td>
+                    <td>
+                        3,072,000.00
+                    </td>
+                </tr> -->
+            </table>
+        </div>
+        <!-- <div>
+            <p style="margin-top: 6px;"><span><b>Amount in words:</b></span> Kenya Shillings Three Million Seventy-Two Thousand Only</p>
+            <p class="center"><b>
+                Thank You For Your Business ...
+            </b></p>
+        </div>
+        <div>
+            <p><b>Terms & Conditions :</b></p>
+            <span *ngFor="let title of termsList; let i = index">
+               <p style="font-weight: 600;">{{i+1}} . {{title.text}}</p>
+           </span>              
+        </div> -->
+        <!-- <div style="margin-bottom: 10px;">
+            <table class="borderNone">
+                <tr>
+                    <th colspan="2" style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">Bank Details :</th>
+                 </tr>
+                <tr>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">ACCOUNT NAME :</td>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">BITUTECH LTD</td>
+                </tr>
+                <tr>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">BANK NAME :</td>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">I&M BANK LTD</td>
+                </tr>
+                <tr>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">CURRENCY :</td>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">KENYA SHILLING</td>
+                </tr>
+                <tr>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">ACCOUNT NO :</td>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">00901867761210</td>
+                </tr>
+                <tr>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">BANK BRANCH/CODE : </td>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;"> PANARI CENTRE 57-009</td>
+                </tr>
+                <tr>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">SWIFT CODE  :</td>
+                    <td style="border: 0px; color: rgb(20, 99, 131); font-size: 15px;">IMBLKENA</td>
+                </tr>
+    
+            </table>
+        </div> -->
+    </div>
+</div>
+    <br>
+    
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+            <button  mat-raised-button class="btn btn-primary" id="printBtn" (click)="printComponent()">Print <i
+                class="fa fa-print "></i></button> &nbsp;
+                <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+        </div>
+    </div>
+    <Br>

@@ -26,13 +26,15 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { DeleteSalesOrderComponent } from './list-sales-order/delete-sales-order/delete-sales-order.component';
+import { SalesOrderPrintComponent } from './list-sales-order/sales-order-print/sales-order-print.component';
 
 
 @NgModule({
   declarations: [
     AddSalesOrderComponent,
     ListSalesOrderComponent,
-    DeleteSalesOrderComponent
+    DeleteSalesOrderComponent,
+    SalesOrderPrintComponent
   ],
   imports: [
     CommonModule,

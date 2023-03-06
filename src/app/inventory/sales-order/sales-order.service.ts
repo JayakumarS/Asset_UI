@@ -27,7 +27,7 @@ export class SalesOrderService extends UnsubscribeOnDestroyAdapter{
     super();
   }
   private saveSalesOrder = `${this.serverUrl.apiServerAddress}app/salesOrder/save`; 
-  private getList = `${this.serverUrl.apiServerAddress}app/salesOrder/getList`;
+  public getList = `${this.serverUrl.apiServerAddress}app/salesOrder/getList`;
   public editSaleOrder = `${this.serverUrl.apiServerAddress}app/salesOrder/edit`;
   public updateSalesOrder = `${this.serverUrl.apiServerAddress}app/salesOrder/update`;
   public deleteSalesOrder = `${this.serverUrl.apiServerAddress}app/salesOrder/delete`;

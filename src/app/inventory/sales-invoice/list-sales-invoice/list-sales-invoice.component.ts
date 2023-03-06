@@ -17,6 +17,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { DeleteSalesInvoiceComponent } from './delete-sales-invoice/delete-sales-invoice.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 
 
@@ -45,6 +46,7 @@ export class ListSalesInvoiceComponent extends UnsubscribeOnDestroyAdapter imple
    selection = new SelectionModel<SalesInvoice>(true, []);
    index: number;
    id: number;
+   docForm: FormGroup;
    permissionList: any;
    salesInvoice: SalesInvoice | null;
   constructor(public httpClient: HttpClient,
@@ -56,9 +58,24 @@ export class ListSalesInvoiceComponent extends UnsubscribeOnDestroyAdapter imple
               private tokenStorage: TokenStorageService,
               private spinner: NgxSpinnerService,
               public commonService: CommonService,
-              private httpService: HttpServiceService
+              private httpService: HttpServiceService,
+              private fb: FormBuilder,
+
   ) {
     super();
+
+    
+    this.docForm = this.fb.group({
+     
+      salesInvoiceNo: [""],
+      companyName: [""],
+      customerName:[""],
+      currencyName: [""],
+      narration: [""],
+      actions: [""],
+      companyId:parseInt(this.tokenStorage.getCompanyId())
+   
+    });
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -160,6 +177,15 @@ deleteItem(row) {
 
     }
   });
+}
+
+print(){
+  this.exampleDatabase=this.docForm.value;
+
+  // sessionStorage.setItem("item",this.exampleDatabase.item);
+  // sessionStorage.setItem("location",this.exampleDatabase.location);
+  // sessionStorage.setItem("dateValue",this.exampleDatabase.fromDate);
+  this.router.navigate(['/inventory/salesInvoice/sales-invoice-print']);
 }
 
 showNotification(colorName, text, placementFrom, placementAlign) {
