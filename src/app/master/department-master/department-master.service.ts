@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { DepartmentMaster } from "./department-master.model";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
@@ -17,7 +17,7 @@ const httpOptions = {
 })
 export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
 
-  
+
   isTblLoading = true;
   dataChange: BehaviorSubject<DepartmentMaster[]> = new BehaviorSubject<DepartmentMaster[]>(
     []
@@ -45,8 +45,12 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
 
   public companyListUrl = `${this.serverUrl.apiServerAddress}app/department/userBasedCompanyList`;
   public fetchBranch = `${this.serverUrl.apiServerAddress}app/department/userBasedBranchList`;
-  
+
   public branchList=`${this.serverUrl.apiServerAddress}app/department/branchList`;
+
+  public saveMultiple = `${this.serverUrl.apiServerAddress}app/department/multipleSave`;
+  public multipleUploadFiles = `${this.serverUrl.apiServerAddress}app/department/multipleDepartmentUpload`;
+
 
   get data(): DepartmentMaster[] {
     return this.dataChange.value;
@@ -56,7 +60,7 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllList(): void {
-    this.UserId=this.tokenStorage.getUserId();  
+    this.UserId=this.tokenStorage.getUserId();
     this.RoleId=this.tokenStorage.getRoleId();
     this.companyId= this.tokenStorage.getCompanyId();
     this.subs.sink = this.httpService.get<DepartmentMasterResultBean>(this.getAllMasters+"?RoleId="+this.RoleId+"&companyId="+this.companyId).subscribe(
@@ -72,7 +76,7 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
 
   // For Save
   addDepartment(DepartmentMaster,router,notificationService){
-    this.dialogData = DepartmentMaster;  
+    this.dialogData = DepartmentMaster;
     this.httpService.post<any>(this.saveDepartment, DepartmentMaster).subscribe(data => {
       console.log(data);
       //this.dialogData = employees;
@@ -111,8 +115,11 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
       //this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
-        
+
     });
+  }
+  addMultiple(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.saveMultiple, obj);
   }
 
   // departmentDelete(deptCode: any): void {
@@ -131,5 +138,5 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
   //     }
   //   );*/
   // }
- 
+
 }
