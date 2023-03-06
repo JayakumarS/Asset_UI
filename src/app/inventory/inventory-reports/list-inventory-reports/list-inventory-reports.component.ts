@@ -87,8 +87,8 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   companyId: any;
   isExpand : boolean=true;
 
-  columnsToDisplay = ["icon","assetName", "categoryName", "location", "quantity","actions"];
-  innerDisplayedColumns = ["transferDate","sourceLocation","destinationLocation","reference","createdBy"];
+  columnsToDisplay = ["icon","assetItem", "categoryName", "location", "quantity"];
+  innerDisplayedColumns = [ "assetItem", "assetName","assetCode", "transferDate","sourceLocation","destinationLocation","reference","createdBy"];
 
   expandedElement: MainList | null;
   expandedElements: any[] = [];

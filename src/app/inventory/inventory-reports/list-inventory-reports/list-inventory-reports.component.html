@@ -19,7 +19,7 @@
 
                 <div class="row" style="display:flex; align-items: center; justify-content:center;"> 
                   <div class=" col-md-1" style="margin-top: -20px;">
-                    <label style=" min-width: max-content;">ASSET NAME</label>
+                    <label style=" min-width: max-content;">ASSET ITEM</label>
                  </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -86,9 +86,9 @@
             </td>
         </ng-container>
           
-          <ng-container matColumnDef="assetName">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;Asset Name</th>
-              <td mat-cell *matCellDef="let row" style="pointer-events: none;"> <a href="javascript:void(0);" style="text-decoration:none;">{{row.assetName}}</a>
+          <ng-container matColumnDef="assetItem">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;Asset Item</th>
+              <td mat-cell *matCellDef="let row" style="pointer-events: none;"> <a href="javascript:void(0);" style="text-decoration:none;">{{row.assetItem}}</a>
               </td>
           </ng-container>
           <ng-container matColumnDef="categoryName">
@@ -103,10 +103,10 @@
           </ng-container>
           <ng-container matColumnDef="quantity">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
-              <td mat-cell *matCellDef="let row" style="pointer-events: none;"> {{row.balanceQty}}
+              <td mat-cell *matCellDef="let row" style="pointer-events: none;"> {{row.assetGroupingQty}}
               </td>
           </ng-container>
-          <ng-container matColumnDef="actions">
+          <!-- <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
             <td mat-cell *matCellDef="let row">
               <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="profileView(row.assetId)" class="tbl-action-btn">
@@ -114,7 +114,7 @@
                 </app-feather-icons>
               </button>
             </td>
-        </ng-container>
+        </ng-container> -->
           
           <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
           <ng-container matColumnDef="expandedDetail">
@@ -132,28 +132,43 @@
                                   <td mat-cell *matCellDef="let element"> {{element[innerColumn]}}
                                   </td>
                               </ng-container> -->
+                              <ng-container matColumnDef="assetItem">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset Item </th>
+                                <td mat-cell *matCellDef="let row"> {{row.assetItem}}
+                                </td>
+                            </ng-container>   
+                            <ng-container matColumnDef="assetName">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset Name </th>
+                              <td mat-cell *matCellDef="let row"> {{row.assetName}}
+                              </td>
+                          </ng-container>   
+                          <ng-container matColumnDef="assetCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset Code </th>
+                            <td mat-cell *matCellDef="let row"> {{row.assetcode}}
+                            </td>
+                        </ng-container>   
                               <ng-container matColumnDef="transferDate">
-                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                                   <td mat-cell *matCellDef="let row"> {{row.transferDate}}
                                   </td>
                               </ng-container>    
                               <ng-container matColumnDef="sourceLocation">
-                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Source Location</th>
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Source Location </th>
                                   <td mat-cell *matCellDef="let row"> {{row.sourceLocation}}
                                   </td>
                               </ng-container>
                               <ng-container matColumnDef="destinationLocation">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Destination Location</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination Location </th>
                                 <td mat-cell *matCellDef="let row"> {{row.destinationLocation}}
                                 </td>
                             </ng-container>
                             <ng-container matColumnDef="reference">
-                              <th mat-header-cell *matHeaderCellDef mat-sort-header>Reference</th>
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> Reference </th>
                               <td mat-cell *matCellDef="let row"> {{row.reference}}
                               </td>
                           </ng-container>
                           <ng-container matColumnDef="createdBy">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Person</th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Person </th>
                             <td mat-cell *matCellDef="let row"> {{row.createdBy}}
                             </td>
                         </ng-container>
