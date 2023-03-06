@@ -26,13 +26,17 @@ import { DepartmentMasterRoutingModule } from './department-master-routing.modul
 import { AddDepartmentMasterComponent } from './add-department-master/add-department-master.component';
 import { ListDepartmentMasterComponent } from './list-department-master/list-department-master.component';
 import { DeleteDepartmentComponent } from './list-department-master/delete-department/delete-department.component';
+import { AddMultipleDepartmentComponent } from './add-multiple-department/add-multiple-department.component';
+import { UploadedPopupComponent } from './uploaded-popup/uploaded-popup.component';
 
 
 @NgModule({
   declarations: [
     AddDepartmentMasterComponent,
     ListDepartmentMasterComponent,
-    DeleteDepartmentComponent
+    DeleteDepartmentComponent,
+    AddMultipleDepartmentComponent,
+    UploadedPopupComponent
   ],
   imports: [
     CommonModule,

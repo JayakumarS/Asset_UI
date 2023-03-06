@@ -19,6 +19,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { DeleteDepartmentComponent } from './delete-department/delete-department.component';
+import { AddMultipleDepartmentComponent } from '../add-multiple-department/add-multiple-department.component';
 
 @Component({
   selector: 'app-list-department-master',
@@ -180,6 +181,8 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
     });
   }
 
+
+
 // context menu
   onContextMenu(event: MouseEvent, item: DepartmentMaster) {
     event.preventDefault();
@@ -188,6 +191,37 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
     this.contextMenu.menuData = { item: item };
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
+  }
+
+
+multipleUploadPopupCall() {
+  let tempDirection;
+  if (localStorage.getItem("isRtl") === "true") {
+    tempDirection = "rtl";
+  } else {
+    tempDirection = "ltr";
+  }
+  const dialogRef = this.dialog.open(AddMultipleDepartmentComponent, {
+    data: {
+      action: "edit",
+    },
+    width: "640px",
+    direction: tempDirection,
+  });
+  this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+    if (result === 0) {
+      this.refreshTable();
+      this.showNotification(
+        "black",
+        "Upload Record Successfully...!!!",
+        "bottom",
+        "center"
+      );
+    }
+  });
+}
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
   }
 }
 
