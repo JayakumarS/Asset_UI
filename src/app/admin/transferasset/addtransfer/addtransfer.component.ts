@@ -15,6 +15,7 @@ import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroy
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { CommonService } from 'src/app/common-service/common.service';
 
 
 @Component({
@@ -69,7 +70,8 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
     private serverUrl:serverLocations,
     private router:Router,
     public httpClient: HttpClient,
-    public route: ActivatedRoute,) { 
+    public route: ActivatedRoute,
+    public commonService:CommonService) { 
       super(); 
         this.docForm = this.fb.group({
 
@@ -227,9 +229,10 @@ export class AddtransferComponent extends  UnsubscribeOnDestroyAdapter implement
     var frmData: FormData = new FormData();
     frmData.append("file", docfile);
     frmData.append("fileName", fileExtension);
+    frmData.append("folderName", "AssetTransfer");
     console.log(frmData);
 
-    this.httpService.post<any>(this.transferservice.addCreditFiles, frmData).subscribe({
+    this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
       next: (data) => {
         
         console.log(data);

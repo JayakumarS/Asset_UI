@@ -19,6 +19,7 @@ import { UserMaster } from '../user-master.model';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { AddMultipleUserComponent } from '../add-multiple-user/add-multiple-user.component';
 // import { DeleteCurrencyComponent } from './delete-currency/delete-currency.component';
 
 @Component({
@@ -166,6 +167,36 @@ deleteItem(i: number, row) {
 
     }
   });
+}
+multipleuploadpopupCall(){
+  let tempDirection;
+  if (localStorage.getItem("isRtl") === "true") {
+    tempDirection = "rtl";
+  } else {
+    tempDirection = "ltr";
+  }
+  const dialogRef = this.dialog.open(AddMultipleUserComponent, {
+    data: {
+      action: "edit",
+    },
+    width: "640px",
+    direction: tempDirection,
+  });
+  this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+    if (result === 0) {
+      this.refreshTable();
+      this.showNotification(
+        "black",
+        "Upload Record Successfully...!!!",
+        "bottom",
+        "center"
+      );
+    }
+  });
+}
+private refreshTable() {
+  this.paginator._changePageSize(this.paginator.pageSize);
+
 }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

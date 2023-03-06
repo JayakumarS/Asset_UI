@@ -22,6 +22,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { SalesOrderService } from '../sales-order.service';
 import { SalesOrder } from '../sales-order-model';
 import { DeleteSalesOrderComponent } from './delete-sales-order/delete-sales-order.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list-sales-order',
@@ -45,6 +46,7 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
   selection = new SelectionModel<SalesOrder>(true, []);
   index: number;
   id: number;
+  docForm: FormGroup;
 
   constructor(
     public httpClient: HttpClient,
@@ -54,9 +56,24 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
     public router:Router,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private fb: FormBuilder,
+
   ) { 
     super();
+
+
+    this.docForm = this.fb.group({
+     
+      salesNo: [""],
+      customerName: [""],
+      currency:[""],
+      dateofdelivery: [""],
+      termsandcondition: [""],
+      actions: [""],
+      companyId:parseInt(this.tokenStorage.getCompanyId())
+   
+    });
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -148,6 +165,16 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
     });
 
   }
+
+  print(){
+    this.exampleDatabase=this.docForm.value;
+  
+    // sessionStorage.setItem("item",this.exampleDatabase.item);
+    // sessionStorage.setItem("location",this.exampleDatabase.location);
+    // sessionStorage.setItem("dateValue",this.exampleDatabase.fromDate);
+    this.router.navigate(['/inventory/sales-order/sales-order-print']);
+  }
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
@@ -167,6 +194,7 @@ export class ListSalesOrderComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
 }
+
 
 export class ExampleDataSource extends DataSource<SalesOrder> {
   filterChange = new BehaviorSubject("");
@@ -264,4 +292,7 @@ export class ExampleDataSource extends DataSource<SalesOrder> {
       );
     });
   }
+
+  
+
 }

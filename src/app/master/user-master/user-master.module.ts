@@ -26,12 +26,16 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { DeleteUserMasterComponent } from './list-user-master/delete-user-master/delete-user-master.component';
+import { AddMultipleUserComponent } from './add-multiple-user/add-multiple-user.component';
+import { AddMultipleUserErrorComponent } from './add-multiple-user-error/add-multiple-user-error.component';
 
 @NgModule({
   declarations: [
     AddUserMasterComponent,
     ListUserMasterComponent,
-    DeleteUserMasterComponent
+    DeleteUserMasterComponent,
+    AddMultipleUserComponent,
+    AddMultipleUserErrorComponent
   ],
   imports: [
     CommonModule,

@@ -184,14 +184,16 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.fetchItem(this.companyId);
 
     //Item Master Dropdown List
-    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown+"?companyId="+this.companyId).subscribe({
+    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.itemCodeNameList = data;
       },
       error: (error) => {
-      }
-    }); 
 
+      }
+    }
+    );
+    
       //Company Based Uom
       this.httpService.get(this.uomCategoryService.fetchUomCategoryName + "?company=" + this.companyId).subscribe((res: any) => {
         this.categoryList = res.uomCategoryList;

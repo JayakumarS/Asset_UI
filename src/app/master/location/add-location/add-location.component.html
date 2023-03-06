@@ -24,6 +24,7 @@
                     <mat-error *ngIf="docForm.get('company').hasError('required')">
                       Company is required
                     </mat-error>
+                    
                   </mat-form-field>
                   </div>
                   
@@ -52,9 +53,12 @@
                     <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="locationCode"maxlength="4" (keypress)="keyPressName($event)" [ngModel]="inputvalue2"
-                      (ngModelChange)="inputvalue2 = $event.toUpperCase()" required>
+                      (ngModelChange)="inputvalue2 = $event.toUpperCase()" (blur)="validateLocationCode($event.target.value)" required>
                       <mat-error *ngIf="docForm.get('locationCode').hasError('required')">
                         Location Code is required
+                      </mat-error>
+                      <mat-error *ngIf="docForm.get('locationCode').hasError('location')">
+                        Location Code Already Exists !!!
                       </mat-error>
                     </mat-form-field>
                   </div>

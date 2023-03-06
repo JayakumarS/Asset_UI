@@ -136,7 +136,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       thirdPartyUptoDate: [""],
       thirdPartyUptoDateObj: [""],
       isLine: [false],
-      isAuditable: [false],
+      isAuditable: [true],
       id: [""],
       uploadImg: [""],
       isGrnBasedAsset: [false],
@@ -329,13 +329,16 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
 
     //Item Master Dropdown List
-    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown).subscribe({
+    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
       next: (data) => {
         this.itemCodeNameList = data;
       },
       error: (error) => {
+
       }
-    });
+    }
+    );
+
 
       //Line Master Dropdown List
       this.httpService.get<any>(this.commonService.getLineMasterDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
@@ -1193,7 +1196,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       thirdPartyUptoDate: [""],
       thirdPartyUptoDateObj: [""],
       isLine: [false],
-      isAuditable: [false],
+      isAuditable: [true],
       id: [""],
       uploadImg: ["", [Validators.required]],
       isGrnBasedAsset: [false],

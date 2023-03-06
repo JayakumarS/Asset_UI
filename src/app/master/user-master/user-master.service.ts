@@ -51,7 +51,9 @@ export class UserMasterService extends UnsubscribeOnDestroyAdapter {
   public reportingManUrl = `${this.serverUrl.apiServerAddress}app/userMaster/getReportingManList`;
   public primaryLocUrl = `${this.serverUrl.apiServerAddress}app/userMaster/getPrimaryLocList`;
   public locationDropdown = `${this.serverUrl.apiServerAddress}app/userMaster/locationDropdown`;
+  public multipleUserUploadFiles = `${this.serverUrl.apiServerAddress}app/userMaster/multipleUseruploadExefile`;
 
+  
 
 
 

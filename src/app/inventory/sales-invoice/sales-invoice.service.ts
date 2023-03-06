@@ -29,7 +29,7 @@ export class SalesInvoiceService extends UnsubscribeOnDestroyAdapter{
     super();
   }
   private salesInvoice = `${this.serverUrl.apiServerAddress}app/salesInvoice/save`;
-  private getSalesList = `${this.serverUrl.apiServerAddress}app/salesInvoice/getList`;
+  public getSalesList = `${this.serverUrl.apiServerAddress}app/salesInvoice/getList`;
   public deleteSalesInvoice = `${this.serverUrl.apiServerAddress}app/salesInvoice/delete`;
   public editSaleInvoice = `${this.serverUrl.apiServerAddress}app/salesInvoice/edit`;
   public updateSalesInvoice = `${this.serverUrl.apiServerAddress}app/salesInvoice/update`;

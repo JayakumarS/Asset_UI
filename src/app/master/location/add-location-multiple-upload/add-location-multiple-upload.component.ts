@@ -65,7 +65,7 @@ export class AddLocationMultipleUploadComponent implements OnInit {
 
     upload(){ 
       this.companyId=this.tokenStorage.getCompanyId();
-      this.httpService.post<any>(this.locationMasterService.multipleLocationUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
+      this.httpService.post<any>(this.locationMasterService.multipleLocationUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId()+"&userId="+this.tokenStorage.getUserId(),this.excelFile).subscribe(data => {
         console.log(data);
        
           if(data.message =='Success'){
