@@ -29,6 +29,13 @@ import { AddMultipleDepartmentComponent } from '../add-multiple-department/add-m
 export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = { x: "0px", y: "0px" };
+
   displayedColumns = [
 
     "deptCode",
@@ -62,14 +69,6 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
   ) {
     super();
   }
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild("filter", { static: true }) filter: ElementRef;
-  @ViewChild(MatMenuTrigger)
-  contextMenu: MatMenuTrigger;
-  contextMenuPosition = { x: "0px", y: "0px" };
-
   ngOnInit(): void {
     const permissionObj = {
       formCode: 'F1038',

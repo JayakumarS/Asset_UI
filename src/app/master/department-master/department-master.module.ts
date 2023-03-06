@@ -27,7 +27,6 @@ import { AddDepartmentMasterComponent } from './add-department-master/add-depart
 import { ListDepartmentMasterComponent } from './list-department-master/list-department-master.component';
 import { DeleteDepartmentComponent } from './list-department-master/delete-department/delete-department.component';
 import { AddMultipleDepartmentComponent } from './add-multiple-department/add-multiple-department.component';
-import { UploadedPopupComponent } from './uploaded-popup/uploaded-popup.component';
 
 
 @NgModule({
@@ -36,7 +35,6 @@ import { UploadedPopupComponent } from './uploaded-popup/uploaded-popup.componen
     ListDepartmentMasterComponent,
     DeleteDepartmentComponent,
     AddMultipleDepartmentComponent,
-    UploadedPopupComponent
   ],
   imports: [
     CommonModule,
