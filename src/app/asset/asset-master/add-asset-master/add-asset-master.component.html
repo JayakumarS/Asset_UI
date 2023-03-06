@@ -86,7 +86,7 @@
                     </div>
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput tabindex="6" formControlName="purchasePrice" maxlength="15" (keypress)="keyPressNumberDouble($event)" required>
+                        <input matInput [readonly]="edit" tabindex="6" formControlName="purchasePrice" maxlength="15" (keypress)="keyPressNumberDouble($event)" required>
                         <mat-error *ngIf="docForm.get('purchasePrice').hasError('required')"> PURCHASE PRICE is required </mat-error>
                       </mat-form-field>
                     </div>
@@ -416,7 +416,7 @@
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Purchase Price</mat-label>
-                                  <input tabindex="59" matInput name="individualPurchasePrice{{i}}" formControlName="individualPurchasePrice" maxlength="15" (keypress)="keyPressNumberDouble($event)">
+                                  <input tabindex="59" [readonly]="edit" matInput name="individualPurchasePrice{{i}}" formControlName="individualPurchasePrice" maxlength="15" (keypress)="keyPressNumberDouble($event)">
                                 </mat-form-field>
                               </td>
                               <td class="padding-both-side-2" *ngIf="isLineIn">
