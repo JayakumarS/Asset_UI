@@ -73,6 +73,11 @@
                   class="auth-form-btn" [disabled]="!authForm.valid " type="submit">Login</button>
               </div>
             </div><br>
+            <div class="container-auth-form-btn">
+              <div style="text-align:right">
+                <a (click)="forgottenPassword()" style="text-decoration:none;color: #004aad;">Forgotten password</a>
+              </div>
+            </div><br>
              <div class="container-auth-form-btn">
               <div style="text-align:right">
                 <a [routerLink]="['/authentication/signup']" style="text-decoration:none;">Don't Have Account ..? Register Here</a>

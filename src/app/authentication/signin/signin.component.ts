@@ -13,6 +13,7 @@ import { CompanyMapPopupComponent } from "src/app/admin/dashboard/main/company-m
 import { CompanyLogoResultBean } from "src/app/master/company-logo/companyLogoResultBean";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { HttpErrorResponse } from "@angular/common/http";
+import { ForgotPasswordComponent } from "../forgot-password/forgot-password.component";
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -58,6 +59,7 @@ export class SigninComponent
     this.authForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
+      emailId: [""],
     });
     this.httpService.get<CompanyLogoResultBean>(this.authService.companyUrl).subscribe(
       (data: any) => {
@@ -101,7 +103,7 @@ export class SigninComponent
     } else {
 
       this.loginInfo = new AuthLoginInfo(
-      this.f.username.value, this.f.password.value);
+      this.f.username.value, this.f.password.value,this.f.emailId.value);
 
 
       this.authService.attemptAuth(this.loginInfo).subscribe(
@@ -192,6 +194,13 @@ export class SigninComponent
       //     }
       //   );
     }
+  }
+
+  forgottenPassword(){
+    const dialogRef = this.dialog.open(ForgotPasswordComponent, {
+      height: "70%",
+      width: "50%",
+    });
   }
 
   loginSuccessUserLog() {

@@ -39,6 +39,7 @@ public currentUser: Observable<User>;
   getSuccessUserLogoutData = `${this.serverURL.apiServerAddress}api/auth/app/userLog/logout_data_success_user_log`;
   // insertSalesEntry = `${this.serverURL.apiServerAddress}api/salesCallEntry/save`;
   companyUrl = `${this.serverURL.apiServerAddress}api/auth/getCompany`;
+  forgotPasswordUrl =  `${this.serverURL.apiServerAddress}api/auth/forgotPassword`;
 
   attemptAuth(credentials: AuthLoginInfo): Observable<any> {
     return  this.http
@@ -94,6 +95,11 @@ public currentUser: Observable<User>;
   }
   cusMaster(cusMasterData : any){
     return this.http.post(this.insertCusMaster,cusMasterData, httpOptions);
+  }
+
+  // Forgot Password
+  forgotPasswordService(otpInfo: AuthLoginInfo): Observable<any> {
+    return  this.http.post<any>(this.forgotPasswordUrl, otpInfo);
   }
 
 
