@@ -14,15 +14,15 @@
       </button>
     </div>
     <div mat-dialog-content>
-        <form class="register-form m-4" [formGroup]="multipleuploadForm">
+        <form class="register-form m-4" [formGroup]="employeemultipleuploadForm">
 
 
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                    <mat-label><b>Multiple Location Upload </b></mat-label>
+                    <mat-label><b>Multiple Employee Upload </b></mat-label>
                     <app-excel-upload formControlName="uploadfile" (change)="getCreditFile($event)"></app-excel-upload>
                 </div>
-                <a href="\assets\files\Location_Multiple sample.xlsx">*Download Sample File</a>
+                <a href="/assets/files/customer-upload.xlsx">*Download Sample File</a>
 
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">

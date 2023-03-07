@@ -134,8 +134,8 @@
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-error *ngIf="docForm.get('transportationType').hasError('required')"> Transportation Type is required </mat-error>
                           <mat-select formControlName="transportationType" required>
-                            <mat-option [value]="1"> By Person </mat-option>
-                            <mat-option [value]="2"> Courier </mat-option>
+                            <mat-option value="By Person"> By Person </mat-option>
+                            <mat-option value="Courier"> Courier </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -148,8 +148,8 @@
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-error *ngIf="docForm.get('deliveryMethod').hasError('required')"> Delivery Method is required </mat-error>
                           <mat-select formControlName="deliveryMethod" required>
-                            <mat-option [value]="1"> Partial </mat-option>
-                            <mat-option [value]="2"> All at Once </mat-option>
+                            <mat-option value="Partial"> Partial </mat-option>
+                            <mat-option value="All at Once"> All at Once </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>

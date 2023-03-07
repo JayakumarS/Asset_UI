@@ -28,6 +28,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DeleteComponent } from './list-customer/delete/delete.component';
 import { CustomerAccountingPopupComponent } from './add-customer/customer-accounting-popup/customer-accounting-popup.component';
 import { AccountPopupComponent } from './add-customer/account-popup/account-popup.component';
+import { MultipleAddCustomerComponent } from './multiple-add-customer/multiple-add-customer.component';
+import { ErrorUploadComponent } from './error-upload/error-upload.component';
 
 
 
@@ -37,7 +39,9 @@ import { AccountPopupComponent } from './add-customer/account-popup/account-popu
     ListCustomerComponent,
     DeleteComponent,
     CustomerAccountingPopupComponent,
-    AccountPopupComponent
+    AccountPopupComponent,
+    MultipleAddCustomerComponent,
+    ErrorUploadComponent
   ],
   imports: [
     CommonModule,
