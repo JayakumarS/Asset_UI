@@ -3,7 +3,7 @@
  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="width: 100%;padding: 19px;">
     <div class="card">
         <div class="header" >
-            <h2 style="color: white;">Import Excel Details</h2>      
+            <h2 style="color: white;">Import Excel Details</h2>
         </div>
         <style>
           .header{
@@ -18,7 +18,7 @@
           }
           .tableHeader{
               padding: 7px;
-          }      
+          }
         </style>
         <div class="tableBody">
             <div class="table-responsive">
@@ -26,46 +26,47 @@
                     <thead>
                         <tr>
                             <th class="tableHeader">Item Type</th>
-                            <th class="tableHeader">Item Category</th> 
-                            <th class="tableHeader">Item Description</th> 
-                            <th class="tableHeader">Inventory Valution</th> 
-                            <th class="tableHeader">Issue Method</th> 
-                            <th class="tableHeader">Opening Balance</th> 
-                            <th class="tableHeader">Default Price</th>                       
+                            <th class="tableHeader">Item Category</th>
+                            <th class="tableHeader">Item Description</th>
+                            <th class="tableHeader">Inventory Valution</th>
+                            <th class="tableHeader">Issue Method</th>
+                            <th class="tableHeader">Opening Balance</th>
+                            <th class="tableHeader">Default Price</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr
                             *ngFor="let data of itemList">
-  
+
                             <td>{{data.itemName}}</td>
                             <td *ngIf="data.isValid == false" style="background-color: red;">{{data.itemCategoryName}}</td>
                             <td *ngIf="data.isValid == true">{{data.itemCategoryName}}</td>
                             <td>{{data.itemDescription}}</td>
                             <td>{{data.inventory}}</td>
                             <td>{{data.issue}}</td>
-                            <td>{{data.openingBalance}}</td>
-                            <td>{{data.defaultPrice}}</td>                 
-                           
+                            <td *ngIf="data.isValidNum == false" style="background-color: red;">{{data.openBalance}}</td>
+                            <td *ngIf="data.isValidNum == true">{{data.openBalance}}</td>
+                            <td *ngIf="data.isValidNum1 == false" style="background-color: red;">{{data.price}}</td>
+                            <td *ngIf="data.isValidNum1 == true">{{data.price}}</td>
+
                     </tbody>
-                </table>             
+                </table>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+                <label *ngIf="isValid == false || isValidNum ==false || isValidNum1 == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">           
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="end">
-                <button mat-raised-button color="primary" [disabled]="isValid == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
+                <button mat-raised-button color="primary" [disabled]="isValid == false || isValidNum ==false || isValidNum1 == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
-            </div>        
+            </div>
         </div>
     </div>
-  </div> 
-  
+  </div>
