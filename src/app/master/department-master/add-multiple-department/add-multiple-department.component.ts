@@ -36,6 +36,8 @@ export class AddMultipleDepartmentComponent implements OnInit {
       uploadfile:  [""],
       companyId: this.tokenStorage.getCompanyId(),
       branchId: this.tokenStorage.getBranchId(),
+      'loginedUser': this.tokenStorage.getUserId()
+
     });
   }
 
