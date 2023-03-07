@@ -8,5 +8,6 @@ export class reportsresultbean{
     userlogDetails:[];
     UserList:[];
     UserLogList:[];
-
+    dueList:[];
 }
+
