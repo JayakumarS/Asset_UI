@@ -62,8 +62,8 @@ export class ExchangeService extends UnsubscribeOnDestroyAdapter {
         );
   }
 
-  addExchange(exchangeMaster: ExchangeMaster): Observable<any> {
-    return this.httpClient.post<ExchangeMaster>(this.saveExchange, exchangeMaster);
+  addExchange(exchangeMaster): Observable<any> {
+    return this.httpClient.post<any>(this.saveExchange, exchangeMaster);
   }
 
   exchangeMasterUpdate(exchangeMaster: ExchangeMaster): void {
