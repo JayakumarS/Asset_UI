@@ -73,6 +73,7 @@ export class MultipleAddCustomerComponent implements OnInit {
             "bottom",
             "center"
           );
+          location.reload()
           this.router.navigate(['/master/customer/list-customer'])
          }else if(data.success ==false){
           this.showNotification(
