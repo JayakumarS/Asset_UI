@@ -20,7 +20,7 @@ export class AddLocationErrorComponent implements OnInit {
   totalCount: any;
   incorrectCount: any;
   message:any;
-  empidAndEmail:boolean;
+  locationCode:boolean;
   branchAndDep:boolean;
 
   constructor(private fb: FormBuilder,public router:Router,private snackBar: MatSnackBar,private  assetService: LocationMasterService,private httpService: HttpServiceService,
@@ -30,8 +30,7 @@ export class AddLocationErrorComponent implements OnInit {
     this.totalCount=this.values.totalRecords;
     this.incorrectCount=this.values.incorrectRecords;
     this.message = this.values.message;
-    this.empidAndEmail = this.values.empidAndEmail;
-    this.branchAndDep = this.values.branchAndDep;
+    this.locationCode = this.values.locationCode;
   }
 
   onNoClick(){

@@ -77,7 +77,7 @@ export class AddLocationMultipleUploadComponent implements OnInit {
           );
           window.sessionStorage.setItem("makerLogin","");
           this.router.navigate(['/master/location/listLocation'])
-          } else  if(data.message =='Email Id or Employee Id Already Present'){
+          } else  if(data.message =='Location code Already Exits.'){
             let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
             tempDirection = "rtl";
@@ -91,19 +91,6 @@ export class AddLocationMultipleUploadComponent implements OnInit {
               direction: tempDirection,
             });
             
-        }else if (data.message =='Department Id or Branch Id is not Present in the System'){
-          let tempDirection;
-            if (localStorage.getItem("isRtl") === "true") {
-            tempDirection = "rtl";
-            } else {
-           tempDirection = "ltr";
-           }
-            const dialogRef = this.dialog.open(AddLocationErrorComponent, {
-              data: data,
-              height:"40%",
-              width: "640px",
-              direction: tempDirection,
-            });
         }
         else{
           this.showNotification(
