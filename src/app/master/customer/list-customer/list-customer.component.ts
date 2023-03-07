@@ -17,6 +17,7 @@ import { DeleteComponent } from './delete/delete.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { MultipleAddCustomerComponent } from '../multiple-add-customer/multiple-add-customer.component';
 
 @Component({
   selector: 'app-list-customer',
@@ -158,6 +159,32 @@ permissionList: any;
    });
 
  }
+ multipleuploadpopupCall() {
+  let tempDirection;
+  if (localStorage.getItem("isRtl") === "true") {
+    tempDirection = "rtl";
+  } else {
+    tempDirection = "ltr";
+  }
+  const dialogRef = this.dialog.open(MultipleAddCustomerComponent, {
+    data: {
+      action: "edit",
+    },
+    width: "640px",
+    direction: tempDirection,
+  });
+  this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+    if (result === 0) {
+      this.refreshTable();
+      this.showNotification(
+        "black",
+        "Upload Record Successfully...!!!",
+        "bottom",
+        "center"
+      );
+    }
+  });
+}
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
