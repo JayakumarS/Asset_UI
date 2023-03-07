@@ -27,13 +27,17 @@ import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { WorkOrderRoutingModule } from 'src/app/operations/work-order/work-order-routing.module';
 import { DeleteManageAuditComponent } from './list-manage-audit/delete-manage-audit/delete-manage-audit.component';
+import { AddMultipleuploadManageAuditComponent } from './add-multipleupload-manage-audit/add-multipleupload-manage-audit.component';
+import { ManageAuditUploadErrorComponent } from './manage-audit-upload-error/manage-audit-upload-error.component';
 
 
 @NgModule({
   declarations: [
     AddManageAuditComponent,
     ListManageAuditComponent,
-    DeleteManageAuditComponent
+    DeleteManageAuditComponent,
+    AddMultipleuploadManageAuditComponent,
+    ManageAuditUploadErrorComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,44 @@
+<!-- <section class="content"> -->
+    <div class="content-block">
+        <h2 style="text-align: left;"><b>Import Summary</b></h2> <br>
+    <div class="row" id="newStyle">
+        <div class="col-xl-5 col-lg-2 col-md-2 col-sm-12 " >
+          <label class="lable" style="font-size: 12;margin-left: 35px;">Total Records :</label>
+      </div> 
+      <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 ">
+        {{totalCount}}
+      </div>
+    
+        
+    </div><br>
+    <div class="row">
+        <div class="col-xl-5 col-lg-2 col-md-2 col-sm-12 " >
+          <label class="lable" style="font-size: 12;margin-left: 35px;">Incorrect Records :</label>
+      </div> 
+      <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 ">
+        {{incorrectCount}}
+      </div>
+    
+        
+    </div><br>
+    
+    <div class="row">
+        <div class="col-xl-12 col-lg-2 col-md-2 col-sm-12 " *ngIf="empidAndEmail">
+          <label class="lable" style="font-size: 12;margin-left: 35px; color: red;">Note  : Email Id or Employee Id Already Present in the System!</label>
+      </div>  
+
+      <div class="col-xl-12 col-lg-2 col-md-2 col-sm-12 " *ngIf= "branchAndDep">
+        <label class="lable" style="font-size: 12;margin-left: 35px; color: red;">Note  : Department Id or Branch Id is not Present in the System!</label>
+    </div>  
+    </div><br>
+    
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row" align="end">
+                <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    <!-- </section> -->

@@ -19,6 +19,7 @@ import { DeleteManageAuditComponent } from './delete-manage-audit/delete-manage-
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { AddMultipleuploadManageAuditComponent } from '../add-multipleupload-manage-audit/add-multipleupload-manage-audit.component';
 
 @Component({
   selector: 'app-list-manage-audit',
@@ -129,6 +130,34 @@ export class ListManageAuditComponent implements OnInit {
   viewCall(row) {
     this.router.navigate(['/audit/manageaudit/manageAudit-view/' + row.auditId]);
   }
+
+  multipleuploadpopupCall() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(AddMultipleuploadManageAuditComponent, {
+      data: {
+        action: "edit",
+      },
+      width: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 0) {
+        this.refreshTable();
+        this.showNotification(
+          "black",
+          "Upload Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+
 
   deleteItem(row) {
     let tempDirection;
