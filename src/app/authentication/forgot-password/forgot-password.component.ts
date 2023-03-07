@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthLoginInfo } from "src/app/auth/login-info";
 import { AuthService } from "src/app/auth/auth.service";
 import { MatDialogRef } from "@angular/material/dialog";
+import { HttpServiceService } from "src/app/auth/http-service.service";
+import { CommonService } from "src/app/common-service/common.service";
 @Component({
   selector: "app-forgot-password",
   templateUrl: "./forgot-password.component.html",
@@ -21,6 +23,8 @@ export class ForgotPasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    public commonService: CommonService,
+    private httpService: HttpServiceService,
     public dialogRef: MatDialogRef<ForgotPasswordComponent>
   ) {}
   ngOnInit() {
@@ -71,6 +75,16 @@ export class ForgotPasswordComponent implements OnInit {
         );
     }
     
+  }
+
+  validateEmailId(event){
+    this.httpService.get<any>(this.commonService.uniqueValidateEmailIdUrl+ "?tableName=" +"auth.app_user"+"&columnName="+"user_id"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.authForm.controls['emailId'].setErrors(null);
+      }else{
+        this.authForm.controls['emailId'].setErrors({ assetcategory: true });
+      }
+    });
   }
 
   loginPage(){

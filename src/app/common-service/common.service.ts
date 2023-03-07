@@ -210,6 +210,8 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getMakerNameList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getMakerNameList`;
 
+  public uniqueValidateEmailIdUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getValidEmailId`;
+
   //FOR DOCUMENT VIEW ADDED BY Gokul
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
