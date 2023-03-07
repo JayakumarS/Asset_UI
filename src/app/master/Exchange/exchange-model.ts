@@ -8,7 +8,7 @@ export class ExchangeMaster {
   currency: string;
   date: string;
   dateobj: string;
-  value: string;
+  value: number;
 
   Success:boolean;
   isactiveForList: string;
