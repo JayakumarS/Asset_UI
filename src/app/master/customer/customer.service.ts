@@ -41,6 +41,7 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
   public getLocationDropdown = `${this.serverUrl.apiServerAddress}app/customerMaster/getLocationDropdown`;
   public locationemailDdList = `${this.serverUrl.apiServerAddress}app/customerMaster/locationemailDdList`;
   public getAuditor = `${this.serverUrl.apiServerAddress}app/customerMaster/getAuditor`;
+  public multipleEmployeeUploadFiles = `${this.serverUrl.apiServerAddress}app/customerMaster/multipleEmployeeuploadExefile`;
 
 
   get data(): CustomerMaster[] {
