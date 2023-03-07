@@ -68,6 +68,9 @@ export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAda
   id: number;
   utilityChangeLogReport: UtilityChangeLogReport | null;
   permissionList: any;
+  companyIdToken: any;
+  branchIdToken: any;
+  roleId: string;
   constructor(
     private fb: FormBuilder,
     public httpClient: HttpClient,
@@ -89,6 +92,8 @@ export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAda
       discardFromDate:[""],
       discardDateToObj:[""],
       discardToDate:[""],
+      companyId:this.companyIdToken,
+      branchId:this.branchIdToken,
 
 
 
@@ -105,7 +110,22 @@ export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAda
 
   ngOnInit(): void {
     this.onSubmit()
-
+    if (this.roleId=='2') {
+      this.displayedColumns = [
+        "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
+        "companyStatus","auditType","companyActions"
+      ];
+    } else if (this.roleId=='3') {
+      this.displayedColumns = [
+        "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
+        "checkerStatus","auditType","checkerActions"
+      ];
+    } else if (this.roleId=='4') {
+      this.displayedColumns = [
+        "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
+        "makerStatus","auditType","makerActions"
+      ];
+    }
     const permissionObj = {
       formCode: 'F1049',
       roleId: this.tokenStorage.getRoleId()
@@ -135,7 +155,8 @@ export class ListUtilityChangeLogReportComponent extends UnsubscribeOnDestroyAda
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort
+      this.sort,
+      this.docForm
     );
     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
@@ -258,7 +279,8 @@ export class ExampleDataSource extends DataSource<UtilityChangeLogReport> {
   constructor(
     public exampleDatabase: UtilityChangeLogReportService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    public docForm: FormGroup
   ) {
     super();
 
@@ -273,7 +295,7 @@ export class ExampleDataSource extends DataSource<UtilityChangeLogReport> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllList();
+    this.exampleDatabase.getAllList(this.docForm.value);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
@@ -281,9 +303,14 @@ export class ExampleDataSource extends DataSource<UtilityChangeLogReport> {
           .slice()
           .filter((UsageMonitor: UtilityChangeLogReport) => {
             const searchStr = (
-              UsageMonitor.date +
-              UsageMonitor.meter +
-              UsageMonitor.assignee
+              UsageMonitor.auditName +
+              UsageMonitor.manageAuditNo +
+              UsageMonitor.startDate +
+              UsageMonitor.endDate +
+              UsageMonitor.makerStatus +
+              UsageMonitor.checkerStatus +
+              UsageMonitor.companyStatus +
+              UsageMonitor.auditType
 
 
 
@@ -312,19 +339,19 @@ export class ExampleDataSource extends DataSource<UtilityChangeLogReport> {
       let propertyA: number | string | boolean = "";
       let propertyB: number | string | boolean = "";
       switch (this._sort.active) {
-        case "date":
-          [propertyA, propertyB] = [a.date, b.date];
+        case "auditName":
+          [propertyA, propertyB] = [a.auditName, b.auditName];
+          break;
+        case "manageAuditNo":
+          [propertyA, propertyB] = [a.manageAuditNo, b.manageAuditNo];
+          break;
+        case "startDate":
+          [propertyA, propertyB] = [a.startDate, b.startDate];
           break;
 
-          case "meter":
-          [propertyA, propertyB] = [a.meter, b.meter];
-          break;
 
-          case "assignee":
-          [propertyA,propertyB]=[a.assignee,b.assignee];
-          break;
 
-             }
+      }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
       return (
@@ -332,5 +359,17 @@ export class ExampleDataSource extends DataSource<UtilityChangeLogReport> {
       );
     });
   }
-
 }
+  export interface MainList {
+    manageAuditNo:String;
+    auditName:String;
+    startDate:String;
+    endDate:String;
+    makerStatus:String;
+    checkerStatus:String;
+    companyStatus:String;
+    auditType:String;
+    // subList?: SubList[] | MatTableDataSource<SubList>;
+  }
+
+

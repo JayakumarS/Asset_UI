@@ -1,10 +1,10 @@
 
 export class utilityChangeLogReportResultBean {
-    
+
     Success: boolean;
-    depreciationList: [];
+    reconciliationReportList: [];
     id: [];
     utilityChangeLogReportBean: [];
 
-   
+
 }

@@ -24,9 +24,9 @@ export class UtilityChangeLogReportService extends UnsubscribeOnDestroyAdapter{
     super();
   }
 
-  private saveUtilityChangeLogReport = `${this.serverUrl.apiServerAddress}api/auth/app/utilityChangeLogReport/save`; 
-  public deleteUtilityChangeLogReport = `${this.serverUrl.apiServerAddress}api/auth/app/utilityChangeLogReport/delete`; 
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/utilityChangeLogReport/getList`;
+  private saveUtilityChangeLogReport = `${this.serverUrl.apiServerAddress}api/auth/app/utilityChangeLogReport/save`;
+  public deleteUtilityChangeLogReport = `${this.serverUrl.apiServerAddress}api/auth/app/utilityChangeLogReport/delete`;
+  public getAllMasters = `${this.serverUrl.apiServerAddress}app/reconciliationReport/getList`;
 
   get data(): UtilityChangeLogReport[] {
     return this.dataChange.value;
@@ -34,11 +34,12 @@ export class UtilityChangeLogReportService extends UnsubscribeOnDestroyAdapter{
   getDialogData() {
     return this.dialogData;
   }
-  getAllList(): void {
-    this.subs.sink = this.httpService.get<utilityChangeLogReportResultBean>(this.getAllMasters).subscribe(
+  getAllList(object): void {
+    this.subs.sink = this.httpService.post<utilityChangeLogReportResultBean>(this.getAllMasters,object).subscribe(
+
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.depreciationList);
+        this.dataChange.next(data.reconciliationReportList);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -55,8 +56,8 @@ export class UtilityChangeLogReportService extends UnsubscribeOnDestroyAdapter{
       //this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
-        
+
     });
   }
-  
+
 }
