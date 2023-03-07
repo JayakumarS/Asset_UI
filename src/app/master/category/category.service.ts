@@ -76,7 +76,7 @@ get data(): Assetcategory[] {
           "bottom",
           "center"
         );
-        router.navigate(['/master/category/list-category']);
+        router.navigate(['/master/cityMaster/listCity']);
       }else {
         notificationService.showNotification(
           "snackbar-danger",

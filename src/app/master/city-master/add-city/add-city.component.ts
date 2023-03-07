@@ -30,7 +30,8 @@ export class AddCityComponent implements OnInit {
     private snackBar:MatSnackBar,
     private router:Router,
     public route: ActivatedRoute,private tokenStorage: TokenStorageService,
-    private notificationService: NotificationService) {
+    private notificationService: NotificationService,
+    ) {
 
       this.docForm = this.fb.group({
         cityName:["", [Validators.required]],
@@ -69,7 +70,7 @@ export class AddCityComponent implements OnInit {
       this.cityMaster = this.docForm.value;
       console.log(this.cityMaster);
 
-      this.cityService.addCompany(this.cityMaster,this.router);
+      this.cityService.addCompany(this.cityMaster,this.router,this.notificationService);
 
         this.showNotification(
           "snackbar-success",

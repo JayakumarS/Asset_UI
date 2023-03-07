@@ -36,11 +36,26 @@ export class CityService  extends  UnsubscribeOnDestroyAdapter{
     return this.dataChange.value;
   }
 
-  addCompany(cityMaster,router): void {
+  addCompany(cityMaster,router,notificationService): void {
     this.dialogData = cityMaster;
     this.httpService.post<any>(this.saveMaster, cityMaster).subscribe(data => {
       console.log(data);
-         
+      if(data.success=true){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Record Added successfully...!!!",
+          "bottom",
+          "center"
+        );
+        router.navigate(['/master/cityMaster/listCity']);
+      }else {
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not ADDED, "+data.message,
+          "bottom",
+          "center"
+        );
+      }
       //this.dialogData = employees;
       },
       (err: HttpErrorResponse) => {
