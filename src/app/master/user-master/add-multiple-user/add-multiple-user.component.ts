@@ -77,7 +77,7 @@ export class AddMultipleUserComponent implements OnInit {
           );
           window.sessionStorage.setItem("makerLogin","");
           this.router.navigate(['/master/userMaster/list-user-master'])
-          } else  if(data.message =='Email Id or Employee Id Already Present'){
+          } else  if(data.message =='Email Id or Employee Id Already Present in the System'){
             let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
             tempDirection = "rtl";
@@ -91,19 +91,6 @@ export class AddMultipleUserComponent implements OnInit {
               direction: tempDirection,
             });
             
-        }else if (data.message =='Department Id or Branch Id is not Present in the System'){
-          let tempDirection;
-            if (localStorage.getItem("isRtl") === "true") {
-            tempDirection = "rtl";
-            } else {
-           tempDirection = "ltr";
-           }
-            const dialogRef = this.dialog.open(AddMultipleUserErrorComponent, {
-              data: data,
-              height:"40%",
-              width: "640px",
-              direction: tempDirection,
-            });
         }
         else{
           this.showNotification(
