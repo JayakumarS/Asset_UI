@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { InventoryReports } from '../inventory-reports-model';
@@ -13,10 +15,11 @@ import { InventoryReportsService } from '../inventory-reports.service';
 })
 export class InventoryPrintComponent implements OnInit {
   beanValue = [];
-  customerMaster: InventoryReports | null;
+  inventoryReport: InventoryReports | null;
   docForm: FormGroup;
   constructor(private router:Router, private route:ActivatedRoute, private httpService:HttpServiceService,
-    private inventoryReportService: InventoryReportsService,private fb: FormBuilder,private tokenStorage:TokenStorageService) { }
+    private inventoryReportService: InventoryReportsService,private fb: FormBuilder,private tokenStorage:TokenStorageService,
+    private spinner: NgxSpinnerService,private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -41,12 +44,33 @@ export class InventoryPrintComponent implements OnInit {
       'fromDate':sessionStorage.getItem("dateValue")
     })
 
-    this.customerMaster=this.docForm.value;
-    this.httpService.post(this.inventoryReportService.getInvemtoryReports, this.customerMaster).subscribe((res: any) => {
-      this.beanValue=res.inventoryReportsDetails;
-    });
-  }
+    this.inventoryReport=this.docForm.value;
+    this.spinner.show();
+    this.inventoryReportService.getInventoryReport(this.inventoryReport).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        this.beanValue=res.inventoryReportsDetails;
+     }, error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+               "snackbar-danger",
+               error.message + "...!!!",
+               "bottom",
+               "center"
+          );
+          }
+     });
+}
 
+showNotification(colorName, text, placementFrom, placementAlign) {
+     this.snackBar.open(text, "", {
+       duration: 4000,
+       verticalPosition: placementFrom,
+       horizontalPosition: placementAlign,
+       panelClass: colorName,
+     });
+   }
+  
   printComponent(){
 
  
