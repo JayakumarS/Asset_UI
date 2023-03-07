@@ -1,12 +1,12 @@
-<section class="content">
     <div class="content-block">
         <form class="m-4" >
         <div class="block-header">
             <app-breadcrumb [title]="'Transfer Asset'" [items]="['Asset']" [active_item]="'Transfer Asset'">
             </app-breadcrumb>
         </div>
+        <div class="card">
         <div class="col-lg-10 col-md-12">
-            <div class="card">
+          
                         
                             <mat-tab-group (selectedTabChange)="accurredDepreciationPopUp($event);">
                                 <mat-tab>
@@ -20,7 +20,7 @@
                                             </div>
                                             <div class="body">
 
-                                                <div class="row">
+                                                <div class="row" style="margin-left: 10%;">
                                                     <div class="col-md-4 col-6 b-r">
                                                         <strong>Transfer Date</strong>
                                                         <br>
@@ -41,7 +41,7 @@
                                                 </div>
                                                 <br><br>
         
-                                                       <div class="row">
+                                                       <div class="row" style="margin-left: 10%;">
                                                     <div class="col-md-4 col-6 b-r">
                                                         <strong>Source Location</strong>
                                                         <br>
@@ -61,7 +61,7 @@
                                                     </div>
                                                     <br><br>
 
-                                                    <div class="row">
+                                                    <div class="row" style="margin-left: 10%;">
                                                         <div class="col-md-4 col-6 b-r">
                                                             <strong>Company</strong>
                                                             <br>
@@ -81,7 +81,7 @@
                                                         </div>
                                                         <br><br>
 
-                                                        <div class="row">
+                                                        <div class="row" style="margin-left: 10%;">
                                                             
                                                             <div class="col-md-4 col-6 b-r">
                                                                 <strong>Delivery Method</strong>
@@ -91,7 +91,7 @@
                                                         </div>
                                                             <br><br>
 
-                                                            <div class="row">
+                                                            <div class="row" style="margin-left: 10%;">
                                                                 <!-- <div class="col-md-4 col-6 b-r">
                                                                     <strong>Item Name</strong>
                                                                     <br>
@@ -137,11 +137,11 @@
                                                                     <br><br>
 
 
-                                                    <div class="container" style="height: 200px ;overflow-y: scroll">
-                                            
-                                                          <table id="excel-table" class="table table-striped">
+                                                    
+                                                     <div class="row" style="margin-left: 10%;">
+                                                          <table  class="table table-striped">
                                                             <thead>
-                                                                <tr style="position: sticky;top: 0;">
+                                                                <tr style="position: sticky;top: 0;width: 100%;">
                                                                   <th style="background-color:#c1ddf5;">Asset Code</th>
                                                                   <th style="background-color:#c1ddf5;">Asset Name</th>
                                                                   <th style="background-color:#c1ddf5;">Serial No</th>
@@ -163,9 +163,9 @@
                                                                   </tr>        
                                                             </tbody>
                                                           </table>
-                                                      </div>
+                                                        </div>
 
-                                                      <button mat-raised-button color="warn" type="button" (click)="exitCall()"  style="margin-left: 436px;">Back</button>
+                                                      <button mat-raised-button color="warn" type="button" (click)="exitCall()"  style="margin-left: 50%;">Back</button>
                                                     </div>
                                                     </div>
                                                     </div>
@@ -175,7 +175,6 @@
                                                     </div>
                                                     </form>
                                                     </div>
-                                                    </section>
 
 
 
