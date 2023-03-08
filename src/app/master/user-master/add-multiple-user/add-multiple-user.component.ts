@@ -76,8 +76,8 @@ export class AddMultipleUserComponent implements OnInit {
             "center"
           );
           window.sessionStorage.setItem("makerLogin","");
-          this.router.navigate(['/master/userMaster/list-user-master'])
-          } else  if(data.message =='Email Id or Employee Id Already Present in the System'){
+          location.reload();
+          } else  if(data.message =='Email Id is Already Present in the System'){
             let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
             tempDirection = "rtl";
