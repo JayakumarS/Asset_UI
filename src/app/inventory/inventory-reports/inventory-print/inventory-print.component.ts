@@ -22,26 +22,15 @@ export class InventoryPrintComponent implements OnInit {
     private spinner: NgxSpinnerService,private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-
     this.docForm = this.fb.group({
-     
-      item: [""],
-      fromDateObj: [""],
-      toDateObj:[""],
-      fromDate: [""],
-      toDate: [""],
-      itemWise: [""],
-      availableQty: [""],
-      orderQty: [""],
-      workInQty: [""],
-      location: [""],
-      companyId:this.tokenStorage.getCompanyId()
-   
+     item: [""],
+     category: [""],
+     companyId: parseInt(this.tokenStorage.getCompanyId())
     });
+
     this.docForm.patchValue({
       'item':sessionStorage.getItem("item"),
-      'location':sessionStorage.getItem("location"),
-      'fromDate':sessionStorage.getItem("dateValue")
+      'category':sessionStorage.getItem("category")
     })
 
     this.inventoryReport=this.docForm.value;

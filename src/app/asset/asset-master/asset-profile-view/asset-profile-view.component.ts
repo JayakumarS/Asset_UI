@@ -91,7 +91,7 @@ export class AssetProfileViewComponent implements OnInit {
   financialChangeDetails:[];
   itemNameDdList: any;
   locationDdList: any;
-  customerMaster: InventoryReports | null;
+  customerMaster: AssetMaster | null;
   mainList =[];
   glList=[];
   gllist: MainList[] = [];

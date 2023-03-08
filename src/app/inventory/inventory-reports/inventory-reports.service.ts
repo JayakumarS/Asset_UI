@@ -20,13 +20,19 @@ export class InventoryReportsService extends UnsubscribeOnDestroyAdapter {
   }
   
   public getInventoryReports = `${this.serverUrl.apiServerAddress}app/inventoryReports/getInventoryReports`;
+  public getInventoryReportsExcelExport = `${this.serverUrl.apiServerAddress}app/inventoryReports/getInventoryReportExcelExport`;
 
+  
   get data(): InventoryReports[] {
     return this.dataChange.value;
   }
   
   getInventoryReport(inventoryReport: any): Observable<any> {
     return this.httpClient.post<any>(this.getInventoryReports, inventoryReport);
+  }
+
+  getInventoryReportExcelExport(inventoryReport: any): Observable<any> {
+    return this.httpClient.post<any>(this.getInventoryReportsExcelExport, inventoryReport);
   }
 
 }

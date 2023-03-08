@@ -37,6 +37,7 @@ import { CommonService } from "src/app/common-service/common.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { InventoryReports } from "../inventory-reports-model";
 import { InventoryReportsService } from "../inventory-reports.service";
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 @Component({
   selector: "app-list-inventory-reports",
@@ -91,7 +92,8 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
     private commonService: CommonService,
     private tokenStorage: TokenStorageService,
     private spinner: NgxSpinnerService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private serverUrl:serverLocations
   ) {
     super();
     {
@@ -182,6 +184,39 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
       });
   }
 
+
+  exporttoExcelReport() {
+    this.inventoryReport = this.docForm.value;
+    this.spinner.show();
+    this.inventoryReportService.getInventoryReportExcelExport(this.inventoryReport).subscribe({
+        next: (data: any) => {
+          this.spinner.hide();
+          if (data != null) {
+            if(data.success){
+              window.open(this.serverUrl.apiServerAddress+"asset_upload/"+data.inventoryReportFilePath, '_blank');
+              }
+              else{
+                this.showNotification(
+                  "snackbar-danger",
+                  "Failed to Generate Inventory Report Excel",
+                  "bottom",
+                  "center"
+                );
+              }
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            "Failed to Generate Inventory Report Excel",
+            "bottom",
+            "center"
+          );
+        },
+      });
+  }
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 4000,
@@ -199,8 +234,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   print() {
     this.inventoryReport = this.docForm.value;
     sessionStorage.setItem("item", this.inventoryReport.item);
-    sessionStorage.setItem("location", this.inventoryReport.location);
-    sessionStorage.setItem("dateValue", this.inventoryReport.fromDate);
+    sessionStorage.setItem("category", this.inventoryReport.category);
     this.router.navigate([
       "/inventory/inventory-reports/print-inventory-report",
     ]);
