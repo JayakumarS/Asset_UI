@@ -87,6 +87,7 @@ export class AddMultipleDepartmentComponent implements OnInit {
           );
           window.sessionStorage.setItem("makerLogin","");
           this.router.navigate(['/master/department-Master/list-department'])
+          window.location.reload();
           } else  if(data.message =='Email Id or Employee Id Already Present'){
             let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
