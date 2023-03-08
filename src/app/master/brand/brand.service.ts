@@ -54,6 +54,7 @@ export class BrandMasterService extends UnsubscribeOnDestroyAdapter {
     this.httpService.post<any>(this.saveBranch, brand).subscribe(data => {
       console.log(data);
       //this.dialogData = employees;
+      window.location.reload();
 
       },
       (err: HttpErrorResponse) => {
