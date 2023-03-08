@@ -23,6 +23,8 @@ export class UploadExcelPopupComponent implements OnInit {
   companyId:any;
   itemList:any;
   isValid: boolean=true;
+  isValidNum: boolean=true;
+  isValidNum1: boolean=true;
 
   constructor(
     public router:Router,
@@ -37,7 +39,7 @@ export class UploadExcelPopupComponent implements OnInit {
     public itemMasterService: ItemMasterService,
     @Inject(MAT_DIALOG_DATA) public values: any,
     public dialogRef: MatDialogRef<UploadExcelPopupComponent>
-  ) { 
+  ) {
     this.docForm = this.fb.group({
       itemType:[""],
       itemCategory:[""],
@@ -47,7 +49,7 @@ export class UploadExcelPopupComponent implements OnInit {
       openingBalance:[""],
       defaultPrice:[""],
     });
-    
+
   }
 
   ngOnInit(): void {
@@ -56,7 +58,13 @@ export class UploadExcelPopupComponent implements OnInit {
    for(let i = 0;i<this.itemList.length;i++){
     if(this.itemList[i].isValid == false){
       this.isValid = false;
-    } 
+    }
+    if(this.itemList[i].isValidNum == false){
+      this.isValidNum = false;
+    }
+    if(this.itemList[i].isValidNum1 == false){
+      this.isValidNum1 = false;
+    }
    }
   }
 
@@ -77,7 +85,7 @@ export class UploadExcelPopupComponent implements OnInit {
                 width: "450px",
                 direction: tempDirection,
               });
-            } 
+            }
           else{
             this.showNotification(
               "snackbar-danger",
@@ -85,8 +93,8 @@ export class UploadExcelPopupComponent implements OnInit {
               "bottom",
               "center"
             );
-    
-            
+
+
           }
       }
     })

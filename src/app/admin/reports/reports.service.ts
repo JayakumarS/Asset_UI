@@ -38,7 +38,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     public UserSerach = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/getUserSerach`;
     public assetHistoryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getassetHistoryList`;
     public assetHistoryListExcelUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/excelExport`;
-    
+    public assetdueList = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getDueList`;
     get data(): Reportscategory[] {
       return this.dataChange.value;
     }
@@ -107,6 +107,24 @@ getDepreciationList(object): void {
     }
   );
 }
+
+
+getDueList(object): void {
+  console.log(object);
+  let companyId = this.tokenStorage.getCompanyId();
+
+  this.subs.sink = this.httpService.post<any>(this.assetdueList + "?companyId=" + parseInt(companyId) , object).subscribe(
+    (data) => {
+      this.isTblLoading = false;
+      this.dataChange.next(data.dueList);
+    },
+    (error: HttpErrorResponse) => {
+      this.isTblLoading = false;
+      console.log(error.name + " " + error.message);
+    }
+  );
+}
+
 
 }
 

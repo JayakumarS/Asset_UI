@@ -1,93 +1,156 @@
-<div class="block-header" style="padding: 0.5% !important;">
-    <!-- assets return due form -->
-       <app-breadcrumb [title]="'Reports'" [items]="['Home','Reports']" [active_item]="'AssetsReturn'">
-       </app-breadcrumb>
-</div>
-             <div class="card">
-               <div class="body" style="padding-left: 110px; padding: 2%;">
-               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
-                 <h2 _ngcontent-nrk-c304="" style="padding-bottom: 5px; padding-top: 5px; color: #004AAD;">Assets due for return</h2>
-
-                   <div class="tabgrp">
-                
-                   <form class="m-4" >
-                   <div class="rowtab" >
-                   <div class="row">
-                       
-                     <div class="col-xl-3 col-lg- col-md-12 col-sm-12" style="margin-left: 5px;">
-                       <label>FROM DATE</label>
-                    </div>
-                       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-                           <mat-form-field appearance="fill">
-                               <input matInput [matDatepicker]="picker1" formControlName="startdate" required>
-                               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                               <mat-datepicker #picker1></mat-datepicker>
-                             <mat-error >
-                               Start Date is required
-                             </mat-error>
-                           </mat-form-field>
-                         </div>
-       
-                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;margin-top: 32px;">
-                           <button  color="primary" type="button" class="btn-space" 
-                             mat-raised-button>Search</button>
-                         </div>
-      
-       </div>
-       
-       <div class="row">
-       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-         <label>TO DATE</label>
-</div>
-<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;">
-   <mat-form-field appearance="fill">
-       <input matInput [matDatepicker]="picker2" formControlName="enddate" required>
-       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-       <mat-datepicker #picker2></mat-datepicker>
-     <mat-error >
-       End date required
-     </mat-error>
-   </mat-form-field>
- </div>
-
-</div>
-</div>
-</form>
-
-<div class="container">
-   <table id="excel-table" class="table table-striped">
-     <thead>
-         <tr >
-           <th style="background-color:#c1ddf5;">Asset Code</th>
-           <th style="background-color:#c1ddf5;">Asset Name</th>
-           <th style="background-color:#c1ddf5;">Asset Location</th>
-           <th style="background-color:#c1ddf5;">Transferred To</th>
-           <th style="background-color:#c1ddf5;">Department</th>
-           <th style="background-color:#c1ddf5;">Allotted Upto</th>
-         </tr>
-     </thead>
-     <tbody>
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Reports'" [items]="['Home','Reports']" [active_item]="'AssetsReturn'">
+      </app-breadcrumb>
+    </div>
    
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h3 _ngcontent-nrk-c304="" style="padding-bottom: 5px; padding-top: 5px; color: #004AAD;">ASSETS DUE FOR RETURN</h3>
+            <div class="body" style="     padding-left: 2%;">
+          
+            </div>
+           
+             
+            <div class="table-responsive">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row"  style="padding-left: 10%;">
+                  <div class=" col-md-1">
+                    <label >FROM DATE</label>
+                </div>
+                <div class=" col-md-4">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                         <input matInput [matDatepicker]="picker1" formControlName="startdateObj"
+                            (dateInput)="$event.value.format('DD/MM/YYYY')" id="startdate" 
+                            (dateChange)="getDateString($event, 'startdate',0)" placeholder="From Date"> 
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1>
+                            <mat-error *ngIf="docForm.get('startdate').hasError('required')">
+                              Expected Date Of Delivery is required
+                            </mat-error>
+                          </mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                        
+                      
+                        <div class=" col-md-1">
+                      <label >To DATE</label>
+                      </div>
+                      <div class=" col-md-4">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <input matInput [matDatepicker]="picker2" formControlName="enddateObj"
+                            (dateInput)="$event.value.format('DD/MM/YYYY')" id="enddate" 
+                            (dateChange)="getDateString($event, 'enddate',0)" placeholder="To Date"> 
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2>
+                            <mat-error *ngIf="docForm.get('enddate').hasError('required')">
+                              Expected Date Of Delivery is required
+                            </mat-error>
+                          </mat-datepicker>
+                          </mat-form-field>
+                        </div>    
+                   </div>
+                 
+                 
+                   <div class="row" style="    padding-left: 40%;">
+                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" >
+                  <button class="btn-space" mat-raised-button (click) = "onSubmit()"
+                    color="accent" style="background-color: #34d034;">Search</button>
+                </div>
+
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12" >
+                  <button class="btn-space" mat-raised-button (click) = "Reset()"
+                    color="primary" >Reset</button>
+                </div>
+              </div> 
+              <!-- </div> -->
+            </form>
+              <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ms-0">
+                      <li class="dropdown m-l-20 ">
+                        <h2>User Log</h2>
+                      </li>
+                      <li class="dropdown m-l-20">
+                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                        <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                          aria-label="Search box">
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="XLSX">
+                          <img src="assets/images/icons/xlsx.png" alt=""
+                            (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <mat-table #table matTableExporter    [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[6]"   >
+                 <ng-container matColumnDef="asset_code">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Code </mat-header-cell>
+                  <mat-cell *matCellDef="let row"(contextmenu)="onContextMenu($event, row)">{{row.asset_code}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="asset_name">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Name </mat-header-cell>
+                  <mat-cell *matCellDef="let row"(contextmenu)="onContextMenu($event, row)"> {{row.asset_name}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="departments">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Department </mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.departments}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="asset_locations">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Location</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">{{row.asset_locations}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="allotted_upto">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Allotted Upto</mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">{{row.allotted_upto }}
+                  
+                  </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="transferred_to">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Transferred To</mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">{{row.transferred_to}}</mat-cell>
+                  </ng-container>
+               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="clickedRows.add(row)"  [ngStyle]="{'background-color': row.allotted_upto < 'sysdate' ?  'white' : 'red' }"
+                [style.cursor]="'pointer'" matRipple   [ngStyle]="{'background-color': row.allotted_upto < 'sysdate' ?  'white' : 'red' }" >
+               </mat-row>
+             </mat-table>
+              <!-- Loading spinner -->
+              <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                </mat-progress-spinner>
+              </div>
             
-     </tbody>
-     </table>
-     </div>
-
-
-
-
-    
-       <form class="m-4" >
-       <div class="rowtab" >
-      <div class="row">
-
-
-</div>
-</div>
-</form>
-
-</div>
-
-</div>
-</div>
+              <!-- context menu end -->
+              <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                
+              </div>
+              <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator>
+           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+<!-- </div> -->
+</section>

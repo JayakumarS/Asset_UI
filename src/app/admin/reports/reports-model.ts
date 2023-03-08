@@ -24,6 +24,10 @@ export class Reportscategory{
   assetLocation: number;
   categoryId:  number;
   companyId:any;
+  asset_locations: string;
+  departments:string;
+  allotted_upto:string;
+  transferred_to:string;
 
     constructor(reportscategory) {
         {
@@ -46,7 +50,12 @@ export class Reportscategory{
           this.enddateObj = reportscategory.enddateObj || "";
           this.location = reportscategory.location || "";
           this.repair = reportscategory.repair || "";
+          this.asset_locations = reportscategory.asset_locations || "";
+          
+          this.departments = reportscategory.departments || "";
+          this.allotted_upto = reportscategory.allotted_upto|| "";
 
+          this.transferred_to = reportscategory.transferred_to|| "";
 
 
 

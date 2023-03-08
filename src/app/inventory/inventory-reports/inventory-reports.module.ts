@@ -46,6 +46,7 @@ import { InventoryPrintComponent } from './inventory-print/inventory-print.compo
 import { InventoryReportsRoutingModule } from './inventory-reports-routing.module';
 import { ListInventoryReportsComponent } from './list-inventory-reports/list-inventory-reports.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from "src/app/shared/components/components.module";
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     InventoryReportsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    ComponentsModule,
     
     A11yModule,
     CdkStepperModule,
