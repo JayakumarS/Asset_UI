@@ -28,8 +28,8 @@
                             <th class="tableHeader">Item Type</th>
                             <th class="tableHeader">Item Category</th>
                             <th class="tableHeader">Item Description</th>
-                            <th class="tableHeader">Inventory Valution</th>
-                            <th class="tableHeader">Issue Method</th>
+                            <th class="tableHeader">Vendor Name</th>
+                            <th class="tableHeader">Location Code</th>
                             <th class="tableHeader">Opening Balance</th>
                             <th class="tableHeader">Default Price</th>
                         </tr>
@@ -42,8 +42,11 @@
                             <td *ngIf="data.isValid == false" style="background-color: red;">{{data.itemCategoryName}}</td>
                             <td *ngIf="data.isValid == true">{{data.itemCategoryName}}</td>
                             <td>{{data.itemDescription}}</td>
-                            <td>{{data.inventory}}</td>
-                            <td>{{data.issue}}</td>
+                            <td *ngIf="data.isValid == true">{{data.inventory}}</td>
+                            <td *ngIf="data.isValid == false" style="background-color: red;">{{data.inventory}}</td>
+                            <td *ngIf="data.isValid == true">{{data.issue}}</td>
+                            <td *ngIf="data.isValid == false" style="background-color: red;">{{data.issue}}</td>
+                           
                             <td *ngIf="data.isValidNum == false" style="background-color: red;">{{data.openBalance}}</td>
                             <td *ngIf="data.isValidNum == true">{{data.openBalance}}</td>
                             <td *ngIf="data.isValidNum1 == false" style="background-color: red;">{{data.price}}</td>
