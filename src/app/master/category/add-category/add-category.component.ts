@@ -27,7 +27,7 @@ export class AddCategoryComponent implements OnInit {
   assettypelist=[];
   depreciationlist=[];
   currencylist=[];
-  fieldTypeList=[{"id":"Text","text":"Text"},{"id":"Date","text":"Date"}];
+  fieldTypeList=[{"id":"Number","text":"Number"},{"id":"Text","text":"Text"},{"id":"Date","text":"Date"}];
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
     private categoryMasterService: CategoryMasterService,
