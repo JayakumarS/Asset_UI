@@ -65,7 +65,7 @@ export class AddMultiplecompanyEmployeesComponent implements OnInit {
 
     upload(){ 
       this.companyId=this.tokenStorage.getCompanyId();
-      this.httpService.post<any>(this.companyEmployeeService.multipleEmployeeUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
+      this.httpService.post<any>(this.companyEmployeeService.multipleEmployeeUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId()+"&userId="+this.tokenStorage.getUserId(),this.excelFile).subscribe(data => {
         console.log(data);
        
           if(data.message =='Success'){
@@ -76,8 +76,8 @@ export class AddMultiplecompanyEmployeesComponent implements OnInit {
             "center"
           );
           window.sessionStorage.setItem("makerLogin","");
-          this.router.navigate(['/master/Company-Employees/listCompanyEmp'])
-          } else  if(data.message =='Email Id or Employee Id Already Present'){
+          location.reload();
+          } else  if(data.message =='Email Id or Employee Id Already Present in the System'){
             let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
             tempDirection = "rtl";

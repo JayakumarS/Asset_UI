@@ -360,7 +360,7 @@ configUserLog: {
       if(doughnutChartData.companyEarningsAssetsCount!=null){
         this.companyEarningsAssetsCount = doughnutChartData.companyEarningsAssetsCount;
       }else{
-        this.companyEarningsAssetsCount="-";
+        this.companyEarningsAssetsCount="0";
       }
       //Auditors
       if(doughnutChartData.companyAuditorsAssetsCount!=null){
