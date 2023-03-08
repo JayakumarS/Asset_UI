@@ -514,7 +514,7 @@ export class AddCompanyComponent implements OnInit {
 
 
   onCancel() {
-    this.router.navigate(['/master/company/listCompany']);
+    history.back();
 
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
