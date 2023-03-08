@@ -38,8 +38,8 @@
                   <button class="btn-space" mat-raised-button (click)=" viewReport()" style=" color: aliceblue; background-color: #34d034;">
                     <i class="fa fa-search"></i> Search </button>
                      <button color="warn" class="btn-space" type="button" style="background-color:#f44336;" (click)="reset()" mat-raised-button color="primary">Reset</button>
-                     <button color="warn" class="btn-space" style="background-color :#00bcd4;" mat-raised-button (click)=" print()">
-                      <i class="fa fa-print"></i> Print </button>
+                     <!-- <button color="warn" class="btn-space" style="background-color :#00bcd4;" mat-raised-button (click)=" print()">
+                      <i class="fa fa-print"></i> Print </button> -->
                 </div>
               </div>
             </form> 
@@ -125,7 +125,7 @@
                                 </td>
                               </ng-container>
                               <tr mat-header-row *matHeaderRowDef="subBlockDisplayedColumns"></tr>
-                              <tr mat-row *matRowDef="let row; columns: subBlockDisplayedColumns;"></tr>
+                              <tr style="height: 37px;" mat-row *matRowDef="let row; columns: subBlockDisplayedColumns;"></tr>
                             </table>
                           </div>
                         </div>
@@ -133,7 +133,7 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: innerDisplayedColumns;" (click)="toggleSubRow(row)"></tr>
+                    <tr style="height: 37px;" mat-row *matRowDef="let row; columns: innerDisplayedColumns;" (click)="toggleSubRow(row)"></tr>
                     <tr mat-row *matRowDef="let row; columns: ['expandedSubDetail']" class="example-detail-row"></tr>
                   </table>
                 </div>
@@ -142,7 +142,7 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-          <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+          <tr style="height: 37px;" mat-row *matRowDef="let element; columns: columnsToDisplay;"
             [class.example-element-row]="element.addresses?.data.length"
             [class.example-expanded-row]="expandedElement === element" (click)="toggleRow(element)"></tr>
           <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"
