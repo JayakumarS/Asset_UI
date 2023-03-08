@@ -77,6 +77,7 @@ export class AddLocationMultipleUploadComponent implements OnInit {
           );
           window.sessionStorage.setItem("makerLogin","");
           this.router.navigate(['/master/location/listLocation'])
+          window.location.reload();
           } else  if(data.message =='Location code Already Exits.'){
             let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
@@ -92,7 +93,7 @@ export class AddLocationMultipleUploadComponent implements OnInit {
             });
             
         }
-        else{
+        else {
           this.showNotification(
             "snackbar-danger",
             "Records Not Added...!!!",
@@ -102,6 +103,32 @@ export class AddLocationMultipleUploadComponent implements OnInit {
   
           
         }
+
+        if(data.locationCode ==false){
+          this.showNotification(
+            "snackbar-danger",
+           "Please Enter Valid Location Code.",
+            "top",
+            "center"
+            );
+         }
+
+      else if(data.location ==false){
+          this.showNotification(
+            "snackbar-danger",
+           "Please Enter Valid Location Code !",
+            "top",
+            "left"
+            );
+         } 
+         else if(data.primaryHead ==false){
+          this.showNotification(
+            "snackbar-danger",
+           "Please Enter Valid Location Code.",
+            "top",
+            "right"
+            );
+         }
         
         },
         (err: HttpErrorResponse) => {

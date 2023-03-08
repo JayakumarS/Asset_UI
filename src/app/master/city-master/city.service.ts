@@ -48,6 +48,8 @@ export class CityService  extends  UnsubscribeOnDestroyAdapter{
           "center"
         );
         router.navigate(['/master/cityMaster/listCity']);
+        window.location.reload();
+
       }else {
         notificationService.showNotification(
           "snackbar-danger",
