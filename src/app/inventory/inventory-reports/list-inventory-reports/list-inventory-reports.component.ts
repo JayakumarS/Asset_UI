@@ -38,11 +38,6 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { InventoryReports } from "../inventory-reports-model";
 import { InventoryReportsService } from "../inventory-reports.service";
 
-
-
-/**
- * @title Table with expandable rows
- */
 @Component({
   selector: "app-list-inventory-reports",
   templateUrl: "./list-inventory-reports.component.html",
@@ -55,157 +50,125 @@ import { InventoryReportsService } from "../inventory-reports.service";
     ]),
   ],
 })
-export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter
-    implements OnInit
-  {
-    @ViewChild("outerSort", { static: true }) sort: MatSort;
-    @ViewChildren("innerSort") innerSort: QueryList<MatSort>;
-    @ViewChildren("innerTables") innerTables: QueryList<MatTable<SubList>>;
-  
-    dataSource: MatTableDataSource<MainList>;
-    table: boolean = false;
-    //dataSource: ExampleDataSource | null;
-    exampleDatabase: InventoryReportsService | null;
-    selection = new SelectionModel<InventoryReports>(true, []);
-    index: number;
-    id: number;
-    InventoryReport: InventoryReports | null;
-    groupHeadList = [];
-    docForm: FormGroup;
-    itemList = [];
-    inventoryReport: InventoryReports;
-    countValue: any;
-    viewReportList: any;
-    isTblLoading: boolean;
-    locationList = [];
-    mainList = [];
-    companyId: any;
-    isExpand: boolean = true;
-  
-    columnsToDisplay = [
-      "icon",
-      "assetItem",
-      "categoryName",
-      "quantity",
-    ];
-    innerDisplayedColumns = [
-      "assetName",
-      "assetCode",
-      "putToUseDate",
-      "assetLocation",
-      "assetUser",
-      "sourceLocation",
-      "destinationLocation",
-      "reference"
-    ];
-  
-    expandedElement: MainList | null;
-    expandedElements: any[] = [];
-    innerExpandedElements: any[] = [];
-    glList = [];
-    gllist: MainList[] = [];
-    locationDdList: any;
-    itemNameDdList: any;
-  
-    constructor(
-      public httpClient: HttpClient,
-      public dialog: MatDialog,
-      private httpService: HttpServiceService,
-      public router: Router,
-      private fb: FormBuilder,
-      private inventoryReportService: InventoryReportsService,
-      private cmnService: CommonService,
-      private cd: ChangeDetectorRef,
-      private commonService: CommonService,
-      private tokenStorage: TokenStorageService,
-      private spinner: NgxSpinnerService,
-      private snackBar: MatSnackBar
-    ) {
-      super();
-      {
-      }
-      this.docForm = this.fb.group({
-        item: [""],
-        fromDateObj: [""],
-        toDateObj: [""],
-        fromDate: [""],
-        toDate: [""],
-        location: [""],
-        companyId: parseInt(this.tokenStorage.getCompanyId()),
-      });
+export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+  docForm: FormGroup;
+  companyId: any;
+  inventoryReport: InventoryReports;
+  categoryList = [];
+  itemCodeNameList = [];
+
+  @ViewChild('outerSort', { static: true }) sort: MatSort;
+  @ViewChildren('innerSort') innerSort: QueryList<MatSort>;
+  @ViewChildren('subSort') subSort: QueryList<MatSort>;
+  @ViewChildren('innerTables') innerTables: QueryList<MatTable<Address>>;
+  @ViewChildren('subTables') subTables: QueryList<MatTable<Block>>;
+
+  dataSource: MatTableDataSource<User>;
+  usersData: User[] = [];
+  columnsToDisplay = ["assetItem",
+    "categoryName",
+    "quantity"];
+  innerDisplayedColumns = ["assetName",
+    "assetCode",
+    "putToUseDate",
+    "assetLocation",
+    "assetUser"];
+  subBlockDisplayedColumns = ["sourceLocation", "destinationLocation", "reference"];
+  expandedElement: User | null;
+  expandedSubElement: Address | null;
+
+
+
+  constructor(
+    public httpClient: HttpClient,
+    public dialog: MatDialog,
+    private httpService: HttpServiceService,
+    public router: Router,
+    private fb: FormBuilder,
+    private inventoryReportService: InventoryReportsService,
+    private cmnService: CommonService,
+    private cd: ChangeDetectorRef,
+    private commonService: CommonService,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    private snackBar: MatSnackBar
+  ) {
+    super();
+    {
     }
-  
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild("filter", { static: true }) filter: ElementRef;
-    @ViewChild(MatMenuTrigger)
-    contextMenu: MatMenuTrigger;
-    contextMenuPosition = { x: "0px", y: "0px" };
-    
+    this.docForm = this.fb.group({
+      item: [""],
+      category: [""],
+      companyId: parseInt(this.tokenStorage.getCompanyId()),
+    });
+  }
+
 
   ngOnInit(): void {
     this.viewReport();
     this.companyId = parseInt(this.tokenStorage.getCompanyId());
     // Location dropdown
-    this.httpService
-      .get<any>(
-        this.commonService.getMoveToDropdown + "?companyId=" + this.companyId
-      )
-      .subscribe({
-        next: (data) => {
-          this.locationDdList = data;
-        },
-        error: (error) => {},
-      });
-    this.httpService
-      .get<any>(
-        this.commonService.getassetname + "?companyId=" + this.companyId
-      )
-      .subscribe({
-        next: (data) => {
-          this.itemNameDdList = data;
-        },
-        error: (error) => {},
-      });
-  }
+    this.httpService.get<any>(this.commonService.getCategoryDropdown + "?companyId=" + this.companyId).subscribe({
+      next: (data) => {
+        this.categoryList = data;
+      },
+      error: (error) => {
 
-  getDateString(event, inputFlag) {
-    let cdate = this.cmnService.getDate(event.target.value);
-    if (inputFlag == "fromDate") {
-      this.docForm.patchValue({ fromDate: cdate });
-    } else if (inputFlag == "toDate") {
-      this.docForm.patchValue({ toDate: cdate });
+      }
     }
+    );
+
+    //Item Master Dropdown List
+    this.httpService.get<any>(this.commonService.getItemMasterNameWithItemCodeDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.itemCodeNameList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
   }
 
   viewReport() {
     this.inventoryReport = this.docForm.value;
-    this.mainList = [];
-    this.gllist = [];
+    this.usersData = [];
     this.spinner.show();
     this.inventoryReportService
       .getInventoryReport(this.inventoryReport)
       .subscribe({
         next: (res: any) => {
           this.spinner.hide();
-          this.mainList = res.inventoryReportsDetails;
-          if (this.mainList != null) {
-            this.mainList.forEach((data) => {
+          if (res != null) {
+            res?.inventoryReportsDetails.forEach((user) => {
               if (
-                data.subList &&
-                Array.isArray(data.subList) &&
-                data.subList.length
+                user.addresses &&
+                Array.isArray(user.addresses) &&
+                user.addresses.length
               ) {
-                this.gllist = [
-                  ...this.gllist,
-                  { ...data, subList: new MatTableDataSource(data.subList) },
-                ];
+                const addresses: Address[] = [];
+        
+                user.addresses.forEach((address) => {
+                  if (Array.isArray(address.blocks)) {
+                    addresses.push({
+                      ...address,
+                      blocks: new MatTableDataSource(address.blocks),
+                    });
+                  }
+                });
+        
+                this.usersData.push({
+                  ...user,
+                  addresses: new MatTableDataSource(addresses),
+                });
               } else {
-                this.gllist = [...this.gllist, data];
+                this.usersData = [...this.usersData, user];
               }
             });
+            this.dataSource = new MatTableDataSource(this.usersData);
+            this.dataSource.sort = this.sort;
           }
-          this.dataSource = new MatTableDataSource(this.gllist);
-          this.dataSource.sort = this.sort;
         },
         error: (error) => {
           this.spinner.hide();
@@ -235,7 +198,6 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter
 
   print() {
     this.inventoryReport = this.docForm.value;
-
     sessionStorage.setItem("item", this.inventoryReport.item);
     sessionStorage.setItem("location", this.inventoryReport.location);
     sessionStorage.setItem("dateValue", this.inventoryReport.fromDate);
@@ -247,51 +209,77 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter
   reset() {
     this.docForm = this.fb.group({
       item: [""],
-      fromDateObj: [""],
-      toDateObj: [""],
-      fromDate: [""],
-      toDate: [""],
-      location: [""],
+      category: [""],
       companyId: parseInt(this.tokenStorage.getCompanyId()),
     });
-    this.mainList = [];
-    this.gllist = [];
-    this.isExpand = false;
     this.viewReport();
   }
 
-  toggleRow(element: MainList) {
-    element.subList && (element.subList as MatTableDataSource<SubList>).data.length ? (this.expandedElement = this.expandedElement === element ? null : element) : null;
+
+
+  toggleRow(element: User) {
+    element.addresses &&
+      (element.addresses as MatTableDataSource<Address>).data.length
+      ? (this.expandedElement =
+        this.expandedElement === element ? null : element)
+      : null;
+
     this.cd.detectChanges();
-    this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<SubList>).sort = this.innerSort.toArray()[index]);
+    this.innerTables.forEach(
+      (table, index) =>
+      ((table.dataSource as MatTableDataSource<Address>).sort =
+        this.innerSort.toArray()[index])
+    );
+  }
+
+  toggleSubRow(element: Address) {
+    element.blocks && (element.blocks as MatTableDataSource<Block>).data.length
+      ? (this.expandedSubElement =
+        this.expandedSubElement === element ? null : element)
+      : null;
+
+    this.cd.detectChanges();
+    this.subTables.forEach(
+      (table, index) =>
+      ((table.dataSource as MatTableDataSource<Block>).sort =
+        this.subSort.toArray()[index])
+    );
   }
 
   applyFilter(filterValue: string) {
-    this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<SubList>).filter = filterValue.trim().toLowerCase());
+    this.innerTables.forEach(
+      (table, index) =>
+      ((table.dataSource as MatTableDataSource<Address>).filter = filterValue
+        .trim()
+        .toLowerCase())
+    );
   }
 }
 
-
-export interface MainList {
-  assetName: String;
-  location: String;
-  categoryName: String;
-  quantity: String;
-  subList?: SubList[] | MatTableDataSource<SubList>;
+export interface User {
+  assetItem: string;
+  categoryName: string;
+  totalqty: string;
+  addresses?: Address[] | MatTableDataSource<Address>;
 }
 
-export interface SubList {
-  putToUseDate: String;
-  transferQuantity: String;
-  sourceLocation: String;
-  destinationLocation: String;
+export interface Address {
+  assetItem: string;
+  categoryName: string;
+  totalqty: string;
+  blocks?: Block[] | MatTableDataSource<Block>;
 }
 
-
-export interface MainListDataSource {
-  assetName: String;
-  location: String;
-  categoryName: String;
-  quantity: String;
-  subList?: MatTableDataSource<SubList>;
+export interface Block {
+  sourceLocation: string;
+  destinationLocation: string;
+  reference: string;
 }
+
+export interface UserDataSource {
+  assetItem: string;
+  categoryName: string;
+  totalqty: string;
+  addresses?: MatTableDataSource<Address>;
+}
+

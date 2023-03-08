@@ -30,6 +30,7 @@ import { CustomerAccountingPopupComponent } from './add-customer/customer-accoun
 import { AccountPopupComponent } from './add-customer/account-popup/account-popup.component';
 import { MultipleAddCustomerComponent } from './multiple-add-customer/multiple-add-customer.component';
 import { ErrorUploadComponent } from './error-upload/error-upload.component';
+import { PopUpComponent } from './pop-up/pop-up.component';
 
 
 
@@ -41,7 +42,8 @@ import { ErrorUploadComponent } from './error-upload/error-upload.component';
     CustomerAccountingPopupComponent,
     AccountPopupComponent,
     MultipleAddCustomerComponent,
-    ErrorUploadComponent
+    ErrorUploadComponent,
+    PopUpComponent
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,7 @@ import { UsageMonitorService } from '../usage-monitor.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 @Component({
   selector: 'app-add-usage-monitor',
@@ -44,6 +45,7 @@ export class AddUsageMonitorComponent implements OnInit {
   constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private tokenStorage: TokenStorageService,
     private httpService: HttpServiceService,private usageMonitorService: UsageMonitorService,
     private commonService: CommonService,
+    private serverUrl: serverLocations,
     private cmnService:CommonService,
     private router:Router,public route: ActivatedRoute,
   ) { 
@@ -237,50 +239,30 @@ export class AddUsageMonitorComponent implements OnInit {
   }
   
 }
-
+viewDocuments(filePath: any, fileName: any) {
+  var a = document.createElement("a");
+        a.href = this.serverUrl.apiServerAddress+"asset_upload/"+filePath;
+        a.target = '_blank';
+        a.download = fileName;
+        a.click();
+}
 update(){
-  // this.usageMonitor = this.docForm.value;
-  // this.spinner.show();
-  // this.usageMonitorService.updateUsage(this.usageMonitor).subscribe({
-  //     next: (data) => {
-  //       this.spinner.hide();
-  //       if (data.success) {
-  //         this.showNotification(
-  //           "snackbar-success",
-  //           "Edit Record Successfully",
-  //           "bottom",
-  //           "center"
-  //         );
-  //         this.cancel();
-  //       } else {
-  //         this.showNotification(
-  //           "snackbar-danger",
-  //           "Not Updated Successfully...!!!",
-  //           "bottom",
-  //           "center"
-  //         );
-  //       }
-  //     },
-  //     error: (error) => {
-  //       this.spinner.hide();
-  //       this.showNotification(
-  //         "snackbar-danger",
-  //         error.message + "...!!!",
-  //         "bottom",
-  //         "center"
-  //       );
-  //     }
-  //   });
    
-   this.usageMonitor = this.docForm.value;
-   if(this.startFlag==true){
-    this.getDateString
+  //  this.usageMonitor = this.docForm.value;
+  //  if(this.startFlag==true,this.endFlag==true){
+  //   this.getDateString
 
-   }else if(this.endFlag==true){
-    this.getDateString
-   }else{
+  //  }else if(this.startFlag==false,this.endFlag==false){
+  //   this.getDateString
+  //  }else{
     
-   }
+  //  }
+
+  if (this.startFlag==false,this.endFlag==false) {
+    console.log();
+  }
+  
+
     this.usageMonitor.usage_id = this.requestId;
     this.usageMonitorService.updateUsage(this.usageMonitor);
     this.showNotification(
