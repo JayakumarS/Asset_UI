@@ -13,24 +13,17 @@ import { CompanyEmployeeService } from '../company-employees.service';
   styleUrls: ['./companyemployee-upload-error.component.sass']
 })
 export class CompanyemployeeUploadErrorComponent implements OnInit {
-  dialogTitle: string;
-  excelFile : any;
-  companyId: string;
-  totalCount: any;
-  incorrectCount: any;
-  message:any;
-  empidAndEmail:boolean;
-  branchAndDep:boolean;
 
-  constructor(private fb: FormBuilder,public router:Router,private snackBar: MatSnackBar,private  assetService: CompanyEmployeeService,private httpService: HttpServiceService,
-    @Inject(MAT_DIALOG_DATA) public values: any,private tokenStorage: TokenStorageService,public dialogRef: MatDialogRef<CompanyemployeeUploadErrorComponent>) {
-    }
+  totalCount:any;
+  
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public values: any,
+    private tokenStorage: TokenStorageService,
+    public dialogRef: MatDialogRef<CompanyemployeeUploadErrorComponent>
+  ) { }
+
   ngOnInit(): void {
     this.totalCount=this.values.totalRecords;
-    this.incorrectCount=this.values.incorrectRecords;
-    this.message = this.values.message;
-    this.empidAndEmail = this.values.empidAndEmail;
-    this.branchAndDep = this.values.branchAndDep;
   }
 
   onNoClick(){

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { serverLocations } from "src/app/auth/serverLocations";
 import { TokenStorageService } from "src/app/auth/token-storage.service";
@@ -40,11 +40,7 @@ const httpOptions = {
     public fetchdepartment = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/userBasedDepartmentList`;
     public multipleEmployeeUploadFiles = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/multipleEmployeeuploadExefile`;
     public compEmpValidation = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/compEmpValidation`;
-    
-    
-    
-    
-    
+    public saveMultiple = `${this.serverUrl.apiServerAddress}app/CompanyEmployee/multipleSave`;
     
     get data(): Company[] {
       return this.dataChange.value;
@@ -102,6 +98,10 @@ const httpOptions = {
         
     });
     
+  }
+
+  addMultiple(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.saveMultiple, obj);
   }
 
 

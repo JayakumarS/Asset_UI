@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { UploadErrorComponent } from 'src/app/asset/asset-master/upload-error/upload-error.component';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CompanyEmployeeUploadPopupComponent } from '../company-employee-upload-popup/company-employee-upload-popup.component';
 import { CompanyEmployeeService } from '../company-employees.service';
 import { CompanyemployeeUploadErrorComponent } from '../companyemployee-upload-error/companyemployee-upload-error.component';
 
@@ -67,54 +68,18 @@ export class AddMultiplecompanyEmployeesComponent implements OnInit {
       this.companyId=this.tokenStorage.getCompanyId();
       this.httpService.post<any>(this.companyEmployeeService.multipleEmployeeUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId()+"&userId="+this.tokenStorage.getUserId(),this.excelFile).subscribe(data => {
         console.log(data);
-       
-          if(data.message =='Success'){
-          this.showNotification(
-            "snackbar-success",
-            "Records Added Successfully...!!!",
-            "bottom",
-            "center"
-          );
-          window.sessionStorage.setItem("makerLogin","");
-          location.reload();
-          } else  if(data.message =='Email Id or Employee Id Already Present in the System'){
-            let tempDirection;
-            if (localStorage.getItem("isRtl") === "true") {
-            tempDirection = "rtl";
-            } else {
-           tempDirection = "ltr";
-           }
-            const dialogRef = this.dialog.open(CompanyemployeeUploadErrorComponent, {
-              data: data,
-              height:"40%",
-              width: "640px",
-              direction: tempDirection,
-            });
-            
-        }else if (data.message =='Department Id or Branch Id is not Present in the System'){
-          let tempDirection;
-            if (localStorage.getItem("isRtl") === "true") {
-            tempDirection = "rtl";
-            } else {
-           tempDirection = "ltr";
-           }
-            const dialogRef = this.dialog.open(CompanyemployeeUploadErrorComponent, {
-              data: data,
-              height:"40%",
-              width: "640px",
-              direction: tempDirection,
-            });
-        }
-        else{
-          this.showNotification(
-            "snackbar-danger",
-            "Records Not Added...!!!",
-            "bottom",
-            "center"
-          );
-  
-          
-        }
+        let tempDirection;
+        if (localStorage.getItem("isRtl") === "true") {
+        tempDirection = "rtl";
+        } else {
+       tempDirection = "ltr";
+       }
+        const dialogRef = this.dialog.open(CompanyEmployeeUploadPopupComponent, {
+          data: data,
+          height:"80%",
+          width: "100%",
+          direction: tempDirection,
+        }); 
         
         },
         (err: HttpErrorResponse) => {
