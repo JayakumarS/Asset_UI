@@ -99,6 +99,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   brandDdList: any;
   isBrand: boolean = true;
   isUnBrand: boolean = false;
+  Detailed: boolean = false;
 
 
   constructor(private fb: FormBuilder,
@@ -123,12 +124,12 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
     this.docForm = this.fb.group({
       //info
-      assetName: [""],
-      itemId: [""],
+      assetName: ["", [Validators.required]],
+      // itemId: ["", [Validators.required]],
       assetCode: [""],
-      location: [""],
+      // location: ["", [Validators.required]],
       category: ["", [Validators.required]],
-      status: [""],
+      // status: ["", [Validators.required]],
       putUseDate: [moment().format('DD/MM/YYYY')],
       putUseDateObj: [moment().format('YYYY-MM-DD')],
       rentedUptoDate: [""],
@@ -141,7 +142,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       uploadImg: [""],
       isGrnBasedAsset: [false],
       grnId: [""],
-      assetUser: [""],
+      assetUser: ["", [Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
       //tab1
       brand: [""],
@@ -157,14 +158,14 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       otherTaxes: [""],
       transport: [""],
       instalAndCommission: [""],
-      uploadFiles: [""],
+      uploadFiles: ["",[Validators.required]],
       //tab2
       vendor: [""],
       poNumber: [""],
       selfOrPartner: [""],
       invoiceDate: [""],
       invoiceNo: [""],
-      purchasePrice: [""],
+      purchasePrice: ["", [Validators.required]],
       currency: ["", [Validators.required]],
       quantity: ["1", [Validators.required]],
       //tab3
@@ -1291,10 +1292,10 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
-          itemId: [""],
-          assetName: [""],
-          location: [""],
-          status: [""],
+          itemId: ["", [Validators.required]],
+          assetName: ["",[Validators.required]],
+          location: ["", [Validators.required]],
+          status: ["",, [Validators.required]],
           putUseDate: [moment().format('DD/MM/YYYY')],
           putUseDateObj: [moment().format('YYYY-MM-DD')],
           department: [""],
@@ -1472,8 +1473,9 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   saveQtyBasedMutipleAsset() {
-      
-    if (this.docForm.valid) {
+    this.Detailed = true;
+    if (this.docForm.valid )
+     {
       let purchasePriceVal=Number(0);
       let assetListDtlArray = this.docForm.controls.quantityBasedAssetList as FormArray;
       assetListDtlArray.controls.forEach(element => {
