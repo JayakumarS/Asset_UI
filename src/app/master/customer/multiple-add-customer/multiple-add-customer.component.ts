@@ -8,6 +8,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CustomerService } from '../customer.service';
 import { ErrorUploadComponent } from '../error-upload/error-upload.component';
+import { PopUpComponent } from '../pop-up/pop-up.component';
 
 @Component({
   selector: 'app-multiple-add-customer',
@@ -125,80 +126,93 @@ export class MultipleAddCustomerComponent implements OnInit {
       this.companyId=this.tokenStorage.getCompanyId();
       this.httpService.post<any>(this.customerService.multipleEmployeeUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
         console.log(data);
+        let tempDirection;
+        if (localStorage.getItem("isRtl") === "true") {
+        tempDirection = "rtl";
+        } else {
+       tempDirection = "ltr";
+       }
+        const dialogRef = this.dialog.open(PopUpComponent, {
+          data: data,
+          height:"80%",
+          width: "100%",
+          direction: tempDirection,
+        });       
+    },
        
-        if(data.success ==true){
-          this.showNotification(
-            "snackbar-success",
-            "Records Added Successfully...!!!",
-            "bottom",
-            "center"
-          );
-          location.reload()
-          this.router.navigate(['/master/customer/list-customer'])
-         }
-          else if(data.message!=null || data.message!=""){
-          this.showNotification5(
-            "snackbar-danger",
-            data.message ,
-            "bottom",
-            "center"
-            );
-         }
+      //   if(data.success ==true){
+      //     this.showNotification(
+      //       "snackbar-success",
+      //       "Records Added Successfully...!!!",
+      //       "bottom",
+      //       "center"
+      //     );
+      //     location.reload()
+      //     this.router.navigate(['/master/customer/list-customer'])
+      //    }
+      //     else if(data.message!=null || data.message!=""){
+      //     this.showNotification5(
+      //       "snackbar-danger",
+      //       data.message ,
+      //       "bottom",
+      //       "center"
+      //       );
+      //    }
 
 
-         else if(data.success ==false){
-          this.showNotification6(
-            "snackbar-danger",
-           "Not Added!!",
-            "bottom",
-            "center"
-            );
-         }
+      //    else if(data.success ==false){
+      //     this.showNotification6(
+      //       "snackbar-danger",
+      //      "Not Added!!",
+      //       "bottom",
+      //       "center"
+      //       );
+      //    }
          
-        if(data.postalvalid ==false){
-          this.showNotification1(
-            "snackbar-danger",
-           "PIN CODE Should contain only of 6 Letters.",
-            "top",
-            "center"
-            );
-         }
+      //   if(data.postalvalid ==false){
+      //     this.showNotification1(
+      //       "snackbar-danger",
+      //      "PIN CODE Should contain only of 6 Letters.",
+      //       "top",
+      //       "center"
+      //       );
+      //    }
 
-      if(data.phonevalid ==false){
-          this.showNotification2(
-            "snackbar-danger",
-           "Phone No Should contain Minimum of 10 Letters Only !",
-            "top",
-            "left"
-            );
-         } 
-         if(data.panvalid ==false){
-          this.showNotification3(
-            "snackbar-danger",
-           "Please Enter Valid PAN NO.",
-            "top",
-            "right"
-            );
-         }
-         if(data.gstvalid ==false){
-          this.showNotification4(
-            "snackbar-danger",
-           "Please Enter Valid GST NO.",
-            "bottom",
-            "center"
-            );
-         }
-         if(data.emailvalid ==false){
-          this.showNotification7(
-            "snackbar-danger",
-           "Please Enter Valid Email.",
-            "bottom",
-            "center"
-            );
-         }
+      // if(data.phonevalid ==false){
+      //     this.showNotification2(
+      //       "snackbar-danger",
+      //      "Phone No Should contain Minimum of 10 Letters Only !",
+      //       "top",
+      //       "left"
+      //       );
+      //    } 
+      //    if(data.panvalid ==false){
+      //     this.showNotification3(
+      //       "snackbar-danger",
+      //      "Please Enter Valid PAN NO.",
+      //       "top",
+      //       "right"
+      //       );
+      //    }
+      //    if(data.gstvalid ==false){
+      //     this.showNotification4(
+      //       "snackbar-danger",
+      //      "Please Enter Valid GST NO.",
+      //       "bottom",
+      //       "center"
+      //       );
+      //    }
+      //    if(data.emailvalid ==false){
+      //     this.showNotification7(
+      //       "snackbar-danger",
+      //      "Please Enter Valid Email.",
+      //       "bottom",
+      //       "center"
+      //       );
+      //    }
          
         
-        },
+      
         (err: HttpErrorResponse) => {
           
       });

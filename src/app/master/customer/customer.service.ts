@@ -42,6 +42,7 @@ export class CustomerService extends UnsubscribeOnDestroyAdapter {
   public locationemailDdList = `${this.serverUrl.apiServerAddress}app/customerMaster/locationemailDdList`;
   public getAuditor = `${this.serverUrl.apiServerAddress}app/customerMaster/getAuditor`;
   public multipleEmployeeUploadFiles = `${this.serverUrl.apiServerAddress}app/customerMaster/multipleEmployeeuploadExefile`;
+  public saveMulitple = `${this.serverUrl.apiServerAddress}app/customerMaster/multipleSave`;
 
 
   get data(): CustomerMaster[] {
@@ -92,6 +93,10 @@ updateCustomer(customerMaster: CustomerMaster): Observable<any> {
 }
 deleteCustomer(obj: any): Observable<any> {
   return this.httpClient.post<any>(this.deletecustomer, obj);
+}
+
+addMultiple(obj: any): Observable<any> {
+  return this.httpClient.post<any>(this.saveMulitple, obj);
 }
 
 
