@@ -212,7 +212,8 @@ export class AddDepartmentMasterComponent implements OnInit {
   }
 
   validateDepartmentCode(event){
-    this.httpService.get<any>(this.departmentMasterService.validateDepartmentCodeUrl+ "?tableName=" +"assetdepartment"+"&columnName="+"departmentcode"+"&columnValue="+event).subscribe((res: any) => {
+    let companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl + "?tableName=" + "assetdepartment" + "&columnName=" + "departmentcode" + "&columnValue=" + event + "&companycolumnname=" + "company" + "&companyvalue="+companyId).subscribe((res: any) => {
       if(res){
         this.docForm.controls['deptCode'].setErrors({ country: true });
       }else{
