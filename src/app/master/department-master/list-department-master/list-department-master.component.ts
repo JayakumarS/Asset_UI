@@ -39,9 +39,9 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
   displayedColumns = [
 
     "deptCode",
+    "departmentName",
     "company",
     "branchname",
-    "departmentName",
     "departmentHead",
     //"contactPerson",
     "isactiveForList",

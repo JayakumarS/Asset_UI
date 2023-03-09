@@ -42,10 +42,10 @@
                             <td *ngIf="data.isValid == false" style="background-color: red;">{{data.itemCategoryName}}</td>
                             <td *ngIf="data.isValid == true">{{data.itemCategoryName}}</td>
                             <td>{{data.itemDescription}}</td>
-                            <td *ngIf="data.isValid == true">{{data.inventory}}</td>
-                            <td *ngIf="data.isValid == false" style="background-color: red;">{{data.inventory}}</td>
-                            <td *ngIf="data.isValid == true">{{data.issue}}</td>
-                            <td *ngIf="data.isValid == false" style="background-color: red;">{{data.issue}}</td>
+                            <td *ngIf="data.isValidCust == true">{{data.inventory}}</td>
+                            <td *ngIf="data.isValidCust == false" style="background-color: red;">{{data.inventory}}</td>
+                            <td *ngIf="data.isValidLoc == true">{{data.issue}}</td>
+                            <td *ngIf="data.isValidLoc == false" style="background-color: red;">{{data.issue}}</td>
                            
                             <td *ngIf="data.isValidNum == false" style="background-color: red;">{{data.openBalance}}</td>
                             <td *ngIf="data.isValidNum == true">{{data.openBalance}}</td>
@@ -60,7 +60,7 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false || isValidNum ==false || isValidNum1 == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+                <label *ngIf="isValid == false || isValidNum ==false || isValidNum1 == false || isValidCust == false || isValidLoc == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
             </div>
         </div>
     </div>
