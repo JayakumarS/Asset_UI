@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
@@ -33,8 +33,13 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   public deleteBranch = `${this.serverUrl.apiServerAddress}api/auth/app/branch/delete`;
   public userBasedBranchDDList = `${this.serverUrl.apiServerAddress}api/auth/app/branch/userBasedBranchDDList`;
   public locationDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/branch/locationDropdown`;
+  public multipleUpload = `${this.serverUrl.apiServerAddress}api/auth/app/branch/multiplebranch`;
+  // public addbranchMultiple = `${this.serverUrl.apiServerAddress}api/auth/app/branch/multipleSave`;
+  public saveMultiple = `${this.serverUrl.apiServerAddress}api/auth/app/branch/multipleSave`;
 
-
+  
+  
+  
 
   get data(): Branch[] {
     return this.dataChange.value;
@@ -136,7 +141,9 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
       }
     );*/
   }
-
+  addMultiple(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.saveMultiple, obj);
+  }
 
 
 }
