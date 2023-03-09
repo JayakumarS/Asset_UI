@@ -141,7 +141,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     (data) => {
       this.getBranchList = data.getBranchList;
       this.docForm.patchValue({
-        'branch':this.tokenStorage.getBranchId(),
+        'branchname':this.tokenStorage.getBranchId(),
      })
     },
     (error: HttpErrorResponse) => {

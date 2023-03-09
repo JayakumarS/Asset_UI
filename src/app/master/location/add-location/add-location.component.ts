@@ -47,6 +47,7 @@ export class AddLocationComponent implements OnInit {
   // tslint:disable-next-line:new-parens
   salesDetailRowData = new SalesEntryDetailRowComponent;
   submitted: boolean=false;
+  branchId: string;
 
   constructor(private fb: FormBuilder,
               public router: Router,
@@ -141,10 +142,14 @@ export class AddLocationComponent implements OnInit {
       }
     });
     this.getUserbasedcompanyDropdown(this.docForm.value.userId);
+    this.branchId=this.tokenStorage.getBranchId()
 
     this.httpService.get<any>(this.departmentMasterService.branchList + "?companyId=" + this.companyId).subscribe(
       (data) => {
         this.getBranchList = data.getBranchList;
+        this.docForm.patchValue({
+          'branchname':this.tokenStorage.getBranchId(),
+        })
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
