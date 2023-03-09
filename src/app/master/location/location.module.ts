@@ -29,6 +29,8 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { DeleteLocationComponent } from './list-location/delete-location/delete-location.component';
 import { AddLocationMultipleUploadComponent } from './add-location-multiple-upload/add-location-multiple-upload.component';
 import { AddLocationErrorComponent } from './add-location-error/add-location-error.component';
+import { UploadSuccessPopupComponent } from './upload-success-popup/upload-success-popup.component';
+import { UploadExcelPopupComponent } from './upload-excel-popup/upload-excel-popup.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { AddLocationErrorComponent } from './add-location-error/add-location-err
     ListLocationComponent,
     DeleteLocationComponent,
     AddLocationMultipleUploadComponent,
-    AddLocationErrorComponent
+    AddLocationErrorComponent,
+    UploadSuccessPopupComponent,
+    UploadExcelPopupComponent
   ],
   imports: [
     CommonModule,

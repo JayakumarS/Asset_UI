@@ -74,66 +74,6 @@ export class AddMultipleDepartmentComponent implements OnInit {
       });
      }
 
-    //  upload(){
-    //   this.companyId=this.tokenStorage.getCompanyId();
-    //   this.httpService.post<any>(this.departmentMasterService.multipleUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
-    //     console.log(data);
-
-    //       if(data.message =='Success'){
-    //       this.showNotification(
-    //         "snackbar-success",
-    //         "Records Added Successfully...!!!",
-    //         "bottom",
-    //         "center"
-    //       );
-    //       window.sessionStorage.setItem("makerLogin","");
-    //       this.router.navigate(['/master/department-Master/list-department'])
-    //       window.location.reload();
-    //       } else  if(data.message =='Email Id or Employee Id Already Present'){
-    //         let tempDirection;
-    //         if (localStorage.getItem("isRtl") === "true") {
-    //         tempDirection = "rtl";
-    //         } else {
-    //        tempDirection = "ltr";
-    //        }
-    //         const dialogRef = this.dialog.open(AddMultipleDepartmentComponent, {
-    //           data: data,
-    //           height:"40%",
-    //           width: "640px",
-    //           direction: tempDirection,
-    //         });
-
-    //     }else if (data.message =='Department Id or Branch Id is not Present in the System'){
-    //       let tempDirection;
-    //         if (localStorage.getItem("isRtl") === "true") {
-    //         tempDirection = "rtl";
-    //         } else {
-    //        tempDirection = "ltr";
-    //        }
-    //         const dialogRef = this.dialog.open(AddMultipleDepartmentComponent, {
-    //           data: data,
-    //           height:"40%",
-    //           width: "640px",
-    //           direction: tempDirection,
-    //         });
-    //     }
-    //     else{
-    //       this.showNotification(
-    //         "snackbar-danger",
-    //         "Records Not Added...!!!",
-    //         "bottom",
-    //         "center"
-    //       );
-
-
-    //     }
-
-    //     },
-    //     (err: HttpErrorResponse) => {
-
-    //   });
-
-    // }
 
     upload(){ 
       this.companyId=this.tokenStorage.getCompanyId();

@@ -35,6 +35,7 @@ export class LocationMasterService extends UnsubscribeOnDestroyAdapter{
   public updateLocation = `${this.serverUrl.apiServerAddress}app/locationMaster/update`;
   public companyadList = `${this.serverUrl.apiServerAddress}app/locationMaster/companyadList`;
   public multipleLocationUploadFiles = `${this.serverUrl.apiServerAddress}app/locationMaster/multipleuploadExefile`;
+  public saveMultiple = `${this.serverUrl.apiServerAddress}app/locationMaster/multipleSave`;
 
   get data(): LocationMaster[] {
     return this.dataChange.value;
@@ -85,5 +86,9 @@ addLocation(locationMaster: LocationMaster): Observable<any> {
   delete(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.deleteLocation, obj);
  }
+
+ addMultiple(obj: any): Observable<any> {
+  return this.httpClient.post<any>(this.saveMultiple, obj);
+}
 
 }

@@ -9,6 +9,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CompanyEmployeeService } from '../../company-employees/company-employees.service';
 import { AddLocationErrorComponent } from '../add-location-error/add-location-error.component';
 import { LocationMasterService } from '../location-master.service';
+import { UploadExcelPopupComponent } from '../upload-excel-popup/upload-excel-popup.component';
 
 @Component({
   selector: 'app-add-location-multiple-upload',
@@ -63,79 +64,102 @@ export class AddLocationMultipleUploadComponent implements OnInit {
       });
     }
 
+    // upload(){ 
+    //   this.companyId=this.tokenStorage.getCompanyId();
+    //   this.httpService.post<any>(this.locationMasterService.multipleLocationUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId()+"&userId="+this.tokenStorage.getUserId(),this.excelFile).subscribe(data => {
+    //     console.log(data);
+       
+    //       if(data.message =='Success'){
+    //       this.showNotification(
+    //         "snackbar-success",
+    //         "Records Added Successfully...!!!",
+    //         "bottom",
+    //         "center"
+    //       );
+    //       window.sessionStorage.setItem("makerLogin","");
+    //       this.router.navigate(['/master/location/listLocation'])
+    //       window.location.reload();
+    //       } else  if(data.message =='Location code Already Exits.'){
+    //         let tempDirection;
+    //         if (localStorage.getItem("isRtl") === "true") {
+    //         tempDirection = "rtl";
+    //         } else {
+    //        tempDirection = "ltr";
+    //        }
+    //         const dialogRef = this.dialog.open(AddLocationErrorComponent, {
+    //           data: data,
+    //           height:"40%",
+    //           width: "640px",
+    //           direction: tempDirection,
+    //         });
+            
+    //     }
+    //     else {
+    //       this.showNotification(
+    //         "snackbar-danger",
+    //         "Records Not Added...!!!",
+    //         "bottom",
+    //         "center"
+    //       );
+  
+          
+    //     }
+
+    //     if(data.locationCode ==false){
+    //       this.showNotification(
+    //         "snackbar-danger",
+    //        "Please Enter Valid Location Code.",
+    //         "top",
+    //         "center"
+    //         );
+    //      }
+
+    //   else if(data.location ==false){
+    //       this.showNotification(
+    //         "snackbar-danger",
+    //        "Please Enter Valid Location Code !",
+    //         "top",
+    //         "left"
+    //         );
+    //      } 
+    //      else if(data.primaryHead ==false){
+    //       this.showNotification(
+    //         "snackbar-danger",
+    //        "Please Enter Valid Location Code.",
+    //         "top",
+    //         "right"
+    //         );
+    //      }
+        
+    //     },
+    //     (err: HttpErrorResponse) => {
+          
+    //   });
+
+    // }
+
+
     upload(){ 
       this.companyId=this.tokenStorage.getCompanyId();
-      this.httpService.post<any>(this.locationMasterService.multipleLocationUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId()+"&userId="+this.tokenStorage.getUserId(),this.excelFile).subscribe(data => {
+      this.httpService.post<any>(this.locationMasterService.multipleLocationUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
         console.log(data);
-       
-          if(data.message =='Success'){
-          this.showNotification(
-            "snackbar-success",
-            "Records Added Successfully...!!!",
-            "bottom",
-            "center"
-          );
-          window.sessionStorage.setItem("makerLogin","");
-          this.router.navigate(['/master/location/listLocation'])
-          window.location.reload();
-          } else  if(data.message =='Location code Already Exits.'){
-            let tempDirection;
+        let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
             tempDirection = "rtl";
             } else {
            tempDirection = "ltr";
            }
-            const dialogRef = this.dialog.open(AddLocationErrorComponent, {
+            const dialogRef = this.dialog.open(UploadExcelPopupComponent, {
               data: data,
-              height:"40%",
-              width: "640px",
+              height:"80%",
+              width: "100%",
               direction: tempDirection,
-            });
-            
-        }
-        else {
-          this.showNotification(
-            "snackbar-danger",
-            "Records Not Added...!!!",
-            "bottom",
-            "center"
-          );
-  
-          
-        }
-
-        if(data.locationCode ==false){
-          this.showNotification(
-            "snackbar-danger",
-           "Please Enter Valid Location Code.",
-            "top",
-            "center"
-            );
-         }
-
-      else if(data.location ==false){
-          this.showNotification(
-            "snackbar-danger",
-           "Please Enter Valid Location Code !",
-            "top",
-            "left"
-            );
-         } 
-         else if(data.primaryHead ==false){
-          this.showNotification(
-            "snackbar-danger",
-           "Please Enter Valid Location Code.",
-            "top",
-            "right"
-            );
-         }
-        
+            });       
         },
         (err: HttpErrorResponse) => {
           
       });
 
     }
-
-
+    
 }

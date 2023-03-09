@@ -9,6 +9,7 @@ const AUTHUSERID_KEY = 'AuthUserId';
 const POPUPFLAG_KEY = 'PopUpFlag';
 const AUTHCOMPANYID = 'AuthCompanyId';
 const AUTHCOMPANYTEXT= 'AuthCompanyText';
+const AUTHBRANCHTEXT= 'AuthBranchText';
 const AUTHROLEID = 'AuthRoleId';
 const AUTHROLETEXT= 'AuthRoleText';
 const AUTHCOMPANIES = 'AuthCompanies';
@@ -96,6 +97,10 @@ public getUserId(): string {
   }
   public getCompanyText() {
     return sessionStorage.getItem(AUTHCOMPANYTEXT);
+  }
+
+  public getBranchText() {
+    return sessionStorage.getItem(AUTHBRANCHTEXT);
   }
 
   public saveRoleId(roleId) {
