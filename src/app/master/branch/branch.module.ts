@@ -27,13 +27,19 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MultipleUploadBranchComponent } from './multiple-upload-branch/multiple-upload-branch.component';
+import { MultipleUploadErrorComponent } from './multiple-upload-error/multiple-upload-error.component';
+import { UploadSuccessPopupComponent } from './upload-success-popup/upload-success-popup.component';
 
 
 @NgModule({
   declarations: [
     AddBranchComponent,
     ListBranchComponent,
-    DeleteBranchComponent
+    DeleteBranchComponent,
+    MultipleUploadBranchComponent,
+    MultipleUploadErrorComponent,
+    UploadSuccessPopupComponent
   ],
   imports: [
     CommonModule,
