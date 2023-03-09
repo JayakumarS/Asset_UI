@@ -27,6 +27,8 @@ import { AddDepartmentMasterComponent } from './add-department-master/add-depart
 import { ListDepartmentMasterComponent } from './list-department-master/list-department-master.component';
 import { DeleteDepartmentComponent } from './list-department-master/delete-department/delete-department.component';
 import { AddMultipleDepartmentComponent } from './add-multiple-department/add-multiple-department.component';
+import { UploadExcelPopupComponent } from './upload-excel-popup/upload-excel-popup.component';
+import { UploadSuccessPopupComponent } from './upload-success-popup/upload-success-popup.component';
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import { AddMultipleDepartmentComponent } from './add-multiple-department/add-mu
     ListDepartmentMasterComponent,
     DeleteDepartmentComponent,
     AddMultipleDepartmentComponent,
+    UploadExcelPopupComponent,
+    UploadSuccessPopupComponent,
   ],
   imports: [
     CommonModule,

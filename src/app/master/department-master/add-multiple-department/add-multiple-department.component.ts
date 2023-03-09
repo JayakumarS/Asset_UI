@@ -8,6 +8,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { AddMultipleItemComponent } from 'src/app/inventory/item-master/add-multiple-item/add-multiple-item.component';
 import { DepartmentMasterService } from '../department-master.service';
+import { UploadExcelPopupComponent } from '../upload-excel-popup/upload-excel-popup.component';
 
 @Component({
   selector: 'app-add-multiple-department',
@@ -73,63 +74,86 @@ export class AddMultipleDepartmentComponent implements OnInit {
       });
      }
 
-     upload(){
+    //  upload(){
+    //   this.companyId=this.tokenStorage.getCompanyId();
+    //   this.httpService.post<any>(this.departmentMasterService.multipleUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
+    //     console.log(data);
+
+    //       if(data.message =='Success'){
+    //       this.showNotification(
+    //         "snackbar-success",
+    //         "Records Added Successfully...!!!",
+    //         "bottom",
+    //         "center"
+    //       );
+    //       window.sessionStorage.setItem("makerLogin","");
+    //       this.router.navigate(['/master/department-Master/list-department'])
+    //       window.location.reload();
+    //       } else  if(data.message =='Email Id or Employee Id Already Present'){
+    //         let tempDirection;
+    //         if (localStorage.getItem("isRtl") === "true") {
+    //         tempDirection = "rtl";
+    //         } else {
+    //        tempDirection = "ltr";
+    //        }
+    //         const dialogRef = this.dialog.open(AddMultipleDepartmentComponent, {
+    //           data: data,
+    //           height:"40%",
+    //           width: "640px",
+    //           direction: tempDirection,
+    //         });
+
+    //     }else if (data.message =='Department Id or Branch Id is not Present in the System'){
+    //       let tempDirection;
+    //         if (localStorage.getItem("isRtl") === "true") {
+    //         tempDirection = "rtl";
+    //         } else {
+    //        tempDirection = "ltr";
+    //        }
+    //         const dialogRef = this.dialog.open(AddMultipleDepartmentComponent, {
+    //           data: data,
+    //           height:"40%",
+    //           width: "640px",
+    //           direction: tempDirection,
+    //         });
+    //     }
+    //     else{
+    //       this.showNotification(
+    //         "snackbar-danger",
+    //         "Records Not Added...!!!",
+    //         "bottom",
+    //         "center"
+    //       );
+
+
+    //     }
+
+    //     },
+    //     (err: HttpErrorResponse) => {
+
+    //   });
+
+    // }
+
+    upload(){ 
       this.companyId=this.tokenStorage.getCompanyId();
       this.httpService.post<any>(this.departmentMasterService.multipleUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
         console.log(data);
-
-          if(data.message =='Success'){
-          this.showNotification(
-            "snackbar-success",
-            "Records Added Successfully...!!!",
-            "bottom",
-            "center"
-          );
-          window.sessionStorage.setItem("makerLogin","");
-          this.router.navigate(['/master/department-Master/list-department'])
-          window.location.reload();
-          } else  if(data.message =='Email Id or Employee Id Already Present'){
-            let tempDirection;
+        let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
             tempDirection = "rtl";
             } else {
            tempDirection = "ltr";
            }
-            const dialogRef = this.dialog.open(AddMultipleDepartmentComponent, {
+            const dialogRef = this.dialog.open(UploadExcelPopupComponent, {
               data: data,
-              height:"40%",
-              width: "640px",
+              height:"80%",
+              width: "100%",
               direction: tempDirection,
-            });
-
-        }else if (data.message =='Department Id or Branch Id is not Present in the System'){
-          let tempDirection;
-            if (localStorage.getItem("isRtl") === "true") {
-            tempDirection = "rtl";
-            } else {
-           tempDirection = "ltr";
-           }
-            const dialogRef = this.dialog.open(AddMultipleDepartmentComponent, {
-              data: data,
-              height:"40%",
-              width: "640px",
-              direction: tempDirection,
-            });
-        }
-        else{
-          this.showNotification(
-            "snackbar-danger",
-            "Records Not Added...!!!",
-            "bottom",
-            "center"
-          );
-
-
-        }
-
+            });       
         },
         (err: HttpErrorResponse) => {
-
+          
       });
 
     }
