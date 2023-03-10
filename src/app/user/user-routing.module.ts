@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ReconciliationReportModule } from './reconcilition-report/reconciliation-report.module';
 import { UtilityChangeLogReportModule } from './utility-change-log-report/utility-change-log-report.module';
 
 const routes: Routes = [
@@ -19,6 +20,12 @@ const routes: Routes = [
     path: "utilityChangeLogReport",
     loadChildren: () =>
     import("./utility-change-log-report/utility-change-log-report.module").then((m)=>UtilityChangeLogReportModule)
+    
+  },
+  {
+    path: "reconciliationReport",
+    loadChildren: () =>
+    import("./reconcilition-report/reconciliation-report.module").then((m)=>ReconciliationReportModule)
     
   },
 ];

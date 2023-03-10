@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
@@ -21,19 +22,19 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
-import {MatRadioModule} from '@angular/material/radio';
-
-import { UserRoutingModule } from './user-routing.module';
-import { ChangePasswordPopUpComponent } from './change-password-pop-up/change-password-pop-up.component';
+import { AddReconciliationReportComponent } from './add-reconciliation-report/add-reconciliation-report.component';
+import { ListReconciliationReportComponent } from './list-reconciliation-report/list-reconciliation-report.component';
+import { ReconciliationReportRoutingModule } from './reconciliation-report-routing.module';
 
 
 @NgModule({
   declarations: [
-    ChangePasswordPopUpComponent,
+    AddReconciliationReportComponent,
+    ListReconciliationReportComponent
   ],
   imports: [
     CommonModule,
-    UserRoutingModule,
+    ReconciliationReportRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
@@ -56,7 +57,6 @@ import { ChangePasswordPopUpComponent } from './change-password-pop-up/change-pa
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatRadioModule
   ]
 })
-export class UserModule { }
+export class ReconciliationReportModule { }

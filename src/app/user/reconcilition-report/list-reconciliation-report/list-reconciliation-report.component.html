@@ -1,0 +1,217 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Reconciliation Report'" [items]="['Usage']" [active_item]="'Reconciliation Report List'">
+        </app-breadcrumb>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div class="table-responsive">
+                <form class="m-4" [formGroup]="docForm">
+                  <div class="row" style="display:flex; align-items: center; justify-content:center;">
+
+                    <div class=" col-md-1"  style="margin-top: -15px;">
+                      <label>FROM DATE</label>
+                   </div>
+                   <div class="col-md-3" >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput [matDatepicker]="picker" formControlName="discardDateFromObj"
+                        (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate"
+                        (dateChange)="getDateString($event,'discardFromDate',0)" >
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+
+                    <div class=" col-md-1" style="margin-top: -15px;">
+                      <label>TO DATE</label>
+                   </div>
+                   <div class="col-md-3" >
+                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput [matDatepicker]="picker1" formControlName="discardDateToObj"
+                        (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardToDate"
+                        (dateChange)="getDateString($event,'discardToDate',0)" >
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                      <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"  style="text-align: center;">
+                      <button  class="btn-space" mat-raised-button (click)=" onSubmit()"
+                      style=" color: aliceblue; background-color: #34d034;" ><i class="fa fa-search"></i> Search</button>
+                      </div>
+                  </div>
+              </form>
+                <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                  <div class="row">
+                    <div class="col-8">
+                      <ul class="header-buttons-left ms-0">
+                        <li class="dropdown m-l-20 ">
+                          <h2>Reconciliation Report</h2>
+                        </li>
+                        <li class="dropdown m-l-20">
+                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                          <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                            aria-label="Search box">
+                        </li>
+                        <!-- <li>
+                          <div class="m-l-10" matTooltip="ADD">
+                            <button color="primary" type="button" class="btn-space"
+                              [routerLink]="'/usage/utilityChangeLogReport/addUtilityChangeLogReport'" mat-raised-button><i
+                                class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
+                          </div>
+                        </li> -->
+                      </ul>
+                    </div>
+                    <div class="col-4">
+                      <ul class="header-buttons">
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="XLSX">
+                            <img src="assets/images/icons/xlsx.png" alt=""
+                              (click)="exporter.exportTable('xlsx', {fileName:'reconciliation-report-list', sheet: 'sheet1'})" />
+                          </div>
+                        </li>
+
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                #exporter="matTableExporter">
+
+                <ng-container matColumnDef="manageAuditNo">
+                  <mat-header-cell  *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Audit Code</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.manageAuditNo}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="auditName">
+                  <mat-header-cell  *matHeaderCellDef mat-sort-header> Audit Name</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="startDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
+                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startDate}}</mat-cell>
+                </ng-container>
+
+               <ng-container matColumnDef="endDate">
+                  <mat-header-cell  *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
+                </ng-container>
+
+                <!-- <ng-container matColumnDef="makerSubmittedDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header >Submitted On (Maker)</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerSubmittedDate}}</mat-cell>
+                </ng-container> -->
+                <ng-container matColumnDef="makerSubmittedDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 10px;">Submitted On (Maker)</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="justify-content: center;"> {{row.makerSubmittedDate}}</mat-cell>
+                </ng-container>
+<!--
+                <ng-container matColumnDef="checkerSubmittedDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Submitted On (Checker)</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.checkerSubmittedDate}}</mat-cell>
+                </ng-container> -->
+
+                <ng-container matColumnDef="checkerSubmittedDate">
+                  <mat-header-cell  *matHeaderCellDef mat-sort-header style="height: 10px;">Submitted on(Checker)</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="justify-content: center;"> {{row.checkerSubmittedDate}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="makerStatus">
+                  <mat-header-cell  *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerStatus}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="checkerStatus">
+                  <mat-header-cell  *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.checkerStatus}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="companyStatus">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyStatus}}</mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="auditType">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Audit Type</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditType}}</mat-cell>
+                </ng-container>
+
+
+
+
+                <!-- actions -->
+                <!-- actions -->
+
+                <ng-container matColumnDef="companyActions" class="col-lg-12 col-md-2">
+                  <mat-header-cell  class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                  <span *ngIf="row.companyStatus=='Submitted'">Audit Completed</span>
+                  <button   mat-icon-button color="accent"  *ngIf="row.companyStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
+                    <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
+                    </app-feather-icons>
+                  </button>
+                  <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                  (click)="printCall(row)" class="tbl-action-btn">
+                  <app-feather-icons [icon]="'printer'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                </button>
+                  </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                  [style.cursor]="'pointer'" matRipple>
+                </mat-row>
+              </mat-table>
+
+
+            <!-- Loading spinner -->
+            <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+              <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+              </mat-progress-spinner>
+            </div>
+             <!-- context menu start -->
+             <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+             [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+           </div>
+           <mat-menu #contextMenu="matMenu">
+             <ng-template matMenuContent let-item="item">
+               <button mat-menu-item [routerLink]="'/master/depreciation/add-depreciation/0'">
+                 <mat-icon>add_box</mat-icon>
+                 <span>Add Record</span>
+               </button>
+               <button mat-menu-item (click)="editCall(item)">
+                 <mat-icon>create</mat-icon>
+                 <span>Edit Record</span>
+               </button>
+               <button mat-menu-item (click)="deleteItem(item)">
+                 <mat-icon>delete</mat-icon>
+                 <span>Delete Record</span>
+               </button>
+             </ng-template>
+           </mat-menu>
+           <!-- context menu end -->
+            <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+              [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+              No results
+            </div>
+            <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>

@@ -10,10 +10,10 @@ const routes: Routes = [
     path: "addUtilityChangeLogReport",
     component: AddUtilityChangeLogReportComponent,
   },
-  {
-    path: "listReconciliationReport",
-    component: ListUtilityChangeLogReportComponent,
-  },
+  // {
+  //   path: "listReconciliationReport",
+  //   component: ListUtilityChangeLogReportComponent,
+  // },
 ];
 
 @NgModule({
