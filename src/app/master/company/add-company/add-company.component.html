@@ -181,7 +181,7 @@
                       <input matInput formControlName="noOFdaysMonth" (change)="valueValidation($event.target.value)" (keypress)="keyPressNumeric2($event)"
                         maxlength="2">
                         <mat-error *ngIf="docForm.get('noOFdaysMonth').hasError('month')">
-                          No of Days is greater than in a Month
+                          Exceeding the Limit...!
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -193,7 +193,7 @@
                       <input matInput formControlName="noOFdaysYear" (change)="yearValidation($event.target.value)" (keypress)="keyPressNumeric2($event)"
                         maxlength="3">
                         <mat-error *ngIf="docForm.get('noOFdaysYear').hasError('year')">
-                          No of Days is greater than in a Year
+                          Exceeding the Limit...!
                       </mat-error>
                     </mat-form-field>
                   </div>
