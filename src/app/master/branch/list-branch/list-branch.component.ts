@@ -18,6 +18,7 @@ import { BranchService } from '../branch.service';
 import { Branch } from '../branch-model';
 import { DeleteBranchComponent } from './delete-branch/delete-branch.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { MultipleUploadBranchComponent } from '../multiple-upload-branch/multiple-upload-branch.component';
 
 @Component({
   selector: 'app-list-branch',
@@ -121,6 +122,7 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
                 "bottom",
                 "center"
               );
+              location.reload()
             }
             else if(res.success == false){
               this.showNotification(
@@ -143,6 +145,35 @@ export class ListBranchComponent extends UnsubscribeOnDestroyAdapter implements 
 
     });
 
+  }
+  multipleUploadPopupCall() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(MultipleUploadBranchComponent, {
+      data: {
+        action: "edit",
+      },
+      width: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 0) {
+        this.refreshTable();
+        this.showNotification(
+          "black",
+          "Upload Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
   }
 
   
