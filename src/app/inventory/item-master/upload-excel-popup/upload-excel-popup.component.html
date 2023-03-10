@@ -67,7 +67,7 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="end">
-                <button mat-raised-button color="primary" [disabled]="isValid == false || isValidNum ==false || isValidNum1 == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
+                <button mat-raised-button color="primary" [disabled]="isValid == false || isValidNum ==false || isValidNum1 == false || isValidCust == false || isValidLoc == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
             </div>
         </div>
