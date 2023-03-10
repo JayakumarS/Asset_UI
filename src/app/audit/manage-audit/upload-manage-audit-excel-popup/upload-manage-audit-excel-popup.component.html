@@ -1,0 +1,73 @@
+
+
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="width: 100%;padding: 19px;">
+    <div class="card">
+        <div class="header" >
+            <h2 style="color: white;">Import Excel Details</h2>
+        </div>
+        <style>
+          .header{
+            height: 42px;
+            background-color: #7E7EB8;
+            color: white;
+          }
+          .center{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .tableHeader{
+              padding: 7px;
+          }
+        </style>
+        <div class="tableBody">
+            <div class="table-responsive">
+                <table class="table table-hover" style="width:100%; margin-top: 5px;">
+                    <thead>
+                        <tr>
+                            <th class="tableHeader">Audit Name</th>
+                            <th class="tableHeader">Start Date</th>
+                            <th class="tableHeader">End Date</th>
+                            <th class="tableHeader">Maker (Email)</th>
+                            <th class="tableHeader">Auditor (Email)</th>
+                            <th class="tableHeader">Type</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let data of itemList">
+
+                            <td>{{data.auditName}}</td>
+                            <td>{{data.startDate}}</td>
+                            <td>{{data.endDate}}</td>
+                            <td *ngIf="data.isValidMaker == true">{{data.makerEmailId}}</td>
+                            <td *ngIf="data.isValidMaker == false" style="background-color: red;">{{data.makerEmailId}}</td>
+                             <td *ngIf="data.isValidAuditor == true">{{data.auditorEmailId}}</td>
+                            <td *ngIf="data.isValidAuditor == false" style="background-color: red;">{{data.auditorEmailId}}</td>
+                            <td>{{data.auditType}}</td>
+                            <!-- <td *ngIf="data.isValidLoc == true">{{data.auditType}}</td>
+                            <td *ngIf="data.isValidLoc == false" style="background-color: red;">{{data.auditType}}</td> -->
+                           
+                           
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row" align="start">
+                <label *ngIf=" isValidMaker == false || isValidAuditor == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row" align="end">
+                <button mat-raised-button color="primary" [disabled]="isValidMaker == false || isValidAuditor == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
+                <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+            </div>
+        </div>
+    </div>
+  </div>

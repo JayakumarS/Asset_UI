@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { ManageAuditService } from '../manage-audit.service';
-import { ManageAuditUploadErrorComponent } from '../manage-audit-upload-error/manage-audit-upload-error.component';
+import { UploadManageAuditExcelPopupComponent } from '../upload-manage-audit-excel-popup/upload-manage-audit-excel-popup.component'; 
 
 @Component({
   selector: 'app-add-multipleupload-manage-audit',
@@ -72,55 +72,19 @@ export class AddMultipleuploadManageAuditComponent implements OnInit {
       this.companyId=this.tokenStorage.getCompanyId();
       this.httpService.post<any>(this.manageAuditService.multipleManageAuditUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
         console.log(data);
-       
-          if(data.message =='Success'){
-          this.showNotification(
-            "snackbar-success",
-            "Records Added Successfully...!!!",
-            "bottom",
-            "center"
-          );
-          window.sessionStorage.setItem("makerLogin","");
-          this.router.navigate(['/audit/manageaudit/listManageAudit'])
-          } else  if(data.message =='Email Id or Employee Id Already Present'){
-            let tempDirection;
+         let tempDirection;
             if (localStorage.getItem("isRtl") === "true") {
             tempDirection = "rtl";
             } else {
            tempDirection = "ltr";
            }
-            const dialogRef = this.dialog.open(ManageAuditUploadErrorComponent, {
+            const dialogRef = this.dialog.open(UploadManageAuditExcelPopupComponent, {
               data: data,
               height:"40%",
-              width: "640px",
+              width: "100%",
               direction: tempDirection,
             });
             
-        }else if (data.message =='Department Id or Branch Id is not Present in the System'){
-          let tempDirection;
-            if (localStorage.getItem("isRtl") === "true") {
-            tempDirection = "rtl";
-            } else {
-           tempDirection = "ltr";
-           }
-            const dialogRef = this.dialog.open(ManageAuditUploadErrorComponent, {
-              data: data,
-              height:"40%",
-              width: "640px",
-              direction: tempDirection,
-            });
-        }
-        else{
-          this.showNotification(
-            "snackbar-danger",
-            "Records Not Added...!!!",
-            "bottom",
-            "center"
-          );
-  
-          
-        }
-        
         },
         (err: HttpErrorResponse) => {
           

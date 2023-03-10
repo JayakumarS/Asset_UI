@@ -29,6 +29,8 @@ import { WorkOrderRoutingModule } from 'src/app/operations/work-order/work-order
 import { DeleteManageAuditComponent } from './list-manage-audit/delete-manage-audit/delete-manage-audit.component';
 import { AddMultipleuploadManageAuditComponent } from './add-multipleupload-manage-audit/add-multipleupload-manage-audit.component';
 import { ManageAuditUploadErrorComponent } from './manage-audit-upload-error/manage-audit-upload-error.component';
+import { UploadManageAuditExcelPopupComponent } from './upload-manage-audit-excel-popup/upload-manage-audit-excel-popup.component';
+import { UploadManageAuditSuccessPopupComponent } from './upload-manage-audit-success-popup/upload-manage-audit-success-popup.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { ManageAuditUploadErrorComponent } from './manage-audit-upload-error/man
     ListManageAuditComponent,
     DeleteManageAuditComponent,
     AddMultipleuploadManageAuditComponent,
-    ManageAuditUploadErrorComponent
+    ManageAuditUploadErrorComponent,
+    UploadManageAuditExcelPopupComponent,
+    UploadManageAuditSuccessPopupComponent
   ],
   imports: [
     CommonModule,
