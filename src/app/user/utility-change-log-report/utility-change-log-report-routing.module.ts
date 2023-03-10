@@ -11,7 +11,7 @@ const routes: Routes = [
     component: AddUtilityChangeLogReportComponent,
   },
   {
-    path: "listUtilityChangeLogReport",
+    path: "listReconciliationReport",
     component: ListUtilityChangeLogReportComponent,
   },
 ];

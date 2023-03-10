@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Utility Change Log'" [items]="['Usage']" [active_item]="'Utility Change Log List'">
+        <app-breadcrumb [title]="'Reconciliation Report'" [items]="['Usage']" [active_item]="'Reconciliation Report List'">
         </app-breadcrumb>
       </div>
       <div class="row">
@@ -51,7 +51,7 @@
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
                         <li class="dropdown m-l-20 ">
-                          <h2>Utility Change Log Report</h2>
+                          <h2>Reconciliation Report</h2>
                         </li>
                         <li class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
@@ -72,7 +72,7 @@
                         <li>
                           <div class="export-button m-l-10" matTooltip="XLSX">
                             <img src="assets/images/icons/xlsx.png" alt=""
-                              (click)="exporter.exportTable('xlsx', {fileName:'utility-change-log-list', sheet: 'sheet1'})" />
+                              (click)="exporter.exportTable('xlsx', {fileName:'reconciliation-report-list', sheet: 'sheet1'})" />
                           </div>
                         </li>
 
