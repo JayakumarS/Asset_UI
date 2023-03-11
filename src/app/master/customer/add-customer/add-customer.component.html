@@ -18,9 +18,9 @@
                   (ngModelChange)="value=$event.toUpperCase()" maxlength="20" (keypress)="string($event)"
                  (change)="getAuditor($event.target.value)" required>
                 <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
-                  Auditor Name is required
+                  Customer name is required
                 </mat-error><mat-error *ngIf="docForm.get('auditorname').hasError('customer_master')">
-                  Auditor Name Already Exists !!!
+                  Customer name Already Exists !!!
                 </mat-error>
               </mat-form-field>
             </div>
