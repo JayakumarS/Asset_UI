@@ -22,7 +22,8 @@ export class MultipleUploadErrorComponent implements OnInit {
   itemList:any;
   
   isValid: boolean=true;
-
+  branchcodevaild: boolean=true;
+  branchHeadvalid:  boolean=true;
   constructor(
     public router:Router,
     private snackBar: MatSnackBar,
@@ -53,17 +54,25 @@ export class MultipleUploadErrorComponent implements OnInit {
     if(this.itemList[i].isValid == false){
       this.isValid = false;
     }
+    if(this.itemList[i].branchcodevaild == false){
+      this.branchcodevaild = false;
+    }
+    if(this.itemList[i].branchHeadvalid == false){
+      this.branchHeadvalid = false;
+    }
+    
    
    
 
    }
   }
-
+  // branch code Already Exits.
    onSubmit(){
     this.itemList=this.values.itemMasterList;
     this.branchService.addMultiple(this.itemList).subscribe({
       next:(data) => {
-        if(data.message){
+        
+        if(data.message =='Success'){
               let tempDirection;
               if (localStorage.getItem("isRtl") === "true") {
               tempDirection = "rtl";

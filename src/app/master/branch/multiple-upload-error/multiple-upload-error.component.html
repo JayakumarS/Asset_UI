@@ -35,10 +35,15 @@
                         <tr
                             *ngFor="let data of itemList">
 
-                            <td>{{data.branchCode}}</td>
-                            <td >{{data.branchname}}</td>
-                            <td *ngIf="data.isValid == false" style="background-color: red;">{{data.branchHead}}</td>
-                            <td *ngIf="data.isValid == true">{{data.branchHead}}</td>
+                            <td *ngIf="data.isValid == true || data.branchcodevaild == true ">{{data.branchCode}}</td>
+                            <td *ngIf="data.isValid == false || data.branchcodevaild == false" style="background-color: red;">{{data.branchCode}}</td>
+
+                            <td *ngIf="data.isValid == true" >{{data.branchname}}</td>
+                            <td *ngIf="data.isValid == false" >{{data.branchname}}</td>
+
+                            <td *ngIf="data.isValid == true || data.branchHeadvalid == true  ">{{data.branchHead}}</td>
+                            <td *ngIf="data.isValid == false && data.branchHeadvalid == false " style="background-color: red;">{{data.branchHead}}</td>
+
                            
 
                     </tbody>
@@ -49,8 +54,11 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+
+                <label *ngIf="isValid == false && branchHeadvalid == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
             </div>
+            <label *ngIf="isValid == false || branchcodevaild == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Branch Code Already Exists!!!</label>
+
         </div>
     </div>
     <div class="row">
