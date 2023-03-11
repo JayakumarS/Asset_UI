@@ -99,7 +99,6 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   brandDdList: any;
   isBrand: boolean = true;
   isUnBrand: boolean = false;
-  Detailed: boolean = false;
 
 
   constructor(private fb: FormBuilder,
@@ -124,12 +123,12 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
     this.docForm = this.fb.group({
       //info
-      assetName: ["", [Validators.required]],
-      // itemId: ["", [Validators.required]],
+      assetName: [""],
+      itemId: [""],
       assetCode: [""],
-      // location: ["", [Validators.required]],
+      location: [""],
       category: ["", [Validators.required]],
-      // status: ["", [Validators.required]],
+      status: [""],
       putUseDate: [moment().format('DD/MM/YYYY')],
       putUseDateObj: [moment().format('YYYY-MM-DD')],
       rentedUptoDate: [""],
@@ -142,7 +141,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       uploadImg: [""],
       isGrnBasedAsset: [false],
       grnId: [""],
-      assetUser: ["", [Validators.required]],
+      assetUser: [""],
       loginedUser: this.tokenStorage.getUserId(),
       //tab1
       brand: [""],
@@ -158,7 +157,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       otherTaxes: [""],
       transport: [""],
       instalAndCommission: [""],
-      uploadFiles: ["",[Validators.required]],
+      uploadFiles: ["", [Validators.required]],
       //tab2
       vendor: [""],
       poNumber: [""],
@@ -341,16 +340,16 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     );
 
 
-      //Line Master Dropdown List
-      this.httpService.get<any>(this.commonService.getLineMasterDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
-        next: (data) => {
-          this.lineMasterList = data;
-        },
-        error: (error) => {
-  
-        }
+    //Line Master Dropdown List
+    this.httpService.get<any>(this.commonService.getLineMasterDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      next: (data) => {
+        this.lineMasterList = data;
+      },
+      error: (error) => {
+
       }
-      );
+    }
+    );
 
     //purchaseOrderNumber Dropdown List
     const obj = {
@@ -458,7 +457,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
 
   categoryAttributes(category: any) {
-    
+
     this.httpService.get<any>(this.assetService.getCategorySpecificationDtlsUrl + "?category=" + category).subscribe({
       next: (res: any) => {
         if (res.success) {
@@ -473,12 +472,12 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
                 name: [element.fieldName],
                 type: [element.fieldType],
                 value: [""]
-                
+
               })
               detailListArray.insert(arraylen, newUsergroup);
             });
           }
-        }else{
+        } else {
           this.isCategory = false;
         }
       },
@@ -775,7 +774,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           })
           quantityBasedAssetArray.insert(arraylen, newUsergroup);
         }
-    
+
       },
       error: (error) => {
 
@@ -855,7 +854,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       quantityBasedAssetArray.at(index).patchValue({
         allottedUpto: cdate
       });
-    }else if (inputFlag == 'insuranceDate') {
+    } else if (inputFlag == 'insuranceDate') {
       this.docForm.patchValue({ insuranceDate: cdate });
     }
     else if (inputFlag == 'rentedUptoDate') {
@@ -891,10 +890,10 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           "top",
           "right"
         );
-      }else if (inputFlag == 'specDateArray') {
+      } else if (inputFlag == 'specDateArray') {
         let specDtlArray = this.docForm.controls.assetSpecList as FormArray;
-        specDtlArray.at(index).patchValue({value: cdate });
-      } 
+        specDtlArray.at(index).patchValue({ value: cdate });
+      }
       else {
         this.docForm.patchValue({ thirdPartyUptoDate: cdate });
       }
@@ -994,7 +993,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       this.docForm.controls.quantity.setValidators(Validators.required);
       this.docForm.controls['quantity'].updateValueAndValidity();
       this.docForm.patchValue({
-        'grnId':''
+        'grnId': ''
       })
     }
   }
@@ -1007,7 +1006,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   //FOR IMAGE UPLOAD ADDED BY Gokul 
-  onSelectImage(event,index,type) {
+  onSelectImage(event, index, type) {
     var imgfile = event.target.files[0];
     if (!this.acceptImageTypes.includes(imgfile.type)) {
       this.docForm.get('uploadImg').setValue("");
@@ -1040,12 +1039,12 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       next: (data) => {
         if (data.success) {
           if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
-            if(type=='ArrayAssetImg'){
+            if (type == 'ArrayAssetImg') {
               let quantityBasedAssetArray = this.docForm.controls.quantityBasedAssetList as FormArray;
               quantityBasedAssetArray.at(index).patchValue({
                 uploadImg: data.filePath
               });
-            }else{
+            } else {
               this.docForm.patchValue({
                 'uploadImg': data.filePath
               })
@@ -1185,13 +1184,14 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
   reset() {
     this.docForm = this.fb.group({
-      assetName: ["", [Validators.required]],
+      assetName: [""],
+      itemId: [""],
       assetCode: [""],
-      location: ["", [Validators.required]],
+      location: [""],
       category: ["", [Validators.required]],
-      status: ["", [Validators.required]],
+      status: [""],
       putUseDate: [moment().format('DD/MM/YYYY')],
-      putUseDateObj: [moment().format('YYYY-MM-DD'), [Validators.required]],
+      putUseDateObj: [moment().format('YYYY-MM-DD')],
       rentedUptoDate: [""],
       rentedUptoDateObj: [""],
       thirdPartyUptoDate: [""],
@@ -1199,15 +1199,15 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       isLine: [false],
       isAuditable: [true],
       id: [""],
-      uploadImg: ["", [Validators.required]],
+      uploadImg: [""],
       isGrnBasedAsset: [false],
       grnId: [""],
+      assetUser: [""],
       loginedUser: this.tokenStorage.getUserId(),
       //tab1
       brand: [""],
       unBrand: [""],
-      brandCheck: [""],
-      unBrandCheck: [""],
+      brandCheck: ["brandCheck"],
       model: [""],
       serialNo: [""],
       condition: [""],
@@ -1218,15 +1218,15 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       otherTaxes: [""],
       transport: [""],
       instalAndCommission: [""],
-      uploadFiles: [""],
+      uploadFiles: ["", [Validators.required]],
       //tab2
       vendor: [""],
       poNumber: [""],
       selfOrPartner: [""],
       invoiceDate: [""],
       invoiceNo: [""],
-      purchasePrice: [""],
-      currency: [""],
+      purchasePrice: ["", [Validators.required]],
+      currency: ["", [Validators.required]],
       quantity: ["1", [Validators.required]],
       //tab3
       captitalizationPrice: [""],
@@ -1239,14 +1239,13 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       allottedUpto: [""],
       transferredTo: [""],
       remarks: [""],
-      assetUser: [""],
       invoiceDateobj: [""],
       captitalizationDateobj: [moment().format('YYYY-MM-DD')],
       allottedUptoobj: [""],
       fileUploadUrl: [""],
       imgUploadUrl: [""],
-      'companyId': this.tokenStorage.getCompanyId(),
-      'branchId': this.tokenStorage.getBranchId(),
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
 
       //tab5
       assetMasterBean: this.fb.array([
@@ -1257,7 +1256,6 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           assCategory: [""],
           assStatus: [""],
           assetId: [""]
-
         })
       ]),
 
@@ -1289,37 +1287,36 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       costOfLand: [""],
       substance: [""],
 
-
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: ["", [Validators.required]],
-          assetName: ["",[Validators.required]],
+          assetName: ["", [Validators.required]],
           location: ["", [Validators.required]],
-          status: ["",, [Validators.required]],
+          status: ["", [Validators.required]],
           putUseDate: [moment().format('DD/MM/YYYY')],
           putUseDateObj: [moment().format('YYYY-MM-DD')],
           department: [""],
           allottedUpto: [""],
           allottedUptoobj: [""],
           transferredTo: [""],
-          assetUser: [""],
-          individualPurchasePrice: [""],
+          assetUser: ["", [Validators.required]],
+          individualPurchasePrice: ["", [Validators.required]],
           lineId: [""],
           endLife: [""],
           scrapValue: [""],
-          uploadImg: [""],
+          uploadImg: ["", [Validators.required]],
         })
       ]),
       assetSpecList: this.fb.array([
         this.fb.group({
-          fieldName: [""],
-          fieldValue: [""],
-          fieldType: [""]
+          name: [""],
+          value: [""],
+          type: [""]
         })
       ]),
-      ownedShip: ["owned"],
-
+      ownedShip: ["owned"]
     });
+
     this.isCategory = false;
     this.isRented = false;
     this.isThirdParty = false;
@@ -1467,25 +1464,24 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       //   quantity: '1'
       // })
     }
-    if(value==1 || this.docForm.controls.quantity.value ==''){
+    if (value == 1 || this.docForm.controls.quantity.value == '') {
       this.quantityBasedMutipleAssetFlag = false;
     }
   }
 
   saveQtyBasedMutipleAsset() {
-    this.Detailed = true;
-    if (this.docForm.valid )
-     {
-      let purchasePriceVal=Number(0);
+    this.submitted = true;
+    if (this.docForm.valid) {
+      let purchasePriceVal = Number(0);
       let assetListDtlArray = this.docForm.controls.quantityBasedAssetList as FormArray;
       assetListDtlArray.controls.forEach(element => {
-        if(element?.value?.individualPurchasePrice!=null && element?.value?.individualPurchasePrice !='' && element?.value?.individualPurchasePrice!=undefined){
-          purchasePriceVal=Number(Number(purchasePriceVal)+Number(element?.value?.individualPurchasePrice));
+        if (element?.value?.individualPurchasePrice != null && element?.value?.individualPurchasePrice != '' && element?.value?.individualPurchasePrice != undefined) {
+          purchasePriceVal = Number(Number(purchasePriceVal) + Number(element?.value?.individualPurchasePrice));
         }
       })
 
-      let totalPurchasePriceVal=this.docForm.controls.purchasePrice.value;
-      if(Number(purchasePriceVal)!=Number(totalPurchasePriceVal)){
+      let totalPurchasePriceVal = this.docForm.controls.purchasePrice.value;
+      if (Number(purchasePriceVal) != Number(totalPurchasePriceVal)) {
         const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + 'purchasePrice' + '"]');
         invalidControl.focus();
         this.showNotification(
