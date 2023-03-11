@@ -225,7 +225,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
                 assCategory: [""],
                 assStatus: [""],
                 assetId: [""],
-               assUser: [""]
+                assUser: [""]
              })
              assetListDtlArray.insert(i, newUsergroup);
           }
