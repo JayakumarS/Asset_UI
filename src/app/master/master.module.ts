@@ -12,7 +12,7 @@ import { ListStatusMasterComponent } from './status/list-status-master/list-stat
 import { AddStatusMasterComponent } from './status/add-status-master/add-status-master.component';
 import { AddTaxMasterComponent } from './Tax/add-tax-master/add-tax-master.component';
 import { ListTaxMasterComponent } from './Tax/list-tax-master/list-tax-master.component';
-import { ListCompanyLogoComponent } from './company-logo/list-company-logo/list-company-logo.component';
+// import { ListCompanyLogoComponent } from './company-logo/list-company-logo/list-company-logo.component';
 import { AddLineMasterComponent } from './line-master/add-line-master/add-line-master.component';
 import { ListLineMasterComponent } from './line-master/list-line-master/list-line-master.component';
 
@@ -30,7 +30,7 @@ import { DeleteConsoleLogComponent } from './console-log/list-console-log/delete
     AddStatusMasterComponent,
     AddTaxMasterComponent,
     ListTaxMasterComponent,
-    ListCompanyLogoComponent,
+   
     AddLineMasterComponent,
     ListLineMasterComponent,
     ListExchangeMasterComponent,
