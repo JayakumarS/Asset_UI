@@ -28,7 +28,7 @@ export class UploadExcelPopupComponent implements OnInit {
   isValidNum1: boolean=true;
   isValidEmail: boolean=true;
   isValidName: boolean=true;
-  
+  deptcodevaild: boolean=true;
   constructor(
     public router:Router,
     private snackBar: MatSnackBar,
@@ -64,6 +64,10 @@ export class UploadExcelPopupComponent implements OnInit {
       }
       if(this.departmentList[i].isValidName == false){
         this.isValidName = false;
+      }
+      if(this.departmentList[i].deptcodevaild == false){
+        this.deptcodevaild = false;
+        
       }
     }
   }

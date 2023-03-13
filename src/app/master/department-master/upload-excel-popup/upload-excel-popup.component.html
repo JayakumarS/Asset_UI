@@ -35,7 +35,8 @@
                         <tr
                             *ngFor="let data of departmentList">
 
-                            <td >{{data.deptCode}}</td>
+                            <td *ngIf="data.isValid == true || data.deptcodevaild == true">{{data.deptCode}}</td>
+                            <td *ngIf="data.isValid == false || data.deptcodevaild == false" style="background-color:red;">{{data.deptCode}}</td>
                             <td>{{data.departmentHead}}</td>
                             <td >{{data.remarks}}</td>
                             <td>{{data.contactPersonName}}</td>
@@ -52,9 +53,10 @@
             </div>
 
             <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Department Code Is Required !!!</label>
+                <label *ngIf="isValid == false || deptcodevaild == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Department Code Already Exists!!!</label>
             </div>
 
+            
             <div class="example-button-row" align="start">
                 <label *ngIf="isValidName == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Department Name Is Required !!!</label>
             </div>
@@ -63,7 +65,7 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="end">
-                <button mat-raised-button color="primary" [disabled]="isValidEmail == false || isValidNum ==false || isValidNum1 == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
+                <button mat-raised-button color="primary" [disabled]="isValid == false ||deptcodevaild == false || isValidEmail == false || isValidNum ==false || isValidNum1 == false "  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
             </div>
         </div>
