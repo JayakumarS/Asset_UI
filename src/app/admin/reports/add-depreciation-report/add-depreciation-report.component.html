@@ -98,49 +98,49 @@
             </div>
           </div>
         </div>
-        <mat-table #table matTableExporter    [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
+        <mat-table #table matTableExporter  [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter"  >
           <ng-container matColumnDef="categoryId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Category Id </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Category Id</mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
                 {{row.categoryId}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="categoryName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
           <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
               {{row.categoryName}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="asset_code">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Code </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Code</mat-header-cell>
         <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
             {{row.asset_code}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="asset_name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Name</mat-header-cell>
       <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
           {{row.asset_name}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="departmentName">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Department </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Department</mat-header-cell>
     <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
         {{row.departmentName}}</mat-cell>
 </ng-container>
 <ng-container matColumnDef="invoiceDate">
-  <mat-header-cell *matHeaderCellDef mat-sort-header>Invoice Date </mat-header-cell>
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Invoice Date</mat-header-cell>
   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
       {{row.invoiceDate}}</mat-cell>
 </ng-container>
 <ng-container matColumnDef="name">
-  <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor Name </mat-header-cell>
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor Name</mat-header-cell>
   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
       {{row.name}}</mat-cell>
 </ng-container>
 <ng-container matColumnDef="captitalizationPrice">
-  <mat-header-cell *matHeaderCellDef mat-sort-header>Cap Price </mat-header-cell>
+  <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 10px;">captitalization Price</mat-header-cell>
   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
       {{row.captitalizationPrice}}</mat-cell>
 </ng-container>
 <ng-container matColumnDef="captitalizationDate">
-  <mat-header-cell *matHeaderCellDef mat-sort-header>Cap Date </mat-header-cell>
+  <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 10px;">captitalization Date</mat-header-cell>
   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
       {{row.captitalizationDate}}</mat-cell>
 </ng-container>
@@ -150,7 +150,7 @@
       {{row.scrapValue}}</mat-cell>
 </ng-container>
 <ng-container matColumnDef="endLife">
-  <mat-header-cell *matHeaderCellDef mat-sort-header>End Of Life </mat-header-cell>
+  <mat-header-cell *matHeaderCellDef mat-sort-header>End Of Life</mat-header-cell>
   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
       {{row.endLife}}</mat-cell>
 </ng-container>
