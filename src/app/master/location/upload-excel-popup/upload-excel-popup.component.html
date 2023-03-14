@@ -34,9 +34,13 @@
                         <tr
                             *ngFor="let data of loactionList">
 
-                            <td>{{data.locationCode}}</td>
-                            <td>{{data.location}}</td>
-                            <td >{{data.primaryLocationName}}</td>
+                            <td *ngIf="data.isValid == true">{{data.locationCode}}</td>
+                            <td *ngIf="data.isValid == false" style="background-color:red;">{{data.locationCode}}</td>
+                            <td *ngIf="data.isValidName == true">{{data.location}}</td>
+                            <td *ngIf="data.isValidName == false" style="background-color:red;">{{data.location}}</td>
+                            <td *ngIf="data.isValidEmail == true">{{data.primaryLocationName}}</td>
+                            <td *ngIf="data.isValidEmail == false" style="background-color:red;">{{data.primaryLocationName}}</td>
+
                             
 
                     </tbody>
