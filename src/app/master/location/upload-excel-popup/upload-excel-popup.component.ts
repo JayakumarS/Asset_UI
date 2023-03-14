@@ -25,6 +25,9 @@ export class UploadExcelPopupComponent implements OnInit {
   isValid: boolean=true;
   isValidNum: boolean=true;
   isValidNum1: boolean=true;
+  isValidEmail: boolean=true;
+  isValidName: boolean=true;
+  deptcodevaild: boolean=true;
 
   constructor(
     public router:Router,
@@ -52,18 +55,22 @@ export class UploadExcelPopupComponent implements OnInit {
   ngOnInit(): void {
     this.loactionList=this.values.locationMasterDetails;
     console.log(this.loactionList);
-  //  for(let i = 0;i<this.departmentList.length;i++){
-  //   if(this.departmentList[i].isValid == false){
-  //     this.isValid = false;
-  //   }
-  //   if(this.departmentList[i].isValidNum == false){
-  //     this.isValidNum = false;
-  //   }
-  //   if(this.departmentList[i].isValidNum1 == false){
-  //     this.isValidNum1 = false;
-  //   }
-  //  }
+    for(let i = 0;i<this.loactionList.length;i++){
+      if(this.loactionList[i].isValidEmail == false){
+        this.isValidEmail = false;
+      }
+      if(this.loactionList[i].isValid == false){
+        this.isValid = false;
+      }
+      if(this.loactionList[i].isValidName == false){
+        this.isValidName = false;
+      }
+      if(this.loactionList[i].deptcodevaild == false){
+        this.deptcodevaild = false;
+        
+      }
   }
+}
 
    onSubmit(){
     this.loactionList=this.values.locationMasterDetails;

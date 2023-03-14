@@ -47,14 +47,23 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false || isValidNum ==false || isValidNum1 == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+                <label *ngIf="isValidEmail == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Location Primary Head Is Required !!!</label>
+            </div>
+
+            <div class="example-button-row" align="start">
+                <label *ngIf="isValid == false || deptcodevaild == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Location Code Already Exists!!!</label>
+            </div>
+
+            
+            <div class="example-button-row" align="start">
+                <label *ngIf="isValidName == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Location Name Is Required !!!</label>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="end">
-                <button mat-raised-button color="primary" [disabled]="isValid == false || isValidNum ==false || isValidNum1 == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
+                <button mat-raised-button color="primary" [disabled]="isValid == false || isValidEmail ==false || isValidName == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
             </div>
         </div>
