@@ -35,11 +35,15 @@
                         <tr
                             *ngFor="let data of departmentList">
 
-                            <td *ngIf="data.isValid == true || data.deptcodevaild == true">{{data.deptCode}}</td>
-                            <td *ngIf="data.isValid == false || data.deptcodevaild == false" style="background-color:red;">{{data.deptCode}}</td>
-                            <td>{{data.departmentHead}}</td>
+                            <td *ngIf="data.isValid == true">{{data.deptCode}}</td>
+                            <td *ngIf="data.isValid == false" style="background-color:red;">{{data.deptCode}}</td>
+                            <td *ngIf="data.isValidName == true">{{data.departmentHead}}</td>
+                            <td *ngIf="data.isValidName == false" style="background-color:red;">{{data.departmentHead}}</td>
                             <td >{{data.remarks}}</td>
-                            <td>{{data.contactPersonName}}</td>
+                            <td *ngIf="data.isValidEmail == true">{{data.contactPersonName}}</td>
+                            <td *ngIf="data.isValidEmail == false" style="background-color:red;">{{data.contactPersonName}}</td>
+
+                           
                             
                     </tbody>
                 </table>
