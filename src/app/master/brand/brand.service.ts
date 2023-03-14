@@ -33,10 +33,8 @@ export class BrandMasterService extends UnsubscribeOnDestroyAdapter {
     public editMaster = `${this.serverUrl.apiServerAddress}app/Brand/edit`;
     public deletecity = `${this.serverUrl.apiServerAddress}app/Brand/delete`;
     public updatebrand = `${this.serverUrl.apiServerAddress}app/Brand/update`;
-
-    
-    
-   
+    public saveMultiple = `${this.serverUrl.apiServerAddress}app/Brand/multipleSave`;
+    public multipleUpload = `${this.serverUrl.apiServerAddress}app/Brand/brandmultipleUpload`;
 
     get data(): Brand[] {
         return this.dataChange.value;
@@ -44,10 +42,7 @@ export class BrandMasterService extends UnsubscribeOnDestroyAdapter {
       getDialogData() {
         return this.dialogData;
       }
-    
-      
-      
-
+  
    // For Save
   addbrand(brand:Brand): void {
     this.dialogData = brand;  
@@ -87,5 +82,10 @@ updateMaster(obj: any): Observable<any> {
 deletebrand(obj: any): Observable<any> {
   return this.httpClient.post<any>(this.deletecity, obj);
 }
+
+addMultiple(obj: any): Observable<any> {
+  return this.httpClient.post<any>(this.saveMultiple, obj);
+}
+
 }
 

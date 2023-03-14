@@ -26,13 +26,19 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DeleteBranchComponent } from './list-brand/delete-branch/delete-branch.component';
+import { MultipleUploadBrandComponent } from './multiple-upload-brand/multiple-upload-brand.component';
+import { BrandMultipleUploadErrorComponent } from './brand-multiple-upload-error/brand-multiple-upload-error.component';
+import { BrandUploadSuccessPopupComponent } from './brand-upload-success-popup/brand-upload-success-popup.component';
 
 
 @NgModule({
   declarations: [
     AddBrandComponent,
     ListBrandComponent,
-    DeleteBranchComponent
+    DeleteBranchComponent,
+    MultipleUploadBrandComponent,
+    BrandMultipleUploadErrorComponent,
+    BrandUploadSuccessPopupComponent
   ],
   imports: [
     CommonModule,

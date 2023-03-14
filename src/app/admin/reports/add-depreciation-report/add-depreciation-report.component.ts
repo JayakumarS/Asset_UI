@@ -115,7 +115,7 @@ export class AddDepreciationReportComponent extends  UnsubscribeOnDestroyAdapter
 
 this.docForm = this.fb.group({
       depreciationMethod: [""],
-      date: [""],
+      fromDateObj: [""],
       category: [""],
       assetLocation: [""],
       department: [""],
@@ -218,7 +218,8 @@ searchData() {
 
     this.docForm.patchValue({
       depreciationMethod : '',
-      date : '',
+      discardFromDate : '',
+      fromDateObj : '',
       category : '',
       assetLocation : '',
       department : '',
@@ -229,8 +230,8 @@ searchData() {
   }
   getDateString(event,inputFlag,index){
     let cdate = this.cmnService.getDate(event.target.value);
-    if(inputFlag=='startdate'){
-      this.docForm.patchValue({startdate:cdate});
+    if(inputFlag=='discardFromDate'){
+      this.docForm.patchValue({discardFromDate:cdate});
     }
   }
 }
