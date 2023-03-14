@@ -1,4 +1,6 @@
-<div class="block-header">
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" style="padding: 0.5% !important;">
   <!-- breadcrumb -->
   <app-breadcrumb [title]="'Status Wise Asset Count'" [items]="['Reports']" [active_item]="'Status Wise Asset Count'">
   </app-breadcrumb>
@@ -34,12 +36,14 @@
           </mat-form-field>
         </div>
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;margin-top: 32px;">
-            <button  color="primary" type="button" class="btn-space" (click)="onSearch()"
+            <button  color="primary" type="button" class="btn-space" style="background-color: green;" (click)="onSearch()"
               mat-raised-button>Search</button>
+              <button  color="primary" type="button" class="btn-space" (click)="onReset()"
+              mat-raised-button>Reset</button>
           </div>
 
         </div>
-        <div class="row">
+        <!-- <div class="row">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
           <label>STATUS</label>
 </div>
@@ -55,7 +59,7 @@
    </mat-error>
  </mat-form-field>
 </div>
-</div>
+</div> -->
 </div>
 </form>
 <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
@@ -159,7 +163,9 @@
 
 </div>
 </div>
-
+           </div>
+  </div>
+</section>
 
 
 

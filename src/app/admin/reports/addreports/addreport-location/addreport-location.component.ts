@@ -130,6 +130,14 @@ Search() {
   this.loadData();
 }
 
+onReset()
+{
+  this.docForm = this.fb.group({
+    location: [""]
+  });
+  this.loadData();
+
+}
 
 }
 

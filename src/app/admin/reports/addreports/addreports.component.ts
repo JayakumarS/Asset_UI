@@ -149,6 +149,16 @@ onSearch() {
   this.reportscategory = this.docForm.value;
   this.loadData();
 }
+
+onReset()
+{
+  this.docForm = this.fb.group({
+    category: [""],
+    status: [""]
+  });
+  this.loadData();
+
+}
 // Search(){
 //   this.reportscategory = this.docForm.value;
 //   this.httpService.get(this.reportsService.locationsearch + "?location=" + this.docForm.controls.asset.value ).subscribe((res: any) => {
