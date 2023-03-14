@@ -46,7 +46,7 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
     edit: boolean = false;
     reList: any = [];
      loList: any = [];
-
+ 
   reportscategory: Reportscategory | null;
 
   dataSource: ExampleDataSource | null;
@@ -60,12 +60,16 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
                 public route: ActivatedRoute,
                 private httpService: HttpServiceService,
                 private serverUrl: serverLocations,
-                public tokenStroage: TokenStorageService
+                public tokenStroage: TokenStorageService,
+                private tokenStorage: TokenStorageService,
+
                 ){
         super();
         this.docForm = this.fb.group({
           category: [""],
-          status: [""]
+          status: [""],
+          companyId: this.tokenStorage.getCompanyId(),
+          branchId: this.tokenStorage.getBranchId(),
          });
 
       }
@@ -79,7 +83,8 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
 
   ngOnInit(): void {
 
-        this.httpService.get<reportsresultbean>(this.reportsService.categoryListUrl).subscribe(
+
+        this.httpService.get<reportsresultbean>(this.reportsService.categoryListUrl + "?companyId=" + this.tokenStorage.getCompanyId()).subscribe(
       (data) => {
         this.categoryList = data.categoryList;
       },
@@ -90,7 +95,7 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
 
         this.onSearch();
 
-        this.httpService.get<reportsresultbean>(this.reportsService.statusListUrl).subscribe(
+        this.httpService.get<reportsresultbean>(this.reportsService.statusListUrl  + "?companyId=" + this.tokenStorage.getCompanyId()).subscribe(
           (data) => {
             this.statusList = data.statusList;
           },
