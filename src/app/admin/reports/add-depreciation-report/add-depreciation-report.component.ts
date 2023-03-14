@@ -15,16 +15,37 @@ import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 
-
-
-
-
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 @Component({
   selector: 'app-add-depreciation-report',
   templateUrl: './add-depreciation-report.component.html',
-  styleUrls: ['./add-depreciation-report.component.sass']
-})
+  styleUrls: ['./add-depreciation-report.component.sass'],
+  
+// Date Related code
+ providers: [
+  { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+  { provide: MAT_DATE_FORMATS, useValue: {
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MMMM YYYY',
+      },
+    } },CommonService
+    ]
+    })
 export class AddDepreciationReportComponent extends  UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
   'categoryId',
@@ -72,6 +93,7 @@ export class AddDepreciationReportComponent extends  UnsubscribeOnDestroyAdapter
     this.docForm = this.fb.group({
     depreciationMethod: [""],
     date: [""],
+    fromDateObj: [""],
     category: [""],
     assetLocation: [""],
     department: [""],
@@ -143,6 +165,7 @@ this.httpService.get<any>(this.userMasterService.departmentListUrl + "?company="
     );
 this.searchData();
   }
+ 
 
   loadData() {
     this.exampleDatabase = new ReportsService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
@@ -175,15 +198,7 @@ searchData() {
   this.loadData();
 }
 
-  getDateString(event, inputFlag){
-    let cdate = this.cmnService.getDate(event.target.value);
-    if (inputFlag=='date'){
-      this.docForm.patchValue({date: cdate});
-    }
-    else {
-    }
-
-  };
+ 
 
 // searchData(){
 //   this.reportscategory = this.docForm.value;
@@ -211,6 +226,12 @@ searchData() {
 
    });
     this.searchData();
+  }
+  getDateString(event,inputFlag,index){
+    let cdate = this.cmnService.getDate(event.target.value);
+    if(inputFlag=='startdate'){
+      this.docForm.patchValue({startdate:cdate});
+    }
   }
 }
 export class ExampleDataSource extends DataSource<Reportscategory> {

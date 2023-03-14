@@ -33,12 +33,15 @@
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                               <input matInput [matDatepicker]="picker" formControlName="discardFromDate"
-                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="date"tabindex="2"  placeholder="Date"
-                                (dateChange)="getDateString($event,'date')" >
+                                <input matInput [matDatepicker]="picker" formControlName="fromDateObj"
+                                (dateInput)="$event.value.format('YYYY/MM/DD')" id="Date"
+                                (dateChange)="getDateString($event, 'Date',0)">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
-                                </mat-form-field>
+                              </mat-form-field>
+
+
+                               
                           </div>
                           </div>
                           <div class="row">
@@ -105,7 +108,7 @@
                 {{row.categoryId}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="categoryName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 10px;">Category Name</mat-header-cell>
           <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
               {{row.categoryName}}</mat-cell>
       </ng-container>
