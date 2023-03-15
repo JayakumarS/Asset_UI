@@ -14,6 +14,7 @@ import { CompanyLogoResultBean } from "src/app/master/company-logo/companyLogoRe
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ForgotPasswordComponent } from "../forgot-password/forgot-password.component";
+import { serverLocations } from "src/app/auth/serverLocations";
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -49,7 +50,7 @@ export class SigninComponent
     private tokenStorage: TokenStorageService,
     public dialog: MatDialog,
     private httpService: HttpServiceService,
-
+    private serverUrl:serverLocations
 
   ) {
     super();
@@ -124,6 +125,7 @@ export class SigninComponent
                 this.tokenStorage.saveBranchId(data.userDetails.branchId);
                 this.tokenStorage.saveCompanies(data.userDetails.companies);
                 this.tokenStorage.saveRoles(data.userDetails.roles);
+                this.tokenStorage.saveCompanyLogo(this.serverUrl.apiServerAddress+"asset_upload/"+data.userDetails.companyLogo);
                 this.loginSuccessUserLog();
                 // if(data.userDetails.companies.length>0){
                 //   this.showPopUp();
