@@ -106,7 +106,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
 
       assetMasterBeanReplacement: this.fb.array([
         this.fb.group({
-          fullOrPartial: ["F"],
+          partialFull: [""],
           assName: [""],
           assCode: [""],
           assLocation: [""],
@@ -255,7 +255,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
           'assetId':[""],
           'assUser':[""],
           'movedTo':[""],
-          'fullOrPartial': ["F"],
+          'partialFull': [""],
         }
       )
       this.showNotification(
@@ -285,8 +285,8 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
                 assStatus: [element.statusName],
                 assetId: [element.assetId],
                 assUser: [parseInt(element.assetUser)],
-                movedTo: [element.movedTo],
-                fullOrPartial: ["F"],
+                movedTo: [parseInt(element.movedTo)],
+                partialFull: ["F"],
               })
               assetListDtlArray.insert(i, newUsergroup);
             });
@@ -303,7 +303,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               assetId: [""],
               assUser: [""],
               movedTo: [""],
-              fullOrPartial: ["F"],
+              partialFull: [""],
              })
              assetListDtlArray.insert(i, newUsergroup);
           }
@@ -423,7 +423,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               assStatus: [element.statusName],
               assUser: [parseInt(element.assetUser)],
               movedTo: [parseInt(element.movedTo)],
-              fullOrPartial: [element.fullOrPartial],
+              partialFull: [element.partialFull],
 
             })
             detailListArray.insert(arraylen, newUsergroup);

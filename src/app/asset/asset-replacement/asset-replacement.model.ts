@@ -1,6 +1,6 @@
 export class AssetReplacement {
 	assetId: string;
-	fullOrPartial:boolean
+	partialFull:boolean
 	id: number;
 	assetMasterBeanReplacement: []
     loginUser:string;
