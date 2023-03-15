@@ -131,13 +131,13 @@
                                             {{audit?.availableQty}}
                                          </td>
                                          <td class="padding-both-side-2" *ngIf="roleId==='3' || roleId==='2'">
-                                          <!-- {{audit?.checkerstatus}} -->
-                                          <div *ngIf="audit.checkerstatus==1 ">
+                                          {{audit?.checkerstatus}}
+                                          <!-- <div *ngIf="audit.checkerstatus==1 ">
                                             Pending
                                           </div>
                                           <div *ngIf="audit.checkerstatus==2">
                                             Submitted
-                                          </div>
+                                          </div> -->
                                         </td>
                                          <td class="padding-both-side-2" *ngIf="roleId==='2'">
                                           {{audit?.differenceQty}}

@@ -147,10 +147,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       brand: [""],
       unBrand: [""],
       brandCheck: ["brandCheck"],
-      model: [""],
-      serialNo: [""],
-      condition: [""],
-      linkedAsset: [""],
+
       description: [""],
       gst: [""],
       customDuty: [""],
@@ -198,33 +195,6 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
         })
       ]),
 
-      //Computer
-      os: [""],
-      processor: [""],
-      memory: [""],
-      storage: [""],
-      monitor: [""],
-      //Furniture
-      aesthetics: [""],
-      quality: [""],
-      safety: [""],
-      sustainability: [""],
-      //Office Equipment
-      device: [""],
-      deviceModel: [""],
-      deviceStatus: [""],
-      //Vehicle
-      vehicleType: [""],
-      vehicleEngine: [""],
-      vehicleSpeed: [""],
-      fuelCapacity: [""],
-      vehicleWeight: [""],
-      insuranceDate: [""],
-      insuranceDateObj: [""],
-      //Plant and Machinery
-      lifeTime: [""],
-      costOfLand: [""],
-      substance: [""],
 
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
@@ -634,13 +604,12 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           'brand': parseInt(res.addAssetBean.brand),
           'unBrand': res.addAssetBean.unBrand,
           'brandCheck': res.addAssetBean.brandCheck,
-          'model': res.addAssetBean.model,
+          
           'allottedUptoobj': res.addAssetBean.allottedUpto != null ? this.commonService.getDateObj(res.addAssetBean.allottedUpto) : "",
           'allottedUpto': res.addAssetBean.allottedUpto,
           'captitalizationDateobj': res.addAssetBean.captitalizationDate != null ? this.commonService.getDateObj(res.addAssetBean.captitalizationDate) : "",
           'captitalizationDate': res.addAssetBean.captitalizationDate,
           'captitalizationPrice': res.addAssetBean.captitalizationPrice,
-          'condition': res.addAssetBean.condition,
           'department': res.addAssetBean.department != null ? res.addAssetBean.department.toString() : "",
           'depreciation': res.addAssetBean.depreciation,
           'description': res.addAssetBean.description,
@@ -654,7 +623,6 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           'imgUploadUrl': res.addAssetBean.imgUploadUrl,
           'invoiceDateobj': res.addAssetBean.invoiceDate != null ? this.commonService.getDateObj(res.addAssetBean.invoiceDate) : "",
           'invoiceDate': res.addAssetBean.invoiceDate,
-          'linkedAsset': parseInt(res.addAssetBean.linkedAsset),
           'poNumber': res.addAssetBean.poNumber,
           'purchasePrice': res.addAssetBean.purchasePrice,
           'currency': res.addAssetBean.currency,
@@ -662,42 +630,18 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           'assetUser': res.addAssetBean.assetUser,
           'scrapValue': res.addAssetBean.scrapValue,
           'selfOrPartner': res.addAssetBean.selfOrPartner,
-          'serialNo': res.addAssetBean.serialNo,
           'transferredTo': parseInt(res.addAssetBean.transferredTo),
           'uploadFiles': res.addAssetBean.uploadFiles,
           'uploadImg': res.addAssetBean.uploadImg,
           'vendor': res.addAssetBean.vendor,
-          //CATEGORY
-          'os': res.addAssetBean.os,
-          'processor': res.addAssetBean.processor,
-          'memory': res.addAssetBean.memory,
-          'storage': res.addAssetBean.storage,
-          'monitor': res.addAssetBean.monitor,
-          'aesthetics': res.addAssetBean.aesthetics,
-          'quality': res.addAssetBean.quality,
-          'safety': res.addAssetBean.safety,
-          'sustainability': res.addAssetBean.sustainability,
-          'device': res.addAssetBean.device,
-          'deviceModel': res.addAssetBean.deviceModel,
-          'deviceStatus': res.addAssetBean.deviceStatus,
-          'vehicleType': res.addAssetBean.vehicleType,
-          'vehicleEngine': res.addAssetBean.vehicleEngine,
-          'vehicleSpeed': res.addAssetBean.vehicleSpeed,
-          'fuelCapacity': res.addAssetBean.fuelCapacity,
-          'vehicleWeight': res.addAssetBean.vehicleWeight,
-          'lifeTime': res.addAssetBean.lifeTime,
-          'costOfLand': res.addAssetBean.costOfLand,
-          'substance': res.addAssetBean.substance,
-          //
+          
 
           'rentedUptoDate': res.addAssetBean.rentedUptoDate,
           'rentedUptoDateObj': res.addAssetBean.rentedUptoDate != null ? this.commonService.getDateObj(res.addAssetBean.rentedUptoDate) : "",
           'thirdPartyUptoDate': res.addAssetBean.thirdPartyUptoDate,
           'thirdPartyUptoDateObj': res.addAssetBean.thirdPartyUptoDate != null ? this.commonService.getDateObj(res.addAssetBean.thirdPartyUptoDate) : "",
 
-          'insuranceDate': res.addAssetBean.insuranceDate,
-          'insuranceDateObj': res.addAssetBean.insuranceDate != null ? this.commonService.getDateObj(res.addAssetBean.insuranceDate) : "",
-
+          
         })
 
         if (res.addAssetBean.rentedUptoDate != null) {
@@ -854,9 +798,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       quantityBasedAssetArray.at(index).patchValue({
         allottedUpto: cdate
       });
-    } else if (inputFlag == 'insuranceDate') {
-      this.docForm.patchValue({ insuranceDate: cdate });
-    }
+    } 
     else if (inputFlag == 'rentedUptoDate') {
       let currDate = new Date();
       if (event.target.value < currDate) {
@@ -1208,10 +1150,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       brand: [""],
       unBrand: [""],
       brandCheck: ["brandCheck"],
-      model: [""],
-      serialNo: [""],
-      condition: [""],
-      linkedAsset: [""],
+ 
       description: [""],
       gst: [""],
       customDuty: [""],
@@ -1259,33 +1198,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
         })
       ]),
 
-      //Computer
-      os: [""],
-      processor: [""],
-      memory: [""],
-      storage: [""],
-      monitor: [""],
-      //Furniture
-      aesthetics: [""],
-      quality: [""],
-      safety: [""],
-      sustainability: [""],
-      //Office Equipment
-      device: [""],
-      deviceModel: [""],
-      deviceStatus: [""],
-      //Vehicle
-      vehicleType: [""],
-      vehicleEngine: [""],
-      vehicleSpeed: [""],
-      fuelCapacity: [""],
-      vehicleWeight: [""],
-      insuranceDate: [""],
-      insuranceDateObj: [""],
-      //Plant and Machinery
-      lifeTime: [""],
-      costOfLand: [""],
-      substance: [""],
+      
 
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
