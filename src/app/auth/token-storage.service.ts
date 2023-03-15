@@ -16,7 +16,7 @@ const AUTHCOMPANIES = 'AuthCompanies';
 const AUTHROLES = 'AuthRoles';
 const AUTHBRANCHID = 'AuthBranchId';
 const ACTIVECOMPANY_KEY = 'ActiveCompanyFlag';
-
+const COMPANYLOGO_KEY = 'AuthCompanyLogo';
 
 @Injectable({
   providedIn: 'root'
@@ -154,5 +154,14 @@ public getUserId(): string {
 
   public getActiveCompanyFlag(): string {
     return sessionStorage.getItem(ACTIVECOMPANY_KEY);
+  }
+
+  public saveCompanyLogo(token: string) {
+    window.sessionStorage.removeItem(COMPANYLOGO_KEY);
+    window.sessionStorage.setItem(COMPANYLOGO_KEY, token);
+  }
+
+  public getCompanyLogo(): string {
+    return sessionStorage.getItem(COMPANYLOGO_KEY);
   }
 }

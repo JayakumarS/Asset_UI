@@ -37,16 +37,16 @@
                         <tr
                             *ngFor="let data of companyEmpList">
 
-                            <td *ngIf="data.isValid == false" style="background-color: red;">{{data.branch}}</td>
                             <td *ngIf="data.isValid == true">{{data.branch}}</td>
-                            <td *ngIf="data.isValidNum1 == false">{{data.empid}}</td>
-                            <td *ngIf="data.isValidNum1 == true" style="background-color: red;">{{data.empid}}</td>
+                            <td *ngIf="data.isValid == false" style="background-color: red;">{{data.branch}}</td>
+                            <td *ngIf="data.isValidEmpId == true">{{data.empid}}</td>
+                            <td *ngIf="data.isValidEmpId == false" style="background-color: red;">{{data.empid}}</td>
                             <td>{{data.fullName}}</td>
                             <td>{{data.emailId}}</td>
-                            <td *ngIf="data.isValidNum == false" style="background-color: red;">{{data.phoneno}}</td>
                             <td *ngIf="data.isValidNum == true">{{data.phoneno}}</td>
-                            <td *ngIf="data.isValidDept == false" style="background-color: red;">{{data.department}}</td>
+                            <td *ngIf="data.isValidNum == false" style="background-color: red;">{{data.phoneno}}</td>
                             <td *ngIf="data.isValidDept == true">{{data.department}}</td>
+                            <td *ngIf="data.isValidDept == false" style="background-color: red;">{{data.department}}</td>
 
                     </tbody>
                 </table>
@@ -56,14 +56,26 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false || isValidNum ==false || isValidNum1 == true || isValidDept == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+                <label *ngIf="isValid == false || isValidEmpId ==false || isValidNum == false || isValidDept == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+            </div>
+            <div class="example-button-row" align="start">
+                <label *ngIf="isValid == false" style="font-size: 12;margin-left: 6px; color: red;">Branch Code Is Required !!!</label>
+            </div>
+            <div class="example-button-row" align="start">
+                <label *ngIf="isValidEmpId == false" style="font-size: 12;margin-left: 6px; color: red;">Employee Id Is Required !!!</label>
+            </div>
+            <div class="example-button-row" align="start">
+                <label *ngIf="isValidDept == false" style="font-size: 12;margin-left: 6px; color: red;">Department Code Is Required !!!</label>
+            </div>
+            <div class="example-button-row" align="start">
+                <label *ngIf="isValidNum == false" style="font-size: 12;margin-left: 6px; color: red;">Phone No Is Required !!!</label>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="end">
-                <button mat-raised-button color="primary" [disabled]="isValid == false || isValidNum ==false || isValidNum1 == true || isValidDept == false "  [mat-dialog-close]="1" (click)="onSubmit()" >Upload</button>
+                <button mat-raised-button color="primary" [disabled]="isValid == false || isValidNum ==false || isValidDept == false || isValidEmpId == false "  [mat-dialog-close]="1" (click)="onSubmit()" >Upload</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
             </div>
         </div>

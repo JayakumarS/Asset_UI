@@ -13,6 +13,7 @@ import { UserMasterService } from '../../user-master/user-master.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { CategoryMasterService } from '../../category/category.service';
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 @Component({
   selector: 'app-add-company',
@@ -41,6 +42,8 @@ export class AddCompanyComponent implements OnInit {
   CountryCodeList=[];
   depreciationlist=[];
   GstFlag:boolean=true;
+  private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
+  logoPathUrl: any;
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
     private departmentMasterService: DepartmentMasterService,
@@ -53,7 +56,8 @@ export class AddCompanyComponent implements OnInit {
     private router: Router,
     private categoryMasterService:CategoryMasterService,
     private tokenStorage: TokenStorageService,
-    private notificationService: NotificationService) {
+    private notificationService: NotificationService,
+    private serverUrl:serverLocations) {
 
     this.docForm = this.fb.group({
       companyName: ["", [Validators.required]],
@@ -85,7 +89,7 @@ export class AddCompanyComponent implements OnInit {
       addressTwoState: [""],
       addressTwoCity: [""],
       addressTwoZipCode: [""],
-
+      companyLogo:[""],
       branchCount: [""],
       branchList: this.fb.array([
         this.fb.group({
@@ -401,8 +405,13 @@ export class AddCompanyComponent implements OnInit {
           'addressTwoCity': res.companyBean.addressTwoCity,
           'addressTwoZipCode': res.companyBean.addressTwoZipCode,
           'branchCount': res.companyBean.branchCount,
-
+          'companyLogo':res.companyBean.companyLogo,
         })
+
+        if (res.companyBean.companyLogo != undefined && res.companyBean.companyLogo != null && res.companyBean.companyLogo != '') {
+          this.logoPathUrl = res.companyBean.companyLogo;
+        }
+
         if (res.branchListDtlBean != null && res.branchListDtlBean.length >= 1) {
           let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
           BranchListDtlArray.clear();
@@ -454,7 +463,7 @@ export class AddCompanyComponent implements OnInit {
         isactive: [true],
         companyId: [""],
         userId: [""],
-
+        companyLogo:[""],
         addressOne: [""],
         addressOneCountry: [""],
         addressOneState: [""],
@@ -501,7 +510,7 @@ export class AddCompanyComponent implements OnInit {
   update() {
     if (this.docForm.valid) {
       this.company = this.docForm.value;
-      this.companyService.UpdateOrder(this.company, this.router, this.notificationService);
+      this.companyService.UpdateOrder(this.company, this.router, this.notificationService,this.logoPathUrl);
     } else {
       this.notificationService.showNotification(
         "snackbar-danger",
@@ -601,5 +610,73 @@ export class AddCompanyComponent implements OnInit {
     //   data.controls.branchGstNo.clearValidators();
     //   data.controls['branchGstNo'].updateValueAndValidity();
     // }
+  }
+
+  onSelectFile(event) {
+    var docfile = event.target.files[0];
+    if (!this.acceptImageTypes.includes(docfile.type)) {
+      this.docForm.get('companyLogo').setValue("");
+      this.showNotification(
+        "snackbar-danger",
+        ".jpeg, .jpg, .png only allowed",
+        "top",
+        "right"
+      );
+      return;
+    }
+    if (docfile.size > 5242880) {
+      this.docForm.get('companyLogo').setValue("");
+      this.showNotification(
+        "snackbar-danger",
+        "Please upload valid image with less than 5mb",
+        "top",
+        "right"
+      );
+      return;
+    }
+    var fileExtension = docfile.name;
+    var frmData: FormData = new FormData();
+    frmData.append("file", docfile);
+    frmData.append("fileName", fileExtension);
+    frmData.append("folderName", "CompanyLogoImg");
+
+    this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
+      next: (data) => {
+        if (data.success) {
+          if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+            this.docForm.patchValue({
+              'companyLogo': data.filePath
+            })
+            this.logoPathUrl = data.filePath;
+          }
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Failed to upload File",
+            "top",
+            "right"
+          );
+          this.docForm.get('companyLogo').setValue("");
+        }
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload File",
+          "top",
+          "right"
+        );
+        this.docForm.get('companyLogo').setValue("");
+      }
+    });
+  }
+
+
+  viewDocuments(filePath: any, fileName: any) {
+    var a = document.createElement("a");
+    a.href = this.serverUrl.apiServerAddress + "asset_upload/" + filePath;
+    a.target = '_blank';
+    a.download = fileName;
+    a.click();
   }
 }

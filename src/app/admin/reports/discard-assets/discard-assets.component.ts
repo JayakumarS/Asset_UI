@@ -28,6 +28,7 @@ export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
   },
+  
   display: {
     dateInput: 'DD/MM/YYYY',
     monthYearLabel: 'MMMM YYYY',
@@ -40,6 +41,15 @@ export const MY_DATE_FORMATS = {
   selector: 'app-discard-assets',
   templateUrl: './discard-assets.component.html',
   styleUrls: ['./discard-assets.component.sass'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: {
+      display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY',
+      },
+  } },CommonService
+  ],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -109,6 +119,8 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
     this.docForm = this.fb.group({
       discardDateFromObj:[""],
       discardDateToObj:[""],
+      discardFromDate:[""],
+      discardToDate:[""],
      
     });
 
@@ -125,17 +137,17 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
 );
   }
 
-  getDateString(event,inputFlag){
+  getDateString(event,inputFlag,index){
     let cdate = this.cmnService.getDate(event.target.value);
     if(inputFlag=='discardFromDate'){
       this.docForm.patchValue({discardFromDate:cdate});
     }
-    else if (inputFlag == 'discardToDate') {
-      this.docForm.patchValue({ discardToDate: cdate });
+     else if (inputFlag=='discardToDate'){
+      this.docForm.patchValue({discardToDate:cdate});
     }
+  }
 
-  };
-
+ 
   viewReport(){
     this.discardReport = this.docForm.value;
     this.mainList=[];
@@ -198,7 +210,9 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
    
     this.docForm = this.fb.group({
       discardDateFromObj:[""],
+      discardFromDate:[""],
       discardDateToObj:[""],
+      discardToDate:[""],
      
     });
     this.mainList=[];
