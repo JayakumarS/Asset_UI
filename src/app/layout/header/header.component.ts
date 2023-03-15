@@ -28,6 +28,7 @@ import { ManageAuditService } from "src/app/audit/manage-audit/manage-audit.serv
 import { CommonService } from "src/app/common-service/common.service";
 import { FlowChartPopupComponent } from "src/app/admin/schedule-activity/flow-chart-popup/flow-chart-popup.component";
 import { CompanyLogoResultBean } from "src/app/master/company-logo/companyLogoResultBean";
+import { serverLocations } from "src/app/auth/serverLocations";
 const document: any = window.document;
 
 @Component({
@@ -82,7 +83,7 @@ export class HeaderComponent
     private httpService: HttpServiceService,
     public manageAuditService: ManageAuditService,
     private commonService: CommonService,
-
+    private serverUrl:serverLocations
 
   ) {
     super();
@@ -223,9 +224,9 @@ export class HeaderComponent
       (data: any) => {
         // console.log(data);
         this.logoList = data.companyLogo;
-        this.path = this.logoList;
-        this.bgList = data.backGroundImg;
-        this.bgImg = this.bgList;
+        this.path = this.serverUrl.apiServerAddress+"asset_upload/"+this.logoList;
+        this.bgList = this.serverUrl.apiServerAddress+"asset_upload/"+data.backGroundImg;
+        this.bgImg = this.serverUrl.apiServerAddress+"asset_upload/"+this.bgList;
 
         // let pathLength = this.logoList.length;
       },
