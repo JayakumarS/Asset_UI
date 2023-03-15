@@ -109,6 +109,8 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
     this.docForm = this.fb.group({
       discardDateFromObj:[""],
       discardDateToObj:[""],
+      discardFromDate:[""],
+      discardToDate:[""],
      
     });
 
