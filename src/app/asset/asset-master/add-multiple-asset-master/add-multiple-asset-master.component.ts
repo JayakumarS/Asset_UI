@@ -57,7 +57,7 @@ export class AddMultipleAssetMasterComponent implements OnInit {
 
     showNotification(colorName, text, placementFrom, placementAlign) {
       this.snackBar.open(text, "", {
-        duration: 2000,
+        duration: 6000,
         verticalPosition: placementFrom,
         horizontalPosition: placementAlign,
         panelClass: colorName,
@@ -66,9 +66,9 @@ export class AddMultipleAssetMasterComponent implements OnInit {
 
     upload(){ 
       this.companyId=this.tokenStorage.getCompanyId();
-      this.httpService.post<any>(this.assetService.multipleAssetUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe(data => {
-        console.log(data);
-        if(data.success){
+      this.httpService.post<any>(this.assetService.multipleAssetUploadFiles+"?companyId="+this.tokenStorage.getCompanyId()+"&branchId="+this.tokenStorage.getBranchId(),this.excelFile).subscribe({
+        next: (data) => {
+          if(data.success){
           if(data.message =='Success'){
           this.showNotification(
             "snackbar-success",
@@ -76,38 +76,34 @@ export class AddMultipleAssetMasterComponent implements OnInit {
             "bottom",
             "center"
           );
-          window.sessionStorage.setItem("makerLogin","");
           this.router.navigate(['/asset/assetMaster/listAssetMaster'])
-          } else  if(data.message =='Incorrect Email' || data.message =='Format'){
-            let tempDirection;
-            if (localStorage.getItem("isRtl") === "true") {
-            tempDirection = "rtl";
-            } else {
-           tempDirection = "ltr";
-           }
-            const dialogRef = this.dialog.open(UploadErrorComponent, {
-              data: data,
-              height:"40%",
-              width: "640px",
-              direction: tempDirection,
-            });
+          } else {
+            this.showNotification(
+              "snackbar-danger",
+              data.message + "...!!!",
+              "top",
+              "right"
+            );
           }   
         }
         else{
           this.showNotification(
             "snackbar-danger",
-            "Records Not Added...!!!",
-            "bottom",
-            "center"
+            data.message + "...!!!",
+            "top",
+            "right"
           );
-  
-          
         }
-        
-        },
-        (err: HttpErrorResponse) => {
-          
-      });
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          error.message + "...!!!",
+          "top",
+          "right"
+        );
+      }
+    });
 
     }
 
