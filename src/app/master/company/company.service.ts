@@ -94,7 +94,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
       (err: HttpErrorResponse) => {
     });
   }
-  UpdateOrder(company: Company,router,notificationService): void {
+  UpdateOrder(company: Company,router,notificationService,logoPathUrl): void {
     this.dialogData = company;
   this.httpService.post<Company>(this.updateCompany, company).subscribe(data => {
     console.log(data);
@@ -105,12 +105,15 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
         "bottom",
         "center"
       );
+      if (logoPathUrl != undefined && logoPathUrl != null && logoPathUrl != '') {
+        this.tokenStorage.saveCompanyLogo(this.serverUrl.apiServerAddress+"asset_upload/"+logoPathUrl);
+      }
       router.navigate(['/master/company/listCompany']);
     }
     else if(data.Success=false){
       notificationService.showNotification(
         "snackbar-danger",
-        "Not Updated Successfully...!!!",
+        "Not Updated...!!!",
         "bottom",
         "center"
       );
