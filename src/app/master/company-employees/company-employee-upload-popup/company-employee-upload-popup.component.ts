@@ -20,7 +20,7 @@ export class CompanyEmployeeUploadPopupComponent implements OnInit {
   companyEmpList:any;
   isValid: boolean=true;
   isValidNum: boolean=true;
-  isValidNum1: boolean=true;
+  isValidEmpId: boolean=true;
   isValidDept: boolean=true;
   constructor(
     public router:Router,
@@ -45,8 +45,8 @@ export class CompanyEmployeeUploadPopupComponent implements OnInit {
     if(this.companyEmpList[i].isValidNum == false){
       this.isValidNum = false;
     }
-    if(this.companyEmpList[i].isValidNum1 == false){
-      this.isValidNum1 = false;
+    if(this.companyEmpList[i].isValidEmpId == false){
+      this.isValidEmpId = false;
     }
     if(this.companyEmpList[i].isValidDept == false){
       this.isValidDept = false;
