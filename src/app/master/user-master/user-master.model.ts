@@ -13,6 +13,7 @@ export class UserMaster {
   location: string;
   otp: string;
   userLocation: string;
+  accountStatus: string;
   constructor(userMaster) {
     {
       this.id = userMaster.id || this.getRandomID();

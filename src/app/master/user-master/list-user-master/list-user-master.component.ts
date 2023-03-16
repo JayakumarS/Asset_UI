@@ -32,6 +32,7 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     "fullName",
     "emailId",
     "contNumber",
+    "accountStatus",
     "actions"
   ];
 
@@ -123,7 +124,7 @@ export class ListUserMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 }
 
 
-deleteItem(i: number, row) {
+deleteItem(i: number, row,activeFlag) {
   let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {
     tempDirection = "rtl";
@@ -140,7 +141,8 @@ deleteItem(i: number, row) {
   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
     if (data.data == true) {
       const obj = {
-        deletingid: row.empid
+        deletingid: row.empid,
+        activeFlag:activeFlag
       }
       this.userMasterService.userdelete(obj).subscribe({
         next: (data) => {
@@ -148,7 +150,7 @@ deleteItem(i: number, row) {
             this.loadData();
             this.showNotification(
               "snackbar-success",
-              "Delete Record Successfully...!!!",
+              "Record Updated Successfully...!!!",
               "bottom",
               "center"
             );
@@ -254,7 +256,7 @@ export class ExampleDataSource extends DataSource<UserMaster> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
         .slice()
-          .filter((userMaster: UserMaster) => {
+          .filter((userMaster:any) => {
             const searchStr = (
               userMaster.userId +
               userMaster.fullName +
@@ -266,7 +268,9 @@ export class ExampleDataSource extends DataSource<UserMaster> {
               userMaster.language +
               userMaster.location +
               userMaster.otp +
-              userMaster.userLocation
+              userMaster.userLocation +
+              userMaster.accountStatus
+              
 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -301,6 +305,9 @@ export class ExampleDataSource extends DataSource<UserMaster> {
           break;
         case "emailId":
           [propertyA, propertyB] = [a.emailId, b.emailId];
+          break;
+        case "accountStatus":
+          [propertyA, propertyB] = [a.accountStatus, b.accountStatus];
           break;
 
       }

@@ -8,19 +8,16 @@
         <div class="col-8">
           <dl class="dl-horizontal">
             <dt class="pull-left me-2">Are you sure that you want</dt>
-            <dd>{{data.name}}</dd>
-            <dt class="pull-left me-2">to permanently delete the</dt>
-            <dd> {{ data.department }}</dd>
+            <dt class="pull-left me-2">to Activate/In Activate the</dt>
             <dt class="pull-left me-2">selected item.</dt>
-            <dd> {{ data.mobile }}</dd>
           </dl>
         </div>
       </div>
     </div>
     <mat-dialog-actions align="end" class="mb-1">
       <button mat-flat-button color="warn" [mat-dialog-close]="1" (click)="confirmDelete()">
-        Delete
+        Confirm
       </button>
-      <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+      <button mat-flat-button color="primary" (click)="onNoClick()" tabindex="-1">Cancel</button>
     </mat-dialog-actions>
   </div>
