@@ -42,7 +42,8 @@
                             <td *ngIf="data.isValid == false" >{{data.branchname}}</td>
 
                             <td *ngIf="data.isValid == true && data.branchHeadvalid == true ">{{data.branchHeadList}}</td>
-                            <td *ngIf="data.isValid == false || data.branchHeadvalid == false " style="background-color: red;">{{data.branchHeadList}}</td>
+                            <td *ngIf="data.isValid == false" >{{data.branchHeadList}}</td>
+                            <td *ngIf="data.branchHeadvalid == false " style="background-color: red;">{{data.branchHeadList}}</td>
 
                            
 
