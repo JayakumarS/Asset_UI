@@ -54,16 +54,14 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
 
             <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false || isValidName ==false || isValidEmail == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+                <label *ngIf="isValid == false || deptcodevaild == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Department Code Already Exists!!!</label>
             </div>
             
             <div class="example-button-row" align="start">
-                <label *ngIf="isValidEmail == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Department Head Is Required !!!</label>
+                <label *ngIf="isValidEmail == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Vaild Department Head Is Required !!!</label>
             </div>
 
-            <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false || deptcodevaild == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Department Code Already Exists!!!</label>
-            </div>
+           
 
             
             <div class="example-button-row" align="start">
