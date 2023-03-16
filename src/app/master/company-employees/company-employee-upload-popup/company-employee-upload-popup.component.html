@@ -55,9 +55,7 @@
     </div>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-            <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false || isValidEmpId ==false || isValidNum == false || isValidDept == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
-            </div>
+
             <div class="example-button-row" align="start">
                 <label *ngIf="isValid == false" style="font-size: 12;margin-left: 6px; color: red;">Branch Code Is Required !!!</label>
             </div>
@@ -70,12 +68,16 @@
             <div class="example-button-row" align="start">
                 <label *ngIf="isValidNum == false" style="font-size: 12;margin-left: 6px; color: red;">Phone No Is Required !!!</label>
             </div>
+
+            <div class="example-button-row" align="start">
+                <label *ngIf="deptcodevaild == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="end">
-                <button mat-raised-button color="primary" [disabled]="isValid == false || isValidNum ==false || isValidDept == false || isValidEmpId == false "  [mat-dialog-close]="1" (click)="onSubmit()" >Upload</button>
+                <button mat-raised-button color="primary" [disabled]="isValid == false || deptcodevaild == false || isValidNum ==false || isValidDept == false || isValidEmpId == false "  [mat-dialog-close]="1" (click)="onSubmit()" >Upload</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
             </div>
         </div>
