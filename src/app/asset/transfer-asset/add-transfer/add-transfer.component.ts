@@ -111,7 +111,7 @@ export class AddTransferComponent implements OnInit {
         this.fb.group({
           assetTrackNo: [""],
           assetName: [''],
-          serialNo: [''],
+          // serialNo: [''],
           assetLocation: [''],
           responsible: [''],
           assetUser: [''],
@@ -272,7 +272,7 @@ export class AddTransferComponent implements OnInit {
         this.fb.group({
           assetTrackNo: [""],
           assetName: [''],
-          serialNo: [''],
+          // serialNo: [''],
           assetLocation: [''],
           responsible: [''],
           assetUser: [''],
@@ -307,7 +307,7 @@ export class AddTransferComponent implements OnInit {
       let newUsergroup: FormGroup = this.fb.group({
         assetTrackNo: [""],
           assetName: [''],
-          serialNo: [''],
+          // serialNo: [''],
           assetLocation: [''],
           responsible: [''],
           assetUser: [''],
@@ -385,8 +385,8 @@ if(data6.count==0 || this.edit==true){
                       
                       assetTrackNo:[element.assetTrackNo],
                       assetName:[element.assetName],
-                      serialNo:[element.serialNo],
-                      assetLocation:[element.assetLocation],
+                      // serialNo:[element.serialNo],
+                      assetLocation:[parseInt(element.assetLocationName)],
                       responsible:[element.responsible],
                       assetUser:[element.assetUser],
                     });

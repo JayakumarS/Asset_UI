@@ -236,8 +236,8 @@
                    width: 12%; border-radius: 0.05rem;">Asset Code</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">Asset Name</th>
-                          <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%;border-radius: 0.07rem;">Serial No</th>
+                          <!-- <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                   width: 12%;border-radius: 0.07rem;">Serial No</th> -->
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%; border-radius: 0.05rem;">Asset Location</th>
                           <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
@@ -270,16 +270,16 @@
                                 </mat-select>
                               </mat-form-field>
                             </td>
-                            <td class="padding-both-side-2">
+                            <!-- <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Serial No</mat-label>
                                   <input matInput name="serialNo{{i}}" formControlName="serialNo" readonly>
                                 </mat-form-field>
-                              </td>
+                              </td> -->
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Asset Location</mat-label>
-                                  <mat-select formControlName="assetLocation" required disabled >
+                                  <mat-select formControlName="assetLocation"  disabled >
                                     <mat-option *ngFor="let title of locationList" [value]="title.id">
                                       {{title.text}}
                                     </mat-option>
