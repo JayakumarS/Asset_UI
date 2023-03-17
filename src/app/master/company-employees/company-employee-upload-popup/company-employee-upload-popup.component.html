@@ -37,10 +37,10 @@
                         <tr
                             *ngFor="let data of companyEmpList">
 
-                            <td *ngIf="data.isValid == true">{{data.branch}}</td>
-                            <td *ngIf="data.isValid == false" style="background-color: red;">{{data.branch}}</td>
-                            <td *ngIf="data.isValidEmpId == true">{{data.empid}}</td>
-                            <td *ngIf="data.isValidEmpId == false" style="background-color: red;">{{data.empid}}</td>
+                            <td *ngIf="data.isValidbranch == true">{{data.branch}}</td>
+                            <td *ngIf="data.isValidbranch == false" style="background-color: red;">{{data.branch}}</td>
+                            <td *ngIf="data.isValid == true || data.isValidEmpId == true">{{data.empid}}</td>
+                            <td *ngIf="data.isValid == false || data.isValidEmpId == false" style="background-color: red;">{{data.empid}}</td>
                             <td>{{data.fullName}}</td>
                             <td>{{data.emailId}}</td>
                             <td *ngIf="data.isValidNum == true">{{data.phoneno}}</td>
@@ -56,8 +56,12 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
 
+           
             <div class="example-button-row" align="start">
-                <label *ngIf="deptcodevaild == false || isValid == false || isValidEmpId == false || isValidDept == false || isValidNum == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+                <label *ngIf=" deptcodevaild == false " class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please enter valid Department !!!</label>
+            </div>
+            <div class="example-button-row" align="start">
+                <label *ngIf=" isValidEmpId == false " class="lable" style="font-size: 12;margin-left: 6px; color: red;">Employee Id Already Exists !!!</label>
             </div>
         </div>
     </div>

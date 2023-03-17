@@ -23,7 +23,7 @@ export class CompanyEmployeeUploadPopupComponent implements OnInit {
   isValidEmpId: boolean=true;
   isValidDept: boolean=true;
   deptcodevaild: boolean=true;
-
+  isValidbranch: boolean=true;
   constructor(
     public router:Router,
     private snackBar: MatSnackBar,
@@ -56,6 +56,9 @@ export class CompanyEmployeeUploadPopupComponent implements OnInit {
     if(this.companyEmpList[i].deptcodevaild == false){
       this.deptcodevaild = false;
       
+    }
+    if(this.companyEmpList[i].isValidbranch == false){
+      this.isValidbranch = false;
     }
    }
   }
