@@ -12,8 +12,10 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+import { MultipleUploadBrandComponent } from '../../brand/multiple-upload-brand/multiple-upload-brand.component';
 import { Line } from '../line-master.model';
 import { LineMasterService } from '../line-master.service';
+import { LineMultipleUploadComponent } from '../line-multiple-upload/line-multiple-upload.component';
 
 @Component({
   selector: 'app-list-line-master',
@@ -84,6 +86,37 @@ export class ListLineMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
   viewCall(row){
     this.router.navigate(['/master/line/line/'+row.id]);
+  }
+
+
+  multipleUploadPopupCall() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(LineMultipleUploadComponent, {
+      data: {
+        action: "edit",
+      },
+      width: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 0) {
+        this.refreshTable();
+        this.showNotification(
+          "black",
+          "Upload Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
   }
 
  
@@ -164,6 +197,11 @@ export class ExampleDataSource extends DataSource<Line> {
       })
     );
   }
+
+ 
+ 
+
+
   disconnect() {}
   /** Returns a sorted copy of the database data. */
   sortData(data: Line[]): Line[] {

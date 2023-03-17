@@ -29,7 +29,8 @@ export class LineMasterService extends UnsubscribeOnDestroyAdapter{
   private saveLine = `${this.serverUrl.apiServerAddress}app/line/saveLine`;
   public editLineMaster = `${this.serverUrl.apiServerAddress}app/line/edit`;
   public updateLineMaster = `${this.serverUrl.apiServerAddress}app/line/update`;
- 
+  public saveMultiple = `${this.serverUrl.apiServerAddress}app/line/saveMultiple`;
+  public multipleUpload = `${this.serverUrl.apiServerAddress}app/line/multipleUpload`;
 
   get data(): Line[] {
     return this.dataChange.value;
@@ -108,5 +109,9 @@ export class LineMasterService extends UnsubscribeOnDestroyAdapter{
       (err: HttpErrorResponse) => {
         
     });
+  }
+
+  addMultiple(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.saveMultiple, obj);
   }
 }

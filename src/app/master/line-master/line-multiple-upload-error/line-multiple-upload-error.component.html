@@ -1,0 +1,62 @@
+
+
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="width: 100%;padding: 19px;">
+    <div class="card">
+        <div class="header" >
+            <h2 style="color: white;">Import Excel Details</h2>
+        </div>
+        <style>
+          .header{
+            height: 42px;
+            background-color: #7E7EB8;
+            color: white;
+          }
+          .center{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .tableHeader{
+              padding: 7px;
+          }
+        </style>
+        <div class="tableBody">
+            <div class="table-responsive">
+                <table class="table table-hover" style="margin-top: 5px;">
+                    <thead>
+                        <tr>
+                            <th class="tableHeader">Line Code</th>
+                            <th class="tableHeader">Line Description</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let data of itemList">
+                            <td *ngIf="data.isValid == false || data.branchcheck == false"  style="background-color: red;">{{data.lineCode}}</td>
+                            <td *ngIf="data.isValid == true || data.branchcheck == true">{{data.lineCode}}</td>
+                            <td>{{data.lineDescription}}</td>
+                   </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row" align="start">
+
+                <!-- <label *ngIf="isValid == false && branchHeadvalid == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label> -->
+            </div>
+            <label *ngIf="isValid == false || branchcheck == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">LineCode Already Exists!!!</label>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row" align="end">
+                <button mat-raised-button color="primary" [disabled]="isValid == false" [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
+                <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+            </div>
+        </div>
+    </div>
+  </div>

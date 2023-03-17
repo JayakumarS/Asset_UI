@@ -25,12 +25,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { LineMultipleUploadErrorComponent } from './line-multiple-upload-error/line-multiple-upload-error.component';
+import { LineUploadSuccessPopupComponent } from './line-upload-success-popup/line-upload-success-popup.component';
+import { LineMultipleUploadComponent } from './line-multiple-upload/line-multiple-upload.component';
 
 
 @NgModule({
   declarations: [
     AddLineMasterComponent,
-    ListLineMasterComponent
+    ListLineMasterComponent,
+    LineMultipleUploadErrorComponent,
+    LineUploadSuccessPopupComponent,
+    LineMultipleUploadComponent
   ],
   imports: [
     CommonModule,
