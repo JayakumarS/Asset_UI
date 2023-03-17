@@ -280,7 +280,7 @@
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Asset Location</mat-label>
                                   <mat-select formControlName="assetLocation"  disabled >
-                                    <mat-option *ngFor="let title of locationList" [value]="title.id">
+                                    <mat-option *ngFor="let title of locationList" [value]="title.text">
                                       {{title.text}}
                                     </mat-option>
                                   </mat-select>
