@@ -46,7 +46,7 @@
 
                 <ng-container matColumnDef="categoryName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Category Name</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.categoryName}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"  style="text-transform: uppercase;"> {{row.categoryName}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="parentCategory">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Parent Category</mat-header-cell>
