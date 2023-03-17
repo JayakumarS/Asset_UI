@@ -57,20 +57,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
 
             <div class="example-button-row" align="start">
-                <label *ngIf="isValid == false" style="font-size: 12;margin-left: 6px; color: red;">Branch Code Is Required !!!</label>
-            </div>
-            <div class="example-button-row" align="start">
-                <label *ngIf="isValidEmpId == false" style="font-size: 12;margin-left: 6px; color: red;">Employee Id Is Required !!!</label>
-            </div>
-            <div class="example-button-row" align="start">
-                <label *ngIf="isValidDept == false" style="font-size: 12;margin-left: 6px; color: red;">Department Code Is Required !!!</label>
-            </div>
-            <div class="example-button-row" align="start">
-                <label *ngIf="isValidNum == false" style="font-size: 12;margin-left: 6px; color: red;">Phone No Is Required !!!</label>
-            </div>
-
-            <div class="example-button-row" align="start">
-                <label *ngIf="deptcodevaild == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
+                <label *ngIf="deptcodevaild == false || isValid == false || isValidEmpId == false || isValidDept == false || isValidNum == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
             </div>
         </div>
     </div>
