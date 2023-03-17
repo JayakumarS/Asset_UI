@@ -22,7 +22,7 @@ export class MultipleUploadErrorComponent implements OnInit {
   itemList:any;
   
   isValid: boolean=true;
-  branchcodevaild: boolean=true;
+  deptCodevalid: boolean=true;
   branchHeadvalid:  boolean=true;
   constructor(
     public router:Router,
@@ -39,9 +39,9 @@ export class MultipleUploadErrorComponent implements OnInit {
     public dialogRef: MatDialogRef<MultipleUploadErrorComponent>
   ) {
     this.docForm = this.fb.group({
-      itemType:[""],
-      itemCategory:[""],
-      itemDescription:[""],
+      branchCode:[""],
+      branchname:[""],
+      branchHeadList:[""],
      
     });
 
@@ -54,8 +54,8 @@ export class MultipleUploadErrorComponent implements OnInit {
     if(this.itemList[i].isValid == false){
       this.isValid = false;
     }
-    if(this.itemList[i].branchcodevaild == false){
-      this.branchcodevaild = false;
+    if(this.itemList[i].deptCodevalid == false){
+      this.deptCodevalid = false;
     }
     if(this.itemList[i].branchHeadvalid == false){
       this.branchHeadvalid = false;

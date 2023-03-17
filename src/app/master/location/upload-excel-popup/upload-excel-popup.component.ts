@@ -48,6 +48,7 @@ export class UploadExcelPopupComponent implements OnInit {
       departmentName:[""],
       description:[""],
       departmentHead:[""],
+      primaryLocationName:[""]
     });
 
   }
