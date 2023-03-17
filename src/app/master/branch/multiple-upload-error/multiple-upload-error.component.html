@@ -35,15 +35,14 @@
                         <tr
                             *ngFor="let data of itemList">
 
-                            <td *ngIf="data.isValid == true || data.branchcodevaild == true ">{{data.branchCode}}</td>
-                            <td *ngIf="data.isValid == false || data.branchcodevaild == false" style="background-color: red;">{{data.branchCode}}</td>
+                            <td *ngIf="data.isValid == true || data.deptCodevalid == true ">{{data.branchCode}}</td>
+                            <td *ngIf="data.isValid == false || data.deptCodevalid == false" style="background-color: red;">{{data.branchCode}}</td>
 
                             <td *ngIf="data.isValid == true" >{{data.branchname}}</td>
                             <td *ngIf="data.isValid == false" >{{data.branchname}}</td>
 
-                            <td *ngIf="data.isValid == true && data.branchHeadvalid == true ">{{data.branchHeadList}}</td>
-                            <td *ngIf="data.isValid == false" >{{data.branchHeadList}}</td>
-                            <td *ngIf="data.branchHeadvalid == false " style="background-color: red;">{{data.branchHeadList}}</td>
+                            <td *ngIf="data.isValid == true || data.branchHeadvalid == true">{{data.branchHeadList}}</td>
+                            <td *ngIf="data.isValid == false && data.branchHeadvalid == false " style="background-color: red;" >{{data.branchHeadList}}</td>
 
                            
 
@@ -58,14 +57,14 @@
 
                 <label *ngIf=" branchHeadvalid == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Entry Valid Branch Head !!!</label>
             </div>
-            <label *ngIf="isValid == false || branchcodevaild == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Branch Code Already Exists!!!</label>
+            <label *ngIf="isValid == false || deptCodevalid == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Branch Code Already Exists!!!</label>
 
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="end">
-                <button mat-raised-button color="primary" [disabled]="isValid == false || branchcodevaild == false || branchHeadvalid == false" [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
+                <button mat-raised-button color="primary" [disabled]="isValid == false || deptCodevalid == false || branchHeadvalid == false" [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
             </div>
         </div>
