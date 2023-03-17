@@ -72,7 +72,9 @@ export class AddStatusMasterComponent implements OnInit {
 
   validateStatusName(event){
     let companyId=this.tokenStorage.getCompanyId();
-    this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl+ "?tableName=" +"status_master"+"&columnName="+"status_name"+"&columnValue="+event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+    this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event).subscribe((res: any) => {
+
+    // this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl+ "?tableName=" +"status_master"+"&columnName="+"status_name"+"&columnValue="+event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
       if(res){
         this.docForm.controls['statusname'].setErrors({ status: true });
       }else{
