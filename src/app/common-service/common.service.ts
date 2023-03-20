@@ -39,6 +39,10 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
     return moment(date).format('MM/YYYY');
   }
 
+  getValidateDate(date): any {
+    return moment(date).format('YYYY-MM-DD');
+  }
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
