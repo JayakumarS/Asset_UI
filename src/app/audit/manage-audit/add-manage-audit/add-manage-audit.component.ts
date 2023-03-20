@@ -535,20 +535,49 @@ export class AddManageAuditComponent implements OnInit {
 			})
 			this.showNotification(
         "snackbar-danger",
-        "Please fill The Date field Properly ",
+        "Please fill The Date Greater than Start Date ",
         "top",
         "right"
       );
     }
+    
   }
 
   getDateStrAided(event,inputFlag,index){
     let cdate = this.commonService.getDate(event.target.value);
+    let tdate = this.commonService.getValidateDate(event.target.value);
     if(inputFlag=='startDate'){
       this.Formdoc.patchValue({startDate:cdate});
     }else if(inputFlag=='endDate'){
       this.Formdoc.patchValue({endDate:cdate});
     }
+
+     // For Date  Validation
+
+     if (this.Formdoc.get('auditType').value == "Aided") {
+      if (inputFlag == 'startDate') {
+        this.Formdoc.patchValue({ srtDate: tdate });
+      } else if (inputFlag == 'endDate') {
+        this.Formdoc.patchValue({ edDate: tdate });
+      }
+    }
+    let frDate = this.Formdoc.value.srtDate;
+		let tDate = this.Formdoc.value.edDate;
+		let fr = new Date(frDate);
+		let to = new Date(tDate);
+		if(fr>to){
+            this.Formdoc.patchValue({
+              endDate:'',
+              endDateObj:''
+			})
+			this.showNotification(
+        "snackbar-danger",
+        "Please fill The Date Greater than Start Date ",
+        "top",
+        "right"
+      );
+    }
+
   }
 
 }
