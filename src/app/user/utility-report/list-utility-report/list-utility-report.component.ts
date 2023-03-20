@@ -109,7 +109,7 @@ export class ListUtilityReportComponent extends UnsubscribeOnDestroyAdapter impl
     });
 
       //category Type list
-      this.httpService.get<any>(this.commonService.getCategoryDropdown).subscribe({
+      this.httpService.get<any>(this.commonService.getAssetCategoryDropdown+  "?companyId=" + this.tokenStorage.getCompanyId()).subscribe({
       next: (data) => {
         this.categoryList = data;
       },
