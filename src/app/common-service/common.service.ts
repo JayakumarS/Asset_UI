@@ -74,7 +74,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getstateBasedCity = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getstateBasedCity`;
 
-  public getCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetCategoryDropdown`;
+  public getCategoryDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getassetcategorydropdown`;
 
   public getCommonDropdownByformId = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCommonDropdownByformId`;
 
