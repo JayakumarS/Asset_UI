@@ -29,7 +29,7 @@ import { ChangePasswordPopUpComponent } from 'src/app/user/change-password-pop-u
 export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     "select",
-    "assetId",
+    // "assetId",
     "assetName",
     "assetCode",
     "Location",
