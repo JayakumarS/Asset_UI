@@ -1,7 +1,7 @@
 <section class="content">
     <div class="content-block">
         <form class="m-4" [formGroup]="docForm">
-        <div class="block-header">
+        <div class="block-header" style="padding: 0.5% !important;">
             <!-- breadcrumb -->
             <app-breadcrumb [title]="'Asset Profile'" [items]="['Asset ']" [active_item]="'AssetProfile'">
             </app-breadcrumb>
@@ -669,11 +669,17 @@
 
                                         <div class="row">
                                         
-                                            <div class="col-md-2">
+                                            <!-- <div class="col-md-2">
                                                 <strong>Dep Method</strong>
                                                 </div>
                                                 <div class="col-md-2">
                                                 <p class="text-muted">: {{auditableAsset?.depreciationMethod}}</p>
+                                            </div> -->
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="col-md-2">
+
                                             </div>
                                             <div class="col-md-1">
                                                 <strong>FY</strong>

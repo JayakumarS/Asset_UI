@@ -94,7 +94,10 @@ export class AddManageAuditComponent implements OnInit {
         makerId: ["", [Validators.required]],
         loginedUser: this.tokenStorage.getUserId(),
         companyId: this.tokenStorage.getCompanyId(),
-        branchId: this.tokenStorage.getBranchId()
+        branchId: this.tokenStorage.getBranchId(),
+        // For Date Validation
+        srtDate:[""],
+        edDate:[""]
       });
   
       this.Formdoc = this.fb.group({
@@ -112,7 +115,10 @@ export class AddManageAuditComponent implements OnInit {
         makerId: ["", [Validators.required]],
         loginedUser: this.tokenStorage.getUserId(),
         companyId: this.tokenStorage.getCompanyId(),
-        branchId: this.tokenStorage.getBranchId()
+        branchId: this.tokenStorage.getBranchId(),
+        // For Date Validation
+        srtDate:[""],
+        edDate:[""]
       });
 
   }
@@ -487,6 +493,7 @@ export class AddManageAuditComponent implements OnInit {
 
   getDateString(event, inputFlag, index) {
     let cdate = this.commonService.getDate(event.target.value);
+    let tdate = this.commonService.getValidateDate(event.target.value);
     if (this.docForm.get('auditType').value == "Self") {
       if (inputFlag == 'startDate') {
         this.docForm.patchValue({ startDate: cdate });
@@ -500,15 +507,77 @@ export class AddManageAuditComponent implements OnInit {
         this.Formdoc.patchValue({ endDate: cdate });
       }
     }
+
+    // For Date  Validation
+
+    if (this.docForm.get('auditType').value == "Self") {
+      if (inputFlag == 'startDate') {
+        this.docForm.patchValue({ srtDate: tdate });
+      } else if (inputFlag == 'endDate') {
+        this.docForm.patchValue({ edDate: tdate });
+      }
+    } else if (this.Formdoc.get('auditType').value == "Aided") {
+      if (inputFlag == 'startDate') {
+        this.Formdoc.patchValue({ srtDate: tdate });
+      } else if (inputFlag == 'endDate') {
+        this.Formdoc.patchValue({ edDate: tdate });
+      }
+    }
+    
+    let frDate = this.docForm.value.srtDate;
+		let tDate = this.docForm.value.edDate;
+		let fr = new Date(frDate);
+		let to = new Date(tDate);
+		if(fr>to){
+            this.docForm.patchValue({
+              endDate:'',
+              endDateObj:''
+			})
+			this.showNotification(
+        "snackbar-danger",
+        "Please fill The Date Greater than Start Date ",
+        "top",
+        "right"
+      );
+    }
+    
   }
 
   getDateStrAided(event,inputFlag,index){
     let cdate = this.commonService.getDate(event.target.value);
+    let tdate = this.commonService.getValidateDate(event.target.value);
     if(inputFlag=='startDate'){
       this.Formdoc.patchValue({startDate:cdate});
     }else if(inputFlag=='endDate'){
       this.Formdoc.patchValue({endDate:cdate});
     }
+
+     // For Date  Validation
+
+     if (this.Formdoc.get('auditType').value == "Aided") {
+      if (inputFlag == 'startDate') {
+        this.Formdoc.patchValue({ srtDate: tdate });
+      } else if (inputFlag == 'endDate') {
+        this.Formdoc.patchValue({ edDate: tdate });
+      }
+    }
+    let frDate = this.Formdoc.value.srtDate;
+		let tDate = this.Formdoc.value.edDate;
+		let fr = new Date(frDate);
+		let to = new Date(tDate);
+		if(fr>to){
+            this.Formdoc.patchValue({
+              endDate:'',
+              endDateObj:''
+			})
+			this.showNotification(
+        "snackbar-danger",
+        "Please fill The Date Greater than Start Date ",
+        "top",
+        "right"
+      );
+    }
+
   }
 
 }
