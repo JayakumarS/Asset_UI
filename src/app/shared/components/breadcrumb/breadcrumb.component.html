@@ -1,11 +1,17 @@
 <div class="breadcrumb-main">
     <div class="row">
-        <div class="col-6">
-            <div class="breadcrumb-title">
-                <h4 class="page-title">{{title}}</h4>
-            </div>
+        <div class="col-1" style="width: 5.333333%;">
+            <button color="warn" type="button"
+            mat-raised-button><a href="javascript:history.back();" style="text-decoration: none;color: white;">Back </a></button>
         </div>
-        <div class="col-6">
+        <div class="col-4">
+            
+            <div class="breadcrumb-title">
+                <h5 class="page-title">{{title}}</h5>
+            </div>
+            
+        </div>
+        <div class="col-6" style="width: 60%;">
             <ul class="breadcrumb-list">
                 <li class="breadcrumb-item bcrumb-1">
                     <a [routerLink]="'/asset/assetMaster/listAssetMaster'">

@@ -80,7 +80,7 @@
                               </div>
                               <div class=" col-md-3">
                               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <input matInput formControlName="empid" (blur)="validateEmployeeId($event.target.value)" maxlength="7" required>
+                                <input matInput formControlName="empid" (blur)="validateEmployeeId($event.target.value)" maxlength="10" required>
                                 <mat-error *ngIf="docForm.get('empid').hasError('required')">
                                   Employee Id is required
                                 </mat-error>
