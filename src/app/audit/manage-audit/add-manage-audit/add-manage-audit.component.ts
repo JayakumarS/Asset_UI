@@ -535,9 +535,9 @@ export class AddManageAuditComponent implements OnInit {
 			})
 			this.showNotification(
         "snackbar-danger",
-        "Please fill The Date Greater than Start Date ",
-        "top",
-        "right"
+        "End date should be greater than Start date ",
+        "bottom",
+        "center"
       );
     }
     
@@ -572,9 +572,9 @@ export class AddManageAuditComponent implements OnInit {
 			})
 			this.showNotification(
         "snackbar-danger",
-        "Please fill The Date Greater than Start Date ",
-        "top",
-        "right"
+        "End date should be greater than Start date ",
+        "bottom",
+        "center"
       );
     }
 
