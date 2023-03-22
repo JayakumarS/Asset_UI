@@ -3,7 +3,7 @@
     <form class="m-4" [formGroup]="docForm" >
     <div class="block-header" style="padding: 0.5% !important;">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="''" [items]="['Home']" [active_item]="'Dashboard'"></app-breadcrumb>
+      <!-- <app-breadcrumb [title]="''" [items]="['Home']" [active_item]="'Dashboard'"></app-breadcrumb> -->
     </div>
     <div class="row ">
       <div class="col-xl-8 ">
@@ -159,14 +159,11 @@
             <div class="card card-statistic-2">
               <div class="clearfix">
                 <div class="card-right">
-                  <div>
-                    <h5 class="float-end">Users</h5>
+                  <div >
+                    <h5 class="float-end" style="text-align: end;font-size: initial;">Company Employees</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <!-- Total Users -->
-                    <!-- <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3> -->
-                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{usersCountValue}}</h3> -->
-                    <!-- Company based Users -->
+                  
                     <h3 class="font-weight-bold float-end mb-0">{{companyUsersAssetsCount}}</h3>
                   </div>
                 </div>
@@ -189,9 +186,7 @@
                     <h5 class="float-end">Audit Date</h5>
                   </div>
                   <div class="m-r-10 m-l-10">
-                    <!-- For Decimal purpose code -->
-                    <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
-                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
+                  
                     <h3 class="font-weight-bold float-end mb-0">{{companyLastAuditDate}}</h3>
                   </div>
                 </div>

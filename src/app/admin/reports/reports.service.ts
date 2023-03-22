@@ -65,8 +65,9 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
 
     }
     getAllList(object): void {
+      let companyId = this.tokenStorage.getCompanyId();
       console.log(object);
-      this.subs.sink = this.httpService.post<any>(this.assetListUrl, object).subscribe(
+      this.subs.sink = this.httpService.post<any>(this.assetListUrl+ "?companyId=" + parseInt(companyId) , object).subscribe(
         (data) => {
           this.isTblLoading = false;
           this.dataChange.next(data.assetList);
@@ -79,8 +80,9 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
 }
 
 getLocationList(object): void {
+  let companyId = this.tokenStorage.getCompanyId();
   console.log(object);
-  this.subs.sink = this.httpService.post<any>(this.locationsearch, object).subscribe(
+  this.subs.sink = this.httpService.post<any>(this.locationsearch+ "?companyId=" + parseInt(companyId) , object).subscribe(
     (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.categoryList);

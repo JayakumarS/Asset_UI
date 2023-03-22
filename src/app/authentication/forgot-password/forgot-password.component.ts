@@ -18,6 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
   error = "";
   loading = false;
   private loginInfo: AuthLoginInfo;
+  success: any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -60,7 +61,13 @@ export class ForgotPasswordComponent implements OnInit {
         data => {        
          if(data) {
             if(data.success){
-                this.error = data.message;
+                this.success = data.message;
+                
+                setTimeout(() => {
+                  this.submitted = false;
+                  this.loading = false;
+                  this.dialogRef.close();
+            }, 2000);
             }else{
               setTimeout(() => {
                 this.submitted = false;

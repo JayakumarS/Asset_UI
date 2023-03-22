@@ -411,7 +411,7 @@ configUserLog: {
       // Spliting into array
       for(let i=0;i<doughnutChartData.getInnerColumnChart.length;i++){
         let name;
-        name=doughnutChartData.getInnerColumnChart[i].assetName.split(",",doughnutChartData.getInnerColumnChart.length+1);
+        name=doughnutChartData.getInnerColumnChart[i].name.split(",",doughnutChartData.getInnerColumnChart.length+1);
         this.namePushingArray.push(name);
       }
       // Converting into respective format

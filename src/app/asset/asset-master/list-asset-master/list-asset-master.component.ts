@@ -20,6 +20,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { CommonService } from 'src/app/common-service/common.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { ChangePasswordPopUpComponent } from 'src/app/user/change-password-pop-up/change-password-pop-up.component';
+import { AddMultipleAssetMasterComponent } from '../add-multiple-asset-master/add-multiple-asset-master.component';
 
 @Component({
   selector: 'app-list-asset-master',
@@ -227,6 +228,44 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
         );
   }
 
+  singleAssetPopup(row) {
+    console.log(row.tab.textLabel);
+    if (row.tab.textLabel == 'Add Multiple Assets') {
+      this.multipleuploadpopupCall();
+    }
+  }
+
+  multipleuploadpopupCall() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(AddMultipleAssetMasterComponent, {
+      data: {
+        action: "edit",
+      },
+      width: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+        this.refreshTable();
+        // this.showNotification(
+        //   "black",
+        //   "Edit Record Successfully...!!!",
+        //   "top",
+        //   "right"
+        // );
+      }
+    });
+  }
+
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
+  
   //FOR QR CODE PDF ADDED BY 
   assetQRcodeExportPdf() {
     this.selection.selected.forEach((item) => {
