@@ -35,6 +35,8 @@ import { AssetProfileViewComponent } from './asset-profile-view/asset-profile-vi
 import { ChartsModule as chartjsModule } from "ng2-charts";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { UploadErrorComponent } from './upload-error/upload-error.component';
+import { UploadExcelPopupComponent } from './upload-excel-popup/upload-excel-popup.component';
+import { UploadSuccessPopupComponent } from './upload-success-popup/upload-success-popup.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { UploadErrorComponent } from './upload-error/upload-error.component';
     AddAssetMasterComponent,
     AddMultipleAssetMasterComponent,
     AssetProfileViewComponent,
-    UploadErrorComponent
+    UploadErrorComponent,
+    UploadExcelPopupComponent,
+    UploadSuccessPopupComponent
   ],
   providers:[
     NotificationService

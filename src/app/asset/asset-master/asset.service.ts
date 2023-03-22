@@ -63,6 +63,7 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
   private getAllAssetsReplacement = `${this.serverUrl.apiServerAddress}app/assetReplacement/getAssetReplacementList`;
   public getCategorySpecificationDtlsUrl = `${this.serverUrl.apiServerAddress}app/assetMaster/getAssetSpecificationDetails`;
+  public saveMultiple = `${this.serverUrl.apiServerAddress}app/assetMaster/multipleSave`;
 
   get data(): AssetMaster[] {
     return this.dataChange.value;
@@ -144,6 +145,10 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
       headers: headers, responseType:
         'blob' as 'json'
     });
+  }
+
+  addMultiple(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.saveMultiple, obj);
   }
 
 }

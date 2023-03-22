@@ -1,0 +1,25 @@
+<div class="container">
+    <div mat-dialog-content>
+        <style>
+            .popUp{
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+        </style>
+      <div class="row popUp">
+        <!--Gift Icon-->
+        <div class="col text-center"> <i class="far fas fa-check fa-6x col-green"></i> </div>
+        <div class="col-8 lable" style="text-align: center;">{{totalCount}} Records Added Successfully</div> 
+        <!--Modal Text-->
+        <!-- <div class="col-8">
+          <dl >
+            <dt class="pull-left me-2">Records Added Successfully</dt>                             
+          </dl>
+        </div> -->
+      </div>
+    </div>
+    <mat-dialog-actions align="end" class="mb-1">
+      <button mat-flat-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </mat-dialog-actions>
+  </div>

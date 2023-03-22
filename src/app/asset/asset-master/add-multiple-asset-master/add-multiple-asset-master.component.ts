@@ -77,6 +77,7 @@ export class AddMultipleAssetMasterComponent implements OnInit {
             "center"
           );
           this.router.navigate(['/asset/assetMaster/listAssetMaster'])
+          location.reload();
           } else {
             this.showNotification(
               "snackbar-danger",
