@@ -26,6 +26,7 @@ export class AddCategoryComponent implements OnInit {
   categoryDdList=[];
   assettypelist=[];
   depreciationlist=[];
+  editflag:boolean=false;
   currencylist=[];
   fieldTypeList=[{"id":"Number","text":"Number"},{"id":"Text","text":"Text"},{"id":"Date","text":"Date"}];
   constructor(private fb: FormBuilder,
@@ -113,6 +114,13 @@ export class AddCategoryComponent implements OnInit {
       }
     );
 
+
+    if(this.docForm.value.categoryName==''||this.docForm.value.categoryName==null){
+      this.editflag=true
+    }else{
+      this.editflag=false;
+    }
+
   }
 
   
@@ -121,6 +129,11 @@ export class AddCategoryComponent implements OnInit {
   this.httpService.get(this.categoryMasterService.editcategory + "?category_id=" + category_id).subscribe((res: any) => {
 
     console.log(category_id);
+    if(res.assetCategoryBean.categoryName==''||res.assetCategoryBean.categoryName==null){
+      this.editflag=true
+    }else{
+      this.editflag=false;
+    }
 
     this.docForm.patchValue({
      
@@ -273,13 +286,29 @@ export class AddCategoryComponent implements OnInit {
     dtlArray.removeAt(index);
   }
 
+  // validateCategoryName(event){
+  //   this.httpService.get<any>(this.categoryMasterService.uniqueValidateUrl+ "?tableName=" +"assetcategory"+"&columnName="+"category_name"+"&columnValue="+event).subscribe((res: any) => {
+  //     if(res){
+  //       this.docForm.controls['categoryName'].setErrors({assetcategory: true});
+  //     }else{
+  //       this.docForm.controls['categoryName'].setErrors(null);
+  //     }
+  //   });
+  // }
+
+  
   validateCategoryName(event){
-    this.httpService.get<any>(this.categoryMasterService.uniqueValidateUrl+ "?tableName=" +"assetcategory"+"&columnName="+"category_name"+"&columnValue="+event).subscribe((res: any) => {
+    let companyId=this.tokenStorage.getCompanyId();
+
+    // tslint:disable-next-line:max-line-length
+    this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl + "?tableName=" + "assetcategory" + "&columnName=" + "category_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
       if(res){
-        this.docForm.controls['categoryName'].setErrors({assetcategory: true});
+        this.docForm.controls['categoryName'].setErrors({ assetcategory: true });
       }else{
         this.docForm.controls['categoryName'].setErrors(null);
       }
     });
   }
+
+
 }
