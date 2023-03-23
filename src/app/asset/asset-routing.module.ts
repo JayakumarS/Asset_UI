@@ -43,6 +43,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./maintenance-and-repair/maintenance-and-repair.module").then((m)=>m.MaintenanceAndRepairModule)
   },
+  {
+    path: "AssetQRprint",
+    loadChildren: () =>
+      import("./asset-QRprint/asset-QRprint.module").then((m)=>m.AssetQRprintModule)
+  }
 
 ];
 
