@@ -29,6 +29,7 @@ export class DepreciationService  extends UnsubscribeOnDestroyAdapter {
   public updateDepreciation = `${this.serverUrl.apiServerAddress}api/auth/app/depreciation/update`;
   public deleteDepreciation = `${this.serverUrl.apiServerAddress}api/auth/app/depreciation/delete`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
+  public uniqueValidateCompanyBasedUrl = `${this.serverUrl.apiServerAddress}api/auth/app/depreciation/validateUniqueCopmanyBased`;
 
   //public save = `${this.serverUrl.apiServerAddress}api/auth/app/manageLine/save`;
   

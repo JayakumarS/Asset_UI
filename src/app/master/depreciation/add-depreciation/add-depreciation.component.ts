@@ -20,10 +20,11 @@ export class AddDepreciationComponent implements OnInit {
   edit: any;
   requestId: any;
   totalValue1: any;
+  editflag:boolean=false;
   //depreciationService: DepreciationService;
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,
     private snackBar:MatSnackBar,
-    public route: ActivatedRoute,private depreciationService: DepreciationService,
+    public route: ActivatedRoute,private depreciationService: DepreciationService, private commonService: CommonService,
     private router:Router,private tokenStorage: TokenStorageService,) { 
 
     this.docForm = this.fb.group({
@@ -54,6 +55,15 @@ export class AddDepreciationComponent implements OnInit {
 
       }
      });
+
+
+     if(this.docForm.value.name==''||this.docForm.value.name==null){
+      this.editflag=true
+    }else{
+      this.editflag=false;
+    }
+
+
     }
 
 
@@ -165,6 +175,12 @@ fetchDetails(depreciation: any): void {
   this.httpService.get(this.depreciationService.editDepreciation + "?depreciation=" + depreciation).subscribe((res: any) => {
 
     console.log(depreciation);
+
+    if(res.depreciationBean.name==''||res.depreciationBean.name==null){
+      this.editflag=true
+    }else{
+      this.editflag=false;
+    }
 
     this.docForm.patchValue({
      
@@ -290,5 +306,22 @@ showNotification(colorName, text, placementFrom, placementAlign) {
 //     }
 //   });
 // }
+
+validateName(event){
+  let companyId=this.tokenStorage.getCompanyId();
+
+  // tslint:disable-next-line:max-line-length
+  this.httpService.get<any>(this.depreciationService.uniqueValidateCompanyBasedUrl + "?tableName=" + "asset_depreciation_config" + "&columnName=" + "depreciation_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+    if(res){
+      this.docForm.controls['name'].setErrors({ asset_depreciation_config: true });
+    }else{
+      this.docForm.controls['name'].setErrors(null);
+    }
+  });
+}
+
+
+
+
 
 }
