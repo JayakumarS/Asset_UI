@@ -42,8 +42,8 @@ export class AssetReplacementService extends UnsubscribeOnDestroyAdapter{
   addAssetReplacement(assetReplacement: AssetReplacement): Observable<any> {
     return this.httpClient.post<AssetReplacement>(this.SaveAssetReplacement, assetReplacement);
   }
-  updateAssetReplacement(assetReplacement: AssetReplacement): Observable<any> {
-    return this.httpClient.post<AssetReplacement>(this.UpdateAssetReplacement, assetReplacement);
+  updateAssetReplacement(assetReplacement): Observable<any> {
+    return this.httpClient.post<any>(this.UpdateAssetReplacement, assetReplacement);
   }
   editAsset(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.editAssetReplacement, obj);

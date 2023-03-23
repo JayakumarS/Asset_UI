@@ -403,7 +403,8 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               assLocation: [element.locationName],
               assCategory: [element.categoryName],
               assStatus: [element.statusName],
-              assUser: [parseInt(element.assetUser)]
+              assUser: [parseInt(element.assetUser)],
+              assetId: [element.assetId]
             })
             detailListArray.insert(arraylen, newUsergroup);
           });
@@ -424,7 +425,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
               assUser: [parseInt(element.assetUser)],
               movedTo: [parseInt(element.movedTo)],
               partialFull: [element.partialFull],
-
+              assetId: [element.assetId]
             })
             detailListArray.insert(arraylen, newUsergroup);
           });
