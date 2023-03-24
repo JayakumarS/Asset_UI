@@ -301,7 +301,7 @@ export class AddCategoryComponent implements OnInit {
     let companyId=this.tokenStorage.getCompanyId();
 
     // tslint:disable-next-line:max-line-length
-    this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl + "?tableName=" + "assetcategory" + "&columnName=" + "category_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+    this.httpService.get<any>(this.categoryMasterService.uniqueValidateCompanyBasedUrl + "?tableName=" + "assetcategory" + "&columnName=" + "category_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
       if(res){
         this.docForm.controls['categoryName'].setErrors({ assetcategory: true });
       }else{

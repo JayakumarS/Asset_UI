@@ -38,6 +38,7 @@ export class CategoryMasterService extends UnsubscribeOnDestroyAdapter {
    public getAssetTypeDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/getassettype`;
    public getAssetDepreciationDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/getdepreciation`;
    public getCurrencyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/getCurrency`;
+   public uniqueValidateCompanyBasedUrl = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/validateUniqueCopmanyBased`;
 
 
    
