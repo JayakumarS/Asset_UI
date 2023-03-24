@@ -64,6 +64,11 @@ export class AddManageAuditComponent implements OnInit {
   isAided: boolean = true;
   companyListNew = [];
   auditorListNew = [];
+  make:any;
+  // makersList = [];
+
+
+  makerId = new FormControl();
   makersList = [];
 
   constructor(private fb: FormBuilder,
@@ -202,6 +207,9 @@ export class AddManageAuditComponent implements OnInit {
 
   onSubmitSelf() {
     if (this.docForm.valid) {
+
+      let myString: string = this.docForm.value.makerId.join(", ");
+      this.docForm.value.makerId = myString;
       this.manageAudit = this.docForm.value;
       this.spinner.show();
       this.manageAuditService.addManageAudit(this.manageAudit).subscribe({
@@ -327,7 +335,7 @@ export class AddManageAuditComponent implements OnInit {
           'locationId': res.manageAudit.locationId,
           'auditCompanyId': res.manageAudit.auditCompanyId,
           'auditbranchId': res.manageAudit.auditbranchId,
-          'makerId' : res.manageAudit.makerId
+          'makerId' : res.manageAudit.makerId,
         })
       } else if (res.manageAudit.auditType == "Aided") {
         this.tabGroup.selectedIndex = 1;

@@ -145,7 +145,7 @@
                                           <label class>MAKER<span class="errorColor">*</span></label>
                       
                                         </div>
-                                        <div class="col-md-3" >
+                                        <!-- <div class="col-md-3" >
                                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-select formControlName="makerId">
                                                   <mat-option *ngFor="let title of makersList" [value]="title.strId">
@@ -156,7 +156,23 @@
                                                   Maker is required
                                               </mat-error>
                                        </mat-form-field>
-                                        </div>
+                                        </div> -->
+
+                                        <div class="col-md-3">
+                                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                           <!-- <mat-label>{{'AddJobPost.jobType'| translate}}</mat-label> -->
+                                           <mat-select formControlName="makerId" multiple required>
+                                                <mat-option *ngFor="let title of makersList" [value]="title.strId"> {{title.text}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="docForm.get('makerId').hasError('required')">
+                                              Maker is required
+                                          </mat-error>
+                                           </mat-form-field>
+                                   </div>
+
+
+
 
                                       <div class="col-md-3">
 
@@ -330,7 +346,7 @@
                                           <label class>MAKER<span class="errorColor">*</span></label>
                       
                                         </div>
-                                        <div class="col-md-3" >
+                                        <!-- <div class="col-md-3" >
                                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                               <mat-select formControlName="makerId">
                                                   <mat-option *ngFor="let title of makersList" [value]="title.strId">
@@ -341,7 +357,20 @@
                                                   Maker is required
                                               </mat-error>
                                        </mat-form-field>
-                                        </div>
+                                        </div> -->
+
+                                        <div class="col-md-3">
+                                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                           <!-- <mat-label>{{'AddJobPost.jobType'| translate}}</mat-label> -->
+                                           <mat-select formControlName="makerId" multiple required>
+                                                <mat-option *ngFor="let title of makersList" [value]="title.strId"> {{title.text}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="docForm.get('makerId').hasError('required')">
+                                              Maker is required
+                                          </mat-error>
+                                           </mat-form-field>
+                                   </div>
 
                                       <div class="col-md-3">
 
