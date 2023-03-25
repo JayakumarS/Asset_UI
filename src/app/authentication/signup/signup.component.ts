@@ -108,33 +108,40 @@ export class SignupComponent implements OnInit {
   }
 
   validateEmail(event) {
-    this.validateEmailpattern
-
     if (event != undefined && event != null && event != "") {
-      this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue="  + event).subscribe((res: any) => {
-
-      // this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
-        if (res) {
+      this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
+        if (res.validateEmail) {
           this.authForm.controls['emailId'].setErrors({ emailId: true });
-        } else { 
+        } else {
           this.authForm.controls['emailId'].setErrors(null);
         }
       });
     }
   }
 
+  // validateEmail(event) {
+  //   if (event != undefined && event != null && event != "") {
+  //     this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue="  + event).subscribe((res: any) => {
 
-  validateEmailpattern(event){
-    this.validateEmail
+  //     // this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
+  //       if (res) {
+  //         this.authForm.controls['emailId'].setErrors({ emailId: true });
+  //       } else { 
+  //         // this.authForm.controls['emailId'].setErrors(null);
+  //       }
+  //     });
+  //   }
+  // }
 
-       this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
-        if (res){
-        this.authForm.controls['emailId'].setErrors({ employee: true });
-      }else{
-       // this.docForm.controls['emailId'].setErrors(null);
-      }
-    });
-  }
+  // validateEmail(event){
+  //   this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
+  //     if (res){
+  //       this.authForm.controls['emailId'].setErrors({ employee: true });
+  //     }else{
+  //      // this.docForm.controls['emailId'].setErrors(null);
+  //     }
+  //   });
+  // }
 
   keyPressNumeric1(event: any) {
     const pattern = /[0-9]/;
