@@ -335,7 +335,7 @@ export class AddManageAuditComponent implements OnInit {
           'locationId': res.manageAudit.locationId,
           'auditCompanyId': res.manageAudit.auditCompanyId,
           'auditbranchId': res.manageAudit.auditbranchId,
-          'makerId' : res.manageAudit.makerId,
+          'makerId' : res.manageAudit.makerIdArray,
         })
       } else if (res.manageAudit.auditType == "Aided") {
         this.tabGroup.selectedIndex = 1;
