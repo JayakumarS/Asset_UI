@@ -32,14 +32,8 @@
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" *ngIf="!editflag">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="branchCode" maxlength="5" oninput="this.value = this.value.toUpperCase()"  
-                    (blur)="validateBranch($event.target.value)" readonly>
-                    <mat-error *ngIf="docForm.get('branchCode').hasError('required')">
-                      Branch Code is required
-                    </mat-error>
-                    <mat-error *ngIf="docForm.get('branchCode').hasError('branch')">
-                      State Code Already Exists !!!
-                    </mat-error>
+                    <input matInput formControlName="branchCode" maxlength="5" oninput="this.value = this.value.toUpperCase()" readonly>
+                   
                   </mat-form-field>
                 </div>
 
