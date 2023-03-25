@@ -93,7 +93,7 @@ export class AddTransferComponent implements OnInit {
       transportationType: ["", [Validators.required]],
       requisitionDate: [""],
       sourceLocation: [""],
-      requestedBy: [""],
+      requestedBy: this.tokenStorage.getUsername(),
       destinationLocation: [""],
       deliveryMethod: ["", [Validators.required]],
       hospital: ["", [Validators.required]],
