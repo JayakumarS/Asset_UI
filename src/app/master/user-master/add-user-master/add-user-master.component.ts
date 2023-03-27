@@ -545,7 +545,7 @@ update() {
       this.userMasterService.updateUser(this.userMaster).subscribe({
           next: (data) => {
             this.spinner.hide();
-            if (data.success) {
+            if (data) {
               this.showNotification(
                 "snackbar-success",
                 "update Record Successfully",
