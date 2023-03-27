@@ -337,12 +337,17 @@ export class AddPurchaseOrderComponent implements OnInit {
           res.purchaseOrderDetailList.forEach(element => {
             let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
             let cdate = this.commonService.getDateObj(element.edd);
+            let cdateObj = element.edd;
+            if(element.edd==null){
+              cdate = "";
+              cdateObj = "";
+            }
             let arraylen = purchaseOrderDetailArray.length;
             let newUsergroup: FormGroup = this.fb.group({
               purchaseOrderId: [element.purchaseOrderId],
               itemId: [element.itemId]+"",
-              edd: [element.edd],
-              eddObj: cdate,
+              edd: [cdateObj],
+              eddObj: [cdate],
               uomId: [element.uomId]+"",
               qty: [element.qty],
               unitPrice: [Number(element.unitPrice).toFixed(2)],
