@@ -1,3 +1,4 @@
+
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -63,14 +64,15 @@ export class AddManageAuditComponent implements OnInit {
   isSelf: boolean = true;
   isAided: boolean = true;
   companyListNew = [];
-  auditorListNew = [];
+  // auditorListNew = [];
   make:any;
   // makersList = [];
 
 
   makerId = new FormControl();
   makersList = [];
-
+  auditorId = new FormControl();
+  auditorListNew = [];
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private httpService: HttpServiceService,
@@ -113,7 +115,7 @@ export class AddManageAuditComponent implements OnInit {
         endDateObj: [""],
         auditName: ["", [Validators.required]],
         auditorId: ["", [Validators.required]],
-        locationId: [""],
+       locationId: [""],
         auditCompanyId: ["", [Validators.required]],
         auditbranchId: [""],
         auditType: ["Aided"],
@@ -272,6 +274,10 @@ export class AddManageAuditComponent implements OnInit {
 
   onSubmitAided() {
     if (this.Formdoc.valid) {
+      let myString: string = this.Formdoc.value.makerId.join(", ");
+      this.Formdoc.value.makerId = myString;
+      let myString1: string = this.Formdoc.value.auditorId.join(", ");
+      this.Formdoc.value.auditorId = myString1;
       this.manageAudit = this.Formdoc.value;
       this.spinner.show();
       this.manageAuditService.addManageAudit(this.manageAudit).subscribe({
@@ -346,11 +352,11 @@ export class AddManageAuditComponent implements OnInit {
           'endDateObj': this.commonService.getDateObj(res.manageAudit.endDate),
           'endDate': res.manageAudit.endDate,
           'auditName': res.manageAudit.auditName,
-          'auditorId': res.manageAudit.auditorId,
+          'auditorId': res.manageAudit.auditorIdArray,
           'locationId': res.manageAudit.locationId,
           'auditCompanyId': res.manageAudit.auditCompanyId,
           'auditbranchId': res.manageAudit.auditbranchId,
-          'makerId' : res.manageAudit.makerId
+          'makerId' : res.manageAudit.makerIdArray
         })
       }
     },
@@ -363,6 +369,8 @@ export class AddManageAuditComponent implements OnInit {
 
   updateSelf() {
     if (this.docForm.valid) {
+      let myString: string = this.docForm.value.makerId.join(", ");
+      this.docForm.value.makerId = myString;
       this.manageAudit = this.docForm.value;
       this.spinner.show();
       this.manageAuditService.updateManageAudit(this.manageAudit).subscribe({
@@ -407,6 +415,10 @@ export class AddManageAuditComponent implements OnInit {
 
   updateAided() {
   if (this.Formdoc.valid) {
+    let myString: string = this.Formdoc.value.makerId.join(", ");
+    this.Formdoc.value.makerId = myString;
+    let myString1: string = this.Formdoc.value.auditorId.join(", ");
+    this.Formdoc.value.auditorId = myString1;
       this.manageAudit = this.Formdoc.value;
       this.spinner.show();
       this.manageAuditService.updateManageAudit(this.manageAudit).subscribe({
