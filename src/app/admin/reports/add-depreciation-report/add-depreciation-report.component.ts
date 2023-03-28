@@ -193,24 +193,26 @@ this.searchData();
   this.contextMenu.menu.focusFirstItem("mouse");
   this.contextMenu.openMenu();
 }
-searchData() {
-  this.reportscategory = this.docForm.value;
-  this.loadData();
-}
+// searchData() {
+//   this.reportscategory = this.docForm.value;
+//   this.loadData();
+// }
 
  
 
-// searchData(){
-//   this.reportscategory = this.docForm.value;
-//   // tslint:disable-next-line:max-line-length
-//   this.httpService.post(this.reportsService.depreciationSerach, this.reportscategory).subscribe((res: any) => {
-//     console.log(res);
-//     this.searchList = res.depreciationList;
-//   },
-//   (err: HttpErrorResponse) => {
-//   }
-// );
-// }
+searchData(){
+  this.reportscategory = this.docForm.value;
+  this.loadData();
+
+  // tslint:disable-next-line:max-line-length
+  this.httpService.post(this.reportsService.depreciationSerach, this.reportscategory).subscribe((res: any) => {
+    console.log(res);
+    this.searchList = res.depreciationList;
+  },
+  (err: HttpErrorResponse) => {
+  }
+);
+}
 
   reset()
   {
