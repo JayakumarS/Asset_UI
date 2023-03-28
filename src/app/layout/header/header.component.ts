@@ -69,6 +69,9 @@ export class HeaderComponent
   path: any;
   bgList: any;
   bgImg: any;
+  locationcity:any;
+  city: any;
+  ipAddress:string;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -145,8 +148,12 @@ export class HeaderComponent
     },
   ];
   ngOnInit() {
-
-
+    this.authService.getLocation().subscribe((response) => {
+      console.log(response)
+      this.locationcity = response
+      this.city= this.locationcity.city 
+      this.ipAddress= this.locationcity.ip 
+      }); 
 
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
@@ -356,14 +363,14 @@ export class HeaderComponent
 
   logoutSuccessUserLog() {
 
-    const obj = {
-      userName: this.token.getUserId,
-      companyid: this.token.getCompanyId,
+  
+    this.httpService.get<any>(this.authService.getSuccessUserLogoutData+"?city="+this.city+"&ipAddress="+this.ipAddress).subscribe({
+      next: (data) => {
+    this.city = data;
+    },
+    error: (error) => {
     }
-    console.log(obj);
-    this.authService.getSuccessuserLogout(obj).subscribe((result: any) => {
-
-    });
+  });
   }
 
 showPaymentPage(){

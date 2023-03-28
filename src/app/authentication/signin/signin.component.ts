@@ -12,9 +12,10 @@ import { MatDialog } from "@angular/material/dialog";
 import { CompanyMapPopupComponent } from "src/app/admin/dashboard/main/company-map-popup/company-map-popup.component";
 import { CompanyLogoResultBean } from "src/app/master/company-logo/companyLogoResultBean";
 import { HttpServiceService } from "src/app/auth/http-service.service";
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ForgotPasswordComponent } from "../forgot-password/forgot-password.component";
 import { serverLocations } from "src/app/auth/serverLocations";
+import { AnyARecord } from "dns";
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -34,14 +35,23 @@ export class SigninComponent
   errorMessage = '';
   roles: string[] = [];
   userName : string ='';
+  result :string;
    userObj = {};
+  //  [x: string]: any;
    private currentUserSubject: BehaviorSubject<User>;
   private loginInfo: AuthLoginInfo;
   logoList: any;
   path: any;
   bgList: any;
   bgImg: any;
+  locationcity: any;
+  city:string;
+  ipAddress:string;
+
+
+
   constructor(
+    private http:HttpClient,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -56,11 +66,20 @@ export class SigninComponent
     super();
   }
 
-  ngOnInit() {
+  ngOnInit() { 
+    this.authService.getLocation().subscribe((response) => {
+      console.log(response)
+      this.locationcity = response
+      this.city= this.locationcity.city 
+      this.ipAddress= this.locationcity.ip 
+      }); 
     this.authForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
       emailId: [""],
+      cityName:[""],
+      ipAdd:[""],
+
     });
     this.httpService.get<CompanyLogoResultBean>(this.authService.companyUrl).subscribe(
       (data: any) => {
@@ -77,8 +96,7 @@ export class SigninComponent
       }
     );
   }
-
-
+ 
   get f() {
     return this.authForm.controls;
   }
@@ -94,6 +112,7 @@ export class SigninComponent
     this.authForm.get("username").setValue("client@software.com");
     this.authForm.get("password").setValue("client@123");
   }
+ 
   onSubmit() {
     this.submitted = true;
     this.loading = true;
@@ -102,6 +121,10 @@ export class SigninComponent
       this.error = "Username and Password not valid !";
       return;
     } else {
+
+      this.authForm.value.cityName=this.city;
+      this.authForm.value.ipAdd=this.ipAddress;
+
 
       this.loginInfo = new AuthLoginInfo(
       this.f.username.value, this.f.password.value,this.f.emailId.value);
@@ -161,43 +184,10 @@ export class SigninComponent
             this.loading = false;
             this.error = "Server Down!!!";
             console.log(error);
-
         }
       );
-
-
-
-      // this.subs.sink = this.authService
-      //   .login(this.f.username.value, this.f.password.value)
-      //   .subscribe(
-      //     (res) => {
-      //       if (res) {
-      //         setTimeout(() => {
-      //           const role = this.authService.currentUserValue.role;
-      //           if (role === Role.All || role === Role.Admin) {
-      //             this.router.navigate(["asset/assetMaster/listAssetMaster"]);
-      //           } else if (role === Role.Employee) {
-      //             this.router.navigate(["/employee/dashboard"]);
-      //           } else if (role === Role.Client) {
-      //             this.router.navigate(["/client/dashboard"]);
-      //           } else {
-      //             this.router.navigate(["/authentication/signin"]);
-      //           }
-      //           this.loading = false;
-      //         }, 1000);
-      //       } else {
-      //         this.error = "Invalid Login";
-      //       }
-      //     },
-      //     (error) => {
-      //       this.error = error;
-      //       this.submitted = false;
-      //       this.loading = false;
-      //     }
-      //   );
     }
-  }
-
+  } 
   forgottenPassword(){
     const dialogRef = this.dialog.open(ForgotPasswordComponent, {
       height: "70%",
@@ -207,14 +197,12 @@ export class SigninComponent
 
   loginSuccessUserLog() {
 
-    const obj = {
-      userName: this.tokenStorage.getUserId,
-      companyid: this.tokenStorage.getCompanyId,
-
+    this.httpService.get<any>(this.authService.getSuccessUserLogData+"?city="+this.city+"&ipAddress="+this.ipAddress).subscribe({
+      next: (data) => {
+    this.city,this.ipAddress = data;
+    },
+    error: (error) => {
     }
-    console.log(obj);
-    this.authService.getSuccessuserLog(obj).subscribe((result: any) => {
-
-    });
-  }
+  });
+   }
 }

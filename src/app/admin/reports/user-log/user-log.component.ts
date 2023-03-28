@@ -59,6 +59,8 @@ export class UserLogComponent extends UnsubscribeOnDestroyAdapter implements OnI
     "startdate",
     "status",
     "username",
+    "location",
+   "ipaddress"
    
   ];
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject,Observable } from 'rxjs';
+import { BehaviorSubject,Observable, throwError } from 'rxjs';
 import { User } from "src/app/core/models/user";
 import { JwtResponse } from './jwt-response';
 import { AuthLoginInfo } from './login-info';
@@ -8,7 +8,7 @@ import { SignUpInfo } from './signup-info';
 import {serverLocations} from './serverLocations'
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import {NavItem} from 'src/app/layout/matdynamicmenu/nav-items';
-import { map } from "rxjs/operators";
+import { catchError, map, tap } from "rxjs/operators";
 
 
 const httpOptions = {
@@ -85,14 +85,10 @@ public currentUser: Observable<User>;
    // return this.http.post<NavItem>(this.getFormPropertyMenuUrl, userInfo);
     return this.httpService.get<NavItem>(this.getFormPropertyMenuUrl + '?userId=' + userId);
   }
+  getLocation(){
+    return this.http.get('https://ipapi.co/json/') 
+  }
 
-  //user_log
-  getSuccessuserLog(obj: any) {
-    return this.http.post(this.getSuccessUserLogData, obj);
-  }
-  getSuccessuserLogout(obj: any) {
-    return this.http.post(this.getSuccessUserLogoutData, obj);
-  }
   cusMaster(cusMasterData : any){
     return this.http.post(this.insertCusMaster,cusMasterData, httpOptions);
   }
