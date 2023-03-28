@@ -103,14 +103,14 @@ export class MainComponent implements OnInit {
   public chartOptionsBarChart: Partial<ChartOptions>;
 
   // Doughnut chart start
-  public doughnutChartLabels: string[] = ["Refurbished", "In stock", "In repair", "Damaged","New"];
+  public doughnutChartLabels: string[] = ["Refurbished", "In stock", "In repair", "Damaged","New", "Existing","scarp"];
   // public doughnutChartLabels: string[];
-  public doughnutChartData: number[] = [2, 3, 5, 1, 6];
+  public doughnutChartData: number[] = [2, 3, 5, 1, 6,4,2];
   // public doughnutChartData:number[];
   public doughnutChartLegend = false;
   public doughnutChartColors: any[] = [
     {
-      backgroundColor: ["#735A84", "#E76412", "#9BC311", "#DC3545" , "#ff9966"],
+      backgroundColor: ["#735A84", "#E76412", "#9BC311", "#DC3545" , "#ff9966", "#FFFFF", "#bbbb"],
       // backgroundColor: ["#e86f66"],
     },
   ];
