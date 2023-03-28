@@ -80,7 +80,7 @@ export class AddMultipleuploadManageAuditComponent implements OnInit {
            }
             const dialogRef = this.dialog.open(UploadManageAuditExcelPopupComponent, {
               data: data,
-              height:"40%",
+              height:"60%",
               width: "100%",
               direction: tempDirection,
             });
