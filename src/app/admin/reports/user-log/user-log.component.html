@@ -143,8 +143,14 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header>USER NAME</mat-header-cell>
                   <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.username}}</mat-cell>
               </ng-container>
-
-
+              <ng-container matColumnDef="location">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>LOCATION</mat-header-cell>
+                <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.city}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="ipaddress">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>IPaddress</mat-header-cell>
+              <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.ipaddress}}</mat-cell>
+          </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
                 <mat-row *matRowDef="let row; columns: displayedColumns;"
