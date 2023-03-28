@@ -99,34 +99,46 @@
         {{row.categoryName}}</mat-cell>
 </ng-container>
 
+<ng-container matColumnDef="damage">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Damage</mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+      {{row.damage}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="existing">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Existing </mat-header-cell>
+    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+        {{row.existing}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="new1">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>New</mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+          {{row.new1}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="notworking">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Not Working</mat-header-cell>
+        <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+            {{row.notworking}}</mat-cell>
+        </ng-container>
+  
 <ng-container matColumnDef="outofstock">
   <mat-header-cell *matHeaderCellDef mat-sort-header>Out Of Stock</mat-header-cell>
   <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
       {{row.outofstock}}</mat-cell>
 </ng-container>
 
-<ng-container matColumnDef="damage">
-<mat-header-cell *matHeaderCellDef mat-sort-header>Damage</mat-header-cell>
-<mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.damage}}</mat-cell>
-</ng-container>
+<ng-container matColumnDef="refurbished">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Refurbished</mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+      {{row.refurbished}}</mat-cell>
+  </ng-container>
 
 <ng-container matColumnDef="repair">
 <mat-header-cell *matHeaderCellDef mat-sort-header> Repair </mat-header-cell>
 <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
     {{row.repair}}</mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="existing">
-<mat-header-cell *matHeaderCellDef mat-sort-header>Existing </mat-header-cell>
-<mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.existing}}</mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="sold">
-<mat-header-cell *matHeaderCellDef mat-sort-header>Sold</mat-header-cell>
-<mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-    {{row.sold}}</mat-cell>
 </ng-container>
 
 <ng-container matColumnDef="scrap">
@@ -135,23 +147,10 @@
       {{row.scrap}}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="new1">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>New</mat-header-cell>
-    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-        {{row.new1}}</mat-cell>
-    </ng-container>
+ 
 
-    <ng-container matColumnDef="good">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Good</mat-header-cell>
-      <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-          {{row.good}}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="refurbished">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Refurbished</mat-header-cell>
-        <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-            {{row.refurbished}}</mat-cell>
-        </ng-container>
+   
+    
 
         <ng-container matColumnDef="others">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Others</mat-header-cell>

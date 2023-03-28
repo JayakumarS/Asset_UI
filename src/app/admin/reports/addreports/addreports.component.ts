@@ -29,18 +29,17 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     'categoryName',
-    'outofstock',
     'damage',
-    'repair',
     'existing',
-    'sold',
-    'scrap',
     'new1',
-    'good',
+    'notworking',
+    'outofstock',
     'refurbished',
+    'repair',
+    'scrap',
     'others',
     'total',
-  
+   
   ];
   docForm: FormGroup;
   tabEdu = [{ content: AddreportLocationComponent }];

@@ -27,18 +27,17 @@ import { MatMenuTrigger } from '@angular/material/menu';
 export class AddreportLocationComponent extends  UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     'location',
-    'outofstock',
     'damage',
-    'repair',
     'existing',
-    'sold',
-    'scrap',
     'new1',
-    'good',
+    'notworking',
+    'outofstock',
     'refurbished',
+    'repair',
+    'scrap',
     'others',
     'total',
-
+   
 
   ];
   docForm: FormGroup;
