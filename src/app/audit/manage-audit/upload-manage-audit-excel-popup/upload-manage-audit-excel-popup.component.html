@@ -44,7 +44,9 @@
                             <td *ngIf="data.isValidMaker == false" style="background-color: red;">{{data.makerEmailId}}</td>
                              <td *ngIf="data.isValidAuditor == true">{{data.auditorEmailId}}</td>
                             <td *ngIf="data.isValidAuditor == false" style="background-color: red;">{{data.auditorEmailId}}</td>
-                            <td>{{data.auditType}}</td>
+                            <td *ngIf="data.auditTypevalid == false"  style="background-color: red;">{{data.auditType}}</td>
+                            <td *ngIf="data.auditTypevalid == true">{{data.auditType}}</td>
+
                             <!-- <td *ngIf="data.isValidLoc == true">{{data.auditType}}</td>
                             <td *ngIf="data.isValidLoc == false" style="background-color: red;">{{data.auditType}}</td> -->
                            

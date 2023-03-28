@@ -25,6 +25,7 @@ export class UploadManageAuditExcelPopupComponent implements OnInit {
   isValid: boolean=true;
   isValidMaker: boolean=true;
   isValidAuditor: boolean=true;
+  auditTypevalid:  boolean=true;
   constructor(
     public router:Router,
     private snackBar: MatSnackBar,
@@ -60,6 +61,9 @@ export class UploadManageAuditExcelPopupComponent implements OnInit {
     }
     if(this.itemList[i].isValidAuditor == false){
       this.isValidAuditor = false;
+    }
+    if(this.itemList[i].auditTypevalid == false){
+      this.auditTypevalid = false;
     }
     
   }
