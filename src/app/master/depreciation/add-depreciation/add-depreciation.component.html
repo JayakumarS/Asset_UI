@@ -22,10 +22,10 @@
 
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" style=" margin-left: -20px;" *ngIf="!edit"  >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline"   style= "margin-left: -15%;
-                  margin-top: -2%;">
+                  margin-top: -2%;" >
                     <input matInput formControlName="name" maxlength="30"
                      oninput="this.value = this.value.toUpperCase()"  
-                    (blur)="validateName($event.target.value)" required>
+                    (blur)="validateName($event.target.value)" (keypress)="keyPressName($event)" required>
                     <mat-error *ngIf="docForm.get('name').hasError('required')">
                       Name is required
                     </mat-error>
