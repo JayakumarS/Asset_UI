@@ -37,6 +37,8 @@ export class AddCompanyComponent implements OnInit {
   stateList = [];
   companyId: any;
   CompanyEnployeeList = [];
+  dynamicDropDownList=[];
+  
   dynamicDropDownList1 = [];
   dynamicDropDownList2 = [];
   CountryCodeList=[];
@@ -44,6 +46,14 @@ export class AddCompanyComponent implements OnInit {
   GstFlag:boolean=true;
   private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
   logoPathUrl: any;
+  districtList= [];
+  countryList=[];
+  cityList=[];
+  regStateList= [];
+  regDistrictList= [];
+  regCountryList=[];
+  regCityList=[];
+  editDetails: any;
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
     private departmentMasterService: DepartmentMasterService,
@@ -83,7 +93,8 @@ export class AddCompanyComponent implements OnInit {
       addressOneState: [""],
       addressOneCity: [""],
       addressOneZipCode: [""],
-
+      addressOneDistrict: [""],
+      addressTwoDistrict: [""],
       addressTwo: [""],
       addressTwoCountry: [""],
       addressTwoState: [""],
@@ -100,6 +111,7 @@ export class AddCompanyComponent implements OnInit {
           branchAddress: [""],
           branchCountry: [""],
           branchState: [""],
+          branchDistrict: [""],
           branchCity: [""],
           branchZipcode: [""],
           branchPhoneNo: [""],
@@ -107,6 +119,8 @@ export class AddCompanyComponent implements OnInit {
         })
       ]),
     });
+    
+    
   }
 
   ngOnInit(): void {
@@ -215,8 +229,9 @@ export class AddCompanyComponent implements OnInit {
       res.branchListDtlBean.forEach((element, index) => {
         let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
         let arraylen = BranchListDtlArray.length;
-        this.fetchDynamicDropDown1(element.branchCountry, index);
-        this.fetchDynamicDropDown2(element.branchState, index);
+        this.fetchDynamicDropDown(element.branchZipcode,index);
+        //this.fetchDynamicDropDown1(element.branchCountry, index);
+        //this.fetchDynamicDropDown2(element.branchState, index);
         let newUsergroup: FormGroup = this.fb.group({
           branchName: [element.branchName],
           branchAddress: [element.branchAddress],
@@ -229,6 +244,79 @@ export class AddCompanyComponent implements OnInit {
   }
 
   //// country ,state and city dropdowns /////////////////////
+  getPincodeDetails(pincode){
+    if(pincode!=""){
+      this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+        if(res.success){
+          this.stateList = res.stateList;
+          this.districtList = res.districtList;
+          this.countryList = res.countryList;
+          this.cityList = res.cityList;
+          if(!this.edit){
+            this.docForm.patchValue({
+              'addressOneCountry':this.countryList[0].id,
+            'addressOneState':this.stateList[0].id,
+            'addressOneDistrict':this.districtList[0].id,
+            'addressOneCity':this.cityList[0].id,
+            })
+          }else if(this.editDetails.addressOneZipCode==null){
+            this.docForm.patchValue({
+              'addressOneCountry':this.countryList[0].id,
+            'addressOneState':this.stateList[0].id,
+            'addressOneDistrict':this.districtList[0].id,
+            'addressOneCity':this.cityList[0].id,
+            })
+          }
+          
+        }else{
+          this.notificationService.showNotification(
+            "snackbar-danger",
+            res.message,
+            "top",
+            "right");
+        }
+      })
+    }
+    
+  }
+  getRegPincodeDetails(pincode){
+    if(pincode!=""){
+      this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+        if(res.success){
+          this.regStateList = res.stateList;
+          this.regDistrictList = res.districtList;
+          this.regCountryList = res.countryList;
+          this.regCityList = res.cityList;
+          if(!this.edit){
+            this.docForm.patchValue({
+              'addressTwoCountry':this.regCountryList[0].id,
+            'addressTwoState':this.regStateList[0].id,
+            'addressTwoDistrict':this.regDistrictList[0].id,
+            'addressTwoCity':this.regCityList[0].id,
+            })
+          }else if(this.editDetails.addressTwoZipCode==null){
+            
+            this.docForm.patchValue({
+              'addressTwoCountry':this.countryList[0].id,
+            'addressTwoState':this.stateList[0].id,
+            'addressTwoDistrict':this.districtList[0].id,
+            'addressTwoCity':this.cityList[0].id,
+            })
+          }
+          
+        }else{
+          this.notificationService.showNotification(
+            "snackbar-danger",
+            res.message,
+            "top",
+            "right");
+        }
+      })
+    }
+    
+  }
+
+
   fetchCountryBasedState(country: any): void {
     this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
       this.countrybasedStateList = res;
@@ -240,6 +328,48 @@ export class AddCompanyComponent implements OnInit {
     })
   }
   ////////////////////////////////////////////////////////////
+  
+  
+  fetchDynamicDropDown(pincode, i){
+    if(pincode!=""){
+      this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+        if(res.success){
+          this.dynamicDropDownList[i][0] = res.countryList;
+          this.dynamicDropDownList[i][1] = res.stateList;
+          this.dynamicDropDownList[i][2] = res.districtList;
+          this.dynamicDropDownList[i][3] = res.cityList;
+
+        }else{
+          this.notificationService.showNotification(
+            "snackbar-danger",
+            res.message,
+            "top",
+            "right");
+        }
+      })
+    }
+  }
+
+  fetchDynamicDropDownForPopulate(pincode, i){
+    if(pincode!=""){
+      this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+        if(res.success){
+          this.dynamicDropDownList[i][0] = res.countryList;
+          this.dynamicDropDownList[i][1] = res.stateList;
+          this.dynamicDropDownList[i][2] = res.districtList;
+          this.dynamicDropDownList[i][3] = res.cityList;
+        }else{
+          this.notificationService.showNotification(
+            "snackbar-danger",
+            res.message,
+            "top",
+            "right");
+        }
+      })
+    }
+  }
+
+  
   fetchDynamicDropDown1(country, i) {
     this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
       this.dynamicDropDownList1[i] = res;
@@ -370,11 +500,18 @@ export class AddCompanyComponent implements OnInit {
         } else if (res.companyBean.branchCount != null || res.companyBean.branchCount != 0) {
           this.flag = true;
         }
-        this.fetchCountryBasedState(res.companyBean.addressOneCountry);
-        this.fetchCountryBasedState1(res.companyBean.addressTwoCountry);
-        this.stateBasedCity(res.companyBean.addressOneState);
-        this.stateBasedCity1(res.companyBean.addressTwoState);
-         
+       // this.fetchCountryBasedState(res.companyBean.addressOneCountry);
+       // this.fetchCountryBasedState1(res.companyBean.addressTwoCountry);
+      //  this.stateBasedCity(res.companyBean.addressOneState);
+       // this.stateBasedCity1(res.companyBean.addressTwoState);
+       if(res.companyBean.addressOneZipCode!=null && res.companyBean.addressOneZipCode!=0){
+        this.getPincodeDetails(res.companyBean.addressOneZipCode);  
+       }
+       if(res.companyBean.addressTwoZipCode!=null && res.companyBean.addressTwoZipCode!=0){
+        this.getRegPincodeDetails(res.companyBean.addressTwoZipCode);  
+       }
+       
+        this.editDetails = res.companyBean;
         this.spinner.hide();
         this.docForm.patchValue({
           'companyId': res.companyBean.companyId,
@@ -398,12 +535,13 @@ export class AddCompanyComponent implements OnInit {
           'addressOneState': res.companyBean.addressOneState,
           'addressOneCity': res.companyBean.addressOneCity,
           'addressOneZipCode': res.companyBean.addressOneZipCode,
-
+          'addressOneDistrict':res.companyBean.addressOneDistrict,
           'addressTwo': res.companyBean.addressTwo,
           'addressTwoCountry': res.companyBean.addressTwoCountry,
           'addressTwoState': res.companyBean.addressTwoState,
           'addressTwoCity': res.companyBean.addressTwoCity,
           'addressTwoZipCode': res.companyBean.addressTwoZipCode,
+          'addressTwoDistrict':res.companyBean.addressTwoDistrict,
           'branchCount': res.companyBean.branchCount,
           'companyLogo':res.companyBean.companyLogo,
         })
@@ -418,8 +556,28 @@ export class AddCompanyComponent implements OnInit {
         res.branchListDtlBean.forEach((element, index) => {
           let BranchListDtlArray = this.docForm.controls.branchList as FormArray;
           let arraylen = BranchListDtlArray.length;
-          this.fetchDynamicDropDown1(element.branchCountry, index);
-          this.fetchDynamicDropDown2(element.branchState, index);
+          
+          if(element.branchZipcode!=null && element.branchZipcode!=""){
+            this.fetchDynamicDropDownForPopulate(element.branchZipcode, index);
+          }else{
+            this.dynamicDropDownList.push([]);
+            this.dynamicDropDownList.push([]);
+            this.dynamicDropDownList.push([]);
+            this.dynamicDropDownList.push([]);
+            this.dynamicDropDownList[index].push([]);
+            this.dynamicDropDownList[index].push([]);
+            this.dynamicDropDownList[index].push([]);
+            this.dynamicDropDownList[index].push([]);
+          }
+
+          // if(element.branchCountry!=null){
+          //   this.fetchDynamicDropDown1(element.branchCountry, index);
+          // }
+          // if(element.branchState!=null){
+          //   this.fetchDynamicDropDown2(element.branchState, index);
+          // }
+         
+          
          
           let newUsergroup: FormGroup = this.fb.group({
             branch: [element.branch],
@@ -432,8 +590,8 @@ export class AddCompanyComponent implements OnInit {
             branchCity: [element.branchCity],
             branchZipcode: [element.branchZipcode],
             branchPhoneNo: [element.branchPhoneNo],
-            gstFlag:element.branchCode!=null?false:true
-
+            gstFlag:element.branchCode!=null?false:true,
+            branchDistrict:[element.branchDistrict]
           })
           BranchListDtlArray.insert(arraylen, newUsergroup);
 

@@ -246,5 +246,6 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getLineMasterDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLineMasterDropdown`;
   
+  public getPincodeDetailsUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPincodeDetails`;
 
 }

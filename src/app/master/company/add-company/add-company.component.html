@@ -1,3 +1,6 @@
+<style>
+
+</style>
 <section class="content" style="overflow-x: hidden;">
   <div class="content-block">
     <div class="block-header" style="padding: 0.5% !important;">
@@ -218,14 +221,38 @@
                     </mat-form-field>
                   </div>
                 </div>
+
+                <div class="row" >
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> ZIPCODE</mat-label>
+                      <input matInput formControlName="addressOneZipCode" 
+                        (keypress)="keyPressNumeric1($event)"  (change)="getPincodeDetails($event.target.value)">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" autocomplete="off">
+                      <mat-label> ZIPCODE</mat-label>
+                      <input matInput  formControlName="addressTwoZipCode" [attr.autocomplete]="false"
+                        (keypress)="keyPressNumeric1($event)" (change)="getRegPincodeDetails($event.target.value)">
+                    </mat-form-field>
+                  </div>
+                </div>
+
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>COUNTRY</mat-label>
-                      <mat-select formControlName="addressOneCountry"
-                        (selectionChange)="fetchCountryBasedState($event.value)">
-                        <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                      <mat-select formControlName="addressOneCountry" >
+                        <mat-option *ngFor="let title of countryList" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
@@ -233,9 +260,10 @@
                   </div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> STATE</mat-label>
-                      <mat-select formControlName="addressOneState" (selectionChange)="stateBasedCity($event.value)">
-                        <mat-option *ngFor="let title of countrybasedStateList" [value]="title.id">
+                      <mat-label> STATE</mat-label> 
+                      <!-- (selectionChange)="stateBasedCity($event.value)" -->
+                      <mat-select formControlName="addressOneState" >
+                        <mat-option *ngFor="let title of stateList" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
@@ -246,9 +274,8 @@
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>COUNTRY</mat-label>
-                      <mat-select formControlName="addressTwoCountry"
-                        (selectionChange)="fetchCountryBasedState1($event.value)">
-                        <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                      <mat-select formControlName="addressTwoCountry" >
+                        <mat-option *ngFor="let title of regCountryList" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
@@ -257,22 +284,23 @@
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> STATE</mat-label>
-                      <mat-select formControlName="addressTwoState" (selectionChange)="stateBasedCity1($event.value)">
-                        <mat-option *ngFor="let title of countrybasedStateList1" [value]="title.id">
+                      <mat-select formControlName="addressTwoState" >
+                        <mat-option *ngFor="let title of regStateList" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
+                
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>CITY</mat-label>
+                      <mat-label>DISTRICT</mat-label>
                       <!-- <input matInput formControlName="addressOneCity"> -->
-                      <mat-select formControlName="addressOneCity">
-                        <mat-option *ngFor="let title of stateBasedCityList" [value]="title.id">
+                      <mat-select formControlName="addressOneDistrict">
+                        <mat-option *ngFor="let title of districtList" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
@@ -280,18 +308,21 @@
                   </div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="addressOneZipCode" maxlength="6"
-                        (keypress)="keyPressNumeric1($event)" (keypress)="keyPressNumeric1($event)">
+                      <mat-label> CITY</mat-label>
+                      <mat-select formControlName="addressOneCity">
+                        <mat-option *ngFor="let title of cityList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
                     </mat-form-field>
                   </div>
 
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>CITY</mat-label>
-                      <mat-select formControlName="addressTwoCity">
-                        <mat-option *ngFor="let title of stateBasedCityList1" [value]="title.id">
+                      <mat-label>DISTRICT</mat-label>
+                      <mat-select formControlName="addressTwoDistrict">
+                        <mat-option *ngFor="let title of regDistrictList" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
@@ -299,9 +330,12 @@
                   </div>
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="addressTwoZipCode" maxlength="6"
-                        (keypress)="keyPressNumeric1($event)">
+                      <mat-label> CITY</mat-label>
+                      <mat-select formControlName="addressTwoCity">
+                        <mat-option *ngFor="let title of regCityList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
@@ -373,13 +407,16 @@
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%; border-radius: 0.05rem;">ADDRESS</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%;border-radius: 0.07rem;">ZIPCODE</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%; border-radius: 0.05rem;">COUNTRY</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%;border-radius: 0.07rem;">STATE</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-             width: 12%;border-radius: 0.07rem;">CITY</th>
+             width: 12%;border-radius: 0.07rem;">DISTRICT</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-              width: 12%;border-radius: 0.07rem;">ZIPCODE</th>
+             width: 12%;border-radius: 0.07rem;">CITY</th>
+                        
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
               width: 12%; border-radius: 0.05rem;">BRANCH HEAD</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
@@ -431,13 +468,18 @@
                               <input matInput name="branchAddress{{i}}" formControlName="branchAddress" maxlength="250">
                             </mat-form-field>
                           </td>
-
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>ZIPCODE</mat-label>
+                              <input matInput name="branchZipcode{{i}}" formControlName="branchZipcode"
+                                (keypress)="keyPressNumeric1($event)" (change)="fetchDynamicDropDown($event.target.value, i)">
+                            </mat-form-field>
+                          </td>
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>COUNTRY</mat-label>
-                              <mat-select name="branchCountry{{i}}" formControlName="branchCountry"
-                                (selectionChange)="fetchDynamicDropDown1($event.value,i)">
-                                <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                              <mat-select name="branchCountry{{i}}" formControlName="branchCountry">
+                                <mat-option *ngFor="let title of dynamicDropDownList[i][0]" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
                               </mat-select>
@@ -446,9 +488,18 @@
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>STATE</mat-label>
-                              <mat-select name="branchState{{i}}" formControlName="branchState"
-                                (selectionChange)="fetchDynamicDropDown2($event.value,i)">
-                                <mat-option *ngFor="let title of dynamicDropDownList1[i]" [value]="title.id">
+                              <mat-select name="branchState{{i}}" formControlName="branchState">
+                                <mat-option *ngFor="let title of dynamicDropDownList[i][1]" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </td>
+                          <td class="padding-both-side-2">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>DISTRICT</mat-label>
+                              <mat-select name="branchDistrict{{i}}" formControlName="branchDistrict">
+                                <mat-option *ngFor="let title of dynamicDropDownList[i][2]" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
                               </mat-select>
@@ -458,17 +509,10 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>CITY</mat-label>
                               <mat-select name="branchCity{{i}}" formControlName="branchCity">
-                                <mat-option *ngFor="let title of dynamicDropDownList2[i]" [value]="title.id">
+                                <mat-option *ngFor="let title of dynamicDropDownList[i][3]" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
                               </mat-select>
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>ZIPCODE</mat-label>
-                              <input matInput name="branchZipcode{{i}}" formControlName="branchZipcode"
-                                (keypress)="keyPressNumeric1($event)" maxlength="6">
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
