@@ -12,6 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BehaviorSubject, fromEvent, map, merge, Observable, startWith } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
@@ -62,6 +63,7 @@ export class ListAuditLogComponent extends UnsubscribeOnDestroyAdapter implement
      private serverUrl:serverLocations,
      private httpService:HttpServiceService,
      public router: Router,
+     private tokenStorage: TokenStorageService,
      private notificationService : NotificationService,
     //  private EncrDecr:EncrDecrService,
      private spinner: NgxSpinnerService,
@@ -81,8 +83,8 @@ export class ListAuditLogComponent extends UnsubscribeOnDestroyAdapter implement
       toDate : [""],
       formName : [""],
       fromDateObj : [""],
-      toDateObj : [""]
-      
+      toDateObj : [""],
+      userId:this.tokenStorage.getUsername(),
    });
   }
 
