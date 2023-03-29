@@ -98,7 +98,7 @@ getDepreciationList(object): void {
   console.log(object);
   let companyId = this.tokenStorage.getCompanyId();
 
-  this.subs.sink = this.httpService.post<any>(this.depreciationSerach + "?companyId=" + parseInt(companyId) , object).subscribe(
+  this.subs.sink = this.httpService.post<any>(this.depreciationSerach , object).subscribe(
     (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.depreciationList);

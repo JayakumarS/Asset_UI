@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -85,6 +86,8 @@ export class AddDepreciationReportComponent extends  UnsubscribeOnDestroyAdapter
     private userMasterService: UserMasterService,
     private serverUrl: serverLocations,
     private httpService: HttpServiceService,
+    private snackBar: MatSnackBar,
+
 
 
 ) {
@@ -204,14 +207,53 @@ searchData(){
   this.reportscategory = this.docForm.value;
   this.loadData();
 
-  // tslint:disable-next-line:max-line-length
-  this.httpService.post(this.reportsService.depreciationSerach, this.reportscategory).subscribe((res: any) => {
-    console.log(res);
-    this.searchList = res.depreciationList;
-  },
-  (err: HttpErrorResponse) => {
-  }
-);
+
+      // this.reportsService.depreciationTotalSearch(this.reportscategory).subscribe({
+      //   next: (data) => {
+      //     if (data.success) {
+      //       this.showNotification(
+      //         "snackbar-success",
+      //         "Edit Record Successfully",
+      //         "top",
+      //         "right"
+      //       );
+      //     } else {
+      //       this.showNotification(
+      //         "snackbar-danger",
+      //         "Not Updated Successfully...!!!",
+      //         "top",
+      //         "right"
+      //       );
+      //     }
+      //   },
+      //   error: (error) => {
+      //     this.showNotification(
+      //       "snackbar-danger",
+      //       error.message + "...!!!",
+      //       "top",
+      //       "right"
+      //     );
+      //   }
+      // });
+
+//   // tslint:disable-next-line:max-line-length
+//   this.httpService.post(this.reportsService.depreciationTotalSearch, this.reportscategory).subscribe((res: any) => {
+//     console.log(res);
+//     this.searchList = res.depreciationList;
+//   },
+//   (err: HttpErrorResponse) => {
+//   }
+// );
+}
+
+
+showNotification(colorName, text, placementFrom, placementAlign) {
+  this.snackBar.open(text, "", {
+    duration: 6000,
+    verticalPosition: placementFrom,
+    horizontalPosition: placementAlign,
+    panelClass: colorName,
+  });
 }
 
   reset()
