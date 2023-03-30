@@ -110,18 +110,18 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Id</mat-header-cell>
                     <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetid}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="assetname">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetname}}
+                  <ng-container matColumnDef="assetname" style="margin-left:-30px">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="justify-content: left;">Name</mat-header-cell>
+                    <mat-cell class="data-center" style="justify-content: left;" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetname}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="acquisitiondt">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Acquisition Date</mat-header-cell>
                     <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.acquisitiondt}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="currency">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Currency</mat-header-cell>
-                    <mat-cell class="data-center" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currency}}</mat-cell>
+                  <ng-container matColumnDef="currency" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="justify-content: right;">Currency</mat-header-cell>
+                    <mat-cell class="data-center" style="justify-content: right;" *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currency}}</mat-cell>
                   </ng-container>
                   <!-- <ng-container matColumnDef="acquisitionvalue">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Acquisition Value</mat-header-cell>
