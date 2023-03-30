@@ -354,10 +354,23 @@ export class AddCompanyComponent implements OnInit {
     if(pincode!=""){
       this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
         if(res.success){
-          this.dynamicDropDownList[i][0] = res.countryList;
-          this.dynamicDropDownList[i][1] = res.stateList;
-          this.dynamicDropDownList[i][2] = res.districtList;
-          this.dynamicDropDownList[i][3] = res.cityList;
+         
+          if(this.dynamicDropDownList[i]==undefined){
+            this.dynamicDropDownList.push([]);
+            this.dynamicDropDownList.push([]);
+            this.dynamicDropDownList.push([]);
+            this.dynamicDropDownList.push([]);
+            this.dynamicDropDownList[i][0] = res.countryList;
+            this.dynamicDropDownList[i][1] = res.stateList;
+            this.dynamicDropDownList[i][2] = res.districtList;
+            this.dynamicDropDownList[i][3] = res.cityList;
+          }else{
+            this.dynamicDropDownList[i][0] = res.countryList;
+            this.dynamicDropDownList[i][1] = res.stateList;
+            this.dynamicDropDownList[i][2] = res.districtList;
+            this.dynamicDropDownList[i][3] = res.cityList;
+          }
+          
         }else{
           this.notificationService.showNotification(
             "snackbar-danger",
