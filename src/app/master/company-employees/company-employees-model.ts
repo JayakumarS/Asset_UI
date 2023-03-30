@@ -8,6 +8,8 @@ export class Company{
     department:string;
     active:any;
     id:any;
+    employeeId:string;
+    
   Success: boolean;
   empid:any;
   

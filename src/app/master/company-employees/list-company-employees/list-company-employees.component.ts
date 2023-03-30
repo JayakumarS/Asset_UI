@@ -31,7 +31,8 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
 
   displayedColumns = [
    
-    "company",
+    // "company",
+    "employeeId",
     "branch",
     "fullName",
     "phoneno",
@@ -229,7 +230,8 @@ export class ExampleDataSource extends DataSource<Company> {
           .filter((company: Company) => {
 
             const searchStr = (
-              company.company +
+              // company.company +
+              company.employeeId +
               company.branch +
               company.phoneno +
               company.emailId +

@@ -61,9 +61,9 @@
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
 
-                  <ng-container matColumnDef="company">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Company</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.company}}</mat-cell>
+                  <ng-container matColumnDef="employeeId">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Id</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.employeeId}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="branch">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Branch</mat-header-cell>
