@@ -26,6 +26,7 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ListCityComponent } from './list-city/list-city.component';
 import { DeleteCityComponent } from './list-city/delete-city/delete-city.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -59,6 +60,8 @@ import { DeleteCityComponent } from './list-city/delete-city/delete-city.compone
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
+    MatAutocompleteModule,
+
   ]
 })
 export class CityMasterModule { }

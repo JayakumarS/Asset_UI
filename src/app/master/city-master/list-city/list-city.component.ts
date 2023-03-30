@@ -1,13 +1,14 @@
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
+import { BehaviorSubject, fromEvent, map, merge, Observable, startWith } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
@@ -24,30 +25,45 @@ import { DeleteCityComponent } from './delete-city/delete-city.component';
 export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     
-    "cityName",
+    "villageName",
     "stateId",
     "actions",
   ];
+  docForm: FormGroup;
+  pincodeList = [];
   exampleDatabase:CityService | null;
   dataSource: ExampleDataSource | null;
   selection = new SelectionModel<CityMaster>(true, []);
+  cityService:CityService | null;
   exporter: any;
   index: any;
   id: any;
   subs: any;
+  formfilteredOptions: Observable<string[]>;
+  myControl = new FormControl('');
+  myControlUser = new FormControl('');
+
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public cityService:CityService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
     public router:Router,
+    private fb: FormBuilder,
     private tokenStorage: TokenStorageService
   ) {
     super();
+
+    this.docForm = this.fb.group({
+      pincode : '',
+
+   });
   }
 
+  valueforForm = {
+    pincode : '',
+  }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
@@ -58,6 +74,16 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
   ngOnInit(): void {
     this.loadData();
 
+
+    
+    this.formfilteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterForm(value)),
+    );
+
+  }
+  private _filterForm(value: any): any {
+    throw new Error('Method not implemented.');
   }
   
     
@@ -78,7 +104,8 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
       this.dataSource = new ExampleDataSource(
         this.exampleDatabase,
         this.paginator,
-        this.sort
+        this.sort,
+        this.docForm
       );
       this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
         () => {
@@ -90,10 +117,18 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
       );
       
     }
+
+    onSubmit() {
+   
+      this.cityService = this.docForm.value;
+      this.docForm.value.pincode = this.valueforForm.pincode;
+      this.exampleDatabase.getAllList(this.cityService);
+     
+  }
   
-    editCall(row){
-    this.router.navigate(['/master/cityMaster/addCity/'+row.city_id]);
-    }
+    // editCall(row){
+    // this.router.navigate(['/master/cityMaster/addCity/'+row.city_id]);
+    // }
     deleteItem(index,row) {
       let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {
@@ -141,8 +176,18 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
         panelClass: colorName,
       });
     }
-    }
-    
+
+    refresh(){
+      this.docForm = this.fb.group({
+        pincode: [""]
+     });
+     this.valueforForm.pincode = '';
+     this.exampleDatabase.getAllList(this.docForm.value);
+     }
+  
+  }
+
+     
     
     export class ExampleDataSource extends DataSource<CityMaster> {
       filterChange = new BehaviorSubject("");
@@ -157,7 +202,9 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
       constructor(
         public exampleDatabase: CityService,
         public paginator: MatPaginator,
-        public _sort: MatSort
+        public _sort: MatSort,
+        public docForm:FormGroup
+
       ) {
         super();
         // Reset to the first page when the user changes the filter.
@@ -172,7 +219,7 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
           this.filterChange,
           this.paginator.page,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         ];
-        this.exampleDatabase.getAllList();
+        this.exampleDatabase.getAllList(this.docForm.value);
         return merge(...displayDataChanges).pipe(
           map(() => {
             // Filter data
@@ -181,7 +228,7 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
               .slice()
               .filter((cityMaster: CityMaster) => {
                 const searchStr = (
-                  cityMaster.cityName+
+                  cityMaster.villageName+
                   cityMaster.state_id+
                   cityMaster.city_id
                 ).toLowerCase();
@@ -211,8 +258,8 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
           let propertyA: number | string | boolean = "";
           let propertyB: number | string | boolean = "";
           switch (this._sort.active) {
-            case "cityName":
-              [propertyA, propertyB] = [a.cityName, b.cityName];
+            case "villageName":
+              [propertyA, propertyB] = [a.villageName, b.villageName];
               break;
               case "state_id":
                 [propertyA, propertyB] = [a.state_id, b.state_id];

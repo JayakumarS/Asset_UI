@@ -64,8 +64,24 @@ export class CityService  extends  UnsubscribeOnDestroyAdapter{
         
     });
   }
-  getAllList(){
-    this.subs.sink = this.httpService.get<CityResultBean>(this.getCityList).subscribe(
+  // getAllList(){
+  //   this.subs.sink = this.httpService.get<CityResultBean>(this.getCityList).subscribe(
+  //     (data) => {
+  //       this.isTblLoading = false;
+  //       this.dataChange.next(data.cityList);
+  //     },
+  //     (error: HttpErrorResponse) => {
+  //       this.isTblLoading = false;
+  //       console.log(error.name + " " + error.message);
+  //     }
+  //   );
+    
+  // }
+
+   /** CRUD METHODS */
+   getAllList(object): void {
+    
+    this.subs.sink = this.httpService.post<CityResultBean>(this.getCityList,object).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.cityList);
@@ -75,8 +91,8 @@ export class CityService  extends  UnsubscribeOnDestroyAdapter{
         console.log(error.name + " " + error.message);
       }
     );
-    
-  }
+}
+
   editState(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.editMaster, obj);
   }

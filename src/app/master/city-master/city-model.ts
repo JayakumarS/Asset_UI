@@ -4,6 +4,8 @@ export class CityMaster {
     cityName:string;
     isactive:string;
     state_id:number;
+    state_name:string;
 
-
+    villageName:string;
+	villageId:number;
 }
