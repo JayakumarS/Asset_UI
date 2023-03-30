@@ -63,6 +63,7 @@ export class AddAssetRequisitionComponent implements OnInit {
   userId: string;
   branchId: string;
   companyId: string;
+  locationDdList: any;
   constructor(private fb: FormBuilder,
     public assetRequisitionService:AssetRequisitionService,
     private httpService: HttpServiceService,
@@ -151,6 +152,10 @@ export class AddAssetRequisitionComponent implements OnInit {
     }
   );
 
+
+  this.httpService.get(this.commonService.getcompanybaseduser + "?company=" + this.companyId).subscribe((res: any) => {
+    this.locationDdList = res.addressBean;
+  });
   //Employee dropdown
   // this.httpService.get<any>(this.commonService.getEmployeeDropdown).subscribe(
   //   (data) => {
