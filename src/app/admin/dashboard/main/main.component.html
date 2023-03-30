@@ -856,7 +856,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let data of userLogListDashboard | paginate: { itemsPerPage: 5, currentPage: pageChangedForUserLog }">
+                      <tr *ngFor="let data of userLogListDashboard |slice: (Page1-1) * pageSize1 : Page1 * pageSize1">
                         <td>{{data.startdate}}</td>
                         <td>{{data.status}}</td>
                         <td>{{data.username}}</td>
@@ -865,8 +865,16 @@
                       </tr>
                     </tbody>
                   </table>  
-                  <div style="margin-left: 66%;">
-                    <pagination-controls (pageChange)="pageChangedForUserLog=($event)"></pagination-controls>
+                  <div style="margin-left:40%;">
+                    <ngb-pagination
+                    [collectionSize]="userLogListDashboard.length"
+                    [(page)]="Page1"
+                    [maxSize]="5"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    [boundaryLinks]="true">
+                  </ngb-pagination>
+
                   </div>
                 </div>
               </div>
@@ -904,7 +912,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let data of companyAssetList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
+                      <tr *ngFor="let data of companyAssetList | slice: (Page-1) * pageSize : Page * pageSize">
                         <td>{{data.assetName}}</td>
                         <td>{{data.assetCode}}</td>
                         <td>{{data.locationName}}</td>
@@ -914,7 +922,14 @@
                     </tbody>
                   </table>  
                   <div>
-                    <pagination-controls (pageChange)="pageChanged=($event)"></pagination-controls>
+                    <ngb-pagination
+                    [collectionSize]="companyAssetList.length"
+                    [(page)]="Page"
+                    [maxSize]="3"
+                    [rotate]="true"
+                    [ellipses]="false"
+                    [boundaryLinks]="true">
+                  </ngb-pagination>
                   </div>
                 </div>
               </div>

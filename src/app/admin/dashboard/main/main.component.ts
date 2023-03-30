@@ -18,6 +18,8 @@ import {
   ApexTitleSubtitle,
   ApexResponsive,
 } from "ng-apexcharts";
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AuditableAssetResultBean } from "src/app/audit/auditable-asset/auditable-asset-result-bean";
 import { AuditableAssetService } from "src/app/audit/auditable-asset/auditable-asset.service";
 import { HttpServiceService } from "src/app/auth/http-service.service";
@@ -49,6 +51,7 @@ export type ChartOptions = {
 };
 
 // Highcharts
+
 import * as Highcharts from 'highcharts';
 import { Options } from 'highcharts';
 import HC_drilldown from "highcharts/modules/drilldown";
@@ -56,11 +59,14 @@ import { Router } from "@angular/router";
 HC_drilldown(Highcharts);
 
 @Component({
+
+
   selector: "app-main",
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
 })
 export class MainComponent implements OnInit {
+  
   docForm: FormGroup;
   assetsCount = [];
   auditableAssetList = [];
@@ -70,7 +76,6 @@ export class MainComponent implements OnInit {
   bookValueArray = [];
   bookValueArrayData = [];
   pieValueArray = [];
-  doughnutValueArray =[];
   columnOuterValueArray = [];
   columnInnerValueArray = [];
   userLogListDashboard = [];
@@ -80,6 +85,7 @@ export class MainComponent implements OnInit {
   //Donut Array
   donutName = [];
   donutValue = [];
+  
   public cardChart1: any;
   public cardChart1Data: any;
   public cardChart1Label: any;
@@ -105,7 +111,9 @@ export class MainComponent implements OnInit {
 
   // Doughnut chart start
   public doughnutChartLabels: string[] = ["Refurbished", "In stock", "In repair", "Damaged","New", "Existing","scarp"];
+  // public doughnutChartLabels: string[];
   public doughnutChartData: number[] = [2, 3, 5, 1, 6,4,2];
+  // public doughnutChartData:number[];
   public doughnutChartLegend = false;
   public doughnutChartColors: any[] = [
     {
@@ -140,6 +148,10 @@ export class MainComponent implements OnInit {
   assetsFlagForDashboard:boolean;
   pieChartFlag:boolean;
   ticketFlag:boolean;
+  Page=1;
+  pageSize=5;
+  Page1=1;
+  pageSize1=5;
 // For HighChart
 
 Highcharts: typeof Highcharts = Highcharts;
@@ -173,8 +185,6 @@ configUserLog: {
   companyLastAuditDate: any;
   companyLastAuditDoneBy: any;
   compltedProfile: any;
-  // doughnutChartLabels: string[];
-  // doughnutChartData:  number[];
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
@@ -385,17 +395,6 @@ configUserLog: {
       }
       
       //For Donut Data
-      // this.doughnutValueArray=doughnutChartData.getDonutName;
-      // this.doughnutValueArray=doughnutChartData.getDonutValue;
-
-      // //   this.doughnutChartLabels = doughnutChartData.getDonutName;
-      // //   this.doughnutChartData = doughnutChartData.getDonutValue;
-      // this.doughnutChartOptions.series[0] ={
-      //   type: 'pie',
-      //   data: this.doughnutValueArray
-      // }
-      // console.log(this.doughnutValueArray[0].y);
-
       if(doughnutChartData.getDonutValue.length != 0){
         this.doughnutChartLabels = doughnutChartData.getDonutName;
         this.doughnutChartData = doughnutChartData.getDonutValue;
