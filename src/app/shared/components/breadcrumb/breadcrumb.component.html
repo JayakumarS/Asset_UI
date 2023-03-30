@@ -1,19 +1,19 @@
 <div class="breadcrumb-main">
     <div class="row">
-        <div class="col-1" style="width: 5.333333%;">
-            <button color="warn" type="button"
-            mat-raised-button><a href="javascript:history.back();" style="text-decoration: none;color: white;">Back </a></button>
-        <!-- <i data-feather="arrow-left-circle"></i> -->
-        </div>
-        <div class="col-4">
-            
-            <div class="breadcrumb-title">
-                <h5 class="page-title">{{title}}</h5>
-            </div>
-            
-        </div>
-        <div class="col-6" style="width: 60%;">
+       
+        <div class="col-6" style="width: 9%;">
             <ul class="breadcrumb-list">
+                <li class="breadcrumb-item bcrumb-1" >
+                    <a href="javascript:history.back();" >
+                        <app-feather-icons [icon]="'arrow-left-circle'" style="color: #6777ef !important;" ></app-feather-icons>
+                    </a>
+                </li>
+                <li class="breadcrumb-title"><h5 class="page-title">{{title}}</h5></li>
+            </ul>
+
+        </div>
+        <div class="col-6" style="width: 91%;">
+            <ul class="breadcrumb-list" >
                 <li class="breadcrumb-item bcrumb-1">
                     <a [routerLink]="'/asset/assetMaster/listAssetMaster'">
                         <app-feather-icons [icon]="'home'" [class]="'breadcrumb-icon'"></app-feather-icons>
@@ -23,5 +23,6 @@
                 <li class="breadcrumb-item active">{{active_item}}</li>
             </ul>
         </div>
+        
     </div>
 </div>
