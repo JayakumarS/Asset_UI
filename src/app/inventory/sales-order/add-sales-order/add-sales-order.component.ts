@@ -11,6 +11,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { SalesInvoiceService } from '../../sales-invoice/sales-invoice.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 export const MY_DATE_FORMATS = {
@@ -53,9 +54,11 @@ export class AddSalesOrderComponent implements OnInit {
   customer: any;
   itemDropDown: [];
   uomDropDown: [];
+  assetDropdown: [];
   value: any;
   value1: any;
   currencyListbasedCompany=[];
+  totalValue:number;
 
   constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private commonService: CommonService,
     private salesInvoiceService: SalesInvoiceService,
@@ -71,6 +74,7 @@ export class AddSalesOrderComponent implements OnInit {
       termsandcondition:[""],
       companyId:[""],
       salesOrderNo:[""],
+      total:[""],
 
       salesOrderDtl: this.fb.array([
         this.fb.group({
@@ -80,6 +84,7 @@ export class AddSalesOrderComponent implements OnInit {
           qty:[""],
           price:[""],
           total:[""],
+          asset:[""]
 
         })
       ])
@@ -152,8 +157,6 @@ export class AddSalesOrderComponent implements OnInit {
     error: (error) => {
     }
   });
-
-
   }
 
   fetchDetails(salesOrderNo:any){
@@ -172,17 +175,21 @@ export class AddSalesOrderComponent implements OnInit {
           'dateofdelivery' : res.salesOrderBean.dateofdelivery,
           'dateofdeliveryObj': hdate,
           'termsandcondition' : res.salesOrderBean.termsandcondition,
+          'total': res.salesOrderBean.total
 
       });
       if (res.salesOrderDetail != null && res.salesOrderDetail.length >= 1) {
         let salesOrderDetailArray = this.docForm.controls.salesOrderDtl as FormArray;
         salesOrderDetailArray.clear();
+        
         res.salesOrderDetail.forEach(element => {
           let salesOrderDetailArray = this.docForm.controls.salesOrderDtl as FormArray;
           let arraylen = salesOrderDetailArray.length;
+          this.fetchAssetDetails(element.product);
           let newUsergroup: FormGroup = this.fb.group({
             product: [parseInt( element.product)],
             uom: [parseInt( element.uom)],
+            asset:[parseInt(element.asset)],
             rate: [ element.rate],
             total: [ element.total],
             qty: [ element.qty],
@@ -195,8 +202,17 @@ export class AddSalesOrderComponent implements OnInit {
     error: (error) => {
     }
   });
-
   }
+
+  fetchAssetDetails(product: any) {
+    this.httpService.get(this.salesInvoiceService.fetchAsset + "?product=" + product).subscribe((res: any) => {
+      this.assetDropdown = res.addressBean;
+    },
+      (err: HttpErrorResponse) => {
+      }
+    );
+  }
+
 
 
 update() {
@@ -245,6 +261,7 @@ update() {
         this.fb.group({
           product:[""],
           uom:[""],
+          asset:[""],
           rate:[""],
           qty:[""],
           price:[""],
@@ -271,12 +288,13 @@ update() {
     let dtlArray = this.docForm.controls.salesOrderDtl as FormArray;
     let arraylen = dtlArray.length;
     let newUsergroup: FormGroup = this.fb.group({
-      product:[""],
-      uom:[""],
-      rate:[""],
-      qty:[""],
-      price:[""],
-      total:[""],
+          product:[""],
+          uom:[""],
+          rate:[""],
+          qty:[""],
+          price:[""],
+          total:[""],
+          asset:[""]
     })
     dtlArray.insert(arraylen,newUsergroup);
 
@@ -389,6 +407,16 @@ Amountcalculation(index:any){
   fetchAccHeadArray.value[index].price=this.value;
   fetchAccHeadArray.at(index).patchValue({
     price:this.checkIsNaN(parseFloat(this.value)),
+  });
+
+  var i = 0;
+  var length = fetchAccHeadArray.controls.length;
+  this.totalValue = 0;
+  for (i = 0; i < length; i++) {
+    this.totalValue = this.totalValue + fetchAccHeadArray.value[i].price;
+  }
+  this.docForm.patchValue({
+    total: this.totalValue
   });
 }
 
