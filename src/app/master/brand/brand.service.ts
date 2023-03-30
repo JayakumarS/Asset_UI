@@ -35,6 +35,7 @@ export class BrandMasterService extends UnsubscribeOnDestroyAdapter {
     public updatebrand = `${this.serverUrl.apiServerAddress}app/Brand/update`;
     public saveMultiple = `${this.serverUrl.apiServerAddress}app/Brand/multipleSave`;
     public multipleUpload = `${this.serverUrl.apiServerAddress}app/Brand/brandmultipleUpload`;
+    public uniqueValidateCompanyBasedUrl = `${this.serverUrl.apiServerAddress}app/Brand/validateUniqueCompanyBased`;
 
     get data(): Brand[] {
         return this.dataChange.value;

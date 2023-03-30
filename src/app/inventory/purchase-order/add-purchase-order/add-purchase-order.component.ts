@@ -525,20 +525,21 @@ export class AddPurchaseOrderComponent implements OnInit {
   addRow() {
     let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
     let arraylen = purchaseOrderDetailArray.length;
+
     let newUsergroup: FormGroup = this.fb.group({
       purchaseOrderId: [""],
-      itemId: [''],
-      edd: [''],
-      eddObj: [''],
-      uomId: [''],
-      qty: [''],
-      unitPrice: [''],
-      price: [''],
-      discountType: [''],
-      discount: [''],
-      discountPercent: [''],
-      netPrice: [''],
-      requisitionId: ['']
+      itemId: [""],
+      edd: [""],
+      eddObj: [""],
+      uomId: [""],
+      qty: [""],
+      unitPrice: [""],
+      price: [""],
+      discountType: [""],
+      discount: [""],
+      discountPercent: [""],
+      netPrice: [""],
+      requisitionId: [""]
     })
     purchaseOrderDetailArray.insert(arraylen, newUsergroup);
   }

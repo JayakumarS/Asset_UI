@@ -15,17 +15,25 @@
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                         <label >BRAND NAME<span class="errorColor">*</span></label>
                     </div>
-                    <div class=" col-md-3">
+                    <div class=" col-md-3" *ngIf="!edit">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="brand" maxlength="20" (keypress)="keyPressName($event)" required>
-                       
-
+                        <input matInput formControlName="brand" maxlength="20" (blur)="validateBrandName($event.target.value)"
+                        oninput="this.value = this.value.toUpperCase()" (keypress)="keyPressName($event)">
                         <mat-error *ngIf="docForm.get('brand').hasError('required')">
-                            brand name is required
+                            Brand Name is Required
                         </mat-error>
-                       
+                        <mat-error *ngIf="docForm.get('brand').hasError('brandFlag')">
+                          Brand Name already Exists
+                      </mat-error>
                       </mat-form-field>
                     </div>
+
+                    <div class=" col-md-3" *ngIf="edit">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="brand" maxlength="20" (blur)="validateBrandName($event.target.value)"
+                      oninput="this.value = this.value.toUpperCase()" (keypress)="keyPressName($event)" readonly>
+                    </mat-form-field>
+                  </div>
 
                   <div class=" col-md-2">
                     <mat-label>DESCRIPTION</mat-label>

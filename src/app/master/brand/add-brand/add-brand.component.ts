@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -33,7 +33,7 @@ export class AddBrandComponent implements OnInit {
     public route: ActivatedRoute,private tokenStorage: TokenStorageService,
     private notificationService: NotificationService) { 
   this.docForm = this.fb.group({
-    brand: [""],
+    brand: ["",[Validators.required]],
     description: [""],
      isactive:[""],
      loginedUser:[this.tokenStorage.getUserId()],
@@ -43,7 +43,7 @@ export class AddBrandComponent implements OnInit {
 }
   ngOnInit(): void {
     this.docForm = this.fb.group({
-      brand: [""],
+      brand: ["",[Validators.required]],
       description: [""],
        isactive:[true],
        loginedUser:[this.tokenStorage.getUserId()],
@@ -161,7 +161,7 @@ export class AddBrandComponent implements OnInit {
     if (!this.edit) {
       location.reload()
     this.docForm = this.fb.group({
-      brand: [""],
+      brand: ["",[Validators.required]],
       Description: [""],
       isactive:[true],
       loginedUser:[this.tokenStorage.getUserId()]
@@ -171,6 +171,19 @@ export class AddBrandComponent implements OnInit {
     this.fetchDetails(this.requestId);
   }
   }
+
+  validateBrandName(event){
+    let companyId=this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.brandMasterService.uniqueValidateCompanyBasedUrl + "?tableName=" + "brand_master" + "&columnName=" + "brand_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['brand'].setErrors({ brandFlag: true });
+      }else{
+        this.docForm.controls['brand'].setErrors(null);
+      }
+    });
+  }
+
+
   onCancel(){
     this.router.navigate(['/master/brand/listBrand']);
   }
