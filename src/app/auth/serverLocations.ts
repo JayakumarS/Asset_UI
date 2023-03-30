@@ -7,7 +7,7 @@ export class serverLocations {
   constructor() {
     if (window.location.hostname === 'localhost') {
       //Local
-      this.apiServerAddress = 'http://localhost:8080/';
+      this.apiServerAddress = 'http://localhost:8088/';
       //this.apiServerAddress = 'http://192.168.5.26:8080/assetchek/';
     } else if (window.location.hostname === '192.168.5.26') {
       //For Server Added Gokul

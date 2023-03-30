@@ -11,10 +11,10 @@
           <div class="card">
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
-                <div class="row"  style="margin-left: 10%;">
+                <div class="row" style="margin-left: 10%;">
                   <div class=" col-md-2">
                     <mat-label>PO DATE </mat-label>
-                    </div>
+                  </div>
                   <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput [matDatepicker]="picker" formControlName="poDateObj"
@@ -26,7 +26,7 @@
                   </div>
                   <div class=" col-md-2">
                     <mat-label>PURCHASE TYPE <span class="errorColor">*</span></mat-label>
-                    </div>
+                  </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="purchaseType">
@@ -34,19 +34,16 @@
                           {{title.text}}
                         </mat-option>
                       </mat-select>
-
                       <mat-error *ngIf="docForm.get('purchaseType').hasError('required')">
                         Purchase Type is required
                       </mat-error>
                     </mat-form-field>
                   </div>
-
                 </div>
-
-                <div class="row"  style="margin-left: 10%;">
+                <div class="row" style="margin-left: 10%;">
                   <div class=" col-md-2">
                     <mat-label>VENDOR<span class="errorColor">*</span></mat-label>
-                    </div>
+                  </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="vendorId" (selectionChange)="getVendorAddressDetails($event.value)"
@@ -62,64 +59,26 @@
                   </div>
                   <div class=" col-md-2">
                     <mat-label>VENDOR ADDRESS</mat-label>
-                    </div>
+                  </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                    <mat-label class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="vendorAddress">
-                    </mat-label>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="vendorAddress" >
+                    </mat-form-field>
                   </div>
                 </div>
-
                 <div class="row" style="margin-left: 10%;">
-                    <div class=" col-md-2">
-                      <mat-label>CITY</mat-label>
-                      </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                    <mat-label class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="vendorCity">
-                    </mat-label>
-                  </div>
                   <div class=" col-md-2">
-                    <mat-label>STATE</mat-label>
-                    </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                    <mat-label class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="vendorState">
-                    </mat-label>
+                    <mat-label>ZIPCODE</mat-label>
                   </div>
-                
-                </div>
-                <br>
-
-                <div class="row"  style="margin-left: 10%;">
-                  <div class=" col-md-2">
-                    <mat-label>COUNTRY</mat-label>
-                    </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                    <mat-label class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="vendorCountry">
-                    </mat-label>
-                 
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input type="search" matInput formControlName="vendorZip" 
+                      (keypress)="keyPressNumeric2($event)" (change)="getPincodeDetails($event.target.value)"  maxlength="6">
+                    </mat-form-field>
                   </div>
-                  <br>
-
-                  <div class=" col-md-2">
-                    <mat-label>ZIP</mat-label>
-                    </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                    <mat-label class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="vendorZip">
-                    </mat-label>
-                  </div>
-                  <br>
-
-                </div>
-                <br>
-
-                <div class="row"  style="margin-left: 10%;">
                   <div class=" col-md-2">
                     <mat-label>DESTINATION LOCATION<span class="errorColor">*</span></mat-label>
-                    </div>
+                  </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="destinationLocation" required>
@@ -128,13 +87,67 @@
                         </mat-option>
                       </mat-select>
                       <mat-error *ngIf="docForm.get('destinationLocation').hasError('required')">
-                       Destination Location is required
+                        Destination Location is required
                       </mat-error>
                     </mat-form-field>
                   </div>
+                </div>
+                <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>COUNTRY</mat-label>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="vendorCountry" disabled>
+                        <mat-option *ngFor="let title of countryList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class=" col-md-2">
+                    <mat-label>STATE</mat-label>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="vendorState" disabled>
+                        <mat-option *ngFor="let title of stateList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row" style="margin-left: 10%;">
+                  <div class=" col-md-2">
+                    <mat-label>DISTRICT</mat-label>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="vendorDistrict" disabled>
+                        <mat-option *ngFor="let title of districtList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class=" col-md-2">
+                    <mat-label>CITY</mat-label>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+                      <mat-select formControlName="vendorCity" disabled>
+                        <mat-option *ngFor="let title of cityList" [value]="title.id" >
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row" style="margin-left: 10%;">
                   <div class=" col-md-2">
                     <mat-label>TERMS AND CONDITIONS</mat-label>
-                    </div>
+                  </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="termsConditions">
@@ -142,23 +155,21 @@
                         required </mat-error>
                     </mat-form-field>
                   </div>
-                </div>
-
-                <div class="row"  style="margin-left: 10%;">
                   <div class=" col-md-2">
                     <mat-label>REMARKS</mat-label>
-                    </div>
+                  </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label></mat-label>
                       <input matInput formControlName="remarks">
                     </mat-form-field>
                   </div>
-
-                    <div class="col-md-4" style="margin-left: 100px; margin-top: -22px;">
-                      <app-file-upload class="example-width form-control-sm" formControlName="lopUpload"
-                        (change)="onSelectFile($event)"></app-file-upload>
-                    </div>
+                </div>
+                <div class="row" style="margin-left:3%;">
+                  <div class="col-md-4" style="margin-left: 100px; margin-top: -22px;">
+                    <app-file-upload class="example-width form-control-sm" formControlName="lopUpload"
+                      (change)="onSelectFile($event)"></app-file-upload>
+                  </div>
                   <div class="row" *ngIf="(filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
                     <div class="iconCard">
                       <span><i class="far fa-file-alt docIcons"></i>{{filePathUrl?.split('##').pop()}}</span>
@@ -167,11 +178,8 @@
                       </a>
                     </div>
                   </div>
-
                 </div>
-
-
-<!-- <div class="col-md-4">
+                <!-- <div class="col-md-4">
   <app-file-upload  class="example-width form-control-sm" formControlName="lopUpload"
     (change)="onSelectFile($event)"></app-file-upload>
 </div>
@@ -183,7 +191,7 @@
     <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
   </a>
 </div> -->
-  <!-- </div>  -->
+                <!-- </div>  -->
 
                 <!-- <div class="row">
                   <div class="col-md-4">
@@ -200,9 +208,10 @@
                   </div>
                 </div> -->
                 <br>
-
                 <div style="overflow-x: auto;">
-                  <table  [formGroup]="purchaseOrderDetail"  *ngFor="let purchaseOrderDetail of docForm.get('purchaseOrderDetail')['controls']; let i = index" id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                  <table [formGroup]="purchaseOrderDetail"
+                    *ngFor="let purchaseOrderDetail of docForm.get('purchaseOrderDetail')['controls']; let i = index"
+                    id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                     <thead class="">
                       <tr>
                         <th style="width: 1%;"></th>
@@ -225,14 +234,15 @@
                         <!-- <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;"    *ngIf="purchaseOrderDetail.controls.discountType.value == 58 || purchaseOrderDetail.controls.discountType.value == 59 ">Discount</th> -->
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%;border-radius: 0.07rem;">Discount</th>
+                   width: 12%;border-radius: 0.07rem;"
+                          *ngIf="purchaseOrderDetail.controls.discountType.value == 58 || purchaseOrderDetail.controls.discountType.value == 59 ">
+                          Discount</th>
                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                     width: 12%; border-radius: 0.05rem;">Net Price</th>
 
                       </tr>
                     </thead>
-                    <ng-container
-                     >
+                    <ng-container>
                       <tbody>
                         <tr>
                           <td>
@@ -250,7 +260,6 @@
                               </mat-select>
                             </mat-form-field>
                           </td>
-
                           <td class="padding-both-side-2">
                             <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>EDD</mat-label>
@@ -263,10 +272,10 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>EOD</mat-label>
                               <input matInput [matDatepicker]="picker2" formControlName="eddObj"
-                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="edd" 
-                                 (dateChange)="getDateString($event, 'edd',0)"> 
+                                (dateInput)="$event.value.format('DD/MM/YYYY')" id="edd"
+                                (dateChange)="getDateString($event, 'edd',0)">
                               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                              <mat-datepicker #picker2></mat-datepicker>                         
+                              <mat-datepicker #picker2></mat-datepicker>
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
@@ -283,18 +292,18 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label> Qty</mat-label>
                               <input matInput name="qty{{i}}" formControlName="qty"
-                                (keypress)="keyPressNumberInt($event)"  (keyup)="calculatePrice(purchaseOrderDetail,i)" maxlength="9">
+                                (keypress)="keyPressNumberInt($event)" (keyup)="calculatePrice(purchaseOrderDetail,i)"
+                                maxlength="9">
                             </mat-form-field>
                           </td>
-
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>Unit Price</mat-label>
                               <input matInput name="unitPrice{{i}}" formControlName="unitPrice"
-                                (keypress)="keyPressNumberDouble($event)" (keyup)="calculatePrice(purchaseOrderDetail,i)" maxlength="15">
+                                (keypress)="keyPressNumberDouble($event)"
+                                (keyup)="calculatePrice(purchaseOrderDetail,i)" maxlength="15">
                             </mat-form-field>
                           </td>
-
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>Price</mat-label>
@@ -304,14 +313,14 @@
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>Discount Type</mat-label>
-                              <mat-select name="discountType{{i}}" formControlName="discountType" (selectionChange)="calculateNetPrice(purchaseOrderDetail,i)">
+                              <mat-select name="discountType{{i}}" formControlName="discountType"
+                                (selectionChange)="calculateNetPrice(purchaseOrderDetail,i)">
                                 <mat-option *ngFor="let title of discountTypeList" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
                               </mat-select>
                             </mat-form-field>
                           </td>
-                         
                           <!-- Discount(%) start -->
                           <!-- <td class="padding-both-side-2" *ngIf="purchaseOrderDetail.controls.discountType.value !== 58 && purchaseOrderDetail.controls.discountType.value !== 59"
                             >
@@ -324,35 +333,28 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>Discount(%)</mat-label>
                               <input matInput name="discountPercent{{i}}" formControlName="discountPercent"
-                                (keypress)="keyPressNumberDouble($event)" (keyup)="calculateNetPrice(purchaseOrderDetail,i)" maxlength="5" (blur)="discountPercentageValidation(purchaseOrderDetail,i)" >
-                               <mat-error  *ngIf="purchaseOrderDetail.controls['discountPercent'].hasError('pattern')">
+                                (keypress)="keyPressNumberDouble($event)"
+                                (keyup)="calculateNetPrice(purchaseOrderDetail,i)" maxlength="5"
+                                (blur)="discountPercentageValidation(purchaseOrderDetail,i)">
+                              <mat-error *ngIf="purchaseOrderDetail.controls['discountPercent'].hasError('pattern')">
                                 Discount percentage should be of minimum 1% and Maximum 100%.
-                                </mat-error> 
-                              </mat-form-field>
+                              </mat-error>
+                            </mat-form-field>
                           </td>
                           <td class="padding-both-side-2"
-                          *ngIf="purchaseOrderDetail.controls.discountType.value === 59">
-                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-label>Discount</mat-label>
-                            <input matInput name="discount{{i}}" formControlName="discount"
-                              (keypress)="keyPressNumberInt($event)" (keyup)="calculateNetPrice(purchaseOrderDetail,i)" maxlength="9">
-                          </mat-form-field>
-                        </td> -->
-
-                        <td class="padding-both-side-2">
-                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-label>Discount</mat-label>
-                            <input matInput name="discount{{i}}" formControlName="discount"
-                              (keypress)="keyPressNumberInt($event)" (keyup)="calculateNetPrice(purchaseOrderDetail,i)" maxlength="9">
-                          </mat-form-field>
-                        </td>
-
-
+                            *ngIf="purchaseOrderDetail.controls.discountType.value === 59">
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>Discount</mat-label>
+                              <input matInput name="discount{{i}}" formControlName="discount"
+                                (keypress)="keyPressNumberInt($event)"
+                                (keyup)="calculateNetPrice(purchaseOrderDetail,i)" maxlength="9">
+                            </mat-form-field>
+                          </td>
                           <!-- <td class="padding-both-side-2" *ngIf="purchaseOrderDetail.controls.discountType.value != 58">
                           </td> -->
-                      <!-- Discount(%) End -->
+                          <!-- Discount(%) End -->
 
-                      <!-- Discount start -->
+                          <!-- Discount start -->
                           <!-- <td class="padding-both-side-2"
                           *ngIf="purchaseOrderDetail.controls.discountType.value === 59">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -363,8 +365,7 @@
                         </td>
                         <td class="padding-both-side-2" *ngIf="purchaseOrderDetail.controls.discountType.value != 59 && purchaseOrderDetail.controls.discountType.value != 58">
                         </td> -->
-                      <!-- Discount End -->
-
+                          <!-- Discount End -->
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>Net Price</mat-label>
@@ -390,30 +391,26 @@
                       <input matInput formControlName="subTotal" [readonly]="true">
                     </mat-form-field>
                   </div>
-                
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Discount</mat-label>
                       <input matInput formControlName="discount" [readonly]="true">
                     </mat-form-field>
                   </div>
-                  
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Other Charges</mat-label>
-                      <input matInput formControlName="otherCharges" (keypress)="keyPressNumberDouble($event)" maxlength="15" (keyup)="calculateFinalsubTotalDiscountAndTotal()">
+                      <input matInput formControlName="otherCharges" (keypress)="keyPressNumberDouble($event)"
+                        maxlength="15" (keyup)="calculateFinalsubTotalDiscountAndTotal()">
                     </mat-form-field>
                   </div>
-                  
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Total</mat-label>
-                      <input matInput formControlName="total"  [readonly]="true">
+                      <input matInput formControlName="total" [readonly]="true">
                     </mat-form-field>
                   </div>
                 </div>
-
-
                 <br>
                 <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
@@ -421,18 +418,16 @@
                       style="margin-left: 44%;background-color: #34d034;">Submit</button>
                     <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="primary"
                       style="margin-left: 44%;background-color: #34d034;">Update</button>
-                      <button color="primary" type="button" class="btn-space" (click)="reset()"
+                    <button color="primary" type="button" class="btn-space" (click)="reset()"
                       mat-raised-button>Reset</button>
                     <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
-             
-                    </div>
-                    </div>
-                    </form>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </section>
-                    
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

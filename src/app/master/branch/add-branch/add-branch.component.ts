@@ -190,13 +190,6 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
             'addressOneDistrict':this.districtList[0].id,
             'addressOneCity':this.cityList[0].id,
             })
-          }else if(this.edit){
-            this.docForm.patchValue({
-              'addressOneCountry':this.countryList[0].id,
-               'addressOneState':this.stateList[0].id,
-               'addressOneDistrict':this.districtList[0].id,
-               'addressOneCity':this.cityList[0].id,
-               })
           }else if(this.editDetails.addressOneZipCode==null){
             this.docForm.patchValue({
             'addressOneCountry':this.countryList[0].id,
@@ -204,13 +197,22 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
             'addressOneDistrict':this.districtList[0].id,
             'addressOneCity':this.cityList[0].id,
             })
+          }else if(this.editDetails.addressOneZipCode !=null){
+            for(let i=0;i<this.editDetails.length;i++){
+              this.docForm.patchValue({
+                'addressOneCountry':this.countryList[i].id,
+                'addressOneState':this.stateList[i].id,
+                'addressOneDistrict':this.districtList[i].id,
+                'addressOneCity':this.cityList[i].id,
+                })
+            }
+          }else{
+            this.notificationService.showNotification(
+              "snackbar-danger",
+              res.message,
+              "top",
+              "right");
           }
-        }else{
-          this.notificationService.showNotification(
-            "snackbar-danger",
-            res.message,
-            "top",
-            "right");
         }
       })
     }
@@ -252,6 +254,7 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
      this.edit = true;
      this.editDetails = res.branchbean;
      this.getPincodeDetails(res.branchbean.addressOneZipCode)
+
      if(res.branchbean.addressOneCountry!=null){
       this.fetchCountryBasedState( res.branchbean.addressOneCountry);
      }

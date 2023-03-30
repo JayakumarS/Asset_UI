@@ -68,9 +68,15 @@ export class AddPurchaseOrderComponent implements OnInit {
   itemList:[];
   categoryList:[];
   locationDdList:[];
+  companyId: any;
+  stateList=[];
+  districtList=[];
+  countryList=[];
+  cityList=[];
 
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
-  companyId: any;
+  editDetails: any;
+  
   constructor(private fb: FormBuilder,
     public router: Router,
     private notificationService: NotificationService,
@@ -94,6 +100,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       vendorCity: [""],
       vendorState: [""],
       vendorCountry: [""],
+      vendorDistrict:[""],
       vendorZip: [""],
       destinationLocation: [""],
       termsConditions: [""],
@@ -132,8 +139,9 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    
+  
+    this.docForm.get("vendorAddress").disable();
+    this.docForm.get("vendorZip").disable();
 
     //category Type list
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 11).subscribe({
@@ -246,7 +254,47 @@ export class AddPurchaseOrderComponent implements OnInit {
          }
        );
     }
-
+ //// country ,state and city dropdowns /////////////////////
+ getPincodeDetails(pincode){
+  if(pincode!=""){
+    this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+      if(res.success){
+        this.stateList = res.stateList;
+        this.districtList = res.districtList;
+        this.countryList = res.countryList;
+        this.cityList = res.cityList;
+        if(!this.edit){
+          this.docForm.patchValue({
+         'vendorCountry':this.countryList[0].id,
+          'vendorState':this.stateList[0].id,
+          'vendorDistrict':this.districtList[0].id,
+          'vendorCity':this.cityList[0].id,
+          })
+        }else if(this.edit){
+          this.docForm.patchValue({
+            'vendorCountry':this.countryList[0].id,
+             'vendorState':this.stateList[0].id,
+             'vendorDistrict':this.districtList[0].id,
+             'vendorCity':this.cityList[0].id,
+             })
+        }else if(this.editDetails.addressOneZipCode==null){
+          this.docForm.patchValue({
+          'vendorCountry':this.countryList[0].id,
+          'vendorState':this.stateList[0].id,
+          'vendorDistrict':this.districtList[0].id,
+          'vendorCity':this.cityList[0].id,
+          })
+        }
+      }else{
+        this.notificationService.showNotification(
+          "snackbar-danger",
+          res.message,
+          "top",
+          "right");
+      }
+    })
+  }
+}
   onSubmit() {
     if (this.docForm.valid) {
       this.purchaseOrder = this.docForm.value;
@@ -301,8 +349,8 @@ export class AddPurchaseOrderComponent implements OnInit {
         this.spinner.hide();
         let hdate = this.commonService.getDateObj(res.purchaseOrder.poDate);
         this.fetchItem(this.companyId);
-
-
+        this.getPincodeDetails(res.purchaseOrder.vendorZip)
+       
         this.docForm.patchValue({
           'purchaseOrderId': res.purchaseOrder.purchaseOrderId,
           'poDate': res.purchaseOrder.poDate,
@@ -313,6 +361,7 @@ export class AddPurchaseOrderComponent implements OnInit {
           'vendorCity': res.purchaseOrder.vendorCity,
           'vendorState': res.purchaseOrder.vendorState,
           'vendorCountry': res.purchaseOrder.vendorCountry,
+          'vendorDistrict':res.purchaseOrder.vendorDistrict,
           'vendorZip': res.purchaseOrder.vendorZip,
           'destinationLocation': res.purchaseOrder.destinationLocation,
           'termsConditions': res.purchaseOrder.termsConditions,
@@ -549,13 +598,13 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.httpService.get<any>(this.commonService.getVendorAddressDetails + "?vendorId=" + vendorId).subscribe({
       next: (data) => {
         this.docForm.patchValue({
-          'vendorId': data.id,
-          'vendorAddress': data.address,
-          'vendorCity': data.cityName,
-          'vendorState': data.stateName,
-          'vendorCountry': data.countryName,
-          'vendorZip': data.zip,
+          'vendorAddress': data.vendorList[0].venAddress,
+          'vendorCity': data.vendorList[0].city,
+          'vendorState': data.vendorList[0].state,
+          'vendorCountry': data.vendorList[0].country,
+          'vendorZip': data.vendorList[0].zipcode,
         })
+        this.getPincodeDetails(data.vendorList[0].zipcode)
       },
       error: (error) => {
       }
@@ -753,6 +802,12 @@ export class AddPurchaseOrderComponent implements OnInit {
    
   }
 
-
+  keyPressNumeric2(event: any) {
+    const pattern = /[0-9 +]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
 }
