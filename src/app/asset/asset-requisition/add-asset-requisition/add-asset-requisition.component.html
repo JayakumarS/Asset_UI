@@ -35,7 +35,7 @@
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
 
                             <mat-select formControlName="requestedBy"   required>
-                                <mat-option *ngFor="let data of locationDdList" [value]="data.name" >
+                                <mat-option *ngFor="let data of locationDdList" [value]="data.stateName" >
                                     {{data.text}}
                                 </mat-option>
                             </mat-select>
