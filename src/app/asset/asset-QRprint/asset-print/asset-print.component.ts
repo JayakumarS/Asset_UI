@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
@@ -87,7 +86,6 @@ export class AssetPrintComponent extends UnsubscribeOnDestroyAdapter implements 
   }
  
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
   @ViewChild(MatMenuTrigger)
@@ -188,7 +186,6 @@ export class AssetPrintComponent extends UnsubscribeOnDestroyAdapter implements 
     this.exampleDatabase = new AssetPrintService(this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
-      this.paginator,
       this.sort,
       this.docForm
     );
@@ -292,13 +289,11 @@ export class ExampleDataSource extends DataSource<AssetPrintReport> {
   renderedData: AssetPrintReport[] = [];
   constructor(
     public exampleDatabase: AssetPrintService,
-    public paginator: MatPaginator,
     public _sort: MatSort,
     public docForm: FormGroup
   ) {
     super();
     // Reset to the first page when the user changes the filter.
-    this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<AssetPrintReport[]> {
@@ -307,7 +302,6 @@ export class ExampleDataSource extends DataSource<AssetPrintReport> {
       this.exampleDatabase.dataChange,
       this._sort.sortChange,
       this.filterChange,
-      this.paginator.page,
     ];
     this.exampleDatabase.assetListUrl(this.docForm.value);
     return merge(...displayDataChanges).pipe(
@@ -329,11 +323,7 @@ export class ExampleDataSource extends DataSource<AssetPrintReport> {
         // Sort filtered data
         const sortedData = this.sortData(this.filteredData.slice());
         // Grab the page's slice of the filtered sorted data.
-        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-        this.renderedData = sortedData.splice(
-          startIndex,
-          this.paginator.pageSize
-        );
+        this.renderedData = sortedData
         return this.renderedData;
       })
     );
