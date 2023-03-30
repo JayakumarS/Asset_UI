@@ -70,6 +70,7 @@ export class MainComponent implements OnInit {
   bookValueArray = [];
   bookValueArrayData = [];
   pieValueArray = [];
+  doughnutValueArray =[];
   columnOuterValueArray = [];
   columnInnerValueArray = [];
   userLogListDashboard = [];
@@ -104,9 +105,7 @@ export class MainComponent implements OnInit {
 
   // Doughnut chart start
   public doughnutChartLabels: string[] = ["Refurbished", "In stock", "In repair", "Damaged","New", "Existing","scarp"];
-  // public doughnutChartLabels: string[];
   public doughnutChartData: number[] = [2, 3, 5, 1, 6,4,2];
-  // public doughnutChartData:number[];
   public doughnutChartLegend = false;
   public doughnutChartColors: any[] = [
     {
@@ -174,6 +173,8 @@ configUserLog: {
   companyLastAuditDate: any;
   companyLastAuditDoneBy: any;
   compltedProfile: any;
+  // doughnutChartLabels: string[];
+  // doughnutChartData:  number[];
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
@@ -384,6 +385,17 @@ configUserLog: {
       }
       
       //For Donut Data
+      // this.doughnutValueArray=doughnutChartData.getDonutName;
+      // this.doughnutValueArray=doughnutChartData.getDonutValue;
+
+      // //   this.doughnutChartLabels = doughnutChartData.getDonutName;
+      // //   this.doughnutChartData = doughnutChartData.getDonutValue;
+      // this.doughnutChartOptions.series[0] ={
+      //   type: 'pie',
+      //   data: this.doughnutValueArray
+      // }
+      // console.log(this.doughnutValueArray[0].y);
+
       if(doughnutChartData.getDonutValue.length != 0){
         this.doughnutChartLabels = doughnutChartData.getDonutName;
         this.doughnutChartData = doughnutChartData.getDonutValue;
