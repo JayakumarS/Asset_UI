@@ -36,6 +36,11 @@ export class AddBranchComponent implements OnInit {
   value3=[];
   editflag:boolean=false;
   companyId: string
+  stateList=[];
+  districtList=[];
+  countryList=[];
+  cityList=[];
+  editDetails: any;
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
     private httpService: HttpServiceService,
@@ -57,6 +62,7 @@ export class AddBranchComponent implements OnInit {
         addressOne:[""],
         addressOneCountry:[""],
         addressOneState:[""],
+        addressOneDistrict:[""],
         addressOneCity:[""],
         addressOneZipCode:[""],
         userId:[""],
@@ -168,7 +174,50 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
   }
 
 
+  //// country ,state and city dropdowns /////////////////////
+  getPincodeDetails(pincode){
+    if(pincode!=""){
+      this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+        if(res.success){
+          this.stateList = res.stateList;
+          this.districtList = res.districtList;
+          this.countryList = res.countryList;
+          this.cityList = res.cityList;
+          if(!this.edit){
+            this.docForm.patchValue({
+           'addressOneCountry':this.countryList[0].id,
+            'addressOneState':this.stateList[0].id,
+            'addressOneDistrict':this.districtList[0].id,
+            'addressOneCity':this.cityList[0].id,
+            })
+          }else if(this.edit){
+            this.docForm.patchValue({
+              'addressOneCountry':this.countryList[0].id,
+               'addressOneState':this.stateList[0].id,
+               'addressOneDistrict':this.districtList[0].id,
+               'addressOneCity':this.cityList[0].id,
+               })
+          }else if(this.editDetails.addressOneZipCode==null){
+            this.docForm.patchValue({
+            'addressOneCountry':this.countryList[0].id,
+            'addressOneState':this.stateList[0].id,
+            'addressOneDistrict':this.districtList[0].id,
+            'addressOneCity':this.cityList[0].id,
+            })
+          }
+        }else{
+          this.notificationService.showNotification(
+            "snackbar-danger",
+            res.message,
+            "top",
+            "right");
+        }
+      })
+    }
+    
+  }
 
+  
   validateDepartmentCode(){
 
   }
@@ -201,6 +250,8 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
       console.log(id);
     
      this.edit = true;
+     this.editDetails = res.branchbean;
+     this.getPincodeDetails(res.branchbean.addressOneZipCode)
      if(res.branchbean.addressOneCountry!=null){
       this.fetchCountryBasedState( res.branchbean.addressOneCountry);
      }
@@ -226,6 +277,7 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
       'addressOneCountry' :  res.branchbean.addressOneCountry,
       'addressOneState' :  res.branchbean.addressOneState,
       'addressOneCity' :  res.branchbean.addressOneCity,
+      'addressOneDistrict':res.branchbean.addressOneDistrict,
       'addressOneZipCode' :  res.branchbean.addressOneZipCode,
       'telephoneNo' :  res.branchbean.telephoneNo,
       'addressOne' :  res.branchbean.addressOne,
@@ -295,6 +347,7 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
     addressOneCountry:[],
     addressOneState:[],
     addressOneCity:[],
+    addressOneDistrict:[],
     addressOneZipCode:[],
     telephoneNo:[],
     addressOne:[],
