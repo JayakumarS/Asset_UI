@@ -114,6 +114,7 @@ export class AssetProfileViewComponent implements OnInit {
   vehicleFlag: boolean = false;
   plantFlag: boolean = false;
   isExpand : boolean = true;
+  Auditdate : boolean = true;
   //
 
   isRented: boolean = false;
@@ -338,30 +339,35 @@ fetchAssetName(asset:any){
         
    this.profileViewDetails=res.addAssetBean;
    // Category
-   if(this.profileViewDetails.category==43 || this.profileViewDetails.category=='43'){
-    this.computerFlag=true;
-  } else {
-   this.computerFlag=false;
-  }
-  if(this.profileViewDetails.category==40 || this.profileViewDetails.category=='40'){
-   this.furnitureFlag=true;
- } else {
-  this.furnitureFlag=false;
- }
- if(this.profileViewDetails.category==41 || this.profileViewDetails.category=='41'){
-   this.officeFlag=true;
- } else {
-  this.officeFlag=false;
- }
- if(this.profileViewDetails.category==42 || this.profileViewDetails.category=='42'){
-   this.vehicleFlag=true;
- } else {
-  this.vehicleFlag=false;
- }
- if(this.profileViewDetails.category==44 || this.profileViewDetails.category=='44'){
-   this.plantFlag=true;
- } else {
-  this.plantFlag=false;
+//    if(this.profileViewDetails.category==43 || this.profileViewDetails.category=='43'){
+//     this.computerFlag=true;
+//   } else {
+//    this.computerFlag=false;
+//   }
+//   if(this.profileViewDetails.category==40 || this.profileViewDetails.category=='40'){
+//    this.furnitureFlag=true;
+//  } else {
+//   this.furnitureFlag=false;
+//  }
+//  if(this.profileViewDetails.category==41 || this.profileViewDetails.category=='41'){
+//    this.officeFlag=true;
+//  } else {
+//   this.officeFlag=false;
+//  }
+//  if(this.profileViewDetails.category==42 || this.profileViewDetails.category=='42'){
+//    this.vehicleFlag=true;
+//  } else {
+//   this.vehicleFlag=false;
+//  }
+//  if(this.profileViewDetails.category==44 || this.profileViewDetails.category=='44'){
+//    this.plantFlag=true;
+//  } else {
+//   this.plantFlag=false;
+//  }
+ if(this.profileViewDetails.lastAuditedDate=="" ||this.profileViewDetails.lastAuditedDate==null){
+  this.Auditdate=false;
+} else {
+ this.Auditdate=true;
  }
  //
 
