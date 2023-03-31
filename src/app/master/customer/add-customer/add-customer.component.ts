@@ -929,6 +929,13 @@ validateCustomer(event){
             'billingDistrict':this.districtList1[0].id,
             'billingCity':this.cityList1[0].id,
             })
+          }else if(this.edit &&this.editDetails.billingZip==""){
+            this.docForm.patchValue({
+              'billingCountry':this.countryList1[0].id,
+              'billingState':this.stateList1[0].id,
+              'billingDistrict':this.districtList1[0].id,
+              'billingCity':this.cityList1[0].id,
+              })
           }else if(this.editDetails.billingZip==null){
             this.docForm.patchValue({
             'billingCountry':this.countryList1[0].id,
