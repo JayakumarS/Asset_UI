@@ -547,20 +547,36 @@ export class AddGrnComponent implements OnInit {
           'vendorDistrict':this.districtList[0].id,
           'vendorCity':this.cityList[0].id,
           })
-        }else if(this.edit){
+        }else if(this.edit &&this.editDetails.vendorZip==""){
           this.docForm.patchValue({
             'vendorCountry':this.countryList[0].id,
              'vendorState':this.stateList[0].id,
              'vendorDistrict':this.districtList[0].id,
              'vendorCity':this.cityList[0].id,
              })
-        }else if(this.editDetails.addressOneZipCode==null){
+        }else if(this.editDetails.vendorZip==null){
           this.docForm.patchValue({
           'vendorCountry':this.countryList[0].id,
           'vendorState':this.stateList[0].id,
           'vendorDistrict':this.districtList[0].id,
           'vendorCity':this.cityList[0].id,
           })
+        }else if(this.editDetails.vendorZip!=""){
+          this.docForm.patchValue({
+          'vendorCountry':this.countryList[0].id,
+          'vendorState':this.stateList[0].id,
+          'vendorDistrict':this.districtList[0].id,
+          'vendorCity':this.cityList[0].id,
+          })
+        }else if(this.editDetails.vendorZip !=null){
+          for(let i=0;i<this.editDetails.length;i++){
+            this.docForm.patchValue({
+              'vendorCountry':this.countryList[i].id,
+              'vendorState':this.stateList[i].id,
+              'vendorDistrict':this.districtList[i].id,
+              'vendorCity':this.cityList[i].id,
+              })
+          }
         }
       }else{
         this.notificationService.showNotification(

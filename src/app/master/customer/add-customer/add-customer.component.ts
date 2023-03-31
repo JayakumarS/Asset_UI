@@ -886,7 +886,21 @@ validateCustomer(event){
             'district':this.districtList[0].id,
             'city':this.cityList[0].id,
             })
+          }else if(this.edit &&this.editDetails.postalcode==""){
+            this.docForm.patchValue({
+              'billingCountry':this.countryList1[0].id,
+              'billingState':this.stateList1[0].id,
+              'billingDistrict':this.districtList1[0].id,
+              'billingCity':this.cityList1[0].id,
+              })
           }else if(this.editDetails.postalcode==null){
+            this.docForm.patchValue({
+            'country':this.countryList[0].id,
+            'state':this.stateList[0].id,
+            'district':this.districtList[0].id,
+            'city':this.cityList[0].id,
+            })
+          }else if(this.editDetails.postalcode !=""){
             this.docForm.patchValue({
             'country':this.countryList[0].id,
             'state':this.stateList[0].id,
@@ -937,6 +951,13 @@ validateCustomer(event){
               'billingCity':this.cityList1[0].id,
               })
           }else if(this.editDetails.billingZip==null){
+            this.docForm.patchValue({
+            'billingCountry':this.countryList1[0].id,
+            'billingState':this.stateList1[0].id,
+            'billingDistrict':this.districtList1[0].id,
+            'billingCity':this.cityList1[0].id,
+            })
+          }else if(this.editDetails.billingZip!=""){
             this.docForm.patchValue({
             'billingCountry':this.countryList1[0].id,
             'billingState':this.stateList1[0].id,
@@ -995,6 +1016,13 @@ validateCustomer(event){
             'shipperDistrict':this.districtList2[0].id,
             'shipperCity':this.cityList2[0].id,
             })
+          }else if(this.editDetails.shipperZip !=""){
+            this.docForm.patchValue({
+            'shipperCountry':this.countryList2[0].id,
+            'shipperState':this.stateList2[0].id,
+            'shipperDistrict':this.districtList2[0].id,
+            'shipperCity':this.cityList2[0].id,
+            })
           }else if(this.editDetails.shipperZip !=null){
             for(let i=0;i<this.editDetails.length;i++){
               this.docForm.patchValue({
@@ -1040,6 +1068,13 @@ validateCustomer(event){
               'deliveryCity':this.cityList3[0].id,
               })
           }else if(this.editDetails.deliveryZip==null){
+            this.docForm.patchValue({
+            'deliveryCountry':this.countryList3[0].id,
+            'deliveryState':this.stateList3[0].id,
+            'deliveryDistrict':this.districtList3[0].id,
+            'deliveryCity':this.cityList3[0].id,
+            })
+          }else if(this.editDetails.deliveryZip!=""){
             this.docForm.patchValue({
             'deliveryCountry':this.countryList3[0].id,
             'deliveryState':this.stateList3[0].id,
