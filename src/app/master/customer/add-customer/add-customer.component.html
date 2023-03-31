@@ -16,7 +16,7 @@
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="auditorname" [ngModel]="value"
                   (ngModelChange)="value=$event.toUpperCase()" maxlength="20" (keypress)="string($event)"
-                 (change)="getAuditor($event.target.value)" required>
+                  (change)="getAuditor($event.target.value)" required>
                 <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
                   Customer name is required
                 </mat-error><mat-error *ngIf="docForm.get('auditorname').hasError('customer_master')">
@@ -61,15 +61,15 @@
 
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-              
+
 
                 <input matInput formControlName="email" maxlength="50">
-                                        <mat-error *ngIf="docForm.get('email').hasError('pattern')">
-                                          Valid Email ID Required
-                                        </mat-error>
-                                        <mat-error *ngIf="docForm.get('email').hasError('required')">
-                                          Valid Email Id Required
-                                        </mat-error>
+                <mat-error *ngIf="docForm.get('email').hasError('pattern')">
+                  Valid Email ID Required
+                </mat-error>
+                <mat-error *ngIf="docForm.get('email').hasError('required')">
+                  Valid Email Id Required
+                </mat-error>
 
               </mat-form-field>
             </div>
@@ -79,7 +79,7 @@
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="phone" maxlength="10" (keypress)="keyPressNumeric($event)" >
+                <input matInput formControlName="phone" maxlength="10" (keypress)="keyPressNumeric($event)">
 
               </mat-form-field>
             </div>
@@ -90,7 +90,7 @@
 
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="address" maxlength="50" >
+                <input matInput formControlName="address" maxlength="50">
 
               </mat-form-field>
             </div>
@@ -134,18 +134,14 @@
           </div>
         </div>
          -->
-
             <div class=" col-md-2">
               <mat-label>PIN CODE</mat-label>
             </div>
-
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="postalcode" maxlength="6"
-                  (change)="pincodevalidation($event.target.value)" (keypress)="keyPressNumeric($event)">
-
+                  (change)="getPincodeDetails($event.target.value)" (keypress)="keyPressNumeric($event)">
               </mat-form-field>
-
             </div>
             &nbsp; &nbsp; &nbsp;
             <div class=" col-md-2">
@@ -153,8 +149,8 @@
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="country"  (selectionChange)="fetchCountryBasedState3($event.value)">
-                  <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                <mat-select class="inputTxt" formControlName="country">
+                  <mat-option *ngFor="let title of countryList" [value]="title.id">
                     {{title.text}}
                   </mat-option>
                 </mat-select>
@@ -162,31 +158,16 @@
                   country is required
                 </mat-error>
               </mat-form-field>
-              <!-- <mat-label>CITY</mat-label>
             </div>
-            <div class=" col-md-2" style="margin-left: -45px;">
-
-              <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <input matInput formControlName="city" (keypress)="keyPressString($event)" maxlength="15" >
-
-              </mat-form-field>
-            </div> -->
           </div>
-
-</div>
-
-
-
           <div class="row">
-
             <div class=" col-md-2">
               <mat-label>STATE</mat-label>
             </div>
-
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="state" (selectionChange)="stateBasedCity3($event.value)">
-                  <mat-option *ngFor="let title of countrybasedStateList3" [value]="title.id">
+                <mat-select class="inputTxt" formControlName="state">
+                  <mat-option *ngFor="let title of stateList" [value]="title.id">
                     {{title.text}}
                   </mat-option>
                 </mat-select>
@@ -194,50 +175,32 @@
             </div>
             &nbsp; &nbsp; &nbsp;
             <div class=" col-md-2">
-              <!-- <mat-label>COUNTRY</mat-label>
+              <mat-label>DISTRICT</mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="country" >
-                  <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                <mat-select class="inputTxt" formControlName="district">
+                  <mat-option *ngFor="let title of districtList" [value]="title.id">
                     {{title.text}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="docForm.get('country').hasError('required')">
-                  country is required
-                </mat-error>
-              </mat-form-field> -->
+              </mat-form-field>
+            </div>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
               <mat-label>CITY</mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
-
               <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" formControlName="city" >
-                  <mat-option *ngFor="let title of stateBasedCityList3" [value]="title.id">
+                <mat-select class="inputTxt" formControlName="city">
+                  <mat-option *ngFor="let title of cityList" [value]="title.id">
                     {{title.text}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             &nbsp; &nbsp; &nbsp;
-            <div class=" col-md-2">
-              <mat-label>LOCATION</mat-label>
-            </div>
-            <div class=" col-md-2" style="margin-left: -45px;">
-              <mat-form-field class="example-width form-control-sm" appearance="outline">
-                <!-- <mat-select class="inputTxt" formControlName="location" >
-                  <mat-option *ngFor="let title of locationList" [value]="title.id">
-                    {{title.text}}
-                  </mat-option>
-
-                </mat-select> -->
-                <input matInput formControlName="location" (keypress)="keyPressString($event)" maxlength="15">
-
-              </mat-form-field>
-            </div>
           </div>
-
-
           <div class="row">
             <div class=" col-md-2">
               <mat-label>PAN NO</mat-label>
@@ -290,6 +253,21 @@
 
           <div class="row">
             <div class=" col-md-2">
+              <mat-label>LOCATION</mat-label>
+            </div>
+            <div class=" col-md-2" style="margin-left: -45px;">
+              <mat-form-field class="example-width form-control-sm" appearance="outline">
+                <!-- <mat-select class="inputTxt" formControlName="location" >
+                  <mat-option *ngFor="let title of locationList" [value]="title.id">
+                    {{title.text}}
+                  </mat-option>
+
+                </mat-select> -->
+                <input matInput formControlName="location" (keypress)="keyPressString($event)" maxlength="15">
+              </mat-form-field>
+            </div>
+            &nbsp; &nbsp; &nbsp;
+            <div class=" col-md-2">
               <mat-label>REMARKS</mat-label>
             </div>
             <div class=" col-md-2" style="margin-left: -45px;">
@@ -341,27 +319,36 @@
                 </div>
                 <div class="row">
                   <div class=" col-md-4"></div>
+                    <div class=" col-md-8">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>ZIPCODE</mat-label>
+                      <input matInput formControlName="billingZip" maxlength="6" 
+                      (change)="getBillingPincode($event.target.value)" (keypress)="keyPressNumeric($event)">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-md-4"></div>
                   <div class=" col-md-4">
 
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>COUNTRY</mat-label>
-                    <mat-select formControlName="billingCountry"
-                      (selectionChange)="fetchCountryBasedState($event.value)">
-                      <mat-option *ngFor="let title of countryDdList" [value]="title.id">
-                        {{title.text}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>COUNTRY</mat-label>
+                      <mat-select formControlName="billingCountry">
+                        <mat-option *ngFor="let title of countryList1" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                   <div class=" col-md-4">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label> STATE</mat-label>
-                    <mat-select formControlName="billingState" (selectionChange)="stateBasedCity($event.value)">
-                      <mat-option *ngFor="let title of countrybasedStateList" [value]="title.id">
-                        {{title.text}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> STATE</mat-label>
+                      <mat-select formControlName="billingState" >
+                        <mat-option *ngFor="let title of stateList1" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                   <!-- <div class=" col-md-4"></div>
                   <div class=" col-md-4">
@@ -381,21 +368,24 @@
                 <div class="row">
                   <div class=" col-md-4"></div>
                   <div class=" col-md-4">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>CITY</mat-label>
-                    <mat-select formControlName="billingCity">
-                      <mat-option *ngFor="let title of stateBasedCityList" [value]="title.id">
-                        {{title.text}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> DISTRICT</mat-label>
+                      <mat-select formControlName="billingDistrict" (selectionChange)="stateBasedCity($event.value)">
+                        <mat-option *ngFor="let title of districtList1" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                   <div class=" col-md-4">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label> ZIPCODE</mat-label>
-                    <input matInput formControlName="billingZip" maxlength="6"
-                   (keypress)="keyPressNumeric($event)">
-                  </mat-form-field>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>CITY</mat-label>
+                      <mat-select formControlName="billingCity">
+                        <mat-option *ngFor="let title of cityList1" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                   <!-- <div class=" col-md-4"></div>
                   <div class=" col-md-4">
@@ -424,14 +414,12 @@
                     <mat-label>Same As Billing Address</mat-label>
                   </div>
                   <div class=" col-md-1">
-
                     <div class=" col-md-1" alignn="right" style="margin-left: 20px;">
-
-                        <mat-checkbox (change)="active()" ngInit="checked=true" formControlName="isactive"></mat-checkbox>
-                      </div>
-
+                      <mat-checkbox (change)="active()" ngInit="checked=true" formControlName="isactive"></mat-checkbox>
                     </div>
-                </div>  
+
+                  </div>
+                </div>
 
               </div>
 
@@ -439,8 +427,6 @@
 
 
               <div class=" col-md-5">
-              
-
                 <div class="row">
                   <div class=" col-md-4">
                     <mat-label>SHIPPING ADDRESS</mat-label>
@@ -448,10 +434,20 @@
                   <div class=" col-md-8">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="shipperAddress" maxlength="50">
-
                     </mat-form-field>
                   </div>
                 </div>
+                <div class="row">
+                  <div class=" col-md-4"></div>
+                    <div class=" col-md-8">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>ZIPCODE</mat-label>
+                      <input matInput formControlName="shipperZip" maxlength="6" 
+                      (change)="getShipperPincode($event.target.value)" (keypress)="keyPressNumeric($event)">
+                    </mat-form-field>
+                  </div>
+                </div>
+
                 <div class="row">
                   <div class=" col-md-4"></div>
                   <div class=" col-md-4">
@@ -459,29 +455,29 @@
                       <mat-label>COUNTRY</mat-label>
                       <mat-select formControlName="shipperCountry"
                         (selectionChange)="fetchCountryBasedState1($event.value)">
-                        <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                        <mat-option *ngFor="let title of countryList2" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    </div>
-                    <div class=" col-md-4">
+                  </div>
+                  <div class=" col-md-4">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> STATE</mat-label>
                       <mat-select formControlName="shipperState" (selectionChange)="stateBasedCity1($event.value)">
-                        <mat-option *ngFor="let title of countrybasedStateList1" [value]="title.id">
+                        <mat-option *ngFor="let title of stateList2" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    </div>
-                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  </div>
+                  <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>State</mat-label>
                       <input matInput formControlName="shipperState" (keypress)="keyPressString($event)">
 
                     </mat-form-field> -->
-                  </div>
-                  <!-- <div class=" col-md-4"></div>
+                </div>
+                <!-- <div class=" col-md-4"></div>
                   <div class=" col-md-4">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>CITY</mat-label>
@@ -497,28 +493,25 @@
                   <div class=" col-md-4"></div>
                   <div class=" col-md-4">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>CITY</mat-label>
-                      <mat-select formControlName="shipperCity">
-                        <mat-option *ngFor="let title of stateBasedCityList1" [value]="title.id">
+                      <mat-label>DISTRICT</mat-label>
+                      <mat-select formControlName="shipperDistrict">
+                        <mat-option *ngFor="let title of districtList2" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    </div>
-                    <div class=" col-md-4">
+                  </div> 
+                  <div class=" col-md-4">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="shipperZip" maxlength="6"
-                     (keypress)="keyPressNumeric($event)" (keypress)="keyPressNumeric($event)">
+                      <mat-label>CITY</mat-label>
+                      <mat-select formControlName="shipperCity">
+                        <mat-option *ngFor="let title of cityList2" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
                     </mat-form-field>
-                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="shipperZip" maxlength="6" placeholder="ZipCode"
-                        (change)="zipcodevalidation1($event.target.value)" (keypress)="keyPressNumeric($event)">
-                      <mat-error *ngIf="docForm.get('shipperZip').hasError('shipper')">
-                        please enter valid zip code
-                      </mat-error>
-                    </mat-form-field> -->
                   </div>
+              
 
                 </div>
                 <div class="row">
@@ -530,35 +523,35 @@
                       <input matInput formControlName="deliveryAddress" maxlength="50">
                     </mat-form-field>
                   </div>
+                </div><div class="row">
+                  <div class=" col-md-4"></div>
+
+                  <div class=" col-md-8">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>ZIPCODE</mat-label>
+                    <input matInput formControlName="deliveryZip" maxlength="6" 
+                    (change)="getDeliveryPincode($event.target.value)" (keypress)="keyPressNumeric($event)">
+                  </mat-form-field>
+                </div>
+
                 </div>
                 <div class="row">
                   <div class=" col-md-4"></div>
                   <div class=" col-md-4">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>COUNTRY</mat-label>
-                      <mat-select formControlName="deliveryCountry"
-                        (selectionChange)="fetchCountryBasedState2($event.value)">
-                        <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                      <mat-select formControlName="deliveryCountry">
+                        <mat-option *ngFor="let title of countryList3" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>State</mat-label>
-                      <input matInput formControlName="deliveryState" (keypress)="keyPressString($event)">
-
-                    </mat-form-field> -->
                   </div>
                   <div class=" col-md-4">
-                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>City</mat-label>
-                      <input matInput formControlName="deliveryCity" (keypress)="keyPressString($event)">
-
-                    </mat-form-field> -->
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> STATE</mat-label>
-                      <mat-select formControlName="deliveryState" (selectionChange)="stateBasedCity2($event.value)">
-                        <mat-option *ngFor="let title of countrybasedStateList2" [value]="title.id">
+                      <mat-select formControlName="deliveryState" >
+                        <mat-option *ngFor="let title of stateList3" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
@@ -569,34 +562,23 @@
                 <div class="row">
                   <div class=" col-md-4"></div>
                   <div class=" col-md-4">
-                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="deliveryZip" maxlength="6" placeholder="ZipCode"
-                        (change)="zipcodevalidation3($event.target.value)" (keypress)="keyPressNumeric($event)">
-                      <mat-error *ngIf="docForm.get('deliveryZip').hasError('delivery')">
-                        please enter valid zip code
-                      </mat-error>
-                    </mat-form-field> -->
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>CITY</mat-label>
-                      <mat-select formControlName="deliveryCity">
-                        <mat-option *ngFor="let title of stateBasedCityList2" [value]="title.id">
+                      <mat-label>DISTRICT</mat-label>
+                      <mat-select formControlName="deliveryDistrict">
+                        <mat-option *ngFor="let title of districtList3" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                  </div>
+                  </div> 
                   <div class=" col-md-4">
-                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select class="inputTxt" formControlName="deliveryCountry">
-                        <mat-option *ngFor="let title of countryList" [value]="title.id">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>CITY</mat-label>
+                      <mat-select formControlName="deliveryCity">
+                        <mat-option *ngFor="let title of cityList3" [value]="title.id">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
-                    </mat-form-field> -->
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="deliveryZip" maxlength="6"
-                     (keypress)="keyPressNumeric($event)" (keypress)="keyPressNumeric($event)">
                     </mat-form-field>
                   </div>
                 </div>
@@ -604,7 +586,6 @@
               </div>
             </div>
             <!-- ///////// -->
-
           </mat-tab>
           <!-- //////////////////////////////// -->
           <mat-tab label="CONTACT">
@@ -633,7 +614,6 @@
                           <mat-icon class="col-white">delete</mat-icon>
                         </button>
                       </td>
-
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>NAME</mat-label>
@@ -651,11 +631,11 @@
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>EMAIL</mat-label>
-                          <input matInput formControlName="conEmail" maxlength="20"  *ngIf="edit == false">
-                         <input matInput formControlName="conEmail" maxlength="20"  *ngIf="edit == true" >
-                         <mat-error *ngIf="contactDetail.controls['conEmail'].hasError('pattern')">
-                          please enter valid Email!!!
-                        </mat-error>
+                          <input matInput formControlName="conEmail" maxlength="20" *ngIf="edit == false">
+                          <input matInput formControlName="conEmail" maxlength="20" *ngIf="edit == true">
+                          <mat-error *ngIf="contactDetail.controls['conEmail'].hasError('pattern')">
+                            please enter valid Email!!!
+                          </mat-error>
                         </mat-form-field>
                       </td>
                       <td class="padding-both-side-2">
@@ -672,8 +652,6 @@
                             (keypress)="keyPressNumeric($event)">
                         </mat-form-field>
                       </td>
-
-
                     </tr>
                   </tbody>
                 </ng-container>
@@ -686,20 +664,16 @@
             </div>
             <br>
           </mat-tab>
-
-
           <mat-tab label="INTERNAL NOTES">
             <div class="row">
-
               <div class=" col-md-16" style="margin-left: 73px">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <textarea  matInput formControlName="internalNotes" maxlength="200"
+                  <textarea matInput formControlName="internalNotes" maxlength="200"
                     placeholder="Put On Internal Notes.."></textarea>
 
                 </mat-form-field>
               </div>
             </div>
-
           </mat-tab>
           <mat-tab label="PURCHASE">
             <br>
@@ -709,7 +683,6 @@
               </div>
               <div class=" col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-
                   <mat-select class="inputTxt" formControlName="resPerson">
                     <mat-option *ngFor="let title of locationemailDdList" [value]="title.strId">
                       {{title.text}}
@@ -735,7 +708,6 @@
               </div>
             </div>
           </mat-tab>
-
           <mat-tab label="ACCOUNTING">
             <br>
             <h4 style="margin-left: 30px;">Supplier</h4>
@@ -746,43 +718,34 @@
               </div>
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="acctReceivable"  (keypress)="keyPressNumeric($event)" maxlength="15"  >
-
+                  <input matInput formControlName="acctReceivable" (keypress)="keyPressNumeric($event)" maxlength="15">
                 </mat-form-field>
               </div>
               <div class=" col-md-2">
                 <mat-label>SUPPLIER PAYMENT TERM</mat-label>
               </div>
-
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="supplier" maxlength="15" (keypress)="keyPressNumeric($event)"
-                  >
-
+                  <input matInput formControlName="supplier" maxlength="15" (keypress)="keyPressNumeric($event)">
                 </mat-form-field>
               </div>
             </div>
-
             <div class="row">
               <div class=" col-md-2">
                 <mat-label style="margin-left: 30px;">TOTAL RECEIVABLE</mat-label>
               </div>
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="totalReceivable" maxlength="20" (keypress)="keyPressNumeric($event)"
-                    >
+                  <input matInput formControlName="totalReceivable" maxlength="20" (keypress)="keyPressNumeric($event)">
 
                 </mat-form-field>
               </div>
               <div class=" col-md-2">
                 <mat-label>CREDIT LIMIT</mat-label>
               </div>
-
               <div class=" col-md-4">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="creditLimit" maxlength="15" (keypress)="keyPressNumeric($event)"
-                  >
-
+                  <input matInput formControlName="creditLimit" maxlength="15" (keypress)="keyPressNumeric($event)">
                 </mat-form-field>
               </div>
             </div>
@@ -858,12 +821,9 @@
               </button>
             </div>
             <br>
-
-
           </mat-tab>
         </mat-tab-group>
         <br><br>
-
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
             <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"

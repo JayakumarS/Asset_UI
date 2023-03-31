@@ -191,6 +191,7 @@ export class AddGrnComponent implements OnInit {
    }
 
   onSubmit() {
+    if(this.docForm.value.invoiceNo!=null){
     if (this.docForm.valid) {
       this.grn = this.docForm.value;
       this.spinner.show();
@@ -232,6 +233,14 @@ export class AddGrnComponent implements OnInit {
         "right"
       );
     }
+  }else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please Raise Invoive for this particular GRN...!",
+      "bottom",
+      "center"
+    );
+  }
   }
 
 
@@ -475,6 +484,7 @@ export class AddGrnComponent implements OnInit {
                 'vendorCity': res.purchaseOrder.vendorCity,
                 'vendorState': res.purchaseOrder.vendorState,
                 'vendorCountry': res.purchaseOrder.vendorCountry,
+                'invoiceNo': res.purchaseOrder.invoiceNo
                 // 'deliveryLocId': res.purchaseOrder.destinationLocation
               })
             }

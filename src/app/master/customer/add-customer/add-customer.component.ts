@@ -58,13 +58,31 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
   stateBasedCityList:[];
   countrybasedStateList:[];
   billingState:[];
-  countryList:[];
+  countryList=[];
   stateBasedCityList1:[];
   countrybasedStateList2:[];
   stateBasedCityList2:[];
   companyId: any;
   stateBasedCityList3:[];
   countrybasedStateList3:[];
+  stateList=[];
+  districtList =[];
+  cityList=[];
+  editDetails: any;
+  notificationService: any;
+  stateList1=[];
+  districtList1=[];
+  countryList1=[];
+  cityList1=[];
+  countryList2=[];
+  districtList2=[];
+  cityList2=[];
+  stateList2=[];
+
+  cityList3=[];
+  districtList3=[];
+  countryList3=[];
+  stateList3=[];
   constructor(private fb: FormBuilder,
               private httpService: HttpServiceService,
               private snackBar: MatSnackBar,
@@ -99,6 +117,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       addresstwo: [""],
       city: [""],
       country: [""],
+      district:[""],
       state: [""],
       postalcode: [""],
       panno: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
@@ -109,21 +128,30 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       active: [true],
       location: [""],
       vendorLocation: [""],
+
       shipperAddress: [""],
-      billingAddress: [""],
       shipperState: [""],
       shipperZip: [""],
       shipperCity: [""],
       shipperCountry: [""],
+      shipperDistrict:[""],
+
+      billingAddress: [""],
       billingState: [""],
+      billingDistrict:[""],
       billingCity: [""],
       billingZip: [""],
       billingCountry: [""],
+
+
       deliveryAddress: [""],
       deliveryState: [""],
       deliveryCity: [""],
       deliveryZip: [""],
+      deliveryDistrict:[""],
       deliveryCountry: [""],
+
+
       internalNotes: [""],
       resPerson: [""],
       method: [""],
@@ -418,7 +446,6 @@ locationdropdown(company:any){
     }
   }
 
-
 fetchDetails(cus_id: any): void {
   const obj = {
     editId: cus_id
@@ -426,25 +453,11 @@ fetchDetails(cus_id: any): void {
 
   this.customerService.editCustomer(obj).subscribe({
     next: (res) => {
-      this.getCityDropdown(res.customerBean.state);
-      this.getCityShipperDropdown(res.customerBean.shipperState);
-      this.getCityBillingDropdown(res.customerBean.billingState);
-      this.getCityDeliveryDropdown(res.customerBean.deliveryState);
-      // this.fetchCountryBasedState(res.customerBean.billingCountry);
-      // this.fetchCountryBasedState1(res.customerBean.shipperCountry);
-      // this.fetchCountryBasedState2(res.customerBean.deliveryCountry);
-      // this.stateBasedCity(parseInt(res.customerBean.billingCity));
-      // this.stateBasedCity1(res.customerBean.shipperCity);
-      // this.stateBasedCity2(res.customerBean.deliveryCity);
-      //this.locationdropdown(res.customerBean.getLocationDropdown);
-      this.fetchCountryBasedState(res.customerBean.billingCountry)
-      this.stateBasedCity(res.customerBean.billingState)
-      this.fetchCountryBasedState2(res.customerBean.deliveryCountry)
-      this.stateBasedCity2(res.customerBean.deliveryState)
-      this.fetchCountryBasedState1(parseInt(res.customerBean.shipperCountry))
-      this.fetchCountryBasedState3(parseInt(res.customerBean.country))
-      this.stateBasedCity1(res.customerBean.shipperState)
-      this.stateBasedCity3(res.customerBean.state)
+      this.editDetails = res.customerBean;
+      this.getPincodeDetails(res.customerBean.postalcode);
+      this.getBillingPincode(res.customerBean.billingZip);
+      this.getShipperPincode(res.customerBean.shipperZip);
+      this.getDeliveryPincode(res.customerBean.deliveryZip);
       this.docForm.patchValue({
       'cus_id': res.customerBean.cus_id,
       'auditorname': res.customerBean.auditorname,
@@ -457,31 +470,39 @@ fetchDetails(cus_id: any): void {
       'city': parseInt(res.customerBean.city),
       'state': parseInt(res.customerBean.state),
       'country': res.customerBean.country,
+      'district': res.customerBean.district,
       'postalcode': res.customerBean.postalcode,
       'panno': res.customerBean.panno,
       'vatno': res.customerBean.vatno,
       'gstno': res.customerBean.gstno,
       'cstno': res.customerBean.cstno,
       'remarks': res.customerBean.remarks,
-      'active': res.customerBean.active,
+      'isactive': res.customerBean.isactive,
       'resPerson': res.customerBean.resPerson,
       'location': res.customerBean.location,
       'vendorLocation': res.customerBean.vendorLocation,
+      
       'shipperAddress': res.customerBean.shipperAddress,
-      'billingAddress': res.customerBean.billingAddress,
-      'shipperState': parseInt(res.customerBean.shipperState),
+      'shipperState': res.customerBean.shipperState,
       'shipperZip': res.customerBean.shipperZip,
-      'shipperCity': parseInt(res.customerBean.shipperCity),
-      'shipperCountry': parseInt(res.customerBean.shipperCountry),
-      'billingState': parseInt(res.customerBean.billingState),
-      'billingCity': parseInt(res.customerBean.billingCity),
+      'shipperCity': res.customerBean.shipperCity,
+      'shipperCountry': res.customerBean.shipperCountry,
+      'shipperDistrict':res.customerBean.shipperDistrict,
+      
+      'billingAddress': res.customerBean.billingAddress,
+      'billingState': res.customerBean.billingState,
+      'billingDistrict': res.customerBean.billingDistrict,
+      'billingCity': res.customerBean.billingCity,
       'billingZip': res.customerBean.billingZip,
       'billingCountry': res.customerBean.billingCountry,
+
       'deliveryAddress': res.customerBean.deliveryAddress,
-      'deliveryState': parseInt(res.customerBean.deliveryState),
-      'deliveryCity': parseInt(res.customerBean.deliveryCity),
+      'deliveryState': res.customerBean.deliveryState,
+      'deliveryCity': res.customerBean.deliveryCity,
+      'deliveryDistrict':res.customerBean.deliveryDistrict,
       'deliveryZip': res.customerBean.deliveryZip,
-      'deliveryCountry': parseInt(res.customerBean.deliveryCountry),
+      'deliveryCountry':res.customerBean.deliveryCountry,
+
       'internalNotes': res.customerBean.internalNotes,
       'method': res.customerBean.method,
       'acctReceivable': res.customerBean.acctReceivable,
@@ -537,41 +558,45 @@ fetchDetails(cus_id: any): void {
   });
 }
 active(){
-  
   if(this.docForm.value.isactive==true){
-    this.fetchCountryBasedState(this.docForm.value.billingCountry)
-    this.stateBasedCity(this.docForm.value.billingState)
-    this.fetchCountryBasedState1(this.docForm.value.billingCountry)
-this.stateBasedCity1(this.docForm.value.billingState)
-this.fetchCountryBasedState2(this.docForm.value.billingCountry)
-this.stateBasedCity2(this.docForm.value.billingState)
-    //  this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + this.docForm.value.billingCountry).subscribe((res: any) => {
-    //   this.countrybasedStateList = res;
+    // this.fetchCountryBasedState(this.docForm.value.billingCountry)
+    // this.stateBasedCity(this.docForm.value.billingState)
+    // this.fetchCountryBasedState1(this.docForm.value.billingCountry)
+    // this.stateBasedCity1(this.docForm.value.billingState)
+    // this.fetchCountryBasedState2(this.docForm.value.billingCountry)
+    // this.stateBasedCity2(this.docForm.value.billingZip)
+    this.getShipperPincode(this.docForm.value.billingZip)
+    this.getDeliveryPincode(this.docForm.value.billingZip)
     this.docForm.patchValue({
      
     'shipperAddress': this.docForm.value.billingAddress,
     'shipperState': this.docForm.value.billingState,
-    'shipperCity': parseInt(this.docForm.value.billingCity),
+    'shipperCity': this.docForm.value.billingCity,
     'shipperZip':this.docForm.value.billingZip,
-    'shipperCountry': parseInt(this.docForm.value.billingCountry),
+    'shipperDistrict': this.docForm.value.billingDistrict,
+    'shipperCountry': this.docForm.value.billingCountry,
+    
     'deliveryAddress': this.docForm.value.billingAddress,
-    'deliveryState': parseInt(this.docForm.value.billingState),
-    'deliveryCity': parseInt(this.docForm.value.billingCity),
+    'deliveryState': this.docForm.value.billingState,
+    'deliveryDistrict': this.docForm.value.billingDistrict,
+    'deliveryCity': this.docForm.value.billingCity,
     'deliveryZip':this.docForm.value.billingZip,
-    'deliveryCountry':parseInt(this.docForm.value.billingCountry),
+    'deliveryCountry':this.docForm.value.billingCountry,
     
  })
 //})
   }
   else  if(this.docForm.value.isactive==false){
     this.docForm.patchValue({
-     'shipperAddress':"",
+   'shipperAddress':"",
    'shipperState':"",
    'shipperCity':"",
    'shipperZip':"",
    'shipperCountry':"",
+   'shipperDistrict':"",
    'deliveryAddress':"",
    'deliveryState':"",
+   'deliveryDistrict':"",
    'deliveryCity':"",
    'deliveryZip':"",
    'deliveryCountry':"",
@@ -774,6 +799,7 @@ reset(){
       address: [""],
       addresstwo: [""],
       city: [""],
+      district:[""],
       state: [""],
       postalcode: [""],
       panno: [""],
@@ -842,4 +868,195 @@ validateCustomer(event){
 }
 
 
+
+
+  //// country ,state and city dropdowns /////////////////////
+  getPincodeDetails(pincode){
+    if(pincode!=""){
+      this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+        if(res.success){
+          this.stateList = res.stateList;
+          this.districtList = res.districtList;
+          this.countryList = res.countryList;
+          this.cityList = res.cityList;
+          if(!this.edit){
+            this.docForm.patchValue({
+            'country':this.countryList[0].id,
+            'state':this.stateList[0].id,
+            'district':this.districtList[0].id,
+            'city':this.cityList[0].id,
+            })
+          }else if(this.editDetails.postalcode==null){
+            this.docForm.patchValue({
+            'country':this.countryList[0].id,
+            'state':this.stateList[0].id,
+            'district':this.districtList[0].id,
+            'city':this.cityList[0].id,
+            })
+          }else if(this.editDetails.postalcode !=null){
+            for(let i=0;i<this.editDetails.length;i++){
+              this.docForm.patchValue({
+                'country':this.countryList[i].id,
+                'state':this.stateList[i].id,
+                'district':this.districtList[i].id,
+                'city':this.cityList[i].id,
+                })
+            }
+          }
+        }else{
+          this.showNotification(
+            "snackbar-danger",
+            res.message,
+            "top",
+            "right");
+        }
+      })
+    }
+    
+  }
+  getBillingPincode(pincode){
+    if(pincode!=""){
+      this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+        if(res.success){
+          this.stateList1 = res.stateList;
+          this.districtList1 = res.districtList;
+          this.countryList1 = res.countryList;
+          this.cityList1 = res.cityList;
+          if(!this.edit){
+            this.docForm.patchValue({
+            'billingCountry':this.countryList1[0].id,
+            'billingState':this.stateList1[0].id,
+            'billingDistrict':this.districtList1[0].id,
+            'billingCity':this.cityList1[0].id,
+            })
+          }else if(this.editDetails.billingZip==null){
+            this.docForm.patchValue({
+            'billingCountry':this.countryList1[0].id,
+            'billingState':this.stateList1[0].id,
+            'billingDistrict':this.districtList1[0].id,
+            'billingCity':this.cityList1[0].id,
+            })
+          }else if(this.editDetails.billingZip !=null){
+            for(let i=0;i<this.editDetails.length;i++){
+              this.docForm.patchValue({
+                'billingCountry':this.countryList[i].id,
+                'billingState':this.stateList[i].id,
+                'billingDistrict':this.districtList[i].id,
+                'billingCity':this.cityList[i].id,
+                })
+            }
+          }
+        }else{
+          this.showNotification(
+            "snackbar-danger",
+             res.message,
+            "top",
+            "right");
+        }
+      })
+    }
+  }
+
+
+ 
+  getShipperPincode(pincode){
+    if(pincode!=""){
+      this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+        if(res.success){
+          this.stateList2 = res.stateList;
+          this.districtList2 = res.districtList;
+          this.countryList2 = res.countryList;
+          this.cityList2 = res.cityList;
+          if(!this.edit){
+            this.docForm.patchValue({
+            'shipperCountry':this.countryList2[0].id,
+            'shipperState':this.stateList2[0].id,
+            'shipperDistrict':this.districtList2[0].id,
+            'shipperCity':this.cityList2[0].id,
+            })
+          }else if(this.edit &&this.editDetails.shipperZip==""){
+            this.docForm.patchValue({
+              'shipperCountry':this.countryList2[0].id,
+              'shipperState':this.stateList2[0].id,
+              'shipperDistrict':this.districtList2[0].id,
+              'shipperCity':this.cityList2[0].id,
+              })
+          }else if(this.editDetails.shipperZip==null){
+            this.docForm.patchValue({
+            'shipperCountry':this.countryList2[0].id,
+            'shipperState':this.stateList2[0].id,
+            'shipperDistrict':this.districtList2[0].id,
+            'shipperCity':this.cityList2[0].id,
+            })
+          }else if(this.editDetails.shipperZip !=null){
+            for(let i=0;i<this.editDetails.length;i++){
+              this.docForm.patchValue({
+                'shipperCountry':this.countryList[i].id,
+                'shipperState':this.stateList[i].id,
+                'shipperDistrict':this.districtList[i].id,
+                'shipperCity':this.cityList[i].id,
+                })
+            }
+          }
+        }else{
+          this.showNotification(
+            "snackbar-danger",
+             res.message,
+            "top",
+            "right");
+        }
+      })
+    }
+  }
+
+
+  getDeliveryPincode(pincode){
+    if(pincode!=""){
+      this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+        if(res.success){
+          this.stateList3 = res.stateList;
+          this.districtList3 = res.districtList;
+          this.countryList3 = res.countryList;
+          this.cityList3 = res.cityList;
+          if(!this.edit){
+            this.docForm.patchValue({
+            'deliveryCountry':this.countryList3[0].id,
+            'deliveryState':this.stateList3[0].id,
+            'deliveryDistrict':this.districtList3[0].id,
+            'deliveryCity':this.cityList3[0].id,
+            })
+          }else if(this.edit &&this.editDetails.deliveryZip==""){
+            this.docForm.patchValue({
+              'deliveryCountry':this.countryList3[0].id,
+              'deliveryState':this.stateList3[0].id,
+              'deliveryDistrict':this.districtList3[0].id,
+              'deliveryCity':this.cityList3[0].id,
+              })
+          }else if(this.editDetails.deliveryZip==null){
+            this.docForm.patchValue({
+            'deliveryCountry':this.countryList3[0].id,
+            'deliveryState':this.stateList3[0].id,
+            'deliveryDistrict':this.districtList3[0].id,
+            'deliveryCity':this.cityList3[0].id,
+            })
+          }else if(this.editDetails.deliveryZip !=null){
+            for(let i=0;i<this.editDetails.length;i++){
+              this.docForm.patchValue({
+                'deliveryCountry':this.countryList[i].id,
+                'deliveryState':this.stateList[i].id,
+                'deliveryDistrict':this.districtList[i].id,
+                'deliveryCity':this.cityList[i].id,
+                })
+            }
+          }
+        }else{
+          this.showNotification(
+            "snackbar-danger",
+             res.message,
+            "top",
+            "right");
+        }
+      })
+    }
+  }
 }

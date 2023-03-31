@@ -61,6 +61,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   itemList:[];
   companyId:any;
   locationDdList:[];
+  purchaseOrderNumber = [];
+  totalValue1: number;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -96,6 +98,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       loginedUser: this.tokenStorage.getUserId(),
       companyId: this.tokenStorage.getCompanyId(),
       branchId: this.tokenStorage.getBranchId(),
+      // purchaseOrderId:[""],
 
 
       purchaseInvoiceDetailList: this.fb.array([
@@ -142,9 +145,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       },
       error: (error) => {
       }
+    }); 
+
+    //Purchase Order No
+    this.httpService.post<any>(this.commonService.getPurchaseOrderNumberDropdown,obj).subscribe({
+      next: (data) => {
+        this.purchaseOrderNumber = data;
+      },
+      error: (error) => {
+      }
     });
-
-
 
     //Currency  Dropdown List
     this.httpService.get<any>(this.commonService.getCurrencyDropdown).subscribe({
@@ -475,6 +485,54 @@ export class AddPurchaseInvoiceComponent implements OnInit {
                   receivingQty: [element.receivingQty]
                 })
                 purchaseInvoiceDtlArray.insert(arraylen, newUsergroup);
+              });
+            }
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+        }
+      });
+    }
+  }
+
+  getPurchaseOrderDetails(POID: number) {
+    if (POID != undefined && POID != null) {
+      this.spinner.show();
+      this.httpService.get<any>(this.purchaseOrderService.getPurchaseOrderDetails + "?purchaseOrderId=" + POID).subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          if (res.success) {
+            if (res.purchaseOrder != null) {
+              this.docForm.patchValue({
+                'total': res.purchaseOrderDetailList[0].unitPrice,
+                'vendorId': res.purchaseOrder.vendorId,
+              })
+            }
+
+            let purchaseInvoiceDetailArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
+            var i=0;
+            var length= res.purchaseOrderDetailList.length;
+            this.totalValue1=0;
+            for(i=0;i<length;i++){
+            this.totalValue1=this.totalValue1 + (res.purchaseOrderDetailList[i].unitPrice * res.purchaseOrderDetailList[i].qty);
+            }
+            this.docForm.patchValue({
+              total : this.totalValue1,
+            });
+
+            if (res.purchaseOrderDetailList != null && res.purchaseOrderDetailList.length >= 1) {
+              let purchaseInvoiceDetailList = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
+              purchaseInvoiceDetailList.clear();
+              res.purchaseOrderDetailList.forEach(element => {
+                let purchaseInvoiceDetailList = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
+                let arraylen = purchaseInvoiceDetailList.length;
+                let newUsergroup: FormGroup = this.fb.group({
+                  itemId: [element.itemId+''],
+                  unitPrice: [element.unitPrice],
+                  receivingQty: [element.qty],
+                })
+                purchaseInvoiceDetailList.insert(arraylen, newUsergroup);
               });
             }
           }
