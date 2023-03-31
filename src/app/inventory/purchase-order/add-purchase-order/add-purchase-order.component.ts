@@ -141,7 +141,6 @@ export class AddPurchaseOrderComponent implements OnInit {
   ngOnInit() {
   
     this.docForm.get("vendorAddress").disable();
-    this.docForm.get("vendorZip").disable();
 
     //category Type list
     this.httpService.get<any>(this.commonService.getCommonDropdownByformId + "?formFieldId=" + 11).subscribe({
