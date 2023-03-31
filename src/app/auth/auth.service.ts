@@ -85,10 +85,32 @@ public currentUser: Observable<User>;
    // return this.http.post<NavItem>(this.getFormPropertyMenuUrl, userInfo);
     return this.httpService.get<NavItem>(this.getFormPropertyMenuUrl + '?userId=' + userId);
   }
-  getLocation(){
-    return this.http.get('https://ipapi.co/json/') 
-  }
 
+  // getLocation(){ 
+  //   return this.http.get('http://ipapi.co/json');
+
+  // }
+
+
+  getLocation(){
+    return this.http.get('http://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longtitude=${position.coords.longitude');
+  }
+  // https://ipapi.co/json/
+
+
+  getIPAddress(){
+    return this.http.get('https://hutils.loxal.net/whois');  
+    }
+  
+  
+
+  //user_log
+  // getSuccessuserLog(city:any) {
+  //   return this.http.post(this.getSuccessUserLogData,city);
+  // }
+  // getSuccessuserLogout(obj: any) {
+  //   return this.http.post(this.getSuccessUserLogoutData, obj);
+  // }
   cusMaster(cusMasterData : any){
     return this.http.post(this.insertCusMaster,cusMasterData, httpOptions);
   }

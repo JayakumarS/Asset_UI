@@ -46,8 +46,8 @@ export class SigninComponent
   bgImg: any;
   locationcity: any;
   city:string;
-  ipAddress:string;
-
+  ipAddress:any;
+  ip: any;
 
 
   constructor(
@@ -70,16 +70,22 @@ export class SigninComponent
     this.authService.getLocation().subscribe((response) => {
       console.log(response)
       this.locationcity = response
-      this.city= this.locationcity.city 
-      this.ipAddress= this.locationcity.ip 
-      }); 
+      this.city= this.locationcity.city  
+      });
+      this.authService.getIPAddress().subscribe((response) => {
+        console.log(response)
+        this.ip=response
+         this.ipAddress= this.ip.ip
+      })
+     
+  
+      
     this.authForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
       emailId: [""],
+      // cityName:this.city
       cityName:[""],
-      ipAdd:[""],
-
     });
     this.httpService.get<CompanyLogoResultBean>(this.authService.companyUrl).subscribe(
       (data: any) => {
@@ -123,8 +129,6 @@ export class SigninComponent
     } else {
 
       this.authForm.value.cityName=this.city;
-      this.authForm.value.ipAdd=this.ipAddress;
-
 
       this.loginInfo = new AuthLoginInfo(
       this.f.username.value, this.f.password.value,this.f.emailId.value);
@@ -204,5 +208,9 @@ export class SigninComponent
     error: (error) => {
     }
   });
+   
+  //   console.log(this.city);
+  //   this.authService.getSuccessuserLog(this.city).subscribe((result: any) => {
+  //   });
    }
 }
