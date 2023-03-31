@@ -453,20 +453,7 @@ fetchDetails(cus_id: any): void {
 
   this.customerService.editCustomer(obj).subscribe({
     next: (res) => {
-      this.getCityDropdown(res.customerBean.state);
-      this.getCityShipperDropdown(res.customerBean.shipperState);
-      this.getCityBillingDropdown(res.customerBean.billingState);
-      this.getCityDeliveryDropdown(res.customerBean.deliveryState);
-      this.fetchCountryBasedState(res.customerBean.billingCountry)
-      this.stateBasedCity(res.customerBean.billingState)
-      this.fetchCountryBasedState2(res.customerBean.deliveryCountry)
-      this.stateBasedCity2(res.customerBean.deliveryState)
-      this.fetchCountryBasedState1(parseInt(res.customerBean.shipperCountry))
-      this.fetchCountryBasedState3(parseInt(res.customerBean.country))
-      this.stateBasedCity1(res.customerBean.shipperState)
-      this.stateBasedCity3(res.customerBean.state)
       this.editDetails = res.customerBean;
-
       this.getPincodeDetails(res.customerBean.postalcode);
       this.getBillingPincode(res.customerBean.billingZip);
       this.getShipperPincode(res.customerBean.shipperZip);
@@ -490,7 +477,7 @@ fetchDetails(cus_id: any): void {
       'gstno': res.customerBean.gstno,
       'cstno': res.customerBean.cstno,
       'remarks': res.customerBean.remarks,
-      'active': res.customerBean.active,
+      'isactive': res.customerBean.isactive,
       'resPerson': res.customerBean.resPerson,
       'location': res.customerBean.location,
       'vendorLocation': res.customerBean.vendorLocation,
@@ -571,39 +558,45 @@ fetchDetails(cus_id: any): void {
   });
 }
 active(){
-  
   if(this.docForm.value.isactive==true){
-    this.fetchCountryBasedState(this.docForm.value.billingCountry)
-    this.stateBasedCity(this.docForm.value.billingState)
-    this.fetchCountryBasedState1(this.docForm.value.billingCountry)
-    this.stateBasedCity1(this.docForm.value.billingState)
-    this.fetchCountryBasedState2(this.docForm.value.billingCountry)
-    this.stateBasedCity2(this.docForm.value.billingState)
+    // this.fetchCountryBasedState(this.docForm.value.billingCountry)
+    // this.stateBasedCity(this.docForm.value.billingState)
+    // this.fetchCountryBasedState1(this.docForm.value.billingCountry)
+    // this.stateBasedCity1(this.docForm.value.billingState)
+    // this.fetchCountryBasedState2(this.docForm.value.billingCountry)
+    // this.stateBasedCity2(this.docForm.value.billingZip)
+    this.getShipperPincode(this.docForm.value.billingZip)
+    this.getDeliveryPincode(this.docForm.value.billingZip)
     this.docForm.patchValue({
      
     'shipperAddress': this.docForm.value.billingAddress,
     'shipperState': this.docForm.value.billingState,
-    'shipperCity': parseInt(this.docForm.value.billingCity),
+    'shipperCity': this.docForm.value.billingCity,
     'shipperZip':this.docForm.value.billingZip,
-    'shipperCountry': parseInt(this.docForm.value.billingCountry),
+    'shipperDistrict': this.docForm.value.billingDistrict,
+    'shipperCountry': this.docForm.value.billingCountry,
+    
     'deliveryAddress': this.docForm.value.billingAddress,
-    'deliveryState': parseInt(this.docForm.value.billingState),
-    'deliveryCity': parseInt(this.docForm.value.billingCity),
+    'deliveryState': this.docForm.value.billingState,
+    'deliveryDistrict': this.docForm.value.billingDistrict,
+    'deliveryCity': this.docForm.value.billingCity,
     'deliveryZip':this.docForm.value.billingZip,
-    'deliveryCountry':parseInt(this.docForm.value.billingCountry),
+    'deliveryCountry':this.docForm.value.billingCountry,
     
  })
 //})
   }
   else  if(this.docForm.value.isactive==false){
     this.docForm.patchValue({
-     'shipperAddress':"",
+   'shipperAddress':"",
    'shipperState':"",
    'shipperCity':"",
    'shipperZip':"",
    'shipperCountry':"",
+   'shipperDistrict':"",
    'deliveryAddress':"",
    'deliveryState':"",
+   'deliveryDistrict':"",
    'deliveryCity':"",
    'deliveryZip':"",
    'deliveryCountry':"",
