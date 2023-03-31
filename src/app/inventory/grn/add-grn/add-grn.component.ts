@@ -60,6 +60,11 @@ export class AddGrnComponent implements OnInit {
   companyId: any;
   purchaseTypeList:[];
   locationDdList:[];
+  stateList=[];
+  districtList=[];
+  countryList=[];
+  cityList=[];
+  editDetails: any;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -83,6 +88,8 @@ export class AddGrnComponent implements OnInit {
       vendorAddress: [""],
       vendorCity: [""],
       vendorState: [""],
+      vendorZip:[""],
+      vendorDistrict:[""],
       vendorCountry: [""],
       transMode: 1,
       invoiceNo: [""],
@@ -255,7 +262,8 @@ export class AddGrnComponent implements OnInit {
         let ggrnDateObj = this.commonService.getDateObj(res.grn.grnDate);
         let ginvoiceDateObj = this.commonService.getDateObj(res.grn.invoiceDate);
         let gdelOrderDateObj = this.commonService.getDateObj(res.grn.delOrderDate);
-
+        this.getPincodeDetails(res.grn.vendorZip);
+        this.editDetails =res.grn;
         this.docForm.patchValue({
           'grnId': res.grn.grnId,
           'grnDateObj': ggrnDateObj,
@@ -266,6 +274,8 @@ export class AddGrnComponent implements OnInit {
           'vendorAddress': res.grn.vendorAddress,
           'vendorCity': res.grn.vendorCity,
           'vendorState': res.grn.vendorState,
+          'vendorZip':res.grn.vendorZip,
+          'vendorDistrict':res.grn.vendorDistrict,
           'vendorCountry': res.grn.vendorCountry,
           'invoiceNo': res.grn.invoiceNo,
           'invoiceDate': res.grn.invoiceDate,
@@ -475,12 +485,14 @@ export class AddGrnComponent implements OnInit {
       this.httpService.get<any>(this.purchaseOrderService.getPurchaseOrderDetails + "?purchaseOrderId=" + POID).subscribe({
         next: (res: any) => {
           this.spinner.hide();
+          this.getPincodeDetails(res.purchaseOrder.vendorZip);
           if (res.success) {
             if (res.purchaseOrder != null) {
               this.docForm.patchValue({
                 'poType': res.purchaseOrder.purchaseType,
                 'vendorId': res.purchaseOrder.vendorId,
                 'vendorAddress': res.purchaseOrder.vendorAddress,
+                'vendorZip': res.purchaseOrder.vendorZip,
                 'vendorCity': res.purchaseOrder.vendorCity,
                 'vendorState': res.purchaseOrder.vendorState,
                 'vendorCountry': res.purchaseOrder.vendorCountry,
@@ -510,5 +522,54 @@ export class AddGrnComponent implements OnInit {
       });
     }
   }
+  keyPressNumeric2(event: any) {
+    const pattern = /[0-9 +]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
+
+   //// country ,state and city dropdowns /////////////////////
+ getPincodeDetails(pincode){
+  if(pincode!=""){
+    this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
+      if(res.success){
+        this.stateList = res.stateList;
+        this.districtList = res.districtList;
+        this.countryList = res.countryList;
+        this.cityList = res.cityList;
+        if(!this.edit){
+          this.docForm.patchValue({
+         'vendorCountry':this.countryList[0].id,
+          'vendorState':this.stateList[0].id,
+          'vendorDistrict':this.districtList[0].id,
+          'vendorCity':this.cityList[0].id,
+          })
+        }else if(this.edit){
+          this.docForm.patchValue({
+            'vendorCountry':this.countryList[0].id,
+             'vendorState':this.stateList[0].id,
+             'vendorDistrict':this.districtList[0].id,
+             'vendorCity':this.cityList[0].id,
+             })
+        }else if(this.editDetails.addressOneZipCode==null){
+          this.docForm.patchValue({
+          'vendorCountry':this.countryList[0].id,
+          'vendorState':this.stateList[0].id,
+          'vendorDistrict':this.districtList[0].id,
+          'vendorCity':this.cityList[0].id,
+          })
+        }
+      }else{
+        this.notificationService.showNotification(
+          "snackbar-danger",
+          res.message,
+          "top",
+          "right");
+      }
+    })
+  }
+}
 }
