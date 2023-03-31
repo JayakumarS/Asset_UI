@@ -46,8 +46,8 @@ export class SigninComponent
   bgImg: any;
   locationcity: any;
   city:string;
-  ipAddress:any;
-  ip: any;
+  ipAddress:string;
+
 
 
   constructor(
@@ -72,14 +72,12 @@ export class SigninComponent
       this.locationcity = response
       this.city= this.locationcity.city  
       });
-      this.authService.getIPAddress().subscribe((response) => {
-        console.log(response)
-        this.ip=response
-         this.ipAddress= this.ip.ip
-      })
-     
-  
-      
+    fetch('https://jsonip.com/').then (res=>{
+      return res.json();
+    }).then(data=>{
+  console.log (data.ip);
+ this.ipAddress=data.ip
+    })
     this.authForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
@@ -201,7 +199,7 @@ export class SigninComponent
 
   loginSuccessUserLog() {
 
-    this.httpService.get<any>(this.authService.getSuccessUserLogData+"?city="+this.city+"&ipAddress="+this.ipAddress).subscribe({
+    this.httpService.get<any>(this.authService.getSuccessUserLogData+"?city="+this.city+"&ipAddress="+ this.ipAddress).subscribe({
       next: (data) => {
     this.city,this.ipAddress = data;
     },

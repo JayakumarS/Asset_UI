@@ -72,6 +72,7 @@ export class HeaderComponent
   locationcity:any;
   city: any;
   ipAddress:string;
+  ip: any;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -151,10 +152,14 @@ export class HeaderComponent
     this.authService.getLocation().subscribe((response) => {
       console.log(response)
       this.locationcity = response
-      this.city= this.locationcity.city 
-      this.ipAddress= this.locationcity.ip 
-      }); 
-
+      this.city= this.locationcity.city  
+      });
+      fetch('https://jsonip.com/').then (res=>{
+        return res.json();
+      }).then(data=>{
+    console.log (data.ip);
+   this.ipAddress=data.ip
+      })
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
     this.userImg = this.authService.currentUserValue.img;

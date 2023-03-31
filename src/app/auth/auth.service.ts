@@ -95,14 +95,6 @@ public currentUser: Observable<User>;
   getLocation(){
     return this.http.get('http://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longtitude=${position.coords.longitude');
   }
-  // https://ipapi.co/json/
-
-
-  getIPAddress(){
-    return this.http.get('https://hutils.loxal.net/whois');  
-    }
-  
-  
 
   //user_log
   // getSuccessuserLog(city:any) {
