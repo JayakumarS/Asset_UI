@@ -449,7 +449,7 @@
                           <td class="padding-both-side-2">
                             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                               <mat-label>BRANCH NAME</mat-label>
-                              <input matInput name="branchName{{i}}" formControlName="branchName" maxlength="50">
+                              <input matInput name="branchName{{i}}" formControlName="branchName" oninput="this.value = this.value.toUpperCase()"  maxlength="50">
                             </mat-form-field>
                           </td>
                           <td class="padding-both-side-2">
