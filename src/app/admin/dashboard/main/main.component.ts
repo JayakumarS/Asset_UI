@@ -1539,4 +1539,7 @@ configUserLog: {
     this.router.navigate(['master/Company-Employees/listCompanyEmp/']);
 
   }
+  viewCall(data) {
+    this.router.navigate(['/asset/assetMaster/viewAssetMaster/' + data.id]);
+  }
 }

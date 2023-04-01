@@ -907,6 +907,8 @@
                         <th >Asset Name</th>
                         <th>Asset Code</th>
                         <th>Location</th>
+                        <th>Actions</th>
+
                         <!-- <th>Category</th>
                         <th>Status</th> -->
                       </tr>
@@ -916,6 +918,11 @@
                         <td>{{data.assetName}}</td>
                         <td>{{data.assetCode}}</td>
                         <td>{{data.locationName}}</td>
+                        <td><button mat-icon-button   (click)="viewCall(data)"
+                          class="tbl-action-btn">
+                        <i class="fa fa-eye" style="color:#33b91f;"aria-hidden="true"></i> 
+                      </button></td>
+
                         <!-- <td>{{data.categoryName}}</td>
                         <td>{{data.status}}</td> -->
                       </tr>
