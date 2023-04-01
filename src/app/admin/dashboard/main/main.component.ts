@@ -1527,4 +1527,16 @@ configUserLog: {
     window.sessionStorage.setItem("findFrom", "Opened");
     this.router.navigate(['master/company/addCompany/'+userId]);
   }
+  onchangeAsset(){
+    this.router.navigate(['asset/assetMaster/listAssetMaster/']);
+
+  }
+  onchangeAuditor(){
+    this.router.navigate(['master/Activity-master/list-activity/']);
+
+  }
+  onchangeComEmp(){
+    this.router.navigate(['master/Company-Employees/listCompanyEmp/']);
+
+  }
 }
