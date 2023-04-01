@@ -359,9 +359,6 @@ export class AddCompanyComponent implements OnInit {
          
           if(this.dynamicDropDownList[i]==undefined){
             this.dynamicDropDownList.push([]);
-            this.dynamicDropDownList.push([]);
-            this.dynamicDropDownList.push([]);
-            this.dynamicDropDownList.push([]);
             this.dynamicDropDownList[i][0] = res.countryList;
             this.dynamicDropDownList[i][1] = res.stateList;
             this.dynamicDropDownList[i][2] = res.districtList;

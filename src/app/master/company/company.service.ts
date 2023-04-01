@@ -108,7 +108,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
       if (logoPathUrl != undefined && logoPathUrl != null && logoPathUrl != '') {
         this.tokenStorage.saveCompanyLogo(this.serverUrl.apiServerAddress+"asset_upload/"+logoPathUrl);
       }
-      router.navigate(['/master/company/listCompany']);
+      window.history.back();
     }
     else if(data.Success=false){
       notificationService.showNotification(
