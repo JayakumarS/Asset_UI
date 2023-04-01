@@ -255,83 +255,110 @@
                     </mat-form-field>
                   </div> -->
                 </div>
+          
+             
+      <!-- Detail Row -->
+      <h6 class="headingValue"> Order Details </h6>
+      <div style="overflow-x: auto;">
+        <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+    <thead class="">
+     <tr>
+      <th style="width: 1%;"></th>
+      <th
+       class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">Item Code-Item Name</th>
+    
+      <th
+       class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Qty</th>
+      <th
+      class="text-center table-heading padding-both-side-2 width_7"  style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Receiving Qty</th>
+   </tr>
+    </thead>
+  <ng-container *ngFor="let grnDetailList of docForm.get('grnDetailList')['controls']; let i = index">
+  <tbody [formGroup]="grnDetailList"> 
+      <tr>
+        <td>
+          <button mat-mini-fab color="warn" (click)="removeRow(i)">
+            <mat-icon class="col-white">delete</mat-icon>
+          </button>
+          </td>  
+        <td class="padding-both-side-2">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="!edit">
+           <mat-label>Item Code-Item Name</mat-label>
+           <mat-select name="itemId{{i}}" formControlName="itemId">
+             <mat-option *ngFor="let title of itemCodeNameList" [value]="title.id">
+               {{title.text}}
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
 
+         <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
+          <mat-label>Item Code-Item Name</mat-label>
+          <mat-select name="itemId{{i}}" formControlName="itemId" [disabled]="true">
+            <mat-option *ngFor="let title of itemCodeNameList" [value]="title.id">
+              {{title.text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+       </td>
 
-                <!-- Detail Row -->
-                <h6 class="headingValue"> Order Details </h6>
-                <div style="overflow-x: auto;">
-                  <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-                    <thead class="">
-                      <tr>
-                        <th style="width: 1%;"></th>
-                        <th class="text-center table-heading padding-both-side-2 width_7"
-                          style="width: 12%;margin-left: 25px;border-radius: 0.05rem;">Item Code-Item Name</th>
+    <!-- <td class="padding-both-side-2">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <mat-label>Unit Price</mat-label>
+        <input matInput name ="unitPrice{{i}}" formControlName="unitPrice" (keypress)="keyPressNumberDouble($event)" maxlength="15">
+      </mat-form-field>
+    </td> -->
 
-                        <th class="text-center table-heading padding-both-side-2 width_7"
-                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Unit Price</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7"
-                          style="width: 12%;margin-left: 25px;border-radius: 0.07rem;">Receiving Qty</th>
-                      </tr>
-                    </thead>
-                    <ng-container *ngFor="let grnDetailList of docForm.get('grnDetailList')['controls']; let i = index">
-                      <tbody [formGroup]="grnDetailList">
-                        <tr>
-                          <td>
-                            <button mat-mini-fab color="warn" (click)="removeRow(i)">
-                              <mat-icon class="col-white">delete</mat-icon>
-                            </button>
-                          </td>
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>Item Code-Item Name</mat-label>
-                              <mat-select name="itemId{{i}}" formControlName="itemId">
-                                <mat-option *ngFor="let title of itemCodeNameList" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </td>
+    <td class="padding-both-side-2">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="!edit">
+        <mat-label>Qty</mat-label>
+        <input matInput name ="qty{{i}}" formControlName="qty" (keypress)="keyPressNumberDouble($event)" maxlength="15">
+      </mat-form-field>
 
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>Unit Price</mat-label>
-                              <input matInput name="unitPrice{{i}}" formControlName="unitPrice"
-                                (keypress)="keyPressNumberDouble($event)" maxlength="15">
-                            </mat-form-field>
-                          </td>
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
+        <mat-label>Qty</mat-label>
+        <input matInput name ="qty{{i}}" formControlName="qty" (keypress)="keyPressNumberDouble($event)" readonly maxlength="15">
+      </mat-form-field>
+    </td>
 
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>Receiving Qty </mat-label>
-                              <input matInput name="receivingQty{{i}}" formControlName="receivingQty"
-                                (keypress)="keyPressNumberInt($event)" maxlength="9" required>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </ng-container>
-                  </table>
-                </div>
-                <div>
-                  <button mat-mini-fab color="primary" (click)="addRow()">
-                    <mat-icon class="col-white">add</mat-icon>
-                  </button>
-                </div>
+    <td class="padding-both-side-2">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="!edit">
+        <mat-label>Receiving Qty </mat-label>
+        <input matInput name ="receivingQty{{i}}" formControlName="receivingQty" (change)="checkAvailibility()" (keypress)="keyPressNumberInt($event)" maxlength="9" required>
+      </mat-form-field>
+      <!-- <mat-error *ngIf="docForm.get('receivingQty').hasError('required')">
+        Receiving Qty is required
+      </mat-error> -->
 
-                <br />
-
-                <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
-                      style="margin-left: 38%;background-color: #34d034;">Submit</button>
-                    <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button
-                      style="margin-left: 38%; color: aliceblue; background-color: green;">Update</button>
-                    <button color="primary" type="button" class="btn-space" (click)="reset()"
-                      mat-raised-button>Reset</button>
-                    <button color="warn" type="button" class="btn-space" (click)="onCancel()"
-                      mat-raised-button>Cancel</button>
-                  </div>
-                </div>
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
+        <mat-label>Receiving Qty </mat-label>
+        <input matInput name ="receivingQty{{i}}" formControlName="receivingQty" (change)="checkAvailibility()" (keypress)="keyPressNumberInt($event)" readonly maxlength="9" required>
+      </mat-form-field>
+    </td>
+    
+ 
+  </tr>
+  </tbody>
+  </ng-container>
+  </table>
+  </div>
+  <!-- <div>
+    <button mat-mini-fab color="primary" (click)="addRow()">
+      <mat-icon class="col-white">add</mat-icon>
+    </button>
+  </div>  -->
+ 
+  <br/>
+  
+     <div class="row"> 
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+        <button  *ngIf="!edit"  (click) = "onSubmit()" class="btn-space" mat-raised-button
+        color="accent" style="margin-left: 38%;background-color: #34d034;">Submit</button>
+        <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+        style="margin-left: 38%; color: aliceblue; background-color: green;">Update</button>
+         <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button> 
+          <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
+      </div>
+    </div>
               </form>
             </div>
           </div>

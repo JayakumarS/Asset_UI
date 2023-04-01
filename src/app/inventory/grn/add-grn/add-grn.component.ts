@@ -107,7 +107,8 @@ export class AddGrnComponent implements OnInit {
       grnDetailList: this.fb.array([
         this.fb.group({
           itemId: [""],
-          unitPrice: [""],
+          // unitPrice: [""],
+          qty:[""],
           receivingQty: ["",[Validators.required]],
         })
       ])
@@ -295,7 +296,8 @@ export class AddGrnComponent implements OnInit {
             let arraylen = grnDetailArray.length;
             let newUsergroup: FormGroup = this.fb.group({
               itemId: [element.itemId],
-              unitPrice: [Number(element.unitPrice).toFixed(2)],
+              // unitPrice: [Number(element.unitPrice).toFixed(2)],
+              qty:[element.qty],
               receivingQty: [element.receivingQty],
             })
             grnDetailArray.insert(arraylen, newUsergroup);
@@ -472,7 +474,8 @@ export class AddGrnComponent implements OnInit {
     let arraylen = grnDetailArray.length;
     let newUsergroup: FormGroup = this.fb.group({
       itemId: [""],
-      unitPrice: [""],
+      // unitPrice: [""],
+      qty:[""],
       receivingQty: ["",[Validators.required]],
     })
     grnDetailArray.insert(arraylen, newUsergroup);
@@ -496,7 +499,9 @@ export class AddGrnComponent implements OnInit {
                 'vendorCity': res.purchaseOrder.vendorCity,
                 'vendorState': res.purchaseOrder.vendorState,
                 'vendorCountry': res.purchaseOrder.vendorCountry,
-                'invoiceNo': res.purchaseOrder.invoiceNo
+                'invoiceNo': res.purchaseOrder.invoiceNo,
+                'sourceLocId': res.purchaseOrder.sourceLocId,
+                'deliveryLocId': res.purchaseOrder.deliveryLocId,
                 // 'deliveryLocId': res.purchaseOrder.destinationLocation
               })
             }
@@ -508,7 +513,8 @@ export class AddGrnComponent implements OnInit {
                 let arraylen = grnDetailArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
                   itemId: [element.itemId],
-                  unitPrice: [element.unitPrice],
+                  // unitPrice: [element.unitPrice],
+                  qty:[element.qty],
                   receivingQty: ["",[Validators.required]],
                 })
                 grnDetailArray.insert(arraylen, newUsergroup);
@@ -588,4 +594,22 @@ export class AddGrnComponent implements OnInit {
     })
   }
 }
+  checkAvailibility(){
+    let grnDtlArray = this.docForm.controls.grnDetailList as FormArray;
+    for(let i=0;i<grnDtlArray.length;i++){
+    if(Number(grnDtlArray.value[i].receivingQty)>Number(grnDtlArray.value[i].qty)){
+      grnDtlArray.at(i).patchValue({
+        receivingQty:""
+      });
+    
+      this.notificationService.showNotification(
+        "snackbar-danger",
+         "Please Enter Receiving Quantity Below Quantity",
+        "bottom",
+        "center"
+      )
+    }
+  }
+  }  
+
 }
