@@ -25,6 +25,7 @@
                 <table class="table table-hover" style="margin-top: 5px;">
                     <thead>
                         <tr>
+                            <th class="tableHeader">Branch Code</th>
                             <th class="tableHeader">Line Name</th>
                             <th class="tableHeader">Line Description</th>
                            
@@ -33,6 +34,8 @@
                     <tbody>
                         <tr
                             *ngFor="let data of itemList">
+                            <td *ngIf="data.isBranchValid == false || data.branchCode == false"  style="background-color: red;">{{data.branchCode}}</td>
+                            <td *ngIf="data.isBranchValid == true || data.branchCode == true">{{data.branchCode}}</td>
                             <td *ngIf="data.isValid == false || data.branchcheck == false"  style="background-color: red;">{{data.lineCode}}</td>
                             <td *ngIf="data.isValid == true || data.branchcheck == true">{{data.lineCode}}</td>
                             <td>{{data.lineDescription}}</td>

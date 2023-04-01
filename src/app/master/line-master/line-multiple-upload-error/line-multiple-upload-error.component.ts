@@ -23,6 +23,7 @@ export class LineMultipleUploadErrorComponent implements OnInit {
   
   isValid: boolean=true;
   branchcheck: boolean=true;
+  isBranchValid: boolean=true;
 
 
   constructor(
@@ -42,6 +43,7 @@ export class LineMultipleUploadErrorComponent implements OnInit {
     this.docForm = this.fb.group({
         lineCode: [""],
         lineDescription:[""],
+        branchCode:[""],
      
     });
 
@@ -55,6 +57,8 @@ export class LineMultipleUploadErrorComponent implements OnInit {
         this.isValid = false;
       } if(this.itemList[i].branchcheck == false){
         this.branchcheck = false;
+      }if(this.itemList[i].isBranchValid == false){
+        this.isBranchValid = false;
       }
   
   }
