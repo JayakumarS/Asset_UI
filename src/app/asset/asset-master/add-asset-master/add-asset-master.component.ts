@@ -243,7 +243,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
 
 
-    this.httpService.get<any>(this.commonService.getCategoryDropdown + "?companyId=" + this.tokenStorage.getCompanyId()).subscribe({
+    this.httpService.get<any>(this.commonService.getAssetCategoryDropdown + "?companyId=" + this.tokenStorage.getCompanyId()).subscribe({
       next: (data) => {
         this.categoryList = data;
       },
