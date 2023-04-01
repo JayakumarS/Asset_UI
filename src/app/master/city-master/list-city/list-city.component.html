@@ -77,26 +77,23 @@
                       <mat-header-cell *matHeaderCellDef mat-sort-header>City Name</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.villageName}}</mat-cell>
                     </ng-container>
+                    <ng-container matColumnDef="districtId">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>District Name</mat-header-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.districtName}}</mat-cell>
+                    </ng-container>
                     <ng-container matColumnDef="stateId">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>State Name</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.state_name}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="countryId">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Country Name</mat-header-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.countryName}}</mat-cell>
                     </ng-container>
                     <!-- <ng-container matColumnDef="country">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.country}}</mat-cell>
                     </ng-container> -->
-                    <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
-                                      <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
-                                      <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                                          <!-- <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)" class="tbl-action-btn">
-                          <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                        </button> -->
-                                          <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="deleteItem(i,row)" class="tbl-action-btn">
-                          <app-feather-icons matTooltip="Delete" [icon]="'trash-2'" [class]="'tbl-fav-delete'">
-                          </app-feather-icons>
-                        </button>
-                    </mat-cell>
-                </ng-container>
+                   
 
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"

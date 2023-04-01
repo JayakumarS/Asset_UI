@@ -26,8 +26,9 @@ export class ListCityComponent extends UnsubscribeOnDestroyAdapter implements On
   displayedColumns = [
     
     "villageName",
+    "districtId",
     "stateId",
-    "actions",
+    "countryId",
   ];
   docForm: FormGroup;
   pincodeList = [];
