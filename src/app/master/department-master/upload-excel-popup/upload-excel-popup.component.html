@@ -28,6 +28,8 @@
                             <th class="tableHeader">Department Name</th>
                             <th class="tableHeader">Description</th>
                             <th class="tableHeader">Department Head</th>
+                            <th class="tableHeader">Branch Code</th>
+
                           
                         </tr>
                     </thead>
@@ -42,6 +44,9 @@
                             <td >{{data.remarks}}</td>
                             <td *ngIf="data.isValidEmail == true">{{data.contactPersonName}}</td>
                             <td *ngIf="data.isValidEmail == false" style="background-color:red;">{{data.contactPersonName}}</td>
+                            <td *ngIf="data.isValidBranch == true">{{data.branch}}</td>
+                            <td *ngIf="data.isValidBranch == false" style="background-color:red;">{{data.branch}}</td>
+
 
                            
                             
@@ -60,10 +65,10 @@
             <div class="example-button-row" align="start">
                 <label *ngIf="isValidEmail == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Vaild Department Head Is Required !!!</label>
             </div>
-
-           
-
-            
+            <div class="example-button-row" align="start">
+                <label *ngIf="isValidBranch == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Branch Code Already Exists!!!</label>
+            </div>
+          
             <div class="example-button-row" align="start">
                 <label *ngIf="isValidName == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Department Name Is Required !!!</label>
             </div>
@@ -72,7 +77,7 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="end">
-                <button mat-raised-button color="primary" [disabled]="isValid == false ||deptcodevaild == false || isValidEmail == false || isValidNum ==false || isValidNum1 == false || isValidName == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
+                <button mat-raised-button color="primary" [disabled]="isValid == false || isValidBranch == false ||deptcodevaild == false || isValidEmail == false || isValidNum ==false || isValidNum1 == false || isValidName == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
             </div>
         </div>
