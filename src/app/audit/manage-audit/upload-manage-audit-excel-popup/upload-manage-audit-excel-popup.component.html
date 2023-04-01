@@ -62,12 +62,15 @@
             <div class="example-button-row" align="start">
                 <label *ngIf=" isValidMaker == false || isValidAuditor == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Data !!!</label>
             </div>
+            <div class="example-button-row" align="start">
+                <label *ngIf=" isValid == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Audit Already Exist During The Period !!!</label>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <div class="example-button-row" align="end">
-                <button mat-raised-button color="primary" [disabled]="isValidMaker == false || isValidAuditor == false"  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
+                <button mat-raised-button color="primary" [disabled]=" isValid == false|| isValidMaker == false || isValidAuditor == false "  [mat-dialog-close]="1" (click)="onSubmit()">Upload</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
             </div>
         </div>

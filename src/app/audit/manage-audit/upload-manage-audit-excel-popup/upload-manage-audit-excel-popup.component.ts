@@ -55,7 +55,10 @@ export class UploadManageAuditExcelPopupComponent implements OnInit {
     this.itemList=this.values.manageAuditList;
     console.log(this.itemList);
    for(let i = 0;i<this.itemList.length;i++){
-  
+   
+    if(this.itemList[i].isValid == false){
+      this.isValid = false;
+    }
     if(this.itemList[i].isValidMaker == false){
       this.isValidMaker = false;
     }
@@ -77,8 +80,8 @@ export class UploadManageAuditExcelPopupComponent implements OnInit {
              
               const dialogRef = this.dialog.open(UploadManageAuditSuccessPopupComponent, {
                 data: data,
-                height:"100%",
-                width: "100%",
+                height:"50%",
+                width: "450px",
               });
             }
           else{
