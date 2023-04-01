@@ -24,22 +24,24 @@
                 <table class="table table-hover" style="margin-top: 5px;">
                     <thead>
                         <tr>
+                            <th class="tableHeader">Branch Code</th>
                             <th class="tableHeader">Location Code</th>
                             <th class="tableHeader">Location</th>
-                            <th class="tableHeader">Primary Head</th>
+                            <th class="tableHeader">Primary Head Email</th>
                           
                         </tr>
                     </thead>
                     <tbody>
                         <tr
                             *ngFor="let data of loactionList">
-
+                            <td *ngIf="data.isValidBranch == true">{{data.branchname}}</td>
+                            <td *ngIf="data.isValidBranch == false" style="background-color:red;">{{data.branchname}}</td>
                             <td *ngIf="data.isValid == true">{{data.locationCode}}</td>
                             <td *ngIf="data.isValid == false" style="background-color:red;">{{data.locationCode}}</td>
                             <td *ngIf="data.isValidName == true">{{data.location}}</td>
                             <td *ngIf="data.isValidName == false" style="background-color:red;">{{data.location}}</td>
-                            <td *ngIf="data.isValidEmail == true">{{data.primaryLocationName}}</td>
-                            <td *ngIf="data.isValidEmail == false" style="background-color:red;">{{data.primaryLocationName}}</td>
+                            <td *ngIf="data.isValidEmail == true">{{data.text}}</td>
+                            <td *ngIf="data.isValidEmail == false" style="background-color:red;">{{data.text}}</td>
 
                             
 
@@ -54,7 +56,7 @@
            
 
             <div class="example-button-row" align="start">
-                <label *ngIf="isValidEmail == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Vailid Primary Head Is Required !!!</label>
+                <label *ngIf="isValidEmail == false" class="lable" style="font-size: 12;margin-left: 6px; color: red;">Please Enter Valid Primary Head Mail!!!</label>
             </div>
 
             <div class="example-button-row" align="start">
