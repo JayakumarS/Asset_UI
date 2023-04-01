@@ -331,6 +331,7 @@ export class AddCompanyComponent implements OnInit {
   
   
   fetchDynamicDropDown(pincode, i){
+    if(pincode !=null){
     if(pincode!=""){
       this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
         if(res.success){
@@ -349,6 +350,7 @@ export class AddCompanyComponent implements OnInit {
       })
     }
   }
+}
 
   fetchDynamicDropDownForPopulate(pincode, i){
     if(pincode!=""){
