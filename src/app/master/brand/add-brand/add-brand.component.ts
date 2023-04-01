@@ -173,14 +173,17 @@ export class AddBrandComponent implements OnInit {
   }
 
   validateBrandName(event){
-    let companyId=this.tokenStorage.getCompanyId();
-    this.httpService.get<any>(this.brandMasterService.uniqueValidateCompanyBasedUrl + "?tableName=" + "brand_master" + "&columnName=" + "brand_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
-      if(res){
-        this.docForm.controls['brand'].setErrors({ brandFlag: true });
-      }else{
-        this.docForm.controls['brand'].setErrors(null);
-      }
-    });
+    if(!this.edit){
+      let companyId=this.tokenStorage.getCompanyId();
+      this.httpService.get<any>(this.brandMasterService.uniqueValidateCompanyBasedUrl + "?tableName=" + "brand_master" + "&columnName=" + "brand_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
+        if(res){
+          this.docForm.controls['brand'].setErrors({ brandFlag: true });
+        }else{
+          this.docForm.controls['brand'].setErrors(null);
+        }
+      });
+    }
+    
   }
 
 
