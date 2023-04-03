@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -80,8 +80,8 @@ export class AddSalesOrderComponent implements OnInit {
         this.fb.group({
           product:[""],
           uom:[""],
-          rate:[""],
-          qty:[""],
+          rate:["",[Validators.required]],
+          qty:["",[Validators.required]],
           price:[""],
           total:[""],
           asset:[""]

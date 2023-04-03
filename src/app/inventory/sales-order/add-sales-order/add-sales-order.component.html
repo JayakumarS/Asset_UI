@@ -145,6 +145,8 @@
                           <input matInput name="qty{{i}}" formControlName="qty"
                           (change)="Qtycalculation(i)" (keypress)="keyPressNumeric1($event)" >
                         </mat-form-field>
+                        <div *ngIf="submitted && salesOrderDtl.get('qty').hasError('required')" class="failed-validation" class="errorColor"> qty is required </div>
+
                       </td>
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -152,6 +154,8 @@
                           <input matInput name="rate{{i}}" formControlName="rate"
                           (change)="Amountcalculation(i)"  (keypress)="keyPressNumeric1($event)">
                         </mat-form-field>
+                        <div *ngIf="submitted && salesOrderDtl.get('rate').hasError('required')" class="failed-validation" class="errorColor"> rate is required </div>
+
                       </td>
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">

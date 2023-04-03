@@ -113,8 +113,8 @@ export class AddSalesInvoiceComponent implements OnInit {
       salesInvoiceDetail: this.fb.array([
         this.fb.group({
           item: [""],
-          qty: [""],
-          rate:[""],
+          qty: ["",[Validators.required]],
+          rate:["",[Validators.required]],
           uom: [""],
           price: [""]
 

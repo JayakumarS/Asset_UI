@@ -196,6 +196,7 @@
                               <input matInput name="qty{{i}}" formControlName="qty" 
                               (change)="Qtycalculation(i)"  maxlength="20">
                             </mat-form-field>
+                            <div *ngIf="submitted && salesInvoiceDetail.get('qty').hasError('required')" class="failed-validation" class="errorColor"> qty is required </div>
                           </td>
 
                          <td class="padding-both-side-2">
@@ -204,6 +205,8 @@
                           <input matInput name="rate{{i}}" formControlName="rate" 
                           (change)="Amountcalculation(i)"  (keypress)="keyPressPCB($event)">
                           </mat-form-field>
+                          <div *ngIf="submitted && salesInvoiceDetail.get('rate').hasError('required')" class="failed-validation" class="errorColor"> rate is required </div>
+
                           </td>
 
                           <td class="padding-both-side-2">
