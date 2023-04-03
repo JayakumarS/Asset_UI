@@ -405,6 +405,7 @@ if(data6.count==0 || this.edit==true){
       "top",
       "right"
     );
+    this.reset();
   }
         },
         (error: HttpErrorResponse) => {
