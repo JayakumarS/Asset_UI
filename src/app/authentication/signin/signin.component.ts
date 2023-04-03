@@ -82,7 +82,6 @@ export class SigninComponent
       username: ["", Validators.required],
       password: ["", Validators.required],
       emailId: [""],
-      // cityName:this.city
       cityName:[""],
     });
     this.httpService.get<CompanyLogoResultBean>(this.authService.companyUrl).subscribe(
@@ -206,9 +205,6 @@ export class SigninComponent
     error: (error) => {
     }
   });
-   
-  //   console.log(this.city);
-  //   this.authService.getSuccessuserLog(this.city).subscribe((result: any) => {
-  //   });
+
    }
 }
