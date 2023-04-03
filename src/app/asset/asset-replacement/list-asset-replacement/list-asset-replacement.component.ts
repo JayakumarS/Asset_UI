@@ -28,7 +28,6 @@ import { DeleteAssetMasterComponent } from '../../asset-master/list-asset-master
 export class ListAssetReplacementComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   displayedColumns = [
-    "select",
     "assetId",
     "assetName",
     "assetCode",

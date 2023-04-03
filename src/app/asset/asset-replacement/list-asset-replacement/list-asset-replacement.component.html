@@ -49,19 +49,7 @@
                             </div>
                             <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
 
-                                <ng-container matColumnDef="select">
-                                    <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">
-                                      <mat-checkbox (change)="$event ? masterToggle() : null"
-                                        [checked]="selection.hasValue() && isAllSelected()"
-                                        [indeterminate]="selection.hasValue() && !isAllSelected()" [ngClass]="'tbl-checkbox'">
-                                      </mat-checkbox>
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-6'">
-                                      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                                        [checked]="selection.isSelected(row)" [ngClass]="'tbl-checkbox'">
-                                      </mat-checkbox>
-                                    </mat-cell>
-                                  </ng-container>
+                                
 
                                 <ng-container matColumnDef="assetId">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Asset No </mat-header-cell>
