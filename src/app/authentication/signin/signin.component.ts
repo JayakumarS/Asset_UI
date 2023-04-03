@@ -67,6 +67,7 @@ export class SigninComponent
   }
 
   ngOnInit() { 
+    
     this.authService.getLocation().subscribe((response) => {
       console.log(response)
       this.locationcity = response
@@ -78,6 +79,7 @@ export class SigninComponent
   console.log (data.ip);
  this.ipAddress=data.ip
     })
+    this.authService.historyClearOnLoginPage();
     this.authForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],

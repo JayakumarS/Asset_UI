@@ -100,7 +100,13 @@ public currentUser: Observable<User>;
     return  this.http.post<any>(this.forgotPasswordUrl, otpInfo);
   }
 
-
+  historyClearOnLoginPage()
+  {
+    localStorage.removeItem("currentUser");
+    this.currentUserSubject.next(null);
+    window.sessionStorage.clear();
+    window.localStorage.clear();
+  }
 
   // salesCallEntry(salesEntryData : any){
   //   return this.http.post(this.insertSalesEntry,salesEntryData, httpOptions);
