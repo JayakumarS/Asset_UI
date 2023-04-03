@@ -33,8 +33,7 @@ export class ListAssetReplacementComponent extends UnsubscribeOnDestroyAdapter i
     "assetCode",
     "Location",
     "Category",
-    "status",
-    "actions"
+    "status"
   ];
 
   dataSource: ExampleDataSource | null;
