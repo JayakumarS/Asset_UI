@@ -65,6 +65,8 @@ export class AddGrnComponent implements OnInit {
   countryList=[];
   cityList=[];
   editDetails: any;
+  submitted: boolean = false;
+
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -208,6 +210,7 @@ export class AddGrnComponent implements OnInit {
    }
 
   onSubmit() {
+  this.submitted = true;
     if(this.docForm.value.invoiceNo!=null){
     if (this.docForm.valid) {
       this.grn = this.docForm.value;

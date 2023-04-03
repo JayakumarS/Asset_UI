@@ -325,9 +325,8 @@
         <mat-label>Receiving Qty </mat-label>
         <input matInput name ="receivingQty{{i}}" formControlName="receivingQty" (change)="checkAvailibility()" (keypress)="keyPressNumberInt($event)" maxlength="9" required>
       </mat-form-field>
-      <!-- <mat-error *ngIf="docForm.get('receivingQty').hasError('required')">
-        Receiving Qty is required
-      </mat-error> -->
+      <div *ngIf="submitted && grnDetailList.get('receivingQty').hasError('required')" class="failed-validation" class="errorColor"> unit Price is required </div>
+
 
       <mat-form-field class="example-full-width form-control-sm" appearance="outline" *ngIf="edit">
         <mat-label>Receiving Qty </mat-label>
