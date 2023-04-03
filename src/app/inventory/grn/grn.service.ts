@@ -36,6 +36,7 @@ export class GrnService extends UnsubscribeOnDestroyAdapter {
   public updateGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/grn/update`;
   public deleteGrnMaster = `${this.serverUrl.apiServerAddress}api/auth/app/grn/delete`;
   public getGRNDetails = `${this.serverUrl.apiServerAddress}api/auth/app/grn/getGRNDetails`;
+  public getPurchaseOrderNumberDropdownUrl = `${this.serverUrl.apiServerAddress}api/auth/app/grn/getPurchaseOrderNumberDropdown`;
 
   get data(): Grn[] {
     return this.dataChange.value;

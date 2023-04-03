@@ -110,6 +110,7 @@ export class AddGrnComponent implements OnInit {
           // unitPrice: [""],
           qty:[""],
           receivingQty: ["",[Validators.required]],
+          status:[""]
         })
       ])
 
@@ -124,7 +125,15 @@ export class AddGrnComponent implements OnInit {
       companyId: this.tokenStorage.getCompanyId(),
       branchId: this.tokenStorage.getBranchId(),
     }
-    this.httpService.post<any>(this.commonService.getPurchaseOrderNumberDropdown,obj).subscribe({
+    // this.httpService.post<any>(this.commonService.getPurchaseOrderNumberDropdown,obj).subscribe({
+    //   next: (data) => {
+    //     this.purchaseOrderNumber = data;
+    //   },
+    //   error: (error) => {
+    //   }
+    // });
+
+    this.httpService.post<any>(this.grnService.getPurchaseOrderNumberDropdownUrl,obj).subscribe({
       next: (data) => {
         this.purchaseOrderNumber = data;
       },
@@ -298,6 +307,7 @@ export class AddGrnComponent implements OnInit {
               itemId: [element.itemId],
               // unitPrice: [Number(element.unitPrice).toFixed(2)],
               qty:[element.qty],
+              status:[element.status],
               receivingQty: [element.receivingQty],
             })
             grnDetailArray.insert(arraylen, newUsergroup);
@@ -476,6 +486,7 @@ export class AddGrnComponent implements OnInit {
       itemId: [""],
       // unitPrice: [""],
       qty:[""],
+      status:[""],
       receivingQty: ["",[Validators.required]],
     })
     grnDetailArray.insert(arraylen, newUsergroup);
@@ -515,6 +526,7 @@ export class AddGrnComponent implements OnInit {
                   itemId: [element.itemId],
                   // unitPrice: [element.unitPrice],
                   qty:[element.qty],
+                  status:[""],
                   receivingQty: ["",[Validators.required]],
                 })
                 grnDetailArray.insert(arraylen, newUsergroup);
