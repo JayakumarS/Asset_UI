@@ -64,7 +64,13 @@ export class LineMasterService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-        router.navigate(['/master/line/listLine']);
+        if(window.sessionStorage.getItem("LineFrom")=="line"){
+          window.sessionStorage.setItem("LineFrom","");
+          router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+          }else if(window.sessionStorage.getItem("LineFrom")=="normal"){
+            window.sessionStorage.setItem("LineFrom","");
+            router.navigate(['/master/line/listLine']);
+          }
       }else {
         notificationService.showNotification(
           "snackbar-danger",
@@ -95,7 +101,13 @@ export class LineMasterService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-        router.navigate(['/master/line/listLine']);
+        if(window.sessionStorage.getItem("LineFrom")=="line"){
+          window.sessionStorage.setItem("LineFrom","");
+          router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+          }else if(window.sessionStorage.getItem("LineFrom")=="normal"){
+            window.sessionStorage.setItem("LineFrom","");
+            router.navigate(['/master/line/listLine']);
+          }
       }else {
         notificationService.showNotification(
           "snackbar-danger",

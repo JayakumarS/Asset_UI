@@ -14,7 +14,7 @@ import { map } from "rxjs/operators";
 
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CompanyService } from '../../company/company.service';
 import { Company } from '../company-employees-model';
@@ -46,6 +46,8 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
   selection = new SelectionModel<Company>(true, []);
   index: number;
   id: number;
+  company: string;
+  url: string;
 
   constructor(
     public httpClient: HttpClient,
@@ -55,6 +57,7 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
     public router:Router,
+    public routing:ActivatedRoute,
     private tokenStorage: TokenStorageService
   ) { 
     super();
@@ -71,13 +74,13 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
     this.loadData();
   }
   
+  
   refresh() {
     const currentRoute = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentRoute]);
     });
   }
-
   public loadData() {
     this.exampleDatabase = new CompanyEmployeeService(this.httpClient,this.serverUrl,this.tokenStorage,this.httpService,);
     this.dataSource = new ExampleDataSource(
@@ -96,10 +99,18 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
   }
 
   editCall(row) {
-
-    this.router.navigate(['/master/Company-Employees/addCompanyEmp/' + row.id]);
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+    window.sessionStorage.setItem("CompanyFrom", "company");
+    this.router.navigate(['/master/Company-Employees/addCompanyEmp/'+row.id]);
+    }else if(this.url.includes('listCompanyEmp')){
+    window.sessionStorage.setItem("CompanyFrom", "normal");
+    this.router.navigate(['/master/Company-Employees/addCompanyEmp/'+row.id]);
+    };
+    // this.router.navigate(['/master/Company-Employees/addCompanyEmp/' + row.id]);
 
   }
+
 
   multipleuploadpopupCall() {
     let tempDirection;
@@ -191,6 +202,18 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
     this.contextMenu.openMenu();
   }
 
+
+  addEmp(){
+    this.company= this.tokenStorage.getCompanyId();
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+    window.sessionStorage.setItem("CompanyFrom", "company");
+    this.router.navigate(['/master/Company-Employees/addCompanyEmp/0']);
+    }else if(this.url.includes('listCompanyEmp')){
+    window.sessionStorage.setItem("CompanyFrom", "normal");
+    this.router.navigate(['/master/Company-Employees/addCompanyEmp/0']);
+    };
+  }
 }
 
 export class ExampleDataSource extends DataSource<Company> {
@@ -277,5 +300,6 @@ export class ExampleDataSource extends DataSource<Company> {
       );
     });
   }
+
 }
 

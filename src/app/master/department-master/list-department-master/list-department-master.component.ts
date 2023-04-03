@@ -55,6 +55,7 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
   id: number;
   permissionList: any;
   customerMaster: DepartmentMaster | null;
+  url: string;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -113,8 +114,28 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
 
   editCall(row) {
     if (this.permissionList?.modify){
-    this.router.navigate(['/master/department-Master/add-department/'+row.deptId]);
+      this.url=this.router.url;
+      if(this.url.includes("addCompany")){
+      window.sessionStorage.setItem("DepartMentFrom", "department");
+      this.router.navigate(['/master/department-Master/add-department/'+row.deptId]);
+    }else if(this.url.includes('list-department')){
+      window.sessionStorage.setItem("DepartMentFrom", "normal");
+      this.router.navigate(['/master/department-Master/add-department/'+row.deptId]);
+    };
     }
+  }
+
+
+
+  addDept(){
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+    window.sessionStorage.setItem("DepartMentFrom", "department");
+    this.router.navigate(['/master/department-Master/add-department/0']);
+    }else if(this.url.includes('list-department')){
+    window.sessionStorage.setItem("DepartMentFrom", "normal");
+    this.router.navigate(['/master/department-Master/add-department/0']);
+    };
   }
 
   deleteItem(row){

@@ -53,10 +53,14 @@ const httpOptions = {
       this.httpService.post<Company>(this.saveCompany, company).subscribe(data => {
         console.log(data);
         //this.dialogData = employees;
-      
-        router.navigate(['/master/Company-Employees/listCompanyEmp']);
-        
-
+       // router.navigate(['/master/Company-Employees/listCompanyEmp']);
+        if(window.sessionStorage.getItem("CompanyFrom")=="company"){
+          window.sessionStorage.setItem("CompanyFrom","");
+        router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+        }else if(window.sessionStorage.getItem("CompanyFrom")=="normal"){
+          window.sessionStorage.setItem("CompanyFrom","");
+          router.navigate(['/master/Company-Employees/listCompanyEmp']);
+        }
         },
         (err: HttpErrorResponse) => {
           
@@ -85,12 +89,18 @@ const httpOptions = {
     this.httpService.post<Company>(this.updatecompanyEmp, company).subscribe(data => {
       console.log(data);
 
-      router.navigate(['/master/Company-Employees/listCompanyEmp']);
+      //router.navigate(['/master/Company-Employees/listCompanyEmp']);
 
-      if(data.Success == true){
-        
+      if(data.success == true){
+        if(window.sessionStorage.getItem("CompanyFrom")=="company"){
+          window.sessionStorage.setItem("CompanyFrom","");
+        router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+        }else if(window.sessionStorage.getItem("CompanyFrom")=="normal"){
+          window.sessionStorage.setItem("CompanyFrom","");
+         router.navigate(['/master/Company-Employees/listCompanyEmp']);
+        }
       }
-      else if(data.Success == false){
+      else if(data.success == false){
       
       }
       },

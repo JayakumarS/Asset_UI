@@ -46,6 +46,8 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
   id: number;
   permissionList: any;
   locationMaster: LocationMaster | null;
+  company: string;
+  url: string;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -110,7 +112,15 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
   }
   editCall(row) {
     if (this.permissionList?.modify){
-    this.router.navigate(['/master/location/addLocation/' + row.locationId]);
+      this.url=this.router.url;
+      if(this.url.includes("addCompany")){
+        window.sessionStorage.setItem("LocationFrom", "location");
+        this.router.navigate(['/master/location/addLocation/' + row.locationId]);
+        }else if(this.url.includes('listLocation')){
+        window.sessionStorage.setItem("LocationFrom", "normal");
+        this.router.navigate(['/master/location/addLocation/' + row.locationId]);      
+        };
+    
     }
   }
 
@@ -160,7 +170,18 @@ deleteItem(row) {
     }
   });
 }
+addLoct(){
+  this.company= this.tokenStorage.getCompanyId();
+  this.url=this.router.url;
+  if(this.url.includes("addCompany")){
+  window.sessionStorage.setItem("LocationFrom", "location");
+  this.router.navigate(['/master/location/addLocation/0']);
+  }else if(this.url.includes('listLocation')){
+  window.sessionStorage.setItem("LocationFrom", "normal");
+  this.router.navigate(['/master/location/addLocation/0']);
+  };
 
+}
 multipleuploadpopupCall() {
   let tempDirection;
   if (localStorage.getItem("isRtl") === "true") {

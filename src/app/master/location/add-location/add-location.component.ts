@@ -201,7 +201,13 @@ validateLocationCode(event) {
               "bottom",
               "center"
             );
-            this.onCancel();
+            if(window.sessionStorage.getItem("LocationFrom")=="location"){
+              window.sessionStorage.setItem("LocationFrom","");
+            this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+            }else if(window.sessionStorage.getItem("LocationFrom")=="normal"){
+              window.sessionStorage.setItem("LocationFrom","");
+              this.router.navigate(['/master/location/listLocation']);
+            }
           } else {
             this.showNotification(
               "snackbar-danger",
@@ -232,7 +238,13 @@ validateLocationCode(event) {
     }
   }
  onCancel(){
-     this.router.navigate(['/master/location/listLocation']);
+  if(window.sessionStorage.getItem("LocationFrom")=="location"){
+    window.sessionStorage.setItem("LocationFrom","");
+  this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+  }else if(window.sessionStorage.getItem("LocationFrom")=="normal"){
+    window.sessionStorage.setItem("LocationFrom","");
+    this.router.navigate(['/master/location/listLocation']);
+  }
 }
 
 fetchDetails(locationId: any): void {
@@ -274,7 +286,13 @@ fetchDetails(locationId: any): void {
             "bottom",
             "center"
           );
-          this.onCancel();
+          if(window.sessionStorage.getItem("LocationFrom")=="location"){
+            window.sessionStorage.setItem("LocationFrom","");
+          this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+          }else if(window.sessionStorage.getItem("LocationFrom")=="normal"){
+            window.sessionStorage.setItem("LocationFrom","");
+            this.router.navigate(['/master/location/listLocation']);
+          }
         } else {
           this.showNotification(
             "snackbar-danger",

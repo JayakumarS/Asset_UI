@@ -267,7 +267,14 @@ export class AddDepartmentMasterComponent implements OnInit {
         "bottom",
         "center"
       );
-      this.router.navigate(['/master/department-Master/list-department']);
+      if(window.sessionStorage.getItem("DepartMentFrom")=="department"){
+        window.sessionStorage.setItem("DepartMentFrom","");
+        this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+        }else if(window.sessionStorage.getItem("DepartMentFrom")=="normal"){
+          window.sessionStorage.setItem("DepartMentFrom","");
+          this. router.navigate(['/master/department-Master/list-department']);
+        }
+     // this.router.navigate(['/master/department-Master/list-department']);
      }else{
       this.showNotification(
         "snackbar-danger",
@@ -334,8 +341,13 @@ export class AddDepartmentMasterComponent implements OnInit {
 
 
   onCancel(){
-    this.router.navigate(['/master/department-Master/list-department']);
-
+    if(window.sessionStorage.getItem("DepartMentFrom")=="department"){
+      window.sessionStorage.setItem("DepartMentFrom","");
+    this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+    }else if(window.sessionStorage.getItem("DepartMentFrom")=="normal"){
+      window.sessionStorage.setItem("DepartMentFrom","");
+      this.router.navigate(['/master/department-Master/list-department']);
+    }
   }
 
 

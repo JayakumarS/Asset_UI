@@ -14,6 +14,16 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { CategoryMasterService } from '../../category/category.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { AddCompanyEmployeesComponent } from '../../company-employees/add-company-employees/add-company-employees.component';
+import { AddBranchComponent } from '../../branch/add-branch/add-branch.component';
+import { ListCompanyEmployeesComponent } from '../../company-employees/list-company-employees/list-company-employees.component';
+import { ListBranchComponent } from '../../branch/list-branch/list-branch.component';
+import { ListDepartmentMasterComponent } from '../../department-master/list-department-master/list-department-master.component';
+import { ListLocationComponent } from '../../location/list-location/list-location.component';
+import { ListCustomerComponent } from '../../customer/list-customer/list-customer.component';
+import { ListStateMasterComponent } from '../../state/list-state-master/list-state-master.component';
+import { ListLineMasterComponent } from '../../line-master/list-line-master/list-line-master.component';
+import { ListStatusMasterComponent } from '../../status/list-status-master/list-status-master.component';
 
 @Component({
   selector: 'app-add-company',
@@ -54,6 +64,17 @@ export class AddCompanyComponent implements OnInit {
   regCountryList=[];
   regCityList=[];
   editDetails: any;
+
+
+  
+  tabEmp = [{ content: ListCompanyEmployeesComponent }];
+  tabDept = [{ content: ListDepartmentMasterComponent}];
+  tabLocation= [{ content: ListLocationComponent}];
+  tabCustomer=[{ content: ListCustomerComponent}];
+  tabState=[{ content: ListStatusMasterComponent}];
+  tabLine=[{ content: ListLineMasterComponent}];
+
+
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
     private departmentMasterService: DepartmentMasterService,
@@ -849,4 +870,17 @@ export class AddCompanyComponent implements OnInit {
     a.download = fileName;
     a.click();
   }
+
+
+  moveToSelectedTab(tabName: string) {
+    for (let i =0; i< document.querySelectorAll('.mat-tab-label-content').length; i++) {
+    if ((<HTMLElement>document.querySelectorAll('.mat-tab-label-content')[i]).innerText == tabName) 
+       {
+          (<HTMLElement>document.querySelectorAll('.mat-tab-label')[i]).click();
+       }
+     }
+}
+selectNext(el){
+  el.selectedIndex += 1;
+}
 }

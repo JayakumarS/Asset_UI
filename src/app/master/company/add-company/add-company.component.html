@@ -13,6 +13,11 @@
         <div class="box-shadow">
           <div class="card">
             <div class="body" style="padding-left: 60px;">
+              <mat-tab-group #matgroup >
+                <mat-tab label="Tab 1">
+                  <ng-template mat-tab-label>
+                    <i class="material-icons">domain</i> &nbsp;Company
+                </ng-template>
               <form class="m-4" [formGroup]="docForm">
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
@@ -551,11 +556,116 @@
                       style="margin-left: 36%;background-color: #34d034;">Update</button>
                     <button color="primary" type="button" class="btn-space" (click)="reset()"
                       mat-raised-button>Reset</button>
-                    <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                      <button color="warn" type="button" class="btn-space" (click)="onCancel()"
                       mat-raised-button>Back</button>
+                      <button  style="background-color:#004554;" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 1'
+                      mat-raised-button color="accent">Next</button>
                   </div>
                 </div>
               </form>
+            </mat-tab>
+
+            <mat-tab label="Tab 2"  *ngFor="let tab of tabEmp; let index = index">
+              <ng-template mat-tab-label>
+                <i class="material-icons">group</i>Company Employee
+              </ng-template>
+               <div class="card">
+                <ng-container *ngComponentOutlet="tab.content"></ng-container>
+              <div class="row" style="    margin-left:45%;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button color="warn" type="button" class="btn-space" (click)='matgroup.selectedIndex = 0'
+                    mat-raised-button>Previous</button>
+                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space" (click)='matgroup.selectedIndex = 2'
+                    mat-raised-button>Next</button>
+                </div>
+              </div>
+            </div>
+            </mat-tab> 
+          
+            <mat-tab label="Tab 3"  *ngFor="let tab of tabDept; let index = index">
+              <ng-template mat-tab-label >
+                <i class="material-icons">view_comfy</i>Department
+              </ng-template>
+               <div class="card">
+                <ng-container *ngComponentOutlet="tab.content"></ng-container>
+              <div class="row" style="    margin-left: 45%;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 1'
+                    mat-raised-button>Previous</button>
+                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex = 3'
+                    mat-raised-button>Next</button>
+                </div>
+              </div>
+            </div>
+            </mat-tab> 
+
+            <mat-tab label="Tab 4"  *ngFor="let tab of tabLocation; let index = index">
+              <ng-template mat-tab-label >
+                <i class="material-icons">place</i>Location
+              </ng-template>
+               <div class="card">
+                <ng-container *ngComponentOutlet="tab.content"></ng-container>
+              <div class="row" style="    margin-left: 45%;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 2'
+                    mat-raised-button>Previous</button>
+                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex = 4'
+                    mat-raised-button>Next</button>
+                </div>
+              </div>
+            </div>
+            </mat-tab> 
+            
+            <mat-tab label="Tab 5"  *ngFor="let tab of tabCustomer; let index = index">
+              <ng-template mat-tab-label >
+                <i class="material-icons">person_add</i>&nbsp;Customer/vendor
+              </ng-template>
+               <div class="card">
+                <ng-container *ngComponentOutlet="tab.content"></ng-container>
+              <div class="row" style="    margin-left: 45%;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 3'
+                    mat-raised-button>Previous</button>
+                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex = 5'
+                    mat-raised-button>Next</button>
+                </div>
+              </div>
+            </div>
+            </mat-tab> 
+            <mat-tab label="Tab 6"  *ngFor="let tab of tabState;">
+              <ng-template mat-tab-label >
+                <i class="material-icons">import_contacts</i>&nbsp;Status
+              </ng-template>
+               <div class="card">
+                <ng-container *ngComponentOutlet="tab.content"></ng-container>
+              <div class="row" style="    margin-left: 45%;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 4'
+                    mat-raised-button>Previous</button>
+                    <button style="background-color:#004554;" color="accent"type="button" class="btn-space"   (click)='matgroup.selectedIndex =6'
+                    mat-raised-button>Next</button>
+                </div>
+              </div>
+            </div>
+            </mat-tab> 
+
+            <mat-tab label="Tab 7"  *ngFor="let tab of tabLine;">
+              <ng-template mat-tab-label >
+                <i class="material-icons">view_list</i>Line
+              </ng-template>
+               <div class="card">
+                <ng-container *ngComponentOutlet="tab.content"></ng-container>
+              <div class="row" style="    margin-left: 45%;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex =5'
+                    mat-raised-button>Previous</button>
+                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex =0'
+                    mat-raised-button>Next</button>
+                </div>
+              </div>
+            </div>
+            </mat-tab> 
+              </mat-tab-group>
             </div>
           </div>
         </div>

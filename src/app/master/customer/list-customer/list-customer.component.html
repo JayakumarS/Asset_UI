@@ -24,7 +24,7 @@
                           <li *ngIf="permissionList?.add">
                             <div class="m-l-10" matTooltip="ADD">
                               <button color="primary" type="button" class="btn-space"
-                                [routerLink]="'/master/customer/add-customer/0'" mat-raised-button><i
+                                (click)="addVendor()" mat-raised-button><i
                                   class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                             </div>
                           </li>

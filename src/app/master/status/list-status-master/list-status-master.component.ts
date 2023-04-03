@@ -41,6 +41,7 @@ export class ListStatusMasterComponent extends UnsubscribeOnDestroyAdapter imple
   isTblLoading: boolean;
   exampleDatabase: StatusService| null;
   permissionList: any;
+  url: string;
 
     constructor( public httpClient: HttpClient,
                  private spinner: NgxSpinnerService,
@@ -103,9 +104,27 @@ export class ListStatusMasterComponent extends UnsubscribeOnDestroyAdapter imple
       );
     }
 
+    addStatus(){
+      this.url=this.router.url;
+      if(this.url.includes("addCompany")){
+      window.sessionStorage.setItem("StateFrom", "state");
+      this.router.navigate(['/master/status/addStatus/0']);
+      }else if(this.url.includes('listStatus')){
+      window.sessionStorage.setItem("StateFrom", "normal");
+      this.router.navigate(['/master/status/addStatus/0']);
+      };
+    }
+
     editCall(row) {
       if (this.permissionList?.modify){
-      this.router.navigate(['/master/status/addStatus/' + row.id]);
+        this.url=this.router.url;
+        if(this.url.includes("addCompany")){
+        window.sessionStorage.setItem("StateFrom", "state");
+        this.router.navigate(['/master/status/addStatus/' + row.id]);
+      }else if(this.url.includes('listStatus')){
+        window.sessionStorage.setItem("StateFrom", "normal");
+        this.router.navigate(['/master/status/addStatus/' + row.id]);
+      };
       }
     }
 

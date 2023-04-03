@@ -415,7 +415,15 @@ locationdropdown(company:any){
               "bottom",
               "center"
             );
-            this.onCancel();
+
+            if(window.sessionStorage.getItem("VendorFrom")=="vendor"){
+              window.sessionStorage.setItem("VendorFrom","");
+            this.router.navigate(['/master/company/addCompany/'+this.tokenStorageService.getCompanyId()]);
+            }else if(window.sessionStorage.getItem("VendorFrom")=="normal"){
+              window.sessionStorage.setItem("VendorFrom","");
+              this.router.navigate(['/master/customer/list-customer']);
+            }
+
           } else {
             this.showNotification(
               "snackbar-danger",
@@ -666,7 +674,15 @@ update() {
             "bottom",
             "center"
           );
-          this.onCancel();
+ 
+          if(window.sessionStorage.getItem("VendorFrom")=="vendor"){
+            window.sessionStorage.setItem("VendorFrom","");
+          this.router.navigate(['/master/company/addCompany/'+this.tokenStorageService.getCompanyId()]);
+          }else if(window.sessionStorage.getItem("VendorFrom")=="normal"){
+            window.sessionStorage.setItem("VendorFrom","");
+            this.router.navigate(['/master/customer/list-customer']);
+          }
+
         } else {
           this.showNotification(
             "snackbar-danger",
@@ -819,9 +835,13 @@ reset(){
 
 
 onCancel(){
-
-  this.router.navigate(['/master/customer/list-customer']);
-
+  if(window.sessionStorage.getItem("VendorFrom")=="vendor"){
+    window.sessionStorage.setItem("VendorFrom","");
+  this.router.navigate(['/master/company/addCompany/'+this.tokenStorageService.getCompanyId()]);
+  }else if(window.sessionStorage.getItem("VendorFrom")=="normal"){
+    window.sessionStorage.setItem("VendorFrom","");
+    this.router.navigate(['/master/customer/list-customer']);
+  }
 
 }
 
@@ -872,6 +892,7 @@ validateCustomer(event){
 
   //// country ,state and city dropdowns /////////////////////
   getPincodeDetails(pincode){
+    if(pincode !=null){
     if(pincode!=""){
       this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
         if(res.success){
@@ -926,9 +947,10 @@ validateCustomer(event){
         }
       })
     }
-    
+  }
   }
   getBillingPincode(pincode){
+    if(pincode !=null){
     if(pincode!=""){
       this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
         if(res.success){
@@ -984,10 +1006,12 @@ validateCustomer(event){
       })
     }
   }
+  }
 
 
  
   getShipperPincode(pincode){
+    if(pincode !=null){
     if(pincode!=""){
       this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
         if(res.success){
@@ -1043,9 +1067,11 @@ validateCustomer(event){
       })
     }
   }
+  }
 
 
   getDeliveryPincode(pincode){
+    if(pincode !=null){
     if(pincode!=""){
       this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
         if(res.success){
@@ -1101,4 +1127,5 @@ validateCustomer(event){
       })
     }
   }
+}
 }

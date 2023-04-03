@@ -42,6 +42,8 @@ dataSource: ExampleDataSource|null;
 exporter: any;
 permissionList: any;
   companyId: string;
+  company: string;
+  url: string;
 
 
 
@@ -87,12 +89,9 @@ permissionList: any;
     });
     this.loadData();
     // window.location.reload();
-    this.load();
   }
 
-  load(){
-    this.router.navigate(['/master/customer/list-customer']);
-  }
+ 
 
   refresh(){
     this.loadData();
@@ -115,9 +114,27 @@ permissionList: any;
     );
   }
 
+  addVendor(){
+    this.company= this.tokenStorage.getCompanyId();
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+    window.sessionStorage.setItem("VendorFrom", "vendor");
+    this.router.navigate(['/master/customer/add-customer/0']);
+    }else if(this.url.includes('list-customer')){
+    window.sessionStorage.setItem("VendorFrom", "normal");
+    this.router.navigate(['/master/customer/add-customer/0']);
+    };
+  }
   editCall(row) {
     if (this.permissionList?.modify){
-    this.router.navigate(['/master/customer/add-customer/' + row.cus_id]);
+      this.url=this.router.url;
+      if(this.url.includes("addCompany")){
+      window.sessionStorage.setItem("VendorFrom", "vendor");
+      this.router.navigate(['/master/customer/add-customer/' + row.cus_id]);
+    }else if(this.url.includes('list-customer')){
+      window.sessionStorage.setItem("VendorFrom", "normal");
+      this.router.navigate(['/master/customer/add-customer/' + row.cus_id]);
+    };
     }
   }
   deleteItem(row) {

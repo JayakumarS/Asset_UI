@@ -23,10 +23,11 @@
                             aria-label="Search box">
                         </li>
                         <li>
-                          <div class="m-l-10" matTooltip="ADD">
-                            <button color="primary" type="button" class="btn-space" [routerLink]="'/master/Company-Employees/addCompanyEmp/0'" mat-raised-button><i
+                          <div class="m-l-10" matTooltip="ADD" >
+                            <button color="primary" type="button" class="btn-space" mat-raised-button (click)="addEmp()" ><i
                               class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
-                          </div>
+                         
+                            </div>
                         </li>
 
                         <li>

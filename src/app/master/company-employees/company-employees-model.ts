@@ -10,7 +10,7 @@ export class Company{
     id:any;
     employeeId:string;
     
-  Success: boolean;
+    success: boolean;
   empid:any;
   
 

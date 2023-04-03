@@ -23,7 +23,8 @@
                             aria-label="Search box">
                         </li>
                         <li *ngIf="permissionList?.add">                          <div class="m-l-10" matTooltip="ADD">
-                            <button color="primary" type="button" class="btn-space"  [routerLink]="'/master/status/addStatus/0'" mat-raised-button><i
+                            <button color="primary" type="button" class="btn-space" 
+                            (click)="addStatus()" mat-raised-button><i
                               class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                           </div>
                         </li>

@@ -97,7 +97,13 @@ export class AddStatusMasterComponent implements OnInit {
             "bottom",
             "center"
           );
-          this.router.navigate(['/master/status/listStatus']);
+          if(window.sessionStorage.getItem("StateFrom")=="state"){
+            window.sessionStorage.setItem("StateFrom","");
+          this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+          }else if(window.sessionStorage.getItem("StateFrom")=="normal"){
+            window.sessionStorage.setItem("StateFrom","");
+            this.router.navigate(['/master/status/listStatus']);
+          }
         } else {
           this.showNotification(
             "snackbar-danger",
@@ -143,8 +149,13 @@ export class AddStatusMasterComponent implements OnInit {
       "bottom",
       "center"
     );
-    this.router.navigate(['/master/status/listStatus']);
-
+    if(window.sessionStorage.getItem("StateFrom")=="state"){
+      window.sessionStorage.setItem("StateFrom","");
+    this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+    }else if(window.sessionStorage.getItem("StateFrom")=="normal"){
+      window.sessionStorage.setItem("StateFrom","");
+      this.router.navigate(['/master/status/listStatus']);
+    }
   }
   else{
     this.showNotification(
@@ -157,7 +168,13 @@ export class AddStatusMasterComponent implements OnInit {
   }
 
   onCancel(){
-     this.router.navigate(['/master/status/listStatus']);
+    if(window.sessionStorage.getItem("StateFrom")=="state"){
+      window.sessionStorage.setItem("StateFrom","");
+    this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+    }else if(window.sessionStorage.getItem("StateFrom")=="normal"){
+      window.sessionStorage.setItem("StateFrom","");
+      this.router.navigate(['/master/status/listStatus']);
+    }
   }
 
   reset(){

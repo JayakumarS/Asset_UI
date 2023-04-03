@@ -131,7 +131,13 @@ export class AddLineMasterComponent implements OnInit {
   }
 
   onCancel(){
-    this.router.navigate(['/master/line/listLine']);
+    if(window.sessionStorage.getItem("LineFrom")=="line"){
+      window.sessionStorage.setItem("LineFrom","");
+     this. router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+      }else if(window.sessionStorage.getItem("LineFrom")=="normal"){
+        window.sessionStorage.setItem("LineFrom","");
+       this. router.navigate(['/master/line/listLine']);
+      }
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

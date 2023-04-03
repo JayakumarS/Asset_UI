@@ -37,6 +37,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
   companyName: any;
   companyList:[];
   value5:[];
+  normal: any;
   
   constructor( private spinner: NgxSpinnerService,
     private fb: FormBuilder,
@@ -164,6 +165,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
        this.fetchDetails(this.requestId) ;
 
       }
+      // this.normal= window.sessionStorage.getItem("findFrom");
      });
      this.userId = this.tokenStorage.getUserId();
      this.companyId = this.tokenStorage.getCompanyId();
@@ -298,6 +300,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       this.company = this.docForm.value;
       this.companyEmployeeService.CompanyEmpUpdate(this.company,this.router);
       // this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
+      
     }
     else{
       this.showNotification(
@@ -359,10 +362,13 @@ export class AddCompanyEmployeesComponent implements OnInit {
 
 
   onCancel(){
-
-    this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
-
-
+    if(window.sessionStorage.getItem("CompanyFrom")=="company"){
+      window.sessionStorage.setItem("CompanyFrom","");
+    this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+    }else if(window.sessionStorage.getItem("CompanyFrom")=="normal"){
+      window.sessionStorage.setItem("CompanyFrom","");
+      this.router.navigate(['/master/Company-Employees/listCompanyEmp']);
+    }
   }
 
 

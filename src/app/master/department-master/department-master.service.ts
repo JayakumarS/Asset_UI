@@ -87,7 +87,14 @@ export class DepartmentMasterService extends UnsubscribeOnDestroyAdapter {
           "bottom",
           "center"
         );
-        router.navigate(['/master/department-Master/list-department']);
+        if(window.sessionStorage.getItem("DepartMentFrom")=="department"){
+        window.sessionStorage.setItem("DepartMentFrom","");
+        router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+        }else if(window.sessionStorage.getItem("DepartMentFrom")=="normal"){
+          window.sessionStorage.setItem("DepartMentFrom","");
+          router.navigate(['/master/department-Master/list-department']);
+        }
+        //  router.navigate(['/master/department-Master/list-department']);
       }else{
         notificationService.showNotification(
           "snackbar-danger",
