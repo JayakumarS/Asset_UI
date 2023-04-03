@@ -25,7 +25,7 @@
                     </mat-form-field>
                   </div>
                   <div class=" col-md-2">
-                    <mat-label>PARTY INVOICE NO</mat-label>
+                    <mat-label>PARTY INVOICE NO<span class="errorColor">*</span></mat-label>
                     </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -53,7 +53,7 @@
                     </mat-form-field>
                   </div>
                   <div class=" col-md-2">
-                    <mat-label>PURCHASE ORDER NO</mat-label>
+                    <mat-label>PURCHASE ORDER NO<span class="errorColor">*</span></mat-label>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -113,11 +113,10 @@
 
                 <div class="row" style="margin-left: 10%;">
                   <div class=" col-md-2">
-                    <mat-label>VENDOR</mat-label>
+                    <mat-label>VENDOR<span class="errorColor">*</span></mat-label>
                     </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Vendor</mat-label>
                       <mat-select formControlName="vendorId" required >
                         <mat-option *ngFor="let title of vendorList" [value]="title.id">
                           {{title.text}}
@@ -130,11 +129,10 @@
                   </div>
 
                   <div class=" col-md-2">
-                    <mat-label> LOCATION</mat-label>
+                    <mat-label> LOCATION<span class="errorColor">*</span></mat-label>
                     </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Location</mat-label>
                       <mat-select formControlName="locationId" required>
                         <mat-option *ngFor="let title of locationDdList" [value]="title.id">
                           {{title.text}}
@@ -149,11 +147,10 @@
 
                 <div class="row" style="margin-left: 10%;">
                   <div class=" col-md-2">
-                    <mat-label>CURRENCY</mat-label>
+                    <mat-label>CURRENCY<span class="errorColor">*</span></mat-label>
                     </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Currency</mat-label>
                       <mat-select formControlName="currencyId" required>
                         <mat-option *ngFor="let title of currencyList" [value]="title.id">
                           {{title.text}}
@@ -169,7 +166,6 @@
                     </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Exchange Rate</mat-label>
                       <input matInput formControlName="exchangerate">
                     </mat-form-field>
                   </div>
@@ -177,11 +173,10 @@
 
                 <div class="row" style="margin-left: 10%;">
                   <div class=" col-md-2">
-                    <mat-label>AMOUNT</mat-label>
+                    <mat-label>AMOUNT<span class="errorColor">*</span></mat-label>
                     </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Amount</mat-label>
                       <input matInput formControlName="amount" (keypress)="keyPressNumberDouble($event)" required>
                       <mat-error *ngIf="docForm.get('amount').hasError('required')">
                         Amount is required

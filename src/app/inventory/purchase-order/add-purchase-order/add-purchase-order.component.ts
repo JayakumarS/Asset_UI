@@ -73,6 +73,8 @@ export class AddPurchaseOrderComponent implements OnInit {
   districtList=[];
   countryList=[];
   cityList=[];
+  submitted: boolean = false;
+
 
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   editDetails: any;
@@ -125,8 +127,8 @@ export class AddPurchaseOrderComponent implements OnInit {
           edd: [''],
           eddObj: [''],
           uomId: [''],
-          qty: [''],
-          unitPrice: [''],
+          qty: ['',[Validators.required]],
+          unitPrice: ['',[Validators.required]],
           price: [''],
           discountType: [''],
           discount: [''],
@@ -293,6 +295,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 }
   onSubmit() {
+    this.submitted = true;
     if (this.docForm.valid) {
       this.purchaseOrder = this.docForm.value;
       this.spinner.show();
