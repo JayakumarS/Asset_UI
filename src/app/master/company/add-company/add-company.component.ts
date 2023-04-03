@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -24,6 +24,7 @@ import { ListCustomerComponent } from '../../customer/list-customer/list-custome
 import { ListStateMasterComponent } from '../../state/list-state-master/list-state-master.component';
 import { ListLineMasterComponent } from '../../line-master/list-line-master/list-line-master.component';
 import { ListStatusMasterComponent } from '../../status/list-status-master/list-status-master.component';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-add-company',
@@ -31,6 +32,7 @@ import { ListStatusMasterComponent } from '../../status/list-status-master/list-
   styleUrls: ['./add-company.component.sass']
 })
 export class AddCompanyComponent implements OnInit {
+  @ViewChild('matgroup') tabGroup:MatTabGroup;
   docForm: FormGroup;
   company: Company;
   countryDdList = [];
@@ -158,7 +160,6 @@ export class AddCompanyComponent implements OnInit {
     }
     );
 
-
     // Country Code Dropdown List
     this.httpService.get<any>(this.commonService.getCountryCodeDropdown).subscribe({
       next: (data) => {
@@ -230,6 +231,11 @@ export class AddCompanyComponent implements OnInit {
         }
       }
     });
+
+  }
+
+  ngAfterViewInit(){
+    this.matEvent(window.sessionStorage.getItem("TabFrom"));
 
   }
   fetchCompanyDetails(userId: any): void {
@@ -871,16 +877,13 @@ export class AddCompanyComponent implements OnInit {
     a.click();
   }
 
-
-  moveToSelectedTab(tabName: string) {
-    for (let i =0; i< document.querySelectorAll('.mat-tab-label-content').length; i++) {
-    if ((<HTMLElement>document.querySelectorAll('.mat-tab-label-content')[i]).innerText == tabName) 
-       {
-          (<HTMLElement>document.querySelectorAll('.mat-tab-label')[i]).click();
-       }
-     }
-}
 selectNext(el){
   el.selectedIndex += 1;
+  window.sessionStorage.setItem("TabFrom",el.selectedIndex);
+}
+
+matEvent(row){
+this.tabGroup.selectedIndex=row;
+window.sessionStorage.setItem("TabFrom",row);
 }
 }

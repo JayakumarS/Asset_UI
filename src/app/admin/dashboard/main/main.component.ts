@@ -1525,6 +1525,14 @@ configUserLog: {
   onChange(){
     var userId=this.tokenStorage.getCompanyId()
     window.sessionStorage.setItem("findFrom", "Opened");
+    window.sessionStorage.setItem("TabFrom", "");
+    window.sessionStorage.setItem("CompanyFrom","");
+    window.sessionStorage.setItem("DepartMentFrom","");
+    window.sessionStorage.setItem("LocationFrom","");
+    window.sessionStorage.setItem("VendorFrom","");
+    window.sessionStorage.setItem("StateFrom","");
+    window.sessionStorage.setItem("LineFrom","");
+
     this.router.navigate(['master/company/addCompany/'+userId]);
   }
   onchangeAsset(){
