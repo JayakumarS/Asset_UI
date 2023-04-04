@@ -35,6 +35,7 @@ export class UomCategoryService extends UnsubscribeOnDestroyAdapter {
   public deleteUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uom/delete`;
   public updateUomCategory = `${this.serverUrl.apiServerAddress}api/auth/app/uom/update`;
   public fetchUomCategoryName = `${this.serverUrl.apiServerAddress}api/auth/app/uom/getUomCategory`;
+  public uniqueValidateCompanyBasedUrl = `${this.serverUrl.apiServerAddress}api/auth/app/uom/validation`;
 
   get data(): UomCategory[] {
     return this.dataChange.value;

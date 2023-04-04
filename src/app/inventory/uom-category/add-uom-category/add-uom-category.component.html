@@ -17,19 +17,49 @@
                 </div>
                 <div class="row">
                   <div class=" col-md-2"></div>
+
                   <div class=" col-md-2">
                     <mat-label >UOM NAME<span class="errorColor">*</span></mat-label>
-                    </div>
-                    <div class=" col-md-3">
+                    </div> 
+
+                    <!-- <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="categoryName" oninput="this.value = this.value.toUpperCase()"
                         maxlength="20" required>
-
-                        <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
+                       <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
                           UOM Name is required
                         </mat-error>
                       </mat-form-field>
-                    </div>
+                    </div>  -->
+                    
+                <div class=" col-md-3"*ngIf="editflag">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="categoryName" maxlength="20"
+                     oninput="this.value = this.value.toUpperCase()"  
+                    (blur)="validateCategoryName($event.target.value)" required>
+                    <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
+                      UOM Name is required
+                     </mat-error>
+                    <mat-error *ngIf="docForm.get('categoryName').hasError('assetcategory')">
+                      UOM Name Already Exists..!!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="!editflag">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="categoryName" maxlength="20"
+                     oninput="this.value = this.value.toUpperCase()"  
+                    (blur)="validateCategoryName($event.target.value)" readonly>
+                    <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
+                      UOM Name is required
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('categoryName').hasError('assetcategory')">
+                      UOM Name Already Exists..!!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+
                     </div>
 
               </div>
