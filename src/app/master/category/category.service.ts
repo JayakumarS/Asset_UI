@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { serverLocations } from "src/app/auth/serverLocations";
 import { TokenStorageService } from "src/app/auth/token-storage.service";
@@ -40,6 +40,7 @@ export class CategoryMasterService extends UnsubscribeOnDestroyAdapter {
    public getCurrencyDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/getCurrency`;
    public uniqueValidateCompanyBasedUrl = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/validation`;
 
+   public Assetcategory = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/getCategoryList`;
 
    
    
@@ -118,4 +119,8 @@ get data(): Assetcategory[] {
     
   }
 
+
+  getAssetcategory(assetcategory: any): Observable<any> {
+    return this.httpClient.post<any>(this.Assetcategory, assetcategory);
+  }
 }

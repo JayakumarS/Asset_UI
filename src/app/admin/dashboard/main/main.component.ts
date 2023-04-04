@@ -135,7 +135,7 @@ export class MainComponent implements OnInit {
   config1: { itemsPerPage: number; currentPage: number; totalItems: number; };
   popUpFlag:string;
   activityflag: string;
-  companyAuditorCount: string;
+  companyId: any;
   companyPurchaseAssetsCount: any;
   companyUsersAssetsCount: any;
   companyEarningsAssetsCount: any;
@@ -208,7 +208,7 @@ configUserLog: {
     // Basic Bar Chart
    this.basicBarChart();
 
-    this.companyAuditorCount=this.tokenStorage.getCompanyId();
+    this.companyId=this.tokenStorage.getCompanyId();
     this.roleId=this.tokenStorage.getRoleId();
     
     
@@ -288,8 +288,10 @@ configUserLog: {
         console.log(error.name + " " + error.message);
       }
     );
-
-    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.companyAuditorCount).subscribe(
+    
+if(this.companyId == null)
+{''
+    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.companyId).subscribe(
       (data) => {
         this.assetListDashboard = data.assetListDashboard;
         if(data.assetListDashboard.length!=0){
@@ -302,9 +304,11 @@ configUserLog: {
         console.log(error.name + " " + error.message);
       }
     );
+}
 
     //User Log Report List
-    this.httpService.get<AuditableAssetResultBean>(this.mainService.userLogListUrl+ "?companyId=" + this.companyAuditorCount).subscribe(
+    
+    this.httpService.get<AuditableAssetResultBean>(this.mainService.userLogListUrl+ "?companyId=" + this.companyId).subscribe(
       (data) => {
         this.userLogListDashboard = data.getUserLogListForDashboard;
         this.configUserLog = {
@@ -320,7 +324,7 @@ configUserLog: {
     );
 
     // ticket survey
-    this.httpService.get<any>(this.mainService.getItSupportTicketURL+ "?companyId=" + parseInt(this.companyAuditorCount)).subscribe(
+    this.httpService.get<any>(this.mainService.getItSupportTicketURL+ "?companyId=" + parseInt(this.companyId)).subscribe(
       (data) => {
         this.barChartOptions.series=data.getTicketListGraphForClient;
         if(data.getTicketListGraphForClient.length!=0){
@@ -349,7 +353,7 @@ configUserLog: {
 
 
     // Company based Auditor count service
-    this.companyBasedCount(this.companyAuditorCount,this.roleId);
+    this.companyBasedCount(this.companyId,this.roleId);
 
    
 
@@ -360,9 +364,9 @@ configUserLog: {
     // this.popUp();
    }
 
-  companyBasedCount(companyAuditorCount,roleId:any){
-    this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + companyAuditorCount +"&roleId="+roleId).subscribe((doughnutChartData: any) => {
-      console.log(this.companyAuditorCount);
+  companyBasedCount(companyId,roleId:any){
+    this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + companyId +"&roleId="+roleId).subscribe((doughnutChartData: any) => {
+      console.log(this.companyId);
       this.compltedProfile=doughnutChartData.completedProfile;
 
       this.companyPurchaseAssetsCount = doughnutChartData.companyPurchaseAssetsCount;
@@ -887,8 +891,8 @@ configUserLog: {
     //   }
     // );
 
-    this.httpService.get<MainResultBean>(this.mainService.AuditableAssetListDashboardUrl + "?companyId=" + this.companyAuditorCount).subscribe((res: any) => {
-      console.log(this.companyAuditorCount);
+    this.httpService.get<MainResultBean>(this.mainService.AuditableAssetListDashboardUrl + "?companyId=" + this.companyId).subscribe((res: any) => {
+      console.log(this.companyId);
       this.auditableAssetList = res.auditableAssetListDashboard;
       this.configDepreciation = {
         id: 'pagination',    
@@ -921,8 +925,8 @@ configUserLog: {
     //   );
     // }
     // else{
-      this.httpService.get<MainResultBean>(this.mainService.getCompanyAssetListUrl + "?companyId=" + this.companyAuditorCount).subscribe((res: any) => {
-        console.log(this.companyAuditorCount);
+      this.httpService.get<MainResultBean>(this.mainService.getCompanyAssetListUrl + "?companyId=" + this.companyId).subscribe((res: any) => {
+        console.log(this.companyId);
         this.companyAssetList = res.assetList;
         this.config = {
           id: 'pagination',    

@@ -10,17 +10,17 @@
         <table mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"
           matSort>
           <ng-container matColumnDef="categoryName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category Name </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Parent Category </th>
             <td mat-cell *matCellDef="let row"> {{row.categoryName}} </td>
         </ng-container>
-        <ng-container matColumnDef="Description">
+        <!-- <ng-container matColumnDef="Description">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
           <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
       </ng-container>
       <ng-container matColumnDef="isactive">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
         <td mat-cell *matCellDef="let row"> {{row.isactive}} </td>
-    </ng-container>
+    </ng-container> -->
     
 
               <!-- actions -->
@@ -53,9 +53,9 @@
                   </mat-form-field>
                   <table #innerTables mat-table #innerSort="matSort" [dataSource]="element.addresses" matSort
                     multiTemplateDataRows>
-                    <ng-container matColumnDef="parentsCategory">
+                    <ng-container matColumnDef="categoryName">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Parent Category </th>
-                      <td mat-cell *matCellDef="let row"> {{row.parentsCategory}}
+                      <td mat-cell *matCellDef="let row"> {{row.categoryName}}
                       </td>
                     </ng-container>
                     <!-- <ng-container matColumnDef="assetCode">

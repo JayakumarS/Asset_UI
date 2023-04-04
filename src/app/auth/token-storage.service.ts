@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from "src/app/auth/auth.service";
 import { BehaviorSubject,Observable } from 'rxjs';
 import { User } from "src/app/core/models/user";
+import { Company } from '../master/company-employees/company-employees-model';
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
@@ -18,6 +19,7 @@ const AUTHBRANCHID = 'AuthBranchId';
 const ACTIVECOMPANY_KEY = 'ActiveCompanyFlag';
 const COMPANYLOGO_KEY = 'AuthCompanyLogo';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,12 +27,15 @@ export class TokenStorageService {
   private roles: Array<string> = [];
   constructor(private authService:AuthService) { }
 
+  nullValue:any;
   signOut() {
     window.sessionStorage.clear();
     this.authService.currentUserSubject = new BehaviorSubject<User>(new User());
     this.authService.currentUser = new BehaviorSubject<User>(new User());
     window.sessionStorage.removeItem(USERNAME_KEY);
   }
+
+
 
   public saveToken(token: string) {
     window.sessionStorage.removeItem(TOKEN_KEY);
@@ -84,12 +89,30 @@ public getUserId(): string {
   }
 
   public saveCompanyId(companyId) {
+
     window.sessionStorage.removeItem(AUTHCOMPANYID);
     window.sessionStorage.setItem(AUTHCOMPANYID, companyId);
   }
+
+
   public getCompanyId() {
-    return sessionStorage.getItem(AUTHCOMPANYID);
+    
+    this.nullValue = sessionStorage.getItem(AUTHCOMPANYID)  
+
+    if(this.nullValue != "null")
+    {
+      return sessionStorage.getItem(AUTHCOMPANYID);
+
+    }
+    else
+    {
+       sessionStorage.setItem("AuthCompanyId","0");
+       return sessionStorage.getItem(AUTHCOMPANYID);
+
+    }
+
   }
+   
   
   public saveCompanyText(companyText) {
     window.sessionStorage.removeItem(AUTHCOMPANYTEXT);

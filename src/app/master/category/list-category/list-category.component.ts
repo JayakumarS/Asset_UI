@@ -68,15 +68,17 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
   dataSource: MatTableDataSource<User>;
   usersData: User[] = [];
   columnsToDisplay = ["categoryName",
-    "Description",
-    "isactive",
-    "actions"
-];
-  innerDisplayedColumns = ["parentsCategory",
-    // "assetCode",
+   // "assetCode",
     // "putToUseDate",
     // "assetLocation",
     // "assetUser"
+  
+];
+  innerDisplayedColumns = ["categoryName",
+  "Description",
+  "isactive",
+  "actions"
+
   ];
   subBlockDisplayedColumns = ["sourceLocation", "destinationLocation", "reference"];
   expandedElement: User | null;
