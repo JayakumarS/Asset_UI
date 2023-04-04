@@ -25,6 +25,7 @@ import { ListStateMasterComponent } from '../../state/list-state-master/list-sta
 import { ListLineMasterComponent } from '../../line-master/list-line-master/list-line-master.component';
 import { ListStatusMasterComponent } from '../../status/list-status-master/list-status-master.component';
 import { MatTabGroup } from '@angular/material/tabs';
+import { ListItemMasterComponent } from 'src/app/inventory/item-master/list-item-master/list-item-master.component';
 
 @Component({
   selector: 'app-add-company',
@@ -75,7 +76,7 @@ export class AddCompanyComponent implements OnInit {
   tabCustomer=[{ content: ListCustomerComponent}];
   tabState=[{ content: ListStatusMasterComponent}];
   tabLine=[{ content: ListLineMasterComponent}];
-
+  tabItem=[{ content: ListItemMasterComponent}];
 
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
@@ -222,7 +223,7 @@ export class AddCompanyComponent implements OnInit {
         if (window.sessionStorage.getItem("findFrom") == 'Opened') {
           this.edit = true;
           this.fetchCompanyDetails(this.requestId);
-          this.fetchDetails(this.requestId);
+          this.fetchDetails(this.requestId);  
           window.sessionStorage.setItem("findFrom", "");
         } else {
           // For Editable mode

@@ -659,6 +659,23 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex =5'
                     mat-raised-button>Previous</button>
+                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex =7'
+                    mat-raised-button>Next</button>
+                </div>
+              </div>
+            </div>
+            </mat-tab> 
+
+            <mat-tab label="Tab 8"  *ngFor="let tab of tabItem;">
+              <ng-template mat-tab-label >
+                <i class="material-icons">format_italic</i>Item Master
+              </ng-template>
+               <div class="card">
+                <ng-container *ngComponentOutlet="tab.content"></ng-container>
+              <div class="row" style="    margin-left: 45%;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex =6'
+                    mat-raised-button>Previous</button>
                     <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex =0'
                     mat-raised-button>Next</button>
                 </div>

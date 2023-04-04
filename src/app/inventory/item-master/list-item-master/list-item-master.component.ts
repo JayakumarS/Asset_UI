@@ -43,6 +43,7 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   id: number;
   itemMaster: ItemMaster | null;
   permissionList: any;
+  url: any;
   
   constructor(
     private spinner: NgxSpinnerService,
@@ -111,9 +112,28 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     );
   }
 
+
+  addItem(){
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+    window.sessionStorage.setItem("ItemFrom", "item");
+    this.router.navigate(['/inventory/item-master/add-item-master/0']);
+    }else if(this.url.includes('list-item-master')){
+    window.sessionStorage.setItem("ItemFrom", "normal");
+    this.router.navigate(['/inventory/item-master/add-item-master/0']);
+    };
+  }
   editCall(row) {
     if(this.permissionList?.modify){
+      this.url=this.router.url;
+      if(this.url.includes("addCompany")){
+      window.sessionStorage.setItem("ItemFrom", "item");
       this.router.navigate(['/inventory/item-master/add-item-master/'+row.itemId]);
+      }else if(this.url.includes('list-item-master')){
+      window.sessionStorage.setItem("ItemFrom", "normal");
+      this.router.navigate(['/inventory/item-master/add-item-master/'+row.itemId]);
+      };
+      
     }
   }
 

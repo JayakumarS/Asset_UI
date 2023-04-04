@@ -265,7 +265,15 @@ export class AddItemMasterComponent implements OnInit {
               "bottom",
               "center"
             );
-            this.onCancel();
+            /*********************  for cancel and tab index or company screen************ */
+            if(window.sessionStorage.getItem("ItemFrom")=="item"){
+              window.sessionStorage.setItem("ItemFrom","");
+              this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+              }else if(window.sessionStorage.getItem("ItemFrom")=="normal"){
+              window.sessionStorage.setItem("ItemFrom","");
+              this.router.navigate(['/inventory/item-master/list-item-master']);
+              }
+              /*********************************************************************** */
           } else {
             this.showNotification(
               "snackbar-danger",
@@ -398,7 +406,15 @@ export class AddItemMasterComponent implements OnInit {
               "bottom",
               "center"
             );
-            this.onCancel();
+          /*********************  for cancel and tab index or company screen************ */
+            if(window.sessionStorage.getItem("ItemFrom")=="item"){
+            window.sessionStorage.setItem("ItemFrom","");
+             this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+             }else if(window.sessionStorage.getItem("ItemFrom")=="normal"){
+             window.sessionStorage.setItem("ItemFrom","");
+             this.router.navigate(['/inventory/item-master/list-item-master']);
+             }
+          /*********************************************************************** */
           } else {
             this.showNotification(
               "snackbar-danger",
@@ -489,7 +505,13 @@ export class AddItemMasterComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/inventory/item-master/list-item-master']);
+    if(window.sessionStorage.getItem("ItemFrom")=="item"){
+      window.sessionStorage.setItem("ItemFrom","");
+    this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+    }else if(window.sessionStorage.getItem("ItemFrom")=="normal"){
+      window.sessionStorage.setItem("ItemFrom","");
+      this.router.navigate(['/inventory/item-master/list-item-master']);
+    }
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
