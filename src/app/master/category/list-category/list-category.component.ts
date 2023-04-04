@@ -1,67 +1,121 @@
-import { DataSource, SelectionModel } from '@angular/cdk/collections';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
-import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
-import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { serverLocations } from 'src/app/auth/serverLocations';
-import { Assetcategory } from '../category.model';
-import { CategoryMasterService } from '../category.service';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from "@angular/animations";
+import { SelectionModel } from "@angular/cdk/collections";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { MomentDateAdapter } from "@angular/material-moment-adapter";
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from "@angular/material/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatMenuTrigger } from "@angular/material/menu";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
-import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { HttpServiceService } from "src/app/auth/http-service.service";
+import { TokenStorageService } from "src/app/auth/token-storage.service";
+import { CommonService } from "src/app/common-service/common.service";
+import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+import { serverLocations } from 'src/app/auth/serverLocations';
+import { CategoryMasterService } from '../category.service';
+import { Assetcategory } from '../category.model';
 import { DeleteCategoryComponent } from './delete-category/delete-category.component';
-import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-list-category',
   templateUrl: './list-category.component.html',
-  styleUrls: ['./list-category.component.sass']
+  styleUrls: ['./list-category.component.sass'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class ListCategoryComponent implements OnInit {
+export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
-  displayedColumns = [
-    "categoryName",
+  docForm: FormGroup;
+  companyId: any;
+  assetcategory: Assetcategory;
+ 
+
+  @ViewChild('outerSort', { static: true }) sort: MatSort;
+  @ViewChildren('innerSort') innerSort: QueryList<MatSort>;
+  @ViewChildren('subSort') subSort: QueryList<MatSort>;
+  @ViewChildren('innerTables') innerTables: QueryList<MatTable<Address>>;
+  @ViewChildren('subTables') subTables: QueryList<MatTable<Block>>;
+
+  dataSource: MatTableDataSource<User>;
+  usersData: User[] = [];
+  columnsToDisplay = ["categoryName",
     "Description",
-    "isactiveForList",
+    "isactive",
     "actions"
-
-
+];
+  innerDisplayedColumns = ["parentsCategory",
+    // "assetCode",
+    // "putToUseDate",
+    // "assetLocation",
+    // "assetUser"
   ];
-
-  dataSource: ExampleDataSource | null;
-  exampleDatabase: CategoryMasterService | null;
-  selection = new SelectionModel<Assetcategory>(true, []);
-  index: number;
-  id: number;
-  category_id: number;
-  assetcategory: Assetcategory | null;
-  subs: any;
+  subBlockDisplayedColumns = ["sourceLocation", "destinationLocation", "reference"];
+  expandedElement: User | null;
+  expandedSubElement: Address | null;
   permissionList: any;
-  constructor(    public httpClient: HttpClient,
-                  private spinner: NgxSpinnerService,
-                  public dialog: MatDialog,
-                  public categoryMasterService: CategoryMasterService,
-                  private snackBar: MatSnackBar,
-                  private serverUrl: serverLocations,
-                  private httpService: HttpServiceService,
-                  private tokenStorage: TokenStorageService,
-                  public commonService: CommonService,
-                  public router: Router) {
 
-     }
-     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-     @ViewChild(MatSort, { static: true }) sort: MatSort;
-     @ViewChild("filter", { static: true }) filter: ElementRef;
-     @ViewChild(MatMenuTrigger)
-     contextMenu: MatMenuTrigger;
-     contextMenuPosition = { x: "0px", y: "0px" };
+  id: number;
+
+
+  constructor(
+    public httpClient: HttpClient,
+    public dialog: MatDialog,
+    private httpService: HttpServiceService,
+    public router: Router,
+    private fb: FormBuilder,
+    private categoryMasterService: CategoryMasterService,
+    private cmnService: CommonService,
+    private cd: ChangeDetectorRef,
+    private commonService: CommonService,
+    private tokenStorage: TokenStorageService,
+    private spinner: NgxSpinnerService,
+    private snackBar: MatSnackBar,
+    private serverUrl:serverLocations
+  ) {
+    super();
+    {
+    }
+    this.docForm = this.fb.group({
+      item: [""],
+      category: [""],
+      companyId: parseInt(this.tokenStorage.getCompanyId()),
+    });
+  }
+
 
   ngOnInit(): void {
+    this.viewReport();
+    this.companyId = parseInt(this.tokenStorage.getCompanyId());
+    // Location dropdown
     const permissionObj = {
       formCode: 'F1023',
       roleId: this.tokenStorage.getRoleId()
@@ -78,28 +132,60 @@ export class ListCategoryComponent implements OnInit {
         this.spinner.hide();
       }
     });
-    this.loadData();
   }
-  refresh(){
-    this.loadData();
+  
+
+  viewReport() {
+    this.assetcategory = this.docForm.value;
+    this.usersData = [];
+    this.spinner.show();
+    this.categoryMasterService
+      .getAssetcategory(this.assetcategory)
+      .subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          if (res != null) {
+            res?.categoryMasterDetails.forEach((user) => {
+              if (
+                user.addresses &&
+                Array.isArray(user.addresses) &&
+                user.addresses.length
+              ) {
+                const addresses: Address[] = [];
+        
+                user.addresses.forEach((address) => {
+                  if (Array.isArray(address.blocks)) {
+                    addresses.push({
+                      ...address,
+                      blocks: new MatTableDataSource(address.blocks),
+                    });
+                  }
+                });
+        
+                this.usersData.push({
+                  ...user,
+                  addresses: new MatTableDataSource(addresses),
+                });
+              } else {
+                this.usersData = [...this.usersData, user];
+              }
+            });
+            this.dataSource = new MatTableDataSource(this.usersData);
+            this.dataSource.sort = this.sort;
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          this.showNotification(
+            "snackbar-danger",
+            error.message + "...!!!",
+            "bottom",
+            "center"
+          );
+        },
+      });
   }
 
-  public loadData() {
-    this.exampleDatabase = new CategoryMasterService(this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
-    this.dataSource = new ExampleDataSource(
-      this.exampleDatabase,
-      this.paginator,
-      this.sort
-    );
-    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
-      () => {
-        if (!this.dataSource) {
-          return;
-        }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      }
-    );
-  }
 
   editCall(row) {
     if (this.permissionList?.modify){
@@ -140,7 +226,6 @@ export class ListCategoryComponent implements OnInit {
             "bottom",
             "center"
           );
-          this.loadData();
         },
           (err: HttpErrorResponse) => {
             // error code here
@@ -148,128 +233,103 @@ export class ListCategoryComponent implements OnInit {
         );
 
 
-      } else{
-        this.loadData();
-      }
+      } 
 
     });
 
   }
 
+  
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
   }
 
-// context menu
-  onContextMenu(event: MouseEvent, item: Assetcategory) {
-    event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + "px";
-    this.contextMenuPosition.y = event.clientY + "px";
-    this.contextMenu.menuData = { item: item };
-    this.contextMenu.menu.focusFirstItem("mouse");
-    this.contextMenu.openMenu();
+  profileView(id) {
+    sessionStorage.setItem("Inventory", "true");
+    this.router.navigate(["/asset/assetMaster/viewAssetMaster/" + id]);
   }
 
-}
 
 
-export class ExampleDataSource extends DataSource<Assetcategory> {
-  filterChange = new BehaviorSubject("");
-  get filter(): string {
-    return this.filterChange.value;
+  reset() {
+    this.docForm = this.fb.group({
+      item: [""],
+      category: [""],
+      companyId: parseInt(this.tokenStorage.getCompanyId()),
+    });
+    this.viewReport();
   }
-  set filter(filter: string) {
-    this.filterChange.next(filter);
-  }
-  filteredData: Assetcategory[] = [];
-  renderedData: Assetcategory[] = [];
-  constructor(
-    public exampleDatabase: CategoryMasterService,
-    public paginator: MatPaginator,
-    public _sort: MatSort
-  ) {
-    super();
-    // Reset to the first page when the user changes the filter.
-    this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
-  }
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Assetcategory[]> {
-    // Listen for any changes in the base data, sorting, filtering, or pagination
-    const displayDataChanges = [
-      this.exampleDatabase.dataChange,
-      this._sort.sortChange,
-      this.filterChange,
-      this.paginator.page,
-    ];
-    this.exampleDatabase.getAllList();
-    return merge(...displayDataChanges).pipe(
-      map(() => {
-        // Filter data
-        this.filteredData = this.exampleDatabase.data
-          .slice()
-          .filter((assetcategory: Assetcategory) => {
-            const searchStr = (
-              assetcategory.categoryName +
-              assetcategory.Description +
-             assetcategory.parentCategory +
-             assetcategory.isactive +
-             assetcategory.countOfCategory
 
-            ).toLowerCase();
-            return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-          });
-        // Sort filtered data
-        const sortedData = this.sortData(this.filteredData.slice());
-        // Grab the page's slice of the filtered sorted data.
-        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-        this.renderedData = sortedData.splice(
-          startIndex,
-          this.paginator.pageSize
-        );
-        return this.renderedData;
-      })
+
+
+  toggleRow(element: User) {
+    element.addresses &&
+      (element.addresses as MatTableDataSource<Address>).data.length
+      ? (this.expandedElement =
+        this.expandedElement === element ? null : element)
+      : null;
+
+    this.cd.detectChanges();
+    this.innerTables.forEach(
+      (table, index) =>
+      ((table.dataSource as MatTableDataSource<Address>).sort =
+        this.innerSort.toArray()[index])
     );
   }
-  disconnect() {}
-  /** Returns a sorted copy of the database data. */
-  sortData(data: Assetcategory[]): Assetcategory[] {
-    if (!this._sort.active || this._sort.direction === "") {
-      return data;
-    }
-    return data.sort((a, b) => {
-      let propertyA: number | string  = "";
-      let propertyB: number | string  = "";
-      switch (this._sort.active) {
-        case "categoryName":
-          [propertyA, propertyB] = [a.categoryName, b.categoryName];
-          break;
 
-          case "Description":
-          [propertyA, propertyB] = [a.Description, b.Description];
-          break;
+  toggleSubRow(element: Address) {
+    element.blocks && (element.blocks as MatTableDataSource<Block>).data.length
+      ? (this.expandedSubElement =
+        this.expandedSubElement === element ? null : element)
+      : null;
 
-          case "parentCategory":
-          [propertyA,propertyB]=[a.parentCategory,b.parentCategory];
-          break;
+    this.cd.detectChanges();
+    this.subTables.forEach(
+      (table, index) =>
+      ((table.dataSource as MatTableDataSource<Block>).sort =
+        this.subSort.toArray()[index])
+    );
+  }
 
-          case "isactive":
-          [propertyA,propertyB]=[a.isactive,b.isactive];
-          break;
-
-          case "countOfCategory":
-          [propertyA,propertyB]=[a.countOfCategory,b.countOfCategory];
-          break;
-      }
-      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-      return (
-        (valueA < valueB ? -1 : 1) * (this._sort.direction === "asc" ? 1 : -1)
-      );
-    });
+  applyFilter(filterValue: string) {
+    this.innerTables.forEach(
+      (table, index) =>
+      ((table.dataSource as MatTableDataSource<Address>).filter = filterValue
+        .trim()
+        .toLowerCase())
+    );
   }
 }
+
+export interface User {
+  assetItem: string;
+  categoryName: string;
+  totalqty: string;
+  addresses?: Address[] | MatTableDataSource<Address>;
+}
+
+export interface Address {
+  assetItem: string;
+  categoryName: string;
+  totalqty: string;
+  blocks?: Block[] | MatTableDataSource<Block>;
+}
+
+export interface Block {
+  sourceLocation: string;
+  destinationLocation: string;
+  reference: string;
+}
+
+export interface UserDataSource {
+  assetItem: string;
+  categoryName: string;
+  totalqty: string;
+  addresses?: MatTableDataSource<Address>;
+}
+
