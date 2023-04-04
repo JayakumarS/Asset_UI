@@ -22,7 +22,8 @@
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="categoryName" maxlength="20" required>
+                        <input matInput formControlName="categoryName" oninput="this.value = this.value.toUpperCase()"
+                        maxlength="20" required>
 
                         <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
                           UOM Name is required
