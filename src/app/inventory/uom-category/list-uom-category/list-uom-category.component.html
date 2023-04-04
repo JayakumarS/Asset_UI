@@ -59,7 +59,7 @@
               </ng-container>
              <ng-container matColumnDef="categoryName">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>UOM Name</mat-header-cell>
-                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.categoryName}}</mat-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="text-transform: uppercase;"> {{row.categoryName}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="description">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
@@ -76,11 +76,11 @@
               <ng-container matColumnDef="actions">
                 <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                  <button *ngIf="permissionList?.modify" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                  <button *ngIf="permissionList?.modify && row.countOfCategory!=0" mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
                     class="tbl-action-btn">
                     <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                   </button>
-                  <button *ngIf="permissionList?.delete" mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                  <button *ngIf="permissionList?.delete && row.countOfCategory!=0" mat-icon-button color="accent" (click)="$event.stopPropagation()"
                     (click)="deleteItem(row)" class="tbl-action-btn">
                     <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                   </button>

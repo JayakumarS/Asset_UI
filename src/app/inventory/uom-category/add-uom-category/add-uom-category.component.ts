@@ -28,6 +28,7 @@ export class AddUOMCategoryComponent implements OnInit {
   companyId: any;
   branchId: any;
   categoryList : any;
+  editflag:boolean=false;
 
   constructor(private fb: FormBuilder, public router: Router, private snackBar: MatSnackBar,
               public uomCategoryService: UomCategoryService,
@@ -125,6 +126,12 @@ export class AddUOMCategoryComponent implements OnInit {
           }
         });
 
+        if(this.docForm.value.categoryName==''||this.docForm.value.categoryName==null){
+          this.editflag=true
+        }else{
+          this.editflag=false;
+        }
+
 
   }
 
@@ -178,6 +185,13 @@ export class AddUOMCategoryComponent implements OnInit {
     }
     this.uomCategoryService.editAsset(obj).subscribe({
       next: (res) => {
+
+        console.log(uomID);
+    if(res.uomBean.categoryName==''||res.uomBean.categoryName==null){
+      this.editflag=true
+    }else{
+      this.editflag=false;
+    }
         this.docForm.patchValue({
           'uomID': res.uomBean.uomID,
           'categoryName': res.uomBean.categoryName,
@@ -333,5 +347,18 @@ export class AddUOMCategoryComponent implements OnInit {
         }
       });
     }
+  }
+
+  validateCategoryName(event){
+    let companyId=this.tokenStorage.getCompanyId();
+
+    // tslint:disable-next-line:max-line-length
+    this.httpService.get<any>(this.uomCategoryService.uniqueValidateCompanyBasedUrl +"?categoryName="+event).subscribe((res: any) => {
+      if(res > 0){
+        this.docForm.controls['categoryName'].setErrors({ assetcategory: true });
+      }else{
+        this.docForm.controls['categoryName'].setErrors(null);
+      }
+    });
   }
 }
