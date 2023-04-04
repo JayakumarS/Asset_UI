@@ -75,6 +75,7 @@
                           <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                           </app-feather-icons>
                         </button>
+                        <span *ngIf="row.receivedStatus=='Expired'" style="color: red;">EXPIRED</span>
                       </mat-cell>
       
                     </ng-container>
