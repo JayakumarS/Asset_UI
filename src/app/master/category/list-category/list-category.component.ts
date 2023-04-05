@@ -58,31 +58,36 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
   companyId: any;
   assetcategory: Assetcategory;
  
+  mainList =[];
+  expandedElement: MainList | null;
+  expandedSubElement: SubList | null;
+  innerExpandedElements: any[] = [];
+  glList=[];
+  gllist: MainList[] = [];
+  isExpand:boolean=true;
+  itemCategoryList = [];
 
   @ViewChild('outerSort', { static: true }) sort: MatSort;
   @ViewChildren('innerSort') innerSort: QueryList<MatSort>;
   @ViewChildren('subSort') subSort: QueryList<MatSort>;
-  @ViewChildren('innerTables') innerTables: QueryList<MatTable<Address>>;
-  @ViewChildren('subTables') subTables: QueryList<MatTable<Block>>;
+  @ViewChildren('innerTables') innerTables: QueryList<MatTable<SubList>>;
 
   dataSource: MatTableDataSource<User>;
   usersData: User[] = [];
-  columnsToDisplay = ["categoryName",
-   // "assetCode",
-    // "putToUseDate",
-    // "assetLocation",
-    // "assetUser"
+  columnsToDisplay = ["actions",
+  "categoryName",
+  "Description",
+  "isactive",
+  "action"
+  
   
 ];
   innerDisplayedColumns = ["categoryName",
   "Description",
   "isactive",
-  "actions"
 
   ];
   subBlockDisplayedColumns = ["sourceLocation", "destinationLocation", "reference"];
-  expandedElement: User | null;
-  expandedSubElement: Address | null;
   permissionList: any;
 
   id: number;
@@ -147,26 +152,27 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
         next: (res: any) => {
           this.spinner.hide();
           if (res != null) {
-            res?.categoryMasterDetails.forEach((user) => {
+            this.mainList =res.categoryMasterDetails;
+            this.mainList.forEach((user) => {
               if (
-                user.addresses &&
-                Array.isArray(user.addresses) &&
-                user.addresses.length
+                user.subList &&
+                Array.isArray(user.subList) &&
+                user.subList.length
               ) {
-                const addresses: Address[] = [];
+                const subList: SubList[] = [];
         
-                user.addresses.forEach((address) => {
-                  if (Array.isArray(address.blocks)) {
-                    addresses.push({
+                user.subList.forEach((address) => {
+                  // if (Array.isArray(address.blocks)) {
+                    subList.push({
                       ...address,
-                      blocks: new MatTableDataSource(address.blocks),
+                      subList: new MatTableDataSource(address),
                     });
-                  }
+                  // }
                 });
         
                 this.usersData.push({
                   ...user,
-                  addresses: new MatTableDataSource(addresses),
+                  subList: new MatTableDataSource(subList),
                 });
               } else {
                 this.usersData = [...this.usersData, user];
@@ -191,13 +197,13 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
 
   editCall(row) {
     if (this.permissionList?.modify){
-      this.router.navigate(['/master/category/add-category/' + row.id]);
+      this.router.navigate(['/master/category/add-category/' + row.category_id]);
     }
 
   }
 
   viewCall(row){
-    this.router.navigate(['/master/category/view-category/' + row.id]);
+    this.router.navigate(['/master/category/view-category/' + row.category_id]);
 
 }
 
@@ -267,43 +273,29 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
     this.viewReport();
   }
 
-
-
-  toggleRow(element: User) {
-    element.addresses &&
-      (element.addresses as MatTableDataSource<Address>).data.length
+  toggleRow(element: MainList) {
+    this.isExpand = false;
+    element.subList &&
+      (element?.subList as MatTableDataSource<SubList>).data.length
       ? (this.expandedElement =
         this.expandedElement === element ? null : element)
       : null;
+      
 
     this.cd.detectChanges();
     this.innerTables.forEach(
       (table, index) =>
-      ((table.dataSource as MatTableDataSource<Address>).sort =
+      ((table.dataSource as MatTableDataSource<SubList>).sort =
         this.innerSort.toArray()[index])
     );
+    
   }
 
-  toggleSubRow(element: Address) {
-    element.blocks && (element.blocks as MatTableDataSource<Block>).data.length
-      ? (this.expandedSubElement =
-        this.expandedSubElement === element ? null : element)
-      : null;
-
-    this.cd.detectChanges();
-    this.subTables.forEach(
-      (table, index) =>
-      ((table.dataSource as MatTableDataSource<Block>).sort =
-        this.subSort.toArray()[index])
-    );
-  }
 
   applyFilter(filterValue: string) {
     this.innerTables.forEach(
       (table, index) =>
-      ((table.dataSource as MatTableDataSource<Address>).filter = filterValue
-        .trim()
-        .toLowerCase())
+        ((table.dataSource as MatTableDataSource<SubList>).filter = filterValue.trim().toLowerCase())
     );
   }
 }
@@ -335,3 +327,17 @@ export interface UserDataSource {
   addresses?: MatTableDataSource<Address>;
 }
 
+export interface MainList {
+
+  categoryName:String;
+  Description:String;
+  isactive:String;
+  action:String;
+  subList?: SubList[] | MatTableDataSource<SubList>;
+}
+
+export interface SubList {
+  categoryName:String;
+  Description:String;
+  isactive:String;
+}
