@@ -289,8 +289,7 @@ configUserLog: {
       }
     );
     
-if(this.companyId == null)
-{''
+
     this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.companyId).subscribe(
       (data) => {
         this.assetListDashboard = data.assetListDashboard;
@@ -304,7 +303,7 @@ if(this.companyId == null)
         console.log(error.name + " " + error.message);
       }
     );
-}
+
 
     //User Log Report List
     
