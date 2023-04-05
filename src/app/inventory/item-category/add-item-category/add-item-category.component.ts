@@ -183,7 +183,15 @@ export class AddItemCategoryComponent implements OnInit {
               "center"
             );
             this.onCancel();
-          } else {
+          }  else if(data.message){
+            this.showNotification(
+              "snackbar-danger",
+              "Item Category Already Exists...!!!",
+              "bottom",
+              "center"
+            );
+          }
+          else {
             this.showNotification(
               "snackbar-danger",
               "Not Added...!!!",
