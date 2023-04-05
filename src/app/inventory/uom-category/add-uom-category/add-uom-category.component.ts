@@ -40,7 +40,7 @@ export class AddUOMCategoryComponent implements OnInit {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       categoryName: ["", [Validators.required]],
-      description: [""],
+      description: ["",[Validators.required]],
       active: [true],
       uomCode: [""],
       uomcategoryName:[""],

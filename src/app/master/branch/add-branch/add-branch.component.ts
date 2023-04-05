@@ -50,7 +50,7 @@ export class AddBranchComponent implements OnInit {
     public route: ActivatedRoute,private tokenStorage: TokenStorageService,
     private notificationService: NotificationService) {
       this.docForm = this.fb.group({
-        branchCode: [""],
+        branchCode: ["", [Validators.required]],
         branchname: [""],
         companyId:[""],
         branchHead:[""],

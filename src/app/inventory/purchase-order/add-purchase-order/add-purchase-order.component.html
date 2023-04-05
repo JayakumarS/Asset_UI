@@ -303,7 +303,7 @@
                                 (keypress)="keyPressNumberDouble($event)"
                                 (keyup)="calculatePrice(purchaseOrderDetail,i)" maxlength="15">
                             </mat-form-field>
-                            <div *ngIf="submitted && purchaseOrderDetail.get('unitPrice').hasError('required')" class="failed-validation" class="errorColor"> unit Price is required </div>
+                            <div *ngIf="submitted && purchaseOrderDetail.get('unitPrice').hasError('required')" class="failed-validation" class="errorColor"> Unit Price is required </div>
 
                           </td>
                           <td class="padding-both-side-2">

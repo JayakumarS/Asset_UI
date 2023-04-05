@@ -71,7 +71,10 @@
                     </div>
                     <div class=" col-md-3"style="margin-left: -6px;">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <textarea matInput formControlName="description" maxlength="50" ></textarea>
+                        <textarea matInput formControlName="description" maxlength="50" required ></textarea>
+                        <mat-error *ngIf="docForm.get('description').hasError('required')">
+                          UOM Description is required
+                        </mat-error>
                       </mat-form-field>
                     </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 50px;">
