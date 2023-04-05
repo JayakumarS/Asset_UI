@@ -197,13 +197,13 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
 
   editCall(row) {
     if (this.permissionList?.modify){
-      this.router.navigate(['/master/category/add-category/' + row.id]);
+      this.router.navigate(['/master/category/add-category/' + row.category_id]);
     }
 
   }
 
   viewCall(row){
-    this.router.navigate(['/master/category/view-category/' + row.id]);
+    this.router.navigate(['/master/category/view-category/' + row.category_id]);
 
 }
 
