@@ -218,7 +218,7 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
       assetId:[""],
       expDateOfReturn:[""],
       expDateOfReturnObj:["",[Validators.required]],
-      repairReason:["",[Validators.required]],
+      repairReason:[""],
       moveLocation:["",[Validators.required]],
       repairDate:[""],
       repairDateObj:["",[Validators.required]],
