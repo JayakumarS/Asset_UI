@@ -78,13 +78,13 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
   "categoryName",
   "Description",
   "isactive",
-  "action"
   
   
 ];
   innerDisplayedColumns = ["categoryName",
   "Description",
   "isactive",
+  "action"
 
   ];
   subBlockDisplayedColumns = ["sourceLocation", "destinationLocation", "reference"];
