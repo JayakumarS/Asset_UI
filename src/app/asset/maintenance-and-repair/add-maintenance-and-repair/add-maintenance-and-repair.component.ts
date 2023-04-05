@@ -212,7 +212,9 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
   }
 
   reset() {
-    this.docForm = this.fb.group({
+    if (!this.edit) {
+      this.docForm.reset();
+      this.docForm.patchValue({
       assetId:[""],
       expDateOfReturn:[""],
       expDateOfReturnObj:["",[Validators.required]],
@@ -228,10 +230,11 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
       receivedDate:[""],
       receivedRemarks:[""],
       receivedLocation:[""]
-  });
-  this.maintenanceAndReport=null;
+    })
+  } else {
+    this.fetchDetails(this.requestId);
+  }
 }
-
   pageChanged(event){
     this.config.currentPage = event;
   }
