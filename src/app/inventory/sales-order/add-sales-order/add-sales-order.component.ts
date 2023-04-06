@@ -78,13 +78,13 @@ export class AddSalesOrderComponent implements OnInit {
 
       salesOrderDtl: this.fb.array([
         this.fb.group({
-          product:[""],
+          product:["",[Validators.required]],
           uom:[""],
           rate:["",[Validators.required]],
           qty:["",[Validators.required]],
           price:[""],
           total:[""],
-          asset:[""]
+          asset:["",[Validators.required]]
 
         })
       ])
@@ -300,31 +300,7 @@ update() {
 
   }
 
-//   onSubmit(){
 
-//     if(this.docForm.valid){
-//     this.salesOrder = this.docForm.value;
-//     console.log(this.salesOrder);
-//     this.salesOrderService.save(this.salesOrder);
-//     this.showNotification(
-//       "snackbar-success",
-//       "Add Record Successfully...!!!",
-//       "bottom",
-//       "center"
-//     );
-//     // this.router.navigate(['/inventory/sales-order/list-sales-order']);
-
-//   }
-//   else{
-//     this.showNotification(
-//       "snackbar-danger",
-//       "Please fill the required details",
-//       "top",
-//       "right"
-//     );
-//   }
-
-// }
 onSubmit() {
   this.submitted = true;
   if (this.docForm.valid){

@@ -121,6 +121,8 @@
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
+                        <div *ngIf="submitted && salesOrderDtl.get('product').hasError('required')" class="failed-validation" class="errorColor"> Item is required </div>
+
                       </td>
                       <!-- <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -141,6 +143,7 @@
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
+                        <div *ngIf="submitted && salesOrderDtl.get('asset').hasError('required')" class="failed-validation" class="errorColor"> Asset is required </div>
                       </td>
                       <td class="padding-both-side-2">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
