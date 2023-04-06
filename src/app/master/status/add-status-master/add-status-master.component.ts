@@ -72,13 +72,13 @@ export class AddStatusMasterComponent implements OnInit {
 
   validateStatusName(event){
     let companyId=this.tokenStorage.getCompanyId();
-    this.httpService.get<any>(this.commonService.uniqueValidateUrl + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event).subscribe((res: any) => {
+    this.httpService.get<any>(this.statusMasterService.uniqueValidateUrl + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
 
     // this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl+ "?tableName=" +"status_master"+"&columnName="+"status_name"+"&columnValue="+event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
       if(res){
         this.docForm.controls['statusname'].setErrors({ status: true });
-      }else{
-        this.docForm.controls['statusname'].setErrors(null);
+      // }else{
+      //   this.docForm.controls['statusname'].setErrors(null);
       }
     });
   }
@@ -149,13 +149,13 @@ export class AddStatusMasterComponent implements OnInit {
       "bottom",
       "center"
     );
-    if(window.sessionStorage.getItem("StateFrom")=="state"){
-      window.sessionStorage.setItem("StateFrom","");
-    this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
-    }else if(window.sessionStorage.getItem("StateFrom")=="normal"){
-      window.sessionStorage.setItem("StateFrom","");
+    // if(window.sessionStorage.getItem("StateFrom")=="state"){
+    //   window.sessionStorage.setItem("StateFrom","");
+    // this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+    // }else if(window.sessionStorage.getItem("StateFrom")=="normal"){
+    //   window.sessionStorage.setItem("StateFrom","");
       this.router.navigate(['/master/status/listStatus']);
-    }
+    // }
   }
   else{
     this.showNotification(
@@ -168,19 +168,19 @@ export class AddStatusMasterComponent implements OnInit {
   }
 
   onCancel(){
-    if(window.sessionStorage.getItem("StateFrom")=="state"){
-      window.sessionStorage.setItem("StateFrom","");
-    this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
-    }else if(window.sessionStorage.getItem("StateFrom")=="normal"){
-      window.sessionStorage.setItem("StateFrom","");
+    // if(window.sessionStorage.getItem("StateFrom")=="state"){
+    //   window.sessionStorage.setItem("StateFrom","");
+    // this.router.navigate(['/master/company/addCompany/'+this.tokenStorage.getCompanyId()]);
+    // }else if(window.sessionStorage.getItem("StateFrom")=="normal"){
+    //   window.sessionStorage.setItem("StateFrom","");
       this.router.navigate(['/master/status/listStatus']);
-    }
+    // }
   }
 
   reset(){
     if (!this.edit) {
     this.docForm = this.fb.group({
-      statusname: [""],
+      statusname: ["", [Validators.required]],
       statusid: [""],
       Description: [""],
       active: [true],
