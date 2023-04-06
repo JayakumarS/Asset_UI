@@ -45,12 +45,12 @@
                     <form class="m-4" [formGroup]="docForm">
                       <div class="row" style="display:flex; align-items: center; justify-content:center;">
                         <div class="col-md-1" style="margin-top: -20px;margin-right: -25px;white-space:nowrap;">
-                          <label style=" min-width: max-content;">Pincode</label>
+                          <label style=" min-width: max-content; ">Pincode</label>
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                              
-                              <input type="text" matInput [formControl]="myControl" [(ngModel)]="valueforForm.pincode" style="text-transform: capitalize;"  
+                              <input type="text" matInput [formControl]="myControl" [(ngModel)]="valueforForm.pincode"  (keypress)="keyPressNumber($event)" style="text-transform: capitalize;"  
                                 [matAutocomplete]="auto">
                               <mat-autocomplete #auto="matAutocomplete"  >
                                 <mat-option *ngFor="let option of formfilteredOptions | async; let i=index " [value]="option">
