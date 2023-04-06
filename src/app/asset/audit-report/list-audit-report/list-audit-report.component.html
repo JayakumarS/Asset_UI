@@ -43,11 +43,15 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"  style="text-align: center;">
                       <button  class="btn-space" mat-raised-button (click)=" onSubmit()"
                       style=" color: aliceblue; background-color: #34d034;" ><i class="fa fa-search"></i> Search</button>
-                      </div>
+                      
+                      <button color="warn"  type="button"  (click)="refresh()" 
+                            mat-raised-button color="primary" style="background-color: #3f51b5;">Reset</button>
+                    
+                    </div>
                   </div>
               </form>
 
-              <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+              <!-- <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
                 <div class="row">
                   <div class="col-8">
                     <ul class="header-buttons-left ms-0">
@@ -64,10 +68,10 @@
                   <div class="col-4">
                     <ul class="header-buttons">
                         <li>
-                            <!-- <div class="m-l-10" matTooltip="Print Asset QRCode">
+                            <div class="m-l-10" matTooltip="Print Asset QRCode">
                               <button type="button" class="btn-space" mat-raised-button color="accent"
                                 style="background-color: rgb(50, 124, 173);cursor: pointer;" (click)="assetQRcodeExportPdf()">Print Asset QRCode</button>
-                            </div> -->
+                            </div>
                         </li>
                         <li>
                             <div class="export-button m-l-10" matTooltip="XLSX">
@@ -77,6 +81,10 @@
                     </ul>
                 </div>
                 </div>
+              </div> -->
+
+              </div>
+              </div>
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
 
@@ -203,8 +211,6 @@
                 </mat-paginator>
               </div>
           </div>
-        </div>
-      </div>
-    </div>
+       
   </div>
   </section>

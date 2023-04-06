@@ -237,6 +237,21 @@ export class ListReconciliationReportComponent extends UnsubscribeOnDestroyAdapt
     this.loadData();
 }
 
+onReset()
+{
+  this.docForm = this.fb.group({
+   
+    discardDateFromObj:[""],
+    discardFromDate:[""],
+    discardDateToObj:[""],
+    discardToDate:[""],
+   
+
+  });
+  this.loadData();
+
+}
+
 getDateString(event,inputFlag,item){
   let cdate = this.commonService.getDate(event.target.value);
   if(inputFlag=='discardFromDate'){

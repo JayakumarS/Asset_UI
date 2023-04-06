@@ -144,6 +144,20 @@ export class ListAuditReportComponent implements OnInit {
 
   }
   refresh(){
+
+    this.docForm = this.fb.group({
+      companyIdToken: this.tokenStorage.getCompanyId(),
+      branchIdToken: this.tokenStorage.getBranchId(),
+      discardDateFromObj:[""],
+      discardFromDate:[""],
+      discardDateToObj:[""],
+      discardToDate:[""],
+      companyId:this.companyIdToken,
+      branchId:this.branchIdToken,
+  
+  
+  
+    });
     this.loadData();
   }
   public loadData() {
