@@ -21,7 +21,7 @@
                     <mat-form-field class="example-full-width form-control-sm"
                         appearance="outline">
                         <input matInput [matDatepicker]="picker2" tabindex="27"
-                            formControlName="exchangeratecodeobj"
+                            formControlName="exchangeratecodeobj" (keypress)="keyPressDate($event)"
                             (dateInput)="$event.value.format('DD/MM/YYYY')"
                             id="exchangeratecode"
                             (dateChange)="getDateString($event, 'exchangeratecode',0)">
