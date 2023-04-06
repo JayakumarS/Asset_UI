@@ -43,9 +43,9 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="fullName"  maxlength="30"required>
+                      <input matInput formControlName="fullName" (keypress)="keyPressName($event)"  maxlength="30"required>
                       <mat-error *ngIf="docForm.get('fullName').hasError('required')">
-                        Activity Name is required
+                        Full Name is required
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -57,7 +57,7 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="contactNumber" maxlength="10" required>
+                      <input matInput formControlName="contactNumber" (keypress)="keyPressNumeric($event)" maxlength="10" required>
                       <mat-error *ngIf="docForm.get('contactNumber').hasError('required')">
                           Contact Number is required
                         </mat-error>

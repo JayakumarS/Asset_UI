@@ -236,6 +236,20 @@ this.httpService.get<any>(this.designationMasterService.getEmailDropdown).subscr
       }
     });
   }
+  keyPressNumeric(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z ]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   fetchAuditorDetails(emailId: any) {
     this.httpService.get(this.designationMasterService.fetchAuditorDetails + "?emailId=" + emailId).subscribe((res: any) => {
       this.docForm.patchValue({
