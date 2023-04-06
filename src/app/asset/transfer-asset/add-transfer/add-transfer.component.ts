@@ -197,16 +197,26 @@ export class AddTransferComponent implements OnInit {
     }
   );
 
-  //Company List
-  this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe(
-    (data) => {
-      console.log(data);
-      this.companyList = data;
+  
+  // this.httpService.get<any>(this.commonService.getCompanyDropdown).subscribe(
+  //   (data) => {
+  //     console.log(data);
+  //     this.companyList = data;
+  //   },
+  //   (error: HttpErrorResponse) => {
+  //     console.log(error.name + " " + error.message);
+  //   }
+  // );
+
+  
+//Company List
+  this.httpService.get<any>(this.commonService.getUserBasedCompanyDropdown + "?userId=" + this.tokenStorage.getUsername()).subscribe({
+    next: (data) => {
+      this.companyList = data.addressBean;
     },
-    (error: HttpErrorResponse) => {
-      console.log(error.name + " " + error.message);
+    error: (error) => {
     }
-  );
+  });
 
   this.docForm.controls.status.disable();
 
