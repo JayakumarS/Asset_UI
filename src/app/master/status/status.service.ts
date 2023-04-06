@@ -39,7 +39,7 @@ export class StatusService extends UnsubscribeOnDestroyAdapter {
   public editStatusMaster = `${this.serverUrl.apiServerAddress}app/statusMaster/edit`;
   public deletesStatusMaster = `${this.serverUrl.apiServerAddress}app/statusMaster/delete`;
   public validateStatusURL = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUniqueCopmanyBased`;
-
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}app/statusMaster/validation`;
 
   get data(): StatusMaster[] {
     return this.dataChange.value;

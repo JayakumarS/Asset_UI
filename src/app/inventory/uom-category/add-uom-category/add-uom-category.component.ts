@@ -62,7 +62,7 @@ export class AddUOMCategoryComponent implements OnInit {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       categoryName: ["", [Validators.required]],
-      description: [""],
+      description: ["",[Validators.required]],
       active: [true],
       uomID: [""],
       uomcategoryName:[""],
@@ -318,7 +318,7 @@ export class AddUOMCategoryComponent implements OnInit {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       categoryName: ["", [Validators.required]],
-      description: [""],
+      description: ["",[Validators.required]],
       active: [true],
       uomID: [""],
       loginedUser: this.tokenStorage.getUserId(),
@@ -356,9 +356,10 @@ export class AddUOMCategoryComponent implements OnInit {
     this.httpService.get<any>(this.uomCategoryService.uniqueValidateCompanyBasedUrl +"?categoryName="+event).subscribe((res: any) => {
       if(res > 0){
         this.docForm.controls['categoryName'].setErrors({ assetcategory: true });
-      }else{
-        this.docForm.controls['categoryName'].setErrors(null);
       }
+      // else{
+      //   this.docForm.controls['categoryName'].setErrors(null);
+      // }
     });
   }
 }
