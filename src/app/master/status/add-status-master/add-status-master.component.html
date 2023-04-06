@@ -17,7 +17,7 @@
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label>STATUS NAME<span class="errorColor">*</span></label>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;"  *ngIf="!edit" > 
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="statusname"  maxlength="20" 
                     oninput="this.value = this.value.toUpperCase()"  
@@ -30,8 +30,19 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;"  *ngIf="edit" >
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="statusname"  maxlength="20" 
+                    oninput="this.value = this.value.toUpperCase()"  
+                    required>
+                    <mat-error *ngIf="docForm.get('statusname').hasError('required')">
+                      Status Name is required
+                    </mat-error>
+                  
+                  </mat-form-field>
+                </div>
 
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
                       <label>DESCRIPTION</label>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;">

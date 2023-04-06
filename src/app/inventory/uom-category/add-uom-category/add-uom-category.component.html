@@ -49,13 +49,11 @@
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="categoryName" maxlength="20"
                      oninput="this.value = this.value.toUpperCase()"  
-                    (blur)="validateCategoryName($event.target.value)" readonly>
+                   readonly>
                     <mat-error *ngIf="docForm.get('categoryName').hasError('required')">
                       UOM Name is required
                     </mat-error>
-                    <mat-error *ngIf="docForm.get('categoryName').hasError('assetcategory')">
-                      UOM Name Already Exists..!!
-                    </mat-error>
+                
                   </mat-form-field>
                 </div>
 
