@@ -55,19 +55,19 @@
                   
                   <ng-container matColumnDef="grnNumber">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> GRN No </mat-header-cell>
-                    <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.grnNumber}}</mat-cell>
+                    <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.grnNumber}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="grnDate">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> GRN Date </mat-header-cell>
-                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.grnDate}}</mat-cell>
+                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.grnDate}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="vendorName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Vendor </mat-header-cell>
-                    <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
+                    <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.vendorName}}</mat-cell>
                   </ng-container> 
                   <ng-container matColumnDef="purchaseOrderNumber">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Purchase Order </mat-header-cell>
-                    <mat-cell *matCellDef="let row"  (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)"> {{row.purchaseOrderNumber}}</mat-cell>
+                    <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.purchaseOrderNumber}}</mat-cell>
                   </ng-container>
   
                   

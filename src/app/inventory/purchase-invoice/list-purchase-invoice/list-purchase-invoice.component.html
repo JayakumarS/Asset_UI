@@ -55,11 +55,11 @@
 
                 <ng-container matColumnDef="purchaseInvoiceNo">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Purchase Invoice No </mat-header-cell>
-                  <mat-cell *matCellDef="let row" (click)="editCall(row)"   (contextmenu)="onContextMenu($event, row)"> {{row.purchaseInvoiceNo}}</mat-cell>
+                  <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.purchaseInvoiceNo}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="purchaseInvoiceDate">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Invoice Date </mat-header-cell>
-                  <mat-cell *matCellDef="let row" (click)="editCall(row)"  (contextmenu)="onContextMenu($event, row)"> {{row.purchaseInvoiceDate}}</mat-cell>
+                  <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.purchaseInvoiceDate}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="vendorName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> vendor  </mat-header-cell>
