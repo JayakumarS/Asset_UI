@@ -111,9 +111,9 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
     );
 
     //Assets Dropdown List
-    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.companyId).subscribe(
+    this.httpService.get<any>(this.commonService.getassetname+ "?companyId=" + this.companyId).subscribe(
       (data) => {
-        this.assetListDashboard = data.assetListDashboard;
+        this.assetListDashboard = data;
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -168,7 +168,7 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
       }
       this.docForm.patchValue({
         'maintenanceId': res.maintenanceAndReportBean.maintenanceId,
-        'assetId': res.maintenanceAndReportBean.assetId+"",
+        'assetId': res.maintenanceAndReportBean.assetId,
         'repairReason' : res.maintenanceAndReportBean.repairReason,
         'moveLocation': res.maintenanceAndReportBean.moveLocation,
         'remarks' : res.maintenanceAndReportBean.remarks,
