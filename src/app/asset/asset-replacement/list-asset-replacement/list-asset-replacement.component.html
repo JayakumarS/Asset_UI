@@ -53,34 +53,34 @@
 
                                 <ng-container matColumnDef="assetId">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Asset No </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
                                         {{row.assetId}}</mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="assetName">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Asset Name </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
                                         {{row.assetName}}</mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="assetCode">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Asset Code </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
                                         {{row.assetCode}}</mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Location">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Location </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
                                         {{row.locationName}}</mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Category">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
                                         {{row.categoryName}}</mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="status">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Status </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
                                         {{row.statusName}}</mat-cell>
                                 </ng-container>
 
@@ -92,7 +92,7 @@
                                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                                        <button *ngIf="permissionList?.modify"mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)" class="tbl-action-btn">
+                                        <button *ngIf="permissionList?.modify"mat-icon-button color="accent" (click)="$event.stopPropagation()" class="tbl-action-btn">
                         <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                       </button>
                                         <!-- <button *ngIf="permissionList?.delete"mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="deleteItem(row)" class="tbl-action-btn">
