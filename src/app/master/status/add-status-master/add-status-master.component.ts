@@ -13,13 +13,16 @@ import { CommonService } from 'src/app/common-service/common.service';
   selector: 'app-add-status-master',
   templateUrl: './add-status-master.component.html',
   styleUrls: ['./add-status-master.component.sass']
-})
+}) 
+
 export class AddStatusMasterComponent implements OnInit {
 
   docForm: FormGroup;
   requestId: number;
-  edit:boolean=false;
+  editflag:boolean=false;
   statusMaster : StatusMaster;
+  edit: boolean = false;
+
   constructor(private fb: FormBuilder,
     private statusMasterService : StatusService,
     private httpService: HttpServiceService,
@@ -46,41 +49,35 @@ export class AddStatusMasterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.route.params.subscribe(params => {
+
+    this.docForm = this.fb.group({
+      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+
+      statusname: ["", [Validators.required]],
+      statusid: [""],
+      Description:[""],
+      active:[true],
+      id:[""],
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId(),
+      loginedUser: this.tokenStorage.getUserId(),
+
+    });
+      this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
        this.edit=true;
        //For User login Editable mode
        this.fetchDetails(this.requestId) ;
-
-
-
-      }
+ }
      });
-  }
 
-  // validateStatusname(event){
-  //   this.httpService.get<any>(this.statusMasterService.validateStatusURL + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event  + "&companyValue=" + this.docForm.value.companyId ).subscribe((res: any) => {
-  //     if (res>0){
-  //       this.docForm.controls['statusname'].setErrors({ status: true });
-  //     }else{
-  //      this.docForm.controls['statusname'].setErrors(null);
-  //     }
-  //   });
-  // }
+     if(this.docForm.value.statusname==''||this.docForm.value.statusname==null){
+      this.editflag=true
+    }else{
+      this.editflag=false;
+    }
 
-
-  validateStatusName(event){
-    let companyId=this.tokenStorage.getCompanyId();
-    this.httpService.get<any>(this.statusMasterService.uniqueValidateUrl + "?tableName=" + "status_master" + "&columnName=" + "status_name" + "&columnValue=" + event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
-
-    // this.httpService.get<any>(this.commonService.uniqueValidateCompanyBasedUrl+ "?tableName=" +"status_master"+"&columnName="+"status_name"+"&columnValue="+event + "&companycolumnname=" + "company_id" + "&companyvalue="+companyId).subscribe((res: any) => {
-      if(res){
-        this.docForm.controls['statusname'].setErrors({ status: true });
-      // }else{
-      //   this.docForm.controls['statusname'].setErrors(null);
-      }
-    });
   }
 
   onSubmit(){
@@ -121,6 +118,12 @@ export class AddStatusMasterComponent implements OnInit {
   fetchDetails(id: any): void {
     this.httpService.get(this.statusMasterService.editStatusMaster+"?id="+id).subscribe((res: any)=> {
       console.log(id);
+      
+       if(res.statusMasterBean.statusname==''||res.statusMasterBean.statusname==null){
+      this.editflag=true
+    }else{
+      this.editflag=false;
+    }
 
 
       this.docForm.patchValue({
@@ -201,5 +204,20 @@ export class AddStatusMasterComponent implements OnInit {
       panelClass: colorName,
     });
   }
+
+  validateStatusName(event){
+    let companyId=this.tokenStorage.getCompanyId();
+
+    // tslint:disable-next-line:max-line-length
+    this.httpService.get<any>(this.statusMasterService.uniqueValidateCompanyBasedUrl +"?statusname="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['statusname'].setErrors({ assetcategory: true });
+      }
+      // else{
+      //   this.docForm.controls['categoryName'].setErrors(null);
+      // }
+    });
+  }
+
 
 }

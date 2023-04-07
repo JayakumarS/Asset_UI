@@ -17,30 +17,37 @@
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                     <label>STATUS NAME<span class="errorColor">*</span></label>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;"  *ngIf="!edit" > 
+
+                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;"  *ngIf="editflag">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="statusname"  maxlength="20" 
-                    oninput="this.value = this.value.toUpperCase()"  
-                     (blur)="validateStatusName($event.target.value)" required>
+                    <input matInput formControlName="statusname" maxlength="20"
+                     oninput="this.value = this.value.toUpperCase()"  
+                    (blur)="validateStatusName($event.target.value)" required>
                     <mat-error *ngIf="docForm.get('statusname').hasError('required')">
                       Status Name is required
-                    </mat-error>
-                    <mat-error *ngIf="docForm.get('statusname').hasError('status')">
+                     </mat-error>
+                    <mat-error *ngIf="docForm.get('statusname').hasError('assetcategory')">
                       Status Name Already Exists !!!
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;"  *ngIf="edit" >
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " style=" margin-left: -20px;"  *ngIf="!editflag">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="statusname"  maxlength="20" 
-                    oninput="this.value = this.value.toUpperCase()"  
-                    required>
+                    <input matInput formControlName="statusname" maxlength="20"
+                     oninput="this.value = this.value.toUpperCase()"  
+                   readonly>
                     <mat-error *ngIf="docForm.get('statusname').hasError('required')">
-                      Status Name is required
+                      UOM Name is required
                     </mat-error>
-                  
-                  </mat-form-field>
+                 </mat-form-field>
                 </div>
+
+
+
+
+
+
+
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
                       <label>DESCRIPTION</label>
