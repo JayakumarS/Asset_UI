@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgProbeToken } from '@angular/core';
 import { MaintenanceAndReport } from './maintenance-and-repair-model'; 
 
 import { BehaviorSubject,Observable } from "rxjs";
@@ -7,6 +7,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { MaintenanceAndRepairResultBean } from './maintenance-and-repair-result-bean';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 const httpOptions = {
@@ -28,7 +29,7 @@ export class MaintenanceAndRepairService extends UnsubscribeOnDestroyAdapter {
  dialogData: any;
  maintenanceAndReport : MaintenanceAndReport;
  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, 
-   private httpService: HttpServiceService) { 
+   private httpService: HttpServiceService, private tokenStorage: TokenStorageService) { 
      super();
   }
   
@@ -74,7 +75,7 @@ export class MaintenanceAndRepairService extends UnsubscribeOnDestroyAdapter {
   }
 
   getAllList():void {
-    this.subs.sink = this.httpService.get<MaintenanceAndRepairResultBean>(this.getAllMasters).subscribe(
+    this.subs.sink = this.httpService.get<MaintenanceAndRepairResultBean>(this.getAllMasters+"?companyId="+ this.tokenStorage.getCompanyId()).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.getMaintenanceAndRepairList);

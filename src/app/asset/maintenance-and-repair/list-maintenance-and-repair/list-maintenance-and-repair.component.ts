@@ -70,7 +70,7 @@ export class ListMaintenanceAndRepairComponent extends UnsubscribeOnDestroyAdapt
     }
 
     public loadData() {
-      this.exampleDatabase = new MaintenanceAndRepairService(this.httpClient, this.serverUrl, this.httpService);
+      this.exampleDatabase = new MaintenanceAndRepairService(this.httpClient, this.serverUrl, this.httpService,this.tokenStorage);
       this.dataSource = new ExampleDataSource(
         this.exampleDatabase,
         this.paginator,
