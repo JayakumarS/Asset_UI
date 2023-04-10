@@ -90,7 +90,7 @@ export class AddAssetReplacementComponent  extends UnsubscribeOnDestroyAdapter i
       //info
       id: [""],
      loginUser: this.tokenStorage.getUserId(),
-
+     companyId: this.tokenStorage.getCompanyId(),
       assetMasterBean: this.fb.array([
         this.fb.group({
           assName: [""],

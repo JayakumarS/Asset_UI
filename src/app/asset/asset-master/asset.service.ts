@@ -97,8 +97,9 @@ export class AssetService extends UnsubscribeOnDestroyAdapter {
 
    /** CRUD METHODS */
    getAllReplacementCustomers(): void {
+    this.companyId=this.tokenStorage.getCompanyId();
 
-    this.subs.sink = this.httpService.get<AssetMasterResultBean>(this.getAllAssetsReplacement).subscribe(
+    this.subs.sink = this.httpService.get<AssetMasterResultBean>(this.getAllAssetsReplacement+"?companyId=" +this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.assetReplacementList);
