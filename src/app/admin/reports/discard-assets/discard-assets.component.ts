@@ -24,6 +24,7 @@ import { BehaviorSubject, fromEvent, map, merge, Observable } from 'rxjs';
 import { serverLocations } from 'src/app/auth/serverLocations';
 
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -89,7 +90,8 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
     private notificationService : NotificationService,
     private cd: ChangeDetectorRef,
     private cmnService:CommonService,private reportsService: ReportsService,
-    private commonService: CommonService,) { 
+    private commonService: CommonService,
+    private tokenstroage: TokenStorageService) { 
 
        super();{ 
        }
@@ -152,7 +154,7 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
     this.discardReport = this.docForm.value;
     this.mainList=[];
     this.gllist=[];
-    this.httpService.post(this.reportsService.getdiscardedReports, this.discardReport).subscribe((res: any) => {
+    this.httpService.post(this.reportsService.getdiscardedReports, this.discardReport +"?companyId="+this.tokenstroage.getCompanyId()).subscribe((res: any) => {
       console.log(res.discardedReports);
       this.mainList=res.discardedReports;
       if(this.mainList!=null){

@@ -10,6 +10,7 @@ import { main } from '../main-model';
 import { MainService } from '../main.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddAsset } from '../../employees/addAsset-model';
+import { AssetService } from 'src/app/asset/asset-master/asset.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class InventoryComponent implements OnInit {
   Main: main;
  
   constructor(private fb: FormBuilder,private httpService: HttpServiceService,public router:Router,
-    private addAssetService:AddAssetService,public notificationService:NotificationService,
+    private addAssetService:AddAssetService,private assetService: AssetService,public notificationService:NotificationService,
     private snackBar: MatSnackBar,private mainService:MainService) { 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -47,7 +48,7 @@ export class InventoryComponent implements OnInit {
 
     
      // category dropdown
-     this.httpService.get<MainResultBean>(this.addAssetService.categoryDropdownList).subscribe(
+     this.httpService.get<MainResultBean>(this.assetService.categoryDropdownList).subscribe(
       (data) => {
        this.categoryDdList = data.categoryDropdown;
       },
@@ -100,7 +101,7 @@ getCreditFile(event) {
   // var data = this.httpService.postData(this.fileUploadService.addFiles,frmData);
   // console.log(data);
   
-  this.httpService.post<any>(this.addAssetService.addAssetUploadFiles, frmData).subscribe(data => {
+  this.httpService.post<any>(this.assetService.addAssetUploadFiles, frmData).subscribe(data => {
       console.log(data);
       if(data.success){
         this.docForm.patchValue({
