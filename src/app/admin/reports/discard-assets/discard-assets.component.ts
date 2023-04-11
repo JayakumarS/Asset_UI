@@ -68,7 +68,7 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
   dataSource: MatTableDataSource<MainList>;
   docForm: FormGroup;
   locationDdList: any;
-  discardReport: Reportscategory;
+  discardReport: any;
   isTblLoading: boolean;
   locationList =[];
   mainList =[];
@@ -90,8 +90,9 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
     private notificationService : NotificationService,
     private cd: ChangeDetectorRef,
     private cmnService:CommonService,private reportsService: ReportsService,
-    private commonService: CommonService,
-    private tokenstroage: TokenStorageService) { 
+    private commonService: CommonService,   
+     private tokenstroage: TokenStorageService) { 
+
 
        super();{ 
        }
@@ -105,6 +106,7 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
       discardFromDate:[""],
       discardDateToObj:[""],
       discardToDate:[""],
+      companyId :this.tokenstroage.getCompanyId() 
      
       
     });
@@ -123,7 +125,8 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
       discardDateToObj:[""],
       discardFromDate:[""],
       discardToDate:[""],
-     
+      companyId :this.tokenstroage.getCompanyId() 
+
     });
 
     this.viewReport();
@@ -154,7 +157,7 @@ export class DiscardAssetsComponent extends UnsubscribeOnDestroyAdapter implemen
     this.discardReport = this.docForm.value;
     this.mainList=[];
     this.gllist=[];
-    this.httpService.post(this.reportsService.getdiscardedReports, this.discardReport +"?companyId="+this.tokenstroage.getCompanyId()).subscribe((res: any) => {
+    this.httpService.post(this.reportsService.getdiscardedReports, this.discardReport).subscribe((res: any) => {
       console.log(res.discardedReports);
       this.mainList=res.discardedReports;
       if(this.mainList!=null){
