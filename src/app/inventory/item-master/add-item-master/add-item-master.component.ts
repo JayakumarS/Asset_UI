@@ -514,6 +514,10 @@ export class AddItemMasterComponent implements OnInit {
     }
   }
 
+  // onCancel() {
+  //   this.router.navigate(['/inventory/item-master/list-item-master']);
+  // }
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
