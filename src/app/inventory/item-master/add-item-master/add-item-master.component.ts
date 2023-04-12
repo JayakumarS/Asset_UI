@@ -265,6 +265,8 @@ export class AddItemMasterComponent implements OnInit {
               "bottom",
               "center"
             );
+            this.router.navigate(['/inventory/item-master/list-item-master']);
+
             /*********************  for cancel and tab index or company screen************ */
             if(window.sessionStorage.getItem("ItemFrom")=="item"){
               window.sessionStorage.setItem("ItemFrom","");

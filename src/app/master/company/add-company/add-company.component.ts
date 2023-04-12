@@ -79,6 +79,7 @@ export class AddCompanyComponent implements OnInit {
   tabState=[{ content: ListStatusMasterComponent}];
   tabLine=[{ content: ListLineMasterComponent}];
   tabItem=[{ content: ListItemMasterComponent}];
+  countryCode: any;
 
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
@@ -307,6 +308,7 @@ export class AddCompanyComponent implements OnInit {
             res.message,
             "top",
             "right");
+            
         }
       })
     }
@@ -403,12 +405,6 @@ export class AddCompanyComponent implements OnInit {
             this.dynamicDropDownList[i][3] = res.cityList;
           }
           
-        }else{
-          this.notificationService.showNotification(
-            "snackbar-danger",
-            res.message,
-            "top",
-            "right");
         }
       })
     }
@@ -550,10 +546,17 @@ export class AddCompanyComponent implements OnInit {
       //  this.stateBasedCity(res.companyBean.addressOneState);
        // this.stateBasedCity1(res.companyBean.addressTwoState);
        if(res.companyBean.addressOneZipCode!=null && res.companyBean.addressOneZipCode!=0){
-        this.getPincodeDetails(res.companyBean.addressOneZipCode);  
+        if(res.companyBean.country==33){
+         
+          this.getPincodeDetails(res.companyBean.addressOneZipCode);  
+        }
+        
        }
        if(res.companyBean.addressTwoZipCode!=null && res.companyBean.addressTwoZipCode!=0){
-        this.getRegPincodeDetails(res.companyBean.addressTwoZipCode);  
+        if(res.companyBean.country==33){
+          this.getRegPincodeDetails(res.companyBean.addressTwoZipCode);  
+        }
+        
        }
        
         this.editDetails = res.companyBean;
@@ -604,7 +607,10 @@ export class AddCompanyComponent implements OnInit {
           let arraylen = BranchListDtlArray.length;
           
           if(element.branchZipcode!=null && element.branchZipcode!=""){
-            this.fetchDynamicDropDownForPopulate(element.branchZipcode, index);
+            if(element.branchCountry!=null){
+              this.fetchDynamicDropDownForPopulate(element.branchZipcode, index);
+            }
+            
           }else{
             this.dynamicDropDownList.push([]);
             this.dynamicDropDownList.push([]);
