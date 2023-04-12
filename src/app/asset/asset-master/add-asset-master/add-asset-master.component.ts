@@ -21,6 +21,7 @@ import { GrnService } from 'src/app/inventory/grn/grn.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import * as moment from 'moment';
 import { UserMasterService } from 'src/app/master/user-master/user-master.service';
+import { AuditableAssetService } from 'src/app/audit/auditable-asset/auditable-asset.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -117,6 +118,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
     private tokenStorage: TokenStorageService,
     private userMasterService: UserMasterService,
     public el: ElementRef,
+    public auditableAssetService:AuditableAssetService,
 
   ) {
     super();
@@ -273,6 +275,16 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       }
     });
 
+
+      //Currency  Dropdown List
+  this.httpService.get<any>(this.auditableAssetService.currencyListUrl).subscribe(
+    (data) => {
+      this.currencyList = data.currencyList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
 
     // Status dropdown
     this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
