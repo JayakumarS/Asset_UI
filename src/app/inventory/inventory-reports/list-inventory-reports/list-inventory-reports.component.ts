@@ -77,6 +77,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   subBlockDisplayedColumns = ["sourceLocation", "destinationLocation", "reference"];
   expandedElement: User | null;
   expandedSubElement: Address | null;
+  total: any;
 
 
 
@@ -101,6 +102,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
     this.docForm = this.fb.group({
       item: [""],
       category: [""],
+      totalQty:[""],
       companyId: parseInt(this.tokenStorage.getCompanyId()),
     });
   }
@@ -142,6 +144,10 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
       .subscribe({
         next: (res: any) => {
           this.spinner.hide();
+          this.total=0;
+          for(let i=0;i<res.inventoryReportsDetails.length;i++){
+            this.total+= res.inventoryReportsDetails[i].totalqty;
+          }
           if (res != null) {
             res?.inventoryReportsDetails.forEach((user) => {
               if (
