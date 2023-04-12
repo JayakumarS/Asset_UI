@@ -25,6 +25,8 @@ export class AddBranchComponent implements OnInit {
   countrybasedStateList = [];
   stateBasedCityList = [];
   edit:boolean=false;
+  countryflag: boolean =false ;
+  countryvailad:any;
   branch : Branch;
   locationDropdownList:[];
   userId:any;
@@ -41,6 +43,8 @@ export class AddBranchComponent implements OnInit {
   countryList=[];
   cityList=[];
   editDetails: any;
+  CountryCode:any;
+  countryid: any;
   constructor(private fb: FormBuilder,
     private branchService : BranchService,
     private httpService: HttpServiceService,
@@ -77,7 +81,7 @@ export class AddBranchComponent implements OnInit {
   ngOnInit(): void {
 
     this.userId = this.tokenStorage.getUserId();
-
+    this.companyId = this.tokenStorage.getCompanyId();
     // Country dropdown
     this.companyId = this.tokenStorage.getCompanyId();
     this.httpService.get<any>(this.commonService.getCountryDropdown + "?companyId=" + this.companyId).subscribe({
@@ -108,6 +112,8 @@ export class AddBranchComponent implements OnInit {
 
       }
     });
+    
+    this.validcountry()
 
     this.companyId = this.tokenStorage.getCompanyId();
     this.httpService.get<any>(this.branchService.userBasedBranchDDList + "?companyId=" + this.companyId).subscribe(
@@ -220,8 +226,23 @@ if(this.docForm.value.branchCode==''||this.docForm.value.branchCode==null){
   }
 
   
-  validateDepartmentCode(){
+  validcountry(){
+    this.httpService.get<any>(this.branchService.getCountry+ "?companyId=" + this.companyId ).subscribe({
+      next: (data) => {
+    if( data.countryCode == 33)
+    {
+      this.countryflag = true;
+    }else{
+      this.countryflag = false;
 
+    }
+      },
+      error: (error) => {
+    
+      }
+    }
+    );
+  
   }
 
   // validationUserGroup(location:any){

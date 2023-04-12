@@ -36,6 +36,7 @@ export class BranchService extends UnsubscribeOnDestroyAdapter{
   public multipleUpload = `${this.serverUrl.apiServerAddress}api/auth/app/branch/multiplebranch`;
   // public addbranchMultiple = `${this.serverUrl.apiServerAddress}api/auth/app/branch/multipleSave`;
   public saveMultiple = `${this.serverUrl.apiServerAddress}api/auth/app/branch/multipleSave`;
+  public getCountry = `${this.serverUrl.apiServerAddress}api/auth/app/branch/getCountry`;
 
   
   
