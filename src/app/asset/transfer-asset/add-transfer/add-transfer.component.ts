@@ -381,7 +381,6 @@ if(data6.count==0 || this.edit==true){
                 'requestedQuantity':data5.transferBean.requestedQuantity,
                 'hospital':data5.transferBean.companyId,
                 'eddDate':data5.transferBean.eddDate,
-                'destinationLocationId':data5.transferBean.destLocationId,
                 'assetId':data5.transferBean.assetId
               })
     
@@ -396,7 +395,7 @@ if(data6.count==0 || this.edit==true){
                       assetTrackNo:[element.assetTrackNo],
                       assetName:[element.assetName],
                       // serialNo:[element.serialNo],
-                      assetLocation:[parseInt(element.assetLocationName)],
+                      assetLocation:[element.assetLocationName],
                       responsible:[element.responsible],
                       assetUser:[element.assetUser],
                     });
