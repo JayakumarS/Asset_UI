@@ -42,6 +42,8 @@ export class AddCompanyComponent implements OnInit {
   edit: boolean = false;
   userId: any;
   flag: boolean = false;
+  countryflag: boolean ;
+
   countrybasedStateList = [];
   countrybasedStateList1 = [];
   stateBasedCityList = [];
@@ -51,7 +53,7 @@ export class AddCompanyComponent implements OnInit {
   companyId: any;
   CompanyEnployeeList = [];
   dynamicDropDownList=[];
-  
+  countryvailad:any;
   dynamicDropDownList1 = [];
   dynamicDropDownList2 = [];
   CountryCodeList=[];
@@ -148,6 +150,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.docForm
     this.userId = this.tokenStorage.getUserId();
     // Country dropdown
     this.companyId=0;
@@ -232,6 +235,8 @@ export class AddCompanyComponent implements OnInit {
         }
       }
     });
+    this.docForm.value.country 
+    this.valueCountry()
 
   }
 
@@ -586,6 +591,7 @@ export class AddCompanyComponent implements OnInit {
           'companyLogo':res.companyBean.companyLogo,
         })
 
+        this.valueCountry();
         if (res.companyBean.companyLogo != undefined && res.companyBean.companyLogo != null && res.companyBean.companyLogo != '') {
           this.logoPathUrl = res.companyBean.companyLogo;
         }
@@ -778,6 +784,17 @@ export class AddCompanyComponent implements OnInit {
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
+  }
+  valueCountry(){
+    this.countryvailad = this.docForm.value.country   
+    if( this.countryvailad == 33)
+    {
+      this.countryflag = true;
+    }else{
+      this.countryflag = false;
+
+    }
+   
   }
 
   valueValidation(event:any){
