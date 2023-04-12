@@ -98,7 +98,7 @@
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-select tabindex="7" formControlName="currency">
-                          <mat-option *ngFor="let title of currencyList" [value]="title.id">
+                          <mat-option *ngFor="let title of currencyList" [value]="title.slno">
                             {{title.text}}
                           </mat-option>
                         </mat-select>
