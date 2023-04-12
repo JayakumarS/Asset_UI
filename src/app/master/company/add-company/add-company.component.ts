@@ -405,12 +405,6 @@ export class AddCompanyComponent implements OnInit {
             this.dynamicDropDownList[i][3] = res.cityList;
           }
           
-        }else{
-          this.notificationService.showNotification(
-            "snackbar-danger",
-            res.message,
-            "top",
-            "right");
         }
       })
     }
