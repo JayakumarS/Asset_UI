@@ -279,8 +279,8 @@
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                   <mat-label>Asset Location</mat-label>
-                                  <mat-select formControlName="assetLocation" disabled  >
-                                    <mat-option *ngFor="let title of locationList" [value]="title.id">
+                                  <mat-select formControlName="assetLocation" required disabled>
+                                    <mat-option *ngFor="let title of locationList" [value]="title.text">
                                       {{title.text}}
                                     </mat-option>
                                   </mat-select>
