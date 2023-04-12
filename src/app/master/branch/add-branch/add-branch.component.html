@@ -100,10 +100,16 @@
                     <textarea matInput formControlName="addressOne"></textarea>
                   </mat-form-field>
                 </div>
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12"*ngIf="!countryflag">
+                  <label>IS ACTIVE</label>
+                </div>
+                <div class="col-xl-2 col-lg-1 col-md-3 col-sm-12 "*ngIf="!countryflag">
+                  <mat-checkbox formControlName="isactive" ngInit="checked=true"></mat-checkbox>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf="countryflag">
                   <mat-label> GST NO</mat-label>
                 </div>
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12" *ngIf="countryflag">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="branchGstNo" oninput="this.value = this.value.toUpperCase()"
                       maxlength="15">
@@ -144,8 +150,9 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
+                
               </div>
-              <div class="row">
+              <div class="row"*ngIf="countryflag">
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -158,7 +165,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 " >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label> STATE</mat-label>
                     <!-- (selectionChange)="stateBasedCity($event.value)"  let title of countrybasedStateList-->
@@ -169,16 +176,12 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12">
-                  <label>IS ACTIVE</label>
-                </div>
-                <div class="col-xl-2 col-lg-1 col-md-3 col-sm-12 ">
-                  <mat-checkbox formControlName="isactive" ngInit="checked=true"></mat-checkbox>
-                </div>
+                
               </div>
-              <div class="row">
+              
+              <div class="row"*ngIf="countryflag">
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
-                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 " >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label> DISTRICT</mat-label>
                     <mat-select formControlName="addressOneDistrict">
@@ -198,13 +201,15 @@
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
+
+                  
                 </div>
-                <!-- <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label> ZIPCODE</mat-label>
-                    <input matInput formControlName="addressOneZipCode" maxlength="6" (keypress)="keyPressNumeric2($event)">
-                  </mat-form-field>
-                </div> -->
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12">
+                  <label>IS ACTIVE</label>
+                </div>
+                <div class="col-xl-2 col-lg-1 col-md-3 col-sm-12 ">
+                  <mat-checkbox formControlName="isactive" ngInit="checked=true"></mat-checkbox>
+                </div>
               </div>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
