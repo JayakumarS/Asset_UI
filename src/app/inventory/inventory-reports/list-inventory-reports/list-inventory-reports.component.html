@@ -4,6 +4,14 @@
       <!-- breadcrumb -->
       <app-breadcrumb [title]="'Inventory Report'"  [items]="['Inventory']" [active_item]="'Inventory Report List'"></app-breadcrumb>
     </div>
+    <style>
+      .center{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        width: 95%;
+      }
+    </style>
     <div class="card">
       <div class="body">
          <form class="m-4" [formGroup]="docForm">
@@ -150,8 +158,10 @@
           <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"
             [class.example-expanded-row]="expandedSubElement === element"></tr>
         </table>
-
       </div>
     </div>
+    <div class="center">
+      <label>Total Quantity :&nbsp;{{total}}</label>
+  </div>
   </div>
 </section>
