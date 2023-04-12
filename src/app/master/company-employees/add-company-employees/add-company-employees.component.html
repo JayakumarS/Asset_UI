@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header" style="padding: 0.5% !important;">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Add company employee'" [items]="['Master']" [active_item]="'Add companies employee'">
+        <app-breadcrumb [title]="'Add Company Employee'" [items]="['Master']" [active_item]="'Add Company Employee'">
         </app-breadcrumb>
       </div>
       <div class="row clearfix ">
@@ -61,35 +61,24 @@
                           </div>
 
                           <div class=" col-md-2">
-                            <mat-label >DEPARTMENT</mat-label>
+                            <mat-label >EMPLOYEE ID<span class="errorColor">*</span></mat-label>
                             </div>
                             <div class=" col-md-3">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-select class="inputTxt" formControlName="department">
-                                <mat-option *ngFor="let title of getUserBasedDepartmentList" [value]="title.id">
-                                    {{title.text}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        </div>
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <input matInput formControlName="empid" (blur)="validateEmployeeId($event.target.value)" maxlength="10" required>
+                              <mat-error *ngIf="docForm.get('empid').hasError('required')">
+                                Employee Id is required
+                              </mat-error>
+                              <mat-error *ngIf="docForm.get('empid').hasError('employee')">
+                                Employee Id Already Exists !!!
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+
                         </div>
                           <div class="row">
 
-                            <div class=" col-md-2">
-                              <mat-label >EMPLOYEE ID<span class="errorColor">*</span></mat-label>
-                              </div>
-                              <div class=" col-md-3">
-                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                <input matInput formControlName="empid" (blur)="validateEmployeeId($event.target.value)" maxlength="10" required>
-                                <mat-error *ngIf="docForm.get('empid').hasError('required')">
-                                  Employee Id is required
-                                </mat-error>
-                                <mat-error *ngIf="docForm.get('empid').hasError('employee')">
-                                  Employee Id Already Exists !!!
-                                </mat-error>
-                              </mat-form-field>
-                            </div>
-
+                           
                             <div class=" col-md-2">
                                 <mat-label >FULL NAME<span class="errorColor">*</span></mat-label>
                                 </div>
@@ -102,7 +91,32 @@
                                   </mat-error>
                                 </mat-form-field>
                               </div>
+                              <div class=" col-md-2">
+                                <mat-label >EMAIL ID<span class="errorColor">*</span></mat-label>
+                                </div>
+                              <div class=" col-md-3">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <!-- <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required  *ngIf="edit == false">
+                                  <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
 
+                                  <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                                    Email is required
+                                  </mat-error>
+                                  <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
+                                    EmailId Already Exists !!!
+                                  </mat-error>
+                                  <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
+                                    Valid Email Id Required
+                                  </mat-error> -->
+                                  <input matInput name="emailId" formControlName="emailId"required>
+                                  <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
+                                    Valid Email ID Required
+                                  </mat-error>
+                                  <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                                    Valid Email Id Required
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
 
                               <!-- <div class=" col-md-2">
                                 <mat-label >EMAIL ID<span class="errorColor">*</span></mat-label>
@@ -129,32 +143,7 @@
 
                                   <div class="row">
 
-                                    <div class=" col-md-2">
-                                      <mat-label >EMAIL ID<span class="errorColor">*</span></mat-label>
-                                      </div>
-                                    <div class=" col-md-3">
-                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                        <!-- <input matInput formControlName="emailId"(blur)="validateEmail($event.target.value)"required  *ngIf="edit == false">
-                                        <input matInput formControlName="emailId" required *ngIf="edit == true" readonly>
-
-                                        <mat-error *ngIf="docForm.get('emailId').hasError('required')">
-                                          Email is required
-                                        </mat-error>
-                                        <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
-                                          EmailId Already Exists !!!
-                                        </mat-error>
-                                        <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
-                                          Valid Email Id Required
-                                        </mat-error> -->
-                                        <input matInput name="emailId" formControlName="emailId"required>
-                                        <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
-                                          Valid Email ID Required
-                                        </mat-error>
-                                        <mat-error *ngIf="docForm.get('emailId').hasError('required')">
-                                          Valid Email Id Required
-                                        </mat-error>
-                                      </mat-form-field>
-                                    </div>
+                                  
 
                                     <div class=" col-md-2">
                                         <mat-label >PHONE NUMBER<span class="errorColor">*</span></mat-label>
@@ -168,6 +157,19 @@
                                           </mat-error>
                                         </mat-form-field>
                                       </div>
+
+                                      <div class=" col-md-2">
+                                        <mat-label >DEPARTMENT</mat-label>
+                                        </div>
+                                        <div class=" col-md-3">
+                                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                          <mat-select class="inputTxt" formControlName="department">
+                                            <mat-option *ngFor="let title of getUserBasedDepartmentList" [value]="title.id">
+                                                {{title.text}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    </div>
                                       <!-- <div class=" col-md-2">
                                         <mat-label >DEPARTMENT</mat-label>
                                         </div>
