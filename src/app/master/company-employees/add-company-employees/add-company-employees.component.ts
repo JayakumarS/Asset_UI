@@ -106,6 +106,9 @@ export class AddCompanyEmployeesComponent implements OnInit {
       console.log();
 
       this.getUserBasedBranchList = res.getUserBasedBranchList;
+      this.docForm.patchValue({
+        'branch':parseInt(this.branchId),
+      })
 
     },
       (err: HttpErrorResponse) => {
