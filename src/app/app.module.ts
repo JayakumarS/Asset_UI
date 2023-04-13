@@ -47,6 +47,7 @@ import { httpInterceptorProviders } from "./auth/auth-interceptor";
 import { HighchartsChartModule } from 'highcharts-angular';
 // Pagination
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AngularBotModule } from "./angular-bot/angular-bot.module";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -93,7 +94,8 @@ export function createTranslateLoader(http: HttpClient): any {
         MatMenuModule,
         MatDialogModule,
         MatSnackBarModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        AngularBotModule
     ],
     providers: [
       CurrencyPipe,

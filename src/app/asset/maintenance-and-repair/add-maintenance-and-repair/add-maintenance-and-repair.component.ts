@@ -141,9 +141,18 @@ export class AddMaintenanceAndRepairComponent implements OnInit {
       this.docForm.value.assetLocation = this.locationId;
       this.maintenanceAndReport = this.docForm.value;
       console.log(this.maintenanceAndReport);
+      if(this.docForm.value.repairDate <this.docForm.value.expDateOfReturn){
       this.maintenanceAndRepairService.addMaintenanceAndRepair(this.maintenanceAndReport,this.router,this.notificationservice);
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "EXP DATE OF RETURN SHOULD BE GREATER THAN REPAIR DATE!",
+        "top",
+        "right"
+      );
     }
-    else{
+    }
+      else{
       this.showNotification(
         "snackbar-danger",
         "Please fill all the required details!",

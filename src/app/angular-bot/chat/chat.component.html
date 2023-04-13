@@ -1,0 +1,80 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="chat-bot">
+            <div class="chat-box-header">
+                <h4>Chat With Us Now &nbsp;&nbsp;
+                    <button mat-icon-button aria-label="Close dialog" (click)="onNoClick()">
+                        <mat-icon> close</mat-icon>
+                    </button>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="task">
+        <div mat-dialog-content>
+            <form class="m-4" [formGroup]="docForm">
+                <div class="row">
+                    <a href="javascript:void(0);" (click)="forLogin()" style="text-decoration:none;" *ngIf="Login">1.For
+                        Login issue.</a>
+                </div>
+                <br>
+                <div class="row">
+                    <a href="javascript:void(0);" (click)="forpassword()" style="text-decoration:none;"
+                     *ngIf="password">2.For Forgot password issue.</a>
+                </div>
+                <br>
+                <div class="row">
+                    <a href="javascript:void(0);" (click)="forRegistration()" style="text-decoration:none;"
+                        *ngIf="Registration">3.For Registration issue.</a>
+                </div>
+                <br>
+                <div class="forLogin" *ngIf="loginIssue">
+                    <div class="row">
+                        <a href (click)="clickMessange()">1.For Username.</a>
+                        <a href (click)="clickMessange()">2.For Password.</a>
+                        <a href (click)="exist()">3.exist.</a>
+                        <a href>4.Contact with support.</a>
+                    </div>
+                </div>
+                <div class="forpassword" *ngIf="loginpassword">
+                    <div class="row">
+                        <a href (click)="clickMessange()">1.For mail not received.</a>
+                        <a href (click)="clickMessange()">2.For password is not working.</a>
+                        <a href (click)="exist()">3.exist.</a>
+                        <a href>4.Contact with support.</a>
+                    </div>
+                </div>
+                <div class="forRegistration" *ngIf="loginRegistration">
+                    <div class="row">
+                        <a href (click)="clickMessange()" >1.For Email already exist.</a>
+                        <a href (click)="clickMessange()">2.Country not loaded.</a>
+                        <a href (click)="exist()">3.exist.</a>
+                        <a href>4.Contact with support.</a>
+                    </div>
+                </div>
+                <br>
+                <ng-container *ngFor="let message of messages">
+                    <div class="message" [ngClass]="{from: message.author === 'bot',to: message.author === 'user'}">
+                        {{ message.content }}
+                    </div>
+                </ng-container>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field appearance="outline" style="  bottom:-28px;">
+                            <!-- <input matInput (keyup.enter)="sendMessage()" type="text" formControlName="chat"> -->
+                            <input matInput type="text" (keyup.enter)="sendMessage()" formControlName="chat"
+                                placeholder="Send a message.." />
+                            <i class="material-icons" (click)="sendMessage()" style="margin-left: -25px;">send</i>
+                        </mat-form-field>
+                    </div>
+                    &nbsp;&nbsp;
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2" style="padding: 5px;">
+                        <ng-template #dialogInfo>
+                            <span [className]="'float-right'">Total messages: {{ messages.length }}</span>
+                        </ng-template>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

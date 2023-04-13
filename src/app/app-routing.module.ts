@@ -5,6 +5,7 @@ import { AuthGuard } from "./core/guard/auth.guard";
 import { Role } from "./core/models/role";
 import { AuthLayoutComponent } from "./layout/app-layout/auth-layout/auth-layout.component";
 import { MainLayoutComponent } from "./layout/app-layout/main-layout/main-layout.component";
+import { AngularBotModule } from "./angular-bot/angular-bot.module";
 const routes: Routes = [
   {
     path: "",
@@ -189,8 +190,15 @@ const routes: Routes = [
         (m) => m.AuthenticationModule
       ),
   },
-
- 
+  {
+    path: "angular-bot",
+    canActivate: [AuthGuard],
+    data: {
+      role: Role.Admin,
+    },
+    loadChildren: () =>
+      import("./angular-bot/angular-bot.module").then((m) => m.AngularBotModule),
+  },
   
   // {
   //   path: "purchase",

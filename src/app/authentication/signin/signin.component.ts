@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { AppService } from 'src/app/app.service';
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -8,7 +8,7 @@ import { AuthLoginInfo } from 'src/app/auth/login-info';
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { User } from "src/app/core/models/user";
 import { BehaviorSubject,Observable } from 'rxjs';
-import { MatDialog } from "@angular/material/dialog";
+import { DialogPosition, MatDialog } from "@angular/material/dialog";
 import { CompanyMapPopupComponent } from "src/app/admin/dashboard/main/company-map-popup/company-map-popup.component";
 import { CompanyLogoResultBean } from "src/app/master/company-logo/companyLogoResultBean";
 import { HttpServiceService } from "src/app/auth/http-service.service";
@@ -16,6 +16,11 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ForgotPasswordComponent } from "../forgot-password/forgot-password.component";
 import { serverLocations } from "src/app/auth/serverLocations";
 import { AnyARecord } from "dns";
+import { ChatComponent } from "src/app/angular-bot/chat/chat.component";
+import { MatMenuTrigger } from "@angular/material/menu";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatSnackBar } from "@angular/material/snack-bar";
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -48,8 +53,12 @@ export class SigninComponent
   city:string;
   ipAddress:string;
 
-
-
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = { x: "0px", y: "0px" };
   constructor(
     private http:HttpClient,
     private formBuilder: FormBuilder,
@@ -58,10 +67,9 @@ export class SigninComponent
     private authService: AuthService,
     private app: AppService,
     private tokenStorage: TokenStorageService,
-    public dialog: MatDialog,
+    public dialog: MatDialog,private snackBar: MatSnackBar,
     private httpService: HttpServiceService,
     private serverUrl:serverLocations
-
   ) {
     super();
   }
@@ -209,4 +217,44 @@ export class SigninComponent
   });
 
    }
+  //  openDialog(): void {
+  //   const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+  //     width: '250px',
+  //     height: '300px'
+  //   });
+
+ 
+  openChatBot(){
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(ChatComponent, {
+      width: '300px',
+      height: '350px',
+      // position: dialogPosition,
+      position: { right: '15px',top:'210px',bottom:'200px'},
+      data: {
+        action: "edit",
+      },
+      direction: tempDirection,
+    });
+
+  }
+
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+
+  }
+  
+    showNotification(colorName, text, placementFrom, placementAlign) {
+      this.snackBar.open(text, "", {
+        duration: 2000,
+        verticalPosition: placementFrom,
+        horizontalPosition: placementAlign,
+        panelClass: colorName,
+      });
+    }
 }

@@ -64,7 +64,6 @@
                   </span>
                 </label>
               </div>
-
             </div> -->
             <div *ngIf="error" class="alert alert-danger mt-3 mb-0 alertColor">{{error}}</div>
             <div class="container-auth-form-btn">
@@ -83,12 +82,13 @@
                 <a [routerLink]="['/authentication/signup']" style="text-decoration:none;">Don't Have Account ..? Register Here</a>
               </div>
             </div>
-
           </form>
-
+ 
+          <div class="d-flex justify-content-between lbl-alert mb-3">
+            <img src="assets/images/imageChatBot.png" alt="assetchek logo" style="width:20%; margin-left:95%;" (click)="openChatBot()">
+          </div>
         </div>
-      </div>
     </div>
-
+  </div>
   </div>
 </div>
