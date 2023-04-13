@@ -21,6 +21,7 @@ import { MatMenuTrigger } from "@angular/material/menu";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ChatService } from "src/app/angular-bot/chat.service";
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -52,7 +53,8 @@ export class SigninComponent
   locationcity: any;
   city:string;
   ipAddress:string;
-
+  speakerOff:boolean=false;
+  speakerOn:boolean=true;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
@@ -65,7 +67,7 @@ export class SigninComponent
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private app: AppService,
+    private app: AppService,private chatService:ChatService,
     private tokenStorage: TokenStorageService,
     public dialog: MatDialog,private snackBar: MatSnackBar,
     private httpService: HttpServiceService,
@@ -75,7 +77,7 @@ export class SigninComponent
   }
 
   ngOnInit() { 
-    
+    this.chatService.init()
     this.authService.getLocation().subscribe((response) => {
       console.log(response)
       this.locationcity = response
@@ -257,4 +259,19 @@ export class SigninComponent
         panelClass: colorName,
       });
     }
-}
+
+
+    startService(){
+      this.chatService.start()
+      this.speakerOff=true;
+      this.speakerOn=false;
+      this.authForm.value.username=this.chatService.text
+    }
+  
+
+    stopService(){
+      this.chatService.stop();
+      this.speakerOff=false;
+      this.speakerOn=true;
+    }
+  }

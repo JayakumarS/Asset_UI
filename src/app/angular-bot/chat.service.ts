@@ -8,8 +8,15 @@ import { Observable, Subject } from 'rxjs';
 export class Message {
   constructor(public author: string, public content: string) {}
 }
+declare var webkitSpeechRecognition:any
+
 export class ChatService {
 
+  recognition =  new webkitSpeechRecognition();
+  isStoppedSpeechRecog = false;
+  public text = '';
+  tempWords!: string;
+    
   constructor() { }
 
 
@@ -34,4 +41,48 @@ export class ChatService {
     let answer = this.messageMap[question];
     return answer || this.messageMap['defaultmsg'];
   }
+
+
+
+  /*************************For Speak To Text********** */
+  start() {
+    this.isStoppedSpeechRecog = false;
+    this.recognition.start();
+    console.log("Speech recognition started")
+    this.recognition.addEventListener('end', () => {
+      if (this.isStoppedSpeechRecog) {
+        this.recognition.stop();
+        console.log("End speech recognition")
+      } else {
+        this.wordConcat()
+        this.recognition.start();
+      }
+    });
+  }
+
+  stop() {
+    this.isStoppedSpeechRecog = true;
+    this.wordConcat()
+    this.recognition.stop();
+    console.log("End speech recognition")
+  }
+
+  
+  wordConcat() {
+    this.text = this.text + ' ' + this.tempWords + '.';
+    this.tempWords = '';
+  }
+  init() {
+    this.recognition.interimResults = true;
+    this.recognition.lang = 'en-US';
+    this.recognition.addEventListener('result', (e: { results: Iterable<unknown> | ArrayLike<unknown>; }) => {
+      const transcript = Array.from(e.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join('');
+      this.tempWords = transcript;
+      console.log(transcript);
+    });
+  }
+  
 }
