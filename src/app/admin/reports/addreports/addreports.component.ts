@@ -86,7 +86,16 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
       contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+  // Status Dropdown list
+  this.httpService.get<any>(this.commonService.getStatusDropdown + "?companyId=" + parseInt(this.tokenStorage.getCompanyId())).subscribe({
+    next: (data) => {
+      this.statusList = data;
+    },
+    error: (error) => {
 
+    }
+  }
+  );
 
         this.httpService.get<reportsresultbean>(this.reportsService.categoryListUrl + "?companyId=" + this.tokenStorage.getCompanyId()).subscribe(
       (data) => {
@@ -99,15 +108,7 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
 
         this.onSearch();
 
-        this.httpService.get<reportsresultbean>(this.reportsService.statusListUrl  + "?companyId=" + this.tokenStorage.getCompanyId()).subscribe(
-          (data) => {
-            this.statusList = data.statusList;
-          },
-          (error: HttpErrorResponse) => {
-            console.log(error.name + " " + error.message);
-          }
-        );
-
+  
   }
 
    loadData() {
