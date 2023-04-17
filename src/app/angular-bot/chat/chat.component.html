@@ -30,26 +30,26 @@
                 <br>
                 <div class="forLogin" *ngIf="loginIssue">
                     <div class="row">
-                        <a href (click)="clickMessange()">1.For Username.</a>
-                        <a href (click)="clickMessange()">2.For Password.</a>
-                        <a href (click)="exist()">3.exist.</a>
-                        <a href>4.Contact with support.</a>
+                        <a href href="#" onclick="return false;" (click)="clickMessange()" style="text-decoration: none;">1.Not able to Login.</a>
+                        <a href href="#" onclick="return false;"(click)="clickServer()" style="text-decoration: none;">2.Server Down.</a>
+                        <a href href="#" onclick="return false;" (click)="exist()" style="text-decoration: none;" >3.exist.</a>
+                        <a href href="#" onclick="return false;" (click)="clicksupport()" style="text-decoration: none;">4.Contact with support.</a>
                     </div>
                 </div>
                 <div class="forpassword" *ngIf="loginpassword">
                     <div class="row">
-                        <a href (click)="clickMessange()">1.For mail not received.</a>
-                        <a href (click)="clickMessange()">2.For password is not working.</a>
-                        <a href (click)="exist()">3.exist.</a>
-                        <a href>4.Contact with support.</a>
+                        <a href href="#" onclick="return false;"(click)="clickMail()" style="text-decoration: none;">1.For mail not received.</a>
+                        <a href  href="#" onclick="return false;"(click)="clickpassword()" style="text-decoration: none;">2.For password is not working.</a>
+                        <a href href="#" onclick="return false;" (click)="exist()" style="text-decoration: none;">3.exist.</a>
+                        <a href href="#" onclick="return false;" (click)="clicksupport()" style="text-decoration: none;">4.Contact with support.</a>
                     </div>
                 </div>
                 <div class="forRegistration" *ngIf="loginRegistration">
                     <div class="row">
-                        <a href (click)="clickMessange()" >1.For Email already exist.</a>
-                        <a href (click)="clickMessange()">2.Country not loaded.</a>
-                        <a href (click)="exist()">3.exist.</a>
-                        <a href>4.Contact with support.</a>
+                        <a href href="#" onclick="return false;" (click)="clickalreadyExist()" style="text-decoration: none;">1.For Email already exist.</a>
+                        <a href href="#" onclick="return false;" (click)="clickCountry()" style="text-decoration: none;">2.Country not loaded.</a>
+                        <a href href="#" onclick="return false;" (click)="exist()" style="text-decoration: none;">3.exist.</a>
+                        <a href href="#" onclick="return false;" (click)="clicksupport()" style="text-decoration: none;">4.Contact with support.</a>
                     </div>
                 </div>
                 <br>

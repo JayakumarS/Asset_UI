@@ -27,6 +27,19 @@ export class ChatService {
     "Who are you": "I'm chat Bot",
     "who are you": "I'm chat Bot",
     "What is your role": "Just guide for the user",
+
+
+    "Not able to Login":"Thank you. Will contact you shortly...!!!",
+    "Server Down":"Thank you. Will contact you shortly...!!!",
+    "Contact with support":"Thank you. Will contact you shortly...!!!",
+
+    "For mail not received":"Thank you. Will contact you shortly...!!!",
+    "For password is not working":"Thank you. Will contact you shortly...!!!",
+
+    "For Email already exist":"Thank you. Will contact you shortly...!!!",
+    "Country not loaded":"Thank you. Will contact you shortly...!!!",
+
+    
     "defaultmsg": "I can't understand your text. Can you please repeat"
   }
   getBotAnswer(msg: string) {
