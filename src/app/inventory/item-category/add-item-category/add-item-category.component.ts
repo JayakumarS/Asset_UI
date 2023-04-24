@@ -31,6 +31,7 @@ export class AddItemCategoryComponent implements OnInit {
   itemPropertiesList: [];
   companyId: any;
   branchId: any;
+  editflag:boolean=false;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -166,6 +167,13 @@ export class AddItemCategoryComponent implements OnInit {
         this.fetchDetails(this.requestId);
       }
     });
+    if(this.docForm.value.itemName==''||this.docForm.value.itemName==null){
+      this.editflag=true
+    }else{
+      this.editflag=false;
+    }
+
+
   }
 
   onSubmit() {
@@ -183,7 +191,8 @@ export class AddItemCategoryComponent implements OnInit {
               "center"
             );
             this.onCancel();
-          }  else if(data.message){
+          }  
+          else if(data.message){
             this.showNotification(
               "snackbar-danger",
               "Item Category Already Exists...!!!",
@@ -228,6 +237,13 @@ export class AddItemCategoryComponent implements OnInit {
     this.spinner.show();
     this.itemCategoryService.editItemCategory(obj).subscribe({
       next: (res: any) => {
+
+        console.log(id);
+        if(res.itemCategory.itemName==''||res.itemCategory.itemName==null){
+          this.editflag=true
+        }else{
+          this.editflag=false;
+        }
         this.spinner.hide();
         this.docForm.patchValue({
           'itemCategoryId': res.itemCategory.itemCategoryId,
@@ -431,6 +447,21 @@ export class AddItemCategoryComponent implements OnInit {
         this.spinner.hide();
         // error code here
       }
+    });
+  }
+
+  
+  validateCategoryName(event){
+    let companyId=this.tokenStorage.getCompanyId();
+
+    // tslint:disable-next-line:max-line-length
+    this.httpService.get<any>(this.itemCategoryService.uniqueValidateCompanyBasedUrl +"?itemName="+event).subscribe((res: any) => {
+      if(res > 0){
+        this.docForm.controls['itemName'].setErrors({ assetcategory: true });
+      }
+      // else{
+      //   this.docForm.controls['categoryName'].setErrors(null);
+      // }
     });
   }
 }
