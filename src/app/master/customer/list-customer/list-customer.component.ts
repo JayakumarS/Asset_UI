@@ -30,7 +30,6 @@ export class ListCustomerComponent extends UnsubscribeOnDestroyAdapter implement
     "auditorname",
     "person",
     "email",
-    "phone",
     "actions"
 
 
