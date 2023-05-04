@@ -1,0 +1,259 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" style="padding: 0.5% !important;">
+      <app-breadcrumb [title]="'Receivables'" [items]="['Master']" [active_item]="'Add line  Master'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col- md-12 col-sm-12">
+        <div class="card " style="padding-left: 150px;">
+          <div class="body">
+            <form class="m-4" [formGroup]="docForm">
+              
+            <div class="row">
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label >Customer Name</label>
+                  </div>
+                  
+  
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput  formControlName="customername" maxlength="30" (keypress)="keyPressString($event)">
+                            
+                    </mat-form-field>
+                </div>
+
+                
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <label>Amount<span class="errorColor">*</span></label>
+              </div>
+              <div class=" col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="amount" type="number" maxlength="20" (keypress)="keyPressnumber($event)"
+                  (blur)="validateCustomer($event.target.value)" required>
+                  <mat-error *ngIf="docForm.get('amount').hasError('required')">
+                    Amount is required
+                  </mat-error>
+                
+                </mat-form-field>
+              </div>
+
+
+           </div>
+
+           <div class="row">
+
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label >Invoice Number</label>
+            </div>
+            
+
+            <div class="col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput  formControlName="invoicenumber" (blur)="validateCustomer($event.target.value)"
+                  maxlength="30" (keypress)="keyPressString($event)">
+                      
+              </mat-form-field>
+          </div>
+
+          
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label>Payment Reference<span class="errorColor">*</span></label>
+        </div>
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="paymentreference"  maxlength="20" (keypress)="keyPressnumber($event)"
+            (blur)="validateCustomer($event.target.value)" required>
+           
+          </mat-form-field>
+        </div>
+
+
+     </div>
+           <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >Bad Debts<span class="errorColor">*</span></label>
+          </div>
+          <div class=" col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="baddebts" maxlength="20" (keypress)="keyPressnumber($event)"
+              (blur)="validateCustomer($event.target.value)" required>
+
+            
+            </mat-form-field>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label >Interest Receivable<span class="errorColor">*</span></label>
+        </div>
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="interestreceivable" maxlength="20" (keypress)="keyPressnumber($event)"
+            (blur)="validateCustomer($event.target.value)" required>
+            
+          </mat-form-field>
+          </div>
+          </div>
+    
+
+
+           
+
+              
+       
+                         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <br>
+                        <br>
+                         <div style="overflow-x: auto;">
+                          <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                            <thead class="">
+                              <tr>
+                                <th style="width: 1%;"></th>
+                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%; border-radius: 0.07rem;">Account Type</th>
+                               
+                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%;border-radius: 0.07rem;">Payment Status</th>
+                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                  width: 12%;border-radius: 0.07rem;">Currency</th>
+                                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%;border-radius: 0.07rem;">Due Date</th>   
+                            
+                               
+                              </tr>
+                            </thead>
+                             <ng-container *ngFor="let FundDtl of docForm.get('FundDtl')['controls'];let i=index">
+                              <tbody [formGroup]="FundDtl">
+                                <tr>
+                                  <td>
+                                    <button mat-mini-fab color="warn" (click)="removeRowSelf(i)">
+                                      <mat-icon class="col-white">delete</mat-icon>
+                                    </button>
+                                  </td>
+
+
+                              
+                                  <td class="padding-both-side-2">
+                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                      <mat-label>Account Type</mat-label>
+                                      <mat-select name="fundname{{i}}"  formControlName="accounttype">
+                                        <mat-option [value]="'Trade/Receivable A/C'">
+                                          Trade/Receivable A/C
+                                          </mat-option>
+                                          <mat-option [value]="'NotesReceivable'">
+                                            Notes Receivable
+                                          </mat-option>
+                                       </mat-select>
+                                    </mat-form-field>
+                                    
+            
+                                  </td>
+
+
+
+                                  <td class="padding-both-side-2">
+                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                      <mat-label>Payment Status</mat-label>
+                                      <input matInput  formControlName="paymentstatus"                           
+                                       (keypress)="keyPressString($event)" >
+                                      </mat-form-field>
+
+                                    
+                                 
+                                </td>
+                                    <td class="padding-both-side-2">
+                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                        <mat-label>Currency</mat-label>
+                                        <input matInput formControlName="currency"                           
+                                         (keypress)="keyPressString($event)" >
+                                        </mat-form-field>
+                                         <!-- <div *ngIf="submitted && fundDtl.get('currency').hasError('required')" class="failed-validation" class="errorColor"> symbol is required </div> -->
+
+                                      
+                                   
+                                   </td>
+                                  <td class="padding-both-side-2">
+                                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                      <mat-label>Due Date</mat-label>
+                                      <!--<input matInput  name="inceptiondate" formControlName="due date" >-->
+                                      <!--<input matInput formControlName="inceptiondate"  maxlength="3" type="date" oninput="this.value = this.value.toUpperCase()" required>-->
+                                      <input matInput [matDatepicker]="picker1" formControlName="duedateObj"
+                                      (dateInput)="$event.value.format('DD/MM/YYYY')" id="duedate"
+                                      (dateChange)="getDateString($event, 'duedate',0)" readonly>
+                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                     <mat-datepicker #picker1></mat-datepicker>
+                                 </mat-form-field>
+                                    
+            
+                                  </td>
+                                 
+                                </tr>
+                              </tbody>
+                            </ng-container>
+         
+        
+                            </table>
+                            </div>
+        
+        
+
+
+
+                          
+                               <button mat-mini-fab color="primary"(click)="onAddRow()" > 
+                                <mat-icon class="col-white">add</mat-icon>
+                              </button>
+                            
+                          
+                              <!--<div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline"  style="margin-left: 320%;">
+                                    <mat-label>Total</mat-label>
+                                    <input matInput formControlName="total" maxlength="15" Style="text-align:right;">
+                                  </mat-form-field>
+                                </div>
+                              </div>-->
+                            
+                              <div class ="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                  <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                                  color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                                      <!--<button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                                      color="accent" style="margin-left: 1%;background-color: #3b10e8;">reset</button>-->
+                                     
+                                      <button (click) = "reset()" class="btn-space" mat-raised-button
+                                      color="accent" style="margin-left: 1%;background-color: #d40e0e;">reset</button>
+                                      <button (click) = "cancel()" class="btn-space" mat-raised-button
+                                      color="accent" style="margin-left: 1%;background-color: #2c0ed4;">cancel</button>
+                                       </div>
+                          
+                             
+
+
+
+
+
+ 
+              </div>
+              </form>
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+          </section>
