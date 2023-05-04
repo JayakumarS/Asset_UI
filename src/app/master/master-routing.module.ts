@@ -190,7 +190,12 @@ const routes: Routes = [
   path: "loan-receivables",
   loadChildren: () =>
   import("./loan-receivables/loan-receivables.module").then((m) => m.LoanReceivablesModule)
- }
+ },
+  {
+    path: "property",
+    loadChildren: () =>
+    import("./property/property.module").then((p) => p.PropertyModule),
+  },
 ];
 
 @NgModule({
