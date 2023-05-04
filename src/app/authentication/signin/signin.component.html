@@ -78,11 +78,33 @@
                 <a href="javascript:void(0);" (click)="forgottenPassword()" style="text-decoration:none;">Forgotten password</a>
               </div>
             </div><br>
-             <div class="container-auth-form-btn">
+             <!-- <div class="container-auth-form-btn">
               <div style="text-align:right">
                 <a [routerLink]="['/authentication/signup']" style="text-decoration:none;">Don't Have Account ..? Register Here</a>
               </div>
-            </div>
+            </div> -->
+
+            <div style="text-align:center">       
+              <h2>OR</h2>
+              <h3>Register Below</h3>
+              </div> 
+              <hr>
+              
+              
+               <div class="login-container">
+                  <a [routerLink]= "['/authentication/individualSignup']" class="individual-login">
+                    <i class="material-symbols-sharp">
+                      
+                      person</i>Individual
+                  </a>
+                  <a [routerLink]="['/authentication/signup']"   class="company-login">
+                    <i class="material-symbols-sharp">
+                    domain</i> company
+                  </a>
+               </div>
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+
           </form>
  
           <div class="d-flex justify-content-between lbl-alert mb-3">

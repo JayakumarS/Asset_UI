@@ -32,6 +32,7 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
   }
 
   public saveCompany = `${this.serverUrl.apiServerAddress}api/auth/app/company/saveCompanySignUp`;
+  public saveIndividual = `${this.serverUrl.apiServerAddress}api/auth/app/individual/saveForm`;
   
   get data(): Authentication[] {
     return this.dataChange.value;
@@ -60,6 +61,41 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
       this.showNotification(
         "snackbar-danger",
         "Company Registration Unsuccessful!!!",
+        "bottom",
+        "center"
+      );
+    }
+    
+        // router.navigate(['/master/company/listCompany']);
+     
+      //this.dialogData = employees;
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
+
+  addIndividualSignUp(authentication,router): void {
+    this.dialogData = authentication;
+    this.spinner.show();
+    this.httpService.post<any>(this.saveIndividual, authentication).subscribe(data => {
+      console.log(data);
+      if(data.success){
+        this.spinner.hide();
+
+        this.showNotification(
+          "snackbar-success",
+          "Individual Registered Successfully. Your login credentials are sent to the provided email id.",
+          "bottom",
+          "center"
+        );
+        this.router.navigate(["/authentication/signin"]);
+      }
+      
+     else{
+      this.showNotification(
+        "snackbar-danger",
+        "Individual Registration Unsuccessful!!!",
         "bottom",
         "center"
       );
