@@ -7,6 +7,7 @@ import { LockedComponent } from "./locked/locked.component";
 import { Page404Component } from "./page404/page404.component";
 import { Page500Component } from "./page500/page500.component";
 import { UserloginComponent } from "./userlogin/userlogin.component";
+import { IndividualSignupComponent } from "./individual-signup/individual-signup.component";
 const routes: Routes = [
   {
     path: "",
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: "userlogin",
     component: UserloginComponent,
+  },
+  {
+    path: "individualSignup",
+    component: IndividualSignupComponent,
   },
 ];
 @NgModule({
