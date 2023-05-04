@@ -1,0 +1,222 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <app-breadcrumb [title]="'Cash and Jewellery Details'" [items]="['Master']" [active_item]="'Add Jewellery'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card " style="padding-left: 150px;">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm">
+               
+                     
+                  
+     
+       
+               <div class="row">
+  
+                    
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label >CASH IN HAND</label>
+                    </div>
+    
+                    <div class=" col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="caseinhand" maxlength="20" (keypress)="keyPressNumeric($event)">
+                      </mat-form-field>
+                    </div>
+                    
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label >CASH AT BANK<span class="errorColor">*</span></label>
+                    </div>
+                      <div class=" col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="cashatbank" maxlength="20" (keypress)="keyPressNumeric($event)"
+                       required>
+                      </mat-form-field>
+                    </div>
+                </div>
+  
+                <div class="row">  
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label >CASH LOAN<span class="errorColor">*</span></label>
+                    </div>
+                    <div class=" col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="cloan" maxlength="20" (keypress)="keyPressNumeric($event)"
+                        required>  
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label >LOAN DATE<span class="errorColor">*</span></label>
+                    </div>
+                    <div class="  col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput [matDatepicker]="picker2" 
+                        formControlName="cdateObj"
+                        id="cdate"
+                        (dateChange)="getDateString($event, 'cdate',0)"required>
+                    <mat-datepicker-toggle matSuffix
+                        [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>  
+                      </mat-form-field>
+                    </div>
+
+                    <!-- <div class="col-xl-1 col-lg-6 col-md-12 col-sm-12 ">
+                      <mat-label>LOAN DATE</mat-label>
+                  </div>
+                  <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 ">
+                      <mat-form-field class="example-full-width form-control-sm"
+                          appearance="outline">
+                          <input matInput [matDatepicker]="picker2" tabindex="27"
+                              formControlName="exchangeratecodeobj" (keypress)="keyPressDate($event)"
+                              (dateInput)="$event.value.format('DD/MM/YYYY')"
+                              id="exchangeratecode"
+                              (dateChange)="getDateString($event, 'exchangeratecode',0)">
+                          <mat-datepicker-toggle matSuffix
+                              [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                  </div>-->
+                </div>   
+
+
+  
+                <div class="row">
+  
+                    
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label >JEWELLERY MATERIAL<span class="errorColor">*</span></label>
+                  </div>
+  
+                  <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select  formControlName="material" >
+                          <mat-option [value]="'GOLD'">
+                               GOLD
+                            </mat-option>
+                            <mat-option [value]="'SILVER'">
+                              SILVER
+                            </mat-option>
+                            <mat-option [value]="'DIMOND'">
+                              DIMOND
+                            </mat-option>
+                            <mat-option [value]="'PLATINUM'">
+                              PLATINUM
+                            </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label >JEWELLERY TYPE<span class="errorColor">*</span></label>
+                  </div>
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                     <mat-select  formControlName="type" >
+                      <mat-option [value]="'NECKLACE'">
+                           NECKLACE
+                        </mat-option>
+                        <mat-option [value]="'BRACELET'">
+                          BRACELET
+                        </mat-option>
+                        <mat-option [value]="'RING'">
+                          RING
+                        </mat-option>
+                        <mat-option [value]="'EARRINGS'">
+                          EARRINGS
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+              </div>
+              
+
+              <div class="row">
+  
+                    
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label >JEWELLERY WEIGHT<span class="errorColor">*</span></label>
+                </div>
+
+                <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="weight" maxlength="20" (keypress)="keyPressNumeric($event)"
+                  required>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label >JEWELLERY LOAN<span class="errorColor">*</span></label>
+                </div>
+                  <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="loan" maxlength="20" (keypress)="keyPressNumeric($event)"required>
+                
+                  </mat-form-field>
+                </div>
+            </div>
+  
+            <div class="row">
+  
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label >JEWELLERY PRICE<span class="errorColor">*</span></label>
+            </div>
+
+            <div class=" col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput formControlName="price" maxlength="20" (keypress)="keyPressNumeric($event)"
+                 required>
+
+              </mat-form-field>
+            </div>   
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <label >JEWELLERY LOAN DATE<span class="errorColor">*</span></label>
+              </div>
+
+              <div class=" col-md-3">
+
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput [matDatepicker]="picker" formControlName="jdateObj"
+                    (dateInput)="$event.value.format('DD/MM/YYYY')" id="jdate"
+                    (dateChange)="getDateString($event, 'jdate',0)">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+             
+          </div>    
+
+
+      
+  
+  
+                
+                               
+  
+                                <div class ="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                    <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                                        color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="!edit">Submit</button>
+                                        <button (click) = "onUpdate()" class="btn-space" mat-raised-button
+                                        color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="edit">Update</button>
+                                        <button (click) = "reset()" class="btn-space" mat-raised-button
+                                        color="accent" style="margin-left: 1%;background-color: #3b10e8;">reset</button>
+                                        <button (click) = "cancel()" class="btn-space" mat-raised-button
+                                        color="accent" style="margin-left: 1%;background-color: #d40e0e;">cancel</button>
+                                  </div>
+                                </div>
+  
+  
+   
+                </form>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+            </section>
+  
