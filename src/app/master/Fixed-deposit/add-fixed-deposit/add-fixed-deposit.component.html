@@ -1,0 +1,427 @@
+<!--   
+            <section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <app-breadcrumb [title]="'Add Loan Details'" [items]="['Master']" [active_item]="'Add Loan Details'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+
+          <div class="card " style="padding-left: 70px;">
+            <div class="body" style="margin-left: -9%;padding: 2%;padding-left: 101px;overflow-x: hidden;"> -->
+              <!-- <h4 style=" padding-bottom: 40px;  padding-top: 5px; color: #004AAD;">Loan Detail</h4> -->
+              
+<section class="content">
+  <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+          <app-breadcrumb [title]="'Fixed-deposite'" [items]="['Master']" [active_item]="'Fixed-deposite'"> 
+          </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card " style="padding-left: 150px;">
+              <div class="body">
+                <form class="m-4" [formGroup]="docForm">
+
+                  
+
+              <!-- <form class="m-4" [formGroup]="docForm" > -->
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <mat-label >FIXED DEPOSIT TYPE<span class="errorColor">*</span></mat-label>
+                    </div>
+                  <div  class=" col-xl-2 col-lg-2 col-md-2 col-sm-12" style="margin-left: -45px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select formControlName="fixeddeposittype" style="font-size:small;"  required>
+                          <mat-option value=" Regular Fixed Deposit"> Regular Fixed Deposit</mat-option>
+                          <mat-option value=" Senior Citizen Fixed Deposit"> Senior Citizen Fixed Deposit</mat-option>
+                          <mat-option value="Tax-Saving Fixed Deposit">Tax-Saving Fixed Deposit</mat-option>
+                          <mat-option value="Corporate Fixed Deposit">Corporate Fixed Deposit</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="docForm.get('fixeddeposittype').hasError('required')">
+                          Loan type is required
+                        </mat-error>
+                    </mat-form-field> 
+                  </div>
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <mat-label >APPLICATION No</mat-label>
+                    </div>
+                    <div class=" col-xl-2 col-lg-2 col-md-2 col-sm-12" style="margin-left: -45px;">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="applicationNo"  >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                      <mat-label >AUTO RENEWAL<span class="errorColor">*</span></mat-label>
+                    </div>
+                  <div  class=" col-xl-2 col-lg-2 col-md-2 col-sm-12" style="margin-left: -45px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select formControlName="autoRenewal" style="font-size:small;"  required>
+                          <mat-option value="Renewal for the same tenure">Renewal for the same tenure</mat-option>
+                          <mat-option value="Renewal for a different tenure">Renewal for a different tenure</mat-option>
+                          <mat-option value="Renewal with partial withdrawal">Renewal with partial withdrawal</mat-option>
+                          <mat-option value=" Non-renewal"> Non-renewal</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="docForm.get('autoRenewal').hasError('required')">
+                          Renewal type is required
+                        </mat-error>
+                    </mat-form-field> 
+                    </div>
+            </div>
+
+               
+                    <!-- <div class=" col-md-2">
+                      <label style="font-size: medium;">LOAN AMOUNT<span class="errorColor">*</span></label>
+                      </div>
+                      <div class=" col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="loanAmt" required>
+                          <mat-error *ngIf="docForm.get('loanAmt').hasError('required')">
+                            Loan type is required
+                          </mat-error>
+                        </mat-form-field>
+                    </div> -->
+
+          <div class="row">
+                   <div class="col-md-2 " >
+                      <mat-label>FD REFERENCE </mat-label>
+                  </div>
+                  <div class=" col-md-2" style="margin-left: -45px;">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="fdRef">
+                    </mat-form-field>
+                  </div>
+                  
+
+
+                 
+                    <div class=" col-md-2">
+                      <mat-label >FD START DATE<span class="errorColor">*</span></mat-label>
+                      </div>
+                      <div class=" col-md-2" style="margin-left: -45px;">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput [matDatepicker]="picker" 
+                          formControlName="fdstartdateObj"
+                          
+                          id="fdstartDate"
+                          (dateChange)="getDateString($event, 'fdstartDate',0)"required>
+                      <mat-datepicker-toggle matSuffix
+                          [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                          <mat-error *ngIf="docForm.get('fdstartdateObj').hasError('required')">
+                            Fd type is required
+                          </mat-error> 
+                        </mat-form-field>
+                    </div>
+
+                   
+                   <div class="col-md-2 " >
+                      <mat-label >FD END DATE <span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div class=" col-md-2" style="margin-left: -45px;">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput [matDatepicker]="picker1" 
+                          formControlName="fdenddateObj"
+                         
+                          id="fdendDate"
+                          (dateChange)="getDateString($event, 'fdendDate',0)"required>
+                      <mat-datepicker-toggle matSuffix
+                          [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                          <mat-error *ngIf="docForm.get('fdenddateObj').hasError('required')">
+                            Fd type is required
+                          </mat-error> 
+                    </mat-form-field>
+                  </div> 
+      </div>
+
+                
+
+                 
+
+
+  <div class="row">
+                    
+                    <div class="col-md-2" >
+                      <mat-label >FD AMOUNT<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div class=" col-md-2" style="margin-left: -45px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="fdamt"(keypress)="keyPressNumberDouble($event)">
+                      <mat-error *ngIf="docForm.get('fdamt').hasError('required')">
+                       </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-md-2 " >
+                    <mat-label >MATURITY DATE<span class="errorColor">*</span></mat-label>
+                </div>
+                <div class=" col-md-2" style="margin-left: -45px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput [matDatepicker]="picker2" 
+                    formControlName="maturitydateobj"
+                 
+                    id="maturitydate"
+                    (dateChange)="getDateString($event, 'maturitydate',0)"required>
+                <mat-datepicker-toggle matSuffix
+                    [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                    <mat-error *ngIf="docForm.get('maturitydateobj').hasError('required')">
+                    Maturity Date is required
+                    </mat-error>
+                  </mat-form-field>
+                </div> -->
+                <div class="col-md-2 " >
+                  <mat-label>FD-HOLDER-NAME</mat-label>
+              </div>
+              <div class=" col-md-2" style="margin-left: -45px;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="fdName"(keypress)="keyPressName($event)">
+                </mat-form-field>
+              </div>
+              
+                <div class="col-md-2" >
+                  <mat-label >PENALITY AMOUNT<span class="errorColor">*</span></mat-label>
+                </div>
+                <div class=" col-md-2"style="margin-left: -45px;" >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="penalityAmt" (keypress)="keyPressNumberDouble($event)">
+                    <mat-error *ngIf="docForm.get('penalityAmt').hasError('required')">
+                      Penality Amount is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+    </div>
+
+    <div class="row">
+                    <div class="col-md-2 " >
+                      <mat-label >INVESTMENT TERM<span class="errorColor">*</span></mat-label>
+                    </div>
+                  <div  class=" col-xl-2 col-lg-2 col-md-2 col-sm-12" style="margin-left: -45px;">
+                    
+
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="investmentTerm" style="font-size:small;"  required>
+                        <mat-option value="Short Time Deposite">Short Time Deposite</mat-option>
+                        <mat-option value="long Time Deposite">long Time Deposite</mat-option>
+                        
+                      </mat-select>
+                      <mat-error *ngIf="docForm.get('autoRenewal').hasError('required')">
+                        Term type is required
+                      </mat-error>
+                  </mat-form-field> 
+                  </div>
+
+                      <div class="col-md-2" >
+                        <mat-label>RATE OF INTEREST<span class="errorColor">*</span></mat-label>
+                    </div>
+                    <div class=" col-md-2" style="margin-left: -45px;">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="interest" maxlength="3" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-2" >
+                      <mat-label  >DUE AMOUNT<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div  class=" col-md-2" style="margin-left: -45px;" >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="dueAmount" required (keypress)="keyPressNumeric($event)">
+                      <mat-error *ngIf="docForm.get('dueAmount').hasError('required')">
+                        BankDetail is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                    <!-- <div class="col-md-2 " >
+                      <mat-label >DOCUMENT SUBMITTED</mat-label>
+                  </div>
+                  <div class=" col-md-2" style="margin-left: -45px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="docSubmitted"  >
+                    </mat-form-field>
+                  </div> -->
+       </div>
+
+
+
+
+      <div class="row">
+                    <div class="col-md-2 " >
+                      <mat-label >BANK NAME<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div  class=" col-md-2" style="margin-left: -45px;">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="bankName"  required (keypress)="keyPressName($event)">
+                      <mat-error *ngIf="docForm.get('bankName').hasError('required')">
+                        Bank Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-2 " >
+                    <mat-label >BANK IFSC<span class="errorColor">*</span></mat-label>
+                </div>
+                <div class=" col-md-2" style="margin-left: -45px;">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="ifscCode"  maxlength="11" required>
+                    <mat-error *ngIf="docForm.get('ifscCode').hasError('pattern')">
+                      Please Enter Valid IFSC code
+                    </mat-error>
+                    <mat-error *ngIf="docForm.get('ifscCode').hasError('required')">
+                      IFSC Code is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              
+                <div class="col-md-2 " >
+                  <mat-label >FD ACCOUNT NUMBER<span class="errorColor">*</span></mat-label>
+              </div>
+              <div class=" col-md-2" style="margin-left: -45px;" >
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="fdaccountNo" required (keypress)="keyPressNumeric($event)">
+                  <mat-error *ngIf="docForm.get('fdaccountNo').hasError('required')">
+                   Fd Account Number is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+                      <!-- <div class="col-md-2" >
+                        <mat-label  >BANK DETAIL<span class="errorColor">*</span></mat-label>
+                    </div>
+                    <div  class=" col-md-3" >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="bankDetail" required>
+                        <mat-error *ngIf="docForm.get('bankDetail').hasError('required')">
+                          BankDetail is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div> -->
+     </div>
+
+
+       <!-- <div class="row">
+                    <div class="col-md-2" >
+                      <mat-label  >BANK DETAIL<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div  class=" col-md-2" style="margin-left: -45px;" >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="bankDetail" required>
+                      <mat-error *ngIf="docForm.get('bankDetail').hasError('required')">
+                        BankDetail is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+     </div>  -->
+<!-- 
+                   <hr><br>
+                  <h4 style=" margin-bottom: 3.5rem; color: rgb(33, 54, 172);">Login Detail <span style="color: red;">*</span></h4><br>
+                      
+                          <div class="row">
+                            <div class=" col-md-2">
+                              <mat-label >USER NAME<span class="errorColor">*</span></mat-label>
+                              </div>
+                              <div class=" col-md-3">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <input matInput formControlName="userName"  oninput="this.value = this.value.toUpperCase()" required>
+                                  <mat-error *ngIf="docForm.get('userName').hasError('required')">
+                                    EMI Date is required
+                                  </mat-error>
+                                </mat-form-field>
+                            </div>
+        
+                           
+                           <div class="col-md-2 " >
+                              <mat-label >PASSWORD <span class="errorColor">*</span></mat-label>
+                          </div>
+                          <div class=" col-md-3">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <input matInput formControlName="password" required>
+                              <mat-error *ngIf="docForm.get('password').hasError('required')">
+                                Password is required
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          </div>
+        
+        
+        
+                          <div class="row">
+                            <div class="col-md-2 " >
+                              <mat-label >USER MOBILE NO<span class="errorColor">*</span></mat-label>
+                          </div>
+                          <div class=" col-md-3">
+                            <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+                              <input  matInput formControlName="mobileNo"  required (keypress)="keyPressNumeric($event)" maxlength="10">
+                              <mat-error *ngIf="docForm.get('mobileNo').hasError('required')">
+                                User Mobile Number is required
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                              <div class="col-md-2" >
+                                <mat-label  >ADDRESS</mat-label>
+                            </div>
+                            <div class=" col-md-3">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <input matInput formControlName="address" >
+                                 <mat-error *ngIf="docForm.get('address').hasError('required')">
+                                 address is required
+                                </mat-error> 
+                              
+                              </mat-form-field>
+                            </div>
+                          </div>
+        
+        
+
+                          
+          <div class="row">
+
+            <div class=" col-md-2">
+              <mat-label>EMAIL</mat-label>
+            </div>
+
+            <div class=" col-md-3" >
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput formControlName="email"  maxlength="50">
+                <mat-error *ngIf="docForm.get('email').hasError('pattern')">
+                  Valid Email ID Required
+                </mat-error>
+                <mat-error *ngIf="docForm.get('email').hasError('required')">
+                  Valid Email Id Required
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-2 " >
+              <mat-label >BANKER</mat-label>
+          </div>
+          <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="banker"  >
+            </mat-form-field>
+          </div>
+        </div>
+
+                          <div class="row">
+                              <div class="col-md-2 " >
+                                <mat-label >Is ACTIVE<span class="errorColor">*</span></mat-label>
+                            </div>
+                            <div class=" col-md-3">
+                                <mat-checkbox style="margin-left: 2%;" formControlName="active"  ngInit="checked=true"  ></mat-checkbox>
+                              </div>
+                            </div> -->
+        
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                              <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                              color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                              <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                              <button (click) = "reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
+                              <button (click) = "onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
+                            </div>
+                          </div> 
+                </form>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+            </section>
