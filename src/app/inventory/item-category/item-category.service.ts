@@ -38,6 +38,8 @@ export class ItemCategoryService extends UnsubscribeOnDestroyAdapter {
   public updateItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/update`;
   public deleteItemCategoryMaster = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/delete`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
+  public uniqueValidateCompanyBasedUrl = `${this.serverUrl.apiServerAddress}api/auth/app/itemCategory/validation`;
+
 
   get data(): ItemCategory[] {
     return this.dataChange.value;

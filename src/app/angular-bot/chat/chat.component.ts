@@ -42,7 +42,9 @@ export class ChatComponent implements OnInit {
 
   sendMessage() {
     this.chatService.getBotAnswer(this.docForm.value.chat);
-    this.docForm.value.chat = '';
+    this.docForm.patchValue({
+      'chat' :"",
+    })
   }
 
   forgottenPassword(){
@@ -75,14 +77,35 @@ export class ChatComponent implements OnInit {
   }
 
 clickMessange(){
-  this.exist();
-  this.showNotification(
-    "snackbar-success",
-    "Thanks you. Will contact you shortly...!!!",
-    "bottom",
-    "center"
-  );
+  this.docForm.value.chat="Not able to Login";
+  this.sendMessage();
 }
+clickServer(){
+  this.docForm.value.chat="Server Down";
+  this.sendMessage();
+}
+clicksupport(){
+  this.docForm.value.chat="Contact with support";
+  this.sendMessage();
+}
+clickMail(){
+  this.docForm.value.chat="For mail not received";
+  this.sendMessage();
+  
+}
+clickpassword(){
+  this.docForm.value.chat="For password is not working";
+  this.sendMessage(); 
+}
+clickalreadyExist(){
+  this.docForm.value.chat="For Email already exist";
+  this.sendMessage(); 
+}
+clickCountry(){
+  this.docForm.value.chat="Country not loaded";
+  this.sendMessage(); 
+}
+
 showNotification(colorName, text, placementFrom, placementAlign) {
   this.snackBar.open(text, "", {
     duration: 2000,

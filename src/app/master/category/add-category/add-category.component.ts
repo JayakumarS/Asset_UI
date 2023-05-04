@@ -245,7 +245,7 @@ export class AddCategoryComponent implements OnInit {
     this.router.navigate(['/master/category/list-category']);
   }
   keyPressName(event: any) {
-    const pattern = /[A-Z,a-z 0-9]/;
+    const pattern = /[A-Z,a-z ]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();

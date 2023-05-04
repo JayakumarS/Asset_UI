@@ -15,7 +15,7 @@
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="auditorname" [ngModel]="value"
-                  (ngModelChange)="value=$event.toUpperCase()" maxlength="20" (keypress)="string($event)"
+                  (ngModelChange)="value=$event.toUpperCase()" maxlength="50" (keypress)="string($event)"
                   (change)="getAuditor($event.target.value)" required>
                 <mat-error *ngIf="docForm.get('auditorname').hasError('required')">
                   Customer name is required
@@ -44,7 +44,7 @@
             <div class=" col-md-2" style="margin-left: -45px;">
               <mat-form-field class="example-width form-control-sm" appearance="outline">
                 <input matInput formControlName="person" [ngModel]="value5"
-                  (ngModelChange)="value5=$event.toUpperCase()" (keypress)="string($event)" maxlength="20" required>
+                  (ngModelChange)="value5=$event.toUpperCase()" (keypress)="string($event)" maxlength="40" required>
                 <mat-error *ngIf="docForm.get('person').hasError('required')">
                   Contact Person is required
                 </mat-error>

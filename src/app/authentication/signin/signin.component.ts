@@ -22,11 +22,16 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ChatService } from "src/app/angular-bot/chat.service";
+
+declare var webkitSpeechRecognition:any
+
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
   styleUrls: ["./signin.component.scss"],
 })
+
+
 export class SigninComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
@@ -61,6 +66,12 @@ export class SigninComponent
   @ViewChild(MatMenuTrigger)
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
+text='';
+
+  recognition =  new webkitSpeechRecognition();
+  isStoppedSpeechRecog = false;
+  tempWords!: string;
+  
   constructor(
     private http:HttpClient,
     private formBuilder: FormBuilder,
@@ -77,7 +88,7 @@ export class SigninComponent
   }
 
   ngOnInit() { 
-    this.chatService.init()
+    this.init()
     this.authService.getLocation().subscribe((response) => {
       console.log(response)
       this.locationcity = response
@@ -112,6 +123,7 @@ export class SigninComponent
     );
   }
  
+
   get f() {
     return this.authForm.controls;
   }
@@ -262,16 +274,60 @@ export class SigninComponent
 
 
     startService(){
-      this.chatService.start()
       this.speakerOff=true;
       this.speakerOn=false;
-      this.authForm.value.username=this.chatService.text
+      this.start();
     }
   
-
     stopService(){
-      this.chatService.stop();
+      this.stop();
       this.speakerOff=false;
       this.speakerOn=true;
     }
+
+  start() {
+    this.isStoppedSpeechRecog = false;
+    this.recognition.start();
+    console.log("Speech recognition started")
+    this.recognition.addEventListener('end', () => {
+      if (this.isStoppedSpeechRecog) {
+        this.recognition.stop();
+        console.log("End speech recognition")
+      } else {
+        this.wordConcat()
+        this.recognition.start();
+      }
+      this.authForm.patchValue({
+        'username':this.text
+      })
+    });
+  }
+
+ 
+
+  
+  wordConcat() {
+    this.text = this.text + ' ' + this.tempWords ;
+    this.tempWords = '';
+  }
+
+  stop() {
+    this.isStoppedSpeechRecog = true;
+    this.wordConcat()
+    this.recognition.stop();
+    console.log("End speech recognition")
+  }
+  init() {
+    this.recognition.interimResults = true;
+    this.recognition.lang = 'en-US';
+    this.recognition.addEventListener('result', (e: { results: Iterable<unknown> | ArrayLike<unknown>; }) => {
+      const transcript = Array.from(e.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join('');
+      this.tempWords = transcript;
+      console.log(transcript);
+    });
+  }
+   
   }
