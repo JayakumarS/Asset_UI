@@ -161,6 +161,36 @@ const routes: Routes = [
     loadChildren: () =>
     import("./vehicle/vehicle.module").then((m) => m.VehicleModule)
  },
+ {
+  path: "Fixed-deposit",
+  loadChildren: () =>
+  import("./Fixed-deposit/fixed-deposit.module").then((m) => m.FixedDepositModule)
+},
+{
+  path: "loan-receivables",
+  loadChildren: () =>
+  import("./loan-receivables/loan-receivables.module").then((m) => m.LoanReceivablesModule)
+ },
+ {
+  path: "loan-otherdebits",
+  loadChildren: () =>
+  import("./loan-otherdebits/loan-otherdebits.module").then((m) => m.LoanOtherdebitsModule)
+ },
+ {
+  path: "jewellery",
+  loadChildren: () =>
+  import("./jewellery/jewellery.module").then((m) => m.JewelleryModule)
+},
+{
+  path: "mutualfund",
+  loadChildren: () =>
+  import("./mutualfund/mutualfund.module").then((m) => m.MutualfundModule)
+},
+{
+  path: "loan-receivables",
+  loadChildren: () =>
+  import("./loan-receivables/loan-receivables.module").then((m) => m.LoanReceivablesModule)
+ }
 ];
 
 @NgModule({
