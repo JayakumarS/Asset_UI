@@ -65,19 +65,15 @@
           </div>
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-select formControlName="currency"  maxlength="20" (keypress)="string($event)"
-                (blur)="validateCustomer($event.target.value)" >
+                <mat-select formControlName="currency" required >
                   <mat-option [value]="'1'">KSH</mat-option>
                   <mat-option [value]="'2'">INR</mat-option>
                   <mat-option [value]="'3'">TES</mat-option>
                   <mat-option [value]="'4'">INR</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="docForm.get('currency').hasError('required')">
-                    Currency is required
-                  </mat-error>
-             
-              </mat-form-field>
-              </div>
+                  <mat-error *ngIf="docForm.get('currency').hasError('required')">Currency is required</mat-error>
+                </mat-form-field>
+                </div>
               </div>
              <div class="row">
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -172,11 +168,11 @@
           <br>
                           
      <div class ="row">
-                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                                    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-                                    color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
-                                        <!--<button (click) = "onSubmit()" class="btn-space" mat-raised-button
-                                        color="accent" style="margin-left: 1%;background-color: #3b10e8;">Update</button>-->
+       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+       <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+        color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+<!--<button (click) = "onSubmit()" class="btn-space" mat-raised-button
+     color="accent" style="margin-left: 1%;background-color: #3b10e8;">Update</button>-->
 
                                         <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
                                         color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
