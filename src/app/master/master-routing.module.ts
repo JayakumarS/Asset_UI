@@ -156,25 +156,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./console-log/console-log.module").then((m) => m.ConsoleLogMasterModule)
   },
-
   {
-    path: "console-log",
+    path: "vehicle",
     loadChildren: () =>
-    import("./console-log/console-log.module").then((m) => m.ConsoleLogMasterModule)
-  },
-
-  {
-    path: "loan-otherdebits",
-    loadChildren: () =>
-    import("./loan-otherdebits/loan-otherdebits.module").then((m) => m.LoanOtherdebitsModule)
-  },
-
-
-  {
-    path: "loan-receivables",
-    loadChildren: () =>
-    import("./loan-receivables/loan-receivables.module").then((m) => m.LoanReceivablesModule)
-  },
+    import("./vehicle/vehicle.module").then((m) => m.VehicleModule)
+ },
 ];
 
 @NgModule({
