@@ -2,7 +2,8 @@ export class Otherdebits {
     id:number;
     loginedUser:any;
     type:string;
-    loanID:number;
+    loanID:string;
+    loan:string;
     loanAmount:number;
     loanRef:string;
     loanStartDate:string;
@@ -15,6 +16,7 @@ export class Otherdebits {
     penalityAmount:number;
     interestRate:number;
     accountNo:number;
+    account:string;
     bankname:string;
     
 

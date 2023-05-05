@@ -13,7 +13,7 @@
               <div class="row">
   
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >CUSTOMER NAME</label>
+                        <label >CUSTOMER NAME<span class="errorColor">*</span></label>
                     </div>
                     
     
@@ -21,7 +21,11 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput  formControlName="customername" 
                           oninput="this.value = this.value.toUpperCase()" 
-                           maxlength="15" (keypress)="string($event)">
+                           maxlength="45" (keypress)="string($event)" (blur)="validateCustomer($event.target.value)">
+
+                           <mat-error *ngIf="docForm.get('amount').hasError('required')">
+                            Customer Name is required
+                          </mat-error>
                               
                       </mat-form-field>
                   </div>
@@ -32,10 +36,10 @@
                 </div>
                 <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="amount"  maxlength="20" (keypress)="keyPressNumeric($event)"
-                    (blur)="validateCustomer($event.target.value)" required>
-                    <mat-error *ngIf="docForm.get('amount').hasError('required')">
-                      Amount is required
+                    <input matInput formControlName="invoicenumber"  maxlength="20" (keypress)="keyPressNumeric($event)"
+                    (blur)="validateCustomer($event.target.value)">
+                    <mat-error *ngIf="docForm.get('invoicenumber').hasError('required')">
+                      Invoice Number is required
                     </mat-error>
                   
                   </mat-form-field>
@@ -47,14 +51,18 @@
              <div class="row">
   
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label >AMOUNT</label>
+                  <label >AMOUNT<span class="errorColor">*</span></label>
               </div>
               
   
               <div class="col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput  formControlName="invoicenumber" (blur)="validateCustomer($event.target.value)"
-                    maxlength="30"(keypress)="keyPressNumeric($event)">
+                    <input matInput  formControlName="amount" (blur)="validateCustomer($event.target.value)"
+                    maxlength="30"(keypress)="keyPressNumeric($event)"(blur)="validateCustomer($event.target.value)">
+                    <mat-error *ngIf="docForm.get('amount').hasError('required')">
+                      Amount is required
+                    </mat-error>
+                        
                         
                 </mat-form-field>
             </div>
@@ -65,11 +73,10 @@
           </div>
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-select formControlName="currency" required >
-                  <mat-option [value]="'1'">KSH</mat-option>
-                  <mat-option [value]="'2'">INR</mat-option>
-                  <mat-option [value]="'3'">TES</mat-option>
-                  <mat-option [value]="'4'">INR</mat-option>
+                <mat-select formControlName="currency" >
+                  <mat-option [value]="'KSH'">KSH</mat-option>
+                  <mat-option [value]="'INR'">INR</mat-option>
+                  <mat-option [value]="'TES'">TES</mat-option>
                   </mat-select>
                   <mat-error *ngIf="docForm.get('currency').hasError('required')">Currency is required</mat-error>
                 </mat-form-field>
@@ -82,7 +89,7 @@
             <div class=" col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="baddebts" maxlength="20" (keypress)="keyPressNumeric($event)"
-                (blur)="validateCustomer($event.target.value)" required>
+                (blur)="validateCustomer($event.target.value)">
                 <mat-error *ngIf="docForm.get('baddebts').hasError('required')">
                   Bad Debts is required
                 </mat-error>
@@ -96,7 +103,7 @@
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="interestreceivable" maxlength="20" (keypress)="keyPressNumeric($event)"
-              (blur)="validateCustomer($event.target.value)" required>
+              (blur)="validateCustomer($event.target.value)">
               <mat-error *ngIf="docForm.get('interestreceivable').hasError('required')">
                 Interest Receivable is required
               </mat-error>
@@ -109,10 +116,18 @@
             </div>
            <div class=" col-md-3">
            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-           <mat-select formControlName="accounttype" required>
+           <!-- <mat-select formControlName="accounttype" required>
            <mat-option [value]="'1'">Trade/Receivable A/C</mat-option>
-           <mat-option [value]="'2'">NotesReceivable</mat-option>
-           </mat-select>
+           <mat-option [value]="'2'">Notes Receivable</mat-option>
+           </mat-select> -->
+           <mat-select  formControlName="accounttype"  >
+            <mat-option [value]="'Trade/Receivable A/C'">
+              Trade/Receivable A/C
+              </mat-option>
+              <mat-option [value]="'Notes Receivable'">
+                Notes Receivable
+              </mat-option>
+               </mat-select>
            <mat-error *ngIf="docForm.get('accounttype').hasError('required')">Account Type is required</mat-error>
            </mat-form-field>
            </div>
@@ -121,7 +136,7 @@
            </div>
            <div class=" col-md-3">
            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-           <mat-select formControlName="paymentstatus" required>
+           <mat-select formControlName="paymentstatus" >
            <mat-option [value]="'1'"> Pending </mat-option>
            <mat-option [value]="'2'">Done</mat-option>
            </mat-select>
@@ -141,7 +156,7 @@
           </div>
           <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput [matDatepicker]="picker1" formControlName="duedateObj" required
+              <input matInput [matDatepicker]="picker1" formControlName="duedateObj"
               (dateInput)="$event.value.format('DD/MM/YYYY')" id="duedate"readonly
               (dateChange)="getDateString($event,'duedate',0)" >
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -156,8 +171,8 @@
           </div>
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="paymentreference" maxlength="20" (keypress)="string($event)"
-              (blur)="validateCustomer($event.target.value)" required>
+              <input matInput formControlName="paymentreference" maxlength="20" oninput="this.value = this.value.toUpperCase()"(keypress)="string($event)"
+              (blur)="validateCustomer($event.target.value)" >
               <mat-error *ngIf="docForm.get('paymentreference').hasError('required')">
                 Payment Reference is required
               </mat-error>
@@ -174,13 +189,12 @@
 <!--<button (click) = "onSubmit()" class="btn-space" mat-raised-button
      color="accent" style="margin-left: 1%;background-color: #3b10e8;">Update</button>-->
 
-                                        <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
-                                        color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
-                                       
-                                        <button (click) = "reset()" class="btn-space" mat-raised-button
-                                        color="accent" style="margin-left: 1%;background-color: #d40e0e;">Reset</button>
+<button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                                       <button (click) = "reset()" class="btn-space" mat-raised-button
+                                        color="accent" style="margin-left: 1%;background-color: #2c0ed4;">Reset</button>
                                         <button (click) = "cancel()" class="btn-space" mat-raised-button
-                                        color="accent" style="margin-left: 1%;background-color: #2c0ed4;">Cancel</button>
+                                        color="accent" style="margin-left: 1%;background-color:  #d40e0e;">Cancel</button>
                                          </div>
                             
                                

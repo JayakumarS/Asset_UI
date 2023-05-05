@@ -1,7 +1,7 @@
  <section class="content">
     <div class="content-block">
       <div class="block-header" style="padding: 0.5% !important;">
-        <app-breadcrumb [title]="'Loan'" [items]="['Master']" [active_item]="'Add-Loan'">
+        <app-breadcrumb [title]="'Add-Loan-Details'" [items]="['Master']" [active_item]="'Add-Loan-Details'">
         </app-breadcrumb>
       </div>
       <div class="row clearfix">
@@ -18,7 +18,7 @@
                   </div>
                   <div  class=" col-md-2" style="margin-left: -45px;padding-bottom: 18px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select class="inputTxt" formControlName="type" required>
+                      <mat-select class="inputTxt" formControlName="type">
                         <mat-option [value]="'Personal Loan'">
                           Personal Loan
                           </mat-option>
@@ -35,7 +35,7 @@
                             Security Loan
                           </mat-option>
                           <mat-option [value]="'Property Loa'">
-                            Property Loa
+                            Property Loan
                           </mat-option>
                           <mat-option [value]="'Payday Loan'">
                             Payday Loan
@@ -54,8 +54,8 @@
                     </div>
                     <div class=" col-md-2" style="margin-left: -45px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="loanID" maxlength="15" (keypress)="keyPressNumeric($event)" required>
-                        <mat-error *ngIf="docForm.get('loanID').hasError('required')">
+                        <input matInput formControlName="loan" maxlength="15" (keypress)="keyPressNumeric($event)" >
+                        <mat-error *ngIf="docForm.get('loan').hasError('required')">
                           Loan Number is required
                         </mat-error>
                       </mat-form-field>
@@ -65,7 +65,7 @@
                       </div>
                       <div class=" col-md-2" style="margin-left: -45px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="loanAmount" (keypress)="keyPressNumeric($event)" required>
+                          <input matInput formControlName="loanAmount" (keypress)="keyPressNumeric($event)" maxlength="8" >
                           <mat-error *ngIf="docForm.get('loanAmount').hasError('required')">
                             Loan Amount is required
                           </mat-error>
@@ -79,7 +79,9 @@
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;padding-bottom: 18px;">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="loanRef" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="loanRef" 
+                      oninput="this.value = this.value.toUpperCase()"
+                      (keypress)="keyPressName($event)" >
                       <mat-error *ngIf="docForm.get('loanRef').hasError('required')">
                         Loan Reference is required
                       </mat-error>
@@ -94,7 +96,7 @@
                           formControlName="loanStartDateObj"
                           (dateInput)="$event.value.format('DD/MM/YYYY')"
                           id="loanStartDate"
-                          (dateChange)="getDateString($event, 'loanStartDate',0)"required>
+                          (dateChange)="getDateString($event, 'loanStartDate',0)">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="docForm.get('loanStartDate').hasError('required')">
@@ -113,7 +115,7 @@
                           formControlName="loanDueDateObj"
                           (dateInput)="$event.value.format('DD/MM/YYYY')"
                           id="loanDueDate"
-                          (dateChange)="getDateString($event, 'loanDueDate',0)"required>
+                          (dateChange)="getDateString($event, 'loanDueDate',0)">
                       <mat-datepicker-toggle matSuffix
                           [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1></mat-datepicker>
@@ -130,7 +132,7 @@
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;padding-bottom: 18px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="amount" (keypress)="keyPressNumberDouble($event)" required>
+                      <input matInput formControlName="amount" (keypress)="keyPressNumberDouble($event)" maxlength="6" >
                       <mat-error *ngIf="docForm.get('amount').hasError('required')">
                        EMI Amount is required
                        </mat-error>
@@ -145,7 +147,7 @@
                     formControlName="emidateObj"
                     (dateInput)="$event.value.format('DD/MM/YYYY')"
                     id="emiDate"
-                    (dateChange)="getDateString($event, 'emiDate',0)"required>
+                    (dateChange)="getDateString($event, 'emiDate',0)">
                 <mat-datepicker-toggle matSuffix
                     [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
@@ -159,7 +161,7 @@
                 </div>
                 <div class=" col-md-2"style="margin-left: -45px;" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="penalityAmount" (keypress)="keyPressNumberDouble($event)">
+                    <input matInput formControlName="penalityAmount" (keypress)="keyPressNumberDouble($event)" maxlength="8">
                     <mat-error *ngIf="docForm.get('penalityAmount').hasError('required')">
                       Penality Amount is required
                     </mat-error>
@@ -170,11 +172,11 @@
                   <div class="row">
 
                       <div class="col-md-2" >
-                        <mat-label>RATE OF INTEREST<span class="errorColor">*</span></mat-label>
+                        <mat-label>RATE OF INTEREST (%)<span class="errorColor">*</span></mat-label>
                     </div>
                     <div class=" col-md-2" style="margin-left: -45px;padding-bottom: 18px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="interestRate" (keypress)="keyPressNumeric($event)" maxlength="2" required>
+                        <input matInput formControlName="interestRate" (keypress)="keyPressNumeric($event)" maxlength="3" >
                         <mat-error *ngIf="docForm.get('interestRate').hasError('required')">
                           Rate of Interest is required
                         </mat-error>
@@ -187,8 +189,8 @@
                 </div>
                 <div class=" col-md-2" style="margin-left: -45px;" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="accountNo" maxlength="12" required (keypress)="keyPressNumeric($event)">
-                    <mat-error *ngIf="docForm.get('accountNo').hasError('required')">
+                    <input matInput formControlName="account" maxlength="12"  (keypress)="keyPressNumeric($event)">
+                    <mat-error *ngIf="docForm.get('account').hasError('required')">
                      Account Number is required
                     </mat-error>
                   </mat-form-field>
@@ -199,7 +201,7 @@
                 </div>
                 <div  class=" col-md-2" style="margin-left: -45px;padding-bottom: 18px;">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select class="inputTxt" formControlName="bankname" required>
+                    <mat-select class="inputTxt" formControlName="bankname" >
                       <mat-option [value]="'SBI'">
                           SBI
                         </mat-option>

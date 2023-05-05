@@ -54,9 +54,9 @@
                       <mat-header-cell *matHeaderCellDef mat-sort-header>LOAN TYPE</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.type}}</mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="loanID">
+                    <ng-container matColumnDef="loan">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>LOAN ID</mat-header-cell>
-                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.loanID}}</mat-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.loan}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="loanAmount">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>LOAN AMOUNT</mat-header-cell>

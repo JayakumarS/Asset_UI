@@ -76,21 +76,23 @@ export class AddOtherdebitsComponent implements OnInit {
     
    
       this.docForm = this.fb.group({
-        type:[""],
+        type:["", [Validators.required]],
         loanID:[""],
-        loanAmount:[""],
-        loanRef:[""],
+        loan:["", [Validators.required]],
+        loanAmount:["", [Validators.required]],
+        loanRef:["", [Validators.required]],
         loanStartDateObj:["", [Validators.required]],
         loanStartDate:["", [Validators.required]],
         loanDueDateObj:["", [Validators.required]],
         loanDueDate:["", [Validators.required]],
-        amount:[""],
+        amount:["", [Validators.required]],
         emidateObj:["", [Validators.required]],
         emiDate:["", [Validators.required]],
         penalityAmount:[""],
-        interestRate:[""],
+        interestRate:["", [Validators.required]],
         accountNo:[""],
-        bankname:[""],
+        account:["", [Validators.required]],
+        bankname:["", [Validators.required]],
         id:[""],
         loginedUser: this.tokenStorage.getUserId(),
       })
@@ -118,7 +120,7 @@ this.loanOtherdebitsService.editlist(obj).subscribe({
   next: (res) => {
   this.docForm.patchValue({
       'type': res.type,
-      'loanID':res.loanID,
+      'loan':res.loan,
       'loanAmount': res.loanAmount,
       'loanRef':res.loanRef,
       'loanStartDateObj' :this.commonService.getDateObj(res.loanStartDate),
@@ -130,7 +132,7 @@ this.loanOtherdebitsService.editlist(obj).subscribe({
       'emiDate':res.emiDate,
       'penalityAmount':res.penalityAmount,
       'interestRate' :res.interestRate,
-      'accountNo':res.accountNo,
+      'account':res.account,
       'bankname': res.bankname,
       'id' :this.requestId,     
        
@@ -157,10 +159,11 @@ update(){
 
 reset(){
   if (!this.edit) {
-    location.reload();
+    location.reload()
     this.docForm = this.fb.group({
-      type:[""],
+        type:[""],
         loanID:[""],
+        loan:[""],
         loanAmount:[""],
         loanRef:[""],
         loanStartDateObj:[""],
@@ -173,6 +176,7 @@ reset(){
         penalityAmount:[""],
         interestRate:[""],
         accountNo:[""],
+        account:[""],
         bankname:[""],
         id:[""],
         loginedUser: this.tokenStorage.getUserId(),
