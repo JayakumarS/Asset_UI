@@ -45,7 +45,7 @@ export const MY_DATE_FORMATS = {
 export class AddReceivablesComponent implements OnInit {
   [x: string]: any;
   docForm: FormGroup;
-  edit: any;
+  edit: boolean=false;
  loan:Loan;
 
     requestId: number;
@@ -75,19 +75,19 @@ export class AddReceivablesComponent implements OnInit {
     private router:Router,public route: ActivatedRoute,    private spinner: NgxSpinnerService,public tokenStorage: TokenStorageService,)
      {   
        this.docForm = this.fb.group({
-       customername:[""],
-       amount:[""],
-       invoicenumber:[""],
-       paymentreference:[""],
-       baddebts:[""],
-       interestreceivable:[""],
+       customername:["", [Validators.required]],
+       amount:["", [Validators.required]],
+       invoicenumber:["", [Validators.required]],
+       paymentreference:["", [Validators.required]],
+       baddebts:["", [Validators.required]],
+       interestreceivable:["", [Validators.required]],
        loginedUser: this.tokenStorage.getUserId(),
-       accounttype:[""],
-       paymentstatus:[""],
-       paymentstatusObj:[""],
-       currency:[""],
-       duedate:[""],
-       duedateObj:[""],
+       accounttype:["", [Validators.required]],
+       paymentstatus:["", [Validators.required]],
+       paymentstatusObj:["", [Validators.required]],
+       currency:["", [Validators.required]],
+       duedate:["", [Validators.required]],
+       duedateObj:["", [Validators.required]],
        id:[""]
 
     })
@@ -108,19 +108,19 @@ export class AddReceivablesComponent implements OnInit {
   ngOnInit(): void {
 
     this.docForm = this.fb.group({
-      customername:[""],
-      amount:[""],
-      invoicenumber:[""],
-      paymentreference:[""],
-      baddebts:[""],
-      interestreceivable:[""],
+      customername:["", [Validators.required]],
+      amount:["", [Validators.required]],
+      invoicenumber:["", [Validators.required]],
+      paymentreference:["", [Validators.required]],
+      baddebts:["", [Validators.required]],
+      interestreceivable:["", [Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
-      accounttype:[""],
-      paymentstatus:[""],
-      paymentstatusObj:[""],
-      currency:[""],
-      duedate:[""],
-      duedateObj:[""],
+      accounttype:["", [Validators.required]],
+      paymentstatus:["", [Validators.required]],
+      paymentstatusObj:["", [Validators.required]],
+      currency:["", [Validators.required]],
+      duedate:["", [Validators.required]],
+      duedateObj:["", [Validators.required]],
       id:[""]
 
    });
@@ -157,7 +157,7 @@ export class AddReceivablesComponent implements OnInit {
     const obj = {
       editId: id
     }
-
+    this.edit = true;
     
       this.loanReceivablesService.editlist(obj).subscribe({
         next: (res) => {
@@ -174,7 +174,7 @@ export class AddReceivablesComponent implements OnInit {
             'duedate':res.duedate,
             'currency':res.currency,
             'id' :this.requestId,     
-             
+
         });
       },
       error: (error) => {
@@ -203,6 +203,7 @@ export class AddReceivablesComponent implements OnInit {
   }
   reset(){
     if (!this.edit) {
+      location.reload()
       this.docForm = this.fb.group({
         customername:[""],
         amount:[""],
