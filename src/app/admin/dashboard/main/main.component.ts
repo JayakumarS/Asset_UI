@@ -1538,6 +1538,21 @@ configUserLog: {
 
     this.router.navigate(['master/company/addCompany/'+userId]);
   }
+
+
+  onChangeIndividual(){
+    var userId=this.tokenStorage.getCompanyId();
+    window.sessionStorage.setItem("TabFromInd","");
+    window.sessionStorage.setItem("propFrom", "");
+    window.sessionStorage.setItem("vehicleFrom","");
+    window.sessionStorage.setItem("jewelFrom","");
+    window.sessionStorage.setItem("fixedFrom","");
+    window.sessionStorage.setItem("mutualFrom","");
+    window.sessionStorage.setItem("loanFrom","");
+    window.sessionStorage.setItem("receivableFrom","");
+    this.router.navigate(['master/multiple/allMaster/'+userId]);
+  }
+
   onchangeAsset(){
     this.router.navigate(['asset/assetMaster/listAssetMaster/']);
 

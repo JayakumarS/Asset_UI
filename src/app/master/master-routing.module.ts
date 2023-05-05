@@ -196,6 +196,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./property/property.module").then((p) => p.PropertyModule),
   },
+  {
+    path: "multiple",
+    loadChildren: () =>
+    import("./widget/widget.module").then((p) => p.WidgetModule),
+  },
 ];
 
 @NgModule({
