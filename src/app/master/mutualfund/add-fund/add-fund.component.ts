@@ -58,10 +58,10 @@ export class AddFundComponent implements OnInit {
     private router:Router,public route: ActivatedRoute, private spinner: NgxSpinnerService,public tokenStorage: TokenStorageService,)
      {   
        this.docForm = this.fb.group({
-       name:[""],
-       investmentexperience:["",],
-       accountnumber:[""],
-       tin:[""],
+       name:["",[Validators.required]],
+       investmentexperience:["",[Validators.required]],
+       accountnumber:["",[Validators.required]],
+       tin:["",[Validators.required]],
        fundNo:[""],
        loginedUser: this.tokenStorage.getUserId(),
       sampleDtl: this.fb.array([
@@ -71,8 +71,8 @@ export class AddFundComponent implements OnInit {
           inceptiondate:[""],
           inceptiondateObj:[""],
           assetclass:[""],
-          tickersymbol:[""],
-          minimuminvestment:[""],
+          tickersymbol:["",[Validators.required]],
+          minimuminvestment:["",[Validators.required]],
           investmentstyle:[""],
           expenseratio:[""], 
         
@@ -203,7 +203,7 @@ export class AddFundComponent implements OnInit {
       location.reload();
       this.docForm = this.fb.group({
         name:[""],
-       investmentexperience:["",],
+       investmentexperience:[""],
        accountnumber:[""],
        tin:[""],
        fundNo:[""],
