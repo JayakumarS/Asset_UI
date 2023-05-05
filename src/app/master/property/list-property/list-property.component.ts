@@ -81,16 +81,17 @@ export class ListPropertyComponent extends UnsubscribeOnDestroyAdapter implement
     );
   }
 
-  addLine(){
-    this.router.navigate(['/master/property/add-property/']);
-    // this.url=this.router.url;
-    // if(this.url.includes("addProperty")){
-    // window.sessionStorage.setItem("from", "property");
-    // this.router.navigate(['/inventory/line/addProperty/0']);
-    // }else if(this.url.includes('listProperty')){
-    // window.sessionStorage.setItem("LineFrom", "normal");
-    // this.router.navigate(['/inventory/line/addLine/0']);
-    // };
+
+  addPage(){
+    
+    this.url=this.router.url;
+    if(this.url.includes("allMaster")){
+    window.sessionStorage.setItem("propFrom", "location");
+    this.router.navigate(['/master/property/add-property/0']);
+    }else if(this.url.includes('list-property')){
+    window.sessionStorage.setItem("propFrom", "normal");
+    this.router.navigate(['/master/property/add-property/0']);
+    };
   }
 
   editCall(row) {
