@@ -159,20 +159,19 @@ update(){
 
 reset(){
   if (!this.edit) {
-    location.reload();
     this.docForm = this.fb.group({
       type:[""],
         loanID:[""],
         loan:[""],
         loanAmount:[""],
         loanRef:[""],
-        loanStartDateObj:[""],
-        loanStartDate:[""],
-        loanDueDateObj:[""],
-        loanDueDate:[""],
+        loanStartDateObj:["",[Validators.required]],
+        loanStartDate:["",[Validators.required]],
+        loanDueDateObj:["",[Validators.required]],
+        loanDueDate:["",[Validators.required]],
         amount:[""],
-        emidateObj:[""],
-        emiDate:[""],
+        emidateObj:["",[Validators.required]],
+        emiDate:["",[Validators.required]],
         penalityAmount:[""],
         interestRate:[""],
         accountNo:[""],

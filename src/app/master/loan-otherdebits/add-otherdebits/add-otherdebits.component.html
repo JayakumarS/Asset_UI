@@ -1,7 +1,7 @@
  <section class="content">
     <div class="content-block">
       <div class="block-header" style="padding: 0.5% !important;">
-        <app-breadcrumb [title]="'Add Loan Details'" [items]="['Master']" [active_item]="'Add Loan Details'">
+        <app-breadcrumb [title]="'Add-Loan-Details'" [items]="['Master']" [active_item]="'Add-Loan-Details'">
         </app-breadcrumb>
       </div>
       <div class="row clearfix">
@@ -65,7 +65,7 @@
                       </div>
                       <div class=" col-md-2" style="margin-left: -45px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="loanAmount" (keypress)="keyPressNumeric($event)" required>
+                          <input matInput formControlName="loanAmount" (keypress)="keyPressNumeric($event)" maxlength="8" required>
                           <mat-error *ngIf="docForm.get('loanAmount').hasError('required')">
                             Loan Amount is required
                           </mat-error>
@@ -132,7 +132,7 @@
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;padding-bottom: 18px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="amount" (keypress)="keyPressNumberDouble($event)" required>
+                      <input matInput formControlName="amount" (keypress)="keyPressNumberDouble($event)" maxlength="6" required>
                       <mat-error *ngIf="docForm.get('amount').hasError('required')">
                        EMI Amount is required
                        </mat-error>
@@ -161,7 +161,7 @@
                 </div>
                 <div class=" col-md-2"style="margin-left: -45px;" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="penalityAmount" (keypress)="keyPressNumberDouble($event)">
+                    <input matInput formControlName="penalityAmount" (keypress)="keyPressNumberDouble($event)" maxlength="8">
                     <mat-error *ngIf="docForm.get('penalityAmount').hasError('required')">
                       Penality Amount is required
                     </mat-error>
@@ -172,11 +172,11 @@
                   <div class="row">
 
                       <div class="col-md-2" >
-                        <mat-label>RATE OF INTEREST<span class="errorColor">*</span></mat-label>
+                        <mat-label>RATE OF INTEREST (%)<span class="errorColor">*</span></mat-label>
                     </div>
                     <div class=" col-md-2" style="margin-left: -45px;padding-bottom: 18px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="interestRate" (keypress)="keyPressNumeric($event)" maxlength="2" required>
+                        <input matInput formControlName="interestRate" (keypress)="keyPressNumeric($event)" maxlength="3" required>
                         <mat-error *ngIf="docForm.get('interestRate').hasError('required')">
                           Rate of Interest is required
                         </mat-error>
