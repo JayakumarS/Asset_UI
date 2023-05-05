@@ -74,10 +74,9 @@
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-select formControlName="currency" required >
-                  <mat-option [value]="'1'">KSH</mat-option>
-                  <mat-option [value]="'2'">INR</mat-option>
-                  <mat-option [value]="'3'">TES</mat-option>
-                  <mat-option [value]="'4'">INR</mat-option>
+                  <mat-option [value]="'KSH'">KSH</mat-option>
+                  <mat-option [value]="'INR'">INR</mat-option>
+                  <mat-option [value]="'TES'">TES</mat-option>
                   </mat-select>
                   <mat-error *ngIf="docForm.get('currency').hasError('required')">Currency is required</mat-error>
                 </mat-form-field>
@@ -122,7 +121,7 @@
            <mat-option [value]="'2'">Notes Receivable</mat-option>
            </mat-select> -->
            <mat-select  formControlName="accounttype" required >
-            <mat-option [value]="' Trade/Receivable A/C'">
+            <mat-option [value]="'Trade/Receivable A/C'">
               Trade/Receivable A/C
               </mat-option>
               <mat-option [value]="'Notes Receivable'">
