@@ -5,22 +5,23 @@
         </app-breadcrumb>
       </div>
       <div class="row clearfix">
-        <div class="col-xl-12 col-lg-12 col- md-12 col-sm-12">
-          <div class="card " style="padding-left: 150px;">
+      <div class="col-xl-12 col-lg-12 col- md-12 col-sm-12">
+        <div class="box-shadow">
+          
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
                 
               <div class="row">
 
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                         <label >NAME<span class="errorColor">*</span></label>
                     </div>
                     
     
-                    <div class="col-md-3">
+                    <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput  formControlName="name" 
-                          maxlength="30" (keypress)="keyPressString($event)"required>
+                          maxlength="30" (keypress)="keyPressString($event)">
                           <mat-error *ngIf="docForm.get('name').hasError('required')">
                             Name is required
                           </mat-error>
@@ -35,7 +36,7 @@
                 <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="investmentexperience"  maxlength="20" (keypress)="keyPressNumber($event)"
-                     required>
+                     >
                     <mat-error *ngIf="docForm.get('investmentexperience').hasError('required')">
                       Investment Experience is required
                     </mat-error>
@@ -52,7 +53,7 @@
             <div class=" col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="accountnumber" maxlength="20" (keypress)="keyPressNumber($event)"
-                 required>
+                 >
                  <mat-error *ngIf="docForm.get('accountnumber').hasError('required')">
                 Account Number is required
                 </mat-error>
@@ -66,7 +67,7 @@
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="tin" maxlength="20" (keypress)="keyPressName($event)"
-               required>
+               >
               <mat-error *ngIf="docForm.get('tin').hasError('required')">
                 Tin is required
               </mat-error>
@@ -80,12 +81,14 @@
                          <br>
                           <br>
                            <div style="overflow-x: auto;">
-                            <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                            <table  [formGroup]="sampleDtl" 
+                            *ngFor="let sampleDtl of docForm.get('sampleDtl')['controls'];let i=index"
+                            id="dt_basic" class="table table-striped font-weight-bold " role="grid">
                               <thead class="">
                                 <tr>
                                   <th style="width: 1%;"></th>
                                   <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%; border-radius: 0.07rem;">FUND NAME</th>
+                   width: 12%; border-radius: 0.05rem;">FUND NAME</th>
                                  
                                   <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">ASSET CLASS</th>
@@ -98,12 +101,12 @@
                                   <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                    width: 12%;border-radius: 0.07rem;">INVESTMENT STYLE</th>
                                    <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-                   width: 12%;border-radius: 0.07rem;">EXPENSE RATIO</th>
+                   width: 12%;border-radius: 0.05rem;">EXPENSE RATIO</th>
                                  
                                 </tr>
                               </thead>
-                               <ng-container *ngFor="let sampleDtl of docForm.get('sampleDtl')['controls'];let i=index">
-                                <tbody [formGroup]="sampleDtl">
+                               <ng-container>
+                                <tbody >
                                   <tr>
                                     <td>
                                       <button mat-mini-fab color="warn" (click)="removeRowSelf(i)">
@@ -148,7 +151,7 @@
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                           <mat-label>TICKER SYMBOL</mat-label>
                                           <input matInput formControlName="tickersymbol"                           
-                                           (keypress)="keyPressString($event)"required >
+                                           (keypress)="keyPressString($event)" >
                                           </mat-form-field>
                                           <div *ngIf="submitted && sampleDtl.get('tickersymbol').hasError('required')" class="failed-validation" class="errorColor">Ticker Symbol is required </div>         
                                       </td> 
@@ -171,7 +174,7 @@
                                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                         <mat-label> INVESTMENT</mat-label>
                                         <input matInput  formControlName="minimuminvestment"
-                                         (keypress)="keyPressNumber($event)"required>
+                                         (keypress)="keyPressNumber($event)">
                                          
                                         </mat-form-field>
                                         <div *ngIf="submitted && sampleDtl.get('minimuminvestment').hasError('required')" class="failed-validation" class="errorColor"> Minimum Investment is required </div>
@@ -235,4 +238,5 @@
                 </div>
                 </div>
                 </div>
+                
             </section>
