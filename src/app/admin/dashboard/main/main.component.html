@@ -48,7 +48,7 @@
         </div>
 
         <!-- Flow Chart -->
-        <div class="card" *ngIf="!flowChartFlag" style="padding-bottom: 80px;padding-top: 70px;">
+        <div class="card" *ngIf="!flowChartFlag && roleId!='7'" style="padding-bottom: 80px;padding-top: 70px;">
           <div class="body" >
             <img src="assets/images/flowchart.png" alt="Trulli" width="100%" height="70%" style="margin-top:-83px">
             </div>
@@ -89,6 +89,24 @@
                 </mat-progress-bar>
                 <button  mat-raised-button color="primary" style ="margin-left:28%;background-color: #34d034;"
                 (click)="onChange()" >Complete the Profile </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card l-bg-purple-dark"  *ngIf="roleId=='7'">
+            <div class="card-statistic-3">
+              <div class="card-icon card-icon-large"><i class="fa fa-globe"></i></div>
+              <div class="card-content">
+                <h4 class="card-title">Individual Information</h4>
+                <div class="mb-2">
+                  <span class="float-end progress-percent label label-info m-b-5">{{compltedProfile}}%</span>
+                </div>
+                <div>
+                <mat-progress-bar mode="determinate"
+                  class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2" value="{{compltedProfile}}">
+                </mat-progress-bar>
+                <button  mat-raised-button color="primary" style ="margin-left:28%;background-color: #34d034;"
+                (click)="onChangeIndividual()" >Complete the Profile </button>
                 </div>
               </div>
             </div>
@@ -155,7 +173,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6"  *ngIf="roleId!='7'">
             <div class="card card-statistic-2" (click)="onchangeComEmp()">
               <div class="clearfix">
                 <div class="card-right">
