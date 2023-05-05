@@ -13,7 +13,7 @@
               <div class="row">
   
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >CUSTOMER NAME</label>
+                        <label >CUSTOMER NAME<span class="errorColor">*</span></label>
                     </div>
                     
     
@@ -21,7 +21,11 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput  formControlName="customername" 
                           oninput="this.value = this.value.toUpperCase()" 
-                           maxlength="15" (keypress)="string($event)">
+                           maxlength="45" (keypress)="string($event)" (blur)="validateCustomer($event.target.value)" required>
+
+                           <mat-error *ngIf="docForm.get('amount').hasError('required')">
+                            Customer Name is required
+                          </mat-error>
                               
                       </mat-form-field>
                   </div>
@@ -32,10 +36,10 @@
                 </div>
                 <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="amount"  maxlength="20" (keypress)="keyPressNumeric($event)"
+                    <input matInput formControlName="invoicenumber"  maxlength="20" (keypress)="keyPressNumeric($event)"
                     (blur)="validateCustomer($event.target.value)" required>
-                    <mat-error *ngIf="docForm.get('amount').hasError('required')">
-                      Amount is required
+                    <mat-error *ngIf="docForm.get('invoicenumber').hasError('required')">
+                      Invoice Number is required
                     </mat-error>
                   
                   </mat-form-field>
@@ -47,14 +51,18 @@
              <div class="row">
   
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label >AMOUNT</label>
+                  <label >AMOUNT<span class="errorColor">*</span></label>
               </div>
               
   
               <div class="col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput  formControlName="invoicenumber" (blur)="validateCustomer($event.target.value)"
-                    maxlength="30"(keypress)="keyPressNumeric($event)">
+                    <input matInput  formControlName="amount" (blur)="validateCustomer($event.target.value)"
+                    maxlength="30"(keypress)="keyPressNumeric($event)"(blur)="validateCustomer($event.target.value)" required>
+                    <mat-error *ngIf="docForm.get('amount').hasError('required')">
+                      Amount is required
+                    </mat-error>
+                        
                         
                 </mat-form-field>
             </div>
@@ -109,10 +117,18 @@
             </div>
            <div class=" col-md-3">
            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-           <mat-select formControlName="accounttype" required>
+           <!-- <mat-select formControlName="accounttype" required>
            <mat-option [value]="'1'">Trade/Receivable A/C</mat-option>
-           <mat-option [value]="'2'">NotesReceivable</mat-option>
-           </mat-select>
+           <mat-option [value]="'2'">Notes Receivable</mat-option>
+           </mat-select> -->
+           <mat-select  formControlName="accounttype" required >
+            <mat-option [value]="' Trade/Receivable A/C'">
+              Trade/Receivable A/C
+              </mat-option>
+              <mat-option [value]="'Notes Receivable'">
+                Notes Receivable
+              </mat-option>
+               </mat-select>
            <mat-error *ngIf="docForm.get('accounttype').hasError('required')">Account Type is required</mat-error>
            </mat-form-field>
            </div>
@@ -156,7 +172,7 @@
           </div>
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="paymentreference" maxlength="20" (keypress)="string($event)"
+              <input matInput formControlName="paymentreference" maxlength="20" oninput="this.value = this.value.toUpperCase()"(keypress)="string($event)"
               (blur)="validateCustomer($event.target.value)" required>
               <mat-error *ngIf="docForm.get('paymentreference').hasError('required')">
                 Payment Reference is required
