@@ -89,17 +89,17 @@ export class AddJewelleryDetailsComponent implements OnInit {
     this.docForm = this.fb.group({
        
       caseinhand:[""],
-      cashatbank:[""],
-      cloan:[""],
-      cdate:[""],
-      cdateObj:[""],
-      jdate:[""],
-      jdateObj:[""],
-      type:[""],
-      material:[""],
-      weight:[""],
+      cashatbank:["", [Validators.required]],
+      cloan:["", [Validators.required]],
+      cdate:["", [Validators.required]],
+      cdateObj:["", [Validators.required]],
+      jdate:["", [Validators.required]],
+      jdateObj:["", [Validators.required]],
+      type:["", [Validators.required]],
+      material:["", [Validators.required]],
+      weight:["", [Validators.required]],
       price:[""],
-      loan:[""],
+      loan:["", [Validators.required]],
       id:[""],
      
 
@@ -264,6 +264,7 @@ onSubmit(){
   reset(){
     if (!this.edit) {
       location.reload();
+      this.docForm.reset();
       this.docForm = this.fb.group({
         caseinhand:[""],
         cashatbank:[""],

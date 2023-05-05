@@ -32,8 +32,7 @@
                     </div>
                       <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="cashatbank" maxlength="20" (keypress)="keyPressNumeric($event)"
-                       required>
+                        <input matInput formControlName="cashatbank" maxlength="20" (keypress)="keyPressNumeric($event)">
                        <mat-error *ngIf="docForm.get('cashatbank').hasError('required')">
                         Cash is required
                       </mat-error>
@@ -47,8 +46,7 @@
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="cloan" maxlength="20" (keypress)="keyPressNumeric($event)"
-                        required>  
+                        <input matInput formControlName="cloan" maxlength="20" (keypress)="keyPressNumeric($event)">  
                         <mat-error *ngIf="docForm.get('cloan').hasError('required')">
                           Loan Amount is required
                         </mat-error>
@@ -63,7 +61,7 @@
                         <input matInput [matDatepicker]="picker2" 
                         formControlName="cdateObj"
                         id="cdate"
-                        (dateChange)="getDateString($event, 'cdate',0)"required>
+                        (dateChange)="getDateString($event, 'cdate',0)">
                     <mat-datepicker-toggle matSuffix
                         [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>  
@@ -87,7 +85,7 @@
   
                   <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-select  formControlName="material" required >
+                        <mat-select  formControlName="material"  >
                           <mat-option [value]="'GOLD'">
                                GOLD
                             </mat-option>
@@ -112,7 +110,7 @@
                   </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                     <mat-select  formControlName="type"required >
+                     <mat-select  formControlName="type" >
                       <mat-option [value]="'NECKLACE'">
                            NECKLACE
                         </mat-option>
@@ -143,8 +141,7 @@
 
                 <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="weight" maxlength="20" (keypress)="keyPressNumeric($event)"
-                  required>
+                      <input matInput formControlName="weight" maxlength="20" (keypress)="keyPressNumeric($event)">
                   <mat-error *ngIf="docForm.get('weight').hasError('required')">
                     Weight is required
                   </mat-error>
@@ -157,7 +154,7 @@
                 </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="loan" maxlength="20" (keypress)="keyPressNumeric($event)"required>
+                      <input matInput formControlName="loan" maxlength="20" (keypress)="keyPressNumeric($event)">
                       <mat-error *ngIf="docForm.get('loan').hasError('required')">
                         Loan Amount is required
                       </mat-error>
@@ -186,7 +183,7 @@
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput [matDatepicker]="picker" formControlName="jdateObj"
                     (dateInput)="$event.value.format('DD/MM/YYYY')" id="jdate"
-                    (dateChange)="getDateString($event, 'jdate',0)" required>
+                    (dateChange)="getDateString($event, 'jdate',0)" >
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error *ngIf="docForm.get('jdateObj').hasError('required')">
@@ -199,12 +196,6 @@
           </div>    
 
 
-      
-  
-  
-                
-                               
-  
                                 <div class ="row">
                                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                                     <button (click) = "onSubmit()" class="btn-space" mat-raised-button
