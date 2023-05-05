@@ -14,7 +14,8 @@
 
                   <div class="row">
                     <div class="col-md-2 " >
-                      <mat-label >PROPERTY HOLDER NAME<span class="errorColor">*</span></mat-label>
+                      <mat-label >
+                        HOLDER NAME<span class="errorColor">*</span></mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
@@ -84,7 +85,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-2 " >
-                      <mat-label >PROPERTY MORTAGE<span class="errorColor">*</span></mat-label>
+                      <mat-label >MORTAGE<span class="errorColor">*</span></mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
@@ -102,17 +103,23 @@
         
                       <div class="col-md-2" >
                         <mat-label>PROPERTY LOAN<span class="errorColor">*</span></mat-label>
-                    </div>
-                  
-                    <div class=" col-md-2" style="margin-left: -45px;">
-                      <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="loan" maxlength="20" (keypress)="keyPressName($event)">
-  
-                      </mat-form-field>
-                    </div>
+                        </div>
+                        <div class=" col-md-2" style="margin-left: -45px;">
+                    <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="loan"  (keypress)="keyPressName($event)">
+                        <mat-option [value]="'YES'">
+                         YES
+                        </mat-option>
+                        <mat-option [value]="'NO'">
+                         NO
+                        </mat-option>
+                       
+                        </mat-select> 
+                    </mat-form-field>
+                        </div>
                   
                     <div class="col-md-2 " >
-                      <mat-label >PROPERTY OWNERSHIP <span class="errorColor">*</span></mat-label>
+                      <mat-label >OWNERSHIP <span class="errorColor">*</span></mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                      <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
