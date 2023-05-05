@@ -1,7 +1,7 @@
  <section class="content">
     <div class="content-block">
       <div class="block-header" style="padding: 0.5% !important;">
-        <app-breadcrumb [title]="'Loan'" [items]="['Master']" [active_item]="'Add-Loan'">
+        <app-breadcrumb [title]="'Add Loan Details'" [items]="['Master']" [active_item]="'Add Loan Details'">
         </app-breadcrumb>
       </div>
       <div class="row clearfix">
@@ -35,7 +35,7 @@
                             Security Loan
                           </mat-option>
                           <mat-option [value]="'Property Loa'">
-                            Property Loa
+                            Property Loan
                           </mat-option>
                           <mat-option [value]="'Payday Loan'">
                             Payday Loan
@@ -54,8 +54,8 @@
                     </div>
                     <div class=" col-md-2" style="margin-left: -45px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="loanID" maxlength="15" (keypress)="keyPressNumeric($event)" required>
-                        <mat-error *ngIf="docForm.get('loanID').hasError('required')">
+                        <input matInput formControlName="loan" maxlength="15" (keypress)="keyPressNumeric($event)" required>
+                        <mat-error *ngIf="docForm.get('loan').hasError('required')">
                           Loan Number is required
                         </mat-error>
                       </mat-form-field>
@@ -79,7 +79,9 @@
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;padding-bottom: 18px;">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="loanRef" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="loanRef" 
+                      oninput="this.value = this.value.toUpperCase()"
+                      (keypress)="keyPressName($event)" required>
                       <mat-error *ngIf="docForm.get('loanRef').hasError('required')">
                         Loan Reference is required
                       </mat-error>
@@ -187,8 +189,8 @@
                 </div>
                 <div class=" col-md-2" style="margin-left: -45px;" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="accountNo" maxlength="12" required (keypress)="keyPressNumeric($event)">
-                    <mat-error *ngIf="docForm.get('accountNo').hasError('required')">
+                    <input matInput formControlName="account" maxlength="12" required (keypress)="keyPressNumeric($event)">
+                    <mat-error *ngIf="docForm.get('account').hasError('required')">
                      Account Number is required
                     </mat-error>
                   </mat-form-field>

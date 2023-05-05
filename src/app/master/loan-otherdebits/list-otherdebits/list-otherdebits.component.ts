@@ -30,7 +30,8 @@ export class ListOtherdebitsComponent extends UnsubscribeOnDestroyAdapter implem
     // "actions",
     "bankname",
     "type",
-    "loanID",
+    "loan",
+    
     "loanAmount",
     "actions"
     // "hisher",
@@ -208,7 +209,7 @@ export class ExampleDataSource extends DataSource<Otherdebits> {
               // lineService.lineCode+
               loanOtherdebitsService.bankname+
               loanOtherdebitsService.type +
-              loanOtherdebitsService.loanID +
+              loanOtherdebitsService.loan +
               loanOtherdebitsService.loanAmount +
               loanOtherdebitsService.id 
               
@@ -253,8 +254,8 @@ export class ExampleDataSource extends DataSource<Otherdebits> {
           case "type":
           [propertyA, propertyB] = [a.type, b.type];
           break;
-          case "loanID":
-          [propertyA, propertyB] = [a.loanID, b.loanID];
+          case "loan":
+          [propertyA, propertyB] = [a.loan, b.loan];
           break;
           
           case "loanAmount":

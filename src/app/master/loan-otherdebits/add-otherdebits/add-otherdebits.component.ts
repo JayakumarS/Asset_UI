@@ -78,6 +78,7 @@ export class AddOtherdebitsComponent implements OnInit {
       this.docForm = this.fb.group({
         type:[""],
         loanID:[""],
+        loan:[""],
         loanAmount:[""],
         loanRef:[""],
         loanStartDateObj:["", [Validators.required]],
@@ -90,6 +91,7 @@ export class AddOtherdebitsComponent implements OnInit {
         penalityAmount:[""],
         interestRate:[""],
         accountNo:[""],
+        account:[""],
         bankname:[""],
         id:[""],
         loginedUser: this.tokenStorage.getUserId(),
@@ -118,7 +120,7 @@ this.loanOtherdebitsService.editlist(obj).subscribe({
   next: (res) => {
   this.docForm.patchValue({
       'type': res.type,
-      'loanID':res.loanID,
+      'loan':res.loan,
       'loanAmount': res.loanAmount,
       'loanRef':res.loanRef,
       'loanStartDateObj' :this.commonService.getDateObj(res.loanStartDate),
@@ -130,7 +132,7 @@ this.loanOtherdebitsService.editlist(obj).subscribe({
       'emiDate':res.emiDate,
       'penalityAmount':res.penalityAmount,
       'interestRate' :res.interestRate,
-      'accountNo':res.accountNo,
+      'account':res.account,
       'bankname': res.bankname,
       'id' :this.requestId,     
        
@@ -161,6 +163,7 @@ reset(){
     this.docForm = this.fb.group({
       type:[""],
         loanID:[""],
+        loan:[""],
         loanAmount:[""],
         loanRef:[""],
         loanStartDateObj:[""],
@@ -173,6 +176,7 @@ reset(){
         penalityAmount:[""],
         interestRate:[""],
         accountNo:[""],
+        account:[""],
         bankname:[""],
         id:[""],
         loginedUser: this.tokenStorage.getUserId(),
