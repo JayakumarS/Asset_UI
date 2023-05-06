@@ -20,8 +20,8 @@
     
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput  formControlName="name" 
-                          maxlength="30" (keypress)="keyPressString($event)">
+                          <input matInput  formControlName="name"oninput="this.value = this.value.toUpperCase()" 
+                          maxlength="20" (keypress)="keyPressString($event)">
                           <mat-error *ngIf="docForm.get('name').hasError('required')">
                             Name is required
                           </mat-error>
@@ -35,7 +35,7 @@
                 </div>
                 <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="investmentexperience"  maxlength="20" (keypress)="keyPressNumber($event)"
+                    <input matInput formControlName="investmentexperience"  maxlength="3" (keypress)="keyPressNumber($event)"
                      >
                     <mat-error *ngIf="docForm.get('investmentexperience').hasError('required')">
                       Investment Experience is required
@@ -52,7 +52,7 @@
             </div>
             <div class=" col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="accountnumber" maxlength="20" (keypress)="keyPressNumber($event)"
+                <input matInput formControlName="accountnumber" maxlength="17" (keypress)="keyPressNumber($event)"
                  >
                  <mat-error *ngIf="docForm.get('accountnumber').hasError('required')">
                 Account Number is required
@@ -66,7 +66,7 @@
           </div>
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="tin" maxlength="20" (keypress)="keyPressName($event)"
+              <input matInput formControlName="tin"oninput="this.value = this.value.toUpperCase()"  maxlength="9" (keypress)="keyPressName($event)"
                >
               <mat-error *ngIf="docForm.get('tin').hasError('required')">
                 TIN is required
