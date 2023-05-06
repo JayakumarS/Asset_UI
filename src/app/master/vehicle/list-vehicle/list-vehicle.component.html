@@ -48,22 +48,22 @@
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                     #exporter="matTableExporter">
                     <ng-container matColumnDef="brand">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>BRAND</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Brand</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.brand}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="bodyStyle">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>BODY STYLE</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Body Style</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.bodyStyle}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="driveType">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>DRIVE TYPE</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Drive Type</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.driveType}}</mat-cell>
                     </ng-container>
             
   
   
                     <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
-                                      <mat-header-cell class="pr-0" *matHeaderCellDef>ACTIONS</mat-header-cell>
+                                      <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                                       <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
                                           <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)" class="tbl-action-btn">
                           <app-feather-icons matTooltip="Edit" [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
