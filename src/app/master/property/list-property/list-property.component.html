@@ -47,15 +47,15 @@
                   <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
                   <ng-container matColumnDef="propertyHolderName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>PROPERTY HOLDER NAME</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Property Holder Name</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.propertyHolderName}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="noProperty">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>NO PROPERTY</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>No of Property</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.noProperty}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="taxNo">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>TAX NO</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tax No</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.taxNo}}</mat-cell>
                   </ng-container>
           

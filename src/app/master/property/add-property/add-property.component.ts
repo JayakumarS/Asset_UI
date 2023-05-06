@@ -73,7 +73,7 @@ export class AddPropertyComponent implements OnInit {
        propertyLocation:[""],
        taxNo:[""],
        mortage:[""],
-       type:[""],
+       type:["", [Validators.required]],
        ownership:["", [Validators.required]],
        depVal:[""],
        currentValue:[""],
