@@ -16,9 +16,9 @@
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="registrationNumber"  oninput="this.value = this.value.toUpperCase()"
-                         maxlength="10" (keypress)="keyPressString($event)"required>
+                         maxlength="10" (keypress)="keyPressString($event)">
                         <mat-error *ngIf="docForm.get('registrationNumber').hasError('required')">
-                          Reg no is required
+                          Reg No is required
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-select  formControlName="bodyStyle" required >
+                          <mat-select  formControlName="bodyStyle"  >
                             <mat-option [value]="'SUV'">
                                  SUV
                               </mat-option>
@@ -39,7 +39,7 @@
                               </mat-option>
                         </mat-select>
                         <mat-error *ngIf="docForm.get('bodyStyle').hasError('required')">
-                          Body style is required
+                          Body Style is required
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -51,7 +51,7 @@
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="brand"  oninput="this.value = this.value.toUpperCase()"
-                         maxlength="20" (keypress)="keyPressName($event)" required>
+                         maxlength="20" (keypress)="keyPressName($event)" >
                          <mat-error *ngIf="docForm.get('brand').hasError('required')">
                           Brand is required
                         </mat-error>
@@ -63,7 +63,7 @@
                     <div class="  col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput [matDatepicker]="picker" 
-                        formControlName="dateOfbuyingObj" required
+                        formControlName="dateOfbuyingObj" 
                         id="dateOfbuying"
                         (dateChange)="getDateString($event, 'dateOfbuying',0)">
                         <mat-datepicker-toggle matSuffix
@@ -82,7 +82,7 @@
 
               <div class=" col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select  formControlName="driveType" required>
+                    <mat-select  formControlName="driveType">
                       <mat-option [value]="'2WD'">
                            2WD
                         </mat-option>
@@ -94,7 +94,7 @@
                         </mat-option>
                   </mat-select>
                   <mat-error *ngIf="docForm.get('driveType').hasError('required')">
-                    Drive type is required
+                    Drive Type is required
                     </mat-error>
                 </mat-form-field>
               </div>
@@ -103,9 +103,9 @@
             </div>
             <div class=" col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="rtoCode" oninput="this.value = this.value.toUpperCase()" maxlength="20" (keypress)="keyPressString($event)" required>
+                <input matInput formControlName="rtoCode" oninput="this.value = this.value.toUpperCase()" maxlength="17" (keypress)="keyPressString($event)" >
                 <mat-error *ngIf="docForm.get('rtoCode').hasError('required')">
-                  Chassis number is required
+                  Chassis Number is required
                   </mat-error>
               </mat-form-field>
             </div>
@@ -117,7 +117,7 @@
 
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-select  formControlName="transmissionType" required>
+                <mat-select  formControlName="transmissionType">
                   <mat-option [value]="'AUTOMATIC'">
                       AUTOMATIC
                     </mat-option>
@@ -135,7 +135,7 @@
         </div>
         <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-select  formControlName="engineType" required >
+              <mat-select  formControlName="engineType">
                 <mat-option [value]="'PETROL'">
                   PETROL
                   </mat-option>
@@ -160,7 +160,7 @@
 
       <div class=" col-md-3">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput formControlName="tin" maxlength="9" (keypress)="keyPressNumeric($event)" required>
+            <input matInput formControlName="tin" maxlength="9" (keypress)="keyPressNumeric($event)">
             <mat-error *ngIf="docForm.get('tin').hasError('required')">
              TIN is required
               </mat-error>
@@ -183,7 +183,7 @@
 
   <div class=" col-md-3">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="number" oninput="this.value = this.value.toUpperCase()" maxlength="20" (keypress)="keyPressString($event)" required>
+        <input matInput formControlName="number" oninput="this.value = this.value.toUpperCase()" maxlength="17" (keypress)="keyPressString($event)">
         <mat-error *ngIf="docForm.get('number').hasError('required')">
          Engine Number is required
            </mat-error>
@@ -195,7 +195,7 @@
 </div>
 <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <mat-select  formControlName="insurancetype" required >
+      <mat-select  formControlName="insurancetype">
         <mat-option [value]="'Commerical auto insurance'">
             COMMERCIAL AUTO INSURANCE
           </mat-option>
@@ -219,7 +219,7 @@
 
 <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <mat-select  formControlName="ownership" required >
+      <mat-select  formControlName="ownership">
         <mat-option [value]="' Owned'">
         OWNED
           </mat-option>
@@ -241,7 +241,7 @@
 </div>
 <div class=" col-md-3">
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-  <input matInput formControlName="vin" oninput="this.value = this.value.toUpperCase()" maxlength="20" (keypress)="keyPressString($event)" required>
+  <input matInput formControlName="vin" oninput="this.value = this.value.toUpperCase()" maxlength="17" (keypress)="keyPressString($event)">
   <mat-error *ngIf="docForm.get('vin').hasError('required')">
     VIN is required
       </mat-error>

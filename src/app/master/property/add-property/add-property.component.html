@@ -19,8 +19,11 @@
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="propertyHolderName" maxlength="20" (keypress)="keyPressName($event)">
-
+                      <input matInput formControlName="propertyHolderName"
+                      oninput="this.value = this.value.toUpperCase()" maxlength="20" (keypress)="keyPressName($event)">
+                      <mat-error *ngIf="docForm.get('propertyHolderName').hasError('required')">
+                        Name is required
+                      </mat-error>
                     </mat-form-field>
                   </div>
         
@@ -29,15 +32,18 @@
                     </div>
                     <div class=" col-md-2" style="margin-left: -45px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="noProperty" maxlength="20" (keypress)="keyPressNumberInt($event)">
+                          <input matInput formControlName="noProperty" maxlength="9" (keypress)="keyPressNumberInt($event)">
+                          <mat-error *ngIf="docForm.get('noProperty').hasError('required')">
+                           Property is required
+                          </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-2 " >
-                      <mat-label >PROPERTY RATE <span class="errorColor">*</span></mat-label>
+                      <mat-label >PROPERTY RATE</mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="propertyRate" maxlength="20" (keypress)="keyPressNumberInt($event)" >
+                      <input matInput formControlName="propertyRate" maxlength="9" (keypress)="keyPressNumberInt($event)" >
                     </mat-form-field>
                   </div>
                   </div>
@@ -52,11 +58,11 @@
                       formControlName="regDateObj"
                       (dateInput)="$event.value.format('DD/MM/YYYY')"
                       id="regDate"
-                      (dateChange)="getDateString($event, 'regDate',0)"required>
+                      (dateChange)="getDateString($event, 'regDate',0)">
                   <mat-datepicker-toggle matSuffix
                       [for]="picker2"></mat-datepicker-toggle>
                   <mat-datepicker #picker2></mat-datepicker>
-                  <mat-error *ngIf="docForm.get('regDate').hasError('required')">
+                  <mat-error *ngIf="docForm.get('regDateObj').hasError('required')">
                     Registration Date is required
                   </mat-error>
                       
@@ -65,19 +71,20 @@
                   
         
                       <div class="col-md-2" >
-                        <mat-label>PROPERTY LOCATION<span class="errorColor">*</span></mat-label>
+                        <mat-label>PROPERTY LOCATION</mat-label>
                     </div>
                     <div class=" col-md-2" style="margin-left: -45px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="propertyLocation" maxlength="20" (keypress)="keyPressName($event)">
+                          <input matInput formControlName="propertyLocation"
+                          oninput="this.value = this.value.toUpperCase()"  maxlength="20" (keypress)="keyPressName($event)">
                       </mat-form-field>
                     </div>
                     <div class="col-md-2 " >
-                      <mat-label >PROPERTY TAXNO <span class="errorColor">*</span></mat-label>
+                      <mat-label >PROPERTY TAX NO </mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="taxNo" maxlength="20" (keypress)="keyPressNumberInt($event)"
+                      <input matInput formControlName="taxNo" maxlength="9" (keypress)="keyPressNumberInt($event)"
                       (blur)="validateCustomer($event.target.value)">
   
                     </mat-form-field>
@@ -85,7 +92,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-2 " >
-                      <mat-label >MORTAGE<span class="errorColor">*</span></mat-label>
+                      <mat-label >MORTAGE</mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
@@ -115,6 +122,10 @@
                         </mat-option>
                        
                         </mat-select> 
+                        <mat-error *ngIf="docForm.get('loan').hasError('required')">
+                         Property Loan is required
+                        </mat-error>
+                        
                     </mat-form-field>
                         </div>
                   
@@ -134,34 +145,37 @@
                          LEASE
                          </mat-option>
                         </mat-select> 
-
+                        <mat-error *ngIf="docForm.get('ownership').hasError('required')">
+                          Ownership is required
+                         </mat-error>
                     </mat-form-field>
                   </div>
                   </div>
                   <div class="row">
                     <div class="col-md-2 " >
-                      <mat-label >DEPRECIATION VALUE<span _ngcontent-ray-c314="" class="errorColor">*</span></mat-label>
+                      <mat-label >DEPRECIATION VALUE</mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="depVal" maxlength="20" (keypress)="keyPressNumberInt($event)">
+                      <input matInput formControlName="depVal" maxlength="9" (keypress)="keyPressNumberInt($event)">
                     </mat-form-field>
                   </div>
         
                       <div class="col-md-2" >
-                        <mat-label>CURRENT RATE <span class="errorColor">*</span></mat-label>
+                        <mat-label>CURRENT RATE</mat-label>
                     </div>
                     <div class=" col-md-2" style="margin-left: -45px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                           <input matInput name="currentValue" formControlName="currentValue" (keypress)="keyPressNumberInt($event)">
+                           <input matInput name="currentValue" formControlName="currentValue" maxlength="9" (keypress)="keyPressNumberInt($event)">
                       </mat-form-field>
                     </div>
                     <div class="col-md-2 " >
-                      <mat-label >SQUARE FEET <span class="errorColor">*</span></mat-label>
+                      <mat-label >SQUARE FEET</mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput name="depreciationValue" formControlName="squareFeet" (keypress)="keyPressNumberInt($event)">
+                      <input matInput name="depreciationValue" formControlName="squareFeet"
+                      maxlength="4" (keypress)="keyPressNumberInt($event)">
                     </mat-form-field>
                   </div>
                   </div>
@@ -171,7 +185,7 @@
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select  class="inputTxt" formControlName="type"  (keypress)="keyPressName($event)">
+                      <mat-select  class="inputTxt" formControlName="type"  (keypress)="keyPressName($event)" >
                         <mat-option [value]="'Commercial'">
                          Commercial
                         </mat-option>
@@ -185,24 +199,26 @@
                           Others
                          </mat-option>
                         </mat-select> 
-
+                        <mat-error *ngIf="docForm.get('type').hasError('required')">
+                          Property Type is required
+                         </mat-error>
                     </mat-form-field>
                   </div>
         
                       <div class="col-md-2" >
-                        <mat-label>LOAN NUMBER<span class="errorColor">*</span></mat-label>
+                        <mat-label>LOAN NUMBER</mat-label>
                     </div>
                     <div class=" col-md-2" style="margin-left: -45px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="loanNo" maxlength="20" (keypress)="keyPressNumberInt($event)">
+                          <input matInput formControlName="loanNo" maxlength="14" (keypress)="keyPressNumberInt($event)">
                       </mat-form-field>
                     </div>
                     <div class="col-md-2 " >
-                      <mat-label >LOAN INTEREST <span class="errorColor">*</span></mat-label>
+                      <mat-label >LOAN INTEREST </mat-label>
                   </div>
                   <div class=" col-md-2" style="margin-left: -45px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="loanInterest" maxlength="20" (keypress)="keyPressNumberInt($event)">
+                      <input matInput formControlName="loanInterest" maxlength="9" (keypress)="keyPressNumberInt($event)">
                   </mat-form-field>
                   </div>
                   </div>
@@ -213,10 +229,10 @@
                                  <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
                                  style="margin-left: 36%;background-color: #188f3f;">Update</button>
                                 <button (click) = "reset()" class="btn-space" mat-raised-button
-                                 color="accent" style="margin-left: 1%;background-color: #4b27da;">reset</button>
+                                 color="accent" style="margin-left: 1%;background-color: #3b10e8;">Reset</button>
                                
                                 <button (click) = "onCancel()" class="btn-space" mat-raised-button
-                                 color="accent" style="margin-left: 1%;background-color: #801010;">cancel</button>
+                                 color="accent" style="margin-left: 1%;background-color: #d40e0e;">Cancel</button>
               </div>
      </div>
 			

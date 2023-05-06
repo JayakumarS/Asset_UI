@@ -65,8 +65,8 @@ export class AddPropertyComponent implements OnInit {
     private tokenStorage:TokenStorageService,
   ) { 
     this.docForm = this.fb.group({
-       propertyHolderName:[""],
-       noProperty:[""],
+       propertyHolderName:["", [Validators.required]],
+       noProperty:["", [Validators.required]],
        propertyRate:[""],
        regDate:[""],
        regDateObj:["",[Validators.required]],
@@ -74,11 +74,11 @@ export class AddPropertyComponent implements OnInit {
        taxNo:[""],
        mortage:[""],
        type:[""],
-       ownership:[""],
+       ownership:["", [Validators.required]],
        depVal:[""],
        currentValue:[""],
        squareFeet:[""],
-       loan:[""],
+       loan:["", [Validators.required]],
        loanNo:[""],
        loanInterest:[""],
 
@@ -100,6 +100,7 @@ export class AddPropertyComponent implements OnInit {
     }
   });
  }
+ 
  onSubmit():void{
    this.property = this.docForm.value;
    if(this.docForm.valid){ 
@@ -120,11 +121,12 @@ export class AddPropertyComponent implements OnInit {
    
    
    if (!this.edit) {
+    location.reload()
    this.docForm = this.fb.group({
      propertyHolderName:[""],
       noProperty:[""],
       propertyRate:[""],
-      regDate:[""],
+      regDateObj:[""],
       propertyLocation:[""],
       taxNo:[""],
       type:[""],
@@ -137,6 +139,7 @@ export class AddPropertyComponent implements OnInit {
       loanInterest:[""],
       loginedUser: this.tokenStorage.getUserId(),
       id:[""],
+      mortage:[""],
        
    });
  } else {

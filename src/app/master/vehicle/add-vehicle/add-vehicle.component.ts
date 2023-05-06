@@ -45,7 +45,7 @@ export class AddVehicleComponent implements OnInit {
  
     docForm: FormGroup;
     vehicle:Vehicle;
-    edit: any;
+    edit: boolean=false;
     requestId: any;
     branchList: [];
     submitted: boolean;
@@ -62,30 +62,24 @@ export class AddVehicleComponent implements OnInit {
     
    
       this.docForm = this.fb.group({
-        registrationNumber:[""],
-        brand:[""],
-        bodyStyle:[""],
-        dateOfbuying:[""],
-        dateOfbuyingObj:[""],
-        driveType :[""],
-        rtoCode:[""],
-        transmissionType:[""],
-        engineType:[""],
-        tin:[""],
+        registrationNumber:["",[Validators.required]],
+        brand:["",[Validators.required]],
+        bodyStyle:["",[Validators.required]],
+        dateOfbuying:["",[Validators.required]],
+        dateOfbuyingObj:["",[Validators.required]],
+        driveType :["",[Validators.required]],
+        rtoCode:["",[Validators.required]],
+        transmissionType:["",[Validators.required]],
+        engineType:["",[Validators.required]],
+        tin:["",[Validators.required]],
         vehicleColour:[""], 
-        insurancetype:[""],
-        number:[""],
-        ownership:[""],
-        vin:[""],
+        insurancetype:["",[Validators.required]],
+        number:["",[Validators.required]],
+        ownership:["",[Validators.required]],
+        vin:["",[Validators.required]],
         loginedUser:this.tokenStorage.getUserId(),
         id:[""],
-      
-       
-  
-      
-  
-  
-      })
+     })
   
 
 
@@ -170,7 +164,9 @@ export class AddVehicleComponent implements OnInit {
        
          
          onReset(){
+          
           if(!this.edit){
+            location.reload()
             this.docForm = this.fb.group({
               registrationNumber:[""],
               brand:[""],
@@ -182,12 +178,15 @@ export class AddVehicleComponent implements OnInit {
               transmissionType:[""],
               engineType:[""],
               tin:[""],
-              vehicleColour:[""],
-              enginenumber:[""],
-              insurance:[""],
+              vehicleColour:[""], 
+              insurancetype:[""],
+              number:[""],
               ownership:[""],
-              vin:[""]
-            })
+              vin:[""],
+              loginedUser:this.tokenStorage.getUserId(),
+              id:[""],
+           })
+        
           }else {
             this.fetchDetails(this.requestId);
           }

@@ -13,7 +13,7 @@ export class Property {
     currentValue:number;
     squareFeet:number;
     loan:string;
-    loanNo:number;
+    loanNo:string;
     loanInterest:number;
     id:number;
     
