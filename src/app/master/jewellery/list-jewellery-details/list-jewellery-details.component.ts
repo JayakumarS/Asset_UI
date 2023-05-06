@@ -84,26 +84,26 @@ export class ListJewelleryDetailsComponent  extends UnsubscribeOnDestroyAdapter 
     );
   }
 
-  addLine(){
-    // this.url=this.router.url;
-    // if(this.url.includes("addCompany")){
-    // window.sessionStorage.setItem("LineFrom", "line");
-    // this.router.navigate(['/master/line/addLine/0']);
-    // }else if(this.url.includes('listLine')){
-    // window.sessionStorage.setItem("LineFrom", "normal");
-    // this.router.navigate(['/master/line/addLine/0']);
-    // };
+  addPage(){
+    this.url=this.router.url;
+    if(this.url.includes("allMaster")){
+    window.sessionStorage.setItem("jewelFrom", "jewel");
     this.router.navigate(['/master/jewellery/add-jewellery-details/0']);
+    }else if(this.url.includes('list-jewellery-details')){
+    window.sessionStorage.setItem("jewelFrom", "normal");
+    this.router.navigate(['/master/jewellery/add-jewellery-details/0']);
+    };
   }
+  
   editCall(row) {
-    // this.url=this.router.url;
-    // if(this.url.includes("addCompany")){
-    // window.sessionStorage.setItem("LineFrom", "line");
-    // this.router.navigate(['/master/line/addLine/'+row.id]);
-    // }else if(this.url.includes('listLine')){
-    // window.sessionStorage.setItem("LineFrom", "normal");
+    this.url=this.router.url;
+    if(this.url.includes("allMaster")){
+    window.sessionStorage.setItem("jewelFrom", "jewel");
     this.router.navigate(['/master/jewellery/add-jewellery-details/'+row.id]);
-    // };
+  }else if(this.url.includes('list-jewellery-details')){
+    window.sessionStorage.setItem("jewelFrom", "normal");
+    this.router.navigate(['/master/jewellery/add-jewellery-details/'+row.id]);
+    };
   }
 
   deleteItem(row){

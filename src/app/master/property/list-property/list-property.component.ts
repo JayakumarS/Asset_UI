@@ -86,7 +86,7 @@ export class ListPropertyComponent extends UnsubscribeOnDestroyAdapter implement
     
     this.url=this.router.url;
     if(this.url.includes("allMaster")){
-    window.sessionStorage.setItem("propFrom", "location");
+    window.sessionStorage.setItem("propFrom", "prop");
     this.router.navigate(['/master/property/add-property/0']);
     }else if(this.url.includes('list-property')){
     window.sessionStorage.setItem("propFrom", "normal");
@@ -95,9 +95,15 @@ export class ListPropertyComponent extends UnsubscribeOnDestroyAdapter implement
   }
 
   editCall(row) {
-   
+    this.url=this.router.url;
+    if(this.url.includes("allMaster")){
+    window.sessionStorage.setItem("propFrom", "prop");
+    this.router.navigate(['/master/property/add-property/'+row.id]);
+    }else if(this.url.includes('list-property')){
+    window.sessionStorage.setItem("propFrom", "normal");
     this.router.navigate(['/master/property/add-property/'+row.id]);
     };
+    }
   
     deleteItem(row){
 

@@ -50,7 +50,7 @@ export class AddPropertyComponent implements OnInit {
   requestId: number;
   branchList = [];
   edit:boolean=false;
-  
+  url:any;
 
   constructor(
     private fb: FormBuilder,
@@ -104,9 +104,14 @@ export class AddPropertyComponent implements OnInit {
  onSubmit():void{
    this.property = this.docForm.value;
    if(this.docForm.valid){ 
-     this.propertyService.saveprop(this.property,this.router,this.notificationService);
-     this.router.navigate(['/master/property/list-property']);
-   } else {
+     this.propertyService.saveprop(this.property,this.notificationService);
+     if(window.sessionStorage.getItem("propFrom")=="prop"){
+      window.sessionStorage.setItem("propFrom","");
+      this.router.navigate(['/master/multiple/allMaster/0']);
+    }else if(window.sessionStorage.getItem("propFrom")=="normal"){
+      window.sessionStorage.setItem("propFrom","");
+      this.router.navigate(['/master/property/list-property']);
+    }   } else {
      this.notificationService.showNotification(
        "snackbar-danger",
        "Please fill all the required details!",
@@ -115,7 +120,14 @@ export class AddPropertyComponent implements OnInit {
    }
  }
  onCancel(){
-   this.router.navigate(['/master/property/list-property']);
+
+if(window.sessionStorage.getItem("propFrom")=="prop"){
+  window.sessionStorage.setItem("propFrom","");
+  this.router.navigate(['/master/multiple/allMaster/0']);
+}else if(window.sessionStorage.getItem("propFrom")=="normal"){
+  window.sessionStorage.setItem("propFrom","");
+  this.router.navigate(['/master/property/list-property']);
+}
  }
  reset() {
    

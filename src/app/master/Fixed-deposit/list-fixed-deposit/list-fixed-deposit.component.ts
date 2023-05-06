@@ -83,12 +83,28 @@ export class ListFixedDepositComponent extends UnsubscribeOnDestroyAdapter imple
     );
   }
 
-  addNew(){
+  addPage(){
+    this.url=this.router.url;
+    if(this.url.includes("allMaster")){
+    window.sessionStorage.setItem("fixedFrom", "fixed");
     this.router.navigate(['/master/Fixed-deposit/add-fixed-deposit/0']);
+    }else if(this.url.includes('list-fixed-deposit')){
+    window.sessionStorage.setItem("fixedFrom", "normal");
+    this.router.navigate(['/master/Fixed-deposit/add-fixed-deposit/0']);
+    };
   }
   editCall(row) {
-   
-    this.router.navigate(['/master/Fixed-deposit/add-fixed-deposit/'+row.id]);
+ 
+      this.url=this.router.url;
+      if(this.url.includes("allMaster")){
+      window.sessionStorage.setItem("fixedFrom", "fixed");
+      this.router.navigate(['/master/Fixed-deposit/add-fixed-deposit/'+row.id]);
+    }else if(this.url.includes('list-fixed-deposit')){
+      window.sessionStorage.setItem("fixedFrom", "normal");
+      this.router.navigate(['/master/Fixed-deposit/add-fixed-deposit/'+row.id]);
+    };
+      
+    
   
   }
 //   deleteItem(row){

@@ -233,8 +233,13 @@ docForm: FormGroup;
 
 
   onCancel(){
-    this. router.navigate(['/master/Fixed-deposit/list-fixed-deposit'])
-
+    if(window.sessionStorage.getItem("fixedFrom")=="fixed"){
+      window.sessionStorage.setItem("fixedFrom","");
+      this.router.navigate(['/master/multiple/allMaster/0']);
+    }else if(window.sessionStorage.getItem("fixedFrom")=="normal"){
+      window.sessionStorage.setItem("fixedFrom","");
+      this. router.navigate(['/master/Fixed-deposit/list-fixed-deposit'])
+    }
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
   

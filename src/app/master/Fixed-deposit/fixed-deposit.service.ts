@@ -61,8 +61,14 @@ export class FixedDepositService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-      router.navigate(['/master/Fixed-deposit/list-fixed-deposit'])
-      }else {
+        if(window.sessionStorage.getItem("fixedFrom")=="fixed"){
+          window.sessionStorage.setItem("fixedFrom","");
+         router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("fixedFrom")=="normal"){
+          window.sessionStorage.setItem("fixedFrom","");
+          router.navigate(['/master/Fixed-deposit/list-fixed-deposit'])
+        }     
+       }else {
         notificationService.showNotification(
           "snackbar-danger",
           "Not Added!!!",
@@ -87,8 +93,13 @@ export class FixedDepositService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-        router.navigate(['/master/Fixed-deposit/list-fixed-deposit/'])
-  
+        if(window.sessionStorage.getItem("fixedFrom")=="fixed"){
+          window.sessionStorage.setItem("fixedFrom","");
+         router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("fixedFrom")=="normal"){
+          window.sessionStorage.setItem("fixedFrom","");
+          router.navigate(['/master/Fixed-deposit/list-fixed-deposit'])
+        }
       }else {
         notificationService.showNotification(
           "snackbar-danger",

@@ -49,7 +49,7 @@ export class AddVehicleComponent implements OnInit {
     requestId: any;
     branchList: [];
     submitted: boolean;
-    
+    url:any;
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -193,7 +193,15 @@ export class AddVehicleComponent implements OnInit {
          }
 
          onCancel(){
-           this.router.navigate(['/master/vehicle/list-vehicle']);
+
+          if(window.sessionStorage.getItem("vehicleFrom")=="vehicle"){
+            window.sessionStorage.setItem("vehicleFrom","");
+            this.router.navigate(['/master/multiple/allMaster/0']);
+          }else if(window.sessionStorage.getItem("vehicleFrom")=="normal"){
+            window.sessionStorage.setItem("vehicleFrom","");
+            this.router.navigate(['/master/vehicle/list-vehicle']);
+          }
+         
          }
          
 
