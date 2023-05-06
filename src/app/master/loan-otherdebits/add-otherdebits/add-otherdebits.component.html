@@ -176,7 +176,7 @@
                     </div>
                     <div class=" col-md-2" style="margin-left: -45px;padding-bottom: 18px;">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="interestRate" (keypress)="keyPressNumeric($event)" maxlength="3" >
+                        <input matInput formControlName="interestRate" (keypress)="keyPressNumberDouble($event)" maxlength="3" >
                         <mat-error *ngIf="docForm.get('interestRate').hasError('required')">
                           Rate of Interest is required
                         </mat-error>
@@ -214,8 +214,8 @@
                         <mat-option [value]="'INDIAN BANK'">
                           INDIAN BANK
                         </mat-option>
-                        <mat-option [value]="'ICIC'">
-                          ICIC
+                        <mat-option [value]="'ICICI'">
+                          ICICI
                         </mat-option>
                   </mat-select>
                     <mat-error *ngIf="docForm.get('bankname').hasError('required')">

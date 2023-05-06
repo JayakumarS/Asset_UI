@@ -14,7 +14,7 @@ export class Otherdebits {
     emiDate:string;
     emidateObj:string;
     penalityAmount:number;
-    interestRate:number;
+    interestRate:string;
     accountNo:number;
     account:string;
     bankname:string;
