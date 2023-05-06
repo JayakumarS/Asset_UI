@@ -3,7 +3,7 @@
       <div class="block-header" style="padding: 0.5% !important;">
   
   
-        <app-breadcrumb [title]="'Fixed-deposit'" [items]="['Master']" [active_item]="'List-Fixed-deposit'">
+        <app-breadcrumb [title]="'Fixed-Deposit'" [items]="['Master']" [active_item]="'List-Fixed-Deposit'">
         </app-breadcrumb>
       </div>
       <div class="row">
@@ -16,7 +16,7 @@
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
                         <li class="dropdown m-l-20 ">
-                          <h2>Fixed-deposit List</h2>
+                          <h2>Fixed-Deposit List</h2>
                         </li>
                         <li class="dropdown m-l-20">
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
@@ -48,19 +48,19 @@
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                     #exporter="matTableExporter">
                     <ng-container matColumnDef="applicationNo">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>APPLICATION ID</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Application Id</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.applicationNo}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="fdName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>FD HOLDER-NAME</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>FD Holder-Name</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.fdName}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="investmentTerm">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>INVESTMENT TERM</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Investment Term</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.investmentTerm}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="fixeddeposittype">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>FIXED DEPOSIT TYPE</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Fixed Deposit Type</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.fixeddeposittype}}</mat-cell>
                     </ng-container>
             
