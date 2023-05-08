@@ -46,6 +46,7 @@ export class AddFundComponent implements OnInit {
   requestId: number;
   edit:boolean=false;
   userId:any;
+  submitted: boolean;
 
 
   fund:Fund;
@@ -64,10 +65,11 @@ export class AddFundComponent implements OnInit {
        tin:["",[Validators.required]],
        fundNo:[""],
        loginedUser: this.tokenStorage.getUserId(),
+
+
       sampleDtl: this.fb.array([
-        
         this.fb.group({
-          fundname:[""],
+          fundname:["",[Validators.required]],
           inceptiondate:[""],
           inceptiondateObj:[""],
           assetclass:[""],
@@ -75,7 +77,6 @@ export class AddFundComponent implements OnInit {
           minimuminvestment:["",[Validators.required]],
           investmentstyle:[""],
           expenseratio:[""], 
-        
           loginedUser: this.tokenStorage.getUserId(),
          
 
@@ -118,6 +119,7 @@ export class AddFundComponent implements OnInit {
   }
   
   onSubmit(){
+    this.submitted = true;
     this.fund = this.docForm.value;
  
      if(this.docForm.valid){ 

@@ -85,19 +85,25 @@ export class ListVehicleComponent   extends UnsubscribeOnDestroyAdapter implemen
     );
   }
 
-  addLine(){
+  addPage(){
     this.url=this.router.url;
-    if(this.url.includes("addCompany")){
-    window.sessionStorage.setItem("LineFrom", "line");
-    this.router.navigate(['/master/line/addLine/0']);
-    }else if(this.url.includes('listLine')){
-    window.sessionStorage.setItem("LineFrom", "normal");
-    this.router.navigate(['/master/line/addLine/']);
+    if(this.url.includes("allMaster")){
+    window.sessionStorage.setItem("vehicleFrom", "vehicle");
+    this.router.navigate(['/master/vehicle/add-vehicle/0']);
+    }else if(this.url.includes('list-vehicle')){
+    window.sessionStorage.setItem("vehicleFrom", "normal");
+    this.router.navigate(['/master/vehicle/add-vehicle/0']);
     };
   }
   editCall(row) {
-    
+    this.url=this.router.url;
+    if(this.url.includes("allMaster")){
+    window.sessionStorage.setItem("vehicleFrom", "vehicle");
     this.router.navigate(['/master/vehicle/add-vehicle/'+row.id]);
+    }else if(this.url.includes('list-vehicle')){
+    window.sessionStorage.setItem("vehicleFrom", "normal");
+    this.router.navigate(['/master/vehicle/add-vehicle/'+row.id]);
+    };
     };
     deleteItem(row){
       let tempDirection;

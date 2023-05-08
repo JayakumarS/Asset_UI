@@ -73,7 +73,13 @@ export class PropertyService extends UnsubscribeOnDestroyAdapter {
           "bottom",
           "center"
         );
-        router.navigate(['/master/property/list-property']);
+        if(window.sessionStorage.getItem("propFrom")=="prop"){
+          window.sessionStorage.setItem("propFrom","");
+          router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("propFrom")=="normal"){
+          window.sessionStorage.setItem("propFrom","");
+          router.navigate(['/master/property/list-property']);
+        }
        
         
       }else {
@@ -91,7 +97,7 @@ export class PropertyService extends UnsubscribeOnDestroyAdapter {
         
     });
   }
-  saveprop(property,router,notificationService) {
+  saveprop(property,notificationService) {
     this.dialogData = property;
     this.httpService.post<any>(this.save, property).subscribe(data => {
       console.log(data);
@@ -127,7 +133,6 @@ export class PropertyService extends UnsubscribeOnDestroyAdapter {
           "bottom",
           "center"
         );
-        router.navigate(['master/property/list-property']);
       }
       else if(data.success == false){
         notificationService.showNotification(

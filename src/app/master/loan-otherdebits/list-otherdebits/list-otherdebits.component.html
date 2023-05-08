@@ -47,19 +47,19 @@
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                     #exporter="matTableExporter">
                     <ng-container matColumnDef="bankname">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>BANK NAME</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Bank Name</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.bankname}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="type">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>LOAN TYPE</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Lone Type</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.type}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="loan">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>LOAN ID</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Loan Id</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.loan}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="loanAmount">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>LOAN AMOUNT</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Loan Amount</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.loanAmount}}</mat-cell>
                     </ng-container>
                     <!-- <ng-container matColumnDef="paymentStartDate">

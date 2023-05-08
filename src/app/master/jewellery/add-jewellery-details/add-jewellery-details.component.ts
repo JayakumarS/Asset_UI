@@ -293,7 +293,13 @@ onSubmit(){
     }
   }
  cancel(){
-  this.router.navigate(['/master/jewellery/list-jewellery-details']);
+  if(window.sessionStorage.getItem("jewelFrom")=="jewel"){
+    window.sessionStorage.setItem("jewelFrom","");
+    this.router.navigate(['/master/multiple/allMaster/0']);
+  }else if(window.sessionStorage.getItem("jewelFrom")=="normal"){
+    window.sessionStorage.setItem("jewelFrom","");
+    this.router.navigate(['/master/jewellery/list-jewellery-details']);
+  }
 
   }
   showNotification(colorName, text, placementFrom, placementAlign) {

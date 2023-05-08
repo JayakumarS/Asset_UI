@@ -22,6 +22,7 @@ export class JewelleryService extends UnsubscribeOnDestroyAdapter{
   );
   RoleId: string;
   companyId:String;
+
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
    }
@@ -85,8 +86,13 @@ export class JewelleryService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-        router.navigate(['/master/jewellery/list-jewellery-details']);
-
+    if(window.sessionStorage.getItem("jewelFrom")=="jewel"){
+          window.sessionStorage.setItem("jewelFrom","");
+          router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("jewelFrom")=="normal"){
+          window.sessionStorage.setItem("jewelFrom","");
+          router.navigate(['/master/jewellery/list-jewellery-details']);
+        } 
       }else {
         notificationService.showNotification(
           "snackbar-danger",
@@ -134,8 +140,13 @@ export class JewelleryService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-        router.navigate(['/master/jewellery/list-jewellery-details']);
-      }else {
+        if(window.sessionStorage.getItem("jewelFrom")=="jewel"){
+          window.sessionStorage.setItem("jewelFrom","");
+          router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("jewelFrom")=="normal"){
+          window.sessionStorage.setItem("jewelFrom","");
+          router.navigate(['/master/jewellery/list-jewellery-details']);
+        }      }else {
         notificationService.showNotification(
           "snackbar-danger",
           "Not Added!!!",
