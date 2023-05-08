@@ -225,8 +225,14 @@ export class AddReceivablesComponent implements OnInit {
   }
   }
   cancel(){
-    this.router.navigate(['/master/loan-receivables/list-receivables']);
-
+    if(window.sessionStorage.getItem("receivableFrom")=="receivable"){
+      window.sessionStorage.setItem("receivableFrom","");
+      this.router.navigate(['/master/multiple/allMaster/0']);
+    }else if(window.sessionStorage.getItem("receivableFrom")=="normal"){
+      window.sessionStorage.setItem("receivableFrom","");
+      this.router.navigate(['/master/loan-receivables/list-receivables']);
+    }
+    
   }
   
   showNotification(colorName, text, placementFrom, placementAlign) {

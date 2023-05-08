@@ -97,8 +97,15 @@ export class ListFundComponent extends UnsubscribeOnDestroyAdapter implements On
     );
   }
   addNew(){
-    
-    this.router.navigate(['/master/mutualfund/add-fund/0']);
+  this.url=this.router.url;
+  if(this.url.includes("allMaster")){
+  window.sessionStorage.setItem("mutualFrom", "mutual");
+  this.router.navigate(['/master/mutualfund/add-fund/0']);
+  }else if(this.url.includes('mutualfund')){
+  window.sessionStorage.setItem("mutualFrom", "normal");
+  this.router.navigate(['/master/mutualfund/add-fund/0']);
+  };
+   
     };
   
   editCall(row) {

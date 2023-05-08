@@ -110,14 +110,14 @@ export class ListReceivablesComponent extends UnsubscribeOnDestroyAdapter implem
       );
     }
 
-    addStatus(){
+    addPage(){
       this.url=this.router.url;
-      if(this.url.includes("addCompany")){
-      window.sessionStorage.setItem("StateFrom", "state");
-      this.router.navigate(['/master/status/addStatus/0']);
-      }else if(this.url.includes('listStatus')){
-      window.sessionStorage.setItem("StateFrom", "normal");
-      this.router.navigate(['/master/status/addStatus/0']);
+      if(this.url.includes("allMaster")){
+      window.sessionStorage.setItem("receivableFrom", "receivable");
+      this.router.navigate(['/master/loan-receivables/add-receivables/0']);
+      }else if(this.url.includes('receivables')){
+      window.sessionStorage.setItem("receivableFrom", "normal");
+      this.router.navigate(['/master/loan-receivables/add-receivables/0']);
       };
     }
 

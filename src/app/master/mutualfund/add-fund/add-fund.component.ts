@@ -229,8 +229,14 @@ export class AddFundComponent implements OnInit {
   }
   }
 onCancel(){
-  this.router.navigate(['/master/mutualfund/list-fund']);
 
+  if(window.sessionStorage.getItem("mutualFrom")=="mutual"){
+    window.sessionStorage.setItem("mutualFrom","");
+    this.router.navigate(['/master/multiple/allMaster/0']);
+  }else if(window.sessionStorage.getItem("mutualFrom")=="normal"){
+    window.sessionStorage.setItem("mutualFrom","");
+    this.router.navigate(['/master/mutualfund/list-fund']);
+  }
 }
 
 removeRowSelf(index){

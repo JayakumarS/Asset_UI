@@ -71,7 +71,14 @@ export class LoanReceivablesService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-        router.navigate(['/master/loan-receivables/list-receivables']);
+        if(window.sessionStorage.getItem("receivableFrom")=="receivable"){
+          window.sessionStorage.setItem("receivableFrom","");
+          router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("receivableFrom")=="normal"){
+          window.sessionStorage.setItem("receivableFrom","");
+          router.navigate(['/master/loan-receivables/list-receivables']);
+        }
+       // router.navigate(['/master/loan-receivables/list-receivables']);
       }else {
         notificationService.showNotification(
           "snackbar-danger",
@@ -98,7 +105,15 @@ export class LoanReceivablesService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-        router.navigate(['/master/loan-receivables/list-receivables']);
+
+        if(window.sessionStorage.getItem("receivableFrom")=="receivable"){
+          window.sessionStorage.setItem("receivableFrom","");
+          router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("receivableFrom")=="normal"){
+          window.sessionStorage.setItem("receivableFrom","");
+          router.navigate(['/master/loan-receivables/list-receivables']);
+        }
+        //router.navigate(['/master/loan-receivables/list-receivables']);
       }else {
         notificationService.showNotification(
           "snackbar-danger",

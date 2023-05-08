@@ -215,14 +215,14 @@ if(inputFlag=='emiDate'){
 
 
 cancel() { 
-  this.router.navigate(['/master/loan-otherdebits/list-otherdebits']);
+  if(window.sessionStorage.getItem("loanFrom")=="loan"){
+    window.sessionStorage.setItem("loanFrom","");
+    this.router.navigate(['/master/multiple/allMaster/0']);
+  }else if(window.sessionStorage.getItem("loanFrom")=="normal"){
+    window.sessionStorage.setItem("loanFrom","");
+    this.router.navigate(['/master/loan-otherdebits/list-otherdebits']);
+  }
 }
-// interestRates = [0,1.5, 2, 2.5, 3, 3.5];
-// edit:boolean=false;
-// commonService: any;
-// docForm: any;
-
-
 
 onSubmit(){
   this.otherdebits = this.docForm.value;

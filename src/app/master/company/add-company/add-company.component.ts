@@ -228,7 +228,7 @@ export class AddCompanyComponent implements OnInit {
           this.edit = true;
           this.fetchCompanyDetails(this.requestId);
           this.fetchDetails(this.requestId);  
-          window.sessionStorage.setItem("findFrom", "");
+         // window.sessionStorage.setItem("findFrom", "");
         } else {
           // For Editable mode
           this.fetchDetails(this.requestId);
@@ -366,10 +366,16 @@ export class AddCompanyComponent implements OnInit {
   
   
   fetchDynamicDropDown(pincode, i){
+
+    if(pincode==null || pincode==""){
+      pincode='625014';
+    }
+
     if(pincode !=null){
     if(pincode!=""){
       this.httpService.get(this.commonService.getPincodeDetailsUrl + "?pinCode=" + pincode).subscribe((res: any) => {
         if(res.success){
+          this.dynamicDropDownList.push([]);
           this.dynamicDropDownList[i][0] = res.countryList;
           this.dynamicDropDownList[i][1] = res.stateList;
           this.dynamicDropDownList[i][2] = res.districtList;
@@ -383,7 +389,19 @@ export class AddCompanyComponent implements OnInit {
             "right");
         }
       })
+    } else {
+      this.dynamicDropDownList.push([]);
+      this.dynamicDropDownList[i][0] = [];
+      this.dynamicDropDownList[i][1] = [];
+      this.dynamicDropDownList[i][2] = [];
+      this.dynamicDropDownList[i][3] = [];
     }
+  } else {
+    this.dynamicDropDownList.push([]);
+    this.dynamicDropDownList[i][0] = [];
+    this.dynamicDropDownList[i][1] = [];
+    this.dynamicDropDownList[i][2] = [];
+    this.dynamicDropDownList[i][3] = [];
   }
 }
 
@@ -394,15 +412,15 @@ export class AddCompanyComponent implements OnInit {
          
           if(this.dynamicDropDownList[i]==undefined){
             this.dynamicDropDownList.push([]);
-            this.dynamicDropDownList[i][0] = res.countryList;
-            this.dynamicDropDownList[i][1] = res.stateList;
-            this.dynamicDropDownList[i][2] = res.districtList;
-            this.dynamicDropDownList[i][3] = res.cityList;
+            this.dynamicDropDownList[i-1][0] = res.countryList;
+            this.dynamicDropDownList[i-1][1] = res.stateList;
+            this.dynamicDropDownList[i-1][2] = res.districtList;
+            this.dynamicDropDownList[i-1][3] = res.cityList;
           }else{
-            this.dynamicDropDownList[i][0] = res.countryList;
-            this.dynamicDropDownList[i][1] = res.stateList;
-            this.dynamicDropDownList[i][2] = res.districtList;
-            this.dynamicDropDownList[i][3] = res.cityList;
+            this.dynamicDropDownList[i-1][0] = res.countryList;
+            this.dynamicDropDownList[i-1][1] = res.stateList;
+            this.dynamicDropDownList[i-1][2] = res.districtList;
+            this.dynamicDropDownList[i-1][3] = res.cityList;
           }
           
         }

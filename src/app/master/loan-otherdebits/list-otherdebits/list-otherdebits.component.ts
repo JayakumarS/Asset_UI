@@ -93,16 +93,15 @@ export class ListOtherdebitsComponent extends UnsubscribeOnDestroyAdapter implem
     );
   }
 
-  addLine(){
-    this.router.navigate(['/master/loan-otherdebits/add-otherdebits/0']);
-    // this.url=this.router.url;
-    // if(this.url.includes("addCompany")){
-    // window.sessionStorage.setItem("LineFrom", "line");
-    // this.router.navigate(['/master/loan-otherdebits/add-otherdebits/0']);
-    // }else if(this.url.includes('listLine')){
-    // window.sessionStorage.setItem("LineFrom", "normal");
-    // this.router.navigate(['/master/loan-otherdebits/add-otherdebits/0']);
-    // };
+  addPage(){
+  this.url=this.router.url;
+  if(this.url.includes("allMaster")){
+  window.sessionStorage.setItem("loanFrom", "loan");
+  this.router.navigate(['/master/loan-otherdebits/add-otherdebits/0']);
+  }else if(this.url.includes('otherdebits')){
+  window.sessionStorage.setItem("loanFrom", "normal");
+  this.router.navigate(['/master/loan-otherdebits/add-otherdebits/0']);
+  };
   }
   editCall(row) {
       this.router.navigate(['/master/loan-otherdebits/add-otherdebits/'+row.id]);

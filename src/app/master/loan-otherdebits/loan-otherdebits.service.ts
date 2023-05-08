@@ -46,7 +46,16 @@ export class LoanOtherdebitsService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-        router.navigate(['/master/loan-otherdebits/list-otherdebits']);
+
+        if(window.sessionStorage.getItem("loanFrom")=="loan"){
+          window.sessionStorage.setItem("loanFrom","");
+          router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("loanFrom")=="normal"){
+          window.sessionStorage.setItem("loanFrom","");
+          router.navigate(['/master/loan-otherdebits/list-otherdebits']);
+        }
+
+       // router.navigate(['/master/loan-otherdebits/list-otherdebits']);
       }else {
         notificationService.showNotification(
           "snackbar-danger",
@@ -92,7 +101,14 @@ export class LoanOtherdebitsService extends UnsubscribeOnDestroyAdapter{
           "bottom",
           "center"
         );
-      router.navigate(['/master/loan-otherdebits/list-otherdebits']);
+        if(window.sessionStorage.getItem("loanFrom")=="loan"){
+          window.sessionStorage.setItem("loanFrom","");
+          router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("loanFrom")=="normal"){
+          window.sessionStorage.setItem("loanFrom","");
+          router.navigate(['/master/loan-otherdebits/list-otherdebits']);
+        }
+      //router.navigate(['/master/loan-otherdebits/list-otherdebits']);
       }else {
         notificationService.showNotification(
           "snackbar-danger",
