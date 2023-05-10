@@ -1541,16 +1541,18 @@ configUserLog: {
 
 
   onChangeIndividual(){
-    var userId=this.tokenStorage.getCompanyId();
-    window.sessionStorage.setItem("TabFromInd","");
-    window.sessionStorage.setItem("propFrom", "");
-    window.sessionStorage.setItem("vehicleFrom","");
-    window.sessionStorage.setItem("jewelFrom","");
-    window.sessionStorage.setItem("fixedFrom","");
-    window.sessionStorage.setItem("mutualFrom","");
-    window.sessionStorage.setItem("loanFrom","");
-    window.sessionStorage.setItem("receivableFrom","");
-    this.router.navigate(['master/multiple/allMaster/'+userId]);
+    // var userId=this.tokenStorage.getCompanyId();
+    // window.sessionStorage.setItem("TabFromInd","");
+    // window.sessionStorage.setItem("propFrom", "");
+    // window.sessionStorage.setItem("vehicleFrom","");
+    // window.sessionStorage.setItem("jewelFrom","");
+    // window.sessionStorage.setItem("fixedFrom","");
+    // window.sessionStorage.setItem("mutualFrom","");
+    // window.sessionStorage.setItem("loanFrom","");
+    // window.sessionStorage.setItem("receivableFrom","");
+    // this.router.navigate(['master/multiple/allMaster/'+userId]);
+
+    this.router.navigate(['master/multiple/individualInfo/0']);
   }
 
   onchangeAsset(){

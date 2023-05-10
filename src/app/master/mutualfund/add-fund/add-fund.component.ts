@@ -73,9 +73,10 @@ export class AddFundComponent implements OnInit {
        operatingExpenses:[""],
        investmentMethod:[""],
        modeOfInvestment:[""],
-       userName:["",[Validators.required]],
-       password:["",[Validators.required]],
-       email: ['', [Validators.required,Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+       userName:[""],
+       password:[""],
+      //email: ['', [Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+       email: [''],
        totalAssured:[""],
        totalFund:[""],
        assured:[""],
@@ -99,6 +100,8 @@ export class AddFundComponent implements OnInit {
        nextPremiumDateObj:[""],
        nextPremiumDate:[""],
        paymentMethod:[""],
+       dobObj:[""],
+       dob:[""],
 
       sampleDtl: this.fb.array([
         this.fb.group({
@@ -137,6 +140,9 @@ export class AddFundComponent implements OnInit {
       if(inputFlag=='nextPremiumDate'){
         this.docForm.patchValue({nextPremiumDate:cdate});
       } 
+      if(inputFlag=='dob'){
+        this.docForm.patchValue({dob:cdate});
+      }
     
     // if (inputFlag == 'inceptiondate') {
     //   this.docForm.patchValue({inceptiondate: cdate });
@@ -228,6 +234,8 @@ export class AddFundComponent implements OnInit {
           'nextPremiumDateObj':res.fundBean.nextPremiumDate != null ? this.commonService.getDateObj(res.fundBean.nextPremiumDate) : "",
           'nextPremiumDate':res.fundBean.nextPremiumDate,
           'paymentMethod':res.fundBean.paymentMethod,
+          'dobObj':res.fundBean.dob != null ? this.commonService.getDateObj(res.fundBean.dob) : "",
+          'dob':res.fundBean.dob,
       });
       if (res.sampleDtlDetail != null && res.sampleDtlDetail.length >= 1) {
         let sampleDtlDetailArray = this.docForm.controls.sampleDtl as FormArray;
@@ -324,6 +332,8 @@ export class AddFundComponent implements OnInit {
        nextPremiumDateObj:[""],
        nextPremiumDate:[""],
        paymentMethod:[""],
+       dobObj:[""],
+       dob:[""],
 
       sampleDtl: this.fb.array([ 
         this.fb.group({
