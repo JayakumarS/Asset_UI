@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { CommonService } from 'src/app/common-service/common.service';
-
+import { HttpErrorResponse } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -61,6 +61,8 @@ export class AddOtherdebitsComponent implements OnInit {
   value1: any;
   currencyListbasedCompany=[];
   totalValue:number;
+  loanPropertyList: any;
+
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -76,6 +78,7 @@ export class AddOtherdebitsComponent implements OnInit {
     
    
       this.docForm = this.fb.group({
+        LoanProperty:[""],
         type:["", [Validators.required]],
         loanID:[""],
         loan:["", [Validators.required]],
@@ -109,6 +112,18 @@ export class AddOtherdebitsComponent implements OnInit {
        this.fetchDetails(this.requestId) ;
       }
      });
+
+         // Property loan dropdown
+    this.httpService.get<any>(this.loanOtherdebitsService.getLoanPropertyList).subscribe({
+      next: (data) => {
+        this.loanPropertyList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
   }
 
 
@@ -221,6 +236,10 @@ cancel() {
   }else if(window.sessionStorage.getItem("loanFrom")=="normal"){
     window.sessionStorage.setItem("loanFrom","");
     this.router.navigate(['/master/loan-otherdebits/list-otherdebits']);
+  }else
+  {
+    this.router.navigate(['/master/loan-otherdebits/list-otherdebits']);
+
   }
 }
 
@@ -282,6 +301,39 @@ showNotification(colorName, text, placementFrom, placementAlign) {
     panelClass: colorName,
   });
 }
+
+
+getPropertyDetails(requestId: any): void {
+  const obj = {
+    propertyId: requestId
+  }
+  this.loanOtherdebitsService.getPropertyDetails(obj).subscribe({
+    next: (res) => {
+    this.docForm.patchValue({
+        'type': res.loantype,
+        'loan':res.loanNo,
+        'loanAmount': res.loanAmount,
+        'loanRef':res.loanRef,
+        'loanStartDateObj' :this.commonService.getDateObj(res.loanStartDate),
+        'loanStartDate' :res.loanStartDate,
+        'loanDueDateObj':this.commonService.getDateObj(res.loanDueDate),
+        'loanDueDate':res.loanDueDate,
+        'amount' :res.amount,
+        'emidateObj':this.commonService.getDateObj(res.emiDate),
+        'emiDate':res.emiDate,
+        'penalityAmount':res.penalityAmount,
+        'interestRate' :res.loanInterest,
+        'account':res.account,
+        'bankname': res.bankname,
+        'id' :this.requestId,     
+         
+    });
+  },
+  error: (error) => {
+  }
+  });
+  }
+
 }
 // getDateString(event, inputFlag, index) {
 //   let cdate = this.commonService.getDate(event.target.value);

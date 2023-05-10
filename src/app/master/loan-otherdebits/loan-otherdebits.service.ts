@@ -31,6 +31,10 @@ export class LoanOtherdebitsService extends UnsubscribeOnDestroyAdapter{
    public updatedepMaster = `${this.serverUrl.apiServerAddress}app/otherdebits/updatedep`;
    public deleteotherdebits = `${this.serverUrl.apiServerAddress}app/otherdebits/deletedep`;
    
+   public getLoanPropertyList = `${this.serverUrl.apiServerAddress}app/otherdebits/LoanPropertyList`;
+   public PropertyDetails = `${this.serverUrl.apiServerAddress}app/otherdebits/getPropertyDetails`;
+
+   
    get data(): Otherdebits[] {
     return this.dataChange.value;
   }
@@ -84,6 +88,10 @@ export class LoanOtherdebitsService extends UnsubscribeOnDestroyAdapter{
       }
     );
 
+  }
+
+  getPropertyDetails(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.PropertyDetails, obj);
   }
 
   editlist(obj: any): Observable<any> {
