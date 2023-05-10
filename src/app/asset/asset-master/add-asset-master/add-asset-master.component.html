@@ -307,6 +307,8 @@
                           <tr>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset Item <span class="errorColor"> *</span>
                             </th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset ID <span class="errorColor"> *</span>
+                            </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.07rem;"> Asset Name <span class="errorColor"> *</span>
                             </th>
                             <th class="text-center table-heading padding-both-side-2 width_7" style="width: 12%;margin-left: 25px;border-radius: 0.05rem;"> Location <span class="errorColor"> *</span>
@@ -348,6 +350,13 @@
                                   </mat-select>
                                 </mat-form-field>
                                 <div *ngIf="submitted && quantityBasedAssetList.get('itemId').hasError('required')" class="failed-validation" class="errorColor"> Asset item is required </div>
+                              </td>
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Asset ID</mat-label>
+                                  <input tabindex="51" matInput name="assetId1{{i}}" formControlName="assetId1" maxlength="150" (keypress)="keyPressName($event)">
+                                </mat-form-field>
+                                <div *ngIf="submitted && quantityBasedAssetList.get('assetId1').hasError('required')" class="failed-validation" class="errorColor"> Asset ID is required </div>
                               </td>
                               <td class="padding-both-side-2">
                                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">

@@ -74,33 +74,33 @@
                                     <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
                                         {{row.assetId}}</mat-cell>
                                 </ng-container> -->
-
+                                <ng-container matColumnDef="assetCode">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Asset Code </mat-header-cell>
+                                  <mat-cell *matCellDef="let row"  >
+                                      {{row.assetCode}}</mat-cell>
+                              </ng-container>
                                 <ng-container matColumnDef="assetName">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Asset Name </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row"  >
                                         {{row.assetName}}</mat-cell>
                                 </ng-container>
 
-                                <ng-container matColumnDef="assetCode">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Asset Code </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
-                                        {{row.assetCode}}</mat-cell>
-                                </ng-container>
+                               
                                 <ng-container matColumnDef="Location">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Location </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row"  >
                                         {{row.locationName}}</mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Category">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row" >
                                         {{row.categoryName}}</mat-cell>
                                 </ng-container>
-                                <ng-container matColumnDef="status">
+                                <!-- <ng-container matColumnDef="status">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Status </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)">
+                                    <mat-cell *matCellDef="let row"  >
                                         {{row.statusName}}</mat-cell>
-                                </ng-container>
+                                </ng-container> -->
 
 
 

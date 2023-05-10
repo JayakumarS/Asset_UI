@@ -201,6 +201,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: ["", [Validators.required]],
+          assetId1: ["", [Validators.required]],
           assetName: ["", [Validators.required]],
           location: ["", [Validators.required]],
           status: ["", [Validators.required]],
@@ -713,6 +714,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
           let newUsergroup: FormGroup = this.fb.group({
             'itemId': res.addAssetBean.itemId,
             'assetName': res.addAssetBean.assetName,
+            'assetId1': res.addAssetBean.assetId1,
             'location': res.addAssetBean.location,
             'status': res.addAssetBean.status,
             'putUseDate': res.addAssetBean.putUseDate,
@@ -1215,6 +1217,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       quantityBasedAssetList: this.fb.array([
         this.fb.group({
           itemId: ["", [Validators.required]],
+          assetId1: ["", [Validators.required]],
           assetName: ["", [Validators.required]],
           location: ["", [Validators.required]],
           status: ["", [Validators.required]],
@@ -1303,6 +1306,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
                 let arraylen = quantityBasedAssetArray.length;
                 let newUsergroup: FormGroup = this.fb.group({
                   itemId: [element.itemId, [Validators.required]],
+                  assetId1: ["", [Validators.required]],
                   assetName: ["", [Validators.required]],
                   location: ["", [Validators.required]],
                   status: ["", [Validators.required]],
@@ -1343,6 +1347,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
         let arraylen = quantityBasedAssetArray.length;
         let newUsergroup: FormGroup = this.fb.group({
           itemId: ["", [Validators.required]],
+          assetId1: ["", [Validators.required]],
           assetName: ["", [Validators.required]],
           location: ["", [Validators.required]],
           status: ["", [Validators.required]],
@@ -1368,6 +1373,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       let arraylen = quantityBasedAssetArray.length;
       let newUsergroup: FormGroup = this.fb.group({
         itemId: ["", [Validators.required]],
+        assetId1: ["", [Validators.required]],
         assetName: ["", [Validators.required]],
         location: ["", [Validators.required]],
         status: ["", [Validators.required]],
