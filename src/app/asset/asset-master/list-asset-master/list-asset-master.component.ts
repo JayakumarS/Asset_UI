@@ -31,11 +31,11 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
   displayedColumns = [
     "select",
     // "assetId",
-    "assetName",
     "assetCode",
+    "assetName",
     "Location",
     "Category",
-    "status",
+   // "status",
     "actions"
   ];
 
@@ -346,7 +346,7 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
           .filter((assetMaster: AssetMaster) => {
             const searchStr = (
               assetMaster.assetName +
-              assetMaster.assetId +
+             // assetMaster.assetId +
               assetMaster.assetCode +
               assetMaster.locationName +
               assetMaster.categoryName +
@@ -383,9 +383,9 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
         case "id":
           [propertyA, propertyB] = [a.id, b.id];
           break;
-          case "assetId":
-          [propertyA, propertyB] = [a.assetId, b.assetId];
-          break;
+          // case "assetId":
+          // [propertyA, propertyB] = [a.assetId, b.assetId];
+          // break;
         case "assetName":
           [propertyA, propertyB] = [a.assetName, b.assetName];
           break;
