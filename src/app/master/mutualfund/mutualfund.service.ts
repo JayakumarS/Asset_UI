@@ -34,6 +34,7 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
    public deletefd= `${this.serverUrl.apiServerAddress}app/mutualfund/delete`; 
    private saveProfileAll = `${this.serverUrl.apiServerAddress}api/auth/app/individual/saveProfile`;
    public getProfileDetails = `${this.serverUrl.apiServerAddress}api/auth/app/individual/getProfile`;
+   public getCompletionCount = `${this.serverUrl.apiServerAddress}api/auth/app/individual/getCompletionCount`;
 
    get data(): Fund[] {
     return this.dataChange.value;
