@@ -51,6 +51,7 @@ export class AddPropertyComponent implements OnInit {
   branchList = [];
   edit:boolean=false;
   url:any;
+  isRent: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -65,6 +66,13 @@ export class AddPropertyComponent implements OnInit {
     private tokenStorage:TokenStorageService,
   ) { 
     this.docForm = this.fb.group({
+       propertyType:[""],
+       rentType:[""],
+       payerDate:[""],
+       payerDateObj:[""],
+       inMonth:[""],
+       payerMode:[""],
+       recive:[""],
        propertyHolderName:["", [Validators.required]],
        noProperty:["", [Validators.required]],
        propertyRate:[""],
@@ -73,18 +81,18 @@ export class AddPropertyComponent implements OnInit {
        propertyLocation:[""],
        taxNo:[""],
        mortage:[""],
-       type:["", [Validators.required]],
+       loan:["", [Validators.required]],
        ownership:["", [Validators.required]],
        depVal:[""],
        currentValue:[""],
        squareFeet:[""],
-       loan:["", [Validators.required]],
+       type:["", [Validators.required]],
        loanNo:[""],
        loanInterest:[""],
-
-      loginedUser: this.tokenStorage.getUserId(),
-
-
+       loantype:[""],
+       account:[""],
+       loanAmount:[""],
+       loginedUser: this.tokenStorage.getUserId(),
     
 
    })
@@ -97,6 +105,8 @@ export class AddPropertyComponent implements OnInit {
      this.edit=true;
      //For User login Editable mode
      this.fetchDetails(this.requestId) ;
+     this.propertyFlag(event);
+
     }
   });
  }
@@ -135,7 +145,14 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
    if (!this.edit) {
     location.reload()
    this.docForm = this.fb.group({
-     propertyHolderName:[""],
+      propertyType:[""],
+      rentType:[""],
+      payerDate:[""],
+      payerDateObj:[""],
+      inMonth:[""],
+      payerMode:[""],
+      recive:[""],
+      propertyHolderName:[""],
       noProperty:[""],
       propertyRate:[""],
       regDateObj:[""],
@@ -152,7 +169,9 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
       loginedUser: this.tokenStorage.getUserId(),
       id:[""],
       mortage:[""],
-       
+      loantype:[""],
+      account:[""],
+      loanAmount:[""],
    });
  } else {
    this.fetchDetails(this.requestId);
@@ -167,7 +186,17 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
   this.propertyService.editprop(obj).subscribe({
     next: (res) => {
       let hdate = this.cmnService.getDateObj(res.propertyBean.regDate);
+      let hdate1 = this.cmnService.getDateObj(res.propertyBean.payerDate);
+      this.propertyFlag(res.propertyBean.propertyType);
+
       this.docForm.patchValue({
+        'propertyType': res.propertyBean.propertyType,
+        'rentType': res.propertyBean.rentType,
+        'payerDate': res.propertyBean.payerDate,
+        'payerDateObj': res.propertyBean.hdate1,
+        'inMonth': res.propertyBean.inMonth,
+        'payerMode': res.propertyBean.payerMode,
+        'recive': res.propertyBean.recive,
         'propertyHolderName': res.propertyBean.propertyHolderName,
         'noProperty': res.propertyBean.noProperty,
         'propertyRate': res.propertyBean.propertyRate,
@@ -184,8 +213,10 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'loan': res.propertyBean.loan,
         'loanNo': res.propertyBean.loanNo,
         'loanInterest': res.propertyBean.loanInterest,
-        'id' :this.requestId
-    
+        'loantype': res.propertyBean.loantype,
+        'account': res.propertyBean.account,
+        'loanAmount': res.propertyBean.loanAmount,
+        'id' :this.requestId,
 
     
     });
@@ -249,4 +280,29 @@ update(){
 
     
    }
+
+
+   propertyFlag(event)
+   {
+      if (event == 'Rent') {
+        this.isRent = true;
+        // this.docForm.controls.Rent.setValidators(Validators.required);
+        // this.isRent = false;
+  
+      } else {
+        this.isRent = false;
+        // this.docForm.controls.Rent.clearValidators();
+        // this.docForm.controls['Rent'].updateValueAndValidity();
+      }
+   }
+
+
+   keyPressNumeric(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+   
   }
