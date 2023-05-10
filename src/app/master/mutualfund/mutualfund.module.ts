@@ -25,6 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DeleteFundComponent } from './list-fund/delete-fund/delete-fund.component';
+import { MatRadioModule } from '@angular/material/radio';
 @NgModule({
     declarations: [
         AddFundComponent,
@@ -56,7 +57,8 @@ import { DeleteFundComponent } from './list-fund/delete-fund/delete-fund.compone
     MatTooltipModule,
     MatProgressSpinnerModule,
     ComponentsModule,
-    SharedModule
+    SharedModule,
+    MatRadioModule
     ]
 })
 export class MutualfundModule { }

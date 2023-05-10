@@ -47,9 +47,8 @@ export class AddFundComponent implements OnInit {
   edit:boolean=false;
   userId:any;
   submitted: boolean;
-
-
   fund:Fund;
+  brokerFlag:boolean = false;
   
   constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private commonService: CommonService,
    
@@ -62,10 +61,44 @@ export class AddFundComponent implements OnInit {
        name:["",[Validators.required]],
        investmentexperience:["",[Validators.required]],
        accountnumber:["",[Validators.required]],
-       tin:["",[Validators.required]],
+       //tin:["",[Validators.required]],
+       tin:[""],
        fundNo:[""],
        loginedUser: this.tokenStorage.getUserId(),
-
+       fundType:["",[Validators.required]],
+       broker:['No'],
+       brokerName:[""],
+       brokerFee:[""],
+       chargingFee:[""],
+       operatingExpenses:[""],
+       investmentMethod:[""],
+       modeOfInvestment:[""],
+       userName:["",[Validators.required]],
+       password:["",[Validators.required]],
+       email: ['', [Validators.required,Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+       totalAssured:[""],
+       totalFund:[""],
+       assured:[""],
+       policyNumber:[""],
+       premiumDueAmount:[""],
+       premiumDueDate:[""],
+       premiumDueDateObj:[""],
+       taxCertificate:["No"],
+       statusInforce:["No"],
+       planName:[""],
+       insurancePurpose:[""],
+       premiumTerm:[""],
+       policyTerm:[""],
+       maturityDateObj:[""],
+       maturityDate:[""],
+       registeredNumber:[""],
+       communicationAddress:[""],
+       permanentAddress:[""],
+       grossPremium:[""],
+       annualPremium:[""],
+       nextPremiumDateObj:[""],
+       nextPremiumDate:[""],
+       paymentMethod:[""],
 
       sampleDtl: this.fb.array([
         this.fb.group({
@@ -94,7 +127,16 @@ export class AddFundComponent implements OnInit {
             inceptiondate: cdate
           });
         this.docForm.patchValue({inceptiondate:cdate});
-      }
+      } 
+      if(inputFlag=='premiumDueDate'){
+        this.docForm.patchValue({premiumDueDate:cdate});
+      } 
+      if(inputFlag=='maturityDate'){
+        this.docForm.patchValue({maturityDate:cdate});
+      } 
+      if(inputFlag=='nextPremiumDate'){
+        this.docForm.patchValue({nextPremiumDate:cdate});
+      } 
     
     // if (inputFlag == 'inceptiondate') {
     //   this.docForm.patchValue({inceptiondate: cdate });
@@ -140,13 +182,52 @@ export class AddFundComponent implements OnInit {
     };
     this.mutualFundService.editfund(obj).subscribe({
       next: (res) => {
-      this.docForm.patchValue({
+        if(res.fundBean.broker!=null && res.fundBean.broker!=undefined){
+          this.getBroker(res.fundBean.broker);
+        }
+        
+         this.docForm.patchValue({
         'fundNo':res.fundBean.fundNo,
           'name': res.fundBean.name,
           'investmentexperience': res.fundBean.investmentexperience,
           'accountnumber': res.fundBean.accountnumber,
           'tin':res.fundBean.tin,
-          'id' :this.requestId
+          'id' :this.requestId,
+
+          'fundType':res.fundBean.fundType,
+          'broker':res.fundBean.broker,
+          'brokerName':res.fundBean.brokerName,
+          'brokerFee':res.fundBean.brokerFee,
+          'chargingFee':res.fundBean.chargingFee,
+          'operatingExpenses':res.fundBean.operatingExpenses,
+          'investmentMethod':res.fundBean.investmentMethod,
+          'modeOfInvestment':res.fundBean.modeOfInvestment,
+          'userName':res.fundBean.userName,
+          'password':res.fundBean.password,
+          'email': res.fundBean.email,
+          'totalAssured':res.fundBean.totalAssured,
+          'totalFund':res.fundBean.totalFund,
+          'assured':res.fundBean.assured,
+          'policyNumber':res.fundBean.policyNumber,
+          'premiumDueAmount':res.fundBean.premiumDueAmount,
+          'premiumDueDate':res.fundBean.premiumDueDate,
+          'premiumDueDateObj': res.fundBean.premiumDueDate != null ? this.commonService.getDateObj(res.fundBean.premiumDueDate) : "",
+          'taxCertificate':res.fundBean.taxCertificate,
+          'statusInforce':res.fundBean.statusInforce,
+          'planName':res.fundBean.planName,
+          'insurancePurpose':res.fundBean.insurancePurpose,
+          'premiumTerm':res.fundBean.premiumTerm,
+          'policyTerm':res.fundBean.policyTerm,
+          'maturityDateObj':res.fundBean.maturityDate != null ? this.commonService.getDateObj(res.fundBean.maturityDate) : "",
+          'maturityDate':res.fundBean.maturityDate,
+          'registeredNumber':res.fundBean.registeredNumber,
+          'communicationAddress':res.fundBean.communicationAddress,
+          'permanentAddress':res.fundBean.permanentAddress,
+          'grossPremium':res.fundBean.grossPremium,
+          'annualPremium':res.fundBean.annualPremium,
+          'nextPremiumDateObj':res.fundBean.nextPremiumDate != null ? this.commonService.getDateObj(res.fundBean.nextPremiumDate) : "",
+          'nextPremiumDate':res.fundBean.nextPremiumDate,
+          'paymentMethod':res.fundBean.paymentMethod,
       });
       if (res.sampleDtlDetail != null && res.sampleDtlDetail.length >= 1) {
         let sampleDtlDetailArray = this.docForm.controls.sampleDtl as FormArray;
@@ -209,6 +290,41 @@ export class AddFundComponent implements OnInit {
        accountnumber:[""],
        tin:[""],
        fundNo:[""],
+       fundType:[""],
+       broker:['No'],
+       brokerName:[""],
+       brokerFee:[""],
+       chargingFee:[""],
+       operatingExpenses:[""],
+       investmentMethod:[""],
+       modeOfInvestment:[""],
+       userName:[""],
+       password:[""],
+       email: [""],
+       totalAssured:[""],
+       totalFund:[""],
+       assured:[""],
+       policyNumber:[""],
+       premiumDueAmount:[""],
+       premiumDueDate:[""],
+       premiumDueDateObj:[""],
+       taxCertificate:[""],
+       statusInforce:[""],
+       planName:[""],
+       insurancePurpose:[""],
+       premiumTerm:[""],
+       policyTerm:[""],
+       maturityDateObj:[""],
+       maturityDate:[""],
+       registeredNumber:[""],
+       communicationAddress:[""],
+       permanentAddress:[""],
+       grossPremium:[""],
+       annualPremium:[""],
+       nextPremiumDateObj:[""],
+       nextPremiumDate:[""],
+       paymentMethod:[""],
+
       sampleDtl: this.fb.array([ 
         this.fb.group({
           fundname:[""],
@@ -237,6 +353,8 @@ onCancel(){
     this.router.navigate(['/master/multiple/allMaster/0']);
   }else if(window.sessionStorage.getItem("mutualFrom")=="normal"){
     window.sessionStorage.setItem("mutualFrom","");
+    this.router.navigate(['/master/mutualfund/list-fund']);
+  } else {
     this.router.navigate(['/master/mutualfund/list-fund']);
   }
 }
@@ -304,6 +422,14 @@ onAddRow() {
   dtlArray.insert(arraylen,newUsergroup);
 }
 
- 
+getBroker(input:any){
+
+if(input=='Yes'){
+this.brokerFlag=true;
+} else if(input=='No'){
+  this.brokerFlag=false;
+}
+
+}
 
 }

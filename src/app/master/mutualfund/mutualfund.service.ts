@@ -71,6 +71,8 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
         }else if(window.sessionStorage.getItem("mutualFrom")=="normal"){
           window.sessionStorage.setItem("mutualFrom","");
           router.navigate(['/master/mutualfund/list-fund']);
+        } else {
+          router.navigate(['/master/mutualfund/list-fund']);
         }
        // router.navigate(['/master/mutualfund/list-fund']);
         
@@ -110,6 +112,8 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
           router.navigate(['/master/multiple/allMaster/0']);
         }else if(window.sessionStorage.getItem("mutualFrom")=="normal"){
           window.sessionStorage.setItem("mutualFrom","");
+          router.navigate(['/master/mutualfund/list-fund']);
+        } else {
           router.navigate(['/master/mutualfund/list-fund']);
         }
         //router.navigate(['/master/mutualfund/list-fund']);
