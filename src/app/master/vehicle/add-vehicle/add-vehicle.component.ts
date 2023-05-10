@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { CommonService } from 'src/app/common-service/common.service';
-
-import { NgxSpinnerService } from 'ngx-spinner';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CommonService } from 'src/app/common-service/common.service';
 import { VehicleService } from '../vehicle.service';
+import {  VehicleMaster } from '../vehicle-model';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import {  MomentDateAdapter } from '@angular/material-moment-adapter';
+import { serverLocations } from 'src/app/auth/serverLocations';
 import { NotificationService } from 'src/app/core/service/notification.service';
-import { Vehicle } from '../vehicle-model';
-import { HttpErrorResponse } from '@angular/common/http';
+
+
+
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -40,67 +42,125 @@ export const MY_DATE_FORMATS = {
     }, CommonService
   ]
 })
-
 export class AddVehicleComponent implements OnInit {
- 
-    docForm: FormGroup;
-    vehicle:Vehicle;
-    edit: boolean=false;
-    requestId: any;
-    branchList: [];
-    submitted: boolean;
-    url:any;
-  constructor(
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-    private commonService: CommonService,
-    private VehicleService:VehicleService,
-    private cmnService:CommonService,private httpservice:HttpServiceService,
-    private router:Router,public route: ActivatedRoute, 
-    private spinner: NgxSpinnerService,public tokenStorage: TokenStorageService,
-    private notificationService: NotificationService,) {
-    
-   
-      this.docForm = this.fb.group({
-        registrationNumber:["",[Validators.required]],
-        brand:["",[Validators.required]],
-        bodyStyle:["",[Validators.required]],
-        dateOfbuying:["",[Validators.required]],
-        dateOfbuyingObj:["",[Validators.required]],
-        driveType :["",[Validators.required]],
-        rtoCode:["",[Validators.required]],
-        transmissionType:["",[Validators.required]],
-        engineType:["",[Validators.required]],
-        tin:["",[Validators.required]],
-        vehicleColour:[""], 
-        insurancetype:["",[Validators.required]],
-        number:["",[Validators.required]],
-        ownership:["",[Validators.required]],
-        vin:["",[Validators.required]],
-        loginedUser:this.tokenStorage.getUserId(),
-        id:[""],
-     })
+
+  docForm: FormGroup;
+  requestId: number;
+  editflag:boolean=false;
+  vehicleMaster : VehicleMaster;
+  edit: boolean = false;
+  private  acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
+  filePathUrl: string;
+  uploadFile: boolean = false;
+  isCash: boolean = true;
+  isEmi: boolean = true;
+  isYes: boolean = true;
+  isNo: boolean = true;
+  
   
 
+  constructor(private fb: FormBuilder,
+  
+    private httpService: HttpServiceService,
+    private snackBar:MatSnackBar,
+    public route: ActivatedRoute,
+    private serverUrl: serverLocations,
+    private tokenStorage: TokenStorageService,
+    private vehicleService : VehicleService,
+    private notificationService: NotificationService, 
+    private commonService: CommonService,private cmnService: CommonService,
+    private router:Router) {
 
-   }
+    this.docForm = this.fb.group({
+      vehiclename: [""],
+      vehicletype: [""],
+      vehiclebrand :[""],
+      regno:["", [Validators.required]],
+      chassisno:["", [Validators.required]],
+      engineno:["", [Validators.required]],
+      bodytype:[""],
+      fueltype:[""],
+      ownertype:[""],
+      dateofpurc:["", [Validators.required]],
+      insurancedetails:["", Validators.pattern('^[A-Z]{2}[0-9]{6}[A-Z]$')],
+      service:["", [Validators.required]],
+      discardFromDate:[""],
+      discardFromDate1:[""],
+      vehiclewheel:[""],
+      colour:[""],
+      age:[""],
+      rtocode:[""],
+      purcamount:[""],
+      insurancetype: ["", [Validators.required]],
+      insuredamount: ["", [Validators.required]],
+      payment: ["cash"],
+      insurername: [""],
+      validity: ["", [Validators.required]],
+      address: [""],
+      yom: [""],
+      license : ["yes"],
+      lin: [""],
+      agency: [""],
+      emiamount: [""],
 
-   ngOnInit() : void{
-    this.route.params.subscribe(params => {
+    });
+
+  }
+
+  ngOnInit(): void {
+
+    this.docForm = this.fb.group({
+      vehiclename: [""],
+      vehicletype: [""],
+      vehiclebrand :[""],
+      regno:["", [Validators.required]],
+      chassisno:["", [Validators.required]],
+      engineno:["", [Validators.required]],
+      bodytype:[""],
+      fueltype:[""],
+      ownertype:[""],
+      dateofpurc:["", [Validators.required]],
+      insurancedetails:["", Validators.pattern('^[A-Z]{2}[0-9]{6}[A-Z]$')],
+      service:["", [Validators.required]],
+      discardFromDate:[""],
+      discardFromDate1:[""],
+      vehiclewheel:[""],
+      colour:[""],
+      age:[""],
+      rtocode:[""],
+      purcamount:[""],
+      insurancetype: ["", [Validators.required]],
+      insuredamount: ["", [Validators.required]],
+      payment: ["cash"],
+      insurername: [""],
+      validity: ["", [Validators.required]],
+      address: [""],
+      yom: [""],
+      license : ["yes"],
+      lin: [""],
+      agency: [""],
+      emiamount: [""],
+      loginedUser: this.tokenStorage.getUserId(),
+      id:[""]
+    });
+      this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
        this.edit=true;
        //For User login Editable mode
        this.fetchDetails(this.requestId) ;
-      }
-    });
-   }
+ }
+     });
 
-  onSubmit():void{
-    this.vehicle = this.docForm.value;
+     this.getcash(this.docForm.value.payment);
+
+  }
+
+  onSubmit(){
+    this.vehicleMaster = this.docForm.value;
 
     if(this.docForm.valid){ 
-      this.VehicleService.savevehicle(this.vehicle,this.router,this.notificationService);{
+      this.vehicleService.savevehicle(this.vehicleMaster,this.router,this.notificationService);{
       }
     } else {
       this.notificationService.showNotification(
@@ -110,156 +170,191 @@ export class AddVehicleComponent implements OnInit {
         "right");
         
       }
-        }
-        fetchDetails(id: any) {
-          const obj = {
-            editId: id
-          };
-          this.VehicleService.editvehicle(obj).subscribe({
-            next: (res) => {
-              let ydate =this.cmnService.getDateObj(res.vehiclesBean.dateOfbuying)
-            this.docForm.patchValue({
-              
-                
-                    'registrationNumber': res.vehiclesBean.registrationNumber,
-                     'brand': res.vehiclesBean.brand,
-                     'bodyStyle':res.vehiclesBean.bodyStyle,
-                     'dateOfbuying':res.vehiclesBean.dateOfbuying,
-                     'dateOfbuyingObj':ydate,
-                     'driveType' :res.vehiclesBean.driveType,
-                     'rtoCode' : res.vehiclesBean.rtoCode,
-                     'transmissionType' :res.vehiclesBean.transmissionType,
-                     'engineType' :res.vehiclesBean.engineType,
-                     'tin' :res.vehiclesBean.tin,
-                     'vehicleColour' :res.vehiclesBean.vehicleColour,
-                     'insurancetype':res.vehiclesBean.insurancetype,
-                     'number' :  res.vehiclesBean.number,
-                     'ownership' :res.vehiclesBean.ownership,
-                     'vin' :res.vehiclesBean.vin,
-                     'id':id
-            });
-          },
-          error: (error) => {
-          }
-        });
-        }
-       
-     
-      
-       onUpdate(){
-        this.vehicle = this.docForm.value;
-        if(this.docForm.valid){
-          this.VehicleService.updatevehicle(this.vehicle,this.router,this.notificationService);
-        } else {
-          this.notificationService.showNotification(
-            "snackbar-danger",
-            "Please fill all the required details!",
-            "top",
-            "right");
-        }
-       }
-      
-    
-    
-       
-         
-         onReset(){
-          
-          if(!this.edit){
-            location.reload()
-            this.docForm = this.fb.group({
-              registrationNumber:[""],
-              brand:[""],
-              bodyStyle:[""],
-              dateOfbuying:[""],
-              dateOfbuyingObj:[""],
-              driveType :[""],
-              rtoCode:[""],
-              transmissionType:[""],
-              engineType:[""],
-              tin:[""],
-              vehicleColour:[""], 
-              insurancetype:[""],
-              number:[""],
-              ownership:[""],
-              vin:[""],
-              loginedUser:this.tokenStorage.getUserId(),
-              id:[""],
-           })
-        
-          }else {
-            this.fetchDetails(this.requestId);
-          }
-         }
+  }
 
-         onCancel(){
+  viewDocuments(filePath: any, fileName: any) {
+    var a = document.createElement("a");
+          a.href = this.serverUrl.apiServerAddress+"asset_upload/"+filePath;
+          a.target = '_blank';
+          a.download = fileName;
+          a.click();
+  }
 
-          if(window.sessionStorage.getItem("vehicleFrom")=="vehicle"){
-            window.sessionStorage.setItem("vehicleFrom","");
-            this.router.navigate(['/master/multiple/allMaster/0']);
-          }else if(window.sessionStorage.getItem("vehicleFrom")=="normal"){
-            window.sessionStorage.setItem("vehicleFrom","");
-            this.router.navigate(['/master/vehicle/list-vehicle']);
-          }
-         
-         }
-         
+  // Edit
+  fetchDetails(id: any){
+    const obj = {
+      editId: id
+    };
+    this.edit = true;
+    this.vehicleService.editvehicle(obj).subscribe({
+      next: (res) => {
+        let rdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate);
+        let hdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate1);
 
-         showNotification(colorName, text, placementFrom, placementAlign) {
-  
-         }
-       
-         validateCustomer(event){
+        if(res.vehiclesBean.lin!=null){
+          var licenseValue = 'yes'
+        }else{
+          var licenseValue = 'false'
+        }
+
+        if(res.vehiclesBean.purcamount!=null){
+          var paymentValue = 'cash'
+        }
+        if(res.vehiclesBean.emiamount!=''){
+          var paymentValue = 'emi'
+        }
+
+      this.docForm.patchValue({
            
-         }
-         keyPressString(event: any){
-         
-       
-         }
-         keyPressNumeric(event: any) {
-          const pattern = /[0-9]/;
-          const inputChar = String.fromCharCode(event.charCode);
-          if (event.keyCode != 8 && !pattern.test(inputChar)) {
-            event.preventDefault();
-          }
-        }
-        keyPressName(event: any) {
-          const pattern = /[A-Z, a-z]/;
-          const inputChar = String.fromCharCode(event.charCode);
-          if (event.keyCode != 8 && !pattern.test(inputChar)) {
-            event.preventDefault();
-          }
-        }
+        'vehiclewheel':res.vehiclesBean.vehiclewheel,
+        'vehicletype':res.vehiclesBean.vehicletype,
+        'vehiclebrand':res.vehiclesBean.vehiclebrand,
+        'vehiclename':res.vehiclesBean.vehiclename,
+       'regno':res.vehiclesBean.regno,
+        'chassisno':res.vehiclesBean.chassisno,
+        'engineno':res.vehiclesBean.engineno,
+        'bodytype':res.vehiclesBean.bodytype,
+        'colour':res.vehiclesBean.colour,
+        'age':res.vehiclesBean.age,
+        'rtocode':res.vehiclesBean.rtocode,
+        'fueltype':res.vehiclesBean.fueltype,
+        'ownertype':res.vehiclesBean.ownertype,
+        'dateofpurc':hdate,
+        'service':rdate,
+        'discardFromDate':res.vehiclesBean.discardFromDate,
+        'discardFromDate1':res.vehiclesBean.discardFromDate1,
+        'yom':res.vehiclesBean.yom,
+        'license':licenseValue,
+        'lin':res.vehiclesBean.lin,
+        'payment':paymentValue,
+        'purcamount':res.vehiclesBean.purcamount,
+        'emiamount':res.vehiclesBean.emiamount,
+        'agency':res.vehiclesBean.agency,
+        'insurername':res.vehiclesBean.insurername,
+        'insurancetype':res.vehiclesBean.insurancetype,
+        'insurancedetails':res.vehiclesBean.insurancedetails,
+        'validity':res.vehiclesBean.validity,
+        'insuredamount':res.vehiclesBean.insuredamount,
+        'address':res.vehiclesBean.address,
+        'id':this.requestId, 
+      });
+    },
+    error: (error) => {
+    }
+  });
+
+  }
+
+  update(){
+    this.vehicleMaster = this.docForm.value;
+    if(this.docForm.valid){
+      this.vehicleService.updatevehicle(this.vehicleMaster,this.router,this.notificationService);
+    } else {
+      this.notificationService.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right");
+    }
+  
+  }
+
+  onCancel(){
+    this.router.navigate(['/master/vehicle/list-vehicle']);
+
+  }
+
+  reset(){
+    if(!this.edit){
+      location.reload()
+    this.docForm = this.fb.group({
+      vehiclename: [""],
+      vehicletype: [""],
+      vehiclebrand :[""],
+      regno:["", [Validators.required]],
+      chassisno:["", [Validators.required]],
+      engineno:["", [Validators.required]],
+      bodytype:[""],
+      fueltype:[""],
+      ownertype:[""],
+      dateofpurc:["", [Validators.required]],
+      insurancedetails:["", Validators.pattern('^[A-Z]{2}[0-9]{6}[A-Z]$')],
+      service:["", [Validators.required]],
+      discardFromDate:[""],
+      discardFromDate1:[""],
+      vehiclewheel:[""],
+      colour:[""],
+      age:[""],
+      rtocode:[""],
+      purcamount:[""],
+      insurancetype: ["", [Validators.required]],
+      insuredamount: ["", [Validators.required]],
+      payment: ["cash"],
+      insurername: [""],
+      validity: ["", [Validators.required]],
+      address: [""],
+      yom: [""],
+      license : ["yes"],
+      lin: [""],
+      agency: [""],
+      emiamount: [""],
+
+
+ });
+}else {
+  this.fetchDetails(this.requestId);
+}
+}
 
 
 
+getcash(check: any) {
+  if (check == 'cash') {
+    this.isCash = true;
+  } else {
+    this.isCash = false;
+  }
+  if (check == 'emi') {
+    this.isEmi = true;
+  } else {
+    this.isEmi = false;
+  }
+}
 
-         onAddRow()
-         {
-           let dtlArray = this.docForm.controls.OrderDtl as FormArray;
-           let arraylen = dtlArray.length;
-           let newUsergroup: FormGroup = this.fb.group({
-            driveType:[""],
-            transmissionType:[""],
-            engineType:[""],
-            rtoCode:[""],
-            depPrice:[""]
-            })
-            dtlArray.insert(arraylen,newUsergroup);
-            
-          
-          }
-          
-          removeRowSelf(index) {
-            const CustInvoiceDetailBeanArray = this.docForm.controls.OrderDtl as FormArray;
-            CustInvoiceDetailBeanArray.removeAt(index);
-          }
-        
-        getDateString(event,inputFlag,index){
-          let cdate = this.commonService.getDate(event.target.value);
-          if(inputFlag=='dateOfbuying'){
-            this.docForm.patchValue({dateOfbuying:cdate});
-          }
-        }
-          
+getlicense(check: any) {
+  if (check == 'yes') {
+    this.isYes = true;
+  } else {
+    this.isYes = false;
+  }
+  if (check == 'no') {
+    this.isNo = true;
+  } else {
+    this.isNo = false;
+  }
+}
+
+
+
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
+
+ 
+
+  getDateString(event, inputFlag, index) {
+    let cdate = this.commonService.getDate(event.target.value);
+    if (inputFlag == 'discardFromDate') {
+      this.docForm.patchValue({discardFromDate: cdate });
+    }
+    if (inputFlag == 'discardToDate1') {
+      this.docForm.patchValue({discardToDate1: cdate });
+    }
+    }
+
 }

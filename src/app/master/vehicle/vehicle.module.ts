@@ -27,6 +27,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DeleteVehicleComponent } from './list-vehicle/delete-vehicle/delete-vehicle.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { DeleteVehicleComponent } from './list-vehicle/delete-vehicle/delete-veh
     MatTooltipModule,
     MatProgressSpinnerModule,
     ComponentsModule,
-    SharedModule
+    SharedModule,
+    MatRadioModule
   ]
 })
 export class VehicleModule { }

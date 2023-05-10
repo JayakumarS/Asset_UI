@@ -1,276 +1,511 @@
 <section class="content">
-    <div class="content-block">
-      <div class="block-header" style="padding: 0.5% !important;">
-        <app-breadcrumb [title]="'Vehicle'" [items]="['Master']" [active_item]="'Add-Vehicle'">
-        </app-breadcrumb>
-      </div>
-      <div class="row clearfix">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-          <div class="card " style="padding-left: 150px;">
-            <div class="body">
-              <form class="m-4" [formGroup]="docForm">
-                  <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >REGISTRATION NUMBER<span class="errorColor">*</span></label>
+  <div class="content-block">
+    <div class="block-header" style="padding: 0.5% !important;">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Vehicle'" [items]="['Master']" [active_item]="'Add Vehicle'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix ">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="box-shadow">
+        <div class="card" style="padding: 0px 1% 0px;">
+          <div class="body" >
+            <form class="m-4" [formGroup]="docForm">
+              
+              <h4>VEHICLE DETAILS</h4><br>
+              <div class="row">
+                 <div class="col-md-2" style="min-width: fit-content;"  >
+                      <label>VEHICLE TYPE</label>
+                  </div>
+                    <div class="col-md-2">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select formControlName="vehiclewheel">
+                            <mat-option [value]="'Two Wheeler'">
+                              Two Wheeler
+                            </mat-option>
+                            <mat-option [value]="'Four Wheeler'">
+                              Four Wheeler
+                            </mat-option>
+                            <mat-option [value]="'Others'">
+                              Others
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('vehiclewheel').hasError('required')">
+                              Vehicle Type is required
+                             </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-2" style="min-width: fit-content;" >
+                        <label>VEHICLE END TYPE</label>
                     </div>
-                    <div class=" col-md-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="registrationNumber"  oninput="this.value = this.value.toUpperCase()"
-                         maxlength="10" (keypress)="keyPressString($event)">
-                        <mat-error *ngIf="docForm.get('registrationNumber').hasError('required')">
-                          Reg No is required
-                        </mat-error>
-                      </mat-form-field>
+                    <div class="col-md-2" >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select formControlName="vehicletype">
+                          <mat-option [value]="'High End'">
+                            High End
+                          </mat-option>
+                          <mat-option [value]="'Middle End'">
+                            Middle End
+                          </mat-option>
+                          <mat-option [value]="'Low End'">
+                            Low End
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="docForm.get('vehicletype').hasError('required')">
+                          Vehicle End Type is required
+                         </mat-error>
+                       </mat-form-field>
                     </div>
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >BODY STYLE<span class="errorColor">*</span></label>
-                    </div>
-                    <div class=" col-md-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-select  formControlName="bodyStyle"  >
-                            <mat-option [value]="'SUV'">
-                                 SUV
+                    <div class="col-md-2" style="min-width: fit-content;" >
+                      <label>VEHICLE BRAND</label>
+                  </div>
+                  <div class="col-md-2" >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="vehiclebrand" maxlength="20"
+                       oninput="this.value = this.value.toUpperCase()">
+                       <mat-error *ngIf="docForm.get('vehiclebrand').hasError('required')">
+                        Vehicle Brand is required
+                       </mat-error>
+                     </mat-form-field>
+                  </div>
+                 
+                 </div>
+
+              
+              <div class="row">
+
+                <div class="col-md-2" style="min-width: fit-content;" >
+                  <label>MODEL NAME</label>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="vehiclename" maxlength="20"
+                   oninput="this.value = this.value.toUpperCase()">
+                  <mat-error *ngIf="docForm.get('vehiclename').hasError('required')">
+                    Model Name is required
+                   </mat-error>
+                 </mat-form-field>
+              </div>
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label>DATE OF PURCHASE<span class="errorColor">*</span></label>
+                  </div>
+                  <div class="col-md-2"  >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput [matDatepicker]="picker1" formControlName="dateofpurc"
+                      (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate1"
+                      (dateChange)="getDateString($event,'discardFromDate1',0)" >
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                      <mat-error *ngIf="docForm.get('dateofpurc').hasError('required')">
+                        Date is required
+                          </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label>REGISTRATION NO<span class="errorColor">*</span></label>
+                </div>
+                <div class="col-md-2"  >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="regno" maxlength="20"
+                       oninput="this.value = this.value.toUpperCase()">
+                      <mat-error *ngIf="docForm.get('regno').hasError('required')">
+                        Reg No is required
+                       </mat-error>
+                     </mat-form-field>
+                  </div>
+                  
+        
+              </div>
+              <div class="row">
+               
+                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                         <label>CHASSIS NUMBER<span class="errorColor">*</span></label>
+                     </div>
+                     <div class="col-md-2"  >
+                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                           <input matInput formControlName="chassisno" maxlength="20"
+                            oninput="this.value = this.value.toUpperCase()">
+                           <mat-error *ngIf="docForm.get('chassisno').hasError('required')">
+                            Chassis No is required
+                            </mat-error>
+                          </mat-form-field>
+                       </div>
+ 
+                       <div class="col-md-2" style="min-width: fit-content;" >
+                         <label>ENGINE NUMBER<span class="errorColor">*</span></label>
+                     </div>
+                     <div class="col-md-2">
+                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                         <input matInput formControlName="engineno" maxlength="20"
+                          oninput="this.value = this.value.toUpperCase()">
+                         <mat-error *ngIf="docForm.get('engineno').hasError('required')">
+                           Engine No is required
+                          </mat-error>
+                        </mat-form-field>
+                     </div>
+
+                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label>BODY TYPE</label>
+                  </div>
+                  <div class="col-md-2"  >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select formControlName="bodytype" >
+                              <mat-option [value]="'Hatchback'">
+                                  Hatchback
                               </mat-option>
                               <mat-option [value]="'Sedan'">
-                                SEDAN
+                                  Sedan
                               </mat-option>
-                              <mat-option [value]="'Truck'">
-                                TRUCK
+                              <mat-option [value]="'MUV/SUV'">
+                                  MUV/SUV
                               </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="docForm.get('bodyStyle').hasError('required')">
-                          Body Style is required
-                        </mat-error>
-                      </mat-form-field>
+                              <mat-option [value]="'Wagon'">
+                                  Wagon
+                              </mat-option>
+                              <mat-option [value]="'Jeep'">
+                                  Jeep
+                              </mat-option>
+                            </mat-select>
+                    </mat-form-field>
                     </div>
-                </div>
-                <div class="row">  
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >BRAND<span class="errorColor">*</span></label>
-                    </div>
-                    <div class=" col-md-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="brand"  oninput="this.value = this.value.toUpperCase()"
-                         maxlength="20" (keypress)="keyPressName($event)" >
-                         <mat-error *ngIf="docForm.get('brand').hasError('required')">
-                          Brand is required
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >DATE OF BUYING<span class="errorColor">*</span></label>
-                    </div>
-                    <div class="  col-md-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput [matDatepicker]="picker" 
-                        formControlName="dateOfbuyingObj" 
-                        id="dateOfbuying"
-                        (dateChange)="getDateString($event, 'dateOfbuying',0)">
-                        <mat-datepicker-toggle matSuffix
-                            [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                        <mat-error *ngIf="docForm.get('dateOfbuyingObj').hasError('required')">
-                        Date is required
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                </div> 
-                <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label >DRIVE TYPE<span class="errorColor">*</span></label>
-              </div>
+                       </div>
+              
+                     
+ 
+                     <div class="row">
+                       
+                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                             <label>VEHICLE COLOUR</label>
+                         </div>
+                         <div class="col-md-2">
+                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                             <input matInput formControlName="colour" maxlength="9"
+                              oninput="this.value = this.value.toUpperCase()"  >
+                              <mat-error *ngIf="docForm.get('colour').hasError('required')">
+                             Vehicle Colour is required
+                              </mat-error>
+                            </mat-form-field>
+                         </div>
+                         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                           <label>VEHICLE AGE</label>
+                       </div>
+                       <div class="col-md-2">
+                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                           <input matInput formControlName="age" maxlength="9"
+                            oninput="this.value = this.value.toUpperCase()"  >
+                           <mat-error *ngIf="docForm.get('age').hasError('required')">
+                           Vehicle Age is required
+                            </mat-error>
+                          </mat-form-field>
+                       </div>
 
-              <div class=" col-md-3">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select  formControlName="driveType">
-                      <mat-option [value]="'2WD'">
-                           2WD
-                        </mat-option>
-                        <mat-option [value]="'4WD'">
-                          4WD
-                        </mat-option>
-                        <mat-option [value]="'AWD'">
-                          AWD
-                        </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="docForm.get('driveType').hasError('required')">
-                    Drive Type is required
-                    </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label >CHASSIS NUMBER<span class="errorColor">*</span></label>
+                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>RTO CODE</label>
+                    </div>
+                    <div class="col-md-2">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="rtocode" maxlength="9"
+                         oninput="this.value = this.value.toUpperCase()"  >
+                        <mat-error *ngIf="docForm.get('rtocode').hasError('required')">
+                        RTO Code is required
+                         </mat-error>
+                       </mat-form-field>
+                    </div>
+                     </div>
+                     <div class="row">
+                   
+                 
+                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                   <label>FUEL TYPE</label>
+               </div>
+               <div class="col-md-2"  >
+                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                       <mat-select formControlName="fueltype">
+                           <mat-option [value]="'Petrol'">
+                               Petrol
+                           </mat-option>
+                           <mat-option [value]="'Diesel'">
+                               Diesel
+                           </mat-option>
+                           <mat-option [value]="'Others'">
+                               Others
+                           </mat-option>
+                         </mat-select>
+                     <mat-error *ngIf="docForm.get('fueltype').hasError('required')">
+                      Fuel Type is required
+                      </mat-error>
+                    </mat-form-field>
+                 </div>
+             <div class="col-md-2" style="min-width: fit-content;"  >
+                 <label>OWNER TYPE</label>
+             </div>
+               <div class="col-md-2">
+                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-select formControlName="ownertype">
+                     <mat-option [value]="'Self'">
+                         Self
+                     </mat-option>
+                     <mat-option [value]="'Company'">
+                         Company
+                     </mat-option>
+                     <mat-option [value]="'Others'">
+                         Others
+                     </mat-option>
+                   </mat-select>
+               <mat-error *ngIf="docForm.get('ownertype').hasError('required')">
+                Owner Type is required
+                </mat-error>
+             </mat-form-field>
+               </div>
+
+               <div class="col-md-2" style="min-width: fit-content;" >
+                <label>DATE OF LAST SERVICE<span class="errorColor">*</span></label>
             </div>
-            <div class=" col-md-3">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="rtoCode" oninput="this.value = this.value.toUpperCase()" maxlength="17" (keypress)="keyPressString($event)" >
-                <mat-error *ngIf="docForm.get('rtoCode').hasError('required')">
-                  Chassis Number is required
-                  </mat-error>
+            <div class="col-md-2">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput [matDatepicker]="picker" formControlName="service"
+                (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate"
+                (dateChange)="getDateString($event,'discardFromDate',0)" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="docForm.get('service').hasError('required')">
+                    Last Service date is required
+                    </mat-error>
               </mat-form-field>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-              <label >TRANSMISSION TYPE<span class="errorColor">*</span></label>
-          </div>
 
-          <div class=" col-md-3">
+            </div>
+            <div class="row">
+              <div class="col-md-2" style="min-width: fit-content;" >
+                <label>YEAR OF MANUFACTURING</label>
+            </div>
+            <div class="col-md-2">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-select  formControlName="transmissionType">
-                  <mat-option [value]="'AUTOMATIC'">
-                      AUTOMATIC
-                    </mat-option>
-                    <mat-option [value]="'MANUAL'">
-                      MANUAL
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="docForm.get('transmissionType').hasError('required')">
-                 Transmission Type is required
-                  </mat-error>
-            </mat-form-field>
+                <input matInput formControlName="yom" maxlength="4" >
+             </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <mat-label>LICENSED</mat-label>
+            </div>
+            <div class="col-md-2" style="min-width: fit-content;">
+              <mat-radio-group formControlName="license"> &nbsp; <mat-radio-button tabindex="22" value="yes" (change)="getlicense($event.value)"> YES </mat-radio-button>
+                <mat-radio-button tabindex="22" value="no" (change)="getlicense($event.value)"> NO </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="col-md-2" style="min-width: fit-content;" *ngIf="isYes">
+              <label>LICENSE NUMBER</label>
           </div>
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-            <label >ENGINE TYPE<span class="errorColor">*</span></label>
-        </div>
-        <div class=" col-md-3">
+          <div class="col-md-2" *ngIf="isYes">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <mat-select  formControlName="engineType">
-                <mat-option [value]="'PETROL'">
-                  PETROL
-                  </mat-option>
-                  <mat-option [value]="'DIESEL'">
-                    DIESEL
-                  </mat-option>
-                  <mat-option [value]="'EV'">
-                    EV
-                  </mat-option>
-            </mat-select>
-            <!-- <input matInput formControlName="engineType" maxlength="20" (keypress)="keyPressName($event)" required> -->
-            <mat-error *ngIf="docForm.get('engineType').hasError('required')">
-              Engine Type is required
-              </mat-error>
-          </mat-form-field>
+              <input matInput formControlName="lin" maxlength="20">
+             </mat-form-field>
+          </div>
+            
+
+
+            </div>
+                  <div class="row">  </div>
+               <hr><br>
+               <h4>PAYMENT METHOD</h4><br>
+               <div class="row">
+                <div class="col-md-2">
+                  <mat-label>PAYMENT</mat-label>
+                </div>
+                <div class="col-md-2" style="min-width: fit-content;">
+                  <mat-radio-group formControlName="payment"> &nbsp; <mat-radio-button tabindex="22" value="cash" (change)="getcash($event.value)"> CASH </mat-radio-button>
+                    <mat-radio-button tabindex="22" value="emi" (change)="getcash($event.value)"> EMI </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+              <div class="col-md-2" style="min-width: fit-content;" *ngIf="isCash">
+                <label>PURCHASE AMOUNT</label>
+            </div>
+            <div class="col-md-2" *ngIf="isCash">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput formControlName="purcamount" maxlength="20"
+                 oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-2" style="min-width: fit-content;" *ngIf="isEmi">
+              <label>EMI AMOUNT</label>
+          </div>
+          <div class="col-md-2" *ngIf="isEmi">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="emiamount" maxlength="20"
+               oninput="this.value = this.value.toUpperCase()">
+        </mat-form-field>
+          </div>
+
+          <div class="col-md-2" style="min-width: fit-content;" *ngIf="isEmi">
+            <label>FINANCE AGENCY FOR EMI</label>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-          <label >TIN<span class="errorColor">*</span></label>
-      </div>
-
-      <div class=" col-md-3">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput formControlName="tin" maxlength="9" (keypress)="keyPressNumeric($event)">
-            <mat-error *ngIf="docForm.get('tin').hasError('required')">
-             TIN is required
-              </mat-error>
-          </mat-form-field>
-
-      </div>
-      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-        <label >VEHICLE COLOUR</label>
-    </div>
-    <div class=" col-md-3">
-        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="vehicleColour" oninput="this.value = this.value.toUpperCase()" maxlength="20" (keypress)="keyPressName($event)">
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-      <label >ENGINE NUMBER<span class="errorColor">*</span></label>
-  </div>
-
-  <div class=" col-md-3">
-      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="number" oninput="this.value = this.value.toUpperCase()" maxlength="17" (keypress)="keyPressString($event)">
-        <mat-error *ngIf="docForm.get('number').hasError('required')">
-         Engine Number is required
-           </mat-error>
-      </mat-form-field>
-
-  </div>
-  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-    <label >INSURANCE TYPE<span class="errorColor">*</span></label>
-</div>
-<div class=" col-md-3">
-    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <mat-select  formControlName="insurancetype">
-        <mat-option [value]="'Commerical auto insurance'">
-            COMMERCIAL AUTO INSURANCE
-          </mat-option>
-          <mat-option [value]="'Two-wheeler insurance'">
-           TWO-WHEELER INSURANCE
-          </mat-option>
-            <mat-option [value]="'Private car insurance'">
-                 PRIVATE CAR INSURANCE
-              </mat-option>
-              </mat-select>
-              <mat-error *ngIf="docForm.get('insurancetype').hasError('required')">
-                Insurance Type is required
-                  </mat-error>
-  </mat-form-field>
-</div>
-</div>
-<div class="row">
-  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-    <label >OWNERSHIP<span class="errorColor">*</span></label>
-</div>
-
-<div class=" col-md-3">
-    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <mat-select  formControlName="ownership">
-        <mat-option [value]="' Owned'">
-        OWNED
-          </mat-option>
-          <mat-option [value]="'Rented'">
-          RENTED
-          </mat-option>
-            <mat-option [value]="' Third-party'">
-                 THIRD-PARTY
-              </mat-option>
-       </mat-select>
-       <mat-error *ngIf="docForm.get('ownership').hasError('required')">
-        Ownership is required
+        <div class="col-md-2" *ngIf="isEmi">
+         
+           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <mat-select formControlName="agency">
+               <mat-option [value]="'Indian Bank'">
+                   Indian Bank
+               </mat-option>
+               <mat-option [value]="'Punjab & Sind Bank'">
+                   Punjab & Sind Bank
+               </mat-option>
+               <mat-option [value]="'National Bank'">
+                   National Bank
+               </mat-option>
+               <mat-option [value]="'HDFC Bank'">
+               HDFC Bank
+            </mat-option>
+            <mat-option [value]="'Muthoot Finance'">
+               Muthoot Finance
+            </mat-option>
+            <mat-option [value]="'Canara Bank'">
+                Canara Bank
+            </mat-option>
+             </mat-select>
+         <mat-error *ngIf="docForm.get('agency').hasError('required')">
+          Agency is required
           </mat-error>
-    </mat-form-field>
+       </mat-form-field>
+        </div>
+            </div>
+<hr><br>
+<h4>INSURANCE DETAILS</h4><br>
+              
+<div class="row">
+<div class="col-md-2" style="min-width: fit-content;" >
+  <label>INSURER NAME</label>
+</div>
+<div class="col-md-2">
+ <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  <mat-select formControlName="insurername">
+     <mat-option [value]="'HDFC ERGO General Insurance Co. Ltd.'">
+      HDFC ERGO General Insurance Co. Ltd.
+     </mat-option>
+     <mat-option [value]="'Bajaj Allianz General Insurance Co. Ltd.'">
+      Bajaj Allianz General Insurance Co. Ltd.
+     </mat-option>
+     <mat-option [value]="'SBI General Insurance Co. Ltd.'">
+      SBI General Insurance Co. Ltd.
+     </mat-option>
+     <mat-option [value]="'ICICI Lombard General Insurance Co. Ltd.'">
+      ICICI Lombard General Insurance Co. Ltd.    
+    </mat-option>
+  <mat-option [value]="'Muthoot Finance'">
+     Muthoot Finance
+  </mat-option>
+  <mat-option [value]="'Kotak Mahindra General Insurance Co. Ltd.'">
+    Kotak Mahindra General Insurance Co. Ltd.
+  </mat-option>
+   </mat-select>
+<mat-error *ngIf="docForm.get('insurername').hasError('required')">
+Insurer name is required
+</mat-error>
+</mat-form-field>
+</div>
 
-</div>
-<div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-  <label >VIN<span class="errorColor">*</span></label>
-</div>
-<div class=" col-md-3">
+<div class="col-md-2" style="min-width: fit-content;" >
+  <label>INSURANCE TYPE<span class="errorColor">*</span></label>
+  </div>
+  <div class="col-md-2">
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-  <input matInput formControlName="vin" oninput="this.value = this.value.toUpperCase()" maxlength="17" (keypress)="keyPressString($event)">
-  <mat-error *ngIf="docForm.get('vin').hasError('required')">
-    VIN is required
-      </mat-error>
+  <mat-select formControlName="insurancetype">
+    <mat-option [value]="'Car Insurance'">
+      Car Insurance
+    </mat-option>
+    <mat-option [value]="'Accident'">
+      Accident
+    </mat-option>
+    <mat-option [value]="'Comprehensive Coverage'">
+      Comprehensive Coverage
+    </mat-option>
+    <mat-option [value]="'Property Insurance'">
+      Property Insurance
+    </mat-option>
+    <mat-option [value]="'Term life Insurance'">
+      Term life Insurance
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="docForm.get('insurancetype').hasError('required')">
+  Insurance Type is required
+  </mat-error>
+  </mat-form-field>
+  </div>
+<div class="col-md-2" style="min-width: fit-content;" >
+<label>INSURANCE NUMBER</label>
+</div>
+<div class="col-md-2">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+<input matInput formControlName="insurancedetails" maxlength="9"
+ oninput="this.value = this.value.toUpperCase()"  >
+<mat-error *ngIf="docForm.get('insurancedetails').hasError('pattern')">
+Please Enter Valid Insurance No
+ </mat-error>
 </mat-form-field>
 </div>
 </div>
- <br>                       
-                                    
 
-                               <div class ="row">
-                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                                    <button *ngIf = "!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-                                    color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
-                                    <button *ngIf = "edit"(click) = " onUpdate()" class="btn-space" mat-raised-button
-                                    color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
-                                    <button (click) = "onReset()" class="btn-space" mat-raised-button
-                                    color="accent" style="margin-left: 1%;background-color: #3b10e8;">Reset</button>
-                                    <button (click) = "onCancel()" class="btn-space" mat-raised-button
-                                    color="accent" style="margin-left: 1%;background-color: #d40e0e;">Cancel</button>
-                                  </div>
-                                </div>
-                      </form>
-                    </div>
-                  </div>
+<div class="row">
+<div class="col-md-2" style="min-width: fit-content;" >
+<label>VALIDITY UPTO<span class="errorColor">*</span></label>
+</div>
+<div class="col-md-2">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+<input matInput formControlName="validity" maxlength="4"
+ oninput="this.value = this.value.toUpperCase()"  >
+<mat-error *ngIf="docForm.get('validity').hasError('required')">
+Validity is required
+ </mat-error>
+</mat-form-field>
+</div>
+
+
+<div class="col-md-2" style="min-width: fit-content;" >
+<label>INSURED AMOUNT<span class="errorColor">*</span></label>
+</div>
+<div class="col-md-2">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+<input matInput formControlName="insuredamount" maxlength="9"
+ oninput="this.value = this.value.toUpperCase()"  >
+<mat-error *ngIf="docForm.get('insuredamount').hasError('required')">
+Insured Amount is required
+ </mat-error>
+</mat-form-field>
+</div>
+
+<div class="col-md-2" style="min-width: fit-content;" >
+  <label>ADDRESS</label>
+  </div>
+  <div class="col-md-2">
+  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  <textarea matInput formControlName="address" maxlength="50" ></textarea>
+  <mat-error *ngIf="docForm.get('address').hasError('required')">
+  Address is required
+  </mat-error>
+  </mat-form-field>
+  </div>
+</div>
+
+  <br>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                  <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                  <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                  <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
                 </div>
-
-
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
       </div>
-      </section>
+    </div>
+  </div>
+</section>
 
-  
+

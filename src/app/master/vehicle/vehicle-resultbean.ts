@@ -1,4 +1,6 @@
 export class VehicleResultBean{
-    Sucess:boolean;
+    Success: boolean;
+    vehicleMasterDetails:[];
     vList:[];
+
 }
