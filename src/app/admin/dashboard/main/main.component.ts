@@ -56,6 +56,7 @@ import * as Highcharts from 'highcharts';
 import { Options } from 'highcharts';
 import HC_drilldown from "highcharts/modules/drilldown";
 import { Router } from "@angular/router";
+import { MutualFundService } from "src/app/master/mutualfund/mutualfund.service";
 HC_drilldown(Highcharts);
 
 @Component({
@@ -185,16 +186,27 @@ configUserLog: {
   companyLastAuditDate: any;
   companyLastAuditDoneBy: any;
   compltedProfile: any;
+  profileCount: any;
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
-    ) {}
+    private mutualFundService: MutualFundService) {}
     
   ngOnInit() {
      
     this.docForm = this.fb.group({
       assetid:[""]
     });
+
+    this.httpService.get<MainResultBean>(this.mutualFundService.getCompletionCount+"?userId="+this.tokenStorage.getUsername()).subscribe(
+      (data:any) => {
+        console.log(data);
+        this.profileCount = data.profileCount;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
 
     this.smallChart1();
     this.smallChart2();
@@ -1541,16 +1553,18 @@ configUserLog: {
 
 
   onChangeIndividual(){
-    var userId=this.tokenStorage.getCompanyId();
-    window.sessionStorage.setItem("TabFromInd","");
-    window.sessionStorage.setItem("propFrom", "");
-    window.sessionStorage.setItem("vehicleFrom","");
-    window.sessionStorage.setItem("jewelFrom","");
-    window.sessionStorage.setItem("fixedFrom","");
-    window.sessionStorage.setItem("mutualFrom","");
-    window.sessionStorage.setItem("loanFrom","");
-    window.sessionStorage.setItem("receivableFrom","");
-    this.router.navigate(['master/multiple/allMaster/'+userId]);
+    // var userId=this.tokenStorage.getCompanyId();
+    // window.sessionStorage.setItem("TabFromInd","");
+    // window.sessionStorage.setItem("propFrom", "");
+    // window.sessionStorage.setItem("vehicleFrom","");
+    // window.sessionStorage.setItem("jewelFrom","");
+    // window.sessionStorage.setItem("fixedFrom","");
+    // window.sessionStorage.setItem("mutualFrom","");
+    // window.sessionStorage.setItem("loanFrom","");
+    // window.sessionStorage.setItem("receivableFrom","");
+    // this.router.navigate(['master/multiple/allMaster/'+userId]);
+
+    this.router.navigate(['master/multiple/individualInfo/0']);
   }
 
   onchangeAsset(){

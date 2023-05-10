@@ -1,0 +1,302 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <app-breadcrumb [title]="'Profile'" [items]="['Profile']" [active_item]="'Complete Profile'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col- md-12 col-sm-12">
+        <div class="box-shadow">
+          
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm">
+                <h4>Personal Information</h4>
+              <div class="row">
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                        <label >NAME</label>
+                    </div>
+                    
+    
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput  formControlName="name"  readonly
+                          maxlength="20" (keypress)="keyPressString($event)">
+                          <!-- <mat-error *ngIf="docForm.get('name').hasError('required')">
+                            Name is required
+                          </mat-error> -->
+                              
+                      </mat-form-field>
+                  </div>
+
+                  
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <label>E-MAIL</label>
+                </div>
+                <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="email" readonly>
+                    <!-- <mat-error *ngIf="docForm.get('email').hasError('required')">
+                      Email is required
+                    </mat-error> -->
+                  
+                  </mat-form-field>
+                </div>
+
+
+             </div>
+             <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <label>DOB</label>
+                  </div>
+                  <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput [matDatepicker]="picker2" formControlName="dobObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
+                      id="dob" (dateChange)="getDateString($event, 'dob',0)" readonly>
+                  <!-- <mat-datepicker-toggle matSuffix
+                      [for]="picker2"></mat-datepicker-toggle> -->
+                  <mat-datepicker #picker2></mat-datepicker>
+                  <!-- <mat-error *ngIf="docForm.get('premiumDueDateObj').hasError('required')">
+                    Premium Due Date is required
+                  </mat-error> -->
+                      
+                    </mat-form-field>
+                  </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >MOBILE NUMBER</label>
+          </div>
+          <div class=" col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="mobileNumber" readonly>
+            </mat-form-field>
+            </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <label >ADDRESS</label>
+                </div>
+              
+              <div class=" col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput  formControlName="address"
+                      maxlength="100" readonly>     
+                  </mat-form-field>
+              </div>
+
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <label >COUNTRY</label>
+              </div>
+              <div class=" col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-select formControlName="country" (selectionChange)="fetchCountryBasedState($event.value)">
+                    <mat-option *ngFor="let title of countryList" [value]="title.id" >
+                      {{title.text}}
+                    </mat-option>
+                  </mat-select>
+                  <!-- <mat-error *ngIf="docForm.get('country').hasError('required')">
+                    country is required
+                  </mat-error> -->
+                </mat-form-field>
+              </div>
+              </div>
+
+             <div class="row">
+
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <label >STATE</label>
+                  </div>
+                  <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="state" (selectionChange)="stateBasedCity($event.value)">
+                        <mat-option *ngFor="let title of stateList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <label >CITY</label>
+              </div>
+
+              <div class=" col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-select formControlName="city">
+                    <mat-option *ngFor="let title of cityList" [value]="title.id">
+                      {{title.text}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+       </div>
+
+       <div class="row">
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label>BLOOD GROUP</label>
+        </div>
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="bloodGroup"   
+             >
+          </mat-form-field>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label >ID CARD NUMBER</label>
+        </div>
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="idNumber"   
+             >
+          </mat-form-field>
+        </div>
+        </div>
+
+        <div class="row" >
+
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <label >PASSPORT NUMBER</label>
+              </div>
+              <div class=" col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="passportNumber"   
+                   >
+                </mat-form-field>
+              </div>
+
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >PAN CARD NUMBER</label>
+          </div>
+        
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="panNumber"
+                maxlength="20">     
+            </mat-form-field>
+        </div>
+        </div>
+
+      <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>DRIVING LICENSE NUMBER</label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="licenseNo">
+        </mat-form-field>
+        </div>
+       </div>
+
+        <h4>Business Information</h4>
+        
+        <div class="row" >
+        
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >COMPANY</label>
+          </div>
+        
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="company"
+                maxlength="20">      
+            </mat-form-field>
+        </div>
+        
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>ADDRESS</label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="companyAddress">
+        </mat-form-field>
+        </div>
+        
+        </div>
+        
+        <div class="row" >
+        
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >TELEPHONE</label>
+          </div>
+        
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="telephone"
+                maxlength="20">    
+            </mat-form-field>
+        </div>
+        
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>FAX</label>
+        </div>
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="fax"
+                maxlength="20">    
+            </mat-form-field>
+        </div>
+        
+        </div>
+
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <label >MOBILE</label>
+            </div>
+          
+          <div class=" col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput  formControlName="mobile"
+                  maxlength="20">    
+              </mat-form-field>
+          </div>
+          
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label>E-MAIL</label>
+          </div>
+          <div class=" col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput  formControlName="companyEmail"
+                  maxlength="20">    
+              </mat-form-field>
+          </div>
+          </div>
+
+          <div class="row" >
+        
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <label >WEBSITE</label>
+            </div>
+          
+          <div class=" col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput  formControlName="website"
+                  maxlength="20">      
+              </mat-form-field>
+          </div>
+          </div>
+      
+                              <div class ="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                    <!-- <button  (click) = "onSubmit()" class="btn-space" mat-raised-button
+                                    color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="!edit">Submit</button> -->
+                                    <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                                    color="accent" style="margin-left: 36%;background-color: #34d034;">Update & Next</button>
+                                      <!-- <button (click) = "reset()" class="btn-space" mat-raised-button
+                                        color="accent" style="margin-left: 1%;background-color: #3b10e8;">Reset</button> -->
+                                        <!-- <button (click) = "onCancel()" class="btn-space" mat-raised-button
+                                        color="accent" style="margin-left: 1%;background-color: #d40e0e;">Cancel</button> -->
+                                         </div>
+                            
+                </div>
+                </form>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                
+            </section>

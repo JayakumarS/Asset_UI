@@ -99,14 +99,16 @@
               <div class="card-content">
                 <h4 class="card-title">Individual Information</h4>
                 <div class="mb-2">
-                  <span class="float-end progress-percent label label-info m-b-5">{{compltedProfile}}%</span>
+                  <span class="float-end progress-percent label label-info m-b-5">{{profileCount}}%</span>
                 </div>
                 <div>
                 <mat-progress-bar mode="determinate"
-                  class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2" value="{{compltedProfile}}">
+                  class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2" value="{{profileCount}}">
                 </mat-progress-bar>
-                <button  mat-raised-button color="primary" style ="margin-left:28%;background-color: #34d034;"
+                <button *ngIf="profileCount!='100'"  mat-raised-button color="primary" style ="margin-left:28%;background-color: #34d034;"
                 (click)="onChangeIndividual()" >Complete the Profile </button>
+                <button *ngIf="profileCount=='100'"  mat-raised-button color="primary" style ="margin-left:28%;background-color: #34d034;"
+                (click)="onChangeIndividual()" >Edit Profile </button>
                 </div>
               </div>
             </div>

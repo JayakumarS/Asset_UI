@@ -24,11 +24,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { IndividualInformationComponent } from './individual-information/individual-information.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
   declarations: [
-    IndividualWidgetComponent
+    IndividualWidgetComponent,
+    IndividualInformationComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +57,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatTooltipModule,
     MatProgressSpinnerModule,
     ComponentsModule,
-    SharedModule
+    SharedModule,
+    MatRadioModule
   ]
 })
 export class WidgetModule { }

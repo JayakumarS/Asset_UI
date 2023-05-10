@@ -32,6 +32,9 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
    private edit = `${this.serverUrl.apiServerAddress}app/mutualfund/edit`;
    private update= `${this.serverUrl.apiServerAddress}app/mutualfund/update`; 
    public deletefd= `${this.serverUrl.apiServerAddress}app/mutualfund/delete`; 
+   private saveProfileAll = `${this.serverUrl.apiServerAddress}api/auth/app/individual/saveProfile`;
+   public getProfileDetails = `${this.serverUrl.apiServerAddress}api/auth/app/individual/getProfile`;
+   public getCompletionCount = `${this.serverUrl.apiServerAddress}api/auth/app/individual/getCompletionCount`;
 
    get data(): Fund[] {
     return this.dataChange.value;
@@ -53,6 +56,7 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
     );
 
   }
+ 
   savefund(fund,router,notificationService) {
     this.dialogData = fund;
     this.httpService.post<any>(this.save, fund).subscribe(data => {
@@ -71,6 +75,8 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
         }else if(window.sessionStorage.getItem("mutualFrom")=="normal"){
           window.sessionStorage.setItem("mutualFrom","");
           router.navigate(['/master/mutualfund/list-fund']);
+        } else {
+          router.navigate(['/master/mutualfund/list-fund']);
         }
        // router.navigate(['/master/mutualfund/list-fund']);
         
@@ -78,6 +84,44 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
         notificationService.showNotification(
           "snackbar-danger",
           "Not Added!!!",
+          "bottom",
+          "center"
+        );
+      }
+
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
+
+  saveProfile(profile,router,notificationService) {
+    this.dialogData = profile;
+    this.httpService.post<any>(this.saveProfileAll, profile).subscribe(data => {
+      console.log(data);
+      if(data.success){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Updated Successfully...!!!",
+          "bottom",
+          "center"
+        );
+    var userId=this.tokenStorage.getCompanyId();
+    window.sessionStorage.setItem("TabFromInd","");
+    window.sessionStorage.setItem("propFrom", "");
+    window.sessionStorage.setItem("vehicleFrom","");
+    window.sessionStorage.setItem("jewelFrom","");
+    window.sessionStorage.setItem("fixedFrom","");
+    window.sessionStorage.setItem("mutualFrom","");
+    window.sessionStorage.setItem("loanFrom","");
+    window.sessionStorage.setItem("receivableFrom","");
+    router.navigate(['master/multiple/allMaster/'+userId]);
+
+       // router.navigate(['/master/mutualfund/list-fund']);
+      }else {
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated!!!",
           "bottom",
           "center"
         );
@@ -110,6 +154,8 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
           router.navigate(['/master/multiple/allMaster/0']);
         }else if(window.sessionStorage.getItem("mutualFrom")=="normal"){
           window.sessionStorage.setItem("mutualFrom","");
+          router.navigate(['/master/mutualfund/list-fund']);
+        } else {
           router.navigate(['/master/mutualfund/list-fund']);
         }
         //router.navigate(['/master/mutualfund/list-fund']);

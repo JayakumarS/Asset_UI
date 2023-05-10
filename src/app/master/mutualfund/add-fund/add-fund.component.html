@@ -10,7 +10,7 @@
           
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
-                
+                <h4>General Information</h4>
               <div class="row">
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -62,20 +62,498 @@
               </mat-form-field>
             </div>
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-              <label >TIN<span class="errorColor">*</span></label>
+              <label >TIN</label>
           </div>
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="tin"oninput="this.value = this.value.toUpperCase()"  maxlength="9" (keypress)="keyPressName($event)"
                >
-              <mat-error *ngIf="docForm.get('tin').hasError('required')">
+              <!-- <mat-error *ngIf="docForm.get('tin').hasError('required')">
                 TIN is required
-              </mat-error>
+              </mat-error> -->
             
             </mat-form-field>
             </div>
             </div>
+
+            <div class="row">
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <label >FUND TYPE<span class="errorColor">*</span></label>
+              </div>
+              <div class=" col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-select formControlName="fundType" required>
+                    <mat-option [value]="'1'">
+                      Money market funds
+                    </mat-option>
+                    <mat-option [value]="'2'">
+                      Bond funds
+                    </mat-option>
+                    <mat-option [value]="'3'">
+                      Stock funds
+                    </mat-option>
+                    <mat-option [value]="'4'">
+                      Target date funds
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="docForm.get('fundType').hasError('required')">
+                    Select Fund Type
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <label >BROKER AVAILABLE</label>
+              </div>
+              <div class="col-md-3" style="min-width: fit-content;">
+                <mat-radio-group formControlName="broker"> &nbsp; 
+                  <mat-radio-button  value="Yes" (change)="getBroker($event.value)"> Yes </mat-radio-button>
+                  <mat-radio-button  value="No" (change)="getBroker($event.value)"> No </mat-radio-button>
+                  <!-- <mat-radio-button tabindex="22" value="thirdParty" (change)="getOwnerShip($event.value)"> LEASE/THIRD PARTY </mat-radio-button> -->
+                </mat-radio-group>
+              </div>
+
+              </div>
+
+
+              <div class="row" *ngIf="brokerFlag">
+
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                        <label >BROKER NAME</label>
+                    </div>
+
+                  <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput  formControlName="brokerName" oninput="this.value = this.value.toUpperCase()" 
+                          maxlength="20" (keypress)="keyPressString($event)">      
+                      </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <label>BROKER FEES</label>
+                </div>
+                <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="brokerFee"   (keypress)="keyPressNumber($event)"
+                     >
+                  </mat-form-field>
+                </div>
+
+             </div>
+
+             <div class="row">
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <label >CHARGING FEES</label>
+              </div>
+
+            <div class=" col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput  formControlName="chargingFee"
+                     (keypress)="keyPressNumber($event)">      
+                </mat-form-field>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label>OPERATING EXPENSES</label>
+          </div>
+          <div class=" col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="operatingExpenses"   (keypress)="keyPressNumber($event)"
+               >
+            </mat-form-field>
+          </div>
+
+       </div>
+
+       <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label >INVESTMENT TYPE<span class="errorColor">*</span></label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <mat-select formControlName="investmentMethod" required>
+              <mat-option [value]="'1'">
+                Company's Website
+              </mat-option>
+              <mat-option [value]="'2'">
+                Fund Distributor
+              </mat-option>
+              <mat-option [value]="'3'">
+                ET Money
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="docForm.get('investmentMethod').hasError('required')">
+              Select Investment Type
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label >MODE OF INVESTMENT<span class="errorColor">*</span></label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <mat-select formControlName="modeOfInvestment" required>
+              <mat-option [value]="'1'">
+                Lumpsum
+              </mat-option>
+              <mat-option [value]="'2'">
+                SIP
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="docForm.get('modeOfInvestment').hasError('required')">
+              Select Mode of Investment
+            </mat-error>
+          </mat-form-field>
+        </div>
+        </div>
+
+        <div class="row" >
+
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >TOTAL SUM ASSURED</label>
+          </div>
+        
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="totalAssured"
+                maxlength="20">     
+            </mat-form-field>
+        </div>
+        
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>TOTAL FUND VALUE</label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="totalFund">
+        </mat-form-field>
+        </div>
+        
+        </div>
+        
+        <div class="row" >
+        
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >SUM ASSURED</label>
+          </div>
+        
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="assured"
+                maxlength="20">      
+            </mat-form-field>
+        </div>
+        
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>POLICY NUMBER</label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="policyNumber">
+        </mat-form-field>
+        </div>
+        
+        </div>
+        
+        <div class="row" >
+        
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >PREMIUM DUE AMOUNT</label>
+          </div>
+        
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="premiumDueAmount"
+                maxlength="20">    
+            </mat-form-field>
+        </div>
+        
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>PREMIUM DUE DATE</label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput [matDatepicker]="picker2" formControlName="premiumDueDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
+            id="premiumDueDate" (dateChange)="getDateString($event, 'premiumDueDate',0)">
+        <mat-datepicker-toggle matSuffix
+            [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <!-- <mat-error *ngIf="docForm.get('premiumDueDateObj').hasError('required')">
+          Premium Due Date is required
+        </mat-error> -->
+            
+          </mat-form-field>
+        </div>
+        
+        </div>
+
+        <div class="row">
+
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label >TAX CERTIFICATE APPLICABLE</label>
+          </div>
+          <div class="col-md-3" style="min-width: fit-content;">
+            <mat-radio-group formControlName="taxCertificate"> &nbsp; 
+              <mat-radio-button  value="Yes"> Yes </mat-radio-button>
+              <mat-radio-button  value="No" > No </mat-radio-button>
+              <!-- <mat-radio-button tabindex="22" value="thirdParty" (change)="getOwnerShip($event.value)"> LEASE/THIRD PARTY </mat-radio-button> -->
+            </mat-radio-group>
+          </div>
+
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label >STATUS INFORCE</label>
+          </div>
+          <div class="col-md-3" style="min-width: fit-content;">
+            <mat-radio-group formControlName="statusInforce"> &nbsp; 
+              <mat-radio-button  value="Yes"> Yes </mat-radio-button>
+              <mat-radio-button  value="No" > No </mat-radio-button>
+              <!-- <mat-radio-button tabindex="22" value="thirdParty" (change)="getOwnerShip($event.value)"> LEASE/THIRD PARTY </mat-radio-button> -->
+            </mat-radio-group>
+          </div>
+
+          </div>
+
+<br>
+          <div class="row" >
+        
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <label >PLAN NAME</label>
+            </div>
+          
+          <div class=" col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput  formControlName="planName"
+                  maxlength="20">      
+              </mat-form-field>
+          </div>
+          
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label>PURPOSE OF INSURANCE</label>
+          </div>
+          <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="insurancePurpose">
+          </mat-form-field>
+          </div>
+          
+          </div>
+
+          <h4>Term Details</h4>
+
+          <div class="row" >
+        
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <label >PREMIUM PAYMENT TERM</label>
+            </div>
+          
+          <div class=" col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput  formControlName="premiumTerm"
+                  maxlength="20">      
+              </mat-form-field>
+          </div>
+          
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label>POLICY TERM</label>
+          </div>
+          <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="policyTerm">
+          </mat-form-field>
+          </div>
+          
+          </div>
+
+          <div class="row" >
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>MATURITY DATE</label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput [matDatepicker]="picker3" formControlName="maturityDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
+            id="maturityDate" (dateChange)="getDateString($event, 'maturityDate',0)">
+        <mat-datepicker-toggle matSuffix
+            [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+        <!-- <mat-error *ngIf="docForm.get('premiumDueDateObj').hasError('required')">
+          Premium Due Date is required
+        </mat-error> -->
+            
+          </mat-form-field>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label >REGISTERED MOBILE NUMBER</label>
+      </div>
+    
+    <div class=" col-md-3">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput  formControlName="registeredNumber"
+            maxlength="20">    
+        </mat-form-field>
+    </div>
+        
+        </div>
+
+        <div class="row" >
+        
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >COMMUNICATION ADDRESS</label>
+          </div>
+        
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="communicationAddress"
+                maxlength="20">      
+            </mat-form-field>
+        </div>
+        
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>PERMANENT ADDRESS</label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="permanentAddress">
+        </mat-form-field>
+        </div>
+        
+        </div>
+
+        <div class="row" >
+        
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >GROSS PREMIUM</label>
+          </div>
+        
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="grossPremium"
+                maxlength="20">      
+            </mat-form-field>
+        </div>
+        
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>ANNUAL PREMIUM</label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="annualPremium">
+        </mat-form-field>
+        </div>
+        
+        </div>
+
+        <div class="row" >
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>NEXT PREMIUM DATE</label>
+        </div>
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput [matDatepicker]="picker4" formControlName="nextPremiumDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
+            id="nextPremiumDate" (dateChange)="getDateString($event, 'nextPremiumDate',0)">
+        <mat-datepicker-toggle matSuffix
+            [for]="picker4"></mat-datepicker-toggle>
+        <mat-datepicker #picker4></mat-datepicker>
+        <!-- <mat-error *ngIf="docForm.get('premiumDueDateObj').hasError('required')">
+          Premium Due Date is required
+        </mat-error> -->
+            
+          </mat-form-field>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label >PAYMENT METHOD</label>
+      </div>
+    
+      <div class=" col-md-3">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select formControlName="paymentMethod">
+            <mat-option [value]="'1'">
+              CASH
+            </mat-option>
+            <mat-option [value]="'2'">
+              CARD
+            </mat-option>
+            <mat-option [value]="'2'">
+              ONLINE
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+        
+        </div>
+
+          <br>
+        <h4>Online Portal Login Details</h4>
+
+        <div class="row" >
+
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <label >USER NAME</label>
+          </div>
+
+        <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput  formControlName="userName"
+                maxlength="20">  
+                <!-- <mat-error *ngIf="docForm.get('userName').hasError('required')">
+                  User Name is Required
+                </mat-error>     -->
+            </mat-form-field>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <label>PASSWORD</label>
+      </div>
+      <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="password">
+          <!-- <mat-error *ngIf="docForm.get('password').hasError('required')">
+            Password is Required
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+   </div>
+
+   <div class="row" >
+
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <label >E-MAIL</label>
+    </div>
+    
+  <div class=" col-md-3">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput  formControlName="email">  
+          <!-- <mat-error *ngIf="docForm.get('email').hasError('required') || docForm.get('email').touched">
+            Please enter a valid email address
+          </mat-error>     -->
+      </mat-form-field>
+  </div>
+
+  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+    <label>DOB</label>
+  </div>
+  <div class=" col-md-3">
+    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+      <input matInput [matDatepicker]="picker5" formControlName="dobObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
+      id="dob" (dateChange)="getDateString($event, 'dob',0)">
+  <mat-datepicker-toggle matSuffix
+      [for]="picker5"></mat-datepicker-toggle>
+  <mat-datepicker #picker5></mat-datepicker>
+  <!-- <mat-error *ngIf="docForm.get('premiumDueDateObj').hasError('required')">
+    Premium Due Date is required
+  </mat-error> -->
       
+    </mat-form-field>
+  </div>
+
+</div>
+
  <br>
  <br>
              <!-- Detail Table Starts -->
