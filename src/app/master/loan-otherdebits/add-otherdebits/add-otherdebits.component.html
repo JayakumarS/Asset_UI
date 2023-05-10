@@ -19,7 +19,7 @@
                   </div>
                   <div  class=" col-md-3" style="margin-left: -45px;padding-bottom: 18px;">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select tabindex="18" formControlName="LoanProperty" (selectionChange)="getPropertyDetails($event.value)">
+                      <mat-select tabindex="18" formControlName="loanProperty" (selectionChange)="getPropertyDetails($event.value)">
                         <mat-option *ngFor="let title of loanPropertyList" [value]="title.text">
                           {{title.text}}
                         </mat-option>

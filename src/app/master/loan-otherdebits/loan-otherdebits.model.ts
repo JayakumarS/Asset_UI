@@ -18,7 +18,7 @@ export class Otherdebits {
     accountNo:number;
     account:string;
     bankname:string;
-    
+    loanProperty:string;
 
 
     constructor(Otherdebits) {

@@ -115,6 +115,9 @@ export class LoanOtherdebitsService extends UnsubscribeOnDestroyAdapter{
         }else if(window.sessionStorage.getItem("loanFrom")=="normal"){
           window.sessionStorage.setItem("loanFrom","");
           router.navigate(['/master/loan-otherdebits/list-otherdebits']);
+        } else
+        {
+          router.navigate(['/master/loan-otherdebits/list-otherdebits']);
         }
       //router.navigate(['/master/loan-otherdebits/list-otherdebits']);
       }else {

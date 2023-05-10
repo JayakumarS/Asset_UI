@@ -78,7 +78,7 @@ export class AddOtherdebitsComponent implements OnInit {
     
    
       this.docForm = this.fb.group({
-        LoanProperty:[""],
+        loanProperty:[""],
         type:["", [Validators.required]],
         loanID:[""],
         loan:["", [Validators.required]],
@@ -134,6 +134,7 @@ const obj = {
 this.loanOtherdebitsService.editlist(obj).subscribe({
   next: (res) => {
   this.docForm.patchValue({
+      'loanProperty': res.loanProperty,
       'type': res.type,
       'loan':res.loan,
       'loanAmount': res.loanAmount,
@@ -176,6 +177,7 @@ reset(){
   if (!this.edit) {
     location.reload()
     this.docForm = this.fb.group({
+        loanProperty:[""],
         type:[""],
         loanID:[""],
         loan:[""],
