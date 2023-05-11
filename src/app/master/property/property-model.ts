@@ -16,7 +16,8 @@ export class Property {
     loanNo:string;
     loanInterest:number;
     id:number;
-    
+    rentalType:string;
+    propertyType:string;
     constructor(PropertyModel) {
         {
          
