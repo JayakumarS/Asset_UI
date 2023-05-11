@@ -89,8 +89,9 @@ docForm: FormGroup;
        fixeddeposittype:["", [Validators.required]],
         fdstartDate:["",[Validators.required]],
         fdstartdateObj:["",[Validators.required]],
-       
-        fdRef:[""],
+        dobobj:[""],
+        dob:[""],
+         fdRef:[""],
         fdamt:["",[Validators.required]],
         penalityAmt:["",[Validators.required]],
         ifscCode:["",[Validators.required]],
@@ -98,7 +99,15 @@ docForm: FormGroup;
         interest :["",[Validators.required]],     
         applicationNo:["",[Validators.required]],
         dueAmount:["",[Validators.required]],
-        id:[""]
+        id:[""],
+        mail:[""],
+        phone:[""],
+        address:[""],
+        country:[""],
+        postcode:[""],
+        currency:["",[Validators.required]],
+        frequency:[""],
+
   
       })
   
@@ -106,17 +115,16 @@ docForm: FormGroup;
     }
     getDateString(event, inputFlag, index) {
       let cdate = this.commonService.getDate(event.target.value);
-      if (inputFlag == 'maturitydate') {
-        this.docForm.patchValue({maturitydate: cdate });
-      }
-      if (inputFlag == 'fdendDate') {
+    if (inputFlag == 'fdendDate') {
         this.docForm.patchValue({fdendDate: cdate });
       }
       if (inputFlag == 'fdstartDate') {
         this.docForm.patchValue({fdstartDate: cdate });
       }
-      // let OrderDtlArray = this.docForm.controls.OrderDtl as FormArray;
-      // OrderDtlArray.at(index).patchValue({duedate: cdate });
+      if (inputFlag == 'dob') {
+        this.docForm.patchValue({dob: cdate });
+      }
+    
       }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -158,6 +166,8 @@ docForm: FormGroup;
       next: (res) => {
         let hdate = this.cmnService.getDateObj(res.fixeddepositBean.fdendDate);
         let rdate = this.cmnService.getDateObj(res.fixeddepositBean.fdstartDate);
+        let ddate = this.cmnService.getDateObj(res.fixeddepositBean.dob);
+
       this.docForm.patchValue({
           'bankName': res.fixeddepositBean.bankName,
           'investmentTerm': res.fixeddepositBean.investmentTerm,
@@ -166,6 +176,8 @@ docForm: FormGroup;
           'fdendDate': res.fixeddepositBean.fdendDate,
           'fdenddateObj' :hdate,
           'fdstartdateObj' :rdate,
+          'dobobj':ddate,
+          'dob': res.fixeddepositBean.dob,
           'fixeddeposittype': res.fixeddepositBean.fixeddeposittype,
           'fdstartDate': res.fixeddepositBean.fdstartDate,
           'fdRef': res.fixeddepositBean.fdRef,
@@ -176,8 +188,14 @@ docForm: FormGroup;
           'interest': res.fixeddepositBean.interest,
           'applicationNo': res.fixeddepositBean.applicationNo,
           'fdName': res.fixeddepositBean.fdName,
-          'id' :this.requestId
-          
+          'id' :this.requestId,
+          'mail':res.fixeddepositBean.mail,
+          'phone':res.fixeddepositBean.phone,
+          'address':res.fixeddepositBean.address,
+          'country':res.fixeddepositBean.country,
+          'postcode':res.fixeddepositBean.postcode,
+          'currency':res.fixeddepositBean.currency,
+          'frequency' :res.fixeddepositBean.frequency,
 
       });
     },
@@ -206,8 +224,6 @@ docForm: FormGroup;
         bankName:[""],
         investmentTerm:[""],
         autoRenewal:[""],
-        // maturitydate:[""],
-        // maturitydateobj:[""],
         fdName:[""],
         loginedUser: this.tokenStorage.getUserId(),
        fdendDate:[""],
@@ -215,7 +231,8 @@ docForm: FormGroup;
        fixeddeposittype:[""],
         fdstartDate:[""],
         fdstartdateObj:[""],
-       
+       dob:[""],
+       dobobj:[""],
         fdRef:[""],
         fdamt:[""],
         penalityAmt:[""],
@@ -224,7 +241,15 @@ docForm: FormGroup;
         interest :[""],     
         applicationNo:[""],
         dueAmount:[""],
-        id:[""]
+        id:[""],
+        mail:[""],
+        phone:[""],
+        address:[""],
+        country:[""],
+        postcode:[""],
+        currency:["",[Validators.required]],
+        frequency:[""],
+        
       });
   } else {
     this.fetchDetails(this.requestId);

@@ -13,11 +13,19 @@ export class Deposit {
     fdRef:string;
     fdamt:number;
     penalityAmt:number;
-    ifscCode:String;
+    ifscCode:string;
     fdaccountNo:number;
-    interest :String;
+    interest :string;
     applicationNo:any
     fdName:any;
+    dob:string;
+    mail:string;
+    phone:string;
+    address:string;
+    country:string;
+    postcode:number;
+    currency:string;
+    frequency:string;
 
        
     constructor(Deposit) {
