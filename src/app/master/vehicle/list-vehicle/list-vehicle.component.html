@@ -53,25 +53,25 @@
 
             
 
+                <ng-container matColumnDef="regno">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Registration No</mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.regno}}</mat-cell>
+                </ng-container>
+
+
                 <ng-container matColumnDef="vehiclebrand">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Vehicle Brand</mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.vehiclebrand}}</mat-cell>
+                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)" >{{row.vehiclebrand}}</mat-cell>
                 </ng-container>
 
-
-                <ng-container matColumnDef="vehiclename">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Vehicle Name</mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)" >{{row.vehiclename}}</mat-cell>
+                <ng-container matColumnDef="engineno">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Engine Number</mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.engineno}}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="fueltype">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Fuel Type</mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.fueltype}}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="colour">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Vehicle Colour</mat-header-cell>
-                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.colour}}</mat-cell>
+                <ng-container matColumnDef="ownertype">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Owner Type</mat-header-cell>
+                  <mat-cell *matCellDef="let row"  (contextmenu)="onContextMenu($event, row)"> {{row.ownertype}}</mat-cell>
                 </ng-container>
 
                 <!-- actions -->

@@ -74,13 +74,13 @@ export class AddVehicleComponent implements OnInit {
     this.docForm = this.fb.group({
       vehiclename: [""],
       vehicletype: [""],
-      vehiclebrand :[""],
+      vehiclebrand :["",[Validators.required]],
       regno:["", [Validators.required]],
       chassisno:["", [Validators.required]],
       engineno:["", [Validators.required]],
       bodytype:[""],
       fueltype:[""],
-      ownertype:[""],
+      ownertype:["",[Validators.required]],
       dateofpurc:["", [Validators.required]],
       insurancedetails:["", Validators.pattern('^[A-Z]{2}[0-9]{6}[A-Z]$')],
       service:["", [Validators.required]],
@@ -112,13 +112,13 @@ export class AddVehicleComponent implements OnInit {
     this.docForm = this.fb.group({
       vehiclename: [""],
       vehicletype: [""],
-      vehiclebrand :[""],
+      vehiclebrand :["",[Validators.required]],
       regno:["", [Validators.required]],
       chassisno:["", [Validators.required]],
       engineno:["", [Validators.required]],
       bodytype:[""],
       fueltype:[""],
-      ownertype:[""],
+      ownertype:["",[Validators.required]],
       dateofpurc:["", [Validators.required]],
       insurancedetails:["", Validators.pattern('^[A-Z]{2}[0-9]{6}[A-Z]$')],
       service:["", [Validators.required]],
@@ -126,7 +126,7 @@ export class AddVehicleComponent implements OnInit {
       discardFromDate1:[""],
       vehiclewheel:[""],
       colour:[""],
-      age:[""],
+      age:["", [Validators.required]],
       rtocode:[""],
       purcamount:[""],
       insurancetype: ["", [Validators.required]],
@@ -188,8 +188,8 @@ export class AddVehicleComponent implements OnInit {
     this.edit = true;
     this.vehicleService.editvehicle(obj).subscribe({
       next: (res) => {
-        let rdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate);
         let hdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate1);
+        let rdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate);
 
         if(res.vehiclesBean.lin!=null){
           var licenseValue = 'yes'
@@ -270,13 +270,13 @@ export class AddVehicleComponent implements OnInit {
     this.docForm = this.fb.group({
       vehiclename: [""],
       vehicletype: [""],
-      vehiclebrand :[""],
+      vehiclebrand :["",[Validators.required]],
       regno:["", [Validators.required]],
       chassisno:["", [Validators.required]],
       engineno:["", [Validators.required]],
       bodytype:[""],
       fueltype:[""],
-      ownertype:[""],
+      ownertype:["",[Validators.required]],
       dateofpurc:["", [Validators.required]],
       insurancedetails:["", Validators.pattern('^[A-Z]{2}[0-9]{6}[A-Z]$')],
       service:["", [Validators.required]],
@@ -298,6 +298,7 @@ export class AddVehicleComponent implements OnInit {
       lin: [""],
       agency: [""],
       emiamount: [""],
+        
 
 
  });
@@ -352,9 +353,23 @@ getlicense(check: any) {
     if (inputFlag == 'discardFromDate') {
       this.docForm.patchValue({discardFromDate: cdate });
     }
-    if (inputFlag == 'discardToDate1') {
-      this.docForm.patchValue({discardToDate1: cdate });
+    if (inputFlag == 'discardFromDate1') {
+      this.docForm.patchValue({discardFromDate1: cdate });
     }
+    }
+    keyPressNumeric(event: any) {
+      const pattern = /[0-9]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
+    }
+    keyPressName(event: any) {
+      const pattern = /[A-Z, a-z]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
     }
 
 }

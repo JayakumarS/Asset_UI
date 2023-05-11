@@ -30,10 +30,10 @@ import { DeleteVehicleComponent } from './delete-vehicle/delete-vehicle.componen
 export class ListVehicleComponent  extends UnsubscribeOnDestroyAdapter implements OnInit{
 
   displayedColumns=[
+      "regno",
       "vehiclebrand",
-      "vehiclename",
-      "colour",
-      "fueltype",
+      "engineno",
+      "ownertype",
       "actions"
   ];
 
