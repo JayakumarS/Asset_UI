@@ -12,6 +12,7 @@ import { loanreceivablesResultBean } from './loan-receivables-result-bean';
   providedIn: 'root'
 })
 export class LoanReceivablesService extends UnsubscribeOnDestroyAdapter{
+  
   editState(obj: { editId: any; }) {
     throw new Error('Method not implemented.');
   }
@@ -33,10 +34,12 @@ export class LoanReceivablesService extends UnsubscribeOnDestroyAdapter{
   public edit = `${this.serverUrl.apiServerAddress}app/loanreceivables/editlist`;
   public update = `${this.serverUrl.apiServerAddress}app/loanreceivables/update`;
   public delete = `${this.serverUrl.apiServerAddress}app/loanreceivables/delete`;
+  public getJewelleryList = `${this.serverUrl.apiServerAddress}app/loanreceivables/jewelleryList`;
+  public getVehicleList = `${this.serverUrl.apiServerAddress}app/loanreceivables/vehicleList`;
   get data(): Loan[] {
     return this.dataChange.value;
   }
-
+  
   getList(){
     this.UserId=this.tokenStorage.getUserId();
     this.subs.sink = this.httpService.get<loanreceivablesResultBean>(this.list+"?UserId="+this.UserId).subscribe(

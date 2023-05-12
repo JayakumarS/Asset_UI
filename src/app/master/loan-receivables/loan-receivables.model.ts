@@ -13,7 +13,10 @@ export class Loan {
     duedate:string;
     duedateObj:string;
     UserId:string;
-
+    receivables:string;
+    assettype:string;
+    payment:string;
+    invoiceDate:string;
     constructor(loan) {
         {
             this.id = loan.id;

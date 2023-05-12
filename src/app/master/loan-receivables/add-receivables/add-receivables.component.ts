@@ -14,6 +14,7 @@ import { NotificationService } from 'src/app/core/service/notification.service';
 import { LoanReceivablesService } from '../loan-receivables.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loan } from '../loan-receivables.model';
+import { LoanOtherdebitsService } from '../../loan-otherdebits/loan-otherdebits.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -43,7 +44,6 @@ export const MY_DATE_FORMATS = {
   ]
 })
 export class AddReceivablesComponent implements OnInit {
-  [x: string]: any;
   docForm: FormGroup;
   edit: boolean=false;
  loan:Loan;
@@ -62,23 +62,27 @@ export class AddReceivablesComponent implements OnInit {
     value1: any;
     currencyListbasedCompany=[];
     totalValue:number;
-    
+    loanPropertyList: any;
+    Propertyflag: boolean ;
+    jewelleryflag: boolean ;
+    vehicleflag: boolean ;
+    jewelleryList:any;
+    vehicleList:any;
 
-
-    
   
 
   constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private commonService: CommonService,
     private loanReceivablesService : LoanReceivablesService,
     private cmnService:CommonService,private httpService: HttpServiceService,
     private notificationService: NotificationService, 
-    private router:Router,public route: ActivatedRoute,    private spinner: NgxSpinnerService,public tokenStorage: TokenStorageService,)
+    private router:Router,public route: ActivatedRoute,    private spinner: NgxSpinnerService,public tokenStorage: TokenStorageService,
+    private loanOtherdebitsService: LoanOtherdebitsService)
      {   
        this.docForm = this.fb.group({
        customername:["", [Validators.required]],
        amount:["", [Validators.required]],
        invoicenumber:["", [Validators.required]],
-       paymentreference:["", [Validators.required]],
+       paymentreference:[""],
        baddebts:["", [Validators.required]],
        interestreceivable:["", [Validators.required]],
        loginedUser: this.tokenStorage.getUserId(),
@@ -88,20 +92,21 @@ export class AddReceivablesComponent implements OnInit {
        currency:["", [Validators.required]],
        duedate:["", [Validators.required]],
        duedateObj:["", [Validators.required]],
-       id:[""]
+       id:[""],
+       assettype:[""],
 
     })
   }
   getDateString(event, inputFlag, index) {
     let cdate = this.commonService.getDate(event.target.value);
-    
-    // if (inputFlag == 'duedate') {
-    //   let FundDtlArray = this.docForm.controls.FundDtl as FormArray;
-    //   FundDtlArray.at(index).patchValue({duedate: cdate});
-      
-    // }
+    let gdate = this.commonService.getDate(event.target.value);
+
+  
     if(inputFlag=='duedate'){
       this.docForm.patchValue({duedate:cdate});
+    }
+    if(inputFlag=='invoiceDate'){
+      this.docForm.patchValue({invoiceDate:gdate});
     }
   }
     
@@ -111,18 +116,21 @@ export class AddReceivablesComponent implements OnInit {
       customername:["", [Validators.required]],
       amount:["", [Validators.required]],
       invoicenumber:["", [Validators.required]],
-      paymentreference:["", [Validators.required]],
-      baddebts:["", [Validators.required]],
-      interestreceivable:["", [Validators.required]],
+      paymentreference:[""],
+      baddebts:[""],
+      interestreceivable:[""],
       loginedUser: this.tokenStorage.getUserId(),
       accounttype:["", [Validators.required]],
       paymentstatus:["", [Validators.required]],
-      paymentstatusObj:["", [Validators.required]],
       currency:["", [Validators.required]],
       duedate:["", [Validators.required]],
-      duedateObj:["", [Validators.required]],
-      id:[""]
-
+      duedateObj:[""],
+      id:[""],
+      receivables:[""],
+      assettype:[""],
+      payment:[""],
+      invoiceDate:[""],
+      invoiceDateObj:["", [Validators.required]]
    });
 
    this.route.params.subscribe(params => {
@@ -133,10 +141,58 @@ export class AddReceivablesComponent implements OnInit {
      this.fetchDetails(this.requestId) ;
     }
    });
-    
-    
+   
+            // jewellery dropdown
+            this.httpService.get<any>(this.loanReceivablesService.getJewelleryList).subscribe({
+              next: (data) => {
+                this.jewelleryList = data;
+              },
+              error: (error) => {
+        
+              }
+            }
+            );
+               // vehicle dropdown
+               this.httpService.get<any>(this.loanReceivablesService.getVehicleList).subscribe({
+                next: (data) => {
+                  this.vehicleList = data;
+                },
+                error: (error) => {
+          
+                }
+              }
+              );
+
+                 // Property loan dropdown
+            this.httpService.get<any>(this.loanOtherdebitsService.getLoanPropertyList).subscribe({
+              next: (data) => {
+                this.loanPropertyList = data;
+              },
+              error: (error) => {
+        
+              }
+            }
+            );
+            // this.getAssetType(Event);
+
   }
-  
+  getAssetType(check: any){
+    if (check == 'Property') {
+      this.Propertyflag = true;
+    }  else{
+      this.Propertyflag = false;
+    }
+    if (check == 'Vehicle') {
+      this.vehicleflag = true;
+    }  else{
+      this.vehicleflag = false;
+    }
+    if (check == 'Jewellery') {
+      this.jewelleryflag = true;
+    }  else{
+      this.jewelleryflag = false;
+    }
+  }
     onSubmit(){
       this.loan = this.docForm.value;
     
@@ -158,9 +214,11 @@ export class AddReceivablesComponent implements OnInit {
       editId: id
     }
     this.edit = true;
-    
+
       this.loanReceivablesService.editlist(obj).subscribe({
         next: (res) => {
+          this.getAssetType(res.assettype);
+
         this.docForm.patchValue({
             'customername': res.customername,
             'amount':res.amount,
@@ -174,8 +232,15 @@ export class AddReceivablesComponent implements OnInit {
             'duedate':res.duedate,
             'currency':res.currency,
             'id' :this.requestId,     
+            'receivables':res.receivables,
+            'assettype':res.assettype,
+            'invoiceDateObj':this.commonService.getDateObj(res.invoiceDate),
+            'invoiceDate':res.invoiceDate,
+            'payment':res.payment,
 
+       
         });
+
       },
       error: (error) => {
       }
