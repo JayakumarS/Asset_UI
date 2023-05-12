@@ -79,6 +79,11 @@
                                   <mat-cell *matCellDef="let row"  >
                                       {{row.assetCode}}</mat-cell>
                               </ng-container>
+                              <ng-container matColumnDef="assetId1">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> SAP Asset Code </mat-header-cell>
+                                <mat-cell *matCellDef="let row"  >
+                                    {{row.assetId1}}</mat-cell>
+                            </ng-container>
                                 <ng-container matColumnDef="assetName">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Asset Name </mat-header-cell>
                                     <mat-cell *matCellDef="let row"  >

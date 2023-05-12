@@ -32,6 +32,7 @@ export class ListAssetMasterComponent extends UnsubscribeOnDestroyAdapter implem
     "select",
     // "assetId",
     "assetCode",
+    "assetId1",
     "assetName",
     "Location",
     "Category",
@@ -348,6 +349,7 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
               assetMaster.assetName +
              // assetMaster.assetId +
               assetMaster.assetCode +
+              assetMaster.assetId1 +
               assetMaster.locationName +
               assetMaster.categoryName +
               assetMaster.statusName +
@@ -404,7 +406,9 @@ export class ExampleDataSource extends DataSource<AssetMaster> {
         case "status":
             [propertyA, propertyB] = [a.status, b.status];
             break;
-
+        case "assetId1":
+              [propertyA, propertyB] = [a.assetId1, b.assetId1];
+              break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

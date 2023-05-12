@@ -87,5 +87,5 @@ export class AssetMaster {
 
 	insuranceDate: string;
     insuranceDateObj: string;
-
+	assetId1:string;
 } 
