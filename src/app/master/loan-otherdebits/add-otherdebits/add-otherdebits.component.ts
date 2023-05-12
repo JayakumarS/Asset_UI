@@ -62,6 +62,7 @@ export class AddOtherdebitsComponent implements OnInit {
   currencyListbasedCompany=[];
   totalValue:number;
   loanPropertyList: any;
+  CountryCodeList=[];
 
   constructor(
     private fb: FormBuilder,
@@ -78,26 +79,43 @@ export class AddOtherdebitsComponent implements OnInit {
     
    
       this.docForm = this.fb.group({
+        name:["",[Validators.required]],
+        dobObj:[""],
+        dob:[""],
+        mail:[""],
+        phoneno:[""],
+        telepheNo:[""],
+        address:[""],
+        currencyl:["",[Validators.required]],
+        branchName:[""],
+        ifsccode:["",[Validators.required]],
         loanProperty:[""],
-        type:["", [Validators.required]],
-        loanID:[""],
-        loan:["", [Validators.required]],
-        loanAmount:["", [Validators.required]],
-        loanRef:["", [Validators.required]],
-        loanStartDateObj:["", [Validators.required]],
-        loanStartDate:["", [Validators.required]],
-        loanDueDateObj:["", [Validators.required]],
-        loanDueDate:["", [Validators.required]],
-        amount:["", [Validators.required]],
-        emidateObj:["", [Validators.required]],
-        emiDate:["", [Validators.required]],
+        loanApplicationDate:["",[Validators.required]],
+        loanApplicationDateObj:["",[Validators.required]],
+        loanApprovalDate:[""],
+        loanApprovalDateObj:[""],
+        loanDisbursementDate:[""],
+        loanDisbursementDateObj:[""],
+        type:["",[Validators.required]],
+        loan:["",[Validators.required]],
+        loanAmount:["",[Validators.required]],
+        loanRef:["",[Validators.required]],
+        loanStartDateObj:["",[Validators.required]],
+        loanStartDate:["",[Validators.required]],
+        loanDueDateObj:["",[Validators.required]],
+        loanDueDate:["",[Validators.required]],
+        amount:["",[Validators.required]],
+        emidateObj:["",[Validators.required]],
+        emiDate:["",[Validators.required]],
         penalityAmount:[""],
-        interestRate:["", [Validators.required]],
-        accountNo:[""],
-        account:["", [Validators.required]],
-        bankname:["", [Validators.required]],
+        interestRate:["",[Validators.required]],
+        account:["",[Validators.required]],
+        bankname:["",[Validators.required]],
         id:[""],
         loginedUser: this.tokenStorage.getUserId(),
+        // loanID:[""], 
+        // accountNo:[""],
+       
       })
   
 
@@ -124,6 +142,17 @@ export class AddOtherdebitsComponent implements OnInit {
     }
     );
 
+        // Country Code Dropdown List
+        this.httpService.get<any>(this.commonService.getCountryCodeDropdown).subscribe({
+          next: (data) => {
+            this.CountryCodeList = data;
+          },
+          error: (error) => {
+    
+          }
+        }
+        );
+
   }
 
 
@@ -133,8 +162,22 @@ const obj = {
 }
 this.loanOtherdebitsService.editlist(obj).subscribe({
   next: (res) => {
+    let rdate = this.cmnService.getDateObj(res.loanApplicationDate);
+    let hdate = this.cmnService.getDateObj(res.loanApprovalDate);
+    let fdate = this.cmnService.getDateObj(res.loanDisbursementDate);
+
   this.docForm.patchValue({
+      'name':res.name,
+      'dob':res.dob,
+      'dobObj':this.commonService.getDateObj(res.dob),
+      'mail':res.mail,
+      'phoneno':res.phoneno,
+      'telepheNo':res.telepheNo,
+      'address':res.address,
+      'currencyl':res.currencyl,
+      'branchName':res.branchName,
       'loanProperty': res.loanProperty,
+      'ifsccode':res.ifsccode,
       'type': res.type,
       'loan':res.loan,
       'loanAmount': res.loanAmount,
@@ -150,6 +193,12 @@ this.loanOtherdebitsService.editlist(obj).subscribe({
       'interestRate' :res.interestRate,
       'account':res.account,
       'bankname': res.bankname,
+      'loanApplicationDate':res.loanApplicationDate,
+      'loanApprovalDate':res.loanApprovalDate,
+      'loanDisbursementDate':res.loanDisbursementDate,
+      'loanApplicationDateObj' :rdate,
+      'loanApprovalDateObj' :hdate,
+      'loanDisbursementDateObj' :fdate,
       'id' :this.requestId,     
        
   });
@@ -177,7 +226,23 @@ reset(){
   if (!this.edit) {
     location.reload()
     this.docForm = this.fb.group({
+        name:[""],
+        dob:[""],
+        dobObj:[""],
+        mail:[""],
+        phoneno:[""],
+        telepheNo:[""],
+        address:[""],
+        currencyl:[""],
+        branchName:[""],
+        ifsccode:[""],
         loanProperty:[""],
+        loanApplicationDate:[""],
+        loanApplicationDateObj:[""],
+        loanApprovalDate:[""],
+        loanApprovalDateObj:[""],
+        loanDisbursementDate:[""],
+        loanDisbursementDateObj:[""],
         type:[""],
         loanID:[""],
         loan:[""],
@@ -213,6 +278,18 @@ if(inputFlag=='loanDueDate'){
 }
 if(inputFlag=='emiDate'){
   this.docForm.patchValue({emiDate:cdate});
+}
+if(inputFlag=='loanApplicationDate'){
+  this.docForm.patchValue({loanApplicationDate:cdate});
+}
+if(inputFlag=='loanApprovalDate'){
+  this.docForm.patchValue({loanApprovalDate:cdate});
+}
+if(inputFlag=='loanDisbursementDate'){
+  this.docForm.patchValue({loanDisbursementDate:cdate});
+}
+if(inputFlag=='dob'){
+  this.docForm.patchValue({dob:cdate});
 }
 // if(inputFlag=='loanStartDate'){
 //   let  OrderDtlArray= this.docForm.controls.OrderDtl as FormArray;
@@ -270,8 +347,8 @@ keyPressNumeric(event: any) {
   }
 }
 
-keyPressAlphaNumeric(event: any) {
-  const pattern = /[A-Z,a-z 0-9]/;
+keyPressNumeric2(event: any) {
+  const pattern = /[0-9 +]/;
   const inputChar = String.fromCharCode(event.charCode);
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();
@@ -279,6 +356,13 @@ keyPressAlphaNumeric(event: any) {
 }
 
 
+keyPressAlphaNumeric(event: any) {
+  const pattern = /[A-Z,a-z 0-9]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
 
 keyPressNumberDouble(event: any) {
   const pattern = /[0-9.]/;
@@ -312,6 +396,7 @@ getPropertyDetails(requestId: any): void {
   this.loanOtherdebitsService.getPropertyDetails(obj).subscribe({
     next: (res) => {
     this.docForm.patchValue({
+      
         'type': res.loantype,
         'loan':res.loanNo,
         'loanAmount': res.loanAmount,
