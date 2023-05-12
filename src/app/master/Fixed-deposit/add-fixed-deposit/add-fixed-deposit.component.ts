@@ -62,6 +62,7 @@ docForm: FormGroup;
     value1: any;
     currencyListbasedCompany=[];
     totalValue:number;
+    CountryCodeList=[];
 
   constructor(private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -107,6 +108,7 @@ docForm: FormGroup;
         postcode:[""],
         currency:["",[Validators.required]],
         frequency:[""],
+        phonecode:[""],
 
   
       })
@@ -196,6 +198,7 @@ docForm: FormGroup;
           'postcode':res.fixeddepositBean.postcode,
           'currency':res.fixeddepositBean.currency,
           'frequency' :res.fixeddepositBean.frequency,
+          'phonecode':res.fixeddepositBean.phonecode,
 
       });
     },
@@ -308,6 +311,15 @@ keyPressAlphaNumeric(event: any) {
     event.preventDefault();
   }
 }
+
+keyPressNumeric2(event: any) {
+  const pattern = /[0-9 +]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}  
+
 
 
 

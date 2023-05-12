@@ -1,5 +1,5 @@
 
-  <section class="content">
+<section class="content">
   <div class="content-block">
       <div class="block-header" style="padding: 0.5% !important;">
           <app-breadcrumb [title]="'Fixed-Deposit'" [items]="['Master']" [active_item]="'Add-Fixed-Deposit'"> 
@@ -67,8 +67,8 @@
                       </div>
                       <div class="col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="address">
-                      </mat-form-field>
+                          <textarea matInput formControlName="address" maxlength="250"></textarea>
+                        </mat-form-field>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >COUNTRY</mat-label>
