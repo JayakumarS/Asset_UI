@@ -76,8 +76,7 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
   usersData: User[] = [];
   columnsToDisplay = ["actions",
   "categoryName",
-  "Description",
-  "isactive",
+  "Description"
   
   
 ];

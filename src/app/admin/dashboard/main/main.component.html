@@ -48,7 +48,7 @@
         </div>
 
         <!-- Flow Chart -->
-        <div class="card" *ngIf="!flowChartFlag && roleId!='7'" style="padding-bottom: 80px;padding-top: 70px;">
+        <div class="card" *ngIf="!flowChartFlag" style="padding-bottom: 80px;padding-top: 70px;">
           <div class="body" >
             <img src="assets/images/flowchart.png" alt="Trulli" width="100%" height="70%" style="margin-top:-83px">
             </div>
@@ -155,7 +155,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6" *ngIf="roleId!='7'">
             <div class="card card-statistic-2">
               <div class="clearfix">
                 <div class="card-right">

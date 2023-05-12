@@ -193,11 +193,14 @@ configUserLog: {
     private mutualFundService: MutualFundService) {}
     
   ngOnInit() {
+
+    this.roleId=this.tokenStorage.getRoleId();
      
     this.docForm = this.fb.group({
       assetid:[""]
     });
 
+    if(this.roleId=='7' || this.roleId==7){
     this.httpService.get<MainResultBean>(this.mutualFundService.getCompletionCount+"?userId="+this.tokenStorage.getUsername()).subscribe(
       (data:any) => {
         console.log(data);
@@ -207,7 +210,8 @@ configUserLog: {
         console.log(error.name + " " + error.message);
       }
     );
-
+    }
+    
     this.smallChart1();
     this.smallChart2();
     this.smallChart3();
@@ -221,7 +225,7 @@ configUserLog: {
    this.basicBarChart();
 
     this.companyId=this.tokenStorage.getCompanyId();
-    this.roleId=this.tokenStorage.getRoleId();
+    
     
     
     if(this.roleId==3){
