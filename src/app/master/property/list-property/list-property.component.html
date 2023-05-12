@@ -46,13 +46,13 @@
                   </div>
                   <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
-                  <ng-container matColumnDef="propertyHolderName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Property Holder Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.propertyHolderName}}</mat-cell>
+                  <ng-container matColumnDef="propertyType">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Property Type</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.propertyType}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="noProperty">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>No of Property</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.noProperty}}</mat-cell>
+                  <ng-container matColumnDef="rentalType">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Rental Type</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.rentalType}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="taxNo">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Tax No</mat-header-cell>

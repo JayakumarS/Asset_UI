@@ -52,6 +52,9 @@ export class AddPropertyComponent implements OnInit {
   edit:boolean=false;
   url:any;
   isRent: boolean = false;
+  isHouse: boolean;
+  isLoan: boolean;
+  isAutoDebit: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -67,31 +70,50 @@ export class AddPropertyComponent implements OnInit {
   ) { 
     this.docForm = this.fb.group({
        propertyType:[""],
-       rentType:[""],
+       residencialType:[""],
+       squareFeet:[""],
+       guidelineValue:[""],
+       currentValue:[""],
+       depVal:[""],
+       loan:["", [Validators.required]],
+       loanNo:[""],
+       emiDate:[""],
+       emiDateObj:[""],
+       loanInterest:[""],
+       autoDebit:[false],
+       loanAmount:[""],
+       account:[""],
+       rentalType:[""],
+       advance:[""],
+       rentAmount:[""],
+       dateToPayDateObj:[""],
+       dateToPayDate:[""],
+       rentalPeriod:[""],
+       tenantName:[""],
+       tenentIdCard:[""],
+       mobileNo:[""],
+       alternateNo:[""],
        payerDate:[""],
        payerDateObj:[""],
        inMonth:[""],
        payerMode:[""],
        recive:[""],
-       propertyHolderName:["", [Validators.required]],
-       noProperty:["", [Validators.required]],
        propertyRate:[""],
        regDate:[""],
-       regDateObj:["",[Validators.required]],
+       regDateObj:[""],
        propertyLocation:[""],
        taxNo:[""],
        mortage:[""],
-       loan:["", [Validators.required]],
-       ownership:["", [Validators.required]],
-       depVal:[""],
-       currentValue:[""],
-       squareFeet:[""],
-       type:["", [Validators.required]],
-       loanNo:[""],
-       loanInterest:[""],
-       loantype:[""],
-       account:[""],
-       loanAmount:[""],
+
+
+
+      //  rentType:[""],
+      //  propertyHolderName:["", [Validators.required]],
+      //  noProperty:["", [Validators.required]],
+      //  ownership:["", [Validators.required]],
+      //  type:["", [Validators.required]],
+      //  loantype:[""],
+
        loginedUser: this.tokenStorage.getUserId(),
     
 
@@ -105,7 +127,7 @@ export class AddPropertyComponent implements OnInit {
      this.edit=true;
      //For User login Editable mode
      this.fetchDetails(this.requestId) ;
-     this.propertyFlag(event);
+     this.rentalFlag(event);
 
     }
   });
@@ -145,33 +167,45 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
    if (!this.edit) {
     location.reload()
    this.docForm = this.fb.group({
-      propertyType:[""],
-      rentType:[""],
-      payerDate:[""],
-      payerDateObj:[""],
-      inMonth:[""],
-      payerMode:[""],
-      recive:[""],
-      propertyHolderName:[""],
-      noProperty:[""],
-      propertyRate:[""],
-      regDateObj:[""],
-      propertyLocation:[""],
-      taxNo:[""],
-      type:[""],
-      ownership:[""],
-      currentValue:[""],
-      depVal:[""],
-      squareFeet:[""],
-      loan:[""],
-      loanNo:[""],
-      loanInterest:[""],
-      loginedUser: this.tokenStorage.getUserId(),
-      id:[""],
-      mortage:[""],
-      loantype:[""],
-      account:[""],
-      loanAmount:[""],
+      
+    propertyType:[""],
+       residencialType:[""],
+       squareFeet:[""],
+       guidelineValue:[""],
+       currentValue:[""],
+       depVal:[""],
+       loan:[""],
+       loanNo:[""],
+       emiDate:[""],
+       emiDateObj:[""],
+       loanInterest:[""],
+       autoDebit:[""],
+       loanAmount:[""],
+       account:[""],
+       rentalType:[""],
+       advance:[""],
+       rentAmount:[""],
+       dateToPayDateObj:[""],
+       dateToPayDate:[""],
+       rentalPeriod:[""],
+       tenantName:[""],
+       tenentIdCard:[""],
+       mobileNo:[""],
+       alternateNo:[""],
+       payerDate:[""],
+       payerDateObj:[""],
+       inMonth:[""],
+       payerMode:[""],
+       recive:[""],
+       propertyRate:[""],
+       regDate:[""],
+       regDateObj:[""],
+       propertyLocation:[""],
+       taxNo:[""],
+       mortage:[""],
+       loginedUser: this.tokenStorage.getUserId(),
+       id:[""],
+     
    });
  } else {
    this.fetchDetails(this.requestId);
@@ -187,13 +221,19 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
     next: (res) => {
       let hdate = this.cmnService.getDateObj(res.propertyBean.regDate);
       let hdate1 = this.cmnService.getDateObj(res.propertyBean.payerDate);
-      this.propertyFlag(res.propertyBean.propertyType);
+      let hdate2 = this.cmnService.getDateObj(res.propertyBean.emiDate);
+      let hdate3 = this.cmnService.getDateObj(res.propertyBean.dateToPayDate);
+
+      this.houseFlag(res.propertyBean.propertyType);
+      this.loanFlag(res.propertyBean.loan);
+      this.rentalFlag(res.propertyBean.rentalType);
+
 
       this.docForm.patchValue({
         'propertyType': res.propertyBean.propertyType,
-        'rentType': res.propertyBean.rentType,
+        // 'rentType': res.propertyBean.rentType,
         'payerDate': res.propertyBean.payerDate,
-        'payerDateObj': res.propertyBean.hdate1,
+        'payerDateObj': hdate1,
         'inMonth': res.propertyBean.inMonth,
         'payerMode': res.propertyBean.payerMode,
         'recive': res.propertyBean.recive,
@@ -219,6 +259,23 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'id' :this.requestId,
 
     
+
+        'residencialType':res.propertyBean.residencialType,
+        'guidelineValue':res.propertyBean.guidelineValue,
+        'emiDate':res.propertyBean.emiDate,
+        'emiDateObj':hdate2,
+        'autoDebit':res.propertyBean.autoDebit,
+        'rentalType':res.propertyBean.rentalType,
+        'advance':res.propertyBean.advance,
+        'rentAmount':res.propertyBean.rentAmount,
+        'dateToPayDateObj':hdate3,
+        'dateToPayDate':res.propertyBean.dateToPayDate,
+        'rentalPeriod':res.propertyBean.rentalPeriod,
+        'tenantName':res.propertyBean.tenantName,
+        'tenentIdCard':res.propertyBean.tenentIdCard,
+        'mobileNo':res.propertyBean.mobileNo,
+        'alternateNo':res.propertyBean.alternateNo,
+
     });
   },
   error: (error) => {
@@ -282,7 +339,36 @@ update(){
    }
 
 
-   propertyFlag(event)
+   houseFlag(event)
+   {
+      if (event == 'House') {
+        this.isHouse = true;
+        // this.docForm.controls.Rent.setValidators(Validators.required);
+        // this.isRent = false;
+  
+      } else {
+        this.isHouse = false;
+        // this.docForm.controls.Rent.clearValidators();
+        // this.docForm.controls['Rent'].updateValueAndValidity();
+      }
+   }
+
+   loanFlag(event)
+   {
+      if (event == 'YES') {
+        this.isLoan = true;
+        // this.docForm.controls.Rent.setValidators(Validators.required);
+        // this.isRent = false;
+  
+      } else {
+        this.isLoan = false;
+        // this.docForm.controls.Rent.clearValidators();
+        // this.docForm.controls['Rent'].updateValueAndValidity();
+      }
+   }
+
+
+   rentalFlag(event)
    {
       if (event == 'Rent') {
         this.isRent = true;
@@ -305,4 +391,14 @@ update(){
     }
   }
    
+
+  getAutoDebit(event: any) {
+    if (event) {
+      this.isAutoDebit = true;
+    }
+    else {
+      this.isAutoDebit = false;
+    }
+  }
+
   }

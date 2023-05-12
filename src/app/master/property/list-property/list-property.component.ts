@@ -24,8 +24,8 @@ import { DeletePropertyComponent } from './delete-property/delete-property.compo
 })
 export class ListPropertyComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [ 
-    "propertyHolderName",
-    "noProperty",
+    "propertyType",
+    "rentalType",
     "taxNo",
     "actions",
   ];
@@ -186,9 +186,9 @@ export class ExampleDataSource extends DataSource<Property> {
           .slice()
           .filter((PropertyService: Property) => {
             const searchStr = (
-              PropertyService.propertyHolderName+
-              PropertyService.noProperty+
-              PropertyService.regDate
+              PropertyService.propertyType+
+              PropertyService.rentalType+
+              PropertyService.taxNo
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -221,11 +221,11 @@ export class ExampleDataSource extends DataSource<Property> {
       let propertyA: number | string | boolean = "";
       let propertyB: number | string | boolean = "";
       switch (this._sort.active) {
-        case "propertyHolderName":
-          [propertyA, propertyB] = [a.propertyHolderName, b.propertyHolderName];
+        case "propertyType":
+          [propertyA, propertyB] = [a.propertyType, b.propertyType];
           break;
-          case "noProperty":
-            [propertyA, propertyB] = [a.noProperty, b.noProperty];
+          case "rentalType":
+            [propertyA, propertyB] = [a.rentalType, b.rentalType];
             break; 
             case "regDate":
             [propertyA, propertyB] = [a.regDate, b.regDate];

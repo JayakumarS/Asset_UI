@@ -18,18 +18,18 @@ export class VehicleMaster {
   colour : string;
   age : string;
   rtocode : string;
-  purcamount: string;
+  purcamount:number;
   insurancetype : string;
-  insuredamount : string;
+  insuredamount :number;
   payment : string;
   insurername : string;
   validity : number;
   address : string;
-  yom : string;
+  yom : number;
   license  : string;
   lin : string;
   agency: string;
-  emiamount: string;
+  emiamount:number;
   
   constructor(vehicleMaster) {
     {
