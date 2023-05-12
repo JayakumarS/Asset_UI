@@ -108,6 +108,8 @@ export class PropertyService extends UnsubscribeOnDestroyAdapter {
           "bottom",
           "center"
         );
+        location.reload()
+
         
       }else {
         notificationService.showNotification(

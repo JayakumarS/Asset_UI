@@ -55,6 +55,8 @@ export class AddPropertyComponent implements OnInit {
   isHouse: boolean;
   isLoan: boolean;
   isAutoDebit: boolean;
+  isLand: boolean;
+  isEcAvaliable: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -70,28 +72,29 @@ export class AddPropertyComponent implements OnInit {
   ) { 
     this.docForm = this.fb.group({
        propertyType:["",[Validators.required]],
-       residencialType:["",[Validators.required]],
+       residencialType:[""],
        squareFeet:[""],
        guidelineValue:[""],
        currentValue:[""],
        depVal:[""],
-       loan:["", [Validators.required]],
+       landTaxNo:[""],
+       loan:["",[Validators.required]],
        loanNo:[""],
        emiDate:[""],
-       emiDateObj:["",[Validators.required]],
+       emiDateObj:[""],
        loanInterest:[""],
        autoDebit:[false],
-       loanAmount:["", [Validators.required]],
-       account:["", [Validators.required]],
-       rentalType:["", [Validators.required]],
-       advance:["", [Validators.required]],
-       rentAmount:["", [Validators.required]],
+       loanAmount:[""],
+      //  account:["", [Validators.required]],
+       rentalType:["",[Validators.required]],
+       advance:[""],
+       rentAmount:[""],
        dateToPayDateObj:[""],
        dateToPayDate:[""],
        rentalPeriod:[""],
-       tenantName:["", [Validators.required]],
-       tenentIdCard:["", [Validators.required]],
-       mobileNo:["", [Validators.required]],
+       tenantName:[""],
+       tenentIdCard:[""],
+       mobileNo:[""],
        alternateNo:[""],
        payerDate:[""],
        payerDateObj:[""],
@@ -100,13 +103,38 @@ export class AddPropertyComponent implements OnInit {
        recive:[""],
        propertyRate:[""],
        regDate:[""],
-       regDateObj:["", [Validators.required]],
-       propertyLocation:["", [Validators.required]],
-       taxNo:["", [Validators.required]],
+       regDateObj:[""],
+       propertyLocation:["",],
+       taxNo:[""],
        mortage:[""],
+       houseTaxNo:[""],
+       location:[""],
+       area:[""],
+       landSqft:[""],
+       landType:[""],
+       ecAvaliable:[false],
+       regNo:[""],
+       landRegDateObj:[""],
+       landRegDate:[""],
+       source:[""],
+       landGuidelineValue:[""],
+       marketValue:[""],
 
+       bankName:[""],
+       branchName:[""],
+       ifscCode:["", Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')],
+       acName:[""],
+       acNumber:[""],
+       accountUserId:[""],
+       password:[""],
 
-
+       houseName:[""],
+       houseAddress:[""],
+       constructedOn:[""],
+       constructedOnObj:[""],
+       underLoan:[""],
+       floor:[""],
+       
       //  rentType:[""],
       //  propertyHolderName:["", [Validators.required]],
       //  noProperty:["", [Validators.required]],
@@ -181,7 +209,7 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
        loanInterest:[""],
        autoDebit:[""],
        loanAmount:[""],
-       account:[""],
+      //  account:[""],
        rentalType:[""],
        advance:[""],
        rentAmount:[""],
@@ -205,7 +233,35 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
        mortage:[""],
        loginedUser: this.tokenStorage.getUserId(),
        id:[""],
-     
+
+       location:[""],
+       area:[""],
+       landSqft:[""],
+       landType:[""],
+       ecAvaliable:[""],
+       regNo:[""],
+       landRegDateObj:[""],
+       landRegDate:[""],
+       source:[""],
+       landGuidelineValue:[""],
+       marketValue:[""],
+       houseTaxNo:[""],
+
+       bankName:[""],
+       branchName:[""],
+       ifscCode:[""],
+       acName:[""],
+       acNumber:[""],
+       accountUserId:[""],
+       password:[""],
+
+       houseName:[""],
+       houseAddress:[""],
+       constructedOn:[""],
+       constructedOnObj:[""],
+       underLoan:[""],
+       floor:[""],
+
    });
  } else {
    this.fetchDetails(this.requestId);
@@ -223,6 +279,9 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
       let hdate1 = this.cmnService.getDateObj(res.propertyBean.payerDate);
       let hdate2 = this.cmnService.getDateObj(res.propertyBean.emiDate);
       let hdate3 = this.cmnService.getDateObj(res.propertyBean.dateToPayDate);
+      let hdate4 = this.cmnService.getDateObj(res.propertyBean.landRegDate);
+      let hdate5 = this.cmnService.getDateObj(res.propertyBean.constructedOn);
+
 
       this.houseFlag(res.propertyBean.propertyType);
       this.loanFlag(res.propertyBean.loan);
@@ -230,6 +289,8 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
 
 
       this.docForm.patchValue({
+
+
         'propertyType': res.propertyBean.propertyType,
         // 'rentType': res.propertyBean.rentType,
         'payerDate': res.propertyBean.payerDate,
@@ -254,9 +315,10 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'loanNo': res.propertyBean.loanNo,
         'loanInterest': res.propertyBean.loanInterest,
         'loantype': res.propertyBean.loantype,
-        'account': res.propertyBean.account,
+        // 'account': res.propertyBean.account,
         'loanAmount': res.propertyBean.loanAmount,
         'id' :this.requestId,
+        "houseTaxNo": res.propertyBean.houseTaxNo,
 
     
 
@@ -275,6 +337,34 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'tenentIdCard':res.propertyBean.tenentIdCard,
         'mobileNo':res.propertyBean.mobileNo,
         'alternateNo':res.propertyBean.alternateNo,
+
+
+        'location':res.propertyBean.location,
+        'area':res.propertyBean.area,
+        'landSqft':res.propertyBean.landSqft,
+        'landType':res.propertyBean.landType,
+        'ecAvaliable':res.propertyBean.ecAvaliable,
+        'regNo':res.propertyBean.regNo,
+        'landRegDateObj':hdate4,
+        'landRegDate':res.propertyBean.landRegDate,
+        'source':res.propertyBean.source,
+        'landGuidelineValue':res.propertyBean.landGuidelineValue,
+        'marketValue':res.propertyBean.marketValue,
+
+        'bankName':res.propertyBean.bankName,
+        'branchName':res.propertyBean.branchName,
+        'ifscCode':res.propertyBean.ifscCode,
+        'acName':res.propertyBean.acName,
+        'acNumber':res.propertyBean.acNumber,
+        'accountUserId':res.propertyBean.accountUserId,
+        'password':res.propertyBean.password,
+ 
+        'houseName':res.propertyBean.houseName,
+        'houseAddress':res.propertyBean.houseAddress,
+        'constructedOn':res.propertyBean.constructedOn,
+        'constructedOnObj':hdate5,
+        'underLoan':res.propertyBean.underLoan,
+        'floor':res.propertyBean.floor,
 
     });
   },
@@ -347,7 +437,16 @@ update(){
     this.docForm.patchValue({ payerDate: bdatedate });
   }
 
+  let ddatedate = this.commonService.getDate(event.target.value);
+  if (inputFlag == 'landRegDate') {
+   this.docForm.patchValue({ landRegDate: ddatedate });
+ }
     
+ let fdatedate = this.commonService.getDate(event.target.value);
+ if (inputFlag == 'constructedOn') {
+  this.docForm.patchValue({ constructedOn: fdatedate });
+}
+
    }
 
 
@@ -360,6 +459,17 @@ update(){
   
       } else {
         this.isHouse = false;
+        // this.docForm.controls.Rent.clearValidators();
+        // this.docForm.controls['Rent'].updateValueAndValidity();
+      }
+ 
+      if (event == 'Land') {
+        this.isLand = true;
+        // this.docForm.controls.Rent.setValidators(Validators.required);
+        // this.isRent = false;
+  
+      } else {
+        this.isLand = false;
         // this.docForm.controls.Rent.clearValidators();
         // this.docForm.controls['Rent'].updateValueAndValidity();
       }
@@ -410,6 +520,15 @@ update(){
     }
     else {
       this.isAutoDebit = false;
+    }
+  }
+
+  getEcAvaliablet(event: any) {
+    if (event) {
+      this.isEcAvaliable = true;
+    }
+    else {
+      this.isEcAvaliable = false;
     }
   }
 
