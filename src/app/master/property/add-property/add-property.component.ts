@@ -69,8 +69,8 @@ export class AddPropertyComponent implements OnInit {
     private tokenStorage:TokenStorageService,
   ) { 
     this.docForm = this.fb.group({
-       propertyType:[""],
-       residencialType:[""],
+       propertyType:["",[Validators.required]],
+       residencialType:["",[Validators.required]],
        squareFeet:[""],
        guidelineValue:[""],
        currentValue:[""],
@@ -78,20 +78,20 @@ export class AddPropertyComponent implements OnInit {
        loan:["", [Validators.required]],
        loanNo:[""],
        emiDate:[""],
-       emiDateObj:[""],
+       emiDateObj:["",[Validators.required]],
        loanInterest:[""],
        autoDebit:[false],
-       loanAmount:[""],
-       account:[""],
-       rentalType:[""],
-       advance:[""],
-       rentAmount:[""],
+       loanAmount:["", [Validators.required]],
+       account:["", [Validators.required]],
+       rentalType:["", [Validators.required]],
+       advance:["", [Validators.required]],
+       rentAmount:["", [Validators.required]],
        dateToPayDateObj:[""],
        dateToPayDate:[""],
        rentalPeriod:[""],
-       tenantName:[""],
-       tenentIdCard:[""],
-       mobileNo:[""],
+       tenantName:["", [Validators.required]],
+       tenentIdCard:["", [Validators.required]],
+       mobileNo:["", [Validators.required]],
        alternateNo:[""],
        payerDate:[""],
        payerDateObj:[""],
@@ -100,9 +100,9 @@ export class AddPropertyComponent implements OnInit {
        recive:[""],
        propertyRate:[""],
        regDate:[""],
-       regDateObj:[""],
-       propertyLocation:[""],
-       taxNo:[""],
+       regDateObj:["", [Validators.required]],
+       propertyLocation:["", [Validators.required]],
+       taxNo:["", [Validators.required]],
        mortage:[""],
 
 
@@ -332,8 +332,20 @@ update(){
      if (inputFlag == 'regDate') {
        this.docForm.patchValue({ regDate: cdatedate });
      }
+     let edatedate = this.commonService.getDate(event.target.value);
+     if (inputFlag == 'emiDate') {
+      this.docForm.patchValue({ emiDate: edatedate });
+    }
      
-     
+    let adatedate = this.commonService.getDate(event.target.value);
+    if (inputFlag == 'dateToPayDate') {
+     this.docForm.patchValue({ dateToPayDate: adatedate });
+   }
+
+   let bdatedate = this.commonService.getDate(event.target.value);
+   if (inputFlag == 'payerDate') {
+    this.docForm.patchValue({ payerDate: bdatedate });
+  }
 
     
    }
