@@ -56,7 +56,7 @@
                       </div>
                       <div class="col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="phone">
+                        <input matInput formControlName="phone" maxlength="10"(keypress)="keyPressNumeric($event)">
                       </mat-form-field>
                     </div>
                    </div>
@@ -75,7 +75,7 @@
                       </div>
                       <div class="col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="country">
+                        <input matInput formControlName="country"maxlength="20">
                       </mat-form-field>
                     </div>
                     </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-md-3" >
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="postcode">
+                          <input matInput formControlName="postcode"maxlength="10">
                         </mat-form-field>
                       </div>
                       </div>
@@ -136,7 +136,7 @@
                     </div>
                     <div class="col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="applicationNo"oninput="this.value = this.value.toUpperCase()">
+                        <input matInput formControlName="applicationNo"maxlength="14"oninput="this.value = this.value.toUpperCase()">
                         <mat-error *ngIf="docForm.get('applicationNo').hasError('required')">
                           Application  No is required
                         </mat-error>
@@ -151,7 +151,7 @@
                   </div>
                   <div class="col-md-3" >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="fdRef" oninput="this.value = this.value.toUpperCase()">
+                      <input matInput formControlName="fdRef"maxlength="20" oninput="this.value = this.value.toUpperCase()">
                     </mat-form-field>
                   </div>
 
@@ -160,7 +160,7 @@
                 </div>
                 <div class=" col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="fdamt"(keypress)="keyPressNumberDouble($event)">
+                    <input matInput formControlName="fdamt"maxlength="9"(keypress)="keyPressNumberDouble($event)">
                     <mat-error *ngIf="docForm.get('fdamt').hasError('required')">
                       Fd Amount is required
                      </mat-error>
@@ -229,7 +229,7 @@
                 </div>
                 <div class=" col-md-3" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="fdaccountNo" (keypress)="keyPressNumeric($event)">
+                    <input matInput formControlName="fdaccountNo" maxlength="9"(keypress)="keyPressNumeric($event)">
                     <mat-error *ngIf="docForm.get('fdaccountNo').hasError('required')">
                       Account Number is required
                     </mat-error>
@@ -245,7 +245,7 @@
     </div>
     <div  class=" col-md-3">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput formControlName="bankName" (keypress)="keyPressName($event)">
+        <input matInput formControlName="bankName" maxlength="10"(keypress)="keyPressName($event)">
         <mat-error *ngIf="docForm.get('bankName').hasError('required')">
           Bank Name is required
         </mat-error>
@@ -256,7 +256,7 @@
   </div>
   <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="ifscCode"  oninput="this.value = this.value.toUpperCase()"
+      <input matInput formControlName="ifscCode" maxlength="15" oninput="this.value = this.value.toUpperCase()"
        maxlength="16">
       <mat-error *ngIf="docForm.get('ifscCode').hasError('pattern')">
         Please Enter Valid IFSC code
@@ -314,7 +314,7 @@
   </div>
   <div class=" col-md-3" >
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="penalityAmt" (keypress)="keyPressNumberDouble($event)">
+      <input matInput formControlName="penalityAmt" maxlength="9"(keypress)="keyPressNumberDouble($event)">
       <mat-error *ngIf="docForm.get('penalityAmt').hasError('required')">
         Penality Amount is required
       </mat-error>
@@ -338,7 +338,7 @@
 </div>
 <div  class=" col-md-3" >
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-  <input matInput formControlName="dueAmount" (keypress)="keyPressNumeric($event)">
+  <input matInput formControlName="dueAmount"maxlength="9" (keypress)="keyPressNumeric($event)">
   <mat-error *ngIf="docForm.get('dueAmount').hasError('required')">
    Due Amount is required
   </mat-error>
