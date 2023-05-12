@@ -2,16 +2,25 @@ export class jewel {
     [x: string]: any;
     id:any;
     loginedUser:any;
-    caseinhand:number;
-    cashatbank:number;
-    cloan:number;
     cdate:string;
-    jdate:string;
     type:string;
     material:string;
     weight:number;
-    price:number;
-    loan:number;
+    selforgift:string;
+    location:string;
+    lockerInHand:string;
+    lockerRent:any;
+    lockerSize:any;
+    bankName:string;
+    lockerNo:any;
+    currentValue:any;
+    specification:string;
+    description:string;
+    noOfPiece:any;
+    purchasedfrom:string;
+    purchaseValue:any;
+    jewelName:any;
+    jewelcolour:any;
 
     constructor(jewel) {
         {

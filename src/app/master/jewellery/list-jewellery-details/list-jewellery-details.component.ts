@@ -26,9 +26,9 @@ import { DeleteJewelleryDetailsComponent } from './delete-jewellery-details/dele
 })
 export class ListJewelleryDetailsComponent  extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [ 
+    "jewelName",
     "material",
     "weight",
-    "loan",
     "actions",
   ];
 
@@ -224,9 +224,9 @@ export class ExampleDataSource extends DataSource<jewel> {
           .slice()
           .filter((jewelleryService: jewel) => {
             const searchStr = (
-              jewelleryService.material+
+              jewelleryService.jewelName+
               jewelleryService.weight+
-              jewelleryService.loan
+              jewelleryService.currentValue
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });

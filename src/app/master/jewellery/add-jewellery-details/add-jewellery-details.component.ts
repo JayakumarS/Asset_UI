@@ -48,7 +48,8 @@ export class AddJewelleryDetailsComponent implements OnInit {
 
     docForm: FormGroup;
     jewellery:jewel;
-
+    isGIFT: boolean = false;
+    LOCKER: boolean ;
     edit: boolean = false;
     requestId: any;
     //jewelleryDtl: [];
@@ -88,24 +89,31 @@ export class AddJewelleryDetailsComponent implements OnInit {
 
     this.docForm = this.fb.group({
        
-      caseinhand:[""],
-      cashatbank:["", [Validators.required]],
-      cloan:["", [Validators.required]],
-      cdate:["", [Validators.required]],
-      cdateObj:["", [Validators.required]],
-      jdate:["", [Validators.required]],
-      jdateObj:["", [Validators.required]],
-      type:["", [Validators.required]],
+    
+      cdate:[""],
+      cdateObj:[""],
+      type:[""],
       material:["", [Validators.required]],
       weight:["", [Validators.required]],
-      price:[""],
-      loan:["", [Validators.required]],
       id:[""],
-     
-
       loginedUser: this.tokenStorage.getUserId(),
-      
 
+      //extra
+      selforgift:["SELF"],
+      location:[""],
+      lockerInHand:["LOCKER"],
+      lockerRent:["", [Validators.required]],
+      lockerSize:[""],
+      bankName:["", [Validators.required]],
+      lockerNo:["", [Validators.required]],
+      currentValue:["", [Validators.required]],
+      specification:[""],
+      description:[""],
+      noOfPiece:["", [Validators.required]],
+      purchasedfrom:["", [Validators.required]],
+      purchaseValue:[""],
+      jewelName:["", [Validators.required]],
+      jewelcolour:[""]
       // jewelleryDtl: this.fb.array([
       //   this.fb.group({
       //     jdate:[""],
@@ -127,10 +135,36 @@ export class AddJewelleryDetailsComponent implements OnInit {
        this.fetchDetails(this.requestId) ;
       }
      });
+     this.getLOCKER(Event);
+     this.getLOCKER(Event);
+     this.LOCKER = true;
 
+    
   }
 
+  getOwner(check: any) {
+    if (check == 'GIFT') {
+      this.isGIFT = true;
+    } else {
+      this.isGIFT = false;
+    }
+ 
+  
+  }
+ 
+  
+  getLOCKER(check: any) {
+    if (check == 'LOCKER') {
+      this.LOCKER = true;
+    } else if(check == 'IN HAND') {
+      this.LOCKER = false;
+    } else{
+      this.LOCKER = false;
 
+    }
+   
+  
+  }
 
 
 
@@ -238,9 +272,6 @@ onSubmit(){
         let hdate = this.cmnService.getDateObj(res.jewelBean.cdate);
         let rdate = this.cmnService.getDateObj(res.jewelBean.jdate);
       this.docForm.patchValue({
-          'caseinhand': res.jewelBean.caseinhand,
-          'cashatbank': res.jewelBean.cashatbank,
-          'cloan': res.jewelBean.cloan,
           'cdate': res.jewelBean.cdate,
           'jdate': res.jewelBean.jdate,
           'cdateObj':hdate,
@@ -248,8 +279,22 @@ onSubmit(){
           'type': res.jewelBean.type,
           'material': res.jewelBean.material,
           'weight': res.jewelBean.weight,
-          'price': res.jewelBean.price,
-          'loan': res.jewelBean.loan,
+
+          'selforgift': res.jewelBean.selforgift,
+          'location': res.jewelBean.location,
+          'lockerInHand': res.jewelBean.lockerInHand,
+          'lockerRent': res.jewelBean.lockerRent,
+          'lockerSize': res.jewelBean.lockerSize,
+          'bankName': res.jewelBean.bankName,
+          'lockerNo': res.jewelBean.lockerNo,
+          'currentValue': res.jewelBean.currentValue,
+          'specification': res.jewelBean.specification,
+          'description': res.jewelBean.description,
+          'noOfPiece': res.jewelBean.noOfPiece,
+          'purchasedfrom': res.jewelBean.purchasedfrom,
+          'purchaseValue': res.jewelBean.purchaseValue,
+          'jewelName': res.jewelBean.jewelName,
+          'jewelcolour': res.jewelBean.jewelcolour,
           'id' :this.requestId
       
 
@@ -287,6 +332,13 @@ onSubmit(){
 
   keyPressNumeric(event: any) {
     const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z ]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();

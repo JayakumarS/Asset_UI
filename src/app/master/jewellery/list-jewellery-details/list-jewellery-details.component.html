@@ -47,18 +47,19 @@
                     </div>
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                     #exporter="matTableExporter">
+                    <ng-container matColumnDef="jewelName">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Jewellery Name</mat-header-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.jewelName}}</mat-cell>
+                    </ng-container>
                     <ng-container matColumnDef="material">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Jewellery Material</mat-header-cell>
-                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.material}}</mat-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Current Value</mat-header-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.currentValue}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="weight">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Jewellery weight</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Weight(in gram)</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.weight}}</mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="loan">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Jewellery Loan</mat-header-cell>
-                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.loan}}</mat-cell>
-                    </ng-container>
+                   
             
   
   

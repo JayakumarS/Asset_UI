@@ -12,65 +12,96 @@
                
                      
                   
-     
+                <div class="col-md-4" style="min-width: fit-content;padding-bottom: 3%;">
+                  <mat-radio-group tabindex="21" formControlName="selforgift">
+                    <mat-radio-button value="SELF"(change)="getOwner($event.value)">SELF PURCHASED</mat-radio-button>
+                    <mat-radio-button value="GIFT" (change)="getOwner($event.value)" style="padding-left: 25%;">GIFT</mat-radio-button>
+                  </mat-radio-group>
+                </div>
        
                <div class="row">
-  
-                    
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >CASH IN HAND</label>
-                    </div>
-    
-                    <div class=" col-md-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="caseinhand" maxlength="20" (keypress)="keyPressNumeric($event)">
-                      </mat-form-field>
-                    </div>
-                    
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >CASH AT BANK<span class="errorColor">*</span></label>
-                    </div>
-                      <div class=" col-md-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="cashatbank" maxlength="20" (keypress)="keyPressNumeric($event)">
-                       <mat-error *ngIf="docForm.get('cashatbank').hasError('required')">
-                        Cash is required
-                      </mat-error>
-                      </mat-form-field>
-                    </div>
-                </div>
-  
-                <div class="row">  
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >CASH LOAN<span class="errorColor">*</span></label>
-                    </div>
-                    <div class=" col-md-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="cloan" maxlength="20" (keypress)="keyPressNumeric($event)">  
-                        <mat-error *ngIf="docForm.get('cloan').hasError('required')">
-                          Loan Amount is required
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                        <label >LOAN DATE<span class="errorColor">*</span></label>
+                        <label *ngIf ="!isGIFT" >PURCHASE DATE</label>
+                        <label *ngIf ="isGIFT">RECEIVED DATE</label>
                     </div>
                     <div class="  col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput [matDatepicker]="picker2" 
+                        <input matInput [matDatepicker]="picker" 
                         formControlName="cdateObj"
                         id="cdate"
                         (dateChange)="getDateString($event, 'cdate',0)">
                     <mat-datepicker-toggle matSuffix
-                        [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>  
-                    <mat-error *ngIf="docForm.get('cdateObj').hasError('required')">
-                      Date is required
-                    </mat-error>
+                        [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker> 
+                      </mat-form-field>
+                    </div>
+                  
+                    
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label *ngIf ="!isGIFT" >PURCHASE FROM<span class="errorColor">*</span></label>
+                        <label *ngIf ="isGIFT">RECEIVED FROM<span class="errorColor">*</span></label>
+                    </div>
+                      <div class=" col-md-3" >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="purchasedfrom" maxlength="20" oninput="this.value = this.value.toUpperCase()" (keypress)="keyPressName($event)" >
+                       <mat-error *ngIf="docForm.get('purchasedfrom').hasError('required')">
+                        Purchased From is required
+                      </mat-error>
+                      
+                      </mat-form-field>
+                    </div>
+                   
+                </div>
+                <div class="row">  
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label >JEWELLERY NAME<span class="errorColor">*</span></label>
+                  </div>
+                  <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="jewelName" maxlength="20" oninput="this.value = this.value.toUpperCase()" (keypress)="keyPressName($event)">  
+                      <mat-error *ngIf="docForm.get('jewelName').hasError('required')">
+                        Jewellery Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label >JEWELLERY COLOUR</label>
+                  </div>
+                  
+                  <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="jewelcolour" maxlength="20" (keypress)="keyPressName($event)" >
+                  
+                  </mat-form-field>
+                  
+                </div>
+                
+              </div>  
+                <div class="row">  
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label >PURCHASE VALUE</label>
+                    </div>
+                    <div class=" col-md-3">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="purchaseValue" maxlength="20" (keypress)="keyPressNumeric($event)">  
+                       
                       </mat-form-field>
                     </div>
 
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label >CURRENT VALUE<span class="errorColor">*</span></label>
+                    </div>
+                    
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="currentValue" maxlength="20" (keypress)="keyPressNumeric($event)">
+                      <mat-error *ngIf="docForm.get('currentValue').hasError('required')">
+                        Current Value is required
+                      </mat-error>
+                    </mat-form-field>
+                    
+                  </div>
                   
                 </div>   
 
@@ -106,7 +137,7 @@
                   </div>
                   
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                      <label >JEWELLERY TYPE<span class="errorColor">*</span></label>
+                      <label >JEWELLERY TYPE</label>
                   </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -123,10 +154,11 @@
                         <mat-option [value]="'EARRINGS'">
                           EARRINGS
                         </mat-option>
+                        <mat-option [value]="'OTHERS'">
+                          OTHERS
+                        </mat-option>
                       </mat-select>
-                      <mat-error *ngIf="docForm.get('type').hasError('required')">
-                        Type is required
-                      </mat-error>
+                    
                     </mat-form-field>
                   </div>
               </div>
@@ -136,7 +168,7 @@
   
                     
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label >JEWELLERY WEIGHT<span class="errorColor">*</span></label>
+                    <label >WEIGHT<BR>(in gram)<span class="errorColor">*</span></label>
                 </div>
 
                 <div class=" col-md-3">
@@ -150,13 +182,13 @@
                 </div>
                 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                    <label >JEWELLERY LOAN<span class="errorColor">*</span></label>
+                    <label >NO. OF PIECES<span class="errorColor">*</span></label>
                 </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="loan" maxlength="20" (keypress)="keyPressNumeric($event)">
-                      <mat-error *ngIf="docForm.get('loan').hasError('required')">
-                        Loan Amount is required
+                      <input matInput formControlName="noOfPiece" maxlength="20"  (keypress)="keyPressNumeric($event)" >
+                      <mat-error *ngIf="docForm.get('noOfPiece').hasError('required')">
+                        No Of Piece is required
                       </mat-error>
                   </mat-form-field>
                 </div>
@@ -165,49 +197,121 @@
             <div class="row">
   
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                <label >JEWELLERY PRICE</label>
+                <label >SPECIFICATION</label>
             </div>
 
             <div class=" col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="price" maxlength="20" (keypress)="keyPressNumeric($event)">
+                <input matInput formControlName="specification" >
 
               </mat-form-field>
             </div>   
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
-                  <label >JEWELLERY LOAN DATE<span class="errorColor">*</span></label>
+                  <label>DESCRIPTION</label>
               </div>
 
               <div class=" col-md-3">
-
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput [matDatepicker]="picker" formControlName="jdateObj"
-                    (dateInput)="$event.value.format('DD/MM/YYYY')" id="jdate"
-                    (dateChange)="getDateString($event, 'jdate',0)" >
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                  <mat-error *ngIf="docForm.get('jdateObj').hasError('required')">
-                    Date is required
-                  </mat-error>
+                  <input matInput formControlName="description">
+  
                 </mat-form-field>
+               
               </div>
 
              
           </div>    
+          <div class ="row">
 
+          <div class="col-md-4" style="min-width: fit-content;">
+            <mat-radio-group tabindex="21" formControlName="lockerInHand">
+              <mat-radio-button value="IN HAND" (change)="getLOCKER($event.value)">IN HAND</mat-radio-button>
+              <mat-radio-button value="LOCKER" (change)="getLOCKER($event.value)" style="padding-left: 25%;">LOCKER</mat-radio-button>
+            </mat-radio-group>
+          </div>
 
-                                <div class ="row">
-                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                                    <button (click) = "onSubmit()" class="btn-space" mat-raised-button
-                                        color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="!edit">Submit</button>
-                                        <button (click) = "onUpdate()" class="btn-space" mat-raised-button
-                                        color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="edit">Update</button>
-                                        <button (click) = "reset()" class="btn-space" mat-raised-button
-                                        color="accent" style="margin-left: 1%;background-color: #3b10e8;">Reset</button>
-                                        <button (click) = "cancel()" class="btn-space" mat-raised-button
-                                        color="accent" style="margin-left: 1%;background-color: #d40e0e;">Cancel</button>
-                                  </div>
-                                </div>
+          
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "style="padding-left: 105PX;" >
+            <label  *ngIf ="!LOCKER" >LOCATION</label>
+            <label  *ngIf ="LOCKER" >LOCKER LOCATION</label>
+
+        </div>
+
+        <div class=" col-md-3"style="margin-left: 94PX;" >
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+            <input matInput formControlName="location" maxlength="20" (keypress)="keyPressName($event)" >
+           
+          </mat-form-field>
+         
+        </div>
+          </div>
+          <div class ="row"  *ngIf ="LOCKER">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+              <label>LOCKER NUMBER<span class="errorColor">*</span></label>
+          </div>
+
+          <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="lockerNo" maxlength="20"  (keypress)="keyPressNumeric($event)">
+              <mat-error *ngIf="docForm.get('lockerNo').hasError('required')">
+                Locker Number is required
+              </mat-error>
+            </mat-form-field>
+           
+          </div>
+
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+            <label>BANK NAME<span class="errorColor">*</span></label>
+        </div>
+
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="bankName" maxlength="20" (keypress)="keyPressName($event)" >
+            <mat-error *ngIf="docForm.get('bankName').hasError('required')">
+              Bank Name is required
+            </mat-error>
+          </mat-form-field>
+         
+        </div>
+         </div>
+
+         <div class ="row"  *ngIf ="LOCKER">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+            <label>LOCKER SIZE</label>
+        </div>
+
+        <div class=" col-md-3">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="lockerSize" maxlength="20" >
+          
+          </mat-form-field>
+         
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+          <label>LOCKER RENT<span class="errorColor">*</span></label>
+      </div>
+
+      <div class=" col-md-3">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="lockerRent" maxlength="20"  (keypress)="keyPressNumeric($event)"s>
+          <mat-error *ngIf="docForm.get('lockerRent').hasError('required')">
+            Locker Rent is required
+          </mat-error>
+        </mat-form-field>
+       
+      </div>
+        </div>
+               <div class ="row">
+                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                         <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                          color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="!edit">Submit</button>
+                          <button (click) = "onUpdate()" class="btn-space" mat-raised-button
+                          color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="edit">Update</button>
+                          <button (click) = "reset()" class="btn-space" mat-raised-button
+                          color="accent" style="margin-left: 1%;background-color: #3b10e8;">Reset</button>
+                          <button (click) = "cancel()" class="btn-space" mat-raised-button
+                          color="accent" style="margin-left: 1%;background-color: #d40e0e;">Cancel</button>
+                          </div>
+                             </div>
   
   
    
