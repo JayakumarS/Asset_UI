@@ -365,6 +365,7 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'constructedOnObj':hdate5,
         'underLoan':res.propertyBean.underLoan,
         'floor':res.propertyBean.floor,
+        'landTaxNo':res.propertyBean.landTaxNo,
 
     });
   },
@@ -513,6 +514,13 @@ update(){
     }
   }
    
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
   getAutoDebit(event: any) {
     if (event) {

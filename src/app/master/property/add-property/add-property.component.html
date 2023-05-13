@@ -206,7 +206,7 @@
                   </div>
                   <div class=" col-md-3" *ngIf ="isHouse">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                         <input matInput name="guidelineValue" formControlName="guidelineValue" maxlength="9" (keypress)="keyPressNumberInt($event)">
+                         <input matInput name="guidelineValue" formControlName="guidelineValue" maxlength="9" (keypress)="keyPressNumberDouble($event)">
                     </mat-form-field>
                   </div>
 
@@ -360,7 +360,7 @@
                    
                     <div class=" col-md-3" *ngIf ="isLand">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="landGuidelineValue" maxlength="9" (keypress)="keyPressNumberInt($event)"
+                        <input matInput formControlName="landGuidelineValue" maxlength="9" (keypress)="keyPressNumberDouble($event)"
                         (blur)="validateCustomer($event.target.value)">
                         <!-- <mat-error *ngIf="docForm.get('landGuidelineValue').hasError('required')">
                           GUIDELINE VALUE  is required
@@ -490,7 +490,7 @@
             </div>
             <div class=" col-md-3" >
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="branchName" maxlength="15" (keypress)="keyPressName($event)">
+                  <input matInput formControlName="branchName" maxlength="15" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
               </mat-form-field>
             </div>
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -588,7 +588,7 @@
           </div>
           <div class=" col-md-3" >
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="loanInterest" maxlength="9" (keypress)="keyPressNumberInt($event)">
+              <input matInput formControlName="loanInterest" maxlength="9" (keypress)="keyPressNumberDouble($event)">
           </mat-form-field>
           </div>
         
@@ -783,7 +783,7 @@
         <div class=" col-md-3" >
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
             <input matInput formControlName="tenantName"
-             maxlength="20" (keypress)="keyPressName($event)">
+             maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
              <!-- <mat-error *ngIf="docForm.get('tenantName').hasError('required')">
               TENANT NAME is required
              </mat-error> -->
@@ -974,7 +974,7 @@
                     <div class=" col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="propertyLocation"
-                            maxlength="20" (keypress)="keyPressName($event)">
+                            maxlength="20" >
                             <!-- <mat-error *ngIf="docForm.get('propertyLocation').hasError('required')">
                               PROPERTY LOCATION is required
                              </mat-error> -->
