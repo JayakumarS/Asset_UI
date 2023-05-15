@@ -419,13 +419,13 @@
            <div class=" col-md-3">
              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                <input matInput formControlName="ifsccode"  oninput="this.value = this.value.toUpperCase()"
-                maxlength="11">
+                maxlength="11" required>
                <mat-error *ngIf="docForm.get('ifsccode').hasError('pattern')">
                  Please Enter Valid IFSC code
                </mat-error>
-               <!-- <mat-error *ngIf="docForm.get('ifsccode').hasError('required')">
+               <mat-error *ngIf="docForm.get('ifsccode').hasError('required')">
                  IFSC Code is required
-               </mat-error> -->
+               </mat-error>
              </mat-form-field>
            </div> 
           </div>

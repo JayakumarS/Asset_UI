@@ -49,9 +49,7 @@ export class AddOtherdebitsComponent implements OnInit {
   edit:boolean=false;
   otherdebits:Otherdebits;
   requestId: number;
-  userId: any;
-  companyId: any;
-  countryDdList = [];
+
 
   currencyList: [];
   submitted: boolean;
@@ -145,21 +143,6 @@ export class AddOtherdebitsComponent implements OnInit {
       }
     }
     );
-
-    this.docForm
-    this.userId = this.tokenStorage.getUserId();
-    // Country dropdown
-    
-    this.httpService.get<any>(this.commonService.getCountryDropdown+"?userId="+this.userId).subscribe({
-      next: (data) => {
-        this.countryDdList = data;
-      },
-      error: (error) => {
-
-      }
-    }
-    );
-
         // Country Code Dropdown List
         this.httpService.get<any>(this.commonService.getCountryCodeDropdown).subscribe({
           next: (data) => {
@@ -189,7 +172,7 @@ this.loanOtherdebitsService.editlist(obj).subscribe({
       'dob':res.dob,
       'dobObj':this.commonService.getDateObj(res.dob),
       'mail':res.mail,
-      'phoneno':res.phoneno,
+      'phoneno':parseInt(res.phoneno),
       'telepheNo':res.telepheNo,
       'address':res.address,
       'currencyl':res.currencyl,
