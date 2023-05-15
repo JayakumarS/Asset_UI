@@ -288,7 +288,8 @@
               <mat-label>LICENSED</mat-label>
             </div>
             <div class="col-md-2" style="min-width: fit-content;">
-              <mat-radio-group formControlName="license"> &nbsp; <mat-radio-button tabindex="22" value="yes" (change)="getlicense($event.value)"> YES </mat-radio-button>
+              <mat-radio-group formControlName="license"> &nbsp; 
+                <mat-radio-button tabindex="22" value="yes" (change)="getlicense($event.value)"> YES </mat-radio-button>
                 <mat-radio-button tabindex="22" value="no" (change)="getlicense($event.value)"> NO </mat-radio-button>
               </mat-radio-group>
             </div>
@@ -300,9 +301,16 @@
               <input matInput formControlName="lin" maxlength="16"  oninput="this.value = this.value.toUpperCase()" >
              </mat-form-field>
           </div>
-            
+          <!-- <div class="col-md-2" style="min-width: fit-content;" *ngIf="isNo">
+            <label>LICENSE NUMBER</label>
+        </div>
+        <div class="col-md-2" *ngIf="isNo">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput formControlName="lin" maxlength="16"  oninput="this.value = this.value.toUpperCase()" >
+           </mat-form-field>
+        </div> -->
 
-
+ 
             </div>
                   <div class="row">  </div>
                <hr><br>
@@ -312,7 +320,8 @@
                   <mat-label>PAYMENT</mat-label>
                 </div>
                 <div class="col-md-2" style="min-width: fit-content;">
-                  <mat-radio-group formControlName="payment"> &nbsp; <mat-radio-button tabindex="22" value="cash" (change)="getcash($event.value)"> CASH </mat-radio-button>
+                  <mat-radio-group formControlName="payment"> &nbsp; 
+                    <mat-radio-button tabindex="22" value="cash" (change)="getcash($event.value)"> CASH </mat-radio-button>
                     <mat-radio-button tabindex="22" value="emi" (change)="getcash($event.value)"> EMI </mat-radio-button>
                   </mat-radio-group>
                 </div>

@@ -102,6 +102,7 @@ export class AddVehicleComponent implements OnInit {
       lin: [""],
       agency: [""],
       emiamount: [""],
+      
 
     });
 
@@ -152,7 +153,8 @@ export class AddVehicleComponent implements OnInit {
  }
      });
 
-     this.getcash(this.docForm.value.payment);
+    //  this.getcash(this.docForm.value.payment);
+    //  this.getlicense(this.docForm.value.license);
 
   }
 
@@ -188,21 +190,20 @@ export class AddVehicleComponent implements OnInit {
     this.edit = true;
     this.vehicleService.editvehicle(obj).subscribe({
       next: (res) => {
+        this.getlicense(res.vehiclesBean.license);
+
         let hdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate1);
         let rdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate);
 
-        if(res.vehiclesBean.lin!=null){
-          var licenseValue = 'yes'
-        }else{
-          var licenseValue = 'false'
-        }
+
 
         if(res.vehiclesBean.purcamount!=null){
           var paymentValue = 'cash'
         }
-        if(res.vehiclesBean.emiamount!=''){
+        if(res.vehiclesBean.emiamount!=null){
           var paymentValue = 'emi'
         }
+        this.getcash(paymentValue);
 
       this.docForm.patchValue({
            
@@ -224,7 +225,7 @@ export class AddVehicleComponent implements OnInit {
         'discardFromDate':res.vehiclesBean.discardFromDate,
         'discardFromDate1':res.vehiclesBean.discardFromDate1,
         'yom':res.vehiclesBean.yom,
-        'license':licenseValue,
+        'license':res.vehiclesBean.license,
         'lin':res.vehiclesBean.lin,
         'payment':paymentValue,
         'purcamount':res.vehiclesBean.purcamount,
@@ -325,13 +326,12 @@ getcash(check: any) {
 getlicense(check: any) {
   if (check == 'yes') {
     this.isYes = true;
+  }
+  else if (check == 'no') {
+    this.isYes = false;
   } else {
     this.isYes = false;
-  }
-  if (check == 'no') {
-    this.isNo = true;
-  } else {
-    this.isNo = false;
+
   }
 }
 
