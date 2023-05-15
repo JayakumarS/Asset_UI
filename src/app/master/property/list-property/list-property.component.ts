@@ -26,7 +26,7 @@ export class ListPropertyComponent extends UnsubscribeOnDestroyAdapter implement
   displayedColumns = [ 
     "propertyType",
     "rentalType",
-    "taxNo",
+    "loan",
     "actions",
   ];
 
@@ -188,7 +188,7 @@ export class ExampleDataSource extends DataSource<Property> {
             const searchStr = (
               PropertyService.propertyType+
               PropertyService.rentalType+
-              PropertyService.taxNo
+              PropertyService.loan
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -227,8 +227,8 @@ export class ExampleDataSource extends DataSource<Property> {
           case "rentalType":
             [propertyA, propertyB] = [a.rentalType, b.rentalType];
             break; 
-            case "regDate":
-            [propertyA, propertyB] = [a.regDate, b.regDate];
+            case "loan":
+            [propertyA, propertyB] = [a.loan, b.loan];
             break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

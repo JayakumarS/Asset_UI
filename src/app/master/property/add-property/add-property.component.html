@@ -14,7 +14,7 @@
                   <div class="row">
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                    <mat-label>PROPERTY</mat-label>
+                    <mat-label>PROPERTY<span class="errorColor">*</span></mat-label>
                     </div>
                     <div class=" col-md-3" >
                 <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
@@ -29,9 +29,9 @@
                       Loan
                     </mat-option> -->
                     </mat-select> 
-                    <!-- <mat-error *ngIf="docForm.get('propertyType').hasError('required')">
+                    <mat-error *ngIf="docForm.get('propertyType').hasError('required')">
                       Property is required
-                     </mat-error> -->
+                     </mat-error>
                 </mat-form-field>
                     </div> 
                     <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -429,7 +429,7 @@
                       </div>  -->
 
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                        <mat-label>PROPERTY LOAN</mat-label>
+                        <mat-label>PROPERTY LOAN<span class="errorColor">*</span></mat-label>
                         </div>
                         <div class=" col-md-3" >
                     <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
@@ -442,9 +442,9 @@
                         </mat-option>
                        
                         </mat-select> 
-                        <!-- <mat-error *ngIf="docForm.get('loan').hasError('required')">
+                        <mat-error *ngIf="docForm.get('loan').hasError('required')">
                          Property Loan is required
-                        </mat-error> -->
+                        </mat-error>
                         
                     </mat-form-field>
                         </div>
@@ -680,7 +680,7 @@
 
            
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-              <mat-label>RENTAL TYPE</mat-label>
+              <mat-label>RENTAL TYPE<span class="errorColor">*</span></mat-label>
               </div>
               <div class=" col-md-3" >
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
@@ -693,9 +693,9 @@
               </mat-option>
              
               </mat-select> 
-              <!-- <mat-error *ngIf="docForm.get('rentalType').hasError('required')">
-                RENTAL TYPE is required
-              </mat-error> -->
+              <mat-error *ngIf="docForm.get('rentalType').hasError('required')">
+                Rental Type is required
+              </mat-error>
               
           </mat-form-field>
               </div>
