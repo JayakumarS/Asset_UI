@@ -12,7 +12,7 @@ export class Deposit {
     fdstartDate:string;
     fdRef:string;
     fdamt:number;
-    penalityAmt:number;
+    penaltyAmt:number;
     ifscCode:string;
     fdaccountNo:number;
     interest :string;

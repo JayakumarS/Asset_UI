@@ -93,7 +93,7 @@ docForm: FormGroup;
         dob:[""],
          fdRef:[""],
         fdamt:["",[Validators.required]],
-        penalityAmt:["",[Validators.required]],
+        penaltyAmt:["",[Validators.required]],
         ifscCode:["",[Validators.required]],
         fdaccountNo:["",[Validators.required]],
         interest :["",[Validators.required]],     
@@ -182,7 +182,7 @@ docForm: FormGroup;
           'fdstartDate': res.fixeddepositBean.fdstartDate,
           'fdRef': res.fixeddepositBean.fdRef,
           'fdamt': res.fixeddepositBean.fdamt,
-          'penalityAmt': res.fixeddepositBean.penalityAmt,
+          'penaltyAmt': res.fixeddepositBean.penaltyAmt,
           'ifscCode': res.fixeddepositBean.ifscCode,
           'fdaccountNo': res.fixeddepositBean.fdaccountNo,
           'interest': res.fixeddepositBean.interest,
@@ -235,8 +235,8 @@ docForm: FormGroup;
        dobobj:[""],
         fdRef:[""],
         fdamt:[""],
-        penalityAmt:[""],
-        ifscCode:[""],
+        penaltyAmt:[""],
+        ifscCode:["",Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')],
         fdaccountNo:[""],
         interest :[""],     
         applicationNo:[""],
@@ -285,7 +285,7 @@ docForm: FormGroup;
       Intrest:[""],
       Dueamount:[""],
       duedate:[""],
-      Tax:[""]
+     
     })
     dtlArray.insert(arraylen,newUsergroup);
     

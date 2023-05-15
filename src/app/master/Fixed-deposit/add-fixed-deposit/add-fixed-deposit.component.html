@@ -74,9 +74,47 @@
                       <mat-label >COUNTRY</mat-label>
                       </div>
                       <div class="col-md-3" >
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="country"maxlength="20">
-                      </mat-form-field>
+        
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select formControlName="country" style="font-size:small;">
+                          <mat-option value=" Afghanistan"> Afghanistan</mat-option>
+                          <mat-option value=" Albania"> Albania</mat-option>
+                          <mat-option value=" Algeria"> Algeria</mat-option>
+                          <mat-option value=" Andorra"> Andorra</mat-option>
+                          <mat-option value=" Australia"> Australia</mat-option>
+                          <mat-option value=" Bangladesh"> Bangladesh</mat-option>
+                          <mat-option value=" Belgium"> Belgium</mat-option>
+                          <mat-option value=" Brazil"> Brazil</mat-option>
+                          <mat-option value=" Canada"> Canada</mat-option>
+                          <mat-option value=" China"> China</mat-option>
+                          <mat-option value=" Denmark"> Denmark</mat-option>
+                          <mat-option value=" Egypt"> Egypt</mat-option>
+                          <mat-option value=" Finland"> Finland</mat-option>
+                          <mat-option value=" France"> France</mat-option>
+                          <mat-option value=" Germany"> Germany</mat-option>
+                          <mat-option value=" India"> India</mat-option>
+                          <mat-option value=" Indonesia"> Indonesia</mat-option>
+                          <mat-option value=" Italy"> Italy</mat-option>
+                          <mat-option value=" Japan"> Japan</mat-option>
+                          <mat-option value=" Kenya"> Kenya</mat-option>
+                          <mat-option value=" Korea"> Korea</mat-option>
+                          <mat-option value=" Kuwait"> Kuwait</mat-option>
+                          <mat-option value=" Mexico"> Mexico</mat-option>
+                          <mat-option value=" Nepal"> Nepal</mat-option>
+                          <mat-option value=" Netherlands"> Netherlands</mat-option>
+                          <mat-option value=" Norway"> Norway</mat-option>
+                          <mat-option value=" Oman"> Oman</mat-option>
+                          <mat-option value=" Russia"> Russia</mat-option>
+                          <mat-option value=" Singapore"> Singapore</mat-option>
+                          <mat-option value=" Serbia"> Serbia</mat-option>
+                          <mat-option value=" UK"> UK</mat-option>
+                          <mat-option value=" USA"> USA</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="docForm.get('country').hasError('required')">
+                          Fd Type is required
+                        </mat-error>
+                    </mat-form-field> 
+
                     </div>
                     </div>
 
@@ -86,7 +124,7 @@
                         </div>
                         <div class="col-md-3" >
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="postcode"maxlength="10">
+                          <input matInput formControlName="postcode"maxlength="10"(keypress)="keyPressNumeric($event)">
                         </mat-form-field>
                       </div>
                       </div>
@@ -257,7 +295,7 @@
   <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
       <input matInput formControlName="ifscCode" maxlength="15" oninput="this.value = this.value.toUpperCase()"
-       maxlength="16">
+       maxlength="16"required>
       <mat-error *ngIf="docForm.get('ifscCode').hasError('pattern')">
         Please Enter Valid IFSC code
       </mat-error>
@@ -310,13 +348,13 @@
 </div>
 <div class="row">
   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
-    <mat-label >PENALITY AMOUNT<span class="errorColor">*</span></mat-label>
+    <mat-label >PENALTY AMOUNT<span class="errorColor">*</span></mat-label>
   </div>
   <div class=" col-md-3" >
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="penalityAmt" maxlength="9"(keypress)="keyPressNumberDouble($event)">
-      <mat-error *ngIf="docForm.get('penalityAmt').hasError('required')">
-        Penality Amount is required
+      <input matInput formControlName="penaltyAmt" maxlength="9"(keypress)="keyPressNumberDouble($event)">
+      <mat-error *ngIf="docForm.get('penaltyAmt').hasError('required')">
+        Penalty Amount is required
       </mat-error>
     </mat-form-field>
   </div>
