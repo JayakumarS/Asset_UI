@@ -49,6 +49,10 @@ export class AddOtherdebitsComponent implements OnInit {
   edit:boolean=false;
   otherdebits:Otherdebits;
   requestId: number;
+  userId: any;
+  companyId: any;
+  countryDdList = [];
+
   currencyList: [];
   submitted: boolean;
   customerDropDown: [];
@@ -88,14 +92,14 @@ export class AddOtherdebitsComponent implements OnInit {
         address:[""],
         currencyl:["",[Validators.required]],
         branchName:[""],
-        ifsccode:["",[Validators.required]],
+        ifsccode:["",Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')],
         loanProperty:[""],
         loanApplicationDate:["",[Validators.required]],
         loanApplicationDateObj:["",[Validators.required]],
-        loanApprovalDate:[""],
-        loanApprovalDateObj:[""],
-        loanDisbursementDate:[""],
-        loanDisbursementDateObj:[""],
+        loanApprovalDate:["",[Validators.required]],
+        loanApprovalDateObj:["",[Validators.required]],
+        loanDisbursementDate:["",[Validators.required]],
+        loanDisbursementDateObj:["",[Validators.required]],
         type:["",[Validators.required]],
         loan:["",[Validators.required]],
         loanAmount:["",[Validators.required]],
@@ -135,6 +139,20 @@ export class AddOtherdebitsComponent implements OnInit {
     this.httpService.get<any>(this.loanOtherdebitsService.getLoanPropertyList).subscribe({
       next: (data) => {
         this.loanPropertyList = data;
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
+    this.docForm
+    this.userId = this.tokenStorage.getUserId();
+    // Country dropdown
+    
+    this.httpService.get<any>(this.commonService.getCountryDropdown+"?userId="+this.userId).subscribe({
+      next: (data) => {
+        this.countryDdList = data;
       },
       error: (error) => {
 
