@@ -153,7 +153,7 @@ export class AddVehicleComponent implements OnInit {
  }
      });
 
-    //  this.getcash(this.docForm.value.payment);
+     this.getcash(this.docForm.value.payment);
     //  this.getlicense(this.docForm.value.license);
 
   }
