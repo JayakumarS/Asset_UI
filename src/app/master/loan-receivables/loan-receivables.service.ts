@@ -116,7 +116,7 @@ export class LoanReceivablesService extends UnsubscribeOnDestroyAdapter{
           window.sessionStorage.setItem("receivableFrom","");
           router.navigate(['/master/loan-receivables/list-receivables']);
         }
-        //router.navigate(['/master/loan-receivables/list-receivables']);
+        router.navigate(['/master/loan-receivables/list-receivables']);
       }else {
         notificationService.showNotification(
           "snackbar-danger",

@@ -297,6 +297,10 @@ export class AddReceivablesComponent implements OnInit {
       window.sessionStorage.setItem("receivableFrom","");
       this.router.navigate(['/master/loan-receivables/list-receivables']);
     }
+    else{
+      this.router.navigate(['/master/loan-receivables/list-receivables']);
+
+    }
     
   }
   
