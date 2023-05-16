@@ -49,7 +49,7 @@ export class AddJewelleryDetailsComponent implements OnInit {
     docForm: FormGroup;
     jewellery:jewel;
     isGIFT: boolean = false;
-    LOCKER: boolean ;
+    LOCKER: boolean = true ;
     edit: boolean = false;
     requestId: any;
     //jewelleryDtl: [];
@@ -135,7 +135,6 @@ export class AddJewelleryDetailsComponent implements OnInit {
        this.fetchDetails(this.requestId) ;
       }
      });
-
     
   }
 
