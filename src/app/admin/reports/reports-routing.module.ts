@@ -7,6 +7,7 @@ import { AssetsReturnComponent } from './assets-return/assets-return.component';
 import { DiscardAssetsComponent } from './discard-assets/discard-assets.component';
 import { ListAssetHistoryReportComponent } from './list-asset-history-report/list-asset-history-report.component';
 import { UserLogComponent } from './user-log/user-log.component';
+import { AddHistoryReportComponent } from './add-history-report/add-history-report.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,11 @@ const routes: Routes = [
     path: "auditLog",
     loadChildren: () =>
       import("./audit-log/audit-log.module").then((m) => m.AuditLogModule),
+  },
+
+  {
+    path:"addHistoryReport",
+    component:AddHistoryReportComponent
   },
   
 
