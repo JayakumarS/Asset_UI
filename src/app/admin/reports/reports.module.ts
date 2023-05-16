@@ -36,6 +36,7 @@ import { ListAssetHistoryReportComponent } from './list-asset-history-report/lis
 import { NgxPaginationModule } from 'ngx-pagination'
 import { ListAuditLogComponent } from './audit-log/list-audit-log/list-audit-log.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { IndividualInformationComponent } from 'src/app/master/widget/individual-information/individual-information.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     UserLogComponent,
     AddreportLocationComponent,
     ListAssetHistoryReportComponent,
-    ListAuditLogComponent
+    ListAuditLogComponent,
+    
 
   ],
   imports: [

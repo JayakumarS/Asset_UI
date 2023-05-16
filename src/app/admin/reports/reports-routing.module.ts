@@ -43,7 +43,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./audit-log/audit-log.module").then((m) => m.AuditLogModule),
   },
-  
+  {
+    path: "individualReports",
+    loadChildren: () =>
+      import("./individual-reports/individual-report.module").then((m) =>m.IndividualReportsModule)
+  },
 
 ];
 
