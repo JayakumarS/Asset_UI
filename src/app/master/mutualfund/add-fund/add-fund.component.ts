@@ -76,7 +76,7 @@ export class AddFundComponent implements OnInit {
        userName:[""],
        password:[""],
       //email: ['', [Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-       email: [''],
+       email: ['',[ Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
        totalAssured:[""],
        totalFund:[""],
        assured:[""],
