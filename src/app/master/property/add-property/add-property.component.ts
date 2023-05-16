@@ -128,7 +128,7 @@ export class AddPropertyComponent implements OnInit {
        accountUserId:[""],
        password:[""],
 
-       houseName:[""],
+       houseName:["" ,[Validators.required]],
        houseAddress:[""],
        constructedOn:[""],
        constructedOnObj:[""],
