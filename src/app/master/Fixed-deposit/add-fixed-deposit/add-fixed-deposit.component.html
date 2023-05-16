@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-md-3" >
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput formControlName="postcode"maxlength="10"(keypress)="keyPressNumeric($event)">
+                          <input matInput formControlName="postcode"maxlength="6"(keypress)="keyPressNumeric($event)">
                         </mat-form-field>
                       </div>
                       </div>
@@ -270,7 +270,7 @@
                 </div>
                 <div class=" col-md-3" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="fdaccountNo" maxlength="9"(keypress)="keyPressNumeric($event)">
+                    <input matInput formControlName="fdaccountNo" maxlength="17"(keypress)="keyPressNumeric($event)">
                     <mat-error *ngIf="docForm.get('fdaccountNo').hasError('required')">
                       Account Number is required
                     </mat-error>
@@ -297,8 +297,8 @@
   </div>
   <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="ifscCode" maxlength="15" oninput="this.value = this.value.toUpperCase()"
-       maxlength="16"required>
+      <input matInput formControlName="ifscCode" maxlength="11" oninput="this.value = this.value.toUpperCase()"
+       required>
       <mat-error *ngIf="docForm.get('ifscCode').hasError('pattern')">
         Please Enter Valid IFSC code
       </mat-error>
@@ -366,7 +366,7 @@
 </div>
 <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-    <input matInput formControlName="interest" maxlength="3">
+    <input matInput formControlName="interest" maxlength="4" (keypress)="keyPressNumeric($event)">
     <mat-error *ngIf="docForm.get('autoRenewal').hasError('required')">
       Interest Rate is required
     </mat-error>
