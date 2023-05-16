@@ -102,10 +102,10 @@ export class AddJewelleryDetailsComponent implements OnInit {
       selforgift:["SELF"],
       location:[""],
       lockerInHand:["LOCKER"],
-      lockerRent:["", [Validators.required]],
+      lockerRent:[""],
       lockerSize:[""],
-      bankName:["", [Validators.required]],
-      lockerNo:["", [Validators.required]],
+      bankName:[""],
+      lockerNo:[""],
       currentValue:["", [Validators.required]],
       specification:[""],
       description:[""],
@@ -135,9 +135,6 @@ export class AddJewelleryDetailsComponent implements OnInit {
        this.fetchDetails(this.requestId) ;
       }
      });
-     this.getLOCKER(Event);
-     this.getLOCKER(Event);
-     this.LOCKER = true;
 
     
   }
@@ -156,14 +153,18 @@ export class AddJewelleryDetailsComponent implements OnInit {
   getLOCKER(check: any) {
     if (check == 'LOCKER') {
       this.LOCKER = true;
+      this.docForm.controls.bankName.setValidators(Validators.required);
+      this.docForm.controls.lockerNo.setValidators(Validators.required);
+      this.docForm.controls.lockerRent.setValidators(Validators.required);
+
     } else if(check == 'IN HAND') {
       this.LOCKER = false;
     } else{
       this.LOCKER = false;
-
     }
+
    
-  
+
   }
 
 
@@ -271,6 +272,9 @@ onSubmit(){
       next: (res) => {
         let hdate = this.cmnService.getDateObj(res.jewelBean.cdate);
         let rdate = this.cmnService.getDateObj(res.jewelBean.jdate);
+
+        this.getLOCKER(res.jewelBean.lockerInHand);
+
       this.docForm.patchValue({
           'cdate': res.jewelBean.cdate,
           'jdate': res.jewelBean.jdate,
