@@ -28,7 +28,7 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
    }
 
    private save = `${this.serverUrl.apiServerAddress}app/mutualfund/save`;
-   private getList= `${this.serverUrl.apiServerAddress}app/mutualfund/list`;
+   private getList= `${this.serverUrl.apiServerAddress}app/mutualfund/listNew`;
    private edit = `${this.serverUrl.apiServerAddress}app/mutualfund/edit`;
    private update= `${this.serverUrl.apiServerAddress}app/mutualfund/update`; 
    public deletefd= `${this.serverUrl.apiServerAddress}app/mutualfund/delete`; 

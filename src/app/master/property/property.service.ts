@@ -32,7 +32,8 @@ export class PropertyService extends UnsubscribeOnDestroyAdapter {
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
    }
-   private getList = `${this.serverUrl.apiServerAddress}app/property/getList`;
+   //private getList = `${this.serverUrl.apiServerAddress}app/property/getList`;
+   private getList= `${this.serverUrl.apiServerAddress}app/mutualfund/list`;
    private save = `${this.serverUrl.apiServerAddress}app/property/addProperty`;
    public edit = `${this.serverUrl.apiServerAddress}app/property/edit`;
    public update= `${this.serverUrl.apiServerAddress}app/property/update`;
@@ -48,7 +49,7 @@ export class PropertyService extends UnsubscribeOnDestroyAdapter {
     this.subs.sink = this.httpService.get<PropertyResultBean>(this.getList+"?UserId="+this.UserId).subscribe(
       (data:any) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.plist);
+        this.dataChange.next(data.plistNew);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;

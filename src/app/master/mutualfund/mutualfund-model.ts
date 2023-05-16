@@ -14,7 +14,9 @@ export class Fund{
     fundNo:string;
     inceptiondateObj:string;
     UserId:string;
-    
+    propertyType:string;
+    rentalType:string;
+    loan:string;
     
     constructor(fund) {
         {
