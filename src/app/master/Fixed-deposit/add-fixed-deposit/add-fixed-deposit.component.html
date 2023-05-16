@@ -48,7 +48,10 @@
                       </div>
                       <div class="col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="mail">
+                        <input matInput formControlName="mail" required>
+                        <mat-error *ngIf="docForm.get('mail').hasError('required') || docForm.get('mail').touched" >
+                          Please enter a valid email address
+                        </mat-error> 
                       </mat-form-field>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">

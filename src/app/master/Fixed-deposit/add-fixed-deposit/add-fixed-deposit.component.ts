@@ -100,7 +100,7 @@ docForm: FormGroup;
         applicationNo:["",[Validators.required]],
         dueAmount:["",[Validators.required]],
         id:[""],
-        mail:[""],
+        mail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
         phone:[""],
         address:[""],
         country:[""],
