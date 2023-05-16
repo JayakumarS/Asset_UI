@@ -44,7 +44,7 @@
 
                    <div class="row">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                      <mat-label >E-MAIL</mat-label>
+                      <mat-label >E-MAIL<span class="errorColor">*</span></mat-label>
                       </div>
                       <div class="col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -366,7 +366,7 @@
 </div>
 <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-    <input matInput formControlName="interest" maxlength="4" (keypress)="keyPressNumeric($event)">
+    <input matInput formControlName="interest" maxlength="5" (keypress)="keyPressNumeric($event)">
     <mat-error *ngIf="docForm.get('autoRenewal').hasError('required')">
       Interest Rate is required
     </mat-error>

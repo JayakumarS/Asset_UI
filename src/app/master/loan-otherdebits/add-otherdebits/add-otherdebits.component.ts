@@ -82,8 +82,8 @@ export class AddOtherdebitsComponent implements OnInit {
    
       this.docForm = this.fb.group({
         name:["",[Validators.required]],
-        dobObj:[""],
-        dob:[""],
+        dobObj:["",[Validators.required]],
+        dob:["",[Validators.required]],
         mail:["",[ Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
         phoneno:[""],
         telepheNo:[""],

@@ -25,12 +25,12 @@
                     oninput="this.value = this.value.toUpperCase()"
                     (keypress)="keyPressName($event)" >
                     <mat-error *ngIf="docForm.get('name').hasError('required')">
-                      name is required
+                      Name is required
                     </mat-error>
                   </mat-form-field>
                 </div>
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                      <mat-label >D.O.B</mat-label>
+                      <mat-label >D.O.B<span class="errorColor">*</span></mat-label>
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -41,20 +41,24 @@
                         (dateChange)="getDateString($event, 'dob',0)">
                     <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
                     <mat-datepicker #picker6></mat-datepicker>
+                    <mat-error *ngIf="docForm.get('dob').hasError('required')">
+                      D.O.B is required
+                     </mat-error> 
                       </mat-form-field>
+                      
                   </div>
                 </div>
 
                 <div class="row">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                      <mat-label >EMAIL-ID</mat-label>
+                      <mat-label >EMAIL-ID<span class="errorColor">*</span></mat-label>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="mail" maxlength="50" >
-                <mat-error *ngIf="docForm.get('mail').hasError('pattern')">
-                 Enter Valid Email ID Required
-                </mat-error>
+                      <input matInput formControlName="mail" maxlength="30" required>
+                      <mat-error *ngIf="docForm.get('mail').hasError('required') || docForm.get('mail').touched" >
+                        Please enter a valid email address
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -104,7 +108,7 @@
               <h4>LOAN DETAILS</h4>
                 <br><br>    
                 <div class="row">
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+                  <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
                       <mat-label >LOAN PROPERTY</mat-label>
                   </div>
                   <div  class=" col-md-3">
@@ -115,7 +119,7 @@
                         </mat-option>
                         </mat-select>
                         </mat-form-field>
-                  </div>
+                  </div> -->
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                     <mat-label >LOAN TYPE<span class="errorColor">*</span></mat-label>
                   </div>
@@ -152,9 +156,7 @@
                       </mat-error>
                   </mat-form-field> 
                   </div>
-                </div>
 
-                <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                     <mat-label >LOAN APPLICATION DATE<span class="errorColor">*</span></mat-label>
                     </div>
@@ -172,6 +174,11 @@
                         </mat-error> 
                       </mat-form-field>
                   </div>
+
+                </div>
+
+                <div class="row">
+                 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                     <mat-label >LOAN NUMBER<span class="errorColor">*</span></mat-label>
                 </div>
@@ -183,6 +190,19 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
+
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <mat-label >LOAN AMOUNT<span class="errorColor">*</span></mat-label>
+                  </div>
+                  <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="loanAmount" (keypress)="keyPressNumeric($event)" maxlength="8" >
+                      <mat-error *ngIf="docForm.get('loanAmount').hasError('required')">
+                        Loan Amount is required
+                      </mat-error>
+                    </mat-form-field>
+                </div>
+
               </div>
 
                 <div class="row">  
@@ -226,15 +246,23 @@
                 </div>
 
                     <div class="row">
+                      
+
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                        <mat-label >LOAN AMOUNT<span class="errorColor">*</span></mat-label>
+                        <mat-label >LOAN START DATE<span class="errorColor">*</span></mat-label>
                         </div>
                         <div class=" col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <input matInput formControlName="loanAmount" (keypress)="keyPressNumeric($event)" maxlength="8" >
-                            <mat-error *ngIf="docForm.get('loanAmount').hasError('required')">
-                              Loan Amount is required
-                            </mat-error>
+                            <input matInput [matDatepicker]="picker" 
+                            formControlName="loanStartDateObj"
+                            (dateInput)="$event.value.format('DD/MM/YYYY')"
+                            id="loanStartDate"
+                            (dateChange)="getDateString($event, 'loanStartDate',0)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="docForm.get('loanStartDate').hasError('required')">
+                              Loan Start Date is required
+                            </mat-error> 
                           </mat-form-field>
                       </div>
 
@@ -259,23 +287,7 @@
                   </div>
                   
                   <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                      <mat-label >LOAN START DATE<span class="errorColor">*</span></mat-label>
-                      </div>
-                      <div class=" col-md-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput [matDatepicker]="picker" 
-                          formControlName="loanStartDateObj"
-                          (dateInput)="$event.value.format('DD/MM/YYYY')"
-                          id="loanStartDate"
-                          (dateChange)="getDateString($event, 'loanStartDate',0)">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                          <mat-error *ngIf="docForm.get('loanStartDate').hasError('required')">
-                            Loan Start Date is required
-                          </mat-error> 
-                        </mat-form-field>
-                    </div>
+                    
                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >LOAN END DATE <span class="errorColor">*</span></mat-label>
                   </div>
@@ -352,7 +364,7 @@
                     </div>
                     <div class=" col-md-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="interestRate" (keypress)="keyPressNumberDouble($event)" maxlength="3" >
+                        <input matInput formControlName="interestRate" (keypress)="keyPressNumberDouble($event)" maxlength="5" >
                         <mat-error *ngIf="docForm.get('interestRate').hasError('required')">
                           Rate of Interest is required
                         </mat-error>
@@ -420,9 +432,9 @@
                <mat-label >BANK IFSC<span class="errorColor">*</span></mat-label>
            </div>
            <div class=" col-md-3">
-             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+             <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                <input matInput formControlName="ifsccode"  oninput="this.value = this.value.toUpperCase()"
-                maxlength="11" required>
+                maxlength="16" required>
                <mat-error *ngIf="docForm.get('ifsccode').hasError('pattern')">
                  Please Enter Valid IFSC code
                </mat-error>

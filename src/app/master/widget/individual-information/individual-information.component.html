@@ -22,7 +22,7 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput  formControlName="name"  readonly
                           maxlength="20" (keypress)="keyPressString($event)">
-                          <!-- <mat-error *ngIf="docForm.get('name').hasError('required')">
+                          <!-- <mat-error *ngIf="docForm.get('name').hasError('required')" >
                             Name is required
                           </mat-error> -->
                               
@@ -36,7 +36,7 @@
                 <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="email" readonly>
-                    <!-- <mat-error *ngIf="docForm.get('email').hasError('required')">
+                    <!-- <mat-error *ngIf="docForm.get('email').hasError('required')" >
                       Email is required
                     </mat-error> -->
                   
@@ -56,7 +56,7 @@
                   <!-- <mat-datepicker-toggle matSuffix
                       [for]="picker2"></mat-datepicker-toggle> -->
                   <mat-datepicker #picker2></mat-datepicker>
-                  <!-- <mat-error *ngIf="docForm.get('premiumDueDateObj').hasError('required')">
+                  <!-- <mat-error *ngIf="docForm.get('premiumDueDateObj').hasError('required')" >
                     Premium Due Date is required
                   </mat-error> -->
                       
@@ -96,7 +96,7 @@
                       {{title.text}}
                     </mat-option>
                   </mat-select>
-                  <!-- <mat-error *ngIf="docForm.get('country').hasError('required')">
+                  <!-- <mat-error *ngIf="docForm.get('country').hasError('required')" >
                     country is required
                   </mat-error> -->
                 </mat-form-field>
@@ -163,8 +163,11 @@
               </div>
               <div class=" col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="passportNumber"   
-                   >
+                  <input matInput formControlName="passportNumber"   maxlength="12"
+                  required>
+                   <mat-error *ngIf="docForm.get('passportNumber').hasError('required')" >
+                    PASSPORT NUMBER is required
+                      </mat-error>
                 </mat-form-field>
               </div>
 
@@ -175,7 +178,10 @@
         <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="panNumber"
-                maxlength="20">     
+                maxlength="10" oninput="this.value = this.value.toUpperCase()"> 
+                <mat-error *ngIf="docForm.controls['panNumber'].hasError('pattern')">
+                  Please Enter Valid Pan Card Number
+                </mat-error>
             </mat-form-field>
         </div>
         </div>
@@ -185,8 +191,11 @@
           <label>DRIVING LICENSE NUMBER</label>
         </div>
         <div class=" col-md-3">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="licenseNo">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+          <input matInput formControlName="licenseNo" oninput="this.value = this.value.toUpperCase()" maxlength="16" required>
+          <mat-error *ngIf="docForm.get('licenseNo').hasError('required')" >
+            DRIVING LICENSE NUMBER is required
+              </mat-error>
         </mat-form-field>
         </div>
        </div>
@@ -226,7 +235,7 @@
         <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="telephone"
-                maxlength="20">    
+                maxlength="10" (keypress)="keyPressNumber($event)">    
             </mat-form-field>
         </div>
         
@@ -236,7 +245,7 @@
         <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="fax"
-                maxlength="20">    
+                mmaxlength="10" (keypress)="keyPressNumber($event)">    
             </mat-form-field>
         </div>
         
@@ -250,7 +259,7 @@
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput  formControlName="mobile"
-                  maxlength="20">    
+                  maxlength="10" (keypress)="keyPressNumber($event)">    
               </mat-form-field>
           </div>
           
@@ -259,8 +268,11 @@
           </div>
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput  formControlName="companyEmail"
-                  maxlength="20">    
+                  <input matInput  formControlName="companyEmail" required
+                  > 
+                  <mat-error *ngIf="docForm.get('companyEmail').hasError('required') || docForm.get('companyEmail').touched" >
+                    Please enter a valid email address
+                  </mat-error> 
               </mat-form-field>
           </div>
           </div>
@@ -274,7 +286,10 @@
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput  formControlName="website"
-                  maxlength="20">      
+                  maxlength="20"> 
+                  <mat-error *ngIf="docForm.controls['website'].hasError('pattern')">
+                    Please Enter Valid Website
+                  </mat-error>     
               </mat-form-field>
           </div>
           </div>

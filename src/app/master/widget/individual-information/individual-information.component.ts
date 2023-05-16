@@ -68,17 +68,17 @@ export class IndividualInformationComponent implements OnInit {
        city:[""],
        bloodGroup:[""],
        idNumber:[""],
-       passportNumber:[""],
-       panNumber:[""],
-       licenseNo:[""],
+       passportNumber:["",[Validators.required]],
+       panNumber: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
+       licenseNo:["",[Validators.required]],
        company:[""],
        companyAddress:[""],
        telephone:[""],
        fax:[""],
        mobile:[""],
-       companyEmail:[""],
-       website:[""],
-    })
+       companyEmail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+       website: ["", Validators.pattern('^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$')],
+      })
   }
   getDateString(event, inputFlag, index) {
     let cdate = this.commonService.getDate(event.target.value);

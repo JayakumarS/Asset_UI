@@ -249,7 +249,7 @@
               (dateChange)="getDateString($event,'duedate',0)" >
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
-              <mat-error *ngIf="docForm.get('duedateObj').hasError('required')">
+              <mat-error *ngIf="docForm.get('duedate').hasError('required')">
                 Due Date is required
               </mat-error>
             </mat-form-field>

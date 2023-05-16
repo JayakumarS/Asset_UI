@@ -93,7 +93,7 @@ export class AddReceivablesComponent implements OnInit {
        duedate:["", [Validators.required]],
        duedateObj:["", [Validators.required]],
        id:[""],
-       assettype:[""],
+       assettype:["",],
 
     })
   }
@@ -124,11 +124,11 @@ export class AddReceivablesComponent implements OnInit {
       paymentstatus:["", [Validators.required]],
       currency:["", [Validators.required]],
       duedate:["", [Validators.required]],
-      duedateObj:[""],
+      duedateObj:["",[Validators.required]],
       id:[""],
       receivables:[""],
-      assettype:[""],
-      payment:[""],
+      assettype:["",[Validators.required]],
+      payment:["",[Validators.required]],
       invoiceDate:[""],
       invoiceDateObj:["", [Validators.required]]
    });
