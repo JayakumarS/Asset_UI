@@ -73,7 +73,11 @@
                 <div class=" col-md-3" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="houseName" maxlength="20"  oninput="this.value = this.value.toUpperCase()">
-                  </mat-form-field>
+                      <mat-error *ngIf="docForm.get('houseName').hasError('required')">
+                        HOUSE NAME is required
+                       </mat-error>
+                    </mat-form-field>
+                  
                 </div>
                 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">

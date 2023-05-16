@@ -76,7 +76,7 @@ export class AddFundComponent implements OnInit {
        userName:[""],
        password:[""],
       //email: ['', [Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-       email: ['',[ Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+       email: [''],
        totalAssured:[""],
        totalFund:[""],
        assured:[""],
@@ -106,8 +106,8 @@ export class AddFundComponent implements OnInit {
       sampleDtl: this.fb.array([
         this.fb.group({
           fundname:["",[Validators.required]],
-          inceptiondate:[""],
-          inceptiondateObj:[""],
+          inceptiondate:["",[Validators.required]],
+          inceptiondateObj:["",[Validators.required]],
           assetclass:[""],
           tickersymbol:["",[Validators.required]],
           minimuminvestment:["",[Validators.required]],

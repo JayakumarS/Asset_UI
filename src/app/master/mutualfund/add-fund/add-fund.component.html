@@ -528,10 +528,10 @@
     
   <div class=" col-md-3">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-         <input matInput formControlName="email" maxlength="50" >
-                <mat-error *ngIf="docForm.get('email').hasError('pattern')">
-                  Enter Valid Email ID Required
-                </mat-error>
+          <input matInput  formControlName="email">  
+          <!-- <mat-error *ngIf="docForm.get('email').hasError('required') || docForm.get('email').touched">
+            Please enter a valid email address
+          </mat-error>     -->
       </mat-form-field>
   </div>
 
@@ -636,6 +636,8 @@
                                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                            <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
+                        <div *ngIf="submitted && sampleDtl.get('inceptiondate').hasError('required')" class="failed-validation" class="errorColor"> Inceptiondate Date is required </div>
+
                         </td>
                         
                       <td class="padding-both-side-2">
