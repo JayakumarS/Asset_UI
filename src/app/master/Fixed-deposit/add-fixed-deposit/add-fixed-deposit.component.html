@@ -79,7 +79,7 @@
                       <div class="col-md-3" >
         
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-select formControlName="country" style="font-size:small;">
+                        <mat-select formControlName="country" style="font-size:small;" (selectionChange)="posetCodeFlag($event.value)">
                           <mat-option value=" Afghanistan"> Afghanistan</mat-option>
                           <mat-option value=" Albania"> Albania</mat-option>
                           <mat-option value=" Algeria"> Algeria</mat-option>
@@ -95,7 +95,7 @@
                           <mat-option value=" Finland"> Finland</mat-option>
                           <mat-option value=" France"> France</mat-option>
                           <mat-option value=" Germany"> Germany</mat-option>
-                          <mat-option value=" India"> India</mat-option>
+                          <mat-option value="India">India</mat-option>
                           <mat-option value=" Indonesia"> Indonesia</mat-option>
                           <mat-option value=" Italy"> Italy</mat-option>
                           <mat-option value=" Japan"> Japan</mat-option>
@@ -125,11 +125,17 @@
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                         <mat-label >POST CODE</mat-label>
                         </div>
-                        <div class="col-md-3" >
+                        <div class="col-md-3" *ngIf="isIndia">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="postcode"maxlength="6"(keypress)="keyPressNumeric($event)">
                         </mat-form-field>
                       </div>
+
+                      <div class="col-md-3" *ngIf="isOthers">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="postcode" oninput="this.value = this.value.toUpperCase()">
+                      </mat-form-field>
+                    </div>
                       </div>
 
                       <hr>

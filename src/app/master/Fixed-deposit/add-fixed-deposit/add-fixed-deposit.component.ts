@@ -62,6 +62,8 @@ docForm: FormGroup;
     value1: any;
     currencyListbasedCompany=[];
     totalValue:number;
+  isIndia: boolean;
+  isOthers: boolean = true;
 
   constructor(private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -333,6 +335,20 @@ keyPressName(event: any) {
     // }
   }
 
+  posetCodeFlag(event)
+  {
+    if(event == 'India')
+    {
+      this.isIndia = true;
+      this.isOthers = false;
+
+    }else
+    {
+      this.isIndia = false;
+      this.isOthers = true;
+
+  }
+  }
     
     }
    
