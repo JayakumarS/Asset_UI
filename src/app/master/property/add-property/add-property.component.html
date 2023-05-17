@@ -74,7 +74,7 @@
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="houseName" maxlength="20"  oninput="this.value = this.value.toUpperCase()">
                       <mat-error *ngIf="docForm.get('houseName').hasError('required')">
-                        HOUSE NAME is required
+                        House Name is required
                        </mat-error>
                     </mat-form-field>
                   
@@ -105,9 +105,9 @@
                     Apartment
                   </mat-option>
                   </mat-select> 
-                  <!-- <mat-error *ngIf="docForm.get('residencialType').hasError('required')">
+                  <mat-error *ngIf="docForm.get('residencialType').hasError('required')">
                     Type is required
-                   </mat-error> -->
+                   </mat-error>
               </mat-form-field>
                   </div> 
 
@@ -120,9 +120,9 @@
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput name="depreciationValue" formControlName="location"
                     maxlength="20" (keypress)="keyPressName($event)" >
-                    <!-- <mat-error *ngIf="docForm.get('location').hasError('required')">
-                      LOCATION is required
-                     </mat-error> -->
+                    <mat-error *ngIf="docForm.get('location').hasError('required')">
+                      Location is required
+                     </mat-error> 
                   </mat-form-field>
                 </div>
 
@@ -134,9 +134,9 @@
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput name="depreciationValue" formControlName="squareFeet"
                     maxlength="4" (keypress)="keyPressNumberInt($event)">
-                    <!-- <mat-error *ngIf="docForm.get('residencialType').hasError('required')">
-                      Type is required
-                     </mat-error> -->
+                    <mat-error *ngIf="docForm.get('squareFeet').hasError('required')">
+                      Square Feet is required
+                     </mat-error> 
                   </mat-form-field>
                 </div>
 
@@ -149,9 +149,9 @@
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput name="depreciationValue" formControlName="area"
                   maxlength="20" (keypress)="keyPressName($event)">
-                  <!-- <mat-error *ngIf="docForm.get('area').hasError('required')">
-                    AREA is required
-                   </mat-error> -->
+                  <mat-error *ngIf="docForm.get('area').hasError('required')">
+                    Area is required
+                   </mat-error> 
                 </mat-form-field>
               </div>
 
@@ -173,9 +173,9 @@
                     (dateChange)="getDateString($event, 'constructedOn',0)">
                 <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
                 <mat-datepicker #picker5></mat-datepicker>
-                    <!-- <mat-error *ngIf="docForm.get('constructedOn').hasError('required')">
-                      CONSTRUCTED ON Date is required
-                    </mat-error>  -->
+                   <mat-error *ngIf="docForm.get('constructedOnObj').hasError('required')">
+                      Constructed On Date is required
+                    </mat-error>  
                   </mat-form-field>
                 </div>
 
@@ -221,9 +221,9 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput name="depreciationValue" formControlName="landType"
                         maxlength="4" (keypress)="keyPressNumberInt($event)">
-                        <!-- <mat-error *ngIf="docForm.get('landType').hasError('required')">
-                          TYPE is required
-                         </mat-error> -->
+                         <mat-error *ngIf="docForm.get('landType').hasError('required')">
+                          Type is required
+                         </mat-error> 
                       </mat-form-field>
                     </div>
 
@@ -237,9 +237,9 @@
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput name="landSqft" formControlName="landSqft"
                       maxlength="4" (keypress)="keyPressNumberInt($event)">
-                      <!-- <mat-error *ngIf="docForm.get('landSqft').hasError('required')">
+                       <mat-error *ngIf="docForm.get('landSqft').hasError('required')">
                         SQFT is required
-                       </mat-error> -->
+                       </mat-error> 
                     </mat-form-field>
                   </div>
 
@@ -253,7 +253,10 @@
                     <div class=" col-md-3" *ngIf ="isHouse">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                            <input matInput name="currentValue" formControlName="currentValue" maxlength="9" (keypress)="keyPressNumberInt($event)">
-                      </mat-form-field>
+                           <mat-error *ngIf="docForm.get('currentValue').hasError('required')">
+                            Current Rate is required
+                           </mat-error>
+                          </mat-form-field>
                     </div>
 
                     
@@ -282,9 +285,9 @@
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput formControlName="landTaxNo" maxlength="9" (keypress)="keyPressNumberInt($event)"
                   (blur)="validateCustomer($event.target.value)">
-                  <!-- <mat-error *ngIf="docForm.get('landTaxNo').hasError('required')">
-                    LAND TAX NO is required
-                   </mat-error> -->
+                <mat-error *ngIf="docForm.get('landTaxNo').hasError('required')">
+                    Land Tax No is required
+                   </mat-error> 
                 </mat-form-field>
               </div>
 
@@ -297,9 +300,9 @@
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput formControlName="houseTaxNo" maxlength="9" (keypress)="keyPressNumberInt($event)"
                   (blur)="validateCustomer($event.target.value)">
-                  <!-- <mat-error *ngIf="docForm.get('houseTaxNo').hasError('required')">
-                    PROPERTY TAX NO is required
-                   </mat-error> -->
+                   <mat-error *ngIf="docForm.get('houseTaxNo').hasError('required')">
+                    Property Tax No is required
+                   </mat-error> 
                 </mat-form-field>
               </div>
 
@@ -315,9 +318,9 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="regNo" maxlength="9" (keypress)="keyPressNumberInt($event)"
                         (blur)="validateCustomer($event.target.value)">
-                        <!-- <mat-error *ngIf="docForm.get('regNo').hasError('required')">
-                          REGISTRATION NO is required
-                         </mat-error> -->
+                       <mat-error *ngIf="docForm.get('regNo').hasError('required')">
+                          Registration No is required
+                         </mat-error> 
                       </mat-form-field>
                     </div>
 
@@ -334,9 +337,9 @@
                   <mat-datepicker-toggle matSuffix
                       [for]="picker4"></mat-datepicker-toggle>
                   <mat-datepicker #picker4></mat-datepicker>
-                  <!-- <mat-error *ngIf="docForm.get('landRegDateObj').hasError('required')">
-                    REGISTRATION DATE is required
-                      </mat-error> -->
+                  <mat-error *ngIf="docForm.get('landRegDateObj').hasError('required')">
+                    Registration Date is required
+                      </mat-error> 
                     </mat-form-field>
                   </div>
 
@@ -351,9 +354,9 @@
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="source" maxlength="9" (keypress)="keyPressNumberInt($event)"
                           (blur)="validateCustomer($event.target.value)">
-                          <!-- <mat-error *ngIf="docForm.get('source').hasError('required')">
-                            SOURCE  is required
-                           </mat-error> -->
+                        <mat-error *ngIf="docForm.get('source').hasError('required')">
+                            Source  is required
+                           </mat-error> 
                         </mat-form-field>
                       </div>
 
@@ -366,9 +369,9 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="landGuidelineValue" maxlength="9" (keypress)="keyPressNumberDouble($event)"
                         (blur)="validateCustomer($event.target.value)">
-                        <!-- <mat-error *ngIf="docForm.get('landGuidelineValue').hasError('required')">
-                          GUIDELINE VALUE  is required
-                         </mat-error> -->
+                         <mat-error *ngIf="docForm.get('landGuidelineValue').hasError('required')">
+                          Guideline Value  is required
+                         </mat-error> 
                       </mat-form-field>
                     </div>
 
@@ -384,9 +387,9 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput formControlName="marketValue" maxlength="9" (keypress)="keyPressNumberInt($event)"
                         (blur)="validateCustomer($event.target.value)">
-                        <!-- <mat-error *ngIf="docForm.get('marketValue').hasError('required')">
-                          MARKET VALUE  is required
-                         </mat-error> -->
+                      <mat-error *ngIf="docForm.get('marketValue').hasError('required')">
+                          Market Value  is required
+                         </mat-error> 
                       </mat-form-field>
                     </div>
 
@@ -481,7 +484,10 @@
           <div class=" col-md-3" >
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="bankName" maxlength="15" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
-            </mat-form-field>
+                <mat-error *ngIf="docForm.get('bankName').hasError('required')">
+                  Bank Name is required
+                </mat-error> 
+              </mat-form-field>
           </div>
 
           
@@ -507,9 +513,9 @@
               <mat-error *ngIf="docForm.get('ifscCode').hasError('pattern')">
                 Please Enter Valid IFSC code
               </mat-error>
-              <!-- <mat-error *ngIf="docForm.get('ifscCode').hasError('required')">
+              <mat-error *ngIf="docForm.get('ifscCode').hasError('required')">
                 IFSC Code is required
-              </mat-error> -->
+              </mat-error> 
             </mat-form-field>
           </div>
             
@@ -547,9 +553,9 @@
                 <div class=" col-md-3" >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="loanAmount" (keypress)="keyPressNumeric($event)" maxlength="8" >
-                    <!-- <mat-error *ngIf="docForm.get('loanAmount').hasError('required')">
+                    <mat-error *ngIf="docForm.get('loanAmount').hasError('required')">
                       Loan Amount is required
-                    </mat-error> -->
+                    </mat-error> 
                   </mat-form-field>
               </div>
 
@@ -580,9 +586,9 @@
           <mat-datepicker-toggle matSuffix
               [for]="picker3"></mat-datepicker-toggle>
           <mat-datepicker #picker3></mat-datepicker>
-          <!-- <mat-error *ngIf="docForm.get('emiDateObj').hasError('required')">
-            EMI DATE is required
-              </mat-error> -->
+           <mat-error *ngIf="docForm.get('emiDateObj').hasError('required')">
+            Emi Date is required
+              </mat-error> 
             </mat-form-field>
           </div>
 
@@ -723,9 +729,9 @@
               <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="advance"
                  maxlength="20" (keypress)="keyPressNumeric($event)">
-                 <!-- <mat-error *ngIf="docForm.get('advance').hasError('required')">
-                  ADVANCE is required
-                 </mat-error> -->
+                  <mat-error *ngIf="docForm.get('advance').hasError('required')">
+                  Advance is required
+                 </mat-error>
               </mat-form-field>
             </div>
 
@@ -738,9 +744,9 @@
             <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="rentAmount"
                maxlength="20" (keypress)="keyPressNumeric($event)">
-               <!-- <mat-error *ngIf="docForm.get('rentAmount').hasError('required')">
-                RENT AMOUNT is required
-               </mat-error> -->
+               <mat-error *ngIf="docForm.get('rentAmount').hasError('required')">
+                Rent Amount is required
+               </mat-error> 
             </mat-form-field>
           </div>
             </div>
@@ -761,7 +767,11 @@
             <mat-datepicker-toggle matSuffix
                 [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="docForm.get('dateToPayDateObj').hasError('required')">
+              Rent Paid On is required
+             </mat-error> 
               </mat-form-field>
+              
             </div>
 
             
@@ -788,9 +798,9 @@
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
             <input matInput formControlName="tenantName"
              maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
-             <!-- <mat-error *ngIf="docForm.get('tenantName').hasError('required')">
-              TENANT NAME is required
-             </mat-error> -->
+             <mat-error *ngIf="docForm.get('tenantName').hasError('required')">
+              Tenant Name is required
+             </mat-error> 
           </mat-form-field>
         </div>
 
@@ -802,9 +812,9 @@
         <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="tenentIdCard"
            maxlength="12" >
-           <!-- <mat-error *ngIf="docForm.get('tenentIdCard').hasError('required')">
-            TENANT ID CARD NO is required
-           </mat-error> -->
+          <mat-error *ngIf="docForm.get('tenentIdCard').hasError('required')">
+            Tenant ID Card No is required
+           </mat-error> 
         </mat-form-field>
       </div>
 
@@ -822,9 +832,9 @@
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
             <input matInput formControlName="mobileNo"
              maxlength="10" (keypress)="keyPressNumeric($event)">
-             <!-- <mat-error *ngIf="docForm.get('mobileNo').hasError('required')">
-              MOBILE NO is required
-             </mat-error> -->
+            <mat-error *ngIf="docForm.get('mobileNo').hasError('required')">
+              Mobile No is required
+             </mat-error>
           </mat-form-field>
         </div>
 
@@ -860,9 +870,9 @@
                     <mat-datepicker-toggle matSuffix
                         [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <!-- <mat-error *ngIf="docForm.get('regDateObj').hasError('required')">
-                      DATE OF THE PAYER is required
-                    </mat-error> -->
+                   <mat-error *ngIf="docForm.get('payerDateObj').hasError('required')">
+                      Date Of The Payer is required
+                    </mat-error> 
                         
                       </mat-form-field>
                     </div>
@@ -961,9 +971,9 @@
                   <mat-datepicker-toggle matSuffix
                       [for]="picker2"></mat-datepicker-toggle>
                   <mat-datepicker #picker2></mat-datepicker>
-                  <!-- <mat-error *ngIf="docForm.get('regDateObj').hasError('required')">
-                    REGISTRATION DATE is required
-                      </mat-error> -->
+                  <mat-error *ngIf="docForm.get('regDateObj').hasError('required')">
+                    Registration Date is required
+                      </mat-error> 
                       
                     </mat-form-field>
                   </div>
@@ -979,9 +989,9 @@
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput formControlName="propertyLocation"
                             maxlength="20" >
-                            <!-- <mat-error *ngIf="docForm.get('propertyLocation').hasError('required')">
-                              PROPERTY LOCATION is required
-                             </mat-error> -->
+                          <mat-error *ngIf="docForm.get('propertyLocation').hasError('required')">
+                              Property Location is required
+                             </mat-error> 
                       </mat-form-field>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -991,9 +1001,9 @@
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="taxNo" maxlength="9" (keypress)="keyPressNumberInt($event)"
                       (blur)="validateCustomer($event.target.value)">
-                      <!-- <mat-error *ngIf="docForm.get('taxNo').hasError('required')">
-                        PROPERTY TAX NO is required
-                       </mat-error> -->
+                      <mat-error *ngIf="docForm.get('taxNo').hasError('required')">
+                        Property Tax No is required
+                       </mat-error>
                     </mat-form-field>
                   </div>
                   </div>
