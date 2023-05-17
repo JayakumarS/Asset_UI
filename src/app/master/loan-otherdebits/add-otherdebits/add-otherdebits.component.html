@@ -141,7 +141,7 @@
                         <mat-option [value]="'Security Loan'">
                           Security Loan
                         </mat-option>
-                        <mat-option [value]="'Property Loa'">
+                        <mat-option [value]="'Property Loan'">
                           Property Loan
                         </mat-option>
                         <mat-option [value]="'Payday Loan'">
@@ -434,7 +434,7 @@
            <div class=" col-md-3">
              <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                <input matInput formControlName="ifsccode"  oninput="this.value = this.value.toUpperCase()"
-                maxlength="11">
+                maxlength="11" >
                <mat-error *ngIf="docForm.get('ifsccode').hasError('pattern')">
                  Please Enter Valid IFSC code
                </mat-error>
