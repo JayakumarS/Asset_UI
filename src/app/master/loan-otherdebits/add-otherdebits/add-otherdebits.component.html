@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="mail" maxlength="30" required>
+                      <input matInput formControlName="mail" maxlength="30">
                       <mat-error *ngIf="docForm.get('mail').hasError('required') || docForm.get('mail').touched" >
                         Please enter a valid email address
                       </mat-error>
@@ -434,7 +434,7 @@
            <div class=" col-md-3">
              <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                <input matInput formControlName="ifsccode"  oninput="this.value = this.value.toUpperCase()"
-                maxlength="16" required>
+                maxlength="11">
                <mat-error *ngIf="docForm.get('ifsccode').hasError('pattern')">
                  Please Enter Valid IFSC code
                </mat-error>
