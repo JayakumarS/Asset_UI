@@ -47,15 +47,15 @@
                   <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
                   <ng-container matColumnDef="propertyType">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>PROPERTY TYPE</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Property Type</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.propertyType}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="rentalType">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>RENTAL TYPE</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Rental Type</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.rentalType}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="loan">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>PROPERTY LOAN</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Property Loan</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.loan}}</mat-cell>
                   </ng-container>
           
