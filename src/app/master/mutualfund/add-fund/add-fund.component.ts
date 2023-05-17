@@ -391,8 +391,10 @@ keyPressNumber(event: any) {
     event.preventDefault();
   }
 }
-keyPressString(event: any){
-  const pattern = /[A-Z,a-z]/;
+
+
+keyPressString(event: any) {
+  const pattern = /[A-Z, a-z]/;
   const inputChar = String.fromCharCode(event.charCode);
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();

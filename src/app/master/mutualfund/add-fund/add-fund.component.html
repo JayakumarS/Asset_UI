@@ -20,7 +20,7 @@
     
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <input matInput  formControlName="name"oninput="this.value = this.value.toUpperCase()" 
+                          <input matInput  formControlName="name" oninput="this.value = this.value.toUpperCase()" 
                           maxlength="20" (keypress)="keyPressString($event)">
                           <mat-error *ngIf="docForm.get('name').hasError('required')">
                             Name is required
