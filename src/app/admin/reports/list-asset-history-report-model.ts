@@ -22,6 +22,16 @@ export class AssetHistoryReport{
     endLifeCheckBox:boolean;
     purchasePriceCheckBox:boolean;
     totalHoursUsageCheckBox:boolean;
+
+    departmentCheckBox:boolean;
+    invoiceNoCheckBox:boolean;
+    invoiceDateCheckBox:boolean;
+    capitalizationDateCheckBox:boolean;
+    businessAreaCheckBox:boolean;
+    vendorCheckBox:boolean;
+    costCheckBox:boolean;
+    sapCodeCheckBox:boolean;
+
     assetExcelHistoryHeader:any;
 
 constructor(assetHistoryReport) {

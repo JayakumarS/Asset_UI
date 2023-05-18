@@ -100,7 +100,16 @@ export class ListAssetHistoryReportComponent implements OnInit {
         statusCheckBox:[false],
         endLifeCheckBox:[false],
         purchasePriceCheckBox:[false],
-        totalHoursUsageCheckBox:[false]
+        totalHoursUsageCheckBox:[false],
+
+        departmentCheckBox:[false],
+        invoiceNoCheckBox:[false],
+        invoiceDateCheckBox:[false],
+        capitalizationDateCheckBox:[false],
+        businessAreaCheckBox:[false],
+        vendorCheckBox:[false],
+        costCheckBox:[false],
+        sapCodeCheckBox:[false],
       }); 
   }
 
@@ -301,6 +310,32 @@ export class ListAssetHistoryReportComponent implements OnInit {
     if(this.assetHistoryReport.totalHoursUsageCheckBox == true){
       this.assetHistoryHeader.push("Total Hours Usage");
     }
+  
+    if(this.assetHistoryReport.departmentCheckBox == true){
+      this.assetHistoryHeader.push("Department");
+    }
+    if(this.assetHistoryReport.invoiceNoCheckBox == true){
+      this.assetHistoryHeader.push("Invoice No");
+    }
+    if(this.assetHistoryReport.invoiceDateCheckBox == true){
+      this.assetHistoryHeader.push("Invoice Date");
+    }
+    if(this.assetHistoryReport.capitalizationDateCheckBox == true){
+      this.assetHistoryHeader.push("Capitalization Date");
+    }
+    if(this.assetHistoryReport.businessAreaCheckBox == true){
+      this.assetHistoryHeader.push("Business Area");
+    }
+    if(this.assetHistoryReport.vendorCheckBox == true){
+      this.assetHistoryHeader.push("Vendor");
+    }
+    if(this.assetHistoryReport.costCheckBox == true){
+      this.assetHistoryHeader.push("Cost-Total Cost");
+    }
+    if(this.assetHistoryReport.sapCodeCheckBox == true){
+      this.assetHistoryHeader.push("SAP Code");
+    }
+
 
     console.log(this.assetHistoryHeader);
 
