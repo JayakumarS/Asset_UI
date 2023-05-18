@@ -58,7 +58,6 @@ export class AddPropertyComponent implements OnInit {
   isLand: boolean;
   isEcAvaliable: boolean;
   landFlag: boolean = false;
-
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -81,7 +80,7 @@ export class AddPropertyComponent implements OnInit {
        landTaxNo:["",[Validators.required]],
        loan:["",[Validators.required]],
        loanNo:[""],
-       emiDate:["",[Validators.required]],
+       emiDate:[""],
        emiDateObj:["",[Validators.required]],
        loanInterest:[""],
        autoDebit:[false],
@@ -91,19 +90,19 @@ export class AddPropertyComponent implements OnInit {
        advance:["",[Validators.required]],
        rentAmount:["",[Validators.required]],
        dateToPayDateObj:["",[Validators.required]],
-       dateToPayDate:["",[Validators.required]],
+       dateToPayDate:[""],
        rentalPeriod:[""],
        tenantName:["",[Validators.required]],
        tenentIdCard:["",[Validators.required]],
        mobileNo:["",[Validators.required]],
        alternateNo:[""],
-       payerDate:["",[Validators.required]],
+      payerDate:[""],
        payerDateObj:["",[Validators.required]],
        inMonth:[""],
        payerMode:[""],
        recive:[""],
        propertyRate:[""],
-       regDate:["",[Validators.required]],
+       regDate:[""],
        regDateObj:["",[Validators.required]],
        propertyLocation:["",[Validators.required]],
        taxNo:["",[Validators.required]],
@@ -116,7 +115,7 @@ export class AddPropertyComponent implements OnInit {
        ecAvaliable:[false],
        regNo:["",[Validators.required]],
        landRegDateObj:["",[Validators.required]],
-       landRegDate:["",[Validators.required]],
+       landRegDate:[""],
        source:["",[Validators.required]],
        landGuidelineValue:["",[Validators.required]],
        marketValue:["",[Validators.required]],
@@ -131,7 +130,7 @@ export class AddPropertyComponent implements OnInit {
 
        houseName:["" ,[Validators.required]],
        houseAddress:[""],
-       constructedOn:["",[Validators.required]],
+       constructedOn:[""],
        constructedOnObj:["",[Validators.required]],
        underLoan:[""],
        floor:[""],
@@ -456,6 +455,113 @@ update(){
 
    houseFlag(event)
    {
+
+    if(event=='House'){
+
+      this.docForm.controls["landType"].clearValidators();
+      this.docForm.controls['landType'].updateValueAndValidity();
+      this.docForm.controls["location"].clearValidators();
+      this.docForm.controls["location"].updateValueAndValidity();
+      this.docForm.controls["squareFeet"].clearValidators();
+      this.docForm.controls["squareFeet"].updateValueAndValidity();
+      this.docForm.controls["area"].clearValidators();
+      this.docForm.controls["area"].updateValueAndValidity();
+      this.docForm.controls["landSqft"].clearValidators();
+      this.docForm.controls["landSqft"].updateValueAndValidity();
+      this.docForm.controls["landTaxNo"].clearValidators();
+      this.docForm.controls["landTaxNo"].updateValueAndValidity();
+      this.docForm.controls["regNo"].clearValidators();
+      this.docForm.controls["regNo"].updateValueAndValidity();
+      this.docForm.controls["landRegDateObj"].clearValidators();
+      this.docForm.controls["landRegDateObj"].updateValueAndValidity();
+      this.docForm.controls["source"].clearValidators();
+      this.docForm.controls["source"].updateValueAndValidity();
+      this.docForm.controls["guidelineValue"].clearValidators();
+      this.docForm.controls["guidelineValue"].updateValueAndValidity();
+      this.docForm.controls["marketValue"].clearValidators();
+      this.docForm.controls["marketValue"].updateValueAndValidity();
+     
+      
+      
+    }
+    if(event=='Land'){
+      this.docForm.controls.houseName.clearValidators();
+      this.docForm.controls['houseName'].updateValueAndValidity();
+      this.docForm.controls.residencialType.clearValidators();
+      this.docForm.controls['residencialType'].updateValueAndValidity();
+      this.docForm.controls.squareFeet.clearValidators();
+      this.docForm.controls['squareFeet'].updateValueAndValidity();
+      this.docForm.controls.constructedOnObj.clearValidators();
+      this.docForm.controls['constructedOnObj'].updateValueAndValidity();
+      this.docForm.controls.floor.clearValidators();
+      this.docForm.controls['floor'].updateValueAndValidity();
+      this.docForm.controls['underLoan'].clearValidators();
+      this.docForm.controls['underLoan'].updateValueAndValidity();
+      this.docForm.controls.guidelineValue.clearValidators();
+      this.docForm.controls['guidelineValue'].updateValueAndValidity();
+      this.docForm.controls.currentValue.clearValidators();
+      this.docForm.controls['currentValue'].updateValueAndValidity();
+      this.docForm.controls.depVal.clearValidators();
+      this.docForm.controls['depVal'].updateValueAndValidity();
+      this.docForm.controls.houseTaxNo.clearValidators();
+      this.docForm.controls['houseTaxNo'].updateValueAndValidity();
+
+    }
+
+      // this.docForm.controls["bankName"].clearValidators();
+      // this.docForm.controls['bankName'].updateValueAndValidity();
+
+      // this.docForm.controls["ifscCode"].clearValidators();
+      // this.docForm.controls['ifscCode'].updateValueAndValidity();
+
+      // this.docForm.controls["loanAmount"].clearValidators();
+      // this.docForm.controls['loanAmount'].updateValueAndValidity();
+
+      // this.docForm.controls["emiDateObj"].clearValidators();
+      // this.docForm.controls['emiDateObj'].updateValueAndValidity();
+
+      // this.docForm.controls["advance"].clearValidators();
+      // this.docForm.controls['advance'].updateValueAndValidity();
+
+      // this.docForm.controls["rentalType"].clearValidators();
+      // this.docForm.controls['rentalType'].updateValueAndValidity();
+
+      // this.docForm.controls["rentAmount"].clearValidators();
+      // this.docForm.controls['rentAmount'].updateValueAndValidity();
+
+      // this.docForm.controls["dateToPayDateObj"].clearValidators();
+      // this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
+
+      // this.docForm.controls["tenantName"].clearValidators();
+      // this.docForm.controls['tenantName'].updateValueAndValidity();
+
+      // this.docForm.controls["tenentIdCard"].clearValidators();
+      // this.docForm.controls['tenentIdCard'].updateValueAndValidity();
+
+      // this.docForm.controls["mobileNo"].clearValidators();
+      // this.docForm.controls['mobileNo'].updateValueAndValidity();
+
+      // this.docForm.controls["payerDateObj"].clearValidators();
+      // this.docForm.controls['payerDateObj'].updateValueAndValidity();
+
+      // this.docForm.controls["regDateObj"].clearValidators();
+      // this.docForm.controls['regDateObj'].updateValueAndValidity();
+
+      // this.docForm.controls["taxNo"].clearValidators();
+      // this.docForm.controls['taxNo'].updateValueAndValidity();
+      // this.docForm.controls["loan"].clearValidators();
+      // this.docForm.controls['loan'].updateValueAndValidity();
+      // this.docForm.controls["propertyLocation"].clearValidators();
+      // this.docForm.controls['propertyLocation'].updateValueAndValidity();
+
+      // this.docForm.controls["houseTaxNo"].clearValidators();
+      // this.docForm.controls["houseTaxNo"].updateValueAndValidity();
+      // this.docForm.controls["marketValue"].clearValidators();
+      // this.docForm.controls['marketValue'].updateValueAndValidity();
+     
+
+
+    
       if (event == 'House') {
         this.isHouse = true;
         
@@ -467,10 +573,16 @@ update(){
         this.docForm.controls['squareFeet'].updateValueAndValidity();
         this.docForm.controls.constructedOnObj.setValidators(Validators.required);
         this.docForm.controls['constructedOnObj'].updateValueAndValidity();
-        this.docForm.controls.constructedOn.setValidators(Validators.required);
-        this.docForm.controls['constructedOn'].updateValueAndValidity();
+        this.docForm.controls.floor.setValidators(Validators.required);
+        this.docForm.controls['floor'].updateValueAndValidity();
+        // this.docForm.controls.underLoan.setValidators(Validators.required);
+        // this.docForm.controls['underLoan'].updateValueAndValidity();
+        this.docForm.controls.guidelineValue.setValidators(Validators.required);
+        this.docForm.controls['guidelineValue'].updateValueAndValidity();
         this.docForm.controls.currentValue.setValidators(Validators.required);
         this.docForm.controls['currentValue'].updateValueAndValidity();
+        this.docForm.controls.depVal.setValidators(Validators.required);
+        this.docForm.controls['depVal'].updateValueAndValidity();
         this.docForm.controls.houseTaxNo.setValidators(Validators.required);
         this.docForm.controls['houseTaxNo'].updateValueAndValidity();
   
@@ -483,6 +595,8 @@ update(){
         this.docForm.controls['landType'].updateValueAndValidity();
         this.docForm.controls.landSqft.clearValidators();
         this.docForm.controls['landSqft'].updateValueAndValidity();
+        this.docForm.controls.ecAvaliable.clearValidators();
+        this.docForm.controls['ecAvaliable'].updateValueAndValidity();
         this.docForm.controls.landTaxNo.clearValidators();
         this.docForm.controls['landTaxNo'].updateValueAndValidity();
         this.docForm.controls.regNo.clearValidators();
@@ -519,6 +633,8 @@ update(){
         this.docForm.controls['landType'].updateValueAndValidity();
         this.docForm.controls.landSqft.setValidators(Validators.required);
         this.docForm.controls['landSqft'].updateValueAndValidity();
+        this.docForm.controls.ecAvaliable.setValidators(Validators.required);
+        this.docForm.controls['ecAvaliable'].updateValueAndValidity();
         this.docForm.controls.landTaxNo.setValidators(Validators.required);
         this.docForm.controls['landTaxNo'].updateValueAndValidity();
         this.docForm.controls.regNo.setValidators(Validators.required);
@@ -543,10 +659,16 @@ update(){
         this.docForm.controls['squareFeet'].updateValueAndValidity();
         this.docForm.controls.constructedOnObj.clearValidators();
         this.docForm.controls['constructedOnObj'].updateValueAndValidity();
-        this.docForm.controls.constructedOn.clearValidators();
-        this.docForm.controls['constructedOn'].updateValueAndValidity();
+        this.docForm.controls.floor.clearValidators();
+        this.docForm.controls['floor'].updateValueAndValidity();
+        this.docForm.controls.underLoan.clearValidators();
+        this.docForm.controls['underLoan'].updateValueAndValidity();
+        this.docForm.controls.guidelineValue.clearValidators();
+        this.docForm.controls['guidelineValue'].updateValueAndValidity();
         this.docForm.controls.currentValue.clearValidators();
         this.docForm.controls['currentValue'].updateValueAndValidity();
+        this.docForm.controls.depVal.clearValidators();
+        this.docForm.controls['depVal'].updateValueAndValidity();
         this.docForm.controls.houseTaxNo.clearValidators();
         this.docForm.controls['houseTaxNo'].updateValueAndValidity();
   
@@ -560,7 +682,80 @@ update(){
    }
 
    loanFlag(event)
-   {
+{
+  //  this.docForm.controls["houseName"].clearValidators();
+  //  this.docForm.controls["houseName"].updateValueAndValidity();
+  //  this.docForm.controls["residencialType"].clearValidators();
+  //  this.docForm.controls["residencialType"].updateValueAndValidity();
+  //  this.docForm.controls["location"].clearValidators();
+  //  this.docForm.controls["location"].updateValueAndValidity();
+  //  this.docForm.controls["squareFeet"].clearValidators();
+  //  this.docForm.controls["squareFeet"].updateValueAndValidity();
+  //  this.docForm.controls["area"].clearValidators();
+  //  this.docForm.controls["area"].updateValueAndValidity();
+  //  this.docForm.controls["constructedOnObj"].clearValidators();
+  //  this.docForm.controls["constructedOnObj"].updateValueAndValidity();
+  //  this.docForm.controls["landType"].clearValidators();
+  //  this.docForm.controls["landSqft"].updateValueAndValidity();
+  //  this.docForm.controls["currentValue"].clearValidators();
+  //  this.docForm.controls["currentValue"].updateValueAndValidity();
+  //  this.docForm.controls["depVal"].clearValidators();
+  //  this.docForm.controls["depVal"].updateValueAndValidity();
+  //  this.docForm.controls["landTaxNo"].clearValidators();
+  //  this.docForm.controls["landTaxNo"].updateValueAndValidity();
+  //  this.docForm.controls["houseTaxNo"].clearValidators();
+  //  this.docForm.controls["houseTaxNo"].updateValueAndValidity();
+  //  this.docForm.controls["regNo"].clearValidators();
+  //  this.docForm.controls["regNo"].updateValueAndValidity();
+  //  this.docForm.controls["landRegDateObj"].clearValidators();
+  //  this.docForm.controls["landRegDateObj"].updateValueAndValidity();
+  //  this.docForm.controls["source"].clearValidators();
+  //  this.docForm.controls["source"].updateValueAndValidity();
+  //  this.docForm.controls["rentalType"].clearValidators();
+  //  this.docForm.controls["rentalType"].updateValueAndValidity();
+  //  this.docForm.controls["advance"].clearValidators();
+  //  this.docForm.controls["advance"].updateValueAndValidity();
+  //  this.docForm.controls["rentAmount"].clearValidators();
+  //  this.docForm.controls["rentAmount"].updateValueAndValidity();
+  //  this.docForm.controls["dateToPayDateObj"].clearValidators();
+  //  this.docForm.controls["dateToPayDateObj"].updateValueAndValidity();
+  //  this.docForm.controls["tenantName"].clearValidators();
+  //  this.docForm.controls["tenantName"].updateValueAndValidity();
+  //  this.docForm.controls["tenentIdCard"].clearValidators();
+  //  this.docForm.controls["tenentIdCard"].updateValueAndValidity();
+  //  this.docForm.controls["mobileNo"].clearValidators();
+  //  this.docForm.controls["mobileNo"].updateValueAndValidity();
+  //  this.docForm.controls["payerDateObj"].clearValidators();
+  //  this.docForm.controls["payerDateObj"].updateValueAndValidity();
+  //  this.docForm.controls["regDateObj"].clearValidators();
+  //  this.docForm.controls["regDateObj"].updateValueAndValidity();
+  //  this.docForm.controls["taxNo"].clearValidators();
+  //  this.docForm.controls["taxNo"].updateValueAndValidity();
+  //  this.docForm.controls["loan"].clearValidators();
+  //  this.docForm.controls["loan"].updateValueAndValidity();
+  //  this.docForm.controls["propertyType"].clearValidators();
+  //  this.docForm.controls["propertyType"].updateValueAndValidity();
+  //  this.docForm.controls["landGuidelineValue"].clearValidators();
+  //  this.docForm.controls["landGuidelineValue"].updateValueAndValidity();
+  //  this.docForm.controls["landSqft"].clearValidators();
+  //  this.docForm.controls["landSqft"].updateValueAndValidity();
+  //  this.docForm.controls["landType"].clearValidators();
+  //  this.docForm.controls["landType"].updateValueAndValidity();
+  //  this.docForm.controls["marketValue"].clearValidators();
+  //  this.docForm.controls["marketValue"].updateValueAndValidity();
+  //  this.docForm.controls["propertyLocation"].clearValidators();
+  //  this.docForm.controls["propertyLocation"].updateValueAndValidity();
+
+   
+   
+   
+
+   
+
+
+
+
+   
       if (event == 'YES') {
         this.isLoan = true;
        
@@ -573,11 +768,8 @@ update(){
         this.docForm.controls['loanAmount'].updateValueAndValidity();
         this.docForm.controls.emiDateObj.setValidators(Validators.required);
         this.docForm.controls['emiDateObj'].updateValueAndValidity();
-        this.docForm.controls.emiDate.setValidators(Validators.required);
-        this.docForm.controls['emiDate'].updateValueAndValidity();
         
-        
-      } else {
+      } else if(event == 'NO'){
         this.isLoan = false;
       
         this.docForm.controls.bankName.clearValidators();
@@ -588,14 +780,78 @@ update(){
         this.docForm.controls['loanAmount'].updateValueAndValidity();
         this.docForm.controls.emiDateObj.clearValidators();
         this.docForm.controls['emiDateObj'].updateValueAndValidity();
-        this.docForm.controls.emiDate.clearValidators();
-        this.docForm.controls['emiDate'].updateValueAndValidity();
       }
    }
 
 
    rentalFlag(event)
    {
+    // this.docForm.controls["propertyType"].clearValidators();
+    // this.docForm.controls['propertyType'].updateValueAndValidity();
+
+    // this.docForm.controls["houseName"].clearValidators();
+    // this.docForm.controls['houseName'].updateValueAndValidity();
+
+    // this.docForm.controls["residencialType"].clearValidators();
+    // this.docForm.controls['residencialType'].updateValueAndValidity();
+
+    // this.docForm.controls["location"].clearValidators();
+    // this.docForm.controls['location'].updateValueAndValidity();
+
+    // this.docForm.controls["squareFeet"].clearValidators();
+    // this.docForm.controls['squareFeet'].updateValueAndValidity();
+
+    // this.docForm.controls["area"].clearValidators();
+    // this.docForm.controls['area'].updateValueAndValidity();
+
+    // this.docForm.controls["constructedOnObj"].clearValidators();
+    // this.docForm.controls['constructedOnObj'].updateValueAndValidity();
+
+    // this.docForm.controls["landType"].clearValidators();
+    // this.docForm.controls['landType'].updateValueAndValidity();
+
+    // this.docForm.controls["landSqft"].clearValidators();
+    // this.docForm.controls['landSqft'].updateValueAndValidity();
+
+    // this.docForm.controls["currentValue"].clearValidators();
+    // this.docForm.controls['currentValue'].updateValueAndValidity();
+
+    // this.docForm.controls["depVal"].clearValidators();
+    // this.docForm.controls['depVal'].updateValueAndValidity();
+
+    // this.docForm.controls["landTaxNo"].clearValidators();
+    // this.docForm.controls['landTaxNo'].updateValueAndValidity();
+
+    // this.docForm.controls["houseTaxNo"].clearValidators();
+    // this.docForm.controls['houseTaxNo'].updateValueAndValidity();
+
+    // this.docForm.controls["regNo"].clearValidators();
+    // this.docForm.controls['regNo'].updateValueAndValidity();
+
+    // this.docForm.controls["landRegDateObj"].clearValidators();
+    // this.docForm.controls['landRegDateObj'].updateValueAndValidity();
+
+    // this.docForm.controls["source"].clearValidators();
+    // this.docForm.controls['source'].updateValueAndValidity();
+
+    // this.docForm.controls["loan"].clearValidators();
+    // this.docForm.controls['loan'].updateValueAndValidity();
+    // this.docForm.controls["rentalType"].clearValidators();
+    // this.docForm.controls['rentalType'].updateValueAndValidity();
+    // this.docForm.controls["loanAmount"].clearValidators();
+    // this.docForm.controls['loanAmount'].updateValueAndValidity();
+    // this.docForm.controls["landGuidelineValue"].clearValidators();
+    // this.docForm.controls['landGuidelineValue'].updateValueAndValidity();
+    // this.docForm.controls["emiDateObj"].clearValidators();
+    // this.docForm.controls['emiDateObj'].updateValueAndValidity();
+    // this.docForm.controls["bankName"].clearValidators();
+    // this.docForm.controls['bankName'].updateValueAndValidity();
+    // this.docForm.controls["marketValue"].clearValidators();
+    // this.docForm.controls['marketValue'].updateValueAndValidity();
+
+    
+
+
       if (event == 'Rent') {
         this.isRent = true;
       
@@ -606,8 +862,6 @@ update(){
         this.docForm.controls['rentAmount'].updateValueAndValidity();
         this.docForm.controls.dateToPayDateObj.setValidators(Validators.required);
         this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
-        this.docForm.controls.dateToPayDate.setValidators(Validators.required);
-        this.docForm.controls['dateToPayDate'].updateValueAndValidity();
         this.docForm.controls.tenantName.setValidators(Validators.required);
         this.docForm.controls['tenantName'].updateValueAndValidity();
         this.docForm.controls.tenentIdCard.setValidators(Validators.required);
@@ -616,12 +870,8 @@ update(){
         this.docForm.controls['mobileNo'].updateValueAndValidity();
         this.docForm.controls.payerDateObj.setValidators(Validators.required);
         this.docForm.controls['payerDateObj'].updateValueAndValidity();
-        this.docForm.controls.payerDate.setValidators(Validators.required);
-        this.docForm.controls['payerDate'].updateValueAndValidity();
         this.docForm.controls.regDateObj.setValidators(Validators.required);
         this.docForm.controls['regDateObj'].updateValueAndValidity();
-        this.docForm.controls.regDate.setValidators(Validators.required);
-        this.docForm.controls['regDate'].updateValueAndValidity();
         this.docForm.controls.propertyLocation.setValidators(Validators.required);
         this.docForm.controls['propertyLocation'].updateValueAndValidity();
         this.docForm.controls.taxNo.setValidators(Validators.required);
@@ -692,6 +942,5 @@ update(){
       this.isEcAvaliable = false;
     }
   }
-
 
   }
