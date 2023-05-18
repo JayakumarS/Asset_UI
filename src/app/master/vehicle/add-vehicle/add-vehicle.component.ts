@@ -96,6 +96,7 @@ export class AddVehicleComponent implements OnInit {
       payment: ["cash"],
       insurername: [""],
       validity: ["", [Validators.required]],
+      validity1:[""],
       address: [""],
       yom: [""],
       license : ["yes"],
@@ -142,7 +143,9 @@ export class AddVehicleComponent implements OnInit {
       agency: [""],
       emiamount: [""],
       loginedUser: this.tokenStorage.getUserId(),
-      id:[""]
+      id:[""],
+      validity1: [""],
+
     });
       this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
@@ -194,6 +197,7 @@ export class AddVehicleComponent implements OnInit {
 
         let hdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate1);
         let rdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate);
+        let gdate = this.cmnService.getDateObj(res.vehiclesBean.validity1);
 
 
 
@@ -234,7 +238,8 @@ export class AddVehicleComponent implements OnInit {
         'insurername':res.vehiclesBean.insurername,
         'insurancetype':res.vehiclesBean.insurancetype,
         'insurancedetails':res.vehiclesBean.insurancedetails,
-        'validity':res.vehiclesBean.validity,
+        'validity':gdate,
+        'validity1':res.vehiclesBean.validity1,
         'insuredamount':res.vehiclesBean.insuredamount,
         'address':res.vehiclesBean.address,
         'id':this.requestId, 
@@ -293,6 +298,7 @@ export class AddVehicleComponent implements OnInit {
       payment: ["cash"],
       insurername: [""],
       validity: ["", [Validators.required]],
+      validity1: [""],
       address: [""],
       yom: [""],
       license : ["yes"],
@@ -356,6 +362,10 @@ getlicense(check: any) {
     if (inputFlag == 'discardFromDate1') {
       this.docForm.patchValue({discardFromDate1: cdate });
     }
+   if (inputFlag == 'validity1') {
+      this.docForm.patchValue({validity1: cdate });
+    }
+    
     }
     keyPressNumeric(event: any) {
       const pattern = /[0-9]/;

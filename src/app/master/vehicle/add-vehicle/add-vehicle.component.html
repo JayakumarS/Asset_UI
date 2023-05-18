@@ -461,13 +461,23 @@ Please Enter Valid Insurance No
 <label>VALIDITY UPTO<span class="errorColor">*</span></label>
 </div>
 <div class="col-md-2">
-<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+    <input matInput [matDatepicker]="picker2" formControlName="validity"
+    (dateInput)="$event.value.format('DD/MM/YYYY')" id="validity1"
+    (dateChange)="getDateString($event,'validity1',0)" >
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+    <mat-error *ngIf="docForm.get('validity').hasError('required')">
+      Validity is required
+        </mat-error>
+  </mat-form-field>
+<!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 <input matInput formControlName="validity" maxlength="4" (keypress)="keyPressNumeric($event)"
  oninput="this.value = this.value.toUpperCase()"  >
 <mat-error *ngIf="docForm.get('validity').hasError('required')">
 Validity is required
  </mat-error>
-</mat-form-field>
+</mat-form-field> -->
 </div>
 
 

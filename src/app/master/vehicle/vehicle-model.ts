@@ -23,7 +23,8 @@ export class VehicleMaster {
   insuredamount :number;
   payment : string;
   insurername : string;
-  validity : number;
+  validity : string;
+  validity1 : string;
   address : string;
   yom : number;
   license  : string;
