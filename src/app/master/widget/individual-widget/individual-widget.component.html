@@ -17,7 +17,7 @@
 
                 <mat-tab label="Tab 1"  *ngFor="let tab of tabProp; let index = index">
                     <ng-template mat-tab-label>
-                      <i class="material-icons">group</i>Properties
+                      <i class="material-icons">assured_workload</i>Properties
                     </ng-template>
                      <div class="card">
                       <ng-container *ngComponentOutlet="tab.content"></ng-container>
@@ -85,7 +85,7 @@
             
             <mat-tab label="Tab 5"  *ngFor="let tab of tabMutual; let index = index">
               <ng-template mat-tab-label >
-                <i class="material-icons">payments</i>&nbsp;Mutual Fund
+                <i class="material-icons">local_atm</i>&nbsp;Mutual Fund
               </ng-template>
                <div class="card">
                 <ng-container *ngComponentOutlet="tab.content"></ng-container>
@@ -101,7 +101,7 @@
             </mat-tab> 
             <mat-tab label="Tab 6"  *ngFor="let tab of tabLoan;">
               <ng-template mat-tab-label >
-                <i class="material-icons">import_contacts</i>&nbsp;Loan
+                <i class="material-icons">credit_score</i>&nbsp;Loan
               </ng-template>
                <div class="card">
                 <ng-container *ngComponentOutlet="tab.content"></ng-container>
@@ -118,7 +118,7 @@
 
             <mat-tab label="Tab 7"  *ngFor="let tab of tabReceive;">
               <ng-template mat-tab-label >
-                <i class="material-icons">call_received</i>Receivables
+                <i class="material-icons">done_outline</i>Receivables
               </ng-template>
                <div class="card">
                 <ng-container *ngComponentOutlet="tab.content"></ng-container>
