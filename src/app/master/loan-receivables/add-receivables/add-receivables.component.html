@@ -44,11 +44,10 @@
                 </div>
                 <div  class=" col-md-3" *ngIf ="Propertyflag" >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select tabindex="18" formControlName="receivables" >
-                      <mat-option *ngFor="let title of loanPropertyList" [value]="title.text">
-                        {{title.text}}
-                      </mat-option>
-                      </mat-select>
+                    <input matInput  formControlName="receivables" 
+                    oninput="this.value = this.value.toUpperCase()" 
+                     maxlength="50" (keypress)="string($event)" >
+
                       </mat-form-field>
                     </div>
 
