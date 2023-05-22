@@ -261,6 +261,8 @@ export class AddJewelleryReportComponent implements OnInit {
 
   reset() {
     this.docForm = this.fb.group({
+
+      
       material:[""],
       type:[""],
       
@@ -281,6 +283,8 @@ export class AddJewelleryReportComponent implements OnInit {
        lockerSizeCheckbox: [false],
        lockerRentCheckBox: [false],
     });
+
+    this.jewelHistoryList = [];
 
 
   }
