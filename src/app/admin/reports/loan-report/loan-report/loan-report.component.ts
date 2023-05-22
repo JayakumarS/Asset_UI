@@ -91,6 +91,7 @@ export class LoanReportComponent implements OnInit {
        banknameCheckbox: [false],
        accountCheckBox: [false],
        ifsccodeCheckBox: [false],
+       loginedUser: this.tokenStorage.getUserId(),
     });
   }
 

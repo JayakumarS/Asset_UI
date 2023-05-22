@@ -65,7 +65,7 @@ export class VehicleReportsComponent implements OnInit {
   ownertypeList:[];
   insurancetypeList:[];
   vehiclewheelList:[];
-  
+  vehicleExcelHeader=[];
 
 
   config: {
@@ -251,35 +251,54 @@ export class VehicleReportsComponent implements OnInit {
   }
   exportExcel()
   {
-      
-    // this.vehicleReport = this.docForm.value;
-    // console.log(this.vehicleReport);
 
-    // //For Excel Header Pushing in Array
-    // if(this.vehicleReport.vehicletypeCheckbox ==true){
-    //   this.vehicleReport.push("VEHICLE END TYPE");
-    // }
-    // if(this.vehicleReport.fueltypeCheckBox == true){
-    //   this.vehicleReport.push("FUEL TYPE");
-    // }
-    // if(this.vehicleReport.bodytypeCheckBox == true){
-    //   this.vehicleReport.push("BODY TYPE");
-    // }
-    // if(this.vehicleReport.ownertypeCheckBox == true){
-    //   this.vehicleReport.push("OWNER TYPE");
-    // }
-    // if(this.vehicleReport.vehiclewheelCheckBox == true){
-    //   this.vehicleReport.push("VEHICLE TYPE");
-    // }
-    // if(this.vehicleReport.insurancetypeCheckBox == true){
-    //   this.vehicleReport.push("INSURANCE TYPE");
-    // }
-    // if(this.vehicleReport.regnoCheckBox == true){
-    //   this.vehicleReport.push("REGISTRATION NO");
-    // }
-    // if(this.vehicleReport.enginenoCheckBox == true){
-    //   this.vehicleReport.push("ENGINE NUMBER");
-    // }
+    //For Excel Header Pushing in Array
+    if(this.vehiclereport.vehicletypeCheckbox ==true){
+      this.vehicleExcelHeader.push("VEHICLE END TYPE");
+    }
+    if(this.vehiclereport.fueltypeCheckBox == true){
+      this.vehicleExcelHeader.push("FUEL TYPE");
+    }
+    if(this.vehiclereport.bodytypeCheckBox == true){
+      this.vehicleExcelHeader.push("BODY TYPE");
+    }
+    if(this.vehiclereport.ownertypeCheckBox == true){
+      this.vehicleExcelHeader.push("OWNER TYPE");
+    }
+    if(this.vehiclereport.vehiclewheelCheckBox == true){
+      this.vehicleExcelHeader.push("VEHICLE TYPE");
+    }
+    if(this.vehiclereport.insurancetypeCheckBox == true){
+      this.vehicleExcelHeader.push("INSURANCE TYPE");
+    }
+    if(this.vehiclereport.regnoCheckBox == true){
+      this.vehicleExcelHeader.push("REGISTRATION NO");
+    }
+    if(this.vehiclereport.enginenoCheckBox == true){
+      this.vehicleExcelHeader.push("ENGINE NUMBER");
+    }
+
+
+    this.httpService.post<any>(this.mutualFundService.VehicleListExcelUrl,this.vehiclereport).subscribe(
+      (data) => {
+        if(data.success){
+          window.open(this.serverUrl.apiServerAddress+"asset_upload/"+data.filePath, '_blank');
+          this.vehicleExcelHeader = [];
+          }
+          else{
+            this.notificationservice.showNotification(
+              "snackbar-danger",
+              // data.message,
+              "error",
+              "bottom",
+              "center"
+            );
+          }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
     
     
   }
@@ -313,7 +332,7 @@ export class VehicleReportsComponent implements OnInit {
          
       });
   
-  
+      this.VehicleList = [];
     }
     keyPressName(event: any) {
       const pattern = /[A-Z,a-z 0-9]/;

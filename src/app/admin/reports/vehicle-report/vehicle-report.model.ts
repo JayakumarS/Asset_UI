@@ -1,5 +1,6 @@
 export class Vehiclereport{
   vehicletypebox:boolean;
+  vehicletypeCheckbox:boolean;
   fueltypeCheckBox:boolean;
   bodytypeCheckBox:boolean;
   ownertypeCheckBox:boolean;
@@ -7,7 +8,7 @@ export class Vehiclereport{
   insurancetypeCheckBox:boolean;
   regnoCheckBox:boolean;
   enginenoCheckBox:boolean;
-
+  vehicleExcelHeader:any;
     push(arg0: string) {
       throw new Error('Method not implemented.');
     }
