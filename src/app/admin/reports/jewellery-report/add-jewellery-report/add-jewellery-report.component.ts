@@ -35,7 +35,7 @@ export class AddJewelleryReportComponent implements OnInit {
   UserId: string;
   jewelHistoryList = [];
   jewelReport:JewelReport;
-  jewelleryReportService:JewelleryReportService;
+ 
   jewelleryReportResultBean:JewelleryReportResultBean;
    // Array for Excel Header
    jewelHistoryHeader = [];
@@ -57,26 +57,25 @@ export class AddJewelleryReportComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private userMasterService: UserMasterService,
     public auditableAssetService:AuditableAssetService,
-    
+   public jewelleryReportService:JewelleryReportService,
     private serverUrl:serverLocations) { 
     this.docForm = this.fb.group({
       material:[""],
       type:[""],
-      weight:[""],
-      id:[""],
-      lockerRent:[],
-      lockerSize:[""],
+      purchaseValue:[""],
+      jewelName:[""],
+      jewelcolour:[""],
       bankName:[""],
+      lockerSize:[""],
+      lockerRent:[],
       lockerNo:[""],
       currentValue:[""],
       specification:[""],
       description:[""],
       noOfPiece:[""],
-     
-      purchaseValue:[""],
-      jewelName:[""],
-      jewelcolour:[""],
+      weight:[""],
 
+      id:[""],
 
 
 
@@ -262,6 +261,8 @@ export class AddJewelleryReportComponent implements OnInit {
 
   reset() {
     this.docForm = this.fb.group({
+
+      
       material:[""],
       type:[""],
       
@@ -282,6 +283,8 @@ export class AddJewelleryReportComponent implements OnInit {
        lockerSizeCheckbox: [false],
        lockerRentCheckBox: [false],
     });
+
+    this.jewelHistoryList = [];
 
 
   }

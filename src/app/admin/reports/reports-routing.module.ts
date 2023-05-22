@@ -66,6 +66,12 @@ const routes: Routes = [
  
 }
 
+
+  {
+    path: "jewelleryReport",
+    loadChildren: () =>
+    import("./jewellery-report/jewellery-report.module").then((m) => m.JewelleryReportModule)
+  }
 ];
 
 @NgModule({
