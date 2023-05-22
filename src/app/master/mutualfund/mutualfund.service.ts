@@ -36,6 +36,18 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
    public getProfileDetails = `${this.serverUrl.apiServerAddress}api/auth/app/individual/getProfile`;
    public getCompletionCount = `${this.serverUrl.apiServerAddress}api/auth/app/individual/getCompletionCount`;
 
+   // For Vehicle Report
+   public getvehicletypeList = `${this.serverUrl.apiServerAddress}app/vehicle/getvehicletypeList`;
+   public getfueltypeList = `${this.serverUrl.apiServerAddress}app/vehicle/getfueltypeList`;
+   public getbodytypeList = `${this.serverUrl.apiServerAddress}app/vehicle/getbodytypeList`;
+   public getownertypeList = `${this.serverUrl.apiServerAddress}app/vehicle/getownertypeList`;
+   public getinsurancetypeList = `${this.serverUrl.apiServerAddress}app/vehicle/getinsurancetypeList`;
+   public getvehiclewheelList = `${this.serverUrl.apiServerAddress}app/vehicle/getvehiclewheelList`;
+   public getregisternoList = `${this.serverUrl.apiServerAddress}app/vehicle/getregisternoList`;
+   public getenginenoList = `${this.serverUrl.apiServerAddress}app/vehicle/getenginenoList`;
+   public VehicleListUrl = `${this.serverUrl.apiServerAddress}app/vehicle/getVehicleList`;
+   public VehicleListExcelUrl = `${this.serverUrl.apiServerAddress}app/vehicle/excelExport`;
+
    get data(): Fund[] {
     return this.dataChange.value;
   }

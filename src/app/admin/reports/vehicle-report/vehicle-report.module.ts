@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ReportsRoutingModule } from './reports-routing.module';
-import { AddreportsComponent } from './addreports/addreports.component';
+import { VehicleReportRoutingModule } from './vehicle-report-routing.module';
+import { VehicleReportsComponent } from './vehicle-reports/vehicle-reports.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -25,38 +24,22 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AddDepreciationReportComponent } from './add-depreciation-report/add-depreciation-report.component';
-import { AddAuditReportComponent } from './add-audit-report/add-audit-report.component';
-import { AssetsReturnComponent } from './assets-return/assets-return.component';
-import { DiscardAssetsComponent } from './discard-assets/discard-assets.component';
-import { UserLogComponent } from './user-log/user-log.component';
-import { AddreportLocationComponent } from './addreports/addreport-location/addreport-location.component';
-import { ListAssetHistoryReportComponent } from './list-asset-history-report/list-asset-history-report.component';
+
 // Pagination
 import { NgxPaginationModule } from 'ngx-pagination'
-import { ListAuditLogComponent } from './audit-log/list-audit-log/list-audit-log.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { IndividualInformationComponent } from 'src/app/master/widget/individual-information/individual-information.component';
-// import { VehicleReportComponent } from './vehicle-report/vehicle-report.component';
+
+
+
 
 @NgModule({
   declarations: [
-    AddreportsComponent,
-    AddDepreciationReportComponent,
-    AddAuditReportComponent,
-    AssetsReturnComponent,
-    DiscardAssetsComponent,
-    UserLogComponent,
-    AddreportLocationComponent,
-    ListAssetHistoryReportComponent,
-    ListAuditLogComponent,
-    // VehicleReportComponent,
-    
-
+    VehicleReportsComponent
   ],
   imports: [
     CommonModule,
-    ReportsRoutingModule,
+    VehicleReportRoutingModule,
+    ComponentsModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
@@ -83,7 +66,6 @@ import { IndividualInformationComponent } from 'src/app/master/widget/individual
     NgxPaginationModule,
     MatPaginatorModule,
     MatAutocompleteModule
-    
   ]
 })
-export class ReportsModule { }
+export class VehicleReportModule { }
