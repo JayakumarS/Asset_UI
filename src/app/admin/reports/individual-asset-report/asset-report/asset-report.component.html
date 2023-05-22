@@ -1,0 +1,155 @@
+
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" style="padding: 0.5% !important;">
+  <!-- breadcrumb -->
+  <app-breadcrumb [title]="'Asset-Report'" [items]="['Individual-Asset-Report']" [active_item]="'Asset-Report'">
+  </app-breadcrumb>
+</div>
+           <div class="card">
+ <div class="body">
+                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
+
+                  <!-- <h2 _ngcontent-nrk-c304="" style="padding-bottom: 5px; padding-top: 5px; color: #532ff6;">Reports</h2> -->
+
+                   
+                    
+
+
+                    
+                    <form class="m-4" [formGroup]="docForm">
+                    
+                    <div class="row" style="display:flex; align-items: center; justify-content:center;">
+
+                      <div class="col-md-2" style="margin-top: -20px;margin-right: -25px;white-space:nowrap;">
+                        <label style=" min-width: max-content;">ASSET CATEGORY</label>
+                </div>
+        <div class=" col-xl-3 col-lg-4 col-md-12 col-sm-12" style="margin-left: 5px;">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <mat-select formControlName="category" required>
+              <mat-option [value]="'1'">
+                PROPERTY
+              </mat-option>
+              <mat-option [value]="'2'">
+               JEWELLERY
+              </mat-option>
+              <mat-option [value]="'3'">
+               VEHICLES
+              </mat-option>
+              <mat-option [value]="'4'">
+               OTHER DEBITS
+              </mat-option>
+              <mat-option [value]="'5'">
+               FIXED DEPOSIT
+              </mat-option>
+              <mat-option [value]="'6'">
+                MUTUAL FUND
+              </mat-option>
+              <mat-option [value]="'7'">
+               RECEIVABLES
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field> 
+              
+          
+        </div>
+        <!-- <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 5px;margin-top: 32px;">
+            <button  color="primary" type="button" class="btn-space" style="background-color: green;" (click)="onSearch()"
+              mat-raised-button>Search</button>
+              <button  color="primary" type="button" class="btn-space" (click)="onReset()"
+              mat-raised-button>Reset</button>
+          </div> -->  
+          <div class="row">
+
+
+            <div class="col-xl-13 col-lg-12 col-md-12 col-sm-12" style="display:flex; align-items: center; justify-content:center;">
+              <button class="btn-space" mat-raised-button  style=" color: aliceblue; background-color: #34d034;"
+                 (click) = "onSubmit()"> Submit </button>
+                 <button color="warn" class="btn-space" type="button" style="background-color:#f44336;"  mat-raised-button color="primary" (click)="onReset()">Reset</button>
+                 <button type="button" class="btn-space" mat-raised-button color="accent"
+                 style="background-color: rgb(50, 124, 173);cursor: pointer;" (click)="assetQRcodeExportPdf()" >Print Asset QRCode</button>
+                 <!-- <div class="col-4">
+                  <ul class="header-buttons">
+                      <li>
+                          <div class="m-l-10" matTooltip="Print Asset QRCode">
+                            <button type="button" class="btn-space" mat-raised-button color="accent"
+                              style="background-color: rgb(50, 124, 173);cursor: pointer;" (click)="assetQRcodeExportPdf()">Print Asset QRCode</button>
+                          </div>
+                      </li>
+                     
+                  </ul>
+              </div> -->
+            </div>
+            
+          </div>
+
+        </div>
+       
+
+</form>
+<mat-table #table matTableExporter    [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" >
+
+
+
+  <ng-container matColumnDef="assetCategory">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Category </mat-header-cell>
+    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+        {{row.assetCategory}}</mat-cell>
+</ng-container>
+
+<!-- <ng-container matColumnDef="assetCode">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Code </mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+      {{row.assetCode}}</mat-cell>
+</ng-container> -->
+
+<ng-container matColumnDef="assetName">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Name</mat-header-cell>
+  <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+      {{row.assetName}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="assetType">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Type</mat-header-cell>
+    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+        {{row.assetType}}</mat-cell>
+    </ng-container>
+  
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+ <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                    [style.cursor]="'pointer'" matRipple>
+                  </mat-row>
+</mat-table> 
+   
+  
+<!-- <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator> -->
+
+<!-- <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                    [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                    No results
+                  </div>
+                  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+                  </mat-paginator> -->
+
+                  <!-- <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                    <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                    </mat-progress-spinner>
+                  </div> -->
+<!-- 
+                  <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                No results
+              </div> -->
+
+</div>
+</div>
+           </div>
+  </div>
+</section>
+
