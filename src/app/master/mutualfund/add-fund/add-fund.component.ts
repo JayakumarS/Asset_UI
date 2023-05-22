@@ -62,7 +62,7 @@ export class AddFundComponent implements OnInit {
        investmentexperience:["",[Validators.required]],
        accountnumber:["",[Validators.required]],
        //tin:["",[Validators.required]],
-       tin:[""],
+       tin:["",[Validators.required]],
        fundNo:[""],
        loginedUser: this.tokenStorage.getUserId(),
        fundType:["",[Validators.required]],

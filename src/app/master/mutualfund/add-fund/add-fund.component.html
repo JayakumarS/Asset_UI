@@ -62,15 +62,15 @@
               </mat-form-field>
             </div>
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-              <label >TIN</label>
+              <label >TIN<span class="errorColor">*</span></label>
           </div>
           <div class=" col-md-3">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="tin"oninput="this.value = this.value.toUpperCase()"  maxlength="9" (keypress)="keyPressName($event)"
                >
-              <!-- <mat-error *ngIf="docForm.get('tin').hasError('required')">
+            <mat-error *ngIf="docForm.get('tin').hasError('required')">
                 TIN is required
-              </mat-error> -->
+              </mat-error> 
             
             </mat-form-field>
             </div>
