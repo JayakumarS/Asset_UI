@@ -54,7 +54,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./loan-report/loan-report.module").then((m) => m.LoanReportModule)
    },
-  
+   {
+    path: "mutualfundReport",
+    loadChildren: () =>
+    import("./mutualfund-report/mutualfund-report.module").then((m) => m.MutualfundReportModule)
+  },
 
 ];
 
