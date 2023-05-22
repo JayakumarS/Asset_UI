@@ -48,6 +48,15 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
    public VehicleListUrl = `${this.serverUrl.apiServerAddress}app/vehicle/getVehicleList`;
    public VehicleListExcelUrl = `${this.serverUrl.apiServerAddress}app/vehicle/excelExport`;
 
+    // For FD Report 
+    public fdHistoryListUrl = `${this.serverUrl.apiServerAddress}app/fixeddeposit/getfdHistoryList`;
+    public fdHistoryListExcelUrl = `${this.serverUrl.apiServerAddress}app/fixeddeposit/excelExport`;
+    public getautoRenewalList = `${this.serverUrl.apiServerAddress}app/fixeddeposit/autoRenewalList`;
+    public getinvestmentTermList = `${this.serverUrl.apiServerAddress}app/fixeddeposit/investmentTermList`;
+    public getfixeddeposittypeList = `${this.serverUrl.apiServerAddress}app/fixeddeposit/fixeddeposittypeList`;
+    public getcurrencyList = `${this.serverUrl.apiServerAddress}app/fixeddeposit/currencyList`;
+    public getfrequencyList = `${this.serverUrl.apiServerAddress}app/fixeddeposit/frequencyList`;
+
    get data(): Fund[] {
     return this.dataChange.value;
   }
