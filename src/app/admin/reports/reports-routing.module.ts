@@ -69,7 +69,17 @@ const routes: Routes = [
     path: "jewelleryReport",
     loadChildren: () =>
     import("./jewellery-report/jewellery-report.module").then((m) => m.JewelleryReportModule)
-  }
+  },
+  {
+  path: "fixeddeposit-Report",
+    loadChildren: () =>
+      import("./fixed-deposit-report/fixed-deposit-report.module").then((m)=>m.FixedDepositReportModule)
+  },
+  {
+    path: "individual-asset-report",
+    loadChildren: () =>
+      import("./individual-asset-report/individual-asset-report.module").then((m) => m.IndividualAssetReportModule),
+  },
 ];
 
 @NgModule({
