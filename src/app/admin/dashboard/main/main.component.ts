@@ -57,6 +57,7 @@ import { Options } from 'highcharts';
 import HC_drilldown from "highcharts/modules/drilldown";
 import { Router } from "@angular/router";
 import { MutualFundService } from "src/app/master/mutualfund/mutualfund.service";
+import { NotificationPopupComponent } from "./notification-popup/notification-popup.component";
 HC_drilldown(Highcharts);
 
 @Component({
@@ -193,14 +194,41 @@ configUserLog: {
     private mutualFundService: MutualFundService) {}
     
   ngOnInit() {
+      this.roleId=this.tokenStorage.getRoleId();
 
-    this.roleId=this.tokenStorage.getRoleId();
+      this.httpService.get<any>(this.mainService.getNotificationDetails+"?userId="+this.tokenStorage.getUserId()).subscribe(
+        (data:any) => {
+          console.log(data);
+
+          let tempDirection;
+        if (localStorage.getItem("isRtl") === "true") {
+        tempDirection = "rtl";
+         } else {
+        tempDirection = "ltr";
+         }
+          if(data!=undefined && data.length>0){
+            const dialogRef = this.dialog.open(NotificationPopupComponent, {
+              height: "680px",
+              width: "1900px",
+              data: data,
+              direction: tempDirection,
+            });
+             }
+         
+          
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    
+
      
     this.docForm = this.fb.group({
       assetid:[""]
     });
 
-    if(this.roleId=='7' || this.roleId==7){
+    if(this.roleId=='7' || this.roleId==7){  
     this.httpService.get<MainResultBean>(this.mutualFundService.getCompletionCount+"?userId="+this.tokenStorage.getUsername()).subscribe(
       (data:any) => {
         console.log(data);
@@ -347,7 +375,7 @@ configUserLog: {
             if(data.getTicketListGraphForClient[i].data!=0){
               this.ticketFlag=true;
             }
-            // else{
+            // else{ 
             // }
           }
         }else{

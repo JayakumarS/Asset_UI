@@ -40,9 +40,10 @@ import { CompanyMapPopupComponent } from './main/company-map-popup/company-map-p
 import { HighchartsChartModule } from 'highcharts-angular';
 // Pagination
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NotificationPopupComponent } from './main/notification-popup/notification-popup.component';
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent],
+  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent, NotificationPopupComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

@@ -96,7 +96,7 @@ docForm: FormGroup;
          fdRef:[""],
         fdamt:["",[Validators.required]],
         penaltyAmt:["",[Validators.required]],
-        ifscCode:["",Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$')],
+        ifscCode:["",Validators.pattern('^[A-Z]{4}[0-9]{7}$')],
         fdaccountNo:["",[Validators.required]],
         interest :["",[Validators.required]],     
         applicationNo:["",[Validators.required]],

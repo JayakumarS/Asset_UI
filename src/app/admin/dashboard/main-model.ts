@@ -26,6 +26,10 @@ export class main {
       hsnCode:string;
       isReceivable: string;
       Success: boolean;
+
+      assetType: string;
+      assetId: string;
+      dueDate: string;
   
   constructor(main) {
     {

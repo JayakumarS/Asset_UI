@@ -6,6 +6,7 @@ import { MainResultBean } from './main-result-bean';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { main } from './main-model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -26,7 +27,7 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) {
+  constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService, private tokenStorage: TokenStorageService) {
     super();
   }
 
@@ -49,6 +50,7 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
   public getBarChartURL = `${this.serverUrl.apiServerAddress}app/dashboard/getbarGraphDetails`;
   public AuditableAssetListDashboardUrl = `${this.serverUrl.apiServerAddress}app/auditableAsset/getAuditableAssetListForDashboard`;
   public userLogListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/userloglistForDashboard`;
+  public getNotificationDetails = `${this.serverUrl.apiServerAddress}app/dashboard/getNotificationDetails`;
 
   get data(): main[] {
     return this.dataChange.value;
@@ -72,4 +74,19 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
         }
       );
 }
+
+
+getNotificationList(): void {
+  this.subs.sink = this.httpService.get<any>(this.getNotificationDetails+ "?userId=" +this.tokenStorage.getUserId()).subscribe(
+    (data) => {
+      this.isTblLoading = false;
+      this.dataChange.next(data);
+    },
+    (error: HttpErrorResponse) => {
+      this.isTblLoading = false;
+      console.log(error.name + " " + error.message);
+    }
+  );
+}
+
 }
