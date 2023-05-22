@@ -75,6 +75,7 @@ export class FixedDepositReportsComponent implements OnInit {
       currency:[""],
       autoRenewal:[""],
       frequency:[""],
+      loginUser:this.tokenStorage.getUserId(),
 
        // Checkboxes Beans
        fdNameCheckbox:[false],
@@ -220,9 +221,9 @@ this.httpService.get<any>(this.mutualFundService.getfrequencyList+"?UserId="+thi
     if(this.fdReport.fdaccountNoCheckbox == true){
       this.fdHistoryHeader.push("FD ACCOUNT NUMBER");
     }
-    if(this.fdReport.dueAmountCheckBox == true){
-      this.fdHistoryHeader.push("FD AMOUNT");
-    }
+    // if(this.fdReport.dueAmountCheckBox == true){
+    //   this.fdHistoryHeader.push("FD AMOUNT");
+    // }
     if(this.fdReport.fdstartDateCheckBox == true){
       this.fdHistoryHeader.push("FD START DATE");
     }
@@ -312,7 +313,7 @@ this.httpService.get<any>(this.mutualFundService.getfrequencyList+"?UserId="+thi
        autoRenewalCheckBox: [false],
     });
 
-
+    this.fdHistoryList=[];
   }
   pageChanged(event){
     this.config.currentPage = event;

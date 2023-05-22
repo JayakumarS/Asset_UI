@@ -23,7 +23,7 @@ export class FdReport{
      ifsccodeCheckBox:boolean;
      autoRenewalCheckBox: boolean;
      fdExcelHistoryHeader:any;
-
+     
 constructor(fdReport) {
     {
         this.getRandomID();
