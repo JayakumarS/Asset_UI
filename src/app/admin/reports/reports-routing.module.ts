@@ -49,6 +49,11 @@ const routes: Routes = [
     path:"addHistoryReport",
     component:AddHistoryReportComponent
   },
+  {
+    path: "loanreport",
+    loadChildren: () =>
+    import("./loan-report/loan-report.module").then((m) => m.LoanReportModule)
+   },
   
 
 ];
