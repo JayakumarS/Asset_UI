@@ -60,6 +60,12 @@ const routes: Routes = [
     import("./mutualfund-report/mutualfund-report.module").then((m) => m.MutualfundReportModule)
   },
 
+
+  {
+    path: "jewelleryReport",
+    loadChildren: () =>
+    import("./jewellery-report/jewellery-report.module").then((m) => m.JewelleryReportModule)
+  }
 ];
 
 @NgModule({
