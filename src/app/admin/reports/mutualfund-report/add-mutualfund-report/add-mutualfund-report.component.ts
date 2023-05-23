@@ -81,7 +81,7 @@ export class AddMutualfundReportComponent implements OnInit {
       // brokerName:[""],
       // grossPremium:[""],
 
-      loginedUser: this.tokenStorage.getUserId(),
+      userId: this.tokenStorage.getUserId(),
       
       // Checkboxes Beans
        nameCheckbox:[false],

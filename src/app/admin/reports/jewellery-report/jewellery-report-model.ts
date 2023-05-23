@@ -3,7 +3,7 @@ export class JewelReport{
     
     type: String;
     
-    
+    userid: String;
 
      // Checkboxes Beans
      jnameCheckbox:boolean;

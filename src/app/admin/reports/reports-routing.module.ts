@@ -80,6 +80,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./individual-asset-report/individual-asset-report.module").then((m) => m.IndividualAssetReportModule),
   },
+  {
+  path: "receivables-report",
+  loadChildren: () =>
+    import("./receivables-report/receivables-report.module").then((m)=>m.ReceivablesReportModule)
+},
 ];
 
 @NgModule({

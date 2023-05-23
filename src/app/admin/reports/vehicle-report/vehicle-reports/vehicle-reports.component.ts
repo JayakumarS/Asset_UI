@@ -100,7 +100,7 @@ export class VehicleReportsComponent implements OnInit {
       insurancetype:[""],
       regno:[""],
       engineno:[""],
-      UserId:this.tokenStorage.getUserId(),
+      userId:this.tokenStorage.getUserId(),
     
       
 
