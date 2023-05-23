@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { serverLocations } from "src/app/auth/serverLocations";
 import { TokenStorageService } from "src/app/auth/token-storage.service";
@@ -41,8 +41,8 @@ export class IndividualAssetReportService extends UnsubscribeOnDestroyAdapter {
   // }
 
   public getAllList = `${this.serverUrl.apiServerAddress}api/auth/app/individual-asset-report/getList`;
-
-
+  public exportPdfQRcode =`${this.serverUrl.apiServerAddress}api/auth/app/individual-asset-report/ExportExcel`;
+  
   getDialogData() {
     return this.dialogData;
   }
@@ -64,6 +64,19 @@ export class IndividualAssetReportService extends UnsubscribeOnDestroyAdapter {
     );
 
   }
+ //FOR QR CODE PDF ADDED BY Gokul
+ QRcodeExportPdf(obj: any): Observable<Blob> {
+  var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
 
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    "Authorization": authorization, responseType: 'blob'
+  });
+
+  return this.httpClient.post<Blob>(this.exportPdfQRcode, obj, {
+    headers: headers, responseType:
+      'blob' as 'json'
+  });
+}
 
 }

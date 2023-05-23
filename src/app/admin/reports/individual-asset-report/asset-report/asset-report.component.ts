@@ -20,6 +20,8 @@ import { BehaviorSubject, Observable, fromEvent, map, merge } from 'rxjs';
 import { IndividualAssetReportService } from '../individual-asset-report.service';
 import { AssetReport } from '../individual-asset-report-model';
 import { DataSource } from '@angular/cdk/collections';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -51,6 +53,7 @@ displayedColumns=[
   
  
   constructor(private fb: FormBuilder,
+    private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public commonService: CommonService,
@@ -60,6 +63,8 @@ displayedColumns=[
     public tokenStroage: TokenStorageService,
     private tokenStorage: TokenStorageService,
     private IndividualAssetReportService: IndividualAssetReportService,
+    private snackBar: MatSnackBar,
+
     ) {
        
     super();
@@ -122,8 +127,7 @@ displayedColumns=[
   }
 
   
-assetQRcodeExportPdf() {
-}
+
  
 
 onReset()
@@ -136,6 +140,42 @@ onReset()
   location.reload()
 
 }
+showNotification(colorName, text, placementFrom, placementAlign) {
+  this.snackBar.open(text, "", {
+    duration: 2000,
+    verticalPosition: placementFrom,
+    horizontalPosition: placementAlign,
+    panelClass: colorName,
+  });
+}
+
+QRcodeExportPdf() {
+  
+ 
+  const obj={
+    userId: this.tokenStorage.getUserId()
+  }
+  this.spinner.show();
+  this.IndividualAssetReportService.QRcodeExportPdf(obj).pipe().subscribe({
+    next: (result: any) => {
+      this.spinner.hide();
+      if(result!=null){
+        var file = new Blob([result], { type: 'application/pdf' });
+        var fileURL = window.URL.createObjectURL(file);
+        window.open(fileURL);
+      }
+    },
+    error: (error) => {
+      this.spinner.hide();
+      this.showNotification(
+        "snackbar-danger",
+        "Failed to Print QR code",
+        "bottom",
+        "center"
+      );
+    }
+  });
+ }
 }
 export class ExampleDataSource extends DataSource<AssetReport> {
   filterChange = new BehaviorSubject("");

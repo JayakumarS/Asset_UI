@@ -6,7 +6,7 @@ export class AssetReport{
     assetCategory: string;
     assetName: string;
     assetType: string;
-   
+    userid: string;
 constructor(AssetReport){
     {
             this.category =  AssetReport.category || "";
