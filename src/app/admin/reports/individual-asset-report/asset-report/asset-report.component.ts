@@ -65,7 +65,7 @@ displayedColumns=[
     super();
     this.docForm = this.fb.group({
       category:["",[Validators.required]],
-      userId: this.tokenStorage.getUserId(),
+      userid: this.tokenStorage.getUserId(),
       
 
 
@@ -82,7 +82,7 @@ displayedColumns=[
   ngOnInit(): void {
     this.docForm = this.fb.group({
       category:["",[Validators.required]],
-      userId: this.tokenStorage.getUserId(),
+      userid: this.tokenStorage.getUserId(),
     });
    
   }

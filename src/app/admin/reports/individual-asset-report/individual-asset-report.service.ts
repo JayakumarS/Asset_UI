@@ -40,7 +40,7 @@ export class IndividualAssetReportService extends UnsubscribeOnDestroyAdapter {
   //   return this.dataChange.value;
   // }
 
-  public getAllList = `${this.serverUrl.apiServerAddress}/api/auth/app/individual-asset-report/getList`;
+  public getAllList = `${this.serverUrl.apiServerAddress}api/auth/app/individual-asset-report/getList`;
 
 
   getDialogData() {

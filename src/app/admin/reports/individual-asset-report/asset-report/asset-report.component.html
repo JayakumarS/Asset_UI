@@ -27,25 +27,25 @@
         <div class=" col-xl-3 col-lg-4 col-md-12 col-sm-12" style="margin-left: 5px;">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <mat-select formControlName="category" required>
-              <mat-option [value]="'1'">
+              <mat-option value="Property">
                 PROPERTY
               </mat-option>
-              <mat-option [value]="'2'">
+              <mat-option value="Jewellery">
                JEWELLERY
               </mat-option>
-              <mat-option [value]="'3'">
+              <mat-option [value]="'Vehicle'">
                VEHICLES
               </mat-option>
-              <mat-option [value]="'4'">
-               OTHER DEBITS
+              <mat-option [value]="'Loan'">
+               LOAN
               </mat-option>
-              <mat-option [value]="'5'">
+              <mat-option [value]="'Fixed deposit'">
                FIXED DEPOSIT
               </mat-option>
-              <mat-option [value]="'6'">
+              <mat-option [value]="'Mutual fund'">
                 MUTUAL FUND
               </mat-option>
-              <mat-option [value]="'7'">
+              <mat-option [value]="'Receivables'">
                RECEIVABLES
               </mat-option>
             </mat-select>
@@ -95,8 +95,9 @@
   <ng-container matColumnDef="assetCategory">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Category </mat-header-cell>
     <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-        {{row.assetCategory}}</mat-cell>
-</ng-container>
+        {{category}}</mat-cell>
+        
+  </ng-container>
 
 <!-- <ng-container matColumnDef="assetCode">
   <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Code </mat-header-cell>
