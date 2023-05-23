@@ -95,7 +95,7 @@
   <ng-container matColumnDef="assetCategory">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Category </mat-header-cell>
     <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
-        {{category}}</mat-cell>
+        {{row.assetCategory}}</mat-cell>
         
   </ng-container>
 
