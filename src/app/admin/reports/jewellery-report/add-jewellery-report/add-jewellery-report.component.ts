@@ -74,7 +74,7 @@ export class AddJewelleryReportComponent implements OnInit {
       description:[""],
       noOfPiece:[""],
       weight:[""],
-
+      userid:[this.tokenStorage.getUserId()],
       id:[""],
 
 

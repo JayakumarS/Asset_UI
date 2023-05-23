@@ -20,7 +20,7 @@ export class Vehiclereport{
     insurancetype : string;
     regno: string;
     engineno: string;
-   
+    userId: string
     constructor(Vehiclereport) {
 
 }

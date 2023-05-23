@@ -88,6 +88,7 @@ export class ReceivablesreportComponent implements OnInit {
     accounttype:[""],
     currency:[""],
     paymentstatus:[""], 
+    loginedUser:[this.tokenStorage.getUserId()],
       // Checkboxes Beans
       assetTypeCheckBox:[],
       debtorsNameCheckBox:[],
@@ -194,6 +195,8 @@ export class ReceivablesreportComponent implements OnInit {
             accounttype:[""],
             currency:[""],
             paymentstatus:[""], 
+            loginedUser:[this.tokenStorage.getUserId()],
+
               assetTypeCheckBox:[false],
               debtorsNameCheckBox:[false],
               invoiceNumberCheckBox:[false],
