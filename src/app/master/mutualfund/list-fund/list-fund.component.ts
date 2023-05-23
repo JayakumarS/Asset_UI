@@ -30,7 +30,7 @@ export class ListFundComponent extends UnsubscribeOnDestroyAdapter implements On
   displayedColumns = [ 
     "name",
     "accountnumber",
-    "tin",
+    "investmentexperience",
     "actions",
   ];
   docForm: FormGroup;
@@ -61,7 +61,7 @@ export class ListFundComponent extends UnsubscribeOnDestroyAdapter implements On
       
       name:[""],
       accountnumber:[""],
-      tin:[""],
+      investmentexperience:[""],
       actions: [""],
       loginedUser: this.tokenStorage.getUserId()
    
@@ -230,7 +230,7 @@ export class ExampleDataSource extends DataSource<Fund> {
             const searchStr = (
               Fund.name+
               Fund.accountnumber+
-              Fund.tin
+              Fund.investmentexperience
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -268,8 +268,8 @@ export class ExampleDataSource extends DataSource<Fund> {
           case "accountnumber":
             [propertyA, propertyB] = [a.accountnumber, b.accountnumber];
             break; 
-            case "tin":
-            [propertyA, propertyB] = [a.tin, b.tin];
+            case "investmentexperience":
+            [propertyA, propertyB] = [a.investmentexperience, b.investmentexperience];
             break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
