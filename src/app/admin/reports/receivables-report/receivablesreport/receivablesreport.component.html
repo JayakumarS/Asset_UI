@@ -292,7 +292,7 @@
                                         <td>{{data.assettype}}</td>
                                         <td>{{data.customername}}</td>
                                         <td>{{data.invoicenumber}}</td>
-                                        <td>{{data.invoiceDate}}</td>
+                                        <td>{{data.invoiceDate | date: 'dd/MM/yyyy'}}</td>
                                         <td>{{data.payment}}</td>
                                         <td>{{data.amount}}</td>
                                         <td>{{data.currency}}</td>
@@ -300,7 +300,7 @@
                                         <td>{{data.interestreceivable}}</td>
                                         <td>{{data.accounttype}}</td>
                                         <td>{{data.paymentstatus}}</td>
-                                        <td>{{data.duedate}}</td>
+                                        <td>{{data.duedate | date: 'dd/MM/yyyy'}}</td>
                                         <td>{{data.paymentreference}}</td>
                                       </tr>
                                     </tbody>
