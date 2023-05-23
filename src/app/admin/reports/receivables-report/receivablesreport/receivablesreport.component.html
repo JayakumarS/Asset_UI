@@ -1,0 +1,318 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Receivables Report'" [items]="['Reports']" [active_item]="'Receivables Report List'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix" >
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body" style="padding-left: 1%;">
+              <form class="m-4" [formGroup]="docForm">
+                <h5 style="color: rgb(10, 25, 109);">Required Filters to Search</h5><br>
+                <div class="row" style="padding-left: 10%;">
+                    <!-- <div class=" col-md-1">
+                        <label style="margin-top: 11px;">ASSET TYPE</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select formControlName="assettype">
+                                <mat-option *ngFor="let title of assettypeDdList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <!-- <div class=" col-md-2">
+                        <label style="margin-top: 11px;">DEBTORS NAME</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select formControlName="debtorsname">
+                                <mat-option *ngFor="let title of debtorsnameDdList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <!-- <div class=" col-md-2">
+                        <label style="margin-top: 11px;">PAYMENT REFERENCE</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select formControlName="paymentreference">
+                                <mat-option *ngFor="let title of paymentreferenceDdList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                   <br> 
+                    <div class=" col-md-1">
+                        <label style="margin-top: 11px;">ACCOUNT TYPE</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                        <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select formControlName="accounttype">
+                                <mat-option *ngFor="let title of accounttypeDdList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field> -->
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <!-- <mat-select formControlName="accounttype" required>
+                          <mat-option [value]="'1'">Trade/Receivable A/C</mat-option>
+                          <mat-option [value]="'2'">Notes Receivable</mat-option>
+                          </mat-select> -->
+                          <mat-select  formControlName="accounttype"  >
+                           <mat-option [value]="'Trade Receivable A/C'">
+                             Trade Receivables A/C
+                             </mat-option>
+                             <mat-option [value]="'Notes Receivable'">
+                               Notes Receivables
+                             </mat-option>
+                             <mat-option [value]="'other Receivable'">
+                               Other Receivables
+                             </mat-option>
+                              </mat-select>
+                         
+                          </mat-form-field>
+                    </div>
+                    <div class=" col-md-2">
+                        <label style="margin-top: 11px;">CURRENCY</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                        <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-select formControlName="currency">
+                                <mat-option *ngFor="let title of currencyDdList" [value]="title.id">
+                                  {{title.text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field> -->
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select formControlName="currency" >
+                            <mat-option [value]="'KSH'">KSH</mat-option>
+                            <mat-option [value]="'INR'">INR</mat-option>
+                            <mat-option [value]="'TES'">TES</mat-option>
+                            </mat-select>
+                          
+                          </mat-form-field>
+                    </div>
+                  
+                    <div class=" col-md-2">
+                        <label style="margin-top: 11px;">PAYMENT STATUS</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select formControlName="paymentstatus" >
+                        <mat-option [value]="'Pending'"> Pending </mat-option>
+                        <mat-option [value]="'Done'">Done</mat-option>
+                        </mat-select>
+                        <!-- <input matInput formControlName="paymentstatus" maxlength="20"
+                           (blur)="validateCustomer($event.target.value)" required> -->
+                           <!-- <mat-error *ngIf="docForm.get('paymentstatus').hasError('required')">
+                             Payment Status is required
+                           </mat-error> -->
+                           
+                         </mat-form-field>
+                         </div>
+                    </div><br>
+                   
+                    <div class="row" >
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                          <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                            color="accent" style="margin-left: 43%;background-color: #34d034;">Submit</button>
+                          <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                        </div>
+                      </div>
+
+                      <hr><br>
+                      <h5 style="color: rgb(10, 25, 109);">Required Columns in Excel Export <span style="color: red;">*</span></h5><br>
+                      <div class="row">
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">ASSET TYPE</label>
+                          </div>
+                          <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                            <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="assetTypeCheckBox"
+                            ngInit="checked=true"></mat-checkbox>
+                          </div>
+                          <div class=" col-md-2">
+                            <label style="margin-top: 9px;">DEBTORS NAME</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="debtorsNameCheckBox"
+                          ngInit="checked=true"
+                           ></mat-checkbox>
+                        </div>
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">INVOICE NUMBER</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="invoiceNumberCheckBox"
+                          ngInit="checked=true"
+                         ></mat-checkbox>
+                        </div>
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">INVOICE DATE</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="invoiceDateCheckBox"
+                          ngInit="checked=true"
+                         ></mat-checkbox>
+                        </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">MODE OF PAYMENT</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="modeofPaymentCheckBox"
+                          ngInit="checked=true"
+                        ></mat-checkbox>
+                        </div>
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">AMOUNT</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="amountCheckBox"
+                          ngInit="checked=true" 
+                        ></mat-checkbox>
+                        </div>
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">CURRENCY</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="currencyCheckBox"
+                          ngInit="checked=true" 
+                        ></mat-checkbox>
+                        </div>
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">BAD DEBTS</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="baddebtsCheckBox"
+                          ngInit="checked=true" 
+                        ></mat-checkbox>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">INTEREST RECEIVABLE</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="interestreceivableCheckBox"
+                          ngInit="checked=true"
+                        ></mat-checkbox>
+                        </div>
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">ACCOUNT TYPE</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="accountTypeCheckBox"
+                          ngInit="checked=true"
+                        ></mat-checkbox>
+                        </div>
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">PAYMENT STATUS</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="paymentStatusCheckBox"
+                          ngInit="checked=true"
+                        ></mat-checkbox>
+                        </div>
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">DUE DATE</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="duedateCheckBox"
+                          ngInit="checked=true" 
+                        ></mat-checkbox>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class=" col-md-2">
+                            <label style="margin-top: 9px;">PAYMENT REFERENCE</label>
+                        </div>
+                        <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="paymentReferenceCheckBox"
+                          ngInit="checked=true"
+                        ></mat-checkbox>
+                        </div>
+                         </div>
+                         <hr><br>
+                         <div class="row">
+                            <div class=" col-md-6">
+                                <h5 style="color: rgb(10, 25, 109);">Filters based Asset History List</h5>
+                            </div>
+                            <div class=" col-md-6">
+                              <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 77%;">
+                                <button color="primary" type="button" class="btn-space" (click)="exportExcel()" 
+                                *ngIf="docForm.get('assetTypeCheckBox')?.value  || docForm.get('debtorsNameCheckBox')?.value || 
+                                docForm.get('invoiceNumberCheckBox')?.value || docForm.get('invoiceDateCheckBox')?.value || 
+                                docForm.get('modeofPaymentCheckBox')?.value || docForm.get('amountCheckBox')?.value || 
+                                docForm.get('currencyCheckBox')?.value || docForm.get('baddebtsCheckBox')?.value || 
+                                docForm.get('interestreceivableCheckBox')?.value || docForm.get('accountTypeCheckBox')?.value || 
+                                docForm.get('paymentStatusCheckBox')?.value || docForm.get('duedateCheckBox')?.value 
+                                || docForm.get('paymentReferenceCheckBox')?.value"
+                                
+                                mat-raised-button>Export To Excel</button>
+                              </div>
+                            </div>
+                            </div> 
+                           <br>
+
+                                  
+                            <div class="tableBody">
+                                <div class="table-responsive">
+                                  <table class="table table-hover table-striped" style="width: 130%;">
+                                    <thead>
+                                      <tr>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Asset Type</th>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Debtors Name</th>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Invoice Number</th>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Invoice Date</th>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Mode Of Payment</th>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Amount</th>
+                                        <th style="background-color:#607D8B; width: 5%;color:#FFFFFF">Currency</th>
+                                        <th style="background-color:#607D8B; width: 5%;color:#FFFFFF">Bad Debts</th>
+                                        <th style="background-color:#607D8B; width: 5%;color:#FFFFFF">Interest Receivable</th>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Account Type</th>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Payment Status</th>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Due Date</th>
+                                        <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Payment Reference</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let data of receivablesreport | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
+                                        <td>{{data.assettype}}</td>
+                                        <td>{{data.customername}}</td>
+                                        <td>{{data.invoicenumber}}</td>
+                                        <td>{{data.invoiceDate}}</td>
+                                        <td>{{data.payment}}</td>
+                                        <td>{{data.amount}}</td>
+                                        <td>{{data.currency}}</td>
+                                        <td>{{data.baddebts}}</td>
+                                        <td>{{data.interestreceivable}}</td>
+                                        <td>{{data.accounttype}}</td>
+                                        <td>{{data.paymentstatus}}</td>
+                                        <td>{{data.duedate}}</td>
+                                        <td>{{data.paymentreference}}</td>
+                                      </tr>
+                                    </tbody>
+                                    </table>
+                                    </div>
+                                    </div>
+                    </form>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+      </div></div>
+      
+
+                    </section>
