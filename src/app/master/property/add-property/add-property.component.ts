@@ -58,6 +58,8 @@ export class AddPropertyComponent implements OnInit {
   isLand: boolean;
   isEcAvaliable: boolean;
   landFlag: boolean = false;
+  isCompany: boolean;
+  isGarden: boolean;
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -127,6 +129,11 @@ export class AddPropertyComponent implements OnInit {
        acNumber:[""],
        accountUserId:[""],
        password:[""],
+       loanstartObj:[""],
+       loanstart:[""],
+       loanendObj:[""],
+       loanend:[""],
+       emamount:[""],
 
        houseName:["" ,[Validators.required]],
        houseAddress:[""],
@@ -134,6 +141,32 @@ export class AddPropertyComponent implements OnInit {
        constructedOnObj:["",[Validators.required]],
        underLoan:[""],
        floor:[""],
+
+
+      //Comapny
+       companyName:["",[Validators.required]],
+       companyadd:["",[Validators.required]],
+       contactNo:["",[Validators.required]],
+       companysqft:[""],
+       ownership:["",[Validators.required]],
+       insured:[""],
+       ceoName:[""],
+       conpanytype:[""],
+       conpanydep:[""],
+       comregOnObj:["",[Validators.required]],
+       comregOn:["",[Validators.required]],
+       companyNetWorth:[""],
+      
+       //granden
+       gardenName:["",[Validators.required]],
+       gardenadd:["",[Validators.required]],
+       gardenSQFT:[""],
+       gardenlayout:[""],
+       gadregOnObj:["",[Validators.required]],
+       gadregOn:["",[Validators.required]],
+       gardenF:[""],
+       mainten:[""],
+       garTech:[""],
        
       //  rentType:[""],
       //  propertyHolderName:["", [Validators.required]],
@@ -255,6 +288,12 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
        acNumber:[""],
        accountUserId:[""],
        password:[""],
+       loanstartObj:[""],
+       loanstart:[""],
+       loanendObj:[""],
+       loanend:[""],
+       emamount:[""],
+
 
        houseName:[""],
        houseAddress:[""],
@@ -262,6 +301,31 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
        constructedOnObj:[""],
        underLoan:[""],
        floor:[""],
+
+       companyName:[""],
+       companyadd:[""],
+       contactNo:[""],
+       companysqft:[""],
+       ownership:[""],
+       insured:[""],
+       ceoName:[""],
+       conpanytype:[""],
+       conpanydep:[""],
+       comregOnObj:[""],
+       comregOn:[""],
+
+       gardenName:[""],
+       gardenadd:[""],
+       gardenSQFT:[""],
+       gardenlayout:[""],
+       gadregOnObj:[""],
+       gadregOn:[""],
+       gardenF:[""],
+       mainten:[""],
+       garTech:[""],
+       companyNetWorth:[""],
+
+
 
    });
  } else {
@@ -282,6 +346,12 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
       let hdate3 = this.cmnService.getDateObj(res.propertyBean.dateToPayDate);
       let hdate4 = this.cmnService.getDateObj(res.propertyBean.landRegDate);
       let hdate5 = this.cmnService.getDateObj(res.propertyBean.constructedOn);
+      let hdate6 = this.cmnService.getDateObj(res.propertyBean.loanstart);
+      let hdate7 = this.cmnService.getDateObj(res.propertyBean.loanend);
+      let hdate8 = this.cmnService.getDateObj(res.propertyBean.comregOn);
+      let hdate9 = this.cmnService.getDateObj(res.propertyBean.gadregOn);
+
+      
 
 
       this.houseFlag(res.propertyBean.propertyType);
@@ -309,7 +379,6 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'taxNo': res.propertyBean.taxNo,
         'mortage': res.propertyBean.mortage,
         'type': res.propertyBean.type,
-        'ownership': res.propertyBean.ownership,
         'currentValue': res.propertyBean.currentValue,
         'depVal': res.propertyBean.depVal,
         'squareFeet': res.propertyBean.squareFeet,
@@ -339,6 +408,11 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'tenentIdCard':res.propertyBean.tenentIdCard,
         'mobileNo':res.propertyBean.mobileNo,
         'alternateNo':res.propertyBean.alternateNo,
+        'loanstartObj':hdate6,
+        'loanendObj':hdate7,
+        'loanstart':res.propertyBean.loanstart,
+        'loanend':res.propertyBean.loanend,
+        'emamount':res.propertyBean.emamount,
 
 
         'location':res.propertyBean.location,
@@ -369,6 +443,28 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'floor':res.propertyBean.floor,
         'landTaxNo':res.propertyBean.landTaxNo,
 
+        'companyName':res.propertyBean.companyName,
+        'companyadd':res.propertyBean.companyadd,
+        'contactNo':res.propertyBean.contactNo,
+        'companysqft':res.propertyBean.companysqft,
+        'ownership':res.propertyBean.ownership,
+        'insured':res.propertyBean.insured,
+        'ceoName':res.propertyBean.ceoName,
+        'conpanytype':res.propertyBean.conpanytype,
+        'conpanydep':res.propertyBean.conpanydep,
+        'comregOnObj':hdate8,
+        'comregOn':res.propertyBean.comregOn,
+        'companyNetWorth':res.propertyBean.companyNetWorth,
+
+        'gardenName':res.propertyBean.gardenName,
+        'gardenadd':res.propertyBean.gardenadd,
+        'gardenSQFT':res.propertyBean.gardenSQFT,
+        'gardenlayout':res.propertyBean.gardenlayout,
+        'gadregOnObj':hdate9,
+        'gadregOn':res.propertyBean.gadregOn,
+        'gardenF':res.propertyBean.gardenF,
+        'mainten':res.propertyBean.mainten,
+        'garTech':res.propertyBean.garTech,
     });
   },
   error: (error) => {
@@ -450,67 +546,35 @@ update(){
   this.docForm.patchValue({ constructedOn: fdatedate });
 }
 
+let ldatedate = this.commonService.getDate(event.target.value);
+if (inputFlag == 'loanstart') {
+ this.docForm.patchValue({ loanstart: ldatedate });
+}
+
+let endatedate = this.commonService.getDate(event.target.value);
+if (inputFlag == 'loanend') {
+ this.docForm.patchValue({ loanend: endatedate });
+}
+
+let codatedate = this.commonService.getDate(event.target.value);
+if (inputFlag == 'comregOn') {
+ this.docForm.patchValue({ comregOn: codatedate });
+}
+
+let gadatedate = this.commonService.getDate(event.target.value);
+if (inputFlag == 'gadregOn') {
+ this.docForm.patchValue({ comregOn: gadatedate });
+}
+
    }
 
 
    houseFlag(event)
    {
-
-    if(event=='House'){
-
-      this.docForm.controls["landType"].clearValidators();
-      this.docForm.controls['landType'].updateValueAndValidity();
-      this.docForm.controls["location"].clearValidators();
-      this.docForm.controls["location"].updateValueAndValidity();
-      this.docForm.controls["squareFeet"].clearValidators();
-      this.docForm.controls["squareFeet"].updateValueAndValidity();
-      this.docForm.controls["area"].clearValidators();
-      this.docForm.controls["area"].updateValueAndValidity();
-      this.docForm.controls["landSqft"].clearValidators();
-      this.docForm.controls["landSqft"].updateValueAndValidity();
-      this.docForm.controls["landTaxNo"].clearValidators();
-      this.docForm.controls["landTaxNo"].updateValueAndValidity();
-      this.docForm.controls["regNo"].clearValidators();
-      this.docForm.controls["regNo"].updateValueAndValidity();
-      this.docForm.controls["landRegDateObj"].clearValidators();
-      this.docForm.controls["landRegDateObj"].updateValueAndValidity();
-      this.docForm.controls["source"].clearValidators();
-      this.docForm.controls["source"].updateValueAndValidity();
-      this.docForm.controls["guidelineValue"].clearValidators();
-      this.docForm.controls["guidelineValue"].updateValueAndValidity();
-      this.docForm.controls["marketValue"].clearValidators();
-      this.docForm.controls["marketValue"].updateValueAndValidity();
-      
-    }
-
-    if(event=='Land'){
-      
-      this.docForm.controls.houseName.clearValidators();
-      this.docForm.controls['houseName'].updateValueAndValidity();
-      this.docForm.controls.residencialType.clearValidators();
-      this.docForm.controls['residencialType'].updateValueAndValidity();
-      this.docForm.controls.squareFeet.clearValidators();
-      this.docForm.controls['squareFeet'].updateValueAndValidity();
-      this.docForm.controls.constructedOnObj.clearValidators();
-      this.docForm.controls['constructedOnObj'].updateValueAndValidity();
-      this.docForm.controls.floor.clearValidators();
-      this.docForm.controls['floor'].updateValueAndValidity();
-      this.docForm.controls['underLoan'].clearValidators();
-      this.docForm.controls['underLoan'].updateValueAndValidity();
-      this.docForm.controls.guidelineValue.clearValidators();
-      this.docForm.controls['guidelineValue'].updateValueAndValidity();
-      this.docForm.controls.currentValue.clearValidators();
-      this.docForm.controls['currentValue'].updateValueAndValidity();
-      this.docForm.controls.depVal.clearValidators();
-      this.docForm.controls['depVal'].updateValueAndValidity();
-      this.docForm.controls.houseTaxNo.clearValidators();
-      this.docForm.controls['houseTaxNo'].updateValueAndValidity();
-
-    }
     
       if (event == 'House') {
         this.isHouse = true;
-        
+        //house
         this.docForm.controls.houseName.setValidators(Validators.required);
         this.docForm.controls['houseName'].updateValueAndValidity();
         this.docForm.controls.residencialType.setValidators(Validators.required);
@@ -529,42 +593,81 @@ update(){
         this.docForm.controls['depVal'].updateValueAndValidity();
         this.docForm.controls.houseTaxNo.setValidators(Validators.required);
         this.docForm.controls['houseTaxNo'].updateValueAndValidity();
-  
-  
-        this.docForm.controls.location.clearValidators();
-        this.docForm.controls['location'].updateValueAndValidity();
-        this.docForm.controls.area.clearValidators();
-        this.docForm.controls['area'].updateValueAndValidity();
-        this.docForm.controls.landType.clearValidators();
-        this.docForm.controls['landType'].updateValueAndValidity();
-        this.docForm.controls.landSqft.clearValidators();
-        this.docForm.controls['landSqft'].updateValueAndValidity();
-        this.docForm.controls.ecAvaliable.clearValidators();
-        this.docForm.controls['ecAvaliable'].updateValueAndValidity();
-        this.docForm.controls.landTaxNo.clearValidators();
-        this.docForm.controls['landTaxNo'].updateValueAndValidity();
-        this.docForm.controls.regNo.clearValidators();
-        this.docForm.controls['regNo'].updateValueAndValidity();
-        this.docForm.controls.landRegDateObj.clearValidators();
-        this.docForm.controls['landRegDateObj'].updateValueAndValidity();
-        this.docForm.controls.landRegDate.clearValidators();
-        this.docForm.controls['landRegDate'].updateValueAndValidity();
-        this.docForm.controls.source.clearValidators();
-        this.docForm.controls['source'].updateValueAndValidity();
-        this.docForm.controls.landGuidelineValue.clearValidators();
-        this.docForm.controls['landGuidelineValue'].updateValueAndValidity();
-        this.docForm.controls.marketValue.clearValidators();
-        this.docForm.controls['marketValue'].updateValueAndValidity();
-       
-  
+        
       } else {
         this.isHouse = false;
+                //land  
+                this.docForm.controls.location.clearValidators();
+                this.docForm.controls['location'].updateValueAndValidity();
+                this.docForm.controls.area.clearValidators();
+                this.docForm.controls['area'].updateValueAndValidity();
+                this.docForm.controls.landType.clearValidators();
+                this.docForm.controls['landType'].updateValueAndValidity();
+                this.docForm.controls.landSqft.clearValidators();
+                this.docForm.controls['landSqft'].updateValueAndValidity();
+                this.docForm.controls.ecAvaliable.clearValidators();
+                this.docForm.controls['ecAvaliable'].updateValueAndValidity();
+                this.docForm.controls.landTaxNo.clearValidators();
+                this.docForm.controls['landTaxNo'].updateValueAndValidity();
+                this.docForm.controls.regNo.clearValidators();
+                this.docForm.controls['regNo'].updateValueAndValidity();
+                this.docForm.controls.landRegDateObj.clearValidators();
+                this.docForm.controls['landRegDateObj'].updateValueAndValidity();
+                this.docForm.controls.landRegDate.clearValidators();
+                this.docForm.controls['landRegDate'].updateValueAndValidity();
+                this.docForm.controls.source.clearValidators();
+                this.docForm.controls['source'].updateValueAndValidity();
+                this.docForm.controls.landGuidelineValue.clearValidators();
+                this.docForm.controls['landGuidelineValue'].updateValueAndValidity();
+                this.docForm.controls.marketValue.clearValidators();
+                this.docForm.controls['marketValue'].updateValueAndValidity();
+                //Company
+                this.docForm.controls.companyName.clearValidators();
+                this.docForm.controls['companyName'].updateValueAndValidity();
+                this.docForm.controls.companyadd.clearValidators();
+                this.docForm.controls['companyadd'].updateValueAndValidity();
+                this.docForm.controls.contactNo.clearValidators();
+                this.docForm.controls['contactNo'].updateValueAndValidity();
+                this.docForm.controls.companysqft.clearValidators();
+                this.docForm.controls['companysqft'].updateValueAndValidity();
+                this.docForm.controls.ownership.clearValidators();
+                this.docForm.controls['ownership'].updateValueAndValidity();
+                this.docForm.controls.insured.clearValidators();
+                this.docForm.controls['insured'].updateValueAndValidity();
+                this.docForm.controls.ceoName.clearValidators();
+                this.docForm.controls['ceoName'].updateValueAndValidity();
+                this.docForm.controls.conpanytype.clearValidators();
+                this.docForm.controls['conpanytype'].updateValueAndValidity(); 
+                this.docForm.controls.comregOnObj.clearValidators();
+                this.docForm.controls['comregOnObj'].updateValueAndValidity();
+                this.docForm.controls.conpanydep.clearValidators();
+                this.docForm.controls['conpanydep'].updateValueAndValidity();
+                this.docForm.controls.companyNetWorth.clearValidators();
+                this.docForm.controls['companyNetWorth'].updateValueAndValidity();
+                //garden
+                this.docForm.controls.gardenName.clearValidators();
+                this.docForm.controls['gardenName'].updateValueAndValidity(); 
+                this.docForm.controls.gardenadd.clearValidators();
+                this.docForm.controls['gardenadd'].updateValueAndValidity();  
+                this.docForm.controls.gardenSQFT.clearValidators();
+                this.docForm.controls['gardenSQFT'].updateValueAndValidity();
+                this.docForm.controls.gardenlayout.clearValidators();
+                this.docForm.controls['gardenlayout'].updateValueAndValidity();
+                this.docForm.controls.gadregOnObj.clearValidators();
+                this.docForm.controls['gadregOnObj'].updateValueAndValidity();
+                this.docForm.controls.gardenF.clearValidators();
+                this.docForm.controls['gardenF'].updateValueAndValidity();
+                this.docForm.controls.mainten.clearValidators();
+                this.docForm.controls['mainten'].updateValueAndValidity();
+                this.docForm.controls.garTech.clearValidators();
+                this.docForm.controls['garTech'].updateValueAndValidity();
 
       }
  
       if (event == 'Land') {
         this.isLand = true;
-     
+
+        //land
         this.docForm.controls.location.setValidators(Validators.required);
         this.docForm.controls['location'].updateValueAndValidity();
         this.docForm.controls.area.setValidators(Validators.required);
@@ -590,7 +693,9 @@ update(){
         this.docForm.controls.marketValue.setValidators(Validators.required);
         this.docForm.controls['marketValue'].updateValueAndValidity();
 
-
+      } else {
+        this.isLand = false;
+        //house
         this.docForm.controls.houseName.clearValidators();
         this.docForm.controls['houseName'].updateValueAndValidity();
         this.docForm.controls.residencialType.clearValidators();
@@ -611,11 +716,235 @@ update(){
         this.docForm.controls['depVal'].updateValueAndValidity();
         this.docForm.controls.houseTaxNo.clearValidators();
         this.docForm.controls['houseTaxNo'].updateValueAndValidity();
-  
-      } else {
-        this.isLand = false;
-      
+        //Company
+        this.docForm.controls.companyName.clearValidators();
+        this.docForm.controls['companyName'].updateValueAndValidity();
+        this.docForm.controls.companyadd.clearValidators();
+        this.docForm.controls['companyadd'].updateValueAndValidity();
+        this.docForm.controls.contactNo.clearValidators();
+        this.docForm.controls['contactNo'].updateValueAndValidity();
+        this.docForm.controls.companysqft.clearValidators();
+        this.docForm.controls['companysqft'].updateValueAndValidity();
+        this.docForm.controls.ownership.clearValidators();
+        this.docForm.controls['ownership'].updateValueAndValidity();
+        this.docForm.controls.insured.clearValidators();
+        this.docForm.controls['insured'].updateValueAndValidity();
+        this.docForm.controls.ceoName.clearValidators();
+        this.docForm.controls['ceoName'].updateValueAndValidity();
+        this.docForm.controls.conpanytype.clearValidators();
+        this.docForm.controls['conpanytype'].updateValueAndValidity(); 
+        this.docForm.controls.comregOnObj.clearValidators();
+        this.docForm.controls['comregOnObj'].updateValueAndValidity();
+        this.docForm.controls.conpanydep.clearValidators();
+        this.docForm.controls['conpanydep'].updateValueAndValidity();
+        this.docForm.controls.companyNetWorth.clearValidators();
+        this.docForm.controls['companyNetWorth'].updateValueAndValidity();
+        //garden
+        this.docForm.controls.gardenName.clearValidators();
+        this.docForm.controls['gardenName'].updateValueAndValidity(); 
+        this.docForm.controls.gardenadd.clearValidators();
+        this.docForm.controls['gardenadd'].updateValueAndValidity();  
+        this.docForm.controls.gardenSQFT.clearValidators();
+        this.docForm.controls['gardenSQFT'].updateValueAndValidity();
+        this.docForm.controls.gardenlayout.clearValidators();
+        this.docForm.controls['gardenlayout'].updateValueAndValidity();
+        this.docForm.controls.gadregOnObj.clearValidators();
+        this.docForm.controls['gadregOnObj'].updateValueAndValidity();
+        this.docForm.controls.gardenF.clearValidators();
+        this.docForm.controls['gardenF'].updateValueAndValidity();
+        this.docForm.controls.mainten.clearValidators();
+        this.docForm.controls['mainten'].updateValueAndValidity();
+        this.docForm.controls.garTech.clearValidators();
+        this.docForm.controls['garTech'].updateValueAndValidity();
       }
+
+      if (event == 'Company') {
+        this.isCompany = true;
+          //company
+          this.docForm.controls.companyName.setValidators(Validators.required);
+          this.docForm.controls['companyName'].updateValueAndValidity();
+          this.docForm.controls.companyadd.setValidators(Validators.required);
+          this.docForm.controls['companyadd'].updateValueAndValidity();
+          this.docForm.controls.contactNo.setValidators(Validators.required);
+          this.docForm.controls['contactNo'].updateValueAndValidity(); 
+          this.docForm.controls.companysqft.setValidators;
+          this.docForm.controls['companysqft'].updateValueAndValidity();
+          this.docForm.controls.ownership.setValidators(Validators.required);
+          this.docForm.controls['ownership'].updateValueAndValidity(); 
+          this.docForm.controls.insured.setValidators;
+          this.docForm.controls['insured'].updateValueAndValidity();
+          this.docForm.controls.ceoName.setValidators;
+          this.docForm.controls['ceoName'].updateValueAndValidity();
+          this.docForm.controls.conpanytype.setValidators;
+          this.docForm.controls['conpanytype'].updateValueAndValidity();
+          this.docForm.controls.conpanydep.setValidators;
+          this.docForm.controls['conpanydep'].updateValueAndValidity();
+          this.docForm.controls.comregOnObj.setValidators(Validators.required);
+          this.docForm.controls['comregOnObj'].updateValueAndValidity();
+          this.docForm.controls.companyNetWorth.setValidators;
+          this.docForm.controls['companyNetWorth'].updateValueAndValidity();
+
+        
+        }else {
+        this.isCompany = false;
+        //house
+        this.docForm.controls.houseName.clearValidators();
+        this.docForm.controls['houseName'].updateValueAndValidity();
+        this.docForm.controls.residencialType.clearValidators();
+        this.docForm.controls['residencialType'].updateValueAndValidity();
+        this.docForm.controls.squareFeet.clearValidators();
+        this.docForm.controls['squareFeet'].updateValueAndValidity();
+        this.docForm.controls.constructedOnObj.clearValidators();
+        this.docForm.controls['constructedOnObj'].updateValueAndValidity();
+        this.docForm.controls.floor.clearValidators();
+        this.docForm.controls['floor'].updateValueAndValidity();
+        this.docForm.controls.underLoan.clearValidators();
+        this.docForm.controls['underLoan'].updateValueAndValidity();
+        this.docForm.controls.guidelineValue.clearValidators();
+        this.docForm.controls['guidelineValue'].updateValueAndValidity();
+        this.docForm.controls.currentValue.clearValidators();
+        this.docForm.controls['currentValue'].updateValueAndValidity();
+        this.docForm.controls.depVal.clearValidators();
+        this.docForm.controls['depVal'].updateValueAndValidity();
+        this.docForm.controls.houseTaxNo.clearValidators();
+        this.docForm.controls['houseTaxNo'].updateValueAndValidity();
+        //land  
+        this.docForm.controls.location.clearValidators();
+        this.docForm.controls['location'].updateValueAndValidity();
+        this.docForm.controls.area.clearValidators();
+        this.docForm.controls['area'].updateValueAndValidity();
+        this.docForm.controls.landType.clearValidators();
+        this.docForm.controls['landType'].updateValueAndValidity();
+        this.docForm.controls.landSqft.clearValidators();
+        this.docForm.controls['landSqft'].updateValueAndValidity();
+        this.docForm.controls.ecAvaliable.clearValidators();
+        this.docForm.controls['ecAvaliable'].updateValueAndValidity();
+        this.docForm.controls.landTaxNo.clearValidators();
+        this.docForm.controls['landTaxNo'].updateValueAndValidity();
+        this.docForm.controls.regNo.clearValidators();
+        this.docForm.controls['regNo'].updateValueAndValidity();
+        this.docForm.controls.landRegDateObj.clearValidators();
+        this.docForm.controls['landRegDateObj'].updateValueAndValidity();
+        this.docForm.controls.landRegDate.clearValidators();
+        this.docForm.controls['landRegDate'].updateValueAndValidity();
+        this.docForm.controls.source.clearValidators();
+        this.docForm.controls['source'].updateValueAndValidity();
+        this.docForm.controls.landGuidelineValue.clearValidators();
+        this.docForm.controls['landGuidelineValue'].updateValueAndValidity();
+        this.docForm.controls.marketValue.clearValidators();
+        this.docForm.controls['marketValue'].updateValueAndValidity();
+        //garden
+        this.docForm.controls.gardenName.clearValidators();
+        this.docForm.controls['gardenName'].updateValueAndValidity(); 
+        this.docForm.controls.gardenadd.clearValidators();
+        this.docForm.controls['gardenadd'].updateValueAndValidity();  
+        this.docForm.controls.gardenSQFT.clearValidators();
+        this.docForm.controls['gardenSQFT'].updateValueAndValidity();
+        this.docForm.controls.gardenlayout.clearValidators();
+        this.docForm.controls['gardenlayout'].updateValueAndValidity();
+        this.docForm.controls.gadregOnObj.clearValidators();
+        this.docForm.controls['gadregOnObj'].updateValueAndValidity();
+        this.docForm.controls.gardenF.clearValidators();
+        this.docForm.controls['gardenF'].updateValueAndValidity();
+        this.docForm.controls.mainten.clearValidators();
+        this.docForm.controls['mainten'].updateValueAndValidity();
+        this.docForm.controls.garTech.clearValidators();
+        this.docForm.controls['garTech'].updateValueAndValidity();
+        }
+
+        if (event == 'Garden') {
+          this.isGarden = true;
+          //garden
+          this.docForm.controls.gardenName.setValidators(Validators.required);
+          this.docForm.controls['gardenName'].updateValueAndValidity();
+          this.docForm.controls.gardenadd.setValidators(Validators.required);
+          this.docForm.controls['gardenadd'].updateValueAndValidity();
+          this.docForm.controls.gardenSQFT.setValidators;
+          this.docForm.controls['gardenSQFT'].updateValueAndValidity();
+          this.docForm.controls.gardenlayout.setValidators;
+          this.docForm.controls['gardenlayout'].updateValueAndValidity();
+          this.docForm.controls.gadregOnObj.setValidators(Validators.required);
+          this.docForm.controls['gadregOnObj'].updateValueAndValidity();
+          this.docForm.controls.gardenF.setValidators;
+          this.docForm.controls['gardenF'].updateValueAndValidity();
+          this.docForm.controls.mainten.setValidators;
+          this.docForm.controls['mainten'].updateValueAndValidity();
+          this.docForm.controls.garTech.setValidators;
+          this.docForm.controls['garTech'].updateValueAndValidity();
+        
+        }else {
+          this.isGarden = false;
+        //house
+        this.docForm.controls.houseName.clearValidators();
+        this.docForm.controls['houseName'].updateValueAndValidity();
+        this.docForm.controls.residencialType.clearValidators();
+        this.docForm.controls['residencialType'].updateValueAndValidity();
+        this.docForm.controls.squareFeet.clearValidators();
+        this.docForm.controls['squareFeet'].updateValueAndValidity();
+        this.docForm.controls.constructedOnObj.clearValidators();
+        this.docForm.controls['constructedOnObj'].updateValueAndValidity();
+        this.docForm.controls.floor.clearValidators();
+        this.docForm.controls['floor'].updateValueAndValidity();
+        this.docForm.controls.underLoan.clearValidators();
+        this.docForm.controls['underLoan'].updateValueAndValidity();
+        this.docForm.controls.guidelineValue.clearValidators();
+        this.docForm.controls['guidelineValue'].updateValueAndValidity();
+        this.docForm.controls.currentValue.clearValidators();
+        this.docForm.controls['currentValue'].updateValueAndValidity();
+        this.docForm.controls.depVal.clearValidators();
+        this.docForm.controls['depVal'].updateValueAndValidity();
+        this.docForm.controls.houseTaxNo.clearValidators();
+        this.docForm.controls['houseTaxNo'].updateValueAndValidity();
+        //land  
+        this.docForm.controls.location.clearValidators();
+        this.docForm.controls['location'].updateValueAndValidity();
+        this.docForm.controls.area.clearValidators();
+        this.docForm.controls['area'].updateValueAndValidity();
+        this.docForm.controls.landType.clearValidators();
+        this.docForm.controls['landType'].updateValueAndValidity();
+        this.docForm.controls.landSqft.clearValidators();
+        this.docForm.controls['landSqft'].updateValueAndValidity();
+        this.docForm.controls.ecAvaliable.clearValidators();
+        this.docForm.controls['ecAvaliable'].updateValueAndValidity();
+        this.docForm.controls.landTaxNo.clearValidators();
+        this.docForm.controls['landTaxNo'].updateValueAndValidity();
+        this.docForm.controls.regNo.clearValidators();
+        this.docForm.controls['regNo'].updateValueAndValidity();
+        this.docForm.controls.landRegDateObj.clearValidators();
+        this.docForm.controls['landRegDateObj'].updateValueAndValidity();
+        this.docForm.controls.landRegDate.clearValidators();
+        this.docForm.controls['landRegDate'].updateValueAndValidity();
+        this.docForm.controls.source.clearValidators();
+        this.docForm.controls['source'].updateValueAndValidity();
+        this.docForm.controls.landGuidelineValue.clearValidators();
+        this.docForm.controls['landGuidelineValue'].updateValueAndValidity();
+        this.docForm.controls.marketValue.clearValidators();
+        this.docForm.controls['marketValue'].updateValueAndValidity();
+        //Company
+        this.docForm.controls.companyName.clearValidators();
+        this.docForm.controls['companyName'].updateValueAndValidity();
+        this.docForm.controls.companyadd.clearValidators();
+        this.docForm.controls['companyadd'].updateValueAndValidity();
+        this.docForm.controls.contactNo.clearValidators();
+        this.docForm.controls['contactNo'].updateValueAndValidity();
+        this.docForm.controls.companysqft.clearValidators();
+        this.docForm.controls['companysqft'].updateValueAndValidity();
+        this.docForm.controls.ownership.clearValidators();
+        this.docForm.controls['ownership'].updateValueAndValidity();
+        this.docForm.controls.insured.clearValidators();
+        this.docForm.controls['insured'].updateValueAndValidity();
+        this.docForm.controls.ceoName.clearValidators();
+        this.docForm.controls['ceoName'].updateValueAndValidity();
+        this.docForm.controls.conpanytype.clearValidators();
+        this.docForm.controls['conpanytype'].updateValueAndValidity(); 
+        this.docForm.controls.comregOnObj.clearValidators();
+        this.docForm.controls['comregOnObj'].updateValueAndValidity();
+        this.docForm.controls.conpanydep.clearValidators();
+        this.docForm.controls['conpanydep'].updateValueAndValidity();
+        this.docForm.controls.companyNetWorth.clearValidators();
+        this.docForm.controls['companyNetWorth'].updateValueAndValidity();
+        }
+
    }
 
    loanFlag(event)
@@ -623,8 +952,6 @@ update(){
   
       if (event == 'YES') {
         this.isLoan = true;
-       
-
         this.docForm.controls.bankName.setValidators(Validators.required);
         this.docForm.controls['bankName'].updateValueAndValidity();
         this.docForm.controls.ifscCode.setValidators([Validators.required,Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')]);
@@ -703,7 +1030,6 @@ update(){
         
       }
    }
-
 
    keyPressNumeric(event: any) {
     const pattern = /[0-9]/;
