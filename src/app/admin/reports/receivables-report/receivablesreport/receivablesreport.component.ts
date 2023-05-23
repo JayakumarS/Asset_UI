@@ -90,19 +90,19 @@ export class ReceivablesreportComponent implements OnInit {
     paymentstatus:[""], 
     loginedUser:[this.tokenStorage.getUserId()],
       // Checkboxes Beans
-      assetTypeCheckBox:[],
-      debtorsNameCheckBox:[],
+      assetTypeCheckBox:[false],
+      debtorsnameCheckBox:[false],
       invoiceNumberCheckBox:[false],
-      invoiceDateCheckBox:[false],
-      modeofPaymentCheckBox:[false],
+      invoicedateCheckBox:[false],
+      modeofpaymentCheckBox:[false],
       amountCheckBox:[false],
       currencyCheckBox:[false],
       baddebtsCheckBox:[false],
       interestreceivableCheckBox:[false],
-      accountTypeCheckBox:[false],
-      paymentStatusCheckBox:[false],
+      accounttypeCheckBox:[false],
+      paymentstatusCheckBox:[false],
       duedateCheckBox:[false],
-      paymentReferenceCheckBox:[false]
+      paymentreferenceCheckBox:[false]
   
      })
     
@@ -250,51 +250,56 @@ export class ReceivablesreportComponent implements OnInit {
         }
 
         exportExcel(){
+
           this.receivablesreport = this.docForm.value;
           console.log(this.Receivablesreport);
+
           //For Excel Header Pushing in Array
-          if(this.receivablesreport.assettypeCheckBox ==true){
-            this.Receivablesreport.push("Assettype");
+          if(this.receivablesreport.assetTypeCheckBox ==true){
+            this.Receivablesreport.push("ASSET TYPE");
           }
           if(this.receivablesreport.debtorsnameCheckBox == true){
-            this.Receivablesreport.push("Debtorsname");
+            this.Receivablesreport.push("DEBTORS NAME");
           }
-          if(this.receivablesreport.invoicenumberCheckBox == true){
-            this.Receivablesreport.push("Invoice Number");
+          if(this.receivablesreport.invoiceNumberCheckBox == true){
+            this.Receivablesreport.push("INVOICE NUMBER");
           }
           if(this.receivablesreport.invoicedateCheckBox == true){
-            this.Receivablesreport.push("Invoice Date");
+            this.Receivablesreport.push("INVOICE DATE");
           }
           if(this.receivablesreport.modeofpaymentCheckBox == true){
-            this.Receivablesreport.push("Mode of payment");
+            this.Receivablesreport.push("MODE OF PAYMENT");
           }
           if(this.receivablesreport.amountCheckBox == true){
-            this.Receivablesreport.push("Amount");
+            this.Receivablesreport.push("AMOUNT");
           }
           if(this.receivablesreport.currencyCheckBox == true){
-            this.Receivablesreport.push("Currency");
+            this.Receivablesreport.push("CURRENCY");
           }
           if(this.receivablesreport.baddebtsCheckBox == true){
-            this.Receivablesreport.push("Bad Debts");
+            this.Receivablesreport.push("BAD DEBTS");
           }
           if(this.receivablesreport.interestreceivableCheckBox == true){
-            this.Receivablesreport.push("Interest Receivable");
+            this.Receivablesreport.push("INTEREST RECEIVABLE");
           }
           if(this.receivablesreport.accounttypeCheckBox == true){
-            this.Receivablesreport.push("Account Type");
+            this.Receivablesreport.push("ACCOUNT TYPE");
           }
         
           if(this.receivablesreport.paymentstatusCheckBox == true){
-            this.Receivablesreport.push("Payment Status");
+            this.Receivablesreport.push("PAYMENT STATUS");
           }
           if(this.receivablesreport.duedateCheckBox == true){
-            this.Receivablesreport.push("Due Date");
+            this.Receivablesreport.push("DUE DATE");
           }
           if(this.receivablesreport.paymentreferenceCheckBox == true){
-            this.Receivablesreport.push("Payment Reference");
+            this.Receivablesreport.push("PAYMENT REFERENCE");
           }
+
+
           console.log(this.Receivablesreport);
-          this.receivablesreport.ReceivableReportHeader = this.Receivablesreport;
+          
+          this.receivablesreport.receivablesExcelHistoryHeader = this.Receivablesreport;
           this.httpService.post<any>(this.reportsService.assetHistoryListExcelUrl,this.receivablesreport).subscribe(
             (data) => {
               if(data.success){

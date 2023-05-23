@@ -158,7 +158,7 @@
                             <label style="margin-top: 9px;">INVOICE DATE</label>
                         </div>
                         <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
-                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="invoiceDateCheckBox"
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="invoicedateCheckBox"
                           ngInit="checked=true"
                          ></mat-checkbox>
                         </div>
@@ -169,7 +169,7 @@
                             <label style="margin-top: 9px;">MODE OF PAYMENT</label>
                         </div>
                         <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
-                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="modeofPaymentCheckBox"
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="modeofpaymentCheckBox"
                           ngInit="checked=true"
                         ></mat-checkbox>
                         </div>
@@ -212,7 +212,7 @@
                             <label style="margin-top: 9px;">ACCOUNT TYPE</label>
                         </div>
                         <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
-                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="accountTypeCheckBox"
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="accounttypeCheckBox"
                           ngInit="checked=true"
                         ></mat-checkbox>
                         </div>
@@ -239,7 +239,7 @@
                             <label style="margin-top: 9px;">PAYMENT REFERENCE</label>
                         </div>
                         <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
-                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="paymentReferenceCheckBox"
+                          <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="paymentreferenceCheckBox"
                           ngInit="checked=true"
                         ></mat-checkbox>
                         </div>
@@ -252,13 +252,13 @@
                             <div class=" col-md-6">
                               <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 77%;">
                                 <button color="primary" type="button" class="btn-space" (click)="exportExcel()" 
-                                *ngIf="docForm.get('assetTypeCheckBox')?.value  || docForm.get('debtorsNameCheckBox')?.value || 
-                                docForm.get('invoiceNumberCheckBox')?.value || docForm.get('invoiceDateCheckBox')?.value || 
-                                docForm.get('modeofPaymentCheckBox')?.value || docForm.get('amountCheckBox')?.value || 
+                                *ngIf="docForm.get('assetTypeCheckBox')?.value  || docForm.get('debtorsnameCheckBox')?.value || 
+                                docForm.get('invoiceNumberCheckBox')?.value || docForm.get('invoicedateCheckBox')?.value || 
+                                docForm.get('modeofpaymentCheckBox')?.value || docForm.get('amountCheckBox')?.value || 
                                 docForm.get('currencyCheckBox')?.value || docForm.get('baddebtsCheckBox')?.value || 
-                                docForm.get('interestreceivableCheckBox')?.value || docForm.get('accountTypeCheckBox')?.value || 
+                                docForm.get('interestreceivableCheckBox')?.value || docForm.get('accounttypeCheckBox')?.value || 
                                 docForm.get('paymentStatusCheckBox')?.value || docForm.get('duedateCheckBox')?.value 
-                                || docForm.get('paymentReferenceCheckBox')?.value"
+                                || docForm.get('paymentreferenceCheckBox')?.value"
                                 
                                 mat-raised-button>Export To Excel</button>
                               </div>

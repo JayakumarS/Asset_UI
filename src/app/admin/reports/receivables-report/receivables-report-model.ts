@@ -4,12 +4,12 @@ export class Receivablesreport{
   currency:any;
   accounttype:any;
   paymentstatus:any;
- paymentreference:any;
- ReceivableReportHeader:any;
+  paymentreference:any;
+
    //checkbox beans
-  assettypeCheckBox:boolean;
+   assetTypeCheckBox:boolean;
   debtorsnameCheckBox:boolean;
-  invoicenumberCheckBox:boolean;
+  invoiceNumberCheckBox:boolean;
   invoicedateCheckBox:boolean;
   modeofpaymentCheckBox:boolean;
   amountCheckBox:boolean;
@@ -21,6 +21,8 @@ export class Receivablesreport{
   duedateCheckBox:boolean;
   paymentreferenceCheckBox:boolean;
   
+  receivablesExcelHistoryHeader:any;
+
  
 
     constructor(receivablesreport) {
@@ -28,17 +30,26 @@ export class Receivablesreport{
         this.getRandomID();
         this.assettype = receivablesreport.assettype || "";
         this.debtorsname = receivablesreport.debtorsname || "";
-        this.invoicenumberCheckBox = receivablesreport.invoicenumberCheckBox || "";
-        this.invoicedateCheckBox = receivablesreport.invoicedateCheckBox || "";
-        this.modeofpaymentCheckBox = receivablesreport.modeofpaymentCheckBox || "";
         this.currency = receivablesreport.currency || "";
-        this.baddebtsCheckBox = receivablesreport.baddebtsCheckBox || "";
-        this.interestreceivableCheckBox = receivablesreport.interestreceivableCheckBox || "";
         this.accounttype = receivablesreport.accounttype || "";
         this.paymentstatus = receivablesreport.paymentstatus || "";
-        this.duedateCheckBox = receivablesreport.duedateCheckBox || "";
         this.paymentreference = receivablesreport.paymentreference || "";
-        
+        this.duedateCheckBox = receivablesreport.duedateCheckBox || "";
+
+
+        this.assetTypeCheckBox = receivablesreport.assetTypeCheckBox || "";
+        this.invoiceNumberCheckBox = receivablesreport.invoiceNumberCheckBox || "";
+        this.invoicedateCheckBox = receivablesreport.invoicedateCheckBox || "";
+        this.modeofpaymentCheckBox = receivablesreport.modeofpaymentCheckBox || "";
+        this.debtorsnameCheckBox = receivablesreport.debtorsnameCheckBox || "";
+        this.amountCheckBox = receivablesreport.amountCheckBox || "";
+        this.currencyCheckBox = receivablesreport.currencyCheckBox || "";
+        this.baddebtsCheckBox = receivablesreport.baddebtsCheckBox || "";
+        this.interestreceivableCheckBox = receivablesreport.interestreceivableCheckBox || "";
+        this.accounttypeCheckBox = receivablesreport.accounttypeCheckBox || "";
+        this.paymentstatusCheckBox = receivablesreport.paymentstatusCheckBox || "";
+        this.paymentreferenceCheckBox = receivablesreport.paymentreferenceCheckBox || "";
+
     }
 }
 
