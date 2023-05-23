@@ -197,19 +197,19 @@ export class ReceivablesreportComponent implements OnInit {
             paymentstatus:[""], 
             loginedUser:[this.tokenStorage.getUserId()],
 
-              assetTypeCheckBox:[false],
-              debtorsNameCheckBox:[false],
-              invoiceNumberCheckBox:[false],
-              invoiceDateCheckBox:[false],
-              modeofPaymentCheckBox:[false],
-              amountCheckBox:[false],
-              currencyCheckBox:[false],
-              baddebtsCheckBox:[false],
-              interestreceivableCheckBox:[false],
-              accountTypeCheckBox:[false],
-              paymentStatusCheckBox:[false],
-              duedateCheckBox:[false],
-              paymentReferenceCheckBox:[false]
+            assetTypeCheckBox:[false],
+            debtorsnameCheckBox:[false],
+            invoiceNumberCheckBox:[false],
+            invoicedateCheckBox:[false],
+            modeofpaymentCheckBox:[false],
+            amountCheckBox:[false],
+            currencyCheckBox:[false],
+            baddebtsCheckBox:[false],
+            interestreceivableCheckBox:[false],
+            accounttypeCheckBox:[false],
+            paymentstatusCheckBox:[false],
+            duedateCheckBox:[false],
+            paymentreferenceCheckBox:[false]
              })
             }
 

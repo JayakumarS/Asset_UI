@@ -20,6 +20,7 @@ export class JewelReport{
      bankNameCheckBox:boolean;
      lockerSizeCheckbox:boolean;
      lockerRentCheckBox:boolean;
+     
      jewelExcelHistoryHeader:any;
 
 constructor(jewelReport) {
