@@ -30,7 +30,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
   ]
 })
 export class LoanReportComponent implements OnInit {
-
+  panelOpenState = false;
   docForm: FormGroup;
   requestId:any;
   edit: boolean = false;
