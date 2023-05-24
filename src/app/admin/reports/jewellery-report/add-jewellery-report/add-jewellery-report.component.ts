@@ -22,7 +22,7 @@ import { JewelleryReportResultBean } from '../jewellery-report-result-bean';
   styleUrls: ['./add-jewellery-report.component.sass']
 })
 export class AddJewelleryReportComponent implements OnInit {
-
+  panelOpenState = false;
   docForm: FormGroup;
 
 
