@@ -21,13 +21,10 @@ export class PropertyReportService {  isTblLoading = true;
   
 
     }
-    public assettype = `${this.serverUrl.apiServerAddress}app/loanreceivables/getassettype`;
-    public debtorsname = `${this.serverUrl.apiServerAddress}app/loanreceivables/getdebtorsname`;
-    public paymentreference = `${this.serverUrl.apiServerAddress}app/loanreceivables/getpaymentreference`;
-    public accounttype = `${this.serverUrl.apiServerAddress}app/loanreceivables/getaccounttype`;
-    public currency = `${this.serverUrl.apiServerAddress}app/loanreceivables/getcurrency`;
-    public paymentstatus = `${this.serverUrl.apiServerAddress}app/loanreceivables/getpaymentstatus`;
-    public receivablesreportListUrl = `${this.serverUrl.apiServerAddress}app/loanreceivables/getReceivablesreport`;
+   
+    public propertyreportListUrl = `${this.serverUrl.apiServerAddress}app/property/getpropertyHistoryList`;
+    public exportExcel = `${this.serverUrl.apiServerAddress}app/property/excelExport`;
+
     get data(): Property[] {
       return this.dataChange.value;
     }

@@ -13,76 +13,139 @@
                                 <h5 style="color: rgb(10, 25, 109);">Required Filters to Search</h5><br>
                                 <div class="row" style="padding-left: 10%;">
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 11px;">LOAN-HOLDER NAME</label>
+                                        <label style="margin-top: 11px;">PROPERTY TYPE</label>
                                     </div>
                                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-select formControlName="name">
-                                                <!-- <mat-option *ngFor="let title of branchList" [value]="title.id">
-                                                  {{title.text}}
-                                                </mat-option> -->
+                                            <mat-select formControlName="propertyType">
+                                                <mat-option [value]="'House'">
+                                                    House/Building
+                                                   </mat-option>
+                                                   <mat-option [value]="'Land'">
+                                                     Land
+                                                   </mat-option>
+                                                   <mat-option [value]="'Company'">
+                                                     Company
+                                                   </mat-option>
+                                                   <mat-option [value]="'Garden'">
+                                                     Garden
+                                                   </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 11px;">LOAN REFERENCE</label>
+                                        <label style="margin-top: 11px;">RESIDENCIAL TYPE</label>
                                     </div>
                                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-select tabindex="6" formControlName="loanRef" >
-                                                <!-- <mat-option *ngFor="let title of categoryList" [value]="title.id">
-                                                    {{title.text}}
-                                                </mat-option> -->
+                                            <mat-select tabindex="6" formControlName="residencialType" >
+                                                <mat-option [value]="'Villa'">
+                                                    Villa
+                                                  </mat-option>
+                                                  <mat-option [value]="'Apartment'">
+                                                    Apartment
+                                                  </mat-option>
+                                                  <mat-option [value]="'Individual'">
+                                                    Individual
+                                                  </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 11px;">LOAN TYPE</label>
+                                        <label style="margin-top: 11px;">COMPANY TYPE</label>
                                     </div>
                                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-select formControlName="type">
-                                                <!-- <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
-                                                  {{title.text}}
-                                                </mat-option> -->
+                                            <mat-select formControlName="conpanytype">
+                                                <mat-option [value]="'ONE PERSON COMPANY'">
+                                                    ONE PERSON COMPANY
+                                                   </mat-option>
+                                                   <mat-option [value]="'PRIVATE LIMITED COMPANY'">
+                                                     PRIVATE LIMITED COMPANY
+                                                   </mat-option>
+                                                   <mat-option [value]="'PUBLIC LIMITED COMPANY'">
+                                                     PUBLIC LIMITED COMPANY
+                                                   </mat-option>
+                                                   <mat-option [value]="'PARTNERSHIP'">
+                                                     PARTNERSHIP
+                                                   </mat-option>
+                                                   <mat-option [value]="'CORPORATION'">
+                                                     CORPORATION
+                                                   </mat-option>
+                                                   <mat-option [value]="'LIMITED LIABILITY COMPANY'">
+                                                     LIMITED LIABILITY COMPANY
+                                                   </mat-option>
+                                                   <mat-option [value]="'JOINT-STOCK COMPANY'">
+                                                     JOINT-STOCK COMPANY
+                                                   </mat-option>
+                                                   <mat-option [value]="'COOPERATIVE COMPANY'">
+                                                     COOPERATIVE COMPANY
+                                                   </mat-option>
+                                                   <mat-option [value]="'SUBSIDIARY COMPANY'">
+                                                     SUBSIDIARY COMPANY
+                                                   </mat-option>
+                                                   <mat-option [value]="'OTHERS'">
+                                                     OTHERS
+                                                   </mat-option>
                                               </mat-select>
                                         </mat-form-field>
                                     </div>
                                 </div>
                                 <div class="row" style="padding-left: 10%;">
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 11px;">CURRENCY</label>
+                                        <label style="margin-top: 11px;">GARDEN LAYOUT</label>
                                     </div>
                                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-select formControlName="currencyl">
-                                                <!-- <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
-                                                  {{title.text}}
-                                                </mat-option> -->
+                                            <mat-select formControlName="gardenLayout">
+                                                <mat-option [value]="'FORMAL'">
+                                                    FORMAL
+                                                   </mat-option>
+                                                   <mat-option [value]="'INFORMAL'">
+                                                     INFORMAL
+                                                   </mat-option>
+                                                   <mat-option [value]="'GEOMETRIC'">
+                                                     GEOMETRIC
+                                                   </mat-option>
+                                                   <mat-option [value]="'NATURAL'">
+                                                     NATURAL
+                                                   </mat-option>
                                               </mat-select>
                                         </mat-form-field>
                                     </div>
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 11px;">BANK NAME</label>
+                                        <label style="margin-top: 11px;">OWNERSHIP</label>
                                     </div>
                                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-select formControlName="bankname">
-                                                <!-- <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
-                                                  {{title.text}}
-                                                </mat-option> -->
+                                            <mat-select formControlName="ownership">
+                                                <mat-option [value]="'OWNERED'">
+                                                    OWNERED
+                                                   </mat-option>
+                                                   <mat-option [value]="'LEASED'">
+                                                     LEASED
+                                                   </mat-option>
+                                                   <mat-option [value]="'RENTED'">
+                                                     RENTED
+                                                   </mat-option>
                                               </mat-select>
                                         </mat-form-field>
                                     </div>
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 11px;">BANK IFSC</label>
+                                        <label style="margin-top: 11px;">GARDEN TECHNIQUES</label>
                                     </div>
                                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 " >
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                            <mat-select formControlName="ifsccode">
-                                                <!-- <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
-                                                  {{title.text}}
-                                                </mat-option> -->
+                                            <mat-select formControlName="garTech">
+                                                <mat-option [value]="'ORGANIC'">
+                                                    ORGANIC
+                                                  </mat-option>
+                                                  <mat-option [value]="'COMPANION PLANTING'">
+                                                    COMPANION PLANTING
+                                                  </mat-option>
+                                                  <mat-option [value]="'RAISED BED GARDENING'">
+                                                    RAISED BED GARDENING
+                                                  </mat-option>
                                               </mat-select>
                                         </mat-form-field>
                                     </div>
@@ -95,38 +158,116 @@
                                     </div>
                                 </div>
                                 <hr><br>
-                                <h5 style="color: rgb(10, 25, 109);">Required Columns in Excel Export <span style="color: red;">*</span></h5><br>
+                                <mat-accordion>
+                                <mat-expansion-panel (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false">
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      <h5 style="color: rgb(10, 25, 109);">Required Columns in Excel Export <span style="color: red;">*</span></h5>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                      Export To Excel {{panelOpenState ? 'open' : 'closed'}}
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
                                 
                                 <div class="row">
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 9px;">LOAN-HOLDER NAME</label>
+                                        <label style="margin-top: 9px;">PROPERTY TYPE</label>
                                     </div>
                                     <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
-                                        <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="nameCheckbox"
+                                        <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="propertyTypeCheckbox"
                                          ngInit="checked=true"></mat-checkbox>
                                     </div>
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 9px;">EMAIL-ID</label>
+                                        <label style="margin-top: 9px;">RESIDENCIAL TYPE</label>
                                     </div>
                                     <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
-                                      <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="mailCheckBox" 
+                                      <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="residencialTypeCheckBox" 
                                        ngInit="checked=true"></mat-checkbox>
                                     </div>
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 9px;">LOAN REFERENCE</label>
+                                        <label style="margin-top: 9px;">COMPANY TYPE</label>
                                     </div>
                                     <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
-                                      <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="loanRefCheckBox" 
+                                      <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="conpanytypeCheckBox" 
                                        ngInit="checked=true"></mat-checkbox>
                                     </div>
                                     <div class=" col-md-2">
-                                        <label style="margin-top: 9px;">ASSET CODE</label>
+                                        <label style="margin-top: 9px;">GARDEN LAYOUT</label>
                                     </div>
                                     <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
-                                      <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="assetCodeCheckBox" 
+                                      <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="gardenLayoutCodeCheckBox" 
                                        ngInit="checked=true"></mat-checkbox>
                                     </div>
+
+                                    <div class=" col-md-2">
+                                      <label style="margin-top: 9px;">OWNERSHIP</label>
+                                  </div>
+                                  <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                    <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="ownershipCheckBox" 
+                                     ngInit="checked=true"></mat-checkbox>
+                                  </div>
+
+                                  <div class=" col-md-2">
+                                    <label style="margin-top: 9px;">GARDEN TECHNIQUES</label>
                                 </div>
+                                <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                  <mat-checkbox style="margin-top: 6px;margin-left: -50px;" formControlName="garTechCheckBox" 
+                                   ngInit="checked=true"></mat-checkbox>
+                                </div>
+                                    
+                                  </div>
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                           <hr>          
+                <div class="row">
+                  <div class=" col-md-6">
+                      <h5 style="color: rgb(10, 25, 109);">Filters based Mutualfund List</h5>
+                  </div>
+                  <div class=" col-md-6">
+                    <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 77%;">
+                      <button color="primary" type="button" class="btn-space" (click)="exportExcel()" 
+                      *ngIf="docForm.get('propertyTypeCheckbox')?.value || docForm.get('residencialTypeCheckBox')?.value || 
+                      docForm.get('conpanytypeCheckBox')?.value || docForm.get('gardenLayoutCodeCheckBox')?.value ||
+                      docForm.get('ownershipCheckBox')?.value || docForm.get('garTechCheckBox')?.value "  
+                      
+                      mat-raised-button>Export To Excel</button>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="tableBody">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped" style="width: 130%;">
+                      <thead>
+                        <tr>
+                          <th style="background-color:#607D8B; color:#FFFFFF">PROPERTY TYPE</th>
+                          <th style="background-color:#607D8B; color:#FFFFFF">RESIDENCIAL TYPE</th>
+                          <th style="background-color:#607D8B; color:#FFFFFF">COMPANY TYPE</th>
+                          <th style="background-color:#607D8B; color:#FFFFFF">GARDEN LAYOUT</th>
+                          <th style="background-color:#607D8B; color:#FFFFFF">OWNERSHIP</th>
+                          <th style="background-color:#607D8B; color:#FFFFFF">GARDEN TECHNIQUES</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of   propertyHistoryList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
+                          <td>{{data.propertyType}}</td>
+                          <td>{{data.residencialType}}</td>
+                          <td>{{data.conpanytype}}</td>
+                          <td>{{data.gardenLayout}}</td>
+                          <td>{{data.ownership}}</td>
+                          <td>{{data.garTech}}</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="margin-left: 40%;">
+                      <pagination-controls (pageChange)="pageChanged=($event)"></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+                
+              
                             
                             
                             </form>
