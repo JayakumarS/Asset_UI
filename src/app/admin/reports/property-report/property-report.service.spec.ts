@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-
 import { PropertyReportService } from './property-report.service';
+
 
 describe('PropertyReportService', () => {
   let service: PropertyReportService;

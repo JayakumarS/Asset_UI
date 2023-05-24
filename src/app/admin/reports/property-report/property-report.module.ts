@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PropertyReportRoutingModule } from './property-report-routing.module';
-import { PropertyReportsComponent } from './property-reports/property-reports.component';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -27,11 +25,13 @@ import { MatDialogModule } from '@angular/material/dialog/dialog-module';
 import { MatSortModule } from '@angular/material/sort/sort-module';
 import { MatMenuModule } from '@angular/material/menu/menu-module';
 import { MatToolbarModule } from '@angular/material/toolbar/toolbar-module';
+import { PropertyReportComponent } from './property-report/property-report.component';
+import { PropertyReportRoutingModule } from './property-report-routing.module';
 
 
 @NgModule({
   declarations: [
-    PropertyReportsComponent
+    PropertyReportComponent
   ],
   imports: [
     CommonModule,
