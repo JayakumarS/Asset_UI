@@ -86,12 +86,12 @@ const routes: Routes = [
     import("./receivables-report/receivables-report.module").then((m)=>m.ReceivablesReportModule)
 },
 
-// {
-//   path: "property-report",
-//   loadChildren: () =>
-//   import("./property-report/property-report.module").then((m)=>m.PropertyReportModule)
+{
+  path: "property-report",
+  loadChildren: () =>
+  import("./property-report/property-report.module").then((m)=>m.PropertyReportModule)
 
-// },
+},
 
 ];
 
