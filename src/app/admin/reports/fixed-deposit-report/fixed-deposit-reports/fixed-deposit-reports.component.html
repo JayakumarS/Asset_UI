@@ -87,8 +87,18 @@
                                     </div>
                                 </div>
                                 <hr><br>
-                                <h5 style="color: rgb(10, 25, 109);">Required Columns in Excel Export <span style="color: red;">*</span></h5><br>
-                                
+                                 <!-- <h5 style="color: rgb(10, 25, 109);"><span style="color: red;">*</span></h5><br> -->
+                                 <mat-accordion>
+                                    <mat-expansion-panel (opened)="panelOpenState = true"
+                                    (closed)="panelOpenState = false">
+                                      <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                          <h5 style="color: rgb(10, 25, 109);">Required Columns in Excel Export <span style="color: red;">*</span></h5>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                          Export To Excel {{panelOpenState ? 'open' : 'closed'}}
+                                        </mat-panel-description>
+                                      </mat-expansion-panel-header>
                                 <div class="row">
                                     <div class=" col-md-2">
                                         <label style="margin-top: 9px;">FD-HOLDER NAME</label>
@@ -203,7 +213,8 @@
                                          ngInit="checked=true"></mat-checkbox>
                                       </div>
                                 </div><br>
-
+                            </mat-expansion-panel>
+                        </mat-accordion>
                                 <hr>
                                 <br>
                                 <div class="row">

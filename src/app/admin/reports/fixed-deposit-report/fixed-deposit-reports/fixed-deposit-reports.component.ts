@@ -37,6 +37,7 @@ import { MutualFundService } from 'src/app/master/mutualfund/mutualfund.service'
 })
 
 export class FixedDepositReportsComponent implements OnInit {
+  panelOpenState = false;
   UserId:string;
   docForm: FormGroup;
   fdHistoryList = [];
