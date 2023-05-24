@@ -13,60 +13,13 @@
               <form class="m-4" [formGroup]="docForm">
                 <h5 style="color: rgb(10, 25, 109);">Required Filters to Search</h5><br>
                 <div class="row" style="padding-left: 10%;">
-                    <!-- <div class=" col-md-1">
-                        <label style="margin-top: 11px;">ASSET TYPE</label>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-select formControlName="assettype">
-                                <mat-option *ngFor="let title of assettypeDdList" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> -->
-                    <!-- <div class=" col-md-2">
-                        <label style="margin-top: 11px;">DEBTORS NAME</label>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-select formControlName="debtorsname">
-                                <mat-option *ngFor="let title of debtorsnameDdList" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> -->
-                    <!-- <div class=" col-md-2">
-                        <label style="margin-top: 11px;">PAYMENT REFERENCE</label>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-select formControlName="paymentreference">
-                                <mat-option *ngFor="let title of paymentreferenceDdList" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div> -->
                    <br> 
                     <div class=" col-md-1">
                         <label style="margin-top: 11px;">ACCOUNT TYPE</label>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 ">
-                        <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-select formControlName="accounttype">
-                                <mat-option *ngFor="let title of accounttypeDdList" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field> -->
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <!-- <mat-select formControlName="accounttype" required>
-                          <mat-option [value]="'1'">Trade/Receivable A/C</mat-option>
-                          <mat-option [value]="'2'">Notes Receivable</mat-option>
-                          </mat-select> -->
-                          <mat-select  formControlName="accounttype"  >
+                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-select  formControlName="accounttype"  >
                            <mat-option [value]="'Trade Receivable A/C'">
                              Trade Receivables A/C
                              </mat-option>
@@ -127,10 +80,20 @@
                           <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
                         </div>
                       </div>
-
                       <hr><br>
-                      <h5 style="color: rgb(10, 25, 109);">Required Columns in Excel Export <span style="color: red;">*</span></h5><br>
-                      <div class="row">
+                      <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false">
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              <h5 style="color: rgb(10, 25, 109);">Required Columns in Excel Export</h5>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                             {{panelOpenState ? 'Hide' : 'Expand'}} Export To Excel Columns
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                     
+                          <div class="row">
                         <div class=" col-md-2">
                             <label style="margin-top: 9px;">ASSET TYPE</label>
                           </div>
@@ -243,8 +206,11 @@
                           ngInit="checked=true"
                         ></mat-checkbox>
                         </div>
-                         </div>
-                         <hr><br>
+                         </div><br>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                      <hr>
+                      <br>
                          <div class="row">
                             <div class=" col-md-6">
                                 <h5 style="color: rgb(10, 25, 109);">Filters based Asset History List</h5>
@@ -252,14 +218,13 @@
                             <div class=" col-md-6">
                               <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 77%;">
                                 <button color="primary" type="button" class="btn-space" (click)="exportExcel()" 
-                                *ngIf="docForm.get('assetTypeCheckBox')?.value  || docForm.get('debtorsnameCheckBox')?.value || 
+                                *ngIf="docForm.get('assetTypeCheckBox')?.value  || docForm.get('debtorsNameCheckBox')?.value || 
                                 docForm.get('invoiceNumberCheckBox')?.value || docForm.get('invoicedateCheckBox')?.value || 
                                 docForm.get('modeofpaymentCheckBox')?.value || docForm.get('amountCheckBox')?.value || 
                                 docForm.get('currencyCheckBox')?.value || docForm.get('baddebtsCheckBox')?.value || 
                                 docForm.get('interestreceivableCheckBox')?.value || docForm.get('accounttypeCheckBox')?.value || 
                                 docForm.get('paymentStatusCheckBox')?.value || docForm.get('duedateCheckBox')?.value 
                                 || docForm.get('paymentreferenceCheckBox')?.value"
-                                
                                 mat-raised-button>Export To Excel</button>
                               </div>
                             </div>
@@ -305,9 +270,12 @@
                                       </tr>
                                     </tbody>
                                     </table>
+                                      <div style="margin-left: 40%;">
+                                            <pagination-controls (pageChange)="pageChanged=($event)"></pagination-controls>
+                                        </div>
                                     </div>
                                     </div>
-                    </form>
+                                  </form>
                     </div>
                     </div>
                     </div>

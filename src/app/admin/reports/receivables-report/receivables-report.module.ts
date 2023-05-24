@@ -27,6 +27,7 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatRadioModule,
     NgxPaginationModule,
     MatPaginatorModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatExpansionModule,
   ]
 })
 export class ReceivablesReportModule { }

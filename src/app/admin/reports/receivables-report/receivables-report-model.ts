@@ -8,7 +8,7 @@ export class Receivablesreport{
 
    //checkbox beans
    assetTypeCheckBox:boolean;
-  debtorsnameCheckBox:boolean;
+   debtorsNameCheckBox:boolean;
   invoiceNumberCheckBox:boolean;
   invoicedateCheckBox:boolean;
   modeofpaymentCheckBox:boolean;
@@ -17,7 +17,7 @@ export class Receivablesreport{
   baddebtsCheckBox:boolean;
   interestreceivableCheckBox:boolean;
   accounttypeCheckBox:boolean;
-  paymentstatusCheckBox:boolean;
+  paymentStatusCheckBox:boolean;
   duedateCheckBox:boolean;
   paymentreferenceCheckBox:boolean;
   
@@ -41,13 +41,13 @@ export class Receivablesreport{
         this.invoiceNumberCheckBox = receivablesreport.invoiceNumberCheckBox || "";
         this.invoicedateCheckBox = receivablesreport.invoicedateCheckBox || "";
         this.modeofpaymentCheckBox = receivablesreport.modeofpaymentCheckBox || "";
-        this.debtorsnameCheckBox = receivablesreport.debtorsnameCheckBox || "";
+        this.debtorsNameCheckBox = receivablesreport.debtorsNameCheckBox || "";
         this.amountCheckBox = receivablesreport.amountCheckBox || "";
         this.currencyCheckBox = receivablesreport.currencyCheckBox || "";
         this.baddebtsCheckBox = receivablesreport.baddebtsCheckBox || "";
         this.interestreceivableCheckBox = receivablesreport.interestreceivableCheckBox || "";
         this.accounttypeCheckBox = receivablesreport.accounttypeCheckBox || "";
-        this.paymentstatusCheckBox = receivablesreport.paymentstatusCheckBox || "";
+        this.paymentStatusCheckBox = receivablesreport.paymentStatusCheckBox || "";
         this.paymentreferenceCheckBox = receivablesreport.paymentreferenceCheckBox || "";
 
     }

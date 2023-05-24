@@ -17,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-receivablesreport',
-  templateUrl: './receivablesreport.component.html',
+  templateUrl:'./receivablesreport.component.html',
   styleUrls: ['./receivablesreport.component.sass'],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
@@ -65,6 +65,10 @@ export class ReceivablesreportComponent implements OnInit {
   accounttypeDdList: [];
   currencyDdList: [];
   paymentstatusDdList:[];
+  // arrowMarkUP: boolean=false;
+  // visibleFlag:boolean=true;
+  // arrowMarkDown:boolean=true;
+  panelOpenState = false;
   
 
     // Array for Excel Header
@@ -91,7 +95,7 @@ export class ReceivablesreportComponent implements OnInit {
     loginedUser:[this.tokenStorage.getUserId()],
       // Checkboxes Beans
       assetTypeCheckBox:[false],
-      debtorsnameCheckBox:[false],
+      debtorsNameCheckBox:[false],
       invoiceNumberCheckBox:[false],
       invoicedateCheckBox:[false],
       modeofpaymentCheckBox:[false],
@@ -100,7 +104,7 @@ export class ReceivablesreportComponent implements OnInit {
       baddebtsCheckBox:[false],
       interestreceivableCheckBox:[false],
       accounttypeCheckBox:[false],
-      paymentstatusCheckBox:[false],
+      paymentStatusCheckBox:[false],
       duedateCheckBox:[false],
       paymentreferenceCheckBox:[false]
   
@@ -185,6 +189,7 @@ export class ReceivablesreportComponent implements OnInit {
           console.log(error.name + " " + error.message);
         }
       );
+      // this.Invisible(event);
          }
          reset () {
           location.reload()
@@ -198,7 +203,7 @@ export class ReceivablesreportComponent implements OnInit {
             loginedUser:[this.tokenStorage.getUserId()],
 
             assetTypeCheckBox:[false],
-            debtorsnameCheckBox:[false],
+            debtorsNameCheckBox:[false],
             invoiceNumberCheckBox:[false],
             invoicedateCheckBox:[false],
             modeofpaymentCheckBox:[false],
@@ -258,7 +263,7 @@ export class ReceivablesreportComponent implements OnInit {
           if(this.receivablesreport.assetTypeCheckBox ==true){
             this.Receivablesreport.push("ASSET TYPE");
           }
-          if(this.receivablesreport.debtorsnameCheckBox == true){
+          if(this.receivablesreport.debtorsNameCheckBox == true){
             this.Receivablesreport.push("DEBTORS NAME");
           }
           if(this.receivablesreport.invoiceNumberCheckBox == true){
@@ -286,7 +291,7 @@ export class ReceivablesreportComponent implements OnInit {
             this.Receivablesreport.push("ACCOUNT TYPE");
           }
         
-          if(this.receivablesreport.paymentstatusCheckBox == true){
+          if(this.receivablesreport.paymentStatusCheckBox == true){
             this.Receivablesreport.push("PAYMENT STATUS");
           }
           if(this.receivablesreport.duedateCheckBox == true){
@@ -325,7 +330,25 @@ export class ReceivablesreportComponent implements OnInit {
        pageChanged(event){
           this.config.currentPage = event;
         }
-        }
+
+        // visible(event:any){
+        //   if(event != null ){
+        //    this.visibleFlag=true;
+        //    this.arrowMarkUP=true;
+        //    this.arrowMarkDown=false;
+        //   }else{
+        //     this.visibleFlag=false;
+        //   }
+
+        // }
+        // Invisible(event:any){
+        //   if(event !=null||event!=""||event !=undefined){
+        //    this.visibleFlag=false;
+        //    this.arrowMarkDown=true;
+        //    this.arrowMarkUP=false;
+        //   }
+        // }
+      }
 
         
   
