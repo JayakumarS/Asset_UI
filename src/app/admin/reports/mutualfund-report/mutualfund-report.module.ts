@@ -30,6 +30,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 // Pagination
 import { NgxPaginationModule } from 'ngx-pagination'
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -64,8 +65,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         MatRadioModule,
         NgxPaginationModule,
         MatPaginatorModule,
-        MatAutocompleteModule
-        
+        MatAutocompleteModule,
+        MatExpansionModule,
     ]
 })
 export class MutualfundReportModule { }

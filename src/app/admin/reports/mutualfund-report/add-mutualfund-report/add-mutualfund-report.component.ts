@@ -29,7 +29,7 @@ export class AddMutualfundReportComponent implements OnInit {
   mutualfundReport:MutualfundReport;
   UserId:string;
   mutualfundList =[];
-
+  panelOpenState = false;
 
   // fundType=[];
   // modeOfInvestment=[];
