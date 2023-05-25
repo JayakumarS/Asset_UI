@@ -18,6 +18,7 @@ export class Property {
     id:number;
     rentalType:string;
     propertyType:string;
+    residencialType:string;
 
 
     // residencialType:string;

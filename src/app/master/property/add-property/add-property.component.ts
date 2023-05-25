@@ -60,6 +60,9 @@ export class AddPropertyComponent implements OnInit {
   landFlag: boolean = false;
   isCompany: boolean;
   isGarden: boolean;
+  isVilla: boolean;
+  isApartment: boolean;
+  isIndividual: boolean;
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -80,7 +83,7 @@ export class AddPropertyComponent implements OnInit {
        currentValue:[""],
        depVal:[""],
        landTaxNo:[""],
-       loan:["", [Validators.required]],
+       loan:["",[Validators.required]],
        loanNo:[""],
        emiDate:[""],
        emiDateObj:[""],
@@ -167,6 +170,11 @@ export class AddPropertyComponent implements OnInit {
        gardenF:[""],
        mainten:[""],
        garTech:[""],
+
+
+       //villa
+       swpool:[""],
+       parking:[""],
        
       //  rentType:[""],
       //  propertyHolderName:["", [Validators.required]],
@@ -325,6 +333,9 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
        garTech:[""],
        companyNetWorth:[""],
 
+       swpool:[""],
+       parking:[""],
+
 
 
    });
@@ -357,6 +368,8 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
       this.houseFlag(res.propertyBean.propertyType);
       this.loanFlag(res.propertyBean.loan);
       this.rentalFlag(res.propertyBean.rentalType);
+      this.htypeFlag(res.propertyBean.residencialType);
+    
       // this.getHouse(res.propertyBean.rentalType);
 
 
@@ -465,6 +478,9 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'gardenF':res.propertyBean.gardenF,
         'mainten':res.propertyBean.mainten,
         'garTech':res.propertyBean.garTech,
+
+        'swpool':res.propertyBean.swpool,
+        'parking':res.propertyBean.parking,
     });
   },
   error: (error) => {
@@ -1037,6 +1053,38 @@ if (inputFlag == 'gadregOn') {
         this.docForm.controls['taxNo'].updateValueAndValidity();
         
       }
+   }
+   htypeFlag(event){
+    if (event == 'Villa') {
+      this.isVilla = true; 
+
+      this.docForm.controls.swpool.setValidators;
+      this.docForm.controls['swpool'].updateValueAndValidity();
+      this.docForm.controls.parking.setValidators;
+      this.docForm.controls['parking'].updateValueAndValidity();
+    }
+    else {
+      this.isVilla = false;
+
+    }
+
+    if (event == 'Apartment') {
+      this.isApartment = true;
+      
+
+    }
+    else {
+      this.isApartment = false;
+    }
+
+    if (event == 'Individual') {
+      this.isIndividual = true;
+      
+
+    }
+    else {
+      this.isIndividual = false;
+    }
    }
 
    keyPressNumeric(event: any) {

@@ -18,7 +18,7 @@
                     </div>
                     <div class=" col-md-3" >
                 <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                  <mat-select class="inputTxt" formControlName="propertyType"  (selectionChange)="houseFlag($event.value)" (keypress)="keyPressName($event)" >
+                  <mat-select class="inputTxt" placeholder="House/Building" formControlName="propertyType"  (selectionChange)="houseFlag($event.value)" (keypress)="keyPressName($event)" >
                     <mat-option [value]="'House'">
                      House/Building
                     </mat-option>
@@ -31,67 +31,41 @@
                     <mat-option [value]="'Garden'">
                       Garden
                     </mat-option>
-                    <!-- <mat-option [value]="'Loan'">
-                      Loan
-                    </mat-option> -->
                     </mat-select> 
                     <mat-error *ngIf="docForm.get('propertyType').hasError('required')">
                       Property is required
                      </mat-error>
                 </mat-form-field>
-                    </div> 
-                    <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                      <mat-label >PROPERTY TYPE</mat-label>
-                  </div>
-                  <div class=" col-md-3" >
-                    <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select  class="inputTxt" formControlName="type"  (keypress)="keyPressName($event)" >
-                        <mat-option [value]="'Commercial'">
-                         Commercial
-                        </mat-option>
-                        <mat-option [value]="'Industrial'">
-                         Industrial
-                        </mat-option>
-                        <mat-option [value]="'Residencial'">
-                          Residencial
-                         </mat-option>
-                         <mat-option [value]="'Others'">
-                          Others
-                         </mat-option>
-                        </mat-select> 
-                        <mat-error *ngIf="docForm.get('type').hasError('required')">
-                          Property Type is required
-                         </mat-error>
-                    </mat-form-field>
-                  </div> -->
-
-                  
+                    </div>           
               </div>
               <br>
-
-              <div class="card " style="padding-left: 150px;" *ngIf = "isHouse || isLand || isCompany || isGarden ">
-                <div class="row" style="margin-top: 15px;" *ngIf ="isHouse">
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                    <mat-label>HOUSE TYPE<span class="errorColor">*</span></mat-label>
-                </div>
-                <div class=" col-md-3" >
-                  <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select class="inputTxt" formControlName="residencialType"  (keypress)="keyPressName($event)">
-                      <mat-option [value]="'Villa'">
-                        Villa
-                      </mat-option>
-                      <mat-option [value]="'Apartment'">
-                        Apartment
-                      </mat-option>
-                      <mat-option [value]="'Individual'">
-                        Individual
-                      </mat-option>
-                      </mat-select> 
-                      <mat-error *ngIf="docForm.get('residencialType').hasError('required')">
-                        Type is required
-                       </mat-error>
-                  </mat-form-field>
-                </div> 
+              
+          
+            <div class="row" style="margin-top: 15px;" *ngIf ="isHouse">
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <mat-label>HOUSE TYPE<span class="errorColor">*</span></mat-label>
+              </div>
+            <div class=" col-md-3" *ngIf ="isHouse">
+              <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+                <mat-select class="inputTxt" placeholder="Villa" formControlName="residencialType" (selectionChange)="htypeFlag($event.value)" (keypress)="keyPressName($event)">
+                  <mat-option [value]="'Villa'">
+                    Villa
+                  </mat-option>
+                  <mat-option [value]="'Apartment'">
+                    Apartment
+                  </mat-option>
+                  <mat-option [value]="'Individual'">
+                    Individual
+                  </mat-option>
+                  </mat-select> 
+                  <mat-error *ngIf="docForm.get('residencialType').hasError('required')">
+                    Type is required
+                   </mat-error>
+              </mat-form-field>
+            </div> 
+            </div><br>
+      <div class="card " style="padding-left: 150px;" *ngIf = "isHouse">
+            <div class="row" style="margin-top: 15px;" *ngIf ="isHouse">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                   <mat-label>HOUSE NAME<span class="errorColor">*</span></mat-label>
                 </div>
@@ -103,9 +77,6 @@
                      </mat-error>
                   </mat-form-field>
                 </div>
-            </div>
-              <div class="row" style="margin-top: 15px;">
-                
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
                   <mat-label>HOUSE ADDRESS</mat-label> 
                   </div>
@@ -114,9 +85,170 @@
                       <textarea matInput formControlName="houseAddress" maxlength="250"></textarea>
                     </mat-form-field>
                   </div> 
+            </div>
+        <div class="row" style="margin-top: 15px;" *ngIf ="isHouse">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
+                <mat-label>NO. FLOOR</mat-label>
+            </div>
+            <div class=" col-md-3" *ngIf ="isHouse">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                   <input matInput name="floor" formControlName="floor" maxlength="9" (keypress)="keyPressNumberInt($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
+              <mat-label >SQUARE FEET<span class="errorColor">*</span></mat-label>
+          </div>
+          <div class=" col-md-3" *ngIf ="isHouse">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput name="depreciationValue" formControlName="squareFeet"
+              maxlength="4" (keypress)="keyPressNumberInt($event)">
+              <mat-error *ngIf="docForm.get('squareFeet').hasError('required')">
+                Square Feet is required
+               </mat-error> 
+            </mat-form-field>
+          </div>
+            
+        </div>
+        <div class="row" style="margin-top: 15px;" *ngIf ="isHouse">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
+            <mat-label>GUIDELINE VALUE</mat-label>
+        </div>
+        <div class=" col-md-3" *ngIf ="isHouse">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+               <input matInput name="guidelineValue" formControlName="guidelineValue" maxlength="9" (keypress)="keyPressNumberDouble($event)">
+          </mat-form-field>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
+          <mat-label >DEPRECIATION VALUE</mat-label>
+      </div>
+      <div class=" col-md-3" *ngIf ="isHouse">
+        <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="depVal" maxlength="9" (keypress)="keyPressNumberInt($event)">
+        </mat-form-field>
+      </div>
+        </div>
+        <div class="row" style="margin-top: 15px;" *ngIf ="isHouse">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
+          <mat-label>CONSTRUCTED ON<span class="errorColor">*</span></mat-label>
+        </div>
+        <div class=" col-md-3" *ngIf ="isHouse">
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            <input matInput [matDatepicker]="picker5" 
+            formControlName="constructedOnObj"
+            (dateInput)="$event.value.format('DD/MM/YYYY')"
+            id="constructedOn"
+            (dateChange)="getDateString($event, 'constructedOn',0)">
+        <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+        <mat-datepicker #picker5></mat-datepicker>
+           <mat-error *ngIf="docForm.get('constructedOnObj').hasError('required')">
+              Constructed On Date is required
+            </mat-error>  
+          </mat-form-field>
+        </div> 
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
+        <mat-label>CURRENT RATE<span class="errorColor">*</span></mat-label>
+    </div>
+    <div class=" col-md-3" *ngIf ="isHouse">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+           <input matInput name="currentValue" formControlName="currentValue" maxlength="9" (keypress)="keyPressNumberInt($event)">
+           <mat-error *ngIf="docForm.get('currentValue').hasError('required')">
+            Current Rate is required
+           </mat-error>
+          </mat-form-field>
+    </div>
+    </div>
+      <div class="row" style="margin-top: 15px;">
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
+        <mat-label >PROPERTY TAX NO.<span class="errorColor">*</span></mat-label>
+      </div>
+    <div class=" col-md-3" *ngIf ="isHouse">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="houseTaxNo" maxlength="9" (keypress)="keyPressNumberInt($event)"
+        (blur)="validateCustomer($event.target.value)">
+         <mat-error *ngIf="docForm.get('houseTaxNo').hasError('required')">
+          Property Tax No is required
+         </mat-error> 
+      </mat-form-field>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isVilla">
+      <mat-label>NO. ROOMS</mat-label>
+    </div>
+    <div class=" col-md-3" *ngIf ="isVilla">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="roomno" maxlength="4" (keypress)="keyPressNumberInt($event)">
+      </mat-form-field>
+  </div>
+    </div>
+    <div class="row" style="margin-top: 15px;" *ngIf ="isVilla">
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <mat-label>SWIMMING POOL</mat-label>
+      </div>
+      <div class=" col-md-3" *ngIf ="isVilla">
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="swpool">
+            <mat-option [value]="'YES'">
+               YES
+              </mat-option>
+              <mat-option [value]="'NO'">
+                NO
+              </mat-option>
+        </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+      <mat-label>PARKING</mat-label>
+    </div>
+    <div class=" col-md-3" *ngIf ="isVilla">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <mat-select class="inputTxt" formControlName="parking">
+          <mat-option [value]="'YES'">
+             YES
+            </mat-option>
+            <mat-option [value]="'NO'">
+              NO
+            </mat-option>
+      </mat-select>
+      </mat-form-field>
+  </div>
+    </div>
+    <div class="row" style="margin-top: 15px;" *ngIf ="isVilla">
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+      <mat-label>NO. SECURITY-CAMERA</mat-label>
+    </div>
+    <div class=" col-md-3" *ngIf ="isVilla">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="roomno" maxlength="4" (keypress)="keyPressNumberInt($event)">
+      </mat-form-field>
+  </div>
+    </div>
 
 
-               
+
+    <div class="row" *ngIf ="isHouse">
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+        <mat-label>UNDER LOAN<span class="errorColor">*</span></mat-label>
+      </div>
+      <div class="col-xl-3"> 
+        <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+          <mat-select class="inputTxt" formControlName="loan" (selectionChange)="loanFlag($event.value)"  (keypress)="keyPressName($event)">
+            <mat-option [value]="'YES'">
+             YES
+            </mat-option>
+            <mat-option [value]="'NO'">
+             NO
+            </mat-option>
+            </mat-select>
+            <mat-error *ngIf="docForm.get('loan').hasError('required')">
+              Under Loan is required
+             </mat-error>
+        </mat-form-field> 
+      </div>
+    </div>
+</div>
+          
+              <div class="card " style="padding-left: 150px;" *ngIf ="isLand || isCompany || isGarden">
+              
+              <div class="row" style="margin-top: 15px;">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isLand">
                     <mat-label >LOCATION<span class="errorColor">*</span></mat-label>
                 </div>
@@ -129,22 +261,6 @@
                      </mat-error> 
                   </mat-form-field>
                 </div>
-
-
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-                    <mat-label >SQUARE FEET<span class="errorColor">*</span></mat-label>
-                </div>
-                <div class=" col-md-3" *ngIf ="isHouse">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput name="depreciationValue" formControlName="squareFeet"
-                    maxlength="4" (keypress)="keyPressNumberInt($event)">
-                    <mat-error *ngIf="docForm.get('squareFeet').hasError('required')">
-                      Square Feet is required
-                     </mat-error> 
-                  </mat-form-field>
-                </div>
-
-
                 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isLand">
                   <mat-label >AREA<span class="errorColor">*</span></mat-label>
@@ -165,58 +281,12 @@
 
               
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-                  <mat-label>CONSTRUCTED ON<span class="errorColor">*</span></mat-label>
-                </div>
-                <div class=" col-md-3" *ngIf ="isHouse">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput [matDatepicker]="picker5" 
-                    formControlName="constructedOnObj"
-                    (dateInput)="$event.value.format('DD/MM/YYYY')"
-                    id="constructedOn"
-                    (dateChange)="getDateString($event, 'constructedOn',0)">
-                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-                <mat-datepicker #picker5></mat-datepicker>
-                   <mat-error *ngIf="docForm.get('constructedOnObj').hasError('required')">
-                      Constructed On Date is required
-                    </mat-error>  
-                  </mat-form-field>
-                </div>
-
-               
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-                  <mat-label>FLOOR</mat-label>
-              </div>
-              <div class=" col-md-3" *ngIf ="isHouse">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                     <input matInput name="floor" formControlName="floor" maxlength="9" (keypress)="keyPressNumberInt($event)">
-                </mat-form-field>
-              </div>
-
-              
+             
 
               </div>
 
               <div class="row" >
-
-
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-                  <mat-label>UNDER LOAN</mat-label>
-                </div>
-                <div class="col-xl-2" *ngIf ="isHouse"> 
-                  &nbsp; <input type="checkbox" tabindex="20" formControlName="underLoan" (change)="getAutoDebit($event.target.checked)">
-                </div>
-
-                <div class="col-xl-1 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-              </div>
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-                      <mat-label>GUIDELINE VALUE</mat-label>
-                  </div>
-                  <div class=" col-md-3" *ngIf ="isHouse">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                         <input matInput name="guidelineValue" formControlName="guidelineValue" maxlength="9" (keypress)="keyPressNumberDouble($event)">
-                    </mat-form-field>
-                  </div>
+                    
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isLand">
                     <mat-label>TYPE<span class="errorColor">*</span></mat-label>
@@ -272,31 +342,10 @@
                     </mat-form-field>
                   </div>
 
-                    </div>
+            </div>
                     <div class="row" >
-
                     
-                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-                        <mat-label>CURRENT RATE<span class="errorColor">*</span></mat-label>
-                    </div>
-                    <div class=" col-md-3" *ngIf ="isHouse">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                           <input matInput name="currentValue" formControlName="currentValue" maxlength="9" (keypress)="keyPressNumberInt($event)">
-                           <mat-error *ngIf="docForm.get('currentValue').hasError('required')">
-                            Current Rate is required
-                           </mat-error>
-                          </mat-form-field>
-                    </div>
-
                     
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-                      <mat-label >DEPRECIATION VALUE</mat-label>
-                  </div>
-                  <div class=" col-md-3" *ngIf ="isHouse">
-                    <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="depVal" maxlength="9" (keypress)="keyPressNumberInt($event)">
-                    </mat-form-field>
-                  </div>
 
                   <div class="col-md-2" *ngIf ="isLand">
                     <mat-label>EC AVAILABLE</mat-label>
@@ -586,24 +635,6 @@
               </div>
               
               </div>
-              
-
-              <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-                  <mat-label >PROPERTY TAX NO<span class="errorColor">*</span></mat-label>
-              </div>
-             
-              <div class=" col-md-3" *ngIf ="isHouse">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="houseTaxNo" maxlength="9" (keypress)="keyPressNumberInt($event)"
-                  (blur)="validateCustomer($event.target.value)">
-                   <mat-error *ngIf="docForm.get('houseTaxNo').hasError('required')">
-                    Property Tax No is required
-                   </mat-error> 
-                </mat-form-field>
-              </div>
-
-              </div>
               </div>
               
 
@@ -707,36 +738,12 @@
                   </div> -->
 
                   </div>
-                    <br>
+                  <br>
+                  <div class="row" >
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+                    <mat-label>UNDER LOAN<span class="errorColor">*</span></mat-label>
                   </div>
-                    <div class="row" >
-                    <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
-                      <mat-label>RENT TYPE</mat-label>
-                      </div>
-                      <div class=" col-md-3"  >
-                  <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select class="inputTxt" formControlName="rentType"  (keypress)="keyPressName($event)">
-                     
-                      <mat-option [value]="'Tenant'">
-                        Tenant
-                      </mat-option>
-                      <mat-option [value]="'Handover'">
-                        Handover
-                      </mat-option>
-                      <mat-option [value]="'Advance'">
-                        Advance
-                      </mat-option>
-                      <mat-option [value]="'Rent Rate'">
-                        Rent Rate
-                      </mat-option>
-                      </mat-select> 
-                  </mat-form-field>
-                      </div>  -->
-
-                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                        <mat-label>PROPERTY LOAN<span class="errorColor">*</span></mat-label>
-                        </div>
-                        <div class=" col-md-3" >
+                  <div class="col-xl-3"> 
                     <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
                       <mat-select class="inputTxt" formControlName="loan" (selectionChange)="loanFlag($event.value)"  (keypress)="keyPressName($event)">
                         <mat-option [value]="'YES'">
@@ -745,21 +752,20 @@
                         <mat-option [value]="'NO'">
                          NO
                         </mat-option>
-                       
-                        </mat-select> 
+                        </mat-select>
                         <mat-error *ngIf="docForm.get('loan').hasError('required')">
-                         Property Loan is required
-                        </mat-error>
-                        
-                    </mat-form-field>
-                        </div>
+                          Under Loan is required
+                         </mat-error>
+                    </mat-form-field> 
+                  </div>
+                </div>
+                    <br>
+          </div>
 
-            </div>
-            <br>
-            
+            <br>            
             <div class="card " style="padding-left: 150px;" *ngIf = "isLoan">
+              <br>
             <div class="row" *ngIf = "isLoan">
-
               <mat-label style="margin-left: -45px;padding-bottom: 18px;margin-top: 7px;"><b>LOAN DETAILS</b></mat-label>
             </div>
           <br>
@@ -1017,7 +1023,7 @@
               </div>
               <div class=" col-md-3" >
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-            <mat-select class="inputTxt" formControlName="rentalType" (selectionChange)="rentalFlag($event.value)"  (keypress)="keyPressName($event)">
+            <mat-select class="inputTxt" placeholder="Own Property" formControlName="rentalType" (selectionChange)="rentalFlag($event.value)"  (keypress)="keyPressName($event)">
               <mat-option [value]="'Own Property'">
                Own Property
               </mat-option>
@@ -1318,7 +1324,7 @@
                       </mat-form-field>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                      <mat-label >PROPERTY TAX NO </mat-label>
+                      <mat-label >PROPERTY TAX NO.</mat-label>
                   </div>
                   <div class=" col-md-3" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
