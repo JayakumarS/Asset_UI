@@ -116,19 +116,19 @@ export class AddVehicleComponent implements OnInit {
       drivetype: [""],
       parivahan: ["yes1"],
       autoDebit: [""],
-      bankName: ["", [Validators.required]],
+      bankName: [""],
       branchName: [""],
-      ifscCode: ["", [Validators.required]],
+      ifscCode: [""],
       acName: [""],
       acNumber: [""],
-      loanAmount: ["", [Validators.required]],
+      loanAmount: [""],
       loanNo: [""],
-      emiDate:["", [Validators.required]],
-      emiDateObj: ["", [Validators.required]],
+      emiDate:[""],
+      emiDateObj: [""],
       loanInterest: [""],
       uid: [""],
       password: [""],
-      loanVehicle: [""],
+      loanVehicle: ["", [Validators.required]],
 
     });
 
@@ -172,24 +172,24 @@ export class AddVehicleComponent implements OnInit {
       validity1: [""],
       seater: [""],
       purpose: ["", [Validators.required]],
-      bodytype1: [""],
-      others: [""],
+      bodytype1: ["" ,[Validators.required]],
+      others: ["", [Validators.required]],
       drivetype: [""],
       uid: [""],
       password: [""],
       parivahan: ["yes1"],
       autoDebit: [""],
-      bankName: ["", [Validators.required]],
+      bankName: [""],
       branchName: [""],
-      ifscCode: ["", [Validators.required]],
+      ifscCode: [""],
       acName: [""],
       acNumber: [""],
-      loanAmount: ["", [Validators.required]],
+      loanAmount: [""],
       loanNo: [""],
-      emiDate:["", [Validators.required]],
-      emiDateObj: ["", [Validators.required]],
+      emiDate:[""],
+      emiDateObj: [""],
       loanInterest: [""],
-      loanVehicle: [""],
+      loanVehicle: ["", [Validators.required]],
 
 
 
@@ -268,7 +268,7 @@ export class AddVehicleComponent implements OnInit {
         'vehicletype':res.vehiclesBean.vehicletype,
         'vehiclebrand':res.vehiclesBean.vehiclebrand,
         'vehiclename':res.vehiclesBean.vehiclename,
-       'regno':res.vehiclesBean.regno,
+        'regno':res.vehiclesBean.regno,
         'chassisno':res.vehiclesBean.chassisno,
         'engineno':res.vehiclesBean.engineno,
         'bodytype':res.vehiclesBean.bodytype,
@@ -309,9 +309,9 @@ export class AddVehicleComponent implements OnInit {
         'branchName': res.vehiclesBean.branchName,
         'ifscCode': res.vehiclesBean.ifscCode,
         'acName': res.vehiclesBean.acName,
-        'acNumber': res.vehiclesBean.acName,
-        'loanAmount': res.vehiclesBean.acName,
-        'loanNo': res.vehiclesBean.acName,
+        'acNumber': res.vehiclesBean.acNumber,
+        'loanAmount': res.vehiclesBean.loanAmount,
+        'loanNo': res.vehiclesBean.loanNo,
         'emiDate': res.vehiclesBean.emiDate,
         'emiDateObj':odate,
         'loanInterest': res.vehiclesBean.loanInterest,
@@ -320,6 +320,27 @@ export class AddVehicleComponent implements OnInit {
         
       
       });
+     if(this.docForm.value.vehicletype == 'Two Wheeler')
+     {
+      this.isfourwheeler = false;
+      this.textBox = false;
+      this.istwowheeler = true;
+     }
+     else if(this.docForm.value.vehicletype == 'Four Wheeler')
+     {
+      this.istwowheeler = false;
+      this.textBox = false;
+      this.isfourwheeler = true;
+     }
+     else if(this.docForm.value.vehicletype =='Others')
+    {
+      this.isfourwheeler = false;
+      this.istwowheeler = false;
+      this.textBox = true;
+      
+    }
+
+
     },
     error: (error) => {
     }
@@ -352,11 +373,13 @@ export class AddVehicleComponent implements OnInit {
     if(event=='Two Wheeler'){
       
       this.isfourwheeler = false;
+      this.textBox = false;
       this.istwowheeler = true;
     }
     else if(event=='Four Wheeler'){
      
       this.istwowheeler = false;
+      this.textBox = false;
       this.isfourwheeler = true;
     }
     else if(event=='Others')
@@ -386,16 +409,16 @@ loanFlag(event){
     this.docForm = this.fb.group({
       vehiclename: [""],
       vehicletype: [""],
-      vehiclebrand :["",[Validators.required]],
-      regno:["", [Validators.required]],
-      chassisno:["", [Validators.required]],
-      engineno:["", [Validators.required]],
+      vehiclebrand :[""],
+      regno:[""],
+      chassisno:[""],
+      engineno:[""],
       bodytype:[""],
       fueltype:[""],
-      ownertype:["",[Validators.required]],
-      dateofpurc:["", [Validators.required]],
-      insurancedetails:["", Validators.pattern('^[A-Z]{2}[0-9]{6}[A-Z]$')],
-      service:["", [Validators.required]],
+      ownertype:[""],
+      dateofpurc:[""],
+      insurancedetails:[""],
+      service:[""],
       discardFromDate:[""],
       discardFromDate1:[""],
       vehiclewheel:[""],
