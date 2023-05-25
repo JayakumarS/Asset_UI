@@ -84,7 +84,7 @@ export class AddVehicleComponent implements OnInit {
       regno:["", [Validators.required]],
       chassisno:["", [Validators.required]],
       engineno:["", [Validators.required]],
-      bodytype:["", [Validators.required]],
+      bodytype:[""],
       fueltype:[""],
       ownertype:["",[Validators.required]],
       dateofpurc:["", [Validators.required]],
@@ -143,7 +143,7 @@ export class AddVehicleComponent implements OnInit {
       regno:["", [Validators.required]],
       chassisno:["", [Validators.required]],
       engineno:["", [Validators.required]],
-      bodytype:["", [Validators.required]],
+      bodytype:[""],
       fueltype:[""],
       ownertype:["",[Validators.required]],
       dateofpurc:["", [Validators.required]],
@@ -171,9 +171,9 @@ export class AddVehicleComponent implements OnInit {
       id:[""],
       validity1: [""],
       seater: [""],
-      purpose: ["", [Validators.required]],
-      bodytype1: ["" ,[Validators.required]],
-      others: ["", [Validators.required]],
+      purpose: [""],
+      bodytype1: [""],
+      others: [""],
       drivetype: [""],
       uid: [""],
       password: [""],
@@ -262,7 +262,7 @@ export class AddVehicleComponent implements OnInit {
         }
         this.getcash(paymentValue);
 
-      this.docForm.patchValue({
+       this.docForm.patchValue({
            
         'vehiclewheel':res.vehiclesBean.vehiclewheel,
         'vehicletype':res.vehiclesBean.vehicletype,
@@ -316,32 +316,9 @@ export class AddVehicleComponent implements OnInit {
         'emiDateObj':odate,
         'loanInterest': res.vehiclesBean.loanInterest,
         'loanVehicle':res.vehiclesBean.loanVehicle,
+ });
 
-        
-      
-      });
-     if(this.docForm.value.vehicletype == 'Two Wheeler')
-     {
-      this.isfourwheeler = false;
-      this.textBox = false;
-      this.istwowheeler = true;
-     }
-     else if(this.docForm.value.vehicletype == 'Four Wheeler')
-     {
-      this.istwowheeler = false;
-      this.textBox = false;
-      this.isfourwheeler = true;
-     }
-     else if(this.docForm.value.vehicletype =='Others')
-    {
-      this.isfourwheeler = false;
-      this.istwowheeler = false;
-      this.textBox = true;
-      
-    }
-
-
-    },
+ },
     error: (error) => {
     }
   });
