@@ -659,13 +659,13 @@ if (inputFlag == 'gadregOn') {
         this.docForm.controls['squareFeet'].updateValueAndValidity();
         this.docForm.controls.constructedOnObj.setValidators(Validators.required);
         this.docForm.controls['constructedOnObj'].updateValueAndValidity();
-        this.docForm.controls.floor.setValidators(Validators.required);
+        this.docForm.controls.floor.setValidators;
         this.docForm.controls['floor'].updateValueAndValidity();
-        this.docForm.controls.guidelineValue.setValidators(Validators.required);
+        this.docForm.controls.guidelineValue.setValidators;
         this.docForm.controls['guidelineValue'].updateValueAndValidity();
         this.docForm.controls.currentValue.setValidators(Validators.required);
         this.docForm.controls['currentValue'].updateValueAndValidity();
-        this.docForm.controls.depVal.setValidators(Validators.required);
+        this.docForm.controls.depVal.setValidators;
         this.docForm.controls['depVal'].updateValueAndValidity();
         this.docForm.controls.houseTaxNo.setValidators(Validators.required);
         this.docForm.controls['houseTaxNo'].updateValueAndValidity();
