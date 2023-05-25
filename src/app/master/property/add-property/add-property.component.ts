@@ -63,6 +63,7 @@ export class AddPropertyComponent implements OnInit {
   isVilla: boolean;
   isApartment: boolean;
   isIndividual: boolean;
+  isLease:boolean;
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -175,6 +176,29 @@ export class AddPropertyComponent implements OnInit {
        //villa
        swpool:[""],
        parking:[""],
+       noSecrity:[""],
+       roomno:[""],
+
+       //apartment
+       aprtmenttype:[""],
+       apartmentparking:[""],
+       noSecrityAp:[""],
+
+       //individual
+       indParking:[""],
+       electricityno:[""],
+
+       //Lease
+       landlordname:[""],
+       tenantName1:[""],
+       phoneNo:[""],
+       propertyAddress:[""],
+       squarefeet:[""],
+       lesContract:[""],
+       lesAmount:[""],
+       noticepd:[""],
+
+
        
       //  rentType:[""],
       //  propertyHolderName:["", [Validators.required]],
@@ -335,6 +359,24 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
 
        swpool:[""],
        parking:[""],
+       noSecrity:[""],
+       roomno:[""],
+
+       aprtmenttype:[""],
+       apartmentparking:[""],
+       noSecrityAp:[""],
+
+       indParking:[""],
+       electricityno:[""],
+
+       landlordname:[""],
+       tenantName1:[""],
+       phoneNo:[""],
+       propertyAddress:[""],
+       squarefeet:[""],
+       lesContract:[""],
+       lesAmount:[""],
+       noticepd:[""],
 
 
 
@@ -481,6 +523,24 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
 
         'swpool':res.propertyBean.swpool,
         'parking':res.propertyBean.parking,
+        'noSecrity':res.propertyBean.noSecrity,
+        'roomno':res.propertyBean.roomno,
+
+        'aprtmenttype':res.propertyBean.aprtmenttype,
+        'apartmentparking':res.propertyBean.apartmentparking,
+        'noSecrityAp':res.propertyBean.noSecrityAp,
+
+        'indParking':res.propertyBean.indParking,
+        'electricityno':res.propertyBean.electricityno,
+
+        'landlordname':res.propertyBean.landlordname,
+        'tenantName1':res.propertyBean.tenantName1,
+        'phoneNo':res.propertyBean.phoneNo,
+        'propertyAddress':res.propertyBean.propertyAddress,
+        'squarefeet':res.propertyBean.squarefeet,
+        'lesContract':res.propertyBean.lesContract,
+        'lesAmount':res.propertyBean.lesAmount,
+        'noticepd':res.propertyBean.noticepd,
     });
   },
   error: (error) => {
@@ -1053,6 +1113,29 @@ if (inputFlag == 'gadregOn') {
         this.docForm.controls['taxNo'].updateValueAndValidity();
         
       }
+      if (event == 'Lease') {
+        this.isLease = true;
+      this.docForm.controls.landlordname.setValidators(Validators.required);
+      this.docForm.controls['landlordname'].updateValueAndValidity(); 
+      this.docForm.controls.tenantName1.setValidators(Validators.required);
+      this.docForm.controls['tenantName1'].updateValueAndValidity();
+      this.docForm.controls.phoneNo.setValidators(Validators.required);
+      this.docForm.controls['phoneNo'].updateValueAndValidity();
+      this.docForm.controls.propertyAddress.setValidators;
+      this.docForm.controls['propertyAddress'].updateValueAndValidity(); 
+      this.docForm.controls.squarefeet.setValidators;
+      this.docForm.controls['squarefeet'].updateValueAndValidity(); 
+      this.docForm.controls.lesContract.setValidators(Validators.required);
+      this.docForm.controls['lesContract'].updateValueAndValidity(); 
+      this.docForm.controls.lesAmount.setValidators(Validators.required);
+      this.docForm.controls['lesAmount'].updateValueAndValidity(); 
+      this.docForm.controls.noticepd.setValidators;
+      this.docForm.controls['noticepd'].updateValueAndValidity(); 
+        
+      }
+      else {
+        this.isLease = false;
+      }
    }
    htypeFlag(event){
     if (event == 'Villa') {
@@ -1062,6 +1145,24 @@ if (inputFlag == 'gadregOn') {
       this.docForm.controls['swpool'].updateValueAndValidity();
       this.docForm.controls.parking.setValidators;
       this.docForm.controls['parking'].updateValueAndValidity();
+      this.docForm.controls.noSecrity.setValidators;
+      this.docForm.controls['noSecrity'].updateValueAndValidity();
+      this.docForm.controls.roomno.setValidators;
+      this.docForm.controls['roomno'].updateValueAndValidity();  
+      
+      this.docForm.controls.aprtmenttype.clearValidators();
+      this.docForm.controls['aprtmenttype'].updateValueAndValidity();
+      this.docForm.controls.apartmentparking.clearValidators();
+      this.docForm.controls['apartmentparking'].updateValueAndValidity();
+      this.docForm.controls.noSecrityAp.clearValidators();
+      this.docForm.controls['noSecrityAp'].updateValueAndValidity();
+      this.docForm.controls.indParking.clearValidators();
+      this.docForm.controls['indParking'].updateValueAndValidity();
+      this.docForm.controls.electricityno.clearValidators();
+      this.docForm.controls['electricityno'].updateValueAndValidity(); 
+
+      
+
     }
     else {
       this.isVilla = false;
@@ -1070,7 +1171,27 @@ if (inputFlag == 'gadregOn') {
 
     if (event == 'Apartment') {
       this.isApartment = true;
-      
+
+      this.docForm.controls.aprtmenttype.setValidators;
+      this.docForm.controls['aprtmenttype'].updateValueAndValidity();
+      this.docForm.controls.apartmentparking.setValidators;
+      this.docForm.controls['apartmentparking'].updateValueAndValidity();
+      this.docForm.controls.noSecrityAp.setValidators;
+      this.docForm.controls['noSecrityAp'].updateValueAndValidity();
+
+
+      this.docForm.controls.swpool.clearValidators();
+      this.docForm.controls['swpool'].updateValueAndValidity();
+      this.docForm.controls.parking.clearValidators();
+      this.docForm.controls['parking'].updateValueAndValidity();
+      this.docForm.controls.noSecrity.clearValidators();
+      this.docForm.controls['noSecrity'].updateValueAndValidity();
+      this.docForm.controls.roomno.clearValidators();
+      this.docForm.controls['roomno'].updateValueAndValidity();
+      this.docForm.controls.indParking.clearValidators();
+      this.docForm.controls['indParking'].updateValueAndValidity();
+      this.docForm.controls.electricityno.clearValidators();
+      this.docForm.controls['electricityno'].updateValueAndValidity(); 
 
     }
     else {
@@ -1079,6 +1200,27 @@ if (inputFlag == 'gadregOn') {
 
     if (event == 'Individual') {
       this.isIndividual = true;
+      this.docForm.controls.indParking.setValidators;
+      this.docForm.controls['indParking'].updateValueAndValidity();
+      this.docForm.controls.electricityno.setValidators;
+      this.docForm.controls['electricityno'].updateValueAndValidity();
+
+      this.docForm.controls.swpool.clearValidators();
+      this.docForm.controls['swpool'].updateValueAndValidity();
+      this.docForm.controls.parking.clearValidators();
+      this.docForm.controls['parking'].updateValueAndValidity();
+      this.docForm.controls.noSecrity.clearValidators();
+      this.docForm.controls['noSecrity'].updateValueAndValidity();
+      this.docForm.controls.roomno.clearValidators();
+      this.docForm.controls['roomno'].updateValueAndValidity();
+      this.docForm.controls.aprtmenttype.clearValidators();
+      this.docForm.controls['aprtmenttype'].updateValueAndValidity();
+      this.docForm.controls.apartmentparking.clearValidators();
+      this.docForm.controls['apartmentparking'].updateValueAndValidity();
+      this.docForm.controls.noSecrityAp.clearValidators();
+      this.docForm.controls['noSecrityAp'].updateValueAndValidity();
+
+
       
 
     }
