@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from 
+'@angular/forms';
 import { Vehiclereport } from '../vehicle-report.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -65,8 +66,7 @@ export class VehicleReportsComponent implements OnInit {
   ownertypeList:[];
   insurancetypeList:[];
   vehiclewheelList:[];
-  
-  vehicleHeader=[];
+  vehicleExcelHeader=[];
 
 
   config: {
@@ -250,46 +250,45 @@ export class VehicleReportsComponent implements OnInit {
     
 
   }
-
   exportExcel()
   {
 
     //For Excel Header Pushing in Array
-    if(this.vehiclereport.vehicletypeCheckbox == true){
-      this.vehicleHeader.push("VEHICLE END TYPE");
+    if(this.vehiclereport.vehicletypeCheckbox ==true){
+      this.vehicleExcelHeader.push("VEHICLE END TYPE");
     }
     if(this.vehiclereport.fueltypeCheckBox == true){
-      this.vehicleHeader.push("FUEL TYPE");
+      this.vehicleExcelHeader.push("FUEL TYPE");
     }
     if(this.vehiclereport.bodytypeCheckBox == true){
-      this.vehicleHeader.push("BODY TYPE");
+      this.vehicleExcelHeader.push("BODY TYPE");
     }
     if(this.vehiclereport.ownertypeCheckBox == true){
-      this.vehicleHeader.push("OWNER TYPE");
+      this.vehicleExcelHeader.push("OWNER TYPE");
     }
     if(this.vehiclereport.vehiclewheelCheckBox == true){
-      this.vehicleHeader.push("VEHICLE TYPE");
+      this.vehicleExcelHeader.push("VEHICLE TYPE");
     }
     if(this.vehiclereport.insurancetypeCheckBox == true){
-      this.vehicleHeader.push("INSURANCE TYPE");
+      this.vehicleExcelHeader.push("INSURANCE TYPE");
     }
     if(this.vehiclereport.regnoCheckBox == true){
-      this.vehicleHeader.push("REGISTRATION NO");
+      this.vehicleExcelHeader.push("REGISTRATION NO");
     }
     if(this.vehiclereport.enginenoCheckBox == true){
-      this.vehicleHeader.push("ENGINE NUMBER");
+      this.vehicleExcelHeader.push("ENGINE NUMBER");
     }
 
-    console.log(this.vehicleHeader);
+    console.log(this.vehicleExcelHeader);
 
-    this.vehiclereport.vehicleExcelHistoryHeader = this.vehicleHeader;
+    this.vehiclereport.vehicleExcelHistoryHeader = this.vehicleExcelHeader;
 
 
     this.httpService.post<any>(this.mutualFundService.VehicleListExcelUrl,this.vehiclereport).subscribe(
       (data) => {
         if(data.success){
           window.open(this.serverUrl.apiServerAddress+"asset_upload/"+data.filePath, '_blank');
-          this.vehicleHeader = [];
+          this.vehicleExcelHeader = [];
           }
           else{
             this.notificationservice.showNotification(
