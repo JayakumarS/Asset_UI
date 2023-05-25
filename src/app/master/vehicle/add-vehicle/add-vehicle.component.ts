@@ -129,6 +129,11 @@ export class AddVehicleComponent implements OnInit {
       uid: [""],
       password: [""],
       loanVehicle: ["", [Validators.required]],
+      vin:[""],
+      condition: [""],
+      mileage: [""],
+      
+
 
     });
 
@@ -190,6 +195,10 @@ export class AddVehicleComponent implements OnInit {
       emiDateObj: [""],
       loanInterest: [""],
       loanVehicle: ["", [Validators.required]],
+      vin:[""],
+      condition: [""],
+      mileage: [""],
+
 
 
 
@@ -316,6 +325,11 @@ export class AddVehicleComponent implements OnInit {
         'emiDateObj':odate,
         'loanInterest': res.vehiclesBean.loanInterest,
         'loanVehicle':res.vehiclesBean.loanVehicle,
+        'vin':res.vehiclesBean.vin,
+        'condition':res.vehiclesBean.condition,
+        'mileage':res.vehiclesBean.mileage,
+
+        
  });
 
  },
@@ -435,6 +449,9 @@ loanFlag(event){
       emiDateObj: [""],
       loanInterest: [""],
       loanVehicle: [""],
+      vin: [""],
+      condition: [""],
+      mileage: [""],
 
 
 

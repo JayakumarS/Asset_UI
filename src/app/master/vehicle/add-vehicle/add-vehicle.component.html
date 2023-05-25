@@ -366,6 +366,49 @@
 
 
                </div>
+               <div class="row">
+                <div class="col-md-2" style="min-width: fit-content;" >
+                  <label>VIN</label>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="vin" maxlength="17" oninput="this.value = this.value.toUpperCase()">
+               </mat-form-field>
+              </div>
+              <div class="col-md-2" style="min-width: fit-content;"  >
+                <label>CONDITION</label>
+            </div>
+              <div class="col-md-2">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                 <mat-select formControlName="condition">
+                    <mat-option [value]="'Good'">
+                     Good
+                    </mat-option>
+                    <mat-option [value]="'Average'">
+                      Average
+                    </mat-option>
+                    <mat-option [value]="'Bad'">
+                        Bad
+                    </mat-option>
+                  </mat-select>
+            </mat-form-field>
+              </div>
+              <div class="col-md-2" style="min-width: fit-content;"  >
+                <label>MILEAGE</label>
+            </div>
+              <div class="col-md-2">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="mileage" maxlength="17" (keypress)="keyPressNumeric($event)">
+                
+                 
+            </mat-form-field>
+              </div>
+              </div>
+      
+      
+                     
+
+
             <div class="row">
               <div class="col-md-2" style="min-width: fit-content;" >
                 <label>YEAR OF MANUFACTURING</label>

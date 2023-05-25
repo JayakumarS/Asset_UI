@@ -52,6 +52,9 @@ export class VehicleMaster {
   emiDateObj:string;
   loanInterest:number;
   loanVehicle:string;
+  vin:string;
+  condition:string;
+  mileage:number;
 
   
 
@@ -113,6 +116,10 @@ export class VehicleMaster {
       this.emiDateObj = vehicleMaster.emiDateObj || "";
       this.loanInterest = vehicleMaster.loanInterest || "";
       this.loanVehicle = vehicleMaster.loanVehicle || "";
+      this.vin = vehicleMaster.vin || "";
+      this.condition= vehicleMaster.condition || "";
+      this.mileage= vehicleMaster.mileage || "";
+
 
 
 
