@@ -248,10 +248,9 @@
                                     <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 77%;">
                                       <button color="primary" type="button" class="btn-space" (click)="exportExcel()" 
                                       *ngIf="docForm.get('vehicletypeCheckbox')?.value || docForm.get('fueltypeCheckBox')?.value || 
-                                      docForm.get('bodytypeCheckBox')?.value || docForm.get('ownertypeCheckBox')?.value || 
-                                      docForm.get('vehiclewheelCheckBox')?.value || docForm.get('insurancetypeCheckBox')?.value||
-                                      docForm.get('regnoCheckBox')?.value || docForm.get('enginenoCheckBox')?.value  " 
-                                      
+                                      docForm.get('bodytypeCheckBox')?.value || docForm.get('ownertypeCheckBox')?.value 
+                                      || docForm.get('vehiclewheelCheckBox')?.value || docForm.get('insurancetypeCheckBox')?.value
+                                      || docForm.get('regnoCheckBox')?.value || docForm.get('enginenoCheckBox')?.value  "
                                       mat-raised-button>Export To Excel</button>
                                     </div>
                                   </div>

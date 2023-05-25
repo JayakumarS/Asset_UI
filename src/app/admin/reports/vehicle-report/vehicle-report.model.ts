@@ -1,5 +1,15 @@
 export class Vehiclereport{
-  vehicletypebox:boolean;
+
+  vehicletype: string;
+  fueltype: string;
+  bodytype: string;
+  ownertype: string;
+  vehiclewheel: string;
+  insurancetype : string;
+  
+  userId: string
+
+
   vehicletypeCheckbox:boolean;
   fueltypeCheckBox:boolean;
   bodytypeCheckBox:boolean;
@@ -8,22 +18,32 @@ export class Vehiclereport{
   insurancetypeCheckBox:boolean;
   regnoCheckBox:boolean;
   enginenoCheckBox:boolean;
+
   vehicleExcelHistoryHeader:any;
-    push(arg0: string) {
-      throw new Error('Method not implemented.');
+
+
+  constructor(vehiclereport) {
+    {
+        this.getRandomID();
+        this.vehicletype = vehiclereport.vehicletype || "";
+        this.fueltype = vehiclereport.fueltype || "";
+        this.bodytype = vehiclereport.bodytype || "";
+        this.ownertype = vehiclereport.ownertype || "";
+        this.vehiclewheel = vehiclereport.vehiclewheel || "";
+        this.insurancetype = vehiclereport.insurancetype || "";
+
+
+      
+    
     }
-    vehicletype: string;
-    fueltype: string;
-    bodytype: string;
-    ownertype: string;
-    vehiclewheel: string;
-    insurancetype : string;
-    regno: string;
-    engineno: string;
-    userId: string
-    constructor(Vehiclereport) {
-
-}
 }
 
+public getRandomID(): string {
+    const S4 = () => {
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return S4() + S4();
+  }
+
+}
 

@@ -324,7 +324,7 @@ export class VehicleReportsComponent implements OnInit {
         
   
          // Checkboxes Beans
-         vehicletypebox:[false],
+         vehicletypeCheckbox:[false],
          fueltypeCheckBox:[false],
          bodytypeCheckBox:[false],
          ownertypeCheckBox:[false],
