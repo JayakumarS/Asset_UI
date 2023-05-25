@@ -56,7 +56,13 @@ export class AddVehicleComponent implements OnInit {
   isEmi: boolean = true;
   isYes: boolean = true;
   isNo: boolean = true;
-  
+  isYes1: boolean = true;
+  isNo1: boolean = true;
+  istwowheeler: boolean = false;
+  isfourwheeler: boolean = false;
+  textBox:boolean = false;
+  isAutoDebit: boolean;
+  isLoan: boolean;
   
 
   constructor(private fb: FormBuilder,
@@ -78,7 +84,7 @@ export class AddVehicleComponent implements OnInit {
       regno:["", [Validators.required]],
       chassisno:["", [Validators.required]],
       engineno:["", [Validators.required]],
-      bodytype:[""],
+      bodytype:["", [Validators.required]],
       fueltype:[""],
       ownertype:["",[Validators.required]],
       dateofpurc:["", [Validators.required]],
@@ -86,7 +92,7 @@ export class AddVehicleComponent implements OnInit {
       service:["", [Validators.required]],
       discardFromDate:[""],
       discardFromDate1:[""],
-      vehiclewheel:[""],
+      vehiclewheel:["", [Validators.required]],
       colour:[""],
       age:[""],
       rtocode:[""],
@@ -103,7 +109,26 @@ export class AddVehicleComponent implements OnInit {
       lin: [""],
       agency: [""],
       emiamount: [""],
-      
+      seater: [""],
+      purpose: [""],
+      bodytype1: [""],
+      others: [""],
+      drivetype: [""],
+      parivahan: ["yes1"],
+      autoDebit: [""],
+      bankName: ["", [Validators.required]],
+      branchName: [""],
+      ifscCode: ["", [Validators.required]],
+      acName: [""],
+      acNumber: [""],
+      loanAmount: ["", [Validators.required]],
+      loanNo: [""],
+      emiDate:["", [Validators.required]],
+      emiDateObj: ["", [Validators.required]],
+      loanInterest: [""],
+      uid: [""],
+      password: [""],
+      loanVehicle: [""],
 
     });
 
@@ -118,7 +143,7 @@ export class AddVehicleComponent implements OnInit {
       regno:["", [Validators.required]],
       chassisno:["", [Validators.required]],
       engineno:["", [Validators.required]],
-      bodytype:[""],
+      bodytype:["", [Validators.required]],
       fueltype:[""],
       ownertype:["",[Validators.required]],
       dateofpurc:["", [Validators.required]],
@@ -126,7 +151,7 @@ export class AddVehicleComponent implements OnInit {
       service:["", [Validators.required]],
       discardFromDate:[""],
       discardFromDate1:[""],
-      vehiclewheel:[""],
+      vehiclewheel:["", [Validators.required]],
       colour:[""],
       age:["", [Validators.required]],
       rtocode:[""],
@@ -145,6 +170,31 @@ export class AddVehicleComponent implements OnInit {
       loginedUser: this.tokenStorage.getUserId(),
       id:[""],
       validity1: [""],
+      seater: [""],
+      purpose: ["", [Validators.required]],
+      bodytype1: [""],
+      others: [""],
+      drivetype: [""],
+      uid: [""],
+      password: [""],
+      parivahan: ["yes1"],
+      autoDebit: [""],
+      bankName: ["", [Validators.required]],
+      branchName: [""],
+      ifscCode: ["", [Validators.required]],
+      acName: [""],
+      acNumber: [""],
+      loanAmount: ["", [Validators.required]],
+      loanNo: [""],
+      emiDate:["", [Validators.required]],
+      emiDateObj: ["", [Validators.required]],
+      loanInterest: [""],
+      loanVehicle: [""],
+
+
+
+
+
 
     });
       this.route.params.subscribe(params => {
@@ -194,10 +244,13 @@ export class AddVehicleComponent implements OnInit {
     this.vehicleService.editvehicle(obj).subscribe({
       next: (res) => {
         this.getlicense(res.vehiclesBean.license);
+        this.getpari(res.vehiclesBean.parivahan);
+        this.loanFlag(res.vehiclesBean.loanVehicle);
 
         let hdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate1);
         let rdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate);
         let gdate = this.cmnService.getDateObj(res.vehiclesBean.validity1);
+        let odate = this.cmnService.getDateObj(res.vehiclesBean.emiDate);
 
 
 
@@ -242,7 +295,30 @@ export class AddVehicleComponent implements OnInit {
         'validity1':res.vehiclesBean.validity1,
         'insuredamount':res.vehiclesBean.insuredamount,
         'address':res.vehiclesBean.address,
-        'id':this.requestId, 
+        'id':this.requestId,
+        'seater': res.vehiclesBean.seater,
+        'purpose': res.vehiclesBean.purpose,
+        'drivetype': res.vehiclesBean.drivetype,
+        'bodytype1': res.vehiclesBean.bodytype1,
+        'others': res.vehiclesBean.others,
+        'uid': res.vehiclesBean.uid,
+        'password': res.vehiclesBean.password,
+        'parivahan': res.vehiclesBean.parivahan,
+        'autoDebit': res.vehiclesBean.autoDebit,
+        'bankName': res.vehiclesBean.bankName,
+        'branchName': res.vehiclesBean.branchName,
+        'ifscCode': res.vehiclesBean.ifscCode,
+        'acName': res.vehiclesBean.acName,
+        'acNumber': res.vehiclesBean.acName,
+        'loanAmount': res.vehiclesBean.acName,
+        'loanNo': res.vehiclesBean.acName,
+        'emiDate': res.vehiclesBean.emiDate,
+        'emiDateObj':odate,
+        'loanInterest': res.vehiclesBean.loanInterest,
+        'loanVehicle':res.vehiclesBean.loanVehicle,
+
+        
+      
       });
     },
     error: (error) => {
@@ -269,6 +345,40 @@ export class AddVehicleComponent implements OnInit {
     this.router.navigate(['/master/vehicle/list-vehicle']);
 
   }
+  //Events
+  vehicleWheel(event)
+  {
+
+    if(event=='Two Wheeler'){
+      
+      this.isfourwheeler = false;
+      this.istwowheeler = true;
+    }
+    else if(event=='Four Wheeler'){
+     
+      this.istwowheeler = false;
+      this.isfourwheeler = true;
+    }
+    else if(event=='Others')
+    {
+      this.isfourwheeler = false;
+      this.istwowheeler = false;
+      this.textBox = true;
+      
+    }
+
+}
+loanFlag(event){
+  if(event=='YES'){
+  this.isLoan = true;
+  }
+  else if(event=='NO'){
+   this.isLoan = false;
+  
+  }
+
+
+}
 
   reset(){
     if(!this.edit){
@@ -293,11 +403,11 @@ export class AddVehicleComponent implements OnInit {
       age:[""],
       rtocode:[""],
       purcamount:[""],
-      insurancetype: ["", [Validators.required]],
-      insuredamount: ["", [Validators.required]],
+      insurancetype: [""],
+      insuredamount: [""],
       payment: ["cash"],
       insurername: [""],
-      validity: ["", [Validators.required]],
+      validity: [""],
       validity1: [""],
       address: [""],
       yom: [""],
@@ -305,6 +415,30 @@ export class AddVehicleComponent implements OnInit {
       lin: [""],
       agency: [""],
       emiamount: [""],
+      seater: [""],
+      purpose: [""],
+      bodytype1: [""],
+      others: [""],
+      drivetype: [""],
+      uid: [""],
+      password: [""],
+      parivahan: ["yes1"],
+      autoDebit: [""],
+      bankName: [""],
+      branchName: [""],
+      ifscCode: [""],
+      acName: [""],
+      acNumber: [""],
+      loanAmount: [""],
+      loanNo: [""],
+      emiDate:[""],
+      emiDateObj: [""],
+      loanInterest: [""],
+      loanVehicle: [""],
+
+
+
+
         
 
 
@@ -341,6 +475,18 @@ getlicense(check: any) {
   }
 }
 
+getpari(check: any) {
+  if (check == 'yes1') {
+    this.isYes1 = true;
+  }
+  else if (check == 'no1') {
+    this.isYes1 = false;
+  } else {
+    this.isYes1 = false;
+
+  }
+}
+
 
 
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -365,6 +511,9 @@ getlicense(check: any) {
    if (inputFlag == 'validity1') {
       this.docForm.patchValue({validity1: cdate });
     }
+    if (inputFlag == 'emiDate') {
+      this.docForm.patchValue({emiDate: cdate });
+    }
     
     }
     keyPressNumeric(event: any) {
@@ -381,5 +530,26 @@ getlicense(check: any) {
         event.preventDefault();
       }
     }
-
+    keyPressNumberDouble(event: any) {
+      const pattern = /[0-9.]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
+    }
+    keyPressNumberInt(event: any) {
+      const pattern = /[0-9]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
+    }
+    getAutoDebit(event: any) {
+      if (event) {
+        this.isAutoDebit = true;
+      }
+      else {
+        this.isAutoDebit = false;
+      }
+    }
 }

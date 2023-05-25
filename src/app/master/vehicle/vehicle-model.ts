@@ -31,6 +31,33 @@ export class VehicleMaster {
   lin : string;
   agency: string;
   emiamount:number;
+
+  seater:number;
+  purpose: string;
+  drivetype:string; 
+  bodytype1:string; 
+  others: string; 
+  uid:string;
+  password:string;
+  parivahan:string;
+  autoDebit:boolean;
+  bankName:string;
+  branchName:string;
+  ifscCode:string;
+  acName:string;
+  acNumber:string;
+  loanAmount:number;
+  loanNo:number;
+  emiDate:string;
+  emiDateObj:string;
+  loanInterest:number;
+  loanVehicle:string;
+
+  
+
+
+
+
   
   constructor(vehicleMaster) {
     {
@@ -65,6 +92,31 @@ export class VehicleMaster {
       this.lin  = vehicleMaster.lin || "";
       this.agency = vehicleMaster.agency || "";
       this.emiamount = vehicleMaster.emiamount || "";
+
+      this.seater = vehicleMaster.seater || "";
+      this.purpose = vehicleMaster.purpose || "";
+      this.drivetype = vehicleMaster.drivetype || "";
+      this.bodytype1 = vehicleMaster.bodytype1 || "";
+      this.others = vehicleMaster.others || "";
+      this.uid = vehicleMaster.uid || "";
+      this.password = vehicleMaster.password || "";
+      this.parivahan = vehicleMaster.parivahan || "";
+      this.autoDebit = vehicleMaster.autoDebit || "";
+      this.bankName = vehicleMaster.bankName || "";
+      this.branchName = vehicleMaster.branchName || "";
+      this.ifscCode = vehicleMaster.ifscCode || "";
+      this.acName = vehicleMaster.acName || "";
+      this.acNumber = vehicleMaster.acNumber || "";
+      this.loanAmount = vehicleMaster.loanAmount || "";
+      this.loanNo = vehicleMaster.loanNo || "";
+      this.emiDate = vehicleMaster.emiDate || "";
+      this.emiDateObj = vehicleMaster.emiDateObj || "";
+      this.loanInterest = vehicleMaster.loanInterest || "";
+      this.loanVehicle = vehicleMaster.loanVehicle || "";
+
+
+
+
 
     }
   }

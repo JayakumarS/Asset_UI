@@ -8,7 +8,7 @@ export class Vehiclereport{
   insurancetypeCheckBox:boolean;
   regnoCheckBox:boolean;
   enginenoCheckBox:boolean;
-  vehicleExcelHeader:any;
+  vehicleExcelHistoryHeader:any;
     push(arg0: string) {
       throw new Error('Method not implemented.');
     }

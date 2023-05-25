@@ -46,6 +46,7 @@ export class VehicleReportsComponent implements OnInit {
   userId:any;
   regnoList: any;
   UserId: string;
+  panelOpenState = false;
 
 
 
@@ -277,6 +278,10 @@ export class VehicleReportsComponent implements OnInit {
     if(this.vehiclereport.enginenoCheckBox == true){
       this.vehicleExcelHeader.push("ENGINE NUMBER");
     }
+
+    console.log(this.vehicleExcelHeader);
+
+    this.vehiclereport.vehicleExcelHistoryHeader = this.vehicleExcelHeader;
 
 
     this.httpService.post<any>(this.mutualFundService.VehicleListExcelUrl,this.vehiclereport).subscribe(
