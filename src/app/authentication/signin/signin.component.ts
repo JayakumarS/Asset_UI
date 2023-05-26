@@ -24,6 +24,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { ChatService } from "src/app/angular-bot/chat.service";
 
 declare var webkitSpeechRecognition:any
+declare var grecaptcha: any;
 
 @Component({
   selector: "app-signin",
@@ -60,6 +61,9 @@ export class SigninComponent
   ipAddress:string;
   speakerOff:boolean=false;
   speakerOn:boolean=true;
+// Google Captcha Site key
+  siteKey: string = '6LeiApIfAAAAAOBsKqX0U-EQNu3lk3O9LVByiRAA';
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
@@ -106,6 +110,9 @@ text='';
       password: ["", Validators.required],
       emailId: [""],
       cityName:[""],
+      recaptchaResponse: [""],
+
+      
     });
     this.httpService.get<CompanyLogoResultBean>(this.authService.companyUrl).subscribe(
       (data: any) => {
@@ -149,10 +156,18 @@ text='';
       return;
     } else {
 
+
+      var recaptchaRes = grecaptcha.getResponse();
+      if (recaptchaRes.length == 0) {
+        this.loading = false;
+        this.error = "Please Click on Google Captcha Checkbox and then submit again";
+        return;
+      }
+
       this.authForm.value.cityName=this.city;
 
       this.loginInfo = new AuthLoginInfo(
-      this.f.username.value, this.f.password.value,this.f.emailId.value);
+      this.f.username.value, this.f.password.value,this.f.emailId.value,this.f.recaptchaResponse.value);
 
 
       this.authService.attemptAuth(this.loginInfo).subscribe(

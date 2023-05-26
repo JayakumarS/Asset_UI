@@ -56,6 +56,11 @@
                 </mat-form-field>
               </div>
             </div>
+            <div class="d-flex justify-content-between align-items-center mb-5">
+              <ngx-recaptcha2 data-tabindex="3"  class="form-check" #captchaElem [siteKey]="siteKey"
+                formControlName="recaptchaResponse"></ngx-recaptcha2>
+            </div>
+
             <!-- <div class="d-flex justify-content-between align-items-center mb-5">
               <div class="form-check">
                 <label class="form-check-label">
