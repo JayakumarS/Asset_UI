@@ -59,6 +59,10 @@
             <div class="d-flex justify-content-between align-items-center mb-5">
               <ngx-recaptcha2 data-tabindex="3"  class="form-check" #captchaElem [siteKey]="siteKey"
                 formControlName="recaptchaResponse"></ngx-recaptcha2>
+            
+              <div style="text-align:right">
+                <a href="javascript:void(0);" (click)="forgottenPassword()" style="text-decoration:none;">Forgotten Password</a>
+              </div>
             </div>
 
             <!-- <div class="d-flex justify-content-between align-items-center mb-5">
@@ -78,11 +82,7 @@
                   class="auth-form-btn" [disabled]="!authForm.valid " type="submit">Login</button>
               </div>
             </div><br>
-            <div class="container-auth-form-btn">
-              <div style="text-align:right">
-                <a href="javascript:void(0);" (click)="forgottenPassword()" style="text-decoration:none;">Forgotten password</a>
-              </div>
-            </div><br>
+          
              <!-- <div class="container-auth-form-btn">
               <div style="text-align:right">
                 <a [routerLink]="['/authentication/signup']" style="text-decoration:none;">Don't Have Account ..? Register Here</a>
