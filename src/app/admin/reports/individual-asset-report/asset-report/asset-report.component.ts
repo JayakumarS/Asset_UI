@@ -111,9 +111,17 @@ displayedColumns=[
     );
   }
   onSubmit(){
+    if(this.docForm.valid){
     this.assetReport = this.docForm.value;
     this.loadData();
-    
+    } else {
+      this.showNotification(
+        "snackbar-danger",
+        "Please Select Asset Category",
+        "top",
+        "right"
+      );
+    }
   }
   
   
@@ -150,10 +158,27 @@ showNotification(colorName, text, placementFrom, placementAlign) {
 }
 
 QRcodeExportPdf() {
+
+  var tableName="";
+  if(this.docForm.controls.category.value=='Jewellery'){
+    tableName="jewellery";
+  } else if(this.docForm.controls.category.value=='Vehicle'){
+    tableName="vehicle";
+  } else if(this.docForm.controls.category.value=='Loan'){
+    tableName="loan_otherdebits";
+  } else if(this.docForm.controls.category.value=='Fixed deposit'){
+    tableName="fixed_deposit";
+  } else if(this.docForm.controls.category.value=='Mutual fund'){
+    tableName="fund_master";
+  } else if(this.docForm.controls.category.value=='Receivables'){
+    tableName="receivables";
+  }
   
  
   const obj={
-    userId: this.tokenStorage.getUserId()
+    loginUser: this.tokenStorage.getUserId(),
+    category:this.docForm.controls.category.value,
+    tableName:tableName
   }
   this.spinner.show();
   this.IndividualAssetReportService.QRcodeExportPdf(obj).pipe().subscribe({

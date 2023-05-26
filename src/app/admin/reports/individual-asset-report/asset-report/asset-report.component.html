@@ -27,9 +27,9 @@
         <div class=" col-xl-3 col-lg-4 col-md-12 col-sm-12" style="margin-left: 5px;">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <mat-select formControlName="category" required>
-              <mat-option value="Property">
+              <!-- <mat-option value="Property">
                 PROPERTY
-              </mat-option>
+              </mat-option> -->
               <mat-option value="Jewellery">
                JEWELLERY
               </mat-option>
@@ -65,7 +65,7 @@
 
             <div class="col-xl-13 col-lg-12 col-md-12 col-sm-12" style="display:flex; align-items: center; justify-content:center;">
               <button class="btn-space" mat-raised-button  style=" color: aliceblue; background-color: #34d034;"
-                 (click) = "onSubmit()"> Submit </button>
+                 (click) = "onSubmit()" > Submit </button>
                  <button color="warn" class="btn-space" type="button" style="background-color:#f44336;"  mat-raised-button color="primary" (click)="onReset()">Reset</button>
                  <button type="button" class="btn-space" mat-raised-button color="accent"
                  style="background-color: rgb(50, 124, 173);cursor: pointer;" (click)="QRcodeExportPdf()" >Print Asset QRCode</button>
