@@ -31,6 +31,7 @@ import { ComponentsModule } from "../shared/components/components.module";
 import { SharedModule } from "../shared/shared.module";
 import { UserloginComponent } from "./userlogin/userlogin.component";
 import { IndividualSignupComponent } from "./individual-signup/individual-signup.component";
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 
 
@@ -74,7 +75,7 @@ import { IndividualSignupComponent } from "./individual-signup/individual-signup
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-
+    NgxCaptchaModule
 
   ],
   providers: [
