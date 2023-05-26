@@ -55,7 +55,12 @@ export class VehicleMaster {
   vin:string;
   condition:string;
   mileage:number;
-
+  nextservice:string;
+  discardFromDate5:string;
+  transmissiontype:string;
+  feature:string;
+  description:string;
+ 
   
 
 
@@ -119,6 +124,13 @@ export class VehicleMaster {
       this.vin = vehicleMaster.vin || "";
       this.condition= vehicleMaster.condition || "";
       this.mileage= vehicleMaster.mileage || "";
+      this.nextservice= vehicleMaster.nextservice || "";
+      this.discardFromDate5= vehicleMaster.discardFromDate5|| "";
+      this.transmissiontype= vehicleMaster.transmissiontype || "";
+      this.feature= vehicleMaster.feature || "";
+      this.description= vehicleMaster.description|| "";
+
+
 
 
 

@@ -145,7 +145,7 @@
                      </div>
 
                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "  >
-                      <label>BODY TYPE<span class="errorColor">*</span></label>
+                      <label>BODY TYPE</label>
                   </div>
                   <div class="col-md-2" *ngIf ="isfourwheeler" >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline"  >
@@ -166,9 +166,7 @@
                                   Jeep
                               </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="docForm.get('bodytype').hasError('required')">
-                             Body Type is required
-                             </mat-error>
+                          
                     </mat-form-field>
                     </div>
                     <div class="col-md-2" *ngIf ="istwowheeler" >
@@ -296,21 +294,21 @@
              </mat-form-field>
                </div>
 
-               <div class="col-md-2" style="min-width: fit-content;" >
-                <label>DATE OF LAST SERVICE<span class="errorColor">*</span></label>
-            </div>
-            <div class="col-md-2">
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput [matDatepicker]="picker" formControlName="service"
-                (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate"
-                (dateChange)="getDateString($event,'discardFromDate',0)" >
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="docForm.get('service').hasError('required')">
-                    Last Service date is required
-                    </mat-error>
-              </mat-form-field>
-            </div>
+                <div class="col-md-2" style="min-width: fit-content;"  >
+                  <label>TRANSMISSION TYPE</label>
+              </div>
+                <div class="col-md-2">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                   <mat-select formControlName="transmissiontype">
+                      <mat-option [value]="'Automatic'">
+                         Automatic
+                      </mat-option>
+                      <mat-option [value]="'Manual'">
+                          Manual
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
 </div>
 
         <div class="row">
@@ -394,7 +392,7 @@
             </mat-form-field>
               </div>
               <div class="col-md-2" style="min-width: fit-content;"  >
-                <label>MILEAGE</label>
+                <label>MILEAGE (km)</label>
             </div>
               <div class="col-md-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -404,11 +402,7 @@
             </mat-form-field>
               </div>
               </div>
-      
-      
-                     
-
-
+              
             <div class="row">
               <div class="col-md-2" style="min-width: fit-content;" >
                 <label>YEAR OF MANUFACTURING</label>
@@ -471,7 +465,7 @@
         </div>
         <div class="col-md-2" *ngIf="isYes1">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput formControlName="password" maxlength="15"  >
+            <input [type]="password" matInput formControlName="password" maxlength="15"  >
            </mat-form-field>
         </div>
 
@@ -822,12 +816,67 @@ Insured Amount is required
   <div class="col-md-2">
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
   <textarea matInput formControlName="address" maxlength="50" ></textarea>
-  <mat-error *ngIf="docForm.get('address').hasError('required')">
-  Address is required
-  </mat-error>
   </mat-form-field>
   </div>
 </div>
+
+<hr><br>
+<h4>SERVICE HISTORY DETAILS</h4><br>
+<div class="row">
+  <div class="col-md-2" style="min-width: fit-content;" >
+    <label>DATE OF LAST SERVICE<span class="errorColor">*</span></label>
+</div>
+<div class="col-md-2">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+    <input matInput [matDatepicker]="picker" formControlName="service"
+    (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate"
+    (dateChange)="getDateString($event,'discardFromDate',0)" >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="docForm.get('service').hasError('required')">
+        Last Service date is required
+        </mat-error>
+  </mat-form-field>
+</div>
+<div class="col-md-2" style="min-width: fit-content;" >
+  <label>DESCRIPTION</label>
+  </div>
+  <div class="col-md-2">
+  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+  <textarea matInput formControlName="description" maxlength="50" ></textarea>
+  </mat-form-field>
+  </div>
+  <div class="col-md-2" style="min-width: fit-content;" >
+    <label>DATE OF NEXT SERVICE<span class="errorColor">*</span></label>
+</div>
+<div class="col-md-2">
+<mat-form-field class="example-full-width form-control-sm" appearance="outline">
+    <input matInput [matDatepicker]="picker5" formControlName="nextservice"
+    (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate5"
+    (dateChange)="getDateString($event,'discardFromDate5',0)" >
+    <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+    <mat-datepicker #picker5></mat-datepicker>
+    <mat-error *ngIf="docForm.get('nextservice').hasError('required')">
+        Next Service date is required
+        </mat-error>
+  </mat-form-field>
+</div>
+</div>
+<hr><br>
+<h4>FEATURE AND OPTION DETAILS</h4><br>
+<div class="row">
+  <div class="col-md-2" style="min-width: fit-content;" >
+    <label> FEATURE AND OPTION DESCRIPTION</label>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+      <textarea matInput formControlName="feature" maxlength="100" ></textarea>
+      </mat-form-field>
+      </div>
+      </div>
+
+
+
 
   <br>
               <div class="row">

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from 
-'@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Vehiclereport } from '../vehicle-report.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -52,7 +51,7 @@ export class VehicleReportsComponent implements OnInit {
 
   vehicletype=[];
   fueltype=[];
-  bodytype=[];
+  drivetype=[];
   ownertype=[];
   vehiclewheel=[];
   insurancetype=[];

@@ -63,6 +63,8 @@ export class AddVehicleComponent implements OnInit {
   textBox:boolean = false;
   isAutoDebit: boolean;
   isLoan: boolean;
+  event: any;
+  id: any;
   
 
   constructor(private fb: FormBuilder,
@@ -132,6 +134,14 @@ export class AddVehicleComponent implements OnInit {
       vin:[""],
       condition: [""],
       mileage: [""],
+      description: [""],
+      discardFromDate5: [""],
+      nextservice: ["", [Validators.required]],
+      transmissiontype: [""],
+      feature: [""],
+
+
+
       
 
 
@@ -199,6 +209,13 @@ export class AddVehicleComponent implements OnInit {
       condition: [""],
       mileage: [""],
 
+      discardFromDate5: [""],
+      nextservice: ["", [Validators.required]],
+      transmissiontype: [""],
+      feature: [""],
+      description: [""],
+
+
 
 
 
@@ -246,20 +263,25 @@ export class AddVehicleComponent implements OnInit {
 
   // Edit
   fetchDetails(id: any){
+
+
     const obj = {
       editId: id
     };
     this.edit = true;
+
     this.vehicleService.editvehicle(obj).subscribe({
       next: (res) => {
         this.getlicense(res.vehiclesBean.license);
         this.getpari(res.vehiclesBean.parivahan);
         this.loanFlag(res.vehiclesBean.loanVehicle);
+        this.vehicleWheel(res.vehiclesBean.vehiclewheel);
 
         let hdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate1);
         let rdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate);
         let gdate = this.cmnService.getDateObj(res.vehiclesBean.validity1);
         let odate = this.cmnService.getDateObj(res.vehiclesBean.emiDate);
+        let tdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate5);
 
 
 
@@ -272,6 +294,7 @@ export class AddVehicleComponent implements OnInit {
         this.getcash(paymentValue);
 
        this.docForm.patchValue({
+        
            
         'vehiclewheel':res.vehiclesBean.vehiclewheel,
         'vehicletype':res.vehiclesBean.vehicletype,
@@ -328,7 +351,15 @@ export class AddVehicleComponent implements OnInit {
         'vin':res.vehiclesBean.vin,
         'condition':res.vehiclesBean.condition,
         'mileage':res.vehiclesBean.mileage,
+        'transmissiontype':res.vehiclesBean.transmissiontype,
+        'discardFromDate5':res.vehiclesBean.discardFromDate5,
+        'nextservice':tdate,
+        'feature':res.vehiclesBean.feature,
+        'description':res.vehiclesBean.description,
 
+
+
+        
         
  });
 
@@ -453,6 +484,11 @@ loanFlag(event){
       condition: [""],
       mileage: [""],
 
+      discardFromDate5: [""],
+      nextservice: [""],
+      transmissiontype: [""],
+      feature: [""],
+      description: [""],
 
 
 
@@ -531,8 +567,13 @@ getpari(check: any) {
     if (inputFlag == 'emiDate') {
       this.docForm.patchValue({emiDate: cdate });
     }
+    if (inputFlag == 'discardFromDate5') {
+      this.docForm.patchValue({discardFromDate5: cdate });
+    }
     
     }
+
+
     keyPressNumeric(event: any) {
       const pattern = /[0-9]/;
       const inputChar = String.fromCharCode(event.charCode);
