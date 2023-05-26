@@ -35,6 +35,9 @@ export class Otherdebits {
     currencyl:string;
     branchName:string;
     ifsccode:string;
+    repayment:string;
+    loanBal:number;
+    payHis:string;
 
 
     constructor(Otherdebits) {
@@ -72,6 +75,9 @@ export class Otherdebits {
           this.currencyl = Otherdebits.currencyl || "";
           this.branchName = Otherdebits.branchName || "";
           this.ifsccode = Otherdebits.ifsccode || "";
+          this.repayment = Otherdebits.repayment || "";
+          this.loanBal = Otherdebits.loanBal || "";
+          this.payHis = Otherdebits.payHis || "";
             
         }
       }

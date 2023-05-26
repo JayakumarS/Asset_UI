@@ -110,7 +110,7 @@
               </div>
               </div>
 
-              <b><hr></b>
+              <br>
               <h4>LOAN DETAILS</h4>
                 <br><br>    
                 <div class="row">
@@ -156,6 +156,9 @@
                         <mat-option [value]="'Vehicle Loan'">
                           Vehicle Loan 
                         </mat-option>
+                        <mat-option [value]="'MORTGAGE'">
+                          MORTGAGE 
+                        </mat-option>
                   </mat-select>
                       <mat-error *ngIf="docForm.get('type').hasError('required')">
                         Loan type is required
@@ -164,7 +167,7 @@
                   </div>
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                    <mat-label >LOAN APPLICATION DATE<span class="errorColor">*</span></mat-label>
+                    <mat-label >APPLICATION DATE<span class="errorColor">*</span></mat-label>
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -288,8 +291,6 @@
                           </mat-error>
                           </mat-form-field>
                           </div>
-
-                     
                   </div>
                   
                   <div class="row">
@@ -312,9 +313,20 @@
                           </mat-error> 
                     </mat-form-field>
                   </div> 
-                </div>
-
-                <b><hr></b>
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <mat-label >LOAN BALANCE<span class="errorColor">*</span></mat-label>
+                    </div>
+                    <div class=" col-md-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <input matInput formControlName="loanBal" (keypress)="keyPressNumeric($event)" maxlength="8" >
+                        <mat-error *ngIf="docForm.get('loanBal').hasError('required')">
+                          Loan Balance is required
+                        </mat-error>
+                      </mat-form-field>
+                  </div>
+                  
+                  </div>
+                <br>
                 <h4>PAYMENT AND INTEREST</h4>
                 <br><br>
 
@@ -322,13 +334,13 @@
                               
                     
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                    <mat-label >EMI AMOUNT<span class="errorColor">*</span></mat-label>
+                    <mat-label >MONTHLY AMOUNT<span class="errorColor">*</span></mat-label>
                 </div>
                 <div class=" col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="amount" (keypress)="keyPressNumberDouble($event)" maxlength="6" >
                     <mat-error *ngIf="docForm.get('amount').hasError('required')">
-                     EMI Amount is required
+                     EMI MONTHLY Amount is required
                      </mat-error>
                   </mat-form-field>
                 </div>
@@ -377,8 +389,49 @@
                       </mat-form-field>
                     </div>
               </div>
+              <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <mat-label >PAYMENT HISTORY</mat-label>
+                  </div>
+                  <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select class="inputTxt" formControlName="payHis" >
+                          <mat-option [value]="'MISSED'">
+                            MISSED
+                          </mat-option>
+                          <mat-option [value]="'LATE PAYMENT'">
+                            LATE PAYMENT
+                          </mat-option>
+                          <mat-option [value]="'REPAYMENT'">
+                            REPAYMENT
+                          </mat-option>
+                          <mat-option [value]="'DEFAULTS'">
+                            DEFAULTS
+                          </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <label>REPAYMENT TERM<span class="errorColor">*</span></label>
+            </div>
+              <div class=" col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-select formControlName="repayment" >
+                      <mat-option [value]="'SIX MONTHS'">SIX MONTHS</mat-option>
+                      <mat-option [value]="'TEN MONTHS'">TEN MONTHS</mat-option>
+                      <mat-option [value]="'ONE YEAR'">ONE YEAR</mat-option>
+                      <mat-option [value]="'TWO YEARS'">TWO YEARS</mat-option>
+                      <mat-option [value]="'FIVE YEARS'">FIVE YEARS</mat-option>
+                    </mat-select>
+                    <mat-error 
+                    *ngIf="docForm.get('repayment').hasError('required')">
+                      Repayment Term is required
+                    </mat-error>
+                    </mat-form-field>
+              </div>
+              </div>
 
-              <b><hr></b>
+              <br>
               <h4>LOAN BANK DETAILS</h4>
               <br><br>
 

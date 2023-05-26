@@ -114,6 +114,10 @@ export class AddOtherdebitsComponent implements OnInit {
         account:["",[Validators.required]],
         bankname:["",[Validators.required]],
         id:[""],
+        repayment:["",[Validators.required]],
+        loanBal:["",[Validators.required]],
+        payHis:[""],
+
         loginedUser: this.tokenStorage.getUserId(),
         // loanID:[""], 
         // accountNo:[""],
@@ -200,6 +204,9 @@ this.loanOtherdebitsService.editlist(obj).subscribe({
       'loanApplicationDateObj' :rdate,
       'loanApprovalDateObj' :hdate,
       'loanDisbursementDateObj' :fdate,
+      'repayment':res.repayment,
+      'loanBal':res.loanBal,
+      'payHis':res.payHis,
       'id' :this.requestId,     
        
   });
@@ -262,6 +269,9 @@ reset(){
         account:[""],
         bankname:[""],
         id:[""],
+        repayment:[""],
+        loanBal:[""],
+        payHis:[""],
         loginedUser: this.tokenStorage.getUserId(),
     });
 } else {
