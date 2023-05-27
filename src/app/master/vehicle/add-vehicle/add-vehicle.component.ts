@@ -280,7 +280,7 @@ export class AddVehicleComponent implements OnInit {
         let hdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate1);
         let rdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate);
         let gdate = this.cmnService.getDateObj(res.vehiclesBean.validity1);
-        let odate = this.cmnService.getDateObj(res.vehiclesBean.emiDate);
+        // let odate = this.cmnService.getDateObj(res.vehiclesBean.emiDate);
         let tdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate5);
 
 
@@ -345,7 +345,9 @@ export class AddVehicleComponent implements OnInit {
         'loanAmount': res.vehiclesBean.loanAmount,
         'loanNo': res.vehiclesBean.loanNo,
         'emiDate': res.vehiclesBean.emiDate,
-        'emiDateObj':odate,
+        // 'emiDateObj':odate,
+        'emiDateObj':res.vehiclesBean.emiDate != null ? this.commonService.getDateObj(res.vehiclesBean.emiDate) : "",
+
         'loanInterest': res.vehiclesBean.loanInterest,
         'loanVehicle':res.vehiclesBean.loanVehicle,
         'vin':res.vehiclesBean.vin,
