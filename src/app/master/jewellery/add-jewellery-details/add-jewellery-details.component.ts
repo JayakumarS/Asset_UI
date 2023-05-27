@@ -277,7 +277,11 @@ onSubmit(){
       this.docForm.patchValue({
           'cdate': res.jewelBean.cdate,
           'jdate': res.jewelBean.jdate,
-          'cdateObj':hdate,
+          
+          'cdateObj':res.jewelBean.cdate != null ? this.commonService.getDateObj(res.jewelBean.cdate) : "",
+
+
+          // 'cdateObj':hdate,
           'jdateObj': rdate,
           'type': res.jewelBean.type,
           'material': res.jewelBean.material,
