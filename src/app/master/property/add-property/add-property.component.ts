@@ -436,7 +436,7 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'type': res.propertyBean.type,
         'currentValue': res.propertyBean.currentValue,
         'depVal': res.propertyBean.depVal,
-        'squareFeet': res.propertyBean.squareFeet,
+        'squareFeet': res.propertyBean.squareFeet1,
         'loan': res.propertyBean.loan,
         'loanNo': res.propertyBean.loanNo,
         'loanInterest': res.propertyBean.loanInterest,
