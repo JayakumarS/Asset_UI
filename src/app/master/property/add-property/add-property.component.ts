@@ -463,8 +463,11 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'tenentIdCard':res.propertyBean.tenentIdCard,
         'mobileNo':res.propertyBean.mobileNo,
         'alternateNo':res.propertyBean.alternateNo,
-        'loanstartObj':hdate6,
-        'loanendObj':hdate7,
+        // 'loanstartObj':hdate6,
+        'loanstartObj':res.propertyBean.loanstart != null ? this.commonService.getDateObj(res.propertyBean.loanstart) : "",
+        'loanendObj':res.propertyBean.loanend != null ? this.commonService.getDateObj(res.propertyBean.loanend) : "",
+
+        // 'loanendObj':hdate7,
         'loanstart':res.propertyBean.loanstart,
         'loanend':res.propertyBean.loanend,
         'emamount':res.propertyBean.emamount,
