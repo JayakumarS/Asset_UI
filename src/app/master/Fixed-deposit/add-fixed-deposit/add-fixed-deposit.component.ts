@@ -124,7 +124,7 @@ docForm: FormGroup;
         this.docForm.patchValue({fdstartDate: cdate });
       }
       if (inputFlag == 'dob') {
-        this.docForm.patchValue({dob: cdate });
+        this.docForm.patchValue({dob:cdate});
       }
     
       }
@@ -168,7 +168,7 @@ docForm: FormGroup;
       next: (res) => {
         let hdate = this.cmnService.getDateObj(res.fixeddepositBean.fdendDate);
         let rdate = this.cmnService.getDateObj(res.fixeddepositBean.fdstartDate);
-        let ddate = this.cmnService.getDateObj(res.fixeddepositBean.dob);
+        // let ddate = this.cmnService.getDateObj(res.fixeddepositBean.dob);
 
       this.docForm.patchValue({
           'bankName': res.fixeddepositBean.bankName,
@@ -178,7 +178,9 @@ docForm: FormGroup;
           'fdendDate': res.fixeddepositBean.fdendDate,
           'fdenddateObj' :hdate,
           'fdstartdateObj' :rdate,
-          'dobobj':ddate,
+          // 'dobobj':ddate,
+          'dobobj':res.fixeddepositBean.dob != null ? this.commonService.getDateObj(res.fixeddepositBean.dob) : "",
+
           'dob': res.fixeddepositBean.dob,
           'fixeddeposittype': res.fixeddepositBean.fixeddeposittype,
           'fdstartDate': res.fixeddepositBean.fdstartDate,
