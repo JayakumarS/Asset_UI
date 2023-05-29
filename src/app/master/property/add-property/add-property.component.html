@@ -522,7 +522,7 @@
                         </mat-option>
                   </mat-select>
                       <mat-error *ngIf="docForm.get('ownership').hasError('required')">
-                        ownership is required
+                        Ownership is required
                       </mat-error>
                   </mat-form-field>
               </div>
@@ -633,7 +633,7 @@
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="gardenName" maxlength="15" oninput="this.value = this.value.toUpperCase()">
                     <mat-error *ngIf="docForm.get('gardenName').hasError('required')">
-                      garden name is required
+                      Garden Name is required
                     </mat-error>
                   </mat-form-field>
               </div>
@@ -645,7 +645,7 @@
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <textarea matInput formControlName="gardenadd" maxlength="250"></textarea>
                   <mat-error *ngIf="docForm.get('gardenadd').hasError('required')">
-                    garden address is required
+                    Garden Address is required
                   </mat-error>
                 </mat-form-field>
             </div>
@@ -1136,8 +1136,8 @@
               </div>
               <div class=" col-md-3" >
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-            <mat-select class="inputTxt" placeholder="Own Property" formControlName="rentalType" (selectionChange)="rentalFlag($event.value)"  (keypress)="keyPressName($event)">
-              <mat-option [value]="'Own Property'">
+            <mat-select class="inputTxt" placeholder="OwnProperty" formControlName="rentalType" (selectionChange)="rentalFlag($event.value)"  (keypress)="keyPressName($event)">
+              <mat-option [value]="'OwnProperty'">
                Own Property
               </mat-option>
               <mat-option [value]="'Rent'">
@@ -1156,6 +1156,193 @@
 
         </div>
         <br>
+        <div class="card " style="padding-left: 150px;" *ngIf = "isOwnProperty">
+          <br>
+          <div class="row" *ngIf = "isOwnProperty">
+  
+            <mat-label style="margin-left: -45px;padding-bottom: 18px;margin-top: 7px;"><b>OWN PROPERTY</b></mat-label>
+  
+          </div>
+              <div class="row" *ngIf = "isOwnProperty">
+  
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+                  <mat-label>PREVIOUS OWNER<span class="errorColor">*</span></mat-label>
+              </div>
+              <div class=" col-md-3" >
+                <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+                  <mat-select class="inputTxt" formControlName="preOwner"  (keypress)="keyPressName($event)">
+                    <mat-option [value]="'YES'">
+                     YES
+                    </mat-option>
+                    <mat-option [value]="'NO'">
+                     NO
+                    </mat-option>
+                   
+                    </mat-select>
+                    <mat-error *ngIf="docForm.get('preOwner').hasError('required')">
+                      Previous Owner is required
+                     </mat-error> 
+                    
+                </mat-form-field>
+              </div>
+  
+  
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+                <mat-label>OWNER NAME</mat-label> 
+            </div>
+            <div class=" col-md-3" >
+              <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+                <input matInput formControlName="preOwnername"
+                maxlength="10" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
+                 
+              </mat-form-field>
+            </div>
+            </div>
+            <div class="row" *ngIf = "isOwnProperty">
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+                <mat-label>TRANSITION DATE<span class="errorColor">*</span></mat-label>
+            </div>
+            <div class=" col-md-3">
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <input matInput [matDatepicker]="picker1" 
+                formControlName="transitionDateObj"
+                (dateInput)="$event.value.format('DD/MM/YYYY')"
+                id="transitionDate"
+                (dateChange)="getDateString($event, 'transitionDate',0)">
+            <mat-datepicker-toggle matSuffix
+                [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="docForm.get('transitionDate').hasError('required')">
+             Transition Date is required
+            </mat-error> 
+            
+              </mat-form-field>
+              
+            </div>
+
+            
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <mat-label>SOLD RATE<span class="errorColor">*</span> </mat-label>
+          </div>
+          <div class=" col-md-3">
+            <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+              <input matInput formControlName="propWorth"
+              maxlength="20" (keypress)="keyPressNumeric($event)">
+              <mat-error *ngIf="docForm.get('propWorth').hasError('required')">
+                Sold Rate is required
+              </mat-error> 
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row" *ngIf = "isOwnProperty">
+
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+            <mat-label>ADDRESS </mat-label>
+        </div>
+        <div class=" col-md-3" >
+          <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+            <textarea matInput formControlName="ownAddress" maxlength="250"></textarea>
+             
+          </mat-form-field>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+          <mat-label>MAIL ID </mat-label>
+      </div>
+      <div class=" col-md-3">
+        <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="mailId" maxlength="30">
+        </mat-form-field>
+      </div>
+        </div>
+        <div class="row" *ngIf = "isOwnProperty">
+
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+            <mat-label >PAYMENT STATUS</mat-label>
+        </div>
+        <div class=" col-md-3" >
+          <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+            <mat-select class="inputTxt" formControlName="payStatus"  (keypress)="keyPressName($event)">
+              <mat-option [value]="'fullpayment'">
+               FULL PAYMENT
+              </mat-option>
+              <mat-option [value]="'partialpayment'">
+               PARTIAL PAYMENT
+              </mat-option>
+              </mat-select> 
+          </mat-form-field>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
+          <mat-label > PAY AMOUNT</mat-label>
+      </div>
+      <div class=" col-md-3"  >
+        <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="payAmt" maxlength="12" >
+        </mat-form-field>
+      </div>
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <div class="card " style="padding-left: 150px;" *ngIf = "isRent">
         <br>
         <div class="row" *ngIf = "isRent">
@@ -1220,14 +1407,28 @@
 
             
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
-              <mat-label >
-                RENTAL PERIOD</mat-label>
+              <mat-label >RENTAL PERIOD<span class="errorColor">*</span></mat-label>
           </div>
           <div class=" col-md-3" >
             <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-              <input matInput formControlName="rentalPeriod"
-               maxlength="20" >
-            
+              <mat-select class="inputTxt" formControlName="rentalPeriod"  (keypress)="keyPressName($event)">
+                <mat-option [value]="'1-2 Years'">
+                 1-2 Years
+                </mat-option>
+                <mat-option [value]="' 1-3 years'">
+                 1-3 years
+                </mat-option>
+                <mat-option [value]="' 1-5 years'">
+                  1-5 years
+                 </mat-option>
+                 <mat-option [value]="' 1-6 years'">
+                  1-6 years
+                 </mat-option>
+               
+                </mat-select> 
+                <mat-error *ngIf="docForm.get('rentalPeriod').hasError('required')">
+                  Rental Period  is required
+                 </mat-error> 
             </mat-form-field>
           </div>
 
@@ -1235,8 +1436,7 @@
         <div class="row" *ngIf = "isRent">
 
           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
-            <mat-label >
-              TENANT NAME<span class="errorColor">*</span></mat-label>
+            <mat-label >TENANT NAME<span class="errorColor">*</span></mat-label>
         </div>
         <div class=" col-md-3" >
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
@@ -1261,9 +1461,6 @@
            </mat-error> 
         </mat-form-field>
       </div>
-
-
-        
         </div>
 
         <div class="row" *ngIf = "isRent">
@@ -1543,7 +1740,7 @@
                 <input matInput formControlName="lesContract"
                  maxlength="12" (keypress)="keyPressNumberInt($event)">
                  <mat-error *ngIf="docForm.get('lesContract').hasError('required')">
-                  lease contract no. is required
+                  Lease Contract No. is required
                  </mat-error> 
               </mat-form-field>
             </div>
@@ -1557,7 +1754,7 @@
               <input matInput formControlName="lesAmount"
                maxlength="9" (keypress)="keyPressNumberInt($event)">
                <mat-error *ngIf="docForm.get('lesAmount').hasError('required')">
-                lease amount is required
+                Lease Amount is required
                </mat-error> 
             </mat-form-field>
           </div>
