@@ -201,6 +201,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./widget/widget.module").then((p) => p.WidgetModule),
   },
+  {
+    path: "prePlanCalendar",
+    loadChildren: () =>
+    import("./pre-plan-calendar/pre-plan-calendar.module").then((p) => p.PrePlanCalendarModule),
+  },
 ];
 
 @NgModule({
