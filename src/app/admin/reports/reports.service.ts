@@ -37,7 +37,7 @@ export class ReportsService extends UnsubscribeOnDestroyAdapter {
     public getUserLogList = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/getList`;
     public UserSerach = `${this.serverUrl.apiServerAddress}api/auth/app/userLog/getUserSerach`;
     public assetHistoryListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getassetHistoryList`;
-    public assetHistoryListExcelUrl = `${this.serverUrl.apiServerAddress}app/loanreceivables/exportListExcel`;
+    public assetHistoryListExcelUrl = `${this.serverUrl.apiServerAddress}api/auth/app/reports/excelExport`;
     public assetdueList = `${this.serverUrl.apiServerAddress}api/auth/app/reports/getDueList`;
     get data(): Reportscategory[] {
       return this.dataChange.value;
