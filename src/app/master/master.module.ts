@@ -35,7 +35,6 @@ import { DeleteConsoleLogComponent } from './console-log/list-console-log/delete
     AddExchangeMasterComponent,
     AddConsoleLogComponent,
     DeleteConsoleLogComponent,
-  
 
   ],
   imports: [
