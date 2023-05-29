@@ -102,10 +102,10 @@ export class AddJewelleryDetailsComponent implements OnInit {
       selforgift:["SELF"],
       location:[""],
       lockerInHand:["LOCKER"],
-      lockerRent:["",  [Validators.required]],
+      lockerRent:[""],
       lockerSize:[""],
-      bankName:["" , [Validators.required]],
-      lockerNo:["", [Validators.required]],
+      bankName:[""],
+      lockerNo:[""],
       currentValue:["", [Validators.required]],
       specification:[""],
       description:[""],
@@ -113,7 +113,9 @@ export class AddJewelleryDetailsComponent implements OnInit {
       purchasedfrom:["", [Validators.required]],
       purchaseValue:[""],
       jewelName:["", [Validators.required]],
-      jewelcolour:[""]
+      jewelcolour:[""],
+      gemstones:[""],
+      caratweight:[""]
       // jewelleryDtl: this.fb.array([
       //   this.fb.group({
       //     jdate:[""],
@@ -302,6 +304,9 @@ onSubmit(){
           'purchaseValue': res.jewelBean.purchaseValue,
           'jewelName': res.jewelBean.jewelName,
           'jewelcolour': res.jewelBean.jewelcolour,
+          'gemstones': res.jewelBean.gemstones,
+          'caratweight': res.jewelBean.caratweight,
+        
           'id' :this.requestId
       
 
@@ -329,7 +334,9 @@ onSubmit(){
         material:[""],
         weight:[""],
         price:[""],
-        loan:[""]
+        loan:[""],
+        gemstones:[""],
+        caratweight:[""]
       });
   } else {
     this.fetchDetails(this.requestId);
@@ -373,26 +380,7 @@ onSubmit(){
   }
 
 
-  onAddRow(){
-    let dtlArray = this.docForm.controls.jewelleryDtl as FormArray;
-    let arraylen = dtlArray.length;
-    let newUsergroup: FormGroup = this.fb.group({
-      type:[""],
-      weight:[""],
-      price:[""],
-      loan:[""],
-      jdate:[""]
-    })
-    dtlArray.insert(arraylen,newUsergroup);
-  
-  }
-  
-  removeRowSelf(index) {
-    let dtlArray = this.docForm.controls.jewelleryDtl as FormArray;
-    // if(index != 0){
-    dtlArray.removeAt(index);
-    // }
-  }
+
 
   onUpdate(){
     this.Jewel = this.docForm.value;

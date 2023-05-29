@@ -106,6 +106,8 @@
                 </div>   
 
 
+
+
   
                 <div class="row">
   
@@ -123,9 +125,9 @@
                             <mat-option [value]="'SILVER'">
                               SILVER
                             </mat-option>
-                            <mat-option [value]="'DIMOND'">
+                            <!-- <mat-option [value]="'DIMOND'">
                               DIAMOND
-                            </mat-option>
+                            </mat-option> -->
                             <mat-option [value]="'PLATINUM'">
                               PLATINUM
                             </mat-option>
@@ -162,7 +164,51 @@
                     </mat-form-field>
                   </div>
               </div>
-              
+              <div class="row">
+  
+                    
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label >GEMSTONES</label>
+                </div>
+
+                <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select  formControlName="gemstones"  >
+                        <mat-option [value]="'DIAMOND'">
+                            DIAMOND
+                          </mat-option>
+                          <mat-option [value]="'RUBIES'">
+                            RUBY
+                          </mat-option>
+                          <mat-option [value]="'DIMOND'">
+                            EMERALD
+                          </mat-option>
+                          <mat-option [value]="'PEARL'">
+                            PEARL
+                          </mat-option>
+                          <mat-option [value]="'SAPPHIRES'">
+                            SAPPHIRES
+                          </mat-option>
+                          <mat-option [value]="'OTHERS'">
+                            OTHERS
+                          </mat-option>
+                    </mat-select>
+                   
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label >CARAT WEIGHT<BR>(in ct)</label>
+                </div>
+                  <div class=" col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="caratweight" maxlength="20" (keypress)="keyPressNumber($event)">
+                  
+                  </mat-form-field>
+                </div>
+            </div>
+
+
 
               <div class="row">
   

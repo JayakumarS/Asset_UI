@@ -21,6 +21,8 @@ export class jewel {
     purchaseValue:any;
     jewelName:any;
     jewelcolour:any;
+    gemstones:string;
+    caratweight:number;
 
     constructor(jewel) {
         {
@@ -36,6 +38,8 @@ export class jewel {
           this.weight = jewel.weight || "";
           this.price = jewel.price || "";
           this.loan = jewel.loan || "";
+          this.gemstones = jewel.gemstones || "";
+          this.caratweight = jewel.caratweight || "";
 
         }
       }
