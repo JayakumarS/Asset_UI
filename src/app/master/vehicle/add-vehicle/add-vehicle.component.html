@@ -97,7 +97,7 @@
                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1></mat-datepicker>
                       <mat-error *ngIf="docForm.get('dateofpurc').hasError('required')">
-                        Date is required
+                         Purchase Date is required
                           </mat-error>
                     </mat-form-field>
                   </div>
@@ -237,7 +237,7 @@
                     </div>
                     <div class="col-md-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="rtocode" maxlength="5"
+                        <input matInput formControlName="rtocode" maxlength="4"
                          oninput="this.value = this.value.toUpperCase()"  >
                         <mat-error *ngIf="docForm.get('rtocode').hasError('required')">
                         RTO Code is required
@@ -300,11 +300,11 @@
                 <div class="col-md-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                    <mat-select formControlName="transmissiontype">
-                      <mat-option [value]="'Automatic'">
-                         Automatic
+                      <mat-option [value]="'Manual Transmission'">
+                        Manual Transmission
                       </mat-option>
-                      <mat-option [value]="'Manual'">
-                          Manual
+                      <mat-option [value]="'Automatic Transmission'">
+                        Automatic Transmission
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -337,7 +337,7 @@
                   Lease
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="docForm.get('ownertype').hasError('required')">
+            <mat-error *ngIf="docForm.get('purpose').hasError('required')">
               Purpose is required
               </mat-error>
       </mat-form-field>
@@ -392,7 +392,7 @@
             </mat-form-field>
               </div>
               <div class="col-md-2" style="min-width: fit-content;"  >
-                <label>MILEAGE (km)</label>
+                <label>MILEAGE (kmpl)</label>
             </div>
               <div class="col-md-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -429,10 +429,11 @@
               <input matInput formControlName="lin" maxlength="16"  oninput="this.value = this.value.toUpperCase()" >
              </mat-form-field>
           </div>
+        </div>
 
           <div class="row">  </div>
           <hr><br>
-          <h4>PARIVAHAN DETAILS</h4><br><br><br>
+          <h4>PARIVAHAN DETAILS</h4><br>
           <div class="row">
             <div class="col-md-2">
               <mat-label>PARIVAHAN REGISTERED</mat-label>
@@ -469,9 +470,24 @@
            </mat-form-field>
         </div>
 
-          </div>
-         </div>
-         <br>
+
+          <!-- <div class="col-md-2 ">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+              <a class="show-pwd-icon" href="#" onClick="return false;" matSuffix (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </a>
+              
+            </mat-form-field>
+          </div> -->
+        
+
+
+  </div>
+         
+         
                   <div class="row">  </div>
                <hr><br>
                <h4>PAYMENT METHOD</h4><br>
@@ -587,7 +603,7 @@
             </div>
             <div class=" col-md-2"  *ngIf = "isLoan">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="bankName" maxlength="15" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
+                  <input matInput formControlName="bankName" maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
              
                 </mat-form-field>
             </div>
@@ -843,7 +859,7 @@ Insured Amount is required
   </div>
   <div class="col-md-2">
   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-  <textarea matInput formControlName="description" maxlength="50" ></textarea>
+  <textarea matInput formControlName="description" maxlength="50"></textarea>
   </mat-form-field>
   </div>
   <div class="col-md-2" style="min-width: fit-content;" >
