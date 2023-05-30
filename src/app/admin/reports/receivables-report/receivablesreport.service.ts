@@ -28,6 +28,8 @@ export class ReceivablesreportService {  isTblLoading = true;
     public currency = `${this.serverUrl.apiServerAddress}app/loanreceivables/getcurrency`;
     public paymentstatus = `${this.serverUrl.apiServerAddress}app/loanreceivables/getpaymentstatus`;
     public receivablesreportListUrl = `${this.serverUrl.apiServerAddress}app/loanreceivables/getReceivablesreport`;
+    public receivablesreportExcel = `${this.serverUrl.apiServerAddress}app/loanreceivables/exportListExcel`;
+
     get data(): Reportscategory[] {
       return this.dataChange.value;
     }

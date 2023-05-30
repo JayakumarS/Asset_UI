@@ -212,7 +212,7 @@ export class ReceivablesreportComponent implements OnInit {
             baddebtsCheckBox:[false],
             interestreceivableCheckBox:[false],
             accounttypeCheckBox:[false],
-            paymentstatusCheckBox:[false],
+            paymentStatusCheckBox:[false],
             duedateCheckBox:[false],
             paymentreferenceCheckBox:[false]
              })
@@ -305,7 +305,7 @@ export class ReceivablesreportComponent implements OnInit {
           console.log(this.Receivablesreport);
           
           this.receivablesreport.receivablesExcelHistoryHeader = this.Receivablesreport;
-          this.httpService.post<any>(this.reportsService.assetHistoryListExcelUrl,this.receivablesreport).subscribe(
+          this.httpService.post<any>(this.receivablesreportService.receivablesreportExcel,this.receivablesreport).subscribe(
             (data) => {
               if(data.success){
                 window.open(this.serverUrl.apiServerAddress+"asset_upload/"+data.filePath, '_blank');
