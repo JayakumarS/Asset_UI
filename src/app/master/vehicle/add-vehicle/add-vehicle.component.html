@@ -461,14 +461,18 @@
              </mat-form-field>
           </div>
 
-          <div class="col-md-2" style="min-width: fit-content;" *ngIf="isYes1" >
-            <label>PASSWORD</label>
-        </div>
-        <div class="col-md-2" *ngIf="isYes1">
-          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input [type]="password" matInput formControlName="password" maxlength="15"  >
-           </mat-form-field>
-        </div>
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf="isYes1">
+            <mat-label>PASSWORD</mat-label>
+          </div>
+          <div class=" col-md-2" *ngIf="isYes1">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+            
+              <input matInput formControlName="userpassword" maxlength="15" autocomplete="new-password"  [type]="hide ? 'password' : 'text'">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+          </mat-form-field>
+          </div>
 
 
           <!-- <div class="col-md-2 ">

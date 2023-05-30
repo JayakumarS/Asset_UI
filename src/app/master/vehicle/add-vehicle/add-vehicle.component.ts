@@ -65,7 +65,8 @@ export class AddVehicleComponent implements OnInit {
   isLoan: boolean;
   event: any;
   id: any;
-  
+  hide = true;
+
 
   constructor(private fb: FormBuilder,
   
@@ -129,7 +130,7 @@ export class AddVehicleComponent implements OnInit {
       emiDateObj: [""],
       loanInterest: [""],
       uid: [""],
-      password: [""],
+      userpassword: [""],
       loanVehicle: ["", [Validators.required]],
       vin:[""],
       condition: [""],
@@ -191,7 +192,7 @@ export class AddVehicleComponent implements OnInit {
       others: [""],
       drivetype: [""],
       uid: [""],
-      password: [""],
+      userpassword: [""],
       parivahan: [""],
       autoDebit: [""],
       bankName: [""],
@@ -334,7 +335,7 @@ export class AddVehicleComponent implements OnInit {
         'bodytype1': res.vehiclesBean.bodytype1,
         'others': res.vehiclesBean.others,
         'uid': res.vehiclesBean.uid,
-        'password': res.vehiclesBean.password,
+        'userpassword': res.vehiclesBean.password,
         'parivahan': res.vehiclesBean.parivahan,
         'autoDebit': res.vehiclesBean.autoDebit,
         'bankName': res.vehiclesBean.bankName,
@@ -475,7 +476,7 @@ loanFlag(event){
       others: [""],
       drivetype: [""],
       uid: [""],
-      password: [""],
+      userpassword: [""],
       parivahan: [""],
       autoDebit: [""],
       bankName: [""],
