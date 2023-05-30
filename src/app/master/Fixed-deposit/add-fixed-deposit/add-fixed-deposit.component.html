@@ -115,7 +115,7 @@
                           <mat-option value=" USA"> USA</mat-option>
                         </mat-select>
                         <mat-error *ngIf="docForm.get('country').hasError('required')">
-                          Fd Type is required
+                          FD Type is required
                         </mat-error>
                     </mat-form-field> 
 
@@ -175,7 +175,7 @@
                           <mat-option value="Corporate Fixed Deposit">Corporate Fixed Deposit</mat-option>
                         </mat-select>
                         <mat-error *ngIf="docForm.get('fixeddeposittype').hasError('required')">
-                          Fd Type is required
+                          FD Type is required
                         </mat-error>
                     </mat-form-field> 
                   </div>
@@ -210,7 +210,7 @@
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="fdamt"maxlength="9"(keypress)="keyPressNumberDouble($event)">
                     <mat-error *ngIf="docForm.get('fdamt').hasError('required')">
-                      Fd Amount is required
+                      FD Amount is required
                      </mat-error>
                   </mat-form-field>
                 </div>
