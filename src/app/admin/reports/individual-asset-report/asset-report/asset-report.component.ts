@@ -172,6 +172,8 @@ QRcodeExportPdf() {
     tableName="fund_master";
   } else if(this.docForm.controls.category.value=='Receivables'){
     tableName="receivables";
+  }else if(this.docForm.controls.category.value=='Property'){
+    tableName="property_details";
   }
   
  
