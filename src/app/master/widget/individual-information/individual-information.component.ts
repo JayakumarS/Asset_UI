@@ -56,29 +56,7 @@ export class IndividualInformationComponent implements OnInit {
     private mutualFundService: MutualFundService,
     private router:Router,public route: ActivatedRoute, private spinner: NgxSpinnerService,public tokenStorage: TokenStorageService,)
      {   
-       this.docForm = this.fb.group({
-       name:[""],
-       email: [''],
-       dob:[""],
-       dobObj:[""],
-       mobileNumber:[""],
-       address:[""],
-       country:[""],
-       state:[""],
-       city:[""],
-       bloodGroup:[""],
-       idNumber:[""],
-       passportNumber:["",[Validators.required]],
-       panNumber: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
-       licenseNo:["",[Validators.required]],
-       company:[""],
-       companyAddress:[""],
-       telephone:[""],
-       fax:[""],
-       mobile:[""],
-       companyEmail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-       website: ['', [Validators.pattern (/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)]],
-    })
+       
   }
   getDateString(event, inputFlag, index) {
     let cdate = this.commonService.getDate(event.target.value);
@@ -107,6 +85,32 @@ export class IndividualInformationComponent implements OnInit {
   
 
   ngOnInit(): void {
+
+
+    this.docForm = this.fb.group({
+      name:[""],
+      email: [''],
+      dob:[""],
+      dobObj:[""],
+      mobileNumber:[""],
+      address:[""],
+      country:[""],
+      state:[""],
+      city:[""],
+      bloodGroup:[""],
+      idNumber:[""],
+      passportNumber:[""],
+      panNumber: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
+      licenseNo:[""],
+      company:[""],
+      companyAddress:[""],
+      telephone:[""],
+      fax:[""],
+      mobile:[""],
+      companyEmail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      website: ['', [Validators.pattern (/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)]],
+   })
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -162,7 +166,12 @@ export class IndividualInformationComponent implements OnInit {
     })
   }
   stateBasedCity(state:any){
-    this.httpService.get(this.commonService.getstateBasedCity + "?state=" + state).subscribe((res: any) => {
+    if(state==''){
+     var stateVal=0;
+    } else {
+      stateVal=state;
+    }
+    this.httpService.get(this.commonService.getstateBasedCity + "?state=" + stateVal).subscribe((res: any) => {
       this.cityList = res;
   })
 }
