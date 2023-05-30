@@ -196,7 +196,7 @@ export class AddVehicleComponent implements OnInit {
       autoDebit: [""],
       bankName: [""],
       branchName: [""],
-      ifscCode:["", Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')],
+      ifscCode:[""],
       acName: [""],
       acNumber: [""],
       loanAmount: [""],
@@ -419,8 +419,9 @@ loanFlag(event){
   if(event=='YES'){
   this.isLoan = true;
 
-  this.docForm.controls.ifscCode.setValidators([Validators.required,Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')]);
+  this.docForm.controls.ifscCode.setValidators([Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')]);
   this.docForm.controls['ifscCode'].updateValueAndValidity();
+  
   }
   else if(event=='NO'){
    this.isLoan = false;

@@ -636,11 +636,12 @@
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="ifscCode"  
                 oninput="this.value = this.value.toUpperCase()" maxlength="11">
+             
                 <mat-error *ngIf="docForm.get('ifscCode').hasError('pattern')">
                   Please Enter Valid IFSC code
                 </mat-error>
-              
               </mat-form-field>
+            
             </div>
             <div class="col-md-2"  *ngIf = "isLoan">
               <mat-label>ACCOUNT HOLDER NAME</mat-label>
