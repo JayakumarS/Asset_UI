@@ -251,7 +251,7 @@ export class VehicleReportsComponent implements OnInit {
   }
   exportExcel()
   {
-
+    this.vehiclereport = this.docForm.value;
     //For Excel Header Pushing in Array
     if(this.vehiclereport.vehicletypeCheckbox ==true){
       this.vehicleExcelHeader.push("VEHICLE END TYPE");

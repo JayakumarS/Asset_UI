@@ -19,7 +19,7 @@
                     </div>
                     <div class=" col-md-3" >
                 <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                  <mat-select class="inputTxt" formControlName="propertyType"  (selectionChange)="houseFlag($event.value)" (keypress)="keyPressName($event)" >
+                  <mat-select class="inputTxt"  formControlName="propertyType"  (selectionChange)="houseFlag($event.value)" (keypress)="keyPressName($event)" >
                     <mat-option [value]="'House'">
                      House/Building
                     </mat-option>
@@ -99,7 +99,7 @@
             </div>
         <div class="row" style="margin-top: 15px;" *ngIf ="isHouse">
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
-                <mat-label>NO. FLOOR</mat-label>
+                <mat-label>FLOOR NO</mat-label>
             </div>
             <div class=" col-md-3" *ngIf ="isHouse">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">

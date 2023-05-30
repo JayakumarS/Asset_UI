@@ -52,7 +52,7 @@ export class AddPropertyComponent implements OnInit {
   edit:boolean=false;
   url:any;
   isRent: boolean = false;
-  isHouse: boolean = true ;
+  isHouse: boolean;
   isLoan: boolean;
   isAutoDebit: boolean;
   isLand: boolean;
@@ -60,13 +60,11 @@ export class AddPropertyComponent implements OnInit {
   landFlag: boolean = false;
   isCompany: boolean;
   isGarden: boolean;
-  isVilla: boolean = true;
+  isVilla: boolean;
   isApartment: boolean;
   isIndividual: boolean;
   isLease:boolean;
-  isOwnProperty: boolean = true;
-  hide = true;
-
+  isOwnProperty: boolean;
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -80,14 +78,14 @@ export class AddPropertyComponent implements OnInit {
     private tokenStorage:TokenStorageService,
   ) { 
     this.docForm = this.fb.group({
-       propertyType:['House'],
-       residencialType:['Villa'],
+       propertyType:["",[Validators.required]],
+       residencialType:[""],
        squareFeet:[""],
        guidelineValue:[""],
        currentValue:[""],
        depVal:[""],
        landTaxNo:[""],
-       loan:[""],
+       loan:["",[Validators.required]],
        loanNo:[""],
        emiDate:[""],
        emiDateObj:[""],
@@ -95,7 +93,7 @@ export class AddPropertyComponent implements OnInit {
        autoDebit:[false],
        loanAmount:[""],
       //  account:["", [Validators.required]],
-       rentalType:['OwnProperty'],
+       rentalType:["", [Validators.required]],
        advance:[""],
        rentAmount:[""],
        dateToPayDateObj:[""],
@@ -135,7 +133,7 @@ export class AddPropertyComponent implements OnInit {
        acName:[""],
        acNumber:[""],
        accountUserId:[""],
-       userpassword:[""],
+       password:[""],
        loanstartObj:[""],
        loanstart:[""],
        loanendObj:[""],
@@ -233,15 +231,23 @@ export class AddPropertyComponent implements OnInit {
  }
    
  ngOnInit(): void {
+  this.houseFlag('House');
+  this.rentalFlag('OwnProperty');
+  this.htypeFlag('Villa');
+  this.docForm.patchValue({
+    'propertyType':'House',
+    'rentalType':'OwnProperty',
+    'residencialType':'Villa'
+  })
+
   this.route.params.subscribe(params => {
     if(params.id!=undefined && params.id!=0){
      this.requestId = params.id;
      this.edit=true;
      //For User login Editable mode
      this.fetchDetails(this.requestId) ;
-     this.rentalFlag(event);
-     this.houseFlag(event);
-     this.htypeFlag(event);
+   //  this.rentalFlag(event);
+     //this.getHouse(event);
 
     }
   });
@@ -339,7 +345,7 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
        acName:[""],
        acNumber:[""],
        accountUserId:[""],
-       userpassword:[""],
+       password:[""],
        loanstartObj:[""],
        loanstart:[""],
        loanendObj:[""],
@@ -525,7 +531,7 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'acName':res.propertyBean.acName,
         'acNumber':res.propertyBean.acNumber,
         'accountUserId':res.propertyBean.accountUserId,
-        'userpassword':res.propertyBean.userpassword,
+        'password':res.propertyBean.password,
  
         'houseName':res.propertyBean.houseName,
         'houseAddress':res.propertyBean.houseAddress,
@@ -621,7 +627,9 @@ update(){
  validateCustomer(event){
    
  }
+ keyPressnumber(event:any){
 
+ }
  keyPressName(event: any) {
    const pattern = /[A-Z, a-z]/;
    const inputChar = String.fromCharCode(event.charCode);
@@ -636,13 +644,7 @@ update(){
      event.preventDefault();
    }
  }
- keyPressNamenumber(event: any) {
-  const pattern = /[A-Za-z,0-9]/;
-  const inputChar = String.fromCharCode(event.charCode);
-  if (event.keyCode != 8 && !pattern.test(inputChar)) {
-    event.preventDefault();
-  }
-}
+ 
  removeRowSelf(index) {
      const CustInvoiceDetailBeanArray = this.docForm.controls.OrderDtl as FormArray;
      CustInvoiceDetailBeanArray.removeAt(index);
@@ -1127,25 +1129,25 @@ if (inputFlag == 'transitionDate') {
       this.isOwnProperty = true;
       this.docForm.controls.preOwner.setValidators(Validators.required);
       this.docForm.controls['preOwner'].updateValueAndValidity();
-      this.docForm.controls.preOwnername.setValidators;
-      this.docForm.controls['preOwnername'].updateValueAndValidity();
+      // this.docForm.controls.preOwnername.setValidators;
+      // this.docForm.controls['preOwnername'].updateValueAndValidity();
       this.docForm.controls.transitionDateObj.setValidators(Validators.required);
       this.docForm.controls['transitionDateObj'].updateValueAndValidity();
       this.docForm.controls.transitionDate.setValidators(Validators.required);
       this.docForm.controls['transitionDate'].updateValueAndValidity();
       this.docForm.controls.propWorth.setValidators(Validators.required);
       this.docForm.controls['propWorth'].updateValueAndValidity();
-      this.docForm.controls.ownAddress.setValidators;
-      this.docForm.controls['ownAddress'].updateValueAndValidity();
-      this.docForm.controls.mailId.setValidators;
-      this.docForm.controls['mailId'].updateValueAndValidity();
-      this.docForm.controls.payStatus.setValidators;
-      this.docForm.controls['payStatus'].updateValueAndValidity();
-      this.docForm.controls.payAmt.setValidators;
-      this.docForm.controls['payAmt'].updateValueAndValidity();
+      // this.docForm.controls.ownAddress.setValidators;
+      // this.docForm.controls['ownAddress'].updateValueAndValidity();
+      // this.docForm.controls.mailId.setValidators;
+      // this.docForm.controls['mailId'].updateValueAndValidity();
+      // this.docForm.controls.payStatus.setValidators;
+      // this.docForm.controls['payStatus'].updateValueAndValidity();
+      // this.docForm.controls.payAmt.setValidators;
+      // this.docForm.controls['payAmt'].updateValueAndValidity();
       
       
-      this.docForm.controls.advance.clearValidators();
+        this.docForm.controls.advance.clearValidators();
         this.docForm.controls['advance'].updateValueAndValidity();
         this.docForm.controls.rentAmount.clearValidators();
         this.docForm.controls['rentAmount'].updateValueAndValidity();
@@ -1182,16 +1184,16 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['lesAmount'].updateValueAndValidity();
         this.docForm.controls['noticepd'].updateValueAndValidity(); 
         this.docForm.controls.noticepd.clearValidators();
-        this.docForm.controls.preOwner.clearValidators();
-        this.docForm.controls['preOwner'].updateValueAndValidity();
+        // this.docForm.controls.preOwner.clearValidators();
+        // this.docForm.controls['preOwner'].updateValueAndValidity();
         this.docForm.controls.preOwnername.clearValidators();
         this.docForm.controls['preOwnername'].updateValueAndValidity();
-        this.docForm.controls.transitionDateObj.clearValidators();
-        this.docForm.controls['transitionDateObj'].updateValueAndValidity();
-        this.docForm.controls.transitionDate.clearValidators();
-        this.docForm.controls['transitionDate'].updateValueAndValidity();
-        this.docForm.controls.propWorth.clearValidators();
-        this.docForm.controls['propWorth'].updateValueAndValidity();
+        // this.docForm.controls.transitionDateObj.clearValidators();
+        // this.docForm.controls['transitionDateObj'].updateValueAndValidity();
+        // this.docForm.controls.transitionDate.clearValidators();
+        // this.docForm.controls['transitionDate'].updateValueAndValidity();
+        // this.docForm.controls.propWorth.clearValidators();
+        // this.docForm.controls['propWorth'].updateValueAndValidity();
         this.docForm.controls.ownAddress.clearValidators();
         this.docForm.controls['ownAddress'].updateValueAndValidity();
         this.docForm.controls.mailId.clearValidators();
@@ -1265,26 +1267,26 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['lesAmount'].updateValueAndValidity();
         this.docForm.controls['noticepd'].updateValueAndValidity(); 
         this.docForm.controls.noticepd.clearValidators();
-        this.docForm.controls.advance.clearValidators();
-        this.docForm.controls['advance'].updateValueAndValidity();
-        this.docForm.controls.rentAmount.clearValidators();
-        this.docForm.controls['rentAmount'].updateValueAndValidity();
-        this.docForm.controls.dateToPayDateObj.clearValidators();
-        this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
-        this.docForm.controls.tenantName.clearValidators();
-        this.docForm.controls['tenantName'].updateValueAndValidity();
-        this.docForm.controls.tenentIdCard.clearValidators();
-        this.docForm.controls['tenentIdCard'].updateValueAndValidity();
-        this.docForm.controls.mobileNo.clearValidators();
-        this.docForm.controls['mobileNo'].updateValueAndValidity();
-        this.docForm.controls.payerDateObj.clearValidators();
-        this.docForm.controls['payerDateObj'].updateValueAndValidity();
-        this.docForm.controls.regDateObj.clearValidators();
-        this.docForm.controls['regDateObj'].updateValueAndValidity();
-        this.docForm.controls.propertyLocation.clearValidators();
-        this.docForm.controls['propertyLocation'].updateValueAndValidity();
-        this.docForm.controls.taxNo.clearValidators();
-        this.docForm.controls['taxNo'].updateValueAndValidity();
+        // this.docForm.controls.advance.clearValidators();
+        // this.docForm.controls['advance'].updateValueAndValidity();
+        // this.docForm.controls.rentAmount.clearValidators();
+        // this.docForm.controls['rentAmount'].updateValueAndValidity();
+        // this.docForm.controls.dateToPayDateObj.clearValidators();
+        // this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
+        // this.docForm.controls.tenantName.clearValidators();
+        // this.docForm.controls['tenantName'].updateValueAndValidity();
+        // this.docForm.controls.tenentIdCard.clearValidators();
+        // this.docForm.controls['tenentIdCard'].updateValueAndValidity();
+        // this.docForm.controls.mobileNo.clearValidators();
+        // this.docForm.controls['mobileNo'].updateValueAndValidity();
+        // this.docForm.controls.payerDateObj.clearValidators();
+        // this.docForm.controls['payerDateObj'].updateValueAndValidity();
+        // this.docForm.controls.regDateObj.clearValidators();
+        // this.docForm.controls['regDateObj'].updateValueAndValidity();
+        // this.docForm.controls.propertyLocation.clearValidators();
+        // this.docForm.controls['propertyLocation'].updateValueAndValidity();
+        // this.docForm.controls.taxNo.clearValidators();
+        // this.docForm.controls['taxNo'].updateValueAndValidity();
         
 
       } else {
@@ -1311,7 +1313,7 @@ if (inputFlag == 'transitionDate') {
       this.docForm.controls.noticepd.setValidators;
       this.docForm.controls['noticepd'].updateValueAndValidity(); 
 
-      this.docForm.controls.preOwner.clearValidators();
+        this.docForm.controls.preOwner.clearValidators();
         this.docForm.controls['preOwner'].updateValueAndValidity();
         this.docForm.controls.preOwnername.clearValidators();
         this.docForm.controls['preOwnername'].updateValueAndValidity();
@@ -1329,22 +1331,22 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['payStatus'].updateValueAndValidity();
         this.docForm.controls.payAmt.clearValidators();
         this.docForm.controls['payAmt'].updateValueAndValidity();
-        this.docForm.controls.landlordname.clearValidators();
-        this.docForm.controls['landlordname'].updateValueAndValidity();
-        this.docForm.controls.tenantName1.clearValidators();
-        this.docForm.controls['tenantName1'].updateValueAndValidity();
-        this.docForm.controls.phoneNo.clearValidators();
-        this.docForm.controls['phoneNo'].updateValueAndValidity();
-        this.docForm.controls.propertyAddress.clearValidators();
-        this.docForm.controls['propertyAddress'].updateValueAndValidity();
-        this.docForm.controls.squarefeet.clearValidators();
-        this.docForm.controls['squarefeet'].updateValueAndValidity();
-        this.docForm.controls.lesContract.clearValidators();
-        this.docForm.controls['lesContract'].updateValueAndValidity();
-        this.docForm.controls.lesAmount.clearValidators();
-        this.docForm.controls['lesAmount'].updateValueAndValidity();
-        this.docForm.controls['noticepd'].updateValueAndValidity(); 
-        this.docForm.controls.noticepd.clearValidators();
+        // this.docForm.controls.landlordname.clearValidators();
+        // this.docForm.controls['landlordname'].updateValueAndValidity();
+        // this.docForm.controls.tenantName1.clearValidators();
+        // this.docForm.controls['tenantName1'].updateValueAndValidity();
+        // this.docForm.controls.phoneNo.clearValidators();
+        // this.docForm.controls['phoneNo'].updateValueAndValidity();
+        // this.docForm.controls.propertyAddress.clearValidators();
+        // this.docForm.controls['propertyAddress'].updateValueAndValidity();
+        // this.docForm.controls.squarefeet.clearValidators();
+        // this.docForm.controls['squarefeet'].updateValueAndValidity();
+        // this.docForm.controls.lesContract.clearValidators();
+        // this.docForm.controls['lesContract'].updateValueAndValidity();
+        // this.docForm.controls.lesAmount.clearValidators();
+        // this.docForm.controls['lesAmount'].updateValueAndValidity();
+        // this.docForm.controls['noticepd'].updateValueAndValidity(); 
+        // this.docForm.controls.noticepd.clearValidators();
       }
       else {
         this.isLease = false;
