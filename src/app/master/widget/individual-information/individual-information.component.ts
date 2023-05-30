@@ -68,15 +68,15 @@ export class IndividualInformationComponent implements OnInit {
        city:[""],
        bloodGroup:[""],
        idNumber:[""],
-       passportNumber:["",[Validators.required]],
+       passportNumber:[""],
        panNumber: ["",Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
-       licenseNo:["",[Validators.required]],
+       licenseNo:[""],
        company:[""],
        companyAddress:[""],
        telephone:[""],
        fax:[""],
        mobile:[""],
-       companyEmail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+       companyEmail: [''],
        website: ['', [Validators.pattern (/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)]],
     })
   }
