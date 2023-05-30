@@ -52,7 +52,7 @@ export class AddPropertyComponent implements OnInit {
   edit:boolean=false;
   url:any;
   isRent: boolean = false;
-  isHouse: boolean;
+  isHouse: boolean = true ;
   isLoan: boolean;
   isAutoDebit: boolean;
   isLand: boolean;
@@ -60,11 +60,13 @@ export class AddPropertyComponent implements OnInit {
   landFlag: boolean = false;
   isCompany: boolean;
   isGarden: boolean;
-  isVilla: boolean;
+  isVilla: boolean = true;
   isApartment: boolean;
   isIndividual: boolean;
   isLease:boolean;
-  isOwnProperty: boolean;
+  isOwnProperty: boolean = true;
+  hide = true;
+
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -78,14 +80,14 @@ export class AddPropertyComponent implements OnInit {
     private tokenStorage:TokenStorageService,
   ) { 
     this.docForm = this.fb.group({
-       propertyType:["",[Validators.required]],
-       residencialType:[""],
+       propertyType:['House'],
+       residencialType:['Villa'],
        squareFeet:[""],
        guidelineValue:[""],
        currentValue:[""],
        depVal:[""],
        landTaxNo:[""],
-       loan:["",[Validators.required]],
+       loan:[""],
        loanNo:[""],
        emiDate:[""],
        emiDateObj:[""],
@@ -93,7 +95,7 @@ export class AddPropertyComponent implements OnInit {
        autoDebit:[false],
        loanAmount:[""],
       //  account:["", [Validators.required]],
-       rentalType:["", [Validators.required]],
+       rentalType:['OwnProperty'],
        advance:[""],
        rentAmount:[""],
        dateToPayDateObj:[""],
@@ -133,7 +135,7 @@ export class AddPropertyComponent implements OnInit {
        acName:[""],
        acNumber:[""],
        accountUserId:[""],
-       password:[""],
+       userpassword:[""],
        loanstartObj:[""],
        loanstart:[""],
        loanendObj:[""],
@@ -238,7 +240,8 @@ export class AddPropertyComponent implements OnInit {
      //For User login Editable mode
      this.fetchDetails(this.requestId) ;
      this.rentalFlag(event);
-     //this.getHouse(event);
+     this.houseFlag(event);
+     this.htypeFlag(event);
 
     }
   });
@@ -336,7 +339,7 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
        acName:[""],
        acNumber:[""],
        accountUserId:[""],
-       password:[""],
+       userpassword:[""],
        loanstartObj:[""],
        loanstart:[""],
        loanendObj:[""],
@@ -522,7 +525,7 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'acName':res.propertyBean.acName,
         'acNumber':res.propertyBean.acNumber,
         'accountUserId':res.propertyBean.accountUserId,
-        'password':res.propertyBean.password,
+        'userpassword':res.propertyBean.userpassword,
  
         'houseName':res.propertyBean.houseName,
         'houseAddress':res.propertyBean.houseAddress,
@@ -618,9 +621,7 @@ update(){
  validateCustomer(event){
    
  }
- keyPressnumber(event:any){
 
- }
  keyPressName(event: any) {
    const pattern = /[A-Z, a-z]/;
    const inputChar = String.fromCharCode(event.charCode);
@@ -635,7 +636,13 @@ update(){
      event.preventDefault();
    }
  }
- 
+ keyPressNamenumber(event: any) {
+  const pattern = /[A-Za-z,0-9]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    event.preventDefault();
+  }
+}
  removeRowSelf(index) {
      const CustInvoiceDetailBeanArray = this.docForm.controls.OrderDtl as FormArray;
      CustInvoiceDetailBeanArray.removeAt(index);

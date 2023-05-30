@@ -19,7 +19,7 @@
                     </div>
                     <div class=" col-md-3" >
                 <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                  <mat-select class="inputTxt" placeholder="House/Building" formControlName="propertyType"  (selectionChange)="houseFlag($event.value)" (keypress)="keyPressName($event)" >
+                  <mat-select class="inputTxt" formControlName="propertyType"  (selectionChange)="houseFlag($event.value)" (keypress)="keyPressName($event)" >
                     <mat-option [value]="'House'">
                      House/Building
                     </mat-option>
@@ -48,7 +48,7 @@
               </div>
             <div class=" col-md-3" *ngIf ="isHouse">
               <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-                <mat-select class="inputTxt" placeholder="Villa" formControlName="residencialType" (selectionChange)="htypeFlag($event.value)" (keypress)="keyPressName($event)">
+                <mat-select class="inputTxt" formControlName="residencialType" (selectionChange)="htypeFlag($event.value)" (keypress)="keyPressName($event)">
                   <mat-option [value]="'Villa'">
                     Villa
                   </mat-option>
@@ -82,7 +82,7 @@
                 </div>
                 <div class=" col-md-3" >
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="houseName" maxlength="20"  oninput="this.value = this.value.toUpperCase()">
+                    <input matInput formControlName="houseName" maxlength="20" (keypress)="keyPressName($event)"  oninput="this.value = this.value.toUpperCase()">
                     <mat-error *ngIf="docForm.get('houseName').hasError('required')">
                       House Name is required
                      </mat-error>
@@ -103,7 +103,7 @@
             </div>
             <div class=" col-md-3" *ngIf ="isHouse">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                   <input matInput name="floor" formControlName="floor" maxlength="9" (keypress)="keyPressNumberInt($event)">
+                   <input matInput name="floor" formControlName="floor"  maxlength="30"  (keypress)="keyPressNumberInt($event)">
               </mat-form-field>
             </div>
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" *ngIf ="isHouse">
@@ -112,7 +112,7 @@
           <div class=" col-md-3" *ngIf ="isHouse">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput name="depreciationValue" formControlName="squareFeet"
-              maxlength="4" (keypress)="keyPressNumberInt($event)">
+              maxlength="30" (keypress)="keyPressNumberInt($event)">
               <mat-error *ngIf="docForm.get('squareFeet').hasError('required')">
                 Square Feet is required
                </mat-error> 
@@ -419,7 +419,7 @@
                       </div>
                       <div class=" col-md-3" *ngIf ="isCompany">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="companyName" maxlength="20"  oninput="this.value = this.value.toUpperCase()">
+                        <input matInput formControlName="companyName" maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
                         <mat-error *ngIf="docForm.get('companyName').hasError('required')">
                           Company Name is required
                          </mat-error>
@@ -433,7 +433,7 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <textarea matInput formControlName="companyadd" maxlength="250"></textarea>
                         <mat-error *ngIf="docForm.get('companyadd').hasError('required')">
-                          Conpany Address is required
+                          Company Address is required
                          </mat-error>
                       </mat-form-field>
                   </div>
@@ -495,7 +495,7 @@
               </div>
 
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-                <mat-label>COMPANY SQFT<span class="errorColor">*</span></mat-label>
+                <mat-label>COMPANY SQFT</mat-label>
               </div>
               <div class=" col-md-3" *ngIf ="isCompany">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -542,7 +542,7 @@
                 </div>
                 <div class=" col-md-3" *ngIf ="isCompany">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="ceoName" maxlength="20"  oninput="this.value = this.value.toUpperCase()">
+                      <input matInput formControlName="ceoName" (keypress)="keyPressName($event)" maxlength="20"  oninput="this.value = this.value.toUpperCase()">
                   </mat-form-field>
               </div>
 
@@ -597,12 +597,13 @@
                     formControlName="comregOnObj"
                     (dateInput)="$event.value.format('DD/MM/YYYY')"
                     id="comregOn"
-                    (dateChange)="getDateString($event, 'comregOn',0)">
+                    (dateChange)="getDateString($event, 'comregOn',0)" required>
                 <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
                 <mat-datepicker #picker6></mat-datepicker>
                    <mat-error *ngIf="docForm.get('comregOn').hasError('required')">
                       Reg On Date is required
                     </mat-error>  
+                    
                   </mat-form-field>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -631,7 +632,7 @@
                 </div>
                 <div class=" col-md-3" *ngIf ="isGarden">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="gardenName" maxlength="15" oninput="this.value = this.value.toUpperCase()">
+                    <input matInput formControlName="gardenName" maxlength="15" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
                     <mat-error *ngIf="docForm.get('gardenName').hasError('required')">
                       Garden Name is required
                     </mat-error>
@@ -705,7 +706,7 @@
                 </div>
                 <div class=" col-md-3" *ngIf ="isGarden">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput formControlName="gardenF" maxlength="15" oninput="this.value = this.value.toUpperCase()">
+                <input matInput formControlName="gardenF" maxlength="15" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
               </mat-form-field>
               </div>
               </div>
@@ -775,7 +776,7 @@
                       formControlName="landRegDateObj"
                       (dateInput)="$event.value.format('DD/MM/YYYY')"
                       id="lanRegDate"
-                      (dateChange)="getDateString($event, 'landRegDate',0)">
+                      (dateChange)="getDateString($event, 'landRegDate',0)" required>
                   <mat-datepicker-toggle matSuffix
                       [for]="picker4"></mat-datepicker-toggle>
                   <mat-datepicker #picker4></mat-datepicker>
@@ -1122,7 +1123,11 @@
   </div>
   <div class=" col-md-3" >
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="password" maxlength="15" >
+    
+      <input matInput formControlName="userpassword" maxlength="15" autocomplete="new-password"  [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
   </mat-form-field>
   </div>
   </div>
@@ -1136,7 +1141,7 @@
               </div>
               <div class=" col-md-3" >
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-            <mat-select class="inputTxt" placeholder="OwnProperty" formControlName="rentalType" (selectionChange)="rentalFlag($event.value)"  (keypress)="keyPressName($event)">
+            <mat-select class="inputTxt" formControlName="rentalType" (selectionChange)="rentalFlag($event.value)"  (keypress)="keyPressName($event)">
               <mat-option [value]="'OwnProperty'">
                Own Property
               </mat-option>
@@ -1280,7 +1285,7 @@
       </div>
       <div class=" col-md-3"  >
         <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="payAmt" maxlength="12" >
+          <input matInput formControlName="payAmt"(keypress)="keyPressNumeric($event)" maxlength="12" >
         </mat-form-field>
       </div>
         </div>
@@ -1455,7 +1460,7 @@
       <div class=" col-md-3"  >
         <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="tenentIdCard"
-           maxlength="12" >
+           maxlength="12"  (keypress)="keyPressNumeric($event)" >
           <mat-error *ngIf="docForm.get('tenentIdCard').hasError('required')">
             Tenant ID Card No is required
            </mat-error> 
