@@ -21,7 +21,7 @@
                   </div>
                   <div class=" col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="name" 
+                    <input matInput formControlName="name"  maxlength="16"
                     oninput="this.value = this.value.toUpperCase()"
                     (keypress)="keyPressName($event)" >
                     <mat-error *ngIf="docForm.get('name').hasError('required')">
@@ -100,7 +100,7 @@
               </div>
               <div class=" col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <input matInput formControlName="loanRef" 
+                  <input matInput formControlName="loanRef" maxlength="16"
                   oninput="this.value = this.value.toUpperCase()"
                   (keypress)="keyPressName($event)" >
                   <mat-error *ngIf="docForm.get('loanRef').hasError('required')">

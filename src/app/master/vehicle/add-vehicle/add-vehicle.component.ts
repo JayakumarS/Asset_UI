@@ -52,11 +52,11 @@ export class AddVehicleComponent implements OnInit {
   private  acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   filePathUrl: string;
   uploadFile: boolean = false;
-  isCash: boolean = true;
+  isCash: boolean = false;
   isEmi: boolean = true;
-  isYes: boolean = true;
+  isYes: boolean = false;
   isNo: boolean = true;
-  isYes1: boolean = true;
+  isYes1: boolean = false;
   isNo1: boolean = true;
   istwowheeler: boolean = false;
   isfourwheeler: boolean = false;
@@ -107,7 +107,7 @@ export class AddVehicleComponent implements OnInit {
       validity1:[""],
       address: [""],
       yom: [""],
-      license : ["yes"],
+      license : [""],
       lin: [""],
       agency: [""],
       emiamount: [""],
@@ -116,7 +116,7 @@ export class AddVehicleComponent implements OnInit {
       bodytype1: [""],
       others: [""],
       drivetype: [""],
-      parivahan: ["yes1"],
+      parivahan: [""],
       autoDebit: [""],
       bankName: [""],
       branchName: [""],
@@ -173,12 +173,12 @@ export class AddVehicleComponent implements OnInit {
       purcamount:[""],
       insurancetype: ["", [Validators.required]],
       insuredamount: ["", [Validators.required]],
-      payment: ["cash"],
+      payment: [""],
       insurername: [""],
       validity: ["", [Validators.required]],
       address: [""],
       yom: [""],
-      license : ["yes"],
+      license : [""],
       lin: [""],
       agency: [""],
       emiamount: [""],
@@ -192,11 +192,11 @@ export class AddVehicleComponent implements OnInit {
       drivetype: [""],
       uid: [""],
       password: [""],
-      parivahan: ["yes1"],
+      parivahan: [""],
       autoDebit: [""],
       bankName: [""],
       branchName: [""],
-      ifscCode: [""],
+      ifscCode:["", Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')],
       acName: [""],
       acNumber: [""],
       loanAmount: [""],
@@ -418,9 +418,15 @@ export class AddVehicleComponent implements OnInit {
 loanFlag(event){
   if(event=='YES'){
   this.isLoan = true;
+
+  this.docForm.controls.ifscCode.setValidators([Validators.required,Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')]);
+  this.docForm.controls['ifscCode'].updateValueAndValidity();
   }
   else if(event=='NO'){
    this.isLoan = false;
+
+   this.docForm.controls.ifscCode.clearValidators();
+   this.docForm.controls['ifscCode'].updateValueAndValidity();
   
   }
 
@@ -452,13 +458,13 @@ loanFlag(event){
       purcamount:[""],
       insurancetype: [""],
       insuredamount: [""],
-      payment: ["cash"],
+      payment: [""],
       insurername: [""],
       validity: [""],
       validity1: [""],
       address: [""],
       yom: [""],
-      license : ["yes"],
+      license : [""],
       lin: [""],
       agency: [""],
       emiamount: [""],
@@ -469,7 +475,7 @@ loanFlag(event){
       drivetype: [""],
       uid: [""],
       password: [""],
-      parivahan: ["yes1"],
+      parivahan: [""],
       autoDebit: [""],
       bankName: [""],
       branchName: [""],
