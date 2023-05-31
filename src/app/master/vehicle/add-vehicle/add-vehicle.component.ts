@@ -127,7 +127,7 @@ export class AddVehicleComponent implements OnInit {
       loanAmount: [""],
       loanNo: [""],
       emiDate:[""],
-      emiDateObj: [""],
+      emiDateObj: ["", [Validators.required]],
       loanInterest: [""],
       uid: [""],
       userpassword: [""],
@@ -140,8 +140,10 @@ export class AddVehicleComponent implements OnInit {
       nextservice: ["", [Validators.required]],
       transmissiontype: [""],
       feature: [""],
-
-
+      loanstartDate:["", [Validators.required]],
+      loanstartDate1:[""],
+      insurancedate:["", [Validators.required]],
+      insurancedate1:[""],
 
       
 
@@ -198,12 +200,14 @@ export class AddVehicleComponent implements OnInit {
       bankName: [""],
       branchName: [""],
       ifscCode:[""],
+      insurancedate:["",[Validators.required]],
+      insurancedate1:[""],
       acName: [""],
       acNumber: [""],
       loanAmount: [""],
       loanNo: [""],
       emiDate:[""],
-      emiDateObj: [""],
+      emiDateObj: ["", [Validators.required]],
       loanInterest: [""],
       loanVehicle: ["", [Validators.required]],
       vin:[""],
@@ -215,6 +219,8 @@ export class AddVehicleComponent implements OnInit {
       transmissiontype: [""],
       feature: [""],
       description: [""],
+      loanstartDate:["", [Validators.required]],
+      loanstartDate1:[""],
 
 
 
@@ -283,7 +289,8 @@ export class AddVehicleComponent implements OnInit {
         let gdate = this.cmnService.getDateObj(res.vehiclesBean.validity1);
         // let odate = this.cmnService.getDateObj(res.vehiclesBean.emiDate);
         let tdate = this.cmnService.getDateObj(res.vehiclesBean.discardFromDate5);
-
+        let ndate = this.cmnService.getDateObj(res.vehiclesBean.insurancedate1);
+        let idate = this.cmnService.getDateObj(res.vehiclesBean.loanstartDate1);
 
 
         if(res.vehiclesBean.purcamount!=null){
@@ -348,7 +355,10 @@ export class AddVehicleComponent implements OnInit {
         'emiDate': res.vehiclesBean.emiDate,
         // 'emiDateObj':odate,
         'emiDateObj':res.vehiclesBean.emiDate != null ? this.commonService.getDateObj(res.vehiclesBean.emiDate) : "",
-
+        'loanstartDate':idate,
+        'loanstartDate1':res.vehiclesBean.loanstartDate1,
+        'insurancedate':ndate,
+        'insurancedate1':res.vehiclesBean.insurancedate1,
         'loanInterest': res.vehiclesBean.loanInterest,
         'loanVehicle':res.vehiclesBean.loanVehicle,
         'vin':res.vehiclesBean.vin,
@@ -499,8 +509,10 @@ loanFlag(event){
       transmissiontype: [""],
       feature: [""],
       description: [""],
-
-
+      loanstartDate:[""],
+      loanstartDate1:[""],
+      insurancedate: [""],
+      insurancedate1: [""],
 
         
 
@@ -571,8 +583,14 @@ getpari(check: any) {
     if (inputFlag == 'discardFromDate1') {
       this.docForm.patchValue({discardFromDate1: cdate });
     }
+    if (inputFlag == 'insurancedate1') {
+      this.docForm.patchValue({insurancedate1: cdate });
+    }
    if (inputFlag == 'validity1') {
       this.docForm.patchValue({validity1: cdate });
+    }
+    if (inputFlag == 'loanstartDate1') {
+      this.docForm.patchValue({loanstartDate1: cdate });
     }
     if (inputFlag == 'emiDate') {
       this.docForm.patchValue({emiDate: cdate });

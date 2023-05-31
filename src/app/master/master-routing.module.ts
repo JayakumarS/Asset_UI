@@ -206,6 +206,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./pre-plan-calendar/pre-plan-calendar.module").then((p) => p.PrePlanCalendarModule),
   },
+  {
+    path: "schedule",
+    loadChildren: () =>
+    import("./schedulelist/schedulelist.module").then((p) => p.SchedulelistModule),
+  },
 ];
 
 @NgModule({

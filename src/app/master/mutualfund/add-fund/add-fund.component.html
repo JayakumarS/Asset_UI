@@ -271,21 +271,17 @@
         </div>
         
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-          <label>PREMIUM DUE DATE</label>
+          <label>PREMIUM START DATE</label>
         </div>
         <div class=" col-md-3">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput [matDatepicker]="picker2" formControlName="premiumDueDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
-            id="premiumDueDate" (dateChange)="getDateString($event, 'premiumDueDate',0)">
+            <input matInput [matDatepicker]="picker1" formControlName="premiumStartDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
+            id="premiumStartDate" (dateChange)="getDateString($event, 'premiumStartDate',0)">
         <mat-datepicker-toggle matSuffix
-            [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-        <!-- <mat-error *ngIf="docForm.get('premiumDueDateObj').hasError('required')">
-          Premium Due Date is required
-        </mat-error> -->
-            
-          </mat-form-field>
-        </div>
+            [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
         
         </div>
 
@@ -339,6 +335,26 @@
           </div>
           
           </div>
+          <div class="row" >
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label>PREMIUM DUE DATE</label>
+          </div>
+          <div class=" col-md-3">
+            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+              <input matInput [matDatepicker]="picker2" formControlName="premiumDueDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
+              id="premiumDueDate" (dateChange)="getDateString($event, 'premiumDueDate',0)">
+          <mat-datepicker-toggle matSuffix
+              [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <!-- <mat-error *ngIf="docForm.get('premiumDueDateObj').hasError('required')">
+            Premium Due Date is required
+          </mat-error> -->
+              
+            </mat-form-field>
+          </div>
+          
+          </div>
+  
 
           <h4>Term Details</h4>
 

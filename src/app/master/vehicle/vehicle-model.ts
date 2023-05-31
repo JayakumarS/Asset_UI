@@ -60,8 +60,10 @@ export class VehicleMaster {
   transmissiontype:string;
   feature:string;
   description:string;
- 
-  
+  insurancedate:string;
+  insurancedate1:string;
+  loanstartDate:string;
+  loanstartDate1:string;
 
 
 

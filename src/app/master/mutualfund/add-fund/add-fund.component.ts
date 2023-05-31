@@ -88,6 +88,8 @@ export class AddFundComponent implements OnInit {
        statusInforce:["No"],
        planName:[""],
        insurancePurpose:[""],
+       premiumStartDate:[""],
+       premiumStartDateObj:[""],
        premiumTerm:[""],
        policyTerm:[""],
        maturityDateObj:[""],
@@ -133,6 +135,9 @@ export class AddFundComponent implements OnInit {
       } 
       if(inputFlag=='premiumDueDate'){
         this.docForm.patchValue({premiumDueDate:cdate});
+      } 
+      if(inputFlag=='premiumStartDate'){
+        this.docForm.patchValue({premiumStartDate:cdate});
       } 
       if(inputFlag=='maturityDate'){
         this.docForm.patchValue({maturityDate:cdate});
@@ -216,7 +221,9 @@ export class AddFundComponent implements OnInit {
           'assured':res.fundBean.assured,
           'policyNumber':res.fundBean.policyNumber,
           'premiumDueAmount':res.fundBean.premiumDueAmount,
-          'premiumDueDate':res.fundBean.premiumDueDate,
+          'premiumStartDate':res.fundBean.premiumStartDate,
+          'premiumStartDateObj':res.fundBean.premiumStartDate != null ? this.commonService.getDateObj(res.fundBean.premiumStartDate) : "", 
+          'premiumDueDate':res.fundBean.premiumDueDate ,
           'premiumDueDateObj': res.fundBean.premiumDueDate != null ? this.commonService.getDateObj(res.fundBean.premiumDueDate) : "",
           'taxCertificate':res.fundBean.taxCertificate,
           'statusInforce':res.fundBean.statusInforce,
@@ -314,6 +321,8 @@ export class AddFundComponent implements OnInit {
        assured:[""],
        policyNumber:[""],
        premiumDueAmount:[""],
+       premiumStartDate:[""],
+       premiumStartDateObj:[""],
        premiumDueDate:[""],
        premiumDueDateObj:[""],
        taxCertificate:[""],
