@@ -112,9 +112,7 @@ export class SignupComponent implements OnInit {
       this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
         if (res.validateEmail) {
           this.authForm.controls['emailId'].setErrors({ emailId: true });
-        } else {
-          this.authForm.controls['emailId'].setErrors(null);
-        }
+        } 
       });
     }
   }

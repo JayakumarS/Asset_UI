@@ -151,11 +151,10 @@ export class IndividualSignupComponent implements OnInit {
 
   validateEmail(event) {
     if (event != undefined && event != null && event != "") {
+      
       this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
         if (res.validateEmail) {
           this.authForm.controls['emailId'].setErrors({ emailId: true });
-        } else {
-          this.authForm.controls['emailId'].setErrors(null);
         }
       });
     }

@@ -30,12 +30,13 @@
                               <mat-form-field class="example-full-width" appearance="outline">
                                 <mat-label>Email</mat-label>
                                 <input matInput formControlName="emailId" (blur)="validateEmail($event.target.value)" required>
-                               
                                <mat-icon matSuffix>mail</mat-icon>
-                               
-                               <mat-error *ngIf="authForm.get('emailId').hasError('required') || authForm.get('emailId').touched">
-                                 Please enter a valid email address
-                               </mat-error>
+                               <mat-error *ngIf="authForm.get('emailId').hasError('emailId')">
+                                Email ID Already Exists !!!
+                              </mat-error>
+                              <mat-error *ngIf="authForm.get('emailId').hasError('required') || authForm.get('emailId').touched">
+                                Please enter a valid email address
+                              </mat-error>
                               </mat-form-field>
                             </div>
                           </div>
