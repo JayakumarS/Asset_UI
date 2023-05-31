@@ -134,7 +134,7 @@
 
                       <div class="col-md-3" *ngIf="isOthers">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <input matInput formControlName="postcode" oninput="this.value = this.value.toUpperCase()">
+                        <input matInput formControlName="postcode" maxlength="10" oninput="this.value = this.value.toUpperCase()">
                       </mat-form-field>
                     </div>
                       </div>
