@@ -225,13 +225,13 @@
                                         <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 77%;">
                                           <button color="primary" type="button" class="btn-space" (click)="exportExcel()" 
                                           *ngIf="docForm.get('fdNameCheckbox')?.value || docForm.get('mailCheckBox')?.value || 
-                                          docForm.get('fdRefCheckBox')?.value || docForm.get('fdaccountNoCheckBox')?.value || 
+                                          docForm.get('fdRefCheckBox')?.value || 
                                           docForm.get('fixeddeposittypeCheckBox')?.value || docForm.get('fdstartDateCheckBox')?.value || 
                                           docForm.get('fdendDateCheckBox')?.value || docForm.get('dueAmountCheckBox')?.value || 
                                           docForm.get('currencyCheckbox')?.value || docForm.get('interestCheckBox')?.value || 
                                           docForm.get('ifsccodeCheckBox')?.value || docForm.get('bankNameCheckbox')?.value 
                                           || docForm.get('penaltyAmtCheckBox')?.value || docForm.get('investmentTermCheckBox')?.value   
-                                          || docForm.get('ifsccodeCheckBox')?.value || docForm.get('autoRenewalCheckBox')?.value
+                                          || docForm.get('autoRenewalCheckBox')?.value
                                           || docForm.get('fdaccountNoCheckbox')?.value  "
                                           mat-raised-button>Export To Excel</button>
                                         </div>

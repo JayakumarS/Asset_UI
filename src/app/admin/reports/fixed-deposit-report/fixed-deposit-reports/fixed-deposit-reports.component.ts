@@ -82,7 +82,6 @@ export class FixedDepositReportsComponent implements OnInit {
        fdNameCheckbox:[false],
        mailCheckBox:[false],
        fdRefCheckBox:[false],
-       typeCheckBox:[false],
        fixeddeposittypeCheckBox:[false],
        fdaccountNoCheckbox:[false],
        dueAmountCheckBox:[false],
@@ -298,7 +297,6 @@ this.httpService.get<any>(this.mutualFundService.getfrequencyList+"?UserId="+thi
        fdNameCheckbox:[false],
        mailCheckBox:[false],
        fdRefCheckBox:[false],
-       typeCheckBox:[false],
        fixeddeposittypeCheckBox:[false],
        fdaccountNoCheckbox:[false],
        dueAmountCheckBox:[false],
@@ -309,7 +307,6 @@ this.httpService.get<any>(this.mutualFundService.getfrequencyList+"?UserId="+thi
        investmentTermCheckBox: [false],
        interestCheckBox: [false],
        bankNameCheckbox: [false],
-       fdaccountNoCheckBox: [false],
        ifsccodeCheckBox: [false],
        autoRenewalCheckBox: [false],
     });

@@ -9,7 +9,6 @@ export class FdReport{
      fdNameCheckbox:boolean;
      mailCheckBox:boolean;
      fdRefCheckBox:boolean;
-     typeCheckBox:boolean;
      fixeddeposittypeCheckBox:boolean;
      fdaccountNoCheckbox:boolean;
      dueAmountCheckBox:boolean;
@@ -35,7 +34,6 @@ constructor(fdReport) {
         this.fdNameCheckbox = fdReport.fdNameCheckbox || "";
         this.mailCheckBox = fdReport.mailCheckBox || "";
         this.fdRefCheckBox = fdReport.fdRefCheckBox || "";
-        this.typeCheckBox = fdReport.typeCheckBox || "";
         this.fixeddeposittypeCheckBox = fdReport.fixeddeposittypeCheckBox || "";
         this.fdaccountNoCheckbox = fdReport.fdaccountNoCheckbox || "";
         this.dueAmountCheckBox = fdReport.dueAmountCheckBox || "";
@@ -48,6 +46,8 @@ constructor(fdReport) {
         this.ifsccodeCheckBox = fdReport.ifsccodeCheckBox || "";
         this.autoRenewalCheckBox = fdReport.autoRenewalCheckBox || "";
         this.fdExcelHistoryHeader = fdReport.fdExcelHistoryHeader || "";
+        this.interestCheckBox = fdReport.interestCheckBox || "";
+
     }
 }
 
