@@ -47,7 +47,7 @@
                 </div>
 
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-                #exporter="matTableExporter">
+                #exporter="matTableExporter" [hiddenColumns]="[9]">
 
                 <ng-container matColumnDef="asset">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Asset</mat-header-cell>

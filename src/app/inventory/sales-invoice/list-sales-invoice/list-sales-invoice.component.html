@@ -51,7 +51,7 @@
                 </div>
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-                #exporter="matTableExporter">
+                #exporter="matTableExporter" [hiddenColumns]="[5]">
                 
                 <ng-container matColumnDef="salesInvoiceNo">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Sales Invoice No</mat-header-cell>

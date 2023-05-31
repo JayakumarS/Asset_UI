@@ -67,7 +67,7 @@
               </div>
 
             <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-              #exporter="matTableExporter">
+              #exporter="matTableExporter"  [hiddenColumns]="[2]">
 
               <ng-container matColumnDef="currencyCode">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Currency Code</mat-header-cell>

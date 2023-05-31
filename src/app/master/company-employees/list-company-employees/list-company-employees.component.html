@@ -60,7 +60,7 @@
                   </div>
                 </div>
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-                  #exporter="matTableExporter">
+                  #exporter="matTableExporter"  [hiddenColumns]="[6]">
 
                   <ng-container matColumnDef="employeeId">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Id</mat-header-cell>

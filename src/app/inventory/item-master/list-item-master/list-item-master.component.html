@@ -64,7 +64,7 @@
                 </div>
               </div>
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell"
-                #exporter="matTableExporter" [hiddenColumns]="[5]">
+                #exporter="matTableExporter" [hiddenColumns]="[4]">
                 <ng-container matColumnDef="itemName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Item Name </mat-header-cell>
                   <mat-cell *matCellDef="let row"   (contextmenu)="onContextMenu($event, row)"> {{row.itemName}}</mat-cell>

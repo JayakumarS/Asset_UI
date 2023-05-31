@@ -69,7 +69,7 @@
                   </div>
                 </div>
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-                #exporter="matTableExporter">
+                #exporter="matTableExporter" [hiddenColumns]="[4]">
 
                   <!--- Note that these columns can be defined in any order.
                         The actual rendered columns are set as a property on the row definition" -->

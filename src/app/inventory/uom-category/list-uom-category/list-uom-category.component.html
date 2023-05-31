@@ -37,7 +37,7 @@
                       </li> -->
                     </ul>
                   </div>
-                  <div class="col-4"*ngIf="permissionList?.exportXL">
+                  <div class="col-4">
                     <ul class="header-buttons">
                       <li>
                         <div class="export-button m-l-10" matTooltip="XLSX">
@@ -51,7 +51,7 @@
               </div>
 
             <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-              #exporter="matTableExporter">
+              #exporter="matTableExporter" [hiddenColumns]="[2]">
 
               <ng-container matColumnDef="uomID">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>UomID</mat-header-cell>

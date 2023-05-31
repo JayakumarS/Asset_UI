@@ -46,14 +46,14 @@
                                             </li>
                                             <li>
                                                 <div class="export-button m-l-10" matTooltip="XLSX">
-                                                    <img src="assets/images/icons/xlsx.png" alt="" (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                                                    <img src="assets/images/icons/xlsx.png" alt=""  (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
+                            <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[0,6]">
 
                                 <ng-container matColumnDef="select">
                                     <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">

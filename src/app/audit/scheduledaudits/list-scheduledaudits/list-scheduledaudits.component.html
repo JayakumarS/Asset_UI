@@ -37,7 +37,7 @@
                   </div>
                 </div>
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-                  #exporter="matTableExporter">
+                  #exporter="matTableExporter" [hiddenColumns]="[6]">
                   <ng-container matColumnDef="manageAuditNo">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Audit Code</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.manageAuditNo}}</mat-cell>
