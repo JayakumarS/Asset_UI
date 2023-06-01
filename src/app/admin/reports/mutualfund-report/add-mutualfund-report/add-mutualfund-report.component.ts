@@ -208,6 +208,10 @@ onSubmit(){
     if(this.mutualfundReport.plannameCheckBox == true){
       this.mutualfundHeader.push("Plan Name");
     }
+
+    if(this.mutualfundReport.brokerNameCheckBox == true){
+      this.mutualfundHeader.push("Broker Name");
+    }
     if(this.mutualfundReport.policyTermCheckBox == true){
       this.mutualfundHeader.push("Policy Term");
     }
@@ -218,13 +222,11 @@ onSubmit(){
       this.mutualfundHeader.push("ModeOfInvestment");
     }
    
-    if(this.mutualfundReport.modeOfInvestmentCheckBox == true){
+    if(this.mutualfundReport.grossPremiumCheckBox == true){
       this.mutualfundHeader.push("Gross Premium");
     }
    
-    if(this.mutualfundReport.modeOfInvestmentCheckBox == true){
-      this.mutualfundHeader.push("Broker Name");
-    }
+    
    
     console.log(this.mutualfundHeader);
 
