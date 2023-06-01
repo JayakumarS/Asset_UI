@@ -271,25 +271,68 @@
        
           <div class="col-md-4" style="min-width: fit-content;padding-bottom: 3%;">
             <mat-radio-group tabindex="21" formControlName="lockerInHand">
-              <mat-radio-button value="IN HAND"(change)="getLOCKER($event.value)">IN HAND </mat-radio-button>
-              <mat-radio-button value="LOCKER" (change)="getLOCKER($event.value)" style="padding-left: 25%;">LOCKER</mat-radio-button>
+             
+              <mat-radio-button value="LOCKER" (change)="getLOCKER($event.value)" >LOCKER</mat-radio-button>
+              <mat-radio-button value="MORTGAGE"(change)="getLOCKER($event.value)" style="padding-left: 14%;">MORTGAGE</mat-radio-button>
+              <mat-radio-button value="INHAND"(change)="getLOCKER($event.value)"style="padding-left: 14%;">IN HAND</mat-radio-button>
             </mat-radio-group>
           </div>
-    
-          <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 "style="padding-left: 105PX;" >
-            <label  *ngIf ="!LOCKER" >LOCATION</label>
+
+          
+          <!-- <div class="col-md-4" style="min-width: fit-content;padding-bottom: 3%;"  *ngIf ="MORTGAGE">
+         
+              
+          
+            <mat-radio-group tabindex="21" formControlName="shopBank">
+          <mat-radio-button value="PAWNSHOP"(change)="getDETAIL($event.value)" style="padding-left: 25%;">PAWN SHOP</mat-radio-button>
+          <mat-radio-button value="BANK" (change)="getDETAIL($event.value)" style="padding-left: 14%;">BANK</mat-radio-button>
+        </mat-radio-group>
+      </div> -->
+       
+          <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12"*ngIf ="!MORTGAGE"style="padding-left:115px;" >
+            <label  *ngIf ="INHAND" >LOCATION</label>
             <label  *ngIf ="LOCKER" >LOCKER LOCATION</label>
+         </div>
 
-        </div>
-
-        <div class=" col-md-3" >
-            <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+        <div class=" col-md-3" *ngIf ="!MORTGAGE"> 
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <input matInput formControlName="location" maxlength="20" (keypress)="keyPressName($event)" >
            
           </mat-form-field>
          
-        </div> 
+        </div>  -->
+        <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 "*ngIf ="!MORTGAGE"style="padding-left: 115PX;" >
+          <label  *ngIf ="!LOCKER" >LOCATION</label>
+          <label  *ngIf ="LOCKER" >LOCKER LOCATION</label>
+
+      </div>
+
+      <div class=" col-md-3"*ngIf ="!MORTGAGE" >
+          <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
+          <input matInput formControlName="location" maxlength="20" (keypress)="keyPressName($event)" >
+         
+        </mat-form-field>
+       
+      </div> 
+
+
+        
           </div>
+          <div class ="row" *ngIf ="MORTGAGE">
+            <hr>
+            <div class="col-md-2">
+             
+              <h4>MORTGAGE DETAIL</h4>
+            </div>
+          </div>
+            <div class ="row" *ngIf ="MORTGAGE">
+          <div class="col-md-4" style="min-width: fit-content;padding-bottom: 3%;" >
+         <mat-radio-group tabindex="21" formControlName="shopBank">
+          <mat-radio-button value="PAWNSHOP"(change)="getDETAIL($event.value)">PAWN SHOP</mat-radio-button>
+          <mat-radio-button value="BANK" (change)="getDETAIL($event.value)" style="padding-left: 14%;">BANK</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
           <div class ="row"  *ngIf ="LOCKER">
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
               <label>LOCKER NUMBER<span class="errorColor">*</span></label>
@@ -346,6 +389,114 @@
        
       </div>
         </div>
+
+       <div class ="row"  *ngIf ="MORTGAGE">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+          <label  *ngIf ="PAWNSHOP" >SHOP NAME<span class="errorColor">*</span></label>
+          <label  *ngIf ="!PAWNSHOP" >BANK NAME<span class="errorColor">*</span></label>
+       </div>
+
+      <div class=" col-md-3" > 
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="shopbankname" maxlength="20" (keypress)="keyPressName($event)" >
+          <mat-error *ngIf="docForm.get('shopbankname').hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+       
+      </div> 
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+        <label  *ngIf ="PAWNSHOP" >SHOP LOCATION<span class="errorColor">*</span></label>
+        <label  *ngIf ="!PAWNSHOP" >BANK LOCATION<span class="errorColor">*</span></label>
+     </div>
+
+    <div class=" col-md-3" > 
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="location2" maxlength="30" (keypress)="keyPressName($event)" >
+        <mat-error *ngIf="docForm.get('location2').hasError('required')">
+          Location is required
+        </mat-error>
+      </mat-form-field>
+     
+    </div> 
+
+       </div>
+
+       <div class ="row"  *ngIf ="MORTGAGE">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+          <label>MORTGAGE AMOUNT<span class="errorColor">*</span></label>
+          
+       </div>
+
+      <div class=" col-md-3" > 
+        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+          <input matInput formControlName="mortgageamount" maxlength="30" (keypress)="keyPressNumeric($event)" >
+          <mat-error *ngIf="docForm.get('mortgageamount').hasError('required')">
+            Amount is required
+          </mat-error>
+        </mat-form-field>
+       
+      </div> 
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+        <label>INTEREST RATE<span class="errorColor">*</span></label>
+        
+     </div>
+
+    <div class=" col-md-3" > 
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="interestrate" maxlength="3" (keypress)="keyPressNumber($event)" >
+        <mat-error *ngIf="docForm.get('interestrate').hasError('required')">
+          Interest is required
+        </mat-error>
+      </mat-form-field>
+     
+    </div> 
+
+       </div>
+
+       <div class ="row"  *ngIf ="MORTGAGE">
+       
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+        <label>MONTHELY PAYMENT<span class="errorColor">*</span></label>
+        
+     </div>
+
+    <div class=" col-md-3" > 
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <input matInput formControlName="payment" maxlength="20" (keypress)="keyPressNumeric($event)" >
+        <mat-error *ngIf="docForm.get('payment').hasError('required')">
+          Amount is required
+        </mat-error>
+      </mat-form-field>
+     
+    </div> 
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+      <label >DATE OF MORTGAGE<span class="errorColor">*</span></label>
+      
+   </div>
+
+   <div class="  col-md-3">
+    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+      <input matInput [matDatepicker]="picker2" 
+      formControlName="startdateobj"
+      id="startdate"
+      (dateChange)="getDateString($event, 'startdate',0)">
+  <mat-datepicker-toggle matSuffix
+      [for]="picker2"></mat-datepicker-toggle>
+  <mat-datepicker #picker2></mat-datepicker> 
+  <mat-error *ngIf="docForm.get('startdateobj').hasError('required')">
+    Date is required
+  </mat-error>
+    </mat-form-field>
+   
+
+   </div>
+
+       </div>
+
+
+
+      
                <div class ="row">
                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                          <button (click) = "onSubmit()" class="btn-space" mat-raised-button

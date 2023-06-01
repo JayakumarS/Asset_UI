@@ -24,6 +24,15 @@ export class jewel {
     gemstones:string;
     caratweight:number;
 
+    shopBank:string;
+    
+    location2:string;
+    shopbankname:string;
+    startdate:string;
+    mortgageamount:number;
+    interestrate:string;
+    payment:number;
+
     constructor(jewel) {
         {
           this.id = jewel.id || this.getRandomID();
@@ -40,6 +49,13 @@ export class jewel {
           this.loan = jewel.loan || "";
           this.gemstones = jewel.gemstones || "";
           this.caratweight = jewel.caratweight || "";
+
+          this.location2 = jewel.location2 || "";
+          this.shopbankname = jewel.shopbankname || "";
+          this.startdate = jewel.startdate || "";
+          this.mortgageamount = jewel.mortgageamount || "";
+          this.interestrate = jewel.interestrate || "";
+          this.payment = jewel.payment || "";
 
         }
       }
