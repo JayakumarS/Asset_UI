@@ -205,7 +205,7 @@ onSubmit(){
     if(this.mutualfundReport.investmentexperienceCheckBox == true){
       this.mutualfundHeader.push("Investment Experience");
     }
-    if(this.mutualfundReport.nameCheckbox == true){
+    if(this.mutualfundReport.plannameCheckBox == true){
       this.mutualfundHeader.push("Plan Name");
     }
     if(this.mutualfundReport.policyTermCheckBox == true){

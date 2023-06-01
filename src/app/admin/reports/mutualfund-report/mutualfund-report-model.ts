@@ -8,13 +8,13 @@ export class MutualfundReport{
 
     policyTermCheckBox: boolean;
     policyNumberCheckbox: boolean;
-    investmentexperienceCheckBox: boolean
-    nameCheckbox: boolean
-    modeOfInvestmentCheckBox: boolean
+    investmentexperienceCheckBox: boolean;
+    plannameCheckBox:boolean;
+    nameCheckbox: boolean;
+    modeOfInvestmentCheckBox: boolean;
     mutualfundExcelHeader: any;
-    grossPremiumCheckBox:boolean
-    brokerNameCheckBox:boolean
-
+    grossPremiumCheckBox:boolean;
+    brokerNameCheckBox:boolean;
 
     constructor(mutualfundreport) {
         {
