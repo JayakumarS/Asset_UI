@@ -214,6 +214,9 @@ export class LoanReportComponent implements OnInit {
   }
 
   exportExcel(){
+
+    if(this.loanHistoryList.length >0){
+
     this.loanreport = this.docForm.value;
     console.log(this.loanreport);
 
@@ -288,7 +291,10 @@ export class LoanReportComponent implements OnInit {
       }
     );
 
+  } else{
+    
   }
+}
 
   reset(){
     

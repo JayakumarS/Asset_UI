@@ -191,6 +191,9 @@ onSubmit(){
   
 
    exportExcel(){
+
+    if(this.mutualfundList.length >0){
+
       
     this.mutualfundReport = this.docForm.value;
     console.log(this.mutualfundReport);
@@ -248,6 +251,10 @@ onSubmit(){
       }
     );
   }
+  else{
+    
+  }
+}
 
 
 

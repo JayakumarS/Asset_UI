@@ -251,6 +251,9 @@ export class VehicleReportsComponent implements OnInit {
   }
   exportExcel()
   {
+
+    if(this.VehicleList.length >0){
+
     this.vehiclereport = this.docForm.value;
     //For Excel Header Pushing in Array
     if(this.vehiclereport.vehicletypeCheckbox ==true){
@@ -305,7 +308,8 @@ export class VehicleReportsComponent implements OnInit {
     );
     
     
-  }
+  }else{}
+}
   
 
 

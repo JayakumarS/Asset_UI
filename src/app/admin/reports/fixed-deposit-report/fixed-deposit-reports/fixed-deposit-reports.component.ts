@@ -198,6 +198,9 @@ this.httpService.get<any>(this.mutualFundService.getfrequencyList+"?UserId="+thi
 
 
   exportExcel(){
+
+    if(this.fdHistoryList.length >0){
+
     this.fdReport = this.docForm.value;
     console.log(this.fdReport);
 
@@ -281,7 +284,11 @@ this.httpService.get<any>(this.mutualFundService.getfrequencyList+"?UserId="+thi
       }
     );
 
+    }
 
+    else{
+      
+    }
   }
   
 

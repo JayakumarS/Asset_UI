@@ -69,7 +69,7 @@ export class ReceivablesreportComponent implements OnInit {
   // visibleFlag:boolean=true;
   // arrowMarkDown:boolean=true;
   panelOpenState = false;
-  
+  receivablesList: any;
 
     // Array for Excel Header
 
@@ -229,6 +229,8 @@ export class ReceivablesreportComponent implements OnInit {
             if(data.receivablesShowingList!=null){
               if(data.receivablesShowingList.length!=0){
                 this.receivablesreport = data.receivablesShowingList;
+                this.receivablesList = data.receivablesShowingList;
+
               }else{
                 this.receivablesreport = data.receivablesShowingList;
                 this.notificationservice.showNotification(
@@ -255,6 +257,10 @@ export class ReceivablesreportComponent implements OnInit {
         }
 
         exportExcel(){
+
+
+          if(this.receivablesList.length >0){
+
 
           this.receivablesreport = this.docForm.value;
           console.log(this.Receivablesreport);
@@ -325,8 +331,10 @@ export class ReceivablesreportComponent implements OnInit {
               console.log(error.name + " " + error.message);
             }
           );
-        }
-
+        }else
+        {}
+    }
+    
        pageChanged(event){
           this.config.currentPage = event;
         }

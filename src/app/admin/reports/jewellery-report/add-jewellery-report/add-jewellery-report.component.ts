@@ -181,6 +181,7 @@ export class AddJewelleryReportComponent implements OnInit {
 
   exportExcel(){
 
+    if(this.jewelHistoryList.length >0){
 
     this.jewelReport = this.docForm.value;
     console.log(this.jewelReport);
@@ -256,7 +257,11 @@ export class AddJewelleryReportComponent implements OnInit {
       }
     );
 
+  }else{
+
   }
+}
+
   
 
   reset() {

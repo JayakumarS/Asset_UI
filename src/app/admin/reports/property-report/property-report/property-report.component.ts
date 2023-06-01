@@ -122,6 +122,9 @@ pageChanged(event){
   }
   
   exportExcel(){
+
+    if(this.propertyHistoryList.length >0){
+
       
     this.propertyReport = this.docForm.value;
     console.log(this.propertyReport);
@@ -170,8 +173,10 @@ pageChanged(event){
         console.log(error.name + " " + error.message);
       }
     );
-  }
+  } else{
 
+  }
+  }
 
 
   
