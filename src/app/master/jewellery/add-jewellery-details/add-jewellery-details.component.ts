@@ -50,6 +50,9 @@ export class AddJewelleryDetailsComponent implements OnInit {
     jewellery:jewel;
     isGIFT: boolean = false;
     LOCKER: boolean = true ;
+    MORTGAGE: boolean = false;
+    INHAND: boolean = false;
+    PAWNSHOP: boolean = true ;
     edit: boolean = false;
     requestId: any;
     //jewelleryDtl: [];
@@ -102,10 +105,11 @@ export class AddJewelleryDetailsComponent implements OnInit {
       selforgift:["SELF"],
       location:[""],
       lockerInHand:["LOCKER"],
-      lockerRent:["", [Validators.required]],
+      shopBank:["PAWNSHOP"],
+      lockerRent:[""],
       lockerSize:[""],
-      bankName:["", [Validators.required]],
-      lockerNo:["", [Validators.required]],
+      bankName:[""],
+      lockerNo:[""],
       currentValue:["", [Validators.required]],
       specification:[""],
       description:[""],
@@ -115,18 +119,14 @@ export class AddJewelleryDetailsComponent implements OnInit {
       jewelName:["", [Validators.required]],
       jewelcolour:[""],
       gemstones:[""],
-      caratweight:[""]
-      // jewelleryDtl: this.fb.array([
-      //   this.fb.group({
-      //     jdate:[""],
-      //     jdateObj:[""],
-      //     type:[""],
-      //     weight:[""],
-      //     price:[""],
-      //     loan:[""],
-      //    })
-      // ])
-
+      caratweight:[""],
+      location2:[""],
+      shopbankname:[""],
+      startdate:[""],
+      startdateobj:[""],
+      mortgageamount:[""],
+      interestrate:[""],
+      payment:[""]
 
     })
     this.route.params.subscribe(params => {
@@ -153,14 +153,92 @@ export class AddJewelleryDetailsComponent implements OnInit {
   
   getLOCKER(check: any) {
     if (check == 'LOCKER') {
-      this.LOCKER = true;
-      this.docForm.controls.bankName.setValidators(Validators.required);
-      this.docForm.controls.lockerNo.setValidators(Validators.required);
-      this.docForm.controls.lockerRent.setValidators(Validators.required);
+      this.LOCKER = true;    
 
-    } else if(check == 'IN HAND') {
+      this.docForm.controls.bankName.setValidators(Validators.required);
+      this.docForm.controls['bankName'].updateValueAndValidity();
+      this.docForm.controls.lockerNo.setValidators(Validators.required);
+      this.docForm.controls['lockerNo'].updateValueAndValidity();
+      this.docForm.controls.lockerRent.setValidators(Validators.required);
+      this.docForm.controls['lockerRent'].updateValueAndValidity();
+
+
+
+      this.docForm.controls.location2.clearValidators();
+      this.docForm.controls['location2'].updateValueAndValidity();
+      this.docForm.controls.shopbankname.clearValidators();
+      this.docForm.controls['shopbankname'].updateValueAndValidity();
+      this.docForm.controls.mortgageamount.clearValidators();
+      this.docForm.controls['mortgageamount'].updateValueAndValidity();
+      this.docForm.controls.interestrate.clearValidators();
+      this.docForm.controls['interestrate'].updateValueAndValidity();
+      this.docForm.controls.payment.clearValidators();
+      this.docForm.controls['payment'].updateValueAndValidity();
+      this.docForm.controls.startdateobj.clearValidators();
+      this.docForm.controls['startdateobj'].updateValueAndValidity();
+      this.docForm.controls.startdate.clearValidators();
+      this.docForm.controls['startdate'].updateValueAndValidity();
+
+      this.MORTGAGE = false;
+      this.INHAND = false;
+    } else if(check == 'INHAND') {
+      this.INHAND = true;
+
+
+      this.docForm.controls.bankName.clearValidators();
+      this.docForm.controls['bankName'].updateValueAndValidity();
+      this.docForm.controls.lockerNo.clearValidators();
+      this.docForm.controls['lockerNo'].updateValueAndValidity();
+      this.docForm.controls.lockerRent.clearValidators();
+      this.docForm.controls['lockerRent'].updateValueAndValidity();
+
+
+
+      this.docForm.controls.location2.clearValidators();
+      this.docForm.controls['location2'].updateValueAndValidity();
+      this.docForm.controls.shopbankname.clearValidators();
+      this.docForm.controls['shopbankname'].updateValueAndValidity();
+      this.docForm.controls.mortgageamount.clearValidators();
+      this.docForm.controls['mortgageamount'].updateValueAndValidity();
+      this.docForm.controls.interestrate.clearValidators();
+      this.docForm.controls['interestrate'].updateValueAndValidity();
+      this.docForm.controls.payment.clearValidators();
+      this.docForm.controls['payment'].updateValueAndValidity();
+      this.docForm.controls.startdateobj.clearValidators();
+      this.docForm.controls['startdateobj'].updateValueAndValidity();
+      this.docForm.controls.startdate.clearValidators();
+      this.docForm.controls['startdate'].updateValueAndValidity();
+ 
+    
       this.LOCKER = false;
-    } else{
+      this.MORTGAGE = false;
+    } else if(check == 'MORTGAGE') {
+      this.MORTGAGE = true;
+     
+      this.docForm.controls.bankName.clearValidators();
+      this.docForm.controls['bankName'].updateValueAndValidity();
+      this.docForm.controls.lockerNo.clearValidators();
+      this.docForm.controls['lockerNo'].updateValueAndValidity();
+      this.docForm.controls.lockerRent.clearValidators();
+      this.docForm.controls['lockerRent'].updateValueAndValidity();
+
+      this.docForm.controls.location2.setValidators(Validators.required);
+      this.docForm.controls['location2'].updateValueAndValidity();
+      this.docForm.controls.shopbankname.setValidators(Validators.required);
+      this.docForm.controls['shopbankname'].updateValueAndValidity();
+      this.docForm.controls.mortgageamount.setValidators(Validators.required);
+      this.docForm.controls['mortgageamount'].updateValueAndValidity();
+      this.docForm.controls.interestrate.setValidators(Validators.required);
+      this.docForm.controls['interestrate'].updateValueAndValidity();
+      this.docForm.controls.payment.setValidators(Validators.required);
+      this.docForm.controls['payment'].updateValueAndValidity();
+      this.docForm.controls.startdateobj.setValidators(Validators.required);
+      this.docForm.controls['startdateobj'].updateValueAndValidity();
+      this.LOCKER = false;
+      this.INHAND = false;
+    }
+    
+    else{
       this.LOCKER = false;
     }
 
@@ -169,6 +247,21 @@ export class AddJewelleryDetailsComponent implements OnInit {
   }
 
 
+  getDETAIL(check: any){
+    if (check == 'PAWNSHOP') {
+      this.PAWNSHOP = true;
+    
+      
+    }
+    else if(check == 'BANK') {
+      this.PAWNSHOP = false;
+  
+    }
+    else{
+      this.PAWNSHOP = false;
+    }
+  }
+    
 
 
 
@@ -191,58 +284,12 @@ export class AddJewelleryDetailsComponent implements OnInit {
     //   jewelleryDtlArray.at(index).patchValue({ jdate: cdatedate });
     // }
     }
+    if (inputFlag == 'startdate') {
+      this.docForm.patchValue({ startdate: cdatedate });
+    }
+   
   }
 
-
-
-  // getDateString1(event, inputFlag, index) {
-  //   let cdate = this.commonService.getDate(event.target.value);
-  //   if (inputFlag == 'poDate') {
-  //     this.docForm.patchValue({ poDate: cdate });
-  //   }
-  //   if (inputFlag == 'edd') {
-  //     let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-  //     purchaseOrderDetailArray.at(index).patchValue({
-  //       edd: cdate
-  //     });
-  //   }
-  // }
-  // ngOnInit(): void {
-  //   this.docForm = this.fb.group({
-  //     caseinhand:[""],
-  //       cashatbank:[""],
-  //       cloan:[""],
-  //       cdate:[""],
-  //       cdateObj:[""],
-  
-  //       OrderDtl: this.fb.array([
-  //         this.fb.group({
-  //           type:["",[Validators.required]],
-  //           weight:[""],
-  //           price:[""],
-  //           loan:[""],
-  //           jdate:[""],
-  //           jdateObj:[""]
-  //         })
-  //       ])
-  //   });
-  // }
- 
-  // onSubmit()
-  // {
-  //   this.jewellery = this.docForm.value;
-
-  //    if(this.docForm.valid){ 
-  //     this.JewelleryService.savejewellery(this.jewellery,this.router,this.notificationService);
-  //   } else {
-  //     this.notificationService.showNotification(
-  //       "snackbar-danger",
-  //       "Please fill all the required details!",
-  //       "top",
-  //       "right");
-  //   }
-
-//  }
 
 
 
@@ -306,10 +353,19 @@ onSubmit(){
           'jewelcolour': res.jewelBean.jewelcolour,
           'gemstones': res.jewelBean.gemstones,
           'caratweight': res.jewelBean.caratweight,
+
+
+          'startdateobj':res.jewelBean.startdate != null ? this.commonService.getDateObj(res.jewelBean.startdate) : "",
+          'shopBank': res.jewelBean.shopBank,
+          'location2': res.jewelBean.location2,
+          'mortgageamount': res.jewelBean.mortgageamount,
+          'interestrate': res.jewelBean.interestrate,
+          'payment': res.jewelBean.payment,
+          'shopbankname': res.jewelBean.shopbankname,
         
           'id' :this.requestId
       
-
+         
       
       });
     },
@@ -336,7 +392,16 @@ onSubmit(){
         price:[""],
         loan:[""],
         gemstones:[""],
-        caratweight:[""]
+        caratweight:[""],
+        location2:[""],
+        shopbankname:[""],
+        startdate:[""],
+        startdateobj:[""],
+        mortgageamount:[""],
+        interestrate:[""],
+        payment:[""],
+       
+  
       });
   } else {
     this.fetchDetails(this.requestId);
