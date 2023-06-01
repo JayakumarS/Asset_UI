@@ -293,6 +293,7 @@ this.httpService.get<any>(this.mutualFundService.getfrequencyList+"?UserId="+thi
   
 
   reset() {
+    location.reload()
     this.docForm = this.fb.group({
       investmentTerm:[""],
       fixeddeposittype:[""],

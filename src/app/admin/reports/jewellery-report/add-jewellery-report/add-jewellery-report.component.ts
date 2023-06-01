@@ -265,6 +265,7 @@ export class AddJewelleryReportComponent implements OnInit {
   
 
   reset() {
+    location.reload()
     this.docForm = this.fb.group({
 
       

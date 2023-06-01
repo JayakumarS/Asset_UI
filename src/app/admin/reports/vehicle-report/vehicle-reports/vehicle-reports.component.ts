@@ -314,6 +314,7 @@ export class VehicleReportsComponent implements OnInit {
 
 
     reset() {
+      location.reload()
       this.docForm = this.fb.group({
         vehicletype:[""],
         fueltype:[""],

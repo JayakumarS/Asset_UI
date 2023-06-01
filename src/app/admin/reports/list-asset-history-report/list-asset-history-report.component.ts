@@ -393,7 +393,16 @@ export class ListAssetHistoryReportComponent implements OnInit {
       statusCheckBox:[false],
       endLifeCheckBox:[false],
       purchasePriceCheckBox:[false],
-      totalHoursUsageCheckBox:[false]
+      totalHoursUsageCheckBox:[false],
+
+      departmentCheckBox:[false],
+      invoiceNoCheckBox:[false],
+      invoiceDateCheckBox:[false],
+      capitalizationDateCheckBox:[false],
+      businessAreaCheckBox:[false],
+      vendorCheckBox:[false],
+      costCheckBox:[false],
+      sapCodeCheckBox:[false],
     });
   }
 
