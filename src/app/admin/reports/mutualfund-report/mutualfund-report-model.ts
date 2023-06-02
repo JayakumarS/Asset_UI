@@ -22,6 +22,17 @@ export class MutualfundReport{
             this.modeOfInvestment = mutualfundreport.modeOfInvestment|| "";
             this.investmentMethod=mutualfundreport.investmentMethod || "";
             this.paymentMethod=mutualfundreport.paymentMethod || ""; 
+
+            this.nameCheckbox=mutualfundreport.nameCheckbox || ""; 
+            this.investmentexperienceCheckBox=mutualfundreport.investmentexperienceCheckBox || ""; 
+            this.plannameCheckBox=mutualfundreport.plannameCheckBox || ""; 
+            this.brokerNameCheckBox=mutualfundreport.brokerNameCheckBox || ""; 
+            this.policyTermCheckBox=mutualfundreport.policyTermCheckBox || ""; 
+            this.policyNumberCheckbox=mutualfundreport.policyNumberCheckbox || ""; 
+            this.modeOfInvestmentCheckBox=mutualfundreport.modeOfInvestmentCheckBox || ""; 
+            this.grossPremiumCheckBox=mutualfundreport.grossPremiumCheckBox || ""; 
+
+
         }
 }
 }
