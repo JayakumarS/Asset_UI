@@ -691,7 +691,7 @@
           </div>
 
           <div class="col-md-2"*ngIf = "isLoan"  >
-            <label>LOAN START DATE<span class="errorColor">*</span></label>
+            <label>LOAN START DATE</label>
             </div>
             <div class="col-md-2"*ngIf = "isLoan" >
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -700,9 +700,7 @@
                 (dateChange)="getDateString($event,'loanstartDate1',0)" >
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
-                <mat-error *ngIf="docForm.get('insurancetype').hasError('required')">
-                  Loan Start Date is required
-                  </mat-error>
+               
              
               </mat-form-field>
             </div>
@@ -722,9 +720,6 @@
         <mat-datepicker-toggle matSuffix
             [for]="picker3"></mat-datepicker-toggle>
         <mat-datepicker #picker3></mat-datepicker>
-        <mat-error *ngIf="docForm.get('insurancetype').hasError('required')">
-          EMI Date is required
-          </mat-error>
           </mat-form-field>
         </div>
             </div>
@@ -820,11 +815,11 @@ Please Enter Valid Insurance No
   </div>
   <div class="col-md-2">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput [matDatepicker]="picker2" formControlName="insurancedate"
+      <input matInput [matDatepicker]="picker7" formControlName="insurancedate"
       (dateInput)="$event.value.format('DD/MM/YYYY')" id="insurancedate1"
       (dateChange)="getDateString($event,'insurancedate1',0)" >
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2></mat-datepicker>
+      <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+      <mat-datepicker #picker7></mat-datepicker>
       <mat-error *ngIf="docForm.get('insurancedate').hasError('required')">
         Insurance Date is required
           </mat-error>
@@ -869,11 +864,11 @@ Insured Amount is required
     </div>
     <div class="col-md-2">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-        <input matInput [matDatepicker]="picker2" formControlName="validity"
+        <input matInput [matDatepicker]="picker6" formControlName="validity"
         (dateInput)="$event.value.format('DD/MM/YYYY')" id="validity1"
         (dateChange)="getDateString($event,'validity1',0)" >
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
+        <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+        <mat-datepicker #picker6></mat-datepicker>
         <mat-error *ngIf="docForm.get('validity').hasError('required')">
           Validity is required
             </mat-error>
@@ -903,7 +898,7 @@ Insured Amount is required
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
     <mat-error *ngIf="docForm.get('service').hasError('required')">
-        Last Service date is required
+        Last Service Date is required
         </mat-error>
   </mat-form-field>
 </div>
