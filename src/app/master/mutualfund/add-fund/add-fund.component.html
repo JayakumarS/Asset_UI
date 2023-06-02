@@ -217,7 +217,7 @@
         
         <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput  formControlName="totalAssured"
+                <input matInput  formControlName="totalAssured" (keypress)="keyPressNumber($event)"
                 maxlength="20">     
             </mat-form-field>
         </div>
@@ -265,7 +265,7 @@
         
         <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput  formControlName="premiumDueAmount"
+                <input matInput  formControlName="premiumDueAmount" (keypress)="keyPressNumber($event)"
                 maxlength="20">    
             </mat-form-field>
         </div>
@@ -407,7 +407,7 @@
     
     <div class=" col-md-3">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-            <input matInput  formControlName="registeredNumber"
+            <input matInput  formControlName="registeredNumber" (keypress)="keyPressNumber($event)"
             maxlength="20">    
         </mat-form-field>
     </div>
@@ -446,7 +446,7 @@
         
         <div class=" col-md-3">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <input matInput  formControlName="grossPremium"
+                <input matInput  formControlName="grossPremium" (keypress)="keyPressNumber($event)"
                 maxlength="20">      
             </mat-form-field>
         </div>
@@ -456,7 +456,7 @@
         </div>
         <div class=" col-md-3">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="annualPremium">
+          <input matInput formControlName="annualPremium" (keypress)="keyPressNumber($event)">
         </mat-form-field>
         </div>
         
