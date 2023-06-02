@@ -40,7 +40,7 @@ export class SchedulelistService extends UnsubscribeOnDestroyAdapter {
     this.subs.sink = this.httpService.get<any>(this.getNotificationDetails+ "?userId=" +this.tokenStorage.getUserId()).subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data);
+        this.dataChange.next(data.reminderreportList);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;

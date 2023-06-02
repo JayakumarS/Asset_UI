@@ -11,24 +11,140 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:1.75em;">
           <div class="card">
             <div class="body">
-              <div class="table-responsive"> 
-                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-                #exporter="matTableExporter">
 
-                <ng-container matColumnDef="assetType">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Type</mat-header-cell>
-                  <mat-cell *matCellDef="let row" >{{row.assetType}}</mat-cell>
-                </ng-container>
-            
-                <ng-container matColumnDef="startDate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
-                  <mat-cell *matCellDef="let row"> {{row.startDate}}</mat-cell>
-                </ng-container>
+              
+              <form class="m-4" [formGroup]="docForm">
+              <div class="table-responsive"> 
                 
-                <ng-container matColumnDef="endDate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
-                  <mat-cell *matCellDef="let row"> {{row.endDate}}</mat-cell>
-                </ng-container>
+
+                
+            
+                <div class="row">
+                  <div class="col-md-2" >
+                    <label >START DATE</label>
+                  </div>
+            
+                  <div class="col-md-3" >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput [matDatepicker]="picker" formControlName="startDateObj"
+                        (dateInput)="$event.value.format('DD/MM/YYYY')" id="startDate" 
+                                               (dateChange)="getDateString($event, 'startDate',0)"> 
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <!-- <mat-error *ngIf="docForm.get('startdateObj').hasError('required')">
+                        Expected Date Of Delivery is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div> 
+                
+                  <div class="col-md-2" >
+                    <label >END DATE</label>
+                  </div>
+
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                
+                      <input matInput [matDatepicker]="picker1" formControlName="endDateObj"
+                        (dateInput)="$event.value.format('DD/MM/YYYY')" id="endDate" 
+                                               (dateChange)="getDateString($event, 'endDate',0)"> 
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                      <!-- <mat-error *ngIf="docForm.get('enddateObj').hasError('required')">
+                        Expected Date Of Delivery is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div> 
+                </div> 
+
+                <div class="row">
+                
+                 
+
+                <div class="col-md-2 ">
+                  <label > ASSET TYPE </label>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-select formControlName="assetType">
+
+
+                      <mat-option [value]="'Property Loan'">
+                        Property Loan
+                      </mat-option>
+                      <mat-option [value]="'Property Rent'">
+                        Property Rent
+                      </mat-option>
+                      <mat-option [value]="'Vehicle Loan'">
+                        Vehicles Loan
+                      </mat-option>
+                      <mat-option [value]="'Vehicle Insurence'">
+                        Vehicles Insurence
+                      </mat-option>
+                      <mat-option [value]="'Vehicle Service'">
+                        Vehicles Service
+                      </mat-option>
+                      <mat-option [value]="'Jewellery'">
+                        Jewellery
+                      </mat-option>
+                      <mat-option [value]="'Fixed Deposit'">
+                        Fixed Deposit
+                      </mat-option>
+                      <mat-option [value]="'Mutual Fund'">
+                        Mutual Fund
+                      </mat-option>
+                      <mat-option [value]="'Loan'">
+                        Loan
+                      </mat-option>
+                      <mat-option [value]="'Receivables'">
+                        Receivables
+                      </mat-option>
+                        
+                            
+                     
+                      <!-- <mat-option *ngFor="let title of assetList" [value]="title.id">
+                        {{title.text}}
+                      </mat-option> -->
+                    </mat-select>
+
+                    <!-- <mat-error *ngIf="docForm.get('category').hasError('required')">
+                      Type is required
+                    </mat-error> -->
+                  </mat-form-field>
+                </div>
+              </div>
+
+              
+              <div class="row"  align="center">
+
+              <div class="col-md-12">
+                <button color="warn" style="background-color:#34d034; "  type="button" class="btn-space" (click)="onSubmit()"
+                mat-raised-button> Submit</button>
+                <!-- </div>
+                <div class="col-md-3"> -->
+                    <button color="warn" style="background-color:#f44336; "  type="button" class="btn-space" (click)="reset()"
+                    mat-raised-button> Reset</button>
+                    </div>
+             
+              </div>
+        <br>
+
+        <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                  #exporter="matTableExporter" >
+
+        <ng-container matColumnDef="assetType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">ASSET TYPE</mat-header-cell>
+          <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetType}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">START DATE</mat-header-cell>
+          <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startDate}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 67px;">END DATE</mat-header-cell>
+          <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
+        </ng-container>
 
 
 
@@ -98,6 +214,7 @@
                 [pageSizeOptions]="[5, 10, 25, 100]">
               </mat-paginator>
             </div>
+          </form>
         </div>
       </div>
     </div>

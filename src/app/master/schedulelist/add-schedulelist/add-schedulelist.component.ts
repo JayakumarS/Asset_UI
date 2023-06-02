@@ -15,35 +15,70 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { SchedulelistService } from '../schedulelist.service';
 import { schedule } from '../schedulelist-model';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { CommonService } from 'src/app/common-service/common.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-schedulelist',
   templateUrl: './add-schedulelist.component.html',
-  styleUrls: ['./add-schedulelist.component.sass']
+  styleUrls: ['./add-schedulelist.component.sass'],
+
+
+providers: [
+  { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+  { provide: MAT_DATE_FORMATS, useValue: {
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MMMM YYYY',
+    },
+} },CommonService
+]
 })
 export class AddSchedulelistComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = ['assetType', 'startDate','endDate'];
    dataSource: ExampleDataSource | null;
+   docForm: FormGroup;
    exampleDatabase: SchedulelistService | null;
    selection = new SelectionModel<schedule>(true, []);
    index: number;
    id: number;
+   assetList:[];
+   schedule: schedule;
+ 
 
   
   constructor(
+    private fb: FormBuilder,
     public httpClient: HttpClient,
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
     public router: Router,
     public route: ActivatedRoute,
+    private CommonService:CommonService,
     public schedulelistService:SchedulelistService,
     public tokenStorage:TokenStorageService,
+    private cmnService:CommonService,
     // public dialogRef: MatDialogRef<AddSchedulelistComponent>
   ) {
     super();
-   }
+   
 
+   this.docForm = this.fb.group({
+    startDate:[""],
+    startDateObj:[""],
+    endDate:[""],
+    //endingDate:[""],
+    //startingDate:[""],
+    endDateObj:[""],
+    assetType:[""],
+    loginedUser:this.tokenStorage.getUserId(),
+  })
+}
    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
    @ViewChild(MatSort, { static: true }) sort: MatSort;
    @ViewChild("filter", { static: true }) filter: ElementRef;
@@ -62,16 +97,53 @@ export class AddSchedulelistComponent extends UnsubscribeOnDestroyAdapter implem
     //this.dialogRef.close();
    }
 
+   onSubmit(){
+
+    this.schedule = this.docForm.value;
+    console.log(this.schedule);
+    this.loadData();
+}
+reset(){
+  this.docForm = this.fb.group({
+    startDate:[""],
+    startDateObj:[""],
+    endDate:[""],
+   // endingDate:[""],
+    //startingDate:[""],
+    endDateObj:[""],
+    assetType:[""],
+    loginedUser:parseInt( this.tokenStorage.getUserId())
+
+  })
+  this.onSubmit();
+}
+
+
    refresh(){
     this.loadData();
   }
 
+  getDateString(event,inputFlag,index){
+    let cdate = this.cmnService.getDate(event.target.value);
+    if(inputFlag=='startDate'){
+      this.docForm.patchValue({startDate:cdate});
+    }
+    else if(inputFlag=='endDate'){
+      this.docForm.patchValue({endDate:cdate});
+    }
+    // else if(inputFlag=='expectedDate'){
+    //   this.docForm.patchValue({expectedDate:cdate});
+    // }
+  }
+
+  
   public loadData() {
     this.exampleDatabase = new SchedulelistService (this.httpClient, this.serverUrl, this.httpService, this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort
+      this.sort,
+      this.docForm
     );
 
 this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
@@ -98,7 +170,8 @@ export class ExampleDataSource extends DataSource<schedule> {
   constructor(
     public exampleDatabase: SchedulelistService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    public docForm: FormGroup
   ) {
     super();
     // Reset to the first page when the user changes the filter.
@@ -155,7 +228,7 @@ export class ExampleDataSource extends DataSource<schedule> {
         case "startDate":
           [propertyA, propertyB] = [a.startDate, b.startDate];
           break;
-        case "dueDate":
+        case "endDate":
           [propertyA, propertyB] = [a.endDate, b.endDate];
           break; 
       }
