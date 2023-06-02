@@ -159,6 +159,10 @@ showNotification(colorName, text, placementFrom, placementAlign) {
 
 QRcodeExportPdf() {
 
+
+  if(this.docForm.valid){
+
+
   var tableName="";
   if(this.docForm.controls.category.value=='Jewellery'){
     tableName="jewellery";
@@ -202,8 +206,10 @@ QRcodeExportPdf() {
       );
     }
   });
- }
 }
+}
+}
+
 export class ExampleDataSource extends DataSource<AssetReport> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
