@@ -186,7 +186,7 @@ export class ExampleDataSource extends DataSource<schedule> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getNotificationList();
+    this.exampleDatabase.getNotificationList(this.docForm.value);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

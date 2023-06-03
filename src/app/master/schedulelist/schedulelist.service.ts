@@ -36,8 +36,8 @@ export class SchedulelistService extends UnsubscribeOnDestroyAdapter {
   getDialogData() {
     return this.dialogData;
   }
-  getNotificationList(): void {
-    this.subs.sink = this.httpService.get<any>(this.getNotificationDetails+ "?userId=" +this.tokenStorage.getUserId()).subscribe(
+  getNotificationList(object): void {
+    this.subs.sink = this.httpService.get<any>(this.getNotificationDetails +object).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.reminderreportList);
