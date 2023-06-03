@@ -98,22 +98,17 @@ export class AddPropertyComponent implements OnInit {
        rentAmount:[""],
        dateToPayDateObj:[""],
        dateToPayDate:[""],
-       rentalPeriod:[""],
+     
        tenantName:[""],
        tenentIdCard:[""],
        mobileNo:[""],
-       alternateNo:[""],
-      payerDate:[""],
-       payerDateObj:[""],
-       inMonth:[""],
-       payerMode:[""],
-       recive:[""],
-       propertyRate:[""],
-       regDate:[""],
-       regDateObj:[""],
-       propertyLocation:[""],
-       taxNo:[""],
-       mortage:[""],
+     
+      
+   
+       
+     
+       
+
        houseTaxNo:[""],
        location:[""],
        area:[""],
@@ -211,20 +206,25 @@ export class AddPropertyComponent implements OnInit {
        payStatus:[""],
        payAmt:[""],
        
+       //rentarraydetails
 
+       sampleDtl: this.fb.array([
+        this.fb.group({
+          advance:["",[Validators.required]],
+          dateToPayDate:[""],
+          dateToPayDateObj:[""],
+          rentAmount:["",[Validators.required]],
+          tenantName:["",[Validators.required]],
+          tenentIdCard:["",[Validators.required]],
+          mobileNo:["",[Validators.required]],
+         
+          loginedUser: this.tokenStorage.getUserId(),
+         
 
+        })
+      ])
+ 
 
-
-
-       
-      //  rentType:[""],
-      //  propertyHolderName:["", [Validators.required]],
-      //  noProperty:["", [Validators.required]],
-      //  ownership:["", [Validators.required]],
-      //  type:["", [Validators.required]],
-      //  loantype:[""],
-
-       loginedUser: this.tokenStorage.getUserId(),
     
 
    })
@@ -280,7 +280,16 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
   window.sessionStorage.setItem("propFrom","");
   this.router.navigate(['/master/property/list-property']);
 }
+
  }
+
+removeRowArray(index){
+  let dtlArray = this.docForm.controls.sampleDtl as FormArray;
+  // if(index != 0){
+  dtlArray.removeAt(index);
+  // }
+
+}
  reset() {
    
    
@@ -301,28 +310,25 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
        loanInterest:[""],
        autoDebit:[""],
        loanAmount:[""],
-      //  account:[""],
+       account:[""],
        rentalType:[""],
-       advance:[""],
-       rentAmount:[""],
-       dateToPayDateObj:[""],
-       dateToPayDate:[""],
-       rentalPeriod:[""],
-       tenantName:[""],
-       tenentIdCard:[""],
-       mobileNo:[""],
-       alternateNo:[""],
-       payerDate:[""],
-       payerDateObj:[""],
-       inMonth:[""],
-       payerMode:[""],
-       recive:[""],
-       propertyRate:[""],
-       regDate:[""],
-       regDateObj:[""],
-       propertyLocation:[""],
-       taxNo:[""],
-       mortage:[""],
+      //  advance:[""],
+      //  rentAmount:[""],
+      //  dateToPayDateObj:[""],
+      //  dateToPayDate:[""],
+ 
+      //  tenantName:[""],
+      //  tenentIdCard:[""],
+      //  mobileNo:[""],
+  
+   
+    
+     
+      //  regDate:[""],
+      //  regDateObj:[""],
+
+    
+   
        loginedUser: this.tokenStorage.getUserId(),
        id:[""],
 
@@ -414,14 +420,30 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
        mailId:[""],
        payStatus:[""],
        payAmt:[""],
+//rent details
 
+sampleDtl: this.fb.array([ 
+  this.fb.group({
+    advance:[""],
+    dateToPayDate:[""],
+    dateToPayDateObj:[""],
+    rentAmount:[""],
+    tenantName:[""],
+    tenentIdCard:[""],
+    mobileNo:[""], 
+  
+    loginedUser: this.tokenStorage.getUserId(),
+    
+   
 
+  })
+])
+});
+} else {
+this.fetchDetails(this.requestId);
+}
+}
 
-   });
- } else {
-   this.fetchDetails(this.requestId);
- }
- }
  fetchDetails(requestId: any): void{
   this.edit=true;
   const obj = {
@@ -431,7 +453,6 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
   this.propertyService.editprop(obj).subscribe({
     next: (res) => {
       let hdate = this.cmnService.getDateObj(res.propertyBean.regDate);
-      let hdate1 = this.cmnService.getDateObj(res.propertyBean.payerDate);
       let hdate2 = this.cmnService.getDateObj(res.propertyBean.emiDate);
       let hdate3 = this.cmnService.getDateObj(res.propertyBean.dateToPayDate);
       let hdate4 = this.cmnService.getDateObj(res.propertyBean.landRegDate);
@@ -460,19 +481,12 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
 
         'propertyType': res.propertyBean.propertyType,
         // 'rentType': res.propertyBean.rentType,
-        'payerDate': res.propertyBean.payerDate,
-        'payerDateObj': hdate1,
-        'inMonth': res.propertyBean.inMonth,
-        'payerMode': res.propertyBean.payerMode,
-        'recive': res.propertyBean.recive,
-        'propertyHolderName': res.propertyBean.propertyHolderName,
-        'noProperty': res.propertyBean.noProperty,
-        'propertyRate': res.propertyBean.propertyRate,
+       
         'regDate': res.propertyBean.regDate,
         'regDateObj':hdate,
-        'propertyLocation': res.propertyBean.propertyLocation,
-        'taxNo': res.propertyBean.taxNo,
-        'mortage': res.propertyBean.mortage,
+     
+       
+       
         'type': res.propertyBean.type,
         'currentValue': res.propertyBean.currentValue,
         'depVal': res.propertyBean.depVal,
@@ -498,11 +512,11 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         'rentAmount':res.propertyBean.rentAmount,
         'dateToPayDateObj':hdate3,
         'dateToPayDate':res.propertyBean.dateToPayDate,
-        'rentalPeriod':res.propertyBean.rentalPeriod,
+  
         'tenantName':res.propertyBean.tenantName,
         'tenentIdCard':res.propertyBean.tenentIdCard,
         'mobileNo':res.propertyBean.mobileNo,
-        'alternateNo':res.propertyBean.alternateNo,
+       
         // 'loanstartObj':hdate6,
         'loanstartObj':res.propertyBean.loanstart != null ? this.commonService.getDateObj(res.propertyBean.loanstart) : "",
         'loanendObj':res.propertyBean.loanend != null ? this.commonService.getDateObj(res.propertyBean.loanend) : "",
@@ -599,12 +613,39 @@ if(window.sessionStorage.getItem("propFrom")=="prop"){
         
        
     });
+    if (res.sampleDtlDetail != null && res.sampleDtlDetail.length >= 1) {
+      let sampleDtlDetailArray = this.docForm.controls.sampleDtl as FormArray;
+      sampleDtlDetailArray.clear();
+      
+      res.sampleDtlDetail.forEach(element => {
+        let sampleDtlDetailArray = this.docForm.controls.sampleDtl as FormArray;
+        let arraylen = sampleDtlDetailArray.length;
+        let hdate3 = this.commonService.getDateObj(element.inceptiondate);
+        let hdateObj = element.inceptiondate;
+        if(element.inceptiondate==null){
+          hdate3 = "";
+          hdateObj = "";
+        }
+        let newUsergroup: FormGroup = this.fb.group({
+
+          advance: [( element.advance)],
+          rentAmount: [( element.rentAmount)],
+          tenantName:[(element.tenantName)],
+          dateToPayDate: [hdateObj],
+          dateToPayDateObj:[hdate3],
+          minimuminvestment: [ element.minimuminvestment],
+          investmentstyle: [ element.investmentstyle],
+          expenseratio: [element.expenseratio],
+        })
+        sampleDtlDetailArray.insert(arraylen, newUsergroup);
+      });
+    }
   },
   error: (error) => {
   }
 });
-
 }
+ 
 update(){
   if(this.docForm.valid){
     this.property = this.docForm.value;
@@ -664,10 +705,6 @@ update(){
      this.docForm.patchValue({ dateToPayDate: adatedate });
    }
 
-   let bdatedate = this.commonService.getDate(event.target.value);
-   if (inputFlag == 'payerDate') {
-    this.docForm.patchValue({ payerDate: bdatedate });
-  }
 
   let ddatedate = this.commonService.getDate(event.target.value);
   if (inputFlag == 'landRegDate') {
@@ -1159,15 +1196,7 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['tenentIdCard'].updateValueAndValidity();
         this.docForm.controls.mobileNo.clearValidators();
         this.docForm.controls['mobileNo'].updateValueAndValidity();
-        this.docForm.controls.payerDateObj.clearValidators();
-        this.docForm.controls['payerDateObj'].updateValueAndValidity();
-        this.docForm.controls.regDateObj.clearValidators();
-        this.docForm.controls['regDateObj'].updateValueAndValidity();
-        this.docForm.controls.propertyLocation.clearValidators();
-        this.docForm.controls['propertyLocation'].updateValueAndValidity();
-        this.docForm.controls.taxNo.clearValidators();
-        this.docForm.controls['taxNo'].updateValueAndValidity(); 
-        
+       
         this.docForm.controls.landlordname.clearValidators();
         this.docForm.controls['landlordname'].updateValueAndValidity();
         this.docForm.controls.tenantName1.clearValidators();
@@ -1224,14 +1253,9 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['tenentIdCard'].updateValueAndValidity();
         this.docForm.controls.mobileNo.setValidators(Validators.required);
         this.docForm.controls['mobileNo'].updateValueAndValidity();
-        this.docForm.controls.payerDateObj.setValidators(Validators.required);
-        this.docForm.controls['payerDateObj'].updateValueAndValidity();
-        this.docForm.controls.regDateObj.setValidators(Validators.required);
-        this.docForm.controls['regDateObj'].updateValueAndValidity();
-        this.docForm.controls.propertyLocation.setValidators(Validators.required);
-        this.docForm.controls['propertyLocation'].updateValueAndValidity();
-        this.docForm.controls.taxNo.setValidators(Validators.required);
-        this.docForm.controls['taxNo'].updateValueAndValidity();
+        
+        
+
 
         this.docForm.controls.preOwner.clearValidators();
         this.docForm.controls['preOwner'].updateValueAndValidity();
@@ -1267,26 +1291,7 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['lesAmount'].updateValueAndValidity();
         this.docForm.controls['noticepd'].updateValueAndValidity(); 
         this.docForm.controls.noticepd.clearValidators();
-        // this.docForm.controls.advance.clearValidators();
-        // this.docForm.controls['advance'].updateValueAndValidity();
-        // this.docForm.controls.rentAmount.clearValidators();
-        // this.docForm.controls['rentAmount'].updateValueAndValidity();
-        // this.docForm.controls.dateToPayDateObj.clearValidators();
-        // this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
-        // this.docForm.controls.tenantName.clearValidators();
-        // this.docForm.controls['tenantName'].updateValueAndValidity();
-        // this.docForm.controls.tenentIdCard.clearValidators();
-        // this.docForm.controls['tenentIdCard'].updateValueAndValidity();
-        // this.docForm.controls.mobileNo.clearValidators();
-        // this.docForm.controls['mobileNo'].updateValueAndValidity();
-        // this.docForm.controls.payerDateObj.clearValidators();
-        // this.docForm.controls['payerDateObj'].updateValueAndValidity();
-        // this.docForm.controls.regDateObj.clearValidators();
-        // this.docForm.controls['regDateObj'].updateValueAndValidity();
-        // this.docForm.controls.propertyLocation.clearValidators();
-        // this.docForm.controls['propertyLocation'].updateValueAndValidity();
-        // this.docForm.controls.taxNo.clearValidators();
-        // this.docForm.controls['taxNo'].updateValueAndValidity();
+        
         
 
       } else {
@@ -1478,6 +1483,22 @@ if (inputFlag == 'transitionDate') {
     else {
       this.isEcAvaliable = false;
     }
+  }
+  onAddRow() {
+    let dtlArray = this.docForm.controls.sampleDtl as FormArray;
+    let arraylen = dtlArray.length;
+    let newUsergroup: FormGroup = this.fb.group({
+      advance:[""],
+      dateToPayDate:[""],
+      dateToPayDateObj:[""],
+      rentAmount:[""],
+      tenantName:[""],
+      tenentIdCard:[""],
+      mobileNo:[""],
+      loginedUser:[""]        
+  
+    })
+    dtlArray.insert(arraylen,newUsergroup);
   }
 
   }

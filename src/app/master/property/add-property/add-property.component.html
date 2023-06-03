@@ -7,6 +7,7 @@
       </div>
       <div class="row clearfix">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="box-shadow">
           <div class="card " >
             <div class="body">
                 <form class="m-4" [formGroup]="docForm">
@@ -1348,14 +1349,128 @@
 
 
 
-      <div class="card " style="padding-left: 150px;" *ngIf = "isRent">
+      <div class="card " style="padding-left: 40px;" *ngIf = "isRent">
         <br>
         <div class="row" *ngIf = "isRent">
 
-          <mat-label style="margin-left: -45px;padding-bottom: 18px;margin-top: 7px;"><b>RENT DETAILS</b></mat-label>
+          <mat-label style="margin-left: 45px;padding-bottom: 18px;margin-top: 7px;"><b>RENT DETAILS</b></mat-label>
 
         </div>
-            <div class="row" *ngIf = "isRent">
+        <div style="overflow-x: auto;">
+          <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+            <thead class="">
+              <tr>
+                <th style="width: 1%;"></th>
+                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+ width: 12%; border-radius: 0.05rem;">ADVANCE<span class="errorColor"> *</span></th>
+               <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+ width: 12%;border-radius: 0.07rem;">RENT AMOUNT<span class="errorColor"> *</span></th>
+              
+                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+ width: 12%;border-radius: 0.07rem;">RENT PAID ON</th>
+                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+ width: 12%; border-radius: 0.05rem;">TENANT NAME <span class="errorColor"> *</span> </th>
+            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+ width: 12%;border-radius: 0.07rem;"> TENANT ID CARD NO<span class="errorColor"> *</span></th>
+                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+ width: 12%; border-radius: 0.05rem;"> MOBILE NO<span class="errorColor"> *</span> </th>
+              </tr>
+            </thead>
+            <ng-container *ngFor="let sampleDtl of docForm.get('sampleDtl')['controls']; let i = index">
+              <tbody [formGroup]="sampleDtl">
+                <tr>
+                  <td>
+                    <button mat-mini-fab color="warn" (click)="removeRowArray(i)">
+                      <mat-icon class="col-white">delete</mat-icon>
+                    </button>
+                  </td>
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>ADVANCE</mat-label>
+                      <input matInput formControlName="advance"
+                      maxlength="20" (keypress)="keyPressNumeric($event)">
+                      <mat-error *ngIf="docForm.get('advance').hasError('required')">
+                        Advance is required
+                       </mat-error>
+                    </mat-form-field>
+                    <div *ngIf="submitted && sampleDtl.get('advance').hasError('required')" class="failed-validation" class="errorColor">Advance Name is required </div> 
+                  </td>
+                
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> RENT AMOUNT</mat-label>
+                      <input matInput formControlName="rentAmount"
+               maxlength="20" (keypress)="keyPressNumeric($event)">
+               <mat-error *ngIf="docForm.get('rentAmount').hasError('required')">
+                Rent Amount is required
+               </mat-error> 
+                    </mat-form-field>
+                  </td>
+
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>RENT PAID ON</mat-label>
+                      <input matInput [matDatepicker]="picker1" 
+                      formControlName="dateToPayDateObj"
+                      (dateInput)="$event.value.format('DD/MM/YYYY')"
+                      id="dateToPayDate"
+                      (dateChange)="getDateString($event, 'dateToPayDate',0)">
+                  <mat-datepicker-toggle matSuffix
+                      [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                  <mat-error *ngIf="docForm.get('dateToPayDateObj').hasError('required')">
+                    Rent Paid On is required
+                   </mat-error> 
+                    </mat-form-field>
+                    <div *ngIf="submitted && sampleDtl.get('inceptiondate').hasError('required')" class="failed-validation" class="errorColor"> Inception Date is required </div>
+
+                    </td>
+                    
+                  <td class="padding-both-side-2">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> TENANT NAME</mat-label>
+                      <input matInput formControlName="tenantName"
+             maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
+             <mat-error *ngIf="docForm.get('tenantName').hasError('required')">
+              Tenant Name is required
+             </mat-error> 
+                    </mat-form-field>
+                    <div *ngIf="submitted && sampleDtl.get('minimuminvestment').hasError('required')" class="failed-validation" class="errorColor"> Minimum Investment is required </div>
+                 </td>
+
+
+                 <td class="padding-both-side-2">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>TENANT ID CARD NO</mat-label>
+                    <input matInput formControlName="tenentIdCard"
+                    maxlength="12"  (keypress)="keyPressNumeric($event)" >
+                   <mat-error *ngIf="docForm.get('tenentIdCard').hasError('required')">
+                     Tenant ID Card No is required
+                    </mat-error>  
+                  </mat-form-field>
+                  
+              </td>
+              <td class="padding-both-side-2">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>MOBILE NO</mat-label>
+                  <input matInput formControlName="mobileNo"
+                  maxlength="10" (keypress)="keyPressNumeric($event)">
+                 <mat-error *ngIf="docForm.get('mobileNo').hasError('required')">
+                   Mobile No is required
+                  </mat-error>
+                 </mat-form-field>
+             </td>
+            </tr>
+              </tbody>
+            </ng-container>
+          </table>
+        </div>
+        
+<button mat-mini-fab color="primary"(click)="onAddRow()" > 
+<mat-icon class="col-white">add</mat-icon>
+</button>
+      
+            <!-- <div class="row" *ngIf = "isRent">
 
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
                 <mat-label >
@@ -1385,10 +1500,10 @@
                </mat-error> 
             </mat-form-field>
           </div>
-            </div>
+            </div> -->
 
 
-            <div class="row" *ngIf = "isRent">
+            <!-- <div class="row" *ngIf = "isRent">
 
               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
                 <mat-label >RENT PAID ON<span class="errorColor">*</span></mat-label>
@@ -1536,7 +1651,7 @@
                       </div>
 
 
-                    </div>
+                    </div> -->
                   <!-- <div class="row" *ngIf = "isRent">
 
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -1593,7 +1708,7 @@
 
                   </div> -->
 
-                  <div class="row" *ngIf = "isRent">
+                  <!-- <div class="row" *ngIf = "isRent">
 
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >PROPERTY RATE</mat-label>
@@ -1671,7 +1786,7 @@
                         </mat-select> 
                     </mat-form-field>
                   </div>
-              </div>
+              </div> -->
       </div>
 
         <div class="card " style="padding-left: 150px;" *ngIf = "isLease">
@@ -1815,6 +1930,7 @@
 			
 
     </form>
+</div>
 </div>
 </div>
 </div>
