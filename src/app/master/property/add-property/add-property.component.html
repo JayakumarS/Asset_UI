@@ -1125,7 +1125,7 @@
   <div class=" col-md-3" >
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
     
-      <input matInput formControlName="userpassword" maxlength="15" autocomplete="new-password"  [type]="hide ? 'password' : 'text'">
+      <input matInput formControlName="password" maxlength="15" autocomplete="new-password"  [type]="hide ? 'password' : 'text'">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
@@ -1362,18 +1362,18 @@
               <tr>
                 <th style="width: 1%;"></th>
                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
- width: 12%; border-radius: 0.05rem;">ADVANCE<span class="errorColor"> *</span></th>
+                    width: 12%; border-radius: 0.05rem;">ADVANCE<span class="errorColor"> *</span></th>
                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
- width: 12%;border-radius: 0.07rem;">RENT AMOUNT<span class="errorColor"> *</span></th>
+                    width: 12%;border-radius: 0.07rem;">RENT AMOUNT<span class="errorColor"> *</span></th>
               
                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
- width: 12%;border-radius: 0.07rem;">RENT PAID ON</th>
+                     width: 12%;border-radius: 0.07rem;">RENT PAID ON</th>
                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
- width: 12%; border-radius: 0.05rem;">TENANT NAME <span class="errorColor"> *</span> </th>
+                     width: 12%; border-radius: 0.05rem;">TENANT NAME <span class="errorColor"> *</span> </th>
             <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
- width: 12%;border-radius: 0.07rem;"> TENANT ID CARD NO<span class="errorColor"> *</span></th>
+                      width: 12%;border-radius: 0.07rem;"> TENANT ID CARD NO<span class="errorColor"> *</span></th>
                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
- width: 12%; border-radius: 0.05rem;"> MOBILE NO<span class="errorColor"> *</span> </th>
+                      width: 12%; border-radius: 0.05rem;"> MOBILE NO<span class="errorColor"> *</span> </th>
               </tr>
             </thead>
             <ng-container *ngFor="let sampleDtl of docForm.get('sampleDtl')['controls']; let i = index">
@@ -1391,9 +1391,9 @@
                       maxlength="20" (keypress)="keyPressNumeric($event)">
                       <mat-error *ngIf="docForm.get('advance').hasError('required')">
                         Advance is required
-                       </mat-error>
+                       </mat-error> 
                     </mat-form-field>
-                    <div *ngIf="submitted && sampleDtl.get('advance').hasError('required')" class="failed-validation" class="errorColor">Advance Name is required </div> 
+                    <!-- <div *ngIf="submitted && sampleDtl.get('advance').hasError('required')" class="failed-validation" class="errorColor">Advance Name is required </div>  -->
                   </td>
                 
                   <td class="padding-both-side-2">
@@ -1418,11 +1418,11 @@
                   <mat-datepicker-toggle matSuffix
                       [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
-                  <mat-error *ngIf="docForm.get('dateToPayDateObj').hasError('required')">
+                  <!-- <mat-error *ngIf="docForm.get('dateToPayDateObj').hasError('required')">
                     Rent Paid On is required
-                   </mat-error> 
+                   </mat-error>  -->
                     </mat-form-field>
-                    <div *ngIf="submitted && sampleDtl.get('inceptiondate').hasError('required')" class="failed-validation" class="errorColor"> Inception Date is required </div>
+                    <!-- <div *ngIf="submitted && sampleDtl.get('dateToPayDate').hasError('required')" class="failed-validation" class="errorColor"> Rent Paid Date is required </div> -->
 
                     </td>
                     
@@ -1431,11 +1431,11 @@
                       <mat-label> TENANT NAME</mat-label>
                       <input matInput formControlName="tenantName"
              maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
-             <mat-error *ngIf="docForm.get('tenantName').hasError('required')">
-              Tenant Name is required
-             </mat-error> 
+             <mat-error *ngIf="docForm.get('tenentIdCard').hasError('required')">
+              Tenant ID Card No is required
+             </mat-error>  
                     </mat-form-field>
-                    <div *ngIf="submitted && sampleDtl.get('minimuminvestment').hasError('required')" class="failed-validation" class="errorColor"> Minimum Investment is required </div>
+                    <!-- <div *ngIf="submitted && sampleDtl.get('tenantName').hasError('required')" class="failed-validation" class="errorColor"> Tenant Name is required </div> -->
                  </td>
 
 
