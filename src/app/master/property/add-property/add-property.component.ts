@@ -620,9 +620,9 @@ this.fetchDetails(this.requestId);
       res.sampleDtlDetail.forEach(element => {
         let sampleDtlDetailArray = this.docForm.controls.sampleDtl as FormArray;
         let arraylen = sampleDtlDetailArray.length;
-        let hdate3 = this.commonService.getDateObj(element.inceptiondate);
-        let hdateObj = element.inceptiondate;
-        if(element.inceptiondate==null){
+        let hdate3 = this.commonService.getDateObj(element.dateToPayDate);
+        let hdateObj = element.dateToPayDate;
+        if(element.dateToPayDate==null){
           hdate3 = "";
           hdateObj = "";
         }
