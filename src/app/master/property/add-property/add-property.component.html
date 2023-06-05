@@ -1431,7 +1431,7 @@
                       <mat-label> TENANT NAME</mat-label>
                       <input matInput formControlName="tenantName"
              maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
-             <mat-error *ngIf="docForm.get('tenentIdCard').hasError('required')">
+             <mat-error *ngIf="docForm.get('tenantName').hasError('required')">
               Tenant ID Card No is required
              </mat-error>  
                     </mat-form-field>
@@ -1442,9 +1442,9 @@
                  <td class="padding-both-side-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>TENANT ID CARD NO</mat-label>
-                    <input matInput formControlName="tenentIdCard"
+                    <input matInput formControlName="tenantIdcard"
                     maxlength="12"  (keypress)="keyPressNumeric($event)" >
-                   <mat-error *ngIf="docForm.get('tenentIdCard').hasError('required')">
+                   <mat-error *ngIf="docForm.get('tenantIdcard').hasError('required')">
                      Tenant ID Card No is required
                     </mat-error>  
                   </mat-form-field>
@@ -1574,9 +1574,9 @@
       </div>
       <div class=" col-md-3"  >
         <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="tenentIdCard"
+          <input matInput formControlName="tenantIdcard"
            maxlength="12"  (keypress)="keyPressNumeric($event)" >
-          <mat-error *ngIf="docForm.get('tenentIdCard').hasError('required')">
+          <mat-error *ngIf="docForm.get('tenantIdcard').hasError('required')">
             Tenant ID Card No is required
            </mat-error> 
         </mat-form-field>

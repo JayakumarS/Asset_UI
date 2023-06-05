@@ -100,7 +100,7 @@ export class AddPropertyComponent implements OnInit {
        dateToPayDate:[""],
      
        tenantName:[""],
-       tenentIdCard:[""],
+       tenantIdcard:[""],
        mobileNo:[""],
      
       
@@ -215,19 +215,21 @@ export class AddPropertyComponent implements OnInit {
           dateToPayDateObj:[""],
           rentAmount:[""],
           tenantName:[""],
-          tenentIdCard:[""],
+          tenantIdcard:[""],
           mobileNo:[""],
          
-          loginedUser: this.tokenStorage.getUserId(),
          
 
         })
-      ])
+      ]),
  
 
-    
+      loginedUser: this.tokenStorage.getUserId(),
+
 
    })
+
+   
  }
    
  ngOnInit(): void {
@@ -318,7 +320,7 @@ removeRowArray(index){
       //  dateToPayDate:[""],
  
       //  tenantName:[""],
-      //  tenentIdCard:[""],
+      //  tenantIdcard:[""],
       //  mobileNo:[""],
   
    
@@ -429,7 +431,7 @@ sampleDtl: this.fb.array([
     dateToPayDateObj:[""],
     rentAmount:[""],
     tenantName:[""],
-    tenentIdCard:[""],
+    tenantIdcard:[""],
     mobileNo:[""], 
   
     loginedUser: this.tokenStorage.getUserId(),
@@ -514,7 +516,7 @@ this.fetchDetails(this.requestId);
         'dateToPayDate':res.propertyBean.dateToPayDate,
   
         'tenantName':res.propertyBean.tenantName,
-        'tenentIdCard':res.propertyBean.tenentIdCard,
+        'tenantIdcard':res.propertyBean.tenantIdcard,
         'mobileNo':res.propertyBean.mobileNo,
        
         // 'loanstartObj':hdate6,
@@ -1211,8 +1213,8 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
         this.docForm.controls.tenantName.clearValidators();
         this.docForm.controls['tenantName'].updateValueAndValidity();
-        this.docForm.controls.tenentIdCard.clearValidators();
-        this.docForm.controls['tenentIdCard'].updateValueAndValidity();
+        this.docForm.controls.tenantIdcard.clearValidators();
+        this.docForm.controls['tenantIdcard'].updateValueAndValidity();
         this.docForm.controls.mobileNo.clearValidators();
         this.docForm.controls['mobileNo'].updateValueAndValidity();
         this.docForm.controls.landlordname.clearValidators();
@@ -1250,8 +1252,8 @@ if (inputFlag == 'transitionDate') {
         // this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
         this.docForm.controls.tenantName.setValidators(Validators.required);
         this.docForm.controls['tenantName'].updateValueAndValidity();
-        this.docForm.controls.tenentIdCard.setValidators(Validators.required);
-        this.docForm.controls['tenentIdCard'].updateValueAndValidity();
+        this.docForm.controls.tenantIdcard.setValidators(Validators.required);
+        this.docForm.controls['tenantIdcard'].updateValueAndValidity();
         this.docForm.controls.mobileNo.setValidators(Validators.required);
         this.docForm.controls['mobileNo'].updateValueAndValidity();
 
@@ -1357,8 +1359,8 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
         this.docForm.controls.tenantName.clearValidators();
         this.docForm.controls['tenantName'].updateValueAndValidity();
-        this.docForm.controls.tenentIdCard.clearValidators();
-        this.docForm.controls['tenentIdCard'].updateValueAndValidity();
+        this.docForm.controls.tenantIdcard.clearValidators();
+        this.docForm.controls['tenantIdcard'].updateValueAndValidity();
         this.docForm.controls.mobileNo.clearValidators();
         this.docForm.controls['mobileNo'].updateValueAndValidity();
       }
@@ -1502,7 +1504,7 @@ if (inputFlag == 'transitionDate') {
       dateToPayDateObj:[""],
       rentAmount:[""],
       tenantName:[""],
-      tenentIdCard:[""],
+      tenantIdcard:[""],
       mobileNo:[""],
       loginedUser:[""]        
   
