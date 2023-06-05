@@ -51,7 +51,7 @@ export class AddPropertyComponent implements OnInit {
   branchList = [];
   edit:boolean=false;
   url:any;
-  isRent: boolean = false;
+  isRent: boolean;
   isHouse: boolean;
   isLoan: boolean;
   isAutoDebit: boolean;
@@ -210,13 +210,13 @@ export class AddPropertyComponent implements OnInit {
 
        sampleDtl: this.fb.array([
         this.fb.group({
-          advance:["",[Validators.required]],
+          advance:[""],
           dateToPayDate:[""],
           dateToPayDateObj:[""],
-          rentAmount:["",[Validators.required]],
-          tenantName:["",[Validators.required]],
-          tenentIdCard:["",[Validators.required]],
-          mobileNo:["",[Validators.required]],
+          rentAmount:[""],
+          tenantName:[""],
+          tenentIdCard:[""],
+          mobileNo:[""],
          
           loginedUser: this.tokenStorage.getUserId(),
          
@@ -1183,7 +1183,26 @@ if (inputFlag == 'transitionDate') {
       // this.docForm.controls.payAmt.setValidators;
       // this.docForm.controls['payAmt'].updateValueAndValidity();
       
-      
+       
+        // // this.docForm.controls.preOwner.clearValidators();
+        // // this.docForm.controls['preOwner'].updateValueAndValidity();
+        // this.docForm.controls.preOwnername.clearValidators();
+        // this.docForm.controls['preOwnername'].updateValueAndValidity();
+        // // this.docForm.controls.transitionDateObj.clearValidators();
+        // // this.docForm.controls['transitionDateObj'].updateValueAndValidity();
+        // // this.docForm.controls.transitionDate.clearValidators();
+        // // this.docForm.controls['transitionDate'].updateValueAndValidity();
+        // // this.docForm.controls.propWorth.clearValidators();
+        // // this.docForm.controls['propWorth'].updateValueAndValidity();
+        // this.docForm.controls.ownAddress.clearValidators();
+        // this.docForm.controls['ownAddress'].updateValueAndValidity();
+        // this.docForm.controls.mailId.clearValidators();
+        // this.docForm.controls['mailId'].updateValueAndValidity();
+        // this.docForm.controls.payStatus.clearValidators();
+        // this.docForm.controls['payStatus'].updateValueAndValidity();
+        // this.docForm.controls.payAmt.clearValidators();
+        // this.docForm.controls['payAmt'].updateValueAndValidity();
+
         this.docForm.controls.advance.clearValidators();
         this.docForm.controls['advance'].updateValueAndValidity();
         this.docForm.controls.rentAmount.clearValidators();
@@ -1196,7 +1215,6 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['tenentIdCard'].updateValueAndValidity();
         this.docForm.controls.mobileNo.clearValidators();
         this.docForm.controls['mobileNo'].updateValueAndValidity();
-       
         this.docForm.controls.landlordname.clearValidators();
         this.docForm.controls['landlordname'].updateValueAndValidity();
         this.docForm.controls.tenantName1.clearValidators();
@@ -1211,30 +1229,13 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['lesContract'].updateValueAndValidity();
         this.docForm.controls.lesAmount.clearValidators();
         this.docForm.controls['lesAmount'].updateValueAndValidity();
-        this.docForm.controls['noticepd'].updateValueAndValidity(); 
         this.docForm.controls.noticepd.clearValidators();
-        // this.docForm.controls.preOwner.clearValidators();
-        // this.docForm.controls['preOwner'].updateValueAndValidity();
-        this.docForm.controls.preOwnername.clearValidators();
-        this.docForm.controls['preOwnername'].updateValueAndValidity();
-        // this.docForm.controls.transitionDateObj.clearValidators();
-        // this.docForm.controls['transitionDateObj'].updateValueAndValidity();
-        // this.docForm.controls.transitionDate.clearValidators();
-        // this.docForm.controls['transitionDate'].updateValueAndValidity();
-        // this.docForm.controls.propWorth.clearValidators();
-        // this.docForm.controls['propWorth'].updateValueAndValidity();
-        this.docForm.controls.ownAddress.clearValidators();
-        this.docForm.controls['ownAddress'].updateValueAndValidity();
-        this.docForm.controls.mailId.clearValidators();
-        this.docForm.controls['mailId'].updateValueAndValidity();
-        this.docForm.controls.payStatus.clearValidators();
-        this.docForm.controls['payStatus'].updateValueAndValidity();
-        this.docForm.controls.payAmt.clearValidators();
-        this.docForm.controls['payAmt'].updateValueAndValidity();
+        this.docForm.controls['noticepd'].updateValueAndValidity(); 
+       
     }
     else {
       this.isOwnProperty = false;
-     
+
 
     }
     
@@ -1245,17 +1246,14 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['advance'].updateValueAndValidity();
         this.docForm.controls.rentAmount.setValidators(Validators.required);
         this.docForm.controls['rentAmount'].updateValueAndValidity();
-        this.docForm.controls.dateToPayDateObj.setValidators(Validators.required);
-        this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
+        // this.docForm.controls.dateToPayDateObj.setValidators;
+        // this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
         this.docForm.controls.tenantName.setValidators(Validators.required);
         this.docForm.controls['tenantName'].updateValueAndValidity();
         this.docForm.controls.tenentIdCard.setValidators(Validators.required);
         this.docForm.controls['tenentIdCard'].updateValueAndValidity();
         this.docForm.controls.mobileNo.setValidators(Validators.required);
         this.docForm.controls['mobileNo'].updateValueAndValidity();
-        
-        
-
 
         this.docForm.controls.preOwner.clearValidators();
         this.docForm.controls['preOwner'].updateValueAndValidity();
@@ -1289,14 +1287,12 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['lesContract'].updateValueAndValidity();
         this.docForm.controls.lesAmount.clearValidators();
         this.docForm.controls['lesAmount'].updateValueAndValidity();
+         this.docForm.controls.noticepd.clearValidators();
         this.docForm.controls['noticepd'].updateValueAndValidity(); 
-        this.docForm.controls.noticepd.clearValidators();
-        
-        
 
       } else {
         this.isRent = false;
-        
+                
       }
 
       if (event == 'Lease') {
@@ -1318,6 +1314,24 @@ if (inputFlag == 'transitionDate') {
       this.docForm.controls.noticepd.setValidators;
       this.docForm.controls['noticepd'].updateValueAndValidity(); 
 
+        
+        // this.docForm.controls.landlordname.clearValidators();
+        // this.docForm.controls['landlordname'].updateValueAndValidity();
+        // this.docForm.controls.tenantName1.clearValidators();
+        // this.docForm.controls['tenantName1'].updateValueAndValidity();
+        // this.docForm.controls.phoneNo.clearValidators();
+        // this.docForm.controls['phoneNo'].updateValueAndValidity();
+        // this.docForm.controls.propertyAddress.clearValidators();
+        // this.docForm.controls['propertyAddress'].updateValueAndValidity();
+        // this.docForm.controls.squarefeet.clearValidators();
+        // this.docForm.controls['squarefeet'].updateValueAndValidity();
+        // this.docForm.controls.lesContract.clearValidators();
+        // this.docForm.controls['lesContract'].updateValueAndValidity();
+        // this.docForm.controls.lesAmount.clearValidators();
+        // this.docForm.controls['lesAmount'].updateValueAndValidity();
+        // this.docForm.controls['noticepd'].updateValueAndValidity(); 
+        // this.docForm.controls.noticepd.clearValidators();
+
         this.docForm.controls.preOwner.clearValidators();
         this.docForm.controls['preOwner'].updateValueAndValidity();
         this.docForm.controls.preOwnername.clearValidators();
@@ -1336,29 +1350,24 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['payStatus'].updateValueAndValidity();
         this.docForm.controls.payAmt.clearValidators();
         this.docForm.controls['payAmt'].updateValueAndValidity();
-        // this.docForm.controls.landlordname.clearValidators();
-        // this.docForm.controls['landlordname'].updateValueAndValidity();
-        // this.docForm.controls.tenantName1.clearValidators();
-        // this.docForm.controls['tenantName1'].updateValueAndValidity();
-        // this.docForm.controls.phoneNo.clearValidators();
-        // this.docForm.controls['phoneNo'].updateValueAndValidity();
-        // this.docForm.controls.propertyAddress.clearValidators();
-        // this.docForm.controls['propertyAddress'].updateValueAndValidity();
-        // this.docForm.controls.squarefeet.clearValidators();
-        // this.docForm.controls['squarefeet'].updateValueAndValidity();
-        // this.docForm.controls.lesContract.clearValidators();
-        // this.docForm.controls['lesContract'].updateValueAndValidity();
-        // this.docForm.controls.lesAmount.clearValidators();
-        // this.docForm.controls['lesAmount'].updateValueAndValidity();
-        // this.docForm.controls['noticepd'].updateValueAndValidity(); 
-        // this.docForm.controls.noticepd.clearValidators();
+        this.docForm.controls['advance'].updateValueAndValidity();
+        this.docForm.controls.rentAmount.clearValidators();
+        this.docForm.controls['rentAmount'].updateValueAndValidity();
+        this.docForm.controls.dateToPayDateObj.clearValidators();
+        this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
+        this.docForm.controls.tenantName.clearValidators();
+        this.docForm.controls['tenantName'].updateValueAndValidity();
+        this.docForm.controls.tenentIdCard.clearValidators();
+        this.docForm.controls['tenentIdCard'].updateValueAndValidity();
+        this.docForm.controls.mobileNo.clearValidators();
+        this.docForm.controls['mobileNo'].updateValueAndValidity();
       }
       else {
         this.isLease = false;
         
-       
       }
    }
+
    htypeFlag(event){
     if (event == 'Villa') {
       this.isVilla = true; 
