@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -48,6 +48,12 @@ export class IndividualInformationComponent implements OnInit {
   countryList=[];
   stateList=[];
   cityList=[];
+  filePathUrl: any;
+  imgPathUrl: any;
+  uploadImage: boolean = false;
+
+  private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
+  private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   
   constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private commonService: CommonService,
    
@@ -107,9 +113,20 @@ export class IndividualInformationComponent implements OnInit {
       telephone:[""],
       fax:[""],
       mobile:[""],
+      pincode:[""],
+      loginUser:[this.tokenStorage.getUserId()],
       companyEmail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       website: ['', [Validators.pattern (/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)]],
-   })
+      proofDtl: this.fb.array([
+        this.fb.group({ 
+          idtype:[""],
+          idNumber:[""],
+          uploadImg:[""],
+          loginedUser:[this.tokenStorage.getUserId()]
+        })
+      ])
+    })
+  
 
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
@@ -144,7 +161,6 @@ export class IndividualInformationComponent implements OnInit {
           'state':res.state != null ? parseInt(res.state) : "",
           'city':res.city != null ? parseInt(res.city) : "",
           'bloodGroup':res.bloodGroup,
-          'idNumber':res.idNumber,
           'passportNumber':res.passportNumber,
           'panNumber':res.panNumber,
           'licenseNo':res.licenseNo,
@@ -155,7 +171,29 @@ export class IndividualInformationComponent implements OnInit {
           'mobile':res.mobile,
           'companyEmail':res.companyEmail,
           'website':res.website,
+          'pincode':res.pincode,
+         
+
       })
+      if (res.proofDtl != null && res.proofDtl.length >= 1) {
+        let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
+        proofDtlArray.clear();
+        
+        res.proofDtl.forEach(element => {
+          let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
+          let arraylen = proofDtlArray.length;
+         
+          let newUsergroup: FormGroup = this.fb.group({
+
+            idtype: [( element.idtype)],
+            idNumber: [( element.idNumber)],
+            uploadImg:[(element.uploadImg)],
+            
+          })
+          proofDtlArray.insert(arraylen, newUsergroup);
+        });
+      }
+   
     });
 
   }
@@ -175,7 +213,84 @@ export class IndividualInformationComponent implements OnInit {
       this.cityList = res;
   })
 }
- 
+
+onSelectImage(event, index, type) {
+  var imgfile = event.target.files[0];
+  if (!this.acceptImageTypes.includes(imgfile.type)) {
+    this.docForm.get('uploadImg').setValue("");
+    this.showNotification(
+      "snackbar-danger",
+      "Invalid Image type",
+      "top",
+      "right"
+    );
+    return;
+  }
+  if (imgfile.size > 2000000) {
+    this.docForm.get('uploadImg').setValue("");
+    this.showNotification(
+      "snackbar-danger",
+      "Please upload valid image with less than 2mb",
+      "top",
+      "right"
+    );
+    return;
+  }
+
+  var fileExtension = imgfile.name;
+  var frmData: FormData = new FormData();
+  frmData.append("file", imgfile);
+  frmData.append("fileName", fileExtension);
+  frmData.append("folderName", "AssetProfileImg");
+
+  this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
+    next: (data) => {
+      if (data.success) {
+        if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+          if (type == 'ArrayAssetImg') {
+            let quantityBasedAssetArray = this.docForm.controls.proofDtl as FormArray;
+            quantityBasedAssetArray.at(index).patchValue({
+              uploadImg: data.filePath
+            });
+          } else {
+            this.docForm.patchValue({
+              'uploadImg': data.filePath
+            })
+            this.imgPathUrl = data.filePath;
+            this.uploadImage = true;
+          }
+        }
+      } else {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload Image",
+          "top",
+          "right"
+        );
+      }
+    },
+    error: (error) => {
+      this.showNotification(
+        "snackbar-danger",
+        "Failed to upload Image",
+        "top",
+        "right"
+      );
+    }
+  });
+}
+showNotification(colorName, text, placementFrom, placementAlign) {
+  this.snackBar.open(text, "", {
+    duration: 6000,
+    verticalPosition: placementFrom,
+    horizontalPosition: placementAlign,
+    panelClass: colorName,
+  });
+}
+removeRowSelf(index){
+  let dtlArray = this.docForm.controls.proofDtl as FormArray;
+  dtlArray.removeAt(index);
+}
   onSubmit(){
     this.submitted = true;
  
@@ -220,8 +335,29 @@ export class IndividualInformationComponent implements OnInit {
           'mobile':res.fundBean.mobile,
           'companyEmail':res.fundBean.companyEmail,
           'website':res.fundBean.website,
+          'pincode':res.fundBean.pincode,
+          'idtype':res.fundBean.idtype,
+          'uploadImg':res.fundBean.uploadImg,
       });
-      
+      if (res.proofDtl != null && res.proofDtl.length >= 1) {
+        let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
+        proofDtlArray.clear();
+        
+        res.proofDtl.forEach(element => {
+          let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
+          let arraylen = proofDtlArray.length;
+         
+          let newUsergroup: FormGroup = this.fb.group({
+
+            idtype: [( element.idtype)],
+            idNumber: [( element.idNumber)],
+            uploadImg:[(element.uploadImg)],
+            
+          })
+          proofDtlArray.insert(arraylen, newUsergroup);
+        });
+      }
+   
     },
     error: (error) => {
     }
@@ -271,6 +407,7 @@ export class IndividualInformationComponent implements OnInit {
        mobile:[""],
        companyEmail:[""],
        website:[""],
+       pincode:[""],
     });
   } else {
     this.fetchDetails(this.requestId);
@@ -317,6 +454,17 @@ keyPressName(event: any) {
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();
   }
+}
+onAddRow(){
+  let dtlArray = this.docForm.controls.proofDtl as FormArray;
+  let arraylen = dtlArray.length;
+  let newUsergroup: FormGroup = this.fb.group({
+    idtype:[""],
+    idNumber:[""],
+    uploadImg:[""]
+
+  })
+  dtlArray.insert(arraylen, newUsergroup);
 }
 
 }
