@@ -10,6 +10,7 @@ import { MutualFundService } from '../../mutualfund/mutualfund.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -53,9 +54,8 @@ export class IndividualInformationComponent implements OnInit {
   uploadImage: boolean = false;
 
   private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
-  private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   
-  constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private commonService: CommonService,
+  constructor(private fb: FormBuilder,private serverUrl: serverLocations,private snackBar: MatSnackBar,private commonService: CommonService,
    
     private cmnService:CommonService,private httpService: HttpServiceService,
     private notificationService: NotificationService,
@@ -213,7 +213,6 @@ export class IndividualInformationComponent implements OnInit {
       this.cityList = res;
   })
 }
-
 onSelectImage(event, index, type) {
   var imgfile = event.target.files[0];
   if (!this.acceptImageTypes.includes(imgfile.type)) {
@@ -241,15 +240,15 @@ onSelectImage(event, index, type) {
   var frmData: FormData = new FormData();
   frmData.append("file", imgfile);
   frmData.append("fileName", fileExtension);
-  frmData.append("folderName", "AssetProfileImg");
+  frmData.append("folderName", "uploadImg");
 
   this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
     next: (data) => {
       if (data.success) {
         if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
-          if (type == 'ArrayAssetImg') {
-            let quantityBasedAssetArray = this.docForm.controls.proofDtl as FormArray;
-            quantityBasedAssetArray.at(index).patchValue({
+          if (type == 'ArrayuploadImg') {
+            let proofDtl = this.docForm.controls.proofDtl as FormArray;
+            proofDtl.at(index).patchValue({
               uploadImg: data.filePath
             });
           } else {
@@ -279,6 +278,14 @@ onSelectImage(event, index, type) {
     }
   });
 }
+viewDocuments(filePath: any, fileName: any) {
+  var a = document.createElement("a");
+  a.href = this.serverUrl.apiServerAddress + "asset_upload/" + filePath;
+  a.target = '_blank';
+  a.download = fileName;
+  a.click();
+}
+
 showNotification(colorName, text, placementFrom, placementAlign) {
   this.snackBar.open(text, "", {
     duration: 6000,
@@ -311,6 +318,7 @@ removeRowSelf(index){
       editId: fundNo
     };
     this.mutualFundService.editfund(obj).subscribe({
+      
       next: (res) => {
          this.docForm.patchValue({
         'fundNo':res.fundBean.fundNo,
@@ -342,7 +350,9 @@ removeRowSelf(index){
       if (res.proofDtl != null && res.proofDtl.length >= 1) {
         let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
         proofDtlArray.clear();
-        
+        if (res.proofDtl.uploadImg != undefined && res.proofDtl.uploadImg != null && res.proofDtl.uploadImg != '') {
+          this.imgPathUrl = res.element.uploadImg;
+        }
         res.proofDtl.forEach(element => {
           let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
           let arraylen = proofDtlArray.length;
