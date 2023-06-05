@@ -49,11 +49,9 @@ export class IndividualInformationComponent implements OnInit {
   countryList=[];
   stateList=[];
   cityList=[];
-  filePathUrl: any;
-  imgPathUrl: any;
+  imgPathUrl = [];
   uploadImage: boolean = false;
 
-  private acceptImageTypes = ["image/jpg", "image/png", "image/jpeg"]
   
   constructor(private fb: FormBuilder,private serverUrl: serverLocations,private snackBar: MatSnackBar,private commonService: CommonService,
    
@@ -115,7 +113,7 @@ export class IndividualInformationComponent implements OnInit {
       mobile:[""],
       pincode:[""],
       loginUser:[this.tokenStorage.getUserId()],
-      companyEmail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      companyEmail: ['', [ Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       website: ['', [Validators.pattern (/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)]],
       proofDtl: this.fb.array([
         this.fb.group({ 
@@ -123,10 +121,12 @@ export class IndividualInformationComponent implements OnInit {
           idNumber:[""],
           uploadImg:[""],
           loginedUser:[this.tokenStorage.getUserId()]
+
         })
-      ])
-    })
-  
+
+      ]),
+      
+    });
 
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
@@ -175,10 +175,13 @@ export class IndividualInformationComponent implements OnInit {
          
 
       })
+      if (res.proofDtl.uploadImg != undefined && res.proofDtl.uploadImg != null && res.proofDtl.uploadImg != '') {
+        this.imgPathUrl = res.proofDtl.uploadImg;
+      }
       if (res.proofDtl != null && res.proofDtl.length >= 1) {
         let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
         proofDtlArray.clear();
-        
+       
         res.proofDtl.forEach(element => {
           let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
           let arraylen = proofDtlArray.length;
@@ -215,18 +218,9 @@ export class IndividualInformationComponent implements OnInit {
 }
 onSelectImage(event, index, type) {
   var imgfile = event.target.files[0];
-  if (!this.acceptImageTypes.includes(imgfile.type)) {
-    this.docForm.get('uploadImg').setValue("");
-    this.showNotification(
-      "snackbar-danger",
-      "Invalid Image type",
-      "top",
-      "right"
-    );
-    return;
-  }
+
   if (imgfile.size > 2000000) {
-    this.docForm.get('uploadImg').setValue("");
+    this.docForm.get('uploadImg')
     this.showNotification(
       "snackbar-danger",
       "Please upload valid image with less than 2mb",
@@ -280,7 +274,7 @@ onSelectImage(event, index, type) {
 }
 viewDocuments(filePath: any, fileName: any) {
   var a = document.createElement("a");
-  a.href = this.serverUrl.apiServerAddress + "asset_upload/" + filePath;
+  a.href = this.serverUrl.apiServerAddress + "asset_upload/uploadImg" + filePath;
   a.target = '_blank';
   a.download = fileName;
   a.click();
@@ -348,11 +342,12 @@ removeRowSelf(index){
           'uploadImg':res.fundBean.uploadImg,
       });
       if (res.proofDtl != null && res.proofDtl.length >= 1) {
+        if (res.uploadImg != undefined && res.proofDtl.uploadImg != null && res.proofDtl.uploadImg != '') {
+          this.imgPathUrl = res.proofDtl.uploadImg;
+        }
         let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
         proofDtlArray.clear();
-        if (res.proofDtl.uploadImg != undefined && res.proofDtl.uploadImg != null && res.proofDtl.uploadImg != '') {
-          this.imgPathUrl = res.element.uploadImg;
-        }
+        
         res.proofDtl.forEach(element => {
           let proofDtlArray = this.docForm.controls.proofDtl as FormArray;
           let arraylen = proofDtlArray.length;
