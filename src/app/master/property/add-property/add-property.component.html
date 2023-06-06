@@ -1374,7 +1374,10 @@
                       width: 12%;border-radius: 0.07rem;"> TENANT ID CARD NO<span class="errorColor"> *</span></th>
                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                       width: 12%; border-radius: 0.05rem;"> MOBILE NO<span class="errorColor"> *</span> </th>
-              </tr>
+
+              <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+              width: 12%; border-radius: 0.05rem;"> FLOOR<span class="errorColor"> *</span> </th>
+      </tr>
             </thead>
             <ng-container *ngFor="let sampleDtl of docForm.get('sampleDtl')['controls']; let i = index">
               <tbody [formGroup]="sampleDtl">
@@ -1459,7 +1462,18 @@
                    Mobile No is required
                   </mat-error>
                  </mat-form-field>
-             </td>
+                </td>
+
+                 <td class="padding-both-side-2">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>FLOOR</mat-label>
+                    <input matInput formControlName="rentFloor"
+                    maxlength="10" (keypress)="keyPressNumeric($event)">
+                   <mat-error *ngIf="sampleDtl.get('rentFloor').hasError('required')">
+                     FLOOR is required
+                    </mat-error>
+                   </mat-form-field>
+               </td>
             </tr>
               </tbody>
             </ng-container>

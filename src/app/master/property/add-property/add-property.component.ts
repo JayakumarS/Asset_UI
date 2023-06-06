@@ -219,7 +219,7 @@ export class AddPropertyComponent implements OnInit {
           tenantName:[""],
           tenantIdcard:[""],
           mobileNo:[""],
-         
+          rentFloor:[""],
          
 
         })
@@ -278,6 +278,9 @@ export class AddPropertyComponent implements OnInit {
 
       group.get('mobileNo').setValidators(Validators.required); 
       group.get('mobileNo').updateValueAndValidity(); // Update the validation status
+
+      group.get('rentFloor').setValidators(Validators.required); 
+      group.get('rentFloor').updateValueAndValidity(); // Update the validation status
     }
      
    }
@@ -458,6 +461,8 @@ sampleDtl: this.fb.array([
     tenantName:[""],
     tenantIdcard:[""],
     mobileNo:[""], 
+    rentFloor:[""], 
+
   
     loginedUser: this.tokenStorage.getUserId(),
     
@@ -670,6 +675,8 @@ this.fetchDetails(this.requestId);
       
           tenantIdcard:[element.tenantIdcard],
           mobileNo:[element.mobileNo],
+          rentFloor:[element.rentFloor],
+
         })
         sampleDtlDetailArray.insert(arraylen, newUsergroup);
       });
@@ -700,6 +707,9 @@ update(){
 
       group.get('mobileNo').setValidators(Validators.required); 
       group.get('mobileNo').updateValueAndValidity(); // Update the validation status
+
+      group.get('rentFloor').setValidators(Validators.required); 
+      group.get('rentFloor').updateValueAndValidity(); // Update the validation status
     }
      
    }
@@ -1278,6 +1288,9 @@ if (inputFlag == 'transitionDate') {
      
            group.get('mobileNo').clearValidators(); 
            group.get('mobileNo').updateValueAndValidity(); // Update the validation status
+
+           group.get('rentFloor').clearValidators(); 
+           group.get('rentFloor').updateValueAndValidity(); // Update the validation status
          }
           
         }
@@ -1426,6 +1439,9 @@ if (inputFlag == 'transitionDate') {
      
            group.get('mobileNo').clearValidators(); 
            group.get('mobileNo').updateValueAndValidity(); // Update the validation status
+
+           group.get('rentFloor').clearValidators(); 
+           group.get('rentFloor').updateValueAndValidity(); // Update the validation status
          }
           
         }
@@ -1572,6 +1588,7 @@ if (inputFlag == 'transitionDate') {
       tenantName:[""],
       tenantIdcard:[""],
       mobileNo:[""],
+      rentFloor:[""],
       loginedUser:[""]        
   
     })
