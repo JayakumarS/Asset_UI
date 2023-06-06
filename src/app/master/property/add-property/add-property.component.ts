@@ -681,6 +681,29 @@ this.fetchDetails(this.requestId);
 }
  
 update(){
+
+  let dtlArray = this.docForm.controls.sampleDtl as FormArray;
+   if(this.isRent && dtlArray.length >0){ 
+    for (let k = 0; k < dtlArray.controls.length; k++) {
+      const group = dtlArray.controls[k] as FormGroup;
+      group.get('advance').setValidators(Validators.required); 
+      group.get('advance').updateValueAndValidity(); // Update the validation status
+
+      group.get('rentAmount').setValidators(Validators.required); 
+      group.get('rentAmount').updateValueAndValidity(); // Update the validation status
+
+      group.get('tenantName').setValidators(Validators.required); 
+      group.get('tenantName').updateValueAndValidity(); // Update the validation status
+
+      group.get('tenantIdcard').setValidators(Validators.required); 
+      group.get('tenantIdcard').updateValueAndValidity(); // Update the validation status
+
+      group.get('mobileNo').setValidators(Validators.required); 
+      group.get('mobileNo').updateValueAndValidity(); // Update the validation status
+    }
+     
+   }
+
   if(this.docForm.valid){
     this.property = this.docForm.value;
     this.property.id = this.requestId;
