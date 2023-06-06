@@ -7,18 +7,18 @@
       <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col- md-12 col-sm-12">
         <div class="box-shadow">
-          
+          <div class="card">
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
-                <h4>General Information</h4>
-              <div class="row">
+                <h4>General Information</h4><br><br>
+              <div class="row" style="margin-left: 10%;" >
 
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <div class=" col-md-2">
                         <label >NAME<span class="errorColor">*</span></label>
                     </div>
                     
     
-                    <div class=" col-md-3">
+                    <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput  formControlName="name" oninput="this.value = this.value.toUpperCase()" 
                           maxlength="20" (keypress)="keyPressString($event)">
@@ -30,10 +30,10 @@
                   </div>
 
                   
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <div class=" col-md-2">
                     <label>INVESTMENT EXPERIENCE<span class="errorColor">*</span></label>
                 </div>
-                <div class=" col-md-3">
+                <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="investmentexperience"  maxlength="3" (keypress)="keyPressNumber($event)"
                      >
@@ -46,11 +46,11 @@
 
 
              </div>
-             <div class="row">
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+             <div class="row" style="margin-left: 10%;">
+              <div class=" col-md-2">
                 <label >ACCOUNT NUMBER<span class="errorColor">*</span></label>
             </div>
-            <div class=" col-md-3">
+            <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput formControlName="accountnumber" maxlength="17" (keypress)="keyPressNumber($event)"
                  >
@@ -61,10 +61,10 @@
               
               </mat-form-field>
             </div>
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class=" col-md-2">
               <label >TIN<span class="errorColor">*</span></label>
           </div>
-          <div class=" col-md-3">
+          <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="tin"oninput="this.value = this.value.toUpperCase()"  maxlength="9" (keypress)="keyPressName($event)"
                >
@@ -76,11 +76,11 @@
             </div>
             </div>
 
-            <div class="row">
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class="row" style="margin-left: 10%;">
+              <div class=" col-md-2">
                 <label >FUND TYPE<span class="errorColor">*</span></label>
               </div>
-              <div class=" col-md-3">
+              <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-select formControlName="fundType" required>
                     <mat-option [value]="'Money market funds'">
@@ -102,10 +102,10 @@
                 </mat-form-field>
               </div>
 
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <div class=" col-md-2">
                 <label >BROKER AVAILABLE</label>
               </div>
-              <div class="col-md-3" style="min-width: fit-content;">
+              <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12" style="min-width: fit-content;">
                 <mat-radio-group formControlName="broker"> &nbsp; 
                   <mat-radio-button  value="Yes" (change)="getBroker($event.value)"> Yes </mat-radio-button>
                   <mat-radio-button  value="No" (change)="getBroker($event.value)"> No </mat-radio-button>
@@ -116,23 +116,23 @@
               </div>
 
 
-              <div class="row" *ngIf="brokerFlag">
+              <div class="row" style="margin-left: 10%;" *ngIf="brokerFlag">
 
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <div class=" col-md-2">
                         <label >BROKER NAME</label>
                     </div>
 
-                  <div class=" col-md-3">
+                  <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput  formControlName="brokerName" oninput="this.value = this.value.toUpperCase()" 
                           maxlength="20" (keypress)="keyPressString($event)">      
                       </mat-form-field>
                   </div>
 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <div class=" col-md-2">
                     <label>BROKER FEES</label>
                 </div>
-                <div class=" col-md-3">
+                <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="brokerFee"   (keypress)="keyPressNumber($event)"
                      >
@@ -141,23 +141,23 @@
 
              </div>
 
-             <div class="row">
+             <div class="row" style="margin-left: 10%;">
 
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <div class=" col-md-2">
                   <label >CHARGING FEES</label>
               </div>
 
-            <div class=" col-md-3">
+            <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput  formControlName="chargingFee"
                      (keypress)="keyPressNumber($event)">      
                 </mat-form-field>
             </div>
 
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class=" col-md-2">
               <label>OPERATING EXPENSES</label>
           </div>
-          <div class=" col-md-3">
+          <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="operatingExpenses"   (keypress)="keyPressNumber($event)"
                >
@@ -166,11 +166,11 @@
 
        </div>
 
-       <div class="row">
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+       <div class="row" style="margin-left: 10%;">
+        <div class=" col-md-2">
           <label >INVESTMENT TYPE<span class="errorColor">*</span></label>
         </div>
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <mat-select formControlName="investmentMethod" required>
               <mat-option [value]="'Company Website'">
@@ -189,10 +189,10 @@
           </mat-form-field>
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label >MODE OF INVESTMENT<span class="errorColor">*</span></label>
         </div>
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <mat-select formControlName="modeOfInvestment" required>
               <mat-option [value]="'Lumpsum'">
@@ -209,23 +209,23 @@
         </div>
         </div>
 
-        <div class="row" >
+        <div class="row" style="margin-left: 10%;" >
 
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
               <label >TOTAL SUM ASSURED</label>
           </div>
         
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="totalAssured" (keypress)="keyPressNumber($event)"
                 maxlength="20">     
             </mat-form-field>
         </div>
         
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label>TOTAL FUND VALUE</label>
         </div>
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="totalFund">
         </mat-form-field>
@@ -233,23 +233,23 @@
         
         </div>
         
-        <div class="row" >
+        <div class="row" style="margin-left: 10%;" >
         
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
               <label >SUM ASSURED</label>
           </div>
         
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="assured"
                 maxlength="20">      
             </mat-form-field>
         </div>
         
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label>POLICY NUMBER</label>
         </div>
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="policyNumber">
         </mat-form-field>
@@ -257,23 +257,23 @@
         
         </div>
         
-        <div class="row" >
+        <div class="row" style="margin-left: 10%;" >
         
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
               <label >PREMIUM DUE AMOUNT</label>
           </div>
         
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="premiumDueAmount" (keypress)="keyPressNumber($event)"
                 maxlength="20">    
             </mat-form-field>
         </div>
         
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label>PREMIUM START DATE</label>
         </div>
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <input matInput [matDatepicker]="picker1" formControlName="premiumStartDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
             id="premiumStartDate" (dateChange)="getDateString($event, 'premiumStartDate',0)">
@@ -285,12 +285,12 @@
         
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-left: 10%;">
 
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
             <label >TAX CERTIFICATE APPLICABLE</label>
           </div>
-          <div class="col-md-3" style="min-width: fit-content;">
+          <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12" style="min-width: fit-content;">
             <mat-radio-group formControlName="taxCertificate"> &nbsp; 
               <mat-radio-button  value="Yes"> Yes </mat-radio-button>
               <mat-radio-button  value="No" > No </mat-radio-button>
@@ -298,10 +298,10 @@
             </mat-radio-group>
           </div>
 
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
             <label >STATUS INFORCE</label>
           </div>
-          <div class="col-md-3" style="min-width: fit-content;">
+          <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12" style="min-width: fit-content;">
             <mat-radio-group formControlName="statusInforce"> &nbsp; 
               <mat-radio-button  value="Yes"> Yes </mat-radio-button>
               <mat-radio-button  value="No" > No </mat-radio-button>
@@ -312,34 +312,34 @@
           </div>
 
 <br>
-          <div class="row" >
+          <div class="row" style="margin-left: 10%;" >
         
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class=" col-md-2">
                 <label >PLAN NAME</label>
             </div>
           
-          <div class=" col-md-3">
+          <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput  formControlName="planName"
                   maxlength="20">      
               </mat-form-field>
           </div>
           
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
             <label>PURPOSE OF INSURANCE</label>
           </div>
-          <div class=" col-md-3">
+          <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <input matInput formControlName="insurancePurpose">
           </mat-form-field>
           </div>
           
           </div>
-          <div class="row" >
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class="row" style="margin-left: 10%;" >
+          <div class=" col-md-2">
             <label>PREMIUM DUE DATE</label>
           </div>
-          <div class=" col-md-3">
+          <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput [matDatepicker]="picker2" formControlName="premiumDueDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
               id="premiumDueDate" (dateChange)="getDateString($event, 'premiumDueDate',0)">
@@ -356,25 +356,25 @@
           </div>
   
 
-          <h4>Term Details</h4>
+          <h4>Term Details</h4><br><br>
 
-          <div class="row" >
+          <div class="row" style="margin-left: 10%;" >
         
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class=" col-md-2">
                 <label >PREMIUM PAYMENT TERM</label>
             </div>
           
-          <div class=" col-md-3">
+          <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput  formControlName="premiumTerm"
                   maxlength="20">      
               </mat-form-field>
           </div>
           
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
             <label>POLICY TERM</label>
           </div>
-          <div class=" col-md-3">
+          <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <input matInput formControlName="policyTerm">
           </mat-form-field>
@@ -382,12 +382,12 @@
           
           </div>
 
-          <div class="row" >
+          <div class="row" style="margin-left: 10%;" >
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label>MATURITY DATE</label>
         </div>
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <input matInput [matDatepicker]="picker3" formControlName="maturityDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
             id="maturityDate" (dateChange)="getDateString($event, 'maturityDate',0)">
@@ -401,11 +401,11 @@
           </mat-form-field>
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label >REGISTERED MOBILE NUMBER</label>
       </div>
     
-    <div class=" col-md-3">
+    <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <input matInput  formControlName="registeredNumber" (keypress)="keyPressNumber($event)"
             maxlength="20">    
@@ -414,23 +414,23 @@
         
         </div>
 
-        <div class="row" >
+        <div class="row" style="margin-left: 10%;" >
         
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
               <label >COMMUNICATION ADDRESS</label>
           </div>
         
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="communicationAddress"
                 maxlength="20">      
             </mat-form-field>
         </div>
         
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label>PERMANENT ADDRESS</label>
         </div>
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="permanentAddress">
         </mat-form-field>
@@ -438,23 +438,23 @@
         
         </div>
 
-        <div class="row" >
+        <div class="row" style="margin-left: 10%;" >
         
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
               <label >GROSS PREMIUM</label>
           </div>
         
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="grossPremium" (keypress)="keyPressNumber($event)"
                 maxlength="20">      
             </mat-form-field>
         </div>
         
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label>ANNUAL PREMIUM</label>
         </div>
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="annualPremium" (keypress)="keyPressNumber($event)">
         </mat-form-field>
@@ -462,12 +462,12 @@
         
         </div>
 
-        <div class="row" >
+        <div class="row" style="margin-left: 10%;" >
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label>NEXT PREMIUM DATE</label>
         </div>
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <input matInput [matDatepicker]="picker4" formControlName="nextPremiumDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
             id="nextPremiumDate" (dateChange)="getDateString($event, 'nextPremiumDate',0)">
@@ -481,11 +481,11 @@
           </mat-form-field>
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label >PAYMENT METHOD</label>
       </div>
     
-      <div class=" col-md-3">
+      <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <mat-select formControlName="paymentMethod">
             <mat-option [value]="'CASH'">
@@ -504,15 +504,15 @@
         </div>
 
           <br>
-        <h4>Online Portal Login Details</h4>
+        <h4>Online Portal Login Details</h4><br><br>
 
-        <div class="row" >
+        <div class="row" style="margin-left: 10%;" >
 
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class=" col-md-2">
               <label >USER NAME</label>
           </div>
 
-        <div class=" col-md-3">
+        <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="userName"
                 maxlength="20">  
@@ -522,10 +522,10 @@
             </mat-form-field>
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class=" col-md-2">
           <label>PASSWORD</label>
       </div>
-      <div class=" col-md-3">
+      <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="password">
           <!-- <mat-error *ngIf="docForm.get('password').hasError('required')">
@@ -536,13 +536,13 @@
 
    </div>
 
-   <div class="row" >
+   <div class="row" style="margin-left: 10%;" >
 
-    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+    <div class=" col-md-2">
         <label >E-MAIL</label>
     </div>
     
-  <div class=" col-md-3">
+  <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput  formControlName="email">  
           <!-- <mat-error *ngIf="docForm.get('email').hasError('required') || docForm.get('email').touched">
@@ -551,10 +551,10 @@
       </mat-form-field>
   </div>
 
-  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+  <div class=" col-md-2">
     <label>DOB</label>
   </div>
-  <div class=" col-md-3">
+  <div class=" col-xl-3 col-lg-6 col-md-12 col-sm-12">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
       <input matInput [matDatepicker]="picker5" formControlName="dobObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
       id="dob" (dateChange)="getDateString($event, 'dob',0)">
@@ -692,7 +692,7 @@
                                
                               
                             
-                              <div class ="row">
+                              <div class ="row" style="margin-left: 10%;">
                                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                                     <button  (click) = "onSubmit()" class="btn-space" mat-raised-button
                                     color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="!edit">Submit</button>
@@ -707,6 +707,7 @@
                 </div>
                 </form>
                 </div>
+              </div>
                 </div>
                 </div>
                 </div>
