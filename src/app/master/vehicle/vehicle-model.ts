@@ -65,6 +65,10 @@ export class VehicleMaster {
   loanstartDate:string;
   loanstartDate1:string;
 
+  dealername:string;
+  dealeraddress:string;
+
+
 
 
 
@@ -131,6 +135,12 @@ export class VehicleMaster {
       this.transmissiontype= vehicleMaster.transmissiontype || "";
       this.feature= vehicleMaster.feature || "";
       this.description= vehicleMaster.description|| "";
+
+
+      this.dealername= vehicleMaster.dealername|| "";
+      this.dealeraddress= vehicleMaster.dealeraddress|| "";
+
+
 
 
 
