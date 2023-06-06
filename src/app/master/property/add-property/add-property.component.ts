@@ -94,14 +94,16 @@ export class AddPropertyComponent implements OnInit {
        loanAmount:[""],
       //  account:["", [Validators.required]],
        rentalType:["", [Validators.required]],
-       advance:[""],
-       rentAmount:[""],
-       dateToPayDateObj:[""],
-       dateToPayDate:[""],
+
+
+      //  advance:[""],
+      //  rentAmount:[""],
+      //  dateToPayDateObj:[""],
+      //  dateToPayDate:[""],
      
-       tenantName:[""],
-       tenantIdcard:[""],
-       mobileNo:[""],
+      //  tenantName:[""],
+      //  tenantIdcard:[""],
+      //  mobileNo:[""],
      
       
    
@@ -257,6 +259,29 @@ export class AddPropertyComponent implements OnInit {
  
  onSubmit():void{
    this.property = this.docForm.value;
+
+   let dtlArray = this.docForm.controls.sampleDtl as FormArray;
+   if(this.isRent && dtlArray.length >0){ 
+    for (let k = 0; k < dtlArray.controls.length; k++) {
+      const group = dtlArray.controls[k] as FormGroup;
+      group.get('advance').setValidators(Validators.required); 
+      group.get('advance').updateValueAndValidity(); // Update the validation status
+
+      group.get('rentAmount').setValidators(Validators.required); 
+      group.get('rentAmount').updateValueAndValidity(); // Update the validation status
+
+      group.get('tenantName').setValidators(Validators.required); 
+      group.get('tenantName').updateValueAndValidity(); // Update the validation status
+
+      group.get('tenantIdcard').setValidators(Validators.required); 
+      group.get('tenantIdcard').updateValueAndValidity(); // Update the validation status
+
+      group.get('mobileNo').setValidators(Validators.required); 
+      group.get('mobileNo').updateValueAndValidity(); // Update the validation status
+    }
+     
+   }
+
    if(this.docForm.valid){ 
      this.propertyService.saveprop(this.property,this.notificationService);
      if(window.sessionStorage.getItem("propFrom")=="prop"){
@@ -510,14 +535,17 @@ this.fetchDetails(this.requestId);
         'emiDateObj':hdate2,
         'autoDebit':res.propertyBean.autoDebit,
         'rentalType':res.propertyBean.rentalType,
-        'advance':res.propertyBean.advance,
-        'rentAmount':res.propertyBean.rentAmount,
-        'dateToPayDateObj':hdate3,
-        'dateToPayDate':res.propertyBean.dateToPayDate,
+
+
+        // 'advance':res.propertyBean.advance,
+        // 'rentAmount':res.propertyBean.rentAmount,
+        // 'dateToPayDateObj':hdate3,
+        // 'dateToPayDate':res.propertyBean.dateToPayDate,
   
-        'tenantName':res.propertyBean.tenantName,
-        'tenantIdcard':res.propertyBean.tenantIdcard,
-        'mobileNo':res.propertyBean.mobileNo,
+        // 'tenantName':res.propertyBean.tenantName,
+        // 'tenantIdcard':res.propertyBean.tenantIdcard,
+        // 'mobileNo':res.propertyBean.mobileNo,
+
        
         // 'loanstartObj':hdate6,
         'loanstartObj':res.propertyBean.loanstart != null ? this.commonService.getDateObj(res.propertyBean.loanstart) : "",
@@ -635,9 +663,13 @@ this.fetchDetails(this.requestId);
           tenantName:[(element.tenantName)],
           dateToPayDate: [hdateObj],
           dateToPayDateObj:[hdate3],
-          minimuminvestment: [ element.minimuminvestment],
-          investmentstyle: [ element.investmentstyle],
-          expenseratio: [element.expenseratio],
+          // minimuminvestment: [ element.minimuminvestment],
+          // investmentstyle: [ element.investmentstyle],
+          // expenseratio: [element.expenseratio],
+
+      
+          tenantIdcard:[element.tenantIdcard],
+          mobileNo:[element.mobileNo],
         })
         sampleDtlDetailArray.insert(arraylen, newUsergroup);
       });
@@ -1205,18 +1237,30 @@ if (inputFlag == 'transitionDate') {
         // this.docForm.controls.payAmt.clearValidators();
         // this.docForm.controls['payAmt'].updateValueAndValidity();
 
-        this.docForm.controls.advance.clearValidators();
-        this.docForm.controls['advance'].updateValueAndValidity();
-        this.docForm.controls.rentAmount.clearValidators();
-        this.docForm.controls['rentAmount'].updateValueAndValidity();
-        this.docForm.controls.dateToPayDateObj.clearValidators();
-        this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
-        this.docForm.controls.tenantName.clearValidators();
-        this.docForm.controls['tenantName'].updateValueAndValidity();
-        this.docForm.controls.tenantIdcard.clearValidators();
-        this.docForm.controls['tenantIdcard'].updateValueAndValidity();
-        this.docForm.controls.mobileNo.clearValidators();
-        this.docForm.controls['mobileNo'].updateValueAndValidity();
+        let dtlArray = this.docForm.controls.sampleDtl as FormArray;
+        if(dtlArray.length >0){
+         for (let k = 0; k < dtlArray.controls.length; k++) {
+           const group = dtlArray.controls[k] as FormGroup;
+           group.get('advance').clearValidators(); 
+           group.get('advance').updateValueAndValidity(); // Update the validation status
+     
+           group.get('rentAmount').clearValidators(); 
+           group.get('rentAmount').updateValueAndValidity(); // Update the validation status
+     
+           group.get('tenantName').clearValidators(); 
+           group.get('tenantName').updateValueAndValidity(); // Update the validation status
+     
+           group.get('tenantIdcard').clearValidators(); 
+           group.get('tenantIdcard').updateValueAndValidity(); // Update the validation status
+     
+           group.get('mobileNo').clearValidators(); 
+           group.get('mobileNo').updateValueAndValidity(); // Update the validation status
+         }
+          
+        }
+
+
+
         this.docForm.controls.landlordname.clearValidators();
         this.docForm.controls['landlordname'].updateValueAndValidity();
         this.docForm.controls.tenantName1.clearValidators();
@@ -1243,20 +1287,7 @@ if (inputFlag == 'transitionDate') {
     
       if (event == 'Rent') {
         this.isRent = true;
-      
-        this.docForm.controls.advance.setValidators(Validators.required);
-        this.docForm.controls['advance'].updateValueAndValidity();
-        this.docForm.controls.rentAmount.setValidators(Validators.required);
-        this.docForm.controls['rentAmount'].updateValueAndValidity();
-        // this.docForm.controls.dateToPayDateObj.setValidators;
-        // this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
-        this.docForm.controls.tenantName.setValidators(Validators.required);
-        this.docForm.controls['tenantName'].updateValueAndValidity();
-        this.docForm.controls.tenantIdcard.setValidators(Validators.required);
-        this.docForm.controls['tenantIdcard'].updateValueAndValidity();
-        this.docForm.controls.mobileNo.setValidators(Validators.required);
-        this.docForm.controls['mobileNo'].updateValueAndValidity();
-
+   
         this.docForm.controls.preOwner.clearValidators();
         this.docForm.controls['preOwner'].updateValueAndValidity();
         this.docForm.controls.preOwnername.clearValidators();
@@ -1352,17 +1383,29 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['payStatus'].updateValueAndValidity();
         this.docForm.controls.payAmt.clearValidators();
         this.docForm.controls['payAmt'].updateValueAndValidity();
-        this.docForm.controls['advance'].updateValueAndValidity();
-        this.docForm.controls.rentAmount.clearValidators();
-        this.docForm.controls['rentAmount'].updateValueAndValidity();
-        this.docForm.controls.dateToPayDateObj.clearValidators();
-        this.docForm.controls['dateToPayDateObj'].updateValueAndValidity();
-        this.docForm.controls.tenantName.clearValidators();
-        this.docForm.controls['tenantName'].updateValueAndValidity();
-        this.docForm.controls.tenantIdcard.clearValidators();
-        this.docForm.controls['tenantIdcard'].updateValueAndValidity();
-        this.docForm.controls.mobileNo.clearValidators();
-        this.docForm.controls['mobileNo'].updateValueAndValidity();
+
+
+        let dtlArray = this.docForm.controls.sampleDtl as FormArray;
+        if(dtlArray.length >0){
+         for (let k = 0; k < dtlArray.controls.length; k++) {
+           const group = dtlArray.controls[k] as FormGroup;
+           group.get('advance').clearValidators(); 
+           group.get('advance').updateValueAndValidity(); // Update the validation status
+     
+           group.get('rentAmount').clearValidators(); 
+           group.get('rentAmount').updateValueAndValidity(); // Update the validation status
+     
+           group.get('tenantName').clearValidators(); 
+           group.get('tenantName').updateValueAndValidity(); // Update the validation status
+     
+           group.get('tenantIdcard').clearValidators(); 
+           group.get('tenantIdcard').updateValueAndValidity(); // Update the validation status
+     
+           group.get('mobileNo').clearValidators(); 
+           group.get('mobileNo').updateValueAndValidity(); // Update the validation status
+         }
+          
+        }
       }
       else {
         this.isLease = false;

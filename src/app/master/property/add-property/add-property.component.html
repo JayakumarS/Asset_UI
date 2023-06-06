@@ -1389,7 +1389,7 @@
                       <mat-label>ADVANCE</mat-label>
                       <input matInput formControlName="advance"
                       maxlength="20" (keypress)="keyPressNumeric($event)">
-                      <mat-error *ngIf="docForm.get('advance').hasError('required')">
+                      <mat-error *ngIf="sampleDtl.get('advance').hasError('required')">
                         Advance is required
                        </mat-error> 
                     </mat-form-field>
@@ -1401,7 +1401,7 @@
                       <mat-label> RENT AMOUNT</mat-label>
                       <input matInput formControlName="rentAmount"
                maxlength="20" (keypress)="keyPressNumeric($event)">
-               <mat-error *ngIf="docForm.get('rentAmount').hasError('required')">
+               <mat-error *ngIf="sampleDtl.get('rentAmount').hasError('required')">
                 Rent Amount is required
                </mat-error> 
                     </mat-form-field>
@@ -1431,7 +1431,7 @@
                       <mat-label> TENANT NAME</mat-label>
                       <input matInput formControlName="tenantName"
              maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
-             <mat-error *ngIf="docForm.get('tenantName').hasError('required')">
+             <mat-error *ngIf="sampleDtl.get('tenantName').hasError('required')">
               Tenant ID Card No is required
              </mat-error>  
                     </mat-form-field>
@@ -1444,7 +1444,7 @@
                     <mat-label>TENANT ID CARD NO</mat-label>
                     <input matInput formControlName="tenantIdcard"
                     maxlength="12"  (keypress)="keyPressNumeric($event)" >
-                   <mat-error *ngIf="docForm.get('tenantIdcard').hasError('required')">
+                   <mat-error *ngIf="sampleDtl.get('tenantIdcard').hasError('required')">
                      Tenant ID Card No is required
                     </mat-error>  
                   </mat-form-field>
@@ -1455,7 +1455,7 @@
                   <mat-label>MOBILE NO</mat-label>
                   <input matInput formControlName="mobileNo"
                   maxlength="10" (keypress)="keyPressNumeric($event)">
-                 <mat-error *ngIf="docForm.get('mobileNo').hasError('required')">
+                 <mat-error *ngIf="sampleDtl.get('mobileNo').hasError('required')">
                    Mobile No is required
                   </mat-error>
                  </mat-form-field>
