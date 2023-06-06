@@ -211,6 +211,13 @@ const routes: Routes = [
     loadChildren: () =>
     import("./schedulelist/schedulelist.module").then((p) => p.SchedulelistModule),
   },
+  {
+    path: "knowledge",
+    loadChildren: () =>
+    import("./knowledge/knowledge.module").then((p) => p.KnowledgeModule),
+  },
+  
+
 ];
 
 @NgModule({

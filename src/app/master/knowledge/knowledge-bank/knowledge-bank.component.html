@@ -1,0 +1,123 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Knowledge Bank'" [items]="['Home']" [active_item]="'Knowledge Bank'">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>knowledge Bank</h2>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="knowledgeBankForm">
+                            <div class="row" style="padding-bottom: 20px;">
+                                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 mb-2">
+                                    <app-file-upload formControlName="uploadfile" (change)="onSelectFile($event)"></app-file-upload>
+                                </div>
+                                
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="display: grid;align-content: stretch;align-items: end;">
+                                    <!-- <button class="btn-space" (click) ="onSubmit()" mat-raised-button color="accent" style="background-color: #2e36b3;">Upload</button> -->
+                                </div>
+                                <div *ngIf="filePathUrl?.split('/').pop()">
+                                    <div class="iconCard">
+                                        <i class="far fa-file-alt docIcons"></i><span style="margin-left:13px;">{{filePathUrl?.split('/').pop()}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;justify-content: space-between;">
+                                <div>{{usedMB}}</div>
+                                <div>{{totalMB}}</div>
+                            </div>
+                            <!-- <div class="progress">
+                                <ngb-progressbar [value]="storagePercentRemaining()" [max]="100" [striped]="false" [animated]="true" [type]="'info'" [showValue]="true" aria-labelledby="progressbar1"></ngb-progressbar>
+                            </div><br> -->
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <div class="table-responsive" style="overflow-x: hidden !important;">
+                                                <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+
+                                                            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="toggleButton" style="border: 0px;"> 
+                                                              <!-- <mat-button-toggle>{{'Knowledge-bank.View All' | translate}}</mat-button-toggle>
+                                                                <mat-button-toggle>{{'Knowledge-bank.Shared Files' | translate}}
+                                                            </mat-button-toggle>  -->
+
+                                                                <ul class="header-buttons-left ms-0">
+                                                                    <li class="dropdown m-l-20">
+                                                                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                                                        <input placeholder="Search" type="text" #filter class="browser-default search-field" aria-label="Search box">
+                        
+                                                                    </li>
+                                                                </ul>
+                                                          
+                                                            </mat-button-toggle-group>
+                                                        </div>
+                                                    </div>
+                                                </div><br>
+                                                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell" #exporter="matTableExporter">
+                                                    <ng-container matColumnDef="fileName">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>File Name</mat-header-cell>
+                                                        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.fileName}}
+                                                        </mat-cell>
+                                                    </ng-container>
+
+                                                     <ng-container matColumnDef="fileId">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>File Id</mat-header-cell>
+                                                        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.fileId}}</mat-cell>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="createdDate">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Uploaded On</mat-header-cell>
+                                                        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.createdDate}}</mat-cell>
+                                                    </ng-container>
+                                                    <!-- <ng-container matColumnDef="firstname">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Author</mat-header-cell>
+                                                        <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.firstname}}
+                                                        </mat-cell>
+                                                    </ng-container> -->
+
+                                                     <!-- actions -->
+                                                    <ng-container matColumnDef="actions" class="col-lg-6 col-md-2">
+                                                        <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                                                        <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                                                            <a  class="downloadView" href="{{this.filePath}}root/PRJ/export/{{row.uploadfile}}" target="_blank" download="{{this.filePath}}root/PRJ/export/{{row.uploadfile}}"><i class="material-icons">file_download</i></a>
+                                                            <button  mat-icon-button color="accent" (click)="deletefile(row)" class="tbl-action-btn">
+                                                          <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                                                          </button>
+                                                            <!-- <button *ngIf="RoleID.includes('2') || RoleID.includes('3')" mat-icon-button color="accent" class="tbl-action-btn">
+                                                        <app-feather-icons [icon]="'edit'" matTooltip="Edit" [class]="'tbl-fav-edit'"
+                                                          (click)="editCall(row)"></app-feather-icons>
+                                                       </button>     -->
+                                                        </mat-cell>
+                                                    </ng-container>
+                                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                                    <mat-row *matRowDef="let row; columns: displayedColumns;" matRipple>
+                                                    </mat-row>
+                                                </mat-table> 
+                                                <!-- <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                                                    <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                                                    </mat-progress-spinner>
+                                                </div>
+                                                <div *ngIf="!exampleDatabase.isTblLoading" class="no-results" style="text-align: center;" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                                                    {{'Service.No Results to Display'| translate}}
+                                                </div> -->
+                                                <mat-paginator #paginator [length]="dataSource?.filteredData?.length" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                                                </mat-paginator>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

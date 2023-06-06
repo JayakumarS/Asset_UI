@@ -19,6 +19,7 @@ import { AddExchangeMasterComponent } from './Exchange/add-exchange-master/add-e
 import { ListExchangeMasterComponent } from './Exchange/list-exchange-master/list-exchange-master.component';
 import { AddConsoleLogComponent } from './console-log/add-console-log/add-console-log.component';
 import { DeleteConsoleLogComponent } from './console-log/list-console-log/delete-console-log/delete-console-log.component';
+import { KnowledgeBankComponent } from './knowledge/knowledge-bank/knowledge-bank.component';
 
 
 @NgModule({
@@ -35,6 +36,8 @@ import { DeleteConsoleLogComponent } from './console-log/list-console-log/delete
     AddExchangeMasterComponent,
     AddConsoleLogComponent,
     DeleteConsoleLogComponent,
+    KnowledgeBankComponent,
+
 
   ],
   imports: [
