@@ -101,12 +101,14 @@ export class KnowledgeBankComponent extends UnsubscribeOnDestroyAdapter implemen
   constructor(
     private commonService: CommonService,private fb: FormBuilder,public route: ActivatedRoute,
     private httpService: HttpServiceService,
-     private notificationService: NotificationService,private spinner: NgxSpinnerService,
+    //  private spinner: NgxSpinnerService,
      private snackBar: MatSnackBar,public router:Router,
      public httpClient: HttpClient,
     public dialog: MatDialog, 
-    private serverUrl: serverLocations,private tokenStorage: TokenStorageService,
+    private serverUrl: serverLocations,
+    private tokenStorage: TokenStorageService,
     private knowledgeService: KnowledgeService, 
+
    
  
   ) { 
@@ -126,16 +128,35 @@ export class KnowledgeBankComponent extends UnsubscribeOnDestroyAdapter implemen
   ngOnInit(): void {
 
      this.loadData();
-    this.knowledgeBankForm = this.fb.group({
-        uploadfile: [""],
-        fileName: [""],
-        fileId: [""],
-        createdDate:[""],
-        //  firstname: [""],
-       });
+    // this.knowledgeBankForm = this.fb.group({
+    //     uploadfile: [""],
+    //     fileName: [""],
+    //     fileId: [""],
+    //     createdDate:[""],
+    //     //  firstname: [""],
+    //    });
        
 
   }
+
+  public loadData() {
+    this.exampleDatabase = new KnowledgeService(this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
+    this.dataSource = new ExampleDataSource(
+      this.exampleDatabase,
+      this.paginator,
+      this.sort
+    );
+    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
+      () => {
+        if (!this.dataSource) {
+          return;
+        }
+        this.dataSource.filter = this.filter.nativeElement.value;
+      }
+    );
+  }
+
+
   onSelectFile(event) {
     var file = event.target.files[0]; 
     if (file.size > 2000000) {
@@ -204,30 +225,54 @@ export class KnowledgeBankComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 
   deletefile(row){ 
-   
-
     this.id = row.fileId;
-    let tempDirection;
-    if (localStorage.getItem("isRtl") == "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-  const dialogRef = this.dialog.open(KnowledgeDeleteComponent, {
-    height: "270px",
-    width: "400px",
-    data: row,
-    direction: tempDirection,
-  });
-  this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+   let tempDirection;
+     if (localStorage.getItem("isRtl") === "true") {
+       tempDirection = "rtl";
+     } else {
+       tempDirection = "ltr";
+      }
+  
+        const dialogRef = this.dialog.open(KnowledgeDeleteComponent, {
+          height: "270px",
+          width: "400px",
+          data: row,
+          direction: tempDirection,
+          disableClose: true
+        });
+  
+      this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+  
+       if (data.data == true) {
+        // const obj={
+        //   deletingId: row.Id
+        // }
+        //  this.spinner.show();
+         this.knowledgeService.knowledgeDelete(this.id).subscribe({
+           next: (data) => {
+            if (data.success) {
+              this.loadData();
+              this.showNotification(
+                "snackbar-success",
+                "Delete Record Successfully...!!!",
+                "bottom",
+                "center"
+               );
+             }
+           },
+           error: (error) => {
+          }
+        });
     
-    this.loadData();
-  });
-  }
+      }
+      location.reload();
+    });
+         
+   }
 
 
 
-  showNotification(colorName, text, placementFrom, placementAlign) {
+   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,
       verticalPosition: placementFrom,
@@ -238,23 +283,23 @@ export class KnowledgeBankComponent extends UnsubscribeOnDestroyAdapter implemen
   
 
 
-  public loadData() {
-    this.exampleDatabase = new KnowledgeService(this.httpClient, this.serverUrl, this.httpService,this.snackBar);
-    this.dataSource = new ExampleDataSource(
-      this.exampleDatabase,
-      this.paginator,
-      this.sort
-    );
-    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
-      () => {
-        if (!this.dataSource) {
-          return;
-        }
-        // console.log(this.dataSource);
-        this.dataSource.filter = this.filter.nativeElement.value;
-      }
-    );
- }
+//   public loadData() {
+//     this.exampleDatabase = new KnowledgeService(this.httpClient, this.serverUrl, this.httpService,this.snackBar);
+//     this.dataSource = new ExampleDataSource(
+//       this.exampleDatabase,
+//       this.paginator,
+//       this.sort
+//     );
+//     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
+//       () => {
+//         if (!this.dataSource) {
+//           return;
+//         }
+//         // console.log(this.dataSource);
+//         this.dataSource.filter = this.filter.nativeElement.value;
+//       }
+//     );
+//  }
 }
   export class ExampleDataSource extends DataSource<Profile> {
     filterChange = new BehaviorSubject("");

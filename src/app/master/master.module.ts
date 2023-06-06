@@ -35,8 +35,6 @@ import { KnowledgeBankComponent } from './knowledge/knowledge-bank/knowledge-ban
     ListExchangeMasterComponent,
     AddExchangeMasterComponent,
     AddConsoleLogComponent,
-    DeleteConsoleLogComponent,
-    KnowledgeBankComponent,
 
 
   ],

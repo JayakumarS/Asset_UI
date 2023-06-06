@@ -17,10 +17,11 @@ export class KnowledgeDeleteComponent implements OnInit {
     public KnowledgeService: KnowledgeService,public router: Router,public notificationService:NotificationService) { }
     
     deletefile(): void {
-      this.KnowledgeService.knowledgeDelete(this.data.id,this.router,this.notificationService);
+      this.dialogRef.close({data: true})
+      // this.KnowledgeService.knowledgeDelete(this.data.id);
     }
 
-      // this.dialogRef.close({data: true})
+      
       // this.KnowledgeService.knowledgeDelete(this.data.id);
       
           onNoClick(): void {

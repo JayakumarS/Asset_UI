@@ -8,6 +8,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { User } from "src/app/core/models/user";
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Profile } from './knowledge.model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 const httpOptions = {
@@ -33,8 +34,8 @@ export class KnowledgeService  extends UnsubscribeOnDestroyAdapter{
 
   
 
- constructor(private httpClient: HttpClient,public serverURL: serverLocations,public httpService: HttpServiceService,
-  public snackBar: MatSnackBar ) {
+ constructor(private httpClient: HttpClient,public serverURL: serverLocations,public httpService: HttpServiceService,private tokenStorage: TokenStorageService,
+ ) {
 
       super();
 }
@@ -74,33 +75,38 @@ public deleteknowledgeUrl = `${this.serverURL.apiServerAddress}api/auth/app/comm
 // }
 // delete
 
-knowledgeDelete(knowledge: any,router,notificationService): void {
-  this.httpService.get<any>(this.deleteknowledgeUrl+"?knowledge="+knowledge).subscribe(data => {
-    if(data.success == true){
-      notificationService.showNotification(
-        "snackbar-success",
-        "Deleted Record Successfully...!!!",
-        "bottom",
-        "center"
-      );
-    }
-    else if(data.success == false){
-      notificationService.showNotification(
-        "snackbar-danger",
-        "Related Data exist ...!!!",
-        "bottom",
-        "center"
-      );
-    }
-
-    // this.getAllList();
-    },
-    (err: HttpErrorResponse) => {
-       // error code here
-    }
-  );
-  
+knowledgeDelete(obj: any): Observable<any> {
+  return  this.httpClient.post<any>(this.deleteknowledgeUrl, obj);
 }
+
+
+// knowledgeDelete(knowledge: any,router,notificationService): void {
+//   this.httpService.get<any>(this.deleteknowledgeUrl+"?knowledge="+knowledge).subscribe(data => {
+//     if(data.success == true){
+//       notificationService.showNotification(
+//         "snackbar-success",
+//         "Deleted Record Successfully...!!!",
+//         "bottom",
+//         "center"
+//       );
+//     }
+//     else if(data.success == false){
+//       notificationService.showNotification(
+//         "snackbar-danger",
+//         "Related Data exist ...!!!",
+//         "bottom",
+//         "center"
+//       );
+//     }
+
+//     // this.getAllList();
+//     },
+//     (err: HttpErrorResponse) => {
+//        // error code here
+//     }
+//   );
+  
+// }
 
 
   //Connection List
