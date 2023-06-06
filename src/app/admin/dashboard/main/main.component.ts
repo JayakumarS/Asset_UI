@@ -60,6 +60,7 @@ import { MutualFundService } from "src/app/master/mutualfund/mutualfund.service"
 import { NotificationPopupComponent } from "./notification-popup/notification-popup.component";
 HC_drilldown(Highcharts);
 
+
 @Component({
 
 
@@ -80,9 +81,22 @@ export class MainComponent implements OnInit {
   pieValueArray = [];
   columnOuterValueArray = [];
   columnInnerValueArray = [];
+  individualcolumnInnerValueArray = [];
+  columnIndividualOuterValueArray = [];
+  columnvehicleOuterValueArray = [];
+  vehicleChartValueArray = [];
+  goodvehicleChartValueArray = [];
+  columngoodvehicleOuterValueArray = [];
+  averagevehicleChartValueArray= [];
+  columnaveragevehicleOuterValueArray = [];
+  badvehicleChartValueArray= [];
+  columnbadvehicleOuterValueArray = [];
+
   userLogListDashboard = [];
   // Drilldown array
   chartOptionsColumnChart: Highcharts.Options;
+  individualchartOptionsColumnChart: Highcharts.Options;
+  
   namePushingArray = [];
   //Donut Array
   donutName = [];
@@ -113,6 +127,8 @@ export class MainComponent implements OnInit {
 
   // Doughnut chart start
   public doughnutChartLabels: string[] = ["Refurbished", "In stock", "In repair", "Damaged","New", "Existing","scarp"];
+  // in Doughnut chart start
+
   // public doughnutChartLabels: string[];
   public doughnutChartData: number[] = [2, 3, 5, 1, 6,4,2];
   // public doughnutChartData:number[];
@@ -161,6 +177,7 @@ Highcharts: typeof Highcharts = Highcharts;
 @ViewChild('chart') componentRef;
 chartRef;
 updateFlag;
+chartRef1;
 
 // Pagination
 config: {
@@ -188,11 +205,20 @@ configUserLog: {
   companyLastAuditDoneBy: any;
   compltedProfile: any;
   profileCount: any;
+  vehiclechartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { dataLabels: { name: { fontSize: string; }; value: { fontSize: string; }; total: { show: boolean; label: string; formatter: (w: any) => string; }; }; }; }; labels: string[]; };
+  averagechartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
+  goodchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
+  badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
+  // badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
-    private mutualFundService: MutualFundService) {}
+    private mutualFundService: MutualFundService) 
+    {
+      
     
+  }
+  //  -------------------------------------- 
   ngOnInit() {
       this.roleId=this.tokenStorage.getRoleId();
 
@@ -252,7 +278,7 @@ configUserLog: {
     // Basic Bar Chart
    this.basicBarChart();
 
-    this.companyId=this.tokenStorage.getCompanyId();
+   this.companyId=this.tokenStorage.getCompanyId();
     
     
     
@@ -460,8 +486,28 @@ configUserLog: {
         this.pieChartFlag=false;
       }
 
+      // Individual Drilldown Chart
+      this.columnIndividualOuterValueArray=doughnutChartData.getIndividualColumnChart;
+      // Vehicle Chart
+      this.columnvehicleOuterValueArray.push(doughnutChartData.getVehicleColumnChart[0].good);
+      this.columnvehicleOuterValueArray.push(doughnutChartData.getVehicleColumnChart[0].average);
+      this.columnvehicleOuterValueArray.push(doughnutChartData.getVehicleColumnChart[0].bad);
+      this.vehicleChartValueArray=this.columnvehicleOuterValueArray;
+      this.goodvehicleChartValueArray=this.columngoodvehicleOuterValueArray;
+      this.columngoodvehicleOuterValueArray.push(doughnutChartData.getgoodVehicleColumnChart[0].good);
+      this.averagevehicleChartValueArray=this.columnaveragevehicleOuterValueArray;
+      this.columnaveragevehicleOuterValueArray.push(doughnutChartData.getaverageVehicleColumnChart[0].average);
+      this.badvehicleChartValueArray=this.columnbadvehicleOuterValueArray;
+      this.columnbadvehicleOuterValueArray.push(doughnutChartData.getbadVehicleColumnChart[0].bad);
+      this.vehicleChart();
+      this.goodchart();
+      this.averagechart();
+      this.badchart();
+
+  
+
       // Column with Drilldown Chart
-      if(doughnutChartData.getOuterColumnChart.length!=0){
+      if(doughnutChartData.getOuterColumnChart.length!=0){  
        // **For Outer value 
       this.columnOuterValueArray=doughnutChartData.getOuterColumnChart;
 
@@ -497,12 +543,11 @@ configUserLog: {
       }
       // Calling the Drilldown chart
       this.drilldownChart();
-
       this.flowChartFlag=true;
       }else{
         this.flowChartFlag=false;
       }
-      
+      this.individualdrilldownChart();
       this.updateFlag = true; 
       console.log(doughnutChartData.getInnerColumnChart);
       },
@@ -833,10 +878,197 @@ configUserLog: {
 
   }
 
+
+
+  // individual
+
+
+
+  individualdrilldownChart(){
+    this.individualchartOptionsColumnChart = {
+      chart: {
+        events: {
+          drilldown: () => {
+            // console.log(this.drilldownData);
+          }
+        }
+    },
+      accessibility: {
+        announceNewData: {
+          enabled: true
+      }
+    },
+
+    credits: {
+      enabled: false
+    },
+  
+    legend: {
+        enabled: false
+    },
+  
+    plotOptions: {
+      series: {
+          borderWidth: 0,
+          dataLabels: {
+              enabled: true,
+	            inside: false,
+	            formatter: function () {
+	                return Highcharts.numberFormat(this.y, 0, '', ',');
+	            },
+              // enabled: true,
+              // format: '{point.y:,0f}'
+          }
+      }
+  },
+
+    subtitle: {
+        text: ''
+    },
+  
+    title: {
+        text: ''
+    },
+    tooltip: {
+      // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      // pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,3f}</b> <br/>',
+      pointFormatter: function () {
+        // return this.series.name + ': ' + this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return this.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+    },
+  
+    xAxis: {
+        type: 'category'
+    },
+  
+    yAxis: {
+        title: {
+            text: 'Count'
+        },
+    },
+      series: [
+        {
+          type: 'column',
+          name: 'Assets',
+          colorByPoint: true,
+           data:this.columnIndividualOuterValueArray
+        }
+      ],
+      drilldown: {
+        breadcrumbs: {
+            position: {
+                align: 'right'
+            }
+        },
+        series:this.individualcolumnInnerValueArray
+
+
+    } as Highcharts.DrilldownOptions
+    };
+
+  }
+  // ----------------
+
   chartCallback: Highcharts.ChartCallbackFunction = chart => {
     this.chartRef = chart;
   };
+  individualchartCallback: Highcharts.ChartCallbackFunction = chart => {
+    this.chartRef1 = chart;
+  };
 
+  vehicleChart(){
+    // vehicle radialBar
+    this.vehiclechartOptions = {
+      series: this.vehicleChartValueArray,
+      chart: {
+        height: 490,
+        type: "radialBar"
+      },
+      plotOptions: {
+        radialBar: {
+          dataLabels: {
+            name: {
+              fontSize: "22px"
+            },
+            value: {
+              fontSize: "16px"
+            },
+            total: {
+              show: true,
+              label: "Total",
+              formatter: function(w) {
+                return "4";
+              }
+            }
+          }
+        }
+      },
+      labels: ["GOOD", "Average", "Bad"]
+    };
+  }
+
+
+  // vehicle condition count
+  goodchart(){
+  this.goodchartOptions = {
+    series:this.goodvehicleChartValueArray,
+    chart: {
+      height: 180,
+      type: "radialBar",
+      
+           
+    },
+    plotOptions: {
+      radialBar: {
+        hollow: {
+          size: "60%"
+
+   }
+      }
+    },
+    labels: ["GOOD"]
+    
+  };
+}
+
+averagechart(){
+this.averagechartOptions = {
+  series:this.averagevehicleChartValueArray,
+  chart: {
+    height: 180,
+    type: "radialBar"
+  },
+  plotOptions: {
+    radialBar: {
+      hollow: {
+        size: "60%"
+      }
+    }
+  },
+  labels: ["AVERAGE"]
+};
+}
+
+badchart(){
+this.badchartOptions = {
+  series: this.badvehicleChartValueArray,
+  chart: {
+    height: 180,
+    type: "radialBar"
+  },
+  plotOptions: {
+    radialBar: {
+      hollow: {
+        size: "60%"
+      }
+    }
+  },
+  labels: ["BAD"]
+};
+}
+
+// ----------------------------------------
   basicBarChart(){
     this.chartOptionsBarChart = {
       series: [
