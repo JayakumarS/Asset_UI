@@ -304,8 +304,7 @@
   </div>
   <div class=" col-md-3">
     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-      <input matInput formControlName="ifscCode" maxlength="11" oninput="this.value = this.value.toUpperCase()"
-       required>
+      <input matInput formControlName="ifscCode" maxlength="11" oninput="this.value = this.value.toUpperCase()">
       <mat-error *ngIf="docForm.get('ifscCode').hasError('pattern')">
         Please Enter Valid IFSC code
       </mat-error>

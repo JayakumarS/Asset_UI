@@ -439,7 +439,7 @@ loanFlag(event){
   if(event=='YES'){
   this.isLoan = true;
 
-  this.docForm.controls.ifscCode.setValidators([Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')]);
+  this.docForm.controls.ifscCode.setValidators([Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$')]);
   this.docForm.controls['ifscCode'].updateValueAndValidity();
   
   }

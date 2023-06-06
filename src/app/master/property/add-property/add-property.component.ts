@@ -126,7 +126,7 @@ export class AddPropertyComponent implements OnInit {
 
        bankName:[""],
        branchName:[""],
-       ifscCode:["", Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')],
+       ifscCode:[""],
        acName:[""],
        acNumber:[""],
        accountUserId:[""],
@@ -1195,7 +1195,7 @@ if (inputFlag == 'transitionDate') {
         this.isLoan = true;
         this.docForm.controls.bankName.setValidators(Validators.required);
         this.docForm.controls['bankName'].updateValueAndValidity();
-        this.docForm.controls.ifscCode.setValidators([Validators.required,Validators.pattern('[A-Za-z]{4}[A-Z0-9]{7}')]);
+        this.docForm.controls.ifscCode.setValidators([Validators.required,Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$')]);
         this.docForm.controls['ifscCode'].updateValueAndValidity();
         this.docForm.controls.loanAmount.setValidators(Validators.required);
         this.docForm.controls['loanAmount'].updateValueAndValidity();
