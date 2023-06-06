@@ -86,7 +86,7 @@ export class AddVehicleComponent implements OnInit {
       vehiclebrand :["",[Validators.required]],
       regno:["", [Validators.required]],
       chassisno:["", [Validators.required]],
-      engineno:["", [Validators.required]],
+      engineno:[""],
       bodytype:[""],
       fueltype:[""],
       ownertype:["",[Validators.required]],
@@ -133,7 +133,7 @@ export class AddVehicleComponent implements OnInit {
       userpassword: [""],
       loanVehicle: ["", [Validators.required]],
       vin:[""],
-      condition: [""],
+      condition: ["", [Validators.required]],
       mileage: [""],
       description: [""],
       discardFromDate5: [""],
@@ -144,6 +144,9 @@ export class AddVehicleComponent implements OnInit {
       loanstartDate1:[""],
       insurancedate:["", [Validators.required]],
       insurancedate1:[""],
+
+      dealername:["", [Validators.required]],
+      dealeraddress:["", [Validators.required]]
 
       
 
@@ -160,7 +163,7 @@ export class AddVehicleComponent implements OnInit {
       vehiclebrand :["",[Validators.required]],
       regno:["", [Validators.required]],
       chassisno:["", [Validators.required]],
-      engineno:["", [Validators.required]],
+      engineno:[""],
       bodytype:[""],
       fueltype:[""],
       ownertype:["",[Validators.required]],
@@ -211,7 +214,7 @@ export class AddVehicleComponent implements OnInit {
       loanInterest: [""],
       loanVehicle: ["", [Validators.required]],
       vin:[""],
-      condition: [""],
+      condition: ["", [Validators.required]],
       mileage: [""],
 
       discardFromDate5: [""],
@@ -221,6 +224,9 @@ export class AddVehicleComponent implements OnInit {
       description: [""],
       loanstartDate:[""],
       loanstartDate1:[""],
+
+      dealername:["", [Validators.required]],
+      dealeraddress:["", [Validators.required]]
 
 
 
@@ -370,6 +376,9 @@ export class AddVehicleComponent implements OnInit {
         'feature':res.vehiclesBean.feature,
         'description':res.vehiclesBean.description,
 
+        'dealername':res.vehiclesBean.dealername,
+        'dealeraddress':res.vehiclesBean.dealeraddress
+
 
 
         
@@ -513,6 +522,9 @@ loanFlag(event){
       loanstartDate1:[""],
       insurancedate: [""],
       insurancedate1: [""],
+
+      dealername:[""],
+      dealeraddress:[""]
 
         
 

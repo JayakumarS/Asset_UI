@@ -132,15 +132,12 @@
                        </div>
  
                        <div class="col-md-2" style="min-width: fit-content;" >
-                         <label>ENGINE NUMBER<span class="errorColor">*</span></label>
+                         <label>ENGINE NUMBER</label>
                      </div>
                      <div class="col-md-2">
                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                          <input matInput formControlName="engineno" maxlength="17"
                           oninput="this.value = this.value.toUpperCase()">
-                         <mat-error *ngIf="docForm.get('engineno').hasError('required')">
-                           Engine No is required
-                          </mat-error>
                         </mat-form-field>
                      </div>
 
@@ -374,7 +371,7 @@
                </mat-form-field>
               </div>
               <div class="col-md-2" style="min-width: fit-content;"  >
-                <label>CONDITION</label>
+                <label>CONDITION<span class="errorColor">*</span></label>
             </div>
               <div class="col-md-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -389,6 +386,9 @@
                         Bad
                     </mat-option>
                   </mat-select>
+                  <mat-error *ngIf="docForm.get('purpose').hasError('required')">
+                    Condition is required
+                    </mat-error>
             </mat-form-field>
               </div>
               <div class="col-md-2" style="min-width: fit-content;"  >
@@ -430,6 +430,34 @@
              </mat-form-field>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-2" style="min-width: fit-content;" >
+            <label>DEALER NAME<span class="errorColor">*</span></label>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="dealername" maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
+                  <mat-error *ngIf="docForm.get('purpose').hasError('required')">
+                    Dealer Name is required
+                    </mat-error>
+               </mat-form-field>
+              </div>
+              <div class="col-md-2" style="min-width: fit-content;" >
+                <label>DEALER ADDRESS<span class="errorColor">*</span></label>
+                </div>
+                <div class="col-md-2">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                <textarea matInput formControlName="dealeraddress" maxlength="50" ></textarea>
+                <mat-error *ngIf="docForm.get('purpose').hasError('required')">
+                  Dealer Address is required
+                  </mat-error>
+                </mat-form-field>
+                </div>
+              </div>
+                
+              
+
+
 
           <div class="row">  </div>
           <hr><br>
