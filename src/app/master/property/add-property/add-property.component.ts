@@ -66,6 +66,7 @@ export class AddPropertyComponent implements OnInit {
   isIndividual: boolean;
   isLease:boolean;
   isOwnProperty: boolean;
+  hide = true;
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,

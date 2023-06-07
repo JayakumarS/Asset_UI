@@ -273,8 +273,8 @@
             <mat-radio-group tabindex="21" formControlName="lockerInHand">
              
               <mat-radio-button value="LOCKER" (change)="getLOCKER($event.value)" >LOCKER</mat-radio-button>
-              <mat-radio-button value="MORTGAGE"(change)="getLOCKER($event.value)" style="padding-left: 14%;">MORTGAGE</mat-radio-button>
-              <mat-radio-button value="INHAND"(change)="getLOCKER($event.value)"style="padding-left: 14%;">IN HAND</mat-radio-button>
+              <mat-radio-button value="MORTGAGE"(change)="getLOCKER($event.value)" style="padding-left: 14%;">MORTGAGE</mat-radio-button><br>
+              <mat-radio-button value="INHAND"(change)="getLOCKER($event.value)"style="padding-left: 17%;">IN HAND</mat-radio-button>
             </mat-radio-group>
           </div>
 
@@ -318,13 +318,9 @@
 
         
           </div>
-          <div class ="row" *ngIf ="MORTGAGE">
-            <hr>
-            <div class="col-md-2">
-             
+          <div class ="row" style="margin-left: -14%;" *ngIf ="MORTGAGE">      
               <h4>MORTGAGE DETAIL</h4>
-            </div>
-          </div>
+          </div><br>
             <div class ="row" *ngIf ="MORTGAGE">
           <div class="col-md-4" style="min-width: fit-content;padding-bottom: 3%;" >
          <mat-radio-group tabindex="21" formControlName="shopBank">
@@ -488,16 +484,20 @@
     Date is required
   </mat-error>
     </mat-form-field>
-   
-
    </div>
+       </div><br>
 
-       </div>
+       <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+          <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+          color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+          <button *ngIf="edit" (click) = "onUpdate()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+          <button (click) = "reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
+          <button (click) = "cancel()" color="warn" type="button" mat-raised-button>Cancel</button>
+        </div>
+      </div>
 
-
-
-      
-               <div class ="row">
+      <!-- <div class ="row">
                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                          <button (click) = "onSubmit()" class="btn-space" mat-raised-button
                           color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="!edit">Submit</button>
@@ -508,10 +508,8 @@
                           <button (click) = "cancel()" class="btn-space" mat-raised-button
                           color="warn" style="margin-left: 1%;">Cancel</button>
                           </div>
-                             </div>
+                             </div> -->
   
-  
-   
                 </form>
                 </div>
                 </div>

@@ -7,14 +7,14 @@
       </div>
       <div class="row clearfix">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <div class="card " style="padding-left: 150px;">
+            <div class="card ">
               <div class="body">
                 <form class="m-4" [formGroup]="docForm">
 
                   <h4>PERSONAL INFORMATION</h4>
                   <br><br>
 
-                  <div class="row">
+                  <div class="row" style="margin-left: 10%;">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
                       <mat-label>FD-HOLDER-NAME<span class="errorColor">*</span></mat-label>
                   </div>
@@ -43,7 +43,7 @@
                     </div>
                    </div>
 
-                   <div class="row">
+                   <div class="row" style="margin-left: 10%;">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >E-MAIL<span class="errorColor">*</span></mat-label>
                       </div>
@@ -65,7 +65,7 @@
                     </div>
                    </div>
 
-                   <div class="row">
+                   <div class="row" style="margin-left: 10%;">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >CURRENT ADDRESS</mat-label>
                       </div>
@@ -122,7 +122,7 @@
                     </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="margin-left: 10%;">
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                         <mat-label >POST CODE</mat-label>
                         </div>
@@ -137,13 +137,13 @@
                         <input matInput formControlName="postcode" maxlength="10" oninput="this.value = this.value.toUpperCase()">
                       </mat-form-field>
                     </div>
-                      </div>
+                      </div><br>
 
-                      <hr>
+                       
                        <h4>FIXED DEPOSIT INFORMATION</h4>
                        <br><br>
 
-                       <div class="row">
+                       <div class="row" style="margin-left: 10%;">
                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                         <label>CURRENCY<span class="errorColor">*</span></label>
                     </div>
@@ -162,7 +162,7 @@
                           </div>
                           </div>
 
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12"  >
                       <mat-label >FIXED DEPOSIT TYPE<span class="errorColor">*</span></mat-label>
                     </div>
@@ -192,7 +192,7 @@
                     </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row" style="margin-left: 10%;">
                   
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
                       <mat-label>FD REFERENCE </mat-label>
@@ -219,7 +219,7 @@
                
                  
 
-          <div class="row">
+          <div class="row" style="margin-left: 10%;">
                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >FD START DATE<span class="errorColor">*</span></mat-label>
                       </div>
@@ -256,7 +256,7 @@
                   </div> 
       </div>
 
-      <div class="row">
+      <div class="row" style="margin-left: 10%;">
   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
                       <mat-label >INVESTMENT TERM<span class="errorColor">*</span></mat-label>
                     </div>
@@ -286,7 +286,7 @@
                 
  </div>
 
- <div class="row">
+ <div class="row" style="margin-left: 10%;">
 
        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
         <mat-label >BANK NAME<span class="errorColor">*</span></mat-label>
@@ -313,16 +313,16 @@
       </mat-error>
     </mat-form-field>
   </div>
-  </div>
+  </div><br>
 
   
 
 
-<hr>
+ 
 <h4>PAYMENT AND INTEREST</h4>
 <br><br>
 
-<div class="row">
+<div class="row" style="margin-left: 10%;">
   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
     <mat-label >AUTO RENEWAL<span class="errorColor">*</span></mat-label>
   </div>
@@ -355,7 +355,7 @@
   </div>
 
 </div>
-<div class="row">
+<div class="row" style="margin-left: 10%;">
   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
     <mat-label >PENALTY AMOUNT<span class="errorColor">*</span></mat-label>
   </div>
@@ -379,7 +379,7 @@
   </mat-form-field>
 </div>
 </div>
-<div class="row">
+<div class="row" style="margin-left: 10%;">
 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
   <mat-label  >DUE AMOUNT<span class="errorColor">*</span></mat-label>
 </div>
@@ -392,10 +392,17 @@
 </mat-form-field>
 </div>
 </div>
-
-
-        
-                          <div class="row">
+<br>
+<div class="row" style="margin-left: 10%;">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+    color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+    <button (click) = "reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
+    <button (click) = "onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
+  </div>
+</div> 
+                          <!-- <div class="row" style="margin-left: 10%;">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                               <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
                               color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
@@ -403,7 +410,7 @@
                               <button (click) = "reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
                               <button (click) = "onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
                             </div>
-                          </div> 
+                          </div>  -->
                 </form>
                 </div>
                 </div>

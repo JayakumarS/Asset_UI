@@ -264,32 +264,32 @@
               </mat-form-field>
           </div>
           </div>
-          <br>
-          <br>
-                          
-     <div class ="row">
+          <br> 
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+              <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+              color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+              <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+              <button (click) = "reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
+              <button (click) = "cancel()" color="warn" type="button" mat-raised-button>Cancel</button>
+            </div>
+          </div> 
+          
+     <!-- <div class ="row">
        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
        <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-        color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+        color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button> -->
 <!--<button (click) = "onSubmit()" class="btn-space" mat-raised-button
      color="accent" style="margin-left: 1%;background-color: #3b10e8;">Update</button>-->
 
-<button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+<!-- <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
 color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
                                        <button (click) = "reset()" class="btn-space" mat-raised-button
                                        color="primary" style="margin-left: 1%;">Reset</button>
                                         <button (click) = "cancel()" class="btn-space" mat-raised-button
                                         color="warn" style="margin-left: 1%;">Cancel</button>
                                          </div>
-                            
-                               
-  
-  
-  
-  
-  
-   
-                </div>
+                </div> -->
                 </form>
                 </div>
                 </div>

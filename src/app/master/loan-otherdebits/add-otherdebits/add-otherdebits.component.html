@@ -7,7 +7,7 @@
       <div class="row clearfix">
         <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
 
-          <div class="card " style="padding-left: 150px;">
+          <div class="card ">
             <div class="body">
               <!-- style="margin-left: -9%;padding: 2%;padding-left: 101px;overflow-x: hidden;" -->
               <!-- <h4 style=" padding-bottom: 40px;  padding-top: 5px; color: #004AAD;">Loan Detail</h4> -->
@@ -15,7 +15,7 @@
               <form class="m-4" [formGroup]="docForm" >
                 <h4>PERSONAL INFORMATION</h4>
                 <br><br>
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
                       <mat-label >LOAN-HOLDER NAME<span class="errorColor">*</span></mat-label>
                   </div>
@@ -49,7 +49,7 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >EMAIL-ID<span class="errorColor">*</span></mat-label>
                     </div>
@@ -86,7 +86,7 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row" style="margin-left: 10%;">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                   <mat-label>ADDRESS</mat-label>
                 </div>
@@ -113,7 +113,7 @@
               <br>
               <h4>LOAN DETAILS</h4>
                 <br><br>    
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
                   <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" >
                       <mat-label >LOAN PROPERTY</mat-label>
                   </div>
@@ -186,7 +186,7 @@
 
                 </div>
 
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
                  
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                     <mat-label >LOAN NUMBER<span class="errorColor">*</span></mat-label>
@@ -214,7 +214,7 @@
 
               </div>
 
-                <div class="row">  
+                <div class="row" style="margin-left: 10%;">  
                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >APPROVAL DATE<span class="errorColor">*</span></mat-label>
                   </div>
@@ -254,7 +254,7 @@
                 </div>  
                 </div>
 
-                    <div class="row">
+                    <div class="row" style="margin-left: 10%;">
                       
 
                       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -293,7 +293,7 @@
                           </div>
                   </div>
                   
-                  <div class="row">
+                  <div class="row" style="margin-left: 10%;">
                     
                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >LOAN END DATE <span class="errorColor">*</span></mat-label>
@@ -330,7 +330,7 @@
                 <h4>PAYMENT AND INTEREST</h4>
                 <br><br>
 
-                <div class="row">
+                <div class="row" style="margin-left: 10%;">
                               
                     
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
@@ -365,7 +365,7 @@
                 </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row" style="margin-left: 10%;">
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                       <mat-label >PENALITY AMOUNT</mat-label>
                     </div>
@@ -389,7 +389,7 @@
                       </mat-form-field>
                     </div>
               </div>
-              <div class="row">
+              <div class="row" style="margin-left: 10%;">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                   <mat-label >PAYMENT HISTORY</mat-label>
                   </div>
@@ -435,7 +435,7 @@
               <h4>LOAN BANK DETAILS</h4>
               <br><br>
 
-              <div class="row">
+              <div class="row" style="margin-left: 10%;">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                   <mat-label >BANK NAME<span class="errorColor">*</span></mat-label>
               </div>
@@ -477,7 +477,7 @@
               </div>
             </div>  
 
-              <div class="row">
+              <div class="row" style="margin-left: 10%;">
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
                  <mat-label >BRANCH NAME</mat-label>
@@ -502,9 +502,9 @@
                </mat-error>
              </mat-form-field>
            </div> 
-          </div>
+          </div><br>
 
-                          <div class="row">
+                          <div class="row" style="margin-left: 10%;">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                               <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
                               color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
