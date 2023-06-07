@@ -221,6 +221,12 @@ export class KnowledgeBankComponent extends UnsubscribeOnDestroyAdapter implemen
         );
       }
     });
+    this.showNotification(
+      "snackbar-success",
+      "Added Record Successfully...!!!",
+      "bottom",
+      "center"
+    );
     location.reload();
   }
 
@@ -265,6 +271,12 @@ export class KnowledgeBankComponent extends UnsubscribeOnDestroyAdapter implemen
         });
     
       }
+      this.showNotification(
+        "snackbar-success",
+        "Deleted Record Successfully...!!!",
+        "bottom",
+        "center"
+      );
       location.reload();
     });
          
