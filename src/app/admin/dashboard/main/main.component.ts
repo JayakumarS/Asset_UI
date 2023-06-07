@@ -205,10 +205,11 @@ configUserLog: {
   companyLastAuditDoneBy: any;
   compltedProfile: any;
   profileCount: any;
-  vehiclechartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { dataLabels: { name: { fontSize: string; }; value: { fontSize: string; }; total: { show: boolean; label: string; formatter: (w: any) => string; }; }; }; }; labels: string[]; };
+  vehiclechartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { dataLabels: { name: { fontSize: string; }; value: { fontSize: string; }; total: { show: boolean; label: string; formatter: (w: any) => any; }; }; }; }; labels: string[]; };
   averagechartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
   goodchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
   badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
+  vehicleTotalCount: any;
   // badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
@@ -437,6 +438,11 @@ configUserLog: {
     this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + companyId +"&roleId="+roleId).subscribe((doughnutChartData: any) => {
       console.log(this.companyId);
       this.compltedProfile=doughnutChartData.completedProfile;
+      if(doughnutChartData!=null){
+        this.vehicleTotalCount = doughnutChartData.getaverageVehicleColumnChart[0].average + doughnutChartData.getbadVehicleColumnChart[0].bad +
+        doughnutChartData.getgoodVehicleColumnChart[0].good;
+      }
+      
 
       this.companyPurchaseAssetsCount = doughnutChartData.companyPurchaseAssetsCount;
       this.companyUsersAssetsCount = doughnutChartData.companyUsersAssetsCount;
@@ -976,9 +982,10 @@ configUserLog: {
   individualchartCallback: Highcharts.ChartCallbackFunction = chart => {
     this.chartRef1 = chart;
   };
-
+  // Total Vehicle Count 
   vehicleChart(){
-    // vehicle radialBar
+    const val = this.vehicleTotalCount;
+
     this.vehiclechartOptions = {
       series: this.vehicleChartValueArray,
       chart: {
@@ -998,7 +1005,7 @@ configUserLog: {
               show: true,
               label: "Total",
               formatter: function(w) {
-                return "4";
+                return val;
               }
             }
           }
