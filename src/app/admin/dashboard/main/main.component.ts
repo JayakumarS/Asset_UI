@@ -1827,6 +1827,7 @@ this.badchartOptions = {
     // window.sessionStorage.setItem("loanFrom","");
     // window.sessionStorage.setItem("receivableFrom","");
     // this.router.navigate(['master/multiple/allMaster/'+userId]);
+    window.sessionStorage.setItem("PROFILE","IndvProfile");
 
     this.router.navigate(['master/multiple/individualInfo/0']);
   }

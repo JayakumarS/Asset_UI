@@ -51,6 +51,7 @@ export class IndividualInformationComponent implements OnInit {
   cityList=[];
   imgPathUrl = [];
   uploadImage: boolean = false;
+  IsProfile: boolean = false;
 
   
   constructor(private fb: FormBuilder,private serverUrl: serverLocations,private snackBar: MatSnackBar,private commonService: CommonService,
@@ -91,6 +92,13 @@ export class IndividualInformationComponent implements OnInit {
   ngOnInit(): void {
 
 
+    if(window.sessionStorage.getItem("PROFILE")=="IndvProfile"){
+      this.IsProfile = true;
+      window.sessionStorage.setItem("PROFILE","");
+
+    }else {
+      window.sessionStorage.setItem("PROFILE","");
+    }
     this.docForm = this.fb.group({
       name:[""],
       email: [''],
@@ -307,6 +315,7 @@ removeRowSelf(index){
  
    }
 
+
   fetchDetails(fundNo: any) {
     const obj = {
       editId: fundNo
@@ -417,6 +426,10 @@ removeRowSelf(index){
   } else {
     this.fetchDetails(this.requestId);
   }
+  }
+  onCancelPro(){
+    this.router.navigate(['/admin/dashboard/main']);
+
   }
 onCancel(){
 
