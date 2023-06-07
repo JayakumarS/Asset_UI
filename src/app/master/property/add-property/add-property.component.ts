@@ -15,6 +15,7 @@ import * as internal from 'stream';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { PropertyService } from '../property.service';
 import { Property } from '../property-model';
+import * as moment from 'moment';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -80,7 +81,7 @@ export class AddPropertyComponent implements OnInit {
     this.docForm = this.fb.group({
        propertyType:["",[Validators.required]],
        residencialType:[""],
-       squareFeet:[""],
+       squareFeet1:[""],
        guidelineValue:[""],
        currentValue:[""],
        depVal:[""],
@@ -213,8 +214,11 @@ export class AddPropertyComponent implements OnInit {
        sampleDtl: this.fb.array([
         this.fb.group({
           advance:[""],
-          dateToPayDate:[""],
-          dateToPayDateObj:[""],
+          // dateToPayDate:[""],
+          // dateToPayDateObj:[""],
+
+          dateToPayDate: [moment().format('DD/MM/YYYY')],
+          dateToPayDateObj: [moment().format('YYYY-MM-DD')],
           rentAmount:[""],
           tenantName:[""],
           tenantIdcard:[""],
@@ -269,6 +273,9 @@ export class AddPropertyComponent implements OnInit {
 
       group.get('rentAmount').setValidators(Validators.required); 
       group.get('rentAmount').updateValueAndValidity(); // Update the validation status
+
+      group.get('dateToPayDateObj').setValidators(Validators.required); 
+      group.get('dateToPayDateObj').updateValueAndValidity(); // Update the validation status
 
       group.get('tenantName').setValidators(Validators.required); 
       group.get('tenantName').updateValueAndValidity(); // Update the validation status
@@ -329,7 +336,7 @@ removeRowArray(index){
       
     propertyType:[""],
        residencialType:[""],
-       squareFeet:[""],
+       squareFeet1:[""],
        guidelineValue:[""],
        currentValue:[""],
        depVal:[""],
@@ -522,7 +529,7 @@ this.fetchDetails(this.requestId);
         'type': res.propertyBean.type,
         'currentValue': res.propertyBean.currentValue,
         'depVal': res.propertyBean.depVal,
-        'squareFeet': res.propertyBean.squareFeet1,
+        'squareFeet1': res.propertyBean.squareFeet1,
         'loan': res.propertyBean.loan,
         'loanNo': res.propertyBean.loanNo,
         'loanInterest': res.propertyBean.loanInterest,
@@ -702,6 +709,9 @@ update(){
       group.get('tenantName').setValidators(Validators.required); 
       group.get('tenantName').updateValueAndValidity(); // Update the validation status
 
+      group.get('dateToPayDateObj').setValidators(Validators.required); 
+      group.get('dateToPayDateObj').updateValueAndValidity(); // Update the validation status
+
       group.get('tenantIdcard').setValidators(Validators.required); 
       group.get('tenantIdcard').updateValueAndValidity(); // Update the validation status
 
@@ -822,8 +832,8 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['houseName'].updateValueAndValidity();
         this.docForm.controls.residencialType.setValidators(Validators.required);
         this.docForm.controls['residencialType'].updateValueAndValidity();
-        this.docForm.controls.squareFeet.setValidators(Validators.required);
-        this.docForm.controls['squareFeet'].updateValueAndValidity();
+        this.docForm.controls.squareFeet1.setValidators(Validators.required);
+        this.docForm.controls['squareFeet1'].updateValueAndValidity();
         this.docForm.controls.constructedOnObj.setValidators(Validators.required);
         this.docForm.controls['constructedOnObj'].updateValueAndValidity();
         this.docForm.controls.floor.setValidators;
@@ -944,8 +954,8 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['houseName'].updateValueAndValidity();
         this.docForm.controls.residencialType.clearValidators();
         this.docForm.controls['residencialType'].updateValueAndValidity();
-        this.docForm.controls.squareFeet.clearValidators();
-        this.docForm.controls['squareFeet'].updateValueAndValidity();
+        this.docForm.controls.squareFeet1.clearValidators();
+        this.docForm.controls['squareFeet1'].updateValueAndValidity();
         this.docForm.controls.constructedOnObj.clearValidators();
         this.docForm.controls['constructedOnObj'].updateValueAndValidity();
         this.docForm.controls.floor.clearValidators();
@@ -1037,8 +1047,8 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['houseName'].updateValueAndValidity();
         this.docForm.controls.residencialType.clearValidators();
         this.docForm.controls['residencialType'].updateValueAndValidity();
-        this.docForm.controls.squareFeet.clearValidators();
-        this.docForm.controls['squareFeet'].updateValueAndValidity();
+        this.docForm.controls.squareFeet1.clearValidators();
+        this.docForm.controls['squareFeet1'].updateValueAndValidity();
         this.docForm.controls.constructedOnObj.clearValidators();
         this.docForm.controls['constructedOnObj'].updateValueAndValidity();
         this.docForm.controls.floor.clearValidators();
@@ -1126,8 +1136,8 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['houseName'].updateValueAndValidity();
         this.docForm.controls.residencialType.clearValidators();
         this.docForm.controls['residencialType'].updateValueAndValidity();
-        this.docForm.controls.squareFeet.clearValidators();
-        this.docForm.controls['squareFeet'].updateValueAndValidity();
+        this.docForm.controls.squareFeet1.clearValidators();
+        this.docForm.controls['squareFeet1'].updateValueAndValidity();
         this.docForm.controls.constructedOnObj.clearValidators();
         this.docForm.controls['constructedOnObj'].updateValueAndValidity();
         this.docForm.controls.floor.clearValidators();
@@ -1280,6 +1290,9 @@ if (inputFlag == 'transitionDate') {
            group.get('rentAmount').clearValidators(); 
            group.get('rentAmount').updateValueAndValidity(); // Update the validation status
      
+           group.get('dateToPayDateObj').setValidators(Validators.required); 
+           group.get('dateToPayDateObj').updateValueAndValidity(); // Update the validation status
+
            group.get('tenantName').clearValidators(); 
            group.get('tenantName').updateValueAndValidity(); // Update the validation status
      
@@ -1434,6 +1447,9 @@ if (inputFlag == 'transitionDate') {
            group.get('tenantName').clearValidators(); 
            group.get('tenantName').updateValueAndValidity(); // Update the validation status
      
+           group.get('dateToPayDateObj').setValidators(Validators.required); 
+           group.get('dateToPayDateObj').updateValueAndValidity(); // Update the validation status
+
            group.get('tenantIdcard').clearValidators(); 
            group.get('tenantIdcard').updateValueAndValidity(); // Update the validation status
      
