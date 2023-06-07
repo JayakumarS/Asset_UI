@@ -7,18 +7,18 @@
       <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col- md-12 col-sm-12">
         <div class="box-shadow">
-          
+          <div class="card">
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
-                <h4>PERSONAL INFORMATION</h4>
-              <div class="row">
+                <h4>PERSONAL INFORMATION</h4><br><br>
+              <div class="row" style="margin-left: 10%;">
 
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                    <div class="col-md-2">
                         <label >NAME</label>
                     </div>
                     
     
-                    <div class=" col-md-3">
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput  formControlName="name"  readonly
                           maxlength="20" (keypress)="keyPressString($event)">
@@ -26,10 +26,10 @@
                   </div>
 
                   
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <div class="col-md-2">
                     <label>E-MAIL</label>
                 </div>
-                <div class=" col-md-3">
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <input matInput formControlName="email" readonly>
                   </mat-form-field>
@@ -37,34 +37,34 @@
 
 
              </div>
-             <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+             <div class="row" style="margin-left: 10%;">
+                <div class="col-md-2">
                     <label>DOB</label>
                   </div>
-                  <div class=" col-md-3">
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput [matDatepicker]="picker2" formControlName="dobObj" (dateInput)="$event.value.format('DD/MM/YYYY')"
                       id="dob" (dateChange)="getDateString($event, 'dob',0)" readonly>
                   <mat-datepicker #picker2></mat-datepicker>
                     </mat-form-field>
                   </div>
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class="col-md-2">
               <label >MOBILE NUMBER</label>
           </div>
-          <div class=" col-md-3">
+          <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="mobileNumber" readonly>
             </mat-form-field>
             </div>
             </div>
 
-            <div class="row">
+            <div class="row" style="margin-left: 10%;">
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <div class="col-md-2">
                     <label >ADDRESS</label>
                 </div>
               
-              <div class=" col-md-3">
+              <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput  formControlName="address"
                       maxlength="100" readonly>     
@@ -72,11 +72,11 @@
               </div>
 
 
-              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+              <div class="col-md-2">
                 <label >CITY</label>
             </div>
 
-            <div class=" col-md-3">
+            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-select formControlName="city">
                   <mat-option *ngFor="let title of cityList" [value]="title.id">
@@ -89,12 +89,12 @@
           
               </div>
 
-             <div class="row">
+             <div class="row" style="margin-left: 10%;">
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <div class="col-md-2">
                     <label >STATE</label>
                   </div>
-                  <div class=" col-md-3">
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-select formControlName="state" (selectionChange)="stateBasedCity($event.value)">
                         <mat-option *ngFor="let title of stateList" [value]="title.id">
@@ -104,11 +104,11 @@
                     </mat-form-field>
                   </div>
 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                  <div class="col-md-2">
                     <label >PIN CODE</label>
                 </div>
               
-              <div class=" col-md-3">
+              <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput  formControlName="pincode" (keypress)="keyPressNumber($event)"
                       maxlength="10" >     
@@ -117,12 +117,12 @@
               
        </div>
 
-       <div class="row">
+       <div class="row" style="margin-left: 10%;">
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class="col-md-2">
           <label >COUNTRY</label>
         </div>
-        <div class=" col-md-3">
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <mat-select formControlName="country" (selectionChange)="fetchCountryBasedState($event.value)">
               <mat-option *ngFor="let title of countryList" [value]="title.id" >
@@ -132,10 +132,10 @@
           </mat-form-field>
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class="col-md-2">
             <label>BLOOD GROUP</label>
         </div>
-        <div class=" col-md-3">
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
             <mat-select  formControlName="bloodGroup" >
               <mat-option [value]="'O+'">
@@ -167,8 +167,10 @@
         </div>
 
         </div>
+        <br>
+        <br>
 
-      <div class="row">
+      <!-- <div class="row" style="margin-left: 10%;"> -->
       
           <!-- Detail Table Starts -->
              
@@ -248,27 +250,27 @@
 <button mat-mini-fab color="primary"(click)="onAddRow()" > 
 <mat-icon class="col-white">add</mat-icon>
 </button>
-</div>      
-<br>
-        <h4>BUSINESS INFORMATION</h4>
+<!-- </div>       -->
+<br><br>
+        <h4>BUSINESS INFORMATION</h4><br><br>
         
-        <div class="row" >
+        <div class="row" style="margin-left: 10%;" >
         
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class="col-md-2">
               <label >COMPANY</label>
           </div>
         
-        <div class=" col-md-3">
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="company"
                 maxlength="20">      
             </mat-form-field>
         </div>
         
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class="col-md-2">
           <label>ADDRESS</label>
         </div>
-        <div class=" col-md-3">
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="companyAddress">
         </mat-form-field>
@@ -276,23 +278,23 @@
         
         </div>
         
-        <div class="row" >
+        <div class="row" style="margin-left: 10%;" >
         
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class="col-md-2">
               <label >TELEPHONE</label>
           </div>
         
-        <div class=" col-md-3">
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="telephone"
                 maxlength="10" (keypress)="keyPressNumber($event)">    
             </mat-form-field>
         </div>
         
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class="col-md-2">
           <label>FAX</label>
         </div>
-        <div class=" col-md-3">
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <input matInput  formControlName="fax"
                 mmaxlength="10" (keypress)="keyPressNumber($event)">    
@@ -301,22 +303,22 @@
         
         </div>
 
-        <div class="row">
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class="row" style="margin-left: 10%;">
+            <div class="col-md-2">
                 <label >MOBILE</label>
             </div>
           
-          <div class=" col-md-3">
+          <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput  formControlName="mobile"
                   maxlength="10" (keypress)="keyPressNumber($event)">    
               </mat-form-field>
           </div>
           
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+          <div class="col-md-2">
             <label>E-MAIL </label>
           </div>
-          <div class=" col-md-3">
+          <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <input matInput  formControlName="companyEmail" 
                   > 
@@ -328,13 +330,13 @@
           </div>
           </div>
 
-          <div class="row" >
+          <div class="row" style="margin-left: 10%;" >
         
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class="col-md-2">
                 <label >WEBSITE <span style="color: red;">*</span></label>
             </div>
           
-          <div class=" col-md-3">
+          <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
                   <input matInput  formControlName="website"
                   maxlength="20" > 
@@ -345,7 +347,7 @@
           </div>
           </div>
       
-                              <div class ="row">
+                              <div class ="row" style="margin-left: 10%;">
                                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                                     <!-- <button  (click) = "onSubmit()" class="btn-space" mat-raised-button
                                     color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="!edit">Submit</button> -->
@@ -362,6 +364,7 @@
                 </div>
                 </form>
                 </div>
+              </div>
                 </div>
                 </div>
                 </div>
