@@ -137,7 +137,7 @@ export class AddJewelleryDetailsComponent implements OnInit {
        this.fetchDetails(this.requestId) ;
       }
      });
-    
+     this.getLOCKER(this.docForm.value.lockerInHand)
   }
 
   getOwner(check: any) {
