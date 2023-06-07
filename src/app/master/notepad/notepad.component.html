@@ -1,0 +1,124 @@
+<div class="row clearfix">
+  <div class="col-xl-12 col-lg-12 col- md-12 col-sm-12">
+    <div class="box-shadow">
+       <!-- <form [formGroup]="docForm"> -->
+       <!-- <div class="Header" style="margin-top: 0px;">
+        <h1>Notes</h1>
+        </div> -->
+
+        <!-- <div class="Form-div">
+          <form [formGroup]="docForm" (submit)="note.value = ''">
+           <input type="text"
+           matInput
+            #note
+            (ngModel)="noteMessage"
+            formControlName="message"
+            class="FormInput"
+            name="NoteMessage"
+            placeholder="Your Notes Here"
+            id="Form-input"/>
+
+            <mat-form-field class=" form-control-sm" appearance="outline">
+
+            <textarea 
+            matInput
+             #note
+             (ngModel)="noteMessage"
+             formControlName="message"
+            
+             name="NoteMessage"
+             placeholder="Search"
+             id="Form-input"></textarea>
+             </mat-form-field>
+
+           </form>
+           <label for="fname"></label>
+           <input type="text" id="fname" name="fname" placeholder="Search" ><br><br>
+           <button class="add material-icons"  >note_add</button>
+
+           </div> -->
+          
+            <!-- <button mat-mini-fab color="warn" (click)="note()">
+              <mat-icon class="col-white" >add</mat-icon>
+            </button> -->
+         
+          <div class="m-l-10" >
+          <h1>Notes</h1>
+        </div>&nbsp;
+        <h1>Notes</h1>
+           <div class="sticky-notes">
+            <input type="text"  form id="searchValue" placeholder="Search..." class="search-bar" />
+            <i class="fa fa-search"  ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-mini-fab color="warn" (click)="note()">
+              <mat-icon class="col-white" >add</mat-icon>
+            </button>
+
+            
+
+            <!-- <button class="search-button">Search</button> -->
+          </div>
+      <button color="primary" type="button" class="btn-space" style=" margin-left: 641px;
+          margin-top: 11px;" mat-raised-button (click)="reset()">Reset</button>
+           
+           
+         
+         
+
+          <br>
+          <!-- <div class="note-corner">
+            <div class="row">
+              <input type="text" placeholder="Take a note..." class="note-input">
+            </div>
+          </div> -->
+           <!-- </form> -->
+          </div>
+          </div>
+        </div>
+      <form [formGroup]="docForm">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let Message of MessageIO; let indexNote=index">
+            <span style="padding: 2px;" >
+          <div class="NoteOutput" >
+           <textarea *ngIf="indexNote!=editIndex" [id]="indexNote" disabled> {{ Message.text }}</textarea>
+           <textarea *ngIf="indexNote==editIndex" [id]="indexNote"> {{ Message.text }}</textarea>
+           <span>
+            <i class="fa fa-edit"
+                (click)="EditNote(indexNote,Message)"
+                id="Form-Edit"></i>&nbsp;
+                <i class="fa fa-trash" (click)="RemoveNote(Message)" id="Form-Cancel" ></i>&nbsp;
+            </span>  
+            <span class="material-icons" *ngIf="indexNote==editIndex"(click)="EditMessage(Message,indexNote)">mode_edit</span>
+            </div>
+            </span>
+    
+          <div class="NoteOutput" *ngIf="showButton[indexNote] == true">
+          
+            </div>
+          
+
+            <!-- Edit button -->
+           <!-- <div *ngIf="showButtonEdit[indexNote] == true">
+            <form [formGroup]="docForm" (submit)="edit.value = ''">
+              <mat-form-field class=" form-control-sm" appearance="outline">
+             <textarea 
+             #Edit 
+            formControlName="messageEdit" class="FormInput"
+              name="EditMessageInput"
+              placeholder="Enter your edited Note"
+              id="Form-input"
+              id="Form-Edit"
+              *ngIf=" showButtonEdit[indexNote] == true">
+              </textarea>
+              </mat-form-field>
+             
+        </form>
+        <button class="FormInput" (click)="EditMessage(Message)">Edit Note</button>
+        </div> -->
+
+
+        </div>
+        </div>
+      </form>
+        
+
+

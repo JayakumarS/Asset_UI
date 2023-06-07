@@ -1,0 +1,17 @@
+<div class="note-corner">
+<div class="note">
+ <form [formGroup]="docForm" (submit)="note.value = ''">
+<textarea placeholder="Take a note..." class="note-input" matInput
+ #note
+(ngModel)="noteMessage"
+ formControlName="message"
+name="NoteMessage" id="Form-input"></textarea>
+</form>
+</div>
+<div>
+<button (click)="AddNote()" color="accent" style="background-color: #34d034;"type="button" class="btn-space"  mat-raised-button >Save</button>
+</div>
+</div>
+<div class="Form-div">
+<hr/>
+</div>

@@ -217,6 +217,11 @@ const routes: Routes = [
     import("./knowledge/knowledge.module").then((p) => p.KnowledgeModule),
   },
   
+  {
+    path: "notepad",
+    loadChildren: () =>
+    import("./notepad/notepad.module").then((p) => p.NotepadModule),
+  },
 
 ];
 
