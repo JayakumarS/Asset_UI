@@ -172,6 +172,12 @@ export class DateClickComponent implements OnInit {
        this.prePlanCalendarService.addPreplan(this.prePlanCalendar,this.router,this.notificationService);
       //  this.countryMasterService.addPrePlan(this.dateValue,this.router,this.notificationService);
        this.dialogRef.close();
+       this.showNotification(
+        "snackbar-success",
+        "Added Record Successfully...!!!",
+        "bottom",
+        "center"
+      );
        window.location.reload();
       //  window.sessionStorage.setItem("Open", "true");
     }
@@ -235,6 +241,12 @@ export class DateClickComponent implements OnInit {
        this.prePlanCalendarService.updateprePlan(this.prePlanCalendar,this.router,this.notificationService);
       //  this.countryMasterService.updatePreplan(this.dateValue,this.router,this.notificationService);
        this.dialogRef.close();
+       this.showNotification(
+        "snackbar-success",
+        "Updated Successfully...!!!",
+        "bottom",
+        "center"
+      );
        location.reload()
        this.router.navigate(['/master/prePlanCalendar/prePlanCalendar-list']);
     }
@@ -259,6 +271,12 @@ export class DateClickComponent implements OnInit {
        //this.router.navigate(['/crm/prePlanCalendar/prePlanCalendarList']);
       //  let currentUrl = this.router.url;
       //  this.router.navigate([currentUrl]);
+      this.showNotification(
+        "snackbar-success",
+        "Deleted Record Successfully...!!!",
+        "bottom",
+        "center"
+      );
        window.location.reload();
      }
   }
