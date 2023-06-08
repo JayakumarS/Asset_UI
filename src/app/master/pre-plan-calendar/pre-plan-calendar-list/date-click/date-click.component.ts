@@ -247,7 +247,7 @@ export class DateClickComponent implements OnInit {
         "bottom",
         "center"
       );
-       location.reload()
+      window.location.reload()
        this.router.navigate(['/master/prePlanCalendar/prePlanCalendar-list']);
     }
     else{
