@@ -1,15 +1,16 @@
 <div class="note-corner">
-<div class="note">
+<div class="note" style="padding:89px">
  <form [formGroup]="docForm" (submit)="note.value = ''">
 <textarea placeholder="Take a note..." class="note-input" matInput
  #note
 (ngModel)="noteMessage"
  formControlName="message"
-name="NoteMessage" id="Form-input"></textarea>
+name="NoteMessage" id="Form-input"style=width:275px;></textarea>
 </form>
 </div>
 <div>
-<button (click)="AddNote()" color="accent" style="background-color: #34d034;"type="button" class="btn-space"  mat-raised-button >Save</button>
+<button (click)="AddNote()" color="accent" style="background-color: #34d034;margin-left: 183px;
+margin-top: -58px;"type="button" class="btn-space"  mat-raised-button >Save</button>
 </div>
 </div>
 <div class="Form-div">
