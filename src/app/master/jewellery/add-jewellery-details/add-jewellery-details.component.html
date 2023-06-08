@@ -269,7 +269,7 @@
           <div class ="row">
 
        
-          <div class="col-md-4" style="min-width: fit-content;padding-bottom: 3%;">
+          <div class="col-md-5" style="min-width: fit-content;padding-bottom: 3%;">
             <mat-radio-group tabindex="21" formControlName="lockerInHand">
              
               <mat-radio-button value="LOCKER" (change)="getLOCKER($event.value)" >LOCKER</mat-radio-button>
@@ -301,9 +301,10 @@
           </mat-form-field>
          
         </div>  -->
-        <div class="col-xl-3 col-lg-2 col-md-2 col-sm-12 "*ngIf ="!MORTGAGE"style="padding-left: 115PX;" >
-          <label  *ngIf ="!LOCKER" style="margin-left: -18%;" >LOCATION</label>
-          <label  *ngIf ="LOCKER" style="margin-left: -18%;" >LOCKER LOCATION</label>
+
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "*ngIf ="!MORTGAGE" >
+          <label  *ngIf ="!LOCKER" >LOCATION</label>
+          <label  *ngIf ="LOCKER"  >LOCKER LOCATION</label>
 
       </div>
 
