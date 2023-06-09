@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../Message';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { NotePopupService } from './note-popup.service';
@@ -24,9 +24,10 @@ export class NotePopupComponent implements OnInit {
   index: number = 0;
   EditedMessage: string;
   docForm: FormGroup;
+  location: any;
   
 
-  constructor(public dialog: MatDialog,private fb: FormBuilder,private httpService: HttpServiceService, private noteService : NotePopupService,private notificationService: NotificationService,
+  constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<NotePopupComponent>,private fb: FormBuilder,private httpService: HttpServiceService, private noteService : NotePopupService,private notificationService: NotificationService,
     private router:Router) { }
 
   ngOnInit(): void {
@@ -45,6 +46,9 @@ export class NotePopupComponent implements OnInit {
       messageEdit:[""],
    })
   }
+
+  
+  
 
   AddNote() {
     //if (this.text != '') {
@@ -95,5 +99,9 @@ export class NotePopupComponent implements OnInit {
     }
     );
   }
+cancel(): void {
+      this.dialogRef.close();
+    } 
+      
 
 }
