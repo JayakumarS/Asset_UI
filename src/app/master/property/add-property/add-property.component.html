@@ -1260,6 +1260,9 @@
       <div class=" col-md-3">
         <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="mailId" maxlength="30">
+          <mat-error *ngIf="docForm.get('mailId').hasError('email')|| docForm.get('mailId').touched">
+           Please Enter Valid Mail ID
+           </mat-error> 
         </mat-form-field>
       </div>
         </div>

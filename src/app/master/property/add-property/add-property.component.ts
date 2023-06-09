@@ -206,7 +206,7 @@ export class AddPropertyComponent implements OnInit {
        transitionDate:[""],
        propWorth:[""],
        ownAddress:[""],
-       mailId:[""],
+       mailId:['', [ Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
        payStatus:[""],
        payAmt:[""],
        
@@ -644,7 +644,7 @@ this.fetchDetails(this.requestId);
 
 
         'preOwner':res.propertyBean.preOwner,
-        'preOwnername':res.propertyBean.preOwner,
+        'preOwnername':res.propertyBean.preOwnername,
         'transitionDateObj':hdate10,
         'transitionDate':res.propertyBean.transitionDate,
         'propWorth':res.propertyBean.propWorth,
