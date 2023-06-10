@@ -6,6 +6,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { NotePopupService } from './note-popup.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-note-popup',
@@ -27,7 +28,7 @@ export class NotePopupComponent implements OnInit {
   location: any;
   
 
-  constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<NotePopupComponent>,private fb: FormBuilder,private httpService: HttpServiceService, private noteService : NotePopupService,private notificationService: NotificationService,
+  constructor(public dialog: MatDialog,private token:TokenStorageService,public dialogRef: MatDialogRef<NotePopupComponent>,private fb: FormBuilder,private httpService: HttpServiceService, private noteService : NotePopupService,private notificationService: NotificationService,
     private router:Router) { }
 
   ngOnInit(): void {
@@ -62,7 +63,8 @@ export class NotePopupComponent implements OnInit {
 
       const obj={
         'text':this.docForm.controls.message.value,
-        'index': this.MessageIOObj.index
+        'index': this.MessageIOObj.index,
+        'userId': this.token.getUserId()
       }
       
     this.noteService.saveNote(obj,this.router,this.notificationService);

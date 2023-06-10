@@ -12,6 +12,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, map, merge } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 //import { Message } from 'src/app/angular-bot/chat.service';
 
 @Component({
@@ -34,7 +35,7 @@ export class NotepadComponent implements OnInit  {
   edited: any;
   searchInput: any;
   
-  constructor(private el:ElementRef,public dialog: MatDialog,private fb: FormBuilder,private httpService: HttpServiceService, private noteService : NotepadService,private notificationService: NotificationService,
+  constructor(private el:ElementRef, private token: TokenStorageService,public dialog: MatDialog,private fb: FormBuilder,private httpService: HttpServiceService, private noteService : NotepadService,private notificationService: NotificationService,
     private router:Router) {
     this.noteMessage = '';
     this.showButton = [];
@@ -43,7 +44,7 @@ export class NotepadComponent implements OnInit  {
 
   ngOnInit(): void {
   
-   this.httpService.get<any>(this.noteService.getList).subscribe({
+   this.httpService.get<any>(this.noteService.getList+"?UserId="+this.token.getUserId()).subscribe({
     
     next: (data) => {
       this.MessageIO=data;
@@ -78,7 +79,8 @@ export class NotepadComponent implements OnInit  {
 
       const obj={
         'text':this.docForm.controls.message.value,
-        'index': this.MessageIOObj.index
+        'index': this.MessageIOObj.index,
+        'userId':this.token.getUserId()
       }
       
 
