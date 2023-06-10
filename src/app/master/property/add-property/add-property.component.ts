@@ -67,6 +67,8 @@ export class AddPropertyComponent implements OnInit {
   isLease:boolean;
   isOwnProperty: boolean;
   hide = true;
+  submitted:boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -214,17 +216,17 @@ export class AddPropertyComponent implements OnInit {
 
        sampleDtl: this.fb.array([
         this.fb.group({
-          advance:[""],
+          advance:["",[Validators.required]],
           // dateToPayDate:[""],
           // dateToPayDateObj:[""],
 
           dateToPayDate: [moment().format('DD/MM/YYYY')],
           dateToPayDateObj: [moment().format('YYYY-MM-DD')],
-          rentAmount:[""],
-          tenantName:[""],
-          tenantIdcard:[""],
-          mobileNo:[""],
-          rentFloor:[""],
+          rentAmount:["",[Validators.required]],
+          tenantName:["",[Validators.required]],
+          tenantIdcard:["",[Validators.required]],
+          mobileNo:["",[Validators.required]],
+          rentFloor:["",[Validators.required]],
          
 
         })
@@ -263,6 +265,8 @@ export class AddPropertyComponent implements OnInit {
  }
  
  onSubmit():void{
+  this.submitted = true;
+
    this.property = this.docForm.value;
 
    let dtlArray = this.docForm.controls.sampleDtl as FormArray;
@@ -489,7 +493,6 @@ this.fetchDetails(this.requestId);
   const obj = {
     editId: requestId
   }
- 
   this.propertyService.editprop(obj).subscribe({
     next: (res) => {
       let hdate = this.cmnService.getDateObj(res.propertyBean.regDate);
@@ -696,6 +699,7 @@ this.fetchDetails(this.requestId);
 }
  
 update(){
+  this.submitted = true
 
   let dtlArray = this.docForm.controls.sampleDtl as FormArray;
    if(this.isRent && dtlArray.length >0){ 

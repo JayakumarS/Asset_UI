@@ -314,7 +314,19 @@ removeRowSelf(index){
      }
  
    }
-
+   onSubmitProfile(){
+    this.submitted = true;
+ 
+    if(this.docForm.valid){ 
+      this.mutualFundService.saveProfile1(this.docForm.value,this.notificationService);
+    } else {
+      this.notificationService.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right");
+    }
+   }
 
   fetchDetails(fundNo: any) {
     const obj = {

@@ -153,7 +153,34 @@ export class MutualFundService  extends UnsubscribeOnDestroyAdapter{
         
     });
   }
+  saveProfile1(profile,notificationService) {
+    this.dialogData = profile;
+    this.httpService.post<any>(this.saveProfileAll, profile).subscribe(data => {
+      console.log(data);
+      if(data.success){
+        notificationService.showNotification(
+          "snackbar-success",
+          "Updated Successfully...!!!",
+          "bottom",
+          "center"
+        );
+  
+        location.reload()
 
+      }else {
+        notificationService.showNotification(
+          "snackbar-danger",
+          "Not Updated!!!",
+          "bottom",
+          "center"
+        );
+      }
+
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
   editfund(obj: any): Observable<any> {
     return this.httpClient.post<any>(this.edit, obj);
   }
