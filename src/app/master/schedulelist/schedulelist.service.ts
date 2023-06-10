@@ -8,6 +8,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { schedule } from './schedulelist-model';
+import { scheduleresultbean } from './schedulelist-resultbean';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,7 +19,7 @@ const httpOptions = {
 
 export class SchedulelistService extends UnsubscribeOnDestroyAdapter {
   isTblLoading = true;
-
+  UserId: String;
    
   dataChange: BehaviorSubject<schedule[]> = new BehaviorSubject<schedule[]>(
     []
@@ -37,7 +38,11 @@ export class SchedulelistService extends UnsubscribeOnDestroyAdapter {
     return this.dialogData;
   }
   getNotificationList(object): void {
-    this.subs.sink = this.httpService.get<any>(this.getNotificationDetails +object).subscribe(
+
+    this.UserId=this.tokenStorage.getUserId();
+    
+    console.log(object);
+    this.subs.sink = this.httpService.get<scheduleresultbean>(this.getNotificationDetails+"?UserId="+this.UserId, object).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data.reminderreportList);

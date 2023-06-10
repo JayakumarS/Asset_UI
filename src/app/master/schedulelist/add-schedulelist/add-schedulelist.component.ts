@@ -21,6 +21,19 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { CommonService } from 'src/app/common-service/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
+
 @Component({
   selector: 'app-add-schedulelist',
   templateUrl: './add-schedulelist.component.html',
@@ -47,7 +60,7 @@ export class AddSchedulelistComponent extends UnsubscribeOnDestroyAdapter implem
    id: number;
    assetList:[];
    schedule: schedule;
- 
+   UserId:string
 
   
   constructor(
@@ -87,8 +100,17 @@ export class AddSchedulelistComponent extends UnsubscribeOnDestroyAdapter implem
    contextMenuPosition = { x: "0px", y: "0px" };
  
   ngOnInit(): void {
+    this.docForm = this.fb.group({
+      startDateObj: [""],
+      endDate: [""],
+      startDate: [""],
+      endDateObj: [""],
+      assetType:[""],
 
+    });
     this.loadData();
+
+    this.UserId = this.tokenStorage.getUserId();
   }
  
   
@@ -112,7 +134,7 @@ reset(){
     //startingDate:[""],
     endDateObj:[""],
     assetType:[""],
-    loginedUser:parseInt( this.tokenStorage.getUserId())
+    loginedUser: this.tokenStorage.getUserId()
 
   })
   this.onSubmit();
