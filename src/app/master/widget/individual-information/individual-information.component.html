@@ -234,9 +234,9 @@
                      </td>
                      <td>
                       <app-file-upload tabindex="63" appearance="outline" name="uploadImg{{i}}"formControlName="uploadImg" (change)="onSelectImage($event,i,'ArrayuploadImg')"></app-file-upload>
-                      <span *ngIf="edit && (imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
-                        <i class="far fa-file-alt docIcons"></i>{{imgPathUrl?.split('/').pop()}}
-                      <a class="downloadView" (click)="viewDocuments(imgPathUrl, imgPathUrl?.split('/').pop())">
+                      <span *ngIf="(proofDtl.get('uploadImg').value != undefined && proofDtl.get('uploadImg').value != null && proofDtl.get('uploadImg').value != '')">
+                        <i class="far fa-file-alt docIcons"></i>{{proofDtl.get('uploadImg').value?.split('/').pop()}}
+                      <a class="downloadView" (click)="viewDocuments(proofDtl.get('uploadImg').value, proofDtl.get('uploadImg').value?.split('/').pop())">
                         <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
                       </a>
                     </span>
