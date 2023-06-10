@@ -1355,9 +1355,8 @@
       <div class="card " style="padding-left: 40px;" *ngIf = "isRent">
         <br>
         <div class="row" *ngIf = "isRent">
-
+ 
           <mat-label style="margin-left: 45px;padding-bottom: 18px;margin-top: 7px;"><b>RENT DETAILS</b></mat-label>
-
         </div>
         <div style="overflow-x: auto;">
           <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
@@ -1394,23 +1393,21 @@
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>ADVANCE</mat-label>
                       <input matInput formControlName="advance"
-                      maxlength="20" (keypress)="keyPressNumeric($event)">
-                      <mat-error *ngIf="sampleDtl.get('advance').hasError('required')">
-                        Advance is required
-                       </mat-error> 
+                      maxlength="20" (keypress)="keyPressNumeric($event) " required>
+                      
                     </mat-form-field>
-                    <!-- <div *ngIf="submitted && sampleDtl.get('advance').hasError('required')" class="failed-validation" class="errorColor">Advance Name is required </div>  -->
+                    <div *ngIf="submitted && sampleDtl.get('advance').hasError('required')" class="failed-validation" class="errorColor">Advance Name is required </div> 
                   </td>
                 
                   <td class="padding-both-side-2">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> RENT AMOUNT</mat-label>
                       <input matInput formControlName="rentAmount"
-               maxlength="20" (keypress)="keyPressNumeric($event)">
-               <mat-error *ngIf="sampleDtl.get('rentAmount').hasError('required')">
-                Rent Amount is required
-               </mat-error> 
+               maxlength="20" (keypress)="keyPressNumeric($event)" required>
+         
                     </mat-form-field>
+                    <div *ngIf="submitted && sampleDtl.get('rentAmount').hasError('required') " class="failed-validation" class="errorColor">Rent Amount is required </div> 
+
                   </td>
 
                   <td class="padding-both-side-2">
@@ -1420,7 +1417,7 @@
                       formControlName="dateToPayDateObj"
                       (dateInput)="$event.value.format('DD/MM/YYYY')"
                       id="dateToPayDate"
-                      (dateChange)="getDateString($event, 'dateToPayDate',0)">
+                      (dateChange)="getDateString($event, 'dateToPayDate',0)" required>
                   <mat-datepicker-toggle matSuffix
                       [for]="picker8"></mat-datepicker-toggle>
                   <mat-datepicker #picker8></mat-datepicker>
@@ -1428,7 +1425,7 @@
                     Rent Paid On is required
                    </mat-error>  -->
                     </mat-form-field>
-                    <!-- <div *ngIf="submitted && sampleDtl.get('dateToPayDate').hasError('required')" class="failed-validation" class="errorColor"> Rent Paid Date is required </div> -->
+                    <div *ngIf="submitted && sampleDtl.get('dateToPayDateObj').hasError('required')" class="failed-validation" class="errorColor"> Rent Paid Date is required </div>
 
                     </td>
                     
@@ -1436,12 +1433,10 @@
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label> TENANT NAME</mat-label>
                       <input matInput formControlName="tenantName"
-             maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()">
-             <mat-error *ngIf="sampleDtl.get('tenantName').hasError('required')">
-              Tenant ID Card No is required
-             </mat-error>  
+             maxlength="20" (keypress)="keyPressName($event)" oninput="this.value = this.value.toUpperCase()" required>
+             
                     </mat-form-field>
-                    <!-- <div *ngIf="submitted && sampleDtl.get('tenantName').hasError('required')" class="failed-validation" class="errorColor"> Tenant Name is required </div> -->
+                    <div *ngIf="submitted && sampleDtl.get('tenantName').hasError('required')" class="failed-validation" class="errorColor"> Tenant Name is required </div>
                  </td>
 
 
@@ -1449,33 +1444,32 @@
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>TENANT ID CARD NO</mat-label>
                     <input matInput formControlName="tenantIdcard"
-                    maxlength="12"  (keypress)="keyPressNumeric($event)" >
-                   <mat-error *ngIf="sampleDtl.get('tenantIdcard').hasError('required')">
-                     Tenant ID Card No is required
-                    </mat-error>  
+                    maxlength="12"  (keypress)="keyPressNumeric($event)" required >
+                   
                   </mat-form-field>
-                  
+                  <div *ngIf="submitted && sampleDtl.get('tenantIdcard').hasError('required')" class="failed-validation" class="errorColor">Tenant ID Card No is required </div> 
+
               </td>
               <td class="padding-both-side-2">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>MOBILE NO</mat-label>
                   <input matInput formControlName="mobileNo"
-                  maxlength="10" (keypress)="keyPressNumeric($event)">
-                 <mat-error *ngIf="sampleDtl.get('mobileNo').hasError('required')">
-                   Mobile No is required
-                  </mat-error>
+                  maxlength="10" (keypress)="keyPressNumeric($event)" required>
+                 
                  </mat-form-field>
+                 <div *ngIf="submitted && sampleDtl.get('mobileNo').hasError('required')" class="failed-validation" class="errorColor">Mobile No is required </div> 
+
                 </td>
 
                  <td class="padding-both-side-2">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>FLOOR</mat-label>
                     <input matInput formControlName="rentFloor"
-                    maxlength="10" (keypress)="keyPressNumeric($event)">
-                   <mat-error *ngIf="sampleDtl.get('rentFloor').hasError('required')">
-                     FLOOR is required
-                    </mat-error>
+                    maxlength="10" (keypress)="keyPressNumeric($event)" required>
+                  
                    </mat-form-field>
+                   <div *ngIf="submitted && sampleDtl.get('rentFloor').hasError('required')" class="failed-validation" class="errorColor">Floor is required </div> 
+
                </td>
             </tr>
               </tbody>
