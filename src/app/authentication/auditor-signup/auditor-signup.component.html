@@ -1,0 +1,109 @@
+
+
+<div class="auth-container">
+    <div class="row auth-main">
+      <div class="col-sm-6 px-0 d-none d-sm-block">
+        <div class="left-img" style="background-image: url(assets/images/banner/assetchek.png);">
+        </div>
+      </div>
+      <div class="col-sm-6 auth-form-section">
+        <div class="form-section">
+          <div class="auth-wrapper">
+            <h2 class="welcome-msg" style="color:#352D71"> Registration </h2>
+            <p class="auth-signup-text text-muted">Enter details to create your Auditor account</p>
+            <form class="validate-form"   [formGroup]="authForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" maxlength="25" (keypress)="keyPressName($event)" required>
+                    <mat-icon matSuffix>face</mat-icon>
+                    <mat-error *ngIf="authForm.get('name').hasError('required')">
+                     Name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+                          <div class="row">
+                            <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                              <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="emailId" (blur)="validateEmail($event.target.value)" required>
+                               <mat-icon matSuffix>mail</mat-icon>
+                               <mat-error *ngIf="authForm.get('emailId').hasError('emailId')">
+                                Email ID Already Exists !!!
+                              </mat-error>
+                              <mat-error *ngIf="authForm.get('emailId').hasError('required') || authForm.get('emailId').touched">
+                                Please enter a valid email address
+                              </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+
+                          <div class="row">
+                            <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                              <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Contact Number</mat-label>
+                                <input matInput formControlName="telephoneNo" maxlength="10" (keypress)="keyPressNumeric1($event)" required>
+                                <mat-icon matSuffix>phone</mat-icon>
+                                <mat-error *ngIf="authForm.get('telephoneNo').hasError('required') || authForm.get('telephoneNo').touched">
+                                  Please enter a valid Phone Number
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+
+                <div class="row">
+                    <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <!-- <input matInput formControlName="address" required> -->
+                        <mat-label>Address</mat-label>
+                        <textarea matInput formControlName="address"></textarea>
+                        <mat-error *ngIf="authForm.get('address').hasError('required')">
+                          Address is required
+                        </mat-error>
+                        
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="country">
+                            <mat-option *ngFor="let title of countryDdList" [value]="title.id">
+                                {{title.text}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="authForm.get('country').hasError('required')">
+                          Country is required
+                        </mat-error>
+                        <!-- <mat-error *ngIf="authForm.get('country').hasError('required') || authForm.get('country').touched">
+                          Please select a country name
+                        </mat-error> -->
+                    </mat-form-field>
+                    </div>
+                  </div>
+
+                
+
+                  <div class="container-auth-form-btn">
+                    <button mat-flat-button color="primary" class="auth-form-btn" [disabled]="!authForm.valid "   type="submit">
+                      Register
+                    </button>
+                  </div>
+                  
+                  <div class="flex-sb-m w-full  p-b-20">
+                    <div>
+                      <span>Already Registered? <a routerLink="/authentication/signin">
+                          Login
+                        </a></span>
+                    </div>
+                  </div>
+                              
+
+</form>
+

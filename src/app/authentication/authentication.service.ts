@@ -33,7 +33,8 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
 
   public saveCompany = `${this.serverUrl.apiServerAddress}api/auth/app/company/saveCompanySignUp`;
   public saveIndividual = `${this.serverUrl.apiServerAddress}api/auth/app/individual/saveForm`;
-  
+  public saveAuditor = `${this.serverUrl.apiServerAddress}api/auth/app/individual/saveAuditorForm`;
+
   get data(): Authentication[] {
     return this.dataChange.value;
   }
@@ -61,6 +62,40 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
       this.showNotification(
         "snackbar-danger",
         "Company Registration Unsuccessful!!!",
+        "bottom",
+        "center"
+      );
+    }
+    
+        // router.navigate(['/master/company/listCompany']);
+     
+      //this.dialogData = employees;
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
+  addAuditorSignUp(authentication,router): void {
+    this.dialogData = authentication;
+    this.spinner.show();
+    this.httpService.post<any>(this.saveAuditor, authentication).subscribe(data => {
+      console.log(data);
+      if(data.success){
+        this.spinner.hide();
+
+        this.showNotification(
+          "snackbar-success",
+          "Auditor Registered Successfully. Your login credentials are sent to the provided email id.",
+          "bottom",
+          "center"
+        );
+        this.router.navigate(["/authentication/signin"]);
+      }
+      
+     else{
+      this.showNotification(
+        "snackbar-danger",
+        "Auditor Registration Unsuccessful!!!",
         "bottom",
         "center"
       );
