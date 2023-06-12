@@ -42,6 +42,7 @@ export class CategoryMasterService extends UnsubscribeOnDestroyAdapter {
 
    public Assetcategory = `${this.serverUrl.apiServerAddress}api/auth/app/assetcategory/getCategoryList`;
 
+   public getReferralListByUser = `${this.serverUrl.apiServerAddress}api/auth/app/company/getReferralListByUser`;
    
    
 get data(): Assetcategory[] {

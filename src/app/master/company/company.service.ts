@@ -73,7 +73,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
     this.dialogData = company;
     this.httpService.post<Company>(this.saveCompany, company).subscribe(data => {
       console.log(data);
-      if(data.Success=true){
+      if(data.Success){
         notificationService.showNotification(
           "snackbar-success",
           "Record Added successfully...!!!",
@@ -161,7 +161,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
 getAllList(): void {
   this.UserId=this.tokenStorage.getCompanyId();
   this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters
-    +"?UserId="+this.UserId).subscribe(
+    +"?UserId="+this.tokenStorage.getUserId()).subscribe(
     (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.companyMasterDetails);

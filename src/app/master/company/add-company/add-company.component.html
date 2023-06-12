@@ -25,7 +25,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="companyName" required readonly>
+                      <input matInput formControlName="companyName" required>
                       <mat-error *ngIf="docForm.get('companyName').hasError('required')">
                         Company Name is required
                       </mat-error>
@@ -37,7 +37,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="shortName" (keypress)="keyPressName($event)" required readonly>
+                      <input matInput formControlName="shortName" (keypress)="keyPressName($event)" required>
                     </mat-form-field>
                   </div>
                 </div>
@@ -48,7 +48,7 @@
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="emailId" required readonly>
+                      <input matInput formControlName="emailId" required>
                       <mat-error *ngIf="docForm.get('emailId').hasError('required')">
                         Email Id is required
                       </mat-error>
@@ -395,6 +395,20 @@
                     <app-file-upload tabindex="23" class="example-width form-control-sm" formControlName="companyLogo" (change)="onSelectFile($event)" ></app-file-upload>
                     
                   </div>
+
+                  <div class="col-md-2" style="margin-top: 2%;" *ngIf="roleId=='3'">
+                    <mat-label>Referral Code </mat-label>
+                  </div>
+                  <div class="col-md-3" style="margin-top: 2%;" *ngIf="roleId=='3'">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select formControlName="referralCode">
+                        <mat-option *ngFor="let title of referralList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
                 </div>
                 <div class="row" style="margin-top: -20px;" *ngIf="(logoPathUrl != undefined && logoPathUrl != null && logoPathUrl != '')">
                   <div class="iconCard" style="margin-left: 15.6%;">

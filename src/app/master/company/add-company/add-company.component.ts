@@ -68,9 +68,10 @@ export class AddCompanyComponent implements OnInit {
   regDistrictList= [];
   regCountryList=[];
   regCityList=[];
+  referralList=[];
   editDetails: any;
-
-
+   
+  roleId:any;
   
   tabEmp = [{ content: ListCompanyEmployeesComponent }];
   tabDept = [{ content: ListDepartmentMasterComponent}];
@@ -129,6 +130,7 @@ export class AddCompanyComponent implements OnInit {
       addressTwoZipCode: [""],
       companyLogo:[""],
       branchCount: [""],
+      referralCode:[""],
       branchList: this.fb.array([
         this.fb.group({
           branch: [""],
@@ -142,7 +144,7 @@ export class AddCompanyComponent implements OnInit {
           branchCity: [""],
           branchZipcode: [""],
           branchPhoneNo: [""],
-          gstFlag:[true]
+          gstFlag:[true],
         })
       ]),
     });
@@ -153,6 +155,7 @@ export class AddCompanyComponent implements OnInit {
   ngOnInit(): void {
     this.docForm
     this.userId = this.tokenStorage.getUserId();
+    this.roleId=this.tokenStorage.getRoleId();
     // Country dropdown
     this.companyId=0;
     this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
@@ -192,6 +195,17 @@ export class AddCompanyComponent implements OnInit {
         this.docForm.patchValue({
           'depreciation':52
         })
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    
+    );
+
+
+    this.httpService.get<any>(this.categoryMasterService.getReferralListByUser+"?userId="+this.tokenStorage.getUserId()).subscribe(
+      (data) => {
+        this.referralList = data.companyMasterDetails;
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -610,6 +624,7 @@ export class AddCompanyComponent implements OnInit {
           'addressTwoDistrict':res.companyBean.addressTwoDistrict,
           'branchCount': res.companyBean.branchCount,
           'companyLogo':res.companyBean.companyLogo,
+          'referralCode':res.companyBean.referralCode
         })
 
         this.valueCountry();
