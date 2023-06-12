@@ -203,7 +203,7 @@ text='';
                 else if (data.userDetails.roleId == 6) {
                   this.router.navigate(["/payments/initiatePayment/subscription"]);
               }else if(data.userDetails.roleId == 3){
-                this.router.navigate(["/audit/scheduledaudits/list-scheduledaudits"]);
+                this.router.navigate(["/master/company/listCompany"]);
               }
 
               }, 1000);
