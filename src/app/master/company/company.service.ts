@@ -71,9 +71,9 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
 
   addCompany(company: Company,router,notificationService): void {
     this.dialogData = company;
-    this.httpService.post<Company>(this.saveCompany, company).subscribe(data => {
+    this.httpService.post<Company>(this.saveCompany, company).subscribe((data:any) => {
       console.log(data);
-      if(data.Success){
+      if(data.success){
         notificationService.showNotification(
           "snackbar-success",
           "Record Added successfully...!!!",
