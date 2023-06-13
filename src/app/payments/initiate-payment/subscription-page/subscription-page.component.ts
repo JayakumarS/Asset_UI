@@ -51,6 +51,8 @@ export class SubscriptionPageComponent implements OnInit {
   subType: any;
   userId : String;
   audcurrency : any;
+  strikeOutFlag: boolean = false;
+  oldstdAmt: string;
 
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
@@ -76,7 +78,6 @@ export class SubscriptionPageComponent implements OnInit {
   ngOnInit(): void {
     this.getNoOfUsers();
     this.loading = true;
-    
   }
 
   //no of users
@@ -97,6 +98,8 @@ export class SubscriptionPageComponent implements OnInit {
           this.docForm.patchValue({noOfUsers: 1});
           this.changeCurrency(this.audcurrency);
         }
+
+        this.oldstdAmt=this.stdAmt;
         //res.audCurrency;
 
     //     //multiply the no of users with amount
@@ -115,8 +118,6 @@ export class SubscriptionPageComponent implements OnInit {
   }
 
   changeCurrency(currency){
-
-
     if(currency=="INR"){
       if (this.refPercent != 0 && this.refPercent != undefined){
         let innum = 50000 * this.users;
@@ -458,7 +459,9 @@ export class SubscriptionPageComponent implements OnInit {
     rzp.open();
   }
 
-  verifyPromoCode(promoCode){
+  verifyPromoCode(){
+
+    var promoCode = this.docForm.controls.promotionCode.value;
     
     if(promoCode!=""){
       
@@ -478,6 +481,7 @@ export class SubscriptionPageComponent implements OnInit {
               "top",
               "right"
             );
+            this.strikeOutFlag=true;
           }else{
             this.docForm.patchValue({
               promotionCode: [""],
@@ -489,6 +493,7 @@ export class SubscriptionPageComponent implements OnInit {
               "top",
               "right"
             );
+            this.strikeOutFlag=false;
           }
       },
         (err: HttpErrorResponse) => {

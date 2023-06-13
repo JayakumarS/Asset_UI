@@ -51,7 +51,9 @@
                       <div class="pricingTable blueColor">
                         <div class="pricingTable-header">
                           <i class="material-icons">spa</i>
-                          <div class="price-value"> {{stdAmt}}.00
+                          <div class="price-value"> 
+                           <span *ngIf="strikeOutFlag" style="text-decoration: line-through;">{{oldstdAmt}}.00 <br> </span> 
+                           <span>{{stdAmt}}.00</span>
                            
                           </div>
                         </div>
@@ -68,10 +70,13 @@
                           </ul>
                         </div>
                         <div >
-                          <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                          <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px; margin-left: 136px;">
                               <mat-label >Promotion Code</mat-label>
-                              <input matInput formControlName="promotionCode" (keypress)="keyPressNameNumber($event)" (change)="verifyPromoCode($event.target.value)">
+                              <input matInput formControlName="promotionCode" (keypress)="keyPressNameNumber($event)">
                           </mat-form-field>
+
+                          <a href="javascript:void(0);" style="text-decoration:none;" (click)="verifyPromoCode()">Apply Promo Code</a>
+
                           
                       </div>
                         <div class="pricingTable-signup">
