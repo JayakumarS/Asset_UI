@@ -50,7 +50,8 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   
   public getCompanyEnployee= `${this.serverUrl.apiServerAddress}api/auth/app/company/getcompanyEmployee`;
 
- 
+  public getPersonIncharge= `${this.serverUrl.apiServerAddress}api/auth/app/company/personIncharge`;
+
 
   get data(): Company[] {
     return this.dataChange.value;
