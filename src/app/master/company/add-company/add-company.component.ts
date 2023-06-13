@@ -81,6 +81,8 @@ export class AddCompanyComponent implements OnInit {
   tabLine=[{ content: ListLineMasterComponent}];
   tabItem=[{ content: ListItemMasterComponent}];
   countryCode: any;
+  personInchargelist: any;
+  userName: string;
 
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
@@ -203,6 +205,8 @@ export class AddCompanyComponent implements OnInit {
     );
 
 
+    this.userId = this.tokenStorage.getUserId();
+
     this.httpService.get<any>(this.categoryMasterService.getReferralListByUser+"?userId="+this.tokenStorage.getUserId()).subscribe(
       (data) => {
         this.referralList = data.companyMasterDetails;
@@ -232,6 +236,22 @@ export class AddCompanyComponent implements OnInit {
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
+    );
+
+
+    this.userName = this.tokenStorage.getUsername();
+
+    this.httpService.get<any>(this.companyService.getPersonIncharge+ "?userName="+this.tokenStorage.getUsername()).subscribe(
+      (data) => {
+          console.log(data);
+          this.docForm.patchValue({
+            'shortName':data.data
+          })
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    
     );
 
     this.route.params.subscribe(params => {

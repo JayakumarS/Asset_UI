@@ -378,7 +378,7 @@ configUserLog: {
 
     //User Log Report List
     
-    this.httpService.get<AuditableAssetResultBean>(this.mainService.userLogListUrl+ "?companyId=" + this.companyId).subscribe(
+    this.httpService.get<AuditableAssetResultBean>(this.mainService.userLogListUrl+ "?companyId=" + this.companyId +"&userId=" + this.tokenStorage.getUsername() +"&RoleId=" + this.tokenStorage.getRoleId()).subscribe(
       (data) => {
         this.userLogListDashboard = data.getUserLogListForDashboard;
         this.configUserLog = {

@@ -180,7 +180,7 @@ export class HeaderComponent
 
     this.roleBasedImgUrl = this.token.getRoleText();
     if (this.roleId === "3") {
-      this.homePage = "audit/scheduledaudits/list-scheduledaudits";
+      this.homePage = "master/company/listCompany";
     } else if (this.roleId === "2") {
       this.homePage = "admin/dashboard/main";
     } else if (this.roleId === "4") {
