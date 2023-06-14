@@ -15,6 +15,7 @@ import * as moment from 'moment';
 import { GrnService } from '../../grn/grn.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PurchaseOrderService } from '../../purchase-order/purchase-order.service';
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -63,6 +64,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   locationDdList:[];
   purchaseOrderNumber = [];
   totalValue1: number;
+  filePathUrl: any;
+  uploadFile: boolean = false;
+
+  private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
+
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -75,7 +81,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
     public purchaseOrderService: PurchaseOrderService,
-    private grnService: GrnService) {
+    private grnService: GrnService, private serverUrl: serverLocations) {
 
     this.docForm = this.fb.group({
       purchaseInvoiceNo: [""],
@@ -98,6 +104,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       loginedUser: this.tokenStorage.getUserId(),
       companyId: this.tokenStorage.getCompanyId(),
       branchId: this.tokenStorage.getBranchId(),
+      uploadFiles: [""],
       // purchaseOrderId:[""],
 
 
@@ -243,6 +250,74 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
 
+   //FOR DOCUMENT UPLOAD ADDED BY Gokul
+   onSelectFile(event) {
+    var docfile = event.target.files[0];
+    if (!this.acceptFileTypes.includes(docfile.type)) {
+      this.docForm.get('uploadFiles').setValue("");
+      this.showNotification(
+        "snackbar-danger",
+        ".pdf, .jpg, .png only allowed",
+        "top",
+        "right"
+      );
+      return;
+    }
+    if (docfile.size > 5242880) {
+      this.docForm.get('uploadFiles').setValue("");
+      this.showNotification(
+        "snackbar-danger",
+        "Please upload valid image with less than 5mb",
+        "top",
+        "right"
+      );
+      return;
+    }
+    var fileExtension = docfile.name;
+    var frmData: FormData = new FormData();
+    frmData.append("file", docfile);
+    frmData.append("fileName", fileExtension);
+    frmData.append("folderName", "PurchaseInvoiceFile");
+
+    this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
+      next: (data) => {
+        if (data.success) {
+          if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+            this.docForm.patchValue({
+              'uploadFiles': data.filePath
+            })
+            this.filePathUrl = data.filePath;
+            this.uploadFile = true;
+          }
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Failed to upload File",
+            "top",
+            "right"
+          );
+        }
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload File",
+          "top",
+          "right"
+        );
+      }
+    });
+  }
+
+  viewDocuments(filePath: any, fileName: any) {
+    var a = document.createElement("a");
+    a.href = this.serverUrl.apiServerAddress + "asset_upload/" + filePath;
+    a.target = '_blank';
+    a.download = fileName;
+    a.click();
+  }
+
+
   fetchDetails(id: any): void {
     const obj = {
       editId: id
@@ -254,6 +329,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         let hpurchaseInvoiceDate = this.commonService.getDateObj(res.purchaseInvoice.purchaseInvoiceDate);
         let hpartyInvoiceDate = this.commonService.getDateObj(res.purchaseInvoice.partyInvoiceDate);
         let hdueDate = this.commonService.getDateObj(res.purchaseInvoice.dueDate);
+
+        if (res.purchaseInvoice.uploadFiles != undefined && res.purchaseInvoice.uploadFiles != null && res.purchaseInvoice.uploadFiles != '') {
+          this.filePathUrl = res.purchaseInvoice.uploadFiles;
+        }
 
         this.docForm.patchValue({
           'purchaseInvoiceId': res.purchaseInvoice.purchaseInvoiceId,
@@ -274,6 +353,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           // 'total': Number(res.purchaseInvoice.total).toFixed(2),
           'total' : res.purchaseInvoice.total,
           'exchangerate': res.purchaseInvoice.exchangerate,
+          'uploadFiles': res.purchaseInvoice.uploadFiles,
         });
         if (res.purchaseInvoiceDetailList != null && res.purchaseInvoiceDetailList.length >= 1) {
           let purchaseInvoiceDtlArray = this.docForm.controls.purchaseInvoiceDetailList as FormArray;
