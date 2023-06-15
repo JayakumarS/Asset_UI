@@ -867,7 +867,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   yearValidation(event:any){
-    if(parseInt(event) <=365)
+    if(parseInt(event) <=366)
       {
         this.docForm.controls['noOFdaysYear'].setErrors(null);
 
