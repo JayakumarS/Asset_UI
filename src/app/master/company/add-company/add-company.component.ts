@@ -525,11 +525,21 @@ export class AddCompanyComponent implements OnInit {
   }
 
   addBranch() {
+    
+    for(let k = 0; k < this.docForm.value.branchCount; k++){
+      //this.fetchDynamicDropDown(null,k);  
+          this.dynamicDropDownList.push([]);
+          this.dynamicDropDownList[k][0] = [];
+          this.dynamicDropDownList[k][1] =[];
+          this.dynamicDropDownList[k][2] = [];
+          this.dynamicDropDownList[k][3] = [];
+    }
 
     if ((parseInt(this.docForm.value.branchCount)) > this.docForm.controls.branchList.value.length) {
       for (let i = 0; i < this.docForm.value.branchCount - this.docForm.controls.branchList.value.length; ) {
         if ((parseInt(this.docForm.value.branchCount) - this.docForm.controls.branchList.value.length) <= 10) {
           this.flag = true;
+           
           let branchListDetailArray = this.docForm.controls.branchList as FormArray;
           let arraylen = this.docForm.value.branchCount - this.docForm.controls.branchList.value.length;
           let newUsergroup: FormGroup = this.fb.group({

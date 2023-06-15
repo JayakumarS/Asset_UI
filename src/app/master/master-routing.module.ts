@@ -222,6 +222,12 @@ const routes: Routes = [
     loadChildren: () =>
     import("./notepad/notepad.module").then((p) => p.NotepadModule),
   },
+  
+  {
+    path: "financial",
+    loadChildren: () =>
+    import("./financial-year/financial-year.module").then((p) => p.FinancialYearModule),
+  },
 
 ];
 
