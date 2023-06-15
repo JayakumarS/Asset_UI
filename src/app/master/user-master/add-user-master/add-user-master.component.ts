@@ -550,7 +550,7 @@ update() {
             if (data) {
               this.showNotification(
                 "snackbar-success",
-                "update Record Successfully",
+                "updated Record Successfully",
                 "bottom",
                 "center"
               );
@@ -601,7 +601,7 @@ update() {
               if (data.success) {
                 this.showNotification(
                   "snackbar-success",
-                  "update Record Successfully",
+                  "updated Record Successfully",
                   "bottom",
                   "center"
                 );
