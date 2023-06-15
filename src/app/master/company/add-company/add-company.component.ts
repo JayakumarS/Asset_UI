@@ -768,15 +768,15 @@ export class AddCompanyComponent implements OnInit {
     }
   }
 
-  // validateEmail(event){
-  //   this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
-  //     if (res){
-  //       this.docForm.controls['emailId'].setErrors({ employee: true });
-  //     }else{
-  //      // this.docForm.controls['emailId'].setErrors(null);
-  //     }
-  //   });
-  // }
+  validateEmail(event){
+    this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
+      if (res.validateEmail) {
+        this.docForm.controls['emailId'].setErrors({ employee: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
 
 
 
@@ -877,7 +877,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   yearValidation(event:any){
-    if(parseInt(event) <=365)
+    if(parseInt(event) <=366)
       {
         this.docForm.controls['noOFdaysYear'].setErrors(null);
 

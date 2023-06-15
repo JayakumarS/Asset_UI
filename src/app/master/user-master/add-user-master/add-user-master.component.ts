@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CompanyService } from '../../company/company.service';
 
 
 @Component({
@@ -53,6 +54,7 @@ export class AddUserMasterComponent implements OnInit {
                private userMasterService: UserMasterService,
                private snackBar: MatSnackBar,
                public router: Router,
+               public companyService: CompanyService
                ) {
     this.docForm = this.fb.group({
       fullName: ["", [Validators.required]],
@@ -548,7 +550,7 @@ update() {
             if (data) {
               this.showNotification(
                 "snackbar-success",
-                "update Record Successfully",
+                "updated Record Successfully",
                 "bottom",
                 "center"
               );
@@ -599,7 +601,7 @@ update() {
               if (data.success) {
                 this.showNotification(
                   "snackbar-success",
-                  "update Record Successfully",
+                  "updated Record Successfully",
                   "bottom",
                   "center"
                 );
@@ -687,14 +689,15 @@ update() {
 
   validateEmail(event) {
     if (event != undefined && event != null && event != "") {
-      
-      this.httpService.get<any>(this.userMasterService.uniqueValidateUrl + "?emailId=" + event).subscribe((res: any) => {
+      this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
         if (res.validateEmail) {
-          this.authForm.controls['emailId'].setErrors({ emailId: true });
+          this.docForm.controls['emailId'].setErrors({ employee: true });
+        }else{
+         // this.docForm.controls['emailId'].setErrors(null);
         }
       });
-    }
   }
+}
 
 
 keyPressNumeric(event: any) {
