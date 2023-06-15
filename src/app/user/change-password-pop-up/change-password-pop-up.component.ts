@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { MustMatch } from '../mustMatch';
 import { PasswordStrengthValidator } from '../passwordPolicy';
 import { AppService } from 'src/app/app.service';
+import { CompanyMapPopupComponent } from 'src/app/admin/dashboard/main/company-map-popup/company-map-popup.component';
 
 @Component({
   selector: 'app-change-password-pop-up',
@@ -47,7 +48,9 @@ export class ChangePasswordPopUpComponent implements OnInit {
       this.httpService.post<any>(this.commonService.updateChangePasswordUrl,obj).subscribe(data => {
         console.log(data);
         if(data.success){
+
           this.dialogRef.close();
+
           this.commonService.showNotification(
             "snackbar-success",
             "Password Updated...!!!",
@@ -55,10 +58,11 @@ export class ChangePasswordPopUpComponent implements OnInit {
             "center"
           );
           this.tokenStorage.signOut();
+
           this.app.SetName('');
           localStorage.removeItem("currentUser");
           this.router.navigate(['/authentication/signin']);
-      
+
 
         }
         },
