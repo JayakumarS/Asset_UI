@@ -689,9 +689,8 @@ update() {
 
   validateEmail(event) {
     if (event != undefined && event != null && event != "") {
-      
-      this.httpService.get<any>(this.companyService.uniqueValidateUrl + "?tableName=" + "employee" + "&columnName=" + "email_id" + "&columnValue=" + event).subscribe((res: any) => {
-        if (res){
+      this.httpService.get<any>(this.companyService.uniqueValidateEmail + "?emailId=" + event).subscribe((res: any) => {
+        if (res.validateEmail) {
           this.docForm.controls['emailId'].setErrors({ employee: true });
         }else{
          // this.docForm.controls['emailId'].setErrors(null);
