@@ -469,12 +469,12 @@ export class SubscriptionPageComponent implements OnInit {
           if(data.success){
             
             //get promocode percentage  
-            this.httpService.get<any>(this.subscriptionPageService.getPromoCodePercent+"?promoCode="+promoCode).subscribe(res => {
+            this.httpService.get<any>(this.subscriptionPageService.getPromoCodePercent+"?promoCode="+promoCode+"&userId="+this.userId).subscribe(res => {
               if(res.success){
                 this.refPercent = res.percentage/100;
                 this.changeCurrency(this.audcurrency);
               }
-            });
+         
             this.showNotification(
               "snackbar-success",
               "Promocode is valid",
@@ -482,6 +482,8 @@ export class SubscriptionPageComponent implements OnInit {
               "right"
             );
             this.strikeOutFlag=true;
+
+          });
           }else{
             this.docForm.patchValue({
               promotionCode: [""],
