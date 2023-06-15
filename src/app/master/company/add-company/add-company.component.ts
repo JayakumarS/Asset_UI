@@ -102,7 +102,7 @@ export class AddCompanyComponent implements OnInit {
     this.docForm = this.fb.group({
       companyName: ["", [Validators.required]],
       shortName: ["", [Validators.required]],
-      emailId: ["", [Validators.required]],
+      emailId: ["", [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       phoneCode: [""],
       telephoneNo: ["", [Validators.required]],
       webSite: ["", Validators.pattern('^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$')],

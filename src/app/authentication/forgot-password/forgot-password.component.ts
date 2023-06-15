@@ -56,9 +56,7 @@ export class ForgotPasswordComponent implements OnInit {
   onSubmit(){
     if(this.authForm.valid){
       this.loginInfo = new AuthLoginInfo(
-        this.f.username.value, this.f.password.value,this.f.emailId.value,this.f.recaptchaResponse.value
-
-        );
+        this.f.username.value, this.f.password.value,this.f.emailId.value);
       this.authService.forgotPasswordService(this.loginInfo).subscribe(
         data => {        
          if(data) {
