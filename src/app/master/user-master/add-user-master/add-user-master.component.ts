@@ -29,8 +29,8 @@ export class AddUserMasterComponent implements OnInit {
   branchList = [];
   roleAuditList = [];
   roleList = [];
-  getUserBasedCompanyList:any = [];
-  getUserBasedBranchList = [];
+  getBasedCompanyList:any = [];
+  getBasedBranchList = [];
   departmentAuditList= [];
   location:any;
   language: any;
@@ -134,7 +134,7 @@ export class AddUserMasterComponent implements OnInit {
 
     this.companyId = this.tokenStorage.getCompanyId(),
     this.httpService.get(this.userMasterService.fetchBranch + "?companyId=" + this.companyId).subscribe((res: any) => {
-      this.getUserBasedBranchList = res.getUserBasedBranchList;
+      this.getBasedBranchList = res.getUserBasedBranchList;
 
     },
       (err: HttpErrorResponse) => {
@@ -234,8 +234,8 @@ export class AddUserMasterComponent implements OnInit {
     this.httpService.get<any>(this.userMasterService.companyListUrl + "?userId=" + this.userId).subscribe(
     (data) => {
 
-      if(data.getUserBasedCompanyList>0){
-        this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+      if(data.getUserBasedCompanyList.length>0){
+        this.getBasedCompanyList = data.getUserBasedCompanyList;
       } else {
          let companyText=this.tokenStorage.getCompanyText();
          let companyId=this.tokenStorage.getCompanyId();
@@ -245,7 +245,7 @@ export class AddUserMasterComponent implements OnInit {
             text:companyText
            }
 
-           this.getUserBasedCompanyList.push(obj);
+           this.getBasedCompanyList.push(obj);
         }
 
       }
