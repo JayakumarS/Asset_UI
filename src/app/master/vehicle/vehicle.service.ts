@@ -63,7 +63,13 @@ savevehicle(vehicleMaster,router,notificationService){
         "bottom",
         "center"
       );
-     router.navigate(['/master/vehicle/list-vehicle']);
+      if(window.sessionStorage.getItem("vehicleFrom")=="vehicle"){
+        window.sessionStorage.setItem("vehicleFrom","");
+       router.navigate(['/master/multiple/allMaster/0']);
+      }else if(window.sessionStorage.getItem("vehicleFrom")=="normal"){
+        window.sessionStorage.setItem("vehicleFrom","");
+       router.navigate(['/master/vehicle/list-vehicle']);
+      }               
     }else {
       notificationService.showNotification(
         "snackbar-danger",
@@ -95,7 +101,12 @@ updatevehicle(vehicleMaster,router,notificationService){
         "bottom",
         "center"
       );
-         router.navigate(['/master/vehicle/list-vehicle']);
+      if(window.sessionStorage.getItem("vehicleFrom")=="vehicle"){
+        window.sessionStorage.setItem("vehicleFrom","");
+       router.navigate(['/master/multiple/allMaster/0']);
+      }else if(window.sessionStorage.getItem("vehicleFrom")=="normal"){
+        window.sessionStorage.setItem("vehicleFrom","");
+      }
     }else {
       notificationService.showNotification(
         "snackbar-danger",
