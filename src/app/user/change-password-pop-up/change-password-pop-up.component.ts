@@ -50,6 +50,7 @@ export class ChangePasswordPopUpComponent implements OnInit {
         if(data.success){
 
           this.dialogRef.close();
+         
 
           this.commonService.showNotification(
             "snackbar-success",
@@ -57,6 +58,7 @@ export class ChangePasswordPopUpComponent implements OnInit {
             "bottom",
             "center"
           );
+          location.reload();
           this.tokenStorage.signOut();
 
           this.app.SetName('');

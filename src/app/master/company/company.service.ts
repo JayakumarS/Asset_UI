@@ -107,7 +107,10 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
         "center"
       );
       if (logoPathUrl != undefined && logoPathUrl != null && logoPathUrl != '') {
-        this.tokenStorage.saveCompanyLogo(this.serverUrl.apiServerAddress+"asset_upload/"+logoPathUrl);
+        if(this.tokenStorage.getRoleId()=='3'){
+          this.tokenStorage.saveCompanyLogo(this.serverUrl.apiServerAddress+"asset_upload/"+logoPathUrl);
+        }
+        
       }
       window.history.back();
     }
