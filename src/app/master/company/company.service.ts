@@ -107,7 +107,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
         "center"
       );
       if (logoPathUrl != undefined && logoPathUrl != null && logoPathUrl != '') {
-        if(this.tokenStorage.getRoleId()=='3'){
+        if(this.tokenStorage.getRoleId()=='2'){
           this.tokenStorage.saveCompanyLogo(this.serverUrl.apiServerAddress+"asset_upload/"+logoPathUrl);
         }
         
