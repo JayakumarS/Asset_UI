@@ -128,6 +128,29 @@
                       <input matInput formControlName="narration" maxlength="20">
                     </mat-form-field>
                   </div>
+
+                  <div class="row" style="margin-left: 0.2%;">
+                    <div class="col-md-2">
+                      <mat-label>UPLOAD FILE
+                      </mat-label>
+                    </div>
+                    <div class="col-md-4">
+                      <app-file-upload tabindex="23" class="example-width form-control-sm" formControlName="uploadFiles" (change)="onSelectFile($event)"></app-file-upload>
+                    </div>
+    
+                  </div>
+    
+                  <div class="row" style="margin-left: 0.2%;" *ngIf="(filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
+                    <div class="iconCard" style="margin-left: 15%;">
+                      <span>
+                        <i class="far fa-file-alt docIcons"></i>{{filePathUrl?.split('/').pop()}}
+                      </span>
+                      <a class="downloadView" (click)="viewDocuments(filePathUrl, filePathUrl?.split('/').pop())">
+                        <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
+                      </a>
+                    </div>
+                  </div>
+
                 </div>
                 <!-- <div class="row">
                   <div class="col-md-2">

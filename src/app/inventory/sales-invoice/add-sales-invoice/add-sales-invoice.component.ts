@@ -17,6 +17,7 @@ import { DepartmentMasterService } from 'src/app/master/department-master/depart
 import { SalesOrderService } from '../../sales-order/sales-order.service';
 import { SalesInvoice } from '../sales-invoice.model';
 import { SalesInvoiceService } from '../sales-invoice.service';
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -74,6 +75,10 @@ export class AddSalesInvoiceComponent implements OnInit {
   value1: any;
   value: any;
   currencyListbasedCompany=[];
+  filePathUrl: any;
+  uploadFile: boolean = false;
+  
+  private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
 
   constructor(
     private salesInvoiceService: SalesInvoiceService,
@@ -88,6 +93,8 @@ export class AddSalesInvoiceComponent implements OnInit {
     private snackBar: MatSnackBar,
     private salesOrderService:SalesOrderService,
     private departmentMasterService: DepartmentMasterService,
+    private serverUrl: serverLocations
+
 
   ) { }
 
@@ -109,6 +116,7 @@ export class AddSalesInvoiceComponent implements OnInit {
       delivaryNo: [""],
       loginedUser: this.tokenStorage.getUserId(),
       company: this.tokenStorage.getCompanyId(),
+      uploadFiles: [""],
 
       salesInvoiceDetail: this.fb.array([
         this.fb.group({
@@ -305,8 +313,17 @@ export class AddSalesInvoiceComponent implements OnInit {
     const obj = {
       editid: salesInvoiceNo
     };
+
+   
+
+
     this.salesInvoiceService.editSalesInvoice(obj).subscribe({
       next: (res) => {
+
+        if (res.salesInvoiceBean.uploadFiles != undefined && res.salesInvoiceBean.uploadFiles != null && res.salesInvoiceBean.uploadFiles != '') {
+          this.filePathUrl = res.salesInvoiceBean.uploadFiles;
+        }
+
         this.fetchCustomerDetails(res.salesInvoiceBean.customer)
         this.docForm.patchValue({
           'salesInvoiceNo': res.salesInvoiceBean.salesInvoiceNo,
@@ -502,6 +519,74 @@ export class AddSalesInvoiceComponent implements OnInit {
         
     return value;
   }
+
+  onSelectFile(event) {
+    var docfile = event.target.files[0];
+    if (!this.acceptFileTypes.includes(docfile.type)) {
+      this.docForm.get('uploadFiles').setValue("");
+      this.showNotification(
+        "snackbar-danger",
+        ".pdf, .jpg, .png only allowed",
+        "top",
+        "right"
+      );
+      return;
+    }
+    if (docfile.size > 5242880) {
+      this.docForm.get('uploadFiles').setValue("");
+      this.showNotification(
+        "snackbar-danger",
+        "Please upload valid image with less than 5mb",
+        "top",
+        "right"
+      );
+      return;
+    }
+    var fileExtension = docfile.name;
+    var frmData: FormData = new FormData();
+    frmData.append("file", docfile);
+    frmData.append("fileName", fileExtension);
+    frmData.append("folderName", "PurchaseInvoiceFile");
+  
+    this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
+      next: (data) => {
+        if (data.success) {
+          if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+            this.docForm.patchValue({
+              'uploadFiles': data.filePath
+            })
+            this.filePathUrl = data.filePath;
+            this.uploadFile = true;
+          }
+        } else {
+          this.showNotification(
+            "snackbar-danger",
+            "Failed to upload File",
+            "top",
+            "right"
+          );
+        }
+      },
+      error: (error) => {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload File",
+          "top",
+          "right"
+        );
+      }
+    });
+  }
+  
+  viewDocuments(filePath: any, fileName: any) {
+    var a = document.createElement("a");
+    a.href = this.serverUrl.apiServerAddress + "asset_upload/" + filePath;
+    a.target = '_blank';
+    a.download = fileName;
+    a.click();
+  }
+
+  
 }
 
 
