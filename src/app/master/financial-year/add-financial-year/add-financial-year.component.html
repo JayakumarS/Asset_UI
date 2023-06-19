@@ -1,1 +1,158 @@
-<p>add-financial-year works!</p>
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Financial year'" [items]="['Master']" [active_item]="'Add Financial year'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix" >
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body" style="padding-left: 350px;">
+              <form class="m-4" [formGroup]="docForm">
+
+
+                
+
+
+
+
+                <div class="row">
+
+
+           
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label >FINANCIAL YEAR</label>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
+              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+
+                <mat-select class="inputTxt" formControlName="financialyear">
+                  <mat-option [value]="'2011-2012'">
+                    2011 - 2012
+                  </mat-option>
+                  <mat-option [value]="'2012-2013'">
+                    2012 - 2013
+                  </mat-option>
+                  <mat-option [value]="'2013-2014'">
+                    2013 - 2014
+                  </mat-option>
+                  <mat-option [value]="'2014-2015'">
+                    2014 - 2015
+                  </mat-option>
+                  <mat-option [value]="'2015-2016'">
+                    2015 - 2016
+                  </mat-option>
+                  <mat-option [value]="'2015-2016'">
+                   2015 - 2016
+                  </mat-option>
+                  <mat-option [value]="'2016-2017'">
+                    2016 - 2017
+                  </mat-option>
+                  <mat-option [value]="'2017-2018'">
+                    2017 - 2018
+                  </mat-option>
+                  <mat-option [value]="'2018-2019'">
+                    2018 - 2019
+                  </mat-option>
+                  <mat-option [value]="'2019-2020'">
+                    2019 - 2020
+                  </mat-option>
+                  <mat-option [value]="'2020-2021'">
+                    2020 - 2021
+                  </mat-option>
+                  <mat-option [value]="'2021-2022'">
+                    2021 - 2022
+                  </mat-option>
+                  <mat-option [value]="'2022-2023'">
+                    2022 - 2023
+                  </mat-option>
+                  <mat-option [value]="'2023-2024'">
+                    2023 - 2024
+                  </mat-option>
+                  <mat-option [value]="'2024-2025'">
+                    2024 - 2025
+                  </mat-option>
+                  <mat-option [value]="'2025-2026'">
+                    2025 - 2026
+                  </mat-option>
+                  <mat-option [value]="'2026-2027'">
+                    2026 - 2027
+                  </mat-option>
+                  <mat-option [value]="'2027-2028'">
+                    2027 - 2028
+                  </mat-option>
+                  <mat-option [value]="' 2028-2029'">
+                    2028 - 2029
+                  </mat-option>
+                  <mat-option [value]="'2029-2030'">
+                    2029 - 2030
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="docForm.get('financialyear').hasError('required')">
+                  Financial Year is required
+                </mat-error>
+            </mat-form-field>
+            </div>
+           
+                </div>
+                <div class="row">
+
+              
+    
+           
+                
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                    <label >DESCRIPTION</label>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <textarea matInput formControlName="description"  maxlength="250" ></textarea>
+                        
+                      </mat-form-field>
+                </div>
+
+             
+
+
+            
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                <label >IS ACTIVE</label>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " >
+                <mat-checkbox  ngInit="checked=false" formControlName="isactive"  style="margin-left: 10px;"></mat-checkbox>
+            </div>
+
+          
+
+            </div>
+
+            <br>
+         <br>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button  *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                      color="accent" style="margin-left: 16%;background-color: #34d034;">Submit</button>
+                      <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <button color="warn" type="button" class="btn-space" (click)="onCancel()" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
