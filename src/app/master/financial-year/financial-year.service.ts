@@ -67,7 +67,7 @@ export class FinancialYearService extends UnsubscribeOnDestroyAdapter {
     this.subs.sink = this.httpService.get<FinancialYearResultBean>(this.FYList+"?companyId="+this.tokenStorage.getCompanyId()).subscribe(
       (data:any) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.FYlist);
+        this.dataChange.next(data.listForFY);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
