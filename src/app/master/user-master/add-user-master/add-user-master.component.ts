@@ -550,7 +550,7 @@ update() {
             if (data) {
               this.showNotification(
                 "snackbar-success",
-                "updated Record Successfully",
+                "Updated record successfully",
                 "bottom",
                 "center"
               );
@@ -558,7 +558,7 @@ update() {
             } else {
               this.showNotification(
                 "snackbar-danger",
-                "Not Updated Successfully...!!!",
+                "Not updated successfully...!!!",
                 "bottom",
                 "center"
               );
@@ -601,7 +601,7 @@ update() {
               if (data.success) {
                 this.showNotification(
                   "snackbar-success",
-                  "updated Record Successfully",
+                  "Updated record successfully",
                   "bottom",
                   "center"
                 );
@@ -609,7 +609,7 @@ update() {
               } else {
                 this.showNotification(
                   "snackbar-danger",
-                  "Not Updated Successfully...!!!",
+                  "Not updated successfully...!!!",
                   "bottom",
                   "center"
                 );
