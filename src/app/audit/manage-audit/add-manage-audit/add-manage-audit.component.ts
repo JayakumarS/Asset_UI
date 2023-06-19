@@ -64,6 +64,7 @@ export class AddManageAuditComponent implements OnInit {
   isSelf: boolean = true;
   isAided: boolean = true;
   companyListNew = [];
+  FYList = [];
   // auditorListNew = [];
   make:any;
   // makersList = [];
@@ -104,7 +105,8 @@ export class AddManageAuditComponent implements OnInit {
         branchId: this.tokenStorage.getBranchId(),
         // For Date Validation
         srtDate:[""],
-        edDate:[""]
+        edDate:[""],
+        financialYear:[""],
       });
   
       this.Formdoc = this.fb.group({
@@ -125,7 +127,8 @@ export class AddManageAuditComponent implements OnInit {
         branchId: this.tokenStorage.getBranchId(),
         // For Date Validation
         srtDate:[""],
-        edDate:[""]
+        edDate:[""],
+        financialYear:[""],
       });
 
   }
@@ -158,6 +161,15 @@ export class AddManageAuditComponent implements OnInit {
       this.httpService.get<any>(this.commonService.getUserBasedCompanyDropdown + "?userId=" + this.tokenStorage.getUsername()).subscribe({
         next: (data) => {
           this.companyListNew = data.addressBean;
+        },
+        error: (error) => {
+        }
+      });
+
+      // FY List
+      this.httpService.get<any>(this.commonService.getFinancialDropDown).subscribe({
+        next: (data) => {
+          this.FYList = data;
         },
         error: (error) => {
         }
@@ -342,6 +354,8 @@ export class AddManageAuditComponent implements OnInit {
           'auditCompanyId': res.manageAudit.auditCompanyId,
           'auditbranchId': res.manageAudit.auditbranchId,
           'makerId' : res.manageAudit.makerIdArray,
+          'financialYear' : res.manageAudit.financialYear,
+          
         })
       } else if (res.manageAudit.auditType == "Aided") {
         this.tabGroup.selectedIndex = 1;
@@ -356,7 +370,8 @@ export class AddManageAuditComponent implements OnInit {
           'locationId': res.manageAudit.locationId,
           'auditCompanyId': res.manageAudit.auditCompanyId,
           'auditbranchId': res.manageAudit.auditbranchId,
-          'makerId' : res.manageAudit.makerIdArray
+          'makerId' : res.manageAudit.makerIdArray,
+          'financialYear' : res.manageAudit.financialYear,
         })
       }
     },

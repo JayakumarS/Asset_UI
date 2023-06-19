@@ -51,14 +51,14 @@ export const MY_DATE_FORMATS = {
     }, CommonService
   ]
 })
-export class ListAuditReportComponent implements OnInit {
+export class ListAuditReportComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
     "companyStatus","auditType","companyActions"
   ];
 
   docForm: FormGroup;
- [x: string]: any;
+//  [x: string]: any;
  dataSource: ExampleDataSource | null;
   exampleDatabase: AuditReportService | null;
   selection = new SelectionModel<AuditReport>(true, []);
@@ -67,6 +67,12 @@ export class ListAuditReportComponent implements OnInit {
   edit:boolean=false;
   permissionList: any;
   auditReport: AuditReport | null;
+  roleId: string;
+  FYList =[];
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
 
   constructor(private fb: FormBuilder,private cmnService: CommonService, public httpClient: HttpClient,
               public dialog: MatDialog,
@@ -82,6 +88,8 @@ export class ListAuditReportComponent implements OnInit {
 
 
   {
+
+    super();
    this.docForm = this.fb.group({
     companyIdToken: this.tokenStorage.getCompanyId(),
     branchIdToken: this.tokenStorage.getBranchId(),
@@ -89,17 +97,17 @@ export class ListAuditReportComponent implements OnInit {
     discardFromDate:[""],
     discardDateToObj:[""],
     discardToDate:[""],
-    companyId:this.companyIdToken,
-    branchId:this.branchIdToken,
+    companyId:this.tokenStorage.getCompanyId(),
+    branchId:this.tokenStorage.getBranchId(),
+    financialYear:[""],
 
 
 
   });
 
 }
-@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild("filter", { static: true }) filter: ElementRef;
+
+  
   @ViewChild(MatMenuTrigger)
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
@@ -142,6 +150,15 @@ export class ListAuditReportComponent implements OnInit {
       }
     });
 
+    // FY List
+    this.httpService.get<any>(this.commonService.getFinancialDropDown).subscribe({
+      next: (data) => {
+        this.FYList = data;
+      },
+      error: (error) => {
+      }
+    });
+
   }
   refresh(){
 
@@ -152,8 +169,9 @@ export class ListAuditReportComponent implements OnInit {
       discardFromDate:[""],
       discardDateToObj:[""],
       discardToDate:[""],
-      companyId:this.companyIdToken,
-      branchId:this.branchIdToken,
+      companyId:this.tokenStorage.getCompanyId(),
+      branchId:this.tokenStorage.getBranchId(),
+      financialYear:[""],
   
   
   
@@ -168,14 +186,14 @@ export class ListAuditReportComponent implements OnInit {
       this.sort,
       this.docForm
     );
-    this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
-      () => {
-        if (!this.dataSource) {
-          return;
-        }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      }
-    );
+    // this.subs.sink = fromEvent(this.filter?.nativeElement, "keyup").subscribe(
+    //   () => {
+    //     if (!this.dataSource) {
+    //       return;
+    //     }
+    //     this.dataSource.filter = this.filter.nativeElement.value;
+    //   }
+    // );
   }
   onSubmit(){
 

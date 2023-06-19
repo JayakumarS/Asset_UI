@@ -173,10 +173,25 @@
 
 
 
-
+<!-- 
                                     <div class="col-md-3">
 
+                                    </div> -->
+
+                                    <div class="col-md-1" >
+                                      <label class>FINANCIAL YEAR</label>
+                  
                                     </div>
+                                    <div class="col-md-3" >
+                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                          <mat-select formControlName="financialYear">
+                                              <mat-option *ngFor="let title of FYList" [value]="title.text">
+                                                {{title.text}}
+                                              </mat-option>
+                                            </mat-select>
+                                     </mat-form-field>
+                                    </div>
+
                                   </div>
                           
                               </div>
@@ -299,6 +314,8 @@
                                               </mat-select>
                                          </mat-form-field>
                                         </div>
+
+                                        
                                       <div class="col-md-3">  </div>
                                   </div>
 
@@ -387,8 +404,22 @@
                                          </mat-form-field>
                                  </div>
 
-                                    <div class="col-md-3">
+                                    <!-- <div class="col-md-3">
 
+                                    </div> -->
+
+                                    <div class="col-md-1" >
+                                      <label class>FINANCIAL YEAR</label>
+                  
+                                    </div>
+                                    <div class="col-md-3" >
+                                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                          <mat-select formControlName="financialYear">
+                                              <mat-option *ngFor="let title of FYList" [value]="title.id">
+                                                {{title.text}}
+                                              </mat-option>
+                                            </mat-select>
+                                     </mat-form-field>
                                     </div>
                                   </div>
                               </div>

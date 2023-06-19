@@ -39,6 +39,31 @@
                       </mat-form-field>
                     </div>
                   </div>
+
+
+                  <div class="row">
+                    
+                    <div class="col-md-2" >
+                     
+                    </div>
+
+                    <div class="col-md-1" >
+                      <label class>FINANCIAL YEAR</label>
+  
+                    </div>
+                    <div class="col-md-3" >
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select formControlName="financialYear">
+                              <mat-option *ngFor="let title of FYList" [value]="title.text">
+                                {{title.text}}
+                              </mat-option>
+                            </mat-select>
+                     </mat-form-field>
+                    </div>
+
+                    
+                  </div>
+
                       <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"  style="text-align: center;">
                       <button  class="btn-space" mat-raised-button (click)=" onSubmit()"
