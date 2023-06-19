@@ -12,6 +12,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { SalesInvoiceService } from '../../sales-invoice/sales-invoice.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { serverLocations } from 'src/app/auth/serverLocations';
 
 
 export const MY_DATE_FORMATS = {
@@ -59,11 +60,17 @@ export class AddSalesOrderComponent implements OnInit {
   value1: any;
   currencyListbasedCompany=[];
   totalValue:number;
+  filePathUrl: any;
+  uploadFile: boolean = false;
+  
+  private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
+
 
   constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private commonService: CommonService,
     private salesInvoiceService: SalesInvoiceService,
     private cmnService:CommonService,private httpService: HttpServiceService,private salesOrderService: SalesOrderService,
     private router:Router,public route: ActivatedRoute,    private spinner: NgxSpinnerService,public tokenStorage: TokenStorageService,
+    private serverUrl: serverLocations
     )
      {    this.docForm = this.fb.group({
       salesNo:[""],
@@ -75,6 +82,7 @@ export class AddSalesOrderComponent implements OnInit {
       companyId:[""],
       salesOrderNo:[""],
       total:[""],
+      uploadFiles: [""],
 
       salesOrderDtl: this.fb.array([
         this.fb.group({
@@ -166,6 +174,11 @@ export class AddSalesOrderComponent implements OnInit {
     this.salesOrderService.editSalesOrder(obj).subscribe({
       next: (res) => {
         let hdate = this.cmnService.getDateObj(res.salesOrderBean.dateofdelivery);
+
+        if (res.salesOrderBean.uploadFiles != undefined && res.salesOrderBean.uploadFiles != null && res.salesOrderBean.uploadFiles != '') {
+          this.filePathUrl = res.salesOrderBean.uploadFiles;
+        }
+
        this.customer= res.salesOrderBean.customer;
       this.docForm.patchValue({
          'salesNo': res.salesOrderBean.salesNo,
@@ -420,4 +433,71 @@ keyPressNumeric1(event: any) {
     event.preventDefault();
   }
 }
+
+onSelectFile(event) {
+  var docfile = event.target.files[0];
+  if (!this.acceptFileTypes.includes(docfile.type)) {
+    this.docForm.get('uploadFiles').setValue("");
+    this.showNotification(
+      "snackbar-danger",
+      ".pdf, .jpg, .png only allowed",
+      "top",
+      "right"
+    );
+    return;
+  }
+  if (docfile.size > 5242880) {
+    this.docForm.get('uploadFiles').setValue("");
+    this.showNotification(
+      "snackbar-danger",
+      "Please upload valid image with less than 5mb",
+      "top",
+      "right"
+    );
+    return;
+  }
+  var fileExtension = docfile.name;
+  var frmData: FormData = new FormData();
+  frmData.append("file", docfile);
+  frmData.append("fileName", fileExtension);
+  frmData.append("folderName", "PurchaseInvoiceFile");
+
+  this.httpService.post<any>(this.commonService.uploadFileUrl, frmData).subscribe({
+    next: (data) => {
+      if (data.success) {
+        if (data.filePath != undefined && data.filePath != null && data.filePath != '') {
+          this.docForm.patchValue({
+            'uploadFiles': data.filePath
+          })
+          this.filePathUrl = data.filePath;
+          this.uploadFile = true;
+        }
+      } else {
+        this.showNotification(
+          "snackbar-danger",
+          "Failed to upload File",
+          "top",
+          "right"
+        );
+      }
+    },
+    error: (error) => {
+      this.showNotification(
+        "snackbar-danger",
+        "Failed to upload File",
+        "top",
+        "right"
+      );
+    }
+  });
+}
+
+viewDocuments(filePath: any, fileName: any) {
+  var a = document.createElement("a");
+  a.href = this.serverUrl.apiServerAddress + "asset_upload/" + filePath;
+  a.target = '_blank';
+  a.download = fileName;
+  a.click();
+}
+
 }
