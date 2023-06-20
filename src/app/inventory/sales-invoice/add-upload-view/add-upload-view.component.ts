@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/app/asset/asset-master/asset.service';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
+import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
@@ -18,7 +19,9 @@ export class AddUploadViewComponent implements OnInit {
   
   
 
-  constructor(@Inject(MAT_DIALOG_DATA) public values: any,public dialogRef: MatDialogRef<AddUploadViewComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public values: any,
+  private serverUrl: serverLocations,
+  public dialogRef: MatDialogRef<AddUploadViewComponent>) {
 
   
   }
@@ -26,7 +29,7 @@ export class AddUploadViewComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.pathVariable = '/root/asset_upload/'+this.values.data
+    this.pathVariable = this.serverUrl.apiServerAddress+'asset_upload/'+this.values.data
   }
 
   submit() {
