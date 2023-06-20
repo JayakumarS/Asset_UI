@@ -27,6 +27,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ListSalesInvoiceComponent } from './list-sales-invoice/list-sales-invoice.component';
 import { DeleteSalesInvoiceComponent } from './list-sales-invoice/delete-sales-invoice/delete-sales-invoice.component';
 import { SalesInvoicePrintComponent } from './list-sales-invoice/sales-invoice-print/sales-invoice-print.component';
+import { AddUploadViewComponent } from './add-upload-view/add-upload-view.component';
 
 
 
@@ -35,7 +36,8 @@ import { SalesInvoicePrintComponent } from './list-sales-invoice/sales-invoice-p
     AddSalesInvoiceComponent,
     ListSalesInvoiceComponent,
     DeleteSalesInvoiceComponent,
-    SalesInvoicePrintComponent
+    SalesInvoicePrintComponent,
+    AddUploadViewComponent
   ],
   imports: [
     CommonModule,

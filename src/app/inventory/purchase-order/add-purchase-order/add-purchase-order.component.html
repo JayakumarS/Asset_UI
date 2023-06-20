@@ -165,12 +165,22 @@
                     </mat-form-field>
                   </div>
                 </div>
-                <div class="row" style="margin-left:3%;">
-                  <div class="col-md-4" style="margin-left: 100px; margin-top: -22px;">
+                <div class="row" style="margin-left:10%;">
+
+                  <div class="col-md-2">
+                    <mat-label>UPLOAD FILE
+                    </mat-label>
+                  </div>
+
+                  <div class="col-md-4">
+                    <app-file-upload tabindex="23" class="example-width form-control-sm" formControlName="lopUpload" (change)="onSelectFile($event)"></app-file-upload>
+                  </div>
+                  
+                  <!-- <div class="col-md-4" style="margin-left: 100px; margin-top: -22px;">
                     <app-file-upload class="example-width form-control-sm" formControlName="lopUpload"
                       (change)="onSelectFile($event)"></app-file-upload>
-                  </div>
-                  <div class="row" *ngIf="(filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
+                  </div> -->
+                  <div class="row" style="margin-left:10%;" *ngIf="(filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
                     <div class="iconCard">
                       <span><i class="far fa-file-alt docIcons"></i>{{filePathUrl?.split('##').pop()}}</span>
                       <a class="downloadView" (click)="viewDocuments(filePathUrl, filePathUrl?.split('##').pop())">

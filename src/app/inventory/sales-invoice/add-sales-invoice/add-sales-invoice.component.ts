@@ -18,6 +18,8 @@ import { SalesOrderService } from '../../sales-order/sales-order.service';
 import { SalesInvoice } from '../sales-invoice.model';
 import { SalesInvoiceService } from '../sales-invoice.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { AddUploadViewComponent } from '../add-upload-view/add-upload-view.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -77,8 +79,10 @@ export class AddSalesInvoiceComponent implements OnInit {
   currencyListbasedCompany=[];
   filePathUrl: any;
   uploadFile: boolean = false;
-  
+  selectedFile: File;
+
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
+  subs: any;
 
   constructor(
     private salesInvoiceService: SalesInvoiceService,
@@ -93,7 +97,9 @@ export class AddSalesInvoiceComponent implements OnInit {
     private snackBar: MatSnackBar,
     private salesOrderService:SalesOrderService,
     private departmentMasterService: DepartmentMasterService,
-    private serverUrl: serverLocations
+    private serverUrl: serverLocations,
+    public dialog: MatDialog,
+
 
 
   ) { }
@@ -557,6 +563,8 @@ export class AddSalesInvoiceComponent implements OnInit {
             })
             this.filePathUrl = data.filePath;
             this.uploadFile = true;
+
+            this.uploadpopupCall();
           }
         } else {
           this.showNotification(
@@ -585,6 +593,54 @@ export class AddSalesInvoiceComponent implements OnInit {
     a.download = fileName;
     a.click();
   }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.filePathUrl = e.target.result;
+    };
+    reader.readAsDataURL(this.selectedFile);
+  }
+
+
+  singleAssetPopup(row) {
+    console.log(row.tab.textLabel);
+    if (row.tab.textLabel == 'Add Multiple Assets') {
+      this.uploadpopupCall();
+    }
+  }
+
+  uploadpopupCall() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(AddUploadViewComponent, {
+      data: {
+        action: "edit",
+        data:this.filePathUrl
+      },
+      width: "640px",
+      height: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+       
+        // this.showNotification(
+        //   "black",
+        //   "Edit Record Successfully...!!!",
+        //   "top",
+        //   "right"
+        // );
+      }
+    });
+  }
+
 
   
 }
