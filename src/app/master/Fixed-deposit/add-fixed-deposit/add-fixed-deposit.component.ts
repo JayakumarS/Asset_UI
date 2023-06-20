@@ -109,7 +109,9 @@ docForm: FormGroup;
         postcode:[""],
         currency:["",[Validators.required]],
         frequency:[""],
-
+      // For Date Validation
+      srtDate:[""],
+      edDate:[""],
   
       })
   
@@ -117,6 +119,8 @@ docForm: FormGroup;
     }
     getDateString(event, inputFlag, index) {
       let cdate = this.commonService.getDate(event.target.value);
+      let tdate = this.commonService.getDateYYMMDDFormat(event.target.value);
+
     if (inputFlag == 'fdendDate') {
         this.docForm.patchValue({fdendDate: cdate });
       }
@@ -127,7 +131,32 @@ docForm: FormGroup;
         this.docForm.patchValue({dob:cdate});
       }
     
+    // For Date  Validation
+
+      if (inputFlag == 'fdstartDate') {
+        this.docForm.patchValue({ srtDate: tdate });
+      } else if (inputFlag == 'fdendDate') {
+        this.docForm.patchValue({ edDate: tdate });
       }
+   
+      let frDate = this.docForm.value.srtDate;
+      let tDate = this.docForm.value.edDate;
+      let fr = new Date(frDate);
+      let to = new Date(tDate);
+      if(fr>to){
+              this.docForm.patchValue({
+                fdendDate:'',
+                fdenddateObj:''
+        })
+        this.showNotification(
+          "snackbar-danger",
+          "End date should be greater than Start date ",
+          "bottom",
+          "center"
+        );
+      }
+      }
+    
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
@@ -271,7 +300,12 @@ docForm: FormGroup;
     }
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
-  
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 
   validateCustomer(event){

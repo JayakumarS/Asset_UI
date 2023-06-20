@@ -564,7 +564,7 @@ export class AddSalesInvoiceComponent implements OnInit {
             this.filePathUrl = data.filePath;
             this.uploadFile = true;
 
-            this.uploadpopupCall();
+            // this.uploadpopupCall();
           }
         } else {
           this.showNotification(

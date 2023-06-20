@@ -7,13 +7,13 @@ import { AssetService } from 'src/app/asset/asset-master/asset.service';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
-
 @Component({
   selector: 'app-add-upload-view',
   templateUrl: './add-upload-view.component.html',
   styleUrls: ['./add-upload-view.component.sass']
 })
 export class AddUploadViewComponent implements OnInit {
+
   pathVariable: string;
 
   

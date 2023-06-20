@@ -27,6 +27,7 @@ import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { DeleteSalesOrderComponent } from './list-sales-order/delete-sales-order/delete-sales-order.component';
 import { SalesOrderPrintComponent } from './list-sales-order/sales-order-print/sales-order-print.component';
+import { AddUploadViewComponent } from './add-upload-view/add-upload-view.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { SalesOrderPrintComponent } from './list-sales-order/sales-order-print/s
     AddSalesOrderComponent,
     ListSalesOrderComponent,
     DeleteSalesOrderComponent,
-    SalesOrderPrintComponent
+    SalesOrderPrintComponent,
+    AddUploadViewComponent
   ],
   imports: [
     CommonModule,

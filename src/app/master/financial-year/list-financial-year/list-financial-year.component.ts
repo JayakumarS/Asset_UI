@@ -18,6 +18,7 @@ import { DeleteJewelleryDetailsComponent } from '../../jewellery/list-jewellery-
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { FinancialYearService } from '../financial-year.service';
 import { FinancialYear } from '../financial-year-model';
+import { DeleteFinancialYearComponent } from './delete-financial-year/delete-financial-year.component';
 
 @Component({
   selector: 'app-list-financial-year',
@@ -99,45 +100,47 @@ export class ListFinancialYearComponent  extends UnsubscribeOnDestroyAdapter imp
 
   deleteItem(row){
 
-    // this.id = row.id;
-    // let tempDirection;
-    // if (localStorage.getItem("isRtl") === "true") {
-    //   tempDirection = "rtl";
-    // } else {
-    //   tempDirection = "ltr";
-    // }
-    // const dialogRef = this.dialog.open(DeleteJewelleryDetailsComponent, {
-    //   height: "270px",
-    //   width: "400px",
-    //   data: row,
-    //   direction: tempDirection,
-    // });
-    // this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+    this.id = row.id;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteFinancialYearComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
 
 
-    //   if (data.data == true) {
-
-    //     this.httpService.get(this.financialYearService.deletejewellery+ "?jewel_id=" + this.id).subscribe((res: any) => {
-    //       this.showNotification(
-    //         "snackbar-success",
-    //         "Delete Record Successfully...!!!",
-    //         "bottom",
-    //         "center"
-    //       );
-    //       this.loadData();
-    //     },
-    //       (err: HttpErrorResponse) => {
-    //         // error code here
-    //       }
-    //     );
-
-
-    //   } else{
-    //     this.loadData();
-    //   }
+      if (data.data == true) {
+        const obj = {
+          id: row.id
+        }
+        this.financialYearService.deletefY(obj).subscribe((res: any) => {
+          this.showNotification(
+            "snackbar-success",
+            "Delete Record Successfully...!!!",
+            "bottom",
+            "center"
+          );
+          this.loadData();
+        },
+          (err: HttpErrorResponse) => {
+            // error code here
+          }
+        );
 
 
-    // });
+      } else{
+        this.loadData();
+      }
+
+
+    });
 
   }
 
