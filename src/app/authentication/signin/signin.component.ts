@@ -188,6 +188,9 @@ text='';
                 this.tokenStorage.saveBranchId(data.userDetails.branchId);
                 this.tokenStorage.saveCompanies(data.userDetails.companies);
                 this.tokenStorage.saveRoles(data.userDetails.roles);
+                if(data.userDetails.companyLogo==null || data.userDetails.companyLogo ==undefined){
+                  data.userDetails.companyLogo ="logo/assetChekLogo.png";
+                }
                 this.tokenStorage.saveCompanyLogo(this.serverUrl.apiServerAddress+"asset_upload/"+data.userDetails.companyLogo);
                 this.loginSuccessUserLog();
                 // if(data.userDetails.companies.length>0){

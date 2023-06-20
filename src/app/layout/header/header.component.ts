@@ -73,6 +73,7 @@ export class HeaderComponent
   city: any;
   ipAddress:string;
   ip: any;
+  pwdStatus: any;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -149,6 +150,33 @@ export class HeaderComponent
     },
   ];
   ngOnInit() {
+
+
+    this.httpService.get<any>(this.commonService.getPwdStatus + "?userId=" + this.token.getUserId()).subscribe((result: any) => {
+      this.pwdStatus=result.addressBean[0].pwdStatus;
+
+      if(this.token.getActiveCompanyFlag()==null){
+        if( JSON.parse(this.token.getCompanies()).length>1){
+          if(this.roleId != "6" && this.pwdStatus) {
+            this.isMultipleCompany = true;
+            this.showPopUp();
+          }   
+        }
+      }
+      // if(!this.pwdStatus){
+      //   const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+      //     disableClose: true ,
+      //     height: "500px",
+      //     width: "465px",
+      
+      //   });
+      // }
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+
     this.authService.getLocation().subscribe((response) => {
       console.log(response)
       this.locationcity = response
@@ -204,12 +232,7 @@ export class HeaderComponent
       this.flagvalue = val.map((element) => element.flag);
     }
 
-    if(this.token.getActiveCompanyFlag()==null){
-      if( JSON.parse(this.token.getCompanies()).length>1){
-        this.isMultipleCompany = true;
-        this.showPopUp();
-      }
-    }
+    
     if( JSON.parse(this.token.getCompanies()).length>1){
       this.isMultipleCompany = true;
     }
