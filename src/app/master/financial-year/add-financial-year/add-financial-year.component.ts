@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { FinancialYearService } from '../financial-year.service';
 import { FinancialYear } from '../financial-year-model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-financial-year',
@@ -18,6 +19,8 @@ export class AddFinancialYearComponent implements OnInit {
   docForm: FormGroup;
   edit:Boolean =false;
   financialYear:FinancialYear
+  requestId: number;
+
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
     private financialYearService: FinancialYearService,
@@ -34,8 +37,8 @@ export class AddFinancialYearComponent implements OnInit {
     description:[""],
     isactive:[true], 
     companyId:[this.tokenStorage.getCompanyId()],
-    userId:[this.tokenStorage.getUserId()]
-    
+    userId:[this.tokenStorage.getUserId()],
+    id:[""],
     
     
  
@@ -43,6 +46,31 @@ export class AddFinancialYearComponent implements OnInit {
 }); }
 
   ngOnInit(): void {
+    this.docForm = this.fb.group({
+  
+      financialyear: ["",[Validators.required]],
+   
+      description:[""],
+      isactive:[true], 
+      companyId:[this.tokenStorage.getCompanyId()],
+      userId:[this.tokenStorage.getUserId()],
+      id:[""],
+      
+      
+   
+    
+  }); 
+  
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+       this.edit=true;
+       //For User login Editable mode
+       this.fetchDetails(this.requestId) ;
+      }
+     });
+
+
   }
   onSubmit(){
     this.financialYear = this.docForm.value;
@@ -77,9 +105,41 @@ export class AddFinancialYearComponent implements OnInit {
       panelClass: colorName,
     });
   }
-  update(){
+  fetchDetails(requestId: any): void {
+    this.edit=true;
+    const obj = {
+      id: requestId
+    }
+    this.financialYearService.edit(obj).subscribe((res: any)=> {
+      console.log(obj);
 
+
+      this.docForm.patchValue({
+        'financialyear': res.financialYearBean.financialyear,
+        'description': res.financialYearBean.description,
+        'isactive': res.financialYearBean.isactive,
+        'id' :this.requestId
+
+
+     })
+      },
+      (err: HttpErrorResponse) => {
+      }
+    );
   }
+  update(){     
+   this.financialYear = this.docForm.value;
+  if(this.docForm.valid){
+    this.financialYearService.updateFY(this.financialYear,this.router,this.notificationService);
+  } else {
+    this.notificationService.showNotification(
+      "snackbar-danger",
+      "Please fill all the required details!",
+      "top",
+      "right");
+  }
+}
+
   reset(){
 
   }

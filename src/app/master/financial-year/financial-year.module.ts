@@ -25,12 +25,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DeleteFinancialYearComponent } from './list-financial-year/delete-financial-year/delete-financial-year.component';
 
 
 @NgModule({
   declarations: [
     AddFinancialYearComponent,
-    ListFinancialYearComponent
+    ListFinancialYearComponent,
+    DeleteFinancialYearComponent
   ],
   imports: [
     CommonModule,
