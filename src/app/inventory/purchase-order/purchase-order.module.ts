@@ -28,6 +28,7 @@ import { ListPurchaseOrderComponent } from './list-purchase-order/list-purchase-
 import { AddPurchaseOrderComponent } from './add-purchase-order/add-purchase-order.component';
 import { DeletePurchaseOrderComponent } from './list-purchase-order/delete-purchase-order/delete-purchase-order.component';
 import { PurchaseOrderPrintComponent } from './list-purchase-order/purchase-order-print/purchase-order-print.component';
+import { AddUploadViewComponent } from './add-upload-view/add-upload-view.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { PurchaseOrderPrintComponent } from './list-purchase-order/purchase-orde
     ListPurchaseOrderComponent,
     AddPurchaseOrderComponent,
     DeletePurchaseOrderComponent,
-    PurchaseOrderPrintComponent
+    PurchaseOrderPrintComponent,
+    AddUploadViewComponent
   ],
   imports: [
     CommonModule,

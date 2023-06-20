@@ -16,6 +16,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { UomCategoryService } from '../../uom-category/uom-category.service';
 import { Company } from 'src/app/master/company/company-model';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUploadViewComponent } from '../add-upload-view/add-upload-view.component';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -78,7 +80,9 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
   editDetails: any;
-  
+  selectedFile: File;
+  subs: any;
+
   constructor(private fb: FormBuilder,
     public router: Router,
     private notificationService: NotificationService,
@@ -90,7 +94,9 @@ export class AddPurchaseOrderComponent implements OnInit {
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
-    private serverUrl: serverLocations) {
+    private serverUrl: serverLocations,
+    public dialog: MatDialog,
+    ) {
 
     this.docForm = this.fb.group({
       purchaseOrderId: [""],
@@ -816,6 +822,53 @@ export class AddPurchaseOrderComponent implements OnInit {
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.filePathUrl = e.target.result;
+    };
+    reader.readAsDataURL(this.selectedFile);
+  }
+
+
+  singleAssetPopup(row) {
+    console.log(row.tab.textLabel);
+    if (row.tab.textLabel == 'Add Multiple Assets') {
+      this.uploadpopupCall();
+    }
+  }
+
+  uploadpopupCall() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(AddUploadViewComponent, {
+      data: {
+        action: "edit",
+        data:this.filePathUrl
+      },
+      width: "640px",
+      height: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+       
+        // this.showNotification(
+        //   "black",
+        //   "Edit Record Successfully...!!!",
+        //   "top",
+        //   "right"
+        // );
+      }
+    });
   }
 
 }

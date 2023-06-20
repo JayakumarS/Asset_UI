@@ -196,16 +196,17 @@
 
 
                 <div class="row" style="margin-top: -20px;" *ngIf="(filePathUrl != undefined && filePathUrl != null && filePathUrl != '')">
-                  <div class="iconCard" style="margin-left: 62.6%;">
+                  <div class="iconCard" style="margin-left: 55.6%;">
                     <span>
                       <i class="far fa-file-alt docIcons"></i>{{filePathUrl?.split('/').pop()}}
                     </span>
-                    <a class="downloadView" (click)="viewDocuments(filePathUrl, filePathUrl?.split('/').pop())">
-                      <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
+                    <a class="downloadView">
+                      <i class="fas fa-eye" (click)="uploadpopupCall()" style=" cursor: pointer;color: #3D78BE;"></i>
                     </a>
                   </div>
                 </div>
 
+                
                 
 
                 <br>

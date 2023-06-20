@@ -16,6 +16,8 @@ import { GrnService } from '../../grn/grn.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PurchaseOrderService } from '../../purchase-order/purchase-order.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUploadViewComponent } from '../add-upload-view/add-upload-view.component';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -69,6 +71,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
 
+  subs: any;
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -81,7 +84,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
     public purchaseOrderService: PurchaseOrderService,
-    private grnService: GrnService, private serverUrl: serverLocations) {
+    private grnService: GrnService, private serverUrl: serverLocations,
+    public dialog: MatDialog,
+    ) {
 
     this.docForm = this.fb.group({
       purchaseInvoiceNo: [""],
@@ -622,6 +627,42 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         }
       });
     }
+  }
+
+  singleAssetPopup(row) {
+    console.log(row.tab.textLabel);
+    if (row.tab.textLabel == 'Add Multiple Assets') {
+      this.uploadpopupCall();
+    }
+  }
+
+  uploadpopupCall() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(AddUploadViewComponent, {
+      data: {
+        action: "edit",
+        data:this.filePathUrl
+      },
+      width: "640px",
+      height: "640px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+       
+        // this.showNotification(
+        //   "black",
+        //   "Edit Record Successfully...!!!",
+        //   "top",
+        //   "right"
+        // );
+      }
+    });
   }
 
 

@@ -13,6 +13,8 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { SalesInvoiceService } from '../../sales-invoice/sales-invoice.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { serverLocations } from 'src/app/auth/serverLocations';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUploadViewComponent } from '../add-upload-view/add-upload-view.component';
 
 
 export const MY_DATE_FORMATS = {
@@ -65,12 +67,14 @@ export class AddSalesOrderComponent implements OnInit {
   
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
 
+  subs: any;
 
   constructor(private fb: FormBuilder,private snackBar: MatSnackBar,private commonService: CommonService,
     private salesInvoiceService: SalesInvoiceService,
     private cmnService:CommonService,private httpService: HttpServiceService,private salesOrderService: SalesOrderService,
     private router:Router,public route: ActivatedRoute,    private spinner: NgxSpinnerService,public tokenStorage: TokenStorageService,
-    private serverUrl: serverLocations
+    private serverUrl: serverLocations,public dialog: MatDialog,
+
     )
      {    this.docForm = this.fb.group({
       salesNo:[""],
@@ -498,6 +502,42 @@ viewDocuments(filePath: any, fileName: any) {
   a.target = '_blank';
   a.download = fileName;
   a.click();
+}
+
+singleAssetPopup(row) {
+  console.log(row.tab.textLabel);
+  if (row.tab.textLabel == 'Add Multiple Assets') {
+    this.uploadpopupCall();
+  }
+}
+
+uploadpopupCall() {
+  let tempDirection;
+  if (localStorage.getItem("isRtl") === "true") {
+    tempDirection = "rtl";
+  } else {
+    tempDirection = "ltr";
+  }
+  const dialogRef = this.dialog.open(AddUploadViewComponent, {
+    data: {
+      action: "edit",
+      data:this.filePathUrl
+    },
+    width: "640px",
+    height: "640px",
+    direction: tempDirection,
+  });
+  this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+    if (result === 1) {
+     
+      // this.showNotification(
+      //   "black",
+      //   "Edit Record Successfully...!!!",
+      //   "top",
+      //   "right"
+      // );
+    }
+  });
 }
 
 }
