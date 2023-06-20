@@ -227,6 +227,7 @@
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <input matInput [matDatepicker]="picker" 
                           formControlName="fdstartdateObj" id="fdstartDate"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" 
                           (dateChange)="getDateString($event, 'fdstartDate',0)">
                       <mat-datepicker-toggle matSuffix
                           [for]="picker"></mat-datepicker-toggle>
@@ -245,6 +246,7 @@
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput [matDatepicker]="picker1" 
                           formControlName="fdenddateObj"  id="fdendDate"
+                          (dateInput)="$event.value.format('DD/MM/YYYY')" 
                           (dateChange)="getDateString($event, 'fdendDate',0)">
                       <mat-datepicker-toggle matSuffix
                           [for]="picker1"></mat-datepicker-toggle>
