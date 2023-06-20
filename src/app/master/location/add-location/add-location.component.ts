@@ -43,6 +43,7 @@ export class AddLocationComponent implements OnInit {
   user:any;
   companyId:any;
   getBranchList=[];
+  getUserBasedCompanyList = [];
 
   // tslint:disable-next-line:new-parens
   salesDetailRowData = new SalesEntryDetailRowComponent;
@@ -94,6 +95,20 @@ export class AddLocationComponent implements OnInit {
 
 
     this.companyId = this.tokenStorage.getCompanyId(),
+
+
+    this.companyId=this.tokenStorage.getCompanyId();
+   this.httpService.get<any>(this.departmentMasterService.companyListUrl + "?userId=" + this.companyId).subscribe(
+    (data) => {
+      this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+      this.docForm.patchValue({
+        'company':this.tokenStorage.getCompanyId(),
+     })
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
 
     this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId=" + this.companyId).subscribe((res: any) => {
       this.locationList = res.addressBean;
