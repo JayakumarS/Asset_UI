@@ -164,9 +164,12 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
 
 getAllList(): void {
   this.UserId=this.tokenStorage.getCompanyId();
-  this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters
-    +"?UserId="+this.tokenStorage.getUserId()).subscribe(
-    (data) => {
+  // this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters
+  //   +"?UserId="+this.tokenStorage.getUserId()).subscribe(
+  //   (data) => {
+      this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters
+        +"?UserId="+this.UserId).subscribe(
+        (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.companyMasterDetails);
     },

@@ -42,6 +42,7 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
   selection = new SelectionModel<Company>(true, []);
   index: number;
   id: number;
+  roleId: string;
 
   constructor(
     public httpClient: HttpClient,
@@ -65,6 +66,7 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+    this.roleId=this.tokenStorage.getRoleId();
     this.loadData();
   }
   

@@ -18,7 +18,7 @@ const AUTHROLES = 'AuthRoles';
 const AUTHBRANCHID = 'AuthBranchId';
 const ACTIVECOMPANY_KEY = 'ActiveCompanyFlag';
 const COMPANYLOGO_KEY = 'AuthCompanyLogo';
-
+const AUTHCOMPANIESAUDITOR = 'AuthCompaniesAuditor';
 
 @Injectable({
   providedIn: 'root'
@@ -157,11 +157,23 @@ public getUserId(): string {
     window.sessionStorage.setItem(AUTHCOMPANIES, JSON.stringify(companies));
   }
 
+  public saveCompaniesAuditor(companies) {
+    window.sessionStorage.removeItem(AUTHCOMPANIESAUDITOR);
+    window.sessionStorage.setItem(AUTHCOMPANIESAUDITOR, JSON.stringify(companies));
+  }
+
   public getCompanies() {
     if (sessionStorage.getItem(TOKEN_KEY)) {
       return sessionStorage.getItem(AUTHCOMPANIES);
     }
   }
+
+  public getCompaniesAuditor() {
+    if (sessionStorage.getItem(TOKEN_KEY)) {
+      return sessionStorage.getItem(AUTHCOMPANIESAUDITOR);
+    }
+  }
+
   public saveBranchId(branchId) {
     window.sessionStorage.removeItem(AUTHBRANCHID);
     window.sessionStorage.setItem(AUTHBRANCHID, branchId);

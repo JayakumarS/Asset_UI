@@ -22,6 +22,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ChatService } from "src/app/angular-bot/chat.service";
+import { CommonService } from "src/app/common-service/common.service";
 
 declare var webkitSpeechRecognition:any
 declare var grecaptcha: any;
@@ -86,7 +87,7 @@ text='';
     private tokenStorage: TokenStorageService,
     public dialog: MatDialog,private snackBar: MatSnackBar,
     private httpService: HttpServiceService,
-    private serverUrl:serverLocations
+    private serverUrl:serverLocations, private commonService: CommonService,
   ) {
     super();
   }
@@ -206,7 +207,22 @@ text='';
                 else if (data.userDetails.roleId == 6) {
                   this.router.navigate(["/payments/initiatePayment/subscription"]);
               }else if(data.userDetails.roleId == 3){
-                this.router.navigate(["/master/company/listCompany"]);
+
+                this.httpService.get<any>(this.commonService.getCompaniesUrl+"?userId="+this.tokenStorage.getUsername()).subscribe({
+                  next: (data) => {
+                    if(data.success){
+                      this.tokenStorage.saveCompanies(data.companyMasterDetails);
+                      this.router.navigate(["/master/company/listCompany"]);
+                    }
+              
+                  },
+                  error: (error) => {
+              
+                  }
+                }
+                );
+
+                //this.router.navigate(["/master/company/listCompany"]);
               }
 
               }, 1000);

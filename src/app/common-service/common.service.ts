@@ -245,7 +245,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public uploadFileUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/uploadFile`;
   public getCompaniesUrl = `${this.serverUrl.apiServerAddress}api/auth/app/company/getCompanies`;
-
+  public getCompaniesUrlAuditor = `${this.serverUrl.apiServerAddress}api/auth/app/company/getCompaniesAuditor`;
   public getLineMasterDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLineMasterDropdown`;
   
   public getPincodeDetailsUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPincodeDetails`;
