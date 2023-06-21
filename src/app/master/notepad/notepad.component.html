@@ -80,7 +80,10 @@
                 id="Form-Edit"></i>&nbsp;
                 <i class="fa fa-trash" (click)="RemoveNote(Message)" id="Form-Cancel" ></i>&nbsp;
             </span>  
-            <span class="material-icons" *ngIf="indexNote==editIndex"(click)="EditMessage(Message,indexNote)">mode_edit</span>
+            <!-- <span class="material-icons" *ngIf="indexNote==editIndex"(click)="EditMessage(Message,indexNote)"></span> -->
+            <button color="primary" type="button" class="btn-space" 
+            mat-raised-button background-color:mediumvioletred *ngIf="indexNote==editIndex" (click)="EditMessage(Message,indexNote)"  style=" margin-left: 98px;
+            margin-top: 21px;">Update</button>
             </div>
             </span>
     

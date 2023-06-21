@@ -10,8 +10,18 @@
   margin-left: 541px;
   margin-top: 40px;
 
+  .NoteOutput {
+    margin-left: 98px;
+    margin-top: 21px;
+  }
 
- 
+  .mat-mini-fab.mat-warn {
+    color: black;
+    background-color:#23b323;
+  }
+
+
+
  
 }
 
@@ -123,8 +133,8 @@ h1 {
   margin-left: 580px;
   margin-top: 4px;
  
-  box-shadow:#007bff;
-  background: #007bff;
+  box-shadow:#FFA500;
+  background: #FFA500;
   border-radius: 10px;
   border: 1px solid #1f2f47;
   color: #ffffff;
@@ -159,8 +169,13 @@ textarea {
 [type=button] {
   margin-left: 641px;
   margin-top: 11px;
+  background-color: #CCCCCC;
 }
 
-
+[type=button] {
+  margin-left: 98px;
+  margin-top: 21px;
+  background-color: purple;
+}
 
 }
