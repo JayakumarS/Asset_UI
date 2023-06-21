@@ -139,7 +139,17 @@ export class AddFinancialYearComponent implements OnInit {
       "right");
   }
 }
-
+validateFinancialYr(event) {
+  if (event != undefined && event != null && event != "") {
+    this.httpService.get<any>(this.financialYearService.ValidateFinancialYr + "?FY=" + event +"&companyId=" + this.tokenStorage.getCompanyId()).subscribe((res: any) => {
+      if (res.validateFY) {
+        this.docForm.controls['financialyear'].setErrors({ FinancialYR: true });
+      }else{
+       // this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+}
+}
   reset(){
     if (!this.edit) {
       location.reload();

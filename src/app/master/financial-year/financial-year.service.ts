@@ -28,7 +28,7 @@ export class FinancialYearService extends UnsubscribeOnDestroyAdapter {
    public editFY = `${this.serverUrl.apiServerAddress}app/financialYear/edit`;
    public update = `${this.serverUrl.apiServerAddress}app/financialYear/update`;
    public delete = `${this.serverUrl.apiServerAddress}app/financialYear/delete`;
-
+   public ValidateFinancialYr = `${this.serverUrl.apiServerAddress}app/financialYear/validateFY`;
 
   get data(): FinancialYear[] {
     return this.dataChange.value;
@@ -111,4 +111,5 @@ export class FinancialYearService extends UnsubscribeOnDestroyAdapter {
         
     });
   }
+  
 }
