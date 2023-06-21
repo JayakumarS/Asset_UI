@@ -167,7 +167,7 @@ export class AddManageAuditComponent implements OnInit {
       });
 
       // FY List
-      this.httpService.get<any>(this.commonService.getFinancialDropDown).subscribe({
+      this.httpService.get<any>(this.commonService.getFinancialDropDown+"?companyId="+ this.tokenStorage.getCompanyId()).subscribe({
         next: (data) => {
           this.FYList = data;
         },
