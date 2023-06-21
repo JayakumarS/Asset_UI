@@ -141,9 +141,26 @@ export class AddFinancialYearComponent implements OnInit {
 }
 
   reset(){
-
+    if (!this.edit) {
+      location.reload();
+      this.docForm = this.fb.group({
+        
+      financialyear: [""],
+   
+      description:[""],
+      isactive:[true], 
+      companyId:[this.tokenStorage.getCompanyId()],
+      userId:[this.tokenStorage.getUserId()],
+      id:[""],
+        
+      });
+  } else {
+    this.fetchDetails(this.requestId);
+  }
+  
   }
   onCancel(){
+this.router.navigate(['master/financial/listFinancial']);
 
   }
 }
