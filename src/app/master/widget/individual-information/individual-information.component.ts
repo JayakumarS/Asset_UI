@@ -51,7 +51,7 @@ export class IndividualInformationComponent implements OnInit {
   cityList=[];
   imgPathUrl = [];
   uploadImage: boolean = false;
-  IsProfile: boolean = false;
+  IsProfile: boolean;
 
   
   constructor(private fb: FormBuilder,private serverUrl: serverLocations,private snackBar: MatSnackBar,private commonService: CommonService,
@@ -91,13 +91,15 @@ export class IndividualInformationComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+ 
     if(window.sessionStorage.getItem("PROFILE")=="IndvProfile"){
-      this.IsProfile = true;
+      this.IsProfile = false;
       window.sessionStorage.setItem("PROFILE","");
 
     }else {
       window.sessionStorage.setItem("PROFILE","");
+      this.IsProfile = true;
+
     }
     this.docForm = this.fb.group({
       name:[""],

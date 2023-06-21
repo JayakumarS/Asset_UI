@@ -1807,9 +1807,17 @@ this.badchartOptions = {
       },
     };
   }
-
   onChange(){
     var userId=this.tokenStorage.getCompanyId()
+    window.sessionStorage.setItem("company", "profile");
+
+
+    this.router.navigate(['master/company/addCompany/'+userId]);
+  }
+
+  onChangeAsset(){
+    var userId=this.tokenStorage.getCompanyId()
+    window.sessionStorage.setItem("company", "Asset");
     window.sessionStorage.setItem("findFrom", "Opened");
     window.sessionStorage.setItem("TabFrom", "");
     window.sessionStorage.setItem("CompanyFrom","");
@@ -1837,6 +1845,19 @@ this.badchartOptions = {
     window.sessionStorage.setItem("PROFILE","IndvProfile");
 
     this.router.navigate(['master/multiple/individualInfo/0']);
+  }
+
+  onChangeIndividualAsset(){
+    var userId=this.tokenStorage.getCompanyId();
+    window.sessionStorage.setItem("TabFromInd","");
+    window.sessionStorage.setItem("propFrom", "");
+    window.sessionStorage.setItem("vehicleFrom","");
+    window.sessionStorage.setItem("jewelFrom","");
+    window.sessionStorage.setItem("fixedFrom","");
+    window.sessionStorage.setItem("mutualFrom","");
+    window.sessionStorage.setItem("loanFrom","");
+    window.sessionStorage.setItem("receivableFrom","");
+    this.router.navigate(['master/multiple/allMaster/'+userId]);
   }
 
   onchangeAsset(){

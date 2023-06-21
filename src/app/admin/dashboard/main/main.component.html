@@ -196,8 +196,10 @@
                 <mat-progress-bar mode="determinate"
                   class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2" value="{{compltedProfile}}">
                 </mat-progress-bar>
-                <button  mat-raised-button color="primary" style ="margin-left:28%;background-color: #34d034;"
-                (click)="onChange()" >Complete the Profile </button>
+                <button  mat-raised-button color="primary" style ="margin-left:15%;background-color: #34d034;"
+                (click)="onChange()" >Edit Profile </button>
+                <button  mat-raised-button color="primary" style ="margin-left:10%;background-color: #34d034;"
+                (click)="onChangeAsset()" >Asset Details </button>
                 </div>
               </div>
             </div>
@@ -214,10 +216,10 @@
                 <mat-progress-bar mode="determinate"
                   class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2" value="{{profileCount}}">
                 </mat-progress-bar>
-                <button *ngIf="profileCount!='100'"  mat-raised-button color="primary" style ="margin-left:28%;background-color: #34d034;"
-                (click)="onChangeIndividual()" >Complete the Profile </button>
-                <button *ngIf="profileCount=='100'"  mat-raised-button color="primary" style ="margin-left:28%;background-color: #34d034;"
-                (click)="onChangeIndividual()" >Edit Profile </button>
+                <button *ngIf="profileCount!='100'"  mat-raised-button color="primary" style ="margin-left:15%;background-color: #34d034;"
+                (click)="onChangeIndividual()" > Edit Profile </button>
+                <button *ngIf="profileCount!='100'"  mat-raised-button color="primary" style ="margin-left:10%;background-color: #34d034;"
+                (click)="onChangeIndividualAsset()" >Asset Details</button>
                 </div>
               </div>
             </div>
@@ -952,8 +954,8 @@
       </div>
     </div> -->
 
-
-    <div class="row">
+ 
+    <div class="row" *ngIf="roleId!='7'">
       <div class="col-md-6">
         <div class="row clearfix">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

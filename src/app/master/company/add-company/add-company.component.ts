@@ -83,7 +83,7 @@ export class AddCompanyComponent implements OnInit {
   countryCode: any;
   personInchargelist: any;
   userName: string;
-
+  IsProfile:boolean= false;
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
     private departmentMasterService: DepartmentMasterService,
@@ -158,6 +158,16 @@ export class AddCompanyComponent implements OnInit {
     this.docForm
     this.userId = this.tokenStorage.getUserId();
     this.roleId=this.tokenStorage.getRoleId();
+
+    if(window.sessionStorage.getItem("company")=="profile"){
+      this.IsProfile = true;
+      window.sessionStorage.setItem("company","");
+
+    }else {
+      window.sessionStorage.setItem("company","");
+      this.IsProfile = false;
+
+    }
     // Country dropdown
     this.companyId=0;
     this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
