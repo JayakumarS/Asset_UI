@@ -14,4 +14,5 @@ export class MainResultBean {
     depreciatedCount:[];
     auditableAssetList:[];
     scheduleActivityDetails:[];
+    validSubscription:[];
 }

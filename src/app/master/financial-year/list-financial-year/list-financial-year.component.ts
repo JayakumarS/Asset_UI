@@ -13,8 +13,6 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { jewel } from '../../jewellery/jewellery.model';
-import { JewelleryService } from '../../jewellery/jewellery.service';
-import { DeleteJewelleryDetailsComponent } from '../../jewellery/list-jewellery-details/delete-jewellery-details/delete-jewellery-details.component';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { FinancialYearService } from '../financial-year.service';
 import { FinancialYear } from '../financial-year-model';

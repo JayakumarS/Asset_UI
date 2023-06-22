@@ -58,6 +58,7 @@ import HC_drilldown from "highcharts/modules/drilldown";
 import { Router } from "@angular/router";
 import { MutualFundService } from "src/app/master/mutualfund/mutualfund.service";
 import { NotificationPopupComponent } from "./notification-popup/notification-popup.component";
+import { SubscriptionAlertComponent } from "./subscription-alert/subscription-alert.component";
 HC_drilldown(Highcharts);
 
 
@@ -222,6 +223,28 @@ configUserLog: {
   //  -------------------------------------- 
   ngOnInit() {
       this.roleId=this.tokenStorage.getRoleId();
+      if(this.roleId == 2 || this.roleId == '2'){
+        this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.tokenStorage.getUserId()).subscribe((res: any) => {
+          if (res.validSubscription) {
+
+            let tempDirection;
+            if (localStorage.getItem("isRtl") === "true") {
+            tempDirection = "rtl";
+             } else {
+            tempDirection = "ltr";
+             }
+              {
+                const dialogRef = this.dialog.open(SubscriptionAlertComponent, {
+                  height: "340px",
+                  width: "800px",
+                  direction: tempDirection,
+                });
+              }
+          }
+          });
+      
+      
+      }
 
       this.httpService.get<any>(this.mainService.getNotificationDetails+"?userId="+this.tokenStorage.getUserId()).subscribe(
         (data:any) => {

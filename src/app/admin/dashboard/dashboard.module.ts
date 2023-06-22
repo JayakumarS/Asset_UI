@@ -41,9 +41,10 @@ import { HighchartsChartModule } from 'highcharts-angular';
 // Pagination
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NotificationPopupComponent } from './main/notification-popup/notification-popup.component';
+import { SubscriptionAlertComponent } from './main/subscription-alert/subscription-alert.component';
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent, NotificationPopupComponent],
+  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent, NotificationPopupComponent, SubscriptionAlertComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
