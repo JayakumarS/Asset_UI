@@ -17,7 +17,7 @@
 
   .mat-mini-fab.mat-warn {
     color: black;
-    background-color:#23b323;
+    background-color:#48e2c9;
   }
 
 
@@ -133,12 +133,12 @@ h1 {
   margin-left: 580px;
   margin-top: 4px;
  
-  box-shadow:#FFA500;
-  background: #FFA500;
+  box-shadow:#98FB98;
+  background: #98FB98;
   border-radius: 10px;
-  border: 1px solid #1f2f47;
+  border: 1px solid deepskyblue;
   color: #ffffff;
-  text-shadow: 0px 1px 0px #263666;
+  text-shadow: 0px 1px 0px deepskyblue;
   margin-left: 32px;
   margin-top: 4px;
   word-wrap: break-word; 
@@ -168,14 +168,17 @@ textarea {
 
 [type=button] {
   margin-left: 641px;
-  margin-top: 11px;
-  background-color: #CCCCCC;
+  margin-top: 21px;
 }
+
+
 
 [type=button] {
   margin-left: 98px;
   margin-top: 21px;
-  background-color: purple;
+  background-color: mediumvioletred;
 }
+
+
 
 }

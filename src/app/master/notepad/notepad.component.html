@@ -54,9 +54,13 @@
             </button>
   <!-- <button class="search-button">Search</button> -->
           </div>
-      <button color="primary" type="button" class="btn-space" style=" margin-left: 641px;
-          margin-top: 11px;" mat-raised-button (click)="reset()">Reset</button>
+      <!-- <button color="primary" type="button" class="btn-space" style=" margin-left: 641px;
+          margin-top: 11px;" mat-raised-button (click)="reset()">Reset</button> -->
     
+
+    <button color="primary" type="button" class="btn-space" 
+            mat-raised-button (click)= "reset()"style=" margin-left: 641px;
+            margin-top: 11px;">Reset</button>
           <br>
           <!-- <div class="note-corner">
             <div class="row">
@@ -82,7 +86,7 @@
             </span>  
             <!-- <span class="material-icons" *ngIf="indexNote==editIndex"(click)="EditMessage(Message,indexNote)"></span> -->
             <button color="primary" type="button" class="btn-space" 
-            mat-raised-button background-color:mediumvioletred *ngIf="indexNote==editIndex" (click)="EditMessage(Message,indexNote)"  style=" margin-left: 98px;
+            mat-raised-button *ngIf="indexNote==editIndex" (click)="EditMessage(Message,indexNote)"  style=" margin-left: 98px;
             margin-top: 21px;">Update</button>
             </div>
             </span>
