@@ -212,6 +212,12 @@ export class AddPropertyComponent implements OnInit {
        payStatus:[""],
        payAmt:[""],
        
+
+        // For Date Validation
+      srtDate:[""],
+      edDate:[""],
+  
+      
        //rentarraydetails
 
        sampleDtl: this.fb.array([
@@ -744,8 +750,13 @@ update(){
  }
  
  showNotification(colorName, text, placementFrom, placementAlign) {
- 
- }
+  this.snackBar.open(text, "", {
+    duration: 2000,
+    verticalPosition: placementFrom,
+    horizontalPosition: placementAlign,
+    panelClass: colorName,
+  });
+}
 
  validateCustomer(event){
    
@@ -774,6 +785,8 @@ update(){
    }
    getDateString(event, inputFlag, index) {
      let cdatedate = this.commonService.getDate(event.target.value);
+     let tdate = this.commonService.getDateYYMMDDFormat(event.target.value);
+
      if (inputFlag == 'regDate') {
        this.docForm.patchValue({ regDate: cdatedate });
      }
@@ -822,10 +835,31 @@ let transitionDate = this.commonService.getDate(event.target.value);
 if (inputFlag == 'transitionDate') {
  this.docForm.patchValue({ transitionDate: transitionDate});
 }
+    // For Date  Validation
 
-
-   }
-
+    if (inputFlag == 'loanstart') {
+      this.docForm.patchValue({ srtDate: tdate });
+    } else if (inputFlag == 'loanend') {
+      this.docForm.patchValue({ edDate: tdate });
+    }
+ 
+    let frDate = this.docForm.value.srtDate;
+    let tDate = this.docForm.value.edDate;
+    let fr = new Date(frDate);
+    let to = new Date(tDate);
+    if(fr>to){
+            this.docForm.patchValue({
+              loanend:'',
+              loanendObj:''
+      })
+      this.showNotification(
+        "snackbar-danger",
+        "End date should be greater than Start date ",
+        "bottom",
+        "center"
+      );
+    }
+    }
 
    houseFlag(event)
    {
