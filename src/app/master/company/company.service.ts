@@ -102,7 +102,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
     if(data.Success=true){
       notificationService.showNotification(
         "snackbar-success",
-        "Add Record Successfully...!!!",
+        "Updated record successfully...!!!",
         "bottom",
         "center"
       );
