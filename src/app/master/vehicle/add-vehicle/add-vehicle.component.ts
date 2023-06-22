@@ -146,9 +146,13 @@ export class AddVehicleComponent implements OnInit {
       insurancedate1:[""],
 
       dealername:["", [Validators.required]],
-      dealeraddress:["", [Validators.required]]
+      dealeraddress:["", [Validators.required]],
 
-      
+       // For Date Validation
+       srtDate:[""],
+       edDate:[""],
+       stdat:[""],
+       endat:[""],
 
 
     });
@@ -226,10 +230,13 @@ export class AddVehicleComponent implements OnInit {
       loanstartDate1:[""],
 
       dealername:["", [Validators.required]],
-      dealeraddress:["", [Validators.required]]
+      dealeraddress:["", [Validators.required]],
 
-
-
+ // For Date Validation
+ srtDate:[""],
+ edDate:[""],
+ stdat:[""],
+ endat:[""],
 
 
 
@@ -595,6 +602,9 @@ getpari(check: any) {
 
   getDateString(event, inputFlag, index) {
     let cdate = this.commonService.getDate(event.target.value);
+    let tdate = this.commonService.getDateYYMMDDFormat(event.target.value);
+    let gdate = this.commonService.getDateYYMMDDFormat(event.target.value);
+
     if (inputFlag == 'discardFromDate') {
       this.docForm.patchValue({discardFromDate: cdate });
     }
@@ -617,6 +627,75 @@ getpari(check: any) {
       this.docForm.patchValue({discardFromDate5: cdate });
     }
     
+      // For Date  Validation
+
+      if (inputFlag == 'loanstartDate1') {
+        this.docForm.patchValue({ srtDate: tdate });
+      } else if (inputFlag == 'emiDate') {
+        this.docForm.patchValue({ edDate: tdate });
+      }
+   
+      let frDate = this.docForm.value.srtDate;
+      let tDate = this.docForm.value.edDate;
+      let fr = new Date(frDate);
+      let to = new Date(tDate);
+      if(fr>to){
+              this.docForm.patchValue({
+                emiDate:'',
+                emiDateObj:''
+        })
+        this.showNotification(
+          "snackbar-danger",
+          "EMI date should be greater than loan Start date ",
+          "bottom",
+          "center"
+        );
+      }
+      if (inputFlag == 'insurancedate1') {
+        this.docForm.patchValue({ stdat: gdate });
+      } else if (inputFlag == 'validity1') {
+        this.docForm.patchValue({ endat: gdate });
+      }
+   
+      let frmDate = this.docForm.value.stdat;
+      let toDate = this.docForm.value.endat;
+      let frm = new Date(frmDate);
+      let too = new Date(toDate);
+      if(frm>too){
+              this.docForm.patchValue({
+                validity:'',
+                validity1:''
+        })
+        this.showNotification(
+          "snackbar-danger",
+          "Validity date should be greater than Insurance start date ",
+          "bottom",
+          "center"
+        );
+      }
+
+      if (inputFlag == 'discardFromDate') {
+        this.docForm.patchValue({ stdat: gdate });
+      } else if (inputFlag == 'discardFromDate5') {
+        this.docForm.patchValue({ endat: gdate });
+      }
+   
+      let fDate = this.docForm.value.stdat;
+      let ttDate = this.docForm.value.endat;
+      let f = new Date(fDate);
+      let t = new Date(ttDate);
+      if(f>t){
+              this.docForm.patchValue({
+                nextservice:'',
+                discardFromDate5:''
+        })
+        this.showNotification(
+          "snackbar-danger",
+          "Next service date should be greater than last service date ",
+          "bottom",
+          "center"
+        );
+      }
     }
 
 
