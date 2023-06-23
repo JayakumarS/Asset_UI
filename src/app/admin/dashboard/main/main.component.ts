@@ -235,8 +235,8 @@ configUserLog: {
              }
               {
                 const dialogRef = this.dialog.open(SubscriptionAlertComponent, {
-                  height: "340px",
-                  width: "800px",
+                  height: "520px",
+                  width: "1000px",
                   direction: tempDirection,
                 });
               }

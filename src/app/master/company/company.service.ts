@@ -86,7 +86,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
       else if(data.Success=false){
         notificationService.showNotification(
           "snackbar-danger",
-          "Not Updated Successfully...!!!",
+          "Not Added Successfully...!!!",
           "bottom",
           "center"
         );

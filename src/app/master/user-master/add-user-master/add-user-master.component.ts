@@ -68,11 +68,11 @@ export class AddUserMasterComponent implements OnInit {
       location: [""],
       otp: [""],
       userLocation: [""],
-      company: [""],
+      company: ["", [Validators.required]],
       loginedUser: this.tokenStorage.getUserId(),
       empid: [""],
       active: [true],
-      branch: [""],
+      branch: ["", [Validators.required]],
       auditor: [""],
       companyid:[""],
       branchid:[""],
@@ -121,7 +121,7 @@ export class AddUserMasterComponent implements OnInit {
 
       this.fieldsChange(false);
     }
-
+   
     // User Location dropdown
     this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
       next: (data) => {
@@ -325,11 +325,15 @@ export class AddUserMasterComponent implements OnInit {
   }
 
   fieldsChange(values:any):void {
-    if(values){
+    if(values){ 
       this.auditorFlag=false;
       this.auditorFFlag=false;
+      this.docForm.controls.company.clearValidators();
+      this.docForm.controls['company'].updateValueAndValidity();
 
-
+      this.docForm.controls.branch.clearValidators();
+      this.docForm.controls['branch'].updateValueAndValidity();
+      
       this.httpService.get<any>(this.userMasterService.roleListAuditUrl).subscribe(
         (data) => {
           this.roleAuditList = data.roleAuditList;
@@ -441,8 +445,10 @@ export class AddUserMasterComponent implements OnInit {
     if (this.docForm.valid){
       this.userMaster = this.docForm.value;
       this.spinner.show();
-      if(this.roleId!=1){
-        if(this.docForm.value.company !="" && this.docForm.value.branch !=""){
+      if(this.roleId!=1 || this.docForm.value.auditor !="true"){
+        
+        // if(this.docForm.value.company !="" && this.docForm.value.branch !="")
+        // {
           this.userMasterService.addUser(this.userMaster).subscribe({
             next: (data) => {
               this.spinner.hide();
@@ -473,16 +479,18 @@ export class AddUserMasterComponent implements OnInit {
               );
             }
           });
-        }else{
-          this.spinner.hide();
-          this.showNotification(
-            "snackbar-danger",
-            "Please fill Company and Branch Fields...!!",
-            "bottom",
-            "center"
-          );
-        }
-      }else{
+        // }else{
+        //   this.spinner.hide();
+        //   this.showNotification(
+        //     "snackbar-danger",
+        //     "Please fill Company and Branch Fields...!!",
+        //     "bottom",
+        //     "center"
+        //   );
+        // }
+      }
+    
+      else{
         this.userMasterService.addUser(this.userMaster).subscribe({
           next: (data) => {
             this.spinner.hide();

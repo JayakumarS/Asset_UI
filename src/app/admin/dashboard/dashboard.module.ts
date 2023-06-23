@@ -42,6 +42,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NotificationPopupComponent } from './main/notification-popup/notification-popup.component';
 import { SubscriptionAlertComponent } from './main/subscription-alert/subscription-alert.component';
+import { MatCardModule } from "@angular/material/card";
 
 @NgModule({
   declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent, NotificationPopupComponent, SubscriptionAlertComponent],
@@ -88,7 +89,8 @@ import { SubscriptionAlertComponent } from './main/subscription-alert/subscripti
     MatAutocompleteModule,
     MatMenuModule,
     HighchartsChartModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatCardModule
     
   ],
   providers: [NotificationService,CurrencyPipe],

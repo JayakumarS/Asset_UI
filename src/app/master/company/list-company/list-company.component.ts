@@ -95,6 +95,8 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
   }
 
   editCall(row) {
+    window.sessionStorage.setItem("company", "profile");
+
     this.router.navigate(['/master/company/addCompany/'+row.companyId]);
   }
 
