@@ -149,6 +149,11 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
     });
 
   }
+  addnew(){
+  window.sessionStorage.setItem("company", "profile");
+  this.router.navigate(['master/company/addCompany/0']);
+
+}
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 2000,

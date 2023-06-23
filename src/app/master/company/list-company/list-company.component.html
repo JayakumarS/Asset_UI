@@ -17,14 +17,14 @@
                         <li class="dropdown m-l-20 ">
                           <h2>Company</h2>
                         </li>
-                        <li class="dropdown m-l-20">
+                        <li class="dropdown m-l-20"> 
                           <label for="search-input"><i class="material-icons search-icon">search</i></label>
                           <input placeholder="Search" type="text" #filter class="browser-default search-field"
                             aria-label="Search box">
                         </li>
                         <li>
                           <div class="m-l-10" matTooltip="ADD" *ngIf="roleId=='3'">
-                            <button color="primary" type="button" class="btn-space" [routerLink]="'/master/company/addCompany/0'" mat-raised-button><i
+                            <button color="primary" type="button" class="btn-space" (click)="addnew()" mat-raised-button><i
                               class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
                           </div>
                         </li>
