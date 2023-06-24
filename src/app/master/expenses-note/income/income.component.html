@@ -1,0 +1,193 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" style="padding: 0.5% !important;">
+        <app-breadcrumb [title]="'Income'" [items]="['Master']" [active_item]="'Add-Income'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card " style="padding-left: 150px;">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm">
+               
+                
+                <div class="col-md-1" style="min-width: fit-content;padding-bottom: 3%;">
+                    <mat-radio-group tabindex="21" formControlName="cashinout">
+                     
+                      <mat-radio-button value="INCOME" >INCOME</mat-radio-button>
+          
+                    </mat-radio-group>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <label>DATE</label>
+                     
+                  </div>
+                  <div class=" col-md-3" >
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="date" >
+               
+                  
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <label>TIME</label>
+                 
+              </div>
+                <div class=" col-md-3" >
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <input matInput formControlName="time" >
+             
+                
+                </mat-form-field>
+              </div>
+            </div>
+       
+        <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                  <label>INCOME CATEGORY<span class="errorColor">*</span></label>
+                 
+              </div>
+                <div class="col-md-3" >
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-select  formControlName="category"  >
+                        <mat-option [value]="'WAGES'">
+                        WAGES
+                        </mat-option>
+                        <mat-option [value]="'SALARIES'">
+                          SALARIES
+                        </mat-option>
+                        <mat-option [value]="'COMMISSIONS'">
+                          COMMISSIONS
+                        </mat-option>
+                        <mat-option [value]="'SELF-EMPLOYMENT'">
+                          SELF-EMPLOYMENT
+                        </mat-option>
+                        <mat-option [value]="'BUSINESS'">
+                        BUSINESS
+                        </mat-option>
+                        <mat-option [value]="'RENTAL'">
+                        RENTAL
+                        </mat-option>
+                        <mat-option [value]="'INVESTMENT'">
+                        INVESTMENT
+                        </mat-option>
+                        <mat-option [value]="'INTEREST'">
+                        INTEREST
+                       </mat-option>
+                       <mat-option [value]="'ROYALTY'">
+                       ROYALTY
+                       </mat-option>
+                       <mat-option [value]="'OTHERS'">
+                       OTHERS
+                       </mat-option>
+                   </mat-select>
+                  <mat-error *ngIf="docForm.get('category').hasError('required')">
+                    Category is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                        <label>INCOME DETAIL</label>
+                    </div>
+                    
+                      <div class=" col-md-3" >
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="detail" maxlength="20" oninput="this.value = this.value.toUpperCase()" (keypress)="keyPressName($event)" >
+                   
+                      </mat-form-field>
+                    </div>
+                  
+         </div>
+                    <div class="row"> 
+                      
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                          <label>CURRENCY</label>
+                      </div>
+                      <div class="col-md-3">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-select  formControlName="currency"  >
+                                <mat-option [value]="'KSH'">
+                                      KSH
+                                  </mat-option>
+                                  <mat-option [value]="'INR'">
+                                      INR
+                                  </mat-option>
+                                  <mat-option [value]="'TES'">
+                                      TES
+                                  </mat-option>
+                                
+                            </mat-select>
+                           
+                          </mat-form-field>
+                      </div>
+                   
+  
+                
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                    <label>INCOME AMOUNT<span class="errorColor">*</span></label>
+                  
+                </div>
+                
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <input matInput formControlName="amount" maxlength="20" (keypress)="keyPressNumeric($event)" >
+                  <mat-error *ngIf="docForm.get('amount').hasError('required')">
+                      Amount is required
+                     </mat-error>
+                </mat-form-field>
+                </div>
+            </div>
+            <div class ="row">
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                
+
+                <label>INCOME METHOD<span class="errorColor">*</span></label>
+               
+            </div>
+
+            <div class="col-md-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-select  formControlName="paymentMethod"  >
+                    <mat-option [value]="'CASH'">
+                      CASH
+                      </mat-option>
+                      <mat-option [value]="'CHEQUE'">
+                        CHEQUE
+                      </mat-option>
+                    
+                      <mat-option [value]="'ONLINE'">
+                        ONLINE
+                      </mat-option>
+                     
+                </mat-select>
+                <mat-error *ngIf="docForm.get('paymentMethod').hasError('required')">
+                    Mode is required
+                   </mat-error>
+              </mat-form-field>
+              </div>
+              </div>
+             
+              <div class ="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                     color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="!edit">Submit</button>
+                     <button (click) = "onUpdate()" class="btn-space" mat-raised-button
+                     color="accent" style="margin-left: 36%;background-color: #34d034;" *ngIf="edit">Update</button>
+                     <button (click) = "reset()" class="btn-space" mat-raised-button
+                     color="primary" style="margin-left: 1%;">Reset</button>
+                     <button (click) = "cancel()" class="btn-space" mat-raised-button
+                     color="warn" style="margin-left: 1%;">Cancel</button>
+                     </div>
+                        </div>
+
+             
+
+
+        </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</section>

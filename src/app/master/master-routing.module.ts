@@ -228,6 +228,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./financial-year/financial-year.module").then((p) => p.FinancialYearModule),
   },
+  {
+    path:"expenses",
+    loadChildren:()=>
+    import("./expenses-note/expenses-note.module").then((m)=>m.ExpensesNoteModule)
+  }
 
 ];
 
