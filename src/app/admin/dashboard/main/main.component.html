@@ -147,12 +147,34 @@
         [plotOptions]="badchartOptions.plotOptions"
         [labels]="badchartOptions.labels"
       ></apx-chart>
-    </div>  
+    </div> 
+
+
               </div>
 </div>
 </div>
 </div>
 </div>
+<div class="col-md-6">
+  <div class="row clearfix">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="card" *ngIf="roleId=='7'"style="padding-bottom: 8px;padding-top: 22px;">
+    <h4 style="margin-left: 150px;">  Jewellery Material Count</h4>
+      <div id="chart" class="col-md-12">
+        <apx-chart
+          [series]="jewelchartOptions.series"
+          [chart]="jewelchartOptions.chart"
+          [plotOptions]="jewelchartOptions.plotOptions"
+          [labels]="jewelchartOptions.labels"
+          [legend]="jewelchartOptions.legend"
+          [colors]="jewelchartOptions.colors"
+          [responsive]="jewelchartOptions.responsive"
+        ></apx-chart>
+      </div>
+      </div>      
+    </div> 
+  </div>
+</div>  
 
           </div>
 

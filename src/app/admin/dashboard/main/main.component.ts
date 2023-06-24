@@ -92,6 +92,7 @@ export class MainComponent implements OnInit {
   columnaveragevehicleOuterValueArray = [];
   badvehicleChartValueArray= [];
   columnbadvehicleOuterValueArray = [];
+  columnjewellerychartArray = [];
 
   userLogListDashboard = [];
   // Drilldown array
@@ -211,6 +212,7 @@ configUserLog: {
   goodchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
   badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
   vehicleTotalCount: any;
+  jewelchartOptions: { series: any[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { offsetY: number; startAngle: number; endAngle: number; hollow: { margin: number; size: string; background: string; image: any; }; dataLabels: { name: { show: boolean; }; value: { show: boolean; }; }; }; }; colors: string[]; labels: string[]; legend: { show: boolean; floating: boolean; fontSize: string; position: string; offsetX: number; offsetY: number; labels: { useSeriesColors: boolean; }; formatter: (seriesName: any, opts: any) => string; itemMargin: { horizontal: number; }; }; responsive: { breakpoint: number; options: { legend: { show: boolean; }; }; }[]; };
   // badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
@@ -532,6 +534,13 @@ configUserLog: {
       this.goodchart();
       this.averagechart();
       this.badchart();
+
+      // jewellery chart
+      this.jewellerychart();
+      this.columnjewellerychartArray.push(doughnutChartData.getJewellerychart[0].gold);
+      this.columnjewellerychartArray.push(doughnutChartData.getJewellerychart[0].platinum);
+      this.columnjewellerychartArray.push(doughnutChartData.getJewellerychart[0].silver);
+      this.columnjewellerychartArray=doughnutChartData.getJewellerychart;
 
   
 
@@ -1097,6 +1106,67 @@ this.badchartOptions = {
   labels: ["BAD"]
 };
 }
+
+// jewellery chart
+jewellerychart(){
+  this.jewelchartOptions = {
+    series:  this.columnjewellerychartArray,
+    chart: {
+      height: 450,
+      type: "radialBar"
+    },
+    plotOptions: {
+      radialBar: {
+        offsetY: 0,
+        startAngle: 0,
+        endAngle: 270,
+        hollow: {
+          margin: 5,
+          size: "48%",
+          background: "transparent",
+          image: undefined
+        },
+        dataLabels: {
+          name: {
+            show: false
+          },
+          value: {
+            show: false
+          }
+        }
+      }
+    },
+    colors: ["#00BFFF", "#0000FF", "#318CE7"],
+    labels: ["GOLD", "PLATINUM", "SILVER"],
+    legend: {
+      show: true,
+      floating: true,
+      fontSize: "18px",
+      position: "left",
+      offsetX: 50,
+      offsetY: 10,
+      labels: {
+        useSeriesColors: true
+      },
+      formatter: function(seriesName, opts) {
+        return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
+      },
+      itemMargin: {
+        horizontal: 3
+      }
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          legend: {
+            show: false
+          }
+        }
+      }
+    ]
+  };
+  }
 
 // ----------------------------------------
   basicBarChart(){
