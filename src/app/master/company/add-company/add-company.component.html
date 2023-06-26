@@ -14,7 +14,12 @@
           <div class="card">
             <div class="body" style="padding-left: 60px;">
                 
-              <form class="m-4" [formGroup]="docForm" *ngIf ="IsProfile">
+              <mat-tab-group #matgroup  (selectedTabChange)="matEvent($event.index)">
+                <mat-tab label="Tab 1">
+                  <ng-template mat-tab-label>
+                    <i class="material-icons">domain</i> &nbsp;Company
+                </ng-template>
+              <form class="m-4" [formGroup]="docForm">
                 <div class="row">
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
                     <label>COMPANY NAME<span class="errorColor">*</span></label>
@@ -583,20 +588,19 @@
                     <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
                       style="margin-left: 36%;background-color: #34d034;">Submit</button>
                     <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
-                      style="margin-left: 40%;background-color: #34d034;">Update</button>
+                      style="margin-left: 36%;background-color: #34d034;">Update</button>
                     <button color="primary" type="button" class="btn-space" (click)="reset()"
                       mat-raised-button>Reset</button>
                       <button color="warn" type="button" class="btn-space" (click)="onCancel()"
                       mat-raised-button>Back</button>
                       <button  style="background-color:#004554;" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 1'
-                      mat-raised-button color="accent" *ngIf ="!IsProfile">Next</button>
+                      mat-raised-button color="accent" >Next</button>
                   </div>
                 </div>
               </form>
-            <mat-tab-group #matgroup  (selectedTabChange)="matEvent($event.index)">
+            </mat-tab>
+            <mat-tab label="Tab 2"  *ngFor="let tab of tabEmp; let index = index">
 
-           <div  *ngIf ="!IsProfile">
-            <mat-tab label="Tab 2"  *ngFor="let tab of tabEmp; let index = index"  >
               <ng-template mat-tab-label>
                 <i class="material-icons">group</i>Company Employee
               </ng-template>
@@ -712,7 +716,6 @@
                 </div>
               </div>
               </mat-tab> 
-              </div>
               </mat-tab-group>
             </div>
           </div>

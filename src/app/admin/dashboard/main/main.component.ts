@@ -1902,15 +1902,7 @@ jewellerychart(){
   }
   onChange(){
     var userId=this.tokenStorage.getCompanyId()
-    window.sessionStorage.setItem("company", "profile");
-
-
-    this.router.navigate(['master/company/addCompany/'+userId]);
-  }
-
-  onChangeAsset(){
-    var userId=this.tokenStorage.getCompanyId()
-    window.sessionStorage.setItem("company", "Asset");
+   
     window.sessionStorage.setItem("findFrom", "Opened");
     window.sessionStorage.setItem("TabFrom", "");
     window.sessionStorage.setItem("CompanyFrom","");

@@ -159,15 +159,7 @@ export class AddCompanyComponent implements OnInit {
     this.userId = this.tokenStorage.getUserId();
     this.roleId=this.tokenStorage.getRoleId();
 
-    if(window.sessionStorage.getItem("company")=="profile"){
-      this.IsProfile = true;
-      window.sessionStorage.setItem("company","");
-
-    }else {
-      window.sessionStorage.setItem("company","");
-      this.IsProfile = false;
-
-    }
+   
     // Country dropdown
     this.companyId=0;
     this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
