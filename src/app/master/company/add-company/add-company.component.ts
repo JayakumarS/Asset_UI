@@ -528,7 +528,7 @@ export class AddCompanyComponent implements OnInit {
 
   addBranch() {
     
-    for(let k = 0; k < this.docForm.value.branchCount; k++){
+    for(let k = 0; k < parseInt(this.docForm.value.branchCount); k++){
       //this.fetchDynamicDropDown(null,k);  
           this.dynamicDropDownList.push([]);
           this.dynamicDropDownList[k][0] = [];
@@ -536,14 +536,34 @@ export class AddCompanyComponent implements OnInit {
           this.dynamicDropDownList[k][2] = [];
           this.dynamicDropDownList[k][3] = [];
     }
-
-    if ((parseInt(this.docForm.value.branchCount)) > this.docForm.controls.branchList.value.length) {
-      for (let i = 0; i < this.docForm.value.branchCount - this.docForm.controls.branchList.value.length; ) {
+    if((parseInt(this.docForm.value.branchCount)) == 1){
+      this.flag = true;
+      let branchListDetailArray = this.docForm.controls.branchList as FormArray;
+      let arraylen = 1;
+      let newUsergroup: FormGroup = this.fb.group({
+        branch: [""],
+        branchName: [""],
+        branchGstNo:[""],
+        branchCode: [""],
+        branchAddress: [""],
+        branchCountry: [""],
+        branchState: [""],
+        branchCity: [""],
+        branchZipcode: [""],
+        branchPhoneNo: [""],
+        gstFlag:true
+      })
+      // this.removeRow(i)
+      branchListDetailArray.clear();
+      branchListDetailArray.insert(arraylen-1, newUsergroup);
+    }
+    else if ((parseInt(this.docForm.value.branchCount)) >= this.docForm.controls.branchList.value.length) {
+      for (let i = 0; i < parseInt(this.docForm.value.branchCount) - this.docForm.controls.branchList.value.length; ) {
         if ((parseInt(this.docForm.value.branchCount) - this.docForm.controls.branchList.value.length) <= 10) {
           this.flag = true;
            
           let branchListDetailArray = this.docForm.controls.branchList as FormArray;
-          let arraylen = this.docForm.value.branchCount - this.docForm.controls.branchList.value.length;
+          let arraylen = parseInt(this.docForm.value.branchCount) - this.docForm.controls.branchList.value.length;
           let newUsergroup: FormGroup = this.fb.group({
             branch: [""],
             branchName: [""],
@@ -571,7 +591,7 @@ export class AddCompanyComponent implements OnInit {
     }
     else{
       var k=this.docForm.controls.branchList.value.length-1
-      var l=this.docForm.controls.branchList.value.length- this.docForm.value.branchCount
+      var l=this.docForm.controls.branchList.value.length- parseInt(this.docForm.value.branchCount);
       console.log(l)
       for (let i = 0; i <l;i++ ) {
        let branchListArray = this.docForm.controls.branchList as FormArray;
