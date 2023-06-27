@@ -569,6 +569,16 @@ export class AddCompanyComponent implements OnInit {
         }
       }
     }
+    else{
+      var k=this.docForm.controls.branchList.value.length-1
+      var l=this.docForm.controls.branchList.value.length- this.docForm.value.branchCount
+      console.log(l)
+      for (let i = 0; i <l;i++ ) {
+       let branchListArray = this.docForm.controls.branchList as FormArray;
+       branchListArray.removeAt(k);
+       k=k-1;
+      }
+    }
 
 
   }
