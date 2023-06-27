@@ -117,6 +117,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       //After detail row
       subTotal: [""],
       discount: [""],
+      discountTot:[""],
       otherCharges: [""],
       total: [""],
 
@@ -375,7 +376,8 @@ export class AddPurchaseOrderComponent implements OnInit {
 
           //After detail row
           'subTotal': Number(res.purchaseOrder.subTotal).toFixed(2),
-          'discount': Number(res.purchaseOrder.discount).toFixed(2),
+          // 'discount': Number(res.purchaseOrder.discount).toFixed(2),
+          'discountTot': Number(res.purchaseOrder.discount).toFixed(2),
           'otherCharges': Number(res.purchaseOrder.otherCharges).toFixed(2),
           'total': Number(res.purchaseOrder.total).toFixed(2), 
           'lopUpload':  res.purchaseOrder.lopUpload
@@ -415,6 +417,8 @@ export class AddPurchaseOrderComponent implements OnInit {
             })
             purchaseOrderDetailArray.insert(arraylen, newUsergroup);
           });
+
+          console.log(this.docForm.value.discount)
         }
       },
       error: (error) => {
@@ -762,13 +766,14 @@ export class AddPurchaseOrderComponent implements OnInit {
           });
         }
       } else if (data.get('discountType').value === 58) {
-        if (data.get('discountPercent').value != undefined && data.get('discountPercent').value != null && data.get('discountPercent').value != '') {
+        if (data.get('discount').value != undefined && data.get('discount').value != null && data.get('discount').value != '') {
           let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
-          let discountAmount = (Number(data.get('discountPercent').value) / 100) * Number(data.get('price').value);
+          let discountAmount = (Number(data.get('discount').value) / 100) * Number(data.get('price').value);
           let totalNetPrice = Number(Number(data.get('price').value) - Number(discountAmount)).toFixed(2);
           purchaseOrderDetailArray.at(index).patchValue({
+            discount:data.get('discount').value,
             netPrice: totalNetPrice,
-            discount: discountAmount
+            discountTot: discountAmount
           });
         } else {
           let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
@@ -802,7 +807,8 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.docForm.patchValue({
       'subTotal': Number(totalAmount).toFixed(2),
       'total': Number(totalAmount).toFixed(2),
-      'discount':  Number(discountAmount).toFixed(2),
+      // 'discount':  Number(discountAmount).toFixed(2),
+      'discountTot':  Number(discountAmount).toFixed(2),
     });
     //End
 
