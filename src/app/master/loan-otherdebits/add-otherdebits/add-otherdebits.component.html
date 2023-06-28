@@ -261,6 +261,7 @@
                             formControlName="loanStartDateObj"
                             (dateInput)="$event.value.format('DD/MM/YYYY')"
                             id="loanStartDate"
+                            (dateInput)="fromDateChange('input', $event)"
                             (dateChange)="getDateString($event, 'loanStartDate',0)">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -278,7 +279,7 @@
                         <input matInput [matDatepicker]="picker1" 
                             formControlName="loanDueDateObj"
                             (dateInput)="$event.value.format('DD/MM/YYYY')"
-                            id="loanDueDate"
+                            id="loanDueDate" [min]="minToDate"
                             (dateChange)="getDateString($event, 'loanDueDate',0)">
                         <mat-datepicker-toggle matSuffix
                             [for]="picker1"></mat-datepicker-toggle>
@@ -346,7 +347,7 @@
                     <input matInput [matDatepicker]="picker2" 
                     formControlName="emidateObj"
                     (dateInput)="$event.value.format('DD/MM/YYYY')"
-                    id="emiDate"
+                    id="emiDate" [min]="minToDate"
                     (dateChange)="getDateString($event, 'emiDate',0)">
                 <mat-datepicker-toggle matSuffix
                     [for]="picker2"></mat-datepicker-toggle>

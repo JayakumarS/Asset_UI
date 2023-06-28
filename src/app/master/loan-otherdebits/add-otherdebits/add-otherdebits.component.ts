@@ -13,6 +13,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { LoanOtherdebitsService } from '../loan-otherdebits.service';
 import { Otherdebits } from '../loan-otherdebits.model';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -44,6 +45,10 @@ export const MY_DATE_FORMATS = {
 })
 export class AddOtherdebitsComponent implements OnInit {
 
+  minFromDate: Date;
+  maxFromDate: Date | null;
+  minToDate: Date | null;
+  maxToDate: Date;
  
   docForm: FormGroup;
   edit:boolean=false;
@@ -215,7 +220,11 @@ error: (error) => {
 }
 });
 }
+fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
 
+  this.minToDate = event.value;
+
+}
 
 update(){
   this.otherdebits = this.docForm.value;
