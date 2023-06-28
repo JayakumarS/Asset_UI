@@ -232,7 +232,12 @@ const routes: Routes = [
     path:"expenses",
     loadChildren:()=>
     import("./expenses-note/expenses-note.module").then((m)=>m.ExpensesNoteModule)
-  }
+  },
+  {
+    path: "birthday",
+    loadChildren: () =>
+    import("./birthday-reminder/birthday-reminder.module").then((p) => p.BirthdayReminderModule),
+  },
 
 ];
 
