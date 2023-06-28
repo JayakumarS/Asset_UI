@@ -214,6 +214,14 @@ export class IndividualInformationComponent implements OnInit {
   fetchCountryBasedState(country: any){
     this.httpService.get(this.commonService.getCountryBasedStateList + "?country=" + country).subscribe((res: any) => {
       this.stateList = res;
+      console.log(this.stateList)
+      if(this.stateList.length==0){
+        this.cityList=[];
+        this.docForm.patchValue({
+          'city':'',
+          'state':'',
+        })
+      }
     })
   }
   stateBasedCity(state:any){
