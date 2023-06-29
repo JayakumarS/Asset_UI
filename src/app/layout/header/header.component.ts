@@ -29,6 +29,7 @@ import { CommonService } from "src/app/common-service/common.service";
 import { FlowChartPopupComponent } from "src/app/admin/schedule-activity/flow-chart-popup/flow-chart-popup.component";
 import { CompanyLogoResultBean } from "src/app/master/company-logo/companyLogoResultBean";
 import { serverLocations } from "src/app/auth/serverLocations";
+import { CompanyService } from "src/app/master/company/company.service";
 const document: any = window.document;
 
 @Component({
@@ -74,6 +75,9 @@ export class HeaderComponent
   ipAddress:string;
   ip: any;
   pwdStatus: any;
+  userId:any
+  daysleft:any
+  SubscOver: boolean = false
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -88,7 +92,8 @@ export class HeaderComponent
     private httpService: HttpServiceService,
     public manageAuditService: ManageAuditService,
     private commonService: CommonService,
-    private serverUrl:serverLocations
+    private serverUrl:serverLocations,
+    public companyService: CompanyService
 
   ) {
     super();
@@ -270,6 +275,23 @@ export class HeaderComponent
       }
     );
 
+
+    
+     // SUBSCRIPTION DAYS LEFT
+     this.userId=this.token.getUserId();
+     this.httpService.get<any>(this.companyService.getSubcDaysLeft+"?userId="+this.userId).subscribe({
+      next: (data) => {
+        if(data.daysleft < 0){
+    this.SubscOver = true
+        }
+        this.daysleft = data.daysleft
+        console.log(this.daysleft);
+       },
+       error: (error) => {
+ 
+       }
+     }
+     );
   }
 
 
