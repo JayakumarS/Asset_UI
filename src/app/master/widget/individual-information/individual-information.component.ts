@@ -52,7 +52,7 @@ export class IndividualInformationComponent implements OnInit {
   imgPathUrl = [];
   uploadImage: boolean = false;
   IsProfile: boolean;
-
+  dtlFlag: boolean = false;
   
   constructor(private fb: FormBuilder,private serverUrl: serverLocations,private snackBar: MatSnackBar,private commonService: CommonService,
    
@@ -127,8 +127,8 @@ export class IndividualInformationComponent implements OnInit {
       website: ['', [Validators.pattern (/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)]],
       proofDtl: this.fb.array([
         this.fb.group({ 
-          idtype:[""],
-          idNumber:[""],
+          idtype:["", [Validators.required]],
+          idNumber:["", [Validators.required]],
           uploadImg:[""],
           loginedUser:[this.tokenStorage.getUserId()]
 
@@ -292,7 +292,7 @@ onSelectImage(event, index, type) {
 }
 viewDocuments(filePath: any, fileName: any) {
   var a = document.createElement("a");
-  a.href = this.serverUrl.apiServerAddress + "asset_upload/uploadImg" + filePath;
+  a.href = this.serverUrl.apiServerAddress + "asset_upload/" + filePath;
   a.target = '_blank';
   a.download = fileName;
   a.click();
@@ -312,8 +312,25 @@ removeRowSelf(index){
 }
   onSubmit(){
     this.submitted = true;
- 
-     if(this.docForm.valid){ 
+
+    for(let i=0;i<this.docForm.value.proofDtl.length;i++){
+      if(this.docForm.value.proofDtl[i].idtype=='' || this.docForm.value.proofDtl[i].idNumber=='')
+      {
+        this.dtlFlag=false;
+        this.notificationService.showNotification(
+          "snackbar-danger",
+          "Please fill all the required details!",
+          "top",
+          "right");
+      }
+      else{
+        this.dtlFlag=true;
+      }
+    }
+    if(this.dtlFlag==true){
+     if(this.docForm.valid){
+      
+
        this.mutualFundService.saveProfile(this.docForm.value,this.router,this.notificationService);
      } else {
        this.notificationService.showNotification(
@@ -322,11 +339,26 @@ removeRowSelf(index){
          "top",
          "right");
      }
- 
+    }
    }
    onSubmitProfile(){
     this.submitted = true;
- 
+
+    for(let i=0;i<this.docForm.value.proofDtl.length;i++){
+      if(this.docForm.value.proofDtl[i].idtype=='' || this.docForm.value.proofDtl[i].idNumber=='')
+      {
+        this.dtlFlag=false;
+        this.notificationService.showNotification(
+          "snackbar-danger",
+          "Please fill all the required details!",
+          "top",
+          "right");
+      }
+      else{
+        this.dtlFlag=true;
+      }
+    }
+    if(this.dtlFlag==true){
     if(this.docForm.valid){ 
       this.mutualFundService.saveProfile1(this.docForm.value,this.notificationService);
     } else {
@@ -336,6 +368,7 @@ removeRowSelf(index){
         "top",
         "right");
     }
+  }
    }
 
   fetchDetails(fundNo: any) {

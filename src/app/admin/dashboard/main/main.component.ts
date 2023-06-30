@@ -168,6 +168,7 @@ export class MainComponent implements OnInit {
   assetsFlagForDashboard:boolean;
   pieChartFlag:boolean;
   ticketFlag:boolean;
+  showValuationPanel:boolean;
   Page=1;
   pageSize=5;
   Page1=1;
@@ -519,6 +520,16 @@ configUserLog: {
 
       // Individual Drilldown Chart
       this.columnIndividualOuterValueArray=doughnutChartData.getIndividualColumnChart;
+if(doughnutChartData.getIndividualColumnChart[0].y==0)
+{
+  this.showValuationPanel=false;
+  console.log(this.showValuationPanel)
+}
+else{
+  this.showValuationPanel=true;
+}
+
+
       // Vehicle Chart
       this.columnvehicleOuterValueArray.push(doughnutChartData.getVehicleColumnChart[0].good);
       this.columnvehicleOuterValueArray.push(doughnutChartData.getVehicleColumnChart[0].average);
@@ -1021,7 +1032,7 @@ configUserLog: {
     this.vehiclechartOptions = {
       series: this.vehicleChartValueArray,
       chart: {
-        height: 490,
+        height: 412,
         type: "radialBar"
       },
       plotOptions: {
@@ -1053,7 +1064,7 @@ configUserLog: {
   this.goodchartOptions = {
     series:this.goodvehicleChartValueArray,
     chart: {
-      height: 180,
+      height: 155,
       type: "radialBar",
       
            
@@ -1061,7 +1072,7 @@ configUserLog: {
     plotOptions: {
       radialBar: {
         hollow: {
-          size: "60%"
+          size: "55%"
 
    }
       }
@@ -1075,13 +1086,13 @@ averagechart(){
 this.averagechartOptions = {
   series:this.averagevehicleChartValueArray,
   chart: {
-    height: 180,
+    height: 155,
     type: "radialBar"
   },
   plotOptions: {
     radialBar: {
       hollow: {
-        size: "60%"
+        size: "55%"
       }
     }
   },
@@ -1093,13 +1104,13 @@ badchart(){
 this.badchartOptions = {
   series: this.badvehicleChartValueArray,
   chart: {
-    height: 180,
+    height: 155,
     type: "radialBar"
   },
   plotOptions: {
     radialBar: {
       hollow: {
-        size: "60%"
+        size: "55%"
       }
     }
   },
@@ -1112,7 +1123,7 @@ jewellerychart(){
   this.jewelchartOptions = {
     series:  this.columnjewellerychartArray,
     chart: {
-      height: 450,
+      height: 412,
       type: "radialBar"
     },
     plotOptions: {
@@ -1143,7 +1154,7 @@ jewellerychart(){
       floating: true,
       fontSize: "18px",
       position: "left",
-      offsetX: 50,
+      offsetX: 30,
       offsetY: 10,
       labels: {
         useSeriesColors: true
