@@ -1,38 +1,40 @@
 <section class="content">
-    <div class="content-block">
-      <div class="block-header" style="padding: 0.5% !important;">
-        <!-- breadcrumb -->
-        <!-- <app-breadcrumb [title]="'Depreciation'" [items]="['Master']" [active_item]="'Add Depreciation'">
+  <div class="content-block">
+    <div class="block-header" style="padding: 0.5% !important;">
+      <!-- breadcrumb -->
+      <!-- <app-breadcrumb [title]="'Depreciation'" [items]="['Master']" [active_item]="'Add Depreciation'">
         </app-breadcrumb>  -->
-      </div>
-      <div class="row clearfix ">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    </div>
+    <div class="row clearfix ">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="box-shadow">
           <div class="card">
             <div class="body" style="padding-left: 110px;">
               <form class="m-4" [formGroup]="docForm">
-               
-                
-                  <div class="row">
+
+
+                <div class="row">
 
                   <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="
                     margin-top: 14px;
-                " >
-                      <label >AUDITOR<span class="errorColor">*</span></label>
-                  </div> 
+                ">
+                    <label>AUDITOR<span class="errorColor">*</span></label>
+                  </div>
 
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12"  style="width:66%">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" style="width:66%">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Auditor</mat-label>
-                      <mat-select *ngIf="!edit" #select formControlName="auditor" (selectionChange)="onChange($event.value)">
-                        <mat-option *ngFor="let title of auditList" [value]="title.id1" >
+                      <mat-select *ngIf="!edit" #select formControlName="auditor"
+                        (selectionChange)="onChange($event.value)">
+                        <mat-option *ngFor="let title of auditList" [value]="title.id1">
                           {{title.text}}
                         </mat-option>
-                    </mat-select>
-                      <mat-select *ngIf="edit" #select formControlName="auditor" (selectionChange)="onChange($event.value)" disabled>
-                          <mat-option *ngFor="let title of auditList" [value]="title.id1" >
-                            {{title.text}}
-                          </mat-option>
+                      </mat-select>
+                      <mat-select *ngIf="edit" #select formControlName="auditor"
+                        (selectionChange)="onChange($event.value)" disabled>
+                        <mat-option *ngFor="let title of auditList" [value]="title.id1">
+                          {{title.text}}
+                        </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -40,9 +42,9 @@
 
                 <div class="row" *ngIf="!edit">
 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-top: 14px; " >
-                      <label >OFFER<span class="errorColor">*</span></label>
-                  </div> 
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-top: 14px; ">
+                    <label>OFFER<span class="errorColor">*</span></label>
+                  </div>
 
                   <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12"  style="width:66%">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -55,72 +57,89 @@
                     </mat-form-field>
                   </div> -->
 
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12"  style="width:66%">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12" style="width:66%">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Offer</mat-label>
-                      <input matInput formControlName="discount">
+
+                      <input matInput formControlName="discount" type="text" required>
+
+
+                      <mat-error *ngIf="docForm.get('discount').hasError('pattern')">
+                        Please enter a number between 1 and 100.
+                      </mat-error>
+                      <!-- <mat-error *ngIf="docForm.get('discount').value && docForm.get('discount').value.length !== 3">
+                        Invalid input. Please enter exactly three digits.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="docForm.get('discount').value && (docForm.get('discount').value < 1 || docForm.get('discount').value > 100)">
+                        Invalid input. Please enter a number between 1 and 100.
+                      </mat-error> -->
+                      <!-- <span style="color: red; display: none;"></span> -->
                     </mat-form-field>
                   </div>
                 </div>
 
                 <div class="row">
-                
-                  
-               
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-top: 14px;" >
-                    <label *ngIf="!edit" >CODE (Prefix name)<span class="errorColor">*</span></label>
-                    <label *ngIf="edit" >CODE<span class="errorColor">*</span></label>
-                </div> 
-                <div *ngIf="!edit" class="col-xl-8 col-lg-8 col-md-12 col-sm-12 ">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <input matInput formControlName="referralCode" required>
-                    <mat-error *ngIf="docForm.get('referralCode').hasError('required')">
-                    Code is required
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div *ngIf="edit" >
-                  <ng-container *ngFor="let referralCodeEdit of docForm.get('referralCodeEditNew')['controls']; let i = index">
 
-                  
-                  <div class="row" [formGroup]="referralCodeEdit">
-                    <div class="col-md-7">
-                    <mat-form-field class="example-full-width form-control-sm"  appearance="outline">
-                      <input matInput formControlName="refCode"  readonly >
+
+
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " style="margin-top: 14px;">
+                    <label *ngIf="!edit">CODE (Prefix name)<span class="errorColor">*</span></label>
+                    <label *ngIf="edit">CODE<span class="errorColor">*</span></label>
+                  </div>
+                  <div *ngIf="!edit" class="col-xl-8 col-lg-8 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <input matInput formControlName="referralCode" required>
+                      <mat-error *ngIf="docForm.get('referralCode').hasError('required')">
+                        Code is required
+                      </mat-error>
                     </mat-form-field>
                   </div>
-                  <div *ngIf="edit" class="col-md-3" style="display: flex;align-items: center;">
-                    <mat-checkbox formControlName="isActive" ngInit="checked=true"></mat-checkbox>
-                  </div>
-                  </div>
-              </ng-container>
-              </div>
-              </div>
-                
+                  <div *ngIf="edit">
+                    <ng-container
+                      *ngFor="let referralCodeEdit of docForm.get('referralCodeEditNew')['controls']; let i = index">
 
-               
+
+                      <div class="row" [formGroup]="referralCodeEdit">
+                        <div class="col-md-7">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <input matInput formControlName="refCode" readonly>
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="edit" class="col-md-3" style="display: flex;align-items: center;">
+                          <mat-checkbox formControlName="isActive" ngInit="checked=true"></mat-checkbox>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+
+
+
                 <br>
                 <div>
 
-                
 
 
-                <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" style="margin-left: -53px;">
-                    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-                      color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
-                     <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
-                      color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button> 
-                    <button *ngIf="!edit" color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
-                    <button color="warn" type="button" class="btn-space"  (click)="cancel()"mat-raised-button>Cancel</button>
+
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" style="margin-left: -53px;">
+                      <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                        style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                      <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                        style="margin-left: 36%;background-color: #34d034;">Update</button>
+                      <button *ngIf="!edit" color="primary" type="button" class="btn-space" (click)="reset()"
+                        mat-raised-button>Reset</button>
+                      <button color="warn" type="button" class="btn-space" (click)="cancel()"
+                        mat-raised-button>Cancel</button>
+                    </div>
                   </div>
                 </div>
-              </div>
               </form>
             </div>
           </div>
         </div>
-        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
