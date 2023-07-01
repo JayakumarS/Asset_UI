@@ -269,24 +269,34 @@ update() {
 
   reset() {
     if (!this.edit) {
-    this.docForm = this.fb.group({
-      customer:[""],
-      currency:[""],
-      dateofdelivery:[""],
-      termsandcondition:[""],
-      salesOrderDtl: this.fb.array([
-        this.fb.group({
-          product:[""],
-          uom:[""],
-          asset:[""],
-          rate:[""],
-          qty:[""],
-          price:[""],
-          total:[""],
 
-        })
-      ])
-    });
+      this.docForm = this.fb.group({
+        salesNo:[""],
+        customer:[""],
+        currency:[""],
+        dateofdelivery:[""],
+        dateofdeliveryObj:[""],
+        termsandcondition:[""],
+        companyId:[""],
+        salesOrderNo:[""],
+        total:[""],
+        uploadFiles: [""],
+        salesOrderDtl: this.fb.array([
+          this.fb.group({
+            product:[""],
+            uom:[""],
+            asset:[""],
+            rate:[""],
+            qty:[""],
+            price:[""],
+            total:[""],
+  
+          })
+        ])
+  
+  
+      })
+
   } else {
     this.fetchDetails(this.requestId);
   }
