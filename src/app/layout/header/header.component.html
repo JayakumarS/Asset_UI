@@ -156,7 +156,7 @@
                         <app-feather-icons [icon]="'edit-2'" [class]="'user-menu-icons'"></app-feather-icons>Change Password
                       </a>
                     </li>  
-                  <li>
+                  <li *ngIf="roleId == '6'">
                   <a href="javascript:void(0); "  *ngIf="SubscOver == true" >
                    <app-feather-icons   [icon]="'Calendar'" [class]="'user-menu-icons'"></app-feather-icons>Subcriptions Expired {{-daysleft}}  Days Before  
                   </a>

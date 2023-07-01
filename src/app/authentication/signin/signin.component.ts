@@ -200,7 +200,7 @@ text='';
                 //   this.showPopUp();
                 // }
                 this.loading = false;
-                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 || data.userDetails.roleId == 7 ){
+                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 || data.userDetails.roleId == 7 || data.userDetails.roleId == 8 ){
                   this.router.navigate(["/admin/dashboard/main"]);
                 }
                 else if(data.userDetails.roleId == 4){

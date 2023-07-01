@@ -181,6 +181,10 @@ export class HeaderComponent
          // error code here
       }
     );
+    this.httpService.get<any>(this.companyService.getSubscriptionstatus + "?userId=" + this.token.getUserId()).subscribe((result: any) => {
+    
+    }
+    );
 
     this.authService.getLocation().subscribe((response) => {
       console.log(response)
@@ -278,6 +282,7 @@ export class HeaderComponent
 
     
      // SUBSCRIPTION DAYS LEFT
+     if(this.roleId== "2"){
      this.userId=this.token.getUserId();
      this.httpService.get<any>(this.companyService.getSubcDaysLeft+"?userId="+this.userId).subscribe({
       next: (data) => {
@@ -292,6 +297,7 @@ export class HeaderComponent
        }
      }
      );
+    }
   }
 
 

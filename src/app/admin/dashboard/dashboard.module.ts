@@ -10,7 +10,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule, MatLabel } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatButtonModule } from "@angular/material/button";
@@ -43,9 +43,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NotificationPopupComponent } from './main/notification-popup/notification-popup.component';
 import { SubscriptionAlertComponent } from './main/subscription-alert/subscription-alert.component';
 import { MatCardModule } from "@angular/material/card";
+import { MatLineModule } from "@angular/material/core";
+import { TrialComponentComponent } from './main/trial-component/trial-component.component';
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent, NotificationPopupComponent, SubscriptionAlertComponent],
+  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent, NotificationPopupComponent, SubscriptionAlertComponent, TrialComponentComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -90,7 +92,8 @@ import { MatCardModule } from "@angular/material/card";
     MatMenuModule,
     HighchartsChartModule,
     NgxPaginationModule,
-    MatCardModule
+    MatCardModule,
+   
     
   ],
   providers: [NotificationService,CurrencyPipe],
