@@ -214,6 +214,7 @@ text='';
                   next: (data) => {
                     if(data.success){
                       this.tokenStorage.saveCompanies(data.companyMasterDetails);
+                      sessionStorage.setItem('loginFlag', 'true');
                       this.router.navigate(["/master/company/listCompany"]);
                     }
               
