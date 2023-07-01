@@ -59,6 +59,7 @@ import { Router } from "@angular/router";
 import { MutualFundService } from "src/app/master/mutualfund/mutualfund.service";
 import { NotificationPopupComponent } from "./notification-popup/notification-popup.component";
 import { SubscriptionAlertComponent } from "./subscription-alert/subscription-alert.component";
+import { CompanyService } from "src/app/master/company/company.service";
 HC_drilldown(Highcharts);
 
 
@@ -208,6 +209,8 @@ configUserLog: {
   companyLastAuditDoneBy: any;
   compltedProfile: any;
   profileCount: any;
+  trialOver: boolean = false
+  trialdaysleft:any
   vehiclechartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { dataLabels: { name: { fontSize: string; }; value: { fontSize: string; }; total: { show: boolean; label: string; formatter: (w: any) => any; }; }; }; }; labels: string[]; };
   averagechartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
   goodchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
@@ -218,7 +221,7 @@ configUserLog: {
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
     public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
-    private mutualFundService: MutualFundService) 
+    private mutualFundService: MutualFundService, public companyService: CompanyService) 
     {
       
     
@@ -248,6 +251,21 @@ configUserLog: {
       
       
       }
+
+//Subscription status
+this.httpService.get<any>(this.companyService.gettrialdaysstatus + "?userId=" + this.tokenStorage.getUserId()).subscribe({
+  next: (data) => {
+    if(data.trialdaysleft < 0){
+this.trialOver = true
+    }
+    this.trialdaysleft = data.trialdaysleft
+    console.log(this.trialdaysleft);
+   },
+   error: (error) => {
+
+   }
+ }
+ );
 
       this.httpService.get<any>(this.mainService.getNotificationDetails+"?userId="+this.tokenStorage.getUserId()).subscribe(
         (data:any) => {
