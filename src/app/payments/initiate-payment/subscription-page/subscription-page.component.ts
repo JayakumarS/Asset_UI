@@ -2,7 +2,7 @@ import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,6 +17,7 @@ import { SubscriptionPageService } from '../subscription-page.service';
 import { Payments } from '../../payments.model';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TrialComponentComponent } from 'src/app/admin/dashboard/main/trial-component/trial-component.component';
 
 
 @Component({
@@ -53,7 +54,8 @@ export class SubscriptionPageComponent implements OnInit {
   audcurrency : any;
   strikeOutFlag: boolean = false;
   oldstdAmt: string;
-
+  roleId:any
+  subs:any
   constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private httpService: HttpServiceService,
@@ -65,7 +67,8 @@ export class SubscriptionPageComponent implements OnInit {
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,    
     private spinner: NgxSpinnerService,
-    private tokenStorage: TokenStorageService) { 
+    private tokenStorage: TokenStorageService
+    ) { 
     
     this.docForm = this.fb.group({
       currency:["INR"],
@@ -76,6 +79,7 @@ export class SubscriptionPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.roleId = this.tokenStorage.getRoleId()
     this.getNoOfUsers();
     this.loading = true;
   }
@@ -556,5 +560,48 @@ export class SubscriptionPageComponent implements OnInit {
       event.preventDefault();
     }
   }
+  Trailpopup(){
+    
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(TrialComponentComponent, {
+      height: "270px",
+      width: "400px",
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
 
+
+      if (data.data == true) {
+        const obj = {  userId: this.tokenStorage.getUserId(),
+          userName: this.tokenStorage.getUsername(),
+          role_Id: this.tokenStorage.getRoleId()
+        
+        }
+        this.subscriptionPageService.updateroleNew(obj).subscribe((res: any) => {
+          this.showNotification(
+            "snackbar-success",
+            "login again to use Trial account...!!!",
+            "bottom",
+            "center"
+          );
+          this.logout();
+        },
+          (err: HttpErrorResponse) => {
+            // error code here
+          }
+        );
+
+
+      } else{
+      }
+
+
+    });
+  }
+  
 }

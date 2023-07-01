@@ -20,6 +20,8 @@ import { Router } from '@angular/router';
 import { DeleteCompanyComponent } from './delete-company/delete-company.component';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { ChangePasswordPopUpComponent } from 'src/app/user/change-password-pop-up/change-password-pop-up.component';
+import { CommonService } from 'src/app/common-service/common.service';
 
 @Component({
   selector: 'app-list-company',
@@ -43,6 +45,7 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
   index: number;
   id: number;
   roleId: string;
+  pwdStatus: any;
 
   constructor(
     public httpClient: HttpClient,
@@ -53,7 +56,8 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
     private httpService:HttpServiceService,
     public router:Router,
     private tokenStorage: TokenStorageService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private commonService:CommonService
   ) { 
     super();
   }
@@ -68,6 +72,28 @@ export class ListCompanyComponent extends UnsubscribeOnDestroyAdapter implements
   ngOnInit(): void {
     this.roleId=this.tokenStorage.getRoleId();
     this.loadData();
+    this.changePassword();
+  }
+
+
+  changePassword(){
+    if(sessionStorage.getItem('loginFlag') == 'true'){
+      this.httpService.get<any>(this.commonService.getPwdStatus + "?userId=" + this.tokenStorage.getUserId()).subscribe((result: any) => {
+        this.pwdStatus=result.addressBean[0].pwdStatus;
+        sessionStorage.setItem('loginFlag', 'false');
+        if(!this.pwdStatus){
+          const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+            disableClose: true ,
+            height: "500px",
+            width: "465px",
+          });
+        }
+        },
+        (err: HttpErrorResponse) => {
+        }
+      );
+    }
+
   }
   
   refresh() {

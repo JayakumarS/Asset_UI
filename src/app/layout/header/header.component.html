@@ -14,7 +14,7 @@
         <div class="lbl-alert mb-3" *ngIf="roleId!='7'" style="display: flex;
         justify-content: center;
         align-items: center;">
-          <img  [src]="this.token.getCompanyLogo()" alt="assets/images/AssetChekLogo.png"  style="max-height: 55px; /* Adjust the maximum height of the logo as needed */
+          <img  [src]="this.token.getCompanyLogo()" alt="https://assetchek.com/assets/images/AssetChekLogo.png"  style="max-height: 55px; /* Adjust the maximum height of the logo as needed */
           max-width: 100%;">
         </div>
         <div class="d-flex justify-content-between lbl-alert mb-3" *ngIf="roleId=='7'">
@@ -153,10 +153,10 @@
                     </li>
                     <li>
                       <a href="#" (click)="passwordChange()" #openModal data-target="#passwordModal" data-toggle="modal" onClick="return false;" >
-                        <app-feather-icons [icon]="'edit-2'" [class]="'user-menu-icons'"></app-feather-icons>Change Password
+                        <app-feather-icons [icon]="'edit-2'" [class]="'user-menu-icons'"></app-feather-icons>Change Password 
                       </a>
                     </li>  
-                  <li>
+                  <li *ngIf="roleId == '6'">
                   <a href="javascript:void(0); "  *ngIf="SubscOver == true" >
                    <app-feather-icons   [icon]="'Calendar'" [class]="'user-menu-icons'"></app-feather-icons>Subcriptions Expired {{-daysleft}}  Days Before  
                   </a>

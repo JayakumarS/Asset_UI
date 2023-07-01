@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable, Inject, PLATFORM_ID  } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { HttpServiceService } from "src/app/auth/http-service.service";
 import { serverLocations } from "src/app/auth/serverLocations";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
@@ -34,7 +34,10 @@ export class SubscriptionPageService extends UnsubscribeOnDestroyAdapter{
   public verifyPromoCodeUrl = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/verifyPromoCode`;
   public getPromoCodePercent = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/getPromoCodePercent`;
   public getNoOfUsers = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/getNoOfUsers`;
+  public updateRole =`${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/updateroletest`;
+  public updateroleeNew = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/updateroleNew`;
 
+ 
   get data(): Payments[] {
     return this.dataChange.value;
   }
@@ -47,6 +50,8 @@ export class SubscriptionPageService extends UnsubscribeOnDestroyAdapter{
       return _window();
     }
   }
-
+  updateroleNew(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.updateroleeNew, obj);
+  }
 }
 

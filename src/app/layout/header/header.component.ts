@@ -77,7 +77,10 @@ export class HeaderComponent
   pwdStatus: any;
   userId:any
   daysleft:any
+  trialdaysleft:any
   SubscOver: boolean = false
+  trialOver: boolean = false
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -181,6 +184,10 @@ export class HeaderComponent
          // error code here
       }
     );
+    
+    
+  
+
 
     this.authService.getLocation().subscribe((response) => {
       console.log(response)
@@ -278,6 +285,7 @@ export class HeaderComponent
 
     
      // SUBSCRIPTION DAYS LEFT
+     if(this.roleId== "2"){
      this.userId=this.token.getUserId();
      this.httpService.get<any>(this.companyService.getSubcDaysLeft+"?userId="+this.userId).subscribe({
       next: (data) => {
@@ -292,6 +300,7 @@ export class HeaderComponent
        }
      }
      );
+    }
   }
 
 

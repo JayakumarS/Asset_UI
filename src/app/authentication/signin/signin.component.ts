@@ -191,14 +191,16 @@ text='';
                 this.tokenStorage.saveRoles(data.userDetails.roles);
                 if(data.userDetails.companyLogo==null || data.userDetails.companyLogo ==undefined){
                   data.userDetails.companyLogo ="logo/assetChekLogo.png";
-                }
+                  this.tokenStorage.saveCompanyLogo("https://assetchek.com/assets/images/AssetChekLogo.png")
+                }else{
                 this.tokenStorage.saveCompanyLogo(this.serverUrl.apiServerAddress+"asset_upload/"+data.userDetails.companyLogo);
+              }
                 this.loginSuccessUserLog();
                 // if(data.userDetails.companies.length>0){
                 //   this.showPopUp();
                 // }
                 this.loading = false;
-                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 || data.userDetails.roleId == 7 ){
+                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 || data.userDetails.roleId == 7 || data.userDetails.roleId == 8 ){
                   this.router.navigate(["/admin/dashboard/main"]);
                 }
                 else if(data.userDetails.roleId == 4){
@@ -212,6 +214,7 @@ text='';
                   next: (data) => {
                     if(data.success){
                       this.tokenStorage.saveCompanies(data.companyMasterDetails);
+                      sessionStorage.setItem('loginFlag', 'true');
                       this.router.navigate(["/master/company/listCompany"]);
                     }
               

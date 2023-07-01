@@ -42,6 +42,11 @@
                       </mat-form-field>
                       
                   </div>
+                  <div class="col-4" *ngIf="roleId==6 " (click)="Trailpopup()"> 
+                    <img src="assets/images/freetrail.jpg" style="
+                    margin-top: -10%;    margin-left: -20%;" >
+                    <a  style="color:blue">Try Using Asset Chek for 30 days free trail</a>
+                 </div>
                 </div>
 
                   <div class="row" [class.auth-spinner]="loading">
