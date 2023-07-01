@@ -77,9 +77,9 @@ export class HeaderComponent
   pwdStatus: any;
   userId:any
   daysleft:any
-  trialdaysleft:any
+  subcstatus:any
   SubscOver: boolean = false
-  trialOver: boolean = false
+  trial: boolean = false
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -184,7 +184,20 @@ export class HeaderComponent
          // error code here
       }
     );
-    
+    //Subscription status
+    this.httpService.get<any>(this.companyService.getSubscriptionstatus + "?userId=" + this.token.getUserId()).subscribe({
+      next: (data) => {
+        if(data.subcstatus > 0){
+       this.trial = true
+        }
+        this.subcstatus = data.subcstatus
+        console.log(this.subcstatus);
+       },
+       error: (error) => {
+ 
+       }
+     }
+     );
     
   
 
