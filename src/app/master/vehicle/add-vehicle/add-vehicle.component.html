@@ -919,13 +919,14 @@ Insured Amount is required
 <h4>SERVICE HISTORY DETAILS</h4><br>
 <div class="row">
   <div class="col-md-2" style="min-width: fit-content;" >
-    <label>DATE OF LAST SERVICE<span class="errorColor">*</span></label>
+    <label>DATE OF LAST SERVICE<span class="errorColor" >*</span></label>
 </div>
 <div class="col-md-2">
 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
     <input matInput [matDatepicker]="picker" formControlName="service"
+    (dateInput)="fromDateChange('input', $event)"
     (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate"
-    (dateChange)="getDateString($event,'discardFromDate',0)" >
+    (dateChange)="getDateString($event,'discardFromDate',0)" [min]="minToDate">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
     <mat-error *ngIf="docForm.get('service').hasError('required')">
@@ -948,7 +949,7 @@ Insured Amount is required
 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
     <input matInput [matDatepicker]="picker5" formControlName="nextservice"
     (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate5"
-    (dateChange)="getDateString($event,'discardFromDate5',0)" >
+    (dateChange)="getDateString($event,'discardFromDate5',0)" [min]="minToDate">
     <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
     <mat-datepicker #picker5></mat-datepicker>
     <mat-error *ngIf="docForm.get('nextservice').hasError('required')">

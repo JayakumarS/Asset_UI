@@ -12,6 +12,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import {  MomentDateAdapter } from '@angular/material-moment-adapter';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 
@@ -44,6 +45,10 @@ export const MY_DATE_FORMATS = {
 })
 export class AddVehicleComponent implements OnInit {
 
+  minFromDate: Date;
+  maxFromDate: Date | null;
+  minToDate: Date | null;
+  maxToDate: Date;
   docForm: FormGroup;
   requestId: number;
   editflag:boolean=false;
@@ -281,6 +286,12 @@ export class AddVehicleComponent implements OnInit {
           a.click();
   }
 
+
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+
+    this.minToDate = event.value;
+  
+  }
   // Edit
   fetchDetails(id: any){
 
