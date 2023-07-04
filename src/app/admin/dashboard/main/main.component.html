@@ -1,24 +1,30 @@
 <section class="content">
   <div class="content-block">
-    <div class="block-header"  >
-      <h4 style="background-color:#e89957;    height: 0%;" *ngIf="roleId=='8'" >
-       <h6>&nbsp; &nbsp; &nbsp;Note: this trial copy of AssetChek will Expire in {{trialdaysleft}} Days. please Subscribe to continue using Assetchek.
-       
-       </h6>
+    <div class="block-header">
+
+      <h4 style=" background-color: #65a4ba57;  width: 104%; margin-left: -2%;" *ngIf="roleId=='8'">
+
+        <h6>&nbsp; &nbsp; &nbsp;Note: this trial copy of AssetChek will Expire in {{trialdaysleft}} Days. please
+          Subscribe to continue using Assetchek.
+
+        </h6>
       </h4>
-      </div>
-    <form class="m-4" [formGroup]="docForm" >
-   
-    <div class="row " >
-      <div class="col-xl-8 ">
-        
-        <div class="card" *ngIf="flowChartFlag" style="padding-bottom: 181px;padding-top: 155px;">
-          <div class="header">
-          
+    </div>
 
 
-             <h4 style="margin-top: -55px;margin-left: 43px;">Assets Valuation</h4>
-        <!--   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+
+    <form class="m-4" [formGroup]="docForm">
+
+      <div class="row ">
+        <div class="col-xl-8 ">
+
+          <div class="card" *ngIf="flowChartFlag" style="padding-bottom: 181px;padding-top: 155px;">
+            <div class="header">
+
+
+
+              <h4 style="margin-top: -55px;margin-left: 43px;">Assets Valuation</h4>
+              <!--   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-label>Asset Id</mat-label>
                 <mat-select formControlName="assetid" (selectionChange)="fetchAssetName($event.value)">
@@ -34,7 +40,7 @@
               </mat-error>
               </mat-form-field>
             </div> -->
-            <!-- <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+              <!-- <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
@@ -42,27 +48,28 @@
               <button mat-menu-item>Another action</button>
               <button mat-menu-item>Something else here</button>
             </mat-menu> -->
-          </div>
-          <div class="body" >
-            <highcharts-chart #chart [Highcharts]="Highcharts" 	style =" width:100%;height: 100%;display: block;" [callbackFunction]="chartCallback" [options]="chartOptionsColumnChart"
-          [(update)]="updateFlag"></highcharts-chart>
-            <!-- Apex Chart -->
-            <!-- <apx-chart [series]="projectOptions.series" [chart]="projectOptions.chart" [yaxis]="projectOptions.yaxis"
+            </div>
+            <div class="body">
+              <highcharts-chart #chart [Highcharts]="Highcharts" style=" width:100%;height: 100%;display: block;"
+                [callbackFunction]="chartCallback" [options]="chartOptionsColumnChart"
+                [(update)]="updateFlag"></highcharts-chart>
+              <!-- Apex Chart -->
+              <!-- <apx-chart [series]="projectOptions.series" [chart]="projectOptions.chart" [yaxis]="projectOptions.yaxis"
               [xaxis]="projectOptions.xaxis" [labels]="projectOptions.labels" [stroke]="projectOptions.stroke"
               [plotOptions]="projectOptions.plotOptions" [markers]="projectOptions.markers" [fill]="projectOptions.fill"
               [tooltip]="projectOptions.tooltip" [colors]="projectOptions.colors"></apx-chart> -->
+            </div>
+
           </div>
-          
-        </div>
 
-     
 
-        <!-- Individual -->
-        <div *ngIf="showValuationPanel">
-        <div class="card" *ngIf="roleId=='7'" style="padding-bottom: 79px;padding-top: 99px;">
-          <div class="header" >
-             <h4 style="margin-top: -55px;margin-left: 43px;"> Individual Assets Valuation</h4>
-        <!--   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+
+          <!-- Individual -->
+          <div *ngIf="showValuationPanel">
+            <div class="card" *ngIf="roleId=='7'" style="padding-bottom: 79px;padding-top: 99px;">
+              <div class="header">
+                <h4 style="margin-top: -55px;margin-left: 43px;"> Individual Assets Valuation</h4>
+                <!--   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-label>Asset Id</mat-label>
                 <mat-select formControlName="assetid" (selectionChange)="fetchAssetName($event.value)">
@@ -78,7 +85,7 @@
               </mat-error>
               </mat-form-field>
             </div> -->
-            <!-- <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+                <!-- <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
@@ -86,20 +93,21 @@
               <button mat-menu-item>Another action</button>
               <button mat-menu-item>Something else here</button>
             </mat-menu> -->
-          </div>
-         
-          <div class="body" >
-            <highcharts-chart #chart [Highcharts]="Highcharts" 	style =" width:100%;height: 100%;display: block;" [callbackFunction]="individualchartCallback" [options]="individualchartOptionsColumnChart"
-          [(update)]="updateFlag"></highcharts-chart>
-            <!-- Apex Chart -->
-            <!-- <apx-chart [series]="projectOptions.series" [chart]="projectOptions.chart" [yaxis]="projectOptions.yaxis"
+              </div>
+
+              <div class="body">
+                <highcharts-chart #chart [Highcharts]="Highcharts" style=" width:100%;height: 100%;display: block;"
+                  [callbackFunction]="individualchartCallback" [options]="individualchartOptionsColumnChart"
+                  [(update)]="updateFlag"></highcharts-chart>
+                <!-- Apex Chart -->
+                <!-- <apx-chart [series]="projectOptions.series" [chart]="projectOptions.chart" [yaxis]="projectOptions.yaxis"
               [xaxis]="projectOptions.xaxis" [labels]="projectOptions.labels" [stroke]="projectOptions.stroke"
               [plotOptions]="projectOptions.plotOptions" [markers]="projectOptions.markers" [fill]="projectOptions.fill"
               [tooltip]="projectOptions.tooltip" [colors]="projectOptions.colors"></apx-chart> -->
+              </div>
+
+            </div>
           </div>
-          
-        </div>  
-      </div>
 
           <br>
           <br>
@@ -109,95 +117,76 @@
             <div class="col-md-6">
               <div class="row clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <div class="card" *ngIf="roleId=='7'"style="padding-bottom: 8px;padding-top: 22px;">
-            <h4 style="text-align: center"> Total Vehicle Count</h4>
-          <div id="chart" class="col-md-12">
-            <apx-chart #chart
-              [series]="vehiclechartOptions.series"
-              [chart]="vehiclechartOptions.chart"
-              [plotOptions]="vehiclechartOptions.plotOptions"
-              [labels]="vehiclechartOptions.labels"
-            ></apx-chart>
+                  <div class="card" *ngIf="roleId=='7'" style="padding-bottom: 8px;padding-top: 22px;">
+                    <h4 style="text-align: center"> Total Vehicle Count</h4>
+                    <div id="chart" class="col-md-12">
+                      <apx-chart #chart [series]="vehiclechartOptions.series" [chart]="vehiclechartOptions.chart"
+                        [plotOptions]="vehiclechartOptions.plotOptions"
+                        [labels]="vehiclechartOptions.labels"></apx-chart>
 
-          </div> 
-        </div>
-     </div>
-     </div>
-     </div>
-     <div class="col-md-6">
-      <div class="row clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <div class="card" *ngIf="roleId=='7'"style="padding-bottom: -13px;padding-top: 22px;">
-         
-              <h4 style="text-align: center">Vehicle Condition Count</h4>
-              <div class="row">
- <div id="chart"class="col-xl-12">
-    <apx-chart
-      [series]="goodchartOptions.series"
-      [chart]="goodchartOptions.chart"
-      [plotOptions]="goodchartOptions.plotOptions"
-      [labels]="goodchartOptions.labels"
-    ></apx-chart>
-    
-  </div> 
-    
-  <div id="chart"class="col-xl-12">
-      <apx-chart
-        [series]="averagechartOptions.series"
-        [chart]="averagechartOptions.chart"
-        [plotOptions]="averagechartOptions.plotOptions"
-        [labels]="averagechartOptions.labels"
-      ></apx-chart>
-    </div> 
-  <div id="chart"class="col-md-12">
-      <apx-chart
-        [series]="badchartOptions.series"
-        [chart]="badchartOptions.chart"
-        [plotOptions]="badchartOptions.plotOptions"
-        [labels]="badchartOptions.labels"
-      ></apx-chart>
-    </div> 
-
-
+                    </div>
+                  </div>
+                </div>
               </div>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-6">
-  <div class="row clearfix">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-  <div class="card" *ngIf="roleId=='7'"style="padding-bottom: 8px;padding-top: 22px;">
-    <h4 style="text-align: center;">  Jewellery Material Count</h4>
-      <div id="chart" class="col-md-12" style="margin-left: 30px;"> 
-        <apx-chart
-          [series]="jewelchartOptions.series"
-          [chart]="jewelchartOptions.chart"
-          [plotOptions]="jewelchartOptions.plotOptions"
-          [labels]="jewelchartOptions.labels"
-          [legend]="jewelchartOptions.legend"
-          [colors]="jewelchartOptions.colors"
-          [responsive]="jewelchartOptions.responsive"
-        ></apx-chart>
-      </div>
-      </div>      
-    </div> 
-  </div>
-</div>  
+            </div>
+            <div class="col-md-6">
+              <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="card" *ngIf="roleId=='7'" style="padding-bottom: -13px;padding-top: 22px;">
+
+                    <h4 style="text-align: center">Vehicle Condition Count</h4>
+                    <div class="row">
+                      <div id="chart" class="col-xl-12">
+                        <apx-chart [series]="goodchartOptions.series" [chart]="goodchartOptions.chart"
+                          [plotOptions]="goodchartOptions.plotOptions" [labels]="goodchartOptions.labels"></apx-chart>
+
+                      </div>
+
+                      <div id="chart" class="col-xl-12">
+                        <apx-chart [series]="averagechartOptions.series" [chart]="averagechartOptions.chart"
+                          [plotOptions]="averagechartOptions.plotOptions"
+                          [labels]="averagechartOptions.labels"></apx-chart>
+                      </div>
+                      <div id="chart" class="col-md-12">
+                        <apx-chart [series]="badchartOptions.series" [chart]="badchartOptions.chart"
+                          [plotOptions]="badchartOptions.plotOptions" [labels]="badchartOptions.labels"></apx-chart>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="card" *ngIf="roleId=='7'" style="padding-bottom: 8px;padding-top: 22px;">
+                    <h4 style="text-align: center;"> Jewellery Material Count</h4>
+                    <div id="chart" class="col-md-12" style="margin-left: 30px;">
+                      <apx-chart [series]="jewelchartOptions.series" [chart]="jewelchartOptions.chart"
+                        [plotOptions]="jewelchartOptions.plotOptions" [labels]="jewelchartOptions.labels"
+                        [legend]="jewelchartOptions.legend" [colors]="jewelchartOptions.colors"
+                        [responsive]="jewelchartOptions.responsive"></apx-chart>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           </div>
 
-        <!-- Flow Chart -->
-        <!-- <div class="card" *ngIf="!flowChartFlag" style="padding-bottom: 80px;padding-top: 70px;">
+          <!-- Flow Chart -->
+          <!-- <div class="card" *ngIf="!flowChartFlag" style="padding-bottom: 80px;padding-top: 70px;">
           <div class="body" >
             <img src="assets/images/flowchart.png" alt="Trulli" width="100%" height="70%" style="margin-top:-83px">
             </div>
         </div> -->
 
-      </div>
-      <div class="col-xl-4 ">
-        <div class="row" style="    margin-top: -4%;">
-          <!-- <div class="info-box7 l-bg-purple-dark" >
+        </div>
+        <div class="col-xl-4 ">
+          <div class="row" style="    margin-top: -4%;">
+            <!-- <div class="info-box7 l-bg-purple-dark" >
             <div class="info-box7-block">
               <h4 class="m-b-20">Profile Strength</h4>
               <ul class="list-unstyled">
@@ -215,216 +204,221 @@
                 </ul>
             </div>
           </div> -->
-          <div class="card l-bg-purple-dark"  *ngIf="roleId!='7'">
-            <div class="card-statistic-3">
-              <div class="card-icon card-icon-large"><i class="fa fa-globe"></i></div>
-              <div class="card-content">
-                <h4 class="card-title">Company Information</h4>
-                <div class="mb-2">
-                  <span class="float-end progress-percent label label-info m-b-5">{{compltedProfile}}%</span>
-                </div>
-                <div>
-                <mat-progress-bar mode="determinate"
-                  class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2" value="{{compltedProfile}}">
-                </mat-progress-bar>
-                <button  mat-raised-button color="primary" style ="margin-left:28%;background-color: #34d034;"
-                (click)="onChange()" >Complete the Profile </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card l-bg-purple-dark"  *ngIf="roleId=='7'">
-            <div class="card-statistic-3">
-              <div class="card-icon card-icon-large"><i class="fa fa-globe"></i></div>
-              <div class="card-content">
-                <h4 class="card-title">Individual Information</h4>
-                <div class="mb-2">
-                  <span class="float-end progress-percent label label-info m-b-5">{{profileCount}}%</span>
-                </div>
-                <div>
-                <mat-progress-bar mode="determinate"
-                  class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2" value="{{profileCount}}">
-                </mat-progress-bar>
-                <button *ngIf="profileCount!='100'"  mat-raised-button color="primary" style ="margin-left:15%;background-color: #34d034;"
-                (click)="onChangeIndividual()" > Edit Profile </button>
-                <button *ngIf="profileCount!='100'"  mat-raised-button color="primary" style ="margin-left:10%;background-color: #34d034;"
-                (click)="onChangeIndividualAsset()" >Asset Details</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="card card-statistic-2" (click)="onchangeAsset()">
-              <div class="clearfix">
-                <div class="card-right" >
+            <div class="card l-bg-purple-dark" *ngIf="roleId!='7'">
+              <div class="card-statistic-3">
+                <div class="card-icon card-icon-large"><i class="fa fa-globe"></i></div>
+                <div class="card-content">
+                  <h4 class="card-title">Company Information</h4>
+                  <div class="mb-2">
+                    <span class="float-end progress-percent label label-info m-b-5">{{compltedProfile}}%</span>
+                  </div>
                   <div>
-                    <h5 class="float-end">Assets</h5>
-                  </div>
-                  <div class="m-r-10 m-l-10">
-                    <!-- For Decimal purpose code -->
-                    <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
-                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
+                    <mat-progress-bar mode="determinate"
+                      class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2"
+                      value="{{compltedProfile}}">
+                    </mat-progress-bar>
+                    <button mat-raised-button color="primary" style="margin-left:28%;background-color: #34d034;"
+                      (click)="onChange()">Complete the Profile </button>
                   </div>
                 </div>
               </div>
-              <div class="card-chart">
-                <canvas baseChart [chartType]="'line'" [datasets]="cardChart4Data" [labels]="cardChart4Label"
-                  [options]="cardChart4" [legend]="true">
-                </canvas>
-              </div>
             </div>
-          </div>
-          <div class="col-lg-6" *ngIf="roleId!=='7'">
-            <div class="card card-statistic-2" (click)="onchangeAuditor()">
-              <div class="clearfix">
-                <div class="card-right">
+            <div class="card l-bg-purple-dark" *ngIf="roleId=='7'">
+              <div class="card-statistic-3">
+                <div class="card-icon card-icon-large"><i class="fa fa-globe"></i></div>
+                <div class="card-content">
+                  <h4 class="card-title">Individual Information</h4>
+                  <div class="mb-2">
+                    <span class="float-end progress-percent label label-info m-b-5">{{profileCount}}%</span>
+                  </div>
                   <div>
-                    <h5 class="float-end">Auditors</h5>
-                  </div>
-                  <div class="m-r-10 m-l-10">
-                    <h3 class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3>
-                    <!-- <h3 class="font-weight-bold float-end mb-0">1</h3> -->
-                  </div>
-                </div>
-              </div>
-              <div class="card-chart">
-                <canvas baseChart [chartType]="'line'" [datasets]="cardChart3Data" [labels]="cardChart3Label"
-                  [options]="cardChart3" [legend]="true">
-                </canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6" *ngIf="roleId!='7'">
-            <div class="card card-statistic-2">
-              <div class="clearfix">
-                <div class="card-right">
-                  <div>
-                    <h5 class="float-end">Amount</h5>
-                  </div>
-                  <div class="m-r-10 m-l-10">
-                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount | currency:' ':'symbol':'0.0-1'}}</h3>
+                    <mat-progress-bar mode="determinate"
+                      class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2"
+                      value="{{profileCount}}">
+                    </mat-progress-bar>
+                    <button *ngIf="profileCount!='100'" mat-raised-button color="primary"
+                      style="margin-left:15%;background-color: #34d034;" (click)="onChangeIndividual()"> Edit Profile
+                    </button>
+                    <button *ngIf="profileCount!='100'" mat-raised-button color="primary"
+                      style="margin-left:10%;background-color: #34d034;" (click)="onChangeIndividualAsset()">Asset
+                      Details</button>
                   </div>
                 </div>
               </div>
-              <div class="card-chart">
-                <canvas baseChart [chartType]="'line'" [datasets]="cardChart2Data" [labels]="cardChart2Label"
-                  [options]="cardChart2" [legend]="true">
-                </canvas>
-              </div>
             </div>
-          </div>
-          <div class="col-lg-6"  *ngIf="roleId!='7'">
-            <div class="card card-statistic-2" (click)="onchangeComEmp()">
-              <div class="clearfix">
-                <div class="card-right">
-                  <div >
-                    <h5 class="float-end" style="text-align: end;font-size: initial;">Company Employees</h5>
-                  </div>
-                  <div class="m-r-10 m-l-10">
-                  
-                    <h3 class="font-weight-bold float-end mb-0">{{companyUsersAssetsCount}}</h3>
+            <div class="col-lg-6">
+              <div class="card card-statistic-2" (click)="onchangeAsset()">
+                <div class="clearfix">
+                  <div class="card-right">
+                    <div>
+                      <h5 class="float-end">Assets</h5>
+                    </div>
+                    <div class="m-r-10 m-l-10">
+                      <!-- For Decimal purpose code -->
+                      <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
+                      <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
+                      <h3 class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-chart">
-                <canvas baseChart [chartType]="'line'" [datasets]="cardChart1Data" [labels]="cardChart1Label"
-                  [options]="cardChart1" [legend]="true">
-                </canvas>
+                <div class="card-chart">
+                  <canvas baseChart [chartType]="'line'" [datasets]="cardChart4Data" [labels]="cardChart4Label"
+                    [options]="cardChart4" [legend]="true">
+                  </canvas>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+            <div class="col-lg-6" *ngIf="roleId!=='7'">
+              <div class="card card-statistic-2" (click)="onchangeAuditor()">
+                <div class="clearfix">
+                  <div class="card-right">
+                    <div>
+                      <h5 class="float-end">Auditors</h5>
+                    </div>
+                    <div class="m-r-10 m-l-10">
+                      <h3 class="font-weight-bold float-end mb-0">{{companyAuditorsAssetsCount}}</h3>
+                      <!-- <h3 class="font-weight-bold float-end mb-0">1</h3> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="card-chart">
+                  <canvas baseChart [chartType]="'line'" [datasets]="cardChart3Data" [labels]="cardChart3Label"
+                    [options]="cardChart3" [legend]="true">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6" *ngIf="roleId!='7'">
+              <div class="card card-statistic-2">
+                <div class="clearfix">
+                  <div class="card-right">
+                    <div>
+                      <h5 class="float-end">Amount</h5>
+                    </div>
+                    <div class="m-r-10 m-l-10">
+                      <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
+                      <h3 class="font-weight-bold float-end mb-0">{{companyEarningsAssetsCount | currency:'
+                        ':'symbol':'0.0-1'}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-chart">
+                  <canvas baseChart [chartType]="'line'" [datasets]="cardChart2Data" [labels]="cardChart2Label"
+                    [options]="cardChart2" [legend]="true">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6" *ngIf="roleId!='7'">
+              <div class="card card-statistic-2" (click)="onchangeComEmp()">
+                <div class="clearfix">
+                  <div class="card-right">
+                    <div>
+                      <h5 class="float-end" style="text-align: end;font-size: initial;">Company Employees</h5>
+                    </div>
+                    <div class="m-r-10 m-l-10">
 
-        <div class="row" *ngIf="roleId!=='7'">
-          <div class="col-lg-6">
-            <div class="card card-statistic-2">
-              <div class="clearfix">
-                <div class="card-right">
-                  <div>
-                    <h5 class="float-end">Audit Date</h5>
-                  </div>
-                  <div class="m-r-10 m-l-10">
-                  
-                    <h3 class="font-weight-bold float-end mb-0">{{companyLastAuditDate}}</h3>
+                      <h3 class="font-weight-bold float-end mb-0">{{companyUsersAssetsCount}}</h3>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-chart">
-                <canvas baseChart [chartType]="'line'" [datasets]="cardChart4Data" [labels]="cardChart4Label"
-                  [options]="cardChart4" [legend]="true">
-                </canvas>
+                <div class="card-chart">
+                  <canvas baseChart [chartType]="'line'" [datasets]="cardChart1Data" [labels]="cardChart1Label"
+                    [options]="cardChart1" [legend]="true">
+                  </canvas>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="card card-statistic-2">
-              <div class="clearfix">
-                <div class="card-right">
-                  <div>
-                    <h5 class="float-end">Last Audit Done By</h5>
-                  </div>
-                  <div class="m-r-10 m-l-10">
-                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">{{companyLastAuditDoneBy}}</h3>
+
+          <div class="row" *ngIf="roleId!=='7'">
+            <div class="col-lg-6">
+              <div class="card card-statistic-2">
+                <div class="clearfix">
+                  <div class="card-right">
+                    <div>
+                      <h5 class="float-end">Audit Date</h5>
+                    </div>
+                    <div class="m-r-10 m-l-10">
+
+                      <h3 class="font-weight-bold float-end mb-0">{{companyLastAuditDate}}</h3>
+                    </div>
                   </div>
                 </div>
+                <div class="card-chart">
+                  <canvas baseChart [chartType]="'line'" [datasets]="cardChart4Data" [labels]="cardChart4Label"
+                    [options]="cardChart4" [legend]="true">
+                  </canvas>
+                </div>
               </div>
-              <div class="card-chart">
-                <canvas baseChart [chartType]="'line'" [datasets]="cardChart3Data" [labels]="cardChart3Label"
-                  [options]="cardChart3" [legend]="true">
-                </canvas>
+            </div>
+            <div class="col-lg-6">
+              <div class="card card-statistic-2">
+                <div class="clearfix">
+                  <div class="card-right">
+                    <div>
+                      <h5 class="float-end">Last Audit Done By</h5>
+                    </div>
+                    <div class="m-r-10 m-l-10">
+                      <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{auditorsCountValue}}</h3> -->
+                      <h3 class="font-weight-bold float-end mb-0">{{companyLastAuditDoneBy}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-chart">
+                  <canvas baseChart [chartType]="'line'" [datasets]="cardChart3Data" [labels]="cardChart3Label"
+                    [options]="cardChart3" [legend]="true">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card card-statistic-2">
+                <div class="clearfix">
+                  <div class="card-right">
+                    <div>
+                      <h5 class="float-end">Reconciliation</h5>
+                    </div>
+                    <div class="m-r-10 m-l-10">
+                      <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
+                      <h3 class="font-weight-bold float-end mb-0">-</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-chart">
+                  <canvas baseChart [chartType]="'line'" [datasets]="cardChart2Data" [labels]="cardChart2Label"
+                    [options]="cardChart2" [legend]="true">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card card-statistic-2">
+                <div class="clearfix">
+                  <div class="card-right">
+                    <div>
+                      <h5 class="float-end">Missing Asset Value</h5>
+                    </div>
+                    <div class="m-r-10 m-l-10">
+                      <!-- Total Users -->
+                      <!-- <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3> -->
+                      <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{usersCountValue}}</h3> -->
+                      <!-- Company based Users -->
+                      <h3 class="font-weight-bold float-end mb-0">0</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-chart">
+                  <canvas baseChart [chartType]="'line'" [datasets]="cardChart1Data" [labels]="cardChart1Label"
+                    [options]="cardChart1" [legend]="true">
+                  </canvas>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="card card-statistic-2">
-              <div class="clearfix">
-                <div class="card-right">
-                  <div>
-                    <h5 class="float-end">Reconciliation</h5>
-                  </div>
-                  <div class="m-r-10 m-l-10">
-                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{assetsCountValue}}</h3> -->
-                    <h3 class="font-weight-bold float-end mb-0">-</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="card-chart">
-                <canvas baseChart [chartType]="'line'" [datasets]="cardChart2Data" [labels]="cardChart2Label"
-                  [options]="cardChart2" [legend]="true">
-                </canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="card card-statistic-2">
-              <div class="clearfix">
-                <div class="card-right">
-                  <div>
-                    <h5 class="float-end">Missing Asset Value</h5>
-                  </div>
-                  <div class="m-r-10 m-l-10">
-                    <!-- Total Users -->
-                    <!-- <h3 class="font-weight-bold float-end mb-0">{{usersCountValue!=null?usersCountValue.toFixed(2):usersCountValue}}</h3> -->
-                    <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{usersCountValue}}</h3> -->
-                    <!-- Company based Users -->
-                    <h3 class="font-weight-bold float-end mb-0">0</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="card-chart">
-                <canvas baseChart [chartType]="'line'" [datasets]="cardChart1Data" [labels]="cardChart1Label"
-                  [options]="cardChart1" [legend]="true">
-                </canvas>
-              </div>
-            </div>
-          </div>
-        </div>
 
 
-        <!-- <div class="card-bnner" style="padding: 0px 0px 30px 0px!important;" >
+          <!-- <div class="card-bnner" style="padding: 0px 0px 30px 0px!important;" >
           <div class="card">
             <div class="header">
               <h2>Depreciated Report/Calculation</h2>
@@ -454,10 +448,10 @@
                       <td>{{data.accudepreciation!=null?data.accudepreciation.toFixed(2):data.accudepreciation}}</td>
                     </tr>
                   </tbody> -->
-                    <!-- <div>
+          <!-- <div>
                       <pagination-controls (pageChange)="pageChangedDepreciation=($event)"></pagination-controls>
                     </div> -->
-                <!-- </table>
+          <!-- </table>
               </div>
             </div>
           </div>  -->
@@ -473,55 +467,48 @@
             </div>
           </div> -->
 
-        <!-- </div> -->
+          <!-- </div> -->
+        </div>
       </div>
-    </div>
-        <div class="row" *ngIf="assetsFlagForDashboard">
-          <div class="col-md-7">
-        <div class="card">
-          <div class="header">
-          <h2>Assets </h2>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-label>Asset Id</mat-label>
-                <mat-select formControlName="assetid" (selectionChange)="fetchAssetName($event.value)">
+      <div class="row" *ngIf="assetsFlagForDashboard">
+        <div class="col-md-7">
+          <div class="card">
+            <div class="header">
+              <h2>Assets </h2>
+              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>Asset Id</mat-label>
+                  <mat-select formControlName="assetid" (selectionChange)="fetchAssetName($event.value)">
                     <mat-option *ngFor="let title of assetListDashboard" [value]="title.id">
                       {{title.text}}
                     </mat-option>
                   </mat-select>
-                <mat-error *ngIf="docForm.get('assetid').hasError('required')">
+                  <mat-error *ngIf="docForm.get('assetid').hasError('required')">
                     Asset Id is required
-                </mat-error>
-                <mat-error *ngIf="docForm.get('assetid').hasError('country')">
-                  Asset Id is already exists
-              </mat-error>
-              </mat-form-field>
+                  </mat-error>
+                  <mat-error *ngIf="docForm.get('assetid').hasError('country')">
+                    Asset Id is already exists
+                  </mat-error>
+                </mat-form-field>
+              </div>
             </div>
-          </div>
-          <h4 style="padding-top: 14px; text-align: center;">Auditable Assets</h4>
-          <div class="body p-5">
-          <div id="chart">
-            <apx-chart
-              [series]="chartOptionsBarChart.series"
-              [chart]="chartOptionsBarChart.chart"
-              [dataLabels]="chartOptionsBarChart.dataLabels"
-              [plotOptions]="chartOptionsBarChart.plotOptions"
-              [yaxis]="chartOptionsBarChart.yaxis"
-              [legend]="chartOptionsBarChart.legend"
-              [fill]="chartOptionsBarChart.fill"
-              [stroke]="chartOptionsBarChart.stroke"
-              [tooltip]="chartOptionsBarChart.tooltip"
-              [xaxis]="chartOptionsBarChart.xaxis"
-            ></apx-chart>
+            <h4 style="padding-top: 14px; text-align: center;">Auditable Assets</h4>
+            <div class="body p-5">
+              <div id="chart">
+                <apx-chart [series]="chartOptionsBarChart.series" [chart]="chartOptionsBarChart.chart"
+                  [dataLabels]="chartOptionsBarChart.dataLabels" [plotOptions]="chartOptionsBarChart.plotOptions"
+                  [yaxis]="chartOptionsBarChart.yaxis" [legend]="chartOptionsBarChart.legend"
+                  [fill]="chartOptionsBarChart.fill" [stroke]="chartOptionsBarChart.stroke"
+                  [tooltip]="chartOptionsBarChart.tooltip" [xaxis]="chartOptionsBarChart.xaxis"></apx-chart>
+              </div>
+            </div>
+            <!--  -->
           </div>
         </div>
-          <!--  -->
-        </div>
-      </div>
 
-      <div class="col-md-5">
-        <div class="card" style="padding-top: 15%;padding-bottom: 15%;padding-left: 2%;padding-right: 2%;">
-          <!-- <div class="header">
+        <div class="col-md-5">
+          <div class="card" style="padding-top: 15%;padding-bottom: 15%;padding-left: 2%;padding-right: 2%;">
+            <!-- <div class="header">
             <h2>Assets </h2>
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -540,25 +527,25 @@
                 </mat-form-field>
               </div>
             </div> -->
-          <highcharts-chart #chart [Highcharts]="Highcharts" [callbackFunction]="chartCallback" [options]="chartOptionsLollipop"
-          [(update)]="updateFlag"></highcharts-chart>
-          <!-- <button (click)="handleUpdate()">Update chart</button> -->
-          <!--  -->
+            <highcharts-chart #chart [Highcharts]="Highcharts" [callbackFunction]="chartCallback"
+              [options]="chartOptionsLollipop" [(update)]="updateFlag"></highcharts-chart>
+            <!-- <button (click)="handleUpdate()">Update chart</button> -->
+            <!--  -->
+          </div>
         </div>
-      </div>
 
       </div>
 
-     
-     
-   
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="card" style="padding: 12px;" *ngIf="pieChartFlag || assetsFlagForDashboard">
-          
-          
-          
-          <!-- <div class="header">
+
+
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="card" style="padding: 12px;" *ngIf="pieChartFlag || assetsFlagForDashboard">
+
+
+
+            <!-- <div class="header">
             <h2>Product Report</h2>
             <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
               <mat-icon>more_vert</mat-icon>
@@ -569,9 +556,9 @@
               <button mat-menu-item>Something else here</button>
             </mat-menu>
           </div> -->
-          <!-- <div class="body"> -->
+            <!-- <div class="body"> -->
             <!-- <div class="row"> -->
-              <!-- <div class="col-md-12 col-xl-4 d-flex flex-column justify-content-center">
+            <!-- <div class="col-md-12 col-xl-4 d-flex flex-column justify-content-center">
                 <div class="m-l-10 m-b-20">
                   <h1>{{companyEarningsAssetsCount}}</h1>
                   <h4 class="font-weight-light col-green">Total Income</h4>
@@ -587,14 +574,14 @@
                   </p>
                 </div>
               </div> -->
-              <div class="row">
+            <div class="row">
               <div class="col-md-6" *ngIf="pieChartFlag">
-              <highcharts-chart #chart [Highcharts]="Highcharts" [callbackFunction]="chartCallback" [options]="chartOptionsPieChart"
-              [(update)]="updateFlag"></highcharts-chart>
+                <highcharts-chart #chart [Highcharts]="Highcharts" [callbackFunction]="chartCallback"
+                  [options]="chartOptionsPieChart" [(update)]="updateFlag"></highcharts-chart>
               </div>
               <div class="col-md-6" *ngIf="assetsFlagForDashboard">
                 <!-- <div class="row"> -->
-                  <!-- <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <h5 class="tx-primary m-b-30">Summary</h5>
                     <div class="mb-3 mt-3">
                       <table class="table table-borderless">
@@ -607,10 +594,10 @@
                               </mat-progress-bar>
                             </td>
                             <td> -->
-                              <!-- Total Purchase Asset Count -->
-                              <!-- <h5 class="font-weight-bold mb-0">{{purchaseAssetsCountValue}}</h5> -->
-                              <!-- Company based Purchase Asset Count -->
-                              <!-- <h5 class="font-weight-bold mb-0">{{companyPurchaseAssetsCount}}</h5>
+                <!-- Total Purchase Asset Count -->
+                <!-- <h5 class="font-weight-bold mb-0">{{purchaseAssetsCountValue}}</h5> -->
+                <!-- Company based Purchase Asset Count -->
+                <!-- <h5 class="font-weight-bold mb-0">{{companyPurchaseAssetsCount}}</h5>
                             </td>
                           </tr>
                           <tr class="tr-height-m">
@@ -647,7 +634,7 @@
                             </td>
                           </tr> -->
 
-                          <!-- <tr class="tr-height-m">
+                <!-- <tr class="tr-height-m">
                             <td class="text-muted">Japan</td>
                             <td class="w-100 px-0">
                               <mat-progress-bar mode="determinate"
@@ -670,26 +657,26 @@
                             </td>
                           </tr> -->
 
-                        <!-- </tbody>
+                <!-- </tbody>
                       </table>
                     </div>
                   </div> -->
-                  <!-- <div class="col-md-6 mt-3"> -->
-                    <!-- chart -->
-                    <!-- <div class="row"> -->
-                      <h4 style="margin-left: 154px">Status Wise Asset Count</h4>
-                      <div class="recent-report__chart">
-                        <canvas id="myChart" baseChart class="" [data]="doughnutChartData" [labels]="doughnutChartLabels"
-                          [options]="doughnutChartOptions" [legend]="doughnutChartLegend" [chartType]="doughnutChartType"
-                          [colors]="doughnutChartColors"></canvas>
-                      </div>
-                    <!-- </div> -->
-                    <!-- list -->
-                    <!-- <div class="row">
+                <!-- <div class="col-md-6 mt-3"> -->
+                <!-- chart -->
+                <!-- <div class="row"> -->
+                <h4 style="margin-left: 154px">Status Wise Asset Count</h4>
+                <div class="recent-report__chart">
+                  <canvas id="myChart" baseChart class="" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                    [options]="doughnutChartOptions" [legend]="doughnutChartLegend" [chartType]="doughnutChartType"
+                    [colors]="doughnutChartColors"></canvas>
+                </div>
+                <!-- </div> -->
+                <!-- list -->
+                <!-- <div class="row">
                       <div class="country-chart" *ngFor="let data of auditableAssetList"></div>
                     </div> -->
-                    
-                      <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
+
+                <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-green"></span>
                           <span>{{data.assetname}}</span>
@@ -698,7 +685,7 @@
                       </div> -->
 
 
-                      <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
+                <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-orange"></span>
                           <span>Mobile</span>
@@ -712,27 +699,27 @@
                         </div>
                         <p class="mb-0">45,278</p>
                       </div> -->
-                      <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
+                <!-- <div class="d-flex justify-content-between mx-xl-5 mt-3">
                         <div class="chart-note">
                           <span class="dot dot-product bg-red"></span>
                           <span>Shrilanka</span>
                         </div>
                         <p class="mb-0">$21,376</p>
                       </div> -->
-                    
-                  <!-- </div> -->
+
+                <!-- </div> -->
                 <!-- </div> -->
               </div>
             </div>
             <!-- </div> -->
-          <!-- </div> -->
+            <!-- </div> -->
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row clearfix">
-      <!-- Depreciated Card Start -->
-      <!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+      <div class="row clearfix">
+        <!-- Depreciated Card Start -->
+        <!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <div class="card">
           <div class="header">
             <h2>Depreciated Report/Calculation</h2>
@@ -762,7 +749,7 @@
                     <td>{{data.acquisitionvalue}}</td>
                     <td>{{data.accudepreciation}}</td>
                   </tr> -->
-                  <!-- <tr>
+        <!-- <tr>
                     <td><a [routerLink]="['/admin/accounts/invoice']"> #IN7865 </a></td>
                     <td><img src="assets/images/user/user1.jpg" alt="" class="user_img">John Doe</td>
                     <td>12/05/2016 </td>
@@ -839,15 +826,15 @@
                       $147
                     </td>
                   </tr> -->
-                <!-- </tbody>
+        <!-- </tbody>
               </table>
             </div>
           </div>
         </div>
       </div> -->
-<!-- Depreciated Card End -->
+        <!-- Depreciated Card End -->
 
-      <!-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <!-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="card">
           <div class="card-body">
             <div class="float-start">
@@ -865,70 +852,72 @@
           </div>
         </div>
       </div> -->
-    </div>
-    <div class="row" *ngIf="assetsFlagForDashboard || ticketFlag">
-      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="assetsFlagForDashboard">
-        <div class="card" >
-          <div class="header">
-            <h2>Three Years Assets</h2>
-            <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>Action</button>
-              <button mat-menu-item>Another action</button>
-              <button mat-menu-item>Something else here</button>
-            </mat-menu>
-          </div>
-          <div class="body" *ngIf="assetsFlagForDashboard">
-            <apx-chart [series]="areaChartOptions.series" [chart]="areaChartOptions.chart"
-              [xaxis]="areaChartOptions.xaxis" [yaxis]="areaChartOptions.yaxis" [colors]="areaChartOptions.colors"
-              [stroke]="areaChartOptions.stroke" [legend]="areaChartOptions.legend" [tooltip]="areaChartOptions.tooltip"
-              [dataLabels]="areaChartOptions.dataLabels"></apx-chart>
-          </div>
-        </div>
       </div>
-      
-      <!-- Flow Chart -->
-      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="!assetsFlagForDashboard">
-        <div class="card">
-          <img src="assets/images/flowchart.png" alt="Trulli" width="82%" height="70%" style="margin-top: 8px;margin-left: 47px;">
-        </div>
-      </div>
-      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="ticketFlag">
-        <div class="card">
-          <div class="header">
-            <h2>Support Tickets </h2>
-            <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>Action</button>
-              <button mat-menu-item>Another action</button>
-              <button mat-menu-item>Something else here</button>
-            </mat-menu>
-          </div>
-          <div class="body">
-            <apx-chart [series]="barChartOptions.series" [chart]="barChartOptions.chart"
-              [dataLabels]="barChartOptions.dataLabels" [plotOptions]="barChartOptions.plotOptions"
-              [responsive]="barChartOptions.responsive" [xaxis]="barChartOptions.xaxis"
-              [tooltip]="barChartOptions.tooltip" [legend]="barChartOptions.legend" [fill]="barChartOptions.fill">
-            </apx-chart>
+      <div class="row" *ngIf="assetsFlagForDashboard || ticketFlag">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="assetsFlagForDashboard">
+          <div class="card">
+            <div class="header">
+              <h2>Three Years Assets</h2>
+              <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>Action</button>
+                <button mat-menu-item>Another action</button>
+                <button mat-menu-item>Something else here</button>
+              </mat-menu>
+            </div>
+            <div class="body" *ngIf="assetsFlagForDashboard">
+              <apx-chart [series]="areaChartOptions.series" [chart]="areaChartOptions.chart"
+                [xaxis]="areaChartOptions.xaxis" [yaxis]="areaChartOptions.yaxis" [colors]="areaChartOptions.colors"
+                [stroke]="areaChartOptions.stroke" [legend]="areaChartOptions.legend"
+                [tooltip]="areaChartOptions.tooltip" [dataLabels]="areaChartOptions.dataLabels"></apx-chart>
+            </div>
           </div>
         </div>
+
+        <!-- Flow Chart -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="!assetsFlagForDashboard">
+          <div class="card">
+            <img src="assets/images/flowchart.png" alt="Trulli" width="82%" height="70%"
+              style="margin-top: 8px;margin-left: 47px;">
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="ticketFlag">
+          <div class="card">
+            <div class="header">
+              <h2>Support Tickets </h2>
+              <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>Action</button>
+                <button mat-menu-item>Another action</button>
+                <button mat-menu-item>Something else here</button>
+              </mat-menu>
+            </div>
+            <div class="body">
+              <apx-chart [series]="barChartOptions.series" [chart]="barChartOptions.chart"
+                [dataLabels]="barChartOptions.dataLabels" [plotOptions]="barChartOptions.plotOptions"
+                [responsive]="barChartOptions.responsive" [xaxis]="barChartOptions.xaxis"
+                [tooltip]="barChartOptions.tooltip" [legend]="barChartOptions.legend" [fill]="barChartOptions.fill">
+              </apx-chart>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flow Chart -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="!ticketFlag">
+          <div class="card">
+            <img src="assets/images/flowchart.png" alt="Trulli" width="82%" height="70%"
+              style="margin-top: 8px;margin-left: 47px;">
+          </div>
+        </div>
+
       </div>
 
-      <!-- Flow Chart -->
-      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="!ticketFlag">
-        <div class="card">
-          <img src="assets/images/flowchart.png" alt="Trulli" width="82%" height="70%" style="margin-top: 8px;margin-left: 47px;">
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Asset List Full -->
-    <!-- <div class="row clearfix">
+      <!-- Asset List Full -->
+      <!-- <div class="row clearfix">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="card">
           <div class="header">
@@ -955,7 +944,7 @@
                     <th>Status</th>
                   </tr>
                 </thead> -->
-                <!-- <tbody *ngIf="!roleIdFlag">
+      <!-- <tbody *ngIf="!roleIdFlag">
                   <tr *ngFor="let data of assetList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
                     <td>{{data.assetName}}</td>
                     <td>{{data.assetCode}}</td>
@@ -964,7 +953,7 @@
                     <td>{{data.status}}</td>
                   </tr>
                 </tbody> -->
-                <!-- <tbody>
+      <!-- <tbody>
                   <tr *ngFor="let data of companyAssetList | paginate: { itemsPerPage: 5, currentPage: pageChanged }">
                     <td>{{data.assetName}}</td>
                     <td>{{data.assetCode}}</td>
@@ -983,15 +972,15 @@
       </div>
     </div> -->
 
- 
-    <div class="row" *ngIf="roleId!='7' && roleId!='8'">
-      <div class="col-md-6">
-        <div class="row clearfix">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="card">
-              <div class="header">
-                <h2>User Log Report</h2>
-                <!-- <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+
+      <div class="row" *ngIf="roleId!='7' && roleId!='8'">
+        <div class="col-md-6">
+          <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="card">
+                <div class="header">
+                  <h2>User Log Report</h2>
+                  <!-- <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
@@ -999,117 +988,106 @@
                   <button mat-menu-item>Another action</button>
                   <button mat-menu-item>Something else here</button>
                 </mat-menu> -->
-              </div>
-              <div class="tableBody">
-                <div class="table-responsive">
-    
-                  <table class="table table-hover ">
-                    <thead>
-                      <tr>
-                        <th >Start Date</th>
-                        <th>Status</th>
-                        <th>User Name</th>
-                        <th>Location</th>
-                        <th>IPaddress</th>
+                </div>
+                <div class="tableBody">
+                  <div class="table-responsive">
+
+                    <table class="table table-hover ">
+                      <thead>
+                        <tr>
+                          <th>Start Date</th>
+                          <th>Status</th>
+                          <th>User Name</th>
+                          <th>Location</th>
+                          <th>IPaddress</th>
 
 
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let data of userLogListDashboard |slice: (Page1-1) * pageSize1 : Page1 * pageSize1">
-                        <td>{{data.startdate}}</td>
-                        <td>{{data.status}}</td>
-                        <td>{{data.username}}</td>
-                        <td>{{data.city}}</td>
-                        <td>{{data.ipaddress}}</td>
-                      </tr>
-                    </tbody>
-                  </table>  
-                  <div style="margin-left:40%;">
-                    <ngb-pagination
-                    [collectionSize]="userLogListDashboard.length"
-                    [(page)]="Page1"
-                    [maxSize]="5"
-                    [rotate]="true"
-                    [ellipses]="false"
-                    [boundaryLinks]="true">
-                  </ngb-pagination>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of userLogListDashboard |slice: (Page1-1) * pageSize1 : Page1 * pageSize1">
+                          <td>{{data.startdate}}</td>
+                          <td>{{data.status}}</td>
+                          <td>{{data.username}}</td>
+                          <td>{{data.city}}</td>
+                          <td>{{data.ipaddress}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="margin-left:40%;">
+                      <ngb-pagination [collectionSize]="userLogListDashboard.length" [(page)]="Page1" [maxSize]="5"
+                        [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
+                      </ngb-pagination>
 
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <!--  -->
-        <div class="row clearfix">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="card">
-              <div class="header">
-                <h2>Asset List</h2>
-                <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item>Action</button>
-                  <button mat-menu-item>Another action</button>
-                  <button mat-menu-item>Something else here</button>
-                </mat-menu>
-              </div>
-              <div class="tableBody">
-                <div class="table-responsive">
-    
-                  <table class="table table-hover ">
-                    <thead>
-                      <tr>
-                        <th >Asset Name</th>
-                        <th>Asset Code</th>
-                        <th>Location</th>
-                        <th>Actions</th>
+        <div class="col-md-6">
+          <!--  -->
+          <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="card">
+                <div class="header">
+                  <h2>Asset List</h2>
+                  <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Action</button>
+                    <button mat-menu-item>Another action</button>
+                    <button mat-menu-item>Something else here</button>
+                  </mat-menu>
+                </div>
+                <div class="tableBody">
+                  <div class="table-responsive">
 
-                        <!-- <th>Category</th>
+                    <table class="table table-hover ">
+                      <thead>
+                        <tr>
+                          <th>Asset Name</th>
+                          <th>Asset Code</th>
+                          <th>Location</th>
+                          <th>Actions</th>
+
+                          <!-- <th>Category</th>
                         <th>Status</th> -->
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let data of companyAssetList | slice: (Page-1) * pageSize : Page * pageSize">
-                        <td>{{data.assetName}}</td>
-                        <td>{{data.assetCode}}</td>
-                        <td>{{data.locationName}}</td>
-                        <td><button mat-icon-button   (click)="viewCall(data)"
-                          class="tbl-action-btn">
-                        <i class="fa fa-eye" style="color:#33b91f;"aria-hidden="true"></i> 
-                      </button></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of companyAssetList | slice: (Page-1) * pageSize : Page * pageSize">
+                          <td>{{data.assetName}}</td>
+                          <td>{{data.assetCode}}</td>
+                          <td>{{data.locationName}}</td>
+                          <td><button mat-icon-button (click)="viewCall(data)" class="tbl-action-btn">
+                              <i class="fa fa-eye" style="color:#33b91f;" aria-hidden="true"></i>
+                            </button></td>
 
-                        <!-- <td>{{data.categoryName}}</td>
+                          <!-- <td>{{data.categoryName}}</td>
                         <td>{{data.status}}</td> -->
-                      </tr>
-                    </tbody>
-                  </table>  
-                  <div>
-                    <ngb-pagination
-                    [collectionSize]="companyAssetList.length"
-                    [(page)]="Page"
-                    [maxSize]="3"
-                    [rotate]="true"
-                    [ellipses]="false"
-                    [boundaryLinks]="true">
-                  </ngb-pagination>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div>
+                      <ngb-pagination [collectionSize]="companyAssetList.length" [(page)]="Page" [maxSize]="3"
+                        [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
+                      </ngb-pagination>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <!--  -->
         </div>
-        <!--  -->
+
       </div>
 
-    </div>
 
 
-    
 
 
     </form>

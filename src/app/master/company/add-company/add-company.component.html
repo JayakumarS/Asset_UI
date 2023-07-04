@@ -13,164 +13,167 @@
         <div class="box-shadow">
           <div class="card">
             <div class="body" style="padding-left: 60px;">
-                
-              <mat-tab-group #matgroup  (selectedTabChange)="matEvent($event.index)">
+
+              <mat-tab-group #matgroup (selectedTabChange)="matEvent($event.index)">
                 <mat-tab label="Tab 1">
                   <ng-template mat-tab-label>
                     <i class="material-icons">domain</i> &nbsp;Company
-                </ng-template>
-              <form class="m-4" [formGroup]="docForm">
-                <div class="row">
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
-                    <label>COMPANY NAME<span class="errorColor">*</span></label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="companyName" required>
-                      <mat-error *ngIf="docForm.get('companyName').hasError('required')">
-                        Company Name is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+                  </ng-template>
+                  <form class="m-4" [formGroup]="docForm">
+                    <div class="row">
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                        <label>COMPANY NAME<span class="errorColor">*</span></label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="companyName" required>
+                          <mat-error *ngIf="docForm.get('companyName').hasError('required')">
+                            Company Name is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
-                    <label>PRIMARY CONTACT PERSON<span class="errorColor">*</span></label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="shortName" (keypress)="keyPressName($event)" required>
-                    </mat-form-field>
-                  </div>
-                </div>
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                        <label>PRIMARY CONTACT PERSON<span class="errorColor">*</span></label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="shortName" (keypress)="keyPressName($event)" required>
+                        </mat-form-field>
+                      </div>
+                    </div>
 
-                <div class="row">
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
-                    <label>EMAIL ID<span class="errorColor">*</span></label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="emailId" *ngIf = !edit required (blur)="validateEmail($event.target.value)">
-                      <input matInput formControlName="emailId" *ngIf = edit readonly>
+                    <div class="row">
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                        <label>EMAIL ID<span class="errorColor">*</span></label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="emailId" *ngIf=!edit required
+                            (blur)="validateEmail($event.target.value)">
+                          <input matInput formControlName="emailId" *ngIf=edit readonly>
 
-                      <mat-error *ngIf="docForm.get('emailId').hasError('required')">
-                        Email ID is required
-                      </mat-error>
-                      <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
-                        Email ID Already Exist !!!
-                      </mat-error>
-                      <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
-                        Please enter a valid email address
-                      </mat-error>
-                    </mat-form-field>
+                          <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                            Email ID is required
+                          </mat-error>
+                          <mat-error *ngIf="docForm.get('emailId').hasError('employee')">
+                            Email ID Already Exist !!!
+                          </mat-error>
+                          <mat-error *ngIf="docForm.get('emailId').hasError('pattern')">
+                            Please enter a valid email address
+                          </mat-error>
+                        </mat-form-field>
 
-                  </div>
+                      </div>
 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
-                    <label>PHONE NUMBER<span class="errorColor">*</span></label>
-                  </div>
-                  <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 ">
-                    <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                        <label>PHONE NUMBER<span class="errorColor">*</span></label>
+                      </div>
+                      <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 ">
+                        <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <input matInput formControlName="phoneCode" (keypress)="keyPressNumeric2($event)" maxlength="5">
                     </mat-form-field> -->
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 90px">
-                      <mat-select formControlName="phoneCode" (keypress)="keyPressNumeric2($event)">
-                        <mat-option *ngFor="let title of CountryCodeList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="telephoneNo" maxlength="10" (keypress)="keyPressNumeric1($event)"
-                        required>
-                      <mat-error *ngIf="docForm.get('telephoneNo').hasError('required')">
-                        Phone No is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  
-                </div>
-                <div class="row">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline"
+                          style="width: 90px">
+                          <mat-select formControlName="phoneCode" (keypress)="keyPressNumeric2($event)">
+                            <mat-option *ngFor="let title of CountryCodeList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
-                  <label>COUNTRY<span class="errorColor">*</span></label>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-select formControlName="country">
-                      <mat-option *ngFor="let title of countryDdList" (click)="valueCountry()" [value]="title.id">
-                        {{title.text}}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="docForm.get('country').hasError('required')">
-                      Country is required
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                  <label>IS ACTIVE</label>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                  <mat-checkbox formControlName="isactive" ngInit="checked=true"></mat-checkbox>
-                </div>
-                </div>
-                <div class="row">
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
-                    <label>WEBSITE</label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="webSite">
-                      <mat-error *ngIf="docForm.controls['webSite'].hasError('pattern')">
-                        Please Enter Valid Website
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="telephoneNo" maxlength="10"
+                            (keypress)="keyPressNumeric1($event)" required>
+                          <mat-error *ngIf="docForm.get('telephoneNo').hasError('required')">
+                            Phone No is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
 
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " *ngIf=countryflag>
-                    <label>PAN NO</label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " *ngIf=countryflag>
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="panNo" maxlength="10" oninput="this.value = this.value.toUpperCase()">
-                        
-                      <mat-error *ngIf="docForm.controls['panNo'].hasError('pattern')">
-                        Please Enter Valid Pan No
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " *ngIf=countryflag>
-                    <label>GST NO</label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 "*ngIf=countryflag>
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="gstNo" maxlength="15"
-                      oninput="this.value = this.value.toUpperCase()">
-                      <mat-error *ngIf="docForm.controls['gstNo'].hasError('pattern')">
-                        Please Enter Valid Gst No
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 "*ngIf=countryflag>
-                    <label>IFSC CODE</label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " *ngIf=countryflag>
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="ifscCode" maxlength="11">
-                      <mat-error *ngIf="docForm.get('ifscCode').hasError('pattern')">
-                        Please Enter Valid IFSC code
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-               
+                    </div>
+                    <div class="row">
 
-                  <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                        <label>COUNTRY<span class="errorColor">*</span></label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select formControlName="country">
+                            <mat-option *ngFor="let title of countryDdList" (click)="valueCountry()" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="docForm.get('country').hasError('required')">
+                            Country is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                        <label>IS ACTIVE</label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-checkbox formControlName="isactive" ngInit="checked=true"></mat-checkbox>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 ">
+                        <label>WEBSITE</label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="webSite">
+                          <mat-error *ngIf="docForm.controls['webSite'].hasError('pattern')">
+                            Please Enter Valid Website
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " *ngIf=countryflag>
+                        <label>PAN NO</label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " *ngIf=countryflag>
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="panNo" maxlength="10"
+                            oninput="this.value = this.value.toUpperCase()">
+
+                          <mat-error *ngIf="docForm.controls['panNo'].hasError('pattern')">
+                            Please Enter Valid Pan No
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " *ngIf=countryflag>
+                        <label>GST NO</label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " *ngIf=countryflag>
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="gstNo" maxlength="15"
+                            oninput="this.value = this.value.toUpperCase()">
+                          <mat-error *ngIf="docForm.controls['gstNo'].hasError('pattern')">
+                            Please Enter Valid Gst No
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " *ngIf=countryflag>
+                        <label>IFSC CODE</label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 " *ngIf=countryflag>
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="ifscCode" maxlength="11">
+                          <mat-error *ngIf="docForm.get('ifscCode').hasError('pattern')">
+                            Please Enter Valid IFSC code
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+
+
+                      <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 " >
                       <label >PERSON IN-CHARGE<span class="errorColor">*</span></label>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
@@ -185,9 +188,9 @@
                         </mat-error>
                     </mat-form-field>
                 </div> -->
-                 
-                </div>
-                <!-- <div class="row">
+
+                    </div>
+                    <!-- <div class="row">
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-left: 0px;">
                     <mat-label><b></b></mat-label>
                 </div>
@@ -195,527 +198,536 @@
                   <mat-checkbox formControlName="active"  ngInit="checked=true">Is Active</mat-checkbox>
                 </div>
               </div> -->
-                <div class="row">
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    <mat-label>NO OF DAYS PER MONTH</mat-label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="noOFdaysMonth" (change)="valueValidation($event.target.value)" (keypress)="keyPressNumeric2($event)"
-                        maxlength="2">
-                        <mat-error *ngIf="docForm.get('noOFdaysMonth').hasError('month')">
-                          Exceeding the Limit...!
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    <mat-label>NO OF DAYS PER YEAR</mat-label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="noOFdaysYear" (change)="yearValidation($event.target.value)" (keypress)="keyPressNumeric2($event)"
-                        maxlength="3">
-                        <mat-error *ngIf="docForm.get('noOFdaysYear').hasError('year')">
-                          Exceeding the Limit...!
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-                
-                <div class="row">
+                    <div class="row">
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                        <mat-label>NO OF DAYS PER MONTH</mat-label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="noOFdaysMonth"
+                            (change)="valueValidation($event.target.value)" (keypress)="keyPressNumeric2($event)"
+                            maxlength="2">
+                          <mat-error *ngIf="docForm.get('noOFdaysMonth').hasError('month')">
+                            Exceeding the Limit...!
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                        <mat-label>NO OF DAYS PER YEAR</mat-label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="noOFdaysYear" (change)="yearValidation($event.target.value)"
+                            (keypress)="keyPressNumeric2($event)" maxlength="3">
+                          <mat-error *ngIf="docForm.get('noOFdaysYear').hasError('year')">
+                            Exceeding the Limit...!
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
 
-               
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    <mat-label>ADDRESS</mat-label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <textarea matInput formControlName="addressOne" maxlength="250"></textarea>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    <mat-label>REGISTERED ADDRESS</mat-label>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <textarea matInput formControlName="addressTwo" maxlength="250"></textarea>
-                    </mat-form-field>
-                  </div>
-                </div>
-
-                <div class="row" >
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> ZIPCODE</mat-label>
-                      <input matInput formControlName="addressOneZipCode" 
-                        (keypress)="keyPressNumeric1($event)"  (change)="getPincodeDetails($event.target.value)">
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                      <mat-label> ZIPCODE</mat-label>
-                      <input type = "search" matInput  formControlName="addressTwoZipCode" 
-                        (keypress)="keyPressNumeric1($event)" (change)="getRegPincodeDetails($event.target.value)">
-                    </mat-form-field>
-                  </div>
-                </div>
-
-                <div class="row" *ngIf=countryflag>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>COUNTRY</mat-label>
-                      <mat-select formControlName="addressOneCountry" >
-                        <mat-option *ngFor="let title of countryList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> STATE</mat-label> 
-                      <!-- (selectionChange)="stateBasedCity($event.value)" -->
-                      <mat-select formControlName="addressOneState" >
-                        <mat-option *ngFor="let title of stateList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>COUNTRY</mat-label>
-                      <mat-select formControlName="addressTwoCountry" >
-                        <mat-option *ngFor="let title of regCountryList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> STATE</mat-label>
-                      <mat-select formControlName="addressTwoState" >
-                        <mat-option *ngFor="let title of regStateList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-                
-                <div class="row" *ngIf=countryflag>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>DISTRICT</mat-label>
-                      <!-- <input matInput formControlName="addressOneCity"> -->
-                      <mat-select formControlName="addressOneDistrict">
-                        <mat-option *ngFor="let title of districtList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> CITY</mat-label>
-                      <mat-select formControlName="addressOneCity">
-                        <mat-option *ngFor="let title of cityList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>DISTRICT</mat-label>
-                      <mat-select formControlName="addressTwoDistrict">
-                        <mat-option *ngFor="let title of regDistrictList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> CITY</mat-label>
-                      <mat-select formControlName="addressTwoCity">
-                        <mat-option *ngFor="let title of regCityList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-               
-                <br>
-                <br>
-                <div class="row">
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    <mat-label> HOW MANY BRANCHES ?</mat-label>
-                  </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <input matInput formControlName="branchCount" maxlength="5" (keypress)="keyPressNumeric1($event)">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 " style="padding:7px">
-                    <button (click)="addBranch()" class="btn-space" mat-raised-button color="accent"
-                      style="background-color: #346234;">ADD</button>
-                  </div>
-
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                    <mat-label> DEPRECIATION METHOD</mat-label>
-                  </div>
-                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>DEPRECIATION METHOD</mat-label>
-                      <mat-select formControlName="depreciation">
-                        <mat-option *ngFor="let title of depreciationlist" [value]="title.id" required>
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-md-2" style="margin-top: 2%;">
-                    <mat-label>COMPANY LOGO </mat-label>
-                  </div>
-                  <div class="col-md-4">
-                    <app-file-upload tabindex="23" class="example-width form-control-sm" formControlName="companyLogo" (change)="onSelectFile($event)" ></app-file-upload>
-                    
-                  </div>
-
-                  <div class="col-md-2" style="margin-top: 2%;" *ngIf="roleId=='3'">
-                    <mat-label>REFERRAL CODE </mat-label>
-                  </div>
-                  <div class="col-md-3" style="margin-top: 2%;" *ngIf="roleId=='3'">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select formControlName="referralCode">
-                        <mat-option *ngFor="let title of referralList" [value]="title.id">
-                          {{title.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-                </div>
-                <div class="row" style="margin-top: -20px;" *ngIf="(logoPathUrl != undefined && logoPathUrl != null && logoPathUrl != '')">
-                  <div class="iconCard" style="margin-left: 15.6%;">
-                    <span>
-                      <i class="far fa-file-alt docIcons"></i>{{logoPathUrl?.split('/').pop()}}
-                    </span>
-                    <a class="downloadView" (click)="viewDocuments(logoPathUrl, logoPathUrl?.split('/').pop())">
-                      <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
-                    </a>
-                  </div>
-                </div>
+                    <div class="row">
 
 
-                <br>
-                <!-- branch table Start -->
-                <div style="overflow-x: auto;" *ngIf="flag">
-                  <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
-                    <thead class="">
-                      <tr>
-                        <th style="width: 1%;"></th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                        <mat-label>ADDRESS</mat-label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <textarea matInput formControlName="addressOne" maxlength="250"></textarea>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                        <mat-label>REGISTERED ADDRESS</mat-label>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <textarea matInput formControlName="addressTwo" maxlength="250"></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label> ZIPCODE</mat-label>
+                          <input matInput formControlName="addressOneZipCode" (keypress)="keyPressNumeric1($event)"
+                            (change)="getPincodeDetails($event.target.value)">
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label> ZIPCODE</mat-label>
+                          <input type="search" matInput formControlName="addressTwoZipCode"
+                            (keypress)="keyPressNumeric1($event)" (change)="getRegPincodeDetails($event.target.value)">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="row" *ngIf=countryflag>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>COUNTRY</mat-label>
+                          <mat-select formControlName="addressOneCountry">
+                            <mat-option *ngFor="let title of countryList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label> STATE</mat-label>
+                          <!-- (selectionChange)="stateBasedCity($event.value)" -->
+                          <mat-select formControlName="addressOneState">
+                            <mat-option *ngFor="let title of stateList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>COUNTRY</mat-label>
+                          <mat-select formControlName="addressTwoCountry">
+                            <mat-option *ngFor="let title of regCountryList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label> STATE</mat-label>
+                          <mat-select formControlName="addressTwoState">
+                            <mat-option *ngFor="let title of regStateList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="row" *ngIf=countryflag>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>DISTRICT</mat-label>
+                          <!-- <input matInput formControlName="addressOneCity"> -->
+                          <mat-select formControlName="addressOneDistrict">
+                            <mat-option *ngFor="let title of districtList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label> CITY</mat-label>
+                          <mat-select formControlName="addressOneCity">
+                            <mat-option *ngFor="let title of cityList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12"></div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>DISTRICT</mat-label>
+                          <mat-select formControlName="addressTwoDistrict">
+                            <mat-option *ngFor="let title of regDistrictList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label> CITY</mat-label>
+                          <mat-select formControlName="addressTwoCity">
+                            <mat-option *ngFor="let title of regCityList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <br>
+                    <br>
+                    <div class="row">
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                        <mat-label> HOW MANY BRANCHES ?</mat-label>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <input matInput formControlName="branchCount" maxlength="5"
+                            (keypress)="keyPressNumeric1($event)">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 " style="padding:7px">
+                        <button (click)="addBranch()" class="btn-space" mat-raised-button color="accent"
+                          style="background-color: #346234;">ADD</button>
+                      </div>
+
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                        <mat-label> DEPRECIATION METHOD</mat-label>
+                      </div>
+                      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>DEPRECIATION METHOD</mat-label>
+                          <mat-select formControlName="depreciation">
+                            <mat-option *ngFor="let title of depreciationlist" [value]="title.id" required>
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-2" style="margin-top: 2%;">
+                        <mat-label>COMPANY LOGO </mat-label>
+                      </div>
+                      <div class="col-md-4">
+                        <app-file-upload tabindex="23" class="example-width form-control-sm"
+                          formControlName="companyLogo" (change)="onSelectFile($event)"></app-file-upload>
+
+                      </div>
+
+                      <div class="col-md-2" style="margin-top: 2%;" *ngIf="roleId=='3'">
+                        <mat-label>REFERRAL CODE </mat-label>
+                      </div>
+                      <div class="col-md-3" style="margin-top: 2%;" *ngIf="roleId=='3'">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-select formControlName="referralCode">
+                            <mat-option *ngFor="let title of referralList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                    </div>
+                    <div class="row" style="margin-top: -20px;"
+                      *ngIf="(logoPathUrl != undefined && logoPathUrl != null && logoPathUrl != '')">
+                      <div class="iconCard" style="margin-left: 15.6%;">
+                        <span>
+                          <i class="far fa-file-alt docIcons"></i>{{logoPathUrl?.split('/').pop()}}
+                        </span>
+                        <a class="downloadView" (click)="viewDocuments(logoPathUrl, logoPathUrl?.split('/').pop())">
+                          <i class="fas fa-eye" style=" cursor: pointer;color: #3D78BE;"></i>
+                        </a>
+                      </div>
+                    </div>
+
+
+                    <br>
+                    <!-- branch table Start -->
+                    <div style="overflow-x: auto;" *ngIf="flag">
+                      <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                        <thead class="">
+                          <tr>
+                            <th style="width: 1%;"></th>
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                width: 12%;border-radius: 0.07rem;">BRANCH CODE</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%;border-radius: 0.07rem;">BRANCH NAME</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
               width: 12%;border-radius: 0.07rem;">BRANCH GST NO</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%; border-radius: 0.05rem;">ADDRESS</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
              width: 12%;border-radius: 0.07rem;">ZIPCODE</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-             width: 12%; border-radius: 0.05rem;" *ngIf=countryflag>COUNTRY</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-             width: 12%;border-radius: 0.07rem;"*ngIf=countryflag>STATE</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-             width: 12%;border-radius: 0.07rem;"*ngIf=countryflag>DISTRICT</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
-             width: 12%;border-radius: 0.07rem;"*ngIf=countryflag>CITY</th>
-                        
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                            <!-- <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%; border-radius: 0.05rem;" *ngIf=countryflag>COUNTRY</th> -->
+                            <!-- <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%;border-radius: 0.07rem;" *ngIf=countryflag>STATE</th> -->
+                            <!-- <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%;border-radius: 0.07rem;" *ngIf=countryflag>DISTRICT</th> -->
+                            <!-- <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+             width: 12%;border-radius: 0.07rem;" *ngIf=countryflag>CITY</th> -->
+
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
               width: 12%; border-radius: 0.05rem;">BRANCH HEAD</th>
-                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                            <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                width: 12%;border-radius: 0.07rem;">PHONE NO</th>
 
-                      </tr>
-                    </thead>
+                          </tr>
+                        </thead>
 
-                    <ng-container *ngFor="let branchList of docForm.get('branchList')['controls']; let i = index">
-                      <tbody [formGroup]="branchList">
-                        <tr>
-                          <td>
-                            <button mat-mini-fab color="warn" (click)="removeRow(i)">
-                              <mat-icon class="col-white">delete</mat-icon>
-                            </button>
-                          </td>
-                          <td class="padding-both-side-2" *ngIf="branchList.get('gstFlag').value">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>BRANCH CODE</mat-label>
-                              <input matInput name="branchCode{{i}}" formControlName="branchCode"oninput="this.value = this.value.toUpperCase()"  maxlength="5">
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2" *ngIf="!branchList.get('gstFlag').value">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>BRANCH CODE</mat-label>
-                              <input matInput name="branchCode{{i}}" formControlName="branchCode" maxlength="5"
-                                readonly>
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>BRANCH NAME</mat-label>
-                              <input matInput name="branchName{{i}}" formControlName="branchName" oninput="this.value = this.value.toUpperCase()"  maxlength="50">
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>BRANCH GST NO</mat-label>
-                              <input matInput name="branchGstNo{{i}}" formControlName="branchGstNo"
-                              oninput="this.value = this.value.toUpperCase()" (keydown)="GSTValidation(branchList)" maxlength="15">
-                              <mat-error *ngIf="branchList.controls['branchGstNo'].hasError('pattern')">
-                                Please Enter Valid Gst No
-                              </mat-error>
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>ADDRESS</mat-label>
-                              <input matInput name="branchAddress{{i}}" formControlName="branchAddress" maxlength="250">
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>ZIPCODE</mat-label>
-                              <input matInput name="branchZipcode{{i}}" formControlName="branchZipcode"
-                                (keypress)="keyPressNumeric1($event)" (change)="fetchDynamicDropDown($event.target.value, i)">
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2"*ngIf=countryflag>
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>COUNTRY</mat-label>
-                              <mat-select name="branchCountry{{i}}" formControlName="branchCountry">
-                                <mat-option *ngFor="let title of dynamicDropDownList[i][0]" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2" *ngIf=countryflag>
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>STATE</mat-label>
-                              <mat-select name="branchState{{i}}" formControlName="branchState">
-                                <mat-option *ngFor="let title of dynamicDropDownList[i][1]" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2"*ngIf=countryflag>
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>DISTRICT</mat-label>
-                              <mat-select name="branchDistrict{{i}}" formControlName="branchDistrict">
-                                <mat-option *ngFor="let title of dynamicDropDownList[i][2]" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2"*ngIf=countryflag>
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>CITY</mat-label>
-                              <mat-select name="branchCity{{i}}" formControlName="branchCity">
-                                <mat-option *ngFor="let title of dynamicDropDownList[i][3]" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>BRANCH HEAD</mat-label>
-                              <!-- <input matInput name="branch{{i}}" formControlName="branch"> -->
-                              <mat-select formControlName="branch" name="branch{{i}}">
-                                <mat-option *ngFor="let title of CompanyEnployeeList" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </td>
-                          <td class="padding-both-side-2">
-                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-label>PHONE NO</mat-label>
-                              <input matInput name="branchPhoneNo{{i}}" formControlName="branchPhoneNo"
-                                (keypress)="keyPressNumeric1($event)" maxlength="10">
-                            </mat-form-field>
-                          </td>
+                        <ng-container *ngFor="let branchList of docForm.get('branchList')['controls']; let i = index">
+                          <tbody [formGroup]="branchList">
+                            <tr>
+                              <td>
+                                <button mat-mini-fab color="warn" (click)="removeRow(i)">
+                                  <mat-icon class="col-white">delete</mat-icon>
+                                </button>
+                              </td>
+                              <td class="padding-both-side-2" *ngIf="branchList.get('gstFlag').value">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>BRANCH CODE</mat-label>
+                                  <input matInput name="branchCode{{i}}" formControlName="branchCode"
+                                    oninput="this.value = this.value.toUpperCase()" maxlength="5">
+                                </mat-form-field>
+                              </td>
+                              <td class="padding-both-side-2" *ngIf="!branchList.get('gstFlag').value">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>BRANCH CODE</mat-label>
+                                  <input matInput name="branchCode{{i}}" formControlName="branchCode" maxlength="5"
+                                    readonly>
+                                </mat-form-field>
+                              </td>
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>BRANCH NAME</mat-label>
+                                  <input matInput name="branchName{{i}}" formControlName="branchName"
+                                    oninput="this.value = this.value.toUpperCase()" maxlength="50">
+                                </mat-form-field>
+                              </td>
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>BRANCH GST NO</mat-label>
+                                  <input matInput name="branchGstNo{{i}}" formControlName="branchGstNo"
+                                    oninput="this.value = this.value.toUpperCase()"
+                                    (keydown)="GSTValidation(branchList)" maxlength="15">
+                                  <mat-error *ngIf="branchList.controls['branchGstNo'].hasError('pattern')">
+                                    Please Enter Valid Gst No
+                                  </mat-error>
+                                </mat-form-field>
+                              </td>
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>ADDRESS</mat-label>
+                                  <input matInput name="branchAddress{{i}}" formControlName="branchAddress"
+                                    maxlength="250">
+                                </mat-form-field>
+                              </td>
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>ZIPCODE</mat-label>
+                                  <input matInput name="branchZipcode{{i}}" formControlName="branchZipcode"
+                                    (keypress)="keyPressNumeric1($event)"
+                                    (change)="fetchDynamicDropDown($event.target.value, i)">
+                                </mat-form-field>
+                              </td>
+                              <!-- <td class="padding-both-side-2" *ngIf=countryflag>
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>COUNTRY</mat-label>
+                                  <mat-select name="branchCountry{{i}}" formControlName="branchCountry">
+                                    <mat-option *ngFor="let title of dynamicDropDownList[i][0]" [value]="title.id">
+                                      {{title.text}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </td> -->
+                              <!-- <td class="padding-both-side-2" *ngIf=countryflag>
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>STATE</mat-label>
+                                  <mat-select name="branchState{{i}}" formControlName="branchState">
+                                    <mat-option *ngFor="let title of dynamicDropDownList[i][1]" [value]="title.id">
+                                      {{title.text}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </td> -->
+                              <!-- <td class="padding-both-side-2" *ngIf=countryflag>
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>DISTRICT</mat-label>
+                                  <mat-select name="branchDistrict{{i}}" formControlName="branchDistrict">
+                                    <mat-option *ngFor="let title of dynamicDropDownList[i][2]" [value]="title.id">
+                                      {{title.text}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </td> -->
+                              <!-- <td class="padding-both-side-2" *ngIf=countryflag>
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>CITY</mat-label>
+                                  <mat-select name="branchCity{{i}}" formControlName="branchCity">
+                                    <mat-option *ngFor="let title of dynamicDropDownList[i][3]" [value]="title.id">
+                                      {{title.text}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </td> -->
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>BRANCH HEAD</mat-label>
+                                  <!-- <input matInput name="branch{{i}}" formControlName="branch"> -->
+                                  <mat-select formControlName="branch" name="branch{{i}}">
+                                    <mat-option *ngFor="let title of CompanyEnployeeList" [value]="title.id">
+                                      {{title.text}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </td>
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>PHONE NO</mat-label>
+                                  <input matInput name="branchPhoneNo{{i}}" formControlName="branchPhoneNo"
+                                    (keypress)="keyPressNumeric1($event)" maxlength="10">
+                                </mat-form-field>
+                              </td>
 
-                        </tr>
-                      </tbody>
-                    </ng-container>
-                  </table>
-                </div>
-                <!--  branch table end -->
-                <br>
-                <br>
+                            </tr>
+                          </tbody>
+                        </ng-container>
+                      </table>
+                    </div>
+                    <!--  branch table end -->
+                    <br>
+                    <br>
 
-                <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
-                      style="margin-left: 36%;background-color: #34d034;">Submit</button>
-                    <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
-                      style="margin-left: 36%;background-color: #34d034;">Update</button>
-                    <button color="primary" type="button" class="btn-space" (click)="reset()"
-                      mat-raised-button>Reset</button>
-                      <button color="warn" type="button" class="btn-space" (click)="onCancel()"
-                      mat-raised-button>Back</button>
-                      <button  style="background-color:#004554;" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 1'
-                      mat-raised-button color="accent" >Next</button>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <button *ngIf="!edit" (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                          style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                        <button *ngIf="edit" (click)="update()" class="btn-space" mat-raised-button color="accent"
+                          style="margin-left: 36%;background-color: #34d034;">Update</button>
+                        <button color="primary" type="button" class="btn-space" (click)="reset()"
+                          mat-raised-button>Reset</button>
+                        <button color="warn" type="button" class="btn-space" (click)="onCancel()"
+                          mat-raised-button>Back</button>
+                        <button style="background-color:#004554;" type="button" class="btn-space"
+                          (click)='matgroup.selectedIndex = 1' mat-raised-button color="accent">Next</button>
+                      </div>
+                    </div>
+                  </form>
+                </mat-tab>
+                <mat-tab label="Tab 2" *ngFor="let tab of tabEmp; let index = index">
+
+                  <ng-template mat-tab-label>
+                    <i class="material-icons">group</i>Company Employee
+                  </ng-template>
+                  <div class="card">
+                    <ng-container *ngComponentOutlet="tab.content"></ng-container>
+                    <div class="row" style="    margin-left:40%;">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <button color="warn" type="button" class="btn-space" (click)='matgroup.selectedIndex = 0'
+                          mat-raised-button>Previous</button>
+                        <button style="background-color:#004554;" color="accent" type="button" class="btn-space"
+                          (click)='matgroup.selectedIndex = 2' mat-raised-button>Next</button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </form>
-            </mat-tab>
-            <mat-tab label="Tab 2"  *ngFor="let tab of tabEmp; let index = index">
+                </mat-tab>
 
-              <ng-template mat-tab-label>
-                <i class="material-icons">group</i>Company Employee
-              </ng-template>
-               <div class="card">
-                <ng-container *ngComponentOutlet="tab.content"></ng-container>
-              <div class="row" style="    margin-left:40%;">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button color="warn" type="button" class="btn-space" (click)='matgroup.selectedIndex = 0'
-                    mat-raised-button>Previous</button>
-                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space" (click)='matgroup.selectedIndex = 2'
-                    mat-raised-button>Next</button>
-                </div>
-              </div>
-            </div>
-            </mat-tab> 
-          
-            <mat-tab label="Tab 3"  *ngFor="let tab of tabDept; let index = index">
-              <ng-template mat-tab-label >
-                <i class="material-icons">view_comfy</i>Department
-              </ng-template>
-               <div class="card">
-                <ng-container *ngComponentOutlet="tab.content"></ng-container>
-              <div class="row" style="    margin-left: 40%;">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 1'
-                    mat-raised-button>Previous</button>
-                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex = 3'
-                    mat-raised-button>Next</button>
-                </div>
-              </div>
-            </div>
-            </mat-tab> 
-
-            <mat-tab label="Tab 4"  *ngFor="let tab of tabLocation; let index = index">
-              <ng-template mat-tab-label >
-                <i class="material-icons">place</i>Location
-              </ng-template>
-               <div class="card">
-                <ng-container *ngComponentOutlet="tab.content"></ng-container>
-              <div class="row" style="    margin-left: 40%;">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 2'
-                    mat-raised-button>Previous</button>
-                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex = 4'
-                    mat-raised-button>Next</button>
-                </div>
-              </div>
-            </div>
-            </mat-tab> 
-            
-            <mat-tab label="Tab 5"  *ngFor="let tab of tabCustomer; let index = index">
-              <ng-template mat-tab-label >
-                <i class="material-icons">person_add</i>&nbsp;Customer/vendor
-              </ng-template>
-               <div class="card">
-                <ng-container *ngComponentOutlet="tab.content"></ng-container>
-              <div class="row" style="    margin-left: 40%;">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 3'
-                    mat-raised-button>Previous</button>
-                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex = 5'
-                    mat-raised-button>Next</button>
-                </div>
-              </div>
-            </div>
-            </mat-tab> 
-            <mat-tab label="Tab 6"  *ngFor="let tab of tabState;">
-              <ng-template mat-tab-label >
-                <i class="material-icons">import_contacts</i>&nbsp;Status
-              </ng-template>
-               <div class="card">
-                <ng-container *ngComponentOutlet="tab.content"></ng-container>
-              <div class="row" style="    margin-left: 40%;">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex = 4'
-                    mat-raised-button>Previous</button>
-                    <button style="background-color:#004554;" color="accent"type="button" class="btn-space"   (click)='matgroup.selectedIndex =6'
-                    mat-raised-button>Next</button>
-                </div>
-              </div>
-            </div>
-            </mat-tab> 
-
-            <mat-tab label="Tab 7"  *ngFor="let tab of tabLine;">
-              <ng-template mat-tab-label >
-                <i class="material-icons">view_list</i>Line
-              </ng-template>
-               <div class="card">
-                <ng-container *ngComponentOutlet="tab.content"></ng-container>
-              <div class="row" style="    margin-left: 40%;">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex =5'
-                    mat-raised-button>Previous</button>
-                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex =0'
-                    mat-raised-button>Next</button>
-                </div>
-              </div>
-            </div>
-            </mat-tab> 
-            <mat-tab label="Tab 8"  *ngFor="let tab of tabItem;">
-              <ng-template mat-tab-label >
-                <i class="material-icons">format_italic</i>Item Master
-              </ng-template>
-               <div class="card">
-                <ng-container *ngComponentOutlet="tab.content"></ng-container>
-              <div class="row" style="    margin-left: 40%;">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button color="warn" type="button" class="btn-space"  (click)='matgroup.selectedIndex =6'
-                    mat-raised-button>Previous</button>
-                    <button style="background-color:#004554;" color="accent" type="button" class="btn-space"   (click)='matgroup.selectedIndex =0'
-                    mat-raised-button>Next</button>
+                <mat-tab label="Tab 3" *ngFor="let tab of tabDept; let index = index">
+                  <ng-template mat-tab-label>
+                    <i class="material-icons">view_comfy</i>Department
+                  </ng-template>
+                  <div class="card">
+                    <ng-container *ngComponentOutlet="tab.content"></ng-container>
+                    <div class="row" style="    margin-left: 40%;">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <button color="warn" type="button" class="btn-space" (click)='matgroup.selectedIndex = 1'
+                          mat-raised-button>Previous</button>
+                        <button style="background-color:#004554;" color="accent" type="button" class="btn-space"
+                          (click)='matgroup.selectedIndex = 3' mat-raised-button>Next</button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              </mat-tab> 
+                </mat-tab>
+
+                <mat-tab label="Tab 4" *ngFor="let tab of tabLocation; let index = index">
+                  <ng-template mat-tab-label>
+                    <i class="material-icons">place</i>Location
+                  </ng-template>
+                  <div class="card">
+                    <ng-container *ngComponentOutlet="tab.content"></ng-container>
+                    <div class="row" style="    margin-left: 40%;">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <button color="warn" type="button" class="btn-space" (click)='matgroup.selectedIndex = 2'
+                          mat-raised-button>Previous</button>
+                        <button style="background-color:#004554;" color="accent" type="button" class="btn-space"
+                          (click)='matgroup.selectedIndex = 4' mat-raised-button>Next</button>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+
+                <mat-tab label="Tab 5" *ngFor="let tab of tabCustomer; let index = index">
+                  <ng-template mat-tab-label>
+                    <i class="material-icons">person_add</i>&nbsp;Customer/vendor
+                  </ng-template>
+                  <div class="card">
+                    <ng-container *ngComponentOutlet="tab.content"></ng-container>
+                    <div class="row" style="    margin-left: 40%;">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <button color="warn" type="button" class="btn-space" (click)='matgroup.selectedIndex = 3'
+                          mat-raised-button>Previous</button>
+                        <button style="background-color:#004554;" color="accent" type="button" class="btn-space"
+                          (click)='matgroup.selectedIndex = 5' mat-raised-button>Next</button>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Tab 6" *ngFor="let tab of tabState;">
+                  <ng-template mat-tab-label>
+                    <i class="material-icons">import_contacts</i>&nbsp;Status
+                  </ng-template>
+                  <div class="card">
+                    <ng-container *ngComponentOutlet="tab.content"></ng-container>
+                    <div class="row" style="    margin-left: 40%;">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <button color="warn" type="button" class="btn-space" (click)='matgroup.selectedIndex = 4'
+                          mat-raised-button>Previous</button>
+                        <button style="background-color:#004554;" color="accent" type="button" class="btn-space"
+                          (click)='matgroup.selectedIndex =6' mat-raised-button>Next</button>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+
+                <mat-tab label="Tab 7" *ngFor="let tab of tabLine;">
+                  <ng-template mat-tab-label>
+                    <i class="material-icons">view_list</i>Line
+                  </ng-template>
+                  <div class="card">
+                    <ng-container *ngComponentOutlet="tab.content"></ng-container>
+                    <div class="row" style="    margin-left: 40%;">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <button color="warn" type="button" class="btn-space" (click)='matgroup.selectedIndex =5'
+                          mat-raised-button>Previous</button>
+                        <button style="background-color:#004554;" color="accent" type="button" class="btn-space"
+                          (click)='matgroup.selectedIndex =0' mat-raised-button>Next</button>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Tab 8" *ngFor="let tab of tabItem;">
+                  <ng-template mat-tab-label>
+                    <i class="material-icons">format_italic</i>Item Master
+                  </ng-template>
+                  <div class="card">
+                    <ng-container *ngComponentOutlet="tab.content"></ng-container>
+                    <div class="row" style="    margin-left: 40%;">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <button color="warn" type="button" class="btn-space" (click)='matgroup.selectedIndex =6'
+                          mat-raised-button>Previous</button>
+                        <button style="background-color:#004554;" color="accent" type="button" class="btn-space"
+                          (click)='matgroup.selectedIndex =0' mat-raised-button>Next</button>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
               </mat-tab-group>
             </div>
           </div>
