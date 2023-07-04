@@ -44,6 +44,7 @@ export class AddLocationComponent implements OnInit {
   companyId:any;
   getBranchList=[];
   getUserBasedCompanyList = [];
+  parentLocation:boolean=false;
 
   // tslint:disable-next-line:new-parens
   salesDetailRowData = new SalesEntryDetailRowComponent;
@@ -94,10 +95,8 @@ export class AddLocationComponent implements OnInit {
 
 
 
-    this.companyId = this.tokenStorage.getCompanyId(),
-
-
     this.companyId=this.tokenStorage.getCompanyId();
+    console.log(this.tokenStorage.getUserId())
    this.httpService.get<any>(this.departmentMasterService.companyListUrl + "?userId=" + this.companyId).subscribe(
     (data) => {
       this.getUserBasedCompanyList = data.getUserBasedCompanyList;
@@ -112,9 +111,18 @@ export class AddLocationComponent implements OnInit {
 
     this.httpService.get(this.commonService.getCompanybasedlocationDropdown + "?companyId=" + this.companyId).subscribe((res: any) => {
       this.locationList = res.addressBean;
+      if(this.locationList.length>0)
+  {
+    this.parentLocation=true;
+  }
+  else {
+    this.parentLocation=false;
+  }
       // tslint:disable-next-line:no-shadowed-variable
      // this.getcompanybaseduser(this.docForm.value.company);
     });
+  
+
     this.httpService.get(this.commonService.getcompanybaseduser + "?company=" + this.companyId).subscribe((res: any) => {
       this.locationDdList = res.addressBean;
     });
@@ -268,6 +276,32 @@ fetchDetails(locationId: any): void {
   }
   this.locationMasterService.editLoction(obj).subscribe({
     next: (res) => {
+      //company list
+      this.httpService.get<any>(this.departmentMasterService.companyListUrl + "?userId=" + this.companyId).subscribe(
+        (data) => {
+          this.getUserBasedCompanyList = data.getUserBasedCompanyList;
+          this.docForm.patchValue({
+            'company':this.tokenStorage.getCompanyId(),
+         })
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+       //branch list
+       this.httpService.get<any>(this.departmentMasterService.branchList + "?companyId=" + this.companyId).subscribe(
+        (data) => {
+          this.getBranchList = data.getBranchList;
+          this.docForm.patchValue({
+            'branchname':res.locationMasterBean.branchidint+'',
+          })
+          // console.log(this.tokenStorage.getBranchId())
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+
     this.docForm.patchValue({
       'locationId': res.locationMasterBean.locationId,
         'locationCode': res.locationMasterBean.locationCode,
@@ -278,9 +312,10 @@ fetchDetails(locationId: any): void {
         'cascade':  res.locationMasterBean.cascade,
         'primaryLocation': res.locationMasterBean.primaryLocation,
         'alternateLocation': res.locationMasterBean.alternateLocation,
-        'company': res.locationMasterBean.company,
-        'branchname' : res.locationMasterBean.branchid,
+        'company': res.locationMasterBean.companystrg+'',
+        'branchname' : res.locationMasterBean.branchidint+'',
     });
+   
   },
   error: (error) => {
   }

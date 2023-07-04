@@ -16,11 +16,17 @@
                     </div>
                     <div class=" col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline" >
-                        <mat-select formControlName="company"  required >
+                        <!-- <mat-select formControlName="company"  required >
                           <mat-option *ngFor="let title of getUserBasedCompanyList" [value]="title.id">
                             {{title.text}}
                         </mat-option>
-                      </mat-select>
+                      </mat-select> -->
+
+                      <mat-select class="inputTxt" formControlName="company">
+                        <mat-option *ngFor="let title of getUserBasedCompanyList" [value]="title.id">
+                            {{title.text}}
+                        </mat-option>
+                    </mat-select>
                     <mat-error *ngIf="docForm.get('company').hasError('required')">
                       Company is required
                     </mat-error>
@@ -77,11 +83,11 @@
 
                   </div>
                  <div class="row">
-                  <div class=" col-md-2">
+                  <div class=" col-md-2"  *ngIf="parentLocation">
                     <label > PARENT LOCATION NAME</label>
                   </div>
 
-                  <div class=" col-md-3">
+                  <div class=" col-md-3" *ngIf="parentLocation">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
 
                     <mat-select class="inputTxt" formControlName="parentLocation">
