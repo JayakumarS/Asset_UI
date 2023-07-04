@@ -199,7 +199,7 @@
                     <td class="padding-both-side-2">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>ID CARD TYPE</mat-label>
-                        <mat-select name="idtype{{i}}"  formControlName="idtype">
+                        <mat-select name="idtype{{i}}"  formControlName="idtype" (selectionChange)=onSelectIdCardType($event,i)>
                           <mat-option [value]="'Driving License'">
                             Driving License
                             </mat-option>
