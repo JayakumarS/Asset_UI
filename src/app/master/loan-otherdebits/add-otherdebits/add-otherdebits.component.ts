@@ -15,6 +15,8 @@ import { LoanOtherdebitsService } from '../loan-otherdebits.service';
 import { Otherdebits } from '../loan-otherdebits.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
+import axios from 'axios';
+
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -55,7 +57,6 @@ export class AddOtherdebitsComponent implements OnInit {
   otherdebits:Otherdebits;
   requestId: number;
 
-
   currencyList: [];
   submitted: boolean;
   customerDropDown: [];
@@ -70,7 +71,8 @@ export class AddOtherdebitsComponent implements OnInit {
   totalValue:number;
   loanPropertyList: any;
   CountryCodeList=[];
-
+ ifscError: boolean = false;
+  
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -165,7 +167,57 @@ export class AddOtherdebitsComponent implements OnInit {
 
   }
 
+  async validateIFSC(ifscCode: string): Promise<boolean> {
 
+    if (this.docForm.value.bankname === 'HDFC' && !ifscCode.startsWith('HD')) {
+      this.ifscError = true;
+      this.docForm.patchValue({
+        'ifsccode':''
+      });
+    }
+    else if (this.docForm.value.bankname === 'SBI' && !ifscCode.startsWith('SBI')) {
+      this.ifscError = true;
+      this.docForm.patchValue({
+        'ifsccode':''
+      });
+      
+    }
+    else if (this.docForm.value.bankname === 'IOB' && !ifscCode.startsWith('IOB')) {
+      this.ifscError = true;
+      this.docForm.patchValue({
+        'ifsccode':''
+      });
+    }
+    else if (this.docForm.value.bankname === 'INDIAN BANK' && !ifscCode.startsWith('IDIB')) {
+      this.ifscError = true;
+      this.docForm.patchValue({
+        'ifsccode':''
+      });
+    }
+    else if (this.docForm.value.bankname === 'ICICI' && !ifscCode.startsWith('ICIC')) {
+      this.ifscError = true;
+      this.docForm.patchValue({
+        'ifsccode':''
+      });
+    }
+  
+    if(!this.ifscError)
+    {
+      try {
+        const response = await axios.get(`https://ifsc.razorpay.com/${ifscCode}`);
+        if (response.status === 200) {
+          // IFSC code is valid
+          return true;
+        }
+      } catch (error) {
+        // IFSC code is invalid or API request failed
+      }
+      
+      return false;
+    }
+    
+  }
+  
 fetchDetails(requestId: any): void {
 const obj = {
   editId: requestId
@@ -238,6 +290,7 @@ update(){
       "right");
   }
 }
+
 
 reset(){
   if (!this.edit) {
@@ -385,7 +438,7 @@ keyPressAlphaNumeric(event: any) {
 }
 
 keyPressNumberDouble(event: any) {
-  const pattern = /[0-9.]/;
+  const pattern = /[1-9.]/;
   const inputChar = String.fromCharCode(event.charCode);
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();

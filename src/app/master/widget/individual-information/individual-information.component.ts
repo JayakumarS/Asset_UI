@@ -234,6 +234,33 @@ export class IndividualInformationComponent implements OnInit {
       this.cityList = res;
   })
 }
+
+onSelectIdCardType(event, index, type) {
+
+  
+for(var i =0;i<this.docForm.value.proofDtl.length;i++)
+{
+
+  if(i!=index)
+  {
+    if(event.value==this.docForm.value.proofDtl[i].idtype)
+    {
+      this.showNotification(
+        "snackbar-danger",
+        "Please select different ID card type",
+        "top",
+        "right"
+      );
+      this.removeRowSelf(index)
+       }
+       
+  }
+  
+  
+}
+
+}
+
 onSelectImage(event, index, type) {
   var imgfile = event.target.files[0];
 
