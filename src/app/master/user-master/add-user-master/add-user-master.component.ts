@@ -68,7 +68,7 @@ export class AddUserMasterComponent implements OnInit {
       location: [""],
       otp: [""],
       userLocation: [""],
-      company: ["", [Validators.required]],
+      company: [this.tokenStorage.getCompanyText()],
       loginedUser: this.tokenStorage.getUserId(),
       empid: [""],
       active: [true],

@@ -105,7 +105,9 @@
                         </div>
                         <div class=" col-md-3">
                           <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                            <mat-select class="inputTxt" formControlName="company" (selectionChange)="fetchBranchDetails($event.value)">
+                            <input matInput formControlName="company"required readonly *ngIf="this.roleId!=1">
+
+                            <mat-select class="inputTxt" formControlName="company" (selectionChange)="fetchBranchDetails($event.value)" *ngIf="this.roleId==1">
                               <mat-option *ngFor="let title of getBasedCompanyList" [value]="title.id1">
                                   {{title.text}}
                               </mat-option>
