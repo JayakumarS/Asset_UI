@@ -229,28 +229,28 @@ configUserLog: {
   //  -------------------------------------- 
   ngOnInit() {
       this.roleId=this.tokenStorage.getRoleId();
-      if(this.roleId == 2 || this.roleId == '2'){
-        this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.tokenStorage.getUserId()).subscribe((res: any) => {
-          if (res.validSubscription) {
+      // if(this.roleId == 2 || this.roleId == '2'){
+      //   this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.tokenStorage.getUserId()).subscribe((res: any) => {
+      //     if (res.validSubscription) {
 
-            let tempDirection;
-            if (localStorage.getItem("isRtl") === "true") {
-            tempDirection = "rtl";
-             } else {
-            tempDirection = "ltr";
-             }
-              {
-                const dialogRef = this.dialog.open(SubscriptionAlertComponent, {
-                  height: "520px",
-                  width: "1000px",
-                  direction: tempDirection,
-                });
-              }
-          }
-          });
+      //       let tempDirection;
+      //       if (localStorage.getItem("isRtl") === "true") {
+      //       tempDirection = "rtl";
+      //        } else {
+      //       tempDirection = "ltr";
+      //        }
+      //         {
+      //           const dialogRef = this.dialog.open(SubscriptionAlertComponent, {
+      //             height: "520px",
+      //             width: "1000px",
+      //             direction: tempDirection,
+      //           });
+      //         }
+      //     }
+      //     });
       
       
-      }
+      // }
 
 //Subscription status
 this.httpService.get<any>(this.companyService.gettrialdaysstatus + "?userId=" + this.tokenStorage.getUserId()).subscribe({
@@ -626,21 +626,21 @@ else{
     this.getInvList();
     this.getAssetList();
 
-    this.httpService.get<any>(this.commonService.getPwdStatus + "?userId=" + this.tokenStorage.getUserId()).subscribe((result: any) => {
-      this.pwdStatus=result.addressBean[0].pwdStatus;
-      if(!this.pwdStatus){
-        const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
-          disableClose: true ,
-          height: "500px",
-          width: "465px",
+    // this.httpService.get<any>(this.commonService.getPwdStatus + "?userId=" + this.tokenStorage.getUserId()).subscribe((result: any) => {
+    //   this.pwdStatus=result.addressBean[0].pwdStatus;
+    //   if(!this.pwdStatus){
+    //     const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+    //       disableClose: true ,
+    //       height: "500px",
+    //       width: "465px",
       
-        });
-      }
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
+    //     });
+    //   }
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //      // error code here
+    //   }
+    // );
     // bar chart default call
     // this.fetchAssetName(16);
     // this.popUp();
