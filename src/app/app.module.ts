@@ -59,56 +59,57 @@ export function createTranslateLoader(http: HttpClient): any {
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        HeaderComponent,
-        PageLoaderComponent,
-        SidebarComponent,
-        RightSidebarComponent,
-        AuthLayoutComponent,
-        MainLayoutComponent,
-        TopbarComponent,
-        MatmenuComponent,
-        MatdynamicmenuComponent,
-        MatdynamicsubmenuComponent,
-        MatnestedmenuComponent,
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        PerfectScrollbarModule,
-        ClickOutsideModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: createTranslateLoader,
-                deps: [HttpClient],
-            },
-        }),
-        // core & shared
-        CoreModule,
-        SharedModule,
-        MatToolbarModule,
-        MatMenuModule,
-        MatDialogModule,
-        MatSnackBarModule,
-        NgxPaginationModule,
-        AngularBotModule
-    ],
-    providers: [
-      CurrencyPipe,
-        // { provide: LocationStrategy, useClass: HashLocationStrategy },
-        // {
-        //     provide: PERFECT_SCROLLBAR_CONFIG,
-        //     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
-        // },
-        // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        // fakeBackendProvider,
-        httpInterceptorProviders
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    PageLoaderComponent,
+    SidebarComponent,
+    RightSidebarComponent,
+    AuthLayoutComponent,
+    MainLayoutComponent,
+    TopbarComponent,
+    MatmenuComponent,
+    MatdynamicmenuComponent,
+    MatdynamicsubmenuComponent,
+    MatnestedmenuComponent,
+
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    PerfectScrollbarModule,
+    ClickOutsideModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
+    // core & shared
+    CoreModule,
+    SharedModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    NgxPaginationModule,
+    AngularBotModule
+  ],
+  providers: [
+    CurrencyPipe,
+    // { provide: LocationStrategy, useClass: HashLocationStrategy },
+    // {
+    //     provide: PERFECT_SCROLLBAR_CONFIG,
+    //     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    // },
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // fakeBackendProvider,
+    httpInterceptorProviders
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

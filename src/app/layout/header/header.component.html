@@ -135,12 +135,12 @@
                         <app-feather-icons [icon]="'settings'" [class]="'user-menu-icons'"></app-feather-icons>Settings
                       </a>
                     </li> -->
-                  <li>
+                  <!-- <li>
                     <a href="javascript:void(0);">
                       <app-feather-icons [icon]="'user'"
                         [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getRoleText()}}</span>
                     </a>
-                  </li>
+                  </li> -->
                   <li *ngIf="this.token.getCompanyText()!='null'">
                     <a href="javascript:void(0);">
                       <app-feather-icons [icon]="'users'"
@@ -186,7 +186,13 @@
           </div>
         </div>
       </li>
+
       <!-- #END# Tasks -->
     </ul>
+
+    <div style="text-align: center; color: white;">
+      <app-feather-icons [icon]="'user'"
+        [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getRoleText()}}</span>
+    </div>
   </div>
 </nav>

@@ -1,0 +1,55 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" style="padding: 0.5% !important;">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Asset-Report'" [items]="['Individual-Asset-Report']"
+                [active_item]="'Asset-Report'">
+            </app-breadcrumb>
+        </div>
+        <form [formGroup]="docForm">
+            <div class="body" style=" display: flex; justify-content: center;">
+                <div>
+                    <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                        <mat-label>Currency</mat-label>
+                        <input matInput formControlName="currency" required readonly="true">
+                    </mat-form-field>
+                </div>
+
+                <div class='container'>
+                    <div class='card'>
+                        <div class='card__info' style='background-image: url(assets/images/banner/dollar.jpeg)'>
+                            <h2 class='card__name'>PREMIUM</h2>
+                            <i class="material-icons">spa</i>
+                            <div class='card__price' style="color: #000000;">
+                                ₹50000.00 </div>
+                        </div>
+                        <div class='card__content' style='border-color: #ffd400;'>
+                            <div class='card__rows'>
+                                <p class='card__row'>50GB Disk Space</p>
+                                <p class='card__row'>50GB Disk Space</p>
+                                <p class='card__row'>20 E-Mail Address</p>
+                                <p class='card__row'>20 E-Mail Address</p>
+                                <p class='card__row'>20 E-Mail Address</p>
+
+                            </div>
+                            <a href="javascript:void(0);" style="text-decoration:none;background-color: #00bcd4;"
+                                (click)="initiatePaymentModule('standard')" class='card__link'>Proceed to Pay</a>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                        <mat-label>No.of Users</mat-label>
+                        <input matInput formControlName="noOfUsers" required readonly="true">
+                        <mat-error *ngIf="docForm.get('noOfUsers').hasError('required')">
+                            No.of Users is required
+                        </mat-error>
+                        <mat-error *ngIf="docForm.get('noOfUsers').hasError('object')">
+                            No.of Users is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

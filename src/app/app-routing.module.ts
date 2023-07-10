@@ -118,7 +118,7 @@ const routes: Routes = [
           import("./purchase/purchase.module").then((m) => m.PurchaseModule),
       },
       {
-        path:"operations",
+        path: "operations",
         canActivate: [AuthGuard],
         data: {
           role: Role.Admin,
@@ -133,7 +133,7 @@ const routes: Routes = [
           role: Role.Admin,
         },
         loadChildren: () =>
-        import("./finance/finance.module").then((m) => m.FinanceModule),
+          import("./finance/finance.module").then((m) => m.FinanceModule),
       },
       {
         path: "loaddata",
@@ -142,7 +142,7 @@ const routes: Routes = [
           role: Role.Admin,
         },
         loadChildren: () =>
-        import("./loaddata/loaddata.module").then((m) => m.LoaddataModule),
+          import("./loaddata/loaddata.module").then((m) => m.LoaddataModule),
       },
       {
         path: "asset",
@@ -151,7 +151,7 @@ const routes: Routes = [
           role: Role.Admin,
         },
         loadChildren: () =>
-        import("./asset/asset.module").then((m) => m.AssetModule),
+          import("./asset/asset.module").then((m) => m.AssetModule),
       },
       {
         path: "audit",
@@ -160,7 +160,7 @@ const routes: Routes = [
           role: Role.Admin,
         },
         loadChildren: () =>
-        import("./audit/audit.module").then((m) => m.AuditModule),
+          import("./audit/audit.module").then((m) => m.AuditModule),
       },
       {
         path: "helpdesk",
@@ -169,7 +169,7 @@ const routes: Routes = [
           role: Role.Admin,
         },
         loadChildren: () =>
-        import("./helpdesk/helpdesk.module").then((m) => m.HelpdeskModule),
+          import("./helpdesk/helpdesk.module").then((m) => m.HelpdeskModule),
       },
       {
         path: "payments",
@@ -178,7 +178,16 @@ const routes: Routes = [
           role: Role.Admin,
         },
         loadChildren: () =>
-        import("./payments/payments.module").then((m) => m.PaymentsModule),
+          import("./payments/payments.module").then((m) => m.PaymentsModule),
+      },
+      {
+        path: "individual-subscription",
+        canActivate: [AuthGuard],
+        data: {
+          role: Role.Admin,
+        },
+        loadChildren: () =>
+          import("./individual-subscription/individual-subscription.module").then((m) => m.IndividualSubscriptionModule),
       },
     ],
   },
@@ -199,7 +208,7 @@ const routes: Routes = [
     loadChildren: () =>
       import("./angular-bot/angular-bot.module").then((m) => m.AngularBotModule),
   },
-  
+
   // {
   //   path: "purchase",
   //   canActivate: [AuthGuard],
@@ -215,4 +224,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: "legacy" })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
