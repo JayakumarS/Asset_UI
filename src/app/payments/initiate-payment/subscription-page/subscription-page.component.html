@@ -10,89 +10,95 @@
         <div class="card">
           <div class="header">
             <h2>
-              <strong>Subscription</strong> </h2>
+              <strong>Subscription</strong>
+            </h2>
           </div>
           <div class="body">
             <div class="demo">
               <div class="container">
-                <form class="m-4" [formGroup]="docForm" >
-                <div class="row">
+                <form class="m-4" [formGroup]="docForm">
+                  <div class="row">
                     <div class="col-md-4 col-sm-6">
-                        <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
-                            <mat-label>Currency</mat-label>
-                            <!-- <mat-select  (selectionChange)="changeCurrency($event.value)" formControlName="currency">
+                      <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
+                        <mat-label>Currency</mat-label>
+                        <!-- <mat-select  (selectionChange)="changeCurrency($event.value)" formControlName="currency">
                                 <mat-option *ngFor="let currency of currencyList" [value]="currency.id">
                                     {{currency.text}}
                                   </mat-option>
                             </mat-select> -->
-                            <input matInput formControlName="currency"  required readonly="true">
-                        </mat-form-field>
-                        
+                        <input matInput formControlName="currency" required readonly="true">
+                      </mat-form-field>
+
                     </div>
                     <div class="col-md-4 col-sm-6">
                       <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px">
-                          <mat-label>No.of Users</mat-label>
-                          <input matInput formControlName="noOfUsers" required readonly="true">
+                        <mat-label>No.of Users</mat-label>
+                        <input matInput formControlName="noOfUsers" required readonly="true">
                         <mat-error *ngIf="docForm.get('noOfUsers').hasError('required')">
-                           No.of Users is required
+                          No.of Users is required
                         </mat-error>
                         <mat-error *ngIf="docForm.get('noOfUsers').hasError('object')">
                           No.of Users is required
-                       </mat-error>
+                        </mat-error>
                       </mat-form-field>
-                      
+
+                    </div>
+                    <div class="col-4" *ngIf="roleId==6 " (click)="Trailpopup()">
+                      <img src="assets/images/freetrail.jpg" style="
+                    margin-top: -10%;    margin-left: -20%;">
+                      <a style="color:blue">Try Using Asset Chek for 30 days free trial </a>
+                    </div>
                   </div>
-                  <div class="col-4" *ngIf="roleId==6 " (click)="Trailpopup()"> 
-                    <img src="assets/images/freetrail.jpg" style="
-                    margin-top: -10%;    margin-left: -20%;" >
-                    <a  style="color:blue">Try Using Asset Chek for 30 days free trail</a>
-                 </div>
-                </div>
 
                   <div class="row" [class.auth-spinner]="loading">
-                  
-                    
+
+
                     <div class="col-md-12 col-sm-6">
                       <div class="pricingTable blueColor">
                         <div class="pricingTable-header">
                           <i class="material-icons">spa</i>
-                          <div class="price-value"> 
-                           <span *ngIf="strikeOutFlag" style="text-decoration: line-through;">{{oldstdAmt}}.00 <br> </span> 
-                           <span>{{stdAmt}}.00</span>
-                           
+                          <div class="price-value">
+                            <span *ngIf="strikeOutFlag" style="text-decoration: line-through;">{{oldstdAmt}}.00 <br>
+                            </span>
+                            <span>{{stdAmt}}.00</span>
+
                           </div>
                         </div>
                         <h3 class="heading">PREMIUM</h3>
                         <div class="pricing-content">
                           <ul>
-                            
+
                             <li>
-                              <b>1</b> Year Subscription</li>
-                              <li>
-                                For <b>{{users}}</b> Users</li>
+                              <b>1</b> Year Subscription
+                            </li>
+                            <li>
+                              For <b>{{users}}</b> Users</li>
                             <!-- <li>
                               <b>70GB</b> Monthly Bandwidth</li> -->
                           </ul>
                         </div>
-                        <div >
-                          <mat-form-field class="example-width form-control-sm" appearance="outline" style="width:245px; margin-left: 136px;">
-                              <mat-label >Promotion Code</mat-label>
-                              <input matInput formControlName="promotionCode" (keypress)="keyPressNameNumber($event)">
+                        <div>
+                          <mat-form-field class="example-width form-control-sm" appearance="outline"
+                            style="width:245px; margin-left: 136px;">
+                            <mat-label>Promotion Code</mat-label>
+                            <input matInput formControlName="promotionCode" (keypress)="keyPressNameNumber($event)">
                           </mat-form-field>
 
-                          <a href="javascript:void(0);" style="text-decoration:none;" (click)="verifyPromoCode()">Apply Promo Code</a>
+                          <a href="javascript:void(0);" style="text-decoration:none;" (click)="verifyPromoCode()">Apply
+                            Promo Code</a>
 
-                          
-                      </div>
+
+                        </div>
                         <div class="pricingTable-signup">
-                          <a href="javascript:void(0);" style="text-decoration:none;"(click)="initiatePaymentModule('standard')">Proceed to Pay</a>
+                          <a href="javascript:void(0);" style="text-decoration:none;"
+                            (click)="initiatePaymentModule('standard')">Proceed to Pay</a>
                         </div>
                       </div>
                     </div>
-                    
+
                   </div>
                 </form>
-                
+
               </div>
             </div>
           </div>

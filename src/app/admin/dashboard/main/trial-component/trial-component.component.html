@@ -1,26 +1,27 @@
 <div class="container">
-    <h3 mat-dialog-title>Are you sure?</h3>
-    <div mat-dialog-content>
-      <div class="row">
-        <!--Gift Icon-->
-        <div class="col text-center"> <i class="far fa-check-circle fa-6x col-green"></i> </div>
-        <!--Modal Text-->
-        <div class="col-8">
-          <dl class="dl-horizontal">
-            <dt class="pull-left me-2">Are you sure that you want</dt>
-            
-            <dt class="pull-left me-2">to use Assetchek Free trail</dt>
-            
-            <dt class="pull-left me-2">For 30 days.</dt>
-            
-          </dl>
-        </div>
+  <h3 mat-dialog-title>Are you sure?</h3>
+  <div mat-dialog-content>
+    <div class="row">
+      <!--Gift Icon-->
+      <div class="col text-center"> <i class="far fa-check-circle fa-6x col-green"></i> </div>
+      <!--Modal Text-->
+      <div class="col-8">
+        <dl class="dl-horizontal">
+          <dt class="pull-left me-2">Are you sure that you want</dt>
+
+          <dt class="pull-left me-2">to use Assetchek Free trial </dt>
+
+          <dt class="pull-left me-2">For 30 days.</dt>
+
+        </dl>
       </div>
     </div>
-    <mat-dialog-actions align="end" class="mb-1">
-      <button mat-flat-button color="accent" style="background-color: #34d034;" [mat-dialog-close]="1" (click)="confirmDelete()">
-        Confirm
-      </button>
-      <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-    </mat-dialog-actions>
   </div>
+  <mat-dialog-actions align="end" class="mb-1">
+    <button mat-flat-button color="accent" style="background-color: #34d034;" [mat-dialog-close]="1"
+      (click)="confirmDelete()">
+      Confirm
+    </button>
+    <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </mat-dialog-actions>
+</div>
