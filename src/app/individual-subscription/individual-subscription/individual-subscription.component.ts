@@ -64,7 +64,6 @@ export class IndividualSubscriptionComponent implements OnInit {
 
     this.docForm = this.fb.group({
       currency: ["INR"],
-      noOfUsers: ["", [Validators.required]],
       promotionCode: [""]
     });
 
@@ -74,47 +73,11 @@ export class IndividualSubscriptionComponent implements OnInit {
   ngOnInit(): void {
 
     this.roleId = this.tokenStorage.getRoleId()
-    this.getNoOfUsers();
     this.loading = true;
   }
 
 
-  //no of users
-  getNoOfUsers() {
-    this.userId = this.tokenStorage.getUserId();
-    this.httpService.get<any>(this.subscriptionPageService.getNoOfUsers + "?userId=" + this.userId).subscribe(res => {
-      if (res.success) {
-        this.loading = false;
-        this.docForm.patchValue({ noOfUsers: res.noOfUsers })
-        this.docForm.patchValue({ currency: res.audCurrency })
-        this.users = res.noOfUsers;
-        this.audcurrency = res.audCurrency;
 
-        if (this.users > 0) {
-          this.changeCurrency(this.audcurrency);
-        } else {
-          this.users = 1;
-          this.docForm.patchValue({ noOfUsers: 1 });
-          this.changeCurrency(this.audcurrency);
-        }
-
-        this.oldstdAmt = this.stdAmt;
-        //res.audCurrency;
-
-        //     //multiply the no of users with amount
-        // let num = 50000 * this.users;
-        // this.stdAmt = "₹"+num.toString();
-        // let num1 = 1000 * this.users;
-        // this.busAmt = "₹"+ num1.toString();
-        // let num2 = 5000 * this.users;
-        // this.preAmt = "₹"+ num2;
-        // let num3 = 10000 * this.users;
-        // this.extAmt = "₹"+ num3.toString();
-      }
-
-    });
-
-  }
 
 
   changeCurrency(currency) {
@@ -188,18 +151,12 @@ export class IndividualSubscriptionComponent implements OnInit {
       this.subType = type;
 
       if (type == 'standard') {
-        this.pay.amount = 50000 * this.users;
+        this.pay.amount = 50000;
       }
       else if (type == 'Professional') {
-        this.pay.amount = 499900 * this.users;
+        this.pay.amount = 499900 ;
       }
-      else if (type == 'Enterprice') {
-        this.pay.amount = 999900 * this.users;
-      }
-      else if (type == 'Ultimate') {
-        this.pay.amount = 7499900 * this.users;
-      }
-
+   
 
       this.pay = {
         amount: 0,
@@ -210,17 +167,12 @@ export class IndividualSubscriptionComponent implements OnInit {
 
 
       if (type == 'standard') {
-        this.pay.amount = 50000 * this.users;
+        this.pay.amount = 50000 ;
       }
       else if (type == 'Professional') {
-        this.pay.amount = 10000 * this.users;
+        this.pay.amount = 10000 ;
       }
-      else if (type == 'Enterprice') {
-        this.pay.amount = 20000 * this.users;
-      }
-      else if (type == 'Ultimate') {
-        this.pay.amount = 100000 * this.users;
-      }
+    
 
       this.pay = {
         amount: 0,
@@ -231,17 +183,12 @@ export class IndividualSubscriptionComponent implements OnInit {
 
 
       if (type == 'standard') {
-        this.pay.amount = 50000 * this.users;
+        this.pay.amount = 50000 ;
       }
       else if (type == 'Professional') {
-        this.pay.amount = 40000 * this.users;
+        this.pay.amount = 40000;
       }
-      else if (type == 'Enterprice') {
-        this.pay.amount = 80000 * this.users;
-      }
-      else if (type == 'Ultimate') {
-        this.pay.amount = 380000 * this.users;
-      }
+   
 
 
       this.pay = {
@@ -253,17 +200,12 @@ export class IndividualSubscriptionComponent implements OnInit {
 
 
       if (type == 'standard') {
-        this.pay.amount = 50000 * this.users;
+        this.pay.amount = 50000 ;
       }
       else if (type == 'Professional') {
-        this.pay.amount = 40000 * this.users;
+        this.pay.amount = 40000 ;
       }
-      else if (type == 'Enterprice') {
-        this.pay.amount = 80000 * this.users;
-      }
-      else if (type == 'Ultimate') {
-        this.pay.amount = 380000 * this.users;
-      }
+    
 
 
       this.pay = {
@@ -276,17 +218,12 @@ export class IndividualSubscriptionComponent implements OnInit {
 
 
       if (type == 'standard') {
-        this.pay.amount = 50000 * this.users;
+        this.pay.amount = 50000;
       }
       else if (type == 'Professional') {
-        this.pay.amount = 12000 * this.users;
+        this.pay.amount = 12000;
       }
-      else if (type == 'Enterprice') {
-        this.pay.amount = 24000 * this.users;
-      }
-      else if (type == 'Ultimate') {
-        this.pay.amount = 120000 * this.users;
-      }
+  
 
 
       this.pay.currency = this.docForm.get("currency").value;
@@ -294,20 +231,20 @@ export class IndividualSubscriptionComponent implements OnInit {
 
       if (type == 'standard') {
         if (this.docForm.get("currency").value == 'INR') {
-          this.pay.amount = 50000 * this.users * 100;
-          this.pay.exAmount = 50000 * this.users;
+          this.pay.amount = 50000 * 100;
+          this.pay.exAmount = 50000 ;
         } else if (this.docForm.get("currency").value == 'USD') {
-          this.pay.amount = 1000 * this.users;
-          this.pay.exAmount = 1000 * this.users;
+          this.pay.amount = 1000 ;
+          this.pay.exAmount = 1000 ;
         } else if (this.docForm.get("currency").value == 'AED') {
-          this.pay.amount = 1000 * this.users;
-          this.pay.exAmount = 1000 * this.users;
+          this.pay.amount = 1000 ;
+          this.pay.exAmount = 1000 ;
         } else if (this.docForm.get("currency").value == 'MYR') {
-          this.pay.amount = 1000 * this.users;
-          this.pay.exAmount = 1000 * this.users;
+          this.pay.amount = 1000 ;
+          this.pay.exAmount = 1000 ;
         } else if (this.docForm.get("currency").value == 'SGD') {
-          this.pay.amount = 1000 * this.users;
-          this.pay.exAmount = 1000 * this.users;
+          this.pay.amount = 1000 ;
+          this.pay.exAmount = 1000 ;
         }
       }
       else if (type == 'Professional') {

@@ -253,7 +253,7 @@ text='';
                   this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
                 }
                 else if (data.userDetails.roleId == 6) {
-                  this.router.navigate(["/payments/initiatePayment/subscription"]);
+                  this.router.navigate(["/individual-subscription/add-subscription"]);
               }else if(data.userDetails.roleId == 3){
 
                 this.httpService.get<any>(this.commonService.getCompaniesUrl+"?userId="+this.tokenStorage.getUsername()).subscribe({
