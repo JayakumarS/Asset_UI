@@ -45,9 +45,10 @@ import { SubscriptionAlertComponent } from './main/subscription-alert/subscripti
 import { MatCardModule } from "@angular/material/card";
 import { MatLineModule } from "@angular/material/core";
 import { TrialComponentComponent } from './main/trial-component/trial-component.component';
+import { TrialSuccessComponentComponent } from './main/trial-success-component/trial-success-component.component';
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent, NotificationPopupComponent, SubscriptionAlertComponent, TrialComponentComponent],
+  declarations: [MainComponent, Dashboard2Component, CompanyMapPopupComponent, NotificationPopupComponent, SubscriptionAlertComponent, TrialComponentComponent, TrialSuccessComponentComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

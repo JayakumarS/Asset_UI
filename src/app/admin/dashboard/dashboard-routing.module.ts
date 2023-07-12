@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { MainComponent } from "./main/main.component";
 import { Dashboard2Component } from "./dashboard2/dashboard2.component";
+import { TrialSuccessComponentComponent } from "./main/trial-success-component/trial-success-component.component";
 
 const routes: Routes = [
   {
@@ -18,7 +19,10 @@ const routes: Routes = [
     path: "dashboard2",
     component: Dashboard2Component,
   },
- 
+  {
+    path: "Trial-Success/:userId/:username/:roleId",
+    component: TrialSuccessComponentComponent,
+  },
 
   { path: "**", component: Page404Component },
 ];
