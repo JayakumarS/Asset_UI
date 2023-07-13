@@ -28,7 +28,7 @@
 
                                 <p class='card__row'><b>1</b>Year Subscription</p>
                                 <p class='card__row'>For <b>{{users}}</b> Users</p>
-                                <p class='card__row' (click)="Trailpopup()">
+                                <p class='card__row' (click)="Trailpopup()"  *ngIf="roleId==6 ">
                                     <img src=" assets\images\banner\img2.png" style=" width: 50px;">&nbsp; &nbsp; <a
                                         style="color:blue">Try Using Asset Chek for 30 days </a>
                                 </p>
