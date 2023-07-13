@@ -329,8 +329,9 @@ text='';
       tempDirection = "ltr";
     }
     const dialogRef = this.dialog.open(ChatComponent, {
+      panelClass: 'custom-dialog',
       width: '300px',
-      height: '350px',
+      height: '330px',
       // position: dialogPosition,
       position: { right: '15px',top:'210px',bottom:'200px'},
       data: {

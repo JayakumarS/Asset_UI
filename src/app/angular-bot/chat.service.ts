@@ -28,8 +28,11 @@ export class ChatService {
     "who are you": "I'm chat Bot",
     "What is your role": "Just guide for the user",
 
-
-    "Not able to Login":"Thank you. Will contact you shortly...!!!",
+   "I would like to know more about bill details":"Thank you.We will contact you shortly!",
+   "I would like to know more about bill history":"Thank you.We will contact you shortly!",
+   "I would like to know more about current month's bill history":"Thank you.We will contact you shortly!",
+   "I would like to know more about old month's bill history":"Thank you.We will contact you shortly!",
+    "I would like to know more about payment details":"Thank you for contacting us! We'd like to know more about your payment details",
     "Server Down":"Thank you. Will contact you shortly...!!!",
     "Contact with support":"Thank you. Will contact you shortly...!!!",
 

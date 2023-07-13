@@ -26,10 +26,11 @@
 }
 .mat-dialog-content {
   display: block;
-  margin: 0 -24px;
-  padding: 0 24px;
+  margin: 0 0px;
+  padding: 0 0px;
+  background-color: #2095FE;
   max-height: none;
-  overflow: auto;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
   margin-left:-8px;
 }
@@ -65,8 +66,5 @@
   background: white;
   border-radius: 15px;
   overflow: hidden;
-  margin-left: -17px;
-  margin-right: -17px;
-  margin-top:-11px;
-
+  
 }

@@ -1,67 +1,106 @@
-<div class="addContainer">
-    <div class="modalHeader">
+<div  >
+    <div >
         <div class="chat-bot">
-            <div class="chat-box-header">
-                <h4>Chat With Us Now &nbsp;&nbsp;
+            <div class="row">
+                <div class="col-md-10">
+                    <h6 style="text-align: left;color:#2c2c9d;">Hello there.</h6>
+                      <h5>  Welcome to AssetChek! How can we help? &nbsp;&nbsp;
+                        
+                    </h5>
+                </div>
+                <div class="col-md-2">
                     <button mat-icon-button aria-label="Close dialog" (click)="onNoClick()">
                         <mat-icon> close</mat-icon>
                     </button>
-                </h4>
+                </div>
             </div>
+                
+            
         </div>
     </div>
-    <div class="task">
-        <div mat-dialog-content>
-            <form class="m-4" [formGroup]="docForm">
-                <div class="row">
-                    <a href="javascript:void(0);" (click)="forLogin()" style="text-decoration:none;" *ngIf="Login">1.For
-                        Login issue.</a>
+    <div class="task" style="background-color:#2c2c9d;">
+        <div>
+            <form style="padding-top: 10px;padding-left:5px;padding-right:5px;margin-top: 5px;"    [formGroup]="docForm">
+              
+              <div class="row">
+                <div class="col-md-2"> <img src="assets/images/chatbot.png" style="width: 30px;
+                    height: 30px;"></div>
+                <div class="col-md-10"> <p style="text-align: left;font-size: 15px;font-weight: bold;color: white;margin-top: 2px;">Send us a message</p>
                 </div>
-                <br>
+              </div>
+                
+            </form>
+        </div>
+    </div><br>
+    <div class="task" style="margin-top: -12px;">
+        <div>
+            <form style="padding-top: 10px;padding-left:5px;padding-right:5px;"    [formGroup]="docForm">
+               
                 <div class="row">
+                    <a href="javascript:void(0);" (click)="clickMessange()" style="text-decoration:none;" *ngIf="Login">1. For
+                         Payment details</a>
+                </div>
+                <br *ngIf="Login">
+                <div class="row"  *ngIf="password">
                     <a href="javascript:void(0);" (click)="forpassword()" style="text-decoration:none;"
-                     *ngIf="password">2.For Forgot password issue.</a>
+                     *ngIf="password">2. For Complaints</a>
                 </div>
-                <br>
-                <div class="row">
+                <br *ngIf="password">
+                <div class="row" *ngIf="Registration">
                     <a href="javascript:void(0);" (click)="forRegistration()" style="text-decoration:none;"
-                        *ngIf="Registration">3.For Registration issue.</a>
+                        >3. For Registration issue</a>
                 </div>
-                <br>
+                <br *ngIf="Registration">
                 <div class="forLogin" *ngIf="loginIssue">
                     <div class="row">
-                        <a href href="#" onclick="return false;" (click)="clickMessange()" style="text-decoration: none;">1.Not able to Login.</a>
-                        <a href href="#" onclick="return false;"(click)="clickServer()" style="text-decoration: none;">2.Server Down.</a>
-                        <a href href="#" onclick="return false;" (click)="exist()" style="text-decoration: none;" >3.exist.</a>
-                        <a href href="#" onclick="return false;" (click)="clicksupport()" style="text-decoration: none;">4.Contact with support.</a>
+                        <a href href="#" onclick="return false;" (click)="clickMessange()" style="text-decoration: none;">1. Bill details.</a>
+                        <a href href="#" onclick="return false;"(click)="clickServer()" style="text-decoration: none;">2. Bill History.</a>
+                        <!-- <a href href="#" onclick="return false;" (click)="exist()" style="text-decoration: none;" >3.exist.</a>
+                        <a href href="#" onclick="return false;" (click)="clicksupport()" style="text-decoration: none;">4.Contact with support.</a> -->
                     </div>
                 </div>
                 <div class="forpassword" *ngIf="loginpassword">
                     <div class="row">
-                        <a href href="#" onclick="return false;"(click)="clickMail()" style="text-decoration: none;">1.For mail not received.</a>
-                        <a href  href="#" onclick="return false;"(click)="clickpassword()" style="text-decoration: none;">2.For password is not working.</a>
-                        <a href href="#" onclick="return false;" (click)="exist()" style="text-decoration: none;">3.exist.</a>
-                        <a href href="#" onclick="return false;" (click)="clicksupport()" style="text-decoration: none;">4.Contact with support.</a>
+                        <a href href="#" onclick="return false;"(click)="clickMail()" style="text-decoration: none;">1. For mail not received.</a>
+                        <a href  href="#" onclick="return false;"(click)="clickpassword()" style="text-decoration: none;">2. For password is not working.</a>
+                        <!-- <a href href="#" onclick="return false;" (click)="exist()" style="text-decoration: none;">3.exist.</a> -->
+                        <a href href="#" onclick="return false;" (click)="clicksupport()" style="text-decoration: none;">3. Contact with support.</a>
                     </div>
                 </div>
                 <div class="forRegistration" *ngIf="loginRegistration">
                     <div class="row">
-                        <a href href="#" onclick="return false;" (click)="clickalreadyExist()" style="text-decoration: none;">1.For Email already exist.</a>
-                        <a href href="#" onclick="return false;" (click)="clickCountry()" style="text-decoration: none;">2.Country not loaded.</a>
-                        <a href href="#" onclick="return false;" (click)="exist()" style="text-decoration: none;">3.exist.</a>
-                        <a href href="#" onclick="return false;" (click)="clicksupport()" style="text-decoration: none;">4.Contact with support.</a>
+                        <a href href="#" onclick="return false;" (click)="clickalreadyExist()" style="text-decoration: none;">1. For Email already exist.</a>
+                        <a href href="#" onclick="return false;" (click)="clickCountry()" style="text-decoration: none;">2. Country not loaded.</a>
+                        <!-- <a href href="#" onclick="return false;" (click)="exist()" style="text-decoration: none;">3.exist.</a> -->
+                        <a href href="#" onclick="return false;" (click)="clicksupport()" style="text-decoration: none;">3. Contact with support.</a>
                     </div>
                 </div>
-                <br>
+               
                 <ng-container *ngFor="let message of messages">
                     <div class="message" [ngClass]="{from: message.author === 'bot',to: message.author === 'user'}">
                         {{ message.content }}
                     </div>
+                    
                 </ng-container>
-                <div class="row">
+                <div class="row" *ngIf="paymentDetail" >
+                   <a href="javascript:void(0);" (click)="clickMessange1()" style="text-decoration:none;"
+                     >For Bill details</a>
+                     <a href="javascript:void(0);" (click)="clickMessange2()" style="text-decoration:none;"
+                     >For Bill History</a>
+                </div>
+
+                <div class="row" *ngIf="historyDetail" >
+                    <a href="javascript:void(0);" (click)="clickMessange3()" style="text-decoration:none;"
+                      >For Current Month</a>
+                      <a href="javascript:void(0);" (click)="clickMessange4()" style="text-decoration:none;"
+                      >For Old Month</a>
+                 </div>
+               
+
+                <!-- <div class="row">
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
                         <mat-form-field appearance="outline" style="  bottom:-28px;">
-                            <!-- <input matInput (keyup.enter)="sendMessage()" type="text" formControlName="chat"> -->
+                         
                             <input matInput type="text" (keyup.enter)="sendMessage()" formControlName="chat"
                                 placeholder="Send a message.." />
                             <i class="material-icons" (click)="sendMessage()" style="margin-left: -25px;">send</i>
@@ -73,7 +112,7 @@
                             <span [className]="'float-right'">Total messages: {{ messages.length }}</span>
                         </ng-template>
                     </div>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>
