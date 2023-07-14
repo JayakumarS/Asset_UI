@@ -330,8 +330,8 @@ text='';
     }
     const dialogRef = this.dialog.open(ChatComponent, {
       panelClass: 'custom-dialog',
-      width: '300px',
-      height: '330px',
+      width: '360px',
+      height: '360px',
       // position: dialogPosition,
       position: { right: '15px',top:'210px',bottom:'200px'},
       data: {

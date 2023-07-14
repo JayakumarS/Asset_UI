@@ -28,6 +28,7 @@ export class ChatComponent implements OnInit {
   Login:boolean=true;
   paymentDetail: boolean=false;
   historyDetail: boolean=false;
+  closeButton: boolean=false;
   constructor(public chatService: ChatService,public dialog: MatDialog,private snackBar: MatSnackBar,
     private fb:FormBuilder,public dialogRef: MatDialog) {
 
@@ -61,6 +62,7 @@ export class ChatComponent implements OnInit {
       'chat' :"",
     })
     this.historyDetail=false;
+    this.closeButton=true;
     
   }
   sendMessage2() {
@@ -130,6 +132,7 @@ clickMessange2(){
    this.Registration=false;
    this.password=false;
    this.paymentDetail=false;
+   this.closeButton=true;
    
 }
 
@@ -164,6 +167,7 @@ startTimeout(): void {
   setTimeout(() => {
     
     this.paymentDetail = true;
+    this.closeButton=true;
   }, 2000);
 }
 startTimeout2(): void {
@@ -172,6 +176,7 @@ startTimeout2(): void {
   setTimeout(() => {
     
     this.historyDetail = true;
+    this.closeButton=true;
   }, 2000);
 }
 
@@ -181,24 +186,24 @@ clickServer(){
 }
 clicksupport(){
   this.docForm.value.chat="Contact with support";
-  this.sendMessage();
+  this.sendMessage1();
 }
 clickMail(){
   this.docForm.value.chat="For mail not received";
-  this.sendMessage();
+  this.sendMessage1();
   
 }
 clickpassword(){
   this.docForm.value.chat="For password is not working";
-  this.sendMessage(); 
+  this.sendMessage1(); 
 }
 clickalreadyExist(){
   this.docForm.value.chat="For Email already exist";
-  this.sendMessage(); 
+  this.sendMessage1(); 
 }
 clickCountry(){
   this.docForm.value.chat="Country not loaded";
-  this.sendMessage(); 
+  this.sendMessage1(); 
 }
 
 showNotification(colorName, text, placementFrom, placementAlign) {

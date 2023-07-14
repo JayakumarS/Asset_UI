@@ -3,7 +3,7 @@
         <div class="chat-bot">
             <div class="row">
                 <div class="col-md-10">
-                    <h6 style="text-align: left;color:#2c2c9d;">Hello there.</h6>
+                    <h6 style="text-align: left;color:#2c2c9d;">Hello there. I'm Ava</h6>
                       <h5>  Welcome to AssetChek! How can we help? &nbsp;&nbsp;
                         
                     </h5>
@@ -115,5 +115,9 @@
                 </div> -->
             </form>
         </div>
+        <button  *ngIf="historyDetail || paymentDetail || closeButton " style="background: #2c2c9d;color:white;
+        margin-left: 110px;width:90px;
+        border-radius: 10px;" type="button"  (click)="onNoClick()" mat-raised-button>Close</button>
     </div>
+   
 </div>
