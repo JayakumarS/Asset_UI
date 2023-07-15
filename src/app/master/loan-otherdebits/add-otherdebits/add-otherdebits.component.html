@@ -492,6 +492,9 @@
                <mat-error *ngIf="docForm.get('ifsccode').hasError('pattern')">
                  Please Enter Valid IFSC code
                </mat-error>
+               <mat-error *ngIf="docForm.get('ifsccode').hasError('pattern')  || ifscError">
+                IFSC is invalid for the Bank entered
+              </mat-error>
                <mat-error *ngIf="docForm.get('ifsccode').hasError('required')" >
                  IFSC Code is required
                </mat-error>

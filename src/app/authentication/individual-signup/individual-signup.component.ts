@@ -9,6 +9,7 @@ import { UserMasterService } from 'src/app/master/user-master/user-master.servic
 import { AuthenticationService } from '../authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 
 export const MY_DATE_FORMATS = {
@@ -49,6 +50,8 @@ export class IndividualSignupComponent implements OnInit {
   chide = true;
   authentication : Authentication;
   companyId: any;
+  minFromDate: Date;
+  maxFromDate: Date | null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -76,6 +79,10 @@ export class IndividualSignupComponent implements OnInit {
     });
   }
   ngOnInit() {
+
+    const currentYear = moment().year();
+    this.minFromDate = new Date(currentYear);
+    this.maxFromDate = new Date(currentYear -10, 0, 1);
     this.companyId=0;
     this.httpService.get<any>(this.commonService.getCountryDropdown+"?companyId="+this.companyId).subscribe({
       next: (data) => {

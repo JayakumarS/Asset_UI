@@ -17,6 +17,8 @@ import { PropertyService } from '../property.service';
 import { Property } from '../property-model';
 import * as moment from 'moment';
 
+import axios from 'axios';
+
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -68,6 +70,7 @@ export class AddPropertyComponent implements OnInit {
   isOwnProperty: boolean;
   hide = true;
   submitted:boolean = false;
+  ifscError: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -492,6 +495,57 @@ sampleDtl: this.fb.array([
 } else {
 this.fetchDetails(this.requestId);
 }
+}
+
+async validateIFSC(ifscCode: string): Promise<boolean> {
+
+  if (this.docForm.value.bankName === 'HDFC' && !ifscCode.startsWith('HD')) {
+    this.ifscError = true;
+    this.docForm.patchValue({
+      'ifscCode':''
+    });
+  }
+  else if (this.docForm.value.bankName === 'SBI' && !ifscCode.startsWith('SBI')) {
+    this.ifscError = true;
+    this.docForm.patchValue({
+      'ifscCode':''
+    });
+    
+  }
+  else if (this.docForm.value.bankName === 'IOB' && !ifscCode.startsWith('IOB')) {
+    this.ifscError = true;
+    this.docForm.patchValue({
+      'ifscCode':''
+    });
+  }
+  else if (this.docForm.value.bankName === 'INDIAN BANK' && !ifscCode.startsWith('IDIB')) {
+    this.ifscError = true;
+    this.docForm.patchValue({
+      'ifscCode':''
+    });
+  }
+  else if (this.docForm.value.bankName === 'ICICI' && !ifscCode.startsWith('ICIC')) {
+    this.ifscError = true;
+    this.docForm.patchValue({
+      'ifscCode':''
+    });
+  }
+
+  if(!this.ifscError)
+  {
+    try {
+      const response = await axios.get(`https://ifsc.razorpay.com/${ifscCode}`);
+      if (response.status === 200) {
+        // IFSC code is valid
+        return true;
+      }
+    } catch (error) {
+      // IFSC code is invalid or API request failed
+    }
+    
+    return false;
+  }
+  
 }
 
  fetchDetails(requestId: any): void{
