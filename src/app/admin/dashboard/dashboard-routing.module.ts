@@ -20,7 +20,7 @@ const routes: Routes = [
     component: Dashboard2Component,
   },
   {
-    path: "Trial-Success/:userId/:username/:roleId",
+    path: "Trial-Success/:userId/:username/:role_Id",
     component: TrialSuccessComponentComponent,
   },
 

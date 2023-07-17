@@ -83,11 +83,11 @@ export class IndividualSubscriptionComponent implements OnInit {
   changeCurrency(currency) {
     if (currency == "INR") {
       if (this.refPercent != 0 && this.refPercent != undefined) {
-        let innum = 50000 * this.users;
+        let innum = 50000  
         let num = innum - (innum * this.refPercent);
         this.stdAmt = "₹" + num.toString();
       } else {
-        let innum = 50000 * this.users;
+        let innum = 50000  
         this.stdAmt = "₹" + innum.toString();
       }
       this.busAmt = "₹1000";
@@ -95,11 +95,11 @@ export class IndividualSubscriptionComponent implements OnInit {
       this.extAmt = "₹10000";
     } else if (currency == "USD") {
       if (this.refPercent != 0 && this.refPercent != undefined) {
-        let innum = 10 * this.users;
+        let innum = 10  
         let num = innum - (innum * this.refPercent);
         this.stdAmt = "$" + num.toString();
       } else {
-        let innum = 10 * this.users;
+        let innum = 10  
         this.stdAmt = "$" + innum.toString();
       }
       this.busAmt = "$100";
@@ -107,11 +107,11 @@ export class IndividualSubscriptionComponent implements OnInit {
       this.extAmt = "$1000";
     } else if (currency == "AED") {
       if (this.refPercent != 0 && this.refPercent != undefined) {
-        let innum = 10 * this.users;
+        let innum = 10  
         let num = innum - (innum * this.refPercent);
         this.stdAmt = "AED " + num.toString();
       } else {
-        let innum = 10 * this.users;
+        let innum = 10  
         this.stdAmt = "AED" + innum.toString();
       }
       this.busAmt = "AED 400";
@@ -119,11 +119,11 @@ export class IndividualSubscriptionComponent implements OnInit {
       this.extAmt = "AED 3800";
     } else if (currency == "MYR") {
       if (this.refPercent != 0 && this.refPercent != undefined) {
-        let innum = 10 * this.users;
+        let innum = 10  
         let num = innum - (innum * this.refPercent);
         this.stdAmt = "RM" + num.toString();
       } else {
-        let innum = 10 * this.users;
+        let innum = 10  
         this.stdAmt = "RM" + innum.toString();
       }
       this.busAmt = "RM400";
@@ -131,11 +131,11 @@ export class IndividualSubscriptionComponent implements OnInit {
       this.extAmt = "RM3800";
     } else if (currency == "SGD") {
       if (this.refPercent != 0 && this.refPercent != undefined) {
-        let innum = 10 * this.users;
+        let innum = 10  
         let num = innum - (innum * this.refPercent);
         this.stdAmt = "S$" + num.toString();
       } else {
-        let innum = 10 * this.users;
+        let innum = 10  
         this.stdAmt = "S$" + innum.toString();
       }
       this.busAmt = "S$120";
@@ -249,56 +249,56 @@ export class IndividualSubscriptionComponent implements OnInit {
       }
       else if (type == 'Professional') {
         if (this.docForm.get("currency").value == 'INR') {
-          this.pay.amount = 1000 * 100 * this.users;
-          this.pay.exAmount = 1000 * this.users;
+          this.pay.amount = 1000 * 100  
+          this.pay.exAmount = 1000  
         } else if (this.docForm.get("currency").value == 'USD') {
-          this.pay.amount = 100 * 100 * this.users;
-          this.pay.exAmount = 100 * this.users;
+          this.pay.amount = 100 * 100  
+          this.pay.exAmount = 100  
         } else if (this.docForm.get("currency").value == 'AED') {
-          this.pay.amount = 40000 * this.users;
-          this.pay.exAmount = 40000 * this.users;
+          this.pay.amount = 40000  
+          this.pay.exAmount = 40000  
         } else if (this.docForm.get("currency").value == 'MYR') {
-          this.pay.amount = 40000 * this.users;
-          this.pay.exAmount = 40000 * this.users;
+          this.pay.amount = 40000  
+          this.pay.exAmount = 40000  
         } else if (this.docForm.get("currency").value == 'SGD') {
-          this.pay.amount = 12000 * this.users;
-          this.pay.exAmount = 12000 * this.users;
+          this.pay.amount = 12000  
+          this.pay.exAmount = 12000  
         }
       }
       else if (type == 'Enterprice') {
         if (this.docForm.get("currency").value == 'INR') {
-          this.pay.amount = 50000 * 100 * this.users;
-          this.pay.exAmount = 50000 * this.users;
+          this.pay.amount = 50000 * 100  
+          this.pay.exAmount = 50000  
         } else if (this.docForm.get("currency").value == 'USD') {
-          this.pay.amount = 20000 * this.users;
-          this.pay.exAmount = 20000 * this.users;
+          this.pay.amount = 20000  
+          this.pay.exAmount = 20000  
         } else if (this.docForm.get("currency").value == 'AED') {
-          this.pay.amount = 80000 * this.users;
-          this.pay.exAmount = 80000 * this.users;
+          this.pay.amount = 80000  
+          this.pay.exAmount = 80000  
         } else if (this.docForm.get("currency").value == 'MYR') {
-          this.pay.amount = 80000 * this.users;
-          this.pay.exAmount = 80000 * this.users;
+          this.pay.amount = 80000  
+          this.pay.exAmount = 80000  
         } else if (this.docForm.get("currency").value == 'SGD') {
-          this.pay.amount = 24000 * this.users;
-          this.pay.exAmount = 24000 * this.users;
+          this.pay.amount = 24000  
+          this.pay.exAmount = 24000  
         }
       }
       else if (type == 'Ultimate') {
         if (this.docForm.get("currency").value == 'INR') {
-          this.pay.amount = 10000 * 100 * this.users;
-          this.pay.exAmount = 10000 * this.users;
+          this.pay.amount = 10000 * 100  
+          this.pay.exAmount = 10000  
         } else if (this.docForm.get("currency").value == 'USD') {
-          this.pay.amount = 100000 * this.users;
-          this.pay.exAmount = 100000 * this.users;
+          this.pay.amount = 100000  
+          this.pay.exAmount = 100000  
         } else if (this.docForm.get("currency").value == 'AED') {
-          this.pay.amount = 380000 * this.users;
-          this.pay.exAmount = 380000 * this.users;
+          this.pay.amount = 380000  
+          this.pay.exAmount = 380000  
         } else if (this.docForm.get("currency").value == 'MYR') {
-          this.pay.amount = 380000 * this.users;
-          this.pay.exAmount = 380000 * this.users;
+          this.pay.amount = 380000  
+          this.pay.exAmount = 380000  
         } else if (this.docForm.get("currency").value == 'SGD') {
-          this.pay.amount = 120000 * this.users;
-          this.pay.exAmount = 120000 * this.users;
+          this.pay.amount = 120000  
+          this.pay.exAmount = 120000  
         }
       }
 

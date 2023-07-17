@@ -13,7 +13,7 @@ export class TrialSuccessComponentComponent implements OnInit {
   requestId:any;
   username:any;
   userId:any;
-  roleId:any;
+  role_Id:any;
   constructor( private router:Router,    public route: ActivatedRoute, 
     private httpService:HttpServiceService,private mainService:MainService) { }
 
@@ -22,13 +22,13 @@ export class TrialSuccessComponentComponent implements OnInit {
       if(params.userId!=undefined && params.userId!=0){
        this.userId = params.userId;
        this.username = params.username;
-       this.roleId = params.roleId;
+       this.role_Id = params.roleId;
        this.requestId = params.userId;
 
       }
     });
 
-    this.httpService.get(this.mainService.trialsuccess + "?userId=" + this.userId + "&username=" + this.username + "&roleId=" + this.roleId).subscribe((res: any) => {
+    this.httpService.get(this.mainService.trialsuccess + "?userId=" + this.userId + "&username=" + this.username + "&role_Id=" + this.role_Id).subscribe((res: any) => {
       console.log(res);
      this.logout()
      },
