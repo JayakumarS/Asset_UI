@@ -1,19 +1,21 @@
 export class UserMaster {
-  id: number;
+  id: string;
   currencyCode: string;
   currencyName: string;
   userId: number;
   fullName: string ;
   emailId: string;
-  contNumber: number;
+  contNumber: string;
   role: string;
-  department: string;
+  department: number;
   repmanager: string;
   language: string;
   location: string;
-  otp: string;
-  userLocation: string;
+  otp: any;
+  userLocation: any;
   accountStatus: string;
+  active: any
+  companytext:any
   constructor(userMaster) {
     {
       this.id = userMaster.id || this.getRandomID();

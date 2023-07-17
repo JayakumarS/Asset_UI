@@ -76,8 +76,8 @@ export class UserMasterService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.post<any>(this.editUserMaster, obj);
   }
   // tslint:disable-next-line:no-shadowed-variable
-  addUser(UserMaster: UserMaster): Observable<any> {
-    return this.httpClient.post<UserMaster>(this.saveUserMaster, UserMaster);
+  addUser(userMaster: UserMaster): Observable<any> {
+    return this.httpClient.post<UserMaster>(this.saveUserMaster, userMaster);
   }
 
   updateUser(userMaster: UserMaster): Observable<any> {
