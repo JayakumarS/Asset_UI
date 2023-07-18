@@ -246,8 +246,8 @@
               <mat-option [value]="'MICRO STUDIO'">
                 MICRO STUDIO
               </mat-option>
-              <mat-option [value]="'JUNIOR BADROOM'">
-                JUNIOR BADROOM
+              <mat-option [value]="'JUNIOR BEDROOM'">
+                JUNIOR BEDROOM
               </mat-option>
               <mat-option [value]="'LOFT'">
                 LOFT
@@ -258,11 +258,11 @@
               <!-- <mat-option [value]="'TRIPLEX'">
                 TRIPLEX
               </mat-option> -->
-              <mat-option [value]="'RAILROAD AOARTMENT'">
-                RAILROAD AOARTMENT
+              <mat-option [value]="'RAILROAD APARTMENT'">
+                RAILROAD APARTMENT
               </mat-option>
-              <mat-option [value]="'WING TWO BADROOM'">
-                WING TWO BADROOM
+              <mat-option [value]="'WING TWO BEDROOM'">
+                WING TWO BEDROOM
               </mat-option>
         </mat-select>
         </mat-form-field>
@@ -549,8 +549,8 @@
             <div class=" col-md-2" *ngIf ="isCompany">
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-select class="inputTxt" formControlName="ownership">
-                  <mat-option [value]="'OWNERED'">
-                     OWNERED
+                  <mat-option [value]="'OWNED'">
+                     OWNED
                     </mat-option>
                     <mat-option [value]="'LEASED'">
                       LEASED
@@ -1119,7 +1119,7 @@
               <div class=" col-md-3" >
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
             <mat-select class="inputTxt" formControlName="rentalType" (selectionChange)="rentalFlag($event.value)"  (keypress)="keyPressName($event)">
-              <mat-option [value]="'OwnProperty'">
+              <mat-option [value]="'Own Property'">
                Own Property
               </mat-option>
               <mat-option [value]="'Rent'">
@@ -1229,7 +1229,7 @@
       </div>
       <div class=" col-md-2">
         <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
-          <input matInput formControlName="mailId" maxlength="30">
+          <input matInput formControlName="mailId" maxlength="30" onkeyup="this.value = this.value.toLowerCase();">
           <mat-error *ngIf="docForm.get('mailId').hasError('email')|| docForm.get('mailId').touched">
            Please Enter Valid Mail ID
            </mat-error> 
@@ -1279,7 +1279,7 @@
           <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
             <thead class="">
               <tr>
-                <th style="width: 1%;"></th>
+                <th style="width: 1%;">ACTION</th>
                 <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
                     width: 12%; border-radius: 0.05rem;">ADVANCE<span class="errorColor"> *</span></th>
                <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
@@ -1513,8 +1513,8 @@
                  <mat-option [value]="'FOURE YEARS'">
                   FOUR YEARS
                  </mat-option>
-                 <mat-option [value]="'SIX YAERS'">
-                  SIX YAERS
+                 <mat-option [value]="'SIX YEARS'">
+                  SIX YEARS
                  </mat-option>
                 </mat-select> 
             </mat-form-field>

@@ -377,7 +377,7 @@ export class IndividualSubscriptionComponent implements OnInit {
         subscripamt: this.pay.exAmount.toString(),
         userId: this.tokenStorage.getUserId(),
         firstName: this.tokenStorage.getUsername(),
-        noOfUsers: this.docForm.get("noOfUsers").value,
+        // noOfUsers: this.docForm.get("noOfUsers").value,
         promoCode: this.docForm.get("promotionCode").value,
         currency: this.docForm.get("currency").value,
       }
