@@ -8,6 +8,7 @@ import { CompanyService } from 'src/app/master/company/company.service';
 import { UserMasterService } from 'src/app/master/user-master/user-master.service';
 import { AuthenticationService } from '../authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 
@@ -40,6 +41,8 @@ export class AuditorSignupComponent implements OnInit {
     private companyService : CompanyService,
     private userMasterService: UserMasterService,
     private snackBar:MatSnackBar,
+    private token:TokenStorageService,
+
   ) {
 
     this.authForm = this.formBuilder.group({
@@ -51,6 +54,7 @@ export class AuditorSignupComponent implements OnInit {
       //contactPerson:["",Validators.required],
       country: new FormControl('', Validators.required),
       role:[""],
+      company:['201']
     });
   }
   ngOnInit(): void {
