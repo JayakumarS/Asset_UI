@@ -33,7 +33,7 @@ export class AddDepartmentMasterComponent implements OnInit {
   branch: any;
   customer:any;
   getBranchList=[];
-
+  roleId:any;
   constructor(private fb: FormBuilder,private tokenStorage: TokenStorageService,
     private departmentMasterService : DepartmentMasterService,
     private httpService: HttpServiceService,
@@ -53,7 +53,8 @@ export class AddDepartmentMasterComponent implements OnInit {
       isactive:[true],
       deptId:[""],
       contactPerson:["",[Validators.required]],
-      company:["",[Validators.required]],
+      company:[this.tokenStorage.getCompanyId()],
+      companytext:[this.tokenStorage.getCompanyText()],
       branchname:[""],
 
     });
@@ -61,6 +62,7 @@ export class AddDepartmentMasterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.roleId = this.tokenStorage.getRoleId();
 
      this.companyId=this.tokenStorage.getCompanyId();
      console.log(this.companyId);
@@ -128,7 +130,7 @@ export class AddDepartmentMasterComponent implements OnInit {
     (data) => {
       this.getUserBasedCompanyList = data.getUserBasedCompanyList;
       this.docForm.patchValue({
-        'company':this.tokenStorage.getCompanyId(),
+        // 'company':this.tokenStorage.getCompanyId(),
      })
     },
     (error: HttpErrorResponse) => {
