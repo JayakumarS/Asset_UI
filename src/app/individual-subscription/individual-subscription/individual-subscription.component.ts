@@ -518,7 +518,7 @@ export class IndividualSubscriptionComponent implements OnInit {
         this.subscriptionPageService.updateroleNew(obj).subscribe((res: any) => {
           this.showNotification(
             "snackbar-success",
-            "login again to use Trial account...!!!",
+            "Activate through mail to use Trial account...!!!",
             "bottom",
             "center"
           );
