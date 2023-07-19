@@ -5,7 +5,7 @@
       </div>
     </div> -->
     <div class="col-sm-6 px-0 d-none d-sm-block">
-      <div class="left-img"  style="background-image: url(assets/images/banner/AssetchekLoginImage.png);">
+      <div class="left-img"  style="background-image: url(assets/images/banner/AssetchekLoginImage.png);width: 115%;">
       </div>
       <!-- <div class="left-img" *ngIf ="logoList!=null" style="background-image: url(bgImg);">
       </div> -->
@@ -30,7 +30,7 @@
           <form class="validate-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
             <div class="row">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-form-field class="example-full-width" appearance="outline" style="line-height: 2.125;">
                   <mat-label>Username</mat-label>
                   <input matInput formControlName="username" />
                   <i _ngcontent-pjh-c139="" class="material-icons " *ngIf="speakerOn" style="margin-left:-24px" (click)="startService()">mic_off</i>
@@ -42,8 +42,8 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
-                <mat-form-field class="example-full-width" appearance="outline">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline"style="line-height: 2.125;">
                   <mat-label>Password</mat-label>
                   <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
                   <a class="show-pwd-icon" href="#" onClick="return false;" matSuffix (click)="hide = !hide"
