@@ -150,7 +150,15 @@ export class AddManageAuditComponent implements OnInit {
         this.isAided=true;
       }
 
-      this.httpService.get<any>(this.commonService.getEmployeeDropdownByCompany+"?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      // this.httpService.get<any>(this.commonService.getEmployeeDropdownByCompany+"?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
+      //   next: (data) => {
+      //     this.auditorListNew = data;
+      //   },
+      //   error: (error) => {
+      //   }
+      // });
+
+      this.httpService.get<any>(this.manageAuditService.getAuditor+"?companyId="+parseInt(this.tokenStorage.getCompanyId())).subscribe({
         next: (data) => {
           this.auditorListNew = data;
         },

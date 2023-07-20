@@ -36,8 +36,9 @@ export class ManageAuditService extends UnsubscribeOnDestroyAdapter {
   public deleteManageAuditMaster = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/delete`;
   public multipleManageAuditUploadFiles = `${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/multipleManageAudituploadExefile`;
   public saveMultiple =`${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/multipleSave`;
+  public getAuditor =`${this.serverUrl.apiServerAddress}api/auth/app/audit/manageaudit/getauditor`;
 
-
+  
   get data(): ManageAudit[] {
     return this.dataChange.value;
   }
