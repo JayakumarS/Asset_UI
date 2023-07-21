@@ -926,7 +926,7 @@ Insured Amount is required
     <input matInput [matDatepicker]="picker" formControlName="service"
     (dateInput)="fromDateChange('input', $event)"
     (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate"
-    (dateChange)="getDateString($event,'discardFromDate',0)" [min]="minToDate">
+    (dateChange)="getDateString($event,'discardFromDate',0)" >
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
     <mat-error *ngIf="docForm.get('service').hasError('required')">
