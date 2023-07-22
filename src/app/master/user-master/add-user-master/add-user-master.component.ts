@@ -69,7 +69,7 @@ export class AddUserMasterComponent implements OnInit {
       otp: [""],
       userLocation: [""],
       companytext: [this.tokenStorage.getCompanyText()],
-      company:[],
+      company:[this.tokenStorage.getCompanyId()],
       loginedUser: this.tokenStorage.getUserId(),
       empid: [""],
       active: [true],
@@ -134,6 +134,7 @@ export class AddUserMasterComponent implements OnInit {
     });
 
     this.companyId = this.tokenStorage.getCompanyId(),
+    console.log(this.companyId)
     this.httpService.get(this.userMasterService.fetchBranch + "?companyId=" + this.companyId).subscribe((res: any) => {
       this.getBasedBranchList = res.getUserBasedBranchList;
 
