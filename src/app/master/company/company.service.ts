@@ -55,6 +55,8 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   public getSubcDaysLeft= `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/subscriptionRemaining`;
   public gettrialdaysstatus = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/trialStatus`;
  public getSubscriptionstatus = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/subscriptionStatus`;
+public gettrialvalidate = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/trialvalidate`;
+
   get data(): Company[] {
     return this.dataChange.value;
   }

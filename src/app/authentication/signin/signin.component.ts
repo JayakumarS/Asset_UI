@@ -26,6 +26,7 @@ import { CommonService } from "src/app/common-service/common.service";
 import { SubscriptionAlertComponent } from "src/app/admin/dashboard/main/subscription-alert/subscription-alert.component";
 import { MainService } from "src/app/admin/dashboard/main.service";
 import { ChangePasswordPopUpComponent } from "src/app/user/change-password-pop-up/change-password-pop-up.component";
+import { NotificationPopupComponent } from "src/app/admin/dashboard/main/notification-popup/notification-popup.component";
 
 declare var webkitSpeechRecognition:any
 declare var grecaptcha: any;
@@ -135,6 +136,8 @@ text='';
         console.log(error.name + " " + error.message);
       }
     );
+
+  
   }
  
 
@@ -206,7 +209,7 @@ text='';
                 //   this.showPopUp();
                 // }
                 this.loading = false;
-                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 || data.userDetails.roleId == 7 || data.userDetails.roleId == 8 ){
+                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 ||  data.userDetails.roleId == 8 ){
                   this.router.navigate(["/admin/dashboard/main"]);
                   if(data.userDetails.roleId == 2 || data.userDetails.roleId == '2'){
                     this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.tokenStorage.getUserId()).subscribe((res: any) => {
@@ -249,12 +252,45 @@ text='';
                   );
               
                 }
+                else if(data.userDetails.roleId == 5){
+                  this.router.navigate(["/admin/dashboard/main"]);
+
+                }
                 else if(data.userDetails.roleId == 4){
                   this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
                 }
                 else if (data.userDetails.roleId == 6) {
                   this.router.navigate(["/individual-subscription/add-subscription"]);
-              }else if(data.userDetails.roleId == 3){
+              }else if (data.userDetails.roleId == 7) {
+
+              this.httpService.get<any>(this.mainService.getNotificationDetails+"?userId="+this.tokenStorage.getUserId()).subscribe(
+                (data:any) => {
+                  console.log(data);
+          
+                  let tempDirection;
+                if (localStorage.getItem("isRtl") === "true") {
+                tempDirection = "rtl";
+                 } else {
+                tempDirection = "ltr";
+                 }
+                  if(data!=undefined && data.length>0){
+                    const dialogRef = this.dialog.open(NotificationPopupComponent, {
+                      height: "680px",
+                      width: "1900px",
+                      data: data,
+                      direction: tempDirection,
+                    });
+                     }
+                 
+                  
+                },
+                (error: HttpErrorResponse) => {
+                  console.log(error.name + " " + error.message);
+                }
+              );
+              this.router.navigate(["/admin/dashboard/main"]);
+
+                }else if(data.userDetails.roleId == 3){
 
                 this.httpService.get<any>(this.commonService.getCompaniesUrl+"?userId="+this.tokenStorage.getUsername()).subscribe({
                   next: (data) => {

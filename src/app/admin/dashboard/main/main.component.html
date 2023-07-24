@@ -2,7 +2,7 @@
   <div class="content-block">
     <div class="block-header">
 
-      <h4 style=" background-color: #65a4ba57;  width: 104%; margin-left: -2%;" *ngIf="roleId=='8'">
+      <h4 style=" background-color: #65a4ba57;  width: 104%; margin-left: -2%;" *ngIf="roleId=='8' || roleId=='5'">
 
         <h6>&nbsp; &nbsp; &nbsp;Note: this trial copy of AssetChek will Expire in {{trialdaysleft}} Days. please
           Subscribe to continue using Assetchek.<a href="/individual-subscription/add-subscription">recharge now</a> 
@@ -67,7 +67,7 @@
 
           <!-- Individual -->
           <div *ngIf="showValuationPanel">
-            <div class="card" *ngIf="roleId=='7'" style="padding-bottom: 79px;padding-top: 99px;">
+            <div class="card" *ngIf="roleId=='7'|| roleId=='5' " style="padding-bottom: 79px;padding-top: 99px;">
               <div class="header">
                 <h4 style="margin-top: -55px;margin-left: 43px;"> Individual Assets Valuation</h4>
                 <!--   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
@@ -205,7 +205,7 @@
                 </ul>
             </div>
           </div> -->
-            <div class="card l-bg-purple-dark" *ngIf="roleId!='7'">
+            <div class="card l-bg-purple-dark" *ngIf="roleId!='7' && roleId!='5'">
               <div class="card-statistic-3">
                 <div class="card-icon card-icon-large"><i class="fa fa-globe"></i></div>
                 <div class="card-content">
@@ -224,7 +224,7 @@
                 </div>
               </div>
             </div>
-            <div class="card l-bg-purple-dark" *ngIf="roleId=='7'">
+            <div class="card l-bg-purple-dark" *ngIf="roleId=='7'|| roleId=='5'">
               <div class="card-statistic-3">
                 <div class="card-icon card-icon-large"><i class="fa fa-globe"></i></div>
                 <div class="card-content">

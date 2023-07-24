@@ -267,31 +267,7 @@ this.trialOver = true
  }
  );
 
-      this.httpService.get<any>(this.mainService.getNotificationDetails+"?userId="+this.tokenStorage.getUserId()).subscribe(
-        (data:any) => {
-          console.log(data);
-
-          let tempDirection;
-        if (localStorage.getItem("isRtl") === "true") {
-        tempDirection = "rtl";
-         } else {
-        tempDirection = "ltr";
-         }
-          if(data!=undefined && data.length>0){
-            const dialogRef = this.dialog.open(NotificationPopupComponent, {
-              height: "680px",
-              width: "1900px",
-              data: data,
-              direction: tempDirection,
-            });
-             }
-         
-          
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-      );
+   
     
 
      

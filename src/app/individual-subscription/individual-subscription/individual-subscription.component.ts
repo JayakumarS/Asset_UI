@@ -10,6 +10,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CommonService } from 'src/app/common-service/common.service';
+import { CompanyService } from 'src/app/master/company/company.service';
 import { SubscriptionPageService } from 'src/app/payments/initiate-payment/subscription-page.service';
 
 @Component({
@@ -33,7 +34,7 @@ export class IndividualSubscriptionComponent implements OnInit {
   docForm: FormGroup;
   users: any;
   loading: boolean = false;
-
+  trial: boolean = false
   pay = {
     amount: 0,
     currency: 'INR',
@@ -59,7 +60,8 @@ export class IndividualSubscriptionComponent implements OnInit {
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     private spinner: NgxSpinnerService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private companyService: CompanyService
   ) {
 
     this.docForm = this.fb.group({
@@ -74,10 +76,25 @@ export class IndividualSubscriptionComponent implements OnInit {
 
     this.roleId = this.tokenStorage.getRoleId()
     this.loading = true;
+    this.checktrial()
   }
 
 
-
+  checktrial(){
+    this.httpService.get<any>(this.companyService.gettrialvalidate + "?username=" + this.tokenStorage.getUsername()).subscribe({
+      next: (data) => {
+        if(data.success){
+    this.trial = true
+        }
+     
+       },
+       error: (error) => {
+    
+       }
+     }
+     );
+this.trial == true
+  }
 
 
   changeCurrency(currency) {

@@ -17,7 +17,7 @@ export class SubscriptionAlertComponent implements OnInit {
   }
   onRecharge(){
     this.dialogRef.close({ data: true })
-this.router.navigate(["/payments/initiatePayment/subscription"])
+this.router.navigate(["/individual-subscription/add-subscription"])
   }
   onCancel(){
     this.dialogRef.close({ data: true })
