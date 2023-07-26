@@ -12,8 +12,12 @@ export class SubscriptionAlertComponent implements OnInit {
   
   constructor( public dialogRef: MatDialogRef<SubscriptionAlertComponent>,
     private router:Router, 
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+
+     }
+    
   ngOnInit(): void {
+
   }
   onRecharge(){
     this.dialogRef.close({ data: true })
@@ -21,7 +25,7 @@ this.router.navigate(["/individual-subscription/add-subscription"])
   }
   onCancel(){
     this.dialogRef.close({ data: true })
-
+    this.router.navigate(["/authentication/signin"])
   }
 }
  

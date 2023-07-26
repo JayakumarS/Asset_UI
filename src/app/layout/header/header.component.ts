@@ -30,6 +30,7 @@ import { FlowChartPopupComponent } from "src/app/admin/schedule-activity/flow-ch
 import { CompanyLogoResultBean } from "src/app/master/company-logo/companyLogoResultBean";
 import { serverLocations } from "src/app/auth/serverLocations";
 import { CompanyService } from "src/app/master/company/company.service";
+import { MainService } from "src/app/admin/dashboard/main.service";
 const document: any = window.document;
 
 @Component({
@@ -96,7 +97,8 @@ export class HeaderComponent
     public manageAuditService: ManageAuditService,
     private commonService: CommonService,
     private serverUrl:serverLocations,
-    public companyService: CompanyService
+    public companyService: CompanyService,
+    public mainService: MainService
 
   ) {
     super();
@@ -566,20 +568,31 @@ showPopUp(){
     tempDirection = "ltr";
   }
   console.log(JSON.parse(this.token.getCompanies()));
-  const dialogRef = this.dialog.open(CompanyMapPopupComponent, {
-    height: "500px",
-    width: "800px",
-    data: JSON.parse(this.token.getCompanies()),
-    direction: tempDirection,
-    closeOnNavigation: true,
-    disableClose: true
-  });
-  this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-    if(data==1)[
+  this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.token.getUserId()).subscribe((res: any) => {
+    if (res.validSubscription) {
+      this.router.navigate(["/admin/dashboard/Subscription-alert"]);
 
-      ]
+    }else{
+      const dialogRef = this.dialog.open(CompanyMapPopupComponent, {
+        height: "500px",
+        width: "800px",
+        data: JSON.parse(this.token.getCompanies()),
+        direction: tempDirection,
+        closeOnNavigation: true,
+        disableClose: true
+      });
+    
+      this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+        if(data==1)[
+    
+          ]
+      });
+    }
   });
+
+
 }
+  
 
 passwordChange(){
   const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { MainComponent } from "./main/main.component";
 import { Dashboard2Component } from "./dashboard2/dashboard2.component";
 import { TrialSuccessComponentComponent } from "./main/trial-success-component/trial-success-component.component";
+import { SubscriptionOverComponent } from "./main/subscription-over/subscription-over.component";
 
 const routes: Routes = [
   {
@@ -23,7 +24,10 @@ const routes: Routes = [
     path: "Trial-Success/:userId/:username/:role_Id",
     component: TrialSuccessComponentComponent,
   },
-
+  {
+    path: "Subscription-alert",
+    component: SubscriptionOverComponent,
+  },
   { path: "**", component: Page404Component },
 ];
 @NgModule({

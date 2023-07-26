@@ -167,12 +167,12 @@ text='';
     } else {
 
 
-      var recaptchaRes = grecaptcha.getResponse();
-      if (recaptchaRes.length == 0) {
-        this.loading = false;
-        this.error = "Please Click on Google Captcha Checkbox and then submit again";
-        return;
-      }
+      // var recaptchaRes = grecaptcha.getResponse();
+      // if (recaptchaRes.length == 0) {
+      //   this.loading = false;
+      //   this.error = "Please Click on Google Captcha Checkbox and then submit again";
+      //   return;
+      // }
 
       this.authForm.value.cityName=this.city;
 
@@ -209,30 +209,9 @@ text='';
                 //   this.showPopUp();
                 // }
                 this.loading = false;
-                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 2 ||  data.userDetails.roleId == 8 ){
+                if(data.userDetails.roleId == 1 || data.userDetails.roleId == 5 ||  data.userDetails.roleId == 8 ){
                   this.router.navigate(["/admin/dashboard/main"]);
-                  if(data.userDetails.roleId == 2 || data.userDetails.roleId == '2'){
-                    this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.tokenStorage.getUserId()).subscribe((res: any) => {
-                      if (res.validSubscription) {
-            
-                        let tempDirection;
-                        if (localStorage.getItem("isRtl") === "true") {
-                        tempDirection = "rtl";
-                         } else {
-                        tempDirection = "ltr";
-                         }
-                          {
-                            const dialogRef = this.dialog.open(SubscriptionAlertComponent, {
-                              height: "520px",
-                              width: "1000px",
-                              direction: tempDirection,
-                            });
-                          }
-                      }
-                      });
-                  
-                  
-                  }
+                 
 
                   this.httpService.get<any>(this.commonService.getPwdStatus + "?userId=" + this.tokenStorage.getUserId()).subscribe((result: any) => {
                     this.pwdStatus=result.addressBean[0].pwdStatus;
@@ -252,10 +231,37 @@ text='';
                   );
               
                 }
-                else if(data.userDetails.roleId == 5){
-                  this.router.navigate(["/admin/dashboard/main"]);
+                else if(data.userDetails.roleId == 2 || data.userDetails.roleId == '2'){
+                    this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.tokenStorage.getUserId()).subscribe((res: any) => {
+                      if (res.validSubscription) {
+                        this.router.navigate(["/admin/dashboard/Subscription-alert"]);
 
-                }
+                      }
+                      else{
+                        this.router.navigate(["/admin/dashboard/main"]);
+
+                        this.httpService.get<any>(this.commonService.getPwdStatus + "?userId=" + this.tokenStorage.getUserId()).subscribe((result: any) => {
+                          this.pwdStatus=result.addressBean[0].pwdStatus;
+                          if(!this.pwdStatus ){
+                            const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+                              disableClose: true ,
+                              height: "500px",
+                              width: "465px",
+                          
+                            });
+                          }
+                    
+                          },
+                          (err: HttpErrorResponse) => {
+                             // error code here
+                          }
+                        );
+                      }
+                      });
+                  
+                  
+                  }
+                
                 else if(data.userDetails.roleId == 4){
                   this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
                 }
