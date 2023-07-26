@@ -27,6 +27,7 @@ export class AddPopupReferralCodeComponent implements OnInit {
   refCodeAddArray: string[] = [""];
   refCodeUpd: boolean[] = [true];
   placeId: string;
+  butDisabled = "disabled"
   selectedOptionText: string;
   constructor(
 
@@ -48,7 +49,7 @@ export class AddPopupReferralCodeComponent implements OnInit {
 
     this.docForm = this.fb.group({
       referralCode: ["", [Validators.required]],
-      auditor: ["", [Validators.required]],
+      auditor: [({ disabled: true }), [Validators.required]],
       loginedUser: [this.tokenStorage.getUserId()],
       referralCodeEdit: [],
       discount: ["", [Validators.required, Validators.pattern('^(?:[1-9]|[1-9][0-9]|100)$')]],

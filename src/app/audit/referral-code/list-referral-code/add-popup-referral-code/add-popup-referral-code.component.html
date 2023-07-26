@@ -25,13 +25,13 @@
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Auditor</mat-label>
                       <mat-select *ngIf="!edit" #select formControlName="auditor"
-                        (selectionChange)="onChange($event.value)">
+                        (selectionChange)="onChange($event.value)" [disabled]="true">
                         <mat-option *ngFor="let title of auditList" [value]="title.id1">
                           {{title.text}}
                         </mat-option>
                       </mat-select>
                       <mat-select *ngIf="edit" #select formControlName="auditor"
-                        (selectionChange)="onChange($event.value)" disabled>
+                        (selectionChange)="onChange($event.value)" [disabled]="true">
                         <mat-option *ngFor="let title of auditList" [value]="title.id1">
                           {{title.text}}
                         </mat-option>

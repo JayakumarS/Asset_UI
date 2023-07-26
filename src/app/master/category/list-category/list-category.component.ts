@@ -57,14 +57,14 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
   docForm: FormGroup;
   companyId: any;
   assetcategory: Assetcategory;
- 
-  mainList =[];
+
+  mainList = [];
   expandedElement: MainList | null;
   expandedSubElement: SubList | null;
   innerExpandedElements: any[] = [];
-  glList=[];
+  glList = [];
   gllist: MainList[] = [];
-  isExpand:boolean=true;
+  isExpand: boolean = true;
   itemCategoryList = [];
 
   @ViewChild('outerSort', { static: true }) sort: MatSort;
@@ -75,15 +75,15 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
   dataSource: MatTableDataSource<User>;
   usersData: User[] = [];
   columnsToDisplay = ["actions",
-  "categoryName",
-  "Description"
-  
-  
-];
+    "categoryName",
+    "Description"
+
+
+  ];
   innerDisplayedColumns = ["categoryName",
-  "Description",
-  "isactive",
-  "action"
+    "Description",
+    "isactive",
+    "action"
 
   ];
   subBlockDisplayedColumns = ["sourceLocation", "destinationLocation", "reference"];
@@ -105,7 +105,7 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
     private tokenStorage: TokenStorageService,
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations
+    private serverUrl: serverLocations
   ) {
     super();
     {
@@ -139,7 +139,7 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
       }
     });
   }
-  
+
 
   viewReport() {
     this.assetcategory = this.docForm.value;
@@ -151,7 +151,7 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
         next: (res: any) => {
           this.spinner.hide();
           if (res != null) {
-            this.mainList =res.categoryMasterDetails;
+            this.mainList = res.categoryMasterDetails;
             this.mainList.forEach((user) => {
               if (
                 user.subList &&
@@ -159,16 +159,16 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
                 user.subList.length
               ) {
                 const subList: SubList[] = [];
-        
+
                 user.subList.forEach((address) => {
                   // if (Array.isArray(address.blocks)) {
-                    subList.push({
-                      ...address,
-                      subList: new MatTableDataSource(address),
-                    });
+                  subList.push({
+                    ...address,
+                    subList: new MatTableDataSource(address),
+                  });
                   // }
                 });
-        
+
                 this.usersData.push({
                   ...user,
                   subList: new MatTableDataSource(subList),
@@ -195,18 +195,18 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
 
 
   editCall(row) {
-    if (this.permissionList?.modify){
+    if (this.permissionList?.modify) {
       this.router.navigate(['/master/category/add-category/' + row.category_id]);
     }
 
   }
 
-  viewCall(row){
+  viewCall(row) {
     this.router.navigate(['/master/category/view-category/' + row.category_id]);
 
-}
+  }
 
-  deleteItem(row){
+  deleteItem(row) {
 
     this.id = row.id;
     let tempDirection;
@@ -226,7 +226,7 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
 
       if (data.data == true) {
 
-        this.httpService.get(this.categoryMasterService.deletecategory+ "?category_id=" + this.id).subscribe((res: any) => {
+        this.httpService.get(this.categoryMasterService.deletecategory + "?category_id=" + this.id).subscribe((res: any) => {
           this.showNotification(
             "snackbar-success",
             "Delete Record Successfully...!!!",
@@ -240,13 +240,13 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
         );
 
 
-      } 
+      }
 
     });
 
   }
 
-  
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 4000,
@@ -279,7 +279,7 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
       ? (this.expandedElement =
         this.expandedElement === element ? null : element)
       : null;
-      
+
 
     this.cd.detectChanges();
     this.innerTables.forEach(
@@ -287,7 +287,7 @@ export class ListCategoryComponent extends UnsubscribeOnDestroyAdapter implement
       ((table.dataSource as MatTableDataSource<SubList>).sort =
         this.innerSort.toArray()[index])
     );
-    
+
   }
 
 
@@ -328,15 +328,15 @@ export interface UserDataSource {
 
 export interface MainList {
 
-  categoryName:String;
-  Description:String;
-  isactive:String;
-  action:String;
+  categoryName: String;
+  Description: String;
+  isactive: String;
+  action: boolean;
   subList?: SubList[] | MatTableDataSource<SubList>;
 }
 
 export interface SubList {
-  categoryName:String;
-  Description:String;
-  isactive:String;
+  categoryName: String;
+  Description: String;
+  isactive: boolean;
 }
