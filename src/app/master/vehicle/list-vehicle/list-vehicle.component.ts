@@ -165,7 +165,7 @@ export class ListVehicleComponent  extends UnsubscribeOnDestroyAdapter implement
                 this.loadData();
                 this.showNotification(
                   "snackbar-success",
-                  "Delete Record Successfully...!!!",
+                  "Deleted record successfully...!!!",
                   "bottom",
                   "center"
                  );

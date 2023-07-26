@@ -129,7 +129,7 @@ export class ListJewelleryDetailsComponent  extends UnsubscribeOnDestroyAdapter 
         this.httpService.get(this.jewelleryService.deletejewellery+ "?jewel_id=" + this.id).subscribe((res: any) => {
           this.showNotification(
             "snackbar-success",
-            "Delete Record Successfully...!!!",
+            "Deleted record successfully...!!!",
             "bottom",
             "center"
           );

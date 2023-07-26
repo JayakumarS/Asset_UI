@@ -59,7 +59,7 @@ savevehicle(vehicleMaster,router,notificationService){
     if(data.success){
       notificationService.showNotification(
         "snackbar-success",
-        "Add Record Successfully...!!!",
+        "Added record successfully...!!!",
         "bottom",
         "center"
       );
@@ -97,7 +97,7 @@ updatevehicle(vehicleMaster,router,notificationService){
     if(data.success){
       notificationService.showNotification(
         "snackbar-success",
-        "Updated Successfully...!!!",
+        "Updated record successfully...!!!",
         "bottom",
         "center"
       );

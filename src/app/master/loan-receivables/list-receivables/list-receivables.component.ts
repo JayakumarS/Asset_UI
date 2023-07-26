@@ -196,7 +196,7 @@ export class ListReceivablesComponent extends UnsubscribeOnDestroyAdapter implem
             this.loadData();
             this.showNotification(
               "snackbar-success",
-              "Delete Record Successfully...!!!",
+              "Deleted record successfully...!!!",
               "bottom",
               "center"
              );

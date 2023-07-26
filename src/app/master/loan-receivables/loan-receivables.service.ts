@@ -70,7 +70,7 @@ export class LoanReceivablesService extends UnsubscribeOnDestroyAdapter{
       if(data.success){
         notificationService.showNotification(
           "snackbar-success",
-          "Add Record Successfully...!!!",
+          "Added record successfully...!!!",
           "bottom",
           "center"
         );
@@ -104,7 +104,7 @@ export class LoanReceivablesService extends UnsubscribeOnDestroyAdapter{
       if(data.success){
         notificationService.showNotification(
           "snackbar-success",
-          "Updated Successfully...!!!",
+          "Updated record successfully...!!!",
           "bottom",
           "center"
         );

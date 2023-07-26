@@ -121,7 +121,7 @@ export class ListFinancialYearComponent  extends UnsubscribeOnDestroyAdapter imp
         this.financialYearService.deletefY(obj).subscribe((res: any) => {
           this.showNotification(
             "snackbar-success",
-            "Delete Record Successfully...!!!",
+            "Deleted record successfully...!!!",
             "bottom",
             "center"
           );

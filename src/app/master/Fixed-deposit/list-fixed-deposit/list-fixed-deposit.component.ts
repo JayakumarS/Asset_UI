@@ -175,7 +175,7 @@ export class ListFixedDepositComponent extends UnsubscribeOnDestroyAdapter imple
             this.loadData();
             this.showNotification(
               "snackbar-success",
-              "Delete Record Successfully...!!!",
+              "Deleted record successfully...!!!",
               "bottom",
               "center"
              );

@@ -388,6 +388,9 @@ removeRowSelf(index){
     if(this.dtlFlag==true){
     if(this.docForm.valid){ 
       this.mutualFundService.saveProfile1(this.docForm.value,this.notificationService);
+
+      this.router.navigate(['/admin/dashboard/main']);
+
     } else {
       this.notificationService.showNotification(
         "snackbar-danger",

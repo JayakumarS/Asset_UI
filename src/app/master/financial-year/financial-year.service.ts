@@ -43,7 +43,7 @@ export class FinancialYearService extends UnsubscribeOnDestroyAdapter {
       if(data.success=true){
         notificationService.showNotification(
           "snackbar-success",
-          "Record Added successfully...!!!",
+          "Added record successfully...!!!",
           "bottom",
           "center"
         );
@@ -91,7 +91,7 @@ export class FinancialYearService extends UnsubscribeOnDestroyAdapter {
       if(data.success){
         notificationService.showNotification(
           "snackbar-success",
-          "Updated Successfully...!!!",
+          "Updated record successfully...!!!",
           "bottom",
           "center"
         );

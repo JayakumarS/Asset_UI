@@ -260,7 +260,7 @@ export class KnowledgeBankComponent extends UnsubscribeOnDestroyAdapter implemen
               this.loadData();
               this.showNotification(
                 "snackbar-success",
-                "Delete Record Successfully...!!!",
+                "Deleted record successfully...!!!",
                 "bottom",
                 "center"
                );
@@ -273,7 +273,7 @@ export class KnowledgeBankComponent extends UnsubscribeOnDestroyAdapter implemen
       }
       this.showNotification(
         "snackbar-success",
-        "Deleted Record Successfully...!!!",
+        "Deleted record successfully...!!!",
         "bottom",
         "center"
       );

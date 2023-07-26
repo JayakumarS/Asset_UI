@@ -139,7 +139,7 @@ export class ListFundComponent extends UnsubscribeOnDestroyAdapter implements On
             this.loadData();
             this.showNotification(
               "snackbar-success",
-              "Delete Record Successfully...!!!",
+              "Deleted record successfully...!!!",
               "bottom",
               "center"
              );

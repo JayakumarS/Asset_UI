@@ -252,11 +252,11 @@ export class AddPropertyComponent implements OnInit {
    
  ngOnInit(): void {
   this.houseFlag('House');
-  this.rentalFlag('OwnProperty');
+  this.rentalFlag('Own Property');
   this.htypeFlag('Villa');
   this.docForm.patchValue({
     'propertyType':'House',
-    'rentalType':'OwnProperty',
+    'rentalType':'Own Property',
     'residencialType':'Villa'
   })
 
@@ -1332,7 +1332,7 @@ if (inputFlag == 'transitionDate') {
 
    rentalFlag(event)
    {
-    if (event == 'OwnProperty') {
+    if (event == 'Own Property') {
       this.isOwnProperty = true;
       this.docForm.controls.preOwner.setValidators(Validators.required);
       this.docForm.controls['preOwner'].updateValueAndValidity();

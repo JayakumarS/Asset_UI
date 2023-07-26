@@ -39,7 +39,7 @@ export class NotePopupService {
       if(data.Success){
         notificationService.showNotification(
           "snackbar-success",
-          "Note Added Successfully...!!!",
+          "Note added successfully...!!!",
           "bottom",
           "center"
         );

@@ -90,6 +90,7 @@ onSubmit(){
 
    if(this.docForm.valid){ 
 this.birthdayReminderService.savebday(this.bday,this.router,this.notificationService);
+ location.reload()
    } else {
      this.notificationService.showNotification(
        "snackbar-danger",
@@ -143,9 +144,6 @@ getDateString(event, inputFlag, index) {
     }
   }
   reset(){
-    if (!this.edit) {
-      this.docForm.reset();
-      location.reload();
       this.docForm = this.fb.group({
       bdayDtl: this.fb.array([ 
         this.fb.group({
@@ -158,7 +156,7 @@ getDateString(event, inputFlag, index) {
         })
       ])
     });
-    }
+    
   }
 
   ngOnInit(): void {
