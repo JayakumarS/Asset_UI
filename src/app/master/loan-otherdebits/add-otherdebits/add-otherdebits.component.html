@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-md-1">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 60px">
-                    <mat-select formControlName="phoneno" (keypress)="keyPressNumeric2($event)">
+                    <mat-select formControlName="phoneno" (keypress)="keyPressNumeric2($event)" style="line-height: 1.5;">
                       <mat-option *ngFor="let title of CountryCodeList" [value]="title.id">
                         {{title.text}}
                       </mat-option>
