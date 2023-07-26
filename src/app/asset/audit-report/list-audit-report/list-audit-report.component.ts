@@ -113,7 +113,13 @@ export class ListAuditReportComponent extends UnsubscribeOnDestroyAdapter implem
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    this.onSubmit()
+
+    this.auditReport = this.docForm.value;
+    console.log(this.auditReport);
+    this.loadData();
+
+
+    
           this.roleId=this.tokenStorage.getRoleId();
 
     if (this.roleId=='2') {
@@ -137,7 +143,7 @@ export class ListAuditReportComponent extends UnsubscribeOnDestroyAdapter implem
       formCode: 'F1003',
       roleId: this.tokenStorage.getRoleId()
     }
-    this.spinner.show();
+    // this.spinner.show();
     this.commonService.getAllPagePermission(permissionObj).subscribe({
       next: (data) => {
         this.spinner.hide();
@@ -151,13 +157,15 @@ export class ListAuditReportComponent extends UnsubscribeOnDestroyAdapter implem
     });
 
     // FY List
-    this.httpService.get<any>(this.commonService.getFinancialDropDown).subscribe({
+    this.httpService.get<any>(this.commonService.getFinancialDropDown+"?companyId="+ this.tokenStorage.getCompanyId()).subscribe({
       next: (data) => {
         this.FYList = data;
       },
       error: (error) => {
       }
     });
+
+    // this.loadData();
 
   }
   refresh(){

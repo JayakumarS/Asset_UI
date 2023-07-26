@@ -95,7 +95,7 @@
                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
                     <button mat-icon-button color="accent" *ngIf="row.companyStatus=='Pending'"  
                         class="tbl-action-btn">
-                        <button mat-raised-button color="primary" *ngIf="row.auditType=='Self' && row.makerStatus=='Submitted'" (click)="$event.stopPropagation()" (click)="editCall(row)" >Start Audit</button>
+                        <button mat-raised-button color="primary" *ngIf="row.auditType=='Self' && row.makerStatus=='Submitted'" (click)="$event.stopPropagation()" (click)="editCall(row)" >Validate Audit</button>
                         <button mat-raised-button color="primary" *ngIf="row.auditType=='Aided' && row.makerStatus=='Submitted' && row.checkerStatus=='Submitted'" (click)="$event.stopPropagation()" (click)="editCall(row)" >Start Audit</button>
                       </button>
                     <span *ngIf="row.companyStatus=='Submitted'">Audit Completed</span>

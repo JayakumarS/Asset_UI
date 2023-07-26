@@ -12,11 +12,11 @@
               <div class="table-responsive">
                 <form class="m-4" [formGroup]="docForm">
                   <div class="row" style="display:flex; align-items: center; justify-content:center;">
-                    
+
                     <div class=" col-md-1"  style="margin-top: -15px;">
                       <label>FROM DATE</label>
                    </div>
-                   <div class="col-md-3" >                      
+                   <div class="col-md-3" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput [matDatepicker]="picker" formControlName="discardDateFromObj"
                         (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardFromDate"
@@ -29,7 +29,7 @@
                     <div class=" col-md-1" style="margin-top: -15px;">
                       <label>TO DATE</label>
                    </div>
-                   <div class="col-md-3" >                     
+                   <div class="col-md-3" >
                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <input matInput [matDatepicker]="picker1" formControlName="discardDateToObj"
                         (dateInput)="$event.value.format('DD/MM/YYYY')" id="discardToDate"
@@ -76,42 +76,12 @@
                   </div>
               </form>
 
-              <!-- <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
-                <div class="row">
-                  <div class="col-8">
-                    <ul class="header-buttons-left ms-0">
-                      <li class="dropdown m-l-20 ">
-                        <h2>Audit Report</h2>
-                      </li>
-                      <li  class="dropdown m-l-20">
-                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                        <input placeholder="Search" type="text" #filter class="browser-default search-field"
-                          aria-label="Search box">
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col-4">
-                    <ul class="header-buttons">
-                        <li>
-                            <div class="m-l-10" matTooltip="Print Asset QRCode">
-                              <button type="button" class="btn-space" mat-raised-button color="accent"
-                                style="background-color: rgb(50, 124, 173);cursor: pointer;" (click)="assetQRcodeExportPdf()">Print Asset QRCode</button>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="export-button m-l-10" matTooltip="XLSX">
-                                <img src="assets/images/icons/xlsx.png" alt="" (click)="exporter.exportTable('xlsx', {fileName:'audit-report', sheet: 'sheet1'})" />
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                </div>
-              </div> -->
-
+             
               </div>
               </div>
               </div>
-              <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
+              <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+              #exporter="matTableExporter">
 
                 <ng-container matColumnDef="manageAuditNo">
                     <mat-header-cell  *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Audit Code</mat-header-cell>
@@ -188,6 +158,7 @@
                   </button>
                     </mat-cell>
                   </ng-container>
+                  
 
 
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -195,6 +166,7 @@
                     [style.cursor]="'pointer'" matRipple>
                   </mat-row>
                 </mat-table>
+
                 <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
                   <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
                   </mat-progress-spinner>
