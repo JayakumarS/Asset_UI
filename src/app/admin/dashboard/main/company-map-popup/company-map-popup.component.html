@@ -1,34 +1,45 @@
 <div class="container">
-    <h3 mat-dialog-title>Please choose current Company/Branch!</h3>
-    <div mat-dialog-content>
-      <div class="row">
-        <!--Gift Icon-->
-        <!-- <div class="col text-center"> <i class="far fa-times-circle fa-6x col-red"></i> </div> -->
-        <!--Modal Text-->
-        
-            <div class="tableBody">
-                <div class="table-responsive">
-                  <table class="table table-hover " id="tablehover">
-                    <thead>
-                      <tr>
-                        <!-- <th>Choose</th> -->
-                        <th>Company</th>
-                        <th>Branch</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      
-                        <tr *ngFor="let map of data">
-                          
-                          <td (click)="saveCompanyId(map)" style="cursor: pointer;"><a href="javascript:void(0);" (click)="saveCompanyId(map)" style="text-decoration:none;">{{map.companyName}}</a></td>
-                          <td (click)="saveCompanyId(map)" style="cursor: pointer;"><a href="javascript:void(0);" (click)="saveCompanyId(map)" style="text-decoration:none;">{{map.branchName}}</a></td>
-                        </tr>
-                     
-                      
-                    </tbody>
-                  </table> 
-                </div>
-            </div>
+  <h3 mat-dialog-title>Please choose current Company/Branch!</h3>
+  <div mat-dialog-content>
+    <div class="row">
+      <!--Gift Icon-->
+      <!-- <div class="col text-center"> <i class="far fa-times-circle fa-6x col-red"></i> </div> -->
+      <!--Modal Text-->
+
+      <div class="tableBody">
+        <div class="table-responsive">
+          <table class="table table-hover " id="tablehover">
+            <thead>
+              <tr>
+                <!-- <th>Choose</th> -->
+                <th>Company</th>
+                <th>Branch</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let map of data.companies">
+
+                <td (click)="saveCompanyId(map)" style="cursor: pointer;"><a href="javascript:void(0);"
+                    (click)="saveCompanyId(map)" style="text-decoration:none;">{{map.companyName}}</a></td>
+                <td (click)="saveCompanyId(map)" style="cursor: pointer;"><a href="javascript:void(0);"
+                    (click)="saveCompanyId(map)" style="text-decoration:none;">{{map.branchName}}</a></td>
+
+              </tr>
+
+
+            </tbody>
+          </table>
+        </div>
       </div>
+
     </div>
   </div>
+  <div class="row" *ngIf="cancelbtn">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" style="display: flex;
+    justify-content: center;">
+      <button color="warn" type="button" (click)="cancel()" cancel mat-raised-button>Cancel</button>
+    </div>
+  </div>
+</div>

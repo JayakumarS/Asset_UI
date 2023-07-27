@@ -8,12 +8,33 @@ import { MainService } from '../../main.service';
   styleUrls: ['./company-map-popup.component.sass']
 })
 export class CompanyMapPopupComponent {
-  
-  constructor( public dialogRef: MatDialogRef<CompanyMapPopupComponent>,
+
+  cancelbtn: boolean = false;
+
+  constructor(public dialogRef: MatDialogRef<CompanyMapPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public mainService: MainService, private tokenStorage:TokenStorageService) { }
- 
-  saveCompanyId(map){
+
+    public mainService: MainService, private tokenStorage: TokenStorageService) {
+    {
+      console.log(data.companies); // Access the companies data
+      console.log(data.one);
+      // Access the value of this.one
+      if (data.one == "text") {
+
+        this.cancelbtn = true;
+      }
+
+    }
+
+  }
+
+  cancel() {
+    this.dialogRef.close();
+    location.reload();
+
+  }
+
+  saveCompanyId(map) {
     this.tokenStorage.saveCompanyId(map.companyId);
     this.tokenStorage.saveCompanyText(map.companyName);
     this.tokenStorage.saveActiveCompanyFlag("true");
@@ -21,7 +42,7 @@ export class CompanyMapPopupComponent {
     location.reload();
   }
 
-  
-    
-  
+
+
+
 }

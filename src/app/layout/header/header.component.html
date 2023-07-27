@@ -30,6 +30,14 @@
 
 
   <app-nested-menu></app-nested-menu>
+  <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+  <!-- <div class="row">
+    <div style="text-align: center; color: white;">
+      <app-feather-icons [icon]="'users'"
+        [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getCompanyText()!="null"?this.token.getCompanyText():""}}</span>
+      <br><span>({{this.token.getRoleText()}})</span>
+    </div>
+  </div> -->
 
   <div _ngcontent-cud-c186 style="margin-left: auto;">
     <ul class="nav navbar-nav navbar-right">
@@ -127,7 +135,7 @@
                     </li>
                     <li>
                       <a href="#" onClick="return false;">
-                        <app-feather-icons [icon]="'mail'" [class]="'user-menu-icons'"></app-feather-icons>Inbox
+                        <app-feather-icons [icon]="'mail'" [class]="'user-menu-icons '"></app-feather-icons>Inbox
                       </a>
                     </li>
                     <li>
@@ -141,31 +149,31 @@
                         [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getRoleText()}}</span>
                     </a>
                   </li> -->
-                  <li *ngIf="this.token.getCompanyText()!='null'">
+                  <!-- <li *ngIf="this.token.getCompanyText()!='null'">
                     <a href="javascript:void(0);">
                       <app-feather-icons [icon]="'users'"
                         [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getCompanyText()!="null"?this.token.getCompanyText():""}}</span>
                     </a>
-                  </li>
-                  <li *ngIf="isMultipleCompany">
-                    <a href="javascript:void(0);" (click)="showPopUp()">
+                  </li> -->
+                  <li *ngIf="isMultipleCompany" style="height: 60px;">
+                    <a href="javascript:void(0);" (click)="showPopUp1()">
                       <app-feather-icons [icon]="'repeat'" [class]="'user-menu-icons'"></app-feather-icons>Change
                       Company/Branch
                     </a>
                   </li>
-                  <li *ngIf="roleBasedImgUrl == 'Guest'">
+                  <li *ngIf="roleBasedImgUrl == 'Guest'" style="height: 60px;">
                     <a href="javascript:void(0);" (click)="showPaymentPage()">
                       <app-feather-icons [icon]="'mail'" [class]="'user-menu-icons'"></app-feather-icons>Subscription
                     </a>
                   </li>
-                  <li>
+                  <li style="height: 60px;">
                     <a href="#" (click)="passwordChange()" #openModal data-target="#passwordModal" data-toggle="modal"
                       onClick="return false;">
                       <app-feather-icons [icon]="'edit-2'" [class]="'user-menu-icons'"></app-feather-icons>Change
                       Password
                     </a>
                   </li>
-                  <li *ngIf="trial == true">
+                  <li *ngIf="trial == true" style="height: 60px;" (click)="Subscription()">
                     <a href="javascript:void(0); " *ngIf="SubscOver == true">
                       <app-feather-icons [icon]="'Calendar'"
                         [class]="'user-menu-icons'"></app-feather-icons>Subscription Expired {{-daysleft}} Days Before
@@ -175,7 +183,7 @@
                         [class]="'user-menu-icons'"></app-feather-icons>Subscription Ends in {{daysleft}} Days
                     </a>
                   </li>
-                  <li>
+                  <li style="height: 60px;">
                     <a href="javascript:void(0);" (click)="logout()">
                       <app-feather-icons [icon]="'log-out'" [class]="'user-menu-icons'"></app-feather-icons>Logout
                     </a>
@@ -189,10 +197,11 @@
 
       <!-- #END# Tasks -->
     </ul>
+    <!-- <div style="text-align: center; color: white;">
+      <app-feather-icons [icon]="'users'"
+        [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getCompanyText()!="null"?this.token.getCompanyText():""}}</span>
+      <br><span>({{this.token.getRoleText()}})</span>
+    </div> -->
 
-    <div style="text-align: center; color: white;">
-      <app-feather-icons [icon]="'user'"
-        [class]="'user-menu-icons'"></app-feather-icons><span>{{this.token.getRoleText()}}</span>
-    </div>
   </div>
 </nav>

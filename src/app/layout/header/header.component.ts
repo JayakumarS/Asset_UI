@@ -40,8 +40,7 @@ const document: any = window.document;
 })
 export class HeaderComponent
   extends UnsubscribeOnDestroyAdapter
-  implements OnInit, AfterViewInit
-{
+  implements OnInit, AfterViewInit {
   public config: any = {};
   userImg: string;
   homePage: string;
@@ -51,14 +50,14 @@ export class HeaderComponent
   langStoreValue: string;
   defaultFlag: string;
   isOpenSidebar: boolean;
-  userName:string;
-  upload:boolean=false;
-  others:boolean=false;
-  notify:boolean=false;
-  angle:boolean=false;
+  userName: string;
+  upload: boolean = false;
+  others: boolean = false;
+  notify: boolean = false;
+  angle: boolean = false;
   //upload:any
-
-  companyName:string;
+  one: any;
+  companyName: string;
   roleBasedImgUrl: string;
   companyNameText: any;
   isMultipleCompany: boolean;
@@ -71,14 +70,14 @@ export class HeaderComponent
   path: any;
   bgList: any;
   bgImg: any;
-  locationcity:any;
+  locationcity: any;
   city: any;
-  ipAddress:string;
+  ipAddress: string;
   ip: any;
   pwdStatus: any;
-  userId:any
-  daysleft:any
-  subcstatus:any
+  userId: any
+  daysleft: any
+  subcstatus: any
   SubscOver: boolean = false
   trial: boolean = false
 
@@ -90,13 +89,13 @@ export class HeaderComponent
     private authService: AuthService,
     private router: Router,
     public languageService: LanguageService,
-    private app:AppService,
+    private app: AppService,
     public token: TokenStorageService,
     public dialog: MatDialog,
     private httpService: HttpServiceService,
     public manageAuditService: ManageAuditService,
     private commonService: CommonService,
-    private serverUrl:serverLocations,
+    private serverUrl: serverLocations,
     public companyService: CompanyService,
     public mainService: MainService
 
@@ -161,16 +160,16 @@ export class HeaderComponent
   ];
   ngOnInit() {
 
-
+    this.one = "text"
     this.httpService.get<any>(this.commonService.getPwdStatus + "?userId=" + this.token.getUserId()).subscribe((result: any) => {
-      this.pwdStatus=result.addressBean[0].pwdStatus;
+      this.pwdStatus = result.addressBean[0].pwdStatus;
 
-      if(this.token.getActiveCompanyFlag()==null){
-        if( JSON.parse(this.token.getCompanies()).length>1){
-          if(this.roleId != "6" && this.pwdStatus) {
+      if (this.token.getActiveCompanyFlag() == null) {
+        if (JSON.parse(this.token.getCompanies()).length > 1) {
+          if (this.roleId != "6" && this.pwdStatus) {
             this.isMultipleCompany = true;
             this.showPopUp();
-          }   
+          }
         }
       }
       // if(!this.pwdStatus){
@@ -178,43 +177,43 @@ export class HeaderComponent
       //     disableClose: true ,
       //     height: "500px",
       //     width: "465px",
-      
+
       //   });
       // }
-      },
+    },
       (err: HttpErrorResponse) => {
-         // error code here
+        // error code here
       }
     );
     //Subscription status
     this.httpService.get<any>(this.companyService.getSubscriptionstatus + "?userId=" + this.token.getUserId()).subscribe({
       next: (data) => {
-        if(data.subcstatus > 0){
-       this.trial = true
+        if (data.subcstatus > 0) {
+          this.trial = true
         }
         this.subcstatus = data.subcstatus
         console.log(this.subcstatus);
-       },
-       error: (error) => {
- 
-       }
-     }
-     );
-    
-  
+      },
+      error: (error) => {
+
+      }
+    }
+    );
+
+
 
 
     this.authService.getLocation().subscribe((response) => {
       console.log(response)
       this.locationcity = response
-      this.city= this.locationcity.city  
-      });
-      fetch('https://jsonip.com/').then (res=>{
-        return res.json();
-      }).then(data=>{
-    console.log (data.ip);
-   this.ipAddress=data.ip
-      })
+      this.city = this.locationcity.city
+    });
+    fetch('https://jsonip.com/').then(res => {
+      return res.json();
+    }).then(data => {
+      console.log(data.ip);
+      this.ipAddress = data.ip
+    })
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
     this.userImg = this.authService.currentUserValue.img;
@@ -231,7 +230,7 @@ export class HeaderComponent
     // }
     this.companyNameText = this.token.getCompanyText();
     console.log(this.companyNameText);
-    this.roleId=this.token.getRoleId();
+    this.roleId = this.token.getRoleId();
 
     this.roleBasedImgUrl = this.token.getRoleText();
     if (this.roleId === "3") {
@@ -239,12 +238,12 @@ export class HeaderComponent
     } else if (this.roleId === "2") {
       this.homePage = "admin/dashboard/main";
     } else if (this.roleId === "4") {
-      window.sessionStorage.setItem("makerLogin","true");
+      window.sessionStorage.setItem("makerLogin", "true");
       this.homePage = "asset/assetMaster/listAssetMaster";
     } else if (this.roleId === "6") {
-      window.sessionStorage.setItem("makerLogin","true");
+      window.sessionStorage.setItem("makerLogin", "true");
       this.homePage = "/authentication/signin";
-    }else {
+    } else {
       this.homePage = "admin/dashboard/main";
     }
 
@@ -259,18 +258,18 @@ export class HeaderComponent
       this.flagvalue = val.map((element) => element.flag);
     }
 
-    
-    if( JSON.parse(this.token.getCompanies()).length>1){
+
+    if (JSON.parse(this.token.getCompanies()).length > 1) {
       this.isMultipleCompany = true;
     }
 
-    this.companyId=this.token.getCompanyId();
-    if(this.companyId==undefined || this.companyId==null || this.companyId=="null" || this.companyId==""){
-      this.companyId=0;
+    this.companyId = this.token.getCompanyId();
+    if (this.companyId == undefined || this.companyId == null || this.companyId == "null" || this.companyId == "") {
+      this.companyId = 0;
     } else {
-      this.companyId=parseInt(this.token.getCompanyId());
+      this.companyId = parseInt(this.token.getCompanyId());
     }
-    this.httpService.get<any>(this.commonService.imageList+"?companyid="+this.companyId).subscribe({
+    this.httpService.get<any>(this.commonService.imageList + "?companyid=" + this.companyId).subscribe({
 
       next: (data) => {
         this.nonImageCount = data.getlocationList.length;
@@ -286,9 +285,9 @@ export class HeaderComponent
       (data: any) => {
         // console.log(data);
         this.logoList = data.companyLogo;
-        this.path = this.serverUrl.apiServerAddress+"asset_upload/"+this.logoList;
-        this.bgList = this.serverUrl.apiServerAddress+"asset_upload/"+data.backGroundImg;
-        this.bgImg = this.serverUrl.apiServerAddress+"asset_upload/"+this.bgList;
+        this.path = this.serverUrl.apiServerAddress + "asset_upload/" + this.logoList;
+        this.bgList = this.serverUrl.apiServerAddress + "asset_upload/" + data.backGroundImg;
+        this.bgImg = this.serverUrl.apiServerAddress + "asset_upload/" + this.bgList;
 
         // let pathLength = this.logoList.length;
       },
@@ -298,23 +297,23 @@ export class HeaderComponent
     );
 
 
-    
-     // SUBSCRIPTION DAYS LEFT
-     if(this.roleId== "2"){
-     this.userId=this.token.getUserId();
-     this.httpService.get<any>(this.companyService.getSubcDaysLeft+"?userId="+this.userId).subscribe({
-      next: (data) => {
-        if(data.daysleft < 0){
-    this.SubscOver = true
+
+    // SUBSCRIPTION DAYS LEFT
+    if (this.roleId == "2") {
+      this.userId = this.token.getUserId();
+      this.httpService.get<any>(this.companyService.getSubcDaysLeft + "?userId=" + this.userId).subscribe({
+        next: (data) => {
+          if (data.daysleft < 0) {
+            this.SubscOver = true
+          }
+          this.daysleft = data.daysleft
+          console.log(this.daysleft);
+        },
+        error: (error) => {
+
         }
-        this.daysleft = data.daysleft
-        console.log(this.daysleft);
-       },
-       error: (error) => {
- 
-       }
-     }
-     );
+      }
+      );
     }
   }
 
@@ -427,36 +426,36 @@ export class HeaderComponent
     // });
     this.logoutSuccessUserLog();
 
-   this.token.signOut();
+    this.token.signOut();
     // this.toastr.info("Please Sign in to Continue", "Logout Successful")
     this.app.SetName('');
-      localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentUser");
     this.router.navigate(['/authentication/signin']);
 
   }
 
   logoutSuccessUserLog() {
 
-  
-    this.httpService.get<any>(this.authService.getSuccessUserLogoutData+"?city="+this.city+"&ipAddress="+this.ipAddress).subscribe({
+
+    this.httpService.get<any>(this.authService.getSuccessUserLogoutData + "?city=" + this.city + "&ipAddress=" + this.ipAddress).subscribe({
       next: (data) => {
-    this.city = data;
-    },
-    error: (error) => {
-    }
-  });
+        this.city = data;
+      },
+      error: (error) => {
+      }
+    });
   }
 
-showPaymentPage(){
+  showPaymentPage() {
 
-  this.router.navigate(['/payments/initiatePayment/subscription']);
-}
-  notificationpopup(){
+    this.router.navigate(['/payments/initiatePayment/subscription']);
+  }
+  notificationpopup() {
 
-    if(this.notificationpopup){
-      this.notify===true
+    if (this.notificationpopup) {
+      this.notify === true
     }
-     this.notify===false
+    this.notify === false
 
 
     let tempDirection;
@@ -488,15 +487,14 @@ showPaymentPage(){
 
   // }
 
-  nonImagePopup(){
+  nonImagePopup() {
 
-    if(this.nonImageCount===0){
-      this.others=true;
-      }
-      else
-      {
-        this.others=false;
-      }
+    if (this.nonImageCount === 0) {
+      this.others = true;
+    }
+    else {
+      this.others = false;
+    }
 
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
@@ -514,12 +512,12 @@ showPaymentPage(){
     });
   }
 
-  activityPopUp(){
-    if(this.activityPopUp){
-      this.angle===true
-}else{
-  this.angle===false
-}
+  activityPopUp() {
+    if (this.activityPopUp) {
+      this.angle === true
+    } else {
+      this.angle === false
+    }
 
 
     let tempDirection;
@@ -535,7 +533,7 @@ showPaymentPage(){
     });
   }
 
-  flowChart(){
+  flowChart() {
     const dialogRef = this.dialog.open(FlowChartPopupComponent, {
       // height: "680px",
       // width: "30%",
@@ -546,65 +544,122 @@ showPaymentPage(){
   }
 
 
-showPopUp(){
-  this.httpService.get<any>(this.commonService.getCompaniesUrl+"?userId="+this.token.getUsername()).subscribe({
-    next: (data) => {
-      if(data.success){
-        this.token.saveCompanies(data.companyMasterDetails);
+
+  showPopUp() {
+    this.httpService.get<any>(this.commonService.getCompaniesUrl + "?userId=" + this.token.getUsername()).subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.token.saveCompanies(data.companyMasterDetails);
+        }
+
+      },
+      error: (error) => {
+
       }
-
-    },
-    error: (error) => {
-
     }
-  }
-  );
+    );
 
 
-  let tempDirection;
-  if (localStorage.getItem("isRtl") === "true") {
-    tempDirection = "rtl";
-  } else {
-    tempDirection = "ltr";
-  }
-  console.log(JSON.parse(this.token.getCompanies()));
-  this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.token.getUserId()).subscribe((res: any) => {
-    if (res.validSubscription) {
-      this.router.navigate(["/admin/dashboard/Subscription-alert"]);
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    console.log(JSON.parse(this.token.getCompanies()));
+    this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.token.getUserId()).subscribe((res: any) => {
+      if (res.validSubscription) {
+        this.router.navigate(["/admin/dashboard/Subscription-alert"]);
 
-    }else{
-      const dialogRef = this.dialog.open(CompanyMapPopupComponent, {
-        height: "500px",
-        width: "800px",
-        data: JSON.parse(this.token.getCompanies()),
-        direction: tempDirection,
-        closeOnNavigation: true,
-        disableClose: true
-      });
-    
-      this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-        if(data==1)[
-    
+      } else {
+
+
+        const dialogRef = this.dialog.open(CompanyMapPopupComponent, {
+          height: "500px",
+          width: "800px",
+          data: { companies: JSON.parse(this.token.getCompanies()), },
+          direction: tempDirection,
+          closeOnNavigation: true,
+          disableClose: true
+        });
+
+        this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+          if (data == 1) [
+
           ]
-      });
+        });
+      }
+    });
+
+
+  }
+
+  showPopUp1() {
+    this.httpService.get<any>(this.commonService.getCompaniesUrl + "?userId=" + this.token.getUsername()).subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.token.saveCompanies(data.companyMasterDetails);
+        }
+
+      },
+      error: (error) => {
+
+      }
     }
-  });
+    );
 
 
-}
-  
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    console.log(JSON.parse(this.token.getCompanies()));
+    this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.token.getUserId()).subscribe((res: any) => {
+      if (res.validSubscription) {
+        this.router.navigate(["/admin/dashboard/Subscription-alert"]);
 
-passwordChange(){
-  const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
-    disableClose: true ,
-    height: "500px",
-    width: "465px",
+      } else {
 
-  });
-}
-updatePassword() {
 
-  this.openBtn.nativeElement.click();
+        const dialogRef = this.dialog.open(CompanyMapPopupComponent, {
+          height: "500px",
+          width: "800px",
+          data: { companies: JSON.parse(this.token.getCompanies()), one: this.one },
+          direction: tempDirection,
+          closeOnNavigation: true,
+          disableClose: true
+        });
 
-}
+        this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+          if (data == 1) [
+
+          ]
+        });
+      }
+    });
+
+
+  }
+
+  Subscription() {
+    this.router.navigate(["/individual-subscription/add-subscription"]);
+
+  }
+
+
+  passwordChange() {
+    const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+      disableClose: true,
+      height: "500px",
+      width: "465px",
+
+    });
+  }
+  updatePassword() {
+
+    this.openBtn.nativeElement.click();
+
+  }
 }
