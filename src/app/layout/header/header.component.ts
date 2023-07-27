@@ -299,7 +299,7 @@ export class HeaderComponent
 
 
     // SUBSCRIPTION DAYS LEFT
-    if (this.roleId == "2") {
+    if (this.roleId == "2" || this.roleId == "7") {
       this.userId = this.token.getUserId();
       this.httpService.get<any>(this.companyService.getSubcDaysLeft + "?userId=" + this.userId).subscribe({
         next: (data) => {
