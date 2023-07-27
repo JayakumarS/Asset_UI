@@ -268,7 +268,15 @@ text='';
                 else if (data.userDetails.roleId == 6) {
                   this.router.navigate(["/individual-subscription/add-subscription"]);
               }else if (data.userDetails.roleId == 7) {
+                this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.tokenStorage.getUserId()).subscribe((res: any) => {
+                  if (res.validSubscription) {
+                    this.router.navigate(["/admin/dashboard/Subscription-alert"]);
 
+                  }
+                  else{
+                    this.router.navigate(["/admin/dashboard/main"]);
+                  }
+                });
               this.httpService.get<any>(this.mainService.getNotificationDetails+"?userId="+this.tokenStorage.getUserId()).subscribe(
                 (data:any) => {
                   console.log(data);
@@ -294,7 +302,6 @@ text='';
                   console.log(error.name + " " + error.message);
                 }
               );
-              this.router.navigate(["/admin/dashboard/main"]);
 
                 }else if(data.userDetails.roleId == 3){
 
