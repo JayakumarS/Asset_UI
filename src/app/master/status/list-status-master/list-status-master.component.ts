@@ -42,7 +42,7 @@ export class ListStatusMasterComponent extends UnsubscribeOnDestroyAdapter imple
   exampleDatabase: StatusService| null;
   permissionList: any;
   url: string;
-
+  widgets: boolean = false
     constructor( public httpClient: HttpClient,
                  private spinner: NgxSpinnerService,
                  public dialog: MatDialog,
@@ -81,6 +81,14 @@ export class ListStatusMasterComponent extends UnsubscribeOnDestroyAdapter imple
         }
       });
       this.loadData();
+
+      this.url=this.router.url;
+      if(this.url.includes("addCompany")){
+        this.widgets = true
+      }else if(this.url.includes('listStatus')){
+        this.widgets = false
+
+      };
     }
 
     refresh() {

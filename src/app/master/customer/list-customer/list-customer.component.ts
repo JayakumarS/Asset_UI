@@ -43,7 +43,7 @@ permissionList: any;
   companyId: string;
   company: string;
   url: string;
-
+  widgets: boolean = false
 
 
   constructor( public httpClient: HttpClient,
@@ -88,6 +88,15 @@ permissionList: any;
     });
     this.loadData();
     // window.location.reload();
+
+    this.company= this.tokenStorage.getCompanyId();
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+      this.widgets = true
+    }else if(this.url.includes('list-customer')){
+      this.widgets = false
+
+    };
   }
 
  

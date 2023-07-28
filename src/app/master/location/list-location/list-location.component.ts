@@ -48,6 +48,7 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
   locationMaster: LocationMaster | null;
   company: string;
   url: string;
+  widgets: boolean =false
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -88,6 +89,14 @@ export class ListLocationComponent extends UnsubscribeOnDestroyAdapter implement
       }
     });
     this.loadData();
+
+    this.url=this.router.url;
+      if(this.url.includes("addCompany")){
+        this.widgets = true
+        }else if(this.url.includes('listLocation')){
+          this.widgets = false
+
+        };
   }
 
   refresh(){

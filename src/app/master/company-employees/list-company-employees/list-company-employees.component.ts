@@ -48,7 +48,7 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
   id: number;
   company: string;
   url: string;
-
+  widgets:boolean =false
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -72,6 +72,13 @@ export class ListCompanyEmployeesComponent extends UnsubscribeOnDestroyAdapter i
 
   ngOnInit(): void {
     this.loadData();
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+      this.widgets = true
+    }else if(this.url.includes('listCompanyEmp')){
+      this.widgets = false
+    };
+    
   }
   
   

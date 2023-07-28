@@ -56,6 +56,7 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
   permissionList: any;
   customerMaster: DepartmentMaster | null;
   url: string;
+  widgets: boolean = false
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -88,6 +89,15 @@ export class ListDepartmentMasterComponent extends UnsubscribeOnDestroyAdapter i
       }
     });
     this.loadData();
+
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+      this.widgets = true
+  }else if(this.url.includes('list-department')){
+    this.widgets = false
+
+  };
+  
   }
 
   refresh(){

@@ -44,7 +44,7 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   itemMaster: ItemMaster | null;
   permissionList: any;
   url: any;
-  
+  widgets: boolean= false
   constructor(
     private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
@@ -85,6 +85,13 @@ export class ListItemMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       }
     });
     this.loadData();
+
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+      this.widgets = true
+    }else if(this.url.includes('list-item-master')){
+      this.widgets = false
+    };
   }
 
 

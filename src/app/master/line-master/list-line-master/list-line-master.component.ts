@@ -38,7 +38,7 @@ export class ListLineMasterComponent extends UnsubscribeOnDestroyAdapter impleme
   tid:number;
   index: number;
   url: string;
-  
+  widgets: boolean= false
 
   constructor(
     public httpClient: HttpClient,
@@ -61,6 +61,14 @@ export class ListLineMasterComponent extends UnsubscribeOnDestroyAdapter impleme
 
   ngOnInit(): void {
     this.loadData();
+
+    this.url=this.router.url;
+    if(this.url.includes("addCompany")){
+      this.widgets = true
+    }else if(this.url.includes('listLine')){
+      this.widgets = false
+
+    };
   }
  
 
