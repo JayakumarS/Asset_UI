@@ -45,7 +45,7 @@ export class ListVehicleComponent  extends UnsubscribeOnDestroyAdapter implement
   permissionList: any;
   url: string;
   id:number;
-
+  widgets: boolean = false
     constructor( public httpClient: HttpClient,
                  private spinner: NgxSpinnerService,
                  public dialog: MatDialog,
@@ -84,6 +84,13 @@ export class ListVehicleComponent  extends UnsubscribeOnDestroyAdapter implement
         }
       });
       this.loadData();
+
+      this.url=this.router.url;
+      if(this.url.includes("allMaster")){
+        this.widgets = true
+      }else if(this.url.includes('list-vehicle')){
+        this.widgets = false
+      };
     }
 
     addPage(){

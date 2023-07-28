@@ -42,6 +42,7 @@ export class ListFundComponent extends UnsubscribeOnDestroyAdapter implements On
   tid:number;
   index: number;
   url: string;
+  widgets: boolean = false
   constructor(private spinner: NgxSpinnerService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -78,6 +79,14 @@ export class ListFundComponent extends UnsubscribeOnDestroyAdapter implements On
    
   ngOnInit(): void {
     this.loadData();
+
+    this.url=this.router.url;
+    if(this.url.includes("allMaster")){
+    this.widgets = true
+    }else if(this.url.includes('mutualfund')){
+    this.widgets = false
+
+    };
   }
 
   public loadData() {

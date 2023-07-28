@@ -49,7 +49,8 @@ export class ListOtherdebitsComponent extends UnsubscribeOnDestroyAdapter implem
   index: number;
   url: string;
   permissionList: any;
-  
+  widgets:boolean = true
+
 
   constructor(
     public httpClient: HttpClient,
@@ -73,6 +74,13 @@ export class ListOtherdebitsComponent extends UnsubscribeOnDestroyAdapter implem
 
   ngOnInit(): void {
     this.loadData();
+
+    this.url=this.router.url;
+    if(this.url.includes("allMaster")){
+    this.widgets = true
+    }else if(this.url.includes('otherdebits')){
+     this.widgets = false
+    };
   }
  
 

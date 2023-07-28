@@ -40,7 +40,7 @@ export class ListJewelleryDetailsComponent  extends UnsubscribeOnDestroyAdapter 
   tid:number;
   index: number;
   url: string;
-  
+  widgets: boolean = false
 
   constructor(
     public httpClient: HttpClient,
@@ -64,6 +64,14 @@ export class ListJewelleryDetailsComponent  extends UnsubscribeOnDestroyAdapter 
 
   ngOnInit(): void {
     this.loadData();
+
+    this.url=this.router.url;
+    if(this.url.includes("allMaster")){
+    this.widgets = true
+    }else if(this.url.includes('list-jewellery-details')){
+    this.widgets = false
+
+    };
   }
  
 
