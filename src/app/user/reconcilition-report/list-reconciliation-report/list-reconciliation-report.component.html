@@ -52,41 +52,7 @@
             </div>
           </div>
         </div>
-                <!-- <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
-                  <div class="row">
-                    <div class="col-8">
-                      <ul class="header-buttons-left ms-0">
-                        <li class="dropdown m-l-20 ">
-                          <h2>Reconciliation Report</h2>
-                        </li>
-                        <li class="dropdown m-l-20">
-                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                          <input placeholder="Search" type="text" #filter class="browser-default search-field"
-                            aria-label="Search box">
-                        </li>
-                         <li>
-                         <div class="m-l-10" matTooltip="ADD">
-                            <button color="primary" type="button" class="btn-space"
-                              [routerLink]="'/usage/utilityChangeLogReport/addUtilityChangeLogReport'" mat-raised-button><i
-                                class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New</button>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-4">
-                      <ul class="header-buttons">
-                        <li>
-                          <div class="export-button m-l-10" matTooltip="XLSX">
-                            <img src="assets/images/icons/xlsx.png" alt=""
-                              (click)="exporter.exportTable('xlsx', {fileName:'reconciliation-report-list', sheet: 'sheet1'})" />
-                          </div>
-                        </li>
-
-
-                      </ul>
-                    </div>
-                  </div>
-                </div> -->
+                
 
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
@@ -101,66 +67,50 @@
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditName}}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="startDate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
-                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.startDate}}</mat-cell>
-                </ng-container>
-
-               <ng-container matColumnDef="endDate">
-                  <mat-header-cell  *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
-                </ng-container>
-
-                <!-- <ng-container matColumnDef="makerSubmittedDate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header >Submitted On (Maker)</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerSubmittedDate}}</mat-cell>
-                </ng-container> -->
-                <ng-container matColumnDef="makerSubmittedDate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header style="height: 10px;">Submitted On (Maker)</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="justify-content: center;"> {{row.makerSubmittedDate}}</mat-cell>
-                </ng-container>
-<!--
-                <ng-container matColumnDef="checkerSubmittedDate">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Submitted On (Checker)</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.checkerSubmittedDate}}</mat-cell>
-                </ng-container> -->
-
-                <ng-container matColumnDef="checkerSubmittedDate">
-                  <mat-header-cell  *matHeaderCellDef mat-sort-header style="height: 10px;">Submitted on(Checker)</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="justify-content: center;"> {{row.checkerSubmittedDate}}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="makerStatus">
-                  <mat-header-cell  *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.makerStatus}}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="checkerStatus">
-                  <mat-header-cell  *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.checkerStatus}}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="companyStatus">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyStatus}}</mat-cell>
-                </ng-container>
-
-
                 <ng-container matColumnDef="auditType">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Audit Type</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.auditType}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" style="    margin-left: 23px;"> {{row.auditType}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="endDate">
+                  <mat-header-cell  *matHeaderCellDef mat-sort-header style="margin-left: -27Px;    background-color: #7d94a0;">Audit Completed Date</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.endDate}}</mat-cell>
+                </ng-container>
+<!--                
+                <ng-container matColumnDef="makerSubmittedDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header >Maker</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.makerStatus}}</mat-cell>
+                </ng-container>
+
+            
+                <ng-container matColumnDef="checkerSubmittedDate">
+                  <mat-header-cell  *matHeaderCellDef mat-sort-header >Checker</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" > {{row.checkerStatus}}</mat-cell>
+                </ng-container> -->
+
+                <ng-container matColumnDef="companyStatus">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header >Status</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"  style="margin-left: -57Px"> {{row.companyStatus}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Asset">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Asset</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.assetname}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Assetamount">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.price}}</mat-cell>
                 </ng-container>
 
 
 
-
                 <!-- actions -->
                 <!-- actions -->
 
-                <ng-container matColumnDef="companyActions" class="col-lg-12 col-md-2">
+                <!-- <ng-container matColumnDef="companyActions" class="col-lg-12 col-md-2">
                   <mat-header-cell  class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                  <span *ngIf="row.companyStatus=='Submitted'">Audit Completed</span>
                   <button   mat-icon-button color="accent"  *ngIf="row.companyStatus=='Submitted'"  (click)="$event.stopPropagation()" (click)="viewCall(row)"  class="tbl-action-btn">
                     <app-feather-icons matTooltip="View" [icon]="'eye'" [class]="'tbl-fav-delete'">
                     </app-feather-icons>
@@ -170,7 +120,7 @@
                   <app-feather-icons [icon]="'printer'" [class]="'tbl-fav-edit'"></app-feather-icons>
                 </button>
                   </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -56,8 +56,8 @@ export class ListReconciliationReportComponent extends UnsubscribeOnDestroyAdapt
 
   displayedColumns = [
 
-    "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
-    "companyStatus","auditType","companyActions"
+    "manageAuditNo", "auditName","auditType","endDate",
+    "companyStatus","Asset","Assetamount"
 
   ];
   docForm: FormGroup;
@@ -72,6 +72,7 @@ export class ListReconciliationReportComponent extends UnsubscribeOnDestroyAdapt
   companyIdToken: any;
   branchIdToken: any;
   roleId: string;
+  self:boolean =false
   constructor(
     private fb: FormBuilder,
     public httpClient: HttpClient,
@@ -113,17 +114,17 @@ export class ListReconciliationReportComponent extends UnsubscribeOnDestroyAdapt
     this.onSubmit()
     if (this.roleId=='2') {
       this.displayedColumns = [
-        "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
+        "manageAuditNo", "auditName","makerSubmittedDate","checkerSubmittedDate",
         "companyStatus","auditType","companyActions"
       ];
     } else if (this.roleId=='3') {
       this.displayedColumns = [
-        "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
+        "manageAuditNo", "auditName","makerSubmittedDate","checkerSubmittedDate",
         "checkerStatus","auditType","checkerActions"
       ];
     } else if (this.roleId=='4') {
       this.displayedColumns = [
-        "manageAuditNo", "auditName","startDate","endDate","makerSubmittedDate","checkerSubmittedDate",
+        "manageAuditNo", "auditName","makerSubmittedDate","checkerSubmittedDate",
         "makerStatus","auditType","makerActions"
       ];
     }
@@ -144,8 +145,9 @@ export class ListReconciliationReportComponent extends UnsubscribeOnDestroyAdapt
       }
     });
     this.loadData();
+    
   }
-
+ 
   refresh(){
     this.loadData();
   }
