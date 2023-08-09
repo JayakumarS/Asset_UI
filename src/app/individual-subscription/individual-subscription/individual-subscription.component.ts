@@ -76,9 +76,45 @@ export class IndividualSubscriptionComponent implements OnInit {
 
     this.roleId = this.tokenStorage.getRoleId()
     this.loading = true;
-    this.checktrial()
+    this.checktrial();
+    this.getNoOfUsers();
   }
 
+  getNoOfUsers(){
+    this.userId = this.tokenStorage.getUserId();
+    this.httpService.get<any>(this.subscriptionPageService.getNoOfUsers+"?userId="+this.userId).subscribe(res => {
+      if(res.success){
+        this.loading = false;
+        this.docForm.patchValue({noOfUsers: res.noOfUsers})
+        this.docForm.patchValue({currency: res.audCurrency})
+        this.users = res.noOfUsers;
+        this.audcurrency = res.audCurrency;
+
+        if (this.users >0){
+          this.changeCurrency(this.audcurrency);
+        }else {
+          this.users = 1;
+          this.docForm.patchValue({noOfUsers: 1});
+          this.changeCurrency(this.audcurrency);
+        }
+
+        this.oldstdAmt=this.stdAmt;
+        //res.audCurrency;
+
+    //     //multiply the no of users with amount
+    // let num = 50000 * this.users;
+    // this.stdAmt = "₹"+num.toString();
+    // let num1 = 1000 * this.users;
+    // this.busAmt = "₹"+ num1.toString();
+    // let num2 = 5000 * this.users;
+    // this.preAmt = "₹"+ num2;
+    // let num3 = 10000 * this.users;
+    // this.extAmt = "₹"+ num3.toString();
+      }
+      
+    });
+
+  }
 
   checktrial(){
     this.httpService.get<any>(this.companyService.gettrialvalidate + "?username=" + this.tokenStorage.getUsername()).subscribe({
@@ -394,7 +430,7 @@ this.trial == true
         subscripamt: this.pay.exAmount.toString(),
         userId: this.tokenStorage.getUserId(),
         firstName: this.tokenStorage.getUsername(),
-        // noOfUsers: this.docForm.get("noOfUsers").value,
+        noOfUsers: this.users,
         promoCode: this.docForm.get("promotionCode").value,
         currency: this.docForm.get("currency").value,
       }

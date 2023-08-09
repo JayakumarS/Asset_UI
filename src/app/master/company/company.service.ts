@@ -28,6 +28,7 @@ export class CompanyService extends UnsubscribeOnDestroyAdapter {
   UserId: string;
   RoleId: string;
   CompanyId: string;
+  activeCompanyFlag: string;
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations, private tokenStorage: TokenStorageService,
     private httpService: HttpServiceService,public notificationService :NotificationService ) {
       super();
@@ -170,9 +171,10 @@ getAllList(): void {
   this.CompanyId=this.tokenStorage.getCompanyId();
   this.RoleId=this.tokenStorage.getRoleId();
   this.UserId=this.tokenStorage.getUserId();
+  this.activeCompanyFlag=this.tokenStorage.getActiveCompanyFlag();
 
       this.subs.sink = this.httpService.get<CompanyResultBean>(this.getAllMasters
-        +"?UserId="+this.UserId +"&RoleId="+this.RoleId +"&CompanyId="+this.CompanyId).subscribe(
+        +"?UserId="+this.UserId +"&RoleId="+this.RoleId +"&CompanyId="+this.CompanyId+"&activeCompanyFlag="+this.activeCompanyFlag).subscribe(
         (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.companyMasterDetails);

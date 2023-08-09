@@ -84,6 +84,7 @@ export class AddCompanyComponent implements OnInit {
   personInchargelist: any;
   userName: string;
   IsProfile: boolean = false;
+  auditorLogin: boolean=false;
   constructor(private fb: FormBuilder,
     private companyService: CompanyService,
     private departmentMasterService: DepartmentMasterService,
@@ -133,6 +134,7 @@ export class AddCompanyComponent implements OnInit {
       companyLogo: [""],
       branchCount: [""],
       referralCode: [""],
+      role:[2],
       branchList: this.fb.array([
         this.fb.group({
           branch: [""],
@@ -158,6 +160,11 @@ export class AddCompanyComponent implements OnInit {
     this.docForm
     this.userId = this.tokenStorage.getUserId();
     this.roleId = this.tokenStorage.getRoleId();
+    console.log(this.roleId)
+    if(this.roleId==3)
+    {
+      this.auditorLogin=false;
+    }
 
 
     // Country dropdown
