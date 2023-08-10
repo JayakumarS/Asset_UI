@@ -68,7 +68,7 @@ export class IndividualSignupComponent implements OnInit {
     this.authForm = this.formBuilder.group({
       name: ["", Validators.required],
       emailId: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-      telephoneNo:[ "",[Validators.required,  Validators.minLength(10)],],
+      telephoneNo:[ "",[Validators.required, Validators.minLength(10)]],
      // webSite: ['', [Validators.pattern (/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)]], country: ["", Validators.required],
       address:[""],
       //contactPerson:["",Validators.required],

@@ -46,11 +46,14 @@
               <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Phone Number</mat-label>
-                  <input matInput formControlName="telephoneNo" maxlength="10" (keypress)="keyPressNumeric1($event)" required>
+                  <input matInput formControlName="telephoneNo" minlength="10" maxlength="15" (keypress)="keyPressNumeric1($event)" required>
                   <mat-icon matSuffix>phone</mat-icon>
-                  <mat-error *ngIf="authForm.get('telephoneNo').hasError('required') || authForm.get('telephoneNo').touched">
-                    Please enter a valid Phone Number
+                  <mat-error *ngIf="authForm.get('telephoneNo').hasError('minlength')">
+                    Phone number must be at least 10 characters long.
                   </mat-error>
+                <mat-error *ngIf="authForm.get('telephoneNo').hasError('required')">
+                  Phone No is required
+                </mat-error>
                 </mat-form-field>
               </div>
             </div>
