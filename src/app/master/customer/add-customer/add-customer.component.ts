@@ -112,7 +112,7 @@ export class AddCustomerComponent extends  UnsubscribeOnDestroyAdapter  implemen
       registercode: [""],
       person: [""],
       email: ['', [ Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-      phone: [""],
+      phone: ["",[Validators.minLength(10)]],
       address: [""],
       addresstwo: [""],
       city: [""],

@@ -205,7 +205,7 @@ this.httpService.get<any>(this.designationMasterService.getEmailDropdown).subscr
     this.docForm = this.fb.group({
       fullName: ["", [Validators.required]],
       emailId: ["", [Validators.required]],
-      contactNumber:["", [Validators.required]],
+      contactNumber:["", ,[Validators.required, Validators.minLength(10)]],
       company:["",[Validators.required]],
       address:[""],
       country:[""],

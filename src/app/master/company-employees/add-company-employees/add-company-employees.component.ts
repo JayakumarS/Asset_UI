@@ -57,7 +57,7 @@ export class AddCompanyEmployeesComponent implements OnInit {
       role:[""],
       emailId:["",[Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       fullName: ["",[Validators.required, Validators.pattern("[A-Z]+")]],
-      phoneno:["",[Validators.required]],
+      phoneno:["",[Validators.required, Validators.minLength(10)]],
       department:[""],
       active:[true],
       id:[""],

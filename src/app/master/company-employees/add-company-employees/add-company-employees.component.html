@@ -150,11 +150,14 @@
                                         </div>
                                         <div class=" col-md-3">
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                                          <input matInput formControlName="phoneno"  maxlength="10" (keypress)="keyPressNumeric1($event)" >
+                                          <input matInput formControlName="phoneno"  maxlength="15" minlength="10" (keypress)="keyPressNumeric1($event)" >
 
-                                          <mat-error *ngIf="docForm.get('phoneno').hasError('required')">
-                                            Phone Number is required
+                                          <mat-error *ngIf="docForm.get('phoneno').hasError('minlength')">
+                                            Phone number must be at least 10 characters long.
                                           </mat-error>
+                                        <mat-error *ngIf="docForm.get('phoneno').hasError('required')">
+                                          Phone No is required
+                                        </mat-error>
                                         </mat-form-field>
                                       </div>
 

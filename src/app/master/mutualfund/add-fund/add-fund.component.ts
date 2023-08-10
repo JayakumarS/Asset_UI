@@ -95,7 +95,7 @@ export class AddFundComponent implements OnInit {
        policyTerm:[""],
        maturityDateObj:[""],
        maturityDate:[""],
-       registeredNumber:[""],
+       registeredNumber:["",[ Validators.minLength(10)]],
        communicationAddress:[""],
        permanentAddress:[""],
        grossPremium:[""],

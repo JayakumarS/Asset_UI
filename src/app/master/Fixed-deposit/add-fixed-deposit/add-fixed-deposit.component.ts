@@ -103,7 +103,7 @@ docForm: FormGroup;
         dueAmount:["",[Validators.required]],
         id:[""],
         mail: ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-        phone:[""],
+        phone:["",[Validators.minLength(10)]],
         address:[""],
         country:[""],
         postcode:[""],

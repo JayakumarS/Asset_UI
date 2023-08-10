@@ -82,7 +82,10 @@
                 </div>
                 <div class="col-md-1">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline" style="width: 160px; margin-left: -70%;">
-                  <input matInput formControlName="telepheNo" maxlength="10" (keypress)="keyPressNumeric($event)">
+                  <input matInput formControlName="telepheNo" maxlength="15" minlength="10" (keypress)="keyPressNumeric($event)">
+                  <mat-error *ngIf="docForm.get('telepheNo').hasError('minlength')">
+                    Phone number must be at least 10 characters long.
+                  </mat-error>
                 </mat-form-field>
               </div>
 
