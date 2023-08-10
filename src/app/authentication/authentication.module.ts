@@ -33,6 +33,7 @@ import { UserloginComponent } from "./userlogin/userlogin.component";
 import { IndividualSignupComponent } from "./individual-signup/individual-signup.component";
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { AuditorSignupComponent } from './auditor-signup/auditor-signup.component';
+import { RegistrationPopupComponent } from './registration-popup/registration-popup.component';
 
 
 
@@ -49,6 +50,7 @@ import { AuditorSignupComponent } from './auditor-signup/auditor-signup.componen
     UserloginComponent,
     IndividualSignupComponent,
     AuditorSignupComponent,
+    RegistrationPopupComponent,
 
 
   ],

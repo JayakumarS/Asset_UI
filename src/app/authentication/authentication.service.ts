@@ -8,6 +8,8 @@ import { HttpServiceService } from '../auth/http-service.service';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { RegistrationPopupComponent } from './registration-popup/registration-popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +27,7 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
   UserId: string;
   RoleId: string;
 
-  constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private snackBar:MatSnackBar,
+  constructor(private httpClient: HttpClient,public dialog: MatDialog, private serverUrl: serverLocations,private snackBar:MatSnackBar,
     private httpService: HttpServiceService,private router: Router,private spinner: NgxSpinnerService,
     ) { 
     super();
@@ -49,12 +51,16 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
       if(data.success){
         this.spinner.hide();
 
-        this.showNotification(
-          "snackbar-success",
-          "Company Registered Successfully. Your login credentials are sent to the provided email id.",
-          "bottom",
-          "center"
-        );
+        // this.showNotification(
+        //   "snackbar-success",
+        //   "Company Registered Successfully. Your login credentials are sent to the provided email id.",
+        //   "bottom",
+        //   "center"
+        // );
+        const dialogRef = this.dialog.open(RegistrationPopupComponent, {
+          height: "60%",
+          width: "50%",
+        });
         this.router.navigate(["/authentication/signin"]);
       }
       
@@ -83,12 +89,17 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
       if(data.success){
         this.spinner.hide();
 
-        this.showNotification(
-          "snackbar-success",
-          "Auditor Registered Successfully. Your login credentials are sent to the provided email id.",
-          "bottom",
-          "center"
-        );
+        // this.showNotification(
+        //   "snackbar-success",
+        //   "Auditor Registered Successfully. Your login credentials are sent to the provided email id.",
+        //   "bottom",
+        //   "center"
+        // );
+        const dialogRef = this.dialog.open(RegistrationPopupComponent, {
+          height: "60%",
+          width: "50%",
+        });
+        
         this.router.navigate(["/authentication/signin"]);
       }
       
@@ -118,12 +129,18 @@ export class AuthenticationService extends UnsubscribeOnDestroyAdapter {
       if(data.success){
         this.spinner.hide();
 
-        this.showNotification(
-          "snackbar-success",
-          "Individual Registered Successfully. Your login credentials are sent to the provided email id.",
-          "bottom",
-          "center"
-        );
+        // this.showNotification(
+        //   "snackbar-success",
+        //   "Individual Registered Successfully. Your login credentials are sent to the provided email id.",
+        //   "bottom",
+        //   "center"
+        // );
+        // this.router.navigate(["/authentication/signin"]);
+
+        const dialogRef = this.dialog.open(RegistrationPopupComponent, {
+          height: "60%",
+          width: "50%",
+        });
         this.router.navigate(["/authentication/signin"]);
       }
       
