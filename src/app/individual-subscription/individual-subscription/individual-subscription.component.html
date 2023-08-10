@@ -42,5 +42,10 @@
 
             </div>
         </form>
+        <div class="row" style="padding-bottom:50px;padding-top:25px;padding-left: 50px;" *ngIf="cancelFlag">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+             </div>
+            <div class="col-lg-6"> <button style="margin-left: -59px;" color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button></div>
+          </div>
     </div>
 </section>

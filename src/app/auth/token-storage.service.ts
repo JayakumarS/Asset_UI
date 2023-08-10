@@ -17,6 +17,9 @@ const AUTHCOMPANIES = 'AuthCompanies';
 const AUTHROLES = 'AuthRoles';
 const AUTHBRANCHID = 'AuthBranchId';
 const ACTIVECOMPANY_KEY = 'ActiveCompanyFlag';
+const ACTIVESUBSCRIPTION_KEY = 'ActiveSubscriptionFlag';
+
+
 const COMPANYLOGO_KEY = 'AuthCompanyLogo';
 const AUTHCOMPANIESAUDITOR = 'AuthCompaniesAuditor';
 
@@ -185,6 +188,15 @@ public getUserId(): string {
   public saveActiveCompanyFlag(flag: string) {
     window.sessionStorage.removeItem(ACTIVECOMPANY_KEY);
     window.sessionStorage.setItem(ACTIVECOMPANY_KEY, flag);
+  }
+
+  public saveActiveSubscriptionFlag(flag: string) {
+    window.sessionStorage.removeItem(ACTIVESUBSCRIPTION_KEY);
+    window.sessionStorage.setItem(ACTIVESUBSCRIPTION_KEY, flag);
+  }
+
+  public getActiveSubscriptionFlag(): string {
+    return sessionStorage.getItem(ACTIVESUBSCRIPTION_KEY);
   }
 
   public getActiveCompanyFlag(): string {

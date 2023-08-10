@@ -97,7 +97,8 @@ export class HeaderComponent
     private commonService: CommonService,
     private serverUrl: serverLocations,
     public companyService: CompanyService,
-    public mainService: MainService
+    public mainService: MainService,
+    private tokenStorage: TokenStorageService
 
   ) {
     super();
@@ -644,6 +645,7 @@ export class HeaderComponent
   }
 
   Subscription() {
+    this.tokenStorage.saveActiveSubscriptionFlag("true");
     this.router.navigate(["/individual-subscription/add-subscription"]);
 
   }

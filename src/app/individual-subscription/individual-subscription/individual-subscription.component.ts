@@ -48,6 +48,8 @@ export class IndividualSubscriptionComponent implements OnInit {
   oldstdAmt: string;
   roleId: any
   subs: any
+  activeSubscription: string;
+  cancelFlag: boolean = false;
   constructor(
     private fb: FormBuilder,
     private commonService: CommonService,
@@ -75,6 +77,12 @@ export class IndividualSubscriptionComponent implements OnInit {
   ngOnInit(): void {
 
     this.roleId = this.tokenStorage.getRoleId()
+    this.activeSubscription = this.tokenStorage.getActiveSubscriptionFlag();
+    console.log(this.activeSubscription)
+    if(this.activeSubscription=="true")
+    {
+      this.cancelFlag=true;
+    }
     this.loading = true;
     this.checktrial();
     this.getNoOfUsers();
@@ -589,6 +597,8 @@ this.trial == true
 
     });
   }
-
+  onCancel() {
+    this.router.navigate(['/admin/dashboard/main']);
+  }
 
 }
