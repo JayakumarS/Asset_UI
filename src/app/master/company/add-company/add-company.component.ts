@@ -105,7 +105,7 @@ export class AddCompanyComponent implements OnInit {
       shortName: ["", [Validators.required]],
       emailId: ["", [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
       phoneCode: [""],
-      telephoneNo: ["", [Validators.required]],
+      telephoneNo: ["", [Validators.required, Validators.minLength(10)]],
       webSite: ["", Validators.pattern('^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$')],
       panNo: ["", Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')],
       gstNo: ["", Validators.pattern('[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Za-z]{1}[Z]{1}[0-9A-Za-z]{1}')],
