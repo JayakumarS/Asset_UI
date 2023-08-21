@@ -176,15 +176,15 @@
         </div>
 
         <div class="col-md-2" style="min-width: fit-content;" *ngIf ="isHouse">
-          <mat-label >PROPERTY TAX NO.<span class="errorColor">*</span></mat-label>
+          <mat-label >PROPERTY TAX NO.</mat-label>
         </div>
       <div class=" col-md-2" *ngIf ="isHouse">
         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
           <input matInput formControlName="houseTaxNo" maxlength="9" (keypress)="keyPressNumberInt($event)"
           (blur)="validateCustomer($event.target.value)">
-           <mat-error *ngIf="docForm.get('houseTaxNo').hasError('required')">
+           <!-- <mat-error *ngIf="docForm.get('houseTaxNo').hasError('required')">
             Property Tax No is required
-           </mat-error> 
+           </mat-error>  -->
         </mat-form-field>
       </div>
     </div>
@@ -1114,7 +1114,7 @@
 
           <div class="row">
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
-              <mat-label>RENTAL TYPE<span class="errorColor">*</span></mat-label>
+              <mat-label>PROPERTY TYPE<span class="errorColor">*</span></mat-label>
               </div>
               <div class=" col-md-3" >
           <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
@@ -1180,7 +1180,7 @@
             </div>
 
             <div class="col-md-2" style="min-width: fit-content;">
-              <mat-label>TRANSITION DATE<span class="errorColor">*</span></mat-label>
+              <mat-label>TRANSITION DATE</mat-label>
           </div>
           <div class=" col-md-2">
             <mat-form-field class="example-full-width form-control-sm" appearance="outline">
@@ -1192,9 +1192,9 @@
           <mat-datepicker-toggle matSuffix
               [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
-          <mat-error *ngIf="docForm.get('transitionDate').hasError('required')">
+          <!-- <mat-error *ngIf="docForm.get('transitionDate').hasError('required')">
            Transition Date is required
-          </mat-error> 
+          </mat-error>  -->
             </mat-form-field>
           </div>
       </div>
@@ -1202,15 +1202,15 @@
       <div class="row" *ngIf = "isOwnProperty">
 
             <div class="col-md-2" style="min-width: fit-content;">
-              <mat-label>SOLD RATE<span class="errorColor">*</span> </mat-label>
+              <mat-label>SOLD RATE </mat-label>
           </div>
           <div class=" col-md-2">
             <mat-form-field  class="example-full-width form-control-sm" appearance="outline">
               <input matInput formControlName="propWorth"
               maxlength="20" (keypress)="keyPressNumeric($event)">
-              <mat-error *ngIf="docForm.get('propWorth').hasError('required')">
+              <!-- <mat-error *ngIf="docForm.get('propWorth').hasError('required')">
                 Sold Rate is required
-              </mat-error> 
+              </mat-error>  -->
             </mat-form-field>
           </div>
 

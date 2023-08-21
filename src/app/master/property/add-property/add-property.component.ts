@@ -838,6 +838,8 @@ update(){
      CustInvoiceDetailBeanArray.removeAt(index);
    }
    getDateString(event, inputFlag, index) {
+    let currDate=new Date();
+
      let cdatedate = this.commonService.getDate(event.target.value);
      let tdate = this.commonService.getDateYYMMDDFormat(event.target.value);
 
@@ -862,7 +864,23 @@ update(){
     
  let fdatedate = this.commonService.getDate(event.target.value);
  if (inputFlag == 'constructedOn') {
-  this.docForm.patchValue({ constructedOn: fdatedate });
+   if(event.target.value>currDate){
+      let s = this.cmnService.getDate(currDate);
+      this.docForm.patchValue({
+        constructedOn:s,
+        constructedOnObj:s
+      });
+      this.showNotification(
+        "snackbar-danger",
+        "Please select past date!",
+        "top",
+        "right"
+      );
+    }
+    else {
+      this.docForm.patchValue({ constructedOn: fdatedate });
+    }
+  
 }
 
 let ldatedate = this.commonService.getDate(event.target.value);
@@ -887,7 +905,24 @@ if (inputFlag == 'gadregOn') {
 
 let transitionDate = this.commonService.getDate(event.target.value);
 if (inputFlag == 'transitionDate') {
- this.docForm.patchValue({ transitionDate: transitionDate});
+  if(event.target.value>currDate){
+    let s = this.cmnService.getDate(currDate);
+    this.docForm.patchValue({
+      transitionDate:s,
+      transitionDateObj:s
+    });
+    this.showNotification(
+      "snackbar-danger",
+      "Please select past date!",
+      "top",
+      "right"
+    );
+  }
+  else {
+    this.docForm.patchValue({ transitionDate: transitionDate});
+  }
+
+ 
 }
     // For Date  Validation
 
@@ -937,7 +972,7 @@ if (inputFlag == 'transitionDate') {
         this.docForm.controls['currentValue'].updateValueAndValidity();
         this.docForm.controls.depVal.setValidators;
         this.docForm.controls['depVal'].updateValueAndValidity();
-        this.docForm.controls.houseTaxNo.setValidators(Validators.required);
+        this.docForm.controls.houseTaxNo.setValidators;
         this.docForm.controls['houseTaxNo'].updateValueAndValidity();
 
                               //land  
@@ -1338,11 +1373,11 @@ if (inputFlag == 'transitionDate') {
       this.docForm.controls['preOwner'].updateValueAndValidity();
       // this.docForm.controls.preOwnername.setValidators;
       // this.docForm.controls['preOwnername'].updateValueAndValidity();
-      this.docForm.controls.transitionDateObj.setValidators(Validators.required);
+      this.docForm.controls.transitionDateObj.setValidators;
       this.docForm.controls['transitionDateObj'].updateValueAndValidity();
-      this.docForm.controls.transitionDate.setValidators(Validators.required);
+      this.docForm.controls.transitionDate.setValidators;
       this.docForm.controls['transitionDate'].updateValueAndValidity();
-      this.docForm.controls.propWorth.setValidators(Validators.required);
+      this.docForm.controls.propWorth.setValidators;
       this.docForm.controls['propWorth'].updateValueAndValidity();
       // this.docForm.controls.ownAddress.setValidators;
       // this.docForm.controls['ownAddress'].updateValueAndValidity();
