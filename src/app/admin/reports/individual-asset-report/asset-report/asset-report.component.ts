@@ -69,7 +69,7 @@ displayedColumns=[
        
     super();
     this.docForm = this.fb.group({
-      category:["",[Validators.required]],
+      category:[""],
       userid: this.tokenStorage.getUserId(),
       
 
@@ -89,6 +89,8 @@ displayedColumns=[
       category:["",[Validators.required]],
       userid: this.tokenStorage.getUserId(),
     });
+
+    this.loadData();
    
   }
  
@@ -111,17 +113,10 @@ displayedColumns=[
     );
   }
   onSubmit(){
-    if(this.docForm.valid){
+    
     this.assetReport = this.docForm.value;
     this.loadData();
-    } else {
-      this.showNotification(
-        "snackbar-danger",
-        "Please Select Asset Category",
-        "top",
-        "right"
-      );
-    }
+   
   }
   
   
