@@ -217,6 +217,7 @@ configUserLog: {
   badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
   vehicleTotalCount: any;
   jewelchartOptions: { series: any[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { offsetY: number; startAngle: number; endAngle: number; hollow: { margin: number; size: string; background: string; image: any; }; dataLabels: { name: { show: boolean; }; value: { show: boolean; }; }; }; }; colors: string[]; labels: string[]; legend: { show: boolean; floating: boolean; fontSize: string; position: string; offsetX: number; offsetY: number; labels: { useSeriesColors: boolean; }; formatter: (seriesName: any, opts: any) => string; itemMargin: { horizontal: number; }; }; responsive: { breakpoint: number; options: { legend: { show: boolean; }; }; }[]; };
+  trialUser: string;
   // badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
@@ -229,6 +230,25 @@ configUserLog: {
   //  -------------------------------------- 
   ngOnInit() {
       this.roleId=this.tokenStorage.getRoleId();
+      this.trialUser=this.tokenStorage.getTrialUser();
+      console.log(this.trialUser)
+      if(this.trialUser!=null)
+      {
+//Subscription status
+this.httpService.get<any>(this.companyService.gettrialdaysstatus + "?userId=" + this.tokenStorage.getUserId()).subscribe({
+  next: (data) => {
+    if(data.trialdaysleft < 0){
+this.trialOver = true
+    }
+    this.trialdaysleft = data.trialdaysleft
+    console.log(this.trialdaysleft);
+   },
+   error: (error) => {
+
+   }
+ }
+ );
+      }
       // if(this.roleId == 2 || this.roleId == '2'){
       //   this.httpService.get<any>(this.mainService.getSubscriptionCheck + "?userId=" + this.tokenStorage.getUserId()).subscribe((res: any) => {
       //     if (res.validSubscription) {
@@ -252,20 +272,7 @@ configUserLog: {
       
       // }
 
-//Subscription status
-this.httpService.get<any>(this.companyService.gettrialdaysstatus + "?userId=" + this.tokenStorage.getUserId()).subscribe({
-  next: (data) => {
-    if(data.trialdaysleft < 0){
-this.trialOver = true
-    }
-    this.trialdaysleft = data.trialdaysleft
-    console.log(this.trialdaysleft);
-   },
-   error: (error) => {
 
-   }
- }
- );
 
    
     
@@ -1271,20 +1278,20 @@ jewellerychart(){
     //   }
     // );
 
-    this.httpService.get<MainResultBean>(this.mainService.AuditableAssetListDashboardUrl + "?companyId=" + this.companyId).subscribe((res: any) => {
-      console.log(this.companyId);
-      this.auditableAssetList = res.auditableAssetListDashboard;
-      this.configDepreciation = {
-        id: 'pagination',    
-        itemsPerPage: 2,
-        currentPage: 1,
-        totalItems: this.auditableAssetList.length
-      }; 
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
+    // this.httpService.get<MainResultBean>(this.mainService.AuditableAssetListDashboardUrl + "?companyId=" + this.companyId).subscribe((res: any) => {
+    //   console.log(this.companyId);
+    //   this.auditableAssetList = res.auditableAssetListDashboard;
+    //   this.configDepreciation = {
+    //     id: 'pagination',    
+    //     itemsPerPage: 2,
+    //     currentPage: 1,
+    //     totalItems: this.auditableAssetList.length
+    //   }; 
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //      // error code here
+    //   }
+    // );
 
   }
 

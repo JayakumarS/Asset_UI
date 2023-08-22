@@ -18,6 +18,7 @@ const AUTHROLES = 'AuthRoles';
 const AUTHBRANCHID = 'AuthBranchId';
 const ACTIVECOMPANY_KEY = 'ActiveCompanyFlag';
 const ACTIVESUBSCRIPTION_KEY = 'ActiveSubscriptionFlag';
+const TRIALUSER_KEY = 'TrialUser';
 
 
 const COMPANYLOGO_KEY = 'AuthCompanyLogo';
@@ -57,6 +58,15 @@ export class TokenStorageService {
 public saveUserId(userId: string) {
     window.sessionStorage.removeItem(AUTHUSERID_KEY);
     window.sessionStorage.setItem(AUTHUSERID_KEY, userId);
+  }
+
+  public saveTrialUser(trialUser: string) {
+    window.sessionStorage.removeItem(AUTHUSERID_KEY);
+    window.sessionStorage.setItem(AUTHUSERID_KEY, trialUser);
+  }
+
+  public getTrialUser(): string {
+    return sessionStorage.getItem(TRIALUSER_KEY);
   }
 
   public getUsername(): string {

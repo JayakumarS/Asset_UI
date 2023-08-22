@@ -307,14 +307,8 @@ export class AddPropertyComponent implements OnInit {
    }
 
    if(this.docForm.valid){ 
-     this.propertyService.saveprop(this.property,this.notificationService);
-     if(window.sessionStorage.getItem("propFrom")=="prop"){
-      window.sessionStorage.setItem("propFrom","");
-      this.router.navigate(['/master/multiple/allMaster/0']);
-    }else if(window.sessionStorage.getItem("propFrom")=="normal"){
-      window.sessionStorage.setItem("propFrom","");
-      this.router.navigate(['/master/property/list-property']);
-    }   } else {
+     this.propertyService.saveprop(this.property,this.router,this.notificationService);
+       } else {
      this.notificationService.showNotification(
        "snackbar-danger",
        "Please fill all the required details!",

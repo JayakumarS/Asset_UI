@@ -98,7 +98,7 @@ export class PropertyService extends UnsubscribeOnDestroyAdapter {
         
     });
   }
-  saveprop(property,notificationService) {
+  saveprop(property,router,notificationService) {
     this.dialogData = property;
     this.httpService.post<any>(this.save, property).subscribe(data => {
       console.log(data);
@@ -109,7 +109,13 @@ export class PropertyService extends UnsubscribeOnDestroyAdapter {
           "bottom",
           "center"
         );
-        location.reload()
+        if(window.sessionStorage.getItem("propFrom")=="prop"){
+          window.sessionStorage.setItem("propFrom","");
+          router.navigate(['/master/multiple/allMaster/0']);
+        }else if(window.sessionStorage.getItem("propFrom")=="normal"){
+          window.sessionStorage.setItem("propFrom","");
+          router.navigate(['/master/property/list-property']);
+        } 
 
         
       }else {

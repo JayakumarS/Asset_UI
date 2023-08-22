@@ -85,7 +85,14 @@ export class IndividualSubscriptionComponent implements OnInit {
     }
     this.loading = true;
     this.checktrial();
-    this.getNoOfUsers();
+    if(this.roleId!=6)
+    {
+      this.getNoOfUsers();
+    }
+    else{
+      this.users=1;
+    }
+    
   }
 
   getNoOfUsers(){
