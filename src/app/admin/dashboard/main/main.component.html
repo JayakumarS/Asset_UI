@@ -247,7 +247,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" *ngIf="roleId!=='7'">
               <div class="card card-statistic-2" (click)="onchangeAsset()">
                 <div class="clearfix">
                   <div class="card-right">
@@ -259,6 +259,29 @@
                       <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
                       <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
                       <h3 class="font-weight-bold float-end mb-0">{{companyAssetsCount}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-chart">
+                  <canvas baseChart [chartType]="'line'" [datasets]="cardChart4Data" [labels]="cardChart4Label"
+                    [options]="cardChart4" [legend]="true">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6" *ngIf="roleId=='7'">
+              <div class="card card-statistic-2" (click)="onchangeAsset()">
+                <div class="clearfix">
+                  <div class="card-right">
+                    <div>
+                      <h5 class="float-end">Assets</h5>
+                    </div>
+                    <div class="m-r-10 m-l-10">
+                      <!-- For Decimal purpose code -->
+                      <!-- <h3 class="font-weight-bold float-end mb-0">{{earningsCountValue!=null?earningsCountValue.toFixed(2):earningsCountValue}}</h3> -->
+                      <!-- <h3 *ngIf="!roleIdFlag" class="font-weight-bold float-end mb-0">{{earningsCountValue}}</h3> -->
+                      <h3 class="font-weight-bold float-end mb-0">{{indAssetsCount}}</h3>
                     </div>
                   </div>
                 </div>

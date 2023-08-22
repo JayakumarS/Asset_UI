@@ -218,6 +218,8 @@ configUserLog: {
   vehicleTotalCount: any;
   jewelchartOptions: { series: any[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { offsetY: number; startAngle: number; endAngle: number; hollow: { margin: number; size: string; background: string; image: any; }; dataLabels: { name: { show: boolean; }; value: { show: boolean; }; }; }; }; colors: string[]; labels: string[]; legend: { show: boolean; floating: boolean; fontSize: string; position: string; offsetX: number; offsetY: number; labels: { useSeriesColors: boolean; }; formatter: (seriesName: any, opts: any) => string; itemMargin: { horizontal: number; }; }; responsive: { breakpoint: number; options: { legend: { show: boolean; }; }; }[]; };
   trialUser: string;
+  userId: string;
+  indAssetsCount: any;
   // badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
@@ -386,21 +388,37 @@ this.trialOver = true
         console.log(error.name + " " + error.message);
       }
     );
-    
 
-    this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.companyId).subscribe(
-      (data) => {
-        this.assetListDashboard = data.assetListDashboard;
-        if(data.assetListDashboard.length!=0){
-          this.assetsFlagForDashboard=true;
-        }else{
-          this.assetsFlagForDashboard=false;
+    if(this.roleId==7)
+    {
+      this.userId=this.tokenStorage.getUserId();
+     this.httpService.get<MainResultBean>(this.mainService.assetCountListDashboardUrl+ "?userId=" + this.userId).subscribe(
+        (data) => {
+
+          this.indAssetsCount=data.assetsCount;
+          
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
         }
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-    );
+      );
+    }
+    else{
+      this.httpService.get<AuditableAssetResultBean>(this.auditableAssetService.assetListDashboardUrl+ "?companyId=" + this.companyId).subscribe(
+        (data) => {
+          this.assetListDashboard = data.assetListDashboard;
+          if(data.assetListDashboard.length!=0){
+            this.assetsFlagForDashboard=true;
+          }else{
+            this.assetsFlagForDashboard=false;
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
+    
 
 
     //User Log Report List

@@ -53,6 +53,7 @@ export class MainService extends UnsubscribeOnDestroyAdapter {
   public getNotificationDetails = `${this.serverUrl.apiServerAddress}app/dashboard/getNotificationDetails`;
   public getSubscriptionCheck = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/subscriptioncheck`;
   public trialsuccess = `${this.serverUrl.apiServerAddress}api/auth/app/subscription/payments/accepttrial`;
+  public assetCountListDashboardUrl = `${this.serverUrl.apiServerAddress}app/dashboard/assetCountListDashboardUrl`;
   get data(): main[] {
     return this.dataChange.value;
   }
