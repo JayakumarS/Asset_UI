@@ -18,6 +18,8 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { DeletePurchaseComponent } from './delete-purchase/delete-purchase.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-list-purchase',
@@ -25,8 +27,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./list-purchase.component.sass']
 })
 export class ListPurchaseComponent  extends UnsubscribeOnDestroyAdapter  implements OnInit {
-  displayedColumns = ['requisitionNo', 'prReqNo','requestType','requestedBy','requestDate',
-  'jobTitle','sourceLocation','destinationLocation','status', 'actions'];
+
+
+  displayedColumns = ['prNo', 'requestDate','vendor','requestTypeName','remarks','actions'];
+
+
   // exampleDatabase: AppService | null;
   dataSource: ExampleDataSource | null;
   exampleDatabase: PurchaseRequestService | null;
@@ -41,9 +46,9 @@ export class ListPurchaseComponent  extends UnsubscribeOnDestroyAdapter  impleme
     public dialog: MatDialog,
     public purchaseRequestService: PurchaseRequestService,
     private snackBar: MatSnackBar,
-    private serverUrl:serverLocations,
+    private serverUrl:serverLocations,private spinner: NgxSpinnerService,
     private httpService:HttpServiceService,
-    public router: Router,
+    public router: Router, private tokenStorage: TokenStorageService,
     public route: ActivatedRoute
   ) {
     super();
@@ -62,7 +67,7 @@ export class ListPurchaseComponent  extends UnsubscribeOnDestroyAdapter  impleme
     this.loadData();
   }
   public loadData() {
-    this.exampleDatabase = new PurchaseRequestService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new PurchaseRequestService(this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -80,13 +85,12 @@ export class ListPurchaseComponent  extends UnsubscribeOnDestroyAdapter  impleme
 }
 
 editCall(row) {
-  this.router.navigate(['/purchase/purchaseRequest/addPurchase/'+row.requisitionId]);
+  this.router.navigate(['/purchase/purchaseRequest/addPurchase/'+row.purchaseRequestId]);
 }
 
-deleteItem(row){
-  this.id = row.requisitionId;
+deleteItem(row) {
   let tempDirection;
-  if (localStorage.getItem("isRtl") == "true") {
+  if (localStorage.getItem("isRtl") === "true") {
     tempDirection = "rtl";
   } else {
     tempDirection = "ltr";
@@ -96,28 +100,40 @@ deleteItem(row){
     width: "400px",
     data: row,
     direction: tempDirection,
+    disableClose: true
   });
   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-    
-    this.loadData();
-      this.showNotification(
-        "snackbar-success",
-        "Delete Record Successfully...!!!",
-        "bottom",
-        "center"
-      );
 
-     // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
-    
+    if (data.data == true) {
+      const obj = {
+        deletingId: row.purchaseRequestId
+      }
+      this.spinner.show();
+      this.purchaseRequestService.DeletePurchase(obj).subscribe({
+        next: (data) => {
+          this.spinner.hide();
+          if (data.success) {
+            this.loadData();
+            this.showNotification(
+              "snackbar-success",
+              "Delete Record Successfully...!!!",
+              "bottom",
+              "center"
+            );
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+        }
+      });
+
+    }
+  });
+
 }
+
+
+
 private refreshTable() {
   this.paginator._changePageSize(this.paginator.pageSize);
 }
@@ -177,12 +193,13 @@ export class ExampleDataSource extends DataSource<PurchaseRequest> {
           .slice()
           .filter((purchaseRequest: PurchaseRequest) => {
             const searchStr = (
-              purchaseRequest.company +
-              purchaseRequest.requestType +
-              purchaseRequest.requestedBy
-              
+              purchaseRequest.prNo +
+              purchaseRequest.requestDate +
+              purchaseRequest.vendorName +
+              purchaseRequest.requestTypeName +
+              purchaseRequest.remarks
 
-             
+                         
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });

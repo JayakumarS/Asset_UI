@@ -1,11 +1,12 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { PurchaseRequestResultBean } from './purchase-request-result-bean';
 import { PurchaseRequest } from './purchase-request.model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,15 +23,18 @@ export class PurchaseRequestService extends UnsubscribeOnDestroyAdapter{
   // Temporarily stores data from dialogs
   dialogData: any;
 
-  constructor(private httpClient:HttpClient, private serverUrl: serverLocations, private httpService: HttpServiceService) { 
+  constructor(private httpClient:HttpClient, private serverUrl: serverLocations,
+     private httpService: HttpServiceService,private tokenStorage: TokenStorageService) { 
     super();
   }
   private getAllPurchase = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseRequest/getList`;
   private savePurchase = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseRequest/save`;
-  public editPurchase = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseRequest/edit`;
+  public editPurchaseRequest = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseRequest/edit`;
   public updatePurchase = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseRequest/update`;
-  public deletePurchase = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseRequest/delete`;
- 
+  public deletePurchase = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseRequest/delete`;  
+  public getPurchaseRequestDetails = `${this.serverUrl.apiServerAddress}api/auth/app/purchaseRequest/getPrDetails`;
+
+
   get data(): PurchaseRequest[] {
     return this.dataChange.value;
   }
@@ -39,10 +43,14 @@ export class PurchaseRequestService extends UnsubscribeOnDestroyAdapter{
   }
   /** CRUD METHODS */ 
   getAllList(): void {
-    this.subs.sink = this.httpService.get<PurchaseRequestResultBean>(this.getAllPurchase).subscribe(
+    const obj = {
+      companyId: this.tokenStorage.getCompanyId(),
+      branchId: this.tokenStorage.getBranchId(),
+    }
+    this.subs.sink = this.httpService.post<any>(this.getAllPurchase,obj).subscribe(
       (data) => {
         this.isTblLoading = false;
-        this.dataChange.next(data.purchaseRequestDetails);
+        this.dataChange.next(data.purchaseRequestList);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -50,49 +58,29 @@ export class PurchaseRequestService extends UnsubscribeOnDestroyAdapter{
       }
     );
   }
-  addPurchase(purchaseRequest: PurchaseRequest): void {
-    this.dialogData = purchaseRequest;
-    /*  this.httpClient.post(this.API_URL, employees).subscribe(data => {
-      this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
-    });*/
-    this.httpService.post<PurchaseRequest>(this.savePurchase, purchaseRequest).subscribe(data => {
-      console.log(data);
-      //this.dialogData = employees;
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
+
+
+  addPurchase(purchaseRequest: PurchaseRequest): Observable<any> {
+    return this.httpClient.post<PurchaseRequest>(this.savePurchase, purchaseRequest);
   }
-  UpdatePurchase(purchaseRequest: PurchaseRequest): void {
-    this.dialogData = purchaseRequest;
-    /* this.httpClient.put(this.API_URL + employees.id, employees).subscribe(data => {
-      this.dialogData = employees;
-    },
-    (err: HttpErrorResponse) => {
-      // error code here
-    }
-  );*/
-  this.httpService.post<PurchaseRequest>(this.updatePurchase, purchaseRequest).subscribe(data => {
-    console.log(data);
-    //this.dialogData = employees;
-    },
-    (err: HttpErrorResponse) => {
-      
-  });
+
+  editPurchase(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.editPurchaseRequest, obj);
   }
-  DeletePurchase(requisitionId:any): void {
-    this.httpService.get(this.deletePurchase+"?purchaseRequest="+requisitionId).subscribe(data => {
-    console.log(requisitionId);
-      // this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      // console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
+
+
+  UpdatePurchase(purchaseRequest: PurchaseRequest): Observable<any> {
+    return this.httpClient.post<PurchaseRequest>(this.updatePurchase, purchaseRequest);
   }
-  
+
+  DeletePurchase(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.deletePurchase, obj);
+  }
+
+
+
+  getPrDetails(obj: any): Observable<any> {
+    return this.httpClient.post<any>(this.getPurchaseRequestDetails, obj);
+  }
+
 }

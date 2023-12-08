@@ -11,6 +11,13 @@ export class PurchaseRequest {
     prReqNo: string;
     costCenter: string;
 
+    purchaseRequestId: number;
+    prNo: string;
+    requestTypeName: string;
+    vendorId: number;
+    vendorName: string;
+    remarks:any;
+
     constructor(purchaseRequest) {
       {
         this.id = purchaseRequest.id || this.getRandomID();

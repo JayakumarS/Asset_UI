@@ -18,6 +18,7 @@ import { UomCategoryService } from '../../uom-category/uom-category.service';
 import { Company } from 'src/app/master/company/company-model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUploadViewComponent } from '../add-upload-view/add-upload-view.component';
+import { PurchaseRequestService } from 'src/app/purchase/purchase-request/purchase-request.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -76,6 +77,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   countryList=[];
   cityList=[];
   submitted: boolean = false;
+  purchaseRequestList: [];
 
 
   private acceptFileTypes = ["application/pdf", "application/docx", "application/doc", "image/jpg", "image/png", "image/jpeg"]
@@ -96,6 +98,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     private snackBar: MatSnackBar,
     private serverUrl: serverLocations,
     public dialog: MatDialog,
+    private purchaseRequestService :PurchaseRequestService,
     ) {
 
     this.docForm = this.fb.group({
@@ -113,7 +116,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       destinationLocation: [""],
       termsConditions: [""],
       remarks: [""],
-
+      purchaseRequestNo:[""],
       //After detail row
       subTotal: [""],
       discount: [""],
@@ -167,6 +170,14 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
+    //category Type list
+    this.httpService.get<any>(this.commonService.getPurchaseRequestDropDown + "?companyId="+this.tokenStorage.getCompanyId()).subscribe({
+      next: (data) => {
+        this.purchaseRequestList = data;
+      },
+      error: (error) => {
+      }
+    });
 
 
     //Location Dropdown List
@@ -301,6 +312,80 @@ export class AddPurchaseOrderComponent implements OnInit {
     })
   }
 }
+
+
+getPrDetails(purchaseRequestNo :any){
+  const obj = {
+    editCode: purchaseRequestNo
+  }
+    this.purchaseRequestService.getPrDetails(obj).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        let hdate = this.commonService.getDateObj(res.purchaseRequest.requestDate);
+        this.fetchItem(this.companyId);
+        this.getPincodeDetails(res.purchaseRequest.vendorZip)
+       
+        this.docForm.patchValue({
+          'purchaseType': res.purchaseRequest.requestType,
+          'vendorId': res.purchaseRequest.vendorId,
+          'vendorAddress': res.purchaseRequest.vendorAddress,
+          'vendorCity': res.purchaseRequest.vendorCity,
+          'vendorState': res.purchaseRequest.vendorState,
+          'vendorCountry': res.purchaseRequest.vendorCountry,
+          'vendorDistrict':res.purchaseRequest.vendorDistrict,
+          'vendorZip': res.purchaseRequest.vendorZip,
+          'destinationLocation': res.purchaseRequest.destinationLocation,
+          'termsConditions': res.purchaseRequest.termsConditions,
+          'remarks': res.purchaseRequest.remarks,
+
+          //After detail row
+          'subTotal': Number(res.purchaseRequest.subTotal).toFixed(2),
+          'discountTot': Number(res.purchaseRequest.discountTot).toFixed(2),
+          'otherCharges': Number(res.purchaseRequest.otherCharges).toFixed(2),
+          'total': Number(res.purchaseRequest.total).toFixed(2), 
+        })
+
+        if (res.purchaseRequestDetailList != null && res.purchaseRequestDetailList.length >= 1) {
+          let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+          purchaseOrderDetailArray.removeAt(0);
+          res.purchaseRequestDetailList.forEach(element => {
+            let purchaseOrderDetailArray = this.docForm.controls.purchaseOrderDetail as FormArray;
+            let cdate = this.commonService.getDateObj(element.edd);
+            let cdateObj = element.edd;
+            if(element.edd==null){
+              cdate = "";
+              cdateObj = "";
+            }
+            let arraylen = purchaseOrderDetailArray.length;
+            let newUsergroup: FormGroup = this.fb.group({
+              purchaseRequestId: [element.purchaseRequestId],
+              itemId: [element.itemId]+"",
+              edd: [cdateObj],
+              eddObj: [cdate],
+              uomId: [element.uomId]+"",
+              qty: [element.qty],
+              unitPrice: [Number(element.unitPrice).toFixed(2)],
+              price: [Number(element.price).toFixed(2)],
+              discount: [Number(element.discount).toFixed(2)],
+              discountType: [element.discountType],
+              discountPercent: [Number(element.discountPercent).toFixed(2)],
+              netPrice: [Number(element.netPrice).toFixed(2)],
+              requisitionId: [element.requisitionId],
+            })
+            purchaseOrderDetailArray.insert(arraylen, newUsergroup);
+          });
+
+          console.log(this.docForm.value.discount)
+        }
+      },
+      error: (error) => {
+        this.spinner.hide();
+        // error code here
+      }
+    });
+  }
+
+
   onSubmit() {
     this.submitted = true;
     if (this.docForm.valid) {
@@ -373,11 +458,11 @@ export class AddPurchaseOrderComponent implements OnInit {
           'destinationLocation': res.purchaseOrder.destinationLocation,
           'termsConditions': res.purchaseOrder.termsConditions,
           'remarks': res.purchaseOrder.remarks,
-
+          'purchaseRequestNo':res.purchaseOrder.purchaseRequestNo,
           //After detail row
           'subTotal': Number(res.purchaseOrder.subTotal).toFixed(2),
           // 'discount': Number(res.purchaseOrder.discount).toFixed(2),
-          'discountTot': Number(res.purchaseOrder.discount).toFixed(2),
+          'discountTot': Number(res.purchaseOrder.discountTot).toFixed(2),
           'otherCharges': Number(res.purchaseOrder.otherCharges).toFixed(2),
           'total': Number(res.purchaseOrder.total).toFixed(2), 
           'lopUpload':  res.purchaseOrder.lopUpload

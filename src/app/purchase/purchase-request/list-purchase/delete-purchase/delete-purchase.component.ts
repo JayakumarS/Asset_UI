@@ -14,11 +14,12 @@ export class DeletePurchaseComponent  {
     public purchaseRequestService: PurchaseRequestService) { }
 
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close({ data: 'CANCEL' })
     }
-  confirmDelete(): void {
-    this.purchaseRequestService.DeletePurchase(this.data.requisitionId)
-  }
+    confirmDelete(): void {
+      this.dialogRef.close({ data: true })
+    }
+
 
   ngOnInit(): void {
   }

@@ -220,6 +220,11 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getFinancialDropDown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getFinancialDropDown`;
 
+  public getPurchaseRequestDropDown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getPurchaseRequestDropDown`;
+
+
+
+
   //FOR DOCUMENT VIEW ADDED BY Gokul
   viewDocument(filePath: any): Observable<Blob> {
     var authorization = 'Bearer ' + sessionStorage.getItem("access_token");
