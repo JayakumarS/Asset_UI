@@ -270,13 +270,14 @@
                   </div>
                   <div class="row">
                     <div class="col-md-2" style="margin-top: 2%;">
-                      <mat-label>UPLOAD FILE <span class="errorColor">*</span>
+                      <mat-label>UPLOAD FILE
                       </mat-label>
                     </div>
                     <div class="col-md-4">
-                      <app-file-upload tabindex="23" class="example-width form-control-sm" formControlName="uploadFiles" (change)="onSelectFile($event)" required></app-file-upload>
-                      <mat-error style="margin-top: -20px;" *ngIf="docForm.get('uploadFiles').hasError('required') && submitted ">Upload files is required </mat-error>
+                      <app-file-upload tabindex="23" class="example-width form-control-sm" formControlName="uploadFiles" (change)="onSelectFile($event)"></app-file-upload>
                     </div>
+
+
                     <div class="col-md-2" *ngIf="!grnBasedMutipleAssetFlag && !edit" style="margin-top: 2%;">
                       <mat-label style="margin-left: 30%;">QUANTITY <span class="errorColor">*</span>
                       </mat-label>
@@ -463,7 +464,7 @@
                                 </mat-form-field>
                               </td>
                               <td colspan="7" class="padding-both-side-2">
-                                <app-file-upload tabindex="63" appearance="outline" name="uploadImg{{i}}" (change)="onSelectImage($event,i,'ArrayAssetImg')"></app-file-upload>
+                                <app-file-upload tabindex="63" appearance="outline" name="uploadImg{{i}}" (change)="onSelectImage($event,i,'ArrayAssetImg')"> </app-file-upload>
                                 <span *ngIf="edit && (imgPathUrl != undefined && imgPathUrl != null && imgPathUrl != '')">
                                   <i class="far fa-file-alt docIcons"></i>{{imgPathUrl?.split('/').pop()}}
                                 <a class="downloadView" (click)="viewDocuments(imgPathUrl, imgPathUrl?.split('/').pop())">

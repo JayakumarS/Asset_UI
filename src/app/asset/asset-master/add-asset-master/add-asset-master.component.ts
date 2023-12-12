@@ -156,7 +156,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       otherTaxes: [""],
       transport: [""],
       instalAndCommission: [""],
-      uploadFiles: ["", [Validators.required]],
+      uploadFiles: [""],
       //tab2
       vendor: [""],
       poNumber: [""],
@@ -1171,7 +1171,7 @@ export class AddAssetMasterComponent extends UnsubscribeOnDestroyAdapter impleme
       otherTaxes: [""],
       transport: [""],
       instalAndCommission: [""],
-      uploadFiles: ["", [Validators.required]],
+      uploadFiles: [""],
       //tab2
       vendor: [""],
       poNumber: [""],
