@@ -122,7 +122,8 @@ export class AddUserMasterComponent implements OnInit {
 
       this.fieldsChange(false);
     }
-   
+
+    this.fetchBranchDetails(this.tokenStorage.getCompanyId()) ;
     // User Location dropdown
     this.httpService.get<any>(this.commonService.getuserlocation).subscribe({
       next: (data) => {

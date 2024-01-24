@@ -40,7 +40,7 @@ export class AddDesingnationMasterComponent implements OnInit {
 
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-
+      empid:[""],
       fullName: ["", [Validators.required]],
       emailId: ["", [Validators.required]],
       contactNumber:["", [Validators.required]],
@@ -253,6 +253,7 @@ this.httpService.get<any>(this.designationMasterService.getEmailDropdown).subscr
   fetchAuditorDetails(emailId: any) {
     this.httpService.get(this.designationMasterService.fetchAuditorDetails + "?emailId=" + emailId).subscribe((res: any) => {
       this.docForm.patchValue({
+        'empid':res.auditorDetailsList[0].empid,
         'fullName':res.auditorDetailsList[0].fullName,
         'contactNumber':res.auditorDetailsList[0].contactNumber,
         'address':res.auditorDetailsList[0].address,

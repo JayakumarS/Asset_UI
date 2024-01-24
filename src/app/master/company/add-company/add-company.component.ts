@@ -744,7 +744,6 @@ export class AddCompanyComponent implements OnInit {
               branchCity: [element.branchCity],
               branchZipcode: [element.branchZipcode],
               branchPhoneNo: [element.branchPhoneNo],
-              gstFlag: element.branchCode != null ? false : true,
               branchDistrict: [element.branchDistrict]
             })
             BranchListDtlArray.insert(arraylen, newUsergroup);
