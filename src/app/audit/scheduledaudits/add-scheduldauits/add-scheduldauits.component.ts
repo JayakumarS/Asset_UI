@@ -125,8 +125,7 @@ export class AddScheduldauitsComponent implements OnInit {
     error: (error) => {
 
     }
-  }
-  );
+  });
 }
 
 dropDownList(){
@@ -232,6 +231,9 @@ dropDownList(){
         error: (error) => {
         }
       });
+
+     
+
         if (res?.scheduleAuditDetailList != null && res?.scheduleAuditDetailList.length >= 1) {
           let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
           scheduleAuditDetailArray.removeAt(0);
