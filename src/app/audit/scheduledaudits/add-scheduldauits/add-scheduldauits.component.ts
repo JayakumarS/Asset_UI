@@ -225,6 +225,13 @@ dropDownList(){
             'manageAuditNo': res?.scheduleAudit?.manageAuditNo,
           })
         }
+        this.httpService.get<any>(this.commonService.getassetnameAudit+"?companyId="+res?.scheduleAudit?.companyId).subscribe({
+          next: (data) => {
+          this.assetDropdownList = data;
+        },
+        error: (error) => {
+        }
+      });
         if (res?.scheduleAuditDetailList != null && res?.scheduleAuditDetailList.length >= 1) {
           let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
           scheduleAuditDetailArray.removeAt(0);
