@@ -342,8 +342,34 @@ dropDownList(){
   removeRow(index){
     let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
     scheduleAuditDetailArray.removeAt(index);
+
   }
   
+  validateAssetName(index){
+    let scheduleAuditDetailArray = this.docForm.controls.scheduleAuditDetail as FormArray;
+    let val=scheduleAuditDetailArray.at(index).get('assetId').value;
+   
+    for(let i=0; i<scheduleAuditDetailArray.length-1; i++){ 
+      
+      console.log(this.docForm['controls']['scheduleAuditDetail']['controls'][i].value["assetId"]);
+      
+      if(this.docForm['controls']['scheduleAuditDetail']['controls'][i].value["assetId"]==val){
+        this.showNotification(
+          "snackbar-danger",
+          "Asset already Exists!",
+          "top",
+          "right"
+        );
+        scheduleAuditDetailArray.at(index).patchValue({
+          assetId:""
+        });
+      }
+    }  
+    
+        
+  }
+
+
 }
 
 
