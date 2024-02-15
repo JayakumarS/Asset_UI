@@ -163,7 +163,7 @@ export class AddTransferComponent implements OnInit {
       this.requisitionListNew = data5.assetRequisitionDetails;
      for(let k=0;k<this.requisitionListNew.length;k++){
       if(this.edit==false) {
-     if(this.requisitionListNew[k].expiryStatus!='Expired'){
+     if(this.requisitionListNew[k].expiryStatus!='Expired' && this.requisitionListNew[k].expiryStatus!='Received'){
       this.requisitionAll.push(this.requisitionListNew[k]);
       }
     } else {
@@ -208,7 +208,8 @@ export class AddTransferComponent implements OnInit {
   //   }
   // );
 
-  
+  this.userName=this.tokenStorage.getUsername();
+console.log(this.userName)
 //Company List
   this.httpService.get<any>(this.commonService.getUserBasedCompanyDropdown + "?userId=" + this.tokenStorage.getUsername()).subscribe({
     next: (data) => {
@@ -241,7 +242,8 @@ export class AddTransferComponent implements OnInit {
           'requisitionNo':res.transferBean.requisitionNo,
           'transportationType':res.transferBean.transportationType,
           'deliveryMethod':res.transferBean.deliveryMethod,
-          'transferQuantity':res.transferBean.transferQuantity
+          'transferQuantity':res.transferBean.transferQuantity,
+          'hospital':Number(res.transferBean.companyName)
         });
         this.getRequestDetails(res.transferBean.requisitionNo);
       },
@@ -367,13 +369,13 @@ export class AddTransferComponent implements OnInit {
 
       this.httpService.get<any>(this.transferAssetService.checkRequestValidity + "?request=" + data).subscribe(
         (data6) => {
-if(data6.count==0 || this.edit==true){
+      if(data6.count==0 || this.edit==true){
           this.httpService.get<any>(this.transferAssetService.getRequestDetails + "?requestId=" + data+"&companyId="+this.companyId).subscribe(
             (data5) => {
               console.log(data5);
               this.docForm.patchValue({
                 'requisitionDate':data5.transferBean.requisitionDate,
-                'requestedBy':data5.transferBean.requestedBy,
+                // 'requestedBy':data5.transferBean.requestedBy,
                 'sourceLocation':data5.transferBean.sourceLocation,
                 'destinationLocation':data5.transferBean.destinationLocation,
                 'itemName':data5.transferBean.itemName,

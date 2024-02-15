@@ -18,6 +18,7 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
     []
   );
   companyId: string;
+  userName: any;
  
 
   constructor(private httpClient: HttpClient, private serverUrl: serverLocations,private token: TokenStorageService, private httpService: HttpServiceService) {
@@ -25,6 +26,8 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
   }
   
   public listUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/list`;
+  public lisRoleUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/rolelist`;
+
   public saveUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/save`;
   public editUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/edit`;
   public updateUrl = `${this.serverUrl.apiServerAddress}app/asset/assetRequisition/update`;
@@ -43,6 +46,19 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
   getAllList(){
     console.log();
     this.companyId=this.token.getCompanyId();
+    if(this.token.getRoleId()=='9'){
+      this.userName=this.token.getUserId();
+      this.subs.sink = this.httpService.get<any>(this.lisRoleUrl + "?companyId=" + this.companyId + "&userName=" + this.userName).subscribe(
+        (data) => {
+          this.isTblLoading = false;
+          this.dataChange.next(data.assetRequisitionDetails);
+        },
+        (error: HttpErrorResponse) => {
+          this.isTblLoading = false;
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }else{
     this.subs.sink = this.httpService.get<any>(this.listUrl+"?companyId="+this.companyId).subscribe(
       (data) => {
         this.isTblLoading = false;
@@ -53,7 +69,7 @@ export class AssetRequisitionService extends UnsubscribeOnDestroyAdapter{
         console.log(error.name + " " + error.message);
       }
     );
-
+    }
   }
 
   save(assetRequisition:AssetRequisition,router,notificationService): void {

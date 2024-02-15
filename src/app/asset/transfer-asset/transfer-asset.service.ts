@@ -20,6 +20,8 @@ export class TransferAssetService extends UnsubscribeOnDestroyAdapter {
   dialogData:any;
   getAllcodeList: any;
   companyId: string;
+  roleId: string;
+  userName: any;
   constructor(private httpClient: HttpClient, private serverUrl:serverLocations,private token: TokenStorageService, private httpService:HttpServiceService) { 
   super();
 
@@ -61,7 +63,12 @@ export class TransferAssetService extends UnsubscribeOnDestroyAdapter {
 
 getAllListNew(): void {
   this.companyId=this.token.getCompanyId();
-  this.subs.sink = this.httpService.get<transferResultBean>(this.getAlltransferNew+"?companyId="+this.companyId).subscribe(
+  this.roleId=this.token.getRoleId();
+  this.userName=this.token.getUsername();
+
+  console.log(this.companyId,this.roleId,this.userName)
+  // this.subs.sink = this.httpService.get<transferResultBean>(this.getAlltransferNew+"?companyId="+this.companyId+"&roleId="+this.roleId+"&userName="+this.userName).subscribe(
+    this.subs.sink = this.httpService.get<transferResultBean>(this.getAlltransferNew + "?companyId=" + this.companyId + "&roleId=" + this.roleId + "&userName=" + this.userName).subscribe(  
     (data) => {
       this.isTblLoading = false;
       this.dataChange.next(data.transferDetails);

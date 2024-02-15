@@ -67,7 +67,7 @@ export class AddAssetRequisitionComponent implements OnInit {
   constructor(private fb: FormBuilder,
     public assetRequisitionService:AssetRequisitionService,
     private httpService: HttpServiceService,
-    private snackBar:MatSnackBar,
+    private snackBar:MatSnackBar,    private tokenStorage: TokenStorageService,
     private router:Router,private cmnService:CommonService,
     private commonService: CommonService,
     private notificationService: NotificationService,
@@ -152,10 +152,26 @@ export class AddAssetRequisitionComponent implements OnInit {
     }
   );
 
+ 
 
+  if(this.tokenStorage.getRoleId()=='9'){
+    console.log(this.tokenStorage.getRoleId())
+    this.companyId= this.tokenStorage.getCompanyId();
+    this.httpService.get<any>(this.commonService.getEmployeebyCompany+"?userId="+this.userId).subscribe(
+      (data) => {
+        console.log(data);
+        this.locationDdList = data.addressBean;
+        this.locationDdList[0].stateName = data.addressBean[0].name;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+  }else{
   this.httpService.get(this.commonService.getcompanybaseduser + "?company=" + this.companyId).subscribe((res: any) => {
     this.locationDdList = res.addressBean;
   });
+}
   //Employee dropdown
   // this.httpService.get<any>(this.commonService.getEmployeeDropdown).subscribe(
   //   (data) => {
@@ -207,7 +223,7 @@ export class AddAssetRequisitionComponent implements OnInit {
 
    }
   });
-
+  
 }
 
 

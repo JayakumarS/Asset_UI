@@ -60,6 +60,8 @@ import { MutualFundService } from "src/app/master/mutualfund/mutualfund.service"
 import { NotificationPopupComponent } from "./notification-popup/notification-popup.component";
 import { SubscriptionAlertComponent } from "./subscription-alert/subscription-alert.component";
 import { CompanyService } from "src/app/master/company/company.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AssetRequisitionService } from "src/app/asset/asset-requisition/asset-requisition.service";
 HC_drilldown(Highcharts);
 
 
@@ -220,11 +222,16 @@ configUserLog: {
   trialUser: string;
   userId: string;
   indAssetsCount: any;
+
+  requisitionList=[];
+  requisitionListNew=[];
+
+
   // badchartOptions: { series: number[]; chart: { height: number; type: string; }; plotOptions: { radialBar: { hollow: { size: string; }; }; }; labels: string[]; };
 
   constructor(private httpService:HttpServiceService,private mainService:MainService,private fb: FormBuilder,private commonService:CommonService,
-    public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
-    private mutualFundService: MutualFundService, public companyService: CompanyService) 
+    private snackBar:MatSnackBar,public auditableAssetService:AuditableAssetService,public dialog: MatDialog,private tokenStorage: TokenStorageService,public router: Router,
+    private mutualFundService: MutualFundService, public companyService: CompanyService,private assetRequisitionService :AssetRequisitionService,) 
     {
       
     
@@ -275,10 +282,27 @@ this.trialOver = true
       // }
 
 
-
+ if(this.roleId !=9){
+  this.httpService.get<any>(this.assetRequisitionService.listUrl+"?companyId="+this.tokenStorage.getCompanyId()).subscribe(
+    (data5) => {
+      this.requisitionListNew = data5.assetRequisitionDetails;
+     for(let k=0;k<this.requisitionListNew.length;k++){
+     if(this.requisitionListNew[k].expiryStatus!='Expired' && this.requisitionListNew[k].expiryStatus!='Received'){
+      this.showNotification(
+        "snackbar-success",
+        "You've received a new request for assets!",
+        "top",
+        "right"
+      );
+    }
    
-    
-
+     }
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
+ }
      
     this.docForm = this.fb.group({
       assetid:[""]
@@ -478,7 +502,14 @@ this.trialOver = true
     // this.fetchAssetName(16);
     // this.popUp();
    }
-
+   showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
   companyBasedCount(companyId,roleId:any){
     this.httpService.get<MainResultBean>(this.mainService.companyAuditorsCountUrl + "?auditors=" + companyId +"&roleId="+roleId).subscribe((doughnutChartData: any) => {
       console.log(this.companyId);

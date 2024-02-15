@@ -261,7 +261,10 @@ text='';
                   
                   
                   }
-                
+                  else if(data.userDetails.roleId == 9){
+                    /******************* Company Employee *********************** */
+                    this.router.navigate(["/asset/assetRequisition/listAssetRequisition"]);
+                  }
                 else if(data.userDetails.roleId == 4){
                   this.router.navigate(["/asset/assetMaster/listAssetMaster"]);
                 }

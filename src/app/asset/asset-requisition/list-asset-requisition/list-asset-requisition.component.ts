@@ -125,7 +125,9 @@ export class ListAssetRequisitionComponent  extends UnsubscribeOnDestroyAdapter 
 
   editCall(row) {
     if (this.permissionList?.modify){
-    this.router.navigate(['/asset/assetRequisition/addAssetRequisition/' + row.assetRequisitionId + '/' + row.requisitionType]);
+      this.router.navigate(['/asset/assetRequisition/addAssetRequisition', row.assetRequisitionId, row.requisitionType]);
+
+    // this.router.navigate(['/asset/assetRequisition/addAssetRequisition/' + row.assetRequisitionId + '/' + row.requisitionType]);
   }
 }
 

@@ -37,6 +37,8 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
   exporter: any;
   id: number;
   tid:number;
+  roleId: any;
+  addFlag: boolean;
   
 
   constructor(
@@ -61,6 +63,16 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
   ngOnInit(): void {
     var id=this.token.getUserId();
     this.loadData();
+
+
+    this.roleId=this.token.getRoleId();
+    if(this.roleId==9){
+      this.addFlag =true;
+    }else{
+      this.addFlag=false;
+    }
+
+    
   }
  
 
