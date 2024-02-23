@@ -8,7 +8,7 @@ import {
   trigger,
 } from "@angular/animations";
 import { SelectionModel } from "@angular/cdk/collections";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import {
   ChangeDetectorRef,
   Component,
@@ -51,6 +51,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
     ]),
   ],
 })
+
 export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   docForm: FormGroup;
   companyId: any;
@@ -78,7 +79,14 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
   expandedElement: User | null;
   expandedSubElement: Address | null;
   total: any;
-
+  grnDetailTable: boolean;
+  config: {
+    id : string,
+    itemsPerPage: number,
+    currentPage: number,
+    totalItems: number
+  };
+  grnDetailsList: any;
 
 
   constructor(
@@ -103,6 +111,7 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
       item: [""],
       category: [""],
       totalQty:[""],
+      grnCheckBox:[""],
       companyId: parseInt(this.tokenStorage.getCompanyId()),
     });
   }
@@ -133,6 +142,32 @@ export class ListInventoryReportsComponent extends UnsubscribeOnDestroyAdapter i
     }
     );
 
+  }
+
+  pageChanged(event){
+    this.config.currentPage = event;
+  }
+
+ getGrnDetailList(){
+  this.inventoryReport = this.docForm.value;
+  this.inventoryReportService.getGrnReport(this.inventoryReport).subscribe({next: (res: any) => {
+    this.grnDetailsList = res.grnDetailsList;
+    }
+  }
+
+  );
+
+ 
+ }
+
+  fieldsChange(values:any):void {
+    if(values==true){ 
+      this.grnDetailTable=true;
+      this.getGrnDetailList();
+    }else{
+      this.grnDetailTable=false;
+    }
+  
   }
 
   viewReport() {

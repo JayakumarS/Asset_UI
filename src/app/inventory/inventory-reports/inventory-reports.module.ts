@@ -47,6 +47,7 @@ import { InventoryReportsRoutingModule } from './inventory-reports-routing.modul
 import { ListInventoryReportsComponent } from './list-inventory-reports/list-inventory-reports.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from "src/app/shared/components/components.module";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -103,6 +104,7 @@ import { ComponentsModule } from "src/app/shared/components/components.module";
     MatTreeModule,
     PortalModule,
     ScrollingModule,
+    NgxPaginationModule,
   ]
 })
 export class InventoryReportsModule { }

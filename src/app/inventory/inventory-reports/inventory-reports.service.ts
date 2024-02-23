@@ -21,8 +21,8 @@ export class InventoryReportsService extends UnsubscribeOnDestroyAdapter {
   
   public getInventoryReports = `${this.serverUrl.apiServerAddress}app/inventoryReports/getInventoryReports`;
   public getInventoryReportsExcelExport = `${this.serverUrl.apiServerAddress}app/inventoryReports/getInventoryReportExcelExport`;
+  public grnDetailsList = `${this.serverUrl.apiServerAddress}app/inventoryReports/grnDetailsList`;
 
-  
   get data(): InventoryReports[] {
     return this.dataChange.value;
   }
@@ -34,5 +34,12 @@ export class InventoryReportsService extends UnsubscribeOnDestroyAdapter {
   getInventoryReportExcelExport(inventoryReport: any): Observable<any> {
     return this.httpClient.post<any>(this.getInventoryReportsExcelExport, inventoryReport);
   }
+
+
+
+  getGrnReport(inventoryReport: any): Observable<any> {
+    return this.httpClient.post<any>(this.grnDetailsList, inventoryReport);
+  }
+
 
 }

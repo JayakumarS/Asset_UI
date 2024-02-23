@@ -142,9 +142,10 @@ export class AddDepartmentMasterComponent implements OnInit {
   this.httpService.get<any>(this.departmentMasterService.branchList + "?companyId=" + this.companyId).subscribe(
     (data) => {
       this.getBranchList = data.getBranchList;
-      this.docForm.patchValue({
-        'branchname':this.tokenStorage.getBranchId(),
-     })
+      
+    //   this.docForm.patchValue({
+    //     'branchname':this.tokenStorage.getBranchId(),
+    //  })
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
