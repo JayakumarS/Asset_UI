@@ -370,8 +370,7 @@
                       || docForm.get('departmentCheckBox')?.value || docForm.get('invoiceNoCheckBox')?.value
                       || docForm.get('invoiceDateCheckBox')?.value || docForm.get('capitalizationDateCheckBox')?.value
                       || docForm.get('businessAreaCheckBox')?.value || docForm.get('vendorCheckBox')?.value
-                      || docForm.get('costCheckBox')?.value || docForm.get('sapCodeCheckBox')?.value
-                        " 
+                      || docForm.get('costCheckBox')?.value || docForm.get('sapCodeCheckBox')?.value" 
                       mat-raised-button>Export To Excel</button>
                     </div>
                   </div>
@@ -382,19 +381,21 @@
                       <table class="table table-hover table-striped" style="width: 130%;">
                         <thead>
                           <tr>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Asset Name</th>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Asset Id</th>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Location</th>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Category Name</th>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Status</th>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Brand</th>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Invoice No</th>
-                            <th style="background-color:#607D8B; width: 5%;color:#FFFFFF">Purchase Price</th>
-                            <th style="background-color:#607D8B; width: 5%;color:#FFFFFF">Captitalization Price</th>
-                            <th style="background-color:#607D8B; width: 5%;color:#FFFFFF">End Life</th>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Put Use Date</th>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Asset User</th>
-                            <th style="background-color:#607D8B; width: 10%;color:#FFFFFF">Total Hours Usage</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Asset Name</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Asset Id</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Location</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Category Name</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Status</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Brand</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Invoice No</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Purchase Price</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Captitalization Price</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Current  Value</th>
+
+                            <th style="background-color:#607D8B; color:#FFFFFF">End Life</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Put Use Date</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Asset User</th>
+                            <th style="background-color:#607D8B; color:#FFFFFF">Total Hours Usage</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -408,6 +409,7 @@
                             <td>{{data.invoiceNo}}</td>
                             <td>{{data.purchasePrice}}</td>
                             <td>{{data.captitalizationPrice}}</td>
+                            <td>{{data.currentValue}}</td>
                             <td>{{data.endLife}}</td>
                             <td>{{data.putUseDate}}</td>
                             <td>{{data.assetUser}}</td>
@@ -419,6 +421,16 @@
                         <pagination-controls (pageChange)="pageChanged=($event)"></pagination-controls>
                       </div>
                     </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class=" col-md-8"></div>
+                    <div class=" col-md-2">
+                      <label>TOTAL CURRENT VALUE :</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                      {{totalCurrentValue}}
+                    </div> 
                   </div>
               </form>
             </div>

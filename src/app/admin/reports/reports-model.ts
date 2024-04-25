@@ -28,12 +28,15 @@ export class Reportscategory{
   departments:string;
   allotted_upto:string;
   transferred_to:string;
-
+  item:any;
+  item_name:string;
     constructor(reportscategory) {
         {
           this.getRandomID();
+          this.item = reportscategory.item || "";
           this.category = reportscategory.category || "";
-
+          
+          this.item_name = reportscategory.item_name || "";
           this.categoryName = reportscategory.categoryName || "";
           this.status = reportscategory.status || "";
           this.asset = reportscategory.asset || "";

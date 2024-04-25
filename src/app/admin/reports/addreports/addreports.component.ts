@@ -19,6 +19,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { MatPaginator } from '@angular/material/paginator';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { AddreportItemComponent } from './addreport-item/addreport-item.component';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class AddreportsComponent extends  UnsubscribeOnDestroyAdapter implements
   ];
   docForm: FormGroup;
   tabEdu = [{ content: AddreportLocationComponent }];
+  tabItem = [{ content: AddreportItemComponent }];
     statusList: [];
     categoryList: [];
     assetList: [];

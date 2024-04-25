@@ -37,6 +37,7 @@ import { NgxPaginationModule } from 'ngx-pagination'
 import { ListAuditLogComponent } from './audit-log/list-audit-log/list-audit-log.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { IndividualInformationComponent } from 'src/app/master/widget/individual-information/individual-information.component';
+import { AddreportItemComponent } from './addreports/addreport-item/addreport-item.component';
 // import { VehicleReportComponent } from './vehicle-report/vehicle-report.component';
 
 @NgModule({
@@ -50,8 +51,8 @@ import { IndividualInformationComponent } from 'src/app/master/widget/individual
     AddreportLocationComponent,
     ListAssetHistoryReportComponent,
     ListAuditLogComponent,
+    AddreportItemComponent,
     // VehicleReportComponent,
-    
 
   ],
   imports: [

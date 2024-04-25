@@ -59,6 +59,7 @@ export class ListAssetHistoryReportComponent implements OnInit {
     currentPage: number,
     totalItems: number
   };
+  totalCurrentValue: any;
 
   constructor(private fb: FormBuilder,
     private httpService: HttpServiceService,
@@ -239,6 +240,8 @@ export class ListAssetHistoryReportComponent implements OnInit {
         if(data.getAssetHistoryList!=null){
           if(data.getAssetHistoryList.length!=0){
             this.assetHistoryList = data.getAssetHistoryList;
+
+            this.totalCurrentValue=this.assetHistoryList[0].totalCurrentValue.toFixed(2);
           }else{
             this.assetHistoryList = data.getAssetHistoryList;
             this.notificationservice.showNotification(

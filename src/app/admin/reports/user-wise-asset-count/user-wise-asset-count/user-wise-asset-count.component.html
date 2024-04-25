@@ -1,0 +1,102 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" style="padding: 0.5% !important;">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'User Wise Asset Count'" [items]="['Reports']"
+                [active_item]="'User Wise Asset Count List'">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="box-shadow">
+                    <div class="card">
+                        <div class="body" style="padding-left: 1%;">
+                            <form class="m-4" [formGroup]="docForm">
+
+
+                                <div class="row" style="padding-left: 10%;">
+                                    <div class=" col-md-1">
+                                        <label style="margin-top: 11px;">USER</label>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 ">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <mat-select formControlName="user">
+                                                <mat-option *ngFor="let title of assetUserList" [value]="title.id">
+                                                  {{title.text}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+                                        <button class="btn-space" mat-raised-button  (click)="loadData()"
+                                          color="accent" style="margin-left: 43%;background-color: #34d034;">Search</button>
+                                      </div>
+
+                                </div>
+
+
+                                <br>
+                                <br>
+                            <mat-table #table matTableExporter    [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
+                               
+                                <ng-container matColumnDef="assetCode">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Code</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                        {{row.assetCode}}</mat-cell>
+                              </ng-container>
+
+                                <ng-container matColumnDef="assetName">
+                                      <mat-header-cell *matHeaderCellDef mat-sort-header>Asset Name </mat-header-cell>
+                                      <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                          {{row.assetName}}</mat-cell>
+                                </ng-container>
+                                  
+                                
+                                <ng-container matColumnDef="location">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                        {{row.location}}</mat-cell>
+                              </ng-container>
+                                  
+                              <ng-container matColumnDef="categoryName">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+                                <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                    {{row.categoryName}}</mat-cell>
+                          </ng-container>
+
+                            <ng-container matColumnDef="statusName">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                                {{row.statusName}}</mat-cell>
+                      </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                                                [style.cursor]="'pointer'" matRipple>
+                                    </mat-row>
+                                </mat-table>
+
+                                     <!-- Loading spinner -->
+                                     <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                                      <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                                      </mat-progress-spinner>
+                                    </div>
+                                  
+                                    <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                                    [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                                    No results
+                                  </div>
+                                  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                                    [pageSizeOptions]="[5, 10, 25, 100]">
+                                  </mat-paginator>
+
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

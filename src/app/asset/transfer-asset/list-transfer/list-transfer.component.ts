@@ -15,16 +15,48 @@ import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroy
 import { TransferAssetService } from '../transfer-asset.service';
 import { TransferBean } from '../transfer-model';
 import { DeleteTransferComponent } from './delete-transfer/delete-transfer.component';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import { CommonService } from 'src/app/common-service/common.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
+
+
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
+
 
 @Component({
   selector: 'app-list-transfer',
   templateUrl: './list-transfer.component.html',
-  styleUrls: ['./list-transfer.component.sass']
+  styleUrls: ['./list-transfer.component.sass'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: MAT_DATE_FORMATS, useValue: {
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMMM YYYY'
+        },
+      }
+    }, CommonService
+  ]
 })
 export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     
     "statusName",
+    "asset_name",
     "sourceLocation",
     "destinationLocation",
     "transferDate",
@@ -48,8 +80,8 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
-    private token: TokenStorageService,
-    public router:Router
+    private token: TokenStorageService,private fb :FormBuilder,
+    public router:Router,private commonService:CommonService
   ) {
     super();
   }
@@ -59,9 +91,18 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
   @ViewChild(MatMenuTrigger)
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
-
+  docForm:FormGroup
   ngOnInit(): void {
     var id=this.token.getUserId();
+
+    this.docForm = this.fb.group({
+      fromDate: [""],
+      fromDateObj: ["",[Validators.required]],  
+      toDate: [""],
+      toDateObj: ["",[Validators.required]], 
+    });
+
+
     this.loadData();
 
 
@@ -73,7 +114,9 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
     }
 
     
-  }
+   
+    
+    }
  
 
   public loadData() {
@@ -81,7 +124,8 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort
+      this.sort,
+      this.docForm
     );
     this.subs.sink = fromEvent(this.filter.nativeElement, "keyup").subscribe(
       () => {
@@ -155,7 +199,14 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
 
   }
 
-  
+  getDateString(event, inputFlag, index) {
+    let cdate = this.commonService.getDate(event.target.value);
+    if (inputFlag == 'fromDate') {
+      this.docForm.patchValue({ fromDate: cdate });
+    }else if(inputFlag =='toDate'){
+      this.docForm.patchValue({ toDate: cdate });
+    }
+  }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
@@ -175,6 +226,19 @@ export class ListTransferComponent extends UnsubscribeOnDestroyAdapter implement
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
   }
+
+  getSearch(){
+    if(this.docForm.valid){
+    this.loadData();
+  }else{
+    this.showNotification(
+      "snackbar-danger",
+      "Please Fill From Date and To Date",
+      "bottom",
+      "center"
+    );
+  }
+}
 }
 
 export class ExampleDataSource extends DataSource<TransferBean> {
@@ -190,7 +254,8 @@ export class ExampleDataSource extends DataSource<TransferBean> {
   constructor(
     public exampleDatabase: TransferAssetService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    public docForm: FormGroup
   ) {
     super();
     // Reset to the first page when the user changes the filter.
@@ -205,7 +270,7 @@ export class ExampleDataSource extends DataSource<TransferBean> {
       this.filterChange,
       this.paginator.page,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     ];
-    this.exampleDatabase.getAllListNew();
+    this.exampleDatabase.getAllListNew(this.docForm.value);
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

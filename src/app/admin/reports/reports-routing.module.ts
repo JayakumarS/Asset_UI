@@ -92,7 +92,12 @@ const routes: Routes = [
   import("./property-report/property-report.module").then((m)=>m.PropertyReportModule)
 
 },
+{
+  path: "userWiseAssetCount",
+  loadChildren: () =>
+  import("./user-wise-asset-count/user-wise-asset-count.module").then((m)=>m.UserWiseAssetCountModule)
 
+},
 ];
 
 @NgModule({

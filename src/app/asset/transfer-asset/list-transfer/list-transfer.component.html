@@ -10,10 +10,12 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
             <div class="body">
+              <form class="m-4" [formGroup]="docForm">
               <div class="table-responsive">
                 <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
                   <div class="row">
-                    <div class="col-8">
+                    
+                    <div class="col-11">
                       <ul class="header-buttons-left ms-0">
                         <li class="dropdown m-l-20 ">
                           <h2>Transfer</h2>
@@ -29,10 +31,41 @@
                               <i class="fas fa-plus-circle" style="font-size: 20px;color: bisque;"></i> Create New
                             </button>
                           </div>
+                         </li>
+                        <li>
+                          <div>
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>From Date</mat-label>
+                              <input matInput [matDatepicker]="picker" formControlName="fromDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')" id="fromDate"
+                               (dateChange)="getDateString($event, 'fromDate',0)" readonly required>
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            </div>
                         </li>
+                        <li>
+                          <div>
+                            <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                              <mat-label>To Date</mat-label>
+                              <input matInput [matDatepicker]="picker1" formControlName="toDateObj" (dateInput)="$event.value.format('DD/MM/YYYY')" id="toDate"
+                               (dateChange)="getDateString($event, 'toDate',0)" readonly required>
+                              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                              <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                            </div>
+                        </li>
+
+                        <li>
+                          <div class="m-l-10">
+                            <button color="primary" type="button" class="btn-space"  
+                            style="background-color: #34d034;" (click)="getSearch()"
+                            mat-raised-button> Search
+                            </button>
+                          </div>
+                         </li>
                       </ul>
                     </div>
-                    <div class="col-4">
+                    <div class="col-1">
                       <ul class="header-buttons">
                         <li>
                           <div class="export-button m-l-10" matTooltip="XLSX">
@@ -42,6 +75,7 @@
                         </li>                  
                       </ul>
                     </div>
+             
                   </div>
                     </div>
                     <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
@@ -50,6 +84,13 @@
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Status</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.statusName}}</mat-cell>
                     </ng-container>
+
+                    <ng-container matColumnDef="asset_name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Asset Name</mat-header-cell>
+                      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.asset_name}}</mat-cell>
+                    </ng-container>
+
+
                     <ng-container matColumnDef="sourceLocation">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Source Location</mat-header-cell>
                       <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.sourceLocation}}</mat-cell>
@@ -146,6 +187,7 @@
                     [pageSizeOptions]="[5, 10, 25, 100]">
                   </mat-paginator> 
                 </div>
+              </form>
             </div>
           </div>
         </div>

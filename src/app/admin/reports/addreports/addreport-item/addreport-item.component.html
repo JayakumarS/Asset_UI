@@ -1,0 +1,136 @@
+   
+        <form class="m-4" [formGroup]="docForm">
+            <div class="rowtab" >
+           <div class="row">
+    
+    <div class="col-xl-3 col-lg- col-md-12 col-sm-12" style="margin-left: 5px;">
+    <label>ASSET ITEM</label>
+    </div>
+    <div class="col-md-2 " style="margin-left: 5px;">
+      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+        <mat-select formControlName="item" required>
+      <mat-option *ngFor="let title of itemList" [value]="title.id">
+        {{title.text}}
+      </mat-option>
+    </mat-select>
+    
+    </mat-form-field>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12" style="margin-top: 6px;">
+      <button  color="primary" type="button" class="btn-space" style="background-color: green;" (click)="Search()"
+        mat-raised-button>Search</button>
+        <button  color="primary" type="button" class="btn-space" (click)="onReset()"
+        mat-raised-button>Reset</button>
+    </div>
+    </div>
+    </div>
+    </form>
+    
+    <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
+      <div class="row">
+        <div class="col-8">
+          <ul class="header-buttons-left ms-0">
+            <li class="dropdown m-l-20 ">
+              <h2>Item Report</h2>
+            </li>
+            <li  class="dropdown m-l-20">
+              <label for="search-input"><i class="material-icons search-icon">search</i></label>
+              <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                aria-label="Search box">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <mat-table #table matTableExporter [dataSource]="dataSource" matSort matSortDisableClear class="mat-cell" #exporter="matTableExporter" [hiddenColumns]="[8]">
+    
+      <ng-container matColumnDef="item_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Item Name</mat-header-cell>
+        <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+            {{row.item_name}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="damage">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Damage</mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+          {{row.damage}}</mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="existing">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Existing </mat-header-cell>
+        <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+            {{row.existing}}</mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="new1">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>New</mat-header-cell>
+          <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+              {{row.new1}}</mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="notworking">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Not Working</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                {{row.notworking}}</mat-cell>
+            </ng-container>
+      
+    <ng-container matColumnDef="outofstock">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Out Of Stock</mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+          {{row.outofstock}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="refurbished">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Refurbished</mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+          {{row.refurbished}}</mat-cell>
+      </ng-container>
+    
+    <ng-container matColumnDef="repair">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Repair </mat-header-cell>
+    <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+        {{row.repair}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="scrap">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Scrap</mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+          {{row.scrap}}</mat-cell>
+      </ng-container>
+    
+    
+            <ng-container matColumnDef="others">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Others</mat-header-cell>
+              <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                  {{row.others}}</mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Total</mat-header-cell>
+                <mat-cell *matCellDef="let row" (click)="editCall(row)" (contextmenu)="onContextMenu($event, row)">
+                    {{row.total}}</mat-cell>
+                </ng-container>
+    
+    
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                       [style.cursor]="'pointer'" matRipple>
+                     </mat-row>
+    </mat-table>
+      <!-- Loading spinner -->
+      <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+       <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+       </mat-progress-spinner>
+     </div>
+    
+     <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+     [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+     No results
+    </div>
+    <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+     [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+    
+    
+    

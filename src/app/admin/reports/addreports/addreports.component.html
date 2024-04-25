@@ -196,6 +196,15 @@
  </ng-template>
  <ng-container *ngComponentOutlet="tab.content"></ng-container>
  </mat-tab>
+
+
+ <mat-tab *ngFor="let tab of tabItem; let index = index">
+  <ng-template mat-tab-label>
+   Item Report
+ </ng-template>
+ <ng-container *ngComponentOutlet="tab.content"></ng-container>
+ </mat-tab>
+
 </mat-tab-group>
 </div>
 
