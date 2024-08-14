@@ -40,7 +40,8 @@ export class ScheduledViewComponent implements OnInit {
   fetchDetails(id: any): void {
     const obj = {
       editId: id,
-      companyId: this.tokenStorage.getCompanyId()
+      companyId: this.tokenStorage.getCompanyId(),
+      roleId: this.tokenStorage.getRoleId()
     }
     this.spinner.show();
     this.scheduledauditsService.editAudit(obj).subscribe({

@@ -58,6 +58,7 @@ export class AddScheduldauitsComponent implements OnInit {
   statusList: any=[];
   roleId: any;
   isValid: boolean = true;
+  auditId: any;
     constructor(private fb: FormBuilder,
     private commonService: CommonService,
     private httpService: HttpServiceService,
@@ -113,6 +114,7 @@ export class AddScheduldauitsComponent implements OnInit {
      this.requestId = params.id;
      this.edit=true;
      this.fetchDetails(this.requestId);
+     this.auditId=this.requestId;
     }
   });
  
@@ -129,7 +131,7 @@ export class AddScheduldauitsComponent implements OnInit {
 }
 
 dropDownList(){
-  this.httpService.get<any>(this.commonService.getassetnameAudit+"?companyId="+this.companyId).subscribe({
+  this.httpService.get<any>(this.commonService.getassetnameAudit + "?companyId=" + this.companyId + "&auditId=" + this.auditId).subscribe({
     next: (data) => {
     this.assetDropdownList = data;
   },
@@ -211,7 +213,8 @@ dropDownList(){
     this.dropDownList();
     const obj = {
       editId: id,
-      companyId: this.tokenStorage.getCompanyId()
+      companyId: this.tokenStorage.getCompanyId(),
+      roleId: this.tokenStorage.getRoleId()
     }
     this.spinner.show();
     this.scheduledauditsService.editAudit(obj).subscribe({
@@ -248,8 +251,8 @@ dropDownList(){
               makerstatus : [parseInt(element?.makerstatus)],
               checkerstatus: [parseInt(element?.checkerstatus)],
               availableQty : [element?.availableQty],
-              differenceQty : [Math.abs(element?.physicalQty - element?.availableQty)],
-              // differenceQty : [element?.differenceQty],
+            //  differenceQty : [Math.abs(element?.physicalQty - element?.availableQty)],
+               differenceQty : [element?.differenceQty],
               stockAdjustment : [element?.stockAdjustment],
               makerRemarks : [element?.makerRemarks],
               checkerRemarks : [element?.checkerRemarks],
@@ -333,7 +336,7 @@ dropDownList(){
       stockAdjustment:[""],
       makerRemarks:[""],
       checkerRemarks:[""],
-      companyAdminRemarks:[""],
+      companyAdminRemarks:[""]
     })
     scheduleAuditDetailArray.insert(arraylen, newUsergroup);
   }
