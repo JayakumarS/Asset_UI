@@ -137,11 +137,6 @@ const routes: Routes = [
     import("./brand/brand.module").then((m) => m.BrandModule)
   },
   {
-    path: "brand",
-    loadChildren: () =>
-    import("./brand/brand.module").then((m) => m.BrandModule)
-  },
-  {
     path: "line",
     loadChildren: () =>
     import("./line-master/line-master.module").then((m) => m.LineMasterModule)
@@ -238,7 +233,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./birthday-reminder/birthday-reminder.module").then((p) => p.BirthdayReminderModule),
   },
-
+  {
+    path: "server",
+    loadChildren: () =>
+    import("./server/server.module").then((p) => p.ServerModule),
+  },
 ];
 
 @NgModule({

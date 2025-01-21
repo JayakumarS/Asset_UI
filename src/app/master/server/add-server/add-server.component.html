@@ -1,0 +1,294 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" style="padding: 0.5% !important;">
+            <app-breadcrumb [title]="'Server'" [items]="['Server']" [active_item]="'Add Server'">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="box-shadow">
+                    <div class="card" style="padding: 0px 1% 0px;">
+                        <div class="body">
+                            <form class="m-4" [formGroup]="docForm">
+                                <h4>SERVER INFORMATION</h4><br>
+                                <div class="row">
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>CUSTOMER<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="customer" maxlength="30">
+                                            <mat-error *ngIf="docForm.get('customer').hasError('required')">
+                                                Customer is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>PUBLIC IP</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="publicIp" maxlength="20">
+                                            <mat-error *ngIf="docForm.get('publicIp')?.invalid && docForm.get('publicIp')?.touched">
+                                                Enter a valid IP address
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>PRIVATE IP<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="privateIp" maxlength="20">
+                                            <mat-error *ngIf="docForm.get('privateIp').hasError('required')">
+                                                Enter a valid IP address
+                                            </mat-error>                                           
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>OS TYPE<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <mat-select formControlName="osType">
+                                                <mat-option [value]="'Windows Server 2019'">Windows Server 2019</mat-option>
+                                                <mat-option [value]="'Windows Server 2022'">Windows Server 2022</mat-option>
+                                                <mat-option [value]="'Ubuntu Server'">Ubuntu Server</mat-option>
+                                                <mat-option [value]="'CentOS'">CentOS</mat-option>
+                                                <mat-option [value]="'Red Hat Enterprise Linux (RHEL)'">Red Hat Enterprise Linux (RHEL)</mat-option>
+                                                <mat-option [value]="'Debian'">Debian</mat-option>
+                                                <mat-option [value]="'Fedora Server'">Fedora Server</mat-option>
+                                                <mat-option [value]="'Solaris'">Solaris</mat-option>
+                                                <mat-option [value]="'AIX'">AIX</mat-option>
+                                                <mat-option [value]="'HP-UX'">HP-UX</mat-option>
+                                                <mat-option [value]="'macOS Server'">macOS Server</mat-option>
+                                                <mat-option [value]="'FreeBSD'">FreeBSD</mat-option>
+                                                <mat-option [value]="'VMware ESXi (for virtualization)'">VMware ESXi (for virtualization)</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="docForm.get('osType').hasError('required')">
+                                                Select one OS type
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>SERVER NAME<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="serverName" maxlength="20">
+                                            <mat-error *ngIf="docForm.get('serverName').hasError('required')">
+                                                Server Name is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>CORE</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="core" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">                                 
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>RAM</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="ram" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>HDD</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="hdd" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>PORTS</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="ports" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">                          
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>LOCATION<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="location" maxlength="20">
+                                            <mat-error *ngIf="docForm.get('location').hasError('required')">
+                                                Location is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>APPLICATIONS</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="applications" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>DUMP LOCATION</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="dumpLocation" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row"> 
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>DB NAME</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="dbName" maxlength="20">
+                                        </mat-form-field>
+                                    </div>                                   
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>DB PASSWORD</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input type="password" matInput formControlName="dbPwd" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>DB PORT</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="dbPort" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">                                
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>URL</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="url" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>LOGIN NAME</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="loginName" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>LOGIN PASSWORD</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput type="password" formControlName="loginPwd" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">  
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>CRONTAB CONFIG</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="crontabConfig" maxlength="20">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>BACKUP LOCATION</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="backupLocation" maxlength="20">
+                                        </mat-form-field>
+                                    </div>                                  
+                                </div>
+
+                                <!-- Detail Table Starts -->
+                                <div style="overflow-x: auto;">
+                                    <table id="dt_basic" class="table table-striped font-weight-bold" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 1%;">ACTION</th>
+                                                <th class="text-center table-heading padding-both-side-2 width_3"
+                                                style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">USERNAME</th> 
+                                                <th class="text-center table-heading padding-both-side-2 width_3"
+                                                style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">PASSWORD</th> 
+                                                <th class="text-center table-heading padding-both-side-2 width_3"
+                                                style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">IS ADMIN</th>                                               
+                                            </tr>
+                                        </thead>
+                                        <ng-container *ngFor="let proofDtl of docForm.get('proofDtl')['controls']; let i = index">
+                                            <tbody [formGroup]="proofDtl">
+                                                <tr>
+                                                    <td>
+                                                        <button mat-mini-fab color="warn" (click)="removeRowSelf(proofDtl,i)">
+                                                            <mat-icon class="col-white">delete</mat-icon>
+                                                        </button>
+                                                    </td>
+                                                    <td class="padding-both-side-2">
+                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                            <mat-label>USERNAME</mat-label>
+                                                            <input matInput name="username{{i}}" formControlName="username" maxlength="30">
+                                                            <mat-error *ngIf="proofDtl.get('username').hasError('required')">
+                                                                UserName is required
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td class="padding-both-side-2">
+                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                            <mat-label>PASSWORD</mat-label>
+                                                            <input matInput name="usernamePwd{{i}}" type="password" formControlName="usernamePwd" maxlength="30">
+                                                            <mat-error *ngIf="proofDtl.get('usernamePwd').hasError('required')">
+                                                                Password is required
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td class="padding-both-side-2">
+                                                        <div style="text-align: center;">
+                                                            <mat-checkbox formControlName="isAdmin"></mat-checkbox>
+                                                            <mat-error *ngIf="proofDtl.get('isAdmin').hasError('requiredTrue')">
+                                                                Is Admin is required
+                                                            </mat-error>
+                                                        </div>
+                                                    </td>
+                                                </tr>                                            
+                                            </tbody>
+                                        </ng-container>
+                                    </table>
+                                </div>
+                                <button mat-mini-fab color="primary" (click)="onAddRow()">
+                                    <mat-icon class="col-white">add</mat-icon>
+                                </button>
+
+                                <div class="row" style="margin-left: 10%;">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                        <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                                        color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                                        <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                                        <button (click) = "reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
+                                        <button (click) = "onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
+                                    </div>
+                                </div>                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

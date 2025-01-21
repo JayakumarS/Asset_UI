@@ -1,0 +1,319 @@
+<!-- <section class="content">
+    <div class="content-block">
+        <div class="block-header" style="padding: 0.5% !important;">
+            breadcrumb
+            <app-breadcrumb [title]="'Server'" [items]="['Master']" [active_item]="'List-Server'">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="box-shadow">
+                    <div class="card" style="padding: 40px;">
+                        <div class="body">
+                            <div class="container border" id="salesOrderdview"
+                                style=" border: 1px solid white!important; border-radius: 10px; background-color: #ecebf7; ">
+                                <form class="m-4" autocomplete="off" [formGroup]="docForm">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                            <label><b>Customer :</b>&nbsp;{{list?.customer !== null ? list?.customer: '-'}}</label>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                            <label><b>Private IP :</b> &nbsp;{{list?.list !== null ? list?.privateIp: '-'}}</label>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                            <label><b>OS Type :</b> &nbsp;{{list?.osType !== null ? list?.osType: '-'}}</label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                                            <label><b>Is Admin :</b>&nbsp;{{list?.isAdmin !== null ? list?.isAdmin: '-'}}</label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <h3>Specification Details</h3>
+                                    <table class="border1"
+                                        style=" border: 1px solidrgb(157, 158, 163); width:100%; border-collapse: collapse; margin-top: 20px; text-align: right;">
+                                        <tr style="font-weight: 600; text-align: center;height: 30px; vertical-align: middle;  background-color: rgb(96 125 139 / 82%);  color: rgb(252, 248, 248); font-weight: bold;font-size:15px; font-style:normal; text-indent: 4px;">
+                                            <th>Field Name</th>
+                                            <th>Field Type</th>
+                                        </tr>
+                                        <tr *ngFor="let item of specificationList; let i = index"
+                                            style=" padding: 7px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; vertical-align: middle;
+                                            font-weight:normal; border-radius: 0.25rem; text-align: center;height: 50px;  background-color: rgb(203 226 235 / 82%);">
+                                            <td>{{item?.fieldName}}</td>
+                                            <td>{{item?.fieldType}}</td>
+                                        </tr>
+                                    </table>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                            <button color="warn" (click)="back()" type="button" mat-raised-button
+                                                style="margin-left:500px;">Back
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+
+
+<div class="container-fluid">
+    <div class="modal-header">
+        <h5 class="modal-title headingValueNew">View Server</h5>
+        <div class="col-md-6 text-right">
+        </div>
+        <div class="col-md-2 text-right">
+            <button  color="primary" type="button" class="btn-space" (click)="back()"
+              mat-raised-button>Back</button>
+        </div>
+    </div>
+    <div class="modal-body container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="heading">
+                    CUSTOMER
+                </div>
+                <div class="subheadingValue">
+                  {{(viewDtl?.customer !== null && viewDtl?.customer !== '') ? (viewDtl?.customer) : '-'}} 
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    PUBLIC IP
+                </div>
+                <div class="subheadingValue">
+                  {{(viewDtl?.publicIp !== null && viewDtl?.publicIp !== '') ? (viewDtl?.publicIp ) : '-'}} 
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    PRIVATE IP
+                </div>
+                <div class="subheadingValue">
+                  <p>{{viewDtl?.privateIp !== null ? viewDtl?.privateIp: '-'}}</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+              <div class="heading">
+                OS TYPE
+              </div>
+              <div class="subheadingValue">
+                <p>{{viewDtl?.osType !== null ? viewDtl?.osType: '-'}}</p>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+              <div class="heading">
+                SERVER NAME
+              </div>
+              <div class="subheadingValue">
+                {{viewDtl?.serverName !== null ? viewDtl?.serverName: '-'}}
+              </div>
+          </div>
+          <div class="col-md-3">
+              <div class="heading">
+                CORE
+              </div>
+              <div class="subheadingValue">
+                {{viewDtl?.core !== null ? viewDtl?.core: '-'}}
+              </div>
+          </div>
+          <div class="col-md-3">
+              <div class="heading">
+                RAM
+              </div>
+              <div class="subheadingValue">
+                {{viewDtl?.ram !== null ? viewDtl?.ram: '-'}}
+              </div>
+          </div>
+          <div class="col-md-3">
+                <div class="heading">
+                    HDD
+                </div>
+                <div class="subheadingValue">
+                {{viewDtl?.hdd !== null ? viewDtl?.hdd: '-'}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="heading">
+                    PORTS
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.ports !== null ? viewDtl?.ports: '-'}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    LOCATION
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.location !== null ? viewDtl?.location: '-'}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    APPLICATIONS
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.applications !== null ? viewDtl?.applications: '-'}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    DUMP LOCATION
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.dumpLocation !== null ? viewDtl?.dumpLocation: '-'}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="heading">
+                    DB NAME
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.dbName !== null ? viewDtl?.dbName: '-'}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    DB PASSWORD
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.dbPwd !== null ? viewDtl?.dbPwd: '-'}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    DB PORT
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.dbPort !== null ? viewDtl?.dbPort: '-'}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    URL
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.url !== null ? viewDtl?.url: '-'}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="heading">
+                    LOGIN NAME
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.loginName !== null ? viewDtl?.loginName: '-'}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    LOGIN PASSWORD
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.loginPwd !== null ? viewDtl?.loginPwd: '-'}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    CRONTAB CONFIG
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.crontabConfig !== null ? viewDtl?.crontabConfig: '-'}}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    BACKUP LOCATION
+                </div>
+                <div class="subheadingValue">
+                  {{viewDtl?.backupLocation !== null ? viewDtl?.backupLocation: '-'}}
+                </div>
+            </div>
+        </div>
+        
+
+        <div>
+
+            <div class="row">
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="table-responsive-sm">
+                            <table class="table table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                      <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                        width: 12%; border-radius: 0.05rem;">USERNAME</th>
+                                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                        width: 12%; border-radius: 0.05rem;">PASSWORD</th>
+                                         <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                         width: 12%; border-radius: 0.05rem;">IS ADMIN</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let audit of serverDetailList; let i = index">
+                                    <tr>
+                                            
+                                        <td class="padding-both-side-2">
+                                            {{audit?.username}}
+                                        </td>
+                                        <td class="padding-both-side-2">
+                                            <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                                              <div>
+                                                <span *ngIf="visiblePasswordIndex !== i">******</span>
+                                                <span *ngIf="visiblePasswordIndex === i">{{ audit?.usernamePwd }}</span>
+                                              </div>
+                                              <button 
+                                                mat-icon-button 
+                                                color="accent" 
+                                                (click)="togglePasswordVisibility(i)" 
+                                                aria-label="Toggle password visibility" 
+                                                style="background: none; border: none; margin-left: 10px; cursor: pointer;">
+                                                <app-feather-icons 
+                                                  matTooltip="Toggle Password Visibility" 
+                                                  [icon]="visiblePasswordIndex === i ? 'eye-off' : 'eye'" 
+                                                  style="font-size: 16px;">
+                                                </app-feather-icons>
+                                              </button>
+                                            </div>
+                                        </td>
+                                        <td class="padding-both-side-2" >
+                                            <mat-checkbox 
+                                            style="margin-left: 48%;"
+                                            [checked]="audit?.isAdmin" 
+                                            disabled>
+                                            </mat-checkbox>
+                                        </td>
+                                          
+                                    </tr> 
+                                </tbody>
+                            </table>
+                            <div *ngIf="serverDetailList?.length === 0">
+                                <p style="text-align: center;">No Data Available in Table</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        
+    </div>
+</div>
