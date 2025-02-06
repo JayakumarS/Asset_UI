@@ -36,6 +36,8 @@ export class ServerService extends UnsubscribeOnDestroyAdapter {
    public deleteserver = `${this.serverUrl.apiServerAddress}api/auth/app/assertServer/delete`;
    public updateserver = `${this.serverUrl.apiServerAddress}api/auth/app/assertServer/update`;
    public Assetserver = `${this.serverUrl.apiServerAddress}api/auth/app/assertServer/getRegisterList`;
+   public sampleexportExcel = `${this.serverUrl.apiServerAddress}api/auth/app/assertServer/exportExcel`;
+   public sampleexportPdf = `${this.serverUrl.apiServerAddress}api/auth/app/assertServer/exportPdf`;
    get data(): Assetserver[] {
     return this.dataChange.value;
    }

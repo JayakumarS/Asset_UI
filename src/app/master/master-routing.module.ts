@@ -238,6 +238,16 @@ const routes: Routes = [
     loadChildren: () =>
     import("./server/server.module").then((p) => p.ServerModule),
   },
+  {
+    path: "application-details",
+    loadChildren: () =>
+    import("./application-details/application-details.module").then((p) => p.ApplicationDetailsModule),
+  },
+  {
+    path: "backup-location",
+    loadChildren: () =>
+    import("./backup-location/backup-location.module").then((p) => p.BackupLocationModule),
+  },
 ];
 
 @NgModule({

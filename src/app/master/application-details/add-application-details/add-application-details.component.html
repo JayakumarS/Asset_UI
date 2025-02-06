@@ -1,0 +1,159 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" style="padding: 0.5% !important;">
+            <app-breadcrumb [title]="'Application Details'" [items]="['Application Details']" [active_item]="'Add Application Details'">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="box-shadow">
+                    <div class="card" style="padding: 0px 1% 0px;">
+                        <div class="body">
+                            <form class="m-4" [formGroup]="docForm">
+                                <h4>APPLICATION DETAILS</h4><br>
+                                <div class="row">
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>APPLICATION URL<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="applicationUrl" maxlength="30">
+                                            <mat-error *ngIf="docForm.get('applicationUrl').hasError('required')">
+                                                Application Url is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>FRONT END CODE<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <mat-select formControlName="feCode">
+                                                <mat-option [value]="'React'">React</mat-option>
+                                                <mat-option [value]="'Angular'">Angular</mat-option>
+                                                <mat-option [value]="'Vue.js'">Vue.js</mat-option>
+                                                <mat-option [value]="'Svelte'">Svelte</mat-option>
+                                                <mat-option [value]="'Ember.js'">Ember.js</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="docForm.get('feCode').hasError('required')">
+                                                Select one Front End Code
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>BACK END CODE<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <mat-select formControlName="beCode">
+                                                <mat-option [value]="'Java'">Java</mat-option>
+                                                <mat-option [value]="'Python'">Python</mat-option>
+                                                <mat-option [value]="'PHP'">PHP</mat-option>
+                                                <mat-option [value]="'Ruby'">Ruby</mat-option>
+                                                <mat-option [value]="'C#/.NET'">C#/.NET</mat-option>
+                                                <mat-option [value]="'Go (Golang)'">Go (Golang)</mat-option>
+                                                <mat-option [value]="'Elixir'">Elixir</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="docForm.get('beCode').hasError('required')">
+                                                Select one Back End Code
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>DATABASE<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <mat-select formControlName="db">
+                                                <mat-option [value]="'MySQL'">MySQL</mat-option>
+                                                <mat-option [value]="'PostgreSQL'">PostgreSQL</mat-option>
+                                                <mat-option [value]="'Oracle'">Oracle</mat-option>
+                                                <mat-option [value]="'SQL Server'">SQL Server</mat-option>
+                                                <mat-option [value]="'MongoDB'">MongoDB</mat-option>
+                                                <mat-option [value]="'CouchDB'">CouchDB</mat-option>
+                                                <mat-option [value]="'Redis'">Redis</mat-option>
+                                                <mat-option [value]="'Cassandra'">Cassandra</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="docForm.get('db').hasError('required')">
+                                                Select one DataBase
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>REPOSITORY<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <input matInput formControlName="repository" maxlength="30">
+                                            <mat-error *ngIf="docForm.get('repository').hasError('required')">
+                                                Repository is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!-- Detail Table Starts -->
+                                <div style="overflow-x: auto;">
+                                    <table id="dt_basic" class="table table-striped font-weight-bold" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 1%;">ACTION</th>
+                                                <th class="text-center table-heading padding-both-side-2 width_3"
+                                                style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">SOURCE</th> 
+                                                <th class="text-center table-heading padding-both-side-2 width_3"
+                                                style="margin-left: 25px; width: 12%; border-radius: 0.05rem;">URL</th>                                                
+                                            </tr>
+                                        </thead>
+                                        <ng-container *ngFor="let proofDtl of docForm.get('proofDtl')['controls']; let i = index">
+                                            <tbody [formGroup]="proofDtl">
+                                                <tr>
+                                                    <td>
+                                                        <button mat-mini-fab color="warn" (click)="removeRowSelf(proofDtl,i)">
+                                                            <mat-icon class="col-white">delete</mat-icon>
+                                                        </button>
+                                                    </td>
+                                                    <td class="padding-both-side-2">
+                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                            <mat-label>SOURCE</mat-label>
+                                                            <input matInput name="source{{i}}" formControlName="source" maxlength="30">
+                                                            <mat-error *ngIf="proofDtl.get('source').hasError('required')">
+                                                                Source is required
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td class="padding-both-side-2">
+                                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                                            <mat-label>URL</mat-label>
+                                                            <input matInput name="url{{i}}" formControlName="url" maxlength="30">
+                                                            <mat-error *ngIf="proofDtl.get('url').hasError('required')">
+                                                                Url is required
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </tr>                                            
+                                            </tbody>
+                                        </ng-container>
+                                    </table>
+                                </div>
+                                <button mat-mini-fab color="primary" (click)="onAddRow()">
+                                    <mat-icon class="col-white">add</mat-icon>
+                                </button>
+                                <div class="row" style="margin-left: 10%;">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                        <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                                        color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                                        <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                                        <button (click) = "reset()" class="btn-space" mat-raised-button color="primary" >Reset</button>
+                                        <button (click) = "onCancel()" color="warn" type="button" mat-raised-button>Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

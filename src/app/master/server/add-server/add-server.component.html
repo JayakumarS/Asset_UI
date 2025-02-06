@@ -215,7 +215,23 @@
                                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                                             <input matInput formControlName="backupLocation" maxlength="20">
                                         </mat-form-field>
-                                    </div>                                  
+                                    </div>  
+                                    <div class="col-md-2" style="min-width: fit-content;">
+                                        <label>SERVER PERFORMANCE<span class="errorColor">*</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                            <mat-select formControlName="serverPerformance">
+                                                <mat-option [value]="'CPU load'">CPU load</mat-option>
+                                                <mat-option [value]="'Memory usage'">Memory usage</mat-option>
+                                                <mat-option [value]="'Disk I/O'">Disk I/O</mat-option>
+                                                <mat-option [value]="'Network bandwidth'">Network bandwidth</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="docForm.get('serverPerformance').hasError('required')">
+                                                Select one Server Performance
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>                                
                                 </div>
 
                                 <!-- Detail Table Starts -->

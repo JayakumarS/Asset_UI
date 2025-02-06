@@ -10,6 +10,219 @@
                 <div class="card">
                     <div class="body">
                         <div class="table-responsive">
+                            <form class="m-4" [formGroup]="docForm">
+                                <mat-accordion>
+                                    <mat-expansion-panel (opened)="panelOpenState = true"
+                                    (closed)="panelOpenState = false">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                <h5 style="color: rgb(10, 25, 109);">Required Columns in Excel Export <span style="color: red;">*</span></h5>
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                Export To Excel {{panelOpenState ? 'open' : 'closed'}}
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">CUSTOMER</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="customerTypeCheckbox"
+                                                [checked]="isCustomerSelected" (change)="toggleCustomerSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">PUBLIC IP</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="publicIpTypeCheckbox"
+                                                [checked]="isPublicIpSelected" (change)="togglePublicIpSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">PRIVATE IP</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="privateIpTypeCheckbox"
+                                                [checked]="isPrivateIpSelected" (change)="togglePrivateIpSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">OS TYPE</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="osTypeCheckbox"
+                                                [checked]="isOsTypeSelected" (change)="toggleOsTypeSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">SERVER NAME</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="serverNameTypeCheckbox"
+                                                [checked]="isServerNameSelected" (change)="toggleServerNameSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">CORE</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="coreTypeCheckbox"
+                                                [checked]="isCoreSelected" (change)="toggleCoreSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">RAM</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="ramTypeCheckbox"
+                                                [checked]="isRamSelected" (change)="toggleRamSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">HDD</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="hddTypeCheckbox"
+                                                [checked]="isHddSelected" (change)="toggleHddSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">PORTS</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="portsTypeCheckbox"
+                                                [checked]="isPortsSelected" (change)="togglePortsSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">LOCATION</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="locationTypeCheckbox"
+                                                [checked]="isLocationSelected" (change)="toggleLocationSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">APPLICATIONS</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="applicationsTypeCheckbox"
+                                                [checked]="isApplicationsSelected" (change)="toggleApplicationsSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">DUMP LOCATION</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="dumpLocationTypeCheckbox"
+                                                [checked]="isDumpLocationSelected" (change)="toggleDumpLocationSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">DB NAME</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="dbNameTypeCheckbox"
+                                                [checked]="isDbNameSelected" (change)="toggleDbNameSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">DB PASSWORD</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="dbPwdTypeCheckbox"
+                                                [checked]="isDbPwdSelected" (change)="toggleDbPwdSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">DB PORT</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="dbPortTypeCheckbox"
+                                                [checked]="isDbPortSelected" (change)="toggleDbPortSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">URL</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="urlTypeCheckbox"
+                                                [checked]="isUrlSelected" (change)="toggleUrlSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">LOGIN NAME</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="loginNameTypeCheckbox"
+                                                [checked]="isLoginNameSelected" (change)="toggleLoginNameSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">LOGIN PASSWORD</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="loginPwdTypeCheckbox"
+                                                [checked]="isLoginPwdSelected" (change)="toggleLoginPwdSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">CRONTAB CONFIG</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="crontabConfigTypeCheckbox"
+                                                [checked]="isCrontabConfigSelected" (change)="toggleCrontabConfigSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">BACKUP LOCATION</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="backupLocationTypeCheckbox"
+                                                [checked]="isBackupLocationSelected" (change)="toggleBackupLocationSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                        </div> 
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label style="margin-top: 9px;">SERVER PERFORMANCE</label>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-4 col-md-12 col-sm-12 ">
+                                                <mat-checkbox style="margin-top: 6px;margin-left: -50px; " formControlName="serverPerformanceTypeCheckbox"
+                                                [checked]="isServerPerformanceSelected" (change)="toggleServerPerformanceSelection($event.checked)"></mat-checkbox>
+                                            </div>
+                                        </div>  
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 77%;">
+                                                    <button color="primary" type="button" class="btn-space" (click)="exportExcel()"
+                                                    *ngIf="docForm.get('customerTypeCheckbox')?.value || docForm.get('publicIpTypeCheckbox')?.value ||
+                                                    docForm.get('privateIpTypeCheckbox')?.value || docForm.get('osTypeCheckbox')?.value ||
+                                                    docForm.get('serverNameTypeCheckbox')?.value || docForm.get('coreTypeCheckbox')?.value ||
+                                                    docForm.get('ramTypeCheckbox')?.value || docForm.get('hddTypeCheckbox')?.value || docForm.get('portsTypeCheckbox')?.value ||
+                                                    docForm.get('locationTypeCheckbox')?.value || docForm.get('applicationsTypeCheckbox')?.value || docForm.get('dumpLocationTypeCheckbox')?.value ||
+                                                    docForm.get('dbNameTypeCheckbox')?.value ||  docForm.get('dbPwdTypeCheckbox')?.value ||  docForm.get('dbPortTypeCheckbox')?.value || 
+                                                    docForm.get('urlTypeCheckbox')?.value ||  docForm.get('loginNameTypeCheckbox')?.value ||  docForm.get('loginPwdTypeCheckbox')?.value || 
+                                                    docForm.get('crontabConfigTypeCheckbox')?.value ||  docForm.get('backupLocationTypeCheckbox')?.value"
+                                                    mat-raised-button>Export To Excel</button>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="export-button m-l-10" matTooltip="Export To Excel" style="margin-left: 30%;">
+                                                    <button color="primary" type="button" class="btn-space" (click)="exportPdf()"
+                                                    *ngIf="docForm.get('customerTypeCheckbox')?.value || docForm.get('publicIpTypeCheckbox')?.value ||
+                                                    docForm.get('privateIpTypeCheckbox')?.value || docForm.get('osTypeCheckbox')?.value ||
+                                                    docForm.get('serverNameTypeCheckbox')?.value || docForm.get('coreTypeCheckbox')?.value ||
+                                                    docForm.get('ramTypeCheckbox')?.value || docForm.get('hddTypeCheckbox')?.value || docForm.get('portsTypeCheckbox')?.value ||
+                                                    docForm.get('locationTypeCheckbox')?.value || docForm.get('applicationsTypeCheckbox')?.value || docForm.get('dumpLocationTypeCheckbox')?.value ||
+                                                    docForm.get('dbNameTypeCheckbox')?.value ||  docForm.get('dbPwdTypeCheckbox')?.value ||  docForm.get('dbPortTypeCheckbox')?.value || 
+                                                    docForm.get('urlTypeCheckbox')?.value ||  docForm.get('loginNameTypeCheckbox')?.value ||  docForm.get('loginPwdTypeCheckbox')?.value || 
+                                                    docForm.get('crontabConfigTypeCheckbox')?.value ||  docForm.get('backupLocationTypeCheckbox')?.value"
+                                                    mat-raised-button>Export To Pdf</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr><br>
+                            </form>
+                            
+
                             <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
                                 <div class="row">
                                     <div class="col-8">
@@ -142,6 +355,8 @@
                             <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
                                 [pageSizeOptions]="[5, 10, 25, 100]">
                             </mat-paginator>
+                            
+                            
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <div class="modal-header">
+        <h5 class="modal-title headingValueNew">View Backup Location</h5>
+        <div class="col-md-6 text-right">
+        </div>
+        <div class="col-md-2 text-right">
+            <button  color="primary" type="button" class="btn-space" (click)="back()"
+              mat-raised-button>Back</button>
+        </div>
+    </div>
+    <div class="modal-body container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="heading">
+                    BACKUP NAME
+                </div>
+                <div class="subheadingValue">
+                  {{(viewDtl?.backupName !== null && viewDtl?.backupName !== '') ? (viewDtl?.backupName) : '-'}} 
+                </div>
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="heading">
+                    SERVER IP
+                </div>
+                <div class="subheadingValue">
+                {{(viewDtl?.serverIp !== null && viewDtl?.serverIp !== '') ? (viewDtl?.serverIp ) : '-'}} 
+                </div>
+            </div>
+        </div>  
+          
+          
+        
+
+        
+
+        
+        <div>
+            <div class="row">
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="table-responsive-sm">
+                            <table class="table table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                      <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                        width: 12%; border-radius: 0.05rem;">LOCATION NAME</th>
+                                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                        width: 12%; border-radius: 0.05rem;">LOCATION</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let audit of backupLocationList; let i = index">
+                                    <tr>
+                                            
+                                        <td class="padding-both-side-2">
+                                            {{audit?.locationName}}
+                                        </td>
+                                        <td class="padding-both-side-2">
+                                            {{audit?.location}}
+                                        </td>
+                                                                                
+                                    </tr> 
+                                </tbody>
+                            </table>
+                            <div *ngIf="backupLocationList?.length === 0">
+                                <p style="text-align: center;">No Data Available in Table</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        
+    </div>
+</div>
+

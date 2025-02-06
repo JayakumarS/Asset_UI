@@ -58,7 +58,11 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
 
   public getAssetRegisterDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetRegisterDropdown`;
 
-  public getAssetServerDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/gerAssetServerDropdown`;
+  public getAssetServerDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetServerDropdown`;
+
+  public getAssetApplicationDetailsDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetApplicationDetailsDropdown`;
+
+  public getAssetBackupLocationDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getAssetBackupLocationDropdown`;
 
   public getLocationDropdown = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getLocationDropdown`;
 

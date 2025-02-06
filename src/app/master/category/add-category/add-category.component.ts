@@ -246,10 +246,10 @@ export class AddCategoryComponent implements OnInit {
   }
   keyPressName(event: any) {
     const pattern = /[A-Z,a-z ]/;
-    const inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
+    // const inputChar = String.fromCharCode(event.charCode);
+    // if (event.keyCode != 8 && !pattern.test(inputChar)) {
+    //   event.preventDefault();
+    // }
   }
 
 

@@ -18,6 +18,7 @@ import { Assetserver } from '../server.model';
 import { ServerService } from '../server.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { DeleteServerComponent } from './delete-server/delete-server.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class ListServerComponent extends UnsubscribeOnDestroyAdapter implements 
     "actions"
   ];
 
+  docForm: FormGroup;
   dataSource: ExampleDataSource | null;
   exampleDatabase: ServerService | null;
   selection = new SelectionModel<Assetserver>(true, []);
@@ -43,9 +45,40 @@ export class ListServerComponent extends UnsubscribeOnDestroyAdapter implements 
   exporter: any;
   tid:number;
   url: string;
-  widgets: boolean = false
+  widgets: boolean = false;
+  panelOpenState = false;
+
+
+  isCustomerSelected: boolean = false; // Tracks CUSTOMER checkbox state
+  isPublicIpSelected: boolean = false; // Tracks PUBLIC IP checkbox state
+  isPrivateIpSelected: boolean = false; // Tracks Private IP checkbox state
+  isOsTypeSelected: boolean = false; // Tracks Os Type checkbox state
+  isServerNameSelected: boolean = false; // Tracks Server Name checkbox state
+  isCoreSelected: boolean = false; // Tracks Core checkbox state
+  isRamSelected: boolean = false; // Tracks Ram checkbox state
+  isHddSelected: boolean = false; // Tracks Hdd checkbox state
+  isPortsSelected: boolean = false; // Tracks Ports checkbox state
+  isLocationSelected: boolean = false; // Tracks Loction checkbox state
+  isApplicationsSelected: boolean = false; // Tracks Applications checkbox state
+  isDumpLocationSelected: boolean = false; // Tracks Dump Location checkbox state
+  isDbNameSelected: boolean = false; // Tracks Db Name checkbox state
+  isDbPwdSelected: boolean = false; // Tracks Db Pwd checkbox state
+  isDbPortSelected: boolean = false; // Tracks Db Port checkbox state
+  isUrlSelected: boolean = false; // Tracks Url checkbox state
+  isLoginNameSelected: boolean = false; // Tracks Login Name checkbox state
+  isLoginPwdSelected: boolean = false; // Tracks Login Pwd checkbox state
+  isCrontabConfigSelected: boolean = false; // Tracks Crontab Config checkbox state
+  isBackupLocationSelected: boolean = false; // Tracks Backup Location checkbox state
+  isServerPerformanceSelected: boolean = false; // Tracks Server Performance checkbox state
+
+
+
+  // serverHistoryList: any;
+  // assetServer: Assetserver;
+  // serverHeader=[];
 
   constructor(
+    private fb: FormBuilder,
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public serverService: ServerService,
@@ -58,6 +91,30 @@ export class ListServerComponent extends UnsubscribeOnDestroyAdapter implements 
 
   ) {
     super();
+    this.docForm = this.fb.group({
+      customerTypeCheckbox:[false],
+      publicIpTypeCheckbox:[false],
+      privateIpTypeCheckbox:[false],
+      osTypeCheckbox:[false],
+      serverNameTypeCheckbox:[false],
+      coreTypeCheckbox:[false],
+      ramTypeCheckbox:[false],
+      hddTypeCheckbox:[false],
+      portsTypeCheckbox:[false],
+      locationTypeCheckbox:[false],
+      applicationsTypeCheckbox:[false],
+      dumpLocationTypeCheckbox:[false],
+      dbNameTypeCheckbox:[false],
+      dbPwdTypeCheckbox:[false],
+      dbPortTypeCheckbox:[false],
+      urlTypeCheckbox:[false],
+      loginNameTypeCheckbox:[false],
+      loginPwdTypeCheckbox:[false],
+      crontabConfigTypeCheckbox:[false],
+      backupLocationTypeCheckbox:[false],
+      serverPerformanceTypeCheckbox:[false],
+    })
+    
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -206,6 +263,223 @@ export class ListServerComponent extends UnsubscribeOnDestroyAdapter implements 
     this.contextMenu.menu.focusFirstItem("mouse");
     this.contextMenu.openMenu();
   }
+
+  exportExcel(){
+    
+    console.log(this.docForm.value);
+    this.spinner.show();
+    this.httpService.post<any>(this.serverService.sampleexportExcel,this.docForm.value).subscribe(data => {
+      if (data) {
+        const fileUrl = this.serverUrl.apiServerAddress+"server/ServerReport.xls";
+        this.spinner.hide(); 
+        fetch(fileUrl).then(response => response.blob()).then(blob => {
+          const a = document.createElement('a');
+          const url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = "ServerReport.xls";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(error => console.error('Error downloading file:', error));
+      }
+      else {
+        this.spinner.hide();
+
+        this.showNotification(
+          "snackbar-danger",
+          data.message,
+          "bottom",
+          "center"
+        );
+      }
+    })
+  }
+
+  exportPdf(){
+    console.log(this.docForm.value);
+    this.spinner.show();
+    this.httpService.post<any>(this.serverService.sampleexportPdf,this.docForm.value).subscribe(data => {
+      if (data) {
+        const fileUrl = this.serverUrl.apiServerAddress+"server/Server Report3.pdf";
+        this.spinner.hide(); 
+        fetch(fileUrl).then(response => response.blob()).then(blob => {
+          const a = document.createElement('a');
+          const url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = "ServerReport.pdf";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(error => console.error('Error downloading file:', error));
+      }
+      else {
+        this.spinner.hide();
+
+        this.showNotification(
+          "snackbar-danger",
+          data.message,
+          "bottom",
+          "center"
+        );
+      }
+    })
+  }
+
+
+  
+
+toggleCustomerSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'customerTypeCheckbox': isChecked
+  })
+  this.isCustomerSelected = isChecked;
+}
+
+togglePublicIpSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'publicIpTypeCheckbox': isChecked
+  })
+  this.isPublicIpSelected = isChecked;
+}
+
+togglePrivateIpSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'privateIpTypeCheckbox': isChecked
+  })
+  this.isPrivateIpSelected = isChecked;
+}
+
+toggleOsTypeSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'osTypeCheckbox': isChecked
+  })
+  this.isOsTypeSelected = isChecked;
+}
+
+toggleServerNameSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'serverNameTypeCheckbox': isChecked
+  })
+  this.isServerNameSelected = isChecked;
+}
+
+toggleCoreSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'coreTypeCheckbox': isChecked
+  })
+  this.isCoreSelected = isChecked;
+}
+
+toggleRamSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'ramTypeCheckbox': isChecked
+  })
+  this.isRamSelected = isChecked;
+}
+
+toggleHddSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'hddTypeCheckbox': isChecked
+  })
+  this.isHddSelected = isChecked;
+}
+
+togglePortsSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'portsTypeCheckbox': isChecked
+  })
+  this.isPortsSelected = isChecked;
+}
+
+toggleLocationSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'locationTypeCheckbox': isChecked
+  })
+  this.isLocationSelected = isChecked;
+}
+
+toggleApplicationsSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'applicationsTypeCheckbox': isChecked
+  })
+  this.isApplicationsSelected = isChecked;
+}
+
+toggleDumpLocationSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'dumpLocationTypeCheckbox': isChecked
+  })
+  this.isDumpLocationSelected = isChecked;
+}
+
+toggleDbNameSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'dbNameTypeCheckbox': isChecked
+  })
+  this.isDbNameSelected = isChecked;
+}
+
+toggleDbPwdSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'dbPwdTypeCheckbox': isChecked
+  })
+  this.isDbPwdSelected = isChecked;
+}
+
+toggleDbPortSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'dbPortTypeCheckbox': isChecked
+  })
+  this.isDbPortSelected = isChecked;
+}
+
+toggleUrlSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'urlTypeCheckbox': isChecked
+  })
+  this.isUrlSelected = isChecked;
+}
+
+
+toggleLoginNameSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'loginNameTypeCheckbox': isChecked
+  })
+  this.isLoginNameSelected = isChecked;
+}
+
+
+toggleLoginPwdSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'loginPwdTypeCheckbox': isChecked
+  })
+  this.isLoginPwdSelected = isChecked;
+}
+
+toggleCrontabConfigSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'crontabConfigTypeCheckbox': isChecked
+  })
+  this.isCrontabConfigSelected = isChecked;
+}
+
+toggleBackupLocationSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'backupLocationTypeCheckbox': isChecked
+  })
+  this.isBackupLocationSelected = isChecked;
+}
+
+toggleServerPerformanceSelection(isChecked: boolean): void {
+  this.docForm.patchValue({
+    'serverPerformanceTypeCheckbox': isChecked
+  })
+  this.isServerPerformanceSelected = isChecked;
+}
 
 
 }

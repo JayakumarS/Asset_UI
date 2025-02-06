@@ -29,13 +29,11 @@ import { KnowledgeBankComponent } from './knowledge/knowledge-bank/knowledge-ban
     ListStatusMasterComponent,
     AddTaxMasterComponent,
     ListTaxMasterComponent,
-   
-    AddLineMasterComponent,
     ListLineMasterComponent,
     ListExchangeMasterComponent,
     AddExchangeMasterComponent,
     AddConsoleLogComponent,
-
+    
 
   ],
   imports: [

@@ -99,6 +99,7 @@ export class AddServerComponent implements OnInit {
       url:[""],
       loginName:[""],
       loginPwd:[""],
+      serverPerformance:["",[Validators.required]],
       proofDtl: this.fb.array([
         this.fb.group({
           serverListId:[""],
@@ -192,6 +193,7 @@ export class AddServerComponent implements OnInit {
         url:[""],
         loginName:[""],
         loginPwd:[""],
+        serverPerformance:[""],
         proofDtl: this.fb.array([
           this.fb.group({
             username:["",[Validators.required]],
@@ -296,6 +298,7 @@ export class AddServerComponent implements OnInit {
       'url': res.serverBean.url,
       'loginName': res.serverBean.loginName,
       'loginPwd': res.serverBean.loginPwd,
+      'serverPerformance' : res.serverBean.serverPerformance,
       'proofDtl': res.serverBean.proofDtl,      
 
    })

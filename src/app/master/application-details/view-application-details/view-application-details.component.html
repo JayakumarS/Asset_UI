@@ -1,0 +1,100 @@
+<div class="container-fluid">
+    <div class="modal-header">
+        <h5 class="modal-title headingValueNew">View Application Details</h5>
+        <div class="col-md-6 text-right">
+        </div>
+        <div class="col-md-2 text-right">
+            <button  color="primary" type="button" class="btn-space" (click)="back()"
+              mat-raised-button>Back</button>
+        </div>
+    </div>
+    <div class="modal-body container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="heading">
+                    APPLICATION URL
+                </div>
+                <div class="subheadingValue">
+                  {{(viewDtl?.applicationUrl !== null && viewDtl?.applicationUrl !== '') ? (viewDtl?.applicationUrl) : '-'}} 
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    FRONT END CODE
+                </div>
+                <div class="subheadingValue">
+                  {{(viewDtl?.feCode !== null && viewDtl?.feCode !== '') ? (viewDtl?.feCode ) : '-'}} 
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="heading">
+                    BACK END CODE
+                </div>
+                <div class="subheadingValue">
+                  {{(viewDtl?.beCode !== null && viewDtl?.beCode !== '') ? (viewDtl?.beCode ) : '-'}}                </div>
+            </div>
+            <div class="col-md-3">
+              <div class="heading">
+                DATABASE
+              </div>
+              <div class="subheadingValue">
+                <p>{{viewDtl?.db !== null ? viewDtl?.db: '-'}}</p>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+              <div class="heading">
+                REPOSITORY
+              </div>
+              <div class="subheadingValue">
+                {{viewDtl?.repository !== null ? viewDtl?.repository: '-'}}
+              </div>
+          </div>
+        </div>  
+          
+          
+        
+
+        
+
+        
+        <div>
+            <div class="row">
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="table-responsive-sm">
+                            <table class="table table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                      <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                        width: 12%; border-radius: 0.05rem;">SOURCE</th>
+                                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                                        width: 12%; border-radius: 0.05rem;">URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let audit of applicationDetailList; let i = index">
+                                    <tr>
+                                            
+                                        <td class="padding-both-side-2">
+                                            {{audit?.source}}
+                                        </td>
+                                        <td class="padding-both-side-2">
+                                            {{audit?.url}}
+                                        </td>
+                                                                                
+                                    </tr> 
+                                </tbody>
+                            </table>
+                            <div *ngIf="applicationDetailList?.length === 0">
+                                <p style="text-align: center;">No Data Available in Table</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        
+    </div>
+</div>
+
